@@ -15,7 +15,7 @@ Java平台已经嵌入了几乎所有的操作系统。这样的Java程序只需
 1. JavaSE
 	JavaSE（Java Platform Standard Edition，Java平台标准版）以前就称为J2SE，它允许开发和部署在桌面、服务器、嵌入式环境和实时环境中使用Java应用程序。JavaSE包含了支持Java Web服务开发的类，并为JavaEE提供基础，如Java语言基础、JDBC操作、I/O操作、网络通讯以及多线程等技术。下图为JavaSE的体系结构。
 
-<img src="Java.assets/5-1ZZ3155933O7.jpg" alt="img"  />
+<img src="Images/Java/5-1ZZ3155933O7.jpg" alt="img"  />
 
 2. JavaEE
 	JavaEE（Java Platform Enterprise Edition，Java平台企业版）以前称为J2EE。企业版本帮助开发和部署可移植、健壮、可伸缩且安全的服务端Java应用程序。==JavaEE是在JavaSE基础上构建的，它提供Web服务、组件模型、管理和通信API，可以用来实现企业级的面向服务体系结构（Service Oriented Architecture，SOA）。==
@@ -62,37 +62,37 @@ Java语言的风格很像C语言和C++语言，是一种纯粹的面向对象语
 
 1. 在浏览器输入www.oracle.com，打开Oracle公司的官方网站。
 
-<img src="Java.assets/image-20200422004026006.png" alt="image-20200422004026006" style="zoom: 50%;" />
+<img src="Images/Java/image-20200422004026006.png" alt="image-20200422004026006" style="zoom: 50%;" />
 
 2. 找到下载
 
-<img src="Java.assets/image-20200422004245571.png" alt="image-20200422004245571" style="zoom: 67%;" />
+<img src="Images/Java/image-20200422004245571.png" alt="image-20200422004245571" style="zoom: 67%;" />
 
 3. 选择Java
 
-<img src="Java.assets/image-20200422004518386.png" alt="image-20200422004518386" style="zoom:50%;" />
+<img src="Images/Java/image-20200422004518386.png" alt="image-20200422004518386" style="zoom:50%;" />
 
 4. 选择JDK
 
-<img src="Java.assets/image-20200422004642820.png" alt="image-20200422004642820" style="zoom:50%;" />
+<img src="Images/Java/image-20200422004642820.png" alt="image-20200422004642820" style="zoom:50%;" />
 
 5. 下载1.8版本
 
-<img src="Java.assets/image-20200422004732694.png" alt="image-20200422004732694" style="zoom: 67%;" />
+<img src="Images/Java/image-20200422004732694.png" alt="image-20200422004732694" style="zoom: 67%;" />
 
 6. 选择自己需要的版本
 
-<img src="Java.assets/image-20200422004854336.png" alt="image-20200422004854336" style="zoom:50%;" />
+<img src="Images/Java/image-20200422004854336.png" alt="image-20200422004854336" style="zoom:50%;" />
 
 7. 同意协议，开始下载
 
-<img src="Java.assets/image-20200422005006331.png" alt="image-20200422005006331" style="zoom:50%;" />
+<img src="Images/Java/image-20200422005006331.png" alt="image-20200422005006331" style="zoom:50%;" />
 
 8. 下载完成后运行exe执行文件，开始安装，一共会安装两次，第一次是安装JDK，第二次是安装==JRE（Java Runtime Environment，Java运行环境）==。
 
 安装完成后，在安装位置打开JDK的文件夹，内容如下：
 
-<img src="Java.assets/image-20200422010111529.png" alt="image-20200422010111529" style="zoom:67%;" />
+<img src="Images/Java/image-20200422010111529.png" alt="image-20200422010111529" style="zoom:67%;" />
 
 - bin：提供JDK工具程序，包括javac、java、Javadoc、appletviewer等可执行程序。
 - include：存放用于本地访问的文件。
@@ -120,7 +120,7 @@ Java语言的风格很像C语言和C++语言，是一种纯粹的面向对象语
 2. 编译：是指使用 Java 编译器对源文件进行错误排査的过程，编译后将生成后缀名为 .class 的字节码文件，不像C语言那样生成可执行文件。
 3. 运行：是指使用 Java 解释器将字节码文件翻译成机器代码，执行并显示结果。
 
-<img src="Java.assets/5-1ZZ41409331Y.png" alt="Java程序运行流程" style="zoom:80%;" />
+<img src="Images/Java/5-1ZZ41409331Y.png" alt="Java程序运行流程" style="zoom:80%;" />
 
 ==字节码文件是一种和任何具体机器环境及操作系统环境无关的中间代码。==它==是一种二进制文件，是 Java 源文件由 Java 编译器编译后生成的目标代码文件。==编程人员和计算机都无法直接读懂字节码文件，它必须由专用的 Java 解释器来解释执行，因此 Java 是一种在编译基础上进行解释运行的语言。
 
@@ -136,7 +136,7 @@ Java 解释器负责将字节码文件翻译成具体硬件环境和操作系统
 
 JVM 把这种不同软、硬件平台的具体差别隐藏起来，从而实现了真正的二进制代码级的跨平台移植。==JVM 是 Java 平台架构的基础，Java 的跨平台特性正是通过在 JVM 中运行 Java 程序实现的。==Java 的这种运行机制可以通过下图来说明。
 
-<img src="Java.assets/5-1ZZ4140944b0.png" alt="JVM工作方式" style="zoom:80%;" />
+<img src="Images/Java/5-1ZZ4140944b0.png" alt="JVM工作方式" style="zoom:80%;" />
 
 Java 语言这种“一次编写，到处运行”的方式，有效地解决了目前大多数高级程序设计语言需要针对不同系统来编译产生不同机器代码的问题，即硬件环境和操作平台的异构问题，大大降低了程序开发、维护和管理的开销。
 
@@ -150,7 +150,7 @@ Java 语言的开发运行，离不开 Java 语言的运行环境 JRE。没有 J
 
 其实啊，JDK 就是 JRE 加上一些常用工具组成的。JDK 不仅能运行已经被编译好了的 Java 程序，还能支持我们编译 Java 程序（ JDK=JER+各种工具）。
 
-<img src="Java.assets/5-1ZZ3131133G3.jpg" alt="img" style="zoom:80%;" />
+<img src="Images/Java/5-1ZZ3131133G3.jpg" alt="img" style="zoom:80%;" />
 
 - ==JDK（Java Development Kid，Java 开发	工具包）==，是针对 Java 开发人员的产品，是整个 Java 的核心，包括了 Java 运行环境 JRE、Java 工具和 Java 基础类库。
 - ==JRE（Java Runtime Environment，Java 运行时环境）==是运行 JAVA 程序所必须的环境的集合，包含 JVM 标准实现及 Java 核心类库。
@@ -286,7 +286,7 @@ public class HelloWorld {
 
 所有的基本数据类型的大小（所占用的字节数）都已明确规定，在各种不同的平台上保持不变，这一特性有助于提高 Java 程序的可移植性。
 
-<img src="Java.assets/5-1ZZZ91512493.jpg" alt="Java数据类型结构图" style="zoom:80%;" />
+<img src="Images/Java/5-1ZZZ91512493.jpg" alt="Java数据类型结构图" style="zoom:80%;" />
 
 Java 是一种强制类型的语言，所有的变量都必须先明确定义其数据类型，然后才能使用。Java 中所有的变量、表达式和值都必须有自己的类型，没有“无类型”变量这样的概念。
 
@@ -711,7 +711,7 @@ StringBuffer、StringBuilder、String 中都实现了 CharSequence 接口。Char
 
 StringBuffer、StringBuilder、String 对 CharSequence 接口的实现过程不一样，如下图  所示：
 
-<img src="Java.assets/5-1Z9241JI1449.png" alt="对CharSequence接口的实现" style="zoom:80%;" />
+<img src="Images/Java/5-1Z9241JI1449.png" alt="对CharSequence接口的实现" style="zoom:80%;" />
 
 可见，String 直接实现了 CharSequence 接口，StringBuilder 和 StringBuffer 都是可变的字符序列，它们都继承于 AbstractStringBuilder，实现了 CharSequence 接口。
 
@@ -3639,7 +3639,7 @@ class Student extends Person,extends Person1,extends Person2{…}
 
 很多地方在介绍 Java 的单继承时，可能会说 Java 类只能有一个父类，严格来讲，这种说法是错误的，应该是==一个类只能有一个直接父类，但是它可以有多个间接的父类。==例如，Student 类继承 Person 类，Person 类继承 Person1 类，Person1 类继承 Person2 类，那么 Person1 和 Person2 类是 Student 类的间接父类。下图展示了单继承的关系。
 
-<img src="Java.assets/3-1Q0191F143928.jpg" alt="img" style="zoom:80%;" />
+<img src="Images/Java/3-1Q0191F143928.jpg" alt="img" style="zoom:80%;" />
 
 从图 1 中可以看出，三角形、四边形和五边形的直接父类是多边形类，它们的间接父类是图形类。图形类、多边形类和三角形、四边形、五边形类形成了一个继承的分支。在这个分支上，位于下层的子类会继承上层所有直接或间接父类的属性和方法。如果两个类不在同一个继承树分支上，就不会存在继承关系，例如多边形类和直线。
 
@@ -4190,7 +4190,7 @@ Java 接口的定义方式与类基本相同，不过接口定义使用的关键
 
 内部类也可以分为多种形式，与变量非常类似，如下图所示。
 
-![img](Java.assets/3-1Q02311045J93.jpg)
+![img](Images/Java/3-1Q02311045J93.jpg)
 
 内部类的特点如下：
 
@@ -4645,13 +4645,13 @@ public class Test {
 
 下图是Java7的编译结果
 
-<img src="Java.assets/5-191119163Sb30.png" alt="Java 7 运行结果" style="zoom:80%;" />
+<img src="Images/Java/5-191119163Sb30.png" alt="Java 7 运行结果" style="zoom:80%;" />
 
 可以看到在 Java 7中出现代码错误，提示我们必须显式的声明这个变量为 final 的（run 方法中代码为输出 name 语句，即`System.out.println(name);`）。
 
-<img src="Java.assets/5-191119164126217.png" alt="img" style="zoom:80%;" />
+<img src="Images/Java/5-191119164126217.png" alt="img" style="zoom:80%;" />
 
-<img src="Java.assets/5-191119164142109.png" alt="img" style="zoom:80%;" />
+<img src="Images/Java/5-191119164142109.png" alt="img" style="zoom:80%;" />
 
 因为系统会默认添加 final 修饰符，所以在图 2 和图 3 中可以在匿名内部类中直接使用非 final 变量，而 final 修饰的局部变量不能在被重新赋值，所以图 3 中出现编译错误。也就是说从 Java 8 开始，它不要求程序员必须将访问的局部变量显式的声明为 final 的。只要该变量不被重新赋值就可以。
 
@@ -5281,7 +5281,7 @@ Java 通过面向对象的方法来处理异常。在一个方法的运行过程
 
 为了能够及时有效地处理程序中的运行错误，Java 专门引入了异常类。==在 Java 中所有异常类型都是内置类 java.lang.Throwable 类的子类，即 Throwable 位于异常类层次结构的顶层。==Throwable 类下有两个异常分支 Exception 和 Error，如下图所示。
 
-<img src="Java.assets/3-1Q0231H424V1.jpg" alt="img" style="zoom:80%;" />
+<img src="Images/Java/3-1Q0231H424V1.jpg" alt="img" style="zoom:80%;" />
 
 ==Throwable 类是所有异常和错误的超类，下面有 Error 和 Exception 两个子类分别表示错误和异常。==其中异常类 Exception 又分为==运行时异常==和==非运行时异常，==这两种异常有很大的区别，也称为==不检查异常（Unchecked Exception）==和==检查异常（Checked Exception）。==
 
@@ -5612,7 +5612,7 @@ try {
 
 ==一般情况下，无论是否有异常拋出，都会执行 finally 语句块中的语句，==执行流程如下图所示。
 
-<img src="Java.assets/3-1Q024110159364.jpg" alt="img" style="zoom:80%;" />
+<img src="Images/Java/3-1Q024110159364.jpg" alt="img" style="zoom:80%;" />
 
 try catch finally 语句块的执行情况可以细分为以下 3 种情况：
 
@@ -6326,9 +6326,9 @@ Exception in thread "Thread-0" java.lang.ArithmeticException: / by zero
 
 ==Java 集合类型分为 Collection 和 Map，==它们是 Java 集合的根接口，这两个接口又包含了一些子接口或实现类。
 
-<img src="Java.assets/5-1912051036333V.png" alt="Collection接口结构"  />
+<img src="Images/Java/5-1912051036333V.png" alt="Collection接口结构"  />
 
-<img src="Java.assets/5-191205103G5960.png" alt="Map接口结构" style="zoom:80%;" />
+<img src="Images/Java/5-191205103G5960.png" alt="Map接口结构" style="zoom:80%;" />
 
 黄色块为集合的接口，蓝色块为集合的实现类。
 
@@ -6507,7 +6507,7 @@ ArrayList的主要底层实现是数组Object[] elementData，可以通过构造
 
 如下是ArrayList的无参构造器和有参构造器，无参是默认大小，有参会判断参数：
 
-<img src="Java.assets/image-20200527112128261.png" alt="image-20200527112128261" style="zoom:80%;" />
+<img src="Images/Java/image-20200527112128261.png" alt="image-20200527112128261" style="zoom:80%;" />
 
 
 
@@ -6515,15 +6515,15 @@ ArrayList的主要底层实现是数组Object[] elementData，可以通过构造
 
 就比如现在有一个长度为10的数组，现在我们要新增一个元素，发现已经满了：
 
-<img src="Java.assets/275634327b031b1584201358e274914925d37e94.jpg@736w_134h.webp" alt="img" style="zoom:80%;" />
+<img src="Images/Java/275634327b031b1584201358e274914925d37e94.jpg@736w_134h.webp" alt="img" style="zoom:80%;" />
 
 ArrayList首先会重新定义一个长度为10+10/2的数组也就是新增一个长度为15的数组（扩容为原容量的1.5倍）。
 
-<img src="Java.assets/a80143a0d12474cf996899d2c6276464987e0893.jpg@1100w_148h.webp" alt="img" style="zoom:80%;" />
+<img src="Images/Java/a80143a0d12474cf996899d2c6276464987e0893.jpg@1100w_148h.webp" alt="img" style="zoom:80%;" />
 
 然后把原数组的数据，原封不动的复制到新数组中，这个时候再把指向原数的地址换到新数组，ArrayList就这样完成了一次改头换面。
 
-<img src="Java.assets/d7ce4038e5f058d3ac423f329f74c7d27b2488b9.jpg@1320w_316h.webp" alt="img" style="zoom:80%;" />
+<img src="Images/Java/d7ce4038e5f058d3ac423f329f74c7d27b2488b9.jpg@1320w_316h.webp" alt="img" style="zoom:80%;" />
 
 ArrayList1.7和1.8版本初始化的时候的区别：arrayList1.7开始变化有点大，初始化的时候，1.7以前会调用this(10)才是真正的容量为10，1.7即本身以后是默认走了空数组，只有第一次add的时候容量会变成10。
 
@@ -6535,27 +6535,27 @@ ArrayList1.7和1.8版本初始化的时候的区别：arrayList1.7开始变化�
 
 ArrayList 有指定 index 新增，也有直接新增的，在这之前他会有一步校验长度的判断 **ensureCapacityInternal**，就是说如果长度不够，是需要扩容的。
 
-<img src="Java.assets/9179f122016d2d3b76c8ee703944d13a624f7c51.jpg@1320w_448h.webp" alt="img" style="zoom: 50%;" />
+<img src="Images/Java/9179f122016d2d3b76c8ee703944d13a624f7c51.jpg@1320w_448h.webp" alt="img" style="zoom: 50%;" />
 
 在扩容的时候，老版本的jdk和8以后的版本是有区别的，8之后的效率更高了，采用了位运算，**右移**一位，其实就是除以2这个操作。1.7的时候3/2+1 ，1.8直接就是3/2。
 
-<img src="Java.assets/339bb81136b5ac2424d1bf475c291a5bd3b0fcb3.jpg@1320w_734h.webp" alt="img" style="zoom: 50%;" />
+<img src="Images/Java/339bb81136b5ac2424d1bf475c291a5bd3b0fcb3.jpg@1320w_734h.webp" alt="img" style="zoom: 50%;" />
 
 指定位置新增的时候，在校验之后的操作很简单，就是数组的copy。
 
-<img src="Java.assets/49334f7c56b0ceaf5afaac14c606efc4ed9b57d2.jpg@1320w_718h.webp" alt="img" style="zoom:50%;" />
+<img src="Images/Java/49334f7c56b0ceaf5afaac14c606efc4ed9b57d2.jpg@1320w_718h.webp" alt="img" style="zoom:50%;" />
 
 比如有下面这样一个数组需要在index 5的位置去新增一个元素A。
 
-<img src="Java.assets/b7977e1108aed0662432ec5beb125a4418f1c316.jpg@750w_132h.webp" alt="img" style="zoom:67%;" />
+<img src="Images/Java/b7977e1108aed0662432ec5beb125a4418f1c316.jpg@750w_132h.webp" alt="img" style="zoom:67%;" />
 
 从代码里面可以看到，他复制了一个数组，是从index 5的位置开始的，然后把它放在了index 5+1的位置。
 
-<img src="Java.assets/78f720c8f8c9e39997b2b16258f48e4781b747b8.jpg@746w_292h.webp" alt="img" style="zoom:67%;" />
+<img src="Images/Java/78f720c8f8c9e39997b2b16258f48e4781b747b8.jpg@746w_292h.webp" alt="img" style="zoom:67%;" />
 
 给要新增的元素腾出了位置，然后在index的位置放入元素A就完成了新增的操作了。
 
-<img src="Java.assets/fdae2991e37e9199b3d50d51b388cca9bde53fe8.jpg@746w_294h.webp" alt="img" style="zoom:67%;" />
+<img src="Images/Java/fdae2991e37e9199b3d50d51b388cca9bde53fe8.jpg@746w_294h.webp" alt="img" style="zoom:67%;" />
 
 为啥效率低，这只是在一个这么小的List里面操作，要是我去一个几百几千几万大小的List新增一个元素，那就需要后面所有的元素都复制，然后如果再涉及到扩容啥的就更慢了。
 
@@ -6563,7 +6563,7 @@ ArrayList 有指定 index 新增，也有直接新增的，在这之前他会有
 
 删除其实跟新增是一样的，不过叫是叫删除，但是在代码里面发现，他还是在copy一个数组。
 
-<img src="Java.assets/3fcf7803d359d9e99afbcc287da5b42873b91499.jpg@1320w_914h.webp" alt="img" style="zoom: 50%;" />
+<img src="Images/Java/3fcf7803d359d9e99afbcc287da5b42873b91499.jpg@1320w_914h.webp" alt="img" style="zoom: 50%;" />
 
 继续打个比方，现在要删除下面这个数组中的index5这个位置，那代码他就复制一个index5+1开始到最后的数组，然后把它放到index开始的位置，index5的位置就成功被”删除“了其实就是被覆盖了，给了你被删除的感觉。同理他的效率也低，因为数组如果很大的话，一样需要复制和移动的位置就大了。
 
@@ -6587,7 +6587,7 @@ ArrayList 有指定 index 新增，也有直接新增的，在这之前他会有
 
 ==ArrayList（int initialCapacity）会初始化数组大小！==但是List的大小没有变，因为list的大小是返回size的！而且将构造函数与initialCapacity结合使用，然后使用set()会抛出异常，尽管该数组已创建，但是大小设置不正确。使用sureCapacity()也不起作用，因为它基于elementData数组而不是大小。
 
-<img src="Java.assets/9d32e6537eee46f40481885675c54efcdaf5be29.jpg@1320w_844h.webp" alt="img" style="zoom:50%;" />
+<img src="Images/Java/9d32e6537eee46f40481885675c54efcdaf5be29.jpg@1320w_844h.webp" alt="img" style="zoom:50%;" />
 
 
 
@@ -6737,19 +6737,19 @@ Map接口的常用方法
 
 HashMap 由**数组和链表组合构成**的数据结构。大概如下，数组里面每个地方都存了 Key-Value 这样的实例，在 Java7 叫 Entry 在 Java8 中叫 Node。
 
-<img src="Java.assets/ad3570011e37cb8d2466f3300ad39237fc9bbfcc.jpg@1078w_190h.webp" alt="img" style="zoom:80%;" />
+<img src="Images/Java/ad3570011e37cb8d2466f3300ad39237fc9bbfcc.jpg@1078w_190h.webp" alt="img" style="zoom:80%;" />
 
 因为他本身所有的位置都为 null，在 put 插入的时候会根据 key 的 hash 去计算一个 index 值。就比如 put("帅丙"，520)，插入了为 "帅丙" 的元素，这个时候会通过哈希函数计算出插入的位置，计算出来 index 是 2 那结果如下。
 
-<img src="Java.assets/bebfb6f690765a6d76980417dbe1c6c45a2a8f26.jpg@1066w_242h.webp" alt="img" style="zoom:80%;" />
+<img src="Images/Java/bebfb6f690765a6d76980417dbe1c6c45a2a8f26.jpg@1066w_242h.webp" alt="img" style="zoom:80%;" />
 
 但是由于哈希本身就存在概率性，比如 ”帅丙“ 和 ”丙帅“ 去 hash 有一定的概率会一样，就像上面的情况再次哈希 ”丙帅“ 极端情况也会 hash 到一个值上，那就形成了链表。
 
-<img src="Java.assets/36785a9a74392e955bfc18ca2cff2b21fbbcc101.jpg@1060w_476h.webp" alt="img" style="zoom:80%;" />
+<img src="Images/Java/36785a9a74392e955bfc18ca2cff2b21fbbcc101.jpg@1060w_476h.webp" alt="img" style="zoom:80%;" />
 
 每一个节点都会保存自身的 hash、key、value 以及下个节点，Node 的源码。
 
-<img src="Java.assets/54dc28466296491cac1c2aeba928a48a4b95ef05.jpg@1142w_662h.webp" alt="img" style="zoom:80%;" />
+<img src="Images/Java/54dc28466296491cac1c2aeba928a48a4b95ef05.jpg@1142w_662h.webp" alt="img" style="zoom:80%;" />
 
 
 
@@ -6782,23 +6782,23 @@ resize 有两个因素：
 
 扩容前：
 
-<img src="Java.assets/c244cb079efdb2fc4d74a87fdd14bc44273da375.jpg@1054w_398h.webp" alt="img" style="zoom:80%;" />
+<img src="Images/Java/c244cb079efdb2fc4d74a87fdd14bc44273da375.jpg@1054w_398h.webp" alt="img" style="zoom:80%;" />
 
 扩容后：
 
-<img src="Java.assets/318f7f8d68a94fe1b8d8157556fb8605d3a8124a.jpg@1320w_212h.webp" alt="img" style="zoom:80%;" />
+<img src="Images/Java/318f7f8d68a94fe1b8d8157556fb8605d3a8124a.jpg@1320w_212h.webp" alt="img" style="zoom:80%;" />
 
 现在要在容量为 2 的容器里面**用不同线程**插入 A，B，C，假如在 resize 之前打个短点，那意味着数据都插入了但是还没 resize，那扩容前可能是这样的：我们可以看到链表的指向 A => B => C（A 的下一个指针是指向 B 的）
 
-<img src="Java.assets/8de44dd0cf0d938d5d3313bfeb7cf37d0e8a1cda.jpg@360w_552h.webp" alt="img" style="zoom:80%;" />
+<img src="Images/Java/8de44dd0cf0d938d5d3313bfeb7cf37d0e8a1cda.jpg@360w_552h.webp" alt="img" style="zoom:80%;" />
 
 因为 resize 的赋值方式，也就是使用了单链表的头插入方式，同一位置上新元素总会被放在链表的头部位置，在旧数组中同一条 Entry 链上的元素，通过重新计算索引位置后，有可能被放到了新数组的不同位置上。就可能出现下面的情况：B 的下一个指针指向了 A
 
-<img src="Java.assets/88e1df0cebe360cb17ee9393553d0e560119a2ba.jpg@686w_368h.webp" alt="img" style="zoom:80%;" />
+<img src="Images/Java/88e1df0cebe360cb17ee9393553d0e560119a2ba.jpg@686w_368h.webp" alt="img" style="zoom:80%;" />
 
 一旦几个线程都调整完成，就可能出现环形链表
 
-<img src="Java.assets/65fddfd00eebfaa1fbbdd0d82d3c82cfc5ddb8d2.jpg@762w_482h.webp" alt="img" style="zoom:80%;" />
+<img src="Images/Java/65fddfd00eebfaa1fbbdd0d82d3c82cfc5ddb8d2.jpg@762w_482h.webp" alt="img" style="zoom:80%;" />
 
 如果这个时候去取值，悲剧就出现了——Infinite Loop（无限循环）。
 
@@ -6808,7 +6808,7 @@ resize 有两个因素：
 
 **使用头插**会改变链表的上的顺序，但是如果使用尾插，在扩容时会保持链表元素原本的顺序，就不会出现链表成环的问题了。就是说原本是 A => B，在扩容后那个链表还是 A => B：
 
-<img src="Java.assets/aec263f93b937223e902d67dd1e8072a6a3e9796.jpg@678w_356h.webp" alt="img" style="zoom:80%;" />
+<img src="Images/Java/aec263f93b937223e902d67dd1e8072a6a3e9796.jpg@678w_356h.webp" alt="img" style="zoom:80%;" />
 
 Java 7 在多线程操作 HashMap 时可能引起死循环，原因是扩容转移后前后链表顺序倒置，在转移过程中修改了原来链表中节点的引用关系。
 
@@ -8007,7 +8007,7 @@ CPU+RAM+各种资源（比如显卡，光驱，键盘，GPS, 等等外设）构�
 
 线程是一个动态执行的过程，它也有一个从产生到死亡的过程。下图显示了一个线程完整的生命周期。
 
-<img src="Java.assets/java-thread.jpg" alt="img" style="zoom: 50%;" />
+<img src="Images/Java/java-thread.jpg" alt="img" style="zoom: 50%;" />
 
 - 新建状态:
 
@@ -8447,7 +8447,7 @@ main finish
 
 流程图
 
-<img src="Java.assets/20190816110104907.png" alt="在这里插入图片描述" style="zoom:80%;" />
+<img src="Images/Java/20190816110104907.png" alt="在这里插入图片描述" style="zoom:80%;" />
 
 
 
@@ -8724,7 +8724,7 @@ Java 虚拟机中的同步(Synchronization)基于进入和退出管程(Monitor)�
 
 在JVM中，对象在内存中的布局分为三块区域：对象头、实例数据和对齐填充。如下：
 
-<img src="Java.assets/20170603163237166.png" alt="img" style="zoom:80%;" />
+<img src="Images/Java/20170603163237166.png" alt="img" style="zoom:80%;" />
 
 - 实例变量：存放类的属性数据信息，包括父类的属性信息，如果是数组的实例部分还包括数组的长度，这部分内存按4字节对齐。
 - 填充数据：由于虚拟机要求对象起始地址必须是8字节的整数倍。填充数据不是必须存在的，仅仅是为了字节对齐。不知道大家有没有被问过一个空对象占多少个字节？就是8个字节，是因为对齐填充的关系哈，不到8个字节对其填充会帮我们自动补齐。如果是`Object o=new Object();`，那么空对象占8字节，对象的引用占4字节，加上填充数据即总共占用16字节，这点了解即可。
@@ -8744,7 +8744,7 @@ Java 虚拟机中的同步(Synchronization)基于进入和退出管程(Monitor)�
 
 由于对象头的信息是与对象自身定义的数据没有关系的额外存储成本，因此考虑到JVM的空间效率，Mark Word 被设计成为一个非固定的数据结构，以便存储更多有效的数据，它会根据对象本身的状态复用自己的存储空间，如32位JVM下，除了上述列出的Mark Word默认存储结构外，还有如下可能变化的结构：
 
-<img src="Java.assets/20170603172215966.png" alt="img" style="zoom:80%;" />
+<img src="Images/Java/20170603172215966.png" alt="img" style="zoom:80%;" />
 
 其中轻量级锁和偏向锁是Java 6 对 synchronized 锁进行优化后新增加的，这里主要分析一下重量级锁也就是通常说synchronized的对象锁，锁标识位为10，其中指针指向的是monitor对象（也称为管程或监视器锁）的起始地址。
 
@@ -8775,7 +8775,7 @@ ObjectMonitor() {
 
 ObjectMonitor中有两个队列，_ WaitSet 和 _ EntryList，用来保存ObjectWaiter对象列表( 每个等待锁的线程都会被封装成ObjectWaiter对象)，_owner指向持有ObjectMonitor对象的线程，当多个线程同时访问一段同步代码时，首先会进入 _EntryList 集合，当线程获取到对象的monitor 后进入 _Owner 区域并把monitor中的owner变量设置为当前线程同时monitor中的计数器count加1，若线程调用 wait() 方法，将释放当前持有的monitor，owner变量恢复为null，count自减1，同时该线程进入 WaitSe t集合中等待被唤醒。若当前线程执行完毕也将释放monitor(锁)并复位变量的值，以便其他线程进入获取monitor(锁)。如下图所示
 
-![img](Java.assets/20170604114223462.png)
+![img](Images/Java/20170604114223462.png)
 
 由此看来，monitor对象存在于每个Java对象的对象头中(存储的指针的指向)，synchronized锁便是通过这种方式获取锁的，也是为什么Java中任意对象可以作为锁的原因，同时也是notify/notifyAll/wait等方法存在于顶级对象Object中的原因。
 
@@ -10414,7 +10414,7 @@ CAS的英文单词是 Compare and Swap，即比较并替换，是乐观锁的一
 
 CAS 有三个操作数，内存值 V，旧的预期值 E，要修改的新值 U。当且仅当预期值 E 和内存值 V 相等时，将内存值V修改为U，否则什么都不做。操作的流程如下图所示，线程在读取数据时不进行加锁，在准备写回数据时，比较原值是否修改，若未被其他线程修改则写回，若已被修改，则重新执行读取流程。这是一种乐观策略，认为并发操作并不总会发生。
 
-<img src="Java.assets/640" alt="img" style="zoom: 67%;" />
+<img src="Images/Java/640" alt="img" style="zoom: 67%;" />
 
 看一个例子，解释CAS的实现过程（并非真实的CAS实现）：
 
@@ -10628,7 +10628,7 @@ Java 反射机制是在运行状态中，对于任意一个类，都能够知道
 
 Java 反射机制在服务器程序和中间件程序中得到了广泛运用。在服务器端，往往需要根据客户的请求，动态调用某一个对象的特定方法。此外，==在 ORM 中间件的实现中，运用 Java 反射机制可以读取任意一个 JavaBean 的所有属性，或者给这些属性赋值。==
 
-<img src="Java.assets/5-19121314235A02.png" alt="img" style="zoom:80%;" />
+<img src="Images/Java/5-19121314235A02.png" alt="img" style="zoom:80%;" />
 
 Java 反射机制主要提供了以下功能，这些功能都位于`java.lang.reflect`包。
 
@@ -11129,9 +11129,9 @@ Java 程序通过流来完成输入/输出，所有的输入/输出以流的形�
 
 数据流的处理只能按照数据序列的顺序来进行，即前一个数据处理完之后才能处理后一个数据。数据流以输入流的形式被程序获取，再以输出流的形式将数据输出到其它设备。
 
-<img src="Java.assets/5-200115142HWK.png" alt="输入流模式" style="zoom:80%;" />
+<img src="Images/Java/5-200115142HWK.png" alt="输入流模式" style="zoom:80%;" />
 
-<img src="Java.assets/5-200115142K1644.png" alt="输出流模式" style="zoom:80%;" />
+<img src="Images/Java/5-200115142K1644.png" alt="输出流模式" style="zoom:80%;" />
 
 
 
@@ -11139,7 +11139,7 @@ Java 程序通过流来完成输入/输出，所有的输入/输出以流的形�
 
 Java 流相关的类都封装在 java.io 包中，而且每个数据流都是一个对象。所有输入流类都是 InputStream 抽象类（字节输入流）和 Reader 抽象类（字符输入流）的子类。其中 InputStream 类是字节输入流的抽象类，是所有字节输入流的父类，其层次结构如下图所示。
 
-<img src="Java.assets/5-200115145253550.png" alt="InputStream类的层次结构图" style="zoom:80%;" />
+<img src="Images/Java/5-200115145253550.png" alt="InputStream类的层次结构图" style="zoom:80%;" />
 
 InputStream 类中所有方法遇到错误时都会引发 IOException 异常。如下是该类中包含的常用方法。
 
@@ -11165,7 +11165,7 @@ Java 中的字符是 Unicode 编码，即双字节的，而 InputerStream 是用
 
 在 Java 中所有输出流类都是 OutputStream 抽象类（字节输出流）和 Writer 抽象类（字符输出流）的子类。其中 OutputStream 类是字节输出流的抽象类，是所有字节输出流的父类，其层次结构如下图所示。
 
-<img src="Java.assets/5-200115151G3J0.png" alt="OutputStream类的层次结构图" style="zoom:80%;" />
+<img src="Images/Java/5-200115151G3J0.png" alt="OutputStream类的层次结构图" style="zoom:80%;" />
 
 OutputStream 类是所有字节输出流的超类，用于以二进制的形式将数据写入目标设备，该类是抽象类，不能被实例化。OutputStream 类提供了一系列跟数据输出有关的方法，如下所示。
 
@@ -11296,7 +11296,7 @@ public class Test {
 
 运行结果如下：
 
-<img src="Java.assets/5-191223141433509.png" alt="img" style="zoom:80%;" />
+<img src="Images/Java/5-191223141433509.png" alt="img" style="zoom:80%;" />
 
 可以发现，因为编码不一致，所以在保存时出现了乱码。在 Java 的开发中，乱码是一个比较常见的问题，乱码的产生就有一个原因，即输出内容的编码与接收内容的编码不一致。
 
@@ -11588,7 +11588,7 @@ public class HelloJava {
 }
 ```
 
-<img src="Java.assets/5-19121Q25Z21J.png" alt="HelloJava.java文件内容" style="zoom:80%;" />
+<img src="Images/Java/5-19121Q25Z21J.png" alt="HelloJava.java文件内容" style="zoom:80%;" />
 
 ==注意：FileInputStream 类重写了父类 InputStream 中的 read() 方法、skip() 方法、available() 方法和 close() 方法，不支持 mark() 方法和 reset() 方法。==
 
@@ -11651,7 +11651,7 @@ public class Test11 {
 
 运行程序，成功后会在控制台输出“写入结束！”。此时，打开 D:\myJava\HelloJava.txt 文件会发现，其内容与 HelloJava.java 文件的内容相同，如下图所示。
 
-<img src="Java.assets/5-1912191A322507.png" alt="img" style="zoom:80%;" />
+<img src="Images/Java/5-1912191A322507.png" alt="img" style="zoom:80%;" />
 
 ==技巧：在创建 FileOutputStream 对象时，如果将 append 参数设置为 true，则可以在目标文件的内容末尾添加数据，此时目标文件仍然可以暂不存在。==
 
@@ -11814,7 +11814,7 @@ public class Test13 {
 录入完成！
 ```
 
-<img src="Java.assets/5-1912191H959510.png" alt="img" style="zoom:80%;" />
+<img src="Images/Java/5-1912191H959510.png" alt="img" style="zoom:80%;" />
 
 
 
@@ -12423,7 +12423,7 @@ public class Test {
 
 计算机网络层次模型：
 
-<img src="Java.assets/1217276-20190503122042374-56172361.png" alt="img" style="zoom:80%;" />
+<img src="Images/Java/1217276-20190503122042374-56172361.png" alt="img" style="zoom:80%;" />
 
 世界上第一个网络体系结构由IBM公司提出（1974年，SNA），以后其他公司也相继提出自己的网络体系结构。为了促进计算机网络的发展，国际标准化组织ISO在现有网络的基础上，提出了不基于具体机型、操作系统或公司的网络体系结构，称为开放系统互连参考模型，即OSI/RM（Open System Interconnection Reference Model）。
 
@@ -12435,7 +12435,7 @@ ISO制定的OSI参考模型过于庞大、复杂招致了许多批评。与此�
 
 OSI 模型把网络通信的工作分为 7 层，分别是物理层、数据链路层、网络层、传输层、会话层、表示层和应用层。
 
-<img src="Java.assets/1217276-20190503140552307-1306184849.png" alt="img" style="zoom:80%;" />
+<img src="Images/Java/1217276-20190503140552307-1306184849.png" alt="img" style="zoom:80%;" />
 
 - 物理层
 	
@@ -12465,7 +12465,7 @@ TCP/IP，即Transmission Control Protocol/Internet Protocol的简写，中译名
 
 TCP/IP协议是一个开放的网络协议簇，它的名字主要取自最重要的网络层IP协议和传输层TCP协议。TCP/IP协议定义了电子设备如何连入因特网，以及数据如何在它们之间传输的标准。TCP/IP参考模型采用4层的层级结构，每一层都呼叫它的下一层所提供的协议来完成自己的需求，这4个层次分别是：网络接口层、网络层（IP层）、传输层（TCP层）、应用层。
 
-<img src="Java.assets/1217276-20190503162526581-1315509304.gif" alt="img" style="zoom:80%;" />
+<img src="Images/Java/1217276-20190503162526581-1315509304.gif" alt="img" style="zoom:80%;" />
 
 - 网络接口层
 	TCP/IP协议对网络接口层没有给出具体的描述，网络接口层对应着OSI参考模型的物理层和数据链路层。
@@ -12484,11 +12484,11 @@ TCP/IP协议是一个开放的网络协议簇，它的名字主要取自最重�
 
 OSI参考模型和TCP/IP模型在不同的层次中有许多不同的网络协议，如图所示：
 
-<img src="Java.assets/1217276-20190503164338008-348345936.png" alt="img" style="zoom:80%;" />
+<img src="Images/Java/1217276-20190503164338008-348345936.png" alt="img" style="zoom:80%;" />
 
 网络协议之间的关系图如下：
 
-<img src="Java.assets/1217276-20190503165942538-1220277464.png" alt="img" style="zoom:80%;" />
+<img src="Images/Java/1217276-20190503165942538-1220277464.png" alt="img" style="zoom:80%;" />
 
 ### 13.2.1、IP协议
 
@@ -12506,7 +12506,7 @@ TCP（Transmission Control Protocol）（传输控制协议）是面向连接的
 
 TCP 报文段包括协议首部和数据两部分，协议首部的固定部分是 20 个字节，首部的固定部分后面是选项部分。
 
-<img src="Java.assets/1217276-20190504001611594-373661106.jpg" alt="img" style="zoom:80%;" />
+<img src="Images/Java/1217276-20190504001611594-373661106.jpg" alt="img" style="zoom:80%;" />
 
 下面是报文段首部各个字段的含义：
 
@@ -12534,7 +12534,7 @@ TCP 报文段包括协议首部和数据两部分，协议首部的固定部分�
 
 TCP三次握手过程如下：
 
-<img src="Java.assets/1217276-20190503210424740-1764008697.jpg" alt="img" style="zoom:80%;" />
+<img src="Images/Java/1217276-20190503210424740-1764008697.jpg" alt="img" style="zoom:80%;" />
 
 1. 第一次握手（客户端发送请求）
 	客户机发送连接请求报文段到服务器，并进入SYN_SENT状态，等待服务器确认。发送连接请求报文段内容：SYN=1，seq=x；SYN=1意思是一个TCP的SYN标志位置为1的包，指明客户端打算连接的服务器的端口；seq=x表示客户端初始序号x，保存在包头的序列号（Sequence Number）字段里。
@@ -12549,7 +12549,7 @@ TCP三次握手过程如下：
 
 TCP四次挥手过程如下：
 
-<img src="Java.assets/1217276-20190503231436105-1355677452.png" alt="img" style="zoom:80%;" />
+<img src="Images/Java/1217276-20190503231436105-1355677452.png" alt="img" style="zoom:80%;" />
 
 由于TCP连接是全双工的，因此每个方向都必须单独进行关闭。这原则是当一方完成它的数据发送任务后就能发送一个FIN来终止这个方向的连接。收到一个FIN只意味着这一方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭。
 
@@ -12631,7 +12631,7 @@ UDP（User Datagram Protocol），用户数据报协议，它是 TCP/IP 协议�
 
 **UDP协议格式**
 
-<img src="Java.assets/1217276-20190504154900038-1234898266.png" alt="img" style="zoom:80%;" />
+<img src="Images/Java/1217276-20190504154900038-1234898266.png" alt="img" style="zoom:80%;" />
 
 UDP协议由两部分组成：首部和数据。其中，首部仅有8个字节，包括源端口和目的端口、长度（UDP用于数据报的长度）、校验和。
 
@@ -12670,19 +12670,19 @@ HTTP协议是基于TCP协议之上的请求/响应式协议，下面主要介绍
 
 HTTP请求报文的格式：
 
-<img src="Java.assets/1217276-20190504230113716-231823746.png" alt="img" style="zoom:80%;" />
+<img src="Images/Java/1217276-20190504230113716-231823746.png" alt="img" style="zoom:80%;" />
 
 HTTP请求报文由**请求行、首部行和实体主体**组成，由浏览器发送给服务器。上面这张图中SP表示空格，cr lf表示回车和换行。下图是谷歌浏览器内访问服务器查看的HTTP请求例子：
 
-<img src="Java.assets/1217276-20190505002716130-1447539444.png" alt="img" style="zoom:80%;" />
+<img src="Images/Java/1217276-20190505002716130-1447539444.png" alt="img" style="zoom:80%;" />
 
 HTTP响应报文格式：
 
-<img src="Java.assets/1217276-20190505001517048-1489396333.png" alt="img" style="zoom:80%;" />
+<img src="Images/Java/1217276-20190505001517048-1489396333.png" alt="img" style="zoom:80%;" />
 
 上面这张图是HTTP响应报文，它由**状态行、首部行和实体主体**组成。下图为HTTP响应报文例子：
 
-<img src="Java.assets/1217276-20190505003116790-1900233646.png" alt="img" style="zoom:80%;" />
+<img src="Images/Java/1217276-20190505003116790-1900233646.png" alt="img" style="zoom:80%;" />
 
 ---
 
@@ -12690,11 +12690,11 @@ HTTP响应报文格式：
 
 在上面的HTTP请求报文例子中，可以看到请求方法是GET，这表示请求读取由URL所标志的信息，除了GET，还有其他几种常用的方法。
 
-<img src="Java.assets/1217276-20190505003337425-1910585386.png" alt="img" style="zoom:80%;" />
+<img src="Images/Java/1217276-20190505003337425-1910585386.png" alt="img" style="zoom:80%;" />
 
 在HTTP响应报文的例子中，可以看到状态码是200，表示响应成功。下表是其他状态码，总共5大类，33种。
 
-<img src="Java.assets/1217276-20190505004242552-665354194.png" alt="img" style="zoom:80%;" />
+<img src="Images/Java/1217276-20190505004242552-665354194.png" alt="img" style="zoom:80%;" />
 
 ---
 
@@ -12761,7 +12761,7 @@ SOCK_STREAM 有以下几个特征：
 
 可以将 SOCK_STREAM 比喻成一条传送带，只要传送带本身没有问题（不会断网），就能保证数据不丢失；同时，较晚传送的数据不会先到达，较早传送的数据不会晚到达，这就保证了数据是按照顺序传递的。
 
-<img src="Java.assets/1-1Z1232154153L.gif" alt="将面向连接的套接字比喻成传送带" style="zoom:80%;" />
+<img src="Images/Java/1-1Z1232154153L.gif" alt="将面向连接的套接字比喻成传送带" style="zoom:80%;" />
 
 为什么流格式套接字可以达到高质量的数据传输呢？这是因为它使用了 TCP 协议（The Transmission Control Protocol，传输控制协议），TCP 协议会控制你的数据按照顺序到达并且没有错误。
 
@@ -12794,7 +12794,7 @@ SOCK_STREAM 有以下几个特征：
 
 众所周知，速度是快递行业的生命。用摩托车发往同一地点的两件包裹无需保证顺序，只要以最快的速度交给客户就行。这种方式存在损坏或丢失的风险，而且包裹大小有一定限制。因此，想要传递大量包裹，就得分配发送。
 
-<img src="Java.assets/1-1Z123222015527.gif" alt="将无连接套接字比喻成摩托车快递" style="zoom:80%;" />
+<img src="Images/Java/1-1Z123222015527.gif" alt="将无连接套接字比喻成摩托车快递" style="zoom:80%;" />
 
 另外，用两辆摩托车分别发送两件包裹，那么接收者也需要分两次接收，所以“数据的发送和接收是同步的”；换句话说，接收次数应该和发送次数相同。
 
@@ -13310,7 +13310,7 @@ public class UDP {
 
 http（Hypertext transfer protocol）超文本传输协议，通过浏览器和服务器进行数据交互，进行超文本（文本、图片、视频等）传输的规定。也就是说，http 协议规定了超文本传输所要遵守的规则。那么网页在输入 URL 到加载，http 究竟做了哪些工作呢？（见下图）
 
-<img src="Java.assets/17230018-9fe0c3c244864b36b22ce0eb7ec74842.png" alt="img" style="zoom:80%;float:left" />
+<img src="Images/Java/17230018-9fe0c3c244864b36b22ce0eb7ec74842.png" alt="img" style="zoom:80%;float:left" />
 
 浏览器负责发起请求和最后的响应请求，服务器接收请求后，处理请求。我们一步一步来看这个过程，http是如何设定步骤，设置规范的。
 
@@ -13322,7 +13322,7 @@ http（Hypertext transfer protocol）超文本传输协议，通过浏览器和�
 
 	请求头包括本机信息、浏览器信息等等，当然，也包括URL中 ？后面的参数。如图：
 
-	<img src="Java.assets/17231440-44a1e2aa088b40e9b444361c4a5548ae.png" alt="img" style="zoom: 80%;" />
+	<img src="Images/Java/17231440-44a1e2aa088b40e9b444361c4a5548ae.png" alt="img" style="zoom: 80%;" />
 	请求体包括 POST 传递数据的相关信息，Get 方式传值时，请求体为空。
 
 3. 请求信息发送至服务器以后，服务器会获取传递过来的相关信息进行后端程序的处理。一般通过 request.querystring 获取URL传递过来的值、通过 request.form 获取 POST 传递过来的值，当然，也是可以获取到所有的其他请求过来的信息，如浏览器信息、cookie信息、操作系统信息等。获取相关的数据以后，服务器就会根据程序进行处理。
@@ -13332,7 +13332,7 @@ http（Hypertext transfer protocol）超文本传输协议，通过浏览器和�
 
 	响应头记录服务器相关信息如服务器是否启用压缩、服务器为 IIS 或 Ngnix、程序所用服务端语言等等。当然，缓存也是在这里设置的，通过修改响应头可以修改 html 在本地缓存的情况，如设置浏览器缓存过期的时间。
 
-	<img src="Java.assets/17233401-2eb186f25c0d4780b0d31111b6ce941f.png" alt="img" style="zoom:80%;" />
+	<img src="Images/Java/17233401-2eb186f25c0d4780b0d31111b6ce941f.png" alt="img" style="zoom:80%;" />
 	响应体主要是看到的html的相关内容了。
 
  完成以上四部操作以后，浏览器就断开了与服务器的数据连接，不能再进行数据传输，如果需要再次进行数据传输，那么一切就要从输入URL开始。
@@ -13592,7 +13592,7 @@ SAX解析XML步骤：
 
 2. 新建一个类XmlParseHandler.java，该类需要继承`DefaultHandler`或者实现`ContentHandler`接口，这里通过继承`DefaultHandler`（实现了`ContentHandler`接口）的方式，该类是SAX解析的核心所在，生命周期如下：
 
-	<img src="Java.assets/20181101171449337.jpeg" alt="XmlParseHandler生命周期" style="zoom:80%;" />
+	<img src="Images/Java/20181101171449337.jpeg" alt="XmlParseHandler生命周期" style="zoom:80%;" />
 
 	代码：
 

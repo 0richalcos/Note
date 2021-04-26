@@ -221,7 +221,7 @@ DAO：data access object 数据访问对象
 
 简单的关系图：
 
-<img src="Petty.assets/20180717104224284" alt="这里写图片描述"  />
+<img src="Images/Petty/20180717104224284" alt="这里写图片描述"  />
 
 
 

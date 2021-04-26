@@ -108,11 +108,11 @@ maven由于他的约定大于配置，之后可能遇到写的配置文件，无
 
 PS：上边的web-app标签中有一个**metadata-complete="true"**，这是个大坑，因为web-app标签3.0以上版本是可以使用servlet的注解的，如下图：
 
-<img src="Mixed.assets/1247983-20190604213809759-1772243544.png" alt="img" style="zoom:67%;float:left" />
+<img src="Images/Mixed/1247983-20190604213809759-1772243544.png" alt="img" style="zoom:67%;float:left" />
 
 再也不用去web.xml写那servlet的那一堆映射了（下图就是那一堆映射）
 
-<img src="Mixed.assets/1247983-20190604214818782-1161183865.png" alt="img" style="zoom:67%;float:left" />
+<img src="Images/Mixed/1247983-20190604214818782-1161183865.png" alt="img" style="zoom:67%;float:left" />
 
 如果忘记了改这个web-app标签里的metadata-complete的这个属性，所写的注解都将失效！！！
 
@@ -124,19 +124,19 @@ PS：上边的web-app标签中有一个**metadata-complete="true"**，这是个�
 
 首先在IDEA中显示内存：在窗口下方右键，选中 Memory Indicator
 
-<img src="Mixed.assets/image-20200428211739758.png" alt="image-20200428211739758" style="zoom:67%;float:left" />
+<img src="Images/Mixed/image-20200428211739758.png" alt="image-20200428211739758" style="zoom:67%;float:left" />
 
 帮助 => 编辑自定义VM选项。
 
 在弹出来的文件中修改Xms和Xmx：
 
-<img src="Mixed.assets/image-20200428212406493.png" alt="image-20200428212406493" style="zoom:67%;float:left" />
+<img src="Images/Mixed/image-20200428212406493.png" alt="image-20200428212406493" style="zoom:67%;float:left" />
 
 
 
 ## 4、SpringBoot实现热部署
 
-![img](Mixed.assets/1676221-20200430155320785-521416484.png)
+![img](Images/Mixed/1676221-20200430155320785-521416484.png)
 
 在application.yml中配置一下devtools
 
@@ -185,21 +185,21 @@ IDEA：当我们修改了Java类后，IDEA默认是不自动编译的，而sprin
 
 然后在Java => 已安装的JRE中，修改缺省VM参数，添加Xms和Xmx，中间用空格隔开。
 
-<img src="Mixed.assets/image-20200428213849950.png" alt="image-20200428213849950" style="zoom: 50%;float:left" />
+<img src="Images/Mixed/image-20200428213849950.png" alt="image-20200428213849950" style="zoom: 50%;float:left" />
 
 
 
 ## 2、汉化
 
-<img src="Mixed.assets/image-20200622113126300.png" alt="image-20200622113126300" style="zoom:80%;float:left" />
+<img src="Images/Mixed/image-20200622113126300.png" alt="image-20200622113126300" style="zoom:80%;float:left" />
 
 打开 https://www.eclipse.org/babel/downloads.php 
 
-<img src="Mixed.assets/image-20200622113248801.png" alt="image-20200622113248801" style="zoom: 50%;float:left" />
+<img src="Images/Mixed/image-20200622113248801.png" alt="image-20200622113248801" style="zoom: 50%;float:left" />
 
 选择一个复制，在弹出的窗口中点击添加
 
-<img src="Mixed.assets/image-20200622113354699.png" alt="image-20200622113354699" style="zoom: 50%;float:left" />
+<img src="Images/Mixed/image-20200622113354699.png" alt="image-20200622113354699" style="zoom: 50%;float:left" />
 
 找到中文简体安装就行了。
 
@@ -229,7 +229,7 @@ SpringBoot是使用内置的tomcat的，所以不用打包成war文件，当然�
 	```
 
 2. 项目运行环境选择java jdk
-	<img src="Mixed.assets/20191105110853305.png" alt="img" style="zoom:67%;" />
+	<img src="Images/Mixed/20191105110853305.png" alt="img" style="zoom:67%;" />
 
 3. 执行maven clean
 	**右键项目 run as 选择maven clean**

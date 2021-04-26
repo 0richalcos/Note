@@ -19,7 +19,7 @@
 
 最典型的MVC就是JSP+Servlet+JavaBean的模式。
 
-<img src="SpringMVC.assets/image-20200324220816875.png" alt="image-20200324220816875" style="zoom:67%;" />
+<img src="Images/SpringMVC/image-20200324220816875.png" alt="image-20200324220816875" style="zoom:67%;" />
 
 
 
@@ -28,7 +28,7 @@
 - 在早期的开发中，通常采用的都是Model1。
 - Model1中，主要分为两层，视图层和模型层。
 
-<img src="SpringMVC.assets/image-20200324221307068.png" alt="image-20200324221307068" style="zoom:67%;" />
+<img src="Images/SpringMVC/image-20200324221307068.png" alt="image-20200324221307068" style="zoom:67%;" />
 
 
 
@@ -42,7 +42,7 @@ Model1缺点：JSP职责不单一，职责较重，不便于维护；
 
 Model2把一个项目分成三部分，包括视图、控制、模型。
 
-<img src="SpringMVC.assets/image-20200324231255654.png" alt="image-20200324231255654" style="zoom:67%;" />
+<img src="Images/SpringMVC/image-20200324231255654.png" alt="image-20200324231255654" style="zoom:67%;" />
 
 1. 用户发送请求
 2. Servlet接受请求数据，并调用对应的业务逻辑方法
@@ -417,7 +417,7 @@ ViewResolver：通过扩展视图解析器，支持更多类型的视图解析�
 1. 查看控制台输出，看一下是不是缺少了什么jar包
 2. 如果jar包存在，显示无法输出，就在IDEA的项目发布中，添加lib依赖
 
-<img src="SpringMVC.assets/image-20200326005840940.png" alt="image-20200326005840940" style="zoom: 67%;" />
+<img src="Images/SpringMVC/image-20200326005840940.png" alt="image-20200326005840940" style="zoom: 67%;" />
 
 3. 重启Tomcat即可解决！
 

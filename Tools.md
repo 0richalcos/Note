@@ -670,7 +670,7 @@ UEditor 只提供 JSP 版本的后端入口代码。但提供了项目源码，�
 
 2. 下载源码并解压到项目中，注意 config.json 拷到了 resources 根路径下，记得修改 index.html 的资源文件引用地址（template 里面）
 
-	<img src="Tools.assets/image-20201020161146305.png" alt="image-20201020161146305" style="float:left" />
+	<img src="Images/Tools/image-20201020161146305.png" alt="image-20201020161146305" style="float:left" />
 
 3. 添加 UeditorController，跳转到 index 页面
 
@@ -686,7 +686,7 @@ UEditor 只提供 JSP 版本的后端入口代码。但提供了项目源码，�
 
 4. 运行项目。访问路径localhost:8080，跳转到如下界面即是源码已拷贝成功
 
-	<img src="Tools.assets/image-20201016134822142.png" alt="image-20201016134822142" style="zoom:80%; float:left"  />
+	<img src="Images/Tools/image-20201016134822142.png" alt="image-20201016134822142" style="zoom:80%; float:left"  />
 
 5. 此时发现上传图片功能不能用。照着源码里的 controller.jsp 依样画葫芦，写入 UEditorController 类，映射路径为 config。 
 
@@ -956,21 +956,21 @@ UEditor 只提供 JSP 版本的后端入口代码。但提供了项目源码，�
 
 7. 运行项目路径http://localhost:8080/config?action=config，如下图显示则表示可读取到 config.json 文件
 
-<img src="Tools.assets/image-20201016135415285.png" alt="image-20201016135415285"  />
+<img src="Images/Tools/image-20201016135415285.png" alt="image-20201016135415285"  />
 
   此时进行上传图片，已经能够成功上传了。
 
 9. 可是图片究竟上传到哪里了呢？继续一步步 debug 发现，上传到 tomcat 缓存路径，只要重启下 tomcat 该文件就会被删除。我们需要将其存储到磁盘中。此时修改config.json文件：
 
-	<img src="Tools.assets/image-20201016140155230.png" alt="image-20201016140155230" style="float:left" />
+	<img src="Images/Tools/image-20201016140155230.png" alt="image-20201016140155230" style="float:left" />
 
 	红色为修改处。我需要将文件存储到 E:/upload/image/** 下，此处多添加了 basePath，是想把视频、音乐等静态资源都存储到 E 盘。由于添加了 basePath，需要修改配置。通过 debug 来到 ConfigManage：
 
-	<img src="Tools.assets/image-20201020160047275.png" alt="image-20201020160047275" style="float:left"  />
+	<img src="Images/Tools/image-20201020160047275.png" alt="image-20201020160047275" style="float:left"  />
 
 	将 basePath 塞进配置文件里。之后继续来到上传文件类 BinaryUploader，修改如下代码：
 
-	<img src="Tools.assets/image-20201020160801870.png" alt="image-20201020160801870" style="float:left" />
+	<img src="Images/Tools/image-20201020160801870.png" alt="image-20201020160801870" style="float:left" />
 
 	运行项目，点击添加图片。打开 E 盘的 image 目录，成功上传到 E 盘对应路径。
 
@@ -1681,7 +1681,7 @@ public void testFormula() throws IOException {
 </dependency>
 ```
 
-<img src="Tools.assets/20180914173007117" alt="img" style="zoom:80%; float:left" />
+<img src="Images/Tools/20180914173007117" alt="img" style="zoom:80%; float:left" />
 
 ```java
  /**
@@ -2078,7 +2078,7 @@ public class Product {
 }
 ```
 
-<img src="Tools.assets/image-20201016151516010.png" alt="image-20201016151516010" style="float:left" />
+<img src="Images/Tools/image-20201016151516010.png" alt="image-20201016151516010" style="float:left" />
 
 
 
@@ -2848,7 +2848,7 @@ Windows10 中内置了 Linux（WSL），如何打开可以去微软官网 **[查
 
 首先去 Docker 官网下载 **[Docker Desktop](https://desktop.docker.com/win/stable/Docker%20Desktop%20Installer.exe)**，下载完了直接安装。安装好了需要配置一下 Docker 的镜像源，替换为国内源。
 
-![image-20210303001708558](Tools.assets/image-20210303001708558.png)
+![image-20210303001708558](Images/Tools/image-20210303001708558.png)
 
 推荐的几个国内源：
 
@@ -2908,7 +2908,7 @@ docker rmi onlyoffice/documentserver
 http://电脑ip:绑定端口
 ```
 
-![image-20210303003314432](Tools.assets/image-20210303003314432.png)
+![image-20210303003314432](Images/Tools/image-20210303003314432.png)
 
 通常可以在以下编辑器文件夹中找到 API JavaScript 文件：
 
@@ -2986,7 +2986,7 @@ config = {
 
 参考图和以下步骤说明了在ONLYOFFICE Document Server中打开文档的过程：
 
-![image-20210304001457116](Tools.assets/image-20210304001457116.png)
+![image-20210304001457116](Images/Tools/image-20210304001457116.png)
 
 1. 用户使用文档管理器（在他/她的浏览器中找到）打开文档进行查看或编辑。
 
@@ -3059,7 +3059,7 @@ config = {
 
 参考图和以下步骤说明了将文档保存在ONLYOFFICE Document Server中的过程。
 
-![image-20210307232148928](Tools.assets/image-20210307232148928.png)
+![image-20210307232148928](Images/Tools/image-20210307232148928.png)
 
 1. 用户在文档编辑器中编辑文档。
 2. 文档编辑器将所做的更改发送到文档编辑服务。
@@ -3164,13 +3164,13 @@ config = {
 
 “审阅” 选项允许您审阅文档、更改句子、短语和其他页面元素、更正拼写等，而无需实际编辑文档。所有更改都将被记录并显示给创建文档的用户。
 
-<img src="Tools.assets/review.png" alt="img"  />
+<img src="Images/Tools/review.png" alt="img"  />
 
 要启用“审阅”选项，必须将文档初始化的`permissions `部分中的`review`参数设置为`true`。文档状态栏将包含“审阅”菜单选项。
 
 如果`edit`参数设置为`true`，`review`参数也设置为`true`，则用户将能够编辑文档、接受或拒绝更改并切换到审阅模式。
 
-![Reviewing](Tools.assets/accept_reject.png)
+![Reviewing](Images/Tools/accept_reject.png)
 
 如果`edit`参数设置为`false`，而`review`参数设置为`true`，则文档将仅可用于审阅。
 
@@ -3459,7 +3459,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 | owner           | 定义文档所有者/创建者的名称。                                | string   | "John Smith"    |
 | sharingSettings | 显示有关允许与其他用户共享文档的设置的信息：<br>**isLink**--将用户图标更改为链接图标，**type**：boolean，**example**：false。<br>**permissions**--具有上述名称的用户的访问权限。可以是 **Full Access**, **Read Only** 或者 **Deny Access**。**type**：string，**example**："Full Access"。<br>**user**--将与之共享文档的用户的名称。**type**：string，**example**：”John Smith“。 | 对象数组 |                 |
 
-![img](Tools.assets/sharing_settings.png)
+![img](Images/Tools/sharing_settings.png)
 
 
 
@@ -3467,7 +3467,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 | -------- | ------------------ | ------ | -------------------- |
 | uploaded | 定义文档上传日期。 | string | "2010-07-07 3:46 PM" |
 
-![img](Tools.assets/info.png)
+![img](Images/Tools/info.png)
 
 
 
@@ -3511,7 +3511,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 > 如果`edit`设置为`true`，`comment`也设置为`true`，用户将能够编辑文档和注释。如果`edit`设置为`true`，`comment`设置为`false`，用户只能编辑，相应的评论功能只能查看，评论的添加和编辑将不可用。如果`edit`设置为`false`，而`comment`设置为`true`，则文档仅可用于注释。如果`edit`设置为`false`，`review`设置为`false`，`comment`设置为`true`，则不考虑`fillForms`值，表格填写不可用。
 
-![img](Tools.assets/comment.png)
+![img](Images/Tools/comment.png)
 
 
 
@@ -3522,7 +3522,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 | edit     | 定义文档是可以编辑还是只能查看。 如果将编辑权限设置为“ true”，则“文件”菜单将包含“编辑文档”菜单选项； 请注意，如果将编辑权限设置为“ false”，则将在查看器中打开该文档，即使将`mode`参数设置为`edit`，也将无法将其切换到编辑器。 默认值是true。 | boolean | true |
 | print    | 定义是否可以打印文档。 如果将打印许可设置为“ false”，则“文件”菜单中将不存在“打印”菜单选项。 默认值是true。 | boolean | true |
 
-![img](Tools.assets/permissions.png)
+![img](Images/Tools/permissions.png)
 
 
 
@@ -3532,7 +3532,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 > 如果将edit设置为“ true”或将review设置为“ true”，则不考虑fillForms值，并且可以进行表单填充。 如果将edit设置为“ false”，将review设置为“ false”，并且fillForms也设置为“ true”，则用户只能在文档中填写表单。 如果edit设置为“ false”且审阅设置为“ false”且fillForms设置为“ true”，则不考虑注释值，并且注释不可用。 当前仅表单填写模式仅适用于“文档编辑器”。
 
-![img](Tools.assets/fill-forms.png)
+![img](Images/Tools/fill-forms.png)
 
 
 
@@ -3551,7 +3551,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 > 如果将编辑设置为“ true”，并且审阅也设置为“ true”，则用户将能够编辑文档，接受/拒绝所做的更改并自己切换到审阅模式。 如果编辑设置为“ true”，而审阅设置为“ false”，则用户将只能进行编辑。 如果将编辑设置为“ false”，将审阅设置为“ true”，则该文档仅在审阅模式下可用。
 
-![img](Tools.assets/review.png)
+![img](Images/Tools/review.png)
 
 
 
@@ -3583,7 +3583,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 **下载失败**
 
-![Download failed](Tools.assets/e-download.png)
+![Download failed](Images/Tools/e-download.png)
 
 编辑器加载过程中将显示“下载失败”消息。
 
@@ -3595,7 +3595,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 **文件版本变更**
 
-![The file version has been changed](Tools.assets/e-key.png)
+![The file version has been changed](Images/Tools/e-key.png)
 
 编辑器加载“The file version has been changed. The page will be reloaded（文件版本已被更改”。页面将被重新加载）”的消息。
 

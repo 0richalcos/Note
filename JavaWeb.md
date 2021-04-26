@@ -49,7 +49,7 @@ Sun公司在其API中提供了一个servlet接口，用户若想要开发一个�
 
 访问顺序：
 
-<img src="JavaWeb.assets/image-20200602000053667.png" alt="image-20200602000053667" style="zoom:80%;" />
+<img src="Images/JavaWeb/image-20200602000053667.png" alt="image-20200602000053667" style="zoom:80%;" />
 
 
 
@@ -721,7 +721,7 @@ HTML注释：<!-- … -->, 不会消失，在页面中也能看到
 
 jsp其实是一种特殊的Servlet，当jsp页面第一次被访问时，服务器会把jsp编译成java文件（这个java其实是一个servlet类），然后再把java编译成.class，然后创建该类对象，最后调用它的service()方法，第二次请求同一jsp时，直接调用service()方法。
 
-<img src="JavaWeb.assets/image-20200603004751826.png" alt="image-20200603004751826" style="zoom:80%;" />
+<img src="Images/JavaWeb/image-20200603004751826.png" alt="image-20200603004751826" style="zoom:80%;" />
 
 
 
@@ -932,7 +932,7 @@ void setPath(java.lang.String uri) ：设置cookie的有效访问路径。有效
 
 **案例-显示用户上次访问时间**
 
-<img src="JavaWeb.assets/20180319145720896" alt="img" style="zoom:80%;" />
+<img src="Images/JavaWeb/20180319145720896" alt="img" style="zoom:80%;" />
 
 
 
@@ -989,11 +989,11 @@ void setMaxInactiveInterval(int interval) ： 设置 session 的有效时间，�
 
 创建 session 
 
-<img src="JavaWeb.assets/20180319164035404" alt="img" style="zoom:80%;" />
+<img src="Images/JavaWeb/20180319164035404" alt="img" style="zoom:80%;" />
 
 获取 session
 
-![img](JavaWeb.assets/2018031916405859)
+![img](Images/JavaWeb/2018031916405859)
 
 
 
@@ -1005,11 +1005,11 @@ void setMaxInactiveInterval(int interval) ： 设置 session 的有效时间，�
 
 在服务器端生成一个唯一的随机标识号，专业术语称为Token(令牌)，同时在当前用户的Session域中保存这个Token。然后将Token发送到客户端的Form表单中，在Form表单中使用隐藏域来存储这个Token，表单提交的时候连同这个Token一起提交到服务器端，然后在服务器端判断客户端提交上来的Token与服务器端生成的Token是否一致，如果不一致，那就是重复提交了，此时服务器端就可以不处理重复提交的表单。如果相同则处理表单提交，处理完后清除当前用户的Session域中存储的标识号。
 
-![img](JavaWeb.assets/20180320104403671)
+![img](Images/JavaWeb/20180320104403671)
 
-<img src="JavaWeb.assets/20180320111511238" alt="img" style="zoom:67%;" />
+<img src="Images/JavaWeb/20180320111511238" alt="img" style="zoom:67%;" />
 
-![img](JavaWeb.assets/20180320111547811)
+![img](Images/JavaWeb/20180320111547811)
 
 # 5、过滤器
 
@@ -1017,7 +1017,7 @@ void setMaxInactiveInterval(int interval) ： 设置 session 的有效时间，�
 
 当然，过滤器既可以拦截request，也可以拦截返回的response
 
-<img src="JavaWeb.assets/1693413-20190910104134290-43589150.png" alt="img" style="zoom:80%;" />
+<img src="Images/JavaWeb/1693413-20190910104134290-43589150.png" alt="img" style="zoom:80%;" />
 
 **过滤器的本质就是一个实现了 Filter 接口的 Java 类**
 
@@ -1150,7 +1150,7 @@ JSP中有两种包含：
 
 项目文件树：
 
-<img src="JavaWeb.assets/20181212200247237.png" alt="img" style="zoom:80%;float:left" />
+<img src="Images/JavaWeb/20181212200247237.png" alt="img" style="zoom:80%;float:left" />
 
 header.jsp文件中内容：
 
@@ -1206,11 +1206,11 @@ index.jsp文件中内容：
 
 页面显示结果：
 
-<img src="JavaWeb.assets/20181212200718992.png" alt="img" style="zoom:80%;float:left" />
+<img src="Images/JavaWeb/20181212200718992.png" alt="img" style="zoom:80%;float:left" />
 
 被编译成的java文件：
 
-<img src="JavaWeb.assets/20181212200734757.png" alt="img" style="zoom:80%;float:left" />
+<img src="Images/JavaWeb/20181212200734757.png" alt="img" style="zoom:80%;float:left" />
 
 
 
@@ -1228,11 +1228,11 @@ index.jsp文件中内容：
 
 页面显示结果：
 
-<img src="JavaWeb.assets/20181212200848170.png" alt="img" style="zoom:80%;float:left" />
+<img src="Images/JavaWeb/20181212200848170.png" alt="img" style="zoom:80%;float:left" />
 
 被编译成的java文件：
 
-<img src="JavaWeb.assets/20181212200858508.png" alt="img" style="zoom:80%;float:left" />
+<img src="Images/JavaWeb/20181212200858508.png" alt="img" style="zoom:80%;float:left" />
 
 说明：使用静态包含和动态包含最终的执行结果相同，但是实现过程不同，很明显编译成的java文件数目不同。
 

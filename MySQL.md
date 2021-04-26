@@ -88,7 +88,7 @@ RDBMS即关系数据库管理系统（Relational Database Management System）�
 
 MySQL为关系型数据库（Relational Database Management System），这种所谓的“关系型”可以理解为“表格”的概念，一个关系型数据库由一个或数个表格组成，如下图所示的一个表格：
 
-<img src="MySQL.asSETs/image-20200528004923567.png" alt="image-20200528004923567" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200528004923567.png" alt="image-20200528004923567" style="zoom:80%;" />
 
 - 表头（header）：每一列的名称；
 - 列（col）：具有相同数据类型的数据的集合；
@@ -206,7 +206,7 @@ MySQL 提供了多个不同的存储引擎，包括处理事务安全表的引�
 
 支持的存储引擎有 InnoDB、MyISAM、Memory、Merge、Archive、Federated、CSV、BLACKHOLE 等。可以使用SHOW ENGINES语句查看系统所支持的引擎类型，结果如图所示：
 
-<img src="MySQL.asSETs/image-20200528235456064.png" alt="image-20200528235456064" style="zoom: 67%;" />
+<img src="Images/MySQL/image-20200528235456064.png" alt="image-20200528235456064" style="zoom: 67%;" />
 
 Support 列的值表示某种引擎是否能使用，YES表示可以使用，NO表示不能使用，DEFAULT表示该引擎为当前默认的存储引擎。
 
@@ -1061,7 +1061,7 @@ JOIN按照功能大致分为如下三类：
 
 实例：
 
-<img src="MySQL.asSETs/image-20200531154733044.png" alt="image-20200531154733044" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531154733044.png" alt="image-20200531154733044" style="zoom:80%;" />
 
 
 
@@ -1069,11 +1069,11 @@ JOIN按照功能大致分为如下三类：
 
 INNER JOIN（也可以省略INNER 使用JOIN，效果一样）：
 
-<img src="MySQL.asSETs/image-20200531155043766.png" alt="image-20200531155043766" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531155043766.png" alt="image-20200531155043766" style="zoom:80%;" />
 
 等价于：
 
-<img src="MySQL.asSETs/image-20200531155105933.png" alt="image-20200531155105933" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531155105933.png" alt="image-20200531155105933" style="zoom:80%;" />
 
 
 
@@ -1081,7 +1081,7 @@ INNER JOIN（也可以省略INNER 使用JOIN，效果一样）：
 
 **LEFT JOIN**
 
-<img src="MySQL.asSETs/image-20200531155241133.png" alt="image-20200531155241133" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531155241133.png" alt="image-20200531155241133" style="zoom:80%;" />
 
 
 
@@ -1089,7 +1089,7 @@ INNER JOIN（也可以省略INNER 使用JOIN，效果一样）：
 
 **RIGHT  JOIN**
 
-<img src="MySQL.asSETs/image-20200531155309994.png" alt="image-20200531155309994" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531155309994.png" alt="image-20200531155309994" style="zoom:80%;" />
 
 
 
@@ -1153,7 +1153,7 @@ WITH  ROLLUP可以实现在分组数据基础上再进行相同的统计（SUM�
 
 例如我们将以上数据表按名字进行分组，再统计每个人登陆的次数：
 
-<img src="MySQL.asSETs/image-20200531161241249.png" alt="image-20200531161241249" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531161241249.png" alt="image-20200531161241249" style="zoom:80%;" />
 
 其中记录NULL表示所有人的登陆次数
 
@@ -1169,7 +1169,7 @@ SELECT COALESCE(a,b,c);
 
 以下实例中如果name为空我们使用“总数”代替：
 
-<img src="MySQL.asSETs/image-20200531161426907.png" alt="image-20200531161426907" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531161426907.png" alt="image-20200531161426907" style="zoom:80%;" />
 
 
 
@@ -1286,7 +1286,7 @@ MySQL使用SELECT命令及WHERE子句来读取数据表中的数据，但是当�
 
 实例：
 
-<img src="MySQL.asSETs/image-20200531163220282.png" alt="image-20200531163220282" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531163220282.png" alt="image-20200531163220282" style="zoom:80%;" />
 
 当输出列中有NULL值时可以使用函数IFNULL()或COALESCE()
 
@@ -1321,7 +1321,7 @@ CREATE VIEW <视图名> AS <SELECT语句>
 
 默认情况下，创建的视图和基本表的字段是一样的，也可以通过指定视图字段的名称来创建视图。
 
-<img src="MySQL.asSETs/image-20200531164924587.png" alt="image-20200531164924587" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531164924587.png" alt="image-20200531164924587" style="zoom:80%;" />
 
 
 
@@ -1563,15 +1563,15 @@ SET 变量名 = 表达式值
 
 在MySQL客户端使用用户变量:
 
-<img src="MySQL.asSETs/image-20200531171439487.png" alt="image-20200531171439487" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531171439487.png" alt="image-20200531171439487" style="zoom:80%;" />
 
 在存储过程中使用用户变量:
 
-<img src="MySQL.asSETs/image-20200531171451044.png" alt="image-20200531171451044" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531171451044.png" alt="image-20200531171451044" style="zoom:80%;" />
 
 在存储过程间传递全局范围的用户变量:
 
-<img src="MySQL.asSETs/image-20200531171500385.png" alt="image-20200531171500385" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531171500385.png" alt="image-20200531171500385" style="zoom:80%;" />
 
 注意:
 
@@ -1602,7 +1602,7 @@ SHOWCREATE PROCEDURE 数据库.存储过程名;
 
 内部的变量在其作用域范围内享有更高的优先权，当执行到 end。变量时，内部变量消失，此时已经在其作用域外，变量不再可见了，应为在存储过程外再也不能找到这个申明的变量，但是你可以通过 out 参数或者将其值指派给会话变量来保存其值。
 
-<img src="MySQL.asSETs/image-20200531195043445.png" alt="image-20200531195043445" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531195043445.png" alt="image-20200531195043445" style="zoom:80%;" />
 
 
 
@@ -1610,13 +1610,13 @@ SHOWCREATE PROCEDURE 数据库.存储过程名;
 
 **if-then-else**
 
-<img src="MySQL.asSETs/image-20200531195130654.png" alt="image-20200531195130654" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531195130654.png" alt="image-20200531195130654" style="zoom:80%;" />
 
 
 
 **case语句**
 
-<img src="MySQL.asSETs/image-20200531195143678.png" alt="image-20200531195143678" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531195143678.png" alt="image-20200531195143678" style="zoom:80%;" />
 
 
 
@@ -1624,7 +1624,7 @@ SHOWCREATE PROCEDURE 数据库.存储过程名;
 
 **while ···· end while**
 
-<img src="MySQL.asSETs/image-20200531195208679.png" alt="image-20200531195208679" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531195208679.png" alt="image-20200531195208679" style="zoom:80%;" />
 
 
 
@@ -1632,7 +1632,7 @@ SHOWCREATE PROCEDURE 数据库.存储过程名;
 
 它在执行操作后检查结果，而 while 则是执行前进行检查。
 
-<img src="MySQL.asSETs/image-20200531195231262.png" alt="image-20200531195231262" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531195231262.png" alt="image-20200531195231262" style="zoom:80%;" />
 
 
 
@@ -1640,7 +1640,7 @@ SHOWCREATE PROCEDURE 数据库.存储过程名;
 
 loop 循环不需要初始条件，这点和 while 循环相似，同时和 repeat 循环一样不需要结束条件, leave 语句的意义是离开循环。
 
-<img src="MySQL.asSETs/image-20200531195245319.png" alt="image-20200531195245319" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531195245319.png" alt="image-20200531195245319" style="zoom:80%;" />
 
 
 
@@ -1654,7 +1654,7 @@ loop 循环不需要初始条件，这点和 while 循环相似，同时和 repe
 
 ITERATE 通过引用复合语句的标号,来从新开始复合语句:
 
-<img src="MySQL.asSETs/image-20200531195350919.png" alt="image-20200531195350919" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531195350919.png" alt="image-20200531195350919" style="zoom:80%;" />
 
 # 10、触发器
 
@@ -1815,7 +1815,7 @@ RETURNS <类型>
 
 若要查看数据库中存在哪些自定义函数，可以使用 SHOW FUNCTION STATUS 语句；若要查看数据库中某个具体的自定义函数，可以使用 SHOW CREATE FUNCTION<函数名> 语句，其中<函数名>用于指定该自定义函数的名称。
 
-<img src="MySQL.asSETs/image-20200531205053160.png" alt="image-20200531205053160" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531205053160.png" alt="image-20200531205053160" style="zoom:80%;" />
 
 成功创建自定义函数后，就可以如同调用系统内置函数一样，使用关键字 SELECT 调用用户自定义的函数，语法格式为：
 
@@ -1876,7 +1876,7 @@ MYSQL事务处理主要有两种方法：
 
 实例：
 
-<img src="MySQL.asSETs/image-20200531205816289.png" alt="image-20200531205816289" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531205816289.png" alt="image-20200531205816289" style="zoom:80%;" />
 
 
 
@@ -2191,7 +2191,7 @@ MySQL临时表在需要保存一些临时数据时是非常有用的。临时表
 
 实例：
 
-<img src="MySQL.asSETs/image-20200531210628430.png" alt="image-20200531210628430" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531210628430.png" alt="image-20200531210628430" style="zoom:80%;" />
 
 当使用SHOW TABLES命令显示数据表列表时，将无法看到SalesSummary表。
 
@@ -2203,7 +2203,7 @@ MySQL临时表在需要保存一些临时数据时是非常有用的。临时表
 
 默认情况下，在断开与数据库的连接后，临时表就会自动销毁，当然也可以在当前MySQL会话使用DROP TABLE命令来手动删除临时表。
 
-<img src="MySQL.asSETs/image-20200531210706162.png" alt="image-20200531210706162" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531210706162.png" alt="image-20200531210706162" style="zoom:80%;" />
 
 # 15、序列的使用
 
@@ -2221,7 +2221,7 @@ MySQL中最简单使用序列的方法就是使用MySQL auto_increment来定义�
 
 如果删除了数据表中的多条记录，并希望对剩下数据的AUTO_INCREMENT列进行重新排列，那么可以通过删除自增的列，然后重新添加来实现。不过该操作要非常小心，如果在删除的同时又有新纪录添加，有可能会出现数据混乱，操作如下所示：
 
-<img src="MySQL.asSETs/image-20200531210829143.png" alt="image-20200531210829143" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531210829143.png" alt="image-20200531210829143" style="zoom:80%;" />
 
 
 
@@ -2229,7 +2229,7 @@ MySQL中最简单使用序列的方法就是使用MySQL auto_increment来定义�
 
 一般情况下序列的开始值为1，但如果需要指定一个开始值100，那么可以通过以下语句来实现：
 
-<img src="MySQL.asSETs/image-20200531210858494.png" alt="image-20200531210858494" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531210858494.png" alt="image-20200531210858494" style="zoom:80%;" />
 
 或者也可以在表创建成功后，通过以下语句来实现：
 
@@ -2263,7 +2263,7 @@ INSERT IGNORE INTO当插入数据时，在设置了记录的唯一性后，如�
 
 以下将统计表中first_name和last_name的重复记录数：
 
-<img src="MySQL.asSETs/image-20200531211027701.png" alt="image-20200531211027701" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531211027701.png" alt="image-20200531211027701" style="zoom:80%;" />
 
 以上查询语句将返回persion_tbl表中重复的记录数。一般情况下，查询重复的值，请执行以下操作：
 
@@ -2278,11 +2278,11 @@ INSERT IGNORE INTO当插入数据时，在设置了记录的唯一性后，如�
 
 如果需要读取不重复的数据可以在SELECT语句中使用DISTINCT关键字来过滤重复数据
 
-<img src="MySQL.asSETs/image-20200531211202605.png" alt="image-20200531211202605" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531211202605.png" alt="image-20200531211202605" style="zoom:80%;" />
 
 也可以使用GROUP BY来读取数据表中不重复的数据
 
-<img src="MySQL.asSETs/image-20200531211213766.png" alt="image-20200531211213766" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531211213766.png" alt="image-20200531211213766" style="zoom:80%;" />
 
 
 
@@ -2290,11 +2290,11 @@ INSERT IGNORE INTO当插入数据时，在设置了记录的唯一性后，如�
 
 如果想删除数据表中的重复数据，可以使用以下SQL语句：
 
-<img src="MySQL.asSETs/image-20200531211248727.png" alt="image-20200531211248727" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531211248727.png" alt="image-20200531211248727" style="zoom:80%;" />
 
 当然也可以在数据表中添加INDEX（索引）和PRIMARY KEY（主键）这种简单的方法来删除表中的重复记录，方法如下：
 
-<img src="MySQL.asSETs/image-20200531211258198.png" alt="image-20200531211258198" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200531211258198.png" alt="image-20200531211258198" style="zoom:80%;" />
 
 # 17、函数
 
@@ -2310,7 +2310,7 @@ SELECT DATEDIFF(DATE_FORMAT(NOW(), '%Y-%m-%d'),DATE_FORMAT('2018-09-10','%Y-%m-%
 
 结果：
 
-<img src="MySQL.assets/20180917110456408370.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
+<img src="Images/MySQL/20180917110456408370.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
 
 ```MYSQL
 SELECT TIMESTAMPDIFF(DAY,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
@@ -2318,7 +2318,7 @@ SELECT TIMESTAMPDIFF(DAY,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
 
  结果：
 
-<img src="MySQL.assets/20180917110456532385.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
+<img src="Images/MySQL/20180917110456532385.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
 
 
 
@@ -2330,7 +2330,7 @@ SELECT TIMESTAMPDIFF(YEAR,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
 
 结果：
 
-<img src="MySQL.assets/20180917110456254083.png" alt="技术分享图片" style="zoom:80%;float:left" />
+<img src="Images/MySQL/20180917110456254083.png" alt="技术分享图片" style="zoom:80%;float:left" />
 
 
 
@@ -2342,7 +2342,7 @@ SELECT TIMESTAMPDIFF(MONTH,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
 
 结果：
 
-<img src="MySQL.assets/20180917110456254083.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
+<img src="Images/MySQL/20180917110456254083.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
 
 
 
@@ -2354,7 +2354,7 @@ SELECT NOW(),CURDATE(),CURTIME();
 
 结果类似：
 
-<img src="MySQL.assets/755765-20190227093739650-528895218.png" alt="img" style="zoom:80%;float:left" />
+<img src="Images/MySQL/755765-20190227093739650-528895218.png" alt="img" style="zoom:80%;float:left" />
 
 
 
@@ -2368,7 +2368,7 @@ SELECT DATE_SUB(CURDATE(),INTERVAL 1 DAY);
 
 当前日期2018-09-17，结果：
 
-<img src="MySQL.assets/20180917110455670136.png" alt="技术分享图片" style="zoom:80%;float:left" />
+<img src="Images/MySQL/20180917110455670136.png" alt="技术分享图片" style="zoom:80%;float:left" />
 
 
 
@@ -2380,7 +2380,7 @@ SELECT DATE_SUB(CURDATE(),INTERVAL -1 DAY);
 
 当前日期2018-09-17，结果：
 
-<img src="MySQL.assets/20180917110455998240.png" alt="技术分享图片" style="zoom:80%;float:left" />
+<img src="Images/MySQL/20180917110455998240.png" alt="技术分享图片" style="zoom:80%;float:left" />
 
 
 
@@ -2524,7 +2524,7 @@ DriverManager类的是管理一组 JDBC 驱动程序的基本服务。作用有�
 
 URL用于标识数据库的位置，程序员通过URL地址告诉JDBC程序连接哪个数据库，URL的写法为：
 
-<img src="MySQL.assets/image-20200603120231842.png" alt="image-20200603120231842" style="zoom:80%;" />
+<img src="Images/MySQL/image-20200603120231842.png" alt="image-20200603120231842" style="zoom:80%;" />
 
 
 
@@ -2994,7 +2994,7 @@ vim /etc/mysql/mysql.conf.d/mysqld.cnf
 
 注释掉 `bind-address`：
 
-![image-20210420120254515](MySQL.assets/image-20210420120254515.png)
+![image-20210420120254515](Images/MySQL/image-20210420120254515.png)
 
 测试远程访问
 
@@ -3024,7 +3024,7 @@ vim /etc/mysql/mysql.conf.d/mysqld.cnf
 
 4. 如果看到没有删除的文件记得手动删除：
 
-	![image-20210420112319964](MySQL.assets/image-20210420112319964.png)
+	![image-20210420112319964](Images/MySQL/image-20210420112319964.png)
 
 5. 清除残留数据：
 
@@ -3040,5 +3040,5 @@ vim /etc/mysql/mysql.conf.d/mysqld.cnf
 
 7. 删除 MySQL 的数据库信息，位置：`/var/lib/mysql/`：
 
-	![image-20210420112705768](MySQL.assets/image-20210420112705768.png)
+	![image-20210420112705768](Images/MySQL/image-20210420112705768.png)
 
