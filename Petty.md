@@ -98,7 +98,7 @@ URLEncoder.encode(filename, "UTF-8")
 
 
 
-## 4、java 将多个文件压缩打包成zip下载
+## 4、Java 将多个文件压缩打包成zip下载
 
 步骤如下：
 
@@ -249,5 +249,71 @@ public class ChartController {
     let courseAvgs = [[${courseAvgs}]]
     console.log(courseAvgs)
 </script>
+```
+
+
+
+## 7、JS 判断 NaN 和保留两位小数
+
+**window.isNaN()**
+
+```javascript
+(1)  window.isNaN(NaN)   // true
+(2)  window.isNaN(123)   // false
+//注意: window.isNaN 只对数值有效，如果传入其他值，会被先转成数值。比如，传入字符串的时候，字符串会被先转成NaN，所以最后返回true，这点要特别引起注意。也就是说，isNaN为true的值，有可能不是NaN，而是一个字符串。(不是数值会先调用 Number 方法转化为数值)
+
+window.isNaN('Hello')    // true
+//相当于
+window.isNaN(Number('Hello'))   // true
+```
+
+
+
+**先判断是不是数字,然后再使用 window.isNaN()**
+
+```javascript
+function judgeNaN (value) {
+	return (typeof value) === 'number' && window.isNaN(value);
+}
+
+judgeNaN(1)             //false
+judgeNaN(NaN)          //true
+judgeNaN("我是字符串")	//false
+judgeNaN([])           //false
+judgeNaN({})           //false
+```
+
+
+
+**Number.isNaN(value) ( 1. 首先判断 value 类型是不是 number; 2. 然后判断 value 是不是 NaN)**
+
+```javascript
+Number.isNaN(NaN);                 // true
+Number.isNaN(Number.NaN);          // true
+Number.isNaN(0/0);                 // true
+
+// 下面这些使用 window.isNaN() 将会返回 true ,Number.isNaN() 返回 false,
+// 因为 window.isNaN 会先把参数转化为数字类型,再判断是不是 NaN; 而 Number.isNaN 会先判断参数是不是数字类型,不是就返回 false, 是数字类型再进入判断是不是 NaN.
+Number.isNaN('NaN');                      // false
+Number.isNaN(undefined);                  // false
+Number.isNaN({});                         // false
+Number.isNaN('blabla');                   // false
+
+// 下面这些 window.isNaN() 和 Number.isNaN() 都返回 false
+Number.isNaN(true);
+Number.isNaN(null);
+Number.isNaN(37);
+Number.isNaN('37');
+Number.isNaN('37.37');
+Number.isNaN('');
+Number.isNaN(' ')
+```
+
+
+
+**两数字相除 保留两位小数**
+
+```javascript
+$('#aa').value=(a/b).toFixed(2);
 ```
 

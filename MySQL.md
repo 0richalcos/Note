@@ -2451,6 +2451,39 @@ SUBSTRING(string FROM position FOR length);
 
 返回连接参数产生的字符串，一个或多个待拼接的内容，任意一个为NULL则返回值为NULL。
 
+
+
+## 17.3、数字相关
+
+### 17.3.1、保留两位小数
+
+ROUND(x,d)，四舍五入。ROUND(x) ，其实就是ROUND(x,0)，也就是默认d为0。
+
+```sql
+select round(110.35,1);
+# 110.4
+```
+
+
+
+TRUNCATE(x,d)，直接截取需要保留的小数位 。
+
+```sql
+select TRUNCATE(110.35,1);
+# 110.3
+```
+
+
+
+FORMAT（x,d），四舍五入，保留d位小数，返回string类型 
+
+```sql
+select FORMAT(110.35,1);
+# 110.4
+```
+
+
+
 # 18、JDBC
 
 ## 18.1、第一个JDBC程序
