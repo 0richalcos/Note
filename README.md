@@ -6,5 +6,5 @@
 
 ### 前端
 
-[Bootstrap Table](Markdown/Tool.md)
+- [Bootstrap Table](https://github.com/0richalcos/Note/blob/main/Markdown/Bootstrap Table.md)
 
