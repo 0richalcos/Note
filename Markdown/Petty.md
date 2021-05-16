@@ -221,7 +221,7 @@ DAO：data access object 数据访问对象
 
 简单的关系图：
 
-<img src="Images/Petty/20180717104224284" alt="这里写图片描述"  />
+<img src="../Images/Petty/20180717104224284" alt="这里写图片描述"  />
 
 
 
@@ -315,5 +315,197 @@ Number.isNaN(' ')
 
 ```javascript
 $('#aa').value=(a/b).toFixed(2);
+```
+
+
+
+## 8、JS 图片预览
+
+```html
+<div>
+    <img height="100" width="100" src="https://cdn.pixabay.com/photo/2018/08/14/13/23/ocean-3605547_960_720.jpg" class="pic"/>
+    <img height="100" width="100" src="https://cdn.pixabay.com/photo/2011/12/14/12/21/orion-nebula-11107_960_720.jpg" class="pic"/>
+    <img height="100" width="100" src="https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_960_720.jpg" class="pic"/>
+</div>
+<div id="outerdiv" style="position:fixed;top:0;left:0;background:rgba(0,0,0,0.7);z-index:2;width:100%;height:100%;display:none;">
+    <div id="innerdiv" style="position:absolute;">
+        <img id="bigimg" style="border:5px solid #fff;" src="" />
+     </div>
+</div>
+```
+
+```html
+<script src="./jquery.min.js"></script>
+<script type="text/javascript">	
+	$(function(){  
+        $(".pic").click(function(){  
+            var _this = $(this);//将当前的pimg元素作为_this传入函数  
+            imgShow("#outerdiv", "#innerdiv", "#bigimg", _this);  
+        });  
+    });  
+ 
+    function imgShow(outerdiv, innerdiv, bigimg, _this){  
+        var src = _this.attr("src");//获取当前点击的pimg元素中的src属性  
+        $(bigimg).attr("src", src);//设置#bigimg元素的src属性  
+      
+        /*获取当前点击图片的真实大小，并显示弹出层及大图*/  
+        $("<img/>").attr("src", src).load(function(){  
+            var windowW = $(window).width();//获取当前窗口宽度  
+            var windowH = $(window).height();//获取当前窗口高度  
+            var realWidth = this.width;//获取图片真实宽度  
+            var realHeight = this.height;//获取图片真实高度  
+            var imgWidth, imgHeight;  
+            var scale = 0.8;//缩放尺寸，当图片真实宽度和高度大于窗口宽度和高度时进行缩放  
+              
+            if(realHeight>windowH*scale) {//判断图片高度  
+                imgHeight = windowH*scale;//如大于窗口高度，图片高度进行缩放  
+                imgWidth = imgHeight/realHeight*realWidth;//等比例缩放宽度  
+                if(imgWidth>windowW*scale) {//如宽度扔大于窗口宽度  
+                    imgWidth = windowW*scale;//再对宽度进行缩放  
+                }  
+            } else if(realWidth>windowW*scale) {//如图片高度合适，判断图片宽度  
+                imgWidth = windowW*scale;//如大于窗口宽度，图片宽度进行缩放  
+                imgHeight = imgWidth/realWidth*realHeight;//等比例缩放高度  
+            } else {//如果图片真实高度和宽度都符合要求，高宽不变  
+                imgWidth = realWidth;  
+                imgHeight = realHeight;  
+            }  
+            $(bigimg).css("width",imgWidth);//以最终的宽度对图片缩放  
+              
+            var w = (windowW-imgWidth)/2;//计算图片与窗口左边距  
+            var h = (windowH-imgHeight)/2;//计算图片与窗口上边距  
+            $(innerdiv).css({"top":h, "left":w});//设置#innerdiv的top和left属性  
+            $(outerdiv).fadeIn("fast");//淡入显示#outerdiv及.pimg  
+        });  
+          
+        $(outerdiv).click(function(){//再次点击淡出消失弹出层  
+            $(this).fadeOut("fast");  
+        });  
+    }	
+</script>
+```
+
+
+
+## 9、Ajax 上传/下载文件
+
+**上传**
+
+HTML 上传按钮：
+
+```html
+<div class="modal-body">
+    <div class="form-group">
+        <label for="upload">选择文件</label><span>&nbsp;&nbsp;*.xlsx&nbsp;&nbsp;*.docx&nbsp;&nbsp;*.pdf</span>
+        <input type="file" class="form-control-file" id="upload">
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+    <button type="button" class="btn btn-primary" onclick="imp()">导入</button>
+</div>
+```
+
+Ajax 上传：
+
+```javascript
+function imp() {
+    let name = $('#upload').val();
+    if (name != "") {
+        let formData = new FormData();
+        formData.append("file", $("#upload")[0].files[0])
+        formData.append("name", name);
+        $.ajax({
+            url: '/import',
+            type: 'POST',
+            data: formData,
+            // 告诉jQuery不要去处理发送的数据
+            processData: false,
+            // 告诉jQuery不要设置Content-Type请求头
+            contentType: false,
+            success: function (response) {
+                $('#table').bootstrapTable('refresh');
+                $('#imp').modal('hide');
+                $('#upload').val('');
+                alert("导入成功 ^ ^");
+            }
+        })
+    } else {
+        alert("请选择导入文件！")
+    }
+}
+```
+
+Controller：
+
+```java
+/**
+ * 导入商品
+ * @param file 文件
+ * @return 结果
+ */
+@PostMapping("/import")
+public String importProduct(MultipartFile file){
+    return productService.importProduct(file);
+}
+```
+
+通过`file.getOriginalFilename()`可以获取到文件名，通过`file.getInputStream()`可以获取文件流。
+
+
+
+**下载（Excel）**
+
+Controller：
+
+```java
+/**
+  * 导出商品
+  *
+  * @param response
+  */
+@GetMapping("/export")
+public void export(HttpServletResponse response) {
+    response.setContentType("application/vnd.ms-excel");
+    response.setCharacterEncoding("utf-8");
+    try {
+        // 这里URLEncoder.encode可以防止中文乱码 当然和easyExcel没有关系
+        String fileName = URLEncoder.encode("商品", "UTF-8").replaceAll("\\+", "%20");
+        response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+    } catch (UnsupportedEncodingException e) {
+        e.printStackTrace();
+    }
+    productService.export(response);
+}
+```
+
+通过`response.getOutputStream()`可以获取输出流。
+
+Ajax 下载:
+
+jQuery 的 ajax 函数的返回类型只有 xml、text、json、html 等类型，没有“流”类型，所以要实现 ajax 下载，不能够使用相应的 ajax 函数进行文件下载。但可以用 js 生成一个 form，用这个 form 提交参数，并返回“流”类型的数据。在实现过程中，页面也没有进行刷新。
+
+```javascript
+// 导出
+function exp() {
+    $.ajax({
+        url: '/export',
+        type: 'GET',
+        success: function (data) {
+            let form = $("<form>");//定义一个form表单
+            form.attr("style", "display:none");
+            form.attr("target", "");
+            form.attr("method", "GET");
+            form.attr("action", "/export");
+            let input1 = $("<input>");
+            input1.attr("type", "hidden");
+            input1.attr("name", "exportData");
+            input1.attr("value", (new Date()).getMilliseconds());
+            $("body").append(form);//将表单放置在web中
+            form.append(input1);
+            form.submit();//表单提交
+        }
+    })
+}
 ```
 

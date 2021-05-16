@@ -63,7 +63,7 @@ all in one 的架构方式，我们把所有的功能单元放在一个应用里
 1. 节省了调用资源。
 2. 每个功能元素的服务都是一个可替换的、可独立升级的软件代码。
 
-<img src="Images/SpringBoot/image-20200402163100834.png" alt="image-20200402163100834" style="zoom: 50%;" />
+<img src="../Images/SpringBoot/image-20200402163100834.png" alt="image-20200402163100834" style="zoom: 50%;" />
 
 
 
@@ -290,7 +290,7 @@ pets:
 
 但是Properties赋值体验并不好，因为我们需要为每一个属性单独注解赋值，比较麻烦；两种方法的对比如下：
 
-<img src="Images/SpringBoot/image-20200407003311844.png" alt="image-20200407003311844" style="zoom:67%;" />
+<img src="../Images/SpringBoot/image-20200407003311844.png" alt="image-20200407003311844" style="zoom:67%;" />
 
 - ConfigurationProperties只需要写一次即可，Value则需要每个字段都添加。
 - 松散绑定：比如yaml中写的是last-name，那么这个适合lastName是一样的，-后面跟着的字母默认是大写的。这就是松散绑定。
@@ -437,7 +437,7 @@ spring:
 
 其实jsp就是一个模板引擎，还有用的比较多的freemarker，包括SpringBoot推荐的thymeleaf，模板引擎有非常多，但是他们的思想都是一样的：
 
-<img src="Images/SpringBoot/image-20200412001455467.png" alt="image-20200412001455467" style="zoom: 67%;" />
+<img src="../Images/SpringBoot/image-20200412001455467.png" alt="image-20200412001455467" style="zoom: 67%;" />
 
 先写一个页面模板，比如有的值是动态的，用一些表达式来接收，然后将模板和所需要展示的数据交给模板引擎，模板引擎按照这个数据把表达式解析、填充到指定的位置，然后把这个数据最终生成一个我们需要的内容写出去。不管jsp还是其他模板引擎，都是这个思想。
 
@@ -1687,7 +1687,7 @@ void deleteByActivityId(Integer activityId);
 **批量保存跟删除**
 
 批量保存和删除可直接传参调用，传入集合对象：
-<img src="Images/SpringBoot/201905182225326.png" alt="批量保存和删除" style="zoom:80%;" />
+<img src="../Images/SpringBoot/201905182225326.png" alt="批量保存和删除" style="zoom:80%;" />
 
 也可在repository中自己实现批量删除：
 
@@ -1893,9 +1893,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 以下是数据库中的两张表，用户表和授权表：
 
-<img src="Images/SpringBoot/image-20200705004137196.png" alt="image-20200705004137196" style="zoom:67%;" />
+<img src="../Images/SpringBoot/image-20200705004137196.png" alt="image-20200705004137196" style="zoom:67%;" />
 
-<img src="Images/SpringBoot/image-20200705010652074.png" alt="image-20200705010652074" style="zoom:67%;" />
+<img src="../Images/SpringBoot/image-20200705010652074.png" alt="image-20200705010652074" style="zoom:67%;" />
 
 Security配置文件：
 

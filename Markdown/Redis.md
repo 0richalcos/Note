@@ -4,7 +4,7 @@
 
 **单机 MySQL 年代**
 
-<img src="Images/Redis/image-20200815224858013.png" alt="image-20200815224858013" style="zoom: 67%;float:left" />
+<img src="../Images/Redis/image-20200815224858013.png" alt="image-20200815224858013" style="zoom: 67%;float:left" />
 
 DAL 是数据访问层的英文缩写，即为数据访问层（Data Access Layer）。其功能主要是负责数据库的访问。简单地说就是实现对数据表的 Select（查询）、Insert（插入）、Update（更新）、Delete（删除）等操作。
 
@@ -22,7 +22,7 @@ DAL 是数据访问层的英文缩写，即为数据访问层（Data Access Laye
 
 网站 80% 的情况都是在读，每次都要去查询数据就十分麻烦，为了减轻数据库的压力，可以使用缓存来保证效率。
 
-<img src="Images/Redis/image-20200815225617475.png" alt="image-20200815225617475" style="zoom:67%;float:left" />
+<img src="../Images/Redis/image-20200815225617475.png" alt="image-20200815225617475" style="zoom:67%;float:left" />
 
 
 
@@ -32,13 +32,13 @@ DAL 是数据访问层的英文缩写，即为数据访问层（Data Access Laye
 
 转战 InnoDB：行锁（如果使用针对 InnoDB 的表使用行锁，被锁定字段不是主键，也没有针对它建立索引的话，行锁锁定的也是整张表）
 
-<img src="Images/Redis/image-20200815230653794.png" alt="image-20200815230653794" style="zoom:80%;float:left" />
+<img src="../Images/Redis/image-20200815230653794.png" alt="image-20200815230653794" style="zoom:80%;float:left" />
 
 
 
 **现今（大数据时代）**
 
-<img src="Images/Redis/image-20200815235909929.png" alt="image-20200815235909929" style="zoom: 80%;float:left" />
+<img src="../Images/Redis/image-20200815235909929.png" alt="image-20200815235909929" style="zoom: 80%;float:left" />
 
 现金如果涉及大数据量的需求，比如一些商品抢购的情景，或者是主页访问量瞬间较大的时候，单一使用数据库来保存数据的系统会因为面向磁盘，磁盘读/写速度比较慢的问题而存在严重的性能弊端，一瞬间成千上万的请求到来，需要系统在极短的时间内完成成千上万次的读/写操作，这个时候往往不是数据库能够承受的，极其容易造成数据库系统瘫痪，最终出现服务宕机这种严重的问题。为了克服上述的问题，项目通常会引入 NoSQL 技术。
 
@@ -1250,10 +1250,10 @@ Spring Boot 操作数据：Spring Date JPA JDBC MongoDB Redis
 
 	> RedisTemplate使用的是 JdkSerializationRedisSerializer，存入数据会将数据先序列化成字节数组然后在存入Redis 数据库。这个时候打开Redis查看的时候，你会看到你的数据不是以可读的形式展现的，而是以字节数组显示，类似下面：
 	>
-	> <img src="Images/Redis/20180311192010923" alt="img" style="zoom:80%;" /> 
+	> <img src="../Images/Redis/20180311192010923" alt="img" style="zoom:80%;" /> 
 	>
 	> ==当然从 Redis 获取数据的时候也会默认将数据当做字节数组转化==，这样就会导致一个问题，当需要获取的数据不是以字节数组存在 redis 当中而是正常的可读的字符串的时候，比如说下面这种形式的数据：
-	> <img src="Images/Redis/20180311192129306" alt="img" style="zoom:80%;" />
+	> <img src="../Images/Redis/20180311192129306" alt="img" style="zoom:80%;" />
 	>
 	> RedisTemplate 就无法获取导数据，这个时候获取到的值就是 NULL。此时 StringRedisTempate 就派上了用场， StringRedisTemplate 使用的是StringRedisSerializer，当Redis当中的数据值是以可读的形式显示出来的时候，只能使用 StringRedisTemplate才能获取到里面的数据。
 

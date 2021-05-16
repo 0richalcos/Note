@@ -28,7 +28,7 @@ Shiro 是 apache 旗下一个功能强大且易于使用的 Java 安全框架，
 
 # 3、Shiro 的核心架构
 
-<img src="Images/Shiro/ShiroArchitecture.png" alt="img"  />
+<img src="../Images/Shiro/ShiroArchitecture.png" alt="img"  />
 
 **Subject**
 
@@ -128,7 +128,7 @@ Subject：主体，访问系统的用户，主体可以是用户、程序等，�
 
 2. 引入 Shiro 配置文件并加入以下内容：
 
-	<img src="Images/Shiro/image-20201102174130104.png" alt="image-20201102174130104" style="float:left"  />
+	<img src="../Images/Shiro/image-20201102174130104.png" alt="image-20201102174130104" style="float:left"  />
 
 	```ini
 	[users]
@@ -181,7 +181,7 @@ Subject：主体，访问系统的用户，主体可以是用户、程序等，�
 
 Shiro 中提供了许多Realm：
 
-<img src="Images/Shiro\image-20200521212728541.png?lastModify=1616688004" alt="image-20200521212728541"  />
+<img src="../Images/Shiro\image-20200521212728541.png?lastModify=1616688004" alt="image-20200521212728541"  />
 
 在源码中认证使用的是`SimpleAccountRealm`：
 
@@ -421,7 +421,7 @@ public class SimpleAccountRealm extends AuthorizingRealm {
 
 **授权流程**
 
-<img src="Images/Shiro/image-20201103152946237.png" alt="image-20201103152946237"  />
+<img src="../Images/Shiro/image-20201103152946237.png" alt="image-20201103152946237"  />
 
 
 
@@ -614,7 +614,7 @@ public class SimpleAccountRealm extends AuthorizingRealm {
 
 1. 创建简单的 maven 项目
 
-	<img src="Images/Shiro/image-20201104101331470.png" alt="image-20201104101331470" style="float:left" />
+	<img src="../Images/Shiro/image-20201104101331470.png" alt="image-20201104101331470" style="float:left" />
 
 2. 引入 JSP 和 Shiro 依赖
 
@@ -658,7 +658,7 @@ public class SimpleAccountRealm extends AuthorizingRealm {
 
 整合思路：
 
-<img src="Images/Shiro/image-20200525185630463.png" alt="image-20200525185630463" style="zoom:80%;" />
+<img src="../Images/Shiro/image-20200525185630463.png" alt="image-20200525185630463" style="zoom:80%;" />
 
 1. 创建 Shiro 配置类
 
@@ -912,7 +912,7 @@ public class SimpleAccountRealm extends AuthorizingRealm {
 	SET FOREIGN_KEY_CHECKS = 1;
 	```
 
-	<img src="Images/Shiro/image-20201111000526097.png" alt="image-20201111000526097"  />
+	<img src="../Images/Shiro/image-20201111000526097.png" alt="image-20201111000526097"  />
 
 4. 实体类 User.java
 
@@ -1514,7 +1514,7 @@ private void applyUnauthorizedUrlIfNecessary(Filter filter) {
 
 `applyUnauthorizedUrlIfNecessary`就是设置无权限访问的url的方法。其中有一行很重要`filter instanceof AuthorizationFilter` 这个过滤器必须要是`AuthorizationFilter`过滤器才行，点进`AuthorizationFilter`：
 
-<img src="Images/Shiro/image-20210409113723108.png" alt="image-20210409113723108"  />
+<img src="../Images/Shiro/image-20210409113723108.png" alt="image-20210409113723108"  />
 
 是个抽象类，那么找其实现类：
 

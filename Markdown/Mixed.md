@@ -67,7 +67,7 @@ cmd命令窗口输入netstat –ano，回车。
 2. 取消 “要使用本计算机，用户必须输入用户名和密码”，点确定 。
 3. 会弹出一个窗口，在窗口中输入 微软账户的用户名和密码，点确定。
 
-<img src="Images/Mixed/image-20210513005900008.png" alt="image-20210513005900008" style="zoom: 67%;" />
+<img src="../Images/Mixed/image-20210513005900008.png" alt="image-20210513005900008" style="zoom: 67%;" />
 
 
 
@@ -136,13 +136,13 @@ PS：上边的web-app标签中有一个**metadata-complete="true"**，这是个�
 
 首先在IDEA中显示内存：在窗口下方右键，选中 Memory Indicator
 
-<img src="Images/Mixed/image-20200428211739758.png" alt="image-20200428211739758" style="zoom:67%;float:left" />
+<img src="../Images/Mixed/image-20200428211739758.png" alt="image-20200428211739758" style="zoom:67%;float:left" />
 
 帮助 => 编辑自定义VM选项。
 
 在弹出来的文件中修改Xms和Xmx：
 
-<img src="Images/Mixed/image-20200428212406493.png" alt="image-20200428212406493" style="zoom:67%;float:left" />
+<img src="../Images/Mixed/image-20200428212406493.png" alt="image-20200428212406493" style="zoom:67%;float:left" />
 
 
 
@@ -197,21 +197,21 @@ IDEA：当我们修改了Java类后，IDEA默认是不自动编译的，而sprin
 
 然后在Java => 已安装的JRE中，修改缺省VM参数，添加Xms和Xmx，中间用空格隔开。
 
-<img src="Images/Mixed/image-20200428213849950.png" alt="image-20200428213849950" style="zoom: 50%;float:left" />
+<img src="../Images/Mixed/image-20200428213849950.png" alt="image-20200428213849950" style="zoom: 50%;float:left" />
 
 
 
 ## 2、汉化
 
-<img src="Images/Mixed/image-20200622113126300.png" alt="image-20200622113126300" style="zoom:80%;float:left" />
+<img src="../Images/Mixed/image-20200622113126300.png" alt="image-20200622113126300" style="zoom:80%;float:left" />
 
 打开 https://www.eclipse.org/babel/downloads.php 
 
-<img src="Images/Mixed/image-20200622113248801.png" alt="image-20200622113248801" style="zoom: 50%;float:left" />
+<img src="../Images/Mixed/image-20200622113248801.png" alt="image-20200622113248801" style="zoom: 50%;float:left" />
 
 选择一个复制，在弹出的窗口中点击添加
 
-<img src="Images/Mixed/image-20200622113354699.png" alt="image-20200622113354699" style="zoom: 50%;float:left" />
+<img src="../Images/Mixed/image-20200622113354699.png" alt="image-20200622113354699" style="zoom: 50%;float:left" />
 
 找到中文简体安装就行了。
 

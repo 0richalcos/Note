@@ -145,7 +145,7 @@ welcome.message = Welcome to BeiJing!
 
 在 IntelliJ IDEA 编辑视图：
 
-<img src="Images/Thymeleaf/i18n-messages.png" alt="img" style="zoom:80%;float:left" />
+<img src="../Images/Thymeleaf/i18n-messages.png" alt="img" style="zoom:80%;float:left" />
 
 `messages`是 Spring Boot 加载资源文件默认采用的名称（`basename`），如果你所使用的资源文件名称不是以`messages`命名或所使用的资源文件不是在`src/main/resources`根目录，你可以通过`spring.messages.basename`属性来做具体的配置。如，资源文件`messages.properties`和`messages_en_US.properties`假设它们所在的目录位置是`src/main/resources/i18n`。
 
