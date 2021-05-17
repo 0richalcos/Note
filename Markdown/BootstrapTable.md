@@ -144,8 +144,10 @@ public interface ProductMapper {
     </resultMap>
 
     <select id="findAll" resultMap="product" parameterType="string">
-        select product_ID,product_name,product_weight,product_price,product_classify,product_image,product_remark from
-        product
+        select 
+        	product_ID,product_name,product_weight,product_price,product_classify,product_image,product_remark 
+        from
+        	product
         <if test="order != null">
             order by #{order}
         </if>
@@ -157,78 +159,81 @@ public interface ProductMapper {
 
 # 2、官方文档
 
-| 名称                   | 标签                           | 类型     | 默认                                                         | 描述                                                         |
-| ---------------------- | ------------------------------ | -------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| -                      | data-toggle                    | String   | ‘table’                                                      | 不用写 JavaScript 直接启用表格                               |
-| classes                | data-classes                   | String   | ‘table table-hover’                                          | 表格的类名称。默认情况下，表格是有边框的，可以添加 ‘table-no-bordered’ 来删除表格的边框样式 |
-| sortClass              | data-sort-class                | String   | undefined                                                    | 被排序的 td 标签的 class 名                                  |
-| height                 | data-height                    | Number   | undefined                                                    | 定义表格的高度                                               |
-| undefinedText          | data-undefined-text            | String   | ‘-‘                                                          | 当数据为 undefined 时显示的字符                              |
-| striped                | data-striped                   | Boolean  | false                                                        | 设置为 true 会有隔行变色效果                                 |
-| sortName               | data-sort-name                 | String   | undefined                                                    | 定义排序列，通过url方式获取数据填写字段名，否则填写下标      |
-| sortOrder              | data-sort-order                | String   | ‘asc’                                                        | 定义排序方式 ‘asc’ 或者 ‘desc’                               |
-| sortStable             | data-sort-stable               | Boolean  | false                                                        | 设置为 true 将获得稳定的排序，会添加 _position 属性到 row 数据中 |
-| iconsPrefix            | data-icons-prefix              | String   | ‘glyphicon’                                                  | 定义字体库 (‘Glyphicon’ or ‘fa’ for FontAwesome)，使用 ”fa” 时需引用 FontAwesome，并且配合 icons 属性实现效果 |
-| icons                  | data-icons                     | Object   | { paginationSwitchDown:<br /> ‘glyphicon-collapse-down<br /> icon-chevron-down’,<br /> paginationSwitchUp: <br />‘glyphicon-collapse-up<br /> icon-chevron-up’,<br /> refresh: ‘glyphicon-refresh<br /> icon-refresh’ toggle: <br />‘glyphicon-list-alt<br /> icon-list-alt’ columns:<br /> ‘glyphicon-th icon-th’<br /> detailOpen: ‘glyphicon-plus <br />icon-plus’ detailClose: ‘glyphicon-minus <br />icon-minus’ } | 自定义图标                                                   |
-| columns                | -                              | Array    | []                                                           | 列配置项,详情请查看 列参数 表格                              |
-| data                   | -                              | Array    | []                                                           | 加载 json 格式的数据                                         |
-| ajax                   | data-ajax                      | Function | undefined                                                    | 自定义 AJAX 方法,须实现 jQuery AJAX API                      |
-| method                 | data-method                    | String   | ‘get’                                                        | 服务器数据的请求方式 ‘get’ or ‘post’                         |
-| url                    | data-url                       | String   | undefined                                                    | 服务器数据的加载地址                                         |
-| cache                  | data-cache                     | Boolean  | true                                                         | 设置为 true 禁用 AJAX 数据缓存                               |
-| contentType            | data-content-type              | String   | ‘application/json’                                           | 发送到服务器的数据编码类型                                   |
-| dataType               | data-data-type                 | String   | ‘json’                                                       | 服务器返回的数据类型                                         |
-| ajaxOptions            | data-ajax-options              | Object   | {}                                                           | 提交ajax请求时的附加参数                                     |
-| queryParams            | data-query-params              | Function | function(params) { return params; }                          | 请求服务器数据时，可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数，如果 queryParamsType = ‘limit’ ，返回参数必须包含 limit, offset, search, sort, order 否则, 需要包含:  pageSize, pageNumber, searchText, sortName, sortOrder。返回false将会终止请求 |
-| queryParamsType        | data-query-params-type         | String   | ‘limit’                                                      | 设置为 ‘limit’ 则会发送符合 RESTFul 格式的参数.              |
-| responseHandler        | data-response-handler          | Function | function(res) { return res; }                                | 加载服务器数据之前的处理程序，可以用来格式化数据。 参数：res为从服务器请求到的数据。 |
-| pagination             | data-pagination                | Boolean  | false                                                        | 设置为 true 会在表格底部显示分页条                           |
-| paginationLoop         | data-pagination-loop           | Boolean  | true                                                         | 设置为 true 启用分页条无限循环的功能。                       |
-| onlyInfoPagination     | data-only-info-pagination      | Boolean  | false                                                        | 设置为 true 只显示总数据数，而不显示分页按钮。需要 pagination=’true’ |
-| sidePagination         | data-side-pagination           | String   | ‘client’                                                     | 设置在哪里进行分页，可选值为 ‘client’ 或者 ‘server’。设置 ‘server’ 时，必须设置 服务器数据地址（url）或者重写 ajax 方法 |
-| pageNumber             | data-page-number               | Number   | 1                                                            | 如果设置了分页，首页页码                                     |
-| pageSize               | data-page-size                 | Number   | 10                                                           | 如果设置了分页，页面数据条数                                 |
-| pageList               | data-page-list                 | Array    | [10, 25, 50, 100, All]                                       | 如果设置了分页，设置可供选择的页面数据条数。设置为All 则显示所有记录 |
-| selectItemName         | data-select-item-name          | String   | ‘btSelectItem’                                               | radio or checkbox 的字段名                                   |
-| smartDisplay           | data-smart-display             | Boolean  | true                                                         | 设置为 true 可以在分页和卡片视图快速切换                     |
-| escape                 | data-escape                    | Boolean  | false                                                        | 转义HTML字符串，替换 &、<、>、"、` 和 ' 字符                 |
-| search                 | data-search                    | Boolean  | false                                                        | 是否启用搜索框                                               |
-| searchOnEnterKey       | data-search-on-enter-key       | Boolean  | false                                                        | 设置为 true 时，按回车触发搜索方法，否则自动触发搜索方法     |
-| strictSearch           | data-strict-search             | Boolean  | false                                                        | 设置为 true 启用 全匹配搜索，否则为模糊搜索                  |
-| searchText             | data-search-text               | String   | ”                                                            | 初始化搜索文字                                               |
-| searchTimeOut          | data-search-time-out           | Number   | 500                                                          | 设置搜索超时时间                                             |
-| trimOnSearch           | data-trim-on-search            | Boolean  | true                                                         | 设置为 true 将允许空字符搜索                                 |
-| showHeader             | data-show-header               | Boolean  | true                                                         | 是否显示列头                                                 |
-| showFooter             | data-show-footer               | Boolean  | false                                                        | 是否显示列脚                                                 |
-| showColumns            | data-show-columns              | Boolean  | false                                                        | 是否显示 内容列下拉框                                        |
-| showRefresh            | data-show-refresh              | Boolean  | false                                                        | 是否显示 刷新按钮                                            |
-| showToggle             | data-show-toggle               | Boolean  | false                                                        | 是否显示 切换试图（table/card）按钮                          |
-| showPaginationSwitch   | data-show-pagination-switch    | Boolean  | false                                                        | 是否显示 数据条数选择框                                      |
-| minimumCountColumns    | data-minimum-count-columns     | Number   | 1                                                            | 当列数小于此值时，将隐藏内容列下拉框。                       |
-| idField                | data-id-field                  | String   | undefined                                                    | 指定主键列                                                   |
-| uniqueId               | data-unique-id                 | String   | undefined                                                    | 为每一行指定唯一的标识符                                     |
-| cardView               | data-card-view                 | Boolean  | false                                                        | 设置为 true 将显示card视图，适用于移动设备。否则为table试图，适用于pc |
-| detailView             | data-detail-view               | Boolean  | false                                                        | 设置为 true 可以显示详细页面模式。                           |
-| detailFormatter        | data-detail-formatter          | Function | function(index, row) { return ”; }                           | 格式化详细页面模式的视图。                                   |
-| searchAlign            | data-search-align              | String   | ‘right’                                                      | 指定 搜索框 水平方向的位置。’left’ or ‘right’                |
-| buttonsAlign           | data-buttons-align             | String   | ‘right’                                                      | 指定 按钮 水平方向的位置。’left’ or ‘right’                  |
-| toolbarAlign           | data-toolbar-align             | String   | ‘left’                                                       | 指定 toolbar 水平方向的位置。’left’ or ‘right’               |
-| paginationVAlign       | data-pagination-v-align        | String   | ‘bottom’                                                     | 指定 分页条 在垂直方向的位置。’top’ or ‘bottom’ or ‘bonth’   |
-| paginationHAlign       | data-pagination-h-align        | String   | ‘right’                                                      | 指定 分页条 在水平方向的位置。’left’ or ‘right’              |
-| paginationDetailHAlign | data-pagination-detail-h-align | String   | ‘left’                                                       | 指定 分页详细信息 在水平方向的位置。’left’ or ‘right’        |
-| paginationPreText      | data-pagination-pre-text       | String   | ‘<’                                                          | 指定分页条中上一页按钮的图标或文字                           |
-| paginationNextText     | data-pagination-next-text      | String   | ‘>’                                                          | 指定分页条中下一页按钮的图标或文字                           |
-| clickToSelect          | data-click-to-select           | Boolean  | false                                                        | 设置true 将在点击行时，自动选择rediobox 和 checkbox          |
-| singleSelect           | data-single-select             | Boolean  | false                                                        | 设置True 将禁止多选                                          |
-| toolbar                | data-toolbar                   | String   | undefined                                                    | 一个 jQuery 选择器，指明自定义的toolbar 例如：#toolbar、 .toolbar |
-| checkboxHeader         | data-checkbox-header           | Boolean  | true                                                         | 设置 false 将在列头隐藏 check-all checkbox                   |
-| maintainSelected       | data-maintain-selected         | Boolean  | false                                                        | 设置为 true 在点击分页按钮或搜索按钮时，将记住checkbox的选择项 |
-| sortable               | data-sortable                  | Boolean  | true                                                         | 设置为 false 将禁止所有列的排序                              |
-| silentSort             | data-silent-sort               | Boolean  | true                                                         | 设置为 false 将在点击分页按钮时，自动记住排序项。仅在 sidePagination设置为 server 时生效 |
-| rowStyle               | data-row-style                 | Function | function(row,index) { return class; }                        | 自定义行样式 参数为： row: 行数据 index: 行下标 返回值可以为class或者css |
-| rowAttributes          | data-row-attributes            | Function | function(row,index) { return attributes; }                   | 自定义行属性 参数为： row: 行数据 index: 行下标 返回值可以为class或者css 支持所有自定义属性 |
-| customSearch           | data-custom-search             | Function | $.noop                                                       | 执行自定义搜索功能而不是内置搜索功能，需要一个参数： text：搜索文本 <br />如：<br />function customSearch(text) { <br /> //Search logic here.               <br /> //You must use `this.data` array in order to filter the data. NO use `this.options.data`. <br /> } |
-| customSort             | data-custom-sort               | Function | $.noop                                                       | 执行自定义排序函数而不是内置排序函数，需要两个参数：  sortName: 排序名称 <br />sortOrder: 排序顺序 <br />如:<br />function customSort(sortName, sortOrder) {<br /> //Sort logic here. <br /> //You must use `this.data` array in order to sort the data. NO use `this.options.data`. <br /> } |
+| 名称                   | 类型     | 标签                           | 默认                                                         | 描述                                                         |
+| ---------------------- | -------- | ------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| -                      | String   | data-toggle                    | 'table'                                                      | 不用写 JavaScript 直接启用表格                               |
+| classes                | String   | data-classes                   | 'table table-hover'                                          | 表格的类名称。默认情况下，表格是有边框的，可以添加 'table-no-bordered' 来删除表格的边框样式 |
+| sortClass              | String   | data-sort-class                | undefined                                                    | 被排序的 td 标签的 class 名                                  |
+| height                 | Number   | data-height                    | undefined                                                    | 定义表格的高度                                               |
+| undefinedText          | String   | data-undefined-text            | '-'                                                          | 当数据为 undefined 时显示的字符                              |
+| striped                | Boolean  | data-striped                   | false                                                        | 设置为 true 会有隔行变色效果                                 |
+| sortName               | String   | data-sort-name                 | undefined                                                    | 定义排序列，通过url方式获取数据填写字段名，否则填写下标      |
+| sortOrder              | String   | data-sort-order                | 'asc'                                                        | 定义排序方式 'asc' 或者 'desc'                               |
+| sortStable             | Boolean  | data-sort-stable               | false                                                        | 设置为 true 将获得稳定的排序，会添加 _position 属性到 row 数据中 |
+| iconsPrefix            | String   | data-icons-prefix              | 'glyphicon'                                                  | 定义字体库 ('glyphicon' or 'fa')，使用 'fa' 时需引用 FontAwesome，并且配合 icons 属性实现效果 |
+| icons                  | Object   | data-icons                     | { paginationSwitchDown:</br>'fa-caret-square-down', paginationSwitchUp: <br />'fa-caret-square-up',<br />refresh: 'fa-sync'<br/>toggleOff: 'fa-toggle-off'<br/>toggleOn: 'fa-toggle-on',<br/>columns: 'fa-th-list'<br />fullscreen: 'fa-arrows-alt',<br/>detailOpen: 'fa-plus’ <br/>detailClose: 'fa-minus' } | 自定义图标                                                   |
+| iconSize               | String   | -                              | 'sm'                                                         | 设置修改图标 ，'sm'小图标，'lg'大图标                        |
+| columns                | Array    | -                              | []                                                           | 列配置项，详情请查看 列参数 表格                             |
+| data                   | Array    | -                              | []                                                           | 加载 json 格式的数据                                         |
+| ajax                   | Function | data-ajax                      | undefined                                                    | 自定义 AJAX 方法，须实现 jQuery AJAX API                     |
+| method                 | String   | data-method                    | 'GET'                                                        | 服务器数据的请求方式 'GET' or 'POST'                         |
+| url                    | String   | data-url                       | undefined                                                    | 服务器数据的加载地址                                         |
+| cache                  | Boolean  | data-cache                     | true                                                         | 设置为 true 禁用 AJAX 数据缓存                               |
+| contentType            | String   | data-content-type              | 'application/json'                                           | 发送到服务器的数据编码类型                                   |
+| dataType               | String   | data-data-type                 | 'json'                                                       | 服务器返回的数据类型                                         |
+| ajaxOptions            | Object   | data-ajax-options              | {}                                                           | 提交ajax请求时的附加参数                                     |
+| queryParams            | Function | data-query-params              | function ( params ) { <br/>     return params; <br/>}        | 请求服务器数据时，可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数，如果 queryParamsType = 'limit' ，返回参数必须包含: limit, offset, search, sort, order。否则需要包含: pageSize, pageNumber, searchText,  sortName, sortOrder。返回 false 将会终止请求 |
+| queryParamsType        | String   | data-query-params-type         | 'limit'                                                      | 设置为 'limit' 则会发送符合 RESTFul 格式的参数               |
+| responseHandler        | Function | data-response-handler          | function ( res ) {<br/>     return res; <br/>}               | 加载服务器数据之前的处理程序，可以用来格式化数据。 参数 res 为从服务器请求到的数据。 |
+| pagination             | Boolean  | data-pagination                | false                                                        | 设置为 true 会在表格底部显示分页条                           |
+| paginationLoop         | Boolean  | data-pagination-loop           | true                                                         | 设置为 true 启用分页条无限循环的功能                         |
+| onlyInfoPagination     | Boolean  | data-only-info-pagination      | false                                                        | 设置为 true 只显示总数据数，而不显示分页按钮。需要 pagination = 'true' |
+| sidePagination         | String   | data-side-pagination           | 'client'                                                     | 设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server' 时，必须设置 服务器数据地址（url）或者重写 ajax 方法 |
+| pageNumber             | Number   | data-page-number               | 1                                                            | 如果设置了分页，首页页码                                     |
+| pageSize               | Number   | data-page-size                 | 10                                                           | 如果设置了分页，页面数据条数                                 |
+| pageList               | Array    | data-page-list                 | [10, 25, 50, 100, All]                                       | 如果设置了分页，设置可供选择的页面数据条数。设置为 All 则显示所有记录 |
+| selectItemName         | String   | data-select-item-name          | 'btSelectItem'                                               | 'radio' or 'checkbox' 的字段名                               |
+| smartDisplay           | Boolean  | data-smart-display             | true                                                         | 设置为 true 可以在分页和卡片视图快速切换                     |
+| escape                 | Boolean  | data-escape                    | false                                                        | 转义HTML字符串，替换 &、<、>、"、` 和 ' 字符                 |
+| search                 | Boolean  | data-search                    | false                                                        | 是否启用搜索框                                               |
+| searchOnEnterKey       | Boolean  | data-search-on-enter-key       | false                                                        | 设置为 true 时，按回车触发搜索方法，否则自动触发搜索方法     |
+| strictSearch           | Boolean  | data-strict-search             | false                                                        | 设置为 true 启用 全匹配搜索，否则为模糊搜索                  |
+| searchText             | String   | data-search-text               | ''                                                           | 初始化搜索文字                                               |
+| searchTimeOut          | Number   | data-search-time-out           | 500                                                          | 设置搜索超时时间                                             |
+| trimOnSearch           | Boolean  | data-trim-on-search            | true                                                         | 设置为 true 将允许空字符搜索                                 |
+| showHeader             | Boolean  | data-show-header               | true                                                         | 是否显示列头                                                 |
+| showFooter             | Boolean  | data-show-footer               | false                                                        | 是否显示列脚                                                 |
+| showColumns            | Boolean  | data-show-columns              | false                                                        | 是否显示 内容列下拉框                                        |
+| showRefresh            | Boolean  | data-show-refresh              | false                                                        | 是否显示 刷新按钮                                            |
+| showToggle             | Boolean  | data-show-toggle               | false                                                        | 是否显示 切换试图（table/card）按钮                          |
+| showPaginationSwitch   | Boolean  | data-show-pagination-switch    | false                                                        | 是否显示 数据条数选择框                                      |
+| minimumCountColumns    | Number   | data-minimum-count-columns     | 1                                                            | 当列数小于此值时，将隐藏内容列下拉框。                       |
+| idField                | String   | data-id-field                  | undefined                                                    | 指定主键列                                                   |
+| uniqueId               | String   | data-unique-id                 | undefined                                                    | 为每一行指定唯一的标识符                                     |
+| cardView               | Boolean  | data-card-view                 | false                                                        | 设置为 true 将显示 card 视图，适用于移动设备。否则为 table 视图，适用于pc |
+| detailView             | Boolean  | data-detail-view               | false                                                        | 设置为 true 可以显示详细页面模式。                           |
+| detailFormatter        | Function | data-detail-formatter          | function ( index, row ) {<br/>     return ''; <br/>}         | 格式化详细页面模式的视图。                                   |
+| searchAlign            | String   | data-search-align              | 'right'                                                      | 指定 搜索框 水平方向的位置。'left' or 'right'                |
+| buttonsAlign           | String   | data-buttons-align             | 'right'                                                      | 指定 按钮 水平方向的位置。'left' or 'right'                  |
+| toolbarAlign           | String   | data-toolbar-align             | 'left'                                                       | 指定 toolbar 水平方向的位置。'left' or 'right'               |
+| paginationVAlign       | String   | data-pagination-v-align        | 'bottom'                                                     | 指定 分页条 在垂直方向的位置。'top' or 'bottom' or 'bonth'   |
+| paginationHAlign       | String   | data-pagination-h-align        | 'right'                                                      | 指定 分页条 在水平方向的位置。'left' or 'right'              |
+| paginationDetailHAlign | String   | data-pagination-detail-h-align | 'left'                                                       | 指定 分页详细信息 在水平方向的位置。'left' or 'right'        |
+| paginationPreText      | String   | data-pagination-pre-text       | '<'                                                          | 指定分页条中上一页按钮的图标或文字                           |
+| paginationNextText     | String   | data-pagination-next-text      | '>'                                                          | 指定分页条中下一页按钮的图标或文字                           |
+| clickToSelect          | Boolean  | data-click-to-select           | false                                                        | 设置 true 将在点击行时，自动选择 rediobox 和 checkbox        |
+| singleSelect           | Boolean  | data-single-select             | false                                                        | 设置 true 将禁止多选                                         |
+| toolbar                | String   | data-toolbar                   | undefined                                                    | 一个 jQuery 选择器，指明自定义的toolbar，例如：#toolbar、 .toolbar |
+| checkboxHeader         | Boolean  | data-checkbox-header           | true                                                         | 设置 false 将在列头隐藏 check-all checkbox                   |
+| maintainSelected       | Boolean  | data-maintain-selected         | false                                                        | 设置为 true 在点击分页按钮或搜索按钮时，将记住checkbox的选择项 |
+| sortable               | Boolean  | data-sortable                  | true                                                         | 设置为 false 将禁止所有列的排序                              |
+| silentSort             | Boolean  | data-silent-sort               | true                                                         | 设置为 false 将在点击分页按钮时自动记住排序项。仅在 sidePagination 设置为 server 时生效 |
+| rowStyle               | Function | data-row-style                 | function ( row, index ) {<br/>     return class; <br/>}      | 自定义行样式 参数：row: 行数据，index: 行下标，返回值可以为 class 或者 css |
+| rowAttributes          | Function | data-row-attributes            | function ( row, index ) {<br/>     return attributes; <br/>} | 自定义行属性 参数为：row : 行数据，index: 行下标，返回值可以为 class 或者 css 支持所有自定义属性 |
+| customSearch           | Function | data-custom-search             | $.noop                                                       | 执行自定义搜索功能而不是内置搜索功能，需要一个参数：text：搜索文本，如：<br />function customSearch ( text ) { } |
+| customSort             | Function | data-custom-sort               | $.noop                                                       | 执行自定义排序函数而不是内置排序函数，有三个参数：sortName：排序名称，sortOrder：排序顺序，data：获取的原始数据，如:<br />function customSort ( sortName, sortOrder， data ) { } |
+
+
 
 ## 2.1、列参数
 
@@ -309,7 +314,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
 
 
-## 2.3、官方文档
+## 2.3、方法
 
 | 名称              | 参数           | 描述                                                         |
 | ----------------- | -------------- | ------------------------------------------------------------ |
