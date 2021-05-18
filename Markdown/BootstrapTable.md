@@ -167,7 +167,7 @@ public interface ProductMapper {
 | height                 | Number   | data-height                    | undefined                                                    | 定义表格的高度                                               |
 | undefinedText          | String   | data-undefined-text            | '-'                                                          | 当数据为 undefined 时显示的字符                              |
 | striped                | Boolean  | data-striped                   | false                                                        | 设置为 true 会有隔行变色效果                                 |
-| sortName               | String   | data-sort-name                 | undefined                                                    | 定义排序列，通过url方式获取数据填写字段名，否则填写下标      |
+| sortName               | String   | data-sort-name                 | undefined                                                    | 定义排序列，通过url方式获取数据，填写字段名，否则填写下标    |
 | sortOrder              | String   | data-sort-order                | 'asc'                                                        | 定义排序方式 'asc' 或者 'desc'                               |
 | sortStable             | Boolean  | data-sort-stable               | false                                                        | 设置为 true 将获得稳定的排序，会添加 _position 属性到 row 数据中 |
 | iconsPrefix            | String   | data-icons-prefix              | 'glyphicon'                                                  | 定义字体库 ('glyphicon' or 'fa')，使用 'fa' 时需引用 FontAwesome，并且配合 icons 属性实现效果 |
