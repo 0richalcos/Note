@@ -157,7 +157,17 @@ public interface ProductMapper {
 
 
 
-# 2、官方文档
+# 2、文档
+
+```javascript
+$('#table').bootstrapTable({
+    url: 'js/data.json',
+    pagination: true,//开启分页
+    search: true,	 //开启刷选
+    columns: columns,
+    ...
+});
+```
 
 | 名称                   | 类型     | 标签                           | 默认                                                         | 描述                                                         |
 | ---------------------- | -------- | ------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -178,7 +188,7 @@ public interface ProductMapper {
 | ajax                   | Function | data-ajax                      | undefined                                                    | 自定义 AJAX 方法，须实现 jQuery AJAX API                     |
 | method                 | String   | data-method                    | 'GET'                                                        | 服务器数据的请求方式 'GET' or 'POST'                         |
 | url                    | String   | data-url                       | undefined                                                    | 服务器数据的加载地址                                         |
-| cache                  | Boolean  | data-cache                     | true                                                         | 设置为 true 禁用 AJAX 数据缓存                               |
+| cache                  | Boolean  | data-cache                     | true                                                         | 设置为 false 禁用 AJAX 数据缓存                              |
 | contentType            | String   | data-content-type              | 'application/json'                                           | 发送到服务器的数据编码类型                                   |
 | dataType               | String   | data-data-type                 | 'json'                                                       | 服务器返回的数据类型                                         |
 | ajaxOptions            | Object   | data-ajax-options              | {}                                                           | 提交ajax请求时的附加参数                                     |
@@ -193,20 +203,21 @@ public interface ProductMapper {
 | pageSize               | Number   | data-page-size                 | 10                                                           | 如果设置了分页，页面数据条数                                 |
 | pageList               | Array    | data-page-list                 | [10, 25, 50, 100, All]                                       | 如果设置了分页，设置可供选择的页面数据条数。设置为 All 则显示所有记录 |
 | selectItemName         | String   | data-select-item-name          | 'btSelectItem'                                               | 'radio' or 'checkbox' 的字段名                               |
-| smartDisplay           | Boolean  | data-smart-display             | true                                                         | 设置为 true 可以在分页和卡片视图快速切换                     |
-| escape                 | Boolean  | data-escape                    | false                                                        | 转义HTML字符串，替换 &、<、>、"、` 和 ' 字符                 |
+| smartDisplay           | Boolean  | data-smart-display             | true                                                         | 自动根据网页容器高度计算出 pageSize 和pageList 的值          |
+| escape                 | Boolean  | data-escape                    | false                                                        | 转义HTML字符串，将其直接显示出来                             |
 | search                 | Boolean  | data-search                    | false                                                        | 是否启用搜索框                                               |
 | searchOnEnterKey       | Boolean  | data-search-on-enter-key       | false                                                        | 设置为 true 时，按回车触发搜索方法，否则自动触发搜索方法     |
 | strictSearch           | Boolean  | data-strict-search             | false                                                        | 设置为 true 启用 全匹配搜索，否则为模糊搜索                  |
 | searchText             | String   | data-search-text               | ''                                                           | 初始化搜索文字                                               |
 | searchTimeOut          | Number   | data-search-time-out           | 500                                                          | 设置搜索超时时间                                             |
-| trimOnSearch           | Boolean  | data-trim-on-search            | true                                                         | 设置为 true 将允许空字符搜索                                 |
+| trimOnSearch           | Boolean  | data-trim-on-search            | true                                                         | 设置为 true 将允许空字符搜索，自动去除关键词两边空格         |
 | showHeader             | Boolean  | data-show-header               | true                                                         | 是否显示列头                                                 |
 | showFooter             | Boolean  | data-show-footer               | false                                                        | 是否显示列脚                                                 |
 | showColumns            | Boolean  | data-show-columns              | false                                                        | 是否显示 内容列下拉框                                        |
 | showRefresh            | Boolean  | data-show-refresh              | false                                                        | 是否显示 刷新按钮                                            |
 | showToggle             | Boolean  | data-show-toggle               | false                                                        | 是否显示 切换试图（table/card）按钮                          |
 | showPaginationSwitch   | Boolean  | data-show-pagination-switch    | false                                                        | 是否显示 数据条数选择框                                      |
+| showFullscreen         | Boolean  | data-show-fullscreen           |                                                              | 控制是否显示全屏按钮，点击按钮表格会全屏展示                 |
 | minimumCountColumns    | Number   | data-minimum-count-columns     | 1                                                            | 当列数小于此值时，将隐藏内容列下拉框。                       |
 | idField                | String   | data-id-field                  | undefined                                                    | 指定主键列                                                   |
 | uniqueId               | String   | data-unique-id                 | undefined                                                    | 为每一行指定唯一的标识符                                     |
@@ -225,7 +236,7 @@ public interface ProductMapper {
 | singleSelect           | Boolean  | data-single-select             | false                                                        | 设置 true 将禁止多选                                         |
 | toolbar                | String   | data-toolbar                   | undefined                                                    | 一个 jQuery 选择器，指明自定义的toolbar，例如：#toolbar、 .toolbar |
 | checkboxHeader         | Boolean  | data-checkbox-header           | true                                                         | 设置 false 将在列头隐藏 check-all checkbox                   |
-| maintainSelected       | Boolean  | data-maintain-selected         | false                                                        | 设置为 true 在点击分页按钮或搜索按钮时，将记住checkbox的选择项 |
+| maintainSelected       | Boolean  | data-maintain-selected         | false                                                        | 设置为 true 在点击分页按钮或搜索按钮时，将记住 checkbox 的选择项 |
 | sortable               | Boolean  | data-sortable                  | true                                                         | 设置为 false 将禁止所有列的排序                              |
 | silentSort             | Boolean  | data-silent-sort               | true                                                         | 设置为 false 将在点击分页按钮时自动记住排序项。仅在 sidePagination 设置为 server 时生效 |
 | rowStyle               | Function | data-row-style                 | function ( row, index ) {<br/>     return class; <br/>}      | 自定义行样式 参数：row: 行数据，index: 行下标，返回值可以为 class 或者 css |
@@ -237,35 +248,50 @@ public interface ProductMapper {
 
 ## 2.1、列参数
 
-| 名称            | 标签                   | 类型                                | 默认      | 描述                                                         |
-| --------------- | ---------------------- | ----------------------------------- | --------- | ------------------------------------------------------------ |
-| radio           | data-radio             | Boolean                             | false     | 是否显示单选 radio                                           |
-| checkbox        | data-checkbox          | Boolean                             | false     | 是否显示多选 checkbox                                        |
-| field           | data-field             | String                              | undefined | 该列映射的 data 的参数名                                     |
-| title           | data-title             | String                              | undefined | 该列的表头名                                                 |
-| titleTooltip    | data-title-tooltip     | String                              | undefined | 该列表头的 title 提示文本                                    |
-| class           | class / data-class     | String                              | undefined | 该列的 class                                                 |
-| rowspan         | rowspan / data-rowspan | Number                              | undefined | 合并单元格时定义合并多少行                                   |
-| colspan         | colspan / data-colspan | Number                              | undefined | 合并单元格时定义合并多少列                                   |
-| align           | data-align             | String                              | undefined | 设置该列数据如何对齐，’left’，‘right’，‘center’              |
-| halign          | data-halign            | String                              | undefined | table header对齐方式，‘left’，‘right’，‘center’              |
-| falign          | data-falign            | String                              | undefined | table footer对齐方式，‘left’，‘right’，‘center’              |
-| valign          | data-valign            | String                              | undefined | 单元格（cell）对齐方式，‘top’, ‘middle’, ‘bottom’            |
-| width           | data-width             | Number {Pixels or <br />Percentage} | undefined | 列的宽度，可以使用像素或者百分比，不带单位则默认为 px        |
-| sortable        | data-sortable          | Boolean                             | false     | 该列是否排序（表头显示双箭头）                               |
-| order           | data-order             | String                              | ‘asc’     | 该列默认的排序方式， ‘asc’ or ‘desc’                         |
-| visible         | data-visible           | Boolean                             | true      | 该列是否可见                                                 |
-| cardVisible     | data-card-visible      | Boolean                             | true      | 在card视图里是否可见                                         |
-| switchable      | data-switchable        | Boolean                             | true      | 列切换是否可见                                               |
-| clickToSelect   | data-click-to-select   | Boolean                             | true      | 是否选中 checkbox 或者 radio，当该列被选择时                 |
-| formatter       | data-formatter         | Function                            | undefined | 格式化单元格内容，function(value, row, index)，value：该cell本来的值，row：该行数据，index：该行序号（从0开始） |
-| footerFormatter | data-footer-formatter  | Function                            | undefined | 格式化footer内容，function(rows)，rows：所有行数据           |
-| events          | data-events            | Object                              | undefined | The cell 的事件监听，当使用formatter function的时候，有三个参数：event：the jQuery event，value：该cell的值，row：该行的数据，index：该行的序号 |
-| sorter          | data-sorter            | Function                            | undefined | 自定义字段排序函数，function(a, b)                           |
-| sortName        | data-sort-name         | String                              | undefined | 当列中有 html 等标签时，只排序实际内容（忽略标签和样式），例如字段为：”**abc**“，则 sortName=abc |
-| cellStyle       | data-cell-style        | Function                            | undefined | 单元格样式，支持 css 和 classes，function(value, row, index)，value: 该cell的值，row: 该行的数据，index: 该行的序号 |
-| searchable      | data-searchable        | Boolean                             | true      | 搜索时是否搜索此列                                           |
-| searchFormatter | data-search-formatter  | Boolean                             | true      | 搜索是否使用格式化后的数据（即显示在页面上的数据）           |
+```javascript
+var columns = [{
+            field: 'Id',
+            title: '编号'
+        }, {
+            field: 'ProductName',
+            title: '产品名称'
+        }, {
+            field: 'StockNum',
+            title: 'Item 库存'
+        }];
+```
+
+| 名称            | 标签                   | 类型     | 默认      | 描述                                                         |
+| --------------- | ---------------------- | -------- | --------- | ------------------------------------------------------------ |
+| radio           | data-radio             | Boolean  | false     | 是否显示单选 radio                                           |
+| checkbox        | data-checkbox          | Boolean  | false     | 是否显示多选 checkbox                                        |
+| field           | data-field             | String   | undefined | 该列映射的 data 的参数名                                     |
+| title           | data-title             | String   | undefined | 该列的表头名                                                 |
+| titleTooltip    | data-title-tooltip     | String   | undefined | 该列表头的 title 提示文本                                    |
+| class           | class / data-class     | String   | undefined | 该列的 class                                                 |
+| rowspan         | rowspan / data-rowspan | Number   | undefined | 合并单元格时定义合并多少行                                   |
+| colspan         | colspan / data-colspan | Number   | undefined | 合并单元格时定义合并多少列                                   |
+| align           | data-align             | String   | undefined | 表格数据的对齐方式，'left'，'right'，'center'                |
+| halign          | data-halign            | String   | undefined | 表格头部列名对齐方式，'left'，'right'，'center'              |
+| falign          | data-falign            | String   | undefined | 表格底部列对齐方式，'left'，'right'，'center'                |
+| valign          | data-valign            | String   | undefined | 垂直方向对齐方式，'top'，'middle'，'bottom'                  |
+| width           | data-width             | Number   | undefined | 列的宽度，注意这里是数字类型不带单位 px 或者 %               |
+| widthUnit       | data-widthUnit         | String   | undefined | 列的宽度的单位，如 px 或 %，widthUnit: "px"                  |
+| sortable        | data-sortable          | Boolean  | false     | 该列是否排序（表头显示双箭头）                               |
+| order           | data-order             | String   | 'asc'     | 该列默认的排序方式， 'asc' or 'desc'                         |
+| visible         | data-visible           | Boolean  | true      | 该列是否可见                                                 |
+| cardVisible     | data-card-visible      | Boolean  | true      | 在 card 视图里是否可见                                       |
+| switchable      | data-switchable        | Boolean  | true      | 列切换是否可见                                               |
+| clickToSelect   | data-click-to-select   | Boolean  | true      | 当该列被选择时，是否选中 checkbox 或者 radio                 |
+| checkboxEnabled | data-checkboxEnabled   | Boolean  | true      | checkboxEnabled：false，设为 false 禁用复选框列              |
+| formatter       | data-formatter         | Function | undefined | 格式化单元格内容，function ( value, row, index )，value：该 cell 本来的值，row：该行数据，index：该行序号（从 0 开始） |
+| footerFormatter | data-footer-formatter  | Function | undefined | 格式化 footer 内容，function ( rows )，rows：所有行数据      |
+| events          | data-events            | Object   | undefined | The cell 的事件监听，当使用 formatter function 的时候，有三个参数：event：the jQuery event，value：该cell的值，row：该行的数据，index：该行的序号 |
+| sorter          | data-sorter            | Function | undefined | 自定义字段排序函数，function ( a, b )                        |
+| sortName        | data-sort-name         | String   | undefined | 当列中有 html 等标签时，只排序实际内容（忽略标签和样式），例如字段为："abc"，则 sortName = abc |
+| cellStyle       | data-cell-style        | Function | undefined | 单元格样式，支持 css 和 classes，function ( value, row, index )，value：该cell的值，row：该行的数据，index：该行的序号 |
+| searchable      | data-searchable        | Boolean  | true      | 搜索时是否搜索此列                                           |
+| searchFormatter | data-search-formatter  | Boolean  | true      | 搜索是否使用格式化后的数据（即显示在页面上的数据）           |
 
 
 
@@ -421,7 +447,7 @@ CSS 方法要调用两组文件,一个是 css(或 less 或 scss) 样式表, 另�
 
 
 
-# 4、其他
+# 4、扩展 
 
 ## 4.1、页脚合并
 
@@ -635,3 +661,27 @@ $(function () {
     var options = {
         editFileds: ["zhAuditedName", "zhParentName"],  //加入需要编辑的属性字段名称  
 ```
+
+
+
+## 4.3、表格样式
+
+设置 bootstrap-table 表格样式可以通过设置 classess 属性进行设置，官方默认支持黑色主题、隔行变色等样式。
+
+```javascript
+$('#table').bootstrapTable({
+    columns: columns,
+    data: getData(),
+    classes: "table table-bordered", //这里设置表格样式
+    height:400  
+});
+```
+
+
+
+- table-bordered 设置表格边框
+- table-striped 设置隔行变色
+- table-sm 设置表格更精致
+- table-dark 设置表格为黑色主题
+- table-hover 启用鼠标悬停状态
+
