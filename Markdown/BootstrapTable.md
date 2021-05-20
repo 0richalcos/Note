@@ -309,34 +309,34 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 });
 ```
 
-| Option 事件      | jQuery 事件              | 参数                        | 描述                                                         |
-| ---------------- | ------------------------ | --------------------------- | ------------------------------------------------------------ |
-| onAll            | all.bs.table             | name, args                  | 所有的事件都会触发该事件，参数包括： <br />name：事件名， <br />args：事件的参数。 |
-| onClickRow       | click-row.bs.table       | row, $element               | 当用户点击某一行的时候触发，参数包括： <br />row：点击行的数据， <br />$element：tr 元素， <br />field：点击列的 field 名称。 |
-| onDblClickRow    | dbl-click-row.bs.table   | row, $element               | 当用户双击某一行的时候触发，参数包括： <br />row：点击行的数据， <br />$element：tr 元素， <br />field：点击列的 field 名称。 |
-| onClickCell      | click-cell.bs.table      | field, value, row, $element | 当用户点击某一列的时候触发，参数包括： <br />field：点击列的 field 名称， <br />value：点击列的 value 值， <br />row：点击列的整行数据， <br />$element：td 元素。 |
-| onDblClickCell   | dbl-click-cell.bs.table  | field, value, row, $element | 当用户双击某一列的时候触发，参数包括： <br />field：点击列的 field 名称， <br />value：点击列的 value 值， <br />row：点击列的整行数据， <br />$element：td 元素。 |
-| onSort           | sort.bs.table            | name, order                 | 当用户对列进行排序时触发，参数包含： <br />name: 排序列字段名， <br />order: 排序列的顺序。 |
-| onCheck          | check.bs.table           | row                         | 当用户检查行时触发，参数包含： <br />row: 与单击的行对应的记录，<br />$element: 选中DOM元素。 |
-| onUncheck        | uncheck.bs.table         | row                         | 在用户取消选中行时触发，参数包含：  <br />row: 与单击的行对应的记录， <br />$element: 取消选中DOM元素。 |
-| onCheckAll       | check-all.bs.table       | rows                        | 当用户检查所有行时触发，参数包含： <br />rows: 与新检查的行对应的记录数组。 |
-| onUncheckAll     | uncheck-all.bs.table     | rows                        | 当用户取消选中所有行时触发，参数包含： <br />rows:与先前检查的行对应的记录数。 |
-| onCheckSome      | check-some.bs.table      | rows                        | 当用户检查某些行时触发，参数包含：  <br />rows: 与先前检查的行对应的记录数组。 |
-| onUncheckSome    | uncheck-some.bs.table    | rows                        | 当用户取消选中某些行时触发，参数包含： <br />rows: 与先前检查的行对应的记录数组。 |
-| onLoadSuccess    | load-success.bs.table    | data                        | 在成功加载远程数据时触发。                                   |
-| onLoadError      | load-error.bs.table      | status                      | 在加载远程数据时发生某些错误时触发。                         |
-| onColumnSwitch   | column-switch.bs.table   | field, checked              | 切换列可见时触发。                                           |
-| onColumnSearch   | column-search.bs.table   | field, text                 | 在按列搜索时触发。                                           |
-| onPageChange     | page-change.bs.table     | number, size                | 更改页码或页面大小时触发。                                   |
-| onSearch         | search.bs.table          | text                        | 在搜索表时触发。                                             |
-| onToggle         | toggle.bs.table          | cardView                    | 切换表视图时触发。                                           |
-| onPreBody        | pre-body.bs.table        | data                        | 在呈现表体之前触发。                                         |
-| onPostBody       | post-body.bs.table       | none                        | 在表体表示并在DOM中可用之后触发。                            |
-| onPostHeader     | post-header.bs.table     | none                        | 在表头之后触发，并在DOM中可用。                              |
-| onExpandRow      | expand-row.bs.table      | index, row, $detail         | 当点击详细图标展开详细页面的时候触发。                       |
-| onCollapseRow    | collapse-row.bs.table    | index, row                  | 当点击详细图片收起详细页面的时候触发。                       |
-| onRefreshOptions | refresh-options.bs.table | options                     | 在刷新选项之后和在销毁和初始化表之前触发。                   |
-| onRefresh        | refresh.bs.table         | params                      | 单击刷新按钮后触发。                                         |
+| Option 事件      | jQuery 事件              | 参数                          | 描述                                                         |
+| ---------------- | ------------------------ | ----------------------------- | ------------------------------------------------------------ |
+| onAll            | all.bs.table             | name，args                    | 所有的事件都会触发该事件，参数包括： <br />name：事件名 <br />args：事件的参数 |
+| onClickRow       | click-row.bs.table       | row，$element，field          | 当用户点击某一行的时候触发，参数包括： <br />row：点击行的数据 <br />$element：tr 元素 <br />field：点击列的 field 名称 |
+| onDblClickRow    | dbl-click-row.bs.table   | row，$element，field          | 当用户双击某一行的时候触发，参数包括： <br />row：点击行的数据 <br />$element：tr 元素 <br />field：点击列的 field 名称 |
+| onClickCell      | click-cell.bs.table      | field，value，row，$element   | 当用户点击某一列的时候触发，参数包括： <br />field：点击列的 field 名称 <br />value：点击列的 value 值 <br />row：点击列的整行数据 <br />$element：td 元素 |
+| onDblClickCell   | dbl-click-cell.bs.table  | field，value， row， $element | 当用户双击某一列的时候触发，参数包括： <br />field：点击列的 field 名称 <br />value：点击列的 value 值 <br />row：点击列的整行数据 <br />$element：td 元素 |
+| onSort           | sort.bs.table            | name，order                   | 当用户对列进行排序时触发，参数包含： <br />name：排序列字段名 <br />order：排序列的顺序 'desc' or 'asc' |
+| onCheck          | check.bs.table           | row，$element                 | 当用户点击选择行时触发，参数包含： <br />row：与单击的行对应的记录<br />$element：选中DOM元素 |
+| onUncheck        | uncheck.bs.table         | row，$element                 | 在用户取消选中行时触发，参数包含：  <br />row：与单击的行对应的记录 <br />$element：取消选中DOM元素 |
+| onCheckAll       | check-all.bs.table       | rowsAfter，rowsBefore         | 当用户检查所有行时触发，参数包含： <br />rowsAfter：数组，返回全选后全部选中的数据<br>rowsBefore：全选前的数据<br>rowsBefore 在1.41之前此参数无效，1.52之后有效 |
+| onUncheckAll     | uncheck-all.bs.table     | rowsAfter，rowsBefore         | 当用户取消选中所有行时触发，参数包含： <br />rowsAfter：取消全选后全部选中的数据<br>rowsBefore：取消全选前的数据<br>rowsBefore 在1.41之前此参数无效，1.52之后有效 |
+| onCheckSome      | check-some.bs.table      | rows                          | 当用户检查某些行时触发，参数包含：  <br />rows：与先前检查的行对应的记录数组 |
+| onUncheckSome    | uncheck-some.bs.table    | rows                          | 当用户取消选中某些行时触发，参数包含： <br />rows：与先前检查的行对应的记录数组 |
+| onLoadSuccess    | load-success.bs.table    | data                          | 在成功加载远程数据时触发                                     |
+| onLoadError      | load-error.bs.table      | status                        | 在加载远程数据时发生某些错误时触发                           |
+| onColumnSwitch   | column-switch.bs.table   | field，checked                | 切换列可见时触发<br>field：选中的列名称 字段名称<br>checked：是否显示该列 true 显示 false 不显示 |
+| onColumnSearch   | column-search.bs.table   | field，text                   | 在按列搜索时触发                                             |
+| onPageChange     | page-change.bs.table     | number，size                  | 当用户点击下一页上一页或页码时触发<br>number：当前第几页<br/>size：每页显示多少行数据 |
+| onSearch         | search.bs.table          | text                          | 在搜索表时触发<br/>text：用户输入的关键词                    |
+| onToggle         | toggle.bs.table          | cardView                      | 切换表视图时触发<br/>cardView：卡片状态 true 卡片视图 false 表格视图 |
+| onPreBody        | pre-body.bs.table        | data                          | 在 bootstrap table 表格的 body 渲染之前执行的事件，<br>可以利用该事件对数据进行拦截、刷选、处理，该事件参数返回需要渲染的 data 数据 |
+| onPostBody       | post-body.bs.table       | data                          | 在 bootstrap table 表格的 body 渲染之后执行的事件，该事件参数返回需要渲染的data数据 |
+| onPostHeader     | post-header.bs.table     | none                          | 在表头渲染之后触发，并在DOM中可用                            |
+| onExpandRow      | expand-row.bs.table      | index，row，$detail           | 当点击详细图标展开详细页面的时候触发 <br />index：被展开行的索引行号，从0开始<br/>row：行的原始数据如 {id:1, name:'itxst'}<br/>$detail：被展开的详情 jQuery 对象 |
+| onCollapseRow    | collapse-row.bs.table    | index，row，$detail           | 当点击详细图片收起详细页面的时候触发<br />index：被收起行的索引行号，从0开始<br/>row：行的原始数据如 {id:1, name:'itxst'}<br/>$detail：被收起的详情 jQuery 对象 |
+| onRefreshOptions | refresh-options.bs.table | options                       | 在刷新配置选项时触发，调用如下方法时触发：<br> $('#table').bootstrapTable('refreshOptions', {}) |
+| onRefresh        | refresh.bs.table         | params                        | 单击刷新按钮后触发                                           |
 
 
 
