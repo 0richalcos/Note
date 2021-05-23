@@ -342,58 +342,70 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
 ## 2.3、方法
 
-| 名称              | 参数           | 描述                                                         |
-| ----------------- | -------------- | ------------------------------------------------------------ |
-| getOptions        | none           | 返回表格的 Options。                                         |
-| getSelections     | none           | 返回所选的行，当没有选择任何行的时候返回一个空数组。         |
-| getAllSelections  | none           | 返回所有选择的行，包括搜索过滤前的，当没有选择任何行的时候返回一个空数组。 |
-| getData           | useCurrentPage | 或者当前加载的数据。假如设置 useCurrentPage 为 true，则返回当前页的数据。 |
-| getRowByUniqueId  | id             | 根据 uniqueId 获取行数据。                                   |
-| load              | data           | 加载数据到表格中，旧数据会被替换。                           |
-| showAllColumns    | none           | 显示所有列。                                                 |
-| hideAllColumns    | none           | 隐藏所有列.                                                  |
-| append            | data           | 添加数据到表格在现有数据之后。                               |
-| prepend           | data           | 插入数据到表格在现有数据之前。                               |
-| remove            | params         | 从表格中删除数据，包括两个参数： <br />field: 需要删除的行的 field 名称， <br />values: 需要删除的行的值，类型为数组。 |
-| removeAll         | -              | 删除表格所有数据。                                           |
-| removeByUniqueId  | id             | 根据 uniqueId 删除指定的行。                                 |
-| insertRow         | params         | 插入新行，参数包括： <br />index: 要插入的行的 index， <br />row: 行的数据，Object 对象。 |
-| updateRow         | params         | 更新指定的行，参数包括： <br />index: 要更新的行的 index， <br />row: 行的数据，Object 对象。 |
-| showRow           | params         | 显示指定的行，参数包括： <br />index: 要更新的行的 index 或者 uniqueId， <br />isIdField: 指定 index 是否为 uniqueid。 |
-| hideRow           | params         | 显示指定的行，参数包括： <br />index: 要更新的行的 index，<br />uniqueId: 或者要更新的行的 uniqueid。 |
-| getRowsHidden     | show           | 获取所有行隐藏，如果show参数为true，行将再次显示，否则，方法 只返回隐藏的行。 |
-| mergeCells        | options        | 将某些单元格合并到一个单元格，选项包含以下属性： <br />index：行索引，<br />field：字段名称，<br />rowspan：要合并的rowspan数量，<br />colspan：要合并的colspan数量。 |
-| updateCell        | params         | 更新一个单元格，params包含以下属性： <br />index：行索引，<br />field：字段名称，<br />value：新字段值。 |
-| refresh           | params         | 刷新远程服务器数据，可以设置` {silent：true} `以静默方式刷新数据，并设置` {url：newUrl} `更改URL。 要提供特定于此请求的查询参数，请设置` {query：{foo：’bar’}}` |
-| refreshOptions    | options        | 刷新选项。                                                   |
-| resetSearch       | text           | 设置搜索文本。                                               |
-| showLoading       | none           | 显示加载状态。                                               |
-| hideLoading       | none           | 隐藏加载状态。                                               |
-| checkAll          | none           | 检查所有当前页面行。                                         |
-| uncheckAll        | none           | 取消选中所有当前页面行。                                     |
-| check             | index          | 检查一行，行索引从0开始。                                    |
-| uncheck           | index          | 取消选中一行，行索引从0开始。                                |
-| checkBy           | params         | 按值数组检查一行，参数包含： <br />field：用于查找记录的字段的名称，<br />values：要检查的行的值数组 <br />例:  $(“#table”).bootstrapTable(<br />“checkBy”, {field:”field_name”, values:[“value1”,”value2”,”value3”]}) |
-| uncheckBy         | params         | 按值数组取消选中一行，参数包含： <br />field：用于查找记录的字段的名称，<br />values：要取消选中的行的值的数组 <br />例:  $(“#table”).bootstrapTable(<br />“uncheckBy”, {field:”field_name”, values:[“value1”,”value2”,”value3”]}) |
-| resetView         | params         | 重置引导表视图，例如重置表高度。                             |
-| resetWidth        | none           | 调整页眉和页脚的大小以适合当前列宽度。                       |
-| destroy           | none           | 销毁引导表。                                                 |
-| showColumn        | field          | 显示指定的列。                                               |
-| hideColumn        | field          | 隐藏指定的列。                                               |
-| getHiddenColumns  | -              | 获取隐藏的列。                                               |
-| getVisibleColumns | -              | 获取可见列。                                                 |
-| scrollTo          | value          | 滚动到指定位置，单位为 px，设置 ‘bottom’ 表示跳到最后。      |
-| getScrollPosition | none           | 获取当前滚动条的位置，单位为 px。                            |
-| filterBy          | params         | （只能用于 client 端）过滤表格数据， 你可以通过过滤`{age: 10}`来显示 age 等于 10 的数据。 |
-| selectPage        | page           | 跳到指定的页。                                               |
-| prevPage          | none           | 跳到上一页。                                                 |
-| nextPage          | none           | 跳到下一页。                                                 |
-| togglePagination  | none           | 切换分页选项。                                               |
-| toggleView        | none           | 切换 card/table 视图                                         |
-| expandRow         | index          | 如果详细视图选项设置为 True，请展开具有通过参数传递的索引的行。 |
-| collapseRow       | index          | 如果详细视图选项设置为 True，则折叠具有通过参数传递的索引的行。 |
-| expandAllRows     | is subtable    | 如果详细视图选项设置为 True，请展开所有行。                  |
-| collapseAllRows   | is subtable    | 如果详细信息视图选项设置为 True，则折叠所有行。              |
+```javascript
+//第一步，获取对象（即jQuery对象）
+var $table = $('#table');
+//第二步，调用bootstrap table方法
+var result=$table.bootstrapTable('方法名称',参数1,参数2,.....);
+var result=$table.bootstrapTable('方法名称',{field1:value1,field2:value2,.....});
+```
+
+| 名称                 | 参数           | 描述                                                         |
+| -------------------- | -------------- | ------------------------------------------------------------ |
+| getOptions           | none           | 返回表格的 Options                                           |
+| getSelections        | none           | 返回所选的行，当没有选择任何行的时候返回一个空数组           |
+| getAllSelections     | none           | 返回所有选择的行，包括搜索过滤前的，当没有选择任何行的时候返回一个空数组 |
+| getData              | options        | 获取表格数据（旧版本只有 useCurrentPage 一个参数，不需要对象直接填 true 或 false）<br>useCurrentPage：设置为 true 获取当前页码的数据，设置为 false 获取表格全部页码的数据<br>includeHiddenRows：设置 true 包含隐藏行的数据，设置 false 不包含隐藏行的数据 |
+| getRowByUniqueId     | id             | 根据 uniqueId 获取行数据                                     |
+| load                 | data           | 加载数据到表格中，旧数据会被替换                             |
+| showAllColumns       | none           | 显示所有列                                                   |
+| hideAllColumns       | none           | 隐藏所有列                                                   |
+| append               | data           | 追加数据到表格末尾                                           |
+| prepend              | data           | 追加数据到表格头部                                           |
+| remove               | options        | 从表格中删除数据，包括两个参数： <br />field：根据那个字段来删除，如ID字段 <br />values：根据这个字段哪些值来删除，如把 id 为 2 的数据删除 |
+| removeAll            | none           | 删除表格所有数据                                             |
+| removeByUniqueId     | id             | 根据 uniqueId 删除指定的行                                   |
+| insertRow            | options        | 插入新行，参数包括： <br />index：需要把数据插入到那以后，从 0 开始 <br />row：行数据对象，比如 {id:1,name:"丽莎"} |
+| updateRow            | options        | 更新指定的行，参数包括： <br />index：需要更新的数据索引，从 0 开始 <br />row：新的行数据对象，比如 {id:1,name:"丽莎"}<br>replace：可选项，新的数据对象是否替换旧的对象，设置 true 直接替换，设置 false 合并对象，默认为 false |
+| updateByUniqueId     | options        | 根据唯一 Id 更新行数据，参数包括： <br />id：唯一字段（主键字段）对应的值 <br />row：新的行数据对象，比如 {id:1,name:"丽莎"}<br/>replace：可选项，新的数据对象是否替换旧的对象，设置 true 直接替换，设置 false 合并对象，默认为 false |
+| showRow              | options        | 显示指定的行，参数包括： <br />index：行索引 0 开始，需要显示的行 <br />uniqueId：唯一字段值 |
+| hideRow              | options        | 显示指定的行，参数包括： <br />index：行索引 0 开始，需要隐藏的行 <br />uniqueId：唯一字段值 |
+| getHiddenRows        | show           | 获取隐藏的行，如果参数传入 true 会把隐藏的行显示但是不会返回隐藏的行 |
+| mergeCells           | options        | 将某些单元格合并到一个单元格，选项包含以下属性： <br />index：从第几行开始合并索引<br />field：字段从哪一列开始合并<br />rowspan：要合并的 rowspan 数量<br />colspan：要合并的 colspan 数量 |
+| updateCell           | options        | 更新一个单元格，包含以下属性： <br />index：行索引0开始，需要更新哪行数据<br />field：字段名称<br />value：新字段值 |
+| updateCellByUniqueId | options        | 唯一字段更新单元格数据，包含以下属性： <br />id：唯一字段（或主键）对应的值<br />field：需要更新的字段<br />value：该字段需要被更新的值 |
+| refresh              | options        | 刷新远程服务器数据，可以设置` {silent：true} `以静默方式刷新数据，并设置` {url：newUrl} `更改URL。 要提供特定于此请求的查询参数，请设置` {query：{foo：’bar’}}` |
+| refreshOptions       | options        | 刷新选项<br>例：把每页显示 2 条数据更新为每页显示 5 条数据<br>$('#table').bootstrapTable('refreshOptions', {pageSize:5}); |
+| resetSearch          | text           | 设置搜索文本<br>text：设置搜索框的值，也可以不设置           |
+| showLoading          | none           | 显示加载状态                                                 |
+| hideLoading          | none           | 隐藏加载状态                                                 |
+| checkAll             | none           | 选中所有行的方法，注如果有分页只会全部选中当前页，而不是选中全部页码的数据 |
+| uncheckAll           | none           | 反选所有行的方法，注如果有分页只会反选当前页，而不是选中全部页码的数据 |
+| check                | index          | 检查一行，行索引从0开始                                      |
+| uncheck              | index          | 取消选中一行，行索引从0开始                                  |
+| checkBy              | options        | 根据条件选中行<br />field：根据那个字段来选中行<br />values：据这个字段的哪些值来选中 <br />例： 选中Id为1和23的行 <br>$('#table').bootstrapTable('checkBy', {field: 'Id', values:[1, 23]}); |
+| uncheckBy            | options        | 根据条件取消选中行 <br />field：根据那个字段来取消选中行<br />values：据这个字段的哪些值来取消选中，格式：[1,51,18] <br />例:  取消选中Id为1和23的行<br>$('#table').bootstrapTable('uncheckBy', {field: 'Id', values:[22,23]}); |
+| checkInvert          | none           | 反选                                                         |
+| resetView            | options        | 重置引导表视图，例如重置表高度<br>$('#table').bootstrapTable('resetView',{height:200}); |
+| resetWidth           | none           | 调整页眉和页脚的大小以适合当前列宽度                         |
+| destroy              | none           | 注销表格                                                     |
+| showColumn           | field          | 显示指定的列                                                 |
+| hideColumn           | field          | 隐藏指定的列                                                 |
+| getHiddenColumns     | none           | 获取隐藏的列                                                 |
+| getVisibleColumns    | none           | 获取可见列                                                   |
+| scrollTo             | value，options | 滚动滚动条到指定位置，可以设置 px 或者行的索引来实现，参数 options 或 value 二选一<br>value： 需要滚动到的位置，单位为px，如果设置为bottom表示滚动到底部<br>options：{unit: 'px', value: 100} 滚动到100px 位置，{unit: 'rows', value: 6} 滚动到第 6 行 |
+| getScrollPosition    | none           | 获取当前滚动条的位置，单位为 px                              |
+| filterBy             | options        | （只能用于 client 端）过滤表格数据， 可以通过过滤`{age: 10}`来显示 age 等于 10 的数据 |
+| selectPage           | page           | 跳到指定的页                                                 |
+| prevPage             | none           | 跳到上一页                                                   |
+| nextPage             | none           | 跳到下一页                                                   |
+| togglePagination     | none           | 隐藏显示分页                                                 |
+| toggleFullscreen     | none           | 全屏显示或取消全屏显示                                       |
+| toggleView           | none           | 切换 card/table 视图                                         |
+| expandRow            | index          | 如果详细视图选项设置为 True，请展开具有通过参数传递的索引的行 |
+| collapseRow          | index          | 如果详细视图选项设置为 True，则折叠具有通过参数传递的索引的行 |
+| expandAllRows        | is subtable    | 如果详细视图选项设置为 True，请展开所有行                    |
+| collapseAllRows      | is subtable    | 如果详细信息视图选项设置为 True，则折叠所有行                |
 
 
 
@@ -578,88 +590,53 @@ $(function() {
 
 **实现原理**
 
-通过bootstrap table自带的 `onClickCell` 方法，点击 td 添加 `contenteditable` 属性(ps: 使元素可编辑),于是 td 元素具有了类似于文本框的 *focus* 和 *blur* 事件，用户点击 td 获取焦点，编辑完内容失去焦点后，调用 `updateCell`方法更新单元格数据。
+通过bootstrap table自带的 `onClickCell` 方法，点击 td 添加 `contenteditable` 属性(ps: 使元素可编辑)，于是 td 元素具有了类似于文本框的 *focus* 和 *blur* 事件，用户点击 td 获取焦点，编辑完内容失去焦点后，调用 `updateCell`方法更新单元格数据。
 
 
 
 **思路二**
 
-实现思路参照 bootstrapTable API 中的 onDblClickCell 和updateCell 方法
+使用 X-editable 进行编辑
 
-| 方法名         | 参数                        | 说明                                                         |
-| -------------- | --------------------------- | ------------------------------------------------------------ |
-| onDblClickCell | field, value, row, $element | 当用户双击某一列的时候触发，参数包括：<br/>field：点击列的 field 名称，<br/>value：点击列的 value 值，<br/>row：点击列的整行数据，<br/>$element：td 元素。 |
-| updateCell     | index, field, value         | 更新一个单元格，params包含以下属性：<br/>index: 行索引。<br/>field: 字段名称。<br/>value: 新字段值。 |
+简单使用可以用 bootstrap Table 的集成版本 `bootstrap-table-editable.js`
+
+使用以下语句可以将气泡（默认）改为行内 input
 
 ```javascript
-onDblClickCell: function (field, value, row, $element) {
-    let upIndex = $element[0].parentElement.rowIndex - 1;
-    let editFields = options.editFileds;
-    editFields.forEach(function (editFiled) {
-        if (field == editFiled) {
-            $element[0].innerHTML = "<input id='inputCell' type='text' name='inputCell'  value='" + value + "'>";
-            $("#inputCell").focus();
-            $("#inputCell").blur(function () {
-                let newValue = $("#inputCell").val();
-                row[field] = newValue;
-                $(this).remove();
-                $('#bootstrap-table').bootstrapTable('updateCell', {
-                    index: upIndex,
-                    field: field,
-                    value: newValue
-                });
-                rowedit(row);
-            });
-        }
-    })
-},
+$.fn.editable.defaults.mode = 'inline';
 ```
 
-双击单元格后触发 onDblClickCell 事件，获取到行号，插入 input 元素即可行内编辑，编辑完后触发 updateCell 方法更新单元格数据。
-
-下面是js封装的操作函数，用于提交数据，返回操作结果。（使用若依框架）
-
 ```javascript
-// 操作封装处理
-operate: {
-	// post请求传输
-	post: function(url, data) {
-		$.operate.submit(url, "post", "json", data);
-	},
-	// 修改行
-	rowedit: function(row) {
-		$.modal.loading("正在处理中，请稍后...");
-		var url =  $.table._option.roweditUrl;
-		var config = {
-			url: url,
-			type: "post",
-			dataType: "json",
-			data: row,
-			success: function(result) {
-				$.operate.ajaxSuccess(result);
-			}
-		};
-		$.ajax(config)
-    },
-	// 保存结果弹出msg刷新table表格
-	ajaxSuccess: function (result) {
-	if (result.code == web_status.SUCCESS) {
-        $.modal.msgSuccess(result.msg);
-        $.table.refresh();
-    } else {
-        $.modal.alertError(result.msg);
-    }
-        $.modal.closeLoading();
-    }
-}
-```
-
-在html页面文件的
-
-```javascript
-$(function () {
-    var options = {
-        editFileds: ["zhAuditedName", "zhParentName"],  //加入需要编辑的属性字段名称  
+$("#table").bootstrapTable({
+            url: "",
+            editable: true,
+            columns: [
+                {
+                    title: that.columns['Operate'],
+                    field: '_',
+                    align: 'center',
+                }, {
+                    title: that.columns['x1'],
+                    field: 'x1',
+                    align: 'center',
+                    editable: {
+                        canEdit: true,
+                        type: 'number',
+                        emptytext: "【XXXX】为空",
+                        validate: function (v) {
+                            if (v.length > 9) {
+                                return "数字超出范围";
+                            }
+                        }
+                    },
+                    formatter: function (value, row, index) {
+                        if (value == null || value == 'NaN') {
+                            return "";
+                        } else {
+                            return value;
+                        }
+                    }
+                }]
 ```
 
 
