@@ -5,7 +5,7 @@
 ## Java 基础
 
 - [Java](https://github.com/0richalcos/Note/blob/main/Markdown/Java.md)
-- [JavaWeb](https://github.com/0richalcos/Note/blob/main/Markdown/JavaWeb.md)
+- [Java Web](https://github.com/0richalcos/Note/blob/main/Markdown/JavaWeb.md)
 
 
 
@@ -18,16 +18,16 @@
 
 ## 数据库持久层框架
 
-- [Mybatis](https://github.com/0richalcos/Note/blob/main/Markdown/Mybatis.md)
+- [MyBatis](https://github.com/0richalcos/Note/blob/main/Markdown/Mybatis.md)
 
 
 
 ## Spring 全家桶
 
 - [Spring](https://github.com/0richalcos/Note/blob/main/Markdown/Spring.md)
-- [SpringMVC](https://github.com/0richalcos/Note/blob/main/Markdown/SpringMVC.md)
-- [SpringBoot](https://github.com/0richalcos/Note/blob/main/Markdown/SpringBoot.md)
-- [SpringCloud](https://github.com/0richalcos/Note/blob/main/Markdown/SpringCloud.md)
+- [Spring MVC](https://github.com/0richalcos/Note/blob/main/Markdown/SpringMVC.md)
+- [Spring Boot](https://github.com/0richalcos/Note/blob/main/Markdown/SpringBoot.md)
+- [Spring Cloud](https://github.com/0richalcos/Note/blob/main/Markdown/SpringCloud.md)
 
 
 
