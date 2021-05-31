@@ -1495,3 +1495,247 @@ class Redis02SpringbootApplicationTests {
 }
 ```
 
+
+
+# 8、Redis.conf 详解
+
+**单位**
+
+<img src="../Images/Redis/image-20210531165111502.png" alt="image-20210531165111502"  />
+
+单位大小写不敏感，`1GB`、`1Gb`、`1gB`都是一样的
+
+
+
+**包含 INCLOUDES**
+
+![image-20210531171044748](../Images/Redis/image-20210531171044748.png)
+
+可以把多个配置文件包含进来
+
+
+
+**网络 NETWORK**
+
+```bash
+# 绑定的IP，默认为本机地址，如果不限制可以在前面加 # 注释掉
+bind 172.0.0.1
+
+# 保护模式，如果想要远程访问，这个要关掉
+protected-mode no
+
+# 端口号
+prot 6379
+
+# 设置客户端连接时的超时时间，单位为秒。当客户端在这段时间内没有发出任何指令，那么关闭该连接
+# 0是关闭此设置
+timeout 0
+```
+
+
+
+**通用 GENERAL**
+
+```bash
+# 以守护线程的方式运行
+deamonize yes
+
+# 如果以后台的方式运行，那么就需要指定一个 pid 文件
+pidfile /var/run/redis/redis-server.pid
+
+# 指定日志记录级别
+# Redis总共支持四个级别：debug、verbose、notice、warning
+# debug 记录很多信息，用于开发和测试
+# varbose 有用的信息，不像debug会记录那么多
+# notice 普通的verbose，常用于生产环境
+# warning 只有非常重要或者严重的信息会记录到日志
+loglevel debug
+
+# 配置log文件地址
+logfile /var/log/redis/redis.log
+
+# 可用数据库数
+# 默认值为16，默认数据库为0，数据库范围在0-（database-1）之间
+databases 16
+
+# 是否总是显示 logo
+always-show-logo yes
+```
+
+
+
+**快照 SNAPSHOTTING**
+
+```bash
+# 指出在多长时间内，有多少次更新操作，就将数据同步到数据文件rdb。
+# 相当于条件触发抓取快照，这个可以多个条件配合
+#
+# 比如默认配置文件中的设置，就设置了三个条件
+#
+# save 900 1 900秒内至少有1个key被改变
+# save 300 10 300秒内至少有300个key被改变
+# save 60 10000 60秒内至少有10000个key被改变
+
+save 900 1
+save 300 10
+save 60 10000
+
+# 创建快照出错后是否停止写入
+stop-writes-on-bgsave-error yes
+
+# 存储至本地数据库时（持久化到rdb文件）是否压缩数据
+rdbcompression yes
+
+# 保存 rdb 文件时，进行错误的检查校检
+rdbchecksum yes
+
+# 本地持久化数据库文件名
+dbfilename dump.rdb
+
+# 工作目录
+#
+# 数据库镜像备份的文件放置的路径。
+# 这里的路径跟文件名要分开配置是因为redis在进行备份时，先会将当前数据库的状态写入到一个临时文件中，等备份完成时，
+# 再把该该临时文件替换为上面所指定的文件，而这里的临时文件和上面所配置的备份文件都会放在这个指定的路径当中。
+#
+# AOF文件也会存放在这个目录下面
+#
+# 注意这里必须指定一个目录而不是文件
+dir ./
+```
+
+
+
+**复制 REPLICATION**
+
+
+
+**安全 SECURITY**
+
+```bash
+# 设置客户端连接后进行任何其他指定前需要使用的密码。
+# 警告：因为redis速度相当快，所以在一台比较好的服务器下，一个外部的用户可以在一秒钟进行150K次的密码尝试，这意味着你需要指定非常非常强大的密码
+# 来防止暴力破解
+#
+# requirepass foobared
+
+# 可以通过命令来设置这个密码
+# 获取密码
+config get requirepass
+
+# 设置密码
+config set requirepass "123456"
+
+# 验证
+auth 123456
+```
+
+
+
+**客户端 CLIENTS**
+
+```bash
+# 设置同一时间最大客户端连接数，默认无限制，Redis可以同时打开的客户端连接数为Redis进程可以打开的最大文件描述符数，
+# 如果设置 maxclients 0，表示不作限制。
+# 当客户端连接数到达限制时，Redis会关闭新的连接并向客户端返回max number of clients reached错误信息
+#
+# maxclients 10000
+```
+
+
+
+**内存管理 MEMORY MANAGEMENT**
+
+```bash
+# 指定Redis最大内存限制，Redis在启动时会把数据加载到内存中，达到最大内存后，Redis会先尝试清除已到期或即将到期的Key
+# Redis同时也会移除空的list对象
+#
+# 当此方法处理后，仍然到达最大内存设置，将无法再进行写入操作，但仍然可以进行读取操作
+#
+# 注意：Redis新的vm机制，会把Key存放内存，Value会存放在swap区
+#
+# maxmemory的设置比较适合于把redis当作于类似memcached的缓存来使用，而不适合当做一个真实的DB。
+# 当把Redis当做一个真实的数据库使用的时候，内存使用将是一个很大的开销
+# maxmemory <bytes>
+
+# 当内存达到最大值的时候Redis会选择删除哪些数据？有五种方式可供选择
+#
+# volatile-lru -> 利用LRU算法移除设置过过期时间的key (LRU:最近使用 Least Recently Used )
+# allkeys-lru -> 利用LRU算法移除任何key
+# volatile-lfu -> 利用LFU算法移除设置过过期时间的key (LRU:最少使用 Least Frequently Used )
+# allkeys-lfu -> 利用LFU算法移除任何key
+# volatile-random -> 移除设置过过期时间的随机key
+# allkeys->random -> remove a random key, any key (随机删除)
+# volatile-ttl -> 移除即将过期的key(minor TTL)
+# noeviction -> 不移除任何key，只是返回一个写错误
+#
+# 注意：对于上面的策略，如果没有合适的key可以移除，当写的时候Redis会返回一个错误
+#
+# 写命令包括: set setnx setex append
+# incr decr rpush lpush rpushx lpushx linsert lset rpoplpush sadd
+# sinter sinterstore sunion sunionstore sdiff sdiffstore zadd zincrby
+# zunionstore zinterstore hset hsetnx hmset hincrby incrby decrby
+# getset mset msetnx exec sort
+#
+# 默认是:
+#
+# maxmemory-policy volatile-lru
+```
+
+
+
+**AOF APPEND ONLY MODE**
+
+```bash
+# 默认情况下，redis会在后台异步的把数据库镜像备份到磁盘，但是该备份是非常耗时的，而且备份也不能很频繁，如果发生诸如拉闸限电、拔插头等状况，那么
+# 将造成比较大范围的数据丢失。
+# 所以redis提供了另外一种更加高效的数据库备份及灾难恢复方式。
+# 开启append only模式之后，redis会把所接收到的每一次写操作请求都追加到appendonly.aof文件中，当redis重新启动时，会从该文件恢复出之前的状
+#态。
+# 但是这样会造成appendonly.aof文件过大，所以redis还支持了BGREWRITEAOF指令，对appendonly.aof 进行重新整理。
+# 你可以同时开启asynchronous dumps 和 AOF
+appendonly no
+
+# AOF文件名称 (默认: "appendonly.aof")
+appendfilename "appendonly.aof"
+
+# Redis支持三种同步AOF文件的策略:
+#
+# no: 不进行同步，系统去操作 . Faster.
+# always: always表示每次有写操作都进行同步. Slow, Safest.
+# everysec: 表示对写操作进行累积，每秒同步一次. Compromise.
+#
+# 默认是"everysec"，按照速度和安全折中这是最好的。
+# 如果想让Redis能更高效的运行，你也可以设置为"no"，让操作系统决定什么时候去执行
+# 或者相反想让数据更安全你也可以设置为"always"
+#
+# 如果不确定就用 "everysec".
+
+# appendfsync always
+appendfsync everysec
+# appendfsync no
+```
+
+
+
+**慢日志 SLOW LOG**
+
+```bash
+# Redis Slow Log 记录超过特定执行时间的命令。执行时间不包括I/O计算比如连接客户端，返回结果等，只是命令执行时间
+#
+# 可以通过两个参数设置slow log：一个是告诉Redis执行超过多少时间被记录的参数slowlog-log-slower-than(微妙)，
+# 另一个是slow log 的长度。当一个新命令被记录的时候最早的命令将被从队列中移除
+
+# 下面的时间以微妙微单位，因此1000000代表一分钟。
+# 注意制定一个负数将关闭慢日志，而设置为0将强制每个命令都会记录
+slowlog-log-slower-than 10000
+
+# 对日志长度没有限制，只是要注意它会消耗内存
+# 可以通过 SLOWLOG RESET 回收被慢日志消耗的内存
+slowlog-max-len 128
+```
+
+
+
+# 9、RDB
+
