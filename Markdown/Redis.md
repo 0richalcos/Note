@@ -215,7 +215,7 @@ Redis 是一个开源（BSD许可）的，内存中的数据结构存储系统�
 
 string 是 redis 最基本的类型，可以理解成与 Memcached 一模一样的类型，一个 key 对应一个 value。value 其实不仅是 String，也可以是数字。string 类型是二进制安全的。意思是 redis 的 string 可以包含任何数据。比如 jpg 图片或者序列化的对象。string 类型是 Redis 最基本的数据类型，string 类型的值最大能存储 512MB。
 
-常用命令：get、set、incr、decr、mget 等。
+常用命令：`get`、`set`、`incr`、`decr`、`mget` 等。
 
 应用场景：String 是最常用的一种数据类型，普通的 key / value 存储都可以归为此类，即可以完全实现目前 Memcached 的功能，并且效率更高。还可以享受 Redis 的定时持久化，操作日志及 Replication 等功能。
 
@@ -347,15 +347,15 @@ OK
 
 列表是简单的字符串列表，按照插入顺序排序。可以添加一个元素到列表的头部（左边）或者尾部（右边）。
 
-常用命令：lpush（添加左边元素），rpush，lpop（移除左边第一个元素），rpop，lrange（获取列表片段，LRANGE key start stop）等。
+常用命令：`lpush`（添加左边元素），`rpush`，`lpop`（移除左边第一个元素），`rpop`，`lrange`（获取列表片段，Lrange key start stop）等。
 
 应用场景：Redis list 的应用场景非常多，也是 Redis 最重要的数据结构之一，比如 twitter 的关注列表，粉丝列表等都可以用 Redis 的 list 结构来实现。
 
-实现方式：Redis 的 list 是每个子元素都是 String 类型的双向链表，可以通过 push 和 pop 操作从列表的头部或者尾部添加或者删除元素，可以支持反向查找和遍历，这样 List 既可以作为栈，也可以作为队列，不过带来了部分额外的内存开销。获取越接近两端的元素速度越快，通过索引访问时会比较慢。Redis 内部的很多实现，包括发送缓冲队列等也都是用的这个数据结构。
+实现方式：Redis 的 list 是每个子元素都是 String 类型的双向链表，可以通过 `push` 和 `pop` 操作从列表的头部或者尾部添加或者删除元素，可以支持反向查找和遍历，这样 List 既可以作为栈，也可以作为队列，不过带来了部分额外的内存开销。获取越接近两端的元素速度越快，通过索引访问时会比较慢。Redis 内部的很多实现，包括发送缓冲队列等也都是用的这个数据结构。
 
 使用场景：
 
-- 消息队列系统：使用 list 可以构建队列系统，轻松地实现最新消息排行等功能。利用 List 的 PUSH 操作，将任务存在 List中，然后工作线程再用 POP 操作将任务取出进行执行，使用 sorted set 甚至可以构建有优先级的队列系统。比如：将 Redis 用作日志收集器，实际上还是一个队列，多个端点将日志信息写入 Redis，然后一个 worker 统一将所有日志写到磁盘。
+- 消息队列系统：使用 list 可以构建队列系统，轻松地实现最新消息排行等功能。利用 List 的 `push` 操作，将任务存在 List 中，然后工作线程再用 `pop` 操作将任务取出进行执行，使用 sorted set 甚至可以构建有优先级的队列系统。比如：将 Redis 用作日志收集器，实际上还是一个队列，多个端点将日志信息写入 Redis，然后一个 worker 统一将所有日志写到磁盘。
 - 取最新 N 个数据的操作：记录前 N 个最新登陆的用户 Id 列表，超出的范围可以从数据库中获得。
 
 列表最多可存储 2^32^ - 1 元素 (4294967295, 每个列表可存储40多亿)。
@@ -486,7 +486,7 @@ OK
 
 Redis set 是 string 类型的无序集合。集合是通过 intset 和 hashtable 实现的，概念和数学中个的集合基本类似，可以交集，并集，差集等等，set 中的元素是没有顺序的。所以添加，删除，查找的复杂度都是O(1)。
 
-常用命令：sadd，spop，smembers，sunion 等。
+常用命令：`sadd`，`spop`，`smembers`，`sunion` 等。
 
 应用场景：Redis set 对外提供的功能与 list 类似是一个列表的功能，特殊之处在于 set 是可以自动排重的，当需要存储一个列表数据，又不希望出现重复数据时，set 是一个很好的选择，并且 set 提供了判断某个成员是否在一个 set 集合内的重要接口，这个也是 list 所不能提供的。
 
@@ -584,7 +584,7 @@ Redis set 是 string 类型的无序集合。集合是通过 intset 和 hashtabl
 
 Redis hash 是一个键值 (key => value) 对集合。Redis hash 是一个 string 类型的 field 和 value 的映射表，hash 特别适合用于存储对象。
 
-常用命令：hget，hset，hgetall 等。
+常用命令：`hget`，`hset`，`hgetall` 等。
 
 使用场景：存储部分变更数据，如用户信息等。每个 hash 可以存储 2^32^ -1 键值对（40多亿）。
 
@@ -662,11 +662,9 @@ OK
 
 Redis zset 和 set 一样也是string类型元素的集合,且不允许重复的成员。
 
-常用命令：zadd，zrange，zrem，zcard 等
+常用命令：`zadd`，`zrange`，`zrem`，`zcard` 等
 
 使用场景：Redis sorted set 的使用场景与 set 类似，区别是 set 不是自动有序的，而 sorted set 可以通过用户额外提供一个优先级 (score) 的参数来为成员排序，并且是插入有序的，即自动排序。当需要一个有序的并且不重复的集合列表，那么可以选择 sorted set 数据结构，比如 twitter 的 public timeline 可以以发表时间作为 score 来存储，这样获取时就是自动按时间排好序的。和 Set 相比，Sorted Set 关联了一个 double 类型权重参数score，使得集合中的元素能够按 score 进行有序排列，redis 正是通过分数来为集合中的成员进行从小到大的排序。zset 的成员是唯一的，但分数(score) 却可以重复。比如一个存储全班同学成绩的 Sorted Set，其集合 value 可以是同学的学号，而 score 就可以是其考试得分，这样在数据插入集合的时候，就已经进行了天然的排序。另外还可以用 Sorted Set 来做带权重的队列，比如普通消息的 score 为1，重要消息的 score 为2，然后工作线程可以选择按 score 的倒序来获取工作任务。让重要的任务优先执行。
-
-
 
 ```shell
 127.0.0.1:6379> zadd myset 1 one # 添加一个值
@@ -741,12 +739,12 @@ Reids 的 Geo 在 Reids 3.2 版本就推出了！这个功能可以推算地理�
 
 只有六个命令：
 
-- geoadd
-- geodist
-- geohash
-- geopos
-- georadius
-- georadiusbymember
+- `geoadd`
+- `geodist`
+- `geohash`
+- `geopos`
+- `georadius`
+- `georadiusbymember`
 
 
 
@@ -968,9 +966,9 @@ Redis 单条命令是保证原子性的，但是事务不保证原子性！
 
 Redis 的事务：
 
-- 开启事务（multi）
+- 开启事务（`multi`）
 - 命令入队
-- 执行事务（exec）
+- 执行事务（`exec`）
 
 
 
@@ -1074,7 +1072,7 @@ QUEUED
 2) (integer) 20
 ```
 
-测试多线程修改值，使用 watch 可以当做 Redis 的乐观锁操作！
+测试多线程修改值，使用`watch`可以当做 Redis 的乐观锁操作！
 
 ```shell
 127.0.0.1:6379> get money
@@ -1091,7 +1089,7 @@ QUEUED
 (nil)
 ```
 
-无论事务是否执行成功，Redis 都会去取消执行事务前的 watch 命令；redis 可以使用`unwatch`命令取消对所有 key 的监视。
+无论事务是否执行成功，Redis 都会去取消执行事务前的`watch`命令；redis 可以使用`unwatch`命令取消对所有 key 的监视。
 
  ```shell
 127.0.0.1:6379> watch money # 获取最新的值，再次监视，select version
@@ -1271,11 +1269,11 @@ RedisSerializer 接口 是 Redis 序列化接口，用于 Redis KEY 和 VALUE �
 
 - 两者之间的区别主要在于他们使用的序列化类：
 
-	> RedisTemplate 使用的是 JdkSerializationRedisSerializer（如果存入对象，对象要实现 Serializable 接口），存入数据会将数据先序列化成字节数组然后在存入Redis 数据库。这个时候打开Redis 查看的时候，你会看到你的数据不是以可读的形式展现的，而是以字节数组显示，类似下面：
+	> RedisTemplate 使用的是 JdkSerializationRedisSerializer（如果存入对象，对象要实现 Serializable 接口），存入数据会将数据先序列化成字节数组然后在存入 Redis 数据库。这个时候打开 Redis 查看的时候，你会看到你的数据不是以可读的形式展现的，而是以字节数组显示，类似下面：
 	>
 	> <img src="../Images/Redis/20180311192010923" alt="img" style="zoom:80%;" /> 
 	>
-	> ==当然从 Redis 获取数据的时候也会默认将数据当做字节数组转化==，这样就会导致一个问题，当需要获取的数据不是以字节数组存在 redis 当中而是正常的可读的字符串的时候，比如说下面这种形式的数据：
+	> ==当然从 Redis 获取数据的时候也会默认将数据当做字节数组转化==，这样就会导致一个问题，当需要获取的数据不是以字节数组存在 Redis 当中而是正常的可读的字符串的时候，比如说下面这种形式的数据：
 	> <img src="../Images/Redis/20180311192129306" alt="img" style="zoom:80%;" />
 	>
 	> RedisTemplate 就无法获取导数据，这个时候获取到的值就是 NULL。此时 StringRedisTempate 就派上了用场， StringRedisTemplate 使用的是 StringRedisSerializer，当 Redis 当中的数据值是以可读的形式显示出来的时候，只能使用 StringRedisTemplate 才能获取到里面的数据。
@@ -1303,7 +1301,7 @@ public class StringRedisTemplate extends RedisTemplate<String, String> {
 }
 ```
 
-通过该源码可以看到 StringRedisTemplate 采用的是 RedisSerializer.string() 来序列化 Redis 中存储数据的 Key 的。
+通过该源码可以看到 StringRedisTemplate 采用的是 `RedisSerializer.string()` 来序列化 Redis 中存储数据的 Key 的。
 
 下面再来看看 RedisTemplate 中默认采用什么形式来序列化对应的 Key。
 
@@ -1368,7 +1366,7 @@ void init() {
 }
 ```
 
-也就是设置 RedisTemplate 也使用 RedisSerializer.string() 来序列化 Key。注意此处使用的是 Junit5。
+也就是设置 RedisTemplate 也使用 `RedisSerializer.string()` 来序列化 Key。注意此处使用的是 Junit5。
 
 这样就解决问题了吗？没有。因为 RedisTemplate 的 Value 也是采用默认的序列化类，也要进行统一修改。
 
@@ -1737,5 +1735,63 @@ slowlog-max-len 128
 
 
 
-# 9、RDB
+# 9、持久化
 
+什么是Redis持久化？
+
+Redis 作为一个键值对内存数据库（NoSQL），数据都存储在内存当中，在处理客户端请求时，所有操作都在内存当中进行，如下所示：
+
+<img src="Images/Redis/16b91484c4f516d5" alt="img" style="zoom:67%;" />
+
+但是， 存储在内存当中的数据，只要服务器关机(各种原因引起的)，内存中的数据就会消失了，不仅服务器关机会造成数据消失，Redis 服务器守护进程退出，内存中的数据也一样会消失。
+
+对于只把 Redis 当缓存来用的项目来说，数据消失或许问题不大，重新从数据源把数据加载进来就可以了，但如果直接把用户提交的业务数据存储在 Redis 当中，把 Redis 作为数据库来使用，在其放存储重要业务数据，那么 Redis 的内存数据丢失所造成的影响也许是毁灭性。
+
+为了避免内存中数据丢失，Redis 提供了 RDB 和 AOF 两种不同的数据持久化方式，我们可以选择不同的方式将数据从内存中保存到硬盘当中，使数据可以持久化保存。
+
+<img src="Images/Redis/16b9148bc2eb53a5" alt="img" style="zoom:67%;" />
+
+
+
+## 9.1、RDB
+
+RDB（Redis DataBase） 是一种快照存储持久化方式，具体就是将 Redis 某一时刻的内存数据保存到硬盘的文件当中，默认保存的文件名为 dump.rdb，而在 Redis 服务器启动时，会重新加载 dump.rdb 文件的数据到内存当中恢复数据。
+
+### 9.1.1、开启 RDB 持久化方式
+
+**save**
+
+`save`命令可以同步数据到磁盘上。
+
+<img src="Images/Redis/16b914a74a0c8ef5" alt="img" style="zoom:67%;" />
+
+当客户端向服务器发送`save`命令请求进行持久化时，服务器会阻塞`save`命令之后的其他客户端的请求，直到数据同步完成。如果数据量太大，同步数据会执行很久，而这期间 Redis 服务器也无法接收其他请求，所以，最好不要在生产环境使用`save`命令。
+
+
+
+**bgsave**
+
+与`save`命令不同，`bgsave`命令是一个异步操作。
+
+<img src="Images/Redis/16b914b543343855" alt="img" style="zoom:67%;" />
+
+当客户端发服务发出`bgsave`命令时，Redis 服务器主进程会 forks 一个子进程来数据同步问题，在将数据保存到 rdb 文件之后，子进程会退出。
+
+所以，与`save`命令相比，Redis 服务器在处理`bgsave`采用子线程进行 IO 写入，而主进程仍然可以接收其他请求，但 forks 子进程是同步的，所以     forks 子进程时，一样不能接收其他请求，这意味着，如果 forks 一个子进程花费的时间太久（一般是很快的），`bgsave`命令仍然有阻塞其他客户的请求的情况发生。
+
+
+
+**服务器配置自动触发**
+
+除了通过客户端发送命令外，还有一种方式，就是在 Redis 配置文件中的 save 指定到达触发 RDB 持久化的条件，比如【多少秒内至少达到多少写操作】就开启 RDB 数据同步。
+
+```bash
+# 900s内至少达到一条写命令
+save 900 1
+# 300s内至少达至10条写命令
+save 300 10
+# 60s内至少达到10000条写命令
+save 60 10000
+```
+
+这种通过服务器配置文件触发 RDB 的方式，与 bgsave 命令类似，达到触发条件时，会 forks 一个子进程进行数据同步。
