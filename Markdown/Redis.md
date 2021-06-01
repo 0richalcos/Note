@@ -1606,14 +1606,45 @@ dir ./
 
 **复制 REPLICATION**
 
+```bash
+# 主从复制. 设置该数据库为其他数据库的从数据库.
+# 设置当本机为slave服务时，设置master服务的IP地址及端口，在Redis启动时，它会自动从master进行数据同步
+#
+# replicaof <masterip> <masterport>
+
+# 当master服务设置了密码保护时(用requirepass制定的密码)
+# slav服务连接master的密码
+#
+# masterauth <master-password>
+
+# 当从库同主机失去连接或者复制正在进行，从机库有两种运行方式：
+#
+# 1) 如果replica-serve-stale-data设置为yes(默认设置)，从库会继续相应客户端的请求
+#
+# 2) 如果replica-serve-stale-data是指为no，除去INFO和SLAVOF命令之外的任何请求都会返回一个
+# 错误"SYNC with master in progress"
+#
+replica-serve-stale-data yes
+
+# 从库会按照一个时间间隔向主库发送PINGs.可以通过repl-ping-replica-period设置这个时间间隔，默认是10秒
+#
+# repl-ping-replica-period 10
+
+# “心跳检测” 这个值对三个场景都有效：
+# 大量的I/O操作，从节点收到主节点的响应时间。
+# 从节点认为主节点的超时时间
+# 主节点认为从节点的超时时间
+# repl-timeout 60
+```
+
 
 
 **安全 SECURITY**
 
 ```bash
 # 设置客户端连接后进行任何其他指定前需要使用的密码。
-# 警告：因为redis速度相当快，所以在一台比较好的服务器下，一个外部的用户可以在一秒钟进行150K次的密码尝试，这意味着你需要指定非常非常强大的密码
-# 来防止暴力破解
+# 警告：因为redis速度相当快，所以在一台比较好的服务器下，一个外部的用户可以在一秒钟进行150K次的密码尝试，这意味着你需要指定非常非常强大
+# 的密码来防止暴力破解
 #
 # requirepass foobared
 
@@ -1685,12 +1716,12 @@ auth 123456
 **AOF APPEND ONLY MODE**
 
 ```bash
-# 默认情况下，redis会在后台异步的把数据库镜像备份到磁盘，但是该备份是非常耗时的，而且备份也不能很频繁，如果发生诸如拉闸限电、拔插头等状况，那么
-# 将造成比较大范围的数据丢失。
+# 默认情况下，redis会在后台异步的把数据库镜像备份到磁盘，但是该备份是非常耗时的，而且备份也不能很频繁，
+# 如果发生诸如拉闸限电、拔插头等状况，那么将造成比较大范围的数据丢失。
 # 所以redis提供了另外一种更加高效的数据库备份及灾难恢复方式。
-# 开启append only模式之后，redis会把所接收到的每一次写操作请求都追加到appendonly.aof文件中，当redis重新启动时，会从该文件恢复出之前的状
-#态。
-# 但是这样会造成appendonly.aof文件过大，所以redis还支持了BGREWRITEAOF指令，对appendonly.aof 进行重新整理。
+# 开启append only模式之后，redis会把所接收到的每一次写操作请求都追加到appendonly.aof文件中，
+# 当redis重新启动时，会从该文件恢复出之前的状态。
+# 但是这样会造成appendonly.aof文件过大，所以redis还支持了 BGREWRITEAOF 指令，对 appendonly.aof 进行重新整理。
 # 你可以同时开启asynchronous dumps 和 AOF
 appendonly no
 
@@ -1712,6 +1743,34 @@ appendfilename "appendonly.aof"
 # appendfsync always
 appendfsync everysec
 # appendfsync no
+
+# bgrewriteaof机制，在一个子进程中进行aof的重写，从而不阻塞主进程对其余命令的处理，同时解决了aof文件过大问题
+# 同时在执行bgrewriteaof操作和主进程写aof文件的操作，两者都会操作磁盘，而bgrewriteaof往往会涉及大量磁盘操作，
+# 这样就会造成主进程在写aof文件的时候出现阻塞的情形，现在no-appendfsync-on-rewrite参数出场了。
+# 如果该参数设置为no，是最安全的方式，不会丢失数据，但是要忍受阻塞的问题。
+# 如果设置为yes呢？这就相当于将appendfsync设置为no，这说明并没有执行磁盘操作，只是写入了缓冲区，
+# 因此这样并不会造成阻塞（因为没有竞争磁盘），但是如果这个时候redis挂掉，就会丢失数据。
+# 丢失多少数据呢？在linux的操作系统的默认设置下，最多会丢失30s的数据。
+no-appendfsync-on-rewrite no
+
+# Automatic rewrite of the append only file.
+# AOF 自动重写
+# 当AOF文件增长到一定大小的时候Redis能够调用 BGREWRITEAOF 对日志文件进行重写
+#
+# 它是这样工作的：Redis会记住上次进行些日志后文件的大小(如果从开机以来还没进行过重写，那日子大小在开机的时候确定)
+#
+# 基础大小会同现在的大小进行比较。如果现在的大小比基础大小大制定的百分比，重写功能将启动
+# 同时需要指定一个最小大小用于AOF重写，这个用于阻止即使文件很小但是增长幅度很大也去重写AOF文件的情况
+#
+# auto-aof-rewrite-percentage:aof文件增长比例，指当前aof文件比上次重写的增长比例大小。
+# aof重写即在aof文件在一定大小之后，重新将整个内存写到aof文件当中，以反映最新的状态(相当于bgsave)。
+# 这样就避免了aof文件过大而实际内存数据小的问题(频繁修改数据问题).设置 percentage 为0就关闭这个特性
+# 
+# auto-aof-rewrite-percentage:aof文件重写最小的文件大小，即最开始aof文件必须要达到这个大小才触发，
+# 后面的每次重写就不会根据这个变量了(根据上一次重写完成之后的大小).
+# 此变量仅初始化启动redis有效，如果是redis恢复时，则lastSize等于初始aof文件大小.
+auto-aof-rewrite-percentage 100
+auto-aof-rewrite-min-size 64mb
 ```
 
 
@@ -1795,3 +1854,147 @@ save 60 10000
 ```
 
 这种通过服务器配置文件触发 RDB 的方式，与 bgsave 命令类似，达到触发条件时，会 forks 一个子进程进行数据同步。
+
+
+
+**`flushall`和`exit`的时候也会触发**
+
+
+
+### 9.1.2、RDB 文件
+
+上面三种让服务器生成 rdb 文件的方式，无论是由主进程生成还是子进程来生成，其过程如下：
+
+1. 生成临时 rdb 文件，并写入数据。
+2. 完成数据写入，用临时文代替代正式 rdb 文件。
+3. 删除原来的 rdb 文件。
+
+RDB 默认生成的文件名为 dump.rdb，可以通过配置文件进行更加详细配置，比如在单机下启动多个 Redis 服务器进程时，可以通过端口号配置不同的rdb 名称，如下所示：
+
+```bash
+# 是否压缩rdb文件
+rdbcompression yes
+
+# rdb文件的名称
+dbfilename redis-6379.rdb
+
+# rdb文件保存目录
+dir ~/redis/
+```
+
+
+
+### 9.1.3、RDB 的优缺点
+
+**优点**
+
+1. 与 AOF 方式相比，通过 rdb 文件恢复数据比较快。
+2. rdb 文件非常紧凑，适合于数据备份。
+3. 通过 RDB 进行数据备，由于使用子进程生成，所以对 Redis 服务器性能影响较小。
+
+
+
+**缺点**
+
+1. 如果服务器宕机的话，采用 RDB 的方式会造成某个时段内数据的丢失，比如我们设置 10 分钟同步一次或 5 分钟达到 1000次 写入就同步一次，那么如果还没达到触发条件服务器就死机了，那么这个时间段的数据会丢失。
+2. 使用`save`命令会造成服务器阻塞，直接数据同步完成才能接收后续请求。
+3. 使用`bgsave`命令在 forks 子进程时，如果数据量太大，forks 的过程也会发生阻塞，另外，forks 子进程会耗费内存。
+
+
+
+## 9.2、AOF
+
+与 RDB 存储某个时刻的快照不同，AOF （Append-only file）持久化方式会记录客户端对服务器的每一次写操作命令，并将这些写操作以 Redis 协议追加保存到以后缀为 aof 文件末尾，在 Redis 服务器重启时，会加载并运行 aof 文件的命令，以达到恢复数据的目的。
+
+<img src="Images/Redis/16b916ccf4224ec3" alt="img" style="zoom: 80%;" />
+
+
+
+### 9.2.1、开启 AOF 持久化方式
+
+Redis 默认不开启 AOF 持久化方式，可以在配置文件中开启并进行更加详细的配置：
+
+```bash
+# 开启aof机制
+appendonly yes
+
+# aof文件名
+appendfilename "appendonly.aof"
+
+# 写入策略,always表示每个写操作都保存到aof文件中,也可以是everysec或no
+appendfsync always
+
+# 默认不重写aof文件
+no-appendfsync-on-rewrite no
+
+# 保存目录
+dir ~/redis/
+```
+
+appendfsync 选项指定写入策略，有三个选项：
+
+- no：不进行同步，交由操作系统来处理什么时候写入 aof 文件
+- always：每次有写操作都进行同步
+- everysec：对写操作进行累积，每秒同步一次
+
+
+
+### 9.2.2、AOF 文件
+
+**AOF 文件重写**
+
+AOF 将客户端的每一个写操作都追加到 aof 文件末尾，比如对一个 key 多次执行 incr 命令，这时候，aof 保存每一次命令到 aof 文件中，会使文件会变得非常大。
+
+```bash
+incr num 1
+incr num 2
+incr num 3
+incr num 4
+incr num 5
+incr num 6
+...
+incr num 100000
+```
+
+aof 文件太大，加载 aof 文件恢复数据时，就会非常慢，为了解决这个问题，Redis 支持 aof 文件重写，通过重写 aof，可以生成一个恢复当前数据的最少命令集，比如上面的例子中那么多条命令，可以重写为：
+
+```bash
+set num 100000
+```
+
+重写aof文件的好处：
+
+1. 压缩 aof 文件，减少磁盘占用量
+2. 将 aof 的命令压缩为最小命令集，加快了数据恢复的速度
+
+
+
+**AOF文件损坏**
+
+在写入 aof 日志文件时，如果 Redis 服务器宕机，则 aof 日志文件文件会出格式错误，在重启 Redis 服务器时，Redis 服务器会拒绝载入这个 aof 文件，可以通过以下步骤修复 aof 并恢复数据：
+
+1. 备份现在的 aof 文件，以防万一
+
+2. 使用`redis-check-aof`命令修复 aof 文件，该命令格式如下：
+
+   ```bash
+   # 修复aof日志文件
+   $ redis-check-aof -fix file.aof
+   ```
+
+3. 重启 Redis 服务器，加载已经修复的 aof 文件，恢复数据
+
+
+
+### 9.2.3、AOF 的优缺点
+
+**优点**
+
+AOF 只是追加日志文件，因此对服务器性能影响较小，速度比 RDB 要快，消耗的内存较少。
+
+
+
+**缺点**
+
+1. AOF 方式生成的日志文件太大，即使通过 AOF 重写，文件体积仍然很大。
+2. 恢复数据的速度比 RDB 慢。
