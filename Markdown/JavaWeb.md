@@ -993,7 +993,7 @@ void setMaxInactiveInterval(int interval) ： 设置 session 的有效时间，�
 
 获取 session
 
-![img](Images/JavaWeb/2018031916405859)
+![img](../Images/JavaWeb/2018031916405859)
 
 
 
@@ -1005,11 +1005,11 @@ void setMaxInactiveInterval(int interval) ： 设置 session 的有效时间，�
 
 在服务器端生成一个唯一的随机标识号，专业术语称为Token(令牌)，同时在当前用户的Session域中保存这个Token。然后将Token发送到客户端的Form表单中，在Form表单中使用隐藏域来存储这个Token，表单提交的时候连同这个Token一起提交到服务器端，然后在服务器端判断客户端提交上来的Token与服务器端生成的Token是否一致，如果不一致，那就是重复提交了，此时服务器端就可以不处理重复提交的表单。如果相同则处理表单提交，处理完后清除当前用户的Session域中存储的标识号。
 
-![img](Images/JavaWeb/20180320104403671)
+![img](../Images/JavaWeb/20180320104403671)
 
 <img src="../Images/JavaWeb/20180320111511238" alt="img" style="zoom:67%;" />
 
-![img](Images/JavaWeb/20180320111547811)
+![img](../Images/JavaWeb/20180320111547811)
 
 # 5、过滤器
 

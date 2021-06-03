@@ -148,7 +148,7 @@ PS：上边的web-app标签中有一个**metadata-complete="true"**，这是个�
 
 ## 4、SpringBoot实现热部署
 
-![img](Images/Mixed/1676221-20200430155320785-521416484.png)
+![img](../Images/Mixed/1676221-20200430155320785-521416484.png)
 
 在application.yml中配置一下devtools
 

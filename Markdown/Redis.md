@@ -187,7 +187,53 @@ redis-cli
 
 
 
+**Ubuntu 系统下使用 `apt` 安装**
+
+```bash
+# 安装redis，安装后redis默认为启动状态
+apt install redis
+
+# 启动redis服务
+redis-server &
+
+# 启动客户端
+redis-cli
+
+# 卸载
+apt purge --auto-remove redis
+```
+
+
+
 ## 2.3、基础知识
+
+```bash
+# 启动redis服务器
+redis-server
+# 带配置文件启动（./redis.conf 为配置文件地址）
+redis-server ./redis.conf
+# 带配置文件启动，且指定某几个配置，配置名称前加 --，会覆盖配置文件里值
+redis-server ./redis.conf --daemonize yes --port 1123
+
+# 启动redis客户端
+redis-cli
+# 交互模式
+redis-cli -h 127.0.0.1 -p 6379
+
+# 关闭redis
+redis-cli shutdown
+
+# redis性能测试工具
+redis-benchmark
+
+# aof文件修复工具
+redis-check-aof
+
+# rdb文件检查工具
+redis-check-dump
+```
+
+
 
 | 命令                  | 描述                                                         |
 | --------------------- | ------------------------------------------------------------ |
@@ -1257,7 +1303,7 @@ Spring Boot 操作数据：Spring Date JPA JDBC MongoDB Redis
 
 RedisSerializer 接口 是 Redis 序列化接口，用于 Redis KEY 和 VALUE 的序列化，实现类如下：
 
-<img src="Images/Redis/image-20210527235233341.png" alt="image-20210527235233341" style="zoom:50%;" />
+<img src="../Images/Redis/image-20210527235233341.png" alt="image-20210527235233341" style="zoom:50%;" />
 
 
 
@@ -1435,7 +1481,7 @@ public void testJacksonSerializer() {
 User(name=Orichalcos, age=18)
 ```
 
-<img src="Images/Redis/image-20210528012258213.png" alt="image-20210528012258213" style="zoom: 50%;" />
+<img src="../Images/Redis/image-20210528012258213.png" alt="image-20210528012258213" style="zoom: 50%;" />
 
 
 
@@ -1800,7 +1846,7 @@ slowlog-max-len 128
 
 Redis 作为一个键值对内存数据库（NoSQL），数据都存储在内存当中，在处理客户端请求时，所有操作都在内存当中进行，如下所示：
 
-<img src="Images/Redis/16b91484c4f516d5" alt="img" style="zoom:67%;" />
+<img src="../Images/Redis/16b91484c4f516d5" alt="img" style="zoom:67%;" />
 
 但是， 存储在内存当中的数据，只要服务器关机(各种原因引起的)，内存中的数据就会消失了，不仅服务器关机会造成数据消失，Redis 服务器守护进程退出，内存中的数据也一样会消失。
 
@@ -1808,7 +1854,7 @@ Redis 作为一个键值对内存数据库（NoSQL），数据都存储在内存
 
 为了避免内存中数据丢失，Redis 提供了 RDB 和 AOF 两种不同的数据持久化方式，我们可以选择不同的方式将数据从内存中保存到硬盘当中，使数据可以持久化保存。
 
-<img src="Images/Redis/16b9148bc2eb53a5" alt="img" style="zoom:67%;" />
+<img src="../Images/Redis/16b9148bc2eb53a5" alt="img" style="zoom:67%;" />
 
 
 
@@ -1822,7 +1868,7 @@ RDB（Redis DataBase） 是一种快照存储持久化方式，具体就是将 R
 
 `save`命令可以同步数据到磁盘上。
 
-<img src="Images/Redis/16b914a74a0c8ef5" alt="img" style="zoom:67%;" />
+<img src="../Images/Redis/16b914a74a0c8ef5" alt="img" style="zoom:67%;" />
 
 当客户端向服务器发送`save`命令请求进行持久化时，服务器会阻塞`save`命令之后的其他客户端的请求，直到数据同步完成。如果数据量太大，同步数据会执行很久，而这期间 Redis 服务器也无法接收其他请求，所以，最好不要在生产环境使用`save`命令。
 
@@ -1832,7 +1878,7 @@ RDB（Redis DataBase） 是一种快照存储持久化方式，具体就是将 R
 
 与`save`命令不同，`bgsave`命令是一个异步操作。
 
-<img src="Images/Redis/16b914b543343855" alt="img" style="zoom:67%;" />
+<img src="../Images/Redis/16b914b543343855" alt="img" style="zoom:67%;" />
 
 当客户端发服务发出`bgsave`命令时，Redis 服务器主进程会 forks 一个子进程来数据同步问题，在将数据保存到 rdb 文件之后，子进程会退出。
 
@@ -1906,7 +1952,7 @@ dir ~/redis/
 
 与 RDB 存储某个时刻的快照不同，AOF （Append-only file）持久化方式会记录客户端对服务器的每一次写操作命令，并将这些写操作以 Redis 协议追加保存到以后缀为 aof 文件末尾，在 Redis 服务器重启时，会加载并运行 aof 文件的命令，以达到恢复数据的目的。
 
-<img src="Images/Redis/16b916ccf4224ec3" alt="img" style="zoom: 80%;" />
+<img src="../Images/Redis/16b916ccf4224ec3" alt="img" style="zoom: 80%;" />
 
 
 
@@ -2009,11 +2055,11 @@ Redis 的`subscribe`命令可以让客户端订阅任意数量的频道， 每�
 
 下图展示了频道 channel1 ， 以及订阅这个频道的三个客户端 —— client2 、 client5 和 client1 之间的关系：
 
-<img src="Images/Redis/graphviz-58f7b1f1f52b28f59291d194555fc9f4b1462a4c.svg"  />
+<img src="../Images/Redis/graphviz-58f7b1f1f52b28f59291d194555fc9f4b1462a4c.svg"  />
 
 当有新消息通过 `publish` 命令发送给频道 channel1 时， 这个消息就会被发送给订阅它的三个客户端：
 
-<img src="Images/Redis/graphviz-84c95abf88d6c0ac55b007da08805a4b9a582fdf.svg"  />
+<img src="../Images/Redis/graphviz-84c95abf88d6c0ac55b007da08805a4b9a582fdf.svg"  />
 
 
 
@@ -2035,13 +2081,13 @@ struct redisServer {
 
 在下图展示的这个 pubsub_channels 示例中， client2 、 client5 和 client1 就订阅了 channel1 ， 而其他频道也分别被别的客户端所订阅：
 
-<img src="Images/Redis/graphviz-241c988b86bb9bed6bf26537e654baaab4eef77b.svg" />
+<img src="../Images/Redis/graphviz-241c988b86bb9bed6bf26537e654baaab4eef77b.svg" />
 
 当客户端调用 `subscribe` 命令时， 程序就将客户端和要订阅的频道在 pubsub_channels 字典中关联起来。
 
 如果客户端 client10086 执行命令 `subscribe channel1 channel2 channel3` ，那么前面展示的 pubsub_channels 将变成下面这个样子：
 
-<img src="Images/Redis/graphviz-cb250b1be4aaaedc9d5ddde113a80998d7f9c480.svg" />
+<img src="../Images/Redis/graphviz-cb250b1be4aaaedc9d5ddde113a80998d7f9c480.svg" />
 
 `subscribe` 命令的行为可以用伪代码表示如下：
 
@@ -2071,7 +2117,7 @@ def SUBSCRIBE(client, channels):
 
 对于以下这个 pubsub_channels 实例， 如果某个客户端执行命令 `publish channel1 "hello moto"` ，那么 client2 、 client5 和 client1 三个客户端都将接收到 "hello moto" 信息：
 
-<img src="Images/Redis/graphviz-241c988b86bb9bed6bf26537e654baaab4eef77b.svg"  />
+<img src="../Images/Redis/graphviz-241c988b86bb9bed6bf26537e654baaab4eef77b.svg"  />
 
 `publish`命令的实现可以用以下伪代码来描述：
 
@@ -2093,15 +2139,15 @@ def PUBLISH(channel, message):
 
 下图展示了一个带有频道和模式的例子， 其中 tweet.shop.* 模式匹配了 tweet.shop.kindle 频道和 tweet.shop.ipad 频道， 并且有不同的客户端分别订阅它们三个：
 
-<img src="Images/Redis/graphviz-49c2b60cc3c2b52ec1623fbd8a9002eb6f335a54.svg"  />
+<img src="../Images/Redis/graphviz-49c2b60cc3c2b52ec1623fbd8a9002eb6f335a54.svg"  />
 
 当有信息发送到 tweet.shop.kindle 频道时， 除了发送给 clientX 和 clientY 之外， 还会发送给订阅 tweet.shop.* 模式的 client123 和 client256 ：
 
-<img src="Images/Redis/graphviz-3d1f513ee0718a326d53152b2b97f82977e38ad6.svg"  />
+<img src="../Images/Redis/graphviz-3d1f513ee0718a326d53152b2b97f82977e38ad6.svg"  />
 
 另一方面， 如果接收到信息的是频道 tweet.shop.ipad ， 那么 client123 和 client256 同样会收到信息：
 
-<img src="Images/Redis/graphviz-ba8c4d4dd538464659aeb52d6c366f23ad3d0dc1.svg"  />
+<img src="../Images/Redis/graphviz-ba8c4d4dd538464659aeb52d6c366f23ad3d0dc1.svg"  />
 
 
 
@@ -2134,11 +2180,11 @@ client 属性保存着订阅模式的客户端，而 pattern 属性则保存着�
 
 下图展示了一个包含两个模式的 pubsub_patterns 链表， 其中 client123 和 client256 都正在订阅 tweet.shop.* 模式：
 
-<img src="Images/Redis/graphviz-b8d101c1b582531bce2b0daef87adbaf30ebc195.svg"  />
+<img src="../Images/Redis/graphviz-b8d101c1b582531bce2b0daef87adbaf30ebc195.svg"  />
 
 如果这时客户端 client10086 执行 `psubscribe broadcast.list.*` ， 那么 pubsub_patterns 链表将被更新成这样：
 
-<img src="Images/Redis/graphviz-a84f3abf466ca19297faaa4e11d37f9257355c60.svg"  />
+<img src="../Images/Redis/graphviz-a84f3abf466ca19297faaa4e11d37f9257355c60.svg"  />
 
 通过遍历整个 pubsub_patterns 链表，程序可以检查所有正在被订阅的模式，以及订阅这些模式的客户端。
 
@@ -2189,6 +2235,24 @@ def PUBLISH(channel, message):
 
 如果 Redis 服务器的 pubsub_patterns 状态如下：
 
-<img src="Images/Redis/graphviz-a84f3abf466ca19297faaa4e11d37f9257355c60.svg" />
+<img src="../Images/Redis/graphviz-a84f3abf466ca19297faaa4e11d37f9257355c60.svg" />
 
 那么当某个客户端发送信息 "Amazon Kindle, $69." 到 tweet.shop.kindle 频道时， 除了所有订阅了 tweet.shop.kindle 频道的客户端会收到信息之外， 客户端 client123 和 client256 也同样会收到信息， 因为这两个客户端订阅的 tweet.shop.* 模式和 tweet.shop.kindle 频道匹配。
+
+
+
+# 11、Redis 集群
+
+## 11.1、集群环境搭建
+
+## 11.2、主从复制
+
+## 11.3、哨兵模式 
+
+# 12、缓存穿透、击穿、雪崩
+
+## 12.1、缓存穿透
+
+## 12.2、缓存击穿
+
+## 12.3、缓存雪崩

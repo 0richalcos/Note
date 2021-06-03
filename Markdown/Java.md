@@ -4190,7 +4190,7 @@ Java 接口的定义方式与类基本相同，不过接口定义使用的关键
 
 内部类也可以分为多种形式，与变量非常类似，如下图所示。
 
-![img](Images/Java/3-1Q02311045J93.jpg)
+![img](../Images/Java/3-1Q02311045J93.jpg)
 
 内部类的特点如下：
 
@@ -8775,7 +8775,7 @@ ObjectMonitor() {
 
 ObjectMonitor中有两个队列，_ WaitSet 和 _ EntryList，用来保存ObjectWaiter对象列表( 每个等待锁的线程都会被封装成ObjectWaiter对象)，_owner指向持有ObjectMonitor对象的线程，当多个线程同时访问一段同步代码时，首先会进入 _EntryList 集合，当线程获取到对象的monitor 后进入 _Owner 区域并把monitor中的owner变量设置为当前线程同时monitor中的计数器count加1，若线程调用 wait() 方法，将释放当前持有的monitor，owner变量恢复为null，count自减1，同时该线程进入 WaitSe t集合中等待被唤醒。若当前线程执行完毕也将释放monitor(锁)并复位变量的值，以便其他线程进入获取monitor(锁)。如下图所示
 
-![img](Images/Java/20170604114223462.png)
+![img](../Images/Java/20170604114223462.png)
 
 由此看来，monitor对象存在于每个Java对象的对象头中(存储的指针的指向)，synchronized锁便是通过这种方式获取锁的，也是为什么Java中任意对象可以作为锁的原因，同时也是notify/notifyAll/wait等方法存在于顶级对象Object中的原因。
 

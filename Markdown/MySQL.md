@@ -3027,7 +3027,13 @@ vim /etc/mysql/mysql.conf.d/mysqld.cnf
 
 注释掉 `bind-address`：
 
-![image-20210420120254515](Images/MySQL/image-20210420120254515.png)
+![image-20210420120254515](../Images/MySQL/image-20210420120254515.png)
+
+重启服务：
+
+```bash
+service mysql restart
+```
 
 测试远程访问
 
@@ -3057,7 +3063,7 @@ vim /etc/mysql/mysql.conf.d/mysqld.cnf
 
 4. 如果看到没有删除的文件记得手动删除：
 
-	![image-20210420112319964](Images/MySQL/image-20210420112319964.png)
+	![image-20210420112319964](../Images/MySQL/image-20210420112319964.png)
 
 5. 清除残留数据：
 
@@ -3073,5 +3079,5 @@ vim /etc/mysql/mysql.conf.d/mysqld.cnf
 
 7. 删除 MySQL 的数据库信息，位置：`/var/lib/mysql/`：
 
-	![image-20210420112705768](Images/MySQL/image-20210420112705768.png)
+	![image-20210420112705768](../Images/MySQL/image-20210420112705768.png)
 

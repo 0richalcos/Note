@@ -108,7 +108,7 @@ Subject：主体，访问系统的用户，主体可以是用户、程序等，�
 
 **认证流程**
 
-![image-20201102171638007](Images/Shiro/image-20201102171638007.png)
+![image-20201102171638007](../Images/Shiro/image-20201102171638007.png)
 
 
 
@@ -185,7 +185,7 @@ Shiro 中提供了许多Realm：
 
 在源码中认证使用的是`SimpleAccountRealm`：
 
-![image-20200521213451998](Images/Shiro/image-20200521213451998.png)
+![image-20200521213451998](../Images/Shiro/image-20200521213451998.png)
 
 `SimpleAccountRealm`的部分源码中有两个方法，一个是认证，一个是授权：
 
@@ -1221,7 +1221,7 @@ public class SimpleAccountRealm extends AuthorizingRealm {
 
 授权数据库结构
 
-![image-20200527204839080](Images/Shiro/image-20200527204839080.png)
+![image-20200527204839080](../Images/Shiro/image-20200527204839080.png)
 
 SQL
 
@@ -1518,11 +1518,11 @@ private void applyUnauthorizedUrlIfNecessary(Filter filter) {
 
 是个抽象类，那么找其实现类：
 
-![image-20210409113807269](Images/Shiro/image-20210409113807269.png)
+![image-20210409113807269](../Images/Shiro/image-20210409113807269.png)
 
 这些才是具体的类。换句话说只有这些过滤器才可以使设置生效。这些过滤器是啥？可以去`org.apache.shiro.web.filter.mgt.DefaultFilter`查看，这个是 Shiro 默认提供给我们的过滤器：
 
-![image-20210409114342514](Images/Shiro/image-20210409114342514.png)
+![image-20210409114342514](../Images/Shiro/image-20210409114342514.png)
 
 只有perms，roles，ssl，rest，port 才是属于 AuthorizationFilter，而 anon，authcBasic，auchc，user 是 AuthenticationFilter，所以 unauthorizedUrl 设置后页面不跳转。
 
@@ -1554,7 +1554,7 @@ public class AdviceController {
 
 Cache 可以减轻DB的访问压力,从而提高系统的查询效率
 
-![image-20200530090656417](Images/Shiro/image-20200530090656417.png)
+![image-20200530090656417](../Images/Shiro/image-20200530090656417.png)
 
 1. 引入 shrio-ehcache 依赖
 
@@ -1604,17 +1604,17 @@ Cache 可以减轻DB的访问压力,从而提高系统的查询效率
 
 查看 EhCacheManager：
 
-![image-20210409190842242](Images/Shiro/image-20210409190842242.png)
+![image-20210409190842242](../Images/Shiro/image-20210409190842242.png)
 
 照猫画虎：如果我们使用 Redis 作为缓存，需要自定义一个 RedisCacheManager 并实现 CacheManager。
 
 CacheManager 只有一个方法 getCache：
 
-![image-20210409191116577](Images/Shiro/image-20210409191116577.png)
+![image-20210409191116577](../Images/Shiro/image-20210409191116577.png)
 
 返回对象为 Cache，那么还需要自定义一个 RedisCache 并实现 Cache。
 
-![image-20210409191254065](Images/Shiro/image-20210409191254065.png)
+![image-20210409191254065](../Images/Shiro/image-20210409191254065.png)
 
 Cache 中的方法：get、put、remove、clear、size、keys、values 改为对 Redis 中的数据操作即可。
 
@@ -1764,11 +1764,11 @@ Cache 中的方法：get、put、remove、clear、size、keys、values 改为对
 
 登录报错
 
-![image-20210409182458318](Images/Shiro/image-20210409182458318.png)
+![image-20210409182458318](../Images/Shiro/image-20210409182458318.png)
 
 `SimpleAuthenticationInfo`类中有个属性`ByteSource`，默认使用的是`SimpleByteSource` 就是因为该属性无法序列化导致的：
 
-![image-20210409183049970](Images/Shiro/image-20210409183049970.png)
+![image-20210409183049970](../Images/Shiro/image-20210409183049970.png)
 
 解决方法：
 

@@ -69,9 +69,9 @@ all in one 的架构方式，我们把所有的功能单元放在一个应用里
 
 # 2、第一个SpringBoot程序
 
-1. ![image-20200402181821619](Images/SpringBoot/image-20200402181821619.png)
+1. ![image-20200402181821619](../Images/SpringBoot/image-20200402181821619.png)
 
-2. ![image-20200402181913472](Images/SpringBoot/image-20200402181913472.png)
+2. ![image-20200402181913472](../Images/SpringBoot/image-20200402181913472.png)
 
 3. 在application.java同级目录下创建controller包，编写UserController.java
 
