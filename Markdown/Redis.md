@@ -141,30 +141,33 @@ Redis 是单线程的（6.0 是多线程），因为 Redis 是基于内存操作
 
 ## 2.2、Reids 安装
 
-**直接使用 Linux 安装**
+**最常用的 Linux 安装及卸载**
 
 ```shell
 # 下载源码 
 wget http://download.redis.io/releases/redis-6.0.5.tar.gz
 
-# 解压
-tar xzf redis-6.0.5.tar.gz
+# 解压到 /usr/local
+tar xzf redis-6.0.5.tar.gz —C /usr/local
 
-#
-进入目录
-cd redis-6.0.5
-
-# C/C++ 构建，类似 mvn install，npm build
+# 进入目录，C/C++ 构建，类似 mvn install，npm build
+cd /usr/local/redis-6.0.5
 make
 
-# 进入源码目录
+# 进入源码目录，安装
 cd src
+make install
 
 # 启动服务器程序
-./redis-server &
+redis-server &
 
 # 启动客户端 
-./redis-cli
+redis-cli
+
+# 卸载：先停止redis，再删除 redis目录和文件
+ls /usr/local/bin
+rm -f /usr/local/bin/redis*
+rm -rf /usr/local/redis*
 ```
 
 
@@ -210,10 +213,10 @@ apt purge --auto-remove redis
 ```bash
 # 启动redis服务器
 redis-server
-# 带配置文件启动（./redis.conf 为配置文件地址）
-redis-server ./redis.conf
+# 带配置文件启动（/etc/redis/redis.conf 为配置文件地址，为了方便管理，将配置文件复制到了 /etc/redis 下）
+redis-server /etc/redis/redis.conf
 # 带配置文件启动，且指定某几个配置，配置名称前加 --，会覆盖配置文件里值
-redis-server ./redis.conf --daemonize yes --port 1123
+redis-server /etc/redis/redis.conf --daemonize yes --port 1123
 
 # 启动redis客户端
 redis-cli
@@ -1555,7 +1558,7 @@ class Redis02SpringbootApplicationTests {
 
 ![image-20210531171044748](../Images/Redis/image-20210531171044748.png)
 
-可以把多个配置文件包含进来
+可以把多个配置文件包含进来，如果将此配置写在 redis.conf 文件的开头，那么后面的配置会覆盖引入文件的配置，如果想以引入文件的配置为主，那么需要将 include 配置写在 redis.conf 文件的末尾
 
 
 
@@ -2289,8 +2292,8 @@ slave 挂了不影响其他 slave 的读和 master 的读和写，重新启动�
 
 1. 支持主从复制，主机会自动将数据同步到从机，可以进行读写分离
 2. 为了分载 master 的读操作压力，slave 服务器可以为客户端提供只读操作的服务，写服务仍然必须由 master 来完成
-3. slave 同样可以接受其它 slaves 的连接和同步请求，这样可以有效的分载 master 的同步压力
-4. master server 是以非阻塞的方式为 slaves 提供服务。所以在 master-slave 同步期间，客户端仍然可以提交查询或修改请求
+3. slave 同样可以接受其它 slave 的连接和同步请求，这样可以有效的分载 master 的同步压力
+4. master server 是以非阻塞的方式为 slave 提供服务。所以在 master-slave 同步期间，客户端仍然可以提交查询或修改请求
 5. slave server 同样是以非阻塞的方式完成数据同步。在同步期间，如果有客户端提交查询请求，Redis 则返回同步之前的数据
 
 
@@ -2306,11 +2309,139 @@ slave 挂了不影响其他 slave 的读和 master 的读和写，重新启动�
 
 ### 11.1.2、主从复制搭建
 
+启动方式
+
+- 客户端发送命令
+
+	```bash
+	slaveof <masterip> <masterport>
+	```
+
+- 启动服务器参数
+
+	```bash
+	redis-server -slaveof <masterip> <masterport>
+	```
+
+- 服务器配置
+
+	```bash
+	slaveof <masterip> <masterport>
+	```
 
 
 
+此为以服务器配置启动：
 
-## 11.2、Sentinel（哨兵）模式
+```bash
+# 新建一个临时文件夹，方便后期删除
+mkdir data
+cd data
+
+# 创建一个配置文件
+vim redis_6379.conf
+
+# 写入内容
+include /etc/redis/redis.conf
+port 6379
+daemonize no
+pidfile /root/data/redis_6379.pid
+logfile "redis_6379.log"
+dbfilename dump_6379.rdb
+dir /root/data
+
+# 复制一份 6379 配置文件并将文件中的 6379 改为 6380
+sed 's/6379/6380/g' redis_6379.conf > redis_6380.conf
+
+# 6380 配置文件末尾追加 replicaof 127.0.0.1 6379，$a\ 表示最后一行，\n 表示换行
+sed -i '$a\\nreplicaof 127.0.0.1 6379' redis_6380.conf
+
+# 复制一份 6380 配置文件并将文件中的 6380 改为 6381
+sed 's/6380/6381/g' redis_6380.conf > redis_6381.conf
+
+# 顺序启动节点
+redis-server redis_6379.conf
+redis-server redis_6380.conf
+redis-server redis_6381.conf
+
+# 进入redis 客户端，开多个窗口查看方便些
+redis-cli -p 6379
+info replication
+```
+
+可以看到有两个 slave 连接到 master
+
+![image-20210604171651251](../Images/Redis/image-20210604171651251.png)
+
+数据同步验证：
+
+```bash
+# master
+redis-cli -p 6379
+127.0.0.1:6379> set k1 v1
+OK
+
+exit
+
+# slave1
+redis-cli -p 6380
+127.0.0.1:6380> get k1
+"v1"
+```
+
+
+
+## 11.2、Sentinel 模式
+
+### 11.2.1、哨兵模式介绍
+
+主从模式的弊端就是不具备高可用性，当 master 挂掉以后，Redis 将不能再对外提供写入操作，因此 sentinel 应运而生。
+
+sentinel 模式的主要作用在于它能够自动完成故障发现和故障转移，并通知客户端，从而实现高可用。
+
+sentinel 中文含义为哨兵，顾名思义，它的作用就是监控 Redis 集群的运行状况，当 master挂了以后，sentinel 会在 slave 中选择一个做为 master，并修改它们的配置文件，其他 slave 的配置文件也会被修改，比如 slaveof 属性会指向新的 master；当 master 重新启动后，它将不再是 master 而是做为 slave 接收新的 master 的同步数据。
+
+sentinel 因为也是一个进程有挂掉的可能，所以 sentinel 也会启动多个形成一个 sentinel 集群，多 sentinel 配置的时候，sentinel 之间也会自动监控，当主从模式配置密码时，sentinel 也会同步将配置信息修改到配置文件中，不需要担心。
+
+<img src="../Images/Redis/16f7a31673b35dbf" alt="img" style="zoom:80%;" />
+
+
+
+**哨兵模式的工作方式**
+
+- 在哨兵模式创建时，需要通过配置指定 sentinel 与 master 之间的关系，然后 sentinel 会从 master 上获取所有 slave 的信息，之后 sentinel 会定时向 master 和 slave 发送 `info` 命令获取其拓扑结构和状态信息
+- 基于 Redis 的发布订阅功能， 每个 sentinel 节点会向 master 的 ` __sentinel__：hello `频道上发送该 sentinel 节点对于 master 的判断以及当前 sentinel 节点的信息 ，同时每个 sentinel 节点也会订阅该频道， 来获取其他 Sentinel 节点的信息以及它们对主节点的判断
+- 如果一个 master 被标记为主观下线（SDOWN），则正在监视这个 master 的所有 sentinel 进程要以每秒一次的频率确认 master 主服务器的确进入了主观下线状态
+- 当有足够数量的 sentinel （大于等于配置文件指定的值，这也是为什么 sentinel 需要多个，一个 sentinel 可能会造成误判）在指定的时间范围内确认 master 进入了主观下线状态（SDOWN）， 则 master 会被标记为客观下线（ODOWN），这时会进行故障转移操作
+- 在一般情况下， 每个 sentinel 会以每 10 秒一次的频率向集群中的所有 master 、slave 发送 `info` 命令
+- 当 master 被 sentinel 标记为客观下线（ODOWN）时，sentinel 进程向下线的 master 的所有 slave 发送 `info` 命令的频率会从 10 秒一次改为每秒一次
+- 若没有足够数量的 sentinel 进程同意 master 下线， master  的客观下线状态就会被移除。若 master 重新向 sentinel 进程发送 `ping`  命令返回有效回复，master 主服务器的主观下线状态就会被移除
+
+
+
+**故障转移原理**
+
+因为故障转移的工作只需要一个 sentinel 来完成，所以 sentinel 之间会再做一次选举工作， 基于 Raft 算法选出一个 sentinel 领导者来进行故障转移的工作。 被选举出的 sentinel 领导者进行故障转移的具体步骤如下：
+
+1. 在从节点列表中选出一个节点作为新的 master，选择方法如下：
+	- 过滤不健康或者不满足要求的节点
+	- 选择 slave-priority（优先级）最高的 slave， 如果存在则返回， 不存在则继续
+	- 选择复制偏移量最大的 slave ， 如果存在则返回， 不存在则继续
+	- 选择 runid 最小的 salve
+2. sentinel 领导者会对选出来的 slave 执行 `slaveof no one` 命令让其成为 master
+3. sentinel 领导者会向剩余的 slave 发送命令，让他们从新的 master 上复制数据
+4. sentinel 领导者会将原来的 master更新为从节点， 并对其进行监控， 当其恢复后命令它去复制新的 master
+
+
+
+### 11.2.2、哨兵模式搭建
+
+Redis 配置文件用主从复制的那三个
+
+```bash
+```
+
+
 
 
 
