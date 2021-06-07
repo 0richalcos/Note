@@ -2840,10 +2840,10 @@ Cluster Manager Commands:
                  
   reshard        host:port                     #指定集群的任意一节点进行迁移slot，重新分slots
                  --cluster-from <arg>          #需要从哪些源节点上迁移slot，可从多个源节点完成迁移，以逗号隔开，
-                 							   #传递的是节点的node id，还可以直接传递--from all，这样源节点就是集群的所有节点，
-                 							   #不传递该参数的话，则会在迁移过程中提示用户输入
-                 --cluster-to <arg>            #slot需要迁移的目的节点的node id，目的节点只能填写一个，不传递该参数的话，
-                 							   #则会在迁移过程中提示用户输入
+		 			       #传递的是节点的node id，还可以直接传递--from all，这样源节点就是集群的所有节点，
+                 			       #不传递该参数的话，则会在迁移过程中提示用户输入
+                 --cluster-to <arg>            #slot需要迁移的目的节点的node id，目的节点只能填写一个，不传递该参数的话， 
+		 			       #则会在迁移过程中提示用户输入
                  --cluster-slots <arg>         #需要迁移的slot数量，不传递该参数的话，则会在迁移过程中提示用户输入。
                  --cluster-yes                 #指定迁移时的确认输入
                  --cluster-timeout <arg>       #设置migrate命令的超时时间
@@ -2855,8 +2855,8 @@ Cluster Manager Commands:
                  --cluster-use-empty-masters                    #设置可以让没有分配slot的主节点参与，默认不允许
                  --cluster-timeout <arg>                        #设置migrate命令的超时时间
                  --cluster-simulate                             #模拟rebalance操作，不会真正执行迁移操作
-                 --cluster-pipeline <arg>                       #定义cluster getkeysinslot命令一次取出的key数量，
-                 												#默认值为10
+                 --cluster-pipeline <arg>                       #定义cluster getkeysinslot命令一次取出的key数量， 
+		 						#默认值为10
                  --cluster-threshold <arg>                      #迁移的slot阈值超过threshold，执行rebalance操作
                  --cluster-replace                              #是否直接replace到目标节点
                  
