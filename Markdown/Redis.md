@@ -1,4 +1,4 @@
-# 1、NoSQL概述
+1、NoSQL概述
 
 ## 1.1、为什么要用 NoSQL？
 
@@ -1826,6 +1826,44 @@ auto-aof-rewrite-min-size 64mb
 
 
 
+**集群 REDIS CLUSTER**
+
+```bash
+# 只有开启了以下选项，redis才能成为集群服务的一部分
+# cluster-enabled yes
+
+# 配置redis自动生成的集群配置文件名。确保同一系统中运行的各redis实例该配置文件不要重名。
+# 主要用于记录集群中有哪些节点、他们的状态以及一些持久化参数等，方便在重启时恢复这些状态。
+# cluster-config-file nodes-6379.conf
+
+# 集群节点超时毫秒数。超时的节点将被视为不可用状态。
+# cluster-node-timeout 15000
+
+# 如果数据太旧，集群中的不可用master的slave节点会避免成为备用master。
+# 如果slave和master失联时间超过:
+# (node-timeout * slave-validity-factor) + repl-ping-slave-period 
+# 则不会被提升为master。
+#
+# 如node-timeout为30秒，slave-validity-factor为10, 默认default repl-ping-slave-period为10秒,
+# 失联时间超过310秒slave就不会成为master。
+# 
+# 较大的slave-validity-factor值可能允许包含过旧数据的slave成为master，同时较小的值可能会阻止集群选举出新master。
+# 为了达到最大限度的高可用性，可以设置为0，即slave不管和master失联多久都可以提升为master
+# cluster-slave-validity-factor 10
+
+# 只有在之前master有其它指定数量的工作状态下的slave节点时，slave节点才能提升为master。
+# 默认为1（即该集群至少有3个节点，1 master＋2 slaves，master宕机，仍有另外1个slave的情况下其中1个slave可以提升）
+# 测试环境可设置为0，生成环境中至少设置为1
+# cluster-migration-barrier 1
+
+# 默认情况下如果redis集群如果检测到至少有1个hash slot不可用，集群将停止查询数据。
+# 如果所有slot恢复则集群自动恢复。
+# 如果需要集群部分可用情况下仍可提供查询服务，设置为no。
+# cluster-require-full-coverage yes
+```
+
+
+
 **慢日志 SLOW LOG**
 
 ```bash
@@ -2669,6 +2707,236 @@ root@Orichalcos:~/data# redis-cli -p 6380 get k1
 
 
 ## 11.3、Cluster 模式 
+
+### 11.3.1、Cluster 模式介绍
+
+Redis Cluster是一种服务器 Sharding（分片） 技术，3.0版本开始正式提供。
+
+Redis 的哨兵模式基本已经可以实现高可用，读写分离 ，但是在这种模式下每台 Redis 服务器都存储相同的数据，很浪费内存，所以在 Redis3.0上加入了 Cluster 集群模式，实现了 Redis 的分布式存储，也就是说每台 Redis 节点上存储不同的内容。
+
+<img src="../Images/Redis/1460000022808584" alt="image-20200531184321294" style="zoom:80%;" />
+
+在这个图中，每一个蓝色的圈都代表着一个 Redis 的服务器节点。它们任何两个节点之间都是相互连通的。客户端可以与任何一个节点相连接，然后就可以访问集群中的任何一个节点。对其进行存取和其他操作。
+
+
+
+**集群的数据分片**
+
+Redis 集群没有使用一致性 hash，而是引入了哈希槽【hash slot】的概念。
+
+Redis 集群有 16384 个哈希槽，每个 key 通过 CRC16 校验后对 16384 取模来决定放置哪个槽。集群的每个节点负责一部分 hash 槽，举个例子，比如当前集群有3个节点，那么：
+
+- 节点 A 包含 0 到 5460 号哈希槽
+- 节点 B 包含 5461 到 10922 号哈希槽
+- 节点 C 包含 10923 到 16383 号哈希槽
+
+这种结构很容易添加或者删除节点。比如如果我想新添加个节点 D ， 我需要从节点 A， B， C 中得部分槽到 D 上。如果我想移除节点 A ，需要将 A 中的槽移到 B 和 C 节点上，然后将没有任何槽的 A 节点从集群中移除即可。由于从一个节点将哈希槽移动到另一个节点并不会停止服务，所以无论添加删除或者改变某个节点的哈希槽的数量都不会造成集群不可用的状态。
+
+在 Redis 的每一个节点上，都有这么两个东西，一个是插槽（slot），它的的取值范围是：0-16383。还有一个就是 cluster，可以理解为是一个集群管理的插件。当我们的存取的 Key 到达的时候，Redis 会根据 CRC16 的算法得出一个结果，然后把结果对 16384 求余数，这样每个 key 都会对应一个编号在 0-16383 之间的哈希槽，通过这个值，去找到对应的插槽所对应的节点，然后直接自动跳转到这个对应的节点上进行存取操作。
+
+
+
+**Redis 集群的主从复制模型**
+
+为了保证高可用，redis-cluster 集群引入了主从复制模型，一个 master 对应一个或者多个 slave，当 master 宕机的时候，就会启用 slave。当其它 master `ping` 一个 master A 时，如果半数以上的 master 与 A 通信超时，那么认为 master A 宕机了。如果 master A 和它的 slave A1 都宕机了，那么该集群就无法再提供服务了。
+
+集群的特点：
+
+- 所有的 Redis 节点彼此互联（PING-PONG机制），内部使用二进制协议优化传输速度和带宽
+- 节点的 fail 是通过集群中超过半数的节点检测失效时才生效
+- 客户端与 Redis 节点直连，不需要中间代理层，客户端不需要连接集群所有节点，连接集群中任何一个可用节点即可
+
+
+
+### 11.3.2、Cluster 模式搭建
+
+```bash
+# 清除掉data文件夹下的所有文件，在里面新建一个redis_6379.conf
+vim redis_6379.conf
+
+# 写入以下内容
+include /etc/redis/redis.conf
+port 6379
+daemonize no
+pidfile /root/data/redis_6379.pid
+logfile "redis_6379.log"
+dbfilename dump_6379.rdb
+dir /root/data
+cluster-enabled yes 
+cluster-config-file nodes_6379.conf 
+cluster-node-timeout 15000
+
+# 将文件复制五份，更改其中端口等信息
+sed 's/6379/6380/g' redis_6379.conf > redis_6380.conf
+sed 's/6379/6381/g' redis_6379.conf > redis_6381.conf
+sed 's/6379/6382/g' redis_6379.conf > redis_6382.conf
+sed 's/6379/6383/g' redis_6379.conf > redis_6383.conf
+sed 's/6379/6384/g' redis_6379.conf > redis_6384.conf
+```
+
+使用`ps -ef | grep redis`查看状态：
+
+![image-20210607151158183](../Images/Redis/image-20210607151158183.png)
+
+创建集群，`--cluster-replicas 1`的意思是创建 master 的时候同时创建一个 slave：
+
+```bash
+redis-cli --cluster create 127.0.0.1:6379 127.0.0.1:6380 127.0.0.1:6381 127.0.0.1:6382 127.0.0.1:6383 127.0.0.1:6384 --cluster-replicas 1
+```
+
+这里我们选择的是一主一从，一共六个服务器，所以先输入的 6379、6380、6381 会成为 mater，其余的为 slave。下面显示 master0 的槽为 0-5460、master1 的槽为 5461-10922、master2 的槽为 10923-16383。同时 6383 作为 slave 指向 6379、6384 作为 slave 指向 6380、6382 作为 slave 指向 6381：
+
+![image-20210607151442056](../Images/Redis/image-20210607151442056.png)
+
+如果使用以下配置，就输入 yes 同意，这时会开始创建：
+
+![image-20210607152207273](../Images/Redis/image-20210607152207273.png)
+
+可以通过`cluster nodes`命令查看节点状态：
+
+![image-20210607154756105](../Images/Redis/image-20210607154756105.png)
+
+
+
+**数据验证**
+
+注意 集群模式下要带参数 `-c`，表示集群，否则在存的时候，如果使用的是集群 A，但是算出来要存的槽的所在地为集群 B，这时会报错：
+
+```bash
+root@Orichalcos:~/data# redis-cli -p 6379
+127.0.0.1:6379> set v1 v1
+OK
+127.0.0.1:6379> set v234324234 k2
+OK
+127.0.0.1:6379> set vajflakjflajfklj k
+(error) MOVED 10368 127.0.0.1:6380
+127.0.0.1:6379> exit
+root@Orichalcos:~/data# redis-cli -p 6379 -c
+127.0.0.1:6379> set vajflakjflajfklj k
+-> Redirected to slot [10368] located at 127.0.0.1:6380
+OK
+127.0.0.1:6380>
+```
+
+
+
+### 11.3.3、Redis Cluster 操作
+
+可以通`redis-cli --cluster help` 查看手册：
+
+```bash
+redis-cli --cluster help
+Cluster Manager Commands:
+  create         host1:port1 ... hostN:portN   #创建集群
+                 --cluster-replicas <arg>      #从节点个数
+                 
+  check          host:port                     #检查集群
+                 --cluster-search-multiple-owners #检查是否有槽同时被分配给了多个节点
+                 
+  info           host:port                     #查看集群状态
+  
+  fix            host:port                     #修复集群
+                 --cluster-search-multiple-owners #修复槽的重复分配问题
+                 
+  reshard        host:port                     #指定集群的任意一节点进行迁移slot，重新分slots
+                 --cluster-from <arg>          #需要从哪些源节点上迁移slot，可从多个源节点完成迁移，以逗号隔开，
+                 							   #传递的是节点的node id，还可以直接传递--from all，这样源节点就是集群的所有节点，
+                 							   #不传递该参数的话，则会在迁移过程中提示用户输入
+                 --cluster-to <arg>            #slot需要迁移的目的节点的node id，目的节点只能填写一个，不传递该参数的话，
+                 							   #则会在迁移过程中提示用户输入
+                 --cluster-slots <arg>         #需要迁移的slot数量，不传递该参数的话，则会在迁移过程中提示用户输入。
+                 --cluster-yes                 #指定迁移时的确认输入
+                 --cluster-timeout <arg>       #设置migrate命令的超时时间
+                 --cluster-pipeline <arg>      #定义cluster getkeysinslot命令一次取出的key数量，不传的话使用默认值为10
+                 --cluster-replace             #是否直接replace到目标节点
+                 
+  rebalance      host:port                                      #指定集群的任意一节点进行平衡集群节点slot数量 
+                 --cluster-weight <node1=w1...nodeN=wN>         #指定集群节点的权重
+                 --cluster-use-empty-masters                    #设置可以让没有分配slot的主节点参与，默认不允许
+                 --cluster-timeout <arg>                        #设置migrate命令的超时时间
+                 --cluster-simulate                             #模拟rebalance操作，不会真正执行迁移操作
+                 --cluster-pipeline <arg>                       #定义cluster getkeysinslot命令一次取出的key数量，
+                 												#默认值为10
+                 --cluster-threshold <arg>                      #迁移的slot阈值超过threshold，执行rebalance操作
+                 --cluster-replace                              #是否直接replace到目标节点
+                 
+  add-node       new_host:new_port existing_host:existing_port  #添加节点，把新节点加入到指定的集群，默认添加主节点
+                 --cluster-slave                                #新节点作为从节点，默认随机一个主节点
+                 --cluster-master-id <arg>                      #给新节点指定主节点
+                 
+  del-node       host:port node_id                              #删除给定的一个节点，成功后关闭该节点服务
+  
+  call           host:port command arg arg .. arg               #在集群的所有节点执行相关命令
+  
+  set-timeout    host:port milliseconds                         #设置cluster-node-timeout
+  
+  import         host:port                                      #将外部redis数据导入集群
+                 --cluster-from <arg>                           #将指定实例的数据导入到集群
+                 --cluster-copy                                 #migrate时指定copy
+                 --cluster-replace                              #migrate时指定replace
+```
+
+
+
+**增加节点**
+
+```bash
+# 增加两个节点配置
+sed 's/6379/6385/g' redis_6379.conf > redis_6385.conf
+sed 's/6379/6386/g' redis_6379.conf > redis_6386.conf
+
+# 启动
+redis-server redis_6385.conf
+redis-server redis_6386.conf
+
+# 集群中增加节点
+redis-cli -p 6379 --cluster add-node 127.0.0.1:6385 127.0.0.1:6379
+
+# 查看节点信息
+redis-cli cluster nodes
+```
+
+![image-20210607170233889](../Images/Redis/image-20210607170233889.png)
+
+将 6386 添加为 6385 的从节点
+
+```bash
+redis-cli --cluster add-node 127.0.0.1:6386 127.0.0.1:6379 --cluster-slave --cluster-master-id 57547cced0901aec48897bd97c9a6e9a40c8fbec
+```
+
+这个时候是没有虽然新节点加入了进来，但是没有分配槽：
+
+![image-20210607172522783](../Images/Redis/image-20210607172522783.png)
+
+所以执行`redis-cli --cluster reshard 127.0.0.1:6385`分配槽：
+
+![image-20210607174634002](../Images/Redis/image-20210607174634002.png)
+
+中间输入`yes`继续，这样就分配完毕：
+
+![image-20210607173729567](../Images/Redis/image-20210607173729567.png)
+
+
+
+**删除节点**
+
+slave 直接删除即可，删除 master 需要先将槽移到其他节点中去！
+
+```bash
+redis-cli --cluster del-node 127.0.0.1:6386 8b5494c818bd21c2eae793451c05ebe1eb62e2a5
+```
+
+先转移槽，中间输入`yes`继续：
+
+![image-20210607175118825](../Images/Redis/image-20210607175118825.png)
+
+删除节点
+
+```bash
+redis-cli --cluster del-node 127.0.0.1:6385 57547cced0901aec48897bd97c9a6e9a40c8fbec
+```
+
+
 
 # 12、缓存穿透、击穿、雪崩
 
