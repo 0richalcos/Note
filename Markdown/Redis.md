@@ -2822,7 +2822,7 @@ OK
 
 ### 11.3.3、Redis Cluster 操作
 
-可以通`redis-cli --cluster help` 查看手册：
+可以通过 `redis-cli --cluster help` 查看手册：
 
 ```bash
 redis-cli --cluster help
@@ -2908,11 +2908,11 @@ redis-cli --cluster add-node 127.0.0.1:6386 127.0.0.1:6379 --cluster-slave --clu
 
 ![image-20210607172522783](../Images/Redis/image-20210607172522783.png)
 
-所以执行`redis-cli --cluster reshard 127.0.0.1:6385`分配槽：
+所以执行 `redis-cli --cluster reshard 127.0.0.1:6385 `分配槽：
 
 ![image-20210607174634002](../Images/Redis/image-20210607174634002.png)
 
-中间输入`yes`继续，这样就分配完毕：
+中间输入 `yes` 继续，这样就分配完毕：
 
 ![image-20210607173729567](../Images/Redis/image-20210607173729567.png)
 
@@ -2926,7 +2926,7 @@ slave 直接删除即可，删除 master 需要先将槽移到其他节点中去
 redis-cli --cluster del-node 127.0.0.1:6386 8b5494c818bd21c2eae793451c05ebe1eb62e2a5
 ```
 
-先转移槽，中间输入`yes`继续：
+先转移槽，中间输入 `yes` 继续：
 
 ![image-20210607175118825](../Images/Redis/image-20210607175118825.png)
 
