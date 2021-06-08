@@ -1003,60 +1003,224 @@ Bitmaps 位图，数据结构！都是操作二进制位来记录，就只有 0 
 
 # 5、事务
 
-Redis 事务本质：一组命令的集合！一个事务中的所有命令都会被序列化，在事务执行过程中，会按照顺序执行！
+Redis 通过 `multi`、 `discard` 、`exec` 和 `watch` 四个命令来实现事务功能。
 
-一次性、顺序性、排他性。
+事务提供了一种 “将多个命令打包， 然后一次性、按顺序地执行” 的机制， 并且事务在执行的期间不会主动中断；服务器在执行完事务中的所有命令之后， 才会继续处理其他客户端的其他命令。
 
-Redis 事务没有隔离级别的概念！
+以下是一个事务的例子， 它先以 `multi` 开始一个事务， 然后将多个命令入队到事务中， 最后由 `exec` 命令触发事务， 一并执行事务中的所有命令：
 
-所有的命令在事务中，并没有直接被执行！只有发起执行命令（`Exec`）的时候才会执行！
-
-Redis 单条命令是保证原子性的，但是事务不保证原子性！
-
-Redis 的事务：
-
-- 开启事务（`multi`）
-- 命令入队
-- 执行事务（`exec`）
-
-
-
-**正常运行情况：**
-
-```shell
-127.0.0.1:6379> multi
+```bash
+redis> multi
 OK
-127.0.0.1:6379> set k1 v1
+
+redis> set book-name "Mastering C++ in 21 days"
 QUEUED
-127.0.0.1:6379> set k2 v2
+
+redis> get book-name
 QUEUED
-127.0.0.1:6379> get k2
+
+redis> sadd tag "C++" "Programming" "Mastering Series"
 QUEUED
-127.0.0.1:6379> set k3 v3
+
+redis> smembers tag
 QUEUED
-127.0.0.1:6379> exec
+
+redis> exec
 1) OK
-2) OK
-3) "v2"
-4) OK
+2) "Mastering C++ in 21 days"
+3) (integer) 3
+4) 1) "Mastering Series"
+   2) "C++"
+   3) "Programming"
 ```
 
 
 
-**放弃事务：**
+## 5.1、事务的流程
 
-```shell
-127.0.0.1:6379> multi
+一个事务从开始到执行会经历以下三个阶段：
+
+1. 开启事务（`multi`）
+2. 命令入队
+3. 执行事务（`exec`）
+
+
+
+**开启事务**
+
+`multi` 命令的执行标记事务的开始：
+
+```bash
+redis> multi
 OK
-127.0.0.1:6379> set k1 v1
-QUEUED
-127.0.0.1:6379> set k2 v2
-QUEUED
-127.0.0.1:6379> discard
+```
+
+这个命令唯一做的就是， 将客户端的 REDIS_MULTI 选项打开， 让客户端从非事务状态切换到事务状态。
+
+<img src="../Images/Redis/graphviz-0ff9f2e58803dbb8c1c400e1f8191f77d4c2917e.svg"/>
+
+事务状态下的命令以单个命令为单位执行，前一个命令和后一个命令的客户端不一定是同一个；而事务状态则是以一个事务为单位，执行事务队列中的所有命令：除非当前事务执行完毕，否则服务器不会中断事务，也不会执行其他客户端的其他命令。
+
+
+
+**命令入队**
+
+当客户端处于非事务状态下时， 所有发送给服务器端的命令都会立即被服务器执行：
+
+```bash
+redis> set msg "hello moto"
 OK
-127.0.0.1:6379> get k2
+
+redis> get msg
+"hello moto"
+```
+
+但是， 当客户端进入事务状态之后， 服务器在收到来自客户端的命令时， 不会立即执行命令， 而是将这些命令全部放进一个事务队列里， 然后返回 QUEUED ， 表示命令已入队：
+
+```bash
+redis> multi
+OK
+
+redis> set msg "hello moto"
+QUEUED
+
+redis> get msg
+QUEUED
+```
+
+以下流程图展示了这一行为：
+
+<img src="../Images/Redis/graphviz-8a0f8eae0bb8180e877b799921dd690267c2d3b4.svg"/>
+
+事务队列是一个数组， 每个数组项是都包含三个属性：
+
+- 要执行的命令（cmd）
+- 命令的参数（argv）
+- 参数的个数（argc）
+
+举个例子， 如果客户端执行以下命令：
+
+```bash
+redis> multi
+OK
+
+redis> set book-name "Mastering C++ in 21 days"
+QUEUED
+
+redis> get book-name
+QUEUED
+
+redis> sadd tag "C++" "Programming" "Mastering Series"
+QUEUED
+
+redis> smembers tag
+QUEUED
+```
+
+那么程序将为客户端创建以下事务队列：
+
+| 数组索引 | cmd      | argv                                              | argc |
+| -------- | -------- | ------------------------------------------------- | ---- |
+| 0        | set      | ["book-name", "Mastering C++ in 21 days"]         | 2    |
+| 1        | get      | ["book-name"]                                     | 1    |
+| 2        | sadd     | ["tag", "C++", "Programming", "Mastering Series"] | 4    |
+| 3        | smembets | ["tag"]                                           | 1    |
+
+> Redis 的事务是不可嵌套的， 当客户端已经处于事务状态， 而客户端又再向服务器发送 `multi` 时， 服务器只是简单地向客户端发送一个错误， 然后继续等待其他命令的入队。 `multi` 命令的发送不会造成整个事务失败， 也不会修改事务队列中已有的数据。
+
+
+
+**执行事务**
+
+当客户端进入事务状态之后， 客户端发送的命令就会被放进事务队列里，但其实并不是所有的命令都会被放进事务队列， 其中的例外就是 `exec`、 `discard`、 `multi` 和 `watch` 这四个命令；当这四个命令从客户端发送到服务器时， 它们会像客户端处于非事务状态一样， 直接被服务器执行：
+
+<img src="../Images/Redis/graphviz-836c8a3dc33526a649d9ecf5b7b959d72b38cc7d.svg"/>
+
+如果客户端正处于事务状态， 那么当 `exec` 命令执行时， 服务器根据客户端所保存的事务队列， 以先进先出（FIFO）的方式执行事务队列中的命令： 最先入队的命令最先执行， 而最后入队的命令最后执行。
+
+比如说，对于以下事务队列：
+
+| 数组索引 | cmd      | argv                                              | argc |
+| -------- | -------- | ------------------------------------------------- | ---- |
+| 0        | set      | ["book-name", "Mastering C++ in 21 days"]         | 2    |
+| 1        | get      | ["book-name"]                                     | 1    |
+| 2        | sadd     | ["tag", "C++", "Programming", "Mastering Series"] | 4    |
+| 3        | smembets | ["tag"]                                           | 1    |
+
+程序会首先执行 `set` 命令， 然后执行 `get` 命令， 再然后执行 `sadd` 命令， 最后执行 `smembers` 命令，执行事务中的命令所得的结果会以 FIFO 的顺序保存到一个回复队列中。
+
+比如说，对于上面给出的事务队列，程序将为队列中的命令创建如下回复队列：
+
+| 数组索引 | 回复类型          | 回复内容                                   |
+| -------- | ----------------- | ------------------------------------------ |
+| 0        | status code reply | OK                                         |
+| 1        | bulk reply        | "Mastering C++ in 21 days"                 |
+| 2        | integer reply     | 3                                          |
+| 3        | multi-bulk reply  | ["Mastering Series", "C++", "Programming"] |
+
+当事务队列里的所有命令被执行完之后， `exec` 命令会将回复队列作为自己的执行结果返回给客户端， 客户端从事务状态返回到非事务状态， 至此， 事务执行完毕。
+
+> `discard` 命令用于取消一个事务， 它清空客户端的整个事务队列， 然后将客户端从事务状态调整回非事务状态， 最后返回字符串 OK 给客户端， 说明事务已被取消。
+
+
+
+## 5.2、watch
+
+`watch` 命令用于在事务开始之前监视任意数量的键： 当调用 `exec` 命令执行事务时， 如果任意一个被监视的键已经被其他客户端修改了， 那么整个事务不再执行， 直接返回失败。
+
+```bash
+redis> watch name
+OK
+
+redis> multi
+OK
+
+redis> set name peter
+QUEUED
+
+redis> exec
 (nil)
 ```
+
+以下执行序列展示了上面的例子是如何失败的：
+
+| 时间 | 客户端 A       | 客户端 B      |
+| ---- | -------------- | ------------- |
+| T1   | watch name     |               |
+| T2   | multi          |               |
+| T3   | set name peter |               |
+| T4   |                | set name john |
+| T5   | exec           |               |
+
+在时间 T4 ，客户端 B 修改了 name 键的值， 当客户端 A 在 T5 执行 `exec` 时，Redis 会发现 name 这个被监视的键已经被修改， 因此客户端 A 的事务不会被执行，而是直接返回失败。
+
+
+
+**watch 的实现**
+
+在每个代表数据库的 redis.h/redisDb 结构类型中， 都保存了一个 watched_keys 字典， 字典的键是这个数据库被监视的键， 而字典的值则是一个链表， 链表中保存了所有监视这个键的客户端。
+
+比如说，以下字典就展示了一个 watched_keys 字典的例子：
+
+<img src="../Images/Redis/graphviz-9aea81f33da1373550c590eb0b7ca0c2b3d38366.svg"  />
+
+其中， 键 key1 正在被 client2 、 client5 和 client1 三个客户端监视， 其他一些键也分别被其他别的客户端监视着。
+
+`watch` 命令的作用， 就是将当前客户端和要监视的键在 watched_keys 中进行关联
+
+如果当前客户端为 client10086 ， 那么当客户端执行 `watch key1 key2` 时， 前面展示的 watched_keys 将被修改成这个样子：
+
+<img src="../Images/Redis/graphviz-fe5e31054c282a3cdd86656994fe1678a3d4f201.svg" />
+
+通过 watched_keys 字典， 如果程序想检查某个键是否被监视， 那么它只要检查字典中是否存在这个键即可； 如果程序要获取监视某个键的所有客户端， 那么只要取出键的值（一个链表）， 然后对链表进行遍历即可。
+
+
+
+**watch 的触发**
+
+
+
+
 
 
 
