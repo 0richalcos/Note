@@ -3198,3 +3198,119 @@ redis-cli --cluster del-node 127.0.0.1:6385 57547cced0901aec48897bd97c9a6e9a40c8
 降级的目的是保证核心服务可用，即使是有损的。如去年双十一的时候淘宝购物车无法修改地址只能使用默认地址，这个服务就是被降级了，这里阿里保证了订单可以正常提交和付款，但修改地址的服务可以在服务器压力降低，并发量相对减少的时候再恢复。
 
 在项目实战中通常会将部分热点数据缓存到服务的内存中，这样一旦缓存出现异常，可以直接使用服务的内存数据，从而避免数据库遭受巨大压力。
+
+
+
+# 13、Redis 实现分布式锁
+
+`set` 还可以添加一些其他的参数：
+
+```bash
+SET key value [EX seconds|PX milliseconds] [NX|XX] [KEEPTTL]
+```
+
+- EX seconds：以秒为单位设置过期时间
+- PX milliseconds：以毫秒为单位设置过期时间
+- NX：键不存在的时候设置键值
+- XX：键存在的时候设置键值
+- KEEPTTL：保留设置前指定键的生存时间
+
+
+
+`setnx` 是 SET if Not eXists（如果不存在，则 SET）的简写。
+
+```bash
+setnx key value
+```
+
+![img](../Images/Redis/00831rSTly1gdmpj4rnixj307802w0ss.jpg)
+
+用法如图，如果不存在 set 成功返回 int 的 1，这个 key 存在了返回0。
+
+
+
+`setex` 将值 value 关联到 key ，并将 key 的生存时间设为 seconds (以秒为单位)；如果 key 已经存在，setex 命令将覆写旧值。
+
+```bash
+setex key seconds value
+```
+
+而且`setex` 是一个原子性（atomic）操作，关联值和设置生存时间两个动作会在同一时间内完成。
+
+![img](../Images/Redis/00831rSTly1gdmpohppykj308703w3yn.jpg)
+
+我设置了 10 秒的失效时间，`ttl` 命令可以查看倒计时，负的说明已经到期了。
+
+
+
+**获取锁**
+
+获取锁有两种方式，一种是使用 `set` 命令，另一种是使用 `setnx` 命令
+
+```java
+/**
+ * 使用redis的set命令实现获取分布式锁
+ *
+ * @param lockKey   锁
+ * @param requestId 请求ID，保证同一性
+ * @param timeout   过期时间，避免死锁
+ * @return
+ */
+public static boolean getLockBySet(String lockKey, String requestId, int timeout) {
+	// 获取jedis对象，负责与远程redis服务器进行链接
+	Jedis jedis = getJedis();
+	String result = jedis.set(lockKey, requestId, "NX", "EX", timeout);
+	if (result == "OK") {
+		return true;
+	}
+	return false;
+}
+```
+
+```java
+/**
+ * 使用redis的setnx命令实现获取分布式锁
+ *
+ * @param lockKey   锁
+ * @param requestId 请求ID，保证同一性
+ * @param timeout   过期时间，避免死锁
+ * @return
+ */
+public static synchronized boolean getLockBySetnx(String lockKey, String requestId, int timeout) {
+	// 获取jedis对象，负责与远程redis服务器进行链接
+	Jedis jedis = getJedis();
+	Long result = jedis.setnx(lockKey, requestId);
+	if (result == 1) {
+		// 设置有效期，防止死锁
+		jedis.expire(lockKey, timeout);
+		return true;
+	}
+	return false;
+}
+```
+
+> 可以设置一个超时时间，获取锁的时候如果未获取到可以让线程 `sleep` 一会儿，然后继续获取，等到超过了超时时间再 “获取失败”。
+
+
+
+**释放锁**
+
+```java
+/**
+ * 使用del命令释放锁
+ *
+ * @param lockKey   锁
+ * @param requestId 请求ID，保证同一性
+ */
+public static void releaseLockByDel(String lockKey, String requestId) {
+	// 获取jedis对象，负责与远程redis服务器进行链接
+	Jedis jedis = getJedis();
+	// 保证同一性
+	if (requestId.equals(jedis.get(lockKey))) {
+		jedis.del(lockKey);
+	}
+}
+```
+
+
+
