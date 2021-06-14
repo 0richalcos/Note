@@ -3314,3 +3314,84 @@ public static void releaseLockByDel(String lockKey, String requestId) {
 
 
 
+# 14、Redis 实现分布式缓存
+
+在 Mybatis 中默认情况下，只启用了本地的会话缓存，它仅仅对一个会话中的数据进行缓存。 要启用全局的二级缓存，只需要在 SQL 映射文件中添加一行：
+
+```xml
+<cache/>
+```
+
+1. 这里新建一个简单的 SpringBoot 项目，引入以下依赖：
+
+   ```xml
+   <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-data-redis</artifactId>
+   </dependency>
+   <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-web</artifactId>
+   </dependency>
+   <dependency>
+       <groupId>org.mybatis.spring.boot</groupId>
+       <artifactId>mybatis-spring-boot-starter</artifactId>
+       <version>2.2.0</version>
+   </dependency>
+   
+   <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-devtools</artifactId>
+       <scope>runtime</scope>
+       <optional>true</optional>
+   </dependency>
+   <dependency>
+       <groupId>mysql</groupId>
+       <artifactId>mysql-connector-java</artifactId>
+       <scope>runtime</scope>
+   </dependency>
+   <dependency>
+       <groupId>org.projectlombok</groupId>
+       <artifactId>lombok</artifactId>
+       <optional>true</optional>
+   </dependency>
+   <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-test</artifactId>
+       <scope>test</scope>
+   </dependency>
+   <dependency>
+       <groupId>com.alibaba</groupId>
+       <artifactId>druid-spring-boot-starter</artifactId>
+       <version>1.2.6</version>
+   </dependency>
+   ```
+
+2. 编辑 application.yml 文件
+
+   ```yaml
+   server:
+     port: 8080
+   spring:
+     #redis
+     redis:
+       host: 47.106.190.209
+       port: 6379
+       database: 0
+     #mysql
+     datasource:
+       type: com.alibaba.druid.pool.DruidDataSource
+       driver-class-name: com.mysql.cj.jdbc.Driver
+       url: jdbc:mysql://47.106.190.209:3306/redis?characterEncoding=UTF-8
+       username: root
+       password: root
+   #mybatis
+   mybatis:
+     mapper-locations: classpath:mapper/*.xml
+     type-aliases-package: com.orichalcos.entity
+   ```
+
+   
+
+
+
