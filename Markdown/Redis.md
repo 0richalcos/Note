@@ -1,4 +1,4 @@
-1、NoSQL概述
+# 1、NoSQL概述
 
 ## 1.1、为什么要用 NoSQL？
 
@@ -3322,76 +3322,376 @@ public static void releaseLockByDel(String lockKey, String requestId) {
 <cache/>
 ```
 
+
+
+## 14.1、搭建环境
+
 1. 这里新建一个简单的 SpringBoot 项目，引入以下依赖：
 
    ```xml
-   <dependency>
-       <groupId>org.springframework.boot</groupId>
-       <artifactId>spring-boot-starter-data-redis</artifactId>
-   </dependency>
-   <dependency>
-       <groupId>org.springframework.boot</groupId>
-       <artifactId>spring-boot-starter-web</artifactId>
-   </dependency>
-   <dependency>
-       <groupId>org.mybatis.spring.boot</groupId>
-       <artifactId>mybatis-spring-boot-starter</artifactId>
-       <version>2.2.0</version>
-   </dependency>
-   
-   <dependency>
-       <groupId>org.springframework.boot</groupId>
-       <artifactId>spring-boot-devtools</artifactId>
-       <scope>runtime</scope>
-       <optional>true</optional>
-   </dependency>
-   <dependency>
-       <groupId>mysql</groupId>
-       <artifactId>mysql-connector-java</artifactId>
-       <scope>runtime</scope>
-   </dependency>
-   <dependency>
-       <groupId>org.projectlombok</groupId>
-       <artifactId>lombok</artifactId>
-       <optional>true</optional>
-   </dependency>
-   <dependency>
-       <groupId>org.springframework.boot</groupId>
-       <artifactId>spring-boot-starter-test</artifactId>
-       <scope>test</scope>
-   </dependency>
-   <dependency>
-       <groupId>com.alibaba</groupId>
-       <artifactId>druid-spring-boot-starter</artifactId>
-       <version>1.2.6</version>
-   </dependency>
+   <dependencies>
+       <dependency>
+           <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-starter-data-redis</artifactId>
+       </dependency>
+       <dependency>
+           <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-starter-web</artifactId>
+       </dependency>
+       <dependency>
+           <groupId>org.mybatis.spring.boot</groupId>
+           <artifactId>mybatis-spring-boot-starter</artifactId>
+           <version>2.2.0</version>
+       </dependency>
+       <dependency>
+           <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-devtools</artifactId>
+           <scope>runtime</scope>
+           <optional>true</optional>
+       </dependency>
+       <dependency>
+           <groupId>mysql</groupId>
+           <artifactId>mysql-connector-java</artifactId>
+           <scope>runtime</scope>
+       </dependency>
+       <dependency>
+           <groupId>org.projectlombok</groupId>
+           <artifactId>lombok</artifactId>
+           <optional>true</optional>
+       </dependency>
+       <dependency>
+           <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-starter-test</artifactId>
+           <scope>test</scope>
+       </dependency>
+       <dependency>
+           <groupId>com.alibaba</groupId>
+           <artifactId>druid-spring-boot-starter</artifactId>
+           <version>1.2.6</version>
+       </dependency>
+   </dependencies>
    ```
 
-2. 编辑 application.yml 文件
+2. 编辑 application.yml 文件：
 
    ```yaml
    server:
-     port: 8080
+     port: 8888
    spring:
      #redis
      redis:
-       host: 47.106.190.209
+       host: localhost
        port: 6379
        database: 0
      #mysql
      datasource:
        type: com.alibaba.druid.pool.DruidDataSource
        driver-class-name: com.mysql.cj.jdbc.Driver
-       url: jdbc:mysql://47.106.190.209:3306/redis?characterEncoding=UTF-8
+       url: jdbc:mysql://localhost:3306/redis?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
        username: root
        password: root
    #mybatis
    mybatis:
      mapper-locations: classpath:mapper/*.xml
      type-aliases-package: com.orichalcos.entity
-   ```
-
    
+   logging:
+     level:
+       com.orichalcos.mapper: debug
+   ```
+   
+3. 新建一个简单的实体类 User.java，并在数据库创建对应表：
+
+	```java
+	/**
+	 * @author Orichalcos
+	 */
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Accessors(chain = true)
+	public class User implements Serializable {
+	    private String id;
+	    private String name;
+	    private Integer age;
+	    private Date bir;
+	}
+	```
+
+4. 新建 UserMapper.java：
+
+	```java
+	/**
+	 * @author Orichalcos
+	 */
+	@Mapper
+	public interface UserMapper {
+	    List<User> findAll();
+	}
+	```
+
+5. UserMapper.xml：
+
+	```xml
+	<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.orichalcos.mapper.UserMapper">
+	    <select id="findAll" resultType="User">
+	        select id,name,age,bir from t_user;
+	    </select>
+	</mapper>
+	```
+
+6. UserService.java 和 UserServiceImpl.java：
+
+	```java
+	public interface UserService {
+	    List<User> findAll();
+	}
+	
+	```
+
+	```java
+	/**
+	 * @author Orichalcos
+	 */
+	@Service
+	public class UserServiceImpl implements UserService {
+	
+	    @Autowired
+	    private UserMapper userMapper;
+	
+	    @Override
+	    public List<User> findAll() {
+	        return userMapper.findAll();
+	    }
+	}
+	```
+
+7. 在 test.java.com.orichalcos 下创建一个 TestUserService.java 进行测试：
+
+	```java
+	@SpringBootTest
+	public class TestUserService {
+	    @Autowired
+	    private UserService userService;
+	
+	    @Test
+	    public void test() {
+	        userService.findAll().forEach(u -> System.out.println("u = " + u));
+	    }
+	}
+	```
+
+8. 启动 `test()` 测试，结果如下，环境搭建成功：
+
+	```
+	u = User(id=1, name=orichalcos, age=18, bir=Tue Jun 15 00:00:00 CST 2021)
+	u = User(id=2, name=小黑, age=20, bir=Wed Jun 16 00:00:00 CST 2021)
+	```
 
 
+
+## 14.2、开启 Mybatis 的二级缓存
+
+在开启之前，修改下 `test()` 方法：
+
+```java
+@Test
+public void test() {
+    userService.findAll().forEach(u -> System.out.println("u = " + u));
+
+    System.out.println("=================================================");
+
+    userService.findAll().forEach(u -> System.out.println("u = " + u));
+}
+```
+
+查看打印出来的日志：
+
+![image-20210616162153913](../Images/Redis/image-20210616162153913.png)
+
+可以看到，程序去数据库查询了两次。
+
+再在 UserMapper.xml 中开启二级缓存：
+
+```xml
+<cache/>
+```
+
+再次启动 `test()` 方法，查看打印的日志：
+
+![image-20210616162704356](../Images/Redis/image-20210616162704356.png)
+
+可以看到这里程序只查询了一次数据可，第二次因为击中了缓存，所以直接给到了数据。
+
+开启缓存需要实体类实现序列化，不然会报序列化的错误：
+
+![image-20210616163022937](../Images/Redis/image-20210616163022937.png)
+
+
+
+## 14.3、使用 Redis 作为缓存
+
+首先，看看 Mybatis 的 Cache 接口的实现类：
+
+![image-20210616163547625](../Images/Redis/image-20210616163547625.png)
+
+Mybatis 中默认使用的就是 PerpretualCache，可以看一下源码：
+
+```java
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
+package org.apache.ibatis.cache.impl;
+
+import java.util.HashMap;
+import java.util.Map;
+import org.apache.ibatis.cache.Cache;
+import org.apache.ibatis.cache.CacheException;
+
+public class PerpetualCache implements Cache {
+    private final String id;
+    private final Map<Object, Object> cache = new HashMap();
+
+    public PerpetualCache(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public int getSize() {
+        return this.cache.size();
+    }
+
+    public void putObject(Object key, Object value) {
+        this.cache.put(key, value);
+    }
+
+    public Object getObject(Object key) {
+        return this.cache.get(key);
+    }
+
+    public Object removeObject(Object key) {
+        return this.cache.remove(key);
+    }
+
+    public void clear() {
+        this.cache.clear();
+    }
+...
+}
+```
+
+可以看到在类中维护了一个名为 cache 的 HashMap，大部分方法都是对 cache 进行操作，可以对其中的一些方法打上断点 debug 查看方法什么时候触发。其实看到这里已经很直白了：HashMap 用于存放缓存，如果查询的时候没有命中缓存，那么会使用 `putObject()` 将缓存存入，如果命中缓存就使用 `getObject()` 将数据取出。那么如果使用 Redis 作为缓存，可以自己定义一个 RedisCache 并且实现 Cache 接口即可。
+
+首先先新建一个 RedisCache.java 并实现 Cache.java：
+
+```java
+/**
+ * @author Orichalcos
+ * 自定义Redis缓存实现
+ */
+public class RedisCache implements Cache {
+    @Override
+    public String getId() {
+        return null;
+    }
+
+    @Override
+    public void putObject(Object key, Object value) {
+
+    }
+
+    @Override
+    public Object getObject(Object key) {
+        return null;
+    }
+
+    @Override
+    public Object removeObject(Object key) {
+        return null;
+    }
+
+    @Override
+    public void clear() {
+
+    }
+
+    @Override
+    public int getSize() {
+        return 0;
+    }
+}
+```
+
+在 UserMapper.xml 中将 cache 类型改为自定义的 RedisCache：
+
+```xml
+<cache type="com.orichalcos.cache.RedisCache"/>
+```
+
+先直接跑一下看看：
+
+![image-20210616184214849](../Images/Redis/image-20210616184214849.png)
+
+这里报错提示：基本缓存必须要有一个字符串 ID 为参数的构造函数，参考下 PerpetualCache.java 的实现，这次在 RedisCache.java 中添加对应的构造函数，并且将其打印出来看看是啥：
+
+```java
+private final String id;
+
+public RedisCache(String id) {
+    System.out.println(id);
+    this.id = id;
+}
+```
+
+再次执行 `test()`：
+
+![image-20210616184824753](../Images/Redis/image-20210616184824753.png)
+
+打印出了 ID，原来是 Mapper 文件的 namespace，并且在控制台最后提示报错：name 参数不能为空
+
+![image-20210616184928611](../Images/Redis/image-20210616184928611.png)
+
+那么，根据 PerpetualCache.java 中的 `getId()` 方法，将 namespace 返回出去：
+
+```java
+@Override
+public String getId() {
+    return this.id;
+}
+```
+
+再次运行 `test()`：
+
+![image-20210616185512068](../Images/Redis/image-20210616185512068.png)
+
+已经没有问题了，但是还是查询了数据库两次，先别急，先看看 `putObject()` 和 `getObject()` 的参数是啥：
+
+```java
+@Override
+public void putObject(Object key, Object value) {
+    System.out.println("key====" + key.toString());
+    System.out.println("value====" + value);
+}
+
+@Override
+public Object getObject(Object key) {
+    System.out.println("key===="+key.toString());
+    return null;
+}
+```
+
+再跑一下 `test()`：
+
+![image-20210616190044791](../Images/Redis/image-20210616190044791.png)
+
+可以看到，每次查询的时候都会通过 `getObject()` 方法去拿缓存，但是因为没有拿到，所以去数据库查询，然后通过 `putObject()` 将数据存入缓存。
+
+这样就很清楚了，按照 PerpetualCache.java 的实现（存入 HashMap），将数据存入 Redis 中。由于 RedisCache.java 没有被 Spring 托管，所以不可以通过 `@Autowired` 直接获取到 RedisTemplate，这里写一个工具类来获取：
 
