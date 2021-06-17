@@ -2714,7 +2714,7 @@ redis-cli -p 6379
 
 
 
-**数据同步验证：**
+**数据同步验证**
 
 ```bash
 # master
@@ -2728,6 +2728,19 @@ exit
 redis-cli -p 6380
 127.0.0.1:6380> get k1
 "v1"
+```
+
+
+
+**Spring Boot 配置**
+
+```yaml
+# 连接主节点即可
+spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
 ```
 
 
@@ -2847,6 +2860,21 @@ root@Orichalcos:~/data# redis-cli -p 6380 get k1
 
 
 
+**Spring Boot 配置**
+
+```yaml
+# 记得开启哨兵的远程连接
+spring:
+  redis:
+    sentinel:
+      # master的名称，哨兵配置文件里 sentinel monitor 所配置的主节点名字
+      master: mymaster
+      # 哨兵的IP:Port列表
+      nodes: 127.0.0.1:26379,127.0.0.1:26380,127.0.0.1:26381
+```
+
+
+
 ## 11.3、Cluster 模式 
 
 ### 11.3.1、Cluster 模式介绍
@@ -2957,6 +2985,20 @@ root@Orichalcos:~/data# redis-cli -p 6379 -c
 -> Redirected to slot [10368] located at 127.0.0.1:6380
 OK
 127.0.0.1:6380>
+```
+
+
+
+**Spring Boot配置**
+
+```yaml
+spring:
+  redis:
+    cluster:
+      # 书写集群中所有的nodes
+      nodes: 127.0.0.1:6379,127.0.0.1:6380,127.0.0.1:6381,127.0.0.1:6382,127.0.0.1:6383,127.0.0.1:6384
+      # 重定向的最大次数
+      max-redirects: 3
 ```
 
 
@@ -3695,3 +3737,211 @@ public Object getObject(Object key) {
 
 这样就很清楚了，按照 PerpetualCache.java 的实现（存入 HashMap），将数据存入 Redis 中。由于 RedisCache.java 没有被 Spring 托管，所以不可以通过 `@Autowired` 直接获取到 RedisTemplate，这里写一个工具类来获取：
 
+```java
+/**
+ * @author Orichalcos
+ * 用来获取springboot创建好的工厂
+ */
+public class ApplicationContextUtils implements ApplicationContextAware {
+
+    private static ApplicationContext applicationContext;
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        ApplicationContextUtils.applicationContext = applicationContext;
+    }
+
+    public static Object getBean(String name) {
+        return applicationContext.getBean(name);
+    }
+}
+```
+
+完善 RedisCache.java 的代码：
+
+```java
+/**
+ * @author Orichalcos
+ * 自定义Redis缓存实现
+ */
+public class RedisCache implements Cache {
+
+    private final String id;
+
+    public RedisCache(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getId() {
+        return this.id;
+    }
+
+    @Override
+    public void putObject(Object key, Object value) {
+        getRedisTemplate().opsForHash().put(id, key.toString(), value);
+    }
+
+    @Override
+    public Object getObject(Object key) {
+        return getRedisTemplate().opsForHash().get(id, key.toString());
+    }
+
+    @Override
+    public Object removeObject(Object key) {
+        return getRedisTemplate().opsForHash().delete(id, key.toString());
+    }
+
+    @Override
+    public void clear() {
+        getRedisTemplate().delete(id);
+    }
+
+    @Override
+    public int getSize() {
+        return getRedisTemplate().opsForHash().size(id).intValue();
+    }
+
+    private RedisTemplate getRedisTemplate() {
+        RedisTemplate redisTemplate = (RedisTemplate) ApplicationContextUtils.getBean("redisTemplate");
+        redisTemplate.setKeySerializer(RedisSerializer.string());
+        redisTemplate.setHashKeySerializer(RedisSerializer.string());
+        return redisTemplate;
+    }
+}
+```
+
+运行 `test()` ：
+
+![image-20210617113243767](../Images/Redis/image-20210617113243767.png)
+
+已经第一次存，第二次直接从缓存获取，看看 Redis 里：
+
+![image-20210617113334200](../Images/Redis/image-20210617113334200.png)
+
+
+
+## 14.4、问题及优化
+
+**多表连接问题**
+
+添加一个 Role 表，与 User 关联：
+
+![image-20210617124427089](../Images/Redis/image-20210617124427089.png)
+
+在 UserMapper.xml 增加 ResultMap 映射并修改 `findAll()`（这里还修改了 User 的主键，id->user_id）：
+
+```xml
+<mapper namespace="com.orichalcos.mapper.UserMapper">
+
+    <cache type="com.orichalcos.cache.RedisCache"/>
+
+    <resultMap id="UserResultMap" type="User">
+        <id property="userId" column="user_id"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+        <result property="bir" column="bir"/>
+        <collection property="roles" ofType="Role" >
+            <id property="roleId" column="role_id"/>
+            <result property="userId" column="user_id"/>
+            <result property="roleName" column="role_name"/>
+        </collection>
+    </resultMap>
+
+    <select id="findAll" resultMap="UserResultMap">
+        select *
+        from t_user
+                 left join
+             t_role
+             on t_user.user_id = t_role.user_id;
+    </select>
+</mapper>
+```
+
+在 RoleMapper.xml 中增加了 `updateRole()`：
+
+```xml
+<update id="updateRole">
+    update t_role
+    set role_name="user2"
+    where role_id = "1"
+</update>
+```
+
+`test()` 改为如下：
+
+```java
+@Test
+public void test() {
+    userService.findAll().forEach(u -> System.out.println("u = " + u));
+    System.out.println("=================================================");
+
+    roleService.updateRole();
+    userService.findAll().forEach(u -> System.out.println("u = " + u));
+}
+```
+
+运行后发现：
+
+![image-20210617124840634](../Images/Redis/image-20210617124840634.png)
+
+`updateRole()` 执行后，会刷新掉 com.orichalcos.mapper.RoleMapper 下的缓存，再次查询 User，由于缓存命中且 com.orichalcos.mapper.UserMapper 的缓存并未更新，所以出现了这种情况，解决方法：
+
+```xml
+<!--<cache type="com.orichalcos.cache.RedisCache"/>-->
+<cache-ref namespace="com.orichalcos.mapper.UserMapper"/>
+```
+
+改为引用 User 的缓存，再次测试：
+
+![image-20210617125449501](../Images/Redis/image-20210617125449501.png)
+
+第一次命中缓存，执行 `updateRole()` 后删除了 com.orichalcos.mapper.UserMapper 下的缓存，所以第二次查询了数据库，数据正确！
+
+
+
+**其他的优化**
+
+RedisCache.java 只是简单实现！
+
+- 缓存穿透：存储空值解决
+- 缓存击穿：可以使用互斥锁
+- 缓存雪崩：缓存有效期设置为一个随机范围
+- 读写性能：redis key 不能过长，会影响性能，可以使用 SHA-256 计算摘要当成 key
+
+
+
+# 15、Redis Session 管理
+
+Redis 的 session 管理是利用 Spring 提供的 session 管理解决方案，将一个应用 session 交给 Redis 存储，整个应用中所有 session 的请求都会去 redis 中获取对应的 session 数据。
+
+<img src="../Images/Redis/image-20200628201643358-1623919932602.png" alt="image-20200628201643358"  />
+
+
+
+1. 引入依赖：
+
+	```xml
+	<!-- https://mvnrepository.com/artifact/org.springframework.session/spring-session-data-redis -->
+	<dependency>
+	    <groupId>org.springframework.session</groupId>
+	    <artifactId>spring-session-data-redis</artifactId>
+	    <version>2.5.0</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-data-redis</artifactId>
+	</dependency>
+	```
+
+2. 添加 Session 管理配置类
+
+	```java
+	@Configuration
+	@EnableRedisHttpSession
+	public class RedisSessionManager {
+	}
+	```
+
+3. 打包测试
