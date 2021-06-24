@@ -3081,3 +3081,38 @@ service mysql restart
 
 	![image-20210420112705768](../Images/MySQL/image-20210420112705768.png)
 
+
+
+# 21、其他
+
+## 1、mysql 里一个汉字占多少字节？
+
+varchar(N)，这里的Ｎ是指字符数，并不是字节数。占用的字节数与编码有关
+
+在 mysql 5.1.5-alpha 下测试得出如下结论：
+
+
+
+**latin1（ISO-8859-1的别名）:**
+
+1character=1byte，1汉字=2character,
+
+也就是说一个字段定义成 varchar(200)，则它可以存储 100 个汉字或者 200 个字母。
+
+这一点要注意，尤其是当字段内容是字母和汉字组成时，尽量假设字段内容都是由汉字组成，据此来设置字段长度
+
+
+
+**utf8:**
+
+1character=3bytes，1汉字=1character
+
+也就是说一个字段定义成 varchar(200)，则它可以存储 200 个汉字或者 200 个字母。
+
+
+
+**gbk:**
+
+1character=2bytes，1汉字=1character
+
+也就是说一个字段定义成 varchar(200)，则它可以存储 200 个汉字或者 200 个字母。

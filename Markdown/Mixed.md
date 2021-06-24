@@ -2,41 +2,41 @@
 
 ## 1、Windows默认管理员权限
 
-1. 按下Win+R键唤出“运行”窗口，输入gpedit.msc。
-2. 这时打开了组策略编辑器，在左边找到“计算机配置-Windows设置”，再进入右边“安全设置”。
-3.  进入“本地策略”。
-4. 进入“安全选项”。
+1. 按下 Win+R 快捷键唤出 “运行” 窗口，输入 gpedit.msc
+2. 这时打开了 组策略编辑器，在左边找到【计算机配置】 =>【Windows设置】，再进入右边【安全设置】
+3.  进入【本地策略】
+4. 进入【安全选项】
 5. 向下滑，找到
 	-  “用户账户控制：以管理员批准模式运行所有管理员”
 	- “用户账户控制：用于内置管理员账户的管理员批准模式”
-6. 分别选中并点击鼠标右键，再点击“属性”，进入配置窗口，将这两项都分别设置为“已禁用”，再点击“确定”。
+6. 分别选中并点击鼠标右键，再点击【属性】，进入配置窗口，将这两项都分别设置为 “已禁用”，再点击 【确定】
 7. 重启电脑，操作完成！
 
 
 
 ## 2、重装系统时将硬盘格式转换为GPT
 
-1. 按“shift”键和“F10”键，启动cmd命令行模式；
-2. 在命令行窗口中输入“diskpart”命令并回车，进入Diskpart模式；
-3. 输入“list disk”命令并回车，确认电脑硬盘数量；
-4. 继续输入“select disk 0”命令并回车，选择disk0的硬盘（C盘为disk0，视情况而定）
-5.  继续输入“clean”命令并回车，清楚disk0硬盘中所有的分区和数据；
-6. 继续“convert GPT”并回车，将硬盘格式从MBR转换成GPT;
-7. 最后输入“exit”命令并回车，退出Diskpart模式；
-8. 再输入“exit”命令并回车，退出cmd命令行模式。
+1. 按 shift 键和 F10 键，启动 cmd 命令行模式
+2. 在命令行窗口中输入 `diskpart` 命令并回车，进入 Diskpart 模式
+3. 输入 `list disk` 命令并回车，确认电脑硬盘数量
+4. 继续输入 `select disk 0` 命令并回车，选择 disk0 的硬盘（C盘为disk0，视情况而定）
+5.  继续输入 `clean` 命令并回车，清除 disk0 硬盘中所有的分区和数据
+6. 继续 `convert GPT` 并回车，将硬盘格式从 MBR 转换成 GPT
+7. 最后输入 `exit` 命令并回车，退出 Diskpart 模式
+8. 再输入 `exit` 命令并回车，退出 cmd 命令行模式
 
 
 
 ## 3、修改系统引导
 
 1. win+R
-2. 输入msconfig
+2. 输入 `msconfig`
 
 
 
 ## 4、查看后台运行的程序的详细信息
 
-cmd命令窗口输入netstat –ano，回车。
+cmd 命令窗口输入 `netstat –ano`，回车。
 
 可以解决端口占用
 
@@ -46,16 +46,16 @@ cmd命令窗口输入netstat –ano，回车。
 
 它可以对所有的系统文件进行压缩，实现磁盘压缩，节约硬盘空间。
 
-开启：cmd命令窗口输入compact /compactos:always，回车。
+开启：cmd命令窗口输入 `compact /compactos:always`，回车。
 
-关闭：compact /compactos:never
+关闭：`compact /compactos:never`
 
 
 
 ## 6、删除右键菜单新建中不要选项
 
-1. 按下Win+R，运行regedit。
-2. 展开HKEY_CLASSES_ROOT，找到需要删除的文件后缀名，然后展开文件夹找到shellnew选项，直接删除即可。
+1. 按下 Win+R，运行 `regedit`
+2. 展开 HKEY_CLASSES_ROOT，找到需要删除的文件后缀名，然后展开文件夹找到 shellnew 选项，直接删除即可
 
 
 
@@ -63,11 +63,66 @@ cmd命令窗口输入netstat –ano，回车。
 
 使用微软账户登录：
 
-1. 按 Win + R，弹出 ”运行“，输入`netplwiz`，点确定。
-2. 取消 “要使用本计算机，用户必须输入用户名和密码”，点确定 。
-3. 会弹出一个窗口，在窗口中输入 微软账户的用户名和密码，点确定。
+1. 按 Win + R，弹出 ”运行“，输入`netplwiz`，点【确定】
+2. 取消 “要使用本计算机，用户必须输入用户名和密码”，点【确定 】
+3. 会弹出一个窗口，在窗口中输入 微软账户的用户名和密码，点【确定】
 
 <img src="../Images/Mixed/image-20210513005900008.png" alt="image-20210513005900008" style="zoom: 67%;" />
+
+
+
+## 8、微软输入法快速输入时间
+
+1. 按下快捷键 Win + I，打开【设置】
+
+2. 依次进入：【时间和语言】 => 【语言 】
+
+3. 找到【首选语言】，点击首选语言（中文简体，中国）的【选项】
+
+4. 找到【键盘】，点击首选键盘（微软输入法）的【选项】
+
+5. 选择【词库和自学习】，打开【用户定义的短语】，点击【添加用户定义的短语】
+
+6. 添加：
+
+   ![image-20210624233318170](../Images/Mixed/image-20210624233318170.png)
+
+   ```
+   # 2020-11-29 16:21:29
+   %yyyy%-%MM%-%dd% %HH%:%mm%:%ss%
+   
+   # 2020年11月29日 16:21:29
+   %yyyy%年%MM%月%dd%日 %HH%:%mm%:%ss%
+   ```
+
+
+
+## 9、Windows 终端 SSH 保持连接
+
+Windows 10 全新的 Powershell 内置了 ssh.exe 因此可以直接连接远程服务器，在 Windows Terminal 中连接 SSH 中若一段时间没有操作会导致连接断开，终端卡死。
+
+常见的终端工具（比如：Xshell）等都会内置 keepalive 功能，自动会发送心跳包来保持连接，但是 Windows Terminal 没有自带此功能。
+
+解决办法：在当前用户目录下创建 .ssh 文件夹，或者可以尝试连接 SSH 随意连接一个服务器即可自动创建此文件夹。在其中创建配置文件 config ，写入以下两行：
+
+```
+Host *
+    ServerAliveInterval 40
+```
+
+
+
+## 10、删除桌面右键Open in Terminal
+
+1. 按 win 键+ r 键，打开 “运行” 窗口，输入  `regedit`，按回车键，弹出 注册表编辑器
+
+2. 定位到
+
+   `计算机\HKEY_CLASSES_ROOT\PackagedCom\ClassIndex{9f156763-7844-4dc4-b2b1-901f640f5155}`
+
+   然后将该文件夹删除即可，注意不要删除其他文件
+
+3. 退出后，桌面右键 Open in Terminal 则删除掉了
 
 
 
@@ -75,17 +130,17 @@ cmd命令窗口输入netstat –ano，回车。
 
 ## 1、移动Chrome的数据文件
 
-Chrome默认的数据文件地址是：C:\Users\Orichalcos\AppData\Local\Google
+Chrome 默认的数据文件地址是：C:\Users\Orichalcos\AppData\Local\Google
 
-移动前需要关闭Google，将文件移动到想要移动的地方，然后在cmd（需要管理员权限）输入：mklink 旧地址 新地址，回车。
+移动前需要关闭 Google，将文件移动到想要移动的地方，然后在 cmd（需要管理员权限）输入：mklink 旧地址 新地址，回车。
 
 
 
 # IDEA
 
-## 1、maven部分文件无法导出
+## 1、Maven 部分文件无法导出
 
-maven由于他的约定大于配置，之后可能遇到写的配置文件，无法被导出或者生效的问题
+maven 由于他的约定大于配置，之后可能遇到写的配置文件，无法被导出或者生效的问题
 
 ```xml
 <build>
@@ -112,19 +167,19 @@ maven由于他的约定大于配置，之后可能遇到写的配置文件，无
 
 
 
-## 2、maven框架web-app中web.xml版本过低
+## 2、Maven 框架 web-app 中 web.xml 版本过低
 
-1. 找到maven-archetype-webapp的jar包位置：maven位置\repository\org\apache\maven\archetypes\maven-archetype-webapp\1.4。
+1. 找到 maven-archetype-webapp 的 jar 包位置：maven位置\repository\org\apache\maven\archetypes\maven-archetype-webapp\1.4。
 2. 用压缩包形式打开，不要解压！
 3. 然后依次点，archetype-resources\src\main\webapp\WEB-INF\web.xml，打开，将其修改成最新的模板。
 
 PS：上边的web-app标签中有一个**metadata-complete="true"**，这是个大坑，因为web-app标签3.0以上版本是可以使用servlet的注解的，如下图：
 
-<img src="Images/Mixed/1247983-20190604213809759-1772243544.png" alt="img" style="zoom:67%;float:left" />
+<img src="../Images/Mixed/1247983-20190604213809759-1772243544.png" alt="img" style="zoom:67%;float:left" />
 
 再也不用去web.xml写那servlet的那一堆映射了（下图就是那一堆映射）
 
-<img src="Images/Mixed/1247983-20190604214818782-1161183865.png" alt="img" style="zoom:67%;float:left" />
+<img src="../Images/Mixed/1247983-20190604214818782-1161183865.png" alt="img" style="zoom:67%;float:left" />
 
 如果忘记了改这个web-app标签里的metadata-complete的这个属性，所写的注解都将失效！！！
 
@@ -146,7 +201,7 @@ PS：上边的web-app标签中有一个**metadata-complete="true"**，这是个�
 
 
 
-## 4、SpringBoot实现热部署
+## 4、SpringBoot 实现热部署
 
 ![img](../Images/Mixed/1676221-20200430155320785-521416484.png)
 
@@ -181,9 +236,35 @@ IDEA：当我们修改了Java类后，IDEA默认是不自动编译的，而sprin
 
 
 
-## 5、Maven项目没有被识别
+## 5、Maven 项目没有被识别
 
-在pom.xml上右键、点击Add as Maven Project 
+在 pom.xml 上右键、点击 Add as Maven Project 
+
+
+
+## 6、插件：camelCase
+
+下划线 <=> 驼峰，你是怎么转换的，一个一个字母的修改吗？
+
+camelCase 可以用 一个快捷键 就搞定，去 IDEA 的插件库中搜索 camelCase 插件，安装上。
+
+使用方式：先选中要要格式转换的代码， 再用快捷键 Shift + Alt + u 进行转换，多个格式切换，就按多次快捷键。
+
+camelCase 包含 6 种格式的切换，可能某些格式是平时不用的，可以把不用的格式取消，这样在格式切换时，就不会包含已取消的格式了：
+
+![图片描述](../Images/Mixed/5e7827dc0001c7ea11720724.png)
+
+
+
+## 7、IDEA  jar 包自动导入及优化
+
+加快开发效率，除去没用的包，洁癖者必用!   这样设置，就可以自动导入包以及除去没有用到的包！
+
+![img](../Images/Mixed/1100499-20180530104314466-1984750519.png)
+
+第一个是 自动导入需要的 jar 包，若有多个同名 jar 包，需要开发者自己选择导入
+
+第二个是 优化导入，也就是除去没有用到的 jar 包，这个设置只会对当前的项目有效！每个项目都需要单独设置 此选项！
 
 
 
@@ -217,7 +298,7 @@ IDEA：当我们修改了Java类后，IDEA默认是不自动编译的，而sprin
 
 
 
-## 3、SpringBoot打jar包
+## 3、SpringBoot 打 jar 包
 
 SpringBoot是使用内置的tomcat的，所以不用打包成war文件，当然也可以打包成war文件进行部署，只是个人觉得没有那个必要，通过maven可将SpringBoot项目打包成jar文件运行。
 
@@ -241,7 +322,7 @@ SpringBoot是使用内置的tomcat的，所以不用打包成war文件，当然�
 	```
 
 2. 项目运行环境选择java jdk
-	<img src="Images/Mixed/20191105110853305.png" alt="img" style="zoom:67%;" />
+	<img src="../Images/Mixed/20191105110853305.png" alt="img" style="zoom:67%;" />
 
 3. 执行maven clean
 	**右键项目 run as 选择maven clean**
