@@ -662,3 +662,64 @@ $('#table').bootstrapTable({
 - table-dark 设置表格为黑色主题
 - table-hover 启用鼠标悬停状态
 
+
+
+## 4.4、表格超过长度自动隐藏
+
+当表格里面的内容列数过多的，内容长度过长的时候，会出现自动换行的效果，整个表格的每一行高度就不相同了，看上去就不够美观。
+
+**方案一**
+
+通过 `cellStyle` 添加 css 样式进行控制，显示的内容由 `max-width` 控制，只会显示一行，其余省略为 `...`
+
+```javascript
+{
+    field: 'questionContent',
+    title: '问题内容',
+    cellStyle: function (value, row, index) {
+        return {
+            css: {
+                "white-space": "nowrap",
+                "text-overflow": "ellipsis",
+                "overflow": "hidden",
+                "max-width": "60px"
+            }
+        }
+    },
+    formatter: function (value, row, index) {
+        var span = document.createElement("span");
+        span.setAttribute("title", value);
+        span.innerHTML = value;
+        return span.outerHTML;
+    }
+}
+```
+
+
+
+**方案二**
+
+这种方法通过 `substring` 直接修改内容的长度，多出的内容省略为 `...`，列宽不够会自动换行
+
+```javascript
+{
+    field: 'questionContent',
+    title: '问题内容',
+    formatter: function (value, row, index) {
+        var span = document.createElement("span");
+        span.setAttribute("title", value);
+        if (value.length > 50) {
+            value = value.substring(0, 50) + "...";
+        }
+        span.innerHTML = value;
+        return span.outerHTML;
+    }
+}
+```
+
+
+
+**效果对比**
+
+![image-20210624182508220](../Images/BootstrapTable/image-20210624182508220.png)
+
