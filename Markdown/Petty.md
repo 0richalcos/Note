@@ -110,6 +110,7 @@ URLEncoder.encode(filename, "UTF-8")
 ```java
 @Override
 public void downloadFile(String ids, HttpServletResponse response) throws IOException {
+    //获取文件对象
     List<SysFileInfo> sysFileInfos = selectSysFileInfoListByIds(ids);
     response.reset();
     response.setContentType("bin");

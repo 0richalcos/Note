@@ -1071,7 +1071,10 @@ public static String docxToHtml(File file) {
         xhtmlOptions.setExtractor(new FileImageExtractor(imageFolder));
         //html中图片的路径
         xhtmlOptions.URIResolver(new FileURIResolver(imageFolder));
-
+        //不忽略未使用的样式
+        xhtmlOptions.setIgnoreStylesIfUnused(false);
+        
+        xhtmlOptions.setFragment(true);
         //将XWPFDocument转换为XHTML
         XHTMLConverter.getInstance().convert(xwpfDocument, outputStream, xhtmlOptions);
         logger.info("docx转html成功,文件名：" + file.getName());
