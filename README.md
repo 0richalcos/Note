@@ -58,14 +58,7 @@
 
 ## 其他
 
+- [Bootstrap Table](https://github.com/0richalcos/Note/blob/main/Markdown/BootstrapTable.md)
 - [IDE 及 Win10 设置](https://github.com/0richalcos/Note/blob/main/Markdown/Mixed.md)
 - [杂七杂八的](https://github.com/0richalcos/Note/blob/main/Markdown/Petty.md)
-
-
-
-## 好用的工具或插件
-
-#### 前端
-
-- [Bootstrap Table](https://github.com/0richalcos/Note/blob/main/Markdown/BootstrapTable.md)
 
