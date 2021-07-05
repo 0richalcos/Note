@@ -8,11 +8,13 @@
 
 **什么是 Swagger？**
 
-发现了痛点就要去找解决方案。解决方案用的人多了，就成了标准的规范，这就是 Swagger 的由来。
+发现了痛点就要去找解决方案。解决方案用的人多了，就成了标准的规范，这就是 Swagger 的由来。通过这套规范，你只需要按照它的规范去定义接口及接口相关的信息。再通过 Swagger 衍生出来的一系列项目和工具，就可以做到生成各种格式的接口文档，生成多种语言的客户端和服务端的代码，以及在线接口调试页面等等。这样，如果按照新的开发模式，在开发新版本或者迭代版本的时候，只需要更新 Swagger 描述文件，就可以自动生成接口文档和客户端服务端代码，做到调用端代码、服务端代码以及接口文档的一致性。
 
-Swagger 是一个规范和完整的框架，用于生成、描述、调用和可视化 RESTful 风格的 Web 服务。总体目标是使客户端和文件系统作为服务器以同样的速度来更新。文件的方法、参数和模型紧密集成到服务器端的代码，允许 API 来始终保持同步。Swagger 让部署管理和使用功能强大的 API 从未如此简单。
+但即便如此，对于许多开发来说，编写这个 ym l或 json 格式的描述文件，本身也是有一定负担的工作，特别是在后面持续迭代开发的时候，往往会忽略更新这个描述文件，直接更改代码。久而久之，这个描述文件也和实际项目渐行渐远，基于该描述文件生成的接口文档也失去了参考意义。所以作为Java 届服务端的大一统框架 Spring，迅速将 Swagger 规范纳入自身的标准，建立了 Spring-swagger 项目，后面改成了现在的 Springfox。通过在项目中引入 Springfox，可以扫描相关的代码，生成该描述文件，进而生成与代码一致的接口文档和客户端代码。这种通过代码生成接口文档的形式，在后面需求持续迭代的项目中，显得尤为重要和高效。
 
-这个解释简单点来讲就是说，Swagger 是一款可以根据 RESTful 风格生成接口开发文档，并且支持做测试的一款中间软件。
+> Swagger 是一个规范和完整的框架，用于生成、描述、调用和可视化 RESTful 风格的 Web 服务。总体目标是使客户端和文件系统作为服务器以同样的速度来更新。文件的方法、参数和模型紧密集成到服务器端的代码，允许 API 来始终保持同步。Swagger 让部署管理和使用功能强大的 API 从未如此简单。
+>
+> 这个解释简单点来讲就是说，Swagger 是一款可以根据 RESTful 风格生成接口开发文档，并且支持做测试的一款中间软件。
 
 
 
@@ -30,3 +32,50 @@ Swagger 是一个规范和完整的框架，用于生成、描述、调用和可
   对于某些没有前端界面UI的功能，可以用它来测试接口
   操作简单，不用了解具体代码就可以操作
 
+
+
+# 2、Spring Boot 集成 Swagger 3.0
+
+## 2.1、搭建环境
+
+1. 新建一个 Spring Boot 项目
+
+2. 导入相关依赖
+
+   ```xml
+   <!-- https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter -->
+   <dependency>
+       <groupId>io.springfox</groupId>
+       <artifactId>springfox-boot-starter</artifactId>
+       <version>3.0.0</version>
+   </dependency>
+   ```
+
+3. 写一个 Hello 测试下
+
+   ```java
+   @RestController
+   public class HelloController {
+       @GetMapping("/hello")
+       public String hello() {
+           return "hello";
+       }
+   }
+   ```
+
+4. 编写一个 SwaggerConfig.java 开启 Swagger
+
+   ```java
+   @Configurable
+   @EnableOpenApi
+   public class SwaggerConfig {
+   }
+   ```
+
+5. 访问 http://localhost:8080/swagger-ui/index.html
+
+   ![image-20210706010548564](../Images/Swagger/image-20210706010548564.png)
+
+
+
+## 2.2、Swagger 3.0 配置
