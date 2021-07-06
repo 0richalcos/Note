@@ -66,7 +66,7 @@
 4. 编写一个 SwaggerConfig.java 开启 Swagger
 
    ```java
-   @Configurable
+   @Configuration
    @EnableOpenApi
    public class SwaggerConfig {
    }
@@ -79,3 +79,112 @@
 
 
 ## 2.2、Swagger 3.0 配置
+
+Swagger 的实例 Bean 是 Docket，所以通过配置 Docket 实例来配置 Swagger。
+
+先在 SwaggerConfig.java 中写一个 Docket 的 Bean 实例：
+
+```java
+@Bean
+public Docket docket(){
+    return new Docket()
+}
+```
+
+
+
+### 2.2.1、DocumentationType 
+
+这个时候发现构造函数需要一个参数，先别急，点进 Docket 构造函数源码看看：
+
+![image-20210707003434330](../Images/Swagger/image-20210707003434330.png)
+
+可以看到这里需要一个 `DocumentationType`，那么点进去看看是啥：
+
+![image-20210707003643061](../Images/Swagger/image-20210707003643061.png)
+
+可以看到，它提供了三个构造好的 DocumentationType 常量，设置了使用 Swagger 哪个版本。这里使用的是 Swagger 3.0，所以给出的参数是 `DocumentationType.OAS_30`：
+
+```java
+@Bean
+public Docket docket() {
+    return new Docket(DocumentationType.OAS_30);
+}
+```
+
+
+
+### 2.2.2、Docket
+
+再回去反观 Docket 的其他源码：
+
+![image-20210707004919074](../Images/Swagger/image-20210707004919074.png)
+
+可以看见 Docket 提供了很多可以配置的属性，并且提供了相应的 setter（注：方法与属性名同名，返回值是 this (链式编程)）
+
+![image-20210707005052596](../Images/Swagger/image-20210707005052596.png)
+
+它设置默认的分组 `DEFAULT_GROUP_NAME` 是 `default`，没错，这就和右上角的 spec 对应上了：
+
+![image-20210707005503455](../Images/Swagger/image-20210707005503455.png)
+
+![image-20210707005438852](../Images/Swagger/image-20210707005438852.png)
+
+另外，还有很多可以自行配置的属性，前面的 DocumentationType 就是其中之一。
+
+
+
+### 2.2.3、ApiInfo
+
+ApiInfo 见名知意，提供了一些基本信息的配置，这些配置信息可以显示 UI 界面上。同样的，点进它的源码看看：
+
+![image-20210707005814602](../Images/Swagger/image-20210707005814602.png)
+
+可以看到，它提供了 8 个可以配置属性，根据名字也能猜出其中的意思：
+
+- version：API 版本
+- title：文档标题
+- description：文档描述
+- termsOfServiceUrl：团队链接
+- license：许可
+- licenseUrl：许可链接
+- contact：联系人信息
+- vendorExtensions：扩展信息
+
+而在 ApiInfo 中还有一个默认配置 DEFAULT，它的详细信息在类的最下方：
+
+![image-20210707010126204](../Images/Swagger/image-20210707010126204.png)
+
+它看起来是不是很熟悉？没错，它就是在不做任何配置下启动 Swagger 显示的基本信息：
+
+![image-20210707010158399](../Images/Swagger/image-20210707010158399.png)
+
+那么现在可以配置自己的 ApiInfo：
+
+> ApiInfo 中没有提供 setter，所以可以通过 ApiInfo 的构造函数去构建，也可以通过 ApiInfoBuilder 去逐项赋值
+
+```java
+@Bean
+public Docket docket() {
+    return new Docket(DocumentationType.OAS_30).apiInfo(getApiInfo());
+}
+
+public ApiInfo getApiInfo() {
+    return new ApiInfoBuilder()
+        .title("文档标题")
+        .description("测试的接口文档")
+        .version("v1.0")
+        .termsOfServiceUrl("baidu.com")
+        .contact(new Contact("Orichalcos", "https://github.com/0richalcos", "xox.zhe@foxmail.com"))
+        .build();
+}
+```
+
+然后重启 Spring Boot 项目：
+
+![image-20210707012405981](../Images/Swagger/image-20210707012405981.png)
+
+
+
+### 2.2.4、ApiSelectorBuilder
+
