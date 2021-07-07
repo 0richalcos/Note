@@ -48,6 +48,7 @@
 - [**jQuery**](https://github.com/0richalcos/Note/blob/main/Markdown/jQuery.md)
 - [**Thymeleaf**](https://github.com/0richalcos/Note/blob/main/Markdown/Thymeleaf.md)
 - [**Bootstrap Table**](https://github.com/0richalcos/Note/blob/main/Markdown/BootstrapTable.md)
+- [**Axios**](https://github.com/0richalcos/Note/blob/main/Markdown/Axios.md)
 
 
 
@@ -61,10 +62,11 @@
 
 - [**Swagger**](https://github.com/0richalcos/Note/blob/main/Markdown/Swagger.md)
 - 文档操作
-	- [**Apache POI**]()
-	- [**easyExcel**]()
-	- 文档合并：[**Spire.Doc for JAVA**]()
-	- 在线编辑：[**OnlyOffice**]()
+	- [**Apache POI**](https://github.com/0richalcos/Note/blob/main/Markdown/ApachePOI.md)
+	- [**easyExcel**](https://github.com/0richalcos/Note/blob/main/Markdown/easyExcel.md)
+	- [**Apache PDFBox**](https://github.com/0richalcos/Note/blob/main/Markdown/ApachePDFBox.md)
+	- 文档合并：[**Spire.Doc for JAVA**](https://github.com/0richalcos/Note/blob/main/Markdown/Spire.DocForJAVA.md)
+	- 在线编辑：[**OnlyOffice**](https://github.com/0richalcos/Note/blob/main/Markdown/OnlyOffice.md)
 - [**IDE 及 Win10 设置**](https://github.com/0richalcos/Note/blob/main/Markdown/Mixed.md)
 - [**杂七杂八的**](https://github.com/0richalcos/Note/blob/main/Markdown/Petty.md)
 
