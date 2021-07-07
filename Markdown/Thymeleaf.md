@@ -1084,3 +1084,11 @@ th:field 和 th:value 都有两种从后台接受值的方式:1、${obj.name} 2�
 </div>
 ```
 
+
+
+**时间格式化**
+
+```html
+ <input th:value="${#dates.format(auditWorkload.fillingDate,'yyyy-MM-dd')}" class="form-control" type="text">
+```
+
