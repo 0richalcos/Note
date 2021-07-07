@@ -188,3 +188,191 @@ public ApiInfo getApiInfo() {
 
 ### 2.2.4、ApiSelectorBuilder
 
+构建 Docket 时通过 select() 方法配置怎么扫描接口，它会返回一个 ApiSelectorBuilder 对象
+
+![image-20210708001218399](../Images/Swagger/image-20210708001218399.png)
+
+点开 ApiSelectorBuilder 源码：
+
+![image-20210708001526009](../Images/Swagger/image-20210708001526009.png)
+
+可以看到需要配置的是 requestHandlerSelector 和 pathSelector。
+
+
+
+**requestHandlerSelector**
+
+接口扫描方案。通过 ApiSelectorBuilder 下的 apis() 方法配置（也是链式编程），在 RequestHandlerSelectors.java 中提供了配置方案：
+
+![image-20210708001714146](../Images/Swagger/image-20210708001714146.png)
+
+- any()：扫描所有，项目中的所有接口都会被扫描到
+- none()：不扫描接口
+- withClassAnnotation()：扫描类上的注解，比如 `withClassAnnotation(Controller.class)` 只扫描有 @Controller 注解的类中的接口
+- withMethodAnnotation()：扫描方法上的注解，比如 `withMethodAnnotation(GetMapping.class)` 只扫描 @GetMapping 标识的 GET 请求
+- basePackage()：扫描指定路径，比如 `basePackage(“com.test.controller”)` 只扫描 controller 包
+
+> 常用的是 basePackage()，只去扫描 controller 包。
+
+
+
+**pathSelector**
+
+接口过滤方案。有些时候我们并不是希望所有的 Rest API 都呈现在文档上，这种情况下 Swagger 提供给我们了两种方式配置，一种是基于 @ApiIgnore 注解，另一种是在 Docket 上增加筛选。两种方式的区别是，Docket 配置的规则，通过筛选 API 的 url 来进行过滤，可以对多个接口器过滤作用，而 @ApiIgnore 只能作用于单个接口。
+
+Docket 配置规则这种方式通过 ApiSelectorBuilder 的 paths() 方法配置，在 PathSelectors 提供了配置方案：
+
+![image-20210708002213946](../Images/Swagger/image-20210708002213946.png)
+
+- any()：任何路径都满足条件
+- none()：任何路径都不满足条件
+- regex()：通过正则表达式控制
+- ant()：通过 ant 控制
+
+> PS：常用的是 any()，不做特殊处理。
+
+
+
+在 ApiSelectorBuilder 中提供了默认配置方案 DEFAULT，即不扫描所有标有 @ApiIgnore 注解的类和方法，允许所有的请求路径：
+
+![image-20210708002436064](../Images/Swagger/image-20210708002436064.png)
+
+所以，在一开始，我们才会看到列表中除了一开始自己写的 hello-contoller，还有 basic-error-controller 这些我们自己没配置过的接口：
+
+![image-20210708002545318](../Images/Swagger/image-20210708002545318.png)
+
+那么在 docket() 中增加配置：
+
+```java
+@Bean
+public Docket docket() {
+    return new Docket(DocumentationType.OAS_30)
+        .apiInfo(apiInfo())
+        .select()
+        .apis(RequestHandlerSelectors.basePackage("com.orichalcos.controller"))
+        .paths(PathSelectors.any())
+        .build();
+}
+
+```
+
+重启项目后发现只有 hello-controller 了：
+
+![image-20210708003351356](../Images/Swagger/image-20210708003351356.png)
+
+
+
+### 2.2.5、groupName
+
+groupName 就是上面说的右上角的分组选项，一般项目中不同的开发人员，可以创建不同的分组，默认的分组是 default。我们可以通过配置多个 Docket 去实现分组：
+
+```java
+@Bean
+public Docket docket() {
+    return new Docket(DocumentationType.OAS_30)
+        .apiInfo(apiInfo())
+        .select()
+        .apis(RequestHandlerSelectors.basePackage("com.orichalcos.controller"))
+        .paths(PathSelectors.any())
+        .build();
+}
+
+public ApiInfo apiInfo() {
+    return new ApiInfoBuilder()
+        .title("文档标题")
+        .description("测试的接口文档")
+        .version("v1.0")
+        .termsOfServiceUrl("baidu.com")
+        .contact(new Contact("Orichalcos", "https://github.com/0richalcos", "xox.zhe@foxmail.com"))
+        .build();
+}
+
+@Bean
+public Docket docket1(){
+    return new Docket(DocumentationType.OAS_30)
+        .groupName("orichalcos");
+}
+```
+
+![image-20210708003601775](../Images/Swagger/image-20210708003601775.png)
+
+
+
+### 2.2.6、useDefaultResponseMessages
+
+点开接口文档中的接口，可以看见，在 Response 中 Swagger 默认提供了 200,401,403,404 这几个状态码
+
+![image-20210708003810034](../Images/Swagger/image-20210708003810034.png)
+
+但是，在实际开发中，大多数都是自定义状态码的；所以，就可以通过 useDefaultResponseMessages(false) 关闭默认状态码：
+
+```java
+@Bean
+public Docket docket() {
+    return new Docket(DocumentationType.OAS_30)
+        .apiInfo(apiInfo())
+        .useDefaultResponseMessages(false)
+        .select()
+        .apis(RequestHandlerSelectors.basePackage("com.orichalcos.controller"))
+        .paths(PathSelectors.any())
+        .build();
+}
+```
+
+重启项目后，可以看到，原先的 401,403,404 没有了：
+
+![image-20210708003924497](../Images/Swagger/image-20210708003924497.png)
+
+
+
+### 2.2.7、enabled
+
+在开发、测试时候需要启动 Swagger，但是在实际项目发布上线了就要关闭它，因为一旦一些重要的接口暴露是很危险的，而且一直运行着 Swagger 也会浪费系统资源。
+
+所以可以通过 enable(false) 来关闭 Swagger，但是如果每次都手动操作显得有些笨拙，我们可以根据当前项目的环境来决定是否开启 Swagger。
+
+1. 创建两个新的配置文件，application-dev.properties 和 application-por.properties，分别代表正式环境和开发环境的配置。在这两个配置文件中，分别把启动端口设为 8081 和 8080：
+
+   ![image-20210708005409853](../Images/Swagger/image-20210708005409853.png)
+
+2. 修改 application.properties，将当前的环境设为 dev：
+
+   ```properties
+   spring.profiles.active=dev
+   ```
+
+3. 修改 SwaggerCofing.java，让它根据环境开启 Swagger：
+
+   ```java
+   @Bean
+   //注：这里注入了 Environment 对象，目的是获取系统环境
+   public Docket docket(Environment environment) {
+   
+       //设置要显示 swagger 的环境（dev 或者 test）
+       Profiles profiles = Profiles.of("dev", "test");
+       //判断当前是否处于该环境
+       boolean flag = environment.acceptsProfiles(profiles);
+   
+       return new Docket(DocumentationType.OAS_30)
+           .apiInfo(apiInfo())
+           .useDefaultResponseMessages(false)
+           .enable(flag)
+           .select()
+           .apis(RequestHandlerSelectors.basePackage("com.orichalcos.controller"))
+           .paths(PathSelectors.any())
+           .build();
+   }
+   ```
+
+   然后重启项目，就可以发现，8080 端口已经无法访问了，但8081 可以：
+
+   ![image-20210708005813542](../Images/Swagger/image-20210708005813542.png)
+
+
+
+## 2.3、注解使用
+
+
+
+
+
