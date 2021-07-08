@@ -372,7 +372,230 @@ public Docket docket() {
 
 ## 2.3、注解使用
 
+### 2.3.1、Controller 注解
+
+**@Api**
+
+放在请求的类上，与 @Controller 并列，说明类的作用，如用户模块，订单类等。
+
+| 属性名称       | 备注                                    |
+| -------------- | --------------------------------------- |
+| value          | url 的路径值                            |
+| tags           | 如果设置这个值，value 的值会被覆盖      |
+| description    | 对 API 资源的描述                       |
+| basePath       | 基本路径                                |
+| position       | 如果配置多个 API，想改变显示的顺序位置  |
+| produces       | 如：`application/json, application/xml` |
+| consumes       | 如：`application/json, application/xml` |
+| protocols      | 协议类型，如: http、https、ws、wss      |
+| authorizations | 高级特性认证时配置                      |
+| hidden         | 配置为 true，将在文档中隐藏             |
+
+示例：
+
+```java
+@Api(tags="订单模块")
+@Controller
+public class OrderController {
+    
+}
+```
 
 
 
+**@ApiOperation**
+
+用在请求的方法上，说明方法的作用。
+
+| 属性名称 | 备注           |
+| -------- | -------------- |
+| value    | 说明方法的作用 |
+| notes    | 方法的备注说明 |
+
+示例：
+
+```java
+@GetMapping("/hello")
+@ApiOperation(value = "say hello~", notes = "备注")
+public String hello() {
+    return "hello";
+}
+```
+
+
+
+**@ApiImplicitParams、@ApiImplicitParam**
+
+方法参数的说明。@ApiImplicitParams 包含一组参数说明，@ApiImplicitParam 为对单个参数的说明
+
+@ApiImplicitParam 的参数：
+
+| 属性名称      | 备注                                                         |
+| ------------- | ------------------------------------------------------------ |
+| name          | 参数名                                                       |
+| value         | 参数的说明、描述                                             |
+| required      | 参数是否必填                                                 |
+| paramType     | 参数放在哪个地方<br>    - query => 请求参数的获取：@RequestParam<br>    - header => 请求参数的获取：@RequestHeader<br>    - path（用于 RESTful 接口） => 请求参数的获取：@PathVariable<br>    - body（请求体） => 请求参数的获取：@RequestBody<br>    - form（普通表单提交） |
+| dataType      | 参数类型                                                     |
+| defaultValue  | 参数的默认值                                                 |
+| dataTypeClass | 参数类型的 Class                                             |
+
+示例：
+
+```java
+@PostMapping("/hey")
+@ResponseBody
+@ApiOperation(value = "say hey!", notes = "备注")
+@ApiImplicitParams({
+    @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String", dataTypeClass = String.class),
+    @ApiImplicitParam(name = "age", value = "年龄", required = true, dataType = "int", dataTypeClass = Integer.class)
+})
+public User hey(@RequestBody User user) {
+    return user;
+}
+```
+
+> 被这个 paramType 坑过一次，当发 POST 请求的时候，当时接受的整个参数，不论用 body 还是 query，后台都会报 Body Missing 错误；这个参数貌似和 SpringMVC 中的 @RequestBody 冲突，去掉 paramType 对接口测试并没有影响
+
+
+
+**@ApiResponses、@ApiResponse**
+
+方法返回值的状态码说明。@ApiResponses 为方法返回对象的说明，@ApiResponse 为每个参数的说明。
+
+@ApiResponse 的参数：
+
+| 属性名称 | 备注                        |
+| -------- | --------------------------- |
+| code     | 数字，例如 404              |
+| message  | 信息，例如 “请求参数没填好” |
+| response | 抛出异常类                  |
+
+
+
+### 2.3.2、实体类注解
+
+**@ApiModel**
+
+用于 JavaBean 上面，表示对 JavaBean 的功能描述。
+
+**@ApiModelProperty**
+
+用在 JavaBean 的属性上面，说明属性的含义。
+
+
+
+示例：
+
+```java
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ApiModel("用户")
+public class User {
+    @ApiModelProperty(value = "用户名",required = true)
+    private String username;
+    
+    @ApiModelProperty(value = "年龄",required = true)
+    private Integer age;
+}
+```
+
+
+
+# 3、Swagger 2.0
+
+其实上面的 Swagger 3.0 已经使用了大量的 2.0 注解，所以这里主要讲与集成 3.0 的不同之处。
+
+
+
+**pom.xml**
+
+```xml
+<!--Swagger版本 2.9.2-->
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger2</artifactId>
+    <version>2.9.2</version>
+</dependency>
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger-ui</artifactId>
+    <version>2.9.2</version>
+</dependency>
+```
+
+
+
+**SwaggerConfig.java**
+
+配置类中使用的 `DocumentationType`为 `SWAGGER_2`，启动 Swagger 的注解也不同：
+
+```java
+@Configuration
+@EnableSwagger2
+public class SwaggerConfig {
+    @Bean
+    public Docket docket() {
+        return new Docket(DocumentationType.SWAGGER_2);
+    }
+}
+```
+
+
+
+**访问路径**
+
+Swagger 2.0 的 Swagger UI 的访问路径为：http://localhost:8080/swagger-ui.html
+
+
+
+# 4、禁用 Swagger
+
+除了前面提到的禁用方法，还有其他一些有意思的禁用方法。
+
+
+
+**使用注解 @Value()**
+
+```java
+@Value("${swagger.enable}")
+private Boolean enable;
+
+@Bean
+public Docket docket() {
+    return new Docket(DocumentationType.SWAGGER_2)
+        .enable(enable);
+}
+```
+
+```properties
+swagger.enabled=true
+```
+
+
+
+**使用注解@Profile({"dev", "test"})**
+
+表示在开发或测试环境开启，而在生产关闭：
+
+```java
+@Configuration
+@EnableSwagger2
+@Profile({"dev", "test"})
+public class SwaggerConfig {}
+```
+
+
+
+**使用注解@ConditionalOnProperty**
+
+在测试配置或者开发配置中添加 `swagger.enabled = true` 即可开启，生产环境不填则默认关闭 Swagger。
+
+```java
+@Configuration
+@EnableSwagger2
+@ConditionalOnProperty(name ="enabled" ,prefix = "swagger",havingValue = "true",matchIfMissing = true)
+public class SwaggerConfig {}
+```
 
