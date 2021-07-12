@@ -180,3 +180,50 @@ SpringCloud 是一个由众多独立子项目组成的大型综合项目，原�
 
 
 
+# 3、服务注册中心
+
+所谓服务注册中心就是在整个的微服务架构中单独提出一个服务，这个服务不完成系统的任何的业务功能，仅仅用来完成对整个微服务系统的服务注册和服务发现，以及对服务健康状态的监控和管理功能。
+
+![image-20200709124952525](../Images/SpringCloud/image-20200709124952525.png)
+
+服务注册中心：
+
+- 可以对所有的微服务的信息进行存储，如微服务的名称、IP、端口等
+- 可以在进行服务调用时通过服务发现查询可用的微服务列表及网络地址进行服务调用
+- 可以对所有的微服务进行心跳检测，如发现某实例长时间无法访问，就会从服务注册表移除该实例
+
+SpringCloud 支持多种注册中心：Eureka、Consul、Zookeeper、以及阿里巴巴推出 Nacos。这些注册中心在本质上都是用来管理服务的注册和发现以及服务状态的检查的。
+
+
+
+## 3.1、Eureka
+
+Eureka 是 Netflix 开发的服务发现框架，本身是一个基于REST 的服务。SpringCloud 将它集成在其子项目 spring-cloud-netflix 中，以实现SpringCloud 的服务注册和发现功能。
+
+Eureka 包含两个组件：Eureka Server 和 Eureka Client。
+
+
+
+### 3.1.1、开发 Eureka Server
+
+1. 创建一个 Maven 项目并引入 Eureka Server 依赖：
+
+	```xml
+	<dependency>
+	  <groupId>org.springframework.cloud</groupId>
+	  <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+	</dependency>
+	```
+
+2. 编写配置文件 application.properties
+
+	```properties
+	#执行服务端口
+	server.port=8761
+	#指定服务名称 唯一标识
+	spring.application.name=eurekaserver
+	#指定服务注册中心的地址
+	eureka.client.service-url.defaultZone=http://localhost:8761/eureka
+	```
+
+3. 编写 
