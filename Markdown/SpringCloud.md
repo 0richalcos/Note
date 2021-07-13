@@ -129,7 +129,7 @@ SpringCloud 是一个由众多独立子项目组成的大型综合项目，原�
 
 说明：
 
-- SpringBoot 2.2.5
+- SpringBoot 2.2.5.RELEASE
 - SpringCloud Hoxten.SR6
 - Java 11
 - Maven 3.8.1
@@ -154,11 +154,13 @@ SpringCloud 是一个由众多独立子项目组成的大型综合项目，原�
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.2</version>
+        <version>2.2.5.RELEASE</version>
     </parent>
 
     <!--定义SpringCloud使用版本号-->
     <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
     </properties>
 
@@ -208,12 +210,14 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 
 1. 创建一个 Maven 项目并引入 Eureka Server 依赖：
 
-	```xml
-	<dependency>
-	  <groupId>org.springframework.cloud</groupId>
-	  <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-	</dependency>
-	```
+  ```xml
+  <dependencies>
+      <dependency>
+          <groupId>org.springframework.cloud</groupId>
+          <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+      </dependency>
+  </dependencies>
+  ```
 
 2. 编写配置文件 application.properties
 
@@ -226,4 +230,36 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 	eureka.client.service-url.defaultZone=http://localhost:8761/eureka
 	```
 
-3. 编写 
+3. 编写入口类 EurekaServer8761Application.java 并添加开启 Eureka Server 注解：
+
+	```java
+	@SpringBootApplication
+	@EnableEurekaServer
+	public class EurekaServer8761Application {
+	    public static void main(String[] args) {
+	        SpringApplication.run(EurekaServer8761Application.class, args);
+	    }
+	}
+	```
+
+4. 启动项目，访问 Eureka 的服务注册页面：http://localhost:8761
+
+	![image-20210713122030329](../Images/SpringCloud/image-20210713122030329.png)
+
+5. 同时在项目启动的时候控制台会报错：
+
+	![image-20210713122150531](../Images/SpringCloud/image-20210713122150531.png)
+
+	出现上述问题原因：eureka 组件包含 EurekaServer 和 EurekaClient。Server 是一个服务注册中心，用来接受客户端的注册。Client 的特性会让当前启动的服务把自己作为 Eureka 的客户端进行服务中心的注册，当项目启动时服务注册中心还没有创建好，所以找不到服务的客户端组件就直接报错了，当启动成功服务注册中心创建好了，Client 就能进行注册并且不再报错啦！
+
+6. 关闭 Eureka 自己注册自己
+
+	```properties
+	#不再将自己同时作为客户端注册
+	eureka.client.register-with-eureka=false
+	#关闭作为客户端时从Eureka Server 获取服务信息
+	eureka.client.fetch-registry=false
+	```
+
+	
+
