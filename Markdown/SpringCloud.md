@@ -248,20 +248,20 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 
 5. 同时在项目启动的时候控制台会报错：
 
-  ![image-20210713122150531](../Images/SpringCloud/image-20210713122150531.png)
+	![image-20210713122150531](../Images/SpringCloud/image-20210713122150531.png)
 
-  出现上述问题原因：EurekaServer 依赖内部包含了 EurekaClient：
+	出现上述问题原因：EurekaServer 依赖内部包含了 EurekaClient：
 
-  <img src="../Images/SpringCloud/image-20210714002253735.png" alt="image-20210714002253735" style="zoom:80%;float:left" />
+	<img src="../Images/SpringCloud/image-20210714002253735.png" alt="image-20210714002253735"  />
 
-  Server 是一个服务注册中心，用来接受客户端的注册。Client 的特性会让当前启动的服务把自己作为 Eureka 的客户端进行服务中心的注册，当项目启动时服务注册中心还没有创建好，所以找不到服务的客户端组件就直接报错了，当启动成功服务注册中心创建好了，Client 就能进行注册并且不再报错啦！
+	Server 是一个服务注册中心，用来接受客户端的注册。Client 的特性会让当前启动的服务把自己作为 Eureka 的客户端进行服务中心的注册，当项目启动时服务注册中心还没有创建好，所以找不到服务的客户端组件就直接报错了，当启动成功服务注册中心创建好了，Client 就能进行注册并且不再报错啦！
 
 6. 关闭 Eureka 自己注册自己
 
 	```properties
 	#不再将自己同时作为客户端注册
 	eureka.client.register-with-eureka=false
-	#关闭作为客户端时从Eureka Server 获取服务信息
+	#关闭作为客户端时从Eureka Server获取服务信息
 	eureka.client.fetch-registry=false
 	```
 
@@ -316,4 +316,138 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 5. 查看 Eureka Server 的服务注册情况：
 
    ![image-20210714001846314](../Images/SpringCloud/image-20210714001846314.png)
+
+
+
+### 3.1.3、Eureka Server 集群
+
+**Eureka Server 集群**
+
+1. 首先在本地 hosts 文件中配置如下映射：
+
+	```text
+	127.0.0.1 peer1
+	127.0.0.1 peer2
+	127.0.0.1 peer3
+	```
+
+2. 将 Eureka Server 的配置文件转为 application.yml，增加三个 `profile`，分别对应三个 Eureka Server 的配置
+
+	```yaml
+	spring:
+	  application:
+	    name: eruekaserver
+	eureka:
+	  client:
+	    register-with-eureka: false
+	    fetch-registry: true
+	
+	---
+	spring:
+	  profiles: peer1
+	server:
+	  port: 8761
+	eureka:
+	  instance:
+	    hostname: peer1
+	  client:
+	    service-url:
+	      defaultZone: http://peer2:8762/eureka,http://peer3:8763/eureka
+	
+	---
+	spring:
+	  profiles: peer2
+	server:
+	  port: 8762
+	eureka:
+	  instance:
+	    hostname: peer2
+	  client:
+	    service-url:
+	      defaultZone: http://peer1:8761/eureka,http://peer3:8763/eureka
+	
+	---
+	spring:
+	  profiles: peer3
+	server:
+	  port: 8763
+	eureka:
+	  instance:
+	    hostname: peer3
+	  client:
+	    service-url:
+	      defaultZone: http://peer1:8761/eureka,http://peer2:8762/eureka
+	```
+
+3. 分别启动三个注册中心，环境变量 `spring.profiles.active` 激活对应的集群配置
+
+	![image-20210714153603951](../Images/SpringCloud/image-20210714153603951.png)
+
+	启动之后访问 `http://peer1:8761/` 进入 `peer1` 这个注册中心，就可以看到另外两个分片 `peer2、peer3`，说明集群中有3个节点了
+
+	![image-20210714154331476](../Images/SpringCloud/image-20210714154331476.png)
+
+	再去访问其他两个注册中也能看到另外两个分片
+
+	![image-20210714154403887](../Images/SpringCloud/image-20210714154403887.png)
+
+	![image-20210714154423775](../Images/SpringCloud/image-20210714154423775.png)
+
+	并且可以看到虽然 Eureka Client 之注册到了第一个 Eureka Server 上，但是可以看到 Eureka Server 节点之间的实例会相互同步
+
+
+
+### 3.1.4、Eureka 自我保护机制
+
+首先 Eureka 注册中心各个节点都是平等的，没有 ZK 中角色的概念， 即使 N-1 个节点挂掉也不会影响其他节点的正常运行。
+
+默认情况下，如果 Eureka Server 在一定时间内（默认90秒）没有接收到某个微服务实例的心跳，Eureka Server 将会移除该实例。但是当网络分区故障发生时，微服务与 Eureka Server 之间无法正常通信，而微服务本身是正常运行的，此时不应该移除这个微服务，所以引入了自我保护机制。
+
+> **Eureka心跳机制**
+>
+> 在应用启动后，节点们将会向 Eureka Server 发送心跳，默认周期为 30 秒，如果 Eureka Server 在多个心跳周期内没有接收到某个节点的心跳，Eureka Server 将会从服务注册表中把这个服务节点移除（默认90秒）。
+
+如果在 Eureka Server 的首页看到以下这段提示，则说明 Eureka 已经进入了保护模式。 
+
+![image-20210714185558794](../Images/SpringCloud/image-20210714185558794.png)
+
+Eureka Server 自动进入自我保护机制，此时会出现以下几种情况：
+
+1. Eureka Server 不再从注册列表中移除因为长时间没收到心跳而应该过期的服务
+2. Eureka Server 仍然能够接受新服务的注册和查询请求，但是不会被同步到其它节点上，保证当前节点依然可用
+3. 当网络稳定时，当前Eureka Server新的注册信息会被同步到其它节点中
+
+因此 Eureka Server 可以很好的应对因网络故障导致部分节点失联的情况，而不会像 ZK 那样如果有一半不可用的情况会导致整个集群不可用而变成瘫痪。
+
+
+
+**关闭自我保护**
+
+1. Eureka Server 端：配置关闭自我保护，并按需配置Eureka Server清理无效节点的时间间隔。
+
+	```yaml
+	eureka:
+	  server: 
+	    #设为false，关闭自我保护 
+	    enable-self-preservation: false 
+	    #清理间隔（单位毫秒，默认是60*1000） 
+	    eviction-interval-timer-in-ms: 3000
+	```
+
+2.  Eureka Client 端：配置开启健康检查，并按需配置续约更新时间和到期时间。 
+
+	```yaml
+	eureka:
+	  instance:
+	    #续约更新时间间隔（默认30秒
+	    lease-renewal-interval-in-seconds: 3
+	    #续约到期时间（默认90秒） 
+	    lease-expiration-duration-in-seconds: 10
+	```
+
+注意：更改 Eureka 更新频率将打破服务器的自我保护功能，生产环境下不建议自定义这些配置：
+
+![image-20210714192047475](../Images/SpringCloud/image-20210714192047475.png)
+
+> 关于 Eureka 2.x 的开源工作已经停止。作为 2.x 分支上现有工作存储库的一部分发布的代码库和工件被视为使用风险自负，在 1.x 版本项目还是活跃的。
 
