@@ -85,7 +85,7 @@ SpringCloud 为开发人员提供了在分布式系统中快速构建一些通�
 
 ## 2.1、核心组件说明
 
-- EurekaServer、Console、Nacos	服务注册中心组件
+- EurekaServer、Consul、Nacos	服务注册中心组件
 - Rabbion & OpenFeign				  	服务负载均衡 和 服务调用组件
 - Hystrix & Hystrix Dashboard		   服务断路器  和  服务监控组件
 - Zuul、Gateway    				 			 服务网关组件
@@ -450,4 +450,60 @@ Eureka Server 自动进入自我保护机制，此时会出现以下几种情况
 ![image-20210714192047475](../Images/SpringCloud/image-20210714192047475.png)
 
 > 关于 Eureka 2.x 的开源工作已经停止。作为 2.x 分支上现有工作存储库的一部分发布的代码库和工件被视为使用风险自负，在 1.x 版本项目还是活跃的。
+
+
+
+## 3.2、Consul
+
+Consul 是一个可以提供服务发、健康检查、多数据中心、Key/Value 存储等功能的分布式服务框架，用于实现分布式系统的服务发现与配置。Consul 用 Golang 实现，因此具有天然可移植性（支持 Linux、Windows 和 Mac OS X）；安装包仅包含一个可执行文件，方便部署。
+
+
+
+### 3.2.1、安装 Consul
+
+**Windows 下安装 Consul**
+
+1. 前往 https://www.consul.io/downloads：
+
+   ![image-20210714233845045](../Images/SpringCloud/image-20210714233845045.png)
+
+   选择自己电脑对应的版本下载
+
+2. 解压完后只有一个脚本文件：
+
+   ![image-20210714234043504](../Images/SpringCloud/image-20210714234043504.png)
+
+3. 使用终端切换到 consul.exe 目录并执行以下命令启动 Consul：
+
+   ![image-20210714235520532](../Images/SpringCloud/image-20210714235520532.png)
+
+4. 访问 Consul 的 WEB 服务端口：http://localhost:8500
+
+   ![image-20210714235639426](../Images/SpringCloud/image-20210714235639426.png)
+
+   左上角 Consul logo 旁边的 dc1 为数据中心，可以通过 `-datacenter` 进行设置：
+
+   ```bash
+   consul agent -dev -datacenter=aa
+   ```
+
+可以通过设置环境变量，不用更改终端路径，直接执行 Consul 命令：
+
+1. 新建一个环境变量，路径指向 consul.exe  的文件夹
+
+   ![image-20210715000050208](../Images/SpringCloud/image-20210715000050208.png)
+
+2. 在系统变量 Path 中将刚刚添加的变量加上：
+
+   ![image-20210715000501565](../Images/SpringCloud/image-20210715000501565.png)
+
+3. 赶紧试试：
+
+   ![image-20210715000842740](../Images/SpringCloud/image-20210715000842740.png)
+
+> 如果前面使用的是 Windows CMD 开启了 Consul，记得按 Ctrl + C 关闭，然后还需重新启动 CMD
+
+
+
+### 3.2.2、开发 Consul Client
 
