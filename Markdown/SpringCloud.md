@@ -208,7 +208,7 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 
 ### 3.1.1、开发 Eureka Server
 
-1. 创建一个 Maven 项目并引入 Eureka Server 依赖：
+1. 创建一个 Maven 项目并引入 Eureka Server 依赖
 
    ```xml
    <dependencies>
@@ -230,7 +230,7 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 	eureka.client.service-url.defaultZone=http://localhost:8761/eureka
 	```
 
-3. 编写入口类 EurekaServer8761Application.java 并添加开启 Eureka Server 注解：
+3. 编写入口类 EurekaServer8761Application.java 并添加开启 Eureka Server 注解
 
 	```java
 	@SpringBootApplication
@@ -246,11 +246,11 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 
 	![image-20210713122030329](../Images/SpringCloud/image-20210713122030329.png)
 
-5. 同时在项目启动的时候控制台会报错：
+5. 同时在项目启动的时候控制台会报错
 
 	![image-20210713122150531](../Images/SpringCloud/image-20210713122150531.png)
 
-	出现上述问题原因：EurekaServer 依赖内部包含了 EurekaClient：
+	出现上述问题原因：EurekaServer 依赖内部包含了 EurekaClient
 
 	<img src="../Images/SpringCloud/image-20210714002253735.png" alt="image-20210714002253735"  />
 
@@ -297,7 +297,7 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
    eureka.client.service-url.defaultZone=http://localhost:8761/eureka
    ```
 
-3. 编写入口类 EurekaClient8888Application.java 并添加开启 Eureka Client 注解：
+3. 编写入口类 EurekaClient8888Application.java 并添加开启 Eureka Client 注解
 
    ```java
    @SpringBootApplication
@@ -309,11 +309,11 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
    }
    ```
 
-4. 启动之前的 Eureka Server，再启动 Eureka Client：
+4. 启动之前的 Eureka Server，再启动 Eureka Client
 
    ![image-20210714001817434](../Images/SpringCloud/image-20210714001817434.png)
 
-5. 查看 Eureka Server 的服务注册情况：
+5. 查看 Eureka Server 的服务注册情况
 
    ![image-20210714001846314](../Images/SpringCloud/image-20210714001846314.png)
 
@@ -321,9 +321,7 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 
 ### 3.1.3、Eureka Server 集群
 
-**Eureka Server 集群**
-
-1. 首先在本地 hosts 文件中配置如下映射：
+1. 首先在本地 hosts 文件中配置如下映射
 
 	```text
 	127.0.0.1 peer1
@@ -415,7 +413,7 @@ Eureka Server 自动进入自我保护机制，此时会出现以下几种情况
 
 1. Eureka Server 不再从注册列表中移除因为长时间没收到心跳而应该过期的服务
 2. Eureka Server 仍然能够接受新服务的注册和查询请求，但是不会被同步到其它节点上，保证当前节点依然可用
-3. 当网络稳定时，当前Eureka Server新的注册信息会被同步到其它节点中
+3. 当网络稳定时，当前 Eureka Server 新的注册信息会被同步到其它节点中
 
 因此 Eureka Server 可以很好的应对因网络故障导致部分节点失联的情况，而不会像 ZK 那样如果有一半不可用的情况会导致整个集群不可用而变成瘫痪。
 
@@ -423,7 +421,7 @@ Eureka Server 自动进入自我保护机制，此时会出现以下几种情况
 
 **关闭自我保护**
 
-1. Eureka Server 端：配置关闭自我保护，并按需配置Eureka Server清理无效节点的时间间隔。
+1. Eureka Server 端：配置关闭自我保护，并按需配置 Eureka Server 清理无效节点的时间间隔
 
 	```yaml
 	eureka:
@@ -434,7 +432,7 @@ Eureka Server 自动进入自我保护机制，此时会出现以下几种情况
 	    eviction-interval-timer-in-ms: 3000
 	```
 
-2.  Eureka Client 端：配置开启健康检查，并按需配置续约更新时间和到期时间。 
+2.  Eureka Client 端：配置开启健康检查，并按需配置续约更新时间和到期时间
 
 	```yaml
 	eureka:
@@ -455,7 +453,7 @@ Eureka Server 自动进入自我保护机制，此时会出现以下几种情况
 
 ## 3.2、Consul
 
-Consul 是一个可以提供服务发、健康检查、多数据中心、Key/Value 存储等功能的分布式服务框架，用于实现分布式系统的服务发现与配置。Consul 用 Golang 实现，因此具有天然可移植性（支持 Linux、Windows 和 Mac OS X）；安装包仅包含一个可执行文件，方便部署。
+Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其它分布式服务注册与发现的方案，Consul 的方案更 “一站式”，内置了服务注册与发现框架、分布一致性协议实现、健康检查、Key/Value 存储、多数据中心方案，不再需要依赖其它工具（比如 ZooKeeper 等）。使用起来也较为简单。Consul 使用 Go 语言编写，因此具有天然可移植性（支持Linux、windows和Mac OS X）；安装包仅包含一个可执行文件，方便部署，与 Docker 等轻量级容器可无缝配合。
 
 
 
@@ -463,17 +461,17 @@ Consul 是一个可以提供服务发、健康检查、多数据中心、Key/Val
 
 **Windows 下安装 Consul**
 
-1. 前往 https://www.consul.io/downloads：
+1. 前往 https://www.consul.io/downloads
 
    ![image-20210714233845045](../Images/SpringCloud/image-20210714233845045.png)
 
    选择自己电脑对应的版本下载
 
-2. 解压完后只有一个脚本文件：
+2. 解压完后只有一个脚本文件
 
    ![image-20210714234043504](../Images/SpringCloud/image-20210714234043504.png)
 
-3. 使用终端切换到 consul.exe 目录并执行以下命令启动 Consul：
+3. 使用终端切换到 consul.exe 目录并执行以下命令启动 Consul
 
    ![image-20210714235520532](../Images/SpringCloud/image-20210714235520532.png)
 
@@ -493,11 +491,11 @@ Consul 是一个可以提供服务发、健康检查、多数据中心、Key/Val
 
    ![image-20210715000050208](../Images/SpringCloud/image-20210715000050208.png)
 
-2. 在系统变量 Path 中将刚刚添加的变量加上：
+2. 在系统变量 Path 中将刚刚添加的变量加上
 
    ![image-20210715000501565](../Images/SpringCloud/image-20210715000501565.png)
 
-3. 赶紧试试：
+3. 赶紧试试~
 
    ![image-20210715000842740](../Images/SpringCloud/image-20210715000842740.png)
 
@@ -506,4 +504,88 @@ Consul 是一个可以提供服务发、健康检查、多数据中心、Key/Val
 
 
 ### 3.2.2、开发 Consul Client
+
+1. 创建项目并引入 Spring Web 和 Consul 客户端依赖
+
+	```xml
+	<dependencies>
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-web</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework.cloud</groupId>
+	        <artifactId>spring-cloud-starter-consul-discovery</artifactId>
+	    </dependency>
+	</dependencies>
+	```
+
+2. 编写配置文件 application.properties
+
+	```properties
+	server.port=8889
+	#注册consul服务的主机
+	spring.application.name=consulclient
+	spring.cloud.consul.host=localhost
+	#注册consul服务的端口号
+	spring.cloud.consul.port=8500
+	```
+
+3. 编辑 ConsulClient8889Application.class 入口类并添加开启客户端发现注解
+
+	```java
+	@SpringBootApplication
+	@EnableDiscoveryClient
+	public class ConsulClient8889Application {
+	    public static void main(String[] args) {
+	        SpringApplication.run(ConsulClient8889Application.class, args);
+	
+	    }
+	}
+	```
+
+4. 启动服务查看 Consul 界面服务信息
+
+	![image-20210715173835645](../Images/SpringCloud/image-20210715173835645.png)
+
+5. 默认情况 Consul 监控健康是开启的，但是必须依赖健康监控依赖才能正确监控健康状态，所以直接启动会显示错误，引入健康监控依赖之后服务正常
+
+	```xml
+	<!-- 这个包是用做健康度监控的-->
+	<dependency>
+	  <groupId>org.springframework.boot</groupId>
+	  <artifactId>spring-boot-starter-actuator</artifactId>
+	</dependency>
+	```
+
+6. 引入成功后重启项目，刷新 Consul 监控页面：
+
+	![image-20210715175633678](../Images/SpringCloud/image-20210715175633678.png)
+
+
+
+# 4、服务间的通信
+
+接下来在整个微服务架构中，我们比较关心的就是服务间的服务改如何调用，有哪些调用方式？
+
+![image-20200713095528763](../Images/SpringCloud/image-20200713095528763.png)
+
+在 SpringCloud 中服务间调用方式主要是使用 HTTP RESTful 方式进行服务间调用
+
+
+
+## 4.1、RestTemplate
+
+Spring 框架提供的 RestTemplate 类可用于在应用中调用 REST 服务，它简化了与 HTTP 服务的通信方式，统一了 RESTful 的标准，封装了 HTTP 链接， 我们只需要传入url 及返回值类型即可。相较于之前常用的 HttpClient，RestTemplate 是一种更优雅的调用 RESTful 服务的方式。
+
+
+
+1. 创建两个服务并注册到 Consul 注册中心中
+
+	- users	  	代表用户服务，端口为 9999
+	- products	代表商品服务，端口为 9998
+
+	注意：这里服务仅仅用来测试，没有实际业务意义
+
+2. 
 
