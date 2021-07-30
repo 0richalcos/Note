@@ -200,7 +200,7 @@ SpringCloud 支持多种注册中心：Eureka、Consul、Zookeeper、以及阿�
 
 ## 3.1、Eureka
 
-Eureka 是 Netflix 开发的服务发现框架，本身是一个基于REST 的服务。SpringCloud 将它集成在其子项目 spring-cloud-netflix 中，以实现SpringCloud 的服务注册和发现功能。
+Eureka 是 Netflix 开发的服务发现框架，本身是一个基于 REST 的服务。SpringCloud 将它集成在其子项目 spring-cloud-netflix 中，以实现SpringCloud 的服务注册和发现功能。
 
 Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 
