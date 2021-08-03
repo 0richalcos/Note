@@ -591,5 +591,50 @@ Spring 框架提供的 RestTemplate 类可用于在应用中调用 REST 服务�
 
   ![image-20210801002754756](../Images/SpringCloud/image-20210801002754756.png)
 
-2. 
+2. 创建一个 OrderController 提供服务：
+
+   ```java
+   
+   @RestController
+   @RequestMapping("/order")
+   public class OrderController {
+   
+       private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
+   
+       @GetMapping
+       public String demo() {
+           LOGGER.info("order demo...");
+           return "order demo OK!!";
+       }
+   }
+   ```
+
+3. 创建一个 UserController 调用订单服务：
+
+   ```java
+   @RestController
+   @RequestMapping("/user")
+   public class UserController {
+   
+       private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+   
+       @GetMapping
+       public String invokeDemo() {
+           LOGGER.info("user demo...");
+   
+           //调用订单服务 服务地址： http://localhost:9999/order 必须GET方式 接收返回值 String 类型
+           RestTemplate restTemplate = new RestTemplate();
+           String orderResult = restTemplate.getForObject("http://localhost:9998/order", String.class);
+           
+           LOGGER.info("调用订单服务成功:{}", orderResult);
+           return "调用订单服务成功,结果为:" + orderResult;
+       }
+   }
+   ```
+
+4. 先启动 Consul，再启动 User 服务和 Order 服务，然后 http://localhost:9999/user 测试：
+
+   ![image-20210804004640357](../Images/SpringCloud/image-20210804004640357.png)
+
+   ![image-20210804004717424](../Images/SpringCloud/image-20210804004717424.png)
 
