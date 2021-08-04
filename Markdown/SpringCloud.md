@@ -85,7 +85,7 @@ SpringCloud 为开发人员提供了在分布式系统中快速构建一些通�
 
 ## 2.1、核心组件说明
 
-- EurekaServer、Consul、Nacos	服务注册中心组件
+- EurekaServer、Consul、Nacos	  服务注册中心组件
 - Rabbion & OpenFeign				  	服务负载均衡 和 服务调用组件
 - Hystrix & Hystrix Dashboard		   服务断路器  和  服务监控组件
 - Zuul、Gateway    				 			 服务网关组件
@@ -589,7 +589,7 @@ Spring 框架提供的 RestTemplate 类可用于在应用中调用 REST 服务�
 
   ![image-20210801002648820](../Images/SpringCloud/image-20210801002648820.png)
 
-  ![image-20210801002754756](../Images/SpringCloud/image-20210801002754756.png)
+![image-20210801002754756](../Images/SpringCloud/image-20210801002754756.png)
 
 2. 创建一个 OrderController 提供服务：
 
@@ -637,4 +637,118 @@ Spring 框架提供的 RestTemplate 类可用于在应用中调用 REST 服务�
    ![image-20210804004640357](../Images/SpringCloud/image-20210804004640357.png)
 
    ![image-20210804004717424](../Images/SpringCloud/image-20210804004717424.png)
+
+
+
+# 5、服务负载均衡
+
+## 5.1、Ribbon
+
+Spring Cloud Ribbon 是一个基于 HTTP 和 TCP 的客户端负载均衡工具，它基于 Netflix Ribbon 实现。通过 Spring Cloud 的封装，可以让我们轻松地将面向服务的 REST 模版请求自动转换成客户端负载均衡的服务调用。
+
+
+
+项目中引入依赖：
+
+- 如果使用的是 Eureka Client 和 Consul Client，无须引入依赖，因为在 Eureka、Consul 中默认集成了 Ribbon 组件
+
+- 如果使用的 Client 中没有 Ribbon 依赖需要显式引入如下依赖
+
+  ```xml
+  <!--引入ribbon依赖-->
+  <dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+  </dependency>
+  ```
+
+
+
+RestTemplate + Ribbon 的调用方式：
+
+- 使用 discovery client  	进行客户端调用
+- 使用 loadBalanceClient 进行客户端调用
+- 使用 @loadBalanced      进行客户端调用
+
+
+
+### 5.1.1、DiscoveryClient
+
+1. 修改 Order 服务的控制器
+
+   ```java
+   @RestController
+   @RequestMapping("/order")
+   public class OrderController {
+   
+       private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
+   
+       @Value("${server.port}")
+       private String port;
+   
+       @GetMapping
+       public String demo() {
+           LOGGER.info("order被调用，服务端口为：{}", port);
+           return "order demo OK!!,服务端口为：" + port;
+       }
+   }
+   ```
+
+2. 修改 Order 服务的配置文件，，增加三个 `profile`
+
+   ```yaml
+   spring:
+     application:
+       name: order
+     cloud:
+       consul:
+         host: localhost
+         port: 8500
+   
+   ---
+   spring:
+     profiles: order9998
+   server:
+     port: 9998
+   
+   ---
+   spring:
+     profiles: order9997
+   server:
+     port: 9997
+   
+   ---
+   spring:
+     profiles: order9996
+   server:
+     port: 9996
+   ```
+
+3. 分别启动三个注册中心，环境变量 `spring.profiles.active` 激活对应的集群配置
+
+   ![image-20210805002959560](../Images/SpringCloud/image-20210805002959560.png)
+
+4. 修改 User 服务的控制器，增加以下内容
+
+   ```java
+   @Autowired
+   private DiscoveryClient discoveryClient;
+   
+   @GetMapping("/discoveryClient")
+   public String discoveryClient(){
+       List<ServiceInstance> orders = discoveryClient.getInstances("order");
+       orders.forEach(order->{
+           LOGGER.info("服务主机：【{}】",order.getHost());
+           LOGGER.info("服务端口：【{}】",order.getPort());
+           LOGGER.info("服务地址：【{}】", order.getUri());
+       });
+       //从服务列表中随机调取一个服务
+       ServiceInstance order = orders.get(new Random().nextInt(orders.size()));
+       RestTemplate restTemplate = new RestTemplate();
+       String result = restTemplate.getForObject(order.getUri() + "/order", String.class);
+       return "User服务调用OK，" + result;
+   }
+   ```
+
+5. 访问 http://localhost:9999/user/discoveryClient 查看，可重复刷新查看是否切换不同服务
 
