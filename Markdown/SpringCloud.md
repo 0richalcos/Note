@@ -648,33 +648,25 @@ Spring Cloud Ribbon 是一个基于 HTTP 和 TCP 的客户端负载均衡工具�
 
 
 
-项目中引入依赖：
+### 5.1.1、Ribbon 服务调用
 
-- 如果使用的是 Eureka Client 和 Consul Client，无须引入依赖，因为在 Eureka、Consul 中默认集成了 Ribbon 组件
+**准备工作**
 
-- 如果使用的 Client 中没有 Ribbon 依赖需要显式引入如下依赖
+1. 项目中引入依赖：
 
-  ```xml
-  <!--引入ribbon依赖-->
-  <dependency>
-    <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-  </dependency>
-  ```
+   - 如果使用的是 Eureka Client 和 Consul Client，无须引入依赖，因为在 Eureka、Consul 中默认集成了 Ribbon 组件
 
+   - 如果使用的 Client 中没有 Ribbon 依赖需要显式引入如下依赖
 
+     ```xml
+     <!--引入ribbon依赖-->
+     <dependency>
+       <groupId>org.springframework.cloud</groupId>
+       <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+     </dependency>
+     ```
 
-RestTemplate + Ribbon 的调用方式：
-
-- 使用 discovery client  	进行客户端调用
-- 使用 loadBalanceClient 进行客户端调用
-- 使用 @loadBalanced      进行客户端调用
-
-
-
-### 5.1.1、DiscoveryClient
-
-1. 修改 Order 服务的控制器
+2. 修改 Order 服务的控制器
 
    ```java
    @RestController
@@ -694,7 +686,7 @@ RestTemplate + Ribbon 的调用方式：
    }
    ```
 
-2. 修改 Order 服务的配置文件，，增加三个 `profile`
+3. 修改 Order 服务的配置文件，，增加三个 `profile`
 
    ```yaml
    spring:
@@ -724,31 +716,102 @@ RestTemplate + Ribbon 的调用方式：
      port: 9996
    ```
 
-3. 分别启动三个注册中心，环境变量 `spring.profiles.active` 激活对应的集群配置
+4. 分别启动三个注册中心，环境变量 `spring.profiles.active` 激活对应的集群配置
 
    ![image-20210805002959560](../Images/SpringCloud/image-20210805002959560.png)
 
-4. 修改 User 服务的控制器，增加以下内容
 
-   ```java
-   @Autowired
-   private DiscoveryClient discoveryClient;
-   
-   @GetMapping("/discoveryClient")
-   public String discoveryClient(){
-       List<ServiceInstance> orders = discoveryClient.getInstances("order");
-       orders.forEach(order->{
-           LOGGER.info("服务主机：【{}】",order.getHost());
-           LOGGER.info("服务端口：【{}】",order.getPort());
-           LOGGER.info("服务地址：【{}】", order.getUri());
-       });
-       //从服务列表中随机调取一个服务
-       ServiceInstance order = orders.get(new Random().nextInt(orders.size()));
-       RestTemplate restTemplate = new RestTemplate();
-       String result = restTemplate.getForObject(order.getUri() + "/order", String.class);
-       return "User服务调用OK，" + result;
-   }
-   ```
 
-5. 访问 http://localhost:9999/user/discoveryClient 查看，可重复刷新查看是否切换不同服务
+**RestTemplate + Ribbon 的调用方式：**
+
+- 使用 discovery client  	进行客户端调用
+- 使用 loadBalanceClient 进行客户端调用
+- 使用 @loadBalanced      进行客户端调用
+
+
+
+**DiscoveryClient**
+
+修改 User 服务的控制器，增加以下内容
+
+```java
+@Autowired
+private DiscoveryClient discoveryClient;
+
+@GetMapping("/discoveryClient")
+public String discoveryClient(){
+    List<ServiceInstance> orders = discoveryClient.getInstances("order");
+    orders.forEach(order->{
+        LOGGER.info("服务主机：【{}】",order.getHost());
+        LOGGER.info("服务端口：【{}】",order.getPort());
+        LOGGER.info("服务地址：【{}】", order.getUri());
+    });
+    //从服务列表中随机调取一个服务
+    ServiceInstance order = orders.get(new Random().nextInt(orders.size()));
+    RestTemplate restTemplate = new RestTemplate();
+    String result = restTemplate.getForObject(order.getUri() + "/order", String.class);
+    return "User服务调用OK，" + result;
+}
+```
+
+访问 http://localhost:9999/user/discoveryClient 查看，可重复刷新查看是否切换不同服务
+
+
+
+**LoadBalance Client**
+
+修改 User 服务的控制器，增加以下内容
+
+```java
+@Autowired
+private LoadBalancerClient loadBalancerClient;
+
+@GetMapping("/loadBalancerClient")
+public String loadBalancerClient() {
+    ServiceInstance order = loadBalancerClient.choose("order");
+    LOGGER.info("服务主机：【{}】", order.getHost());
+    LOGGER.info("服务端口：【{}】", order.getPort());
+    LOGGER.info("服务地址：【{}】", order.getUri());
+    RestTemplate restTemplate = new RestTemplate();
+    String result = restTemplate.getForObject(order.getUri() + "/order", String.class);
+    return "User服务调用OK，" + result;
+}
+```
+
+访问 http://localhost:9999/user/loadBalancerClient 查看，可重复刷新查看是否切换不同服务
+
+
+
+**@LoadBalanced**
+
+在 User 服务中新建一个 BeansConfig.java 来提供 RestTemplate
+
+```java
+@Configuration
+public class BeansConfig {
+    @Bean
+    @LoadBalanced
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+}
+```
+
+修改 User 服务的控制器，增加以下内容
+
+```java
+@Autowired
+private RestTemplate restTemplate;
+@GetMapping("/loadBalanced")
+public String loadBalanced() {
+    String result = restTemplate.getForObject("http://order/order", String.class);
+    return "User服务调用OK，" + result;
+}
+```
+
+访问 http://localhost:9999/user/loadBalanced 查看，可重复刷新查看是否切换不同服务
+
+
+
+### 5.1.2、Ribbon 的负载均衡策略
 
