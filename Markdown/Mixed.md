@@ -114,15 +114,13 @@ Host *
 
 ## 10、删除桌面右键Open in Terminal
 
-1. 按 win 键+ r 键，打开 “运行” 窗口，输入  `regedit`，按回车键，弹出 注册表编辑器
+按 win 键+ R 键，打开 “运行” 窗口，输入  `regedit`，按回车键，弹出 注册表编辑器。
 
-2. 定位到
+在注册表`HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\`处右键创建名为 `Blocked` 的**项**。
 
-   `计算机\HKEY_CLASSES_ROOT\PackagedCom\ClassIndex{9f156763-7844-4dc4-b2b1-901f640f5155}`
+然后在其中创建字**符串值**，**名称**为 `{9F156763-7844-4DC4-B2B1-901F640F5155}`，**数值**为 `WindowsTerminal`。
 
-   然后将该文件夹删除即可，注意不要删除其他文件
-
-3. 退出后，桌面右键 Open in Terminal 则删除掉了
+![image-20210806112305321](../Images/Mixed/image-20210806112305321.png)
 
 
 

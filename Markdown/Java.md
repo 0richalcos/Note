@@ -3186,7 +3186,8 @@ public  class Model {
 - 对于任何非空引用值x，x.equal(null)应返回false。
 
 将元素放入集合的流程，如下图
-<img src="Interview.assets/20181006223820503" alt="img" style="zoom:67%;" />
+
+![img](../Images/Java/70)
 
 将对象放入到集合中时，首先判断要放入对象的 hashcode 值与集合中的任意一个元素的 hashcode 值是否相等，如果不相等直接将该对象放入集合中。如果 hashcode 值相等，然后再通过 equals 方法判断要放入对象与集合中的任意一个对象是否相等，如果 equals 判断不相等，直接将该元素放入到集合中，否则不放入。回过来说，在 get 的时候，集合类也先调 key.hashCode() 算出数组下标，然后看 equals()的结果，如果是true就是找到了，否则就是没找到。
 
@@ -9137,7 +9138,7 @@ public class Test {
 
 同步阻塞 I/O 模式，数据的读取写入必须阻塞在一个线程内等待其完成。
 
-<img src="Interview.assets/2019042212100021.png" alt="img" style="zoom:80%;" />
+![img](../Images/Java/2163864-20201022174532077-2087464332-16282184549795.png)
 
 采用 **BIO 通信模型** 的服务端，通常由一个独立的 Acceptor 线程负责监听客户端的连接。我们一般通过在 `while(true)` 循环中服务端会调用 `accept()` 方法等待接收客户端的连接的方式监听请求，请求一旦接收到一个连接请求，就可以建立通信套接字在这个通信套接字上进行读写操作，此时不能再接收其他客户端连接请求，只能等待同当前连接的客户端的操作执行完成， 不过可以通过多线程来支持多个客户端的连接，如上图所示。
 
@@ -9145,7 +9146,7 @@ public class Test {
 
 在 Java 虚拟机中，线程是宝贵的资源，线程的创建和销毁成本很高，除此之外，线程的切换成本也是很高的。尤其在 Linux 这样的操作系统中，线程本质上就是一个进程，创建和销毁线程都是重量级的系统函数。如果并发访问量增加会导致线程数急剧膨胀可能会导致线程堆栈溢出、创建新线程失败等问题，最终导致进程宕机或者僵死，不能对外提供服务。同时如果这个连接不做任何事情的话会造成不必要的线程开销，不过可以通过 **线程池机制** 改善，线程池还可以让线程的创建和回收成本相对较低。使用`FixedThreadPool` 可以有效的控制了线程的最大数量，保证了系统有限的资源的控制，实现了N(客户端请求数量):M(处理客户端请求的线程数量)的伪异步I/O模型（N 可以远远大于 M）。
 
-<img src="Interview.assets/20190422121019666.png" alt="img" style="zoom:80%;" />
+![img](../Images/Java/2163864-20201022175636286-539148404.png)
 
 采用线程池和任务队列可以实现一种叫做伪异步的 I/O 通信框架，它的模型图如上图所示。当有新的客户端接入时，将客户端的 Socket 封装成一个Task（该任务实现java.lang.Runnable接口）投递到后端的线程池中进行处理，JDK 的线程池维护一个消息队列和 N 个活跃线程，对消息队列中的任务进行处理。由于线程池可以设置消息队列的大小和最大线程数，因此，它的资源占用是可控的，无论多少个客户端并发访问，都不会导致资源的耗尽和宕机。
 
@@ -9482,7 +9483,7 @@ List<Runnable> notExecutedTasks = executorService.shutdownNow();
 
 线程池有5种状态：Running、ShutDown、Stop、Tidying、Terminated。
 
-<img src="Interview.assets/08000847-0a9caed4d6914485b2f56048c668251a.jpg" alt="image" style="zoom:67%;" />
+![线程池各个状态切换框架图：](https://img-blog.csdnimg.cn/20200629150312492.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyMDEzNTkw,size_16,color_FFFFFF,t_70)
 
 - RUNNING：线程池一旦被创建，就处于 RUNNING 状态，任务数为 0，能够接收新任务，对已排队的任务进行处理。
 
@@ -9761,11 +9762,11 @@ Thread-1 : ThreadLocal num=5
 
 按照我们第一直觉，感觉 ThreadLocal 内部肯定是有个 Map 结构，key 存了 Thread，value 存了 本地变量 V 的值。每次通过 ThreadLocal 对象的 get() 和 set(T value) 方法获取当前线程里存的本地变量、设置当前线程里的本地变量。
 
-<img src="Interview.assets/20190523105529871.png" alt="img" style="zoom:80%; float:left" />
+![img](../Images/Java/20190523105529871-162821864050610.png)
 
 而 JDK 的实现里面这个 Map 是属于 Thread，而非属于 ThreadLocal。ThreadLocal 仅是一个代理工具类，内部并不持有任何与线程相关的数据，所有和线程相关的数据都存储在 Thread 里面。ThreadLocalMap 属于 Thread 也更加合理。
 
-<img src="Interview.assets/20190523105559878.png" alt="img" style="zoom:80%;float:left" />
+![img](../Images/Java/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L21laXNtNQ==,size_16,color_FFFFFF,t_70)
 
 还有一个更加深层次的原因，这样设计不容易产生内存泄露。
 
@@ -10187,7 +10188,7 @@ public class LockThread {
 }
 ```
 
-<img src="Interview.assets/885859-20190428144106904-223402831.png" alt="img" style="zoom:80%;float:left" />
+![img](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvODg1ODU5LzIwMTkwNC84ODU4NTktMjAxOTA0MjgxNDQxMDY5MDQtMjIzNDAyODMxLnBuZw?x-oss-process=image/format,png)
 
 从执行结果可以看出，A 线程和 B 线程同时对资源加锁，A 线程获取锁之后，B 线程只好等待，直到 A 线程释放锁 B 线程才获得锁。
 
@@ -10354,7 +10355,7 @@ public class NonLockDemo implements Runnable {
 ```
 
 同一个线程先调用set方法并获取到锁后继续调用get方法，此时set方法还未执行所得释放，在get方法中尝试获取锁时返回false。
-<img src="Interview.assets/20200708112550464.png" alt="在这里插入图片描述" style="zoom:80%;" />
+![在这里插入图片描述](../Images/Java/20200708112550464-162821912389915.png)
 
 ---
 
@@ -10467,7 +10468,7 @@ public class CasCounter {
 
 在 JDK5.0 之前，想要实现无锁无等待的算法是不可能的，除非用本地库，自从有了 Atomic 变量类后，这成为可能。下面这张图是java.util.concurrent.atomic 包下的类结构。
 
-<img src="Interview.assets/20150123165623839" alt="img" style="zoom:80%;float:left" />
+![img](../Images/Java/Center-162821933664920)
 
 - 标量类：AtomicBoolean，AtomicInteger，AtomicLong，AtomicReference
 - 数组类：AtomicIntegerArray，AtomicLongArray，AtomicReferenceArray
@@ -12574,7 +12575,7 @@ TCP协议是网络通信协议中十分重要的协议，相比于UDP协议来�
 
 粘包发生在发送或接收缓冲区中；应用程序从缓冲区中取数据是整个缓冲区中有多少取多少；那么就有可能第一个数据的尾部和第二个数据的头部同时存在缓冲区，而TCP是流式的，数据无边界，这时发生粘包。
 
-<img src="Interview.assets/20171219104402700" alt="这里写图片描述" style="zoom: 67%;" />
+<img src="../Images/Java/SouthEast" alt="这里写图片描述" style="zoom: 67%;" />
 
 
 
@@ -12582,7 +12583,7 @@ TCP协议是网络通信协议中十分重要的协议，相比于UDP协议来�
 
 采用TCP协议传输数据的客户端与服务器经常是保持一个长连接的状态（一次连接发一次数据不存在粘包），双方在连接不断开的情况下，可以一直传输数据；但当发送的数据包过于的小时，那么TCP协议默认的会启用Nagle算法，将这些较小的数据包进行合并发送（缓冲区数据发送是一个堆压的过程）；这个合并过程就是在发送缓冲区中进行的，也就是说数据发送出来它已经是粘包的状态了。
 
-<img src="https://mmbiz.qpic.cn/mmbiz_png/QCu849YTaIMnOiaLZLvCauibB6a1NxIwLdQC1gqfKDwusvSlQxEaDnRSySSvcK2VNlpdH9MFfRasTicha14JuvKYQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img" style="zoom: 67%;" />
+<img src="../Images/Java/640-162821934986822" alt="img" style="zoom: 67%;" />
 
 
 
@@ -12590,7 +12591,7 @@ TCP协议是网络通信协议中十分重要的协议，相比于UDP协议来�
 
 接收方采用TCP协议接收数据时的过程是这样的：从网络模型的下方传递至传输层，传输层的TCP协议处理是将其放置接收缓冲区，然后由应用层来主动获取（C语言用recv、read等函数）；这时会出现一个问题，就是我们在程序中调用的读取数据函数不能及时的把缓冲区中的数据拿出来，而下一个数据又到来并有一部分放入的缓冲区末尾，等我们读取数据时就是一个粘包；（放数据的速度 > 应用层拿数据速度）
 
-<img src="Interview.assets/20171219115333087" alt="这里写图片描述" style="zoom: 50%;" />
+<img src="../Images/Java/SouthEast-162821939066325" alt="这里写图片描述" style="zoom: 50%;" />
 
 ---
 
