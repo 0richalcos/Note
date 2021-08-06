@@ -815,3 +815,69 @@ public String loadBalanced() {
 
 ### 5.1.2、Ribbon 的负载均衡策略
 
+这里可以点进自动注入的 `LoadBalancerClient `查看其源码：
+
+![image-20210807001718136](../Images/SpringCloud/image-20210807001718136.png)
+
+发现并没有我们调用的 `choose()` 方法，那直接从  `choose()` 方法中点进查看，发现该方法来源自 `LoadBalancerClient` 的父接口 `ServiceInstanceChooser`：
+
+![image-20210807001930520](../Images/SpringCloud/image-20210807001930520.png)
+
+点击选中 `LoadBalancerClient` 按 F4 查看其实现，`ServiceInstanceChooser` 的 `choose()` 方法默认实现为 `RiibonLoadBalancerClient`：
+
+![image-20210807002537050](../Images/SpringCloud/image-20210807002537050.png)
+
+在 `RiibonLoadBalancerClient` 的 `choose()` 方法中可以看到它又调用了自己的 `choose()` 方法，由方法中的 `getServer()` 方法获取服务：
+
+![image-20210807002831290](../Images/SpringCloud/image-20210807002831290.png)
+
+继续追下去，发现 `getServer()` 又调用了 `chooseServer()`：
+
+![image-20210807003135718](../Images/SpringCloud/image-20210807003135718.png)
+
+再点进去就发现进入了 `ILoadBalancer` 接口了，查看方法实现，发现有三个实现：
+
+![image-20210807003744210](../Images/SpringCloud/image-20210807003744210.png)
+
+这里可以打个断点，然后使用 Step Into 追踪，会发现会调用 `ZoneAwareLoadBalancer` 的实现，而 `ZoneAwareLoadBalancer` 会调用父类的 `chooseServer()`：
+
+![image-20210807004001423](../Images/SpringCloud/image-20210807004001423.png)
+
+继续追下去，发现到了 `BaseLoadBalancer` 中，这里有许多判断，用 dbug 可以清晰地看到判断一路走到了 `this.rule.choose(key)`：
+
+![image-20210807004405986](../Images/SpringCloud/image-20210807004405986.png)
+
+再点下去就到了关键的接口：`IRule`:
+
+![image-20210807005034400](../Images/SpringCloud/image-20210807005034400.png)
+
+这个接口定义 LoadBalancer 的 “规则”，规则可以被看作是负载均衡的策略。众所周知的负载均衡策略包括轮询、基于响应时间等。而 `choose()` 上面注解解释了：通过 `key` 从 `lb.allServers` 中选择一个活的服务器。
+
+到了这里已经很明朗了，`IRule` 就是所有负载均衡的父接口，点击这里的 `rule` 变量可以看到默认的负载均衡策略为轮询：
+
+![image-20210807010401158](../Images/SpringCloud/image-20210807010401158.png)
+
+可以通过 IDEA 查看 `IRule` 的所有实现：
+
+![image-20210807010639929](../Images/SpringCloud/image-20210807010639929.png)
+
+- RoundRobinRule 
+  轮训策略：按顺序循环选择 Server
+- RandomRule
+  随机策略：随机选择 Server
+- AvailabilityFilteringRule
+  可用过滤策略：会先过滤由于多次访问故障而处于断路器跳闸状态的服务，还有并发的连接数量超过阈值的服务，然后对剩余的服务列表按照轮询策略进行访问
+
+- WeightedResponseTimeRule 
+	响应时间加权策略  ：根据平均响应的时间计算所有服务的权重，响应时间越快服务权重越大被选中的概率越高，刚启动时如果统计信息不足，则使用RoundRobinRule策略，等统计信息足够会切换到
+	
+- RetryRule
+	重试策略：先按照RoundRobinRule的策略获取服务，如果获取失败则在制定时间内进行重试，获取可用的服务
+	
+- BestAviableRule
+	最低并发策略：会先过滤掉由于多次访问故障而处于断路器跳闸状态的服务，然后选择一个并发量最小的服务  
+
+
+
+### 5.1.3、修改默认负载均衡策略
+
