@@ -740,6 +740,7 @@ private DiscoveryClient discoveryClient;
 
 @GetMapping("/discoveryClient")
 public String discoveryClient(){
+    //获取服务列表
     List<ServiceInstance> orders = discoveryClient.getInstances("order");
     orders.forEach(order->{
         LOGGER.info("服务主机：【{}】",order.getHost());
@@ -768,6 +769,7 @@ private LoadBalancerClient loadBalancerClient;
 
 @GetMapping("/loadBalancerClient")
 public String loadBalancerClient() {
+    //根据负载均衡策略选取某一个服务调用
     ServiceInstance order = loadBalancerClient.choose("order");
     LOGGER.info("服务主机：【{}】", order.getHost());
     LOGGER.info("服务端口：【{}】", order.getPort());
@@ -789,6 +791,7 @@ public String loadBalancerClient() {
 ```java
 @Configuration
 public class BeansConfig {
+    //整合restTemplate + ribbon
     @Bean
     @LoadBalanced
     public RestTemplate restTemplate() {
@@ -800,10 +803,13 @@ public class BeansConfig {
 修改 User 服务的控制器，增加以下内容
 
 ```java
+//调用服务位置注入 RestTemplate
 @Autowired
 private RestTemplate restTemplate;
+
 @GetMapping("/loadBalanced")
 public String loadBalanced() {
+    //调用：使用被调用服务的Id 替代 被调用服务的域名和端口号（下面第一个order为订单服务的端口号）
     String result = restTemplate.getForObject("http://order/order", String.class);
     return "User服务调用OK，" + result;
 }
@@ -880,4 +886,11 @@ public String loadBalanced() {
 
 
 ### 5.1.3、修改默认负载均衡策略
+
+被调用的服务id.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
+
+```properties
+#修改用户服务调用订单服务默认负载均衡策略，使用随机策略
+order.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
+```
 
