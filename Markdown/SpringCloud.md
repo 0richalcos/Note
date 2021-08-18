@@ -582,61 +582,84 @@ Spring 框架提供的 RestTemplate 类可用于在应用中调用 REST 服务�
 
 1. 创建两个服务并注册到 Consul 注册中心中
 
-  - users	  	代表用户服务，端口为 9999
-  - order 		 代表订单服务，端口为 9998
+	- users	  	代表用户服务，端口为 9999
+	- order 		 代表订单服务，端口为 9998
 
-  注意：这里服务仅仅用来测试，没有实际业务意义
+	 注意：这里服务仅仅用来测试，没有实际业务意义
 
-  ![image-20210801002648820](../Images/SpringCloud/image-20210801002648820.png)
+	![image-20210801002648820](../Images/SpringCloud/image-20210801002648820.png)
 
-![image-20210801002754756](../Images/SpringCloud/image-20210801002754756.png)
+	![image-20210801002754756](../Images/SpringCloud/image-20210801002754756.png)
 
 2. 创建一个 OrderController 提供服务：
 
-   ```java
-   
-   @RestController
-   @RequestMapping("/order")
-   public class OrderController {
-   
-       private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
-   
-       @GetMapping
-       public String demo() {
-           LOGGER.info("order demo...");
-           return "order demo OK!!";
-       }
-   }
-   ```
+	```java
+	@RestController
+	@RequestMapping("/order")
+	public class OrderController {
+	
+	    private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
+	
+	    @GetMapping
+	    public String demo() {
+	        LOGGER.info("order demo...");
+	        return "order demo OK!!";
+	    }
+	}
+	```
 
 3. 创建一个 UserController 调用订单服务：
 
-   ```java
-   @RestController
-   @RequestMapping("/user")
-   public class UserController {
-   
-       private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-   
-       @GetMapping
-       public String invokeDemo() {
-           LOGGER.info("user demo...");
-   
-           //调用订单服务 服务地址： http://localhost:9999/order 必须GET方式 接收返回值 String 类型
-           RestTemplate restTemplate = new RestTemplate();
-           String orderResult = restTemplate.getForObject("http://localhost:9998/order", String.class);
-           
-           LOGGER.info("调用订单服务成功:{}", orderResult);
-           return "调用订单服务成功,结果为:" + orderResult;
-       }
-   }
-   ```
+	```java
+	@RestController
+	@RequestMapping("/user")
+	public class UserController {
+	
+	    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+	
+	    @GetMapping
+	    public String invokeDemo() {
+	        LOGGER.info("user demo...");
+	
+	        //调用订单服务 服务地址： http://localhost:9999/order 必须GET方式 接收返回值 String 类型
+	        RestTemplate restTemplate = new RestTemplate();
+	        String orderResult = restTemplate.getForObject("http://localhost:9998/order", String.class);
+	        
+	        LOGGER.info("调用订单服务成功:{}", orderResult);
+	        return "调用订单服务成功,结果为:" + orderResult;
+	    }
+	}
+	```
 
 4. 先启动 Consul，再启动 User 服务和 Order 服务，然后 http://localhost:9999/user 测试：
 
-   ![image-20210804004640357](../Images/SpringCloud/image-20210804004640357.png)
+	![image-20210804004640357](../Images/SpringCloud/image-20210804004640357.png)
 
-   ![image-20210804004717424](../Images/SpringCloud/image-20210804004717424.png)
+	![image-20210804004717424](../Images/SpringCloud/image-20210804004717424.png)
+
+
+
+## 4.2、OpenFeign
+
+Feign 是一个声明式的伪 HTTP 客户端，它使得写 HTTP 客户端变得更简单。使用 Feign，只需要创建一个接口并添加注解。它具有可插拔的注解特性，可以使用 SpringMVC 的注解，可使用 Feign 注解和 JAX-RS 注解。Feign 支持可插拔的编码器和解码器。Feign 默认集成了 Ribbon，默认实现了负载均衡的效果并且 SpringCloud 为 Feign 添加了 SpringMVC 注解的支持。
+
+
+
+### 4.2.1、OpenFeign 服务调用
+
+
+
+### 4.2.2、调用服务并传参
+
+
+
+### 4.2.3、OpenFeign 超时设置
+
+
+
+### 4.2.4、日志展示
+
+
 
 
 
