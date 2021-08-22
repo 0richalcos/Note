@@ -647,6 +647,90 @@ Feign 是一个声明式的伪 HTTP 客户端，它使得写 HTTP 客户端变�
 
 ### 4.2.1、OpenFeign 服务调用
 
+1. 新建两个服务 Category、Product，并将其注册到 Consul 中（Product 可根据启动文件启动两个，用于测试负载均衡）
+
+	![image-20210822234802589](../Images/SpringCloud/image-20210822234802589.png)
+
+2. 在 Product 服务中提供一个被调用接口：
+
+	```java
+	@RestController
+	public class ProductController {
+	
+	    private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
+	
+	    @Value("${server.port}")
+	    private String port;
+	
+	    @GetMapping("/product")
+	    public String product() {
+	        LOGGER.info("进入商品服务.....");
+	        return "product ok，当前提供服务窗口：" + port;
+	    }
+	}
+	```
+
+3.  在服务调用方 Category 中添加 OpenFeign 依赖：
+
+	```xml
+	<!--OpenFeign依赖-->
+	<dependency>
+	    <groupId>org.springframework.cloud</groupId>
+	    <artifactId>spring-cloud-starter-openfeign</artifactId>
+	</dependency>
+	```
+
+4. 在 Category 启动类上添加注解，开启 OpenFeign 客户端调用：
+
+	```java
+	@SpringBootApplication
+	@EnableDiscoveryClient
+	//开启OpenFeign客户端调用
+	@EnableFeignClients
+	public class Category9995Application {
+	    public static void main(String[] args) {
+	        SpringApplication.run(Category9995Application.class, args);
+	    }
+	}
+	```
+
+5. 在 Category 服务中添加一个客户端调用接口：
+
+	```java
+	//调用商品服务接口 value：用来书写被调用服务的服务Id
+	@FeignClient("product")
+	public interface ProductClient {
+	
+	    //调用商品服务
+	    @GetMapping("/product")
+	    String product();
+	}
+	```
+
+6.  在 Category 服务中添加 Controller，使用 FeignClient 客户端对象调用服务：
+
+	```java
+	@RestController
+	public class CategoryController {
+	
+	    private static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
+	
+	    @Autowired
+	    private ProductClient productClient;
+	
+	   	@GetMapping("/category")
+	    public String category() {
+	        String result = productClient.product();
+	        LOGGER.info("category service....." + result);
+	        return "category ok...." + result;
+	    }
+	}
+	```
+
+	![image-20210822233948054](../Images/SpringCloud/image-20210822233948054.png)
+
+	![image-20210822235320696](../Images/SpringCloud/image-20210822235320696.png)
+
 
 
 ### 4.2.2、调用服务并传参
