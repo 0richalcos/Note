@@ -1,6 +1,6 @@
-# Windows10
+# Windows
 
-## 1、Windows默认管理员权限
+## 【1】Windows默认管理员权限
 
 1. 按下 Win+R 快捷键唤出 “运行” 窗口，输入 gpedit.msc
 2. 这时打开了 组策略编辑器，在左边找到【计算机配置】 =>【Windows设置】，再进入右边【安全设置】
@@ -14,7 +14,7 @@
 
 
 
-## 2、重装系统时将硬盘格式转换为GPT
+## 【2】重装系统时将硬盘格式转换为GPT
 
 1. 按 shift 键和 F10 键，启动 cmd 命令行模式
 2. 在命令行窗口中输入 `diskpart` 命令并回车，进入 Diskpart 模式
@@ -27,14 +27,14 @@
 
 
 
-## 3、修改系统引导
+## 【3】修改系统引导
 
 1. win+R
 2. 输入 `msconfig`
 
 
 
-## 4、查看后台运行的程序的详细信息
+## 【4】查看后台运行的程序的详细信息
 
 cmd 命令窗口输入 `netstat –ano`，回车。
 
@@ -42,7 +42,7 @@ cmd 命令窗口输入 `netstat –ano`，回车。
 
 
 
-## 5、Compact压缩功能命令
+## 【5】Compact 压缩功能命令
 
 它可以对所有的系统文件进行压缩，实现磁盘压缩，节约硬盘空间。
 
@@ -52,14 +52,14 @@ cmd 命令窗口输入 `netstat –ano`，回车。
 
 
 
-## 6、删除右键菜单新建中不要选项
+## 【6】删除右键菜单新建中不要选项
 
 1. 按下 Win+R，运行 `regedit`
 2. 展开 HKEY_CLASSES_ROOT，找到需要删除的文件后缀名，然后展开文件夹找到 shellnew 选项，直接删除即可
 
 
 
-## 7、取消开机密码
+## 【7】取消开机密码
 
 使用微软账户登录：
 
@@ -73,7 +73,7 @@ cmd 命令窗口输入 `netstat –ano`，回车。
 
 
 
-## 8、微软输入法快速输入时间
+## 【8】微软输入法快速输入时间
 
 1. 按下快捷键 Win + I，打开【设置】
 
@@ -99,7 +99,7 @@ cmd 命令窗口输入 `netstat –ano`，回车。
 
 
 
-## 9、Windows 终端 SSH 保持连接
+## 【9】Windows Terminal SSH 保持连接
 
 Windows 10 全新的 Powershell 内置了 ssh.exe 因此可以直接连接远程服务器，在 Windows Terminal 中连接 SSH 中若一段时间没有操作会导致连接断开，终端卡死。
 
@@ -114,7 +114,7 @@ Host *
 
 
 
-## 10、删除桌面右键Open in Terminal
+## 【10】删除桌面右键 Open in Terminal
 
 按 win 键+ R 键，打开 “运行” 窗口，输入  `regedit`，按回车键，弹出 注册表编辑器。
 
@@ -128,7 +128,7 @@ Host *
 
 # Chrome
 
-## 1、移动Chrome的数据文件
+## 【1】移动Chrome的数据文件
 
 Chrome 默认的数据文件地址是：C:\Users\Orichalcos\AppData\Local\Google
 
@@ -138,7 +138,7 @@ Chrome 默认的数据文件地址是：C:\Users\Orichalcos\AppData\Local\Google
 
 # IDEA
 
-## 1、Maven 部分文件无法导出
+## 【1】Maven 部分文件无法导出
 
 maven 由于他的约定大于配置，之后可能遇到写的配置文件，无法被导出或者生效的问题
 
@@ -167,7 +167,7 @@ maven 由于他的约定大于配置，之后可能遇到写的配置文件，�
 
 
 
-## 2、Maven 框架 web-app 中 web.xml 版本过低
+## 【2】Maven 框架 web-app 中 web.xml 版本过低
 
 1. 找到 maven-archetype-webapp 的 jar 包位置：maven位置\repository\org\apache\maven\archetypes\maven-archetype-webapp\1.4。
 2. 用压缩包形式打开，不要解压！
@@ -187,7 +187,7 @@ PS：上边的web-app标签中有一个**metadata-complete="true"**，这是个�
 
 
 
-## 3、修改内存大小
+## 【3】修改内存大小
 
 首先在IDEA中显示内存：在窗口下方右键，选中 Memory Indicator
 
@@ -201,7 +201,7 @@ PS：上边的web-app标签中有一个**metadata-complete="true"**，这是个�
 
 
 
-## 4、SpringBoot 实现热部署
+## 【4】SpringBoot 实现热部署
 
 ![img](../Images/Mixed/1676221-20200430155320785-521416484.png)
 
@@ -236,13 +236,13 @@ IDEA：当我们修改了Java类后，IDEA默认是不自动编译的，而sprin
 
 
 
-## 5、Maven 项目没有被识别
+## 【5】Maven 项目没有被识别
 
 在 pom.xml 上右键、点击 Add as Maven Project 
 
 
 
-## 6、插件：camelCase
+## 【6】插件：camelCase
 
 下划线 <=> 驼峰，你是怎么转换的，一个一个字母的修改吗？
 
@@ -256,7 +256,7 @@ camelCase 包含 6 种格式的切换，可能某些格式是平时不用的，�
 
 
 
-## 7、IDEA  jar 包自动导入及优化
+## 【7】IDEA  jar 包自动导入及优化
 
 加快开发效率，除去没用的包，洁癖者必用!   这样设置，就可以自动导入包以及除去没有用到的包！
 
@@ -270,7 +270,7 @@ camelCase 包含 6 种格式的切换，可能某些格式是平时不用的，�
 
 # STS
 
-## 1、修改内存大小
+## 【1】修改内存大小
 
 显示内存：首选项 => 常规 => 显示堆状态 。
 
@@ -282,7 +282,7 @@ camelCase 包含 6 种格式的切换，可能某些格式是平时不用的，�
 
 
 
-## 2、汉化
+## 【2】汉化
 
 <img src="../Images/Mixed/image-20200622113126300.png" alt="image-20200622113126300" style="zoom:80%;float:left" />
 
@@ -298,7 +298,7 @@ camelCase 包含 6 种格式的切换，可能某些格式是平时不用的，�
 
 
 
-## 3、SpringBoot 打 jar 包
+## 【3】SpringBoot 打 jar 包
 
 SpringBoot是使用内置的tomcat的，所以不用打包成war文件，当然也可以打包成war文件进行部署，只是个人觉得没有那个必要，通过maven可将SpringBoot项目打包成jar文件运行。
 
