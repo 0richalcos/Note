@@ -741,12 +741,127 @@ Feign 是一个声明式的伪 HTTP 客户端，它使得写 HTTP 客户端变�
 
 **GET 方式调用服务传递参数**
 
-1. 在商品服务中添加如下方法：
+1. 在 Product 服务中添加如下方法：
 
 	```java
+	//定义一个接收零散类型参数接口 queryString
+	@GetMapping("/test1")
+	public String test1(String name, Integer age) {
+	    LOGGER.info("name:{} age:{}", name, age);
+	    return "test1 ok，当前服务端口为：" + port;
+	}
+	```
+	
+2. 在 Category 服务 ProductClient.java 中添加接口：
+
+	```java
+	@GetMapping("/test1")
+	String test1(@RequestParam("name") String name, @RequestParam("age") Integer age);
 	```
 
-	
+3. 在 Category 服务中调用：
+
+	```java
+	@GetMapping("/test1")
+	public String test1(String name, Integer age) {
+	    String result = productClient.test1(name, age);
+	    return "category ok....." + result;
+	}
+	```
+
+4. 访问：http://localhost:9995/test1?name=Orichalcos&age=18
+
+	![image-20210901000521366](../Images/SpringCloud/image-20210901000521366.png)
+
+	![image-20210831235811079](../Images/SpringCloud/image-20210831235811079.png)
+
+
+
+**POST 方式调用服务传递参数**
+
+1. 在 Product 服务中添加如下方法：
+
+	```java
+	//定义一个接收零散类型参数接口 路径传递参数
+	@GetMapping("/test2/{id}/{name}")
+	public String test2(@PathVariable("id") String id, @PathVariable("name") String name) {
+	    LOGGER.info("id:{} name{}", id, name);
+	    return "test2 ok，当前服务端口为：" + port;
+	}
+	```
+
+2. 在 Category 服务 ProductClient.java 中添加接口：
+
+	```java
+	@GetMapping("/test2/{id}/{name}")
+	String test2(@PathVariable("id") String id, @PathVariable("name") String name);
+	```
+
+3. 在 Category 服务中调用：
+
+	```java
+	@GetMapping("/test2/{id}/{name}")
+	public String test2(@PathVariable("id") String id, @PathVariable("name") String name) {
+	    String result = productClient.test2(id, name);
+	    return "category ok....." + result;
+	}
+	```
+
+4. 访问：http://localhost:9995/test2/1/Orichalcos
+
+	![image-20210901001120701](../Images/SpringCloud/image-20210901001120701.png)
+
+	![image-20210901001139833](../Images/SpringCloud/image-20210901001139833.png)
+
+
+
+**传递对象参数 application/json 格式**
+
+1. 在 Product 和 Category 服务中创建一个 Product 实体类，并增加 get/set、有参无参构造函数：
+
+	```java
+	public class Product {
+	    private Integer id;
+	    private String name;
+	    private Double price;
+	    private Date bir;
+	    ...
+	}
+	```
+
+2. 在 Product 服务中添加如下方法：
+
+	```java
+	//定义一个接收对象类型参数接口 application/json
+	@PostMapping("/test3")
+	public String test3(@RequestBody Product product) {
+	    LOGGER.info("product:{}", product);
+	    return "test3 ok，当前服务端口为：" + port;
+	}
+	```
+
+3. 在 Category 服务 ProductClient.java 中添加接口：
+
+	```java
+	@PostMapping("/test3")
+	String test3(@RequestBody Product product);
+	```
+
+4. 在 Category 服务中调用：
+
+	```java
+	@GetMapping("/test3")
+	public String test3() {
+	    String result = productClient.test3(new Product(1, "Orichalcos", 19.9, new Date()));
+	    return "category ok....." + result;
+	}
+	```
+
+5. 访问：http://localhost:9995/test3
+
+	![image-20210901003708149](../Images/SpringCloud/image-20210901003708149.png)
+
+	![image-20210901003732017](../Images/SpringCloud/image-20210901003732017.png)
 
 
 
