@@ -1460,7 +1460,7 @@ $(document).ready(function(){
 
 # 5、jQuery AJAX
 
-## 5.1、jQuery 加载
+## 5.1、jQuery Load
 
 **jQuery load() 方法**
 
@@ -1606,3 +1606,137 @@ $.post() 的第一个参数是希望请求的 URL ("demo_test_post.asp")。
 
 第三个参数是回调函数。第一个回调参数存有被请求页面的内容，而第二个参数存有请求的状态。
 
+
+
+## 5.3、.serialize()
+
+serialize() 方法通过序列化表单值，创建 URL 编码文本字符串。
+
+可以选择一个或多个表单元素（比如 input 及/或 文本框），或者 form 元素本身。
+
+序列化的值可在生成 AJAX 请求时用于 URL 查询字符串中。
+
+**语法：**
+
+```javascript
+$(selector).serialize()
+```
+
+**实例：**
+
+```html
+<form>
+    <div><input type="text" name="a" value="1" id="a"/></div>
+    <div><input type="text" name="b" value="2" id="b"/></div>
+    <div><input type="hidden" name="c" value="3" id="c"/></div>
+    <div>
+        <textarea name="d" rows="8" cols="40">4</textarea>
+    </div>
+    <div>
+        <select name="e">
+            <option value="5" selected="selected">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+        </select>
+    </div>
+    <div>
+        <input type="checkbox" name="f" value="8" id="f"/>
+    </div>
+    <div>
+        <input type="submit" name="g" value="Submit" id="g"/>
+    </div>
+</form>
+<script>
+    $(function () {
+        $('form').submit(function() {
+            alert($(this).serialize());
+            return false;
+        });
+    });
+</script>
+```
+
+输出标准的查询字符串：
+
+```
+a=1&b=2&c=3&d=4&e=5
+```
+
+> 只会将 ”成功的控件“ 序列化为字符串。如果不使用按钮来提交表单，则不对提交按钮的值序列化。如果要表单元素的值包含到序列字符串中，元素必须使用 name 属性。
+
+
+
+## 5.4、.serializeArray()
+
+serializeArray() 方法通过序列化表单值来创建对象数组（名称和值）。
+
+可以选择一个或多个表单元素（比如 input 及/或 textarea），或者 form 元素本身。
+
+**语法：**
+
+```javascript
+$(selector).serializeArray()
+```
+
+**实例：**
+
+```html
+<form>
+    <div><input type="text" name="a" value="1" id="a"/></div>
+    <div><input type="text" name="b" value="2" id="b"/></div>
+    <div><input type="hidden" name="c" value="3" id="c"/></div>
+    <div>
+        <textarea name="d" rows="8" cols="40">4</textarea>
+    </div>
+    <div>
+        <select name="e">
+            <option value="5" selected="selected">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+        </select>
+    </div>
+    <div>
+        <input type="checkbox" name="f" value="8" id="f"/>
+    </div>
+    <div>
+        <input type="submit" name="g" value="Submit" id="g"/>
+    </div>
+</form>
+<script>
+    $(function () {
+        $('form').submit(function() {
+            console.log($(this).serializeArray());
+            return false;
+        });
+    });
+</script>
+```
+
+此方法返回的是 JSON 对象而非 JSON 字符串，需要使用插件或者第三方库进行字符串化操作。返回的 JSON 对象是由一个对象数组组成的，其中每个对象包含一个或两个名值对：name 参数和 value 参数（如果 value 不为空的话）。
+
+上面的代码产生下面的数据结构（假设浏览器支持 console.log）：
+
+```
+[
+  {
+    name: a
+    value: 1
+  },
+  {
+    name: b
+    value: 2
+  },
+  {
+    name: c
+    value: 3
+  },
+  {
+    name: d
+    value: 4
+  },
+  {
+    name: e
+    value: 5
+  }
+]
+```

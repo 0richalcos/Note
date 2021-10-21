@@ -421,3 +421,41 @@ function exp() {
 }
 ```
 
+
+
+# 【8】String.valueOf(null) 的意外
+
+其他类型转 String 类型的时候一般来说有两种方法，`+""` 或者是 `String.valueOf()` 官方推荐使用 `String.valueOf()`。
+
+那么：
+
+```java
+Object o1 = null;
+System.out.println(String.valueOf(o1));
+```
+
+和
+
+```java
+System.out.println(String.valueOf(null));
+```
+
+有什么区别？
+
+
+
+第一种会通过，第二种会报空指针异常！
+
+可以查看源码得知第一种和第二种进入的是不同的重载方法：
+
+第一种进入此方法：
+
+![image-20211021233444726](../Images/Petty/image-20211021233444726.png)
+
+第二种进入此方法：
+
+![image-20211021233456679](../Images/Petty/image-20211021233456679.png)
+
+![image-20211021233608783](../Images/Petty/image-20211021233608783.png)
+
+当第二种参数为 null 时，`null.length` 当然报出空指针异常。
