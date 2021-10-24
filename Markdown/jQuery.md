@@ -1458,6 +1458,105 @@ $(document).ready(function(){
 
 
 
+## 4.5、each()/map()
+
+**each()**
+
+each() 方法规定为每个匹配元素规定运行的函数。
+
+> 返回 false 可用于及早停止循环。
+
+**语法：**
+
+```javascript
+$(selector).each(function(index,element))
+```
+
+| 参数                    | 描述                                                         |
+| ----------------------- | ------------------------------------------------------------ |
+| function(index,element) | 必需。为每个匹配元素规定运行的函数。<br> - index：选择器的 index 的位置<br> - element：当前的元素（也可用 `this` 选择器） |
+
+**实例：**
+
+```html
+
+<body>
+<button>输出每个列表项的值</button>
+<ul>
+    <li>Coffee</li>
+    <li>Milk</li>
+    <li>Soda</li>
+</ul>
+<script type="text/javascript">
+$(document).ready(function(){
+  $("button").click(function(){
+    $("li").each(function(){
+      alert($(this).text())
+    });
+  });
+});
+</script>
+</body>
+```
+
+```
+Coffee
+Milk
+Soda
+```
+
+
+
+**map()**
+
+map() 方法用于使用指定函数处理数组中的每个元素(或对象的每个属性)，并将处理结果封装为新的数组返回。
+
+> 在jQuery 1.6 之前，该函数只支持遍历数组；从 1.6 开始，该函数也支持遍历对象。
+> map() 还会为函数传入两个参数：其一是当前迭代的元素或属性值，其二是当前迭代项的数组索引或对象属性名。
+> 该函数返回值将作为结果数组中的一个元素，如果返回值为 null 或 undefined，则不会被添加到结果数组中。
+
+**语法：**
+
+```javascript
+.map(callback(index,domElement))
+```
+
+| 参数                       | 描述                                   |
+| -------------------------- | -------------------------------------- |
+| callback(index,domElement) | 对当前集合中的每个元素调用的函数对象。 |
+
+**实例：**
+
+```html
+<body>
+<div></div>
+<p></p>
+<span></span>
+<script>
+$(function () { 
+	var arr = [ "a", "b", "c", "d", "e" ];
+	$("div").text(arr.join(", "));
+	arr = $.map(arr, function(n, i){
+		return (n.toUpperCase() + i);
+	});
+	$("p").text(arr.join(", "));
+	arr = $.map(arr, function (a) {
+		return a + a;
+	});
+	$("span").text(arr.join(", "));
+})
+</script>
+</body>
+```
+
+```
+a, b, c, d, e
+A0, B1, C2, D3, E4
+A0A0, B1B1, C2C2, D3D3, E4E4
+```
+
+
+
 # 5、jQuery AJAX
 
 ## 5.1、jQuery Load
@@ -1740,3 +1839,44 @@ $(selector).serializeArray()
   }
 ]
 ```
+
+
+
+## 5.5、jQuery Param
+
+有关 URL 操作的工具函数，暂时也只有一种，那就是`$.param()`方法。在 jQuery 中，我们可以使用`$.param()`方法将数组或对象转化为字符串序列，以便用于 URL 查询字符串或 Ajax 请求。
+
+
+
+**语法：**
+
+```javascript
+$.param(obj或array)
+```
+
+**实例：**
+
+```html
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script>
+        $(function () {
+            var person = {
+                name:"Orichalcos",
+                age:25
+            }
+            var str = $.param(person);
+            console.log(str);
+        })
+    </script>
+</head>
+```
+
+控制台输出结果：
+
+```
+name=Orichalcos&age=25
+```
+
