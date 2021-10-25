@@ -312,7 +312,7 @@ public void testWrite07BigDataS() {
 }
 ```
 
-<img src="POI & easyExcel.assets/20180720094625254" alt="img" style="zoom:80%;float:left" />
+<img src="../Images/tools/20180720094625254" alt="img" style="zoom:80%;float:left" />
 
 **合并单元格的关键代码：**
 
