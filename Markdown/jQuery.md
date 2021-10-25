@@ -766,6 +766,16 @@ $("button").click(function(){
 
 
 
+**获取属性 - prop()**
+
+```javascript
+$("button").click(function(){
+    alert($("div").attr("color"));
+});
+```
+
+
+
 ## 3.2、jQuery 设置
 
 **设置内容 - text()、html() 以及 val()**
@@ -785,10 +795,6 @@ $("#btn3").click(function(){
   $("#test3").val("Dolly Duck");
 });
 ```
-
-
-
-**text()、html() 以及 val() 的回调函数**
 
 上面的三个 jQuery 方法：text()、html() 以及 val()，同样拥有回调函数。回调函数由两个参数：被选元素列表中当前元素的下标，以及原始（旧的）值。然后以函数新值返回您希望使用的字符串。
 
@@ -831,10 +837,6 @@ $("button").click(function(){
 });
 ```
 
-
-
-**attr() 的回调函数**
-
 jQuery 方法 attr()，也提供回调函数。回调函数由两个参数：被选元素列表中当前元素的下标，以及原始（旧的）值。然后以函数新值返回您希望使用的字符串。
 
 ```javascript
@@ -844,6 +846,29 @@ $("button").click(function(){
   });
 });
 ```
+
+
+
+**设置属性 - prop()**
+
+prop() 方法设置或返回被选元素的属性和值。功能和 attr() 基本相似，但是用法上有所不同。
+
+在 1.9.0 的版本中：
+
+```html
+<input type="checkbox" />
+<script>
+    $(function() {
+        $('input').click(function() {
+            $(this).attr('checked');
+        });
+    });
+</script>
+```
+
+点击 checkbox，**结果都是 undefined**，而在 1.8.3 的版本中，**结果是 checked 和 undefined**。
+
+根据官方的建议：**要检索和更改 DOM 属性，例如表单元素的选中、选中或禁用状态，请使用 .prop（）方法。**
 
 
 

@@ -884,7 +884,7 @@ CREATE TABLE newTable AS SELECT * FROM oldTable;
 
 ## 6.2、删除数据
 
-语法：
+**语法：**
 
 ```mysql
 DELETE FROM <表名> [WHERE Clause]
@@ -893,6 +893,32 @@ DELETE FROM <表名> [WHERE Clause]
 - 如果没有指定WHERE子句，MySQL表中所有记录将被删除
 - 你可以在WHERE子句中指定任何条件
 - 你可以在单个表中一次性删除记录
+
+`DELETE` 是逐行删除速度极慢，不适合大量数据删除。
+
+
+
+**语法：**
+
+```mysql
+TRUNCATE TABLE <表名>
+```
+
+删除所有数据，保留表结构，不能撤销还原。
+
+
+
+**区别：**
+
+1. DELETE 语句执行删除的过程是每次从表中删除一行，并且同时将该行的删除操作作为事务记录在日志中保存以便进行进行回滚操作。
+
+	TRUNCATE TABLE 则一次性地从表中删除所有的数据并不把单独的删除操作记录记入日志保存，删除行是不能恢复的。并且在删除的过程中不会激活与表有关的删除触发器。执行速度快。
+
+2. 当表被 TRUNCATE 后，这个表和索引所占用的空间会恢复到初始大小，DELETE 操作不会减少表或索引所占用的空间。DROP 语句将表所占用的空间全释放掉。
+
+3. DELETE 语句为DML（data maintain Language)，这个操作会被放到 rollback segment 中，事务提交后才生效。如果有相应的 tigger，执行的时候将被触发。
+
+	由于 TRUNCATE TABLE 不记录在日志中，所以它不能激活触发器。
 
 
 
