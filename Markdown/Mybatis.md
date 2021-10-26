@@ -1887,7 +1887,7 @@ public interface InitializingObject {
 
 
 
-**if**
+## 4.1、If
 
 使用动态 SQL 最常见情景是根据条件包含 where 子句的一部分。比如：
 
@@ -1921,7 +1921,48 @@ public interface InitializingObject {
 
 
 
-**choose、when、otherwise**
+**数组与集合的判空**
+
+参数为数组 Object[]。在 MyBatis 判断空时，先判断是否为 null，不为 null 则判断数组长度 object.length 是否大于 0 即可。
+
+```xml
+<if test="object!=null and object.length>0">
+	<yourSql>
+</if>
+```
+
+参数为集合 List。在 MyBatis 判断空时，先判断是否为 null，不为 null 则判断集合长度 object.size() 是否大于0 即可。
+
+```xml
+<if test="object!=null and object.size()>0">
+	<yourSql>
+</if>
+```
+
+
+
+> 在 xml 配置文件中大于小于符号可能会被认定为标签的`<`、`>`。
+
+```
+第一种写法（1）：
+
+原符号       <        <=      >       >=       &        '        "
+替换符号    &lt;     &lt;=   &gt;    &gt;=    &amp;   &apos;  &quot;
+例如：sql如下：
+create_date_time &gt;= #{startTime} and  create_date_time &lt;= #{endTime}
+
+第二种写法（2）：
+大于等于
+<![CDATA[ >= ]]>
+小于等于
+<![CDATA[ <= ]]>
+例如：sql如下：
+create_date_time <![CDATA[ >= ]]> #{startTime} and  create_date_time <![CDATA[ <= ]]> #{endTime}
+```
+
+
+
+## 4.2、choose、when、otherwise
 
 有时候，我们不想使用所有的条件，而只是想从多个条件中选择一个使用。针对这种情况，MyBatis 提供了 choose 元素，它有点像 Java 中的 switch 语句。
 
@@ -1947,7 +1988,7 @@ public interface InitializingObject {
 
 
 
-**trim、where、set**
+## 4.3、trim、where、set
 
 前面几个例子已经合宜地解决了一个臭名昭著的动态 SQL 问题。现在回到之前的 “if” 示例，这次我们将 “state = ‘ACTIVE’” 设置成动态条件，看看会发生什么。
 
@@ -2046,7 +2087,7 @@ MyBatis 有一个简单且适合大多数场景的解决办法。而在其他场
 
 
 
-**foreach**
+## 4.4、foreach
 
 动态 SQL 的另一个常见使用场景是对集合进行遍历（尤其是在构建 IN 条件语句的时候）。比如：
 
@@ -2066,7 +2107,19 @@ MyBatis 有一个简单且适合大多数场景的解决办法。而在其他场
 
 **提示** 你可以将任何可迭代对象（如 List、Set 等）、Map 对象或者数组对象作为集合参数传递给 *foreach*。当使用可迭代对象或者数组时，index 是当前迭代的序号，item 的值是本次迭代获取到的元素。当使用 Map 对象（或者 Map.Entry 对象的集合）时，index 是键，item 是值。
 
-至此，我们已经完成了与 XML 配置及映射文件相关的讨论。下一章将详细探讨 Java API，以便你能充分利用已经创建的映射配置。
+
+
+**foreach还能对字符串进行迭代**
+
+比如字符串 `departIds="1,2,3,4,5,6"` ，在用 foreach 迭代的时候，就可以这样写：
+
+```xml
+<foreach collection="departIds.split(',')" item="id" open="(" separator="," close=")">
+　　#{id}
+</foreach>
+```
+
+
 
 # 5、Java API
 
@@ -3013,24 +3066,4 @@ public Student findByGradeId(Integer gradeId);
 </mapper> 
 ```
 
-
-
-## 8.3、XML 大于等于小于等于写法
-
-```
-第一种写法（1）：
-
-原符号       <        <=      >       >=       &        '        "
-替换符号    &lt;     &lt;=   &gt;    &gt;=    &amp;   &apos;  &quot;
-例如：sql如下：
-create_date_time &gt;= #{startTime} and  create_date_time &lt;= #{endTime}
-
-第二种写法（2）：
-大于等于
-<![CDATA[ >= ]]>
-小于等于
-<![CDATA[ <= ]]>
-例如：sql如下：
-create_date_time <![CDATA[ >= ]]> #{startTime} and  create_date_time <![CDATA[ <= ]]> #{endTime}
-```
 

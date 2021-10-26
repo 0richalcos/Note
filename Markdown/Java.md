@@ -597,17 +597,52 @@ static String valueOf(char chars[], int startIndex, int numChars)
 
 这里 chars 是存放字符的数组，startIndex 是字符数组中期望得到的子字符串的首字符下标，numChars 指定子字符串的长度。
 
----
+
 
 **parse()**
 
 parseXxx(String) 这种形式，是指把字符串转换为数值型，其中 Xxx 对应不同的数据类型，然后转换为 Xxx 指定的类型，如 int 型和 float 型。
 
----
+
 
 **toString()**
 
 toString() 可以把一个引用类型转换为 String 字符串类型，是 sun 公司开发 Java 的时候为了方便所有类的字符串操作而特意加入的一个方法。
+
+
+
+**String.valueOf() 的异常**
+
+其他类型转 String 类型的时候一般来说有两种方法，`+""` 或者是 `String.valueOf()` 官方推荐使用 `String.valueOf()`。
+
+那么：
+
+```java
+Object o1 = null;
+System.out.println(String.valueOf(o1));
+```
+
+和
+
+```java
+System.out.println(String.valueOf(null));
+```
+
+有什么区别？第一种会通过，第二种会报空指针异常！
+
+可以查看源码得知第一种和第二种进入的是不同的重载方法：
+
+第一种进入此方法：
+
+![image-20211021233444726](../Images/Petty/image-20211021233444726.png)
+
+第二种进入此方法：
+
+![image-20211021233456679](../Images/Petty/image-20211021233456679.png)
+
+![image-20211021233608783](../Images/Petty/image-20211021233608783.png)
+
+当第二种参数为 null 时，`null.length` 当然报出空指针异常。
 
 
 

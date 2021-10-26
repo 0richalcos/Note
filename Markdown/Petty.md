@@ -423,39 +423,20 @@ function exp() {
 
 
 
-# 【8】String.valueOf(null) 的意外
+# 【8】JS ajax请求后又刷新页面的问题
 
-其他类型转 String 类型的时候一般来说有两种方法，`+""` 或者是 `String.valueOf()` 官方推荐使用 `String.valueOf()`。
+问题原因出在 HTML 文件上，原因是把所有按钮都放在了一个的表单里面了，form 里面的按钮默认 `type=submit` , 所以每次点击按钮后都会执行提交表单的操作，表单操作默认有刷新页面的功能。
 
-那么：
+解决方法：将 button 的 type 改为 button
 
-```java
-Object o1 = null;
-System.out.println(String.valueOf(o1));
+```html
+<div class="box-footer">
+    <button type="button" class="btn btn-info " onclick="timerMan('start')">
+        开启
+    </button>
+    <button type="button" class="btn btn-default" onclick="timerMan('stop')">
+        停止
+    </button>
+</div>
 ```
 
-和
-
-```java
-System.out.println(String.valueOf(null));
-```
-
-有什么区别？
-
-
-
-第一种会通过，第二种会报空指针异常！
-
-可以查看源码得知第一种和第二种进入的是不同的重载方法：
-
-第一种进入此方法：
-
-![image-20211021233444726](../Images/Petty/image-20211021233444726.png)
-
-第二种进入此方法：
-
-![image-20211021233456679](../Images/Petty/image-20211021233456679.png)
-
-![image-20211021233608783](../Images/Petty/image-20211021233608783.png)
-
-当第二种参数为 null 时，`null.length` 当然报出空指针异常。
