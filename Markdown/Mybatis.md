@@ -1921,22 +1921,20 @@ public interface InitializingObject {
 
 
 
-**数组与集合的判空**
-
-参数为数组 Object[]。在 MyBatis 判断空时，先判断是否为 null，不为 null 则判断数组长度 object.length 是否大于 0 即可。
+**判断等于一个字符串**
 
 ```xml
-<if test="object!=null and object.length>0">
-	<yourSql>
-</if>
+<if test='type=="y"'>  //注意是双引号，不是单引号！！！
+    and status = 0   
+</if> 
 ```
 
-参数为集合 List。在 MyBatis 判断空时，先判断是否为 null，不为 null 则判断集合长度 object.size() 是否大于0 即可。
+或者
 
 ```xml
-<if test="object!=null and object.size()>0">
-	<yourSql>
-</if>
+<if test="type=='y'.toString()">
+    and status = 0   
+</if> 
 ```
 
 
@@ -2118,6 +2116,93 @@ MyBatis 有一个简单且适合大多数场景的解决办法。而在其他场
 　　#{id}
 </foreach>
 ```
+
+
+
+## 4.5、OGNL 表达式
+
+MyBatis 的动态 SQL 广泛应用到了OGNL 表达式，OGNL 表达式可以灵活的组装 SQL 语句，从而完成更多的功能。
+
+> OGNL 全称 Object-Graph Navigation Language，是 Java 中的一个开源的表达式语言，用于访问对象数据。
+
+OGNL 最常用于 if 标签中，用于判断条件是否满足，如下：
+
+```xml
+<if test="age != null">
+  AND age = #{age}
+</if>
+```
+
+if 标签的 test 属性就是个典型的 OGNL 表达式。`age != null`表示当 age 不为 null 的时候 if 成立，则动态的向 SQL 中插入标签内的 SQL 代码段。
+
+
+
+**常见的 OGNL 表达式**
+
+```
+e1 or e2：或关系
+e1 and e2：与关系
+e1 == e2 或者 e1 eq e2：相等
+e1 != e2 或者 e1 neq e2：不等
+e1 lt e2 ；e1 < e2；e1 gt e2；e1 > e2；e1 lte e2；e1 <= e2；e1 gte e2；e1 >= e2：比较关系
+e1 + e2；e1 – e2；e1 * e2；e1 / e2；e1 % e2：运算关系
+!e 或者 not e：非，取反
+e.method(args)：调用对象方法
+e.property：访问属性值
+e1[e2]：访问数组、链表（e2 为序号）或者 Map（e2 为键值）
+```
+
+其中 1～4 以及 9～10 都是特别常用的几种情况，而其它的情况不利于 SQL 的维护，因此并不常见。
+
+
+
+**示例：**
+
+有一个名为 pedro 的 User 对象，如下：
+
+```java
+User pedro = new User();
+pedro.setUsername("pedro");
+pedro.setTags(Arrays.asList("admin", "man"));
+pedro.setAge(23);
+```
+
+访问用户的 username 属性，OGNL 表达式为`pedro.username`，结果为：
+
+```
+# pedro.username
+pedro
+```
+
+访问用户的第一个标签，OGNL 表达式为`pedro.tags[0]`，结果为：
+
+```
+# pedro.tags[0]
+admin
+```
+
+比较用户标签长度是否大于 1，OGNL 表达式为`pedro.tags[0]`，结果为：
+
+```
+# pedro.tags.size > 1
+true
+```
+
+用户年龄加上一个整数 22，OGNL 表达式为`pedro.age + 22`，结果为：
+
+```
+# pedro.age + 22
+45
+```
+
+将用户年龄全部大写，OGNL 表达式为`pedro.username.toUpperCase`，结果为：
+
+```
+# pedro.username.toUpperCase
+PEDRO
+```
+
+
 
 
 
@@ -3065,5 +3150,4 @@ public Student findByGradeId(Integer gradeId);
 	</select>
 </mapper> 
 ```
-
 
