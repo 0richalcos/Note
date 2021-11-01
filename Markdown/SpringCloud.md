@@ -785,7 +785,7 @@ Feign 是一个声明式的伪 HTTP 客户端，它使得写 HTTP 客户端变�
 
 ### 4.2.2、调用服务并传参
 
-服务和服务之间通信，不仅仅是调用，往往在调用过程中还伴随着参数传递，接下来重点来看看 OpenFeign 在调用服务时如何传递参数
+服务和服务之间通信，不仅仅是调用，往往在调用过程中还伴随着参数传递，接下来重点来看看 OpenFeign 在调用服务时如何传递参数。
 
 
 
@@ -917,11 +917,64 @@ Feign 是一个声明式的伪 HTTP 客户端，它使得写 HTTP 客户端变�
 
 ### 4.2.3、OpenFeign 超时设置
 
+默认情况下，OpenFiegn 在进行服务调用时，要求服务提供方处理业务逻辑时间必须在 1S 内返回，如果超过 1S 没有返回则 OpenFeign 会直接报错，不会等待服务执行，但是往往在处理复杂业务逻辑是可能会超过 1S，因此需要修改 OpenFeign 的默认服务调用超时时间。
+
+
+
+调用超时会出现如下错误
+
+1. 在服务提供方加入线程等待阻塞模拟超时：
+
+	```java
+	@GetMapping("/product")
+	public String product() throws InterruptedException {
+	    LOGGER.info("进入商品服务.....");
+	    Thread.sleep(2000);
+	    return "product ok，当前提供服务窗口：" + port;
+	}
+	```
+
+2. 进行客户端调用：
+
+	![image-20211102000512159](../Images/SpringCloud/image-20211102000512159.png)
+
+
+
+修改 OpenFeign 默认超时时间：
+
+```properties
+feign.client.config.PRODUCTS.connectTimeout=5000  		#配置指定服务连接超时
+feign.client.config.PRODUCTS.readTimeout=5000		  	#配置指定服务等待超时
+#feign.client.config.default.connectTimeout=5000  		#配置所有服务连接超时
+#feign.client.config.default.readTimeout=5000			#配置所有服务等待超时
+```
+
 
 
 ### 4.2.4、日志展示
 
+往往在服务调用时我们需要详细展示 Feign 的日志，默认 Feign 在调用是并不是最详细日志输出，因此在调试程序时应该开启 Feign 的详细日志展示。Feign 对日志的处理非常灵活，可为每个 Feign 客户端指定日志记录策略，每个客户端都会创建一个 logger，默认情况下 logger 的名称是Feign 的全限定名需要注意的是，Feign 日志的打印只会DEBUG级别做出响应。
 
+我们可以为 Feign 客户端配置各自的 logger.lever 对象，告诉 Feign 记录那些日志 logger.lever 有以下的几种值：
+
+- NONE  不记录任何日志
+- BASIC 仅仅记录请求方法、url、响应状态代码及执行时间
+- HEADERS 记录Basic级别的基础上，记录请求和响应的header
+- FULL 记录请求和响应的header、body和元数据
+
+
+
+1. 开启日志展示
+
+	```properties
+	feign.client.config.PRODUCTS.loggerLevel=full 	  #开启指定服务日志展示
+	#feign.client.config.default.loggerLevel=full  	  #全局开启服务日志展示
+	logging.level.com.orichalcos.feignclient=debug    #指定feign调用客户端对象所在包,必须是debug级别
+	```
+
+2. 测试服务调用查看日志
+
+	![image-20211102001811337](../Images/SpringCloud/image-20211102001811337.png)
 
 
 
