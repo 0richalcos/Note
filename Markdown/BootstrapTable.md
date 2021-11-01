@@ -723,3 +723,142 @@ $('#table').bootstrapTable({
 
 ![image-20210624182508220](../Images/BootstrapTable/image-20210624182508220.png)
 
+
+
+## 4.5、合并单元格
+
+使用 `mergeCells()`：
+
+```json
+[  
+    {    
+        "city": "广州市",  
+        "area": "天河区",
+        "gdp":"100"  
+    },  
+    {    
+        "city": "广州市",  
+        "area": "海珠区",
+        "gdp":"101"  
+    },  
+    {    
+        "city": "广州市",  
+        "area": "番禺区",
+        "gdp":"102"  
+    }, 
+    {    
+        "city": "广州市",  
+        "area": "增城区",
+        "gdp":"103"  
+    }, 
+    {    
+        "city": "深圳市",  
+        "area": "罗湖区",
+        "gdp":"200"  
+    }, 
+    {    
+        "city": "深圳市",  
+        "area": "福田区",
+        "gdp":"201"  
+    },  
+    {    
+        "city": "深圳市",  
+        "area": "南山区",
+        "gdp":"202"  
+    },  
+    {    
+        "city": "深圳市",  
+        "area": "宝安区",
+        "gdp":"203"  
+    }, 
+    {    
+        "city": "深圳市",  
+        "area": "龙岗区",
+        "gdp":"204"  
+    }, 
+    {    
+        "city": "深圳市",  
+        "area": "盐田区",
+        "gdp":"205"  
+    }, 
+    {    
+        "city": "广州市",  
+        "area": "白云区",
+        "gdp":"206"
+    },
+    {
+        "city": "上海市",
+        "area": "黄浦区",
+        "gdp":"301"
+    },
+    {
+        "city": "上海市",
+        "area": "徐汇区",
+        "gdp":"302"
+    }
+]  
+```
+
+```html
+<script type="application/javascript">
+    $('#bootstrap-table').bootstrapTable({
+        url: './../static/json/data.json',
+        pageSize: "10",             //每页显示10条
+        search:true,                //显示搜索
+        searchOnEnterKey:true,      //Enter触发搜索
+        pagination: true,           // 是否分页
+        columns: [
+            {
+                field: 'checkStatus',
+                checkbox:true
+            },
+            {
+                field: 'city',
+                title: '市'
+            },
+            {
+                field: 'area',
+                title: '区'
+            },
+            {
+                field: 'gdp',
+                title: 'GDP'
+            }
+        ],
+        onLoadSuccess: function () {//当所有数据被加载时触发处理函数
+            var data = $('#bootstrap-table').bootstrapTable('getData', true);//获取当前页数据
+            mergeCells(data,'city',1,$('#bootstrap-table'));
+        },
+        onPageChange: function (){//当页面更改页码或页面大小时触发
+            var data = $('#bootstrap-table').bootstrapTable('getData', true);
+            mergeCells(data,'city',1,$('#bootstrap-table'));
+        },
+    });
+
+    function mergeCells(data,fieldName,colspan,target){
+        //声明一个map计算相同属性值在data对象出现的次数和
+        var sortMap = {};
+        for(var i = 0 ; i < data.length ; i++){
+            for(var prop in data[i]){
+                if(prop == fieldName){
+                    var key = data[i][prop]     //fieldName的value
+                    if(sortMap.hasOwnProperty(key)){
+                        sortMap[key] = sortMap[key] * 1 + 1;
+                    } else {
+                        sortMap[key] = 1;
+                    }
+                    break;
+                }
+            }
+        }
+        //合并单元格
+        var index = 0;
+        for(var prop in sortMap){
+            var count = sortMap[prop] * 1;
+            $(target).bootstrapTable('mergeCells',{index:index, field:fieldName, colspan: colspan, rowspan: count});
+            index += count;
+        }
+    }
+</script>
+```
+

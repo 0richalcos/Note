@@ -2326,9 +2326,21 @@ INSERT IGNORE INTO当插入数据时，在设置了记录的唯一性后，如�
 
 ## 17.1、时间日期相关
 
-### 17.1.1、日期差
+### 17.1.1、时间差
 
-**天数差**
+#### DATEDIFF() 
+
+DATEDIFF() 函数返回两个日期之间的天数。
+
+**语法：**
+
+```mysql
+DATEDIFF(date1,date2)
+```
+
+*date1* 和 *date2* 参数是合法的日期或日期/时间表达式。
+
+**实例：**
 
 ```MYSQL
 SELECT DATEDIFF(DATE_FORMAT(NOW(), '%Y-%m-%d'),DATE_FORMAT('2018-09-10','%Y-%m-%d'))
@@ -2338,35 +2350,53 @@ SELECT DATEDIFF(DATE_FORMAT(NOW(), '%Y-%m-%d'),DATE_FORMAT('2018-09-10','%Y-%m-%
 
 <img src="../Images/MySQL/20180917110456408370.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
 
+
+
+#### TIMESTAMPDIFF()
+
+根据单位返回时间差，对于传入的 begin 和 end 不需要相同的数据结构，可以存在一个为 Date 一个 DateTime。
+
+**语法：**
+
+```mysql
+TIMESTAMPDIFF(unit,begin,end);
+```
+
+unit 参数是确定 (end-begin) 的结果的单位，表示为整数。 以下是有效单位：
+
+- MICROSECOND  微秒
+- SECOND  秒 
+- MINUTE  分钟 
+- HOUR  小时 
+- DAY  天 
+- WEEK  周 
+- MONTH  月份 
+- QUARTER  
+- YEAR  年份
+
+**实例：**
+
+2017-05-01 距现在多少天：
+
 ```MYSQL
 SELECT TIMESTAMPDIFF(DAY,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
 ```
 
- 结果：
-
 <img src="../Images/MySQL/20180917110456532385.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
 
-
-
-**年数差**
+2017-05-01 距现在多少年：
 
 ```mysql
 SELECT TIMESTAMPDIFF(YEAR,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
 ```
 
-结果：
+<img src="../Images/MySQL/99f5964ea791f1ca0521e3fb4bc1ab96.png" alt="img" style="zoom:80%;FLOAT:LEFT"  />
 
-<img src="../Images/MySQL/20180917110456254083.png" alt="技术分享图片" style="zoom:80%;float:left" />
-
-
-
-**月份差**
+2017-05-01 距现在多少月：
 
 ```mysql
 SELECT TIMESTAMPDIFF(MONTH,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
 ```
-
-结果：
 
 <img src="../Images/MySQL/20180917110456254083.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
 
@@ -2384,9 +2414,33 @@ SELECT NOW(),CURDATE(),CURTIME();
 
 
 
-### 17.1.3、前一天和后一天
+### 17.1.3、求几天前几天后
 
-**获取前一天**
+DATE_SUB() 函数从日期减去指定的时间间隔。
+
+> DATE_ADD() 函数向日期添加指定的时间间隔。两种方法使用方式相同。
+
+**语法：**
+
+```mysql
+DATE_SUB(date,INTERVAL expr type)
+```
+
+*date* 参数是合法的日期表达式。*expr* 参数是您希望添加的时间间隔。type 参数可以是下列值：
+
+- MICROSECOND
+- SECOND
+- MINUTE
+- HOUR
+- DAY
+- WEEK
+- MONTH
+- QUARTER
+- YEAR
+
+**实例：**
+
+获取前一天
 
 ```mysql
 SELECT DATE_SUB(CURDATE(),INTERVAL 1 DAY);
@@ -2396,9 +2450,7 @@ SELECT DATE_SUB(CURDATE(),INTERVAL 1 DAY);
 
 <img src="../Images/MySQL/20180917110455670136.png" alt="技术分享图片" style="zoom:80%;float:left" />
 
-
-
-**获取后一天**
+获取后一天
 
 ```mysql
 SELECT DATE_SUB(CURDATE(),INTERVAL -1 DAY);

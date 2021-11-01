@@ -580,6 +580,8 @@ Spring 框架提供的 RestTemplate 类可用于在应用中调用 REST 服务�
 
 
 
+**发送简单的请求**
+
 1. 创建两个服务并注册到 Consul 注册中心中
 
 	- users	  	代表用户服务，端口为 9999
@@ -636,6 +638,54 @@ Spring 框架提供的 RestTemplate 类可用于在应用中调用 REST 服务�
 	![image-20210804004640357](../Images/SpringCloud/image-20210804004640357.png)
 
 	![image-20210804004717424](../Images/SpringCloud/image-20210804004717424.png)
+
+
+
+**添加请求头 Headers 和请求体 Body**
+
+```java
+RestTemplate restTemplate = new RestTemplate();
+HttpHeaders headers = new HttpHeaders();
+headers.setContentType(MediaType.APPLICATION_JSON);
+headers.add("Authorization", token);
+// MultiValueMap<String, Object> map=new LinkedMultiValueMap<>();
+HashMap<String, String> map = new HashMap<>();
+map.put("username", "Orichalcos");
+map.put("password", "OriPass");
+HttpEntity<HashMap<String, String>> httpEntity = new HttpEntity<>(map, headers);
+JSONObject jsonObject = restTemplate.postForObject("url", httpEntity, JSONObject.class);
+```
+
+> 当没有请求头信息时，用 `MultiValueMap<String, Object> map=new LinkedMultiValueMap<>();`
+>
+> 当有请求头信息时，用 `HashMap<String, Object> map = new HashMap<>();`
+
+上述代码设置了 `headers` 里面的 `Content-Type` 为 `application/json` ，添加了一个 `Authorization` 属性，`body` 里设置了用户名和密码。如果想要设置更复杂的 `Content_Type` 可以使用以下方法：
+
+```java
+MediaType type = MediaType.parseMediaType("application/json;charset=UTF-8");
+httpHeaders.setContentType(type);
+```
+
+> 如果想要获取更为完整的响应，可以使用 `postForEntity()`。
+>
+> getForObject 函数实际上是对 getForEntity 函数的进一步封装，如果你只关注返回的消息体的内容，对其他信息都不关注，此时可以使用getForObject。
+
+
+
+**发送其他类型的 HTTP 请求**
+
+```java
+exchange(String url, HttpMethod method,HttpEntity requestEntity, Class responseType, Object... uriVariables)
+```
+
+参数说明：
+
+- url：请求路径
+- method：请求的方法（GET、POST、PUT等）
+- requestEntity：HttpEntity 对象，封装了请求头和请求体
+- responseType：返回数据类型
+- uriVariables：支持 PathVariable 类型的数据。
 
 
 
