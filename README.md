@@ -46,6 +46,7 @@
 
 ## 前端
 
+- [**JavaScript**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaScript.md)
 - [**jQuery**](https://github.com/0richalcos/Note/blob/main/Markdown/jQuery.md)
 - [**Thymeleaf**](https://github.com/0richalcos/Note/blob/main/Markdown/Thymeleaf.md)
 - [**Bootstrap Table**](https://github.com/0richalcos/Note/blob/main/Markdown/BootstrapTable.md)
