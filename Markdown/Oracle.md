@@ -96,16 +96,19 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 2. 删除 Oracle *注册表项
 
-	`HKEY_LOCAL_MACHINE/SOFTWARE/Oracle*`
-	![Oracle注册表项](../Images/Oracle/format,png.png)
+  `HKEY_LOCAL_MACHINE/SOFTWARE/Oracle*`
 
-	`HKEY_LOCAL_MACHINE/SOFTWARE/Wow6432Node/Oracle*`
-	![Oracle注册表项](../Images/Oracle/format,png.png)
+  ![Oracle注册表项](../Images/Oracle/format,png.png)
 
-	`HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Services/Oracle*`
-	![Oracle注册表项](../Images/Oracle/format,png.png)
+  `HKEY_LOCAL_MACHINE/SOFTWARE/Wow6432Node/Oracle*`
 
-	重新启动Windows。
+  ![Oracle注册表项](../Images/Oracle/format,png.png)
+
+  `HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Services/Oracle*`
+
+  ![Oracle注册表项](../Images/Oracle/format,png.png)
+
+  重新启动Windows。
 
 3. 删除以下 Oracle * 文件夹和文件（如果存在）:
 
