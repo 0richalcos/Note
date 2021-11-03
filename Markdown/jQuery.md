@@ -1905,3 +1905,152 @@ $.param(obj或array)
 name=Orichalcos&age=25
 ```
 
+
+
+## 5.6、jQuery When
+
+### 5.6.1、什么是deferred对象？
+
+开发网站的过程中，我们经常遇到某些耗时很长的 javascript 操作。其中，既有异步的操作（比如 ajax 读取服务器数据），也有同步的操作（比如遍历一个大型数组），它们都不是立即能得到结果的。
+
+通常的做法是，为它们指定回调函数（callback）。即事先规定，一旦它们运行结束，应该调用哪些函数。
+
+但是，在回调函数方面，jQuery 的功能非常弱。为了改变这一点，jQuery 开发团队就设计了 deferred 对象。
+
+简单说，deferred 对象就是 jQuery 的回调函数解决方案。在英语中，defer 的意思是"延迟"，所以 deferred 对象的含义就是 "延迟" 到未来某个点再执行。
+
+
+
+### 5.6.2、ajax 操作的链式写法
+
+jQuery 的 ajax 操作的传统写法：
+
+```javascript
+$.ajax({
+    url: "test.html",
+    success: function(){
+        alert("哈哈，成功了！");
+    },
+    error:function(){
+        alert("出错啦！");
+    }
+});
+```
+
+在上面的代码中， $.ajax() 接受一个对象参数，这个对象包含两个方法：success 方法指定操作成功后的回调函数，error 方法指定操作失败后的回调函数。
+
+$.ajax() 操作完成后，如果使用的是低于 1.5.0 版本的 jQuery，返回的是 XHR 对象，你没法进行链式操作；如果高于 1.5.0 版本，返回的是 deferred 对象，可以进行链式操作。
+
+现在，新的写法是这样的：
+
+```javascript
+$.ajax("test.html")
+    .done(function(){ alert("哈哈，成功了！"); })
+    .fail(function(){ alert("出错啦！"); });
+```
+
+可以看到，done() 相当于 success 方法，fail() 相当于 error 方法。采用链式写法以后，代码的可读性大大提高。
+
+有时为了省事，可以把done()和fail()合在一起写，这就是 then() 方法。
+
+```javascript
+$.when($.ajax( "/main.php" ))
+    .then(successFunc, failureFunc );
+```
+
+如果 then() 有两个参数，那么第一个参数是 done() 方法的回调函数，第二个参数是 fail() 方法的回调方法。如果 then() 只有一个参数，那么等同于done()。
+
+
+
+### 5.6.3、为操作指定多个回调函数
+
+deferred 对象的一大好处，就是它允许自由添加多个回调函数。
+
+还是以上面的代码为例，如果 ajax 操作成功后，除了原来的回调函数，我还想再运行一个回调函数，怎么办？
+
+很简单，直接把它加在后面就行了。
+
+```javascript
+$.ajax("test.html")
+    .done(function(){ alert("哈哈，成功了！");} )
+    .fail(function(){ alert("出错啦！"); } )
+    .done(function(){ alert("第二个回调函数！");} );
+```
+
+回调函数可以添加任意多个，它们按照添加顺序执行。
+
+
+
+### 5.6.4、为多个操作指定回调函数
+
+deferred 对象的另一大好处，就是它允许你为多个事件指定一个回调函数，这是传统写法做不到的。
+
+请看下面的代码，它用到了一个新的方法 $.when()：
+
+```javascript
+$.when($.ajax("test1.html"), $.ajax("test2.html"))
+    .done(function(){ alert("哈哈，成功了！"); })
+    .fail(function(){ alert("出错啦！"); });
+```
+
+这段代码的意思是，先执行两个操作 ` $.ajax("test1.html")` 和 `$.ajax("test2.html")`，如果都成功了，就运行 done() 指定的回调函数；如果有一个失败或都失败了，就执行 fail() 指定的回调函数。
+
+
+
+### 5.6.5、普通操作的回调函数接口
+
+deferred 对象的最大优点，就是它把这一套回调函数接口，从 ajax 操作扩展到了所有操作。也就是说，任何一个操作，不管是 ajax 操作还是本地操作，也不管是异步操作还是同步操作，都可以使用 deferred 对象的各种方法，指定回调函数。
+
+假定有一个很耗时的操作wait：
+
+```javascript
+var wait = function(){
+    var tasks = function(){
+        alert("执行完毕！");
+    };
+    setTimeout(tasks,5000);
+};
+```
+
+我们为它指定回调函数，应该怎么做呢？
+
+很自然的，你会想到，可以使用 $.when()：
+
+```javascript
+$.when(wait())
+    .done(function(){ alert("哈哈，成功了！"); })
+    .fail(function(){ alert("出错啦！"); });
+```
+
+但是这样写的话 done() 方法会立即执行，起不到回调函数的作用。原因在于 `$.when()` 的参数只能是 deferred 对象，所以必须对 wait() 进行改写：
+
+```javascript
+var wait = function(){
+    var dtd = $.Deferred(); // 新建一个deferred对象
+    var tasks = function(){
+        alert("执行完毕！");
+        dtd.resolve(); // 改变deferred对象的执行状态
+    };
+    setTimeout(tasks,5000);
+    return dtd.promise(); // 返回promise对象
+};
+```
+
+现在，wait() 函数返回的是 deferred 对象，这就可以加上链式操作了。
+
+```javascript
+$.when(wait(dtd))
+    .done(function(){ alert("哈哈，成功了！"); })
+    .fail(function(){ alert("出错啦！"); });
+```
+
+> jQuery 规定，deferred 对象有三种执行状态：未完成，已完成和已失败。如果执行状态是 "已完成"（resolved），deferred 对象立刻调用 done() 方法指定的回调函数；如果执行状态是 "已失败"，调用 fail() 方法指定的回调函数；如果执行状态是 "未完成"，则继续等待，或者调用progress() 方法指定的回调函数（jQuery1.7版本添加）。
+
+类似的，还存在一个 `deferred.reject()` 方法，作用是将 dtd 对象的执行状态从 "未完成" 改为 "已失败"，从而触发 fail() 方法。
+
+
+
+# 6、其他
+
+`$(window).height()` 获取当前可见区域的大小，当浏览器窗口大小改变时（如最大化或拉大窗口后），`$(window).height()` 随之改变。
+
