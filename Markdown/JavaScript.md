@@ -316,3 +316,82 @@ cars.push("Volvo");
 cars = ["Honda", "Toyota", "Volvo"];    // ERROR
 ```
 
+
+
+## 1.4、JS 数据类型
+
+**String，Number，Boolean，Undefined，Null，Object。**
+
+JavaScript 拥有动态类型，这意味着相同变量可用作不同类型：
+
+```javascript
+var x;               // 现在 x 是 undefined
+var x = 7;           // 现在 x 是数值
+var x = "Bill";      // 现在 x 是字符串值
+```
+
+
+
+**String**
+
+字符串（或文本字符串）是一串字符（比如 "Bill Gates"），字符串被引号包围，可使用单引号或双引号：
+
+```javascript
+var carName = "Porsche 911";   // 使用双引号
+var carName = 'Porsche 911';   // 使用单引号
+```
+
+
+
+**Number**
+
+JavaScript 只有一种数值类型，写数值时用不用小数点均可：
+
+```javascript
+var x1 = 34.00;     // 带小数点
+var x2 = 34;        // 不带小数点
+```
+
+
+
+**Boolean**
+
+布尔值只有两个值：`true` 或 `false`。
+
+```javascript
+var x = true;
+var y = false;
+```
+
+
+
+**Undefined**
+
+在 JavaScript 中，没有值的变量，其值是 `undefined`。typeof 也返回 `undefined`。
+
+
+
+**Object**
+
+JavaScript 对象用花括号来书写。对象属性是 `name:value` 对，由逗号分隔。
+
+```javascript
+var person = {firstName:"Bill", lastName:"Gates", age:62, eyeColor:"blue"};
+```
+
+上例中的对象（person）有四个属性：firstName、lastName、age 以及 eyeColor。
+
+
+
+**typeof 运算符**
+
+`typeof` 运算符返回变量或表达式的类型：
+
+```javascript
+typeof ""                  // 返回 "string"
+typeof "Bill"              // 返回 "string"
+typeof "Bill Gates"          // 返回 "string"
+```
+
+typeof 运算符对数组返回 "object"，因为在 JavaScript 中数组属于对象。
+

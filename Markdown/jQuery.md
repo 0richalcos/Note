@@ -1960,6 +1960,8 @@ $.when($.ajax( "/main.php" ))
 
 如果 then() 有两个参数，那么第一个参数是 done() 方法的回调函数，第二个参数是 fail() 方法的回调方法。如果 then() 只有一个参数，那么等同于done()。
 
+另外，还有个 always() 方法，不管调用的是 deferred.resolve() 还是 deferred.reject()，最后总是执行。
+
 
 
 ### 5.6.3、为操作指定多个回调函数
