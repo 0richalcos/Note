@@ -1446,7 +1446,65 @@ public String defaultFallback() {
 3. 编写入口类：
 
 	```java
+	@SpringBootApplication
+	@EnableDiscoveryClient
+	//开启OpenFeign调用
+	@EnableFeignClients
+	public class OpenfeignHystrix8991Application {
+	    public static void main(String[] args) {
+	        SpringApplication.run(OpenfeignHystrix8991Application.class, args);
+	    }
+	}
 	```
 
+4. 编写 OpenFeign 客户端：
+
+	```java
+	@FeignClient("hystrix")
+	public interface HystrixClient {
+	    @GetMapping("/demo")
+	    String demo(@RequestParam("id") int id);
+	}
+	```
+
+5. 开发 fallback 处理类：实现 HystrixClient，重写的方法就是对应的 fallback 处理
+
+	```java
+	@Configuration
+	public class HystrixFallBack implements HystrixClient {
+	    @Override
+	    public String demo(int id) {
+	        return "当前服务不可用,请稍后再试,id:" + id;
+	    }
+	}
+	```
+
+6. 在 OpenFeign 客户端中加入 Hystrix：
+
+	```java
+	@FeignClient(value = "hystrix", fallback = HystrixFallBack.class)
+	```
+
+7. 编写一个 Controller 测试：
+
+	```java
+	@RestController
+	public class DemoController {
 	
+	    @Autowired
+	    private HystrixClient hystrixClient;
+	
+	    @GetMapping("/test")
+	    public String test() {
+	        String result = hystrixClient.demo(-1);
+	        return "feignHystrix调用成功：" + result;
+	    }
+	}
+	```
+
+	![image-20211108000721009](../Images/SpringCloud/image-20211108000721009.png)
+
+
+
+# 7、服务网关组件
 
