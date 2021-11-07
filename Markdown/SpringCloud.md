@@ -1298,3 +1298,155 @@ order.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
 
 ### 6.2.2、服务熔断的实现
 
+1. 添加一个微服务 springcloud_hystrix，并引入相关依赖：
+
+	```xml
+	<!--引入hystrix-->
+	<dependency>
+	    <groupId>org.springframework.cloud</groupId>
+	    <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+	</dependency>
+	```
+
+2. 配置下 application.properties 文件：
+
+	```properties
+	server.port=8990
+	spring.application.name=hystrix
+	#注册到consul server上
+	spring.cloud.consul.host=localhost
+	spring.cloud.consul.port=8500
+	```
+
+3. 在 SpringApplication 入口类上加入开启断路器的注解：
+
+	```java
+	@SpringBootApplication
+	@EnableDiscoveryClient
+	//开启Hystrix服务熔断
+	@EnableHystrix
+	public class Hystrix8990Application {
+	    public static void main(String[] args) {
+	        SpringApplication.run(Hystrix8990Application.class, args);
+	    }
+	}
+	```
+
+4. 编写一个  Controller，使用 HystrixCommand 注解实现断路
+
+	```java
+	@RestController
+	public class DemoController {
+	
+	    private static final Logger LOGGER = LoggerFactory.getLogger(DemoController.class);
+	
+	    @GetMapping("/demo")
+	    //指定熔断时快速返回方法
+	    @HystrixCommand(fallbackMethod = "testBreakFall")
+	    public String testBreak(int id) {
+	        LOGGER.info("接收的Id为：{}", id);
+	        if (id < 0) {
+	            throw new RuntimeException("数据不合法");
+	        }
+	        return "接收的Id为：" + id;
+	    }
+	
+	    public String testBreakFall(int id) {
+	        return "当前数据不合法：" + id;
+	    }
+	}
+	```
+
+5. 测试，访问 [localhost:8990/demo?id=-1](http://localhost:8990/demo?id=-1) 和 [localhost:8990/demo?id=1](http://localhost:8990/demo?id=1)
+
+	![image-20211107231830649](../Images/SpringCloud/image-20211107231830649.png)
+
+
+
+**断路器的开启条件**
+
+当多次调用错误参数后，断路器会自动打开，此时正常调用也会出发断路器：
+
+![image-20211107232033660](../Images/SpringCloud/image-20211107232033660.png)
+
+因为当达成 Hystrix 的打开条件后，断路器就会自动打开：
+
+1. 当满足一定的阀值的时候（默认10秒内超过20个请求次数）
+2. 当失败率达到一定的时候（默认10秒内超过50%的请求失败）
+
+当开启的时候，所有请求都不会进行转发。一段时间之后（默认是5秒），这个时候断路器是半开状态，会让其中一个请求进行转发。如果成功，断路器会关闭，若失败，继续开启。
+
+
+
+**断路器流程**
+
+![image-20211107232403809](../Images/SpringCloud/image-20211107232403809.png)
+
+
+
+**默认的服务 FallBack 处理方法**
+
+如果为每一个服务方法开发一个降级，对于我们来说可能会出现大量的代码的冗余，不利于维护，这个时候就需要加入默认服务降级处理方法
+
+```java
+@GetMapping("/default")
+@HystrixCommand(defaultFallback = "defaultFallback")
+public String defaultTest() {
+    throw new RuntimeException("异常啦！");
+}
+
+public String defaultFallback() {
+    return "此为默认响应";
+}
+```
+
+
+
+### 6.2.3、服务降级的实现
+
+1. 创建一个新的微服务：openfeignHystrix，并引入相关依赖：
+
+	```xml
+	<dependencies>
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-web</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework.cloud</groupId>
+	        <artifactId>spring-cloud-starter-consul-discovery</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-actuator</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework.cloud</groupId>
+	        <artifactId>spring-cloud-starter-openfeign</artifactId>
+	    </dependency>
+	</dependencies>
+	```
+
+	因为 OpfenFeign 中包含了 Hystrix 依赖，所以无需再次引入：
+
+	![image-20211107235244640](../Images/SpringCloud/image-20211107235244640.png)
+
+2. 配置一下 application.properties，并开启openfeign支持服务降级：
+
+	```properties
+	server.port=8991
+	spring.application.name=openfeignHystrix
+	#注册到consul server
+	spring.cloud.consul.port=8500
+	spring.cloud.consul.host=localhost
+	#开启openfeign支持服务降级
+	feign.hystrix.enabled=true
+	```
+
+3. 编写入口类：
+
+	```java
+	```
+
+	
+
