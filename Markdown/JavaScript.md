@@ -1737,7 +1737,7 @@ console.log(add10(2)); // 12
 
 
 
-# 3.0、Browser 对象
+# 3、Browser 对象
 
 ## 3.1、存储对象
 
