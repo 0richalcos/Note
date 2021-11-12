@@ -1566,10 +1566,6 @@ var person1 = {
     firstName:"Bill",
     lastName: "Gates",
 }
-var person2 = {
-    firstName:"Steve",
-    lastName: "Jobs",
-}
 person.fullName.call(person1);  // 将返回 "Bill Gates"
 ```
 
@@ -1668,4 +1664,175 @@ Math.max.apply(null, [1,2,3]); // 也会返回 3
 ```
 
 第一个参数（null）无关紧要。在本例中未使用它。
+
+
+
+## 2.5、JS 闭包
+
+一个函数和对其周围状态（**lexical environment，词法环境**）的引用捆绑在一起（或者说函数被引用包围），这样的组合就是**闭包**（**closure**）。也就是说，闭包让你可以在一个内层函数中访问到其外层函数的作用域。在 JavaScript 中，每当创建一个函数，闭包就会在函数创建的同时被创建出来。
+
+
+
+**词法作用域**
+
+```javascript
+function init() {
+    var name = "Mozilla"; // name 是一个被 init 创建的局部变量
+    function displayName() { // displayName() 是内部函数，一个闭包
+        alert(name); // 使用了父函数中声明的变量
+    }
+    displayName();
+}
+init();
+```
+
+`init()` 创建了一个局部变量 `name` 和一个名为 `displayName()` 的函数。`displayName()` 是定义在 `init()` 里的内部函数，并且仅在 `init()` 函数体内可用。请注意，`displayName()` 没有自己的局部变量。然而，因为它可以访问到外部函数的变量，所以 `displayName()` 可以使用父函数 `init()` 中声明的变量 `name `。
+
+运行该代码后发现， `displayName()` 函数内的 `alert()` 语句成功显示出了变量 `name` 的值（该变量在其父函数中声明）。这个词法作用域的例子描述了分析器如何在函数嵌套的情况下解析变量名。词法（lexical）一词指的是，词法作用域根据源代码中声明变量的位置来确定该变量在何处可用。嵌套函数可访问声明于它们外部作用域的变量。
+
+
+
+**闭包**
+
+```javascript
+function makeFunc() {
+    var name = "Mozilla";
+    function displayName() {
+        alert(name);
+    }
+    return displayName;
+}
+
+var myFunc = makeFunc();
+myFunc();
+```
+
+运行这段代码的效果和之前 `init()` 函数的示例完全一样。其中不同的地方（也是有意思的地方）在于内部函数 `displayName()` 在执行前，从外部函数返回。
+
+第一眼看上去，也许不能直观地看出这段代码能够正常运行。在一些编程语言中，一个函数中的局部变量仅存在于此函数的执行期间。一旦 `makeFunc()` 执行完毕，你可能会认为 `name` 变量将不能再被访问。然而，因为代码仍按预期运行，所以在 JavaScript 中情况显然与此不同。
+
+原因在于，JavaScript 中的函数会形成了闭包。 闭包是由函数以及声明该函数的词法环境组合而成的。该环境包含了这个闭包创建时作用域内的任何局部变量。在本例子中，`myFunc` 是执行 `makeFunc` 时创建的 `displayName` 函数实例的引用。`displayName` 的实例维持了一个对它的词法环境（变量 `name` 存在于其中）的引用。因此，当 `myFunc` 被调用时，变量 `name` 仍然可用，其值 `Mozilla` 就被传递到 `alert` 中。
+
+下面是一个更有意思的示例 — 一个 `makeAdder` 函数：
+
+```javascript
+function makeAdder(x) {
+  return function(y) {
+    return x + y;
+  };
+}
+
+var add5 = makeAdder(5);
+var add10 = makeAdder(10);
+
+console.log(add5(2));  // 7
+console.log(add10(2)); // 12
+```
+
+在这个示例中，我们定义了 `makeAdder(x)` 函数，它接受一个参数 `x` ，并返回一个新的函数。返回的函数接受一个参数 `y`，并返回`x+y`的值。
+
+从本质上讲，`makeAdder` 是一个函数工厂 — 他创建了将指定的值和它的参数相加求和的函数。在上面的示例中，我们使用函数工厂创建了两个新函数 — 一个将其参数和 5 求和，另一个和 10 求和。
+
+`add5` 和 `add10` 都是闭包。它们共享相同的函数定义，但是保存了不同的词法环境。在 `add5` 的环境中，`x` 为 5。而在 `add10` 中，`x` 则为 10。
+
+
+
+# 3.0、Browser 对象
+
+## 3.1、存储对象
+
+Web 存储 API 提供了 sessionStorage （会话存储） 和 localStorage（本地存储）两个存储对象来对网页的数据进行添加、删除、修改、查询操作。
+
+- localStorage 用于长久保存整个网站的数据，保存的数据没有过期时间，直到手动去除。
+- sessionStorage 用于临时保存同一窗口(或标签页)的数据，在关闭窗口或标签页之后将会删除这些数据。
+
+
+
+**存储对象属性**
+
+| 属性   | 描述                           |
+| ------ | ------------------------------ |
+| length | 返回存储对象中包含多少条数据。 |
+
+
+
+**存储对象方法**
+
+| 方法                        | 描述                                               |
+| --------------------------- | -------------------------------------------------- |
+| key(*n*)                    | 返回存储对象中第 *n* 个键的名称                    |
+| getItem(*keyname*)          | 返回指定键的值                                     |
+| setItem(*keyname*, *value*) | 添加键和值，如果对应的值存在，则更新该键对应的值。 |
+| removeItem(*keyname*)       | 移除键                                             |
+| clear()                     | 清除存储对象中所有的键                             |
+
+
+
+### 3.1.1、localStorage
+
+localStorage 和 sessionStorage 属性允许在浏览器中存储 key/value 对的数据。localStorage 用于长久保存整个网站的数据，保存的数据没有过期时间，直到手动去删除。
+
+localStorage 属性是只读的。
+
+
+
+**localStorage 的优势**
+
+1. localStorage 拓展了 cookie 的 4K 限制。
+2.  localStorage 会可以将第一次请求的数据直接存储到本地，这个相当于一个 5M 大小的针对于前端页面的数据库，相比于 cookie 可以节约带宽，但是这个却是只有在高版本的浏览器中才支持的。
+
+
+
+**localStorage 的局限**
+
+1. 浏览器的大小不统一，并且在 IE8 以上的 IE 版本才支持 localStorage 这个属性。
+2. 目前所有的浏览器中都会把 localStorage 的值类型限定为 string 类型，这个在对我们日常比较常见的 JSON 对象类型需要一些转换。
+3. localStorage 在浏览器的隐私模式下面是不可读取的。
+4. localStorage 本质上是对字符串的读取，如果存储内容多的话会消耗内存空间，会导致页面变卡。
+5. localStorage 不能被爬虫抓取到。
+
+
+
+**localStorage 使用**
+
+首先在使用 localStorage 的时候，我们需要判断浏览器是否支持 localStorage 这个属性：
+
+```javascript
+if(!window.localStorage){
+    alert("浏览器不支持localstorage");
+    return false;
+}else{
+    //主逻辑业务
+}
+```
+
+localStorage 的写入有三种方法：
+
+```javascript
+if(!window.localStorage){
+    alert("浏览器不支持localstorage");
+    return false;
+}else{
+    var storage=window.localStorage;
+    //写入a字段
+    storage["a"]=1;
+    //写入b字段
+    storage.b=1;
+    //写入c字段
+    storage.setItem("c",3);
+    console.log(typeof storage["a"]); //string
+    console.log(typeof storage["b"]); //string
+    console.log(typeof storage["c"]); //string
+}
+```
+
+这里面是三种对 localStorage 的读取，其中官方推荐的是 `getItem\setItem` 这两种方法对其进行存取，这里要特别说明一下 localStorage 的使用也是遵循同源策略的，所以不同的网站直接是不能共用相同的 localStorage。
+
+
+
+### 3.2.2、sessionStorage 
+
+localStorage 和 sessionStorage 属性允许在浏览器中存储 key/value 对的数据。sessionStorage 用于临时保存同一窗口(或标签页)的数据，在关闭窗口或标签页之后将会删除这些数据。
+
+其余和 localStorage  相似。
 
