@@ -93,7 +93,7 @@ service nginx reload
 	- vs code `Remote`(扩展)
 	- 下载、编辑、上传 [scp]
 
-2. 增加以下内容
+2. 在 `http{}` 中增加以下内容，其中 `[ip]` 为 ip 地址或域名：
 
 	```shell
 	server{
@@ -472,7 +472,6 @@ apt install iputils-ping
 # 查看网络是否连通
 ping u3
 ```
-
 
 
 

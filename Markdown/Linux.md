@@ -57,7 +57,7 @@ Linux 系统是一种典型的多用户系统，不同的用户处于不同的�
 
 在 Linux 中我们可以使用 `ll` 或者 `ls –l` 命令来显示一个文件的属性以及文件所属的用户和组，如：
 
-```shell
+```
 root@Orichalcos:/# ls -l
 total 970036
 lrwxrwxrwx   1 root root         7 Sep 22 10:02 bin -> usr/bin
@@ -184,7 +184,7 @@ chmod [-R] xyz 文件或目录
 
 如果需要将文件权限设置为 **-rwxr-xr--** ，可以使用 `chmod u=rwx,g=rx,o=r 文件名` 来设定:
 
-```shell
+```
 #  touch test1    // 创建 test1 文件
 # ls -al test1    // 查看 test1 默认权限
 -rw-r--r-- 1 root root 0 Nov 15 10:32 test1
@@ -192,4 +192,155 @@ chmod [-R] xyz 文件或目录
 # ls -al test1
 -rwxr-xr-- 1 root root 0 Nov 15 10:32 test1
 ```
+
+
+
+# 5、文件与目录管理
+
+Linux的目录结构为树状结构，最顶级的目录为根目录 `/`。其他目录通过挂载可以将它们添加到树中，通过解除挂载可以移除它们。
+
+绝对路径与相对路径。
+
+- **绝对路径：**
+	路径的写法，由根目录 `/` 写起，例如： /usr/share/doc 这个目录。
+- **相对路径：**
+	路径的写法，不是由 `/` 写起，例如由 /usr/share/doc 要到 /usr/share/man 底下时，可以写成： **cd ../man** 这就是相对路径的写法。
+
+
+
+**处理目录的常用命令**
+
+- ls（英文全拼：list files）: 列出目录及文件名
+- cd（英文全拼：change directory）：切换目录
+- pwd（英文全拼：print work directory）：显示目前的目录
+- mkdir（英文全拼：make directory）：创建一个新的目录
+- rmdir（英文全拼：remove directory）：删除一个空的目录
+- cp（英文全拼：copy file）: 复制文件或目录
+- rm（英文全拼：remove）: 删除文件或目录
+- mv（英文全拼：move file）: 移动文件与目录，或修改文件与目录的名称
+
+可以使用 `man [命令]` 来查看各个命令的使用文档，如 ：man cp。
+
+
+
+**ls (列出目录)**
+
+在Linux系统当中， ls 命令可能是最常被运行的。
+
+语法：
+
+```
+[root@www ~]# ls [-aAdfFhilnrRSt] 目录名称
+[root@www ~]# ls [--color={never,auto,always}] 目录名称
+[root@www ~]# ls [--full-time] 目录名称
+```
+
+选项与参数：
+
+- -a ：全部的文件，连同隐藏文件( 开头为 . 的文件) 一起列出来(常用)
+- -d ：仅列出目录本身，而不是列出目录内的文件数据(常用)
+- -l ：长数据串列出，包含文件的属性与权限等等数据；(常用)
+
+将家目录下的所有文件列出来（含属性与隐藏档）
+
+```shell
+ls -al ~
+```
+
+
+
+**cd (切换目录)**
+
+cd 是 Change Directory 的缩写，这是用来变换工作目录的命令。
+
+语法：
+
+```shell
+ cd [相对路径或绝对路径]
+```
+
+```
+#使用 mkdir 命令创建 runoob 目录
+[root@www ~]# mkdir runoob
+
+#使用绝对路径切换到 runoob 目录
+[root@www ~]# cd /root/runoob/
+
+#使用相对路径切换到 runoob 目录
+[root@www ~]# cd ./runoob/
+
+# 表示回到自己的家目录，亦即是 /root 这个目录
+[root@www runoob]# cd ~
+
+# 表示去到目前的上一级目录，亦即是 /root 的上一级目录的意思；
+[root@www ~]# cd ..
+```
+
+
+
+**pwd (显示目前所在的目录)**
+
+pwd 是 Print Working Directory 的缩写，也就是显示目前所在目录的命令。
+
+语法：
+
+```shell
+pwd [-P]
+```
+
+选项与参数：
+
+- -P ：显示出确实的路径，而非使用连结（link）路径。
+
+单纯显示出目前的工作目录：
+
+```
+[root@www ~]# pwd
+/root   <== 显示出目录啦～
+```
+
+显示出实际的工作目录，而非连结档本身的目录名：
+
+```
+[root@www ~]# cd /var/mail   <==注意，/var/mail是一个连结档
+[root@www mail]# pwd
+/var/mail         <==列出目前的工作目录
+[root@www mail]# pwd -P
+/var/spool/mail   <==怎么回事？有没有加 -P 差很多～
+[root@www mail]# ls -ld /var/mail
+lrwxrwxrwx 1 root root 10 Sep  4 17:54 /var/mail -> spool/mail
+# 看到这里应该知道为啥了吧？因为 /var/mail 是连结档，连结到 /var/spool/mail 
+# 所以，加上 pwd -P 的选项后，会不以连结档的数据显示，而是显示正确的完整路径啊！
+```
+
+
+
+**rmdir (删除空的目录)**
+
+语法：
+
+```shell
+ rmdir [-p] 目录名称
+```
+
+选项与参数：
+
+- -p ：从该目录起，一次删除多级空目录
+
+将 test/test1/test2 删除掉：
+
+```
+root@Orichalcos:~# ls -ld test/test1/test2
+drwxr-xr-x 2 root root 4096 Nov 15 16:27 test/test1/test2
+root@Orichalcos:~# rmdir test
+rmdir: failed to remove 'test': Directory not empty
+root@Orichalcos:~# rmdir -p test/test1/test2
+root@Orichalcos:~# ls -ld test/test1/test2
+ls: cannot access 'test/test1/test2': No such file or directory
+root@Orichalcos:~#
+```
+
+
+
+**cp (复制文件或目录)**
 

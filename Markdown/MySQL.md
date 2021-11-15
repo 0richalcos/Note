@@ -112,13 +112,74 @@ MySQL 为关系型数据库（Relational Database Management System），这种�
 
 	![image-20211115115812248](../Images/MySQL/image-20211115115812248.png)
 
-2. 
+2. 下载后打开文件开始安装，这里选择自定义安装：
+
+	![image-20211115141345534](../Images/MySQL/image-20211115141345534.png)
+
+3. 这里选择只安装基础的 MySQL 服务和 JDBC，并且勾选下面的选项：
+
+	![image-20211115141638695](../Images/MySQL/image-20211115141638695.png)
+
+4. 取消了文档：
+
+	![image-20211115141735403](../Images/MySQL/image-20211115141735403.png)
+
+5. 开始安装：
+
+	![image-20211115141804300](../Images/MySQL/image-20211115141804300.png)
+
+6. 开始配置：
+
+	![image-20211115141841846](../Images/MySQL/image-20211115141841846.png)
+
+7. 选择开发电脑：
+
+	![image-20211115142116388](../Images/MySQL/image-20211115142116388.png)
+
+8. 这里使用默认的加密加密方法：
+
+	![image-20211115142310317](../Images/MySQL/image-20211115142310317.png)
+
+9. 填写数据库密码：
+
+	![image-20211115142333702](../Images/MySQL/image-20211115142333702.png)
+
+10. 取消开机自启：
+
+	![image-20211115142440712](../Images/MySQL/image-20211115142440712.png)
+
+11. 应用配置：
+
+	![image-20211115142501957](../Images/MySQL/image-20211115142501957.png)
+
+12. 配置环境变量：
+
+	![image-20211115142610319](../Images/MySQL/image-20211115142610319.png)
+	![image-20211115142647651](../Images/MySQL/image-20211115142647651.png)
+
+13. 访问：
+
+	```shell
+	PS C:\Users\Orichalcos> mysql -u root -p
+	Enter password: ****
+	Welcome to the MySQL monitor.  Commands end with ; or \g.
+	Your MySQL connection id is 11
+	Server version: 8.0.27 MySQL Community Server - GPL
+	
+	Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+	
+	Oracle is a registered trademark of Oracle Corporation and/or its
+	affiliates. Other names may be trademarks of their respective
+	owners.
+	
+	Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+	
+	mysql>
+	```
 
 
 
-
-
-## 2.3、创建数据库
+## 2.4、创建数据库
 
 使用 `CREATE` 命令创建数据库，语法如下：
 
@@ -144,7 +205,7 @@ CREATE DATABASE [IF NOT EXISTS] <数据库名>
 
 
 
-## 2.4、数据库操作
+## 2.5、数据库操作
 
 **查看数据库**
 
@@ -212,25 +273,23 @@ USE <数据库名>;
 
 现在许多数据库管理系统都支持多种不同的存储引擎。MySQL 的核心就是存储引擎。
 
-提示：InnoDB 事务型数据库的首选引擎，支持事务安全表（ACID），支持行锁定和外键。MySQL 5.5.5 之后，InnoDB 作为默认存储引擎。
-
-MyISAM 是基于 ISAM 的存储引擎，并对其进行扩展，是在 Web、数据仓储和其他应用环境下最常使用的存储引擎之一。MyISAM 拥有较高的插入、查询速度，但不支持事务。
-
-MEMORY 存储引擎将表中的数据存储到内存中，为查询和引用其他数据提供快速访问。
+- InnoDB 事务型数据库的首选引擎，支持事务安全表（ACID），支持行锁定和外键。MySQL 5.5.5 之后，InnoDB 作为默认存储引擎。
+- MyISAM 是基于 ISAM 的存储引擎，并对其进行扩展，是在 Web、数据仓储和其他应用环境下最常使用的存储引擎之一。MyISAM 拥有较高的插入、查询速度，但不支持事务。
+- MEMORY 存储引擎将表中的数据存储到内存中，为查询和引用其他数据提供快速访问。
 
 
 
 ## 3.2、支持的存储引擎
 
-MySQL 支持多种类型的数据库引擎，可分别根据各个引擎的功能和特性为不同的数据库处理任务提供各自不同的适应性和灵活性。在 MySQL 中，可以利用 ==SHOW ENGINES== 语句来显示可用的数据库引擎和默认引擎。
+MySQL 支持多种类型的数据库引擎，可分别根据各个引擎的功能和特性为不同的数据库处理任务提供各自不同的适应性和灵活性。
 
 MySQL 提供了多个不同的存储引擎，包括处理事务安全表的引擎和处理非事务安全表的引擎。在 MySQL 中，不需要在整个服务器中使用同一种存储引擎，针对具体的要求，可以对每一个表使用不同的存储引擎。
 
-支持的存储引擎有 InnoDB、MyISAM、Memory、Merge、Archive、Federated、CSV、BLACKHOLE 等。可以使用SHOW ENGINES语句查看系统所支持的引擎类型，结果如图所示：
+支持的存储引擎有 InnoDB、MyISAM、Memory、Merge、Archive、Federated、CSV、BLACKHOLE 等。可以使用 `SHOW ENGINES` 语句查看系统所支持的引擎类型，结果如图所示：
 
 <img src="../Images/MySQL/image-20200528235456064.png" alt="image-20200528235456064" style="zoom: 67%;" />
 
-Support 列的值表示某种引擎是否能使用，YES表示可以使用，NO表示不能使用，DEFAULT表示该引擎为当前默认的存储引擎。
+Support 列的值表示某种引擎是否能使用，YES 表示可以使用，NO 表示不能使用，DEFAULT 表示该引擎为当前默认的存储引擎。
 
 
 
@@ -253,13 +312,13 @@ Support 列的值表示某种引擎是否能使用，YES表示可以使用，NO�
 - 如果要提供提交、回滚和恢复的事务安全（ACID 兼容）能力，并要求实现并发控制，InnoDB 是一个很好的选择。
 - 如果数据表主要用来插入和查询记录，则 MyISAM 引擎提供较高的处理效率。
 - 如果只是临时存放数据，数据量不大，并且不需要较高的数据安全性，可以选择将数据保存在内存的 MEMORY 引擎中，MySQL 中使用该引擎作为临时表，存放查询的中间结果。
-- 如果只有 INSERT 和 SELECT 操作，可以选择Archive 引擎，Archive 存储引擎支持高并发的插入操作，但是本身并不是事务安全的。Archive 存储引擎非常适合存储归档数据，如记录日志信息可以使用 Archive 引擎。
+- 如果只有 `INSERT` 和 `SELECT` 操作，可以选择Archive 引擎，Archive 存储引擎支持高并发的插入操作，但是本身并不是事务安全的。Archive 存储引擎非常适合存储归档数据，如记录日志信息可以使用 Archive 引擎。
 
 提示：使用哪一种引擎要根据需要灵活选择，一个数据库中多个表可以使用不同的引擎以满足各种性能和实际需求。使用合适的存储引擎将会提高整个数据库的性能。
 
 
 
-## 3.4、MySQL 默认存储引擎
+## 3.4、修改存储引擎
 
 InnoDB 是系统的默认引擎，支持可靠的事务处理。
 
@@ -270,6 +329,8 @@ SET DEFAULT_storage_engine=<存储引擎名>
 ```
 
 但是当再次重启客户端时，默认存储引擎仍然是 InnoDB。
+
+
 
 # 4、数据表
 
