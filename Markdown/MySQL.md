@@ -2,30 +2,30 @@
 
 SQL是用于访问和处理数据库的标准计算机语言。
 
-## 1.1、SQL是什么？
+**SQL是什么？**
 
-- SQL，指结构化查询语言，全称是Structured Query Language
-- SQL可以让我们访问和处理数据库
-- SQL是一种ANSI（American National Standards Institute）标准的计算机语言
-
-
-
-## 1.2、SQL能做什么？
-
-- SQL面向数据库执行查询
-- SQL可从数据库取回数据
-- SQL可在数据库中插入新的记录
-- SQL可更新数据库中的数据
-- SQL可从数据库删除记录
-- SQL可创建新的数据库
-- SQL可在数据库中创建新表
-- SQL可在数据库中创建存储过程
-- SQL可在数据库中创建视图
-- SQL可以设置表、存储过程和视图的权限
+- SQL，指结构化查询语言，全称是 Structured Query Language
+- SQL 可以让我们访问和处理数据库
+- SQL 是一种 ANSI（American National Standards Institute）标准的计算机语言
 
 
 
-## 1.3、SQL分类
+**SQL能做什么？**
+
+- SQL 面向数据库执行查询
+- SQL 可从数据库取回数据
+- SQL 可在数据库中插入新的记录
+- SQL 可更新数据库中的数据
+- SQL 可从数据库删除记录
+- SQL 可创建新的数据库
+- SQL 可在数据库中创建新表
+- SQL 可在数据库中创建存储过程
+- SQL 可在数据库中创建视图
+- SQL 可以设置表、存储过程和视图的权限
+
+
+
+**SQL分类**
 
 **DDL（数据定义语言）**
 
@@ -49,27 +49,31 @@ SQL是用于访问和处理数据库的标准计算机语言。
 - 数据查询语言（Data Query Language）
 - SELECT
 
+
+
 # 2、数据库
 
-MySQL是最流行的关系型数据库管理系统，在WEB应用方面MySQL是最好的RDBMS(Relational Database Management System：关系数据库管理系统)应用软件之一。
+MySQL 是最流行的关系型数据库管理系统，在 WEB 应用方面 MySQL 是最好的 RDBMS（Relational Database Management System：关系数据库管理系统）应用软件之一。
+
+
 
 ## 2.1、什么是数据库？
 
 数据库（Database）是按照数据结构来组织、存储和管理数据的仓库。
 
-每个数据库都有一个或多个不同的API用于创建，访问，管理，搜索和复制所保存的数据。
+每个数据库都有一个或多个不同的 API 用于创建，访问，管理，搜索和复制所保存的数据。
 
 我们也可以将数据存储在文件中，但是在文件中读写数据速度相对较慢。
 
 所以，现在我们使用关系型数据库管理系统（RDBMS）来存储和管理的大数据量。所谓的关系型数据库，是建立在关系模型基础上的数据库，借助于集合代数等数学概念和方法来处理数据库中的数据。
 
-RDBMS即关系数据库管理系统（Relational Database Management System）的特点：
+RDBMS 即关系数据库管理系统（Relational Database Management System）的特点：
 
 - 数据以表的的形式出现
 - 每行为各种记录名称
 - 每列为记录名称所对应的数据域
 - 许多的行和列组成一张表单
-- 若干的表单组成database
+- 若干的表单组成 Database
 
 
 
@@ -86,21 +90,37 @@ RDBMS即关系数据库管理系统（Relational Database Management System）�
 - 索引：使用索引可快速访问数据库表中的特定信息。索引是数据库表中一列或多列的值进行排序的一种结构。类似于书籍的目录
 - 参照完整性：参照的完整性要求关系中不允许引用不存在的实体。与实体完整性是关系模型必须满足的完整性约束条件，目的是保证数据的一致性
 
-MySQL为关系型数据库（Relational Database Management System），这种所谓的“关系型”可以理解为“表格”的概念，一个关系型数据库由一个或数个表格组成，如下图所示的一个表格：
+MySQL 为关系型数据库（Relational Database Management System），这种所谓的 “关系型” 可以理解为 “表格” 的概念，一个关系型数据库由一个或数个表格组成，如下图所示的一个表格：
 
 <img src="../Images/MySQL/image-20200528004923567.png" alt="image-20200528004923567" style="zoom:80%;" />
 
-- 表头（header）：每一列的名称；
-- 列（col）：具有相同数据类型的数据的集合；
-- 行（row）：每一行用来描述某条记录的具体信息；
-- 值（VALUE）：行的具体信息，每个值必须与该列的数据类型相同；
-- 键（KEY）：键的值在当前列具有唯一性。
+- 表头（header）：每一列的名称
+- 列（col）：具有相同数据类型的数据的集合
+- 行（row）：每一行用来描述某条记录的具体信息
+- 值（VALUE）：行的具体信息，每个值必须与该列的数据类型相同
+- 键（KEY）：键的值在当前列具有唯一性
+
+
+
+## 2.3、安装 MySQL 数据库
+
+1. 先下载 [MySQL](https://dev.mysql.com/downloads/mysql/)，现在的版本是 8.0.27：
+
+	![image-20211115115209195](../Images/MySQL/image-20211115115209195.png)
+
+	这里下载的是 Zip 安装包版，可以点击 【Go to Download Page】，去载 MSI 安装版（这里下载的是安装版）：
+
+	![image-20211115115812248](../Images/MySQL/image-20211115115812248.png)
+
+2. 
+
+
 
 
 
 ## 2.3、创建数据库
 
-使用CREATE命令创建数据库，语法如下：
+使用 `CREATE` 命令创建数据库，语法如下：
 
 ```mysql
 CREATE DATABASE [IF NOT EXISTS] <数据库名>
@@ -108,19 +128,19 @@ CREATE DATABASE [IF NOT EXISTS] <数据库名>
 [[DEFAULT] COLLATE <校对规则名>];
 ```
 
-[ ]中的内容是可选的。语法说明如下：
+[ ] 中的内容是可选的。语法说明如下：
 
 - <数据库名>：创建数据库的名称。MySQL 的数据存储区将以目录方式表示 MySQL 数据库，因此数据库名称必须符合操作系统的文件夹命名规则，注意在 MySQL 中不区分大小写。
-- IF NOT EXISTS：在创建数据库之前进行判断，只有该数据库目前尚不存在时才能执行操作。此选项可以用来避免数据库已经存在而重复创建的错误。
-- [DEFAULT] CHARACTER SET：指定数据库的默认字符集。
-- [DEFAULT] COLLATE：指定字符集的默认校对规则。
+- `IF NOT EXISTS`：在创建数据库之前进行判断，只有该数据库目前尚不存在时才能执行操作。此选项可以用来避免数据库已经存在而重复创建的错误。
+- `[DEFAULT] CHARACTER SET`：指定数据库的默认字符集。
+- `[DEFAULT] COLLATE`：指定字符集的默认校对规则。
 
-可以使用==SHOW CREATE DATABASE 数据库名称==查看数据库的定义声明
+可以使用 `SHOW CREATE DATABASE 数据库名称` 查看数据库的定义声明
 
-为防止字符混乱的情况发生，MySQL 有时需要在创建数据库时明确指定字符集；在中国大陆地区，常用的字符集有 utf8 和 gbk。
+为防止字符混乱的情况发生，MySQL 有时需要在创建数据库时明确指定字符集；在中国大陆地区，常用的字符集有 UTF8 和 GBK。
 
-- utf8 能够存储全球的所有字符，在任何国家都可以使用，默认的校对规则为 utf8_general_ci，对于中文可以使用 utf8_general_ci。
-- gbk只能存储汉语涉及到的字符，不具有全球通用性，默认的校对规则为 gbk_chinese_ci。
+- UTF8 能够存储全球的所有字符，在任何国家都可以使用，默认的校对规则为 `utf8_general_ci`，对于中文可以使用 `utf8_general_ci`。
+- GBK 只能存储汉语涉及到的字符，不具有全球通用性，默认的校对规则为 `gbk_chinese_ci`。
 
 
 
@@ -135,13 +155,13 @@ SHOW DATABASES [LIKE '数据库名'];
 语法说明如下：
 
 - LIKE 从句是可选项，用于匹配指定的数据库名称。LIKE 从句可以部分匹配，也可以完全匹配。
-- 数据库名由单引号' '包围。
+- 数据库名由单引号 `''` 包围。
 
 
 
 **修改数据库**
 
-在 MySQL 中，可以使用 ALTER DATABASE 或 ALTER SCHEMA 语句来修改已经被创建或者存在的数据库的相关参数。
+在 MySQL 中，可以使用 `ALTER DATABASE` 或 `ALTER SCHEMA` 语句来修改已经被创建或者存在的数据库的相关参数。
 
 修改数据库的语法格式为：
 
@@ -153,10 +173,10 @@ ALTER DATABASE [数据库名]
 
 语法说明如下：
 
-- ALTER DATABASE 用于更改数据库的全局特性。这些特性存储在数据库目录的 db.opt 文件中。
-- 使用 ALTER DATABASE 需要获得数据库 ALTER 权限。
+- `ALTER DATABASE` 用于更改数据库的全局特性。这些特性存储在数据库目录的 db.opt 文件中。
+- 使用 `ALTER DATABASE` 需要获得数据库 `ALTER` 权限。
 - 数据库名称可以忽略，此时语句对应于默认数据库。
-- CHARACTER SET 子句用于更改默认的数据库字符集。
+- `CHARACTER SET` 子句用于更改默认的数据库字符集。
 
 
 
@@ -169,8 +189,8 @@ DROP DATABASE [ IF EXISTS ] <数据库名>
 语法说明如下：
 
 - <数据库名>：指定要删除的数据库名。
-- IF EXISTS：用于防止当数据库不存在时发生错误。
-- DROP DATABASE：删除数据库中的所有表格并同时删除数据库。使用此语句时要非常小心，以免错误删除。如果要使用 DROP DATABASE，需要获得数据库 DROP 权限。
+- `IF EXISTS`：用于防止当数据库不存在时发生错误。
+- `DROP DATABASE`：删除数据库中的所有表格并同时删除数据库。使用此语句时要非常小心，以免错误删除。如果要使用 `DROP DATABASE`，需要获得数据库 `DROP` 权限。
 
 注意：MySQL 安装后，系统会自动创建名为 information_schema 和 mysql 的两个系统数据库，系统数据库存放一些和数据库相关的信息，如果删除了这两个数据库，MySQL 将不能正常工作。
 
@@ -181,6 +201,8 @@ DROP DATABASE [ IF EXISTS ] <数据库名>
 ```mysql
 USE <数据库名>;
 ```
+
+
 
 # 3、存储引擎
 
@@ -1231,7 +1253,7 @@ MySQL同样支持其他正则表达式的匹配，MySQL中使用REGEXP或NOT REG
 | $          | 匹配输入字符串的结束位置                                     |
 | .          | 匹配除 "\n" 之外的任何单个字符                               |
 | […]        | 字符集合。匹配所包含的任意一个字符。例如， '[abc]' 可以匹配 "plain" 中的 'a'。 |
-| [^…]       | 负值字符集合。匹配未包含的任意字符。例如， '[^abc]' 可以匹配 "plain" 中的'p'。 |
+| [^…]       | 负值字符集合。匹配未包含的任意字符。例如， `[^abc]` 可以匹配 "plain" 中的'p'。 |
 | 字符串     | 例如 'in' ,可以匹配 'china' , 'chinese'                      |
 | p1\|p2\|p3 | 匹配 p1或 p2 或 p3。例如，'z\|foood' 能匹配 'z' 或 'food'。'(z\|f)ood' 则匹配 'zood' 或 'food' |
 | *          | 匹配前面的子表达式零次或多次。例如，zo* 能匹配 'z' 以及 'zoo'。* 等价于{0,} |
