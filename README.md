@@ -23,7 +23,7 @@
 
 
 
-## Spring 全家桶
+## Spring
 
 - [**Spring**](https://github.com/0richalcos/Note/blob/main/Markdown/Spring.md)
 - [**Spring MVC**](https://github.com/0richalcos/Note/blob/main/Markdown/SpringMVC.md)

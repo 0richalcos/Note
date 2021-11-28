@@ -108,7 +108,19 @@ Subject：主体，访问系统的用户，主体可以是用户、程序等，�
 
 **认证流程**
 
-![image-20201102171638007](../Images/Shiro/image-20201102171638007.png)
+![1416193-20190417125006747-856353249.png (308×488)](../Images/Shiro/1416193-20190417125006747-856353249.png)
+
+1. 通过 ini 配置文件创建 SecurityManager。
+2. 调用 subject.login 方法主体提交认证，提交的 token。
+3. SecurityManager 进行认证，SecurityManager 最终由 ModularRealmAuthenticator 进行认证。
+4. ModularRealmAuthenticator 调用 IniRealm（给 realm 传入 token）去 ini 配置文件中查询用户信息。
+5. IniRealm 根据输入的 token（UsernamePasswordToken）从 shiro.ini 查询用户信息，根据账号查询用户信息（账号和密码）：
+	- 如果查询到用户信息，就给 ModularRealmAuthenticator 返回用户信息（账号和密码）。
+	- 如果查询不到，就给 ModularRealmAuthenticator 返回 null。
+6. ModularRealmAuthenticator 接收 IniRealm 返回 Authentication 认证信息：
+	- 如果返回的认证信息是 null，ModularRealmAuthenticator 抛出异常（org.apache.shiro.authc.UnknownAccountException）。
+	- 如果返回的认证信息不是 null（说明 inirealm 找到了用户），对 IniRealm 返回用户密码 （在 ini 文件中存在）。
+	- 和 token 中的密码进行对比，如果不一致抛出异常（org.apache.shiro.authc.IncorrectCredentialsException）。
 
 
 
@@ -421,7 +433,15 @@ public class SimpleAccountRealm extends AuthorizingRealm {
 
 **授权流程**
 
-<img src="../Images/Shiro/image-20201103152946237.png" alt="image-20201103152946237"  />
+![img](../Images/Shiro/1416193-20190417125018168-618409170.png)
+
+1. 对 subject 进行授权，调用方法 isPermitted（"permission串"）。
+2. SecurityManager 执行授权，通过 ModularRealmAuthorizer 执行授权。
+3. ModularRealmAuthorizer 执行 realm（自定义的 Realm）从数据库查询权限数据。
+	- 调用 realm 的授权方法：doGetAuthorizationInfo。
+4. realm 从数据库查询权限数据，返回 ModularRealmAuthorizer。
+5. ModularRealmAuthorizer 调用 PermissionResolver 进行权限串比对。
+6. 如果比对后，isPermitted 中 "permission串" 在 realm 查询到权限数据中，说明用户访问 permission 串有权限，否则 没有权限，抛出异常。
 
 
 

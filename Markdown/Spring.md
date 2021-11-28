@@ -55,7 +55,7 @@ Spring 包含并管理应用对象的配置和生命周期，在这个意义上�
 
 Spring 可以将简单的组件配置、组合成为复杂的应用。在 Spring 中，应用对象被声明式地组合，典型地是在一个 XML 文件里。Spring 也提供了很多基础功能（事务管理、持久化框架集成等等），将应用逻辑的开发留给了你。
 
-==总结：Spring就是一个轻量级的控制反转（IoC）和面向切面编程（AOP）的框架！==
+总结：Spring就是一个轻量级的控制反转（IoC）和面向切面编程（AOP）的框架！
 
 
 
@@ -116,9 +116,9 @@ Spring 可以将简单的组件配置、组合成为复杂的应用。在 Spring
 
 
 
-# 2、IoC理论推导（DI）
+# 2、IoC 理论推导（DI）
 
-1. UserDao接口
+1. UserDao 接口
 
 	```java
 	public interface UserDao {
@@ -126,7 +126,7 @@ Spring 可以将简单的组件配置、组合成为复杂的应用。在 Spring
 	}
 	```
 
-2. UserDaoImpl实现类
+2. UserDaoImpl 实现类
 
 	```java
 	public class UserDaoImpl implements UserDao {
@@ -137,7 +137,7 @@ Spring 可以将简单的组件配置、组合成为复杂的应用。在 Spring
 	}
 	```
 
-3. UserService业务接口
+3. UserService 业务接口
 
 	```java
 	public interface UserService {
@@ -145,7 +145,7 @@ Spring 可以将简单的组件配置、组合成为复杂的应用。在 Spring
 	}
 	```
 
-4. UserServiceImpl业务实现类
+4. UserServiceImpl 业务实现类
 
 	```java
 	public class UserServiceImpl implements UserService {
@@ -170,7 +170,7 @@ Spring 可以将简单的组件配置、组合成为复杂的应用。在 Spring
 
 
 
-把Userdao的实现类增加一个
+把 Userdao 的实现类增加一个
 
 ```java
 public class UserDaoMySqlImpl implements UserDao {
@@ -181,7 +181,7 @@ public class UserDaoMySqlImpl implements UserDao {
 }
 ```
 
-紧接着我们要去使用MySql的话 ， 我们就需要去service实现类里面修改对应的实现 。
+紧接着我们要去使用 MySql 的话 ， 我们就需要去 service 实现类里面修改对应的实现 。
 
 ```java
 public class UserServiceImpl implements UserService {
@@ -196,7 +196,7 @@ public class UserServiceImpl implements UserService {
 
 
 
-假设，再增加一个Userdao的实现类。
+假设，再增加一个 Userdao 的实现类。
 
 ```java
 public class UserDaoOracleImpl implements UserDao {
@@ -207,13 +207,13 @@ public class UserDaoOracleImpl implements UserDao {
 }
 ```
 
-那么我们要使用Oracle，又需要去service实现类里面修改对应的实现。假设我们的这种需求非常大，这种方式就根本不适用了，每次变动都需要修改大量代码，这种设计的耦合性太高了，牵一发而动全身。
+那么我们要使用 Oracle，又需要去 service 实现类里面修改对应的实现。假设我们的这种需求非常大，这种方式就根本不适用了，每次变动都需要修改大量代码，这种设计的耦合性太高了，牵一发而动全身。
 
 
 
 **如何解决？**
 
-可以在需要用到它的地方，不去实现它，而是留出一个接口 ，利用set，修改代码：
+可以在需要用到它的地方，不去实现它，而是留出一个接口 ，利用 set，修改代码：
 
 ```java
 public class UserServiceImpl implements UserService {
@@ -252,7 +252,7 @@ public void test(){
 
 
 
-使用一个Set接口实现，已经发生了革命性的变化！
+使用一个 Set 接口实现，已经发生了革命性的变化！
 
 ```java
 private UserDao userDao;
@@ -264,77 +264,77 @@ public void setUserDao(UserDao userDao) {
 ```
 
 - 之前，程序是主动创建对象！控制权在程序猿手上！
-- 使用了set注入后，程序不再具有主动性，而是变成了被动的接受对象！
+- 使用了 set 注入后，程序不再具有主动性，而是变成了被动的接受对象！
 
-这种思想，从本质上解决了问题，程序猿不用再去管理对象的创建了。系统的耦合性大大降低~，可以更加地专注在业务的实现上！这是IoC的原型！
+这种思想，从本质上解决了问题，程序猿不用再去管理对象的创建了。系统的耦合性大大降低~，可以更加地专注在业务的实现上！这是 IoC 的原型！
 
 <img src="../Images/Spring/image-20200316231558028.png" alt="image-20200316231558028" style="zoom:67%;" />
 
 
 
-## 2.1、依赖倒置和DI
+## 2.1、依赖倒置和 DI
 
-假设我们设计一辆汽车：先设计轮子，然后根据轮子大小设计底盘，接着根据底盘设计车身，最后根据车身设计好整个汽车。这里就出现了一个“依赖”关系：汽车依赖车身，车身依赖底盘，底盘依赖轮子。
+假设我们设计一辆汽车：先设计轮子，然后根据轮子大小设计底盘，接着根据底盘设计车身，最后根据车身设计好整个汽车。这里就出现了一个 “依赖” 关系：汽车依赖车身，车身依赖底盘，底盘依赖轮子。
 
-<img src="Images/Spring/165d5a1e884dbb2b" alt="img" style="zoom:80%;" />
+<img src="../Images/Spring/165d5a1e884dbb2b" alt="img" style="zoom:80%;" />
 
 这样的设计看起来没问题，但是可维护性却很低。假设设计完工之后，上司却突然说根据市场需求的变动，要我们把车子的轮子设计都改大一码。这下我们就蛋疼了：因为我们是根据轮子的尺寸设计的底盘，轮子的尺寸一改，底盘的设计就得修改；同样因为我们是根据底盘设计的车身，那么车身也得改，同理汽车设计也得改——整个设计几乎都得改！我们现在换一种思路。我们先设计汽车的大概样子，然后根据汽车的样子来设计车身，根据车身来设计底盘，最后根据底盘来设计轮子。这时候，依赖关系就倒置过来了：轮子依赖底盘， 底盘依赖车身， 车身依赖汽车。
 
-<img src="Images/Spring/165d5a206b53e40b" alt="img" style="zoom:80%;" />
+<img src="../Images/Spring/165d5a206b53e40b" alt="img" style="zoom:80%;" />
 
-这时候，上司再说要改动轮子的设计，我们就只需要改动轮子的设计，而不需要动底盘，车身，汽车的设计了。这就是依赖倒置原则——把原本的高层建筑依赖底层建筑“倒置”过来，变成底层建筑依赖高层建筑。**高层建筑决定需要什么，底层去实现这样的需求，但是高层并不用管底层是怎么实现的**。这样就不会出现前面的“牵一发动全身”的情况。
+这时候，上司再说要改动轮子的设计，我们就只需要改动轮子的设计，而不需要动底盘，车身，汽车的设计了。这就是依赖倒置原则——把原本的高层建筑依赖底层建筑 “倒置” 过来，变成底层建筑依赖高层建筑。**高层建筑决定需要什么，底层去实现这样的需求，但是高层并不用管底层是怎么实现的**。这样就不会出现前面的 “牵一发动全身” 的情况。
 
 
 
-先定义四个Class，车，车身，底盘，轮胎。然后初始化这辆车，最后跑这辆车。代码结构如下：
+先定义四个 Class，车，车身，底盘，轮胎。然后初始化这辆车，最后跑这辆车。代码结构如下：
 
-<img src="Images/Spring/165d5a2528185a4f" alt="img" style="zoom:80%;" />
+<img src="../Images/Spring/165d5a2528185a4f" alt="img" style="zoom:80%;" />
 
-这样，就相当于上面第一个例子，上层建筑依赖下层建筑——每一个类的构造函数都直接调用了底层代码的构造函数。假设我们需要改动一下轮胎（Tire）类，把它的尺寸变成动态的，而不是一直都是30。我们需要这样改：
+这样，就相当于上面第一个例子，上层建筑依赖下层建筑——每一个类的构造函数都直接调用了底层代码的构造函数。假设我们需要改动一下轮胎（Tire）类，把它的尺寸变成动态的，而不是一直都是 30。我们需要这样改：
 
-<img src="Images/Spring/165d5a290792f841" alt="img" style="zoom:80%;" />
+<img src="../Images/Spring/165d5a290792f841" alt="img" style="zoom:80%;" />
 
 由于我们修改了轮胎的定义，为了让整个程序正常运行，我们需要做以下改动：
 
-<img src="Images/Spring/165d5a2a736b0ee8" alt="img" style="zoom:80%;" />
+<img src="../Images/Spring/165d5a2a736b0ee8" alt="img" style="zoom:80%;" />
 
-由此我们可以看到，仅仅是为了修改轮胎的构造函数，这种设计却需要修改整个上层所有类的构造函数！在软件工程中，这样的设计几乎是不可维护的——在实际工程项目中，有的类可能会是几千个类的底层，如果每次修改这个类，我们都要修改所有以它作为依赖的类，那软件的维护成本就太高了。所以我们需要把底层类作为参数传入上层类，实现上层类对下层类的“控制”，用构造方法传递的依赖注入方式重新写车类的定义：
+由此我们可以看到，仅仅是为了修改轮胎的构造函数，这种设计却需要修改整个上层所有类的构造函数！在软件工程中，这样的设计几乎是不可维护的——在实际工程项目中，有的类可能会是几千个类的底层，如果每次修改这个类，我们都要修改所有以它作为依赖的类，那软件的维护成本就太高了。所以我们需要把底层类作为参数传入上层类，实现上层类对下层类的 “控制”，用构造方法传递的依赖注入方式重新写车类的定义：
 
-<img src="Images/Spring/165d5a2c1e041d1f" alt="img" style="zoom:80%;" />
+<img src="../Images/Spring/165d5a2c1e041d1f" alt="img" style="zoom:80%;" />
 
 这里我们再把轮胎尺寸变成动态的，同样为了让整个系统顺利运行，我们需要做如下修改：
 
-<img src="Images/Spring/165d5a2f3b9840d6" alt="img" style="zoom:80%;" />
+<img src="../Images/Spring/165d5a2f3b9840d6" alt="img" style="zoom:80%;" />
 
 这里我只需要修改轮胎类就行了，不用修改其他任何上层类。这显然是更容易维护的代码。
 
 
 
-## 2.2、IoC本质和IoC容器
+## 2.2、IoC 本质和 IoC 容器
 
-**控制反转IoC（Inversion of Control），是一种设计思想，DI（依赖注入）是实现IoC的一种方法**，也有人认为DI只是IoC的另一种说法。没有IoC的程序中，我们使用面向对象编程，对象的创建与对象中的依赖关系完全硬编码在程序中，对象的创建由程序自己控制，控制反转后将对象的创建转移给第三方，个人认为所谓的控制反转就是：获得依赖对象的方式反转了。
+**控制反转 IoC（Inversion of Control），是一种设计思想，DI（依赖注入）是实现 IoC 的一种方法**，也有人认为 DI 只是 IoC 的另一种说法。没有IoC 的程序中，我们使用面向对象编程，对象的创建与对象中的依赖关系完全硬编码在程序中，对象的创建由程序自己控制，控制反转后将对象的创建转移给第三方，个人认为所谓的控制反转就是：获得依赖对象的方式反转了。
 
 <img src="../Images/Spring/image-20200316232856255.png" alt="image-20200316232856255" style="zoom: 67%;" />
 
 
 
-采用XML方式配置Bean的时候，Bean的定义信息是和实现分离的，而采用注解的方式可以把二者合为一体，Bean的定义信息直接以注解的形式定义在实现类中，从而达到了零配置的目的。
+采用 XML 方式配置 Bean 的时候，Bean 的定义信息是和实现分离的，而采用注解的方式可以把二者合为一体，Bean 的定义信息直接以注解的形式定义在实现类中，从而达到了零配置的目的。
 
-控制反转是一种通过描述（XML或注解）并通过第三方去生产或获取特定对象的方式。在Spring中实现控制反转的是IoC容器，其实现方法是依赖注入（Dependency Injection，DI）。
+控制反转是一种通过描述（XML 或注解）并通过第三方去生产或获取特定对象的方式。在 Spring 中实现控制反转的是 IoC 容器，其实现方法是依赖注入（Dependency Injection，DI）。
 
 
 
-其实上面的例子中，对车类进行初始化的那段代码发生的地方，就是IoC容器。
+其实上面的例子中，对车类进行初始化的那段代码发生的地方，就是 IoC 容器。
 
-因为采用了依赖注入，在初始化的过程中就不可避免的会写大量的new。这里IoC容器就解决了这个问题。这个容器可以自动对你的代码进行初始化，你只需要维护一个Configuration（可以是xml可以是一段代码），而不用每次初始化一辆车都要亲手去写那一大段初始化的代码。这是引入IoC Container的第一个好处。IoC Container的第二个好处是：我们在创建实例的时候不需要了解其中的细节。在上面的例子中，我们自己手动创建一个车instance时候，是从底层往上层new的：
+因为采用了依赖注入，在初始化的过程中就不可避免的会写大量的 new。这里 IoC 容器就解决了这个问题。这个容器可以自动对你的代码进行初始化，你只需要维护一个 Configuration（可以是 xml 可以是一段代码），而不用每次初始化一辆车都要亲手去写那一大段初始化的代码。这是引入 IoC Container 的第一个好处。IoC Container 的第二个好处是：我们在创建实例的时候不需要了解其中的细节。在上面的例子中，我们自己手动创建一个车 instance 时候，是从底层往上层 new 的：
 
-<img src="Images/Spring/165d5a3a9c6d3ba9" alt="img" style="zoom:80%;" />
+<img src="../Images/Spring/165d5a3a9c6d3ba9" alt="img" style="zoom:80%;" />
 
-这个过程中，我们需要了解整个Car/Framework/Bottom/Tire类构造函数是怎么定义的，才能一步一步new/注入。而IoC Container在进行这个工作的时候是反过来的，它先从最上层开始往下找依赖关系，到达最底层之后再往上一步一步new（有点像深度优先遍历）：
+这个过程中，我们需要了解整个 Car/Framework/Bottom/Tire 类构造函数是怎么定义的，才能一步一步 new 注入。而 IoC Container 在进行这个工作的时候是反过来的，它先从最上层开始往下找依赖关系，到达最底层之后再往上一步一步 new（有点像深度优先遍历）：
 
-<img src="Images/Spring/165d5a3be0740718" alt="img" style="zoom:80%;" />
+<img src="../Images/Spring/165d5a3be0740718" alt="img" style="zoom:80%;" />
 
-IoC Container可以直接隐藏具体的创建实例的细节.
+IoC Container 可以直接隐藏具体的创建实例的细节.
 
 
 

@@ -590,7 +590,7 @@ $(function() {
 
 **实现原理**
 
-通过bootstrap table自带的 `onClickCell` 方法，点击 td 添加 `contenteditable` 属性(ps: 使元素可编辑)，于是 td 元素具有了类似于文本框的 *focus* 和 *blur* 事件，用户点击 td 获取焦点，编辑完内容失去焦点后，调用 `updateCell`方法更新单元格数据。
+通过 bootstrap table 自带的 `onClickCell` 方法，点击 td 添加 `contenteditable` 属性（ps：使元素可编辑），于是 td 元素具有了类似于文本框的 focus 和 blur 事件，用户点击 td 获取焦点，编辑完内容失去焦点后，调用 `updateCell`方法更新单元格数据。
 
 
 
@@ -615,7 +615,8 @@ $("#table").bootstrapTable({
                     title: that.columns['Operate'],
                     field: '_',
                     align: 'center',
-                }, {
+                }, 
+                {
                     title: that.columns['x1'],
                     field: 'x1',
                     align: 'center',
@@ -636,7 +637,8 @@ $("#table").bootstrapTable({
                             return value;
                         }
                     }
-                }]
+                }
+            ]
 ```
 
 
