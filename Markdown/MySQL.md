@@ -1061,7 +1061,7 @@ SELECT * FROM _TABLE LIMIT lines_perpage OFFSET (page_number-1)*lines_perpage
 
 
 
-## 7.2、WHERE--条件查询
+## 7.2、WHERE 条件查询
 
 语法：
 
@@ -1070,61 +1070,61 @@ SELECT field1, field2,…fieldN FROM TABLE_name1, TABLE_name2…
 [WHERE condition1 [AND | OR] condition2…]
 ```
 
-- 查询语句中你可以使用一个或多个表，表之间用逗号分隔，并使用WHERE语句来设定查询条件
-- 你可以在WHERE子句中指定任何条件
-- 你可以使用and或者or指定一个或多个条件
-- WHERE子句也可以运用于SQL的DELETE或者UPDATE命令
-- WHERE子句类似于程序语言中的if条件，根据MySQL表中的字段值来读取指定的数据
+- 查询语句中你可以使用一个或多个表，表之间用逗号分隔，并使用 `WHERE` 语句来设定查询条件
+- 可以在 `WHERE` 子句中指定任何条件
+- 可以使用 `and` 或者 `or` 指定一个或多个条件
+- `WHERE` 子句也可以运用于 SQL 的 `DELETE` 或者 `UPDATE` 命令
+- `WHERE` 子句类似于程序语言中的 if 条件，根据 MySQL 表中的字段值来读取指定的数据
 
-如果我们想在MySQL数据表中读取指定的数据，WHERE子句是非常有用的。
-
-使用主键来作为WHERE子句的条件查询是非常快速的。
+如果想在 MySQL 数据表中读取指定的数据，`WHERE` 子句是非常有用的。使用主键来作为 `WHERE` 子句的条件查询是非常快速的。
 
 如果给定的条件在表中没有任何匹配的记录，那么查询不会返回任何数据。
 
-MySQL的WHERE子句的字符串比较是不区分大小写的。可以使用BINARY关键字来设定WHERE子句的字符串比较是区分大小写的
+MySQL 的 `WHERE` 子句的字符串比较是不区分大小写的。可以使用 `BINARY` 关键字来设定 `WHERE` 子句的字符串比较是区分大小写的：
 
 ```mysql
 SELECT field1, field2,…fieldN FROM TABLE_name1, TABLE_name2…
 [WHERE BINARY condition1 [AND | OR] condition2…]
 ```
 
+
+
 ### 7.2.1、WHERE的运算符
 
-| 运算符  | 描述                                                |
-| ------- | --------------------------------------------------- |
-| =       | 等于                                                |
-| <>      | 不等于。注释：在SQL的一些版本中，该操作符可被写成!= |
-| >       | 大于                                                |
-| <       | 小于                                                |
-| >=      | 大于等于                                            |
-| <=      | 小于等于                                            |
-| BETWEEN | 在某个范围内。实例：BETWEEN 1  AND 3 => [1,3]       |
-| LIKE    | 搜索某种模式                                        |
-| IN      | 指定针对某个列的多个可能值。实例：IN(1,2,3)         |
-| AND     | 与                                                  |
-| OR      | 或                                                  |
-| NOT     | 非                                                  |
+| 运算符  | 描述                                                  |
+| ------- | ----------------------------------------------------- |
+| =       | 等于                                                  |
+| <>      | 不等于。注释：在 SQL 的一些版本中，该操作符可被写成!= |
+| >       | 大于                                                  |
+| <       | 小于                                                  |
+| >=      | 大于等于                                              |
+| <=      | 小于等于                                              |
+| BETWEEN | 在某个范围内。实例：`BETWEEN 1 AND 3` => [1,3]        |
+| LIKE    | 搜索某种模式                                          |
+| IN      | 指定针对某个列的多个可能值。实例：`IN(1,2,3)`         |
+| AND     | 与                                                    |
+| OR      | 或                                                    |
+| NOT     | 非                                                    |
 
-逻辑运算的优先级：() ONT AND OR
+逻辑运算的优先级：() > ONT > AND > OR
 
 
 
 **MySQL的整除和取余**
 
-整除：DIV
+整除：`DIV`
 
 ```mysql
 5 DIV 2 = 2;
 ```
 
-取余：MOD
+取余：`MOD`
 
 ```mysql
 5 MOD 2 = 1;
 ```
 
-四舍五入：ROUND
+四舍五入：`ROUND`
 
 ```mysql
 ROUND(1.5) = 2;
@@ -1132,9 +1132,9 @@ ROUND(1.5) = 2;
 
 
 
-### 7.2.2、LIKE子句
+### 7.2.2、LIKE 子句
 
-LIKE子句中使用百分号%字符来表示任何字符，类似于UNIX或正则表达式中的星号*，如果没有使用百分号%，LIKE子句与等号=的效果是一样的
+`LIKE` 子句中使用百分号 `%` 字符来表示任何字符，类似于 `UNIX` 或正则表达式中的星号 `*`，如果没有使用百分号 `%`，`LIKE` 子句与等号 `=` 的效果是一样的。
 
 语法：
 
@@ -1143,62 +1143,102 @@ SELECT field1, field2,…fieldN FROM <表名>
 WHERE field1 LIKE condition1 [and | or] field2 = 'someVALUE'
 ```
 
-- 你可以在WHERE子句中指定任何条件
-- 你可以在WHERE子句中使用LIKE子句
-- 你可以使用LIKE子句代替等号=
-- LIKE通常与%一同使用，类似于一个元字符的搜索
-- 你可以使用and或者or指定一个或多个条件
-- 你可以在UPDATE或DELETE命令是使用WHERE…LIKE子句来指定条件 
-- MYSQL不区分大小写，因此LIKE也是，如果想要区分大小写，在LIKE后面加上BINARY，表示区分大小写
+- 可以在 `WHERE` 子句中指定任何条件
+- 可以在 `WHERE` 子句中使用 LIKE 子句
+- 可以使用 `LIKE` 子句代替等号 `=`
+- `LIKE` 通常与 `%` 一同使用，类似于一个元字符的搜索
+- 可以使用 `and` 或者 `or` 指定一个或多个条件
+- 可以在 `UPDATE` 或 `DELETE` 命令使用 `WHERE…LIKE` 子句来指定条件 
+- MYSQL 不区分大小写，因此 `LIKE` 也是，如果想要区分大小写，在 `LIKE` 后面加上 `BINARY`，表示区分大小写
 
-在WHERE LIKE的条件查询中，MySQL有两种匹配方式
+在 `WHERE` `LIKE` 的条件查询中，MySQL 有两种匹配方式
 
-- %：表示任意0个或多个字符，可匹配任意类型和长度的字符，有些情况下若是中文，请使用两个百分号（%%）表示。
-- _：表示任意单个字符，匹配单个任意字符，常用来限制表达式的字符长度语句。 
+- `%`：表示任意 0 个或多个字符，可匹配任意类型和长度的字符，有些情况下若是中文，请使用两个百分号（`%%`）表示。
+- `_`：表示任意单个字符，匹配单个任意字符，常用来限制表达式的字符长度语句。 
 
 
 
 ## 7.3、连接的使用
 
-你可以在SELECT、UPDATE和DELETE语句中使用MySQL的JOIN来联合多表查询。
+可以在 `SELECT`、`UPDATE` 和 `DELETE` 语句中使用 MySQL 的 `JOIN` 来联合多表查询。
 
-JOIN按照功能大致分为如下三类：
+`JOIN` 按照功能大致分为如下三类：
 
-- INNER JOIN（内连接，或等值连接）：获取两个表中字段匹配关系的记录
-- LEFT JOIN（左连接）：获取左表所有记录，即使右边没有对应匹配的记录
-- RIGHT JOIN（右连接）：与LEFT JOIN相反，用于获取右表所有记录，即使左表没有相应匹配的记录 
+- `LEFT JOIN`（左连接）
+- `RIGHT JOIN`（右连接）
+- `INNER JOIN`（内连接，或等值连接）
 
-实例：
+建两张表，第一张表命名为 kemu，第二张表命名为 score：
 
-<img src="../Images/MySQL/image-20200531154733044.png" alt="image-20200531154733044" style="zoom:80%;" />
+![clipboard.png](../Images/MySQL/bVbk2or.png)![clipboard.png](../Images/MySQL/bVbk2oz.png)
+
+
+
+### 7.3.1、LEFT/RIGHT/INNER
+
+**LEFT JOIN**
+
+ “左连接”，表 1 左连接表 2，以左为主，表示以表 1 为主，关联上表 2 的数据，查出来的结果显示左边的所有数据，然后右边显示的是和左边有交集部分的数据。如下：
+
+```mysql
+select * from kemu left join score on kemu.id = score.id
+```
+
+结果集：
+
+![clipboard.png](../Images/MySQL/bVbk2uE.png)![clipboard.png](../Images/MySQL/bVbk2qQ.png)
+
+
+
+**RIGHT JOIN**
+
+“右连接”，表 1 右连接表 2，以右为主，表示以表 2 为主，关联查询表 1 的数据，查出表 2 所有数据以及表 1 和表 2 有交集的数据，如下：
+
+```mysql
+select * from kemu right join score on kemu.id = score.id
+```
+
+结果集：
+
+![clipboard.png](../Images/MySQL/bVbk2uI.png)![clipboard.png](../Images/MySQL/bVbk2uP.png)
 
 
 
 **INNER JOIN**
 
-INNER JOIN（也可以省略INNER 使用JOIN，效果一样）：
+“内连接”，可以简写成 `JOIN`，表示以两个表的交集为主，查出来是两个表有交集的部分，其余没有关联就不额外显示出来，如下：
 
-<img src="../Images/MySQL/image-20200531155043766.png" alt="image-20200531155043766" style="zoom:80%;" />
+```mysql
+select * from kemu join score on kemu.id = score.id
+```
 
-等价于：
+结果集：
 
-<img src="../Images/MySQL/image-20200531155105933.png" alt="image-20200531155105933" style="zoom:80%;" />
-
-
-
-
-
-**LEFT JOIN**
-
-<img src="../Images/MySQL/image-20200531155241133.png" alt="image-20200531155241133" style="zoom:80%;" />
+![clipboard.png](../Images/MySQL/bVbk2v1.png)![clipboard.png](../Images/MySQL/bVbk2MW.png)
 
 
 
+### 7.3.2、ON、WHERE 的区别
 
+数据库在通过连接两张或多张表来返回记录时，都会生成一张中间的临时表，然后再将这张临时表返回给用户。
 
-**RIGHT  JOIN**
+在使用 `LEFT JOIN` 时，`ON` 和 `WHERE` 条件的区别如下：
 
-<img src="../Images/MySQL/image-20200531155309994.png" alt="image-20200531155309994" style="zoom:80%;" />
+1. `ON` 条件是在生成临时表时使用的条件，它不管 `ON` 中的条件是否为真，都会返回左边表中的记录。
+2. `WHERE` 条件是在临时表生成好后，再对临时表进行过滤的条件。这时已经没有 `LEFT JOIN` 的含义（必须返回左边表的记录）了，条件不为真的就全部过滤掉。
+
+假设有两张表：
+
+![image-20211129161954956](../Images/MySQL/image-20211129161954956.png)![image-20211129162050479](../Images/MySQL/image-20211129162050479.png)
+
+两条 SQL：
+
+```mysql
+select * form tab1 left join tab2 on (tab1.size = tab2.size) where tab2.name='AAA'
+select * form tab1 left join tab2 on (tab1.size = tab2.size and tab2.name='AAA’)
+```
+
+![image-20211129162254328](../Images/MySQL/image-20211129162254328.png)![image-20211129162304566](../Images/MySQL/image-20211129162304566.png)
 
 
 
@@ -1256,6 +1296,8 @@ WHERE columns_name operator VALUE
 GROUP BY column_name;
 ```
 
+
+
 ### 7.5.1、WITH  ROLLUP
 
 WITH  ROLLUP可以实现在分组数据基础上再进行相同的统计（SUM，AVG，COUNT…）
@@ -1282,11 +1324,11 @@ SELECT COALESCE(a,b,c);
 
 
 
-### 7.5.2、HAVING子句
+### 7.5.2、HAVING 子句
 
-增加HAVING子句的原因是，WHERE关键字无法与聚合函数一起使用。
+增加 `HAVING` 子句的原因是，`WHERE` 关键字无法与聚合函数一起使用。
 
-HAVING子句可以筛选分组后的各组数据。
+`HAVING` 子句可以筛选分组后的各组数据。
 
 语法：
 
@@ -1294,13 +1336,31 @@ HAVING子句可以筛选分组后的各组数据。
 HAVING <条件>
 ```
 
-其中，<条件>指的是指定的过滤条件。
+其中，`<条件>` 指的是指定的过滤条件。
 
-HAVING 子句和 WHERE 子句非常相似，HAVING 子句支持 WHERE 子句中所有的操作符和语法，但是两者存在几点差异：
+`HAVING` 子句和 `WHERE` 子句非常相似，`HAVING` 子句支持 `WHERE` 子句中所有的操作符和语法，但是两者存在几点差异：
 
-- WHERE 子句主要用于过滤数据行，而 HAVING 子句主要用于过滤分组，即 HAVING 子句基于分组的聚合值而不是特定行的值来过滤数据。
-- WHERE 子句不可以包含聚合函数，HAVING 子句中的条件可以包含聚合函数。
-- HAVING 子句是在数据分组后进行过滤，WHERE 子句会在数据分组前进行过滤。WHERE 子句排除的行不包含在分组中，可能会影响 HAVING 子句基于这些值过滤掉的分组。
+- `WHERE` 子句主要用于过滤数据行，而 `HAVING` 子句主要用于过滤分组，即 `HAVING` 子句基于分组的聚合值而不是特定行的值来过滤数据。
+- `WHERE` 子句不可以包含聚合函数，`HAVING` 子句中的条件可以包含聚合函数。
+- `HAVING` 子句是在数据分组后进行过滤，`WHERE` 子句会在数据分组前进行过滤。`WHERE` 子句排除的行不包含在分组中，可能会影响 `HAVING` 子句基于这些值过滤掉的分组。
+
+
+
+**实例：**
+
+```mysql
+select goods_price,goods_name from sw_goods where goods_price > 100
+
+select goods_price,goods_name from sw_goods having goods_price > 100
+```
+
+上面的 `HAVING` 可以用的前提是我已经筛选出了 `goods_price` 字段，在这种情况下和 `WHERE` 的效果是等效的，但是如果我没有 `select goods_price` 就会报错！！因为 `HAVING` 是从前面筛选的字段再筛选，而 `WHERE` 是从数据表中的字段直接进行的筛选的。
+
+```mysql
+select goods_name,goods_number from sw_goods where goods_price > 100
+
+select goods_name,goods_number from sw_goods having goods_price > 100 //报错！！！因为前面并没有筛选出 goods_price 字段
+```
 
 
 
@@ -1398,6 +1458,18 @@ MySQL使用SELECT命令及WHERE子句来读取数据表中的数据，但是当�
 <img src="../Images/MySQL/image-20200531163220282.png" alt="image-20200531163220282" style="zoom:80%;" />
 
 当输出列中有NULL值时可以使用函数IFNULL()或COALESCE()
+
+
+
+## 7.9、WITH AS
+
+MySQL 中 `WITH AS` 相关用法 8.0 之后支持。
+
+`WITH AS` 短语，也叫做子查询部分（subquery factoring），可以定义一个 SQL 片断，该 SQL 片断会被整个 SQL 语句用到。可以使 SQL 语句的可读性更高，也可以在 UNION ALL 的不同部分，作为提供数据的部分。
+
+对于UNION ALL，使用WITH AS定义了一个UNION ALL语句，当该片断被调用2次以上，优化器会自动将该WITH AS短语所获取的数据放入一个Temp表中。而提示meterialize则是强制将WITH AS短语的数据放入一个全局临时表中。很多查询通过该方式都可以提高速度。
+
+
 
 # 8、视图
 
@@ -2586,6 +2658,83 @@ date 参数是合法的日期表达式。unit 参数可以是下列的值：
 - HOUR_MINUTE
 
 
+
+### 17.1.6、日期格式转换
+
+#### DATE_FORMAT()
+
+MySQL 使用 `DATE_FORMAT()` 函数实现日期格式的转换，即日期类型转字符串类型，`DATE_FORMAT(date,format)` 函数按照表达式 *format* 的要求显示日期 *date*，其语法格式如下：
+
+```sql
+DATE_FORMAT(date,format)
+```
+
+*date* 为合法的日期；*format* 为规定日期/时间的输出格式。
+
+可以使用的格式有：
+
+| 格式 | 描述                                           |
+| ---- | ---------------------------------------------- |
+| %a   | 缩写星期名                                     |
+| %b   | 缩写月名                                       |
+| %c   | 月，数值                                       |
+| %D   | 带有英文前缀的月中的天                         |
+| %d   | 月的天，数值(00-31)                            |
+| %e   | 月的天，数值(0-31)                             |
+| %f   | 微秒                                           |
+| %H   | 小时 (00-23)                                   |
+| %h   | 小时 (01-12)                                   |
+| %I   | 小时 (01-12)                                   |
+| %i   | 分钟，数值(00-59)                              |
+| %j   | 年的天 (001-366)                               |
+| %k   | 小时 (0-23)                                    |
+| %M   | 月名                                           |
+| %m   | 月，数值(00-12)                                |
+| %p   | AM 或 PM                                       |
+| %r   | 时间，12-小时（hh:mm:ss AM 或 PM）             |
+| %S   | 秒(00-59)                                      |
+| %s   | 秒(00-59)                                      |
+| %T   | 时间, 24-小时 (hh:mm:ss)                       |
+| %U   | 周 (00-53) 星期日是一周的第一天                |
+| %u   | 周 (00-53) 星期一是一周的第一天                |
+| %V   | 周 (01-53) 星期日是一周的第一天，与 %X 使用    |
+| %v   | 周 (01-53) 星期一是一周的第一天，与 %x 使用    |
+| %W   | 星期名                                         |
+| %w   | 周的天 （0=星期日, 6=星期六）                  |
+| %X   | 年，其中的星期日是周的第一天，4 位，与 %V 使用 |
+| %x   | 年，其中的星期一是周的第一天，4 位，与 %v 使用 |
+| %Y   | 年，4 位                                       |
+| %y   | 年，2 位                                       |
+
+**示例：**使用 DATE_FORMAT 函数实现日期格式的转换。
+
+```mysql
+SELECT DATE_FORMAT(NOW(),'%Y年%m月%d日 %H时%i分%s秒');
+```
+
+**执行结果：**
+
+2019年01月17日 19时05分05秒
+
+**`DATE_FORMAT(date ,format)` 函数对应 Oracle 数据库中的 `TO_CHAR()` 函数。**
+
+
+
+#### STR_TO_DATE()
+
+使用 `STR_TO_DATE()` 函数实现字符串转换日期类型，`STR_TO_DATE(str,format)` 函数是将时间格式的字符串 *str*，按照所提供的显示格式 *format* 转换为 DATETIME 类型的值。
+
+**示例：**使用 STR_TO_DATE 函数，将上面示例的结果（字符串类型）转换回日期类型。
+
+```mysql
+SELECT STR_TO_DATE('2019年01月17日 19时05分05秒','%Y年%m月%d日 %H时%i分%s秒');
+```
+
+**执行结果：**
+
+2019-01-17 19:05:05
+
+**`STR_TO_DATE(str,format)` 函数对应 Oracle 数据库中的 `TO_DATE()` 函数。**
 
 ## 17.2、字符串相关
 
