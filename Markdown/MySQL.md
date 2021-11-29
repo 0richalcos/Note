@@ -1461,13 +1461,11 @@ MySQL使用SELECT命令及WHERE子句来读取数据表中的数据，但是当�
 
 
 
-## 7.9、WITH AS
+## 7.9、WITH（CTE）
 
-MySQL 中 `WITH AS` 相关用法 8.0 之后支持。
+MySQL 的 CTE 是在 MySQL8.0 版本开始支持的，公用表表达式（CTE）是一个命名的临时结果集，仅在单个 SQL 语句（例如select、insert、delete和update)的执行范围内存在。CTE分为递归CTE和非递归CTE。
 
-`WITH AS` 短语，也叫做子查询部分（subquery factoring），可以定义一个 SQL 片断，该 SQL 片断会被整个 SQL 语句用到。可以使 SQL 语句的可读性更高，也可以在 UNION ALL 的不同部分，作为提供数据的部分。
 
-对于UNION ALL，使用WITH AS定义了一个UNION ALL语句，当该片断被调用2次以上，优化器会自动将该WITH AS短语所获取的数据放入一个Temp表中。而提示meterialize则是强制将WITH AS短语的数据放入一个全局临时表中。很多查询通过该方式都可以提高速度。
 
 
 
