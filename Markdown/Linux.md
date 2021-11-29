@@ -572,7 +572,7 @@ useradd 选项 用户名
 - 选项：
 
 	- `-c comment`：指定一段注释性描述
-	- `-d 目录`：指定用户主目录，如果此目录不存在，则同时使用 -m 选项，可以创建主目录
+	- `-d 目录`：指定用户主目录，如果此目录不存在，则同时使用 `-m` 选项，可以创建主目录
 	- `-g 用户组`：指定用户所属的用户组
 	- `-G 用户组,用户组`：指定用户所属的附加组
 	- `-s Shell文件`：指定用户的登录 Shell
@@ -588,7 +588,7 @@ useradd 选项 用户名
 useradd –d /home/sam -m sam
 ```
 
-此命令创建了一个用户 sam，其中 `-d` 和 `-m` 选项用来为登录名 sam 产生一个主目录 /home/sam（/home 为默认的用户主目录所在的父目录）。
+此命令创建了一个用户 sam，其中 `-d` 和 `-m` 选项用来为登录名 sam 产生一个主目录 `/home/sam`（`/home` 为默认的用户主目录所在的父目录）。
 
 **实例2：**
 
@@ -596,9 +596,9 @@ useradd –d /home/sam -m sam
 useradd -s /bin/sh -g group –G adm,root gem
 ```
 
-此命令新建了一个用户 gem，该用户的登录 Shell 是 /bin/sh，它属于 group 用户组，同时又属于 adm 和 root 用户组，其中 group 用户组是其主组。这里可能新建组：`#groupadd group 及 groupadd adm`
+此命令新建了一个用户 gem，该用户的登录 Shell 是 `/bin/sh`，它属于 group 用户组，同时又属于 adm 和 root 用户组，其中 group 用户组是其主组。这里可能新建组：`#groupadd group 及 groupadd adm`
 
-增加用户账号就是在 /etc/passwd 文件中为新用户增加一条记录，同时更新其他系统文件如 /etc/shadow, /etc/group 等。
+增加用户账号就是在 `/etc/passwd` 文件中为新用户增加一条记录，同时更新其他系统文件如 `/etc/shadow`, `/etc/group` 等。
 
 Linux 提供了集成的系统管理工具 userconf，它可以用来对用户账号进行统一管理。
 
@@ -606,7 +606,7 @@ Linux 提供了集成的系统管理工具 userconf，它可以用来对用户�
 
 ### 6.1.2、删除帐号
 
-如果一个用户的账号不再使用，可以从系统中删除。删除用户账号就是要将 /etc/passwd 等系统文件中的该用户记录删除，必要时还删除用户的主目录。
+如果一个用户的账号不再使用，可以从系统中删除。删除用户账号就是要将 `/etc/passwd` 等系统文件中的该用户记录删除，必要时还删除用户的主目录。
 
 删除一个已有的用户账号使用`userdel`命令，其格式如下：
 
@@ -622,7 +622,7 @@ userdel 选项 用户名
 userdel -r sam
 ```
 
-此命令删除用户 sam 在系统文件中（主要是 /etc/passwd, /etc/shadow, /etc/group 等）的记录，同时删除用户的主目录。
+此命令删除用户 sam 在系统文件中（主要是 `/etc/passwd`, `/etc/shadow`, `/etc/group` 等）的记录，同时删除用户的主目录。
 
 
 
@@ -648,7 +648,7 @@ usermod 选项 用户名
 usermod -s /bin/ksh -d /home/z –g developer sam
 ```
 
-此命令将用户 sam 的登录 Shell 修改为 ksh，主目录改为 /home/z，用户组改为 developer。
+此命令将用户 sam 的登录 Shell 修改为 ksh，主目录改为 `/home/z`，用户组改为 developer。
 
 
 
@@ -671,7 +671,7 @@ passwd 选项 用户名
 
 如果默认用户名，则修改当前用户的口令。
 
-例如，假设当前用户是sam，则下面的命令修改该用户自己的口令：
+例如，假设当前用户是 sam，则下面的命令修改该用户自己的口令：
 
 ```
 $ passwd 
@@ -712,7 +712,7 @@ passwd -l sam
 
 每个用户都有一个用户组，系统可以对一个用户组中的所有用户进行集中管理。不同 Linux 系统对用户组的规定有所不同，如 Linux 下的用户属于与它同名的用户组，这个用户组在创建用户时同时创建。
 
-用户组的管理涉及用户组的添加、删除和修改。组的增加、删除和修改实际上就是对 /etc/group 文件的更新。
+用户组的管理涉及用户组的添加、删除和修改。组的增加、删除和修改实际上就是对 `/etc/group` 文件的更新。
 
 
 
@@ -752,7 +752,7 @@ groupmod 选项 用户组
 常用的选项有：
 
 - `-g GID` ：为用户组指定新的组标识号
-- `-o` ：与 `-g` 选项同时使用，用户组的新 GID可 以与系统已有用户组的 GID 相同
+- `-o` ：与 `-g` 选项同时使用，用户组的新 GID 可以与系统已有用户组的 GID 相同
 - `-n 新用户组` ：将用户组的名字改为新名字
 
 
@@ -773,13 +773,13 @@ newgrp root
 
 ## 6.3、与用户账号有关的系统文件
 
-完成用户管理的工作有许多种方法，但是每一种方法实际上都是对有关的系统文件进行修改。与用户和用户组相关的信息都存放在一些系统文件中，这些文件包括 /etc/passwd, /etc/shadow, /etc/group 等。
+完成用户管理的工作有许多种方法，但是每一种方法实际上都是对有关的系统文件进行修改。与用户和用户组相关的信息都存放在一些系统文件中，这些文件包括 `/etc/passwd`, `/etc/shadow`, `/etc/group` 等。
 
 
 
 ### 6.3.1、/etc/passwd
 
-/etc/passwd 文件是用户管理工作涉及的最重要的一个文件。Linux 系统中的每个用户都在 /etc/passwd 文件中有一个对应的记录行，它记录了这个用户的一些基本属性。
+`/etc/passwd` 文件是用户管理工作涉及的最重要的一个文件。Linux 系统中的每个用户都在 `/etc/passwd` 文件中有一个对应的记录行，它记录了这个用户的一些基本属性。
 
 这个文件对所有用户都是可读的。它的内容类似下面的例子：
 
@@ -798,7 +798,7 @@ lp:x:71:18:Printer administrator:/usr/spool/lp:
 sam:x:200:50:Sam san:/home/sam:/bin/sh
 ```
 
-从上面的例子可以看到，/etc/passwd 中一行记录对应着一个用户，每行记录又被冒号 `:` 分隔为7个字段，其格式和具体含义如下：
+从上面的例子可以看到，`/etc/passwd` 中一行记录对应着一个用户，每行记录又被冒号 `:` 分隔为7个字段，其格式和具体含义如下：
 
 ```
 用户名:口令:用户标识号:组标识号:注释性描述:主目录:登录Shell
@@ -816,7 +816,7 @@ sam:x:200:50:Sam san:/home/sam:/bin/sh
 
 **“口令” 一些系统中，存放着加密后的用户口令字**
 
-虽然这个字段存放的只是用户口令的加密串，不是明文，但是由于 /etc/passwd 文件对所有用户都可读，所以这仍是一个安全隐患。因此，现在许多Linux 系统（如 SVR4）都使用了shadow 技术，把真正的加密后的用户口令字存放到 /etc/shadow 文件中，而在 /etc/passwd 文件的口令字段中只存放一个特殊的字符，例如 “x” 或者 “*”。
+虽然这个字段存放的只是用户口令的加密串，不是明文，但是由于 `/etc/passwd` 文件对所有用户都可读，所以这仍是一个安全隐患。因此，现在许多Linux 系统（如 SVR4）都使用了shadow 技术，把真正的加密后的用户口令字存放到 `/etc/shadow` 文件中，而在 `/etc/passwd` 文件的口令字段中只存放一个特殊的字符，例如 “x” 或者 “*”。
 
 
 
@@ -830,7 +830,7 @@ sam:x:200:50:Sam san:/home/sam:/bin/sh
 
 **“组标识号” 字段记录的是用户所属的用户组**
 
-它对应着 /etc/group 文件中的一条记录。
+它对应着 `/etc/group` 文件中的一条记录。
 
 
 
@@ -850,7 +850,7 @@ sam:x:200:50:Sam san:/home/sam:/bin/sh
 
 Shell 是用户与 Linux 系统之间的接口。Linux 的 Shell 有许多种，每种都有不同的特点。常用的有 sh（Bourne Shell），csh（C Shell），ksh（Korn Shell）， tcsh（TENEX/TOPS-20 type C Shell）， bash（Bourne Again Shell）等。
 
-系统管理员可以根据系统情况和用户习惯为用户指定某个 Shell。如果不指定 Shell，那么系统使用 sh 为默认的登录 Shell，即这个字段的值为 /bin/sh。
+系统管理员可以根据系统情况和用户习惯为用户指定某个 Shell。如果不指定 Shell，那么系统使用 sh 为默认的登录 Shell，即这个字段的值为 `/bin/sh`。
 
 用户的登录 Shell 也可以指定为某个特定的程序（此程序不是一个命令解释器）。利用这一特点，我们可以限制用户只能运行指定的应用程序，在该应用程序运行结束后，用户就自动退出了系统。有些 Linux 系统要求只有那些在系统中登记了的程序才能出现在这个字段中。
 
@@ -858,7 +858,7 @@ Shell 是用户与 Linux 系统之间的接口。Linux 的 Shell 有许多种，
 
 **系统中有一类用户称为伪用户（pseudo users）**
 
-这些用户在 /etc/passwd 文件中也占有一条记录，但是不能登录，因为它们的登录 Shell 为空。它们的存在主要是方便系统管理，满足相应的系统进程对文件属主的要求。
+这些用户在 `/etc/passwd` 文件中也占有一条记录，但是不能登录，因为它们的登录 Shell 为空。它们的存在主要是方便系统管理，满足相应的系统进程对文件属主的要求。
 
 常见的伪用户如下所示：
 
@@ -878,15 +878,15 @@ nobody NFS使用
 
 ### 6.3.2、/etc/shadow
 
-由于 /etc/passwd 文件是所有用户都可读的，如果用户的密码太简单或规律比较明显的话，一台普通的计算机就能够很容易地将它破解，因此对安全性要求较高的 Linux 系统都把加密后的口令字分离出来，单独存放在一个文件中，这个文件是 /etc/shadow 文件。 有超级用户才拥有该文件读权限，这就保证了用户密码的安全性。
+由于 `/etc/passwd` 文件是所有用户都可读的，如果用户的密码太简单或规律比较明显的话，一台普通的计算机就能够很容易地将它破解，因此对安全性要求较高的 Linux 系统都把加密后的口令字分离出来，单独存放在一个文件中，这个文件是 `/etc/shadow` 文件。 有超级用户才拥有该文件读权限，这就保证了用户密码的安全性。
 
-/etc/shadow 中的记录行与 /etc/passwd 中的一一对应，它由 pwconv 命令根据 /etc/passwd 中的数据自动产生。它的文件格式与 /etc/passwd 类似，由若干个字段组成，字段之间用 `:` 隔开。这些字段是：
+`/etc/shadow` 中的记录行与 `/etc/passwd` 中的一一对应，它由 `pwconv` 命令根据 `/etc/passwd` 中的数据自动产生。它的文件格式与 `/etc/passwd` 类似，由若干个字段组成，字段之间用 `:` 隔开。这些字段是：
 
 ```
 登录名:加密口令:最后一次修改时间:最小时间间隔:最大时间间隔:警告时间:不活动时间:失效时间:标志
 ```
 
-**“登录名” 是与 /etc/passwd 文件中的登录名相一致的用户账号**
+**“登录名” 是与 `/etc/passwd` 文件中的登录名相一致的用户账号**
 
 **”口令“ 字段存放的是加密后的用户口令字，长度为 13 个字符。如果为空，则对应用户没有口令，登录时不需要口令；如果含有不属于集合 { ./0-9A-Za-z }中的字符，则对应的用户不能登录。**
 
@@ -902,7 +902,7 @@ nobody NFS使用
 
 **“失效时间” 字段给出的是一个绝对的天数，如果使用了这个字段，那么就给出相应账号的生存期。期满后，该账号就不再是一个合法的账号，也就不能再用来登录了。**
 
-下面是 /etc/shadow 的一个例子：
+下面是 `/etc/shadow` 的一个例子：
 
 ```
 ＃ cat /etc/shadow
@@ -925,19 +925,19 @@ sam:EkdiSECLWPdSa:9740:0:0::::
 
 ### 6.3.3、/etc/group
 
-将用户分组是Linux 系统中对用户进行管理及控制访问权限的一种手段。
+将用户分组是 Linux 系统中对用户进行管理及控制访问权限的一种手段。
 
-每个用户都属于某个用户组；一个组中可以有多个用户，一个用户也可以属于不同的组。当一个用户同时是多个组中的成员时，在 /etc/passwd 文件中记录的是用户所属的主组，也就是登录时所属的默认组，而其他组称为附加组。
+每个用户都属于某个用户组；一个组中可以有多个用户，一个用户也可以属于不同的组。当一个用户同时是多个组中的成员时，在 `/etc/passwd` 文件中记录的是用户所属的主组，也就是登录时所属的默认组，而其他组称为附加组。
 
 用户要访问属于附加组的文件时，必须首先使用 `newgrp` 命令使自己成为所要访问的组中的成员。
 
-用户组的所有信息都存放在 /etc/group 文件中。此文件的格式也类似于 /etc/passwd 文件，由冒号 `:` 隔开若干个字段，这些字段有：
+用户组的所有信息都存放在 `/etc/group` 文件中。此文件的格式也类似于 `/etc/passwd` 文件，由冒号 `:` 隔开若干个字段，这些字段有：
 
 ```
 组名:口令:组标识号:组内用户列表
 ```
 
-**“组名” 是用户组的名称，由字母或数字构成。与 /etc/passwd 中的登录名一样，组名不应重复。**
+**“组名” 是用户组的名称，由字母或数字构成。与 `/etc/passwd` 中的登录名一样，组名不应重复。**
 
 **“口令” 字段存放的是用户组加密后的口令字。一般 Linux 系统的用户组都没有口令，即这个字段一般为空，或者是 *。**
 
@@ -945,7 +945,7 @@ sam:EkdiSECLWPdSa:9740:0:0::::
 
 **“组内用户列表” 是属于这个组的所有用户的列表，不同用户之间用逗号 `,`分隔。这个用户组可能是用户的主组，也可能是附加组。**
 
-/etc/group 文件的一个例子如下：
+`/etc/group` 文件的一个例子如下：
 
 ```
 root::0:root
@@ -963,7 +963,7 @@ users::20:root,sam
 
 添加和删除用户对每位 Linux 系统管理员都是轻而易举的事，比较棘手的是如果要添加几十个、上百个甚至上千个用户时，我们不太可能还使用`useradd` 一个一个地添加，必然要找一种简便的创建大量用户的方法。Linux 系统提供了创建大量用户的工具，可以立即创建大量用户，方法如下：
 
-1. 先编辑一个文本用户文件，每一列按照 /etc/passwd 密码文件的格式书写，要注意每个用户的用户名、UID、宿主目录都不可以相同，其中密码栏可以留做空白或输入 x 号。一个范例文件 user.txt 内容如下：
+1. 先编辑一个文本用户文件，每一列按照 `/etc/passwd` 密码文件的格式书写，要注意每个用户的用户名、UID、宿主目录都不可以相同，其中密码栏可以留做空白或输入 `x` 号。一个范例文件 user.txt 内容如下：
 
 	```
 	user001::600:100:user:/home/user001:/bin/bash
@@ -980,9 +980,9 @@ users::20:root,sam
 	newusers < user.txt
 	```
 
-	然后可以执行命令 `vipw` 或 `vi /etc/passwd` 检查 /etc/passwd 文件是否已经出现这些用户的数据，并且用户的宿主目录是否已经创建。
+	然后可以执行命令 `vipw` 或 `vi /etc/passwd` 检查 `/etc/passwd` 文件是否已经出现这些用户的数据，并且用户的宿主目录是否已经创建。
 
-3. 执行命令 `/usr/sbin/pwunconv` 将 /etc/shadow 产生的 shadow 密码解码，然后回写到 /etc/passwd 中，并将 /etc/shadow 的 shadow 密码栏删掉。这是为了方便下一步的密码转换工作，即先取消 shadow password 功能。
+3. 执行命令 `/usr/sbin/pwunconv` 将 `/etc/shadow` 产生的 shadow 密码解码，然后回写到 `/etc/passwd` 中，并将 `/etc/shadow` 的 shadow 密码栏删掉。这是为了方便下一步的密码转换工作，即先取消 shadow password 功能。
 
 	```shell
 	pwunconv
@@ -1005,19 +1005,19 @@ users::20:root,sam
 	user006:123456
 	```
 
-5. 以 root 身份执行命令 `/usr/sbin/chpasswd` 创建用户密码，`chpasswd` 会将经过 `/usr/bin/passwd` 命令编码过的密码写入 /etc/passwd 的密码栏：
+5. 以 root 身份执行命令 `/usr/sbin/chpasswd` 创建用户密码，`chpasswd` 会将经过 `/usr/bin/passwd` 命令编码过的密码写入 `/etc/passwd` 的密码栏：
 
 	```shell
 	chpasswd < passwd.txt
 	```
 
-6. 确定密码经编码写入 /etc/passwd 的密码栏后执行命令 `/usr/sbin/pwconv` 将密码编码为 shadow password，并将结果写入 /etc/shadow：
+6. 确定密码经编码写入 `/etc/passwd` 的密码栏后执行命令 `/usr/sbin/pwconv` 将密码编码为 shadow password，并将结果写入 `/etc/shadow`：
 
 	```shell
 	pwconv
 	```
 
-	这样就完成了大量用户的创建了，之后您可以到 /home 下检查这些用户宿主目录的权限设置是否都正确，并登录验证用户密码是否正确。
+	这样就完成了大量用户的创建了，之后可以到 `/home` 下检查这些用户宿主目录的权限设置是否都正确，并登录验证用户密码是否正确。
 
 
 
@@ -1027,9 +1027,9 @@ Linux 磁盘管理好坏直接关系到整个系统的性能问题。
 
 Linux 磁盘管理常用三个命令为 `df`、`du` 和 `fdisk`。
 
-- `df`（英文全称：disk full）：列出文件系统的整体磁盘使用量
-- `du`（英文全称：disk used）：检查磁盘空间使用量
-- `fdisk`：用于磁盘分区
+- `df`（英文全称：disk full）：列出文件系统的整体磁盘使用量。
+- `du`（英文全称：disk used）：检查磁盘空间使用量。
+- `fdisk`：用于磁盘分区。
 
 
 
@@ -1050,7 +1050,7 @@ df [-ahikHTm] [目录或文件名]
 - `-m` ：以 MBytes 的容量显示各文件系统
 - `-h` ：以人们较易阅读的 GBytes, MBytes, KBytes 等格式自行显示
 - `-H` ：以 M=1000K 取代 M=1024K 的进位方式
-- `-T` ：显示文件系统类型, 连同该 partition 的 filesystem 名称（例如 ext3）也列出
+- `-T` ：显示文件系统类型，连同该 partition 的 filesystem 名称（例如 ext3）也列出
 - `-i` ：不用硬盘容量，而以 inode 的数量来显示
 
 **实例 1**
@@ -1469,15 +1469,15 @@ Vim 键盘图：
 
 ## 8.4、Vim 配置
 
-Vim 的全局配置一般在 /etc/vim/vimrc 或者 /etc/vimrc，对所有用户生效。用户个人的配置在 ~/.vimrc。
+Vim 的全局配置一般在 `/etc/vim/vimrc` 或者 `/etc/vimrc`，对所有用户生效。用户个人的配置在 `~/.vimrc`。
 
-如果只对单次编辑启用某个配置项，可以在命令模式下，先输入一个冒号，再输入配置。举例来说，`set number`这个配置可以写在 .vimrc 里面，也可以在命令模式输入：
+如果只对单次编辑启用某个配置项，可以在命令模式下，先输入一个冒号，再输入配置。举例来说，`set number`这个配置可以写在 `.vimrc` 里面，也可以在命令模式输入：
 
 ```shell
 :set number
 ```
 
-配置项一般都有 "打开" 和 "关闭" 两个设置。"关闭" 就是在 "打开" 前面加上前缀"no"：
+配置项一般都有 "打开" 和 "关闭" 两个设置。"关闭" 就是在 "打开" 前面加上前缀 "no"：
 
 ```shell
 " 打开
@@ -1533,25 +1533,281 @@ apt 命令提供了查找、安装、升级、删除某一个、一组甚至全�
 
 	列出可更新的软件包及版本信息：`apt list --upgradeable`
 
-	升级软件包，升级前先删除需要更新软件包：sudo apt full-upgrade
+	升级软件包，升级前先删除需要更新软件包：`sudo apt full-upgrade`
 
-- 安装指定的软件命令：sudo apt install <package_name>
+- 安装指定的软件命令：`sudo apt install <package_name>`
 
-	安装多个软件包：sudo apt install <package_1> <package_2> <package_3>
+	安装多个软件包：`sudo apt install <package_1> <package_2> <package_3>`
 
-- 更新指定的软件命令：sudo apt update <package_name>
+- 更新指定的软件命令：`sudo apt update <package_name>`
 
-- 显示软件包具体信息,例如：版本号，安装大小，依赖关系等等：sudo apt show <package_name>
+- 显示软件包具体信息，例如：版本号，安装大小，依赖关系等等：`sudo apt show <package_name>`
 
-- 删除软件包命令：sudo apt remove <package_name>
+- 删除软件包命令：`sudo apt remove <package_name>`
 
-- 清理不再使用的依赖和库文件: sudo apt autoremove
+- 清理不再使用的依赖和库文件：`sudo apt autoremove`
 
-- 移除软件包及配置文件: sudo apt purge <package_name>
+- 移除软件包及配置文件：`sudo apt purge <package_name>`
 
-- 查找软件包命令： sudo apt search <keyword>
+- 查找软件包命令： `sudo apt search <keyword>`
 
-- 列出所有已安装的包：apt list --installed
+- 列出所有已安装的包：`apt list --installed`
 
-- 列出所有已安装的包的版本信息：apt list --all-versions
+- 列出所有已安装的包的版本信息：`apt list --all-versions`
+
+
+
+# 10、服务管理
+
+在 Linux 中，无论何时当你安装任何带有服务和守护进程的包，系统默认会把这些服务的初始化及 systemd 脚本添加进去，不过此时它们并没有被启用。
+
+我们需要手动的开启或者关闭那些服务。Linux 中有三个著名的且一直在被使用的初始化系统。
+
+在以 Linux/Unix 为基础的操作系统上，init（初始化的简称）是内核引导系统启动过程中第一个启动的进程。
+
+init 的进程 id （pid）是 `1`，除非系统关机否则它将会一直在后台运行。
+
+init 首先根据 `/etc/inittab` 文件决定 Linux 运行的级别，然后根据运行级别在后台启动所有其他进程和应用程序。
+
+BIOS、MBR、GRUB 和内核程序在启动 init 之前就作为 Linux 的引导程序的一部分开始工作了。
+
+下面是 Linux 中可以使用的运行级别（从 0～6 总共七个运行级别）：
+
+- 0：关机
+- 1：单用户模式
+- 2：多用户模式（没有NFS）
+- 3：完全的多用户模式
+- 4：系统未使用
+- 5：图形界面模式
+- 6：重启
+
+
+
+## 10.1、初始化系统
+
+下面是 Linux 系统中最常用的三个初始化系统：
+
+- System V（Sys V）
+- Upstart
+- systemd
+
+
+
+**System V（Sys V）**
+
+System V（Sys V）是类 Unix 系统第一个也是传统的初始化系统。init 是内核引导系统启动过程中第一支启动的程序，它是所有程序的父进程。
+
+大部分 Linux 发行版最开始使用的是叫作 System V（Sys V）的传统的初始化系统。在过去的几年中，已经发布了好几个初始化系统以解决标准版本中的设计限制，例如：launchd、Service Management Facility、systemd 和 Upstart。
+
+但是 systemd 已经被几个主要的 Linux 发行版所采用，以取代传统的 SysV 初始化系统。
+
+
+
+**Upstart**
+
+Upstart 是一个基于事件的 `/sbin/init` 守护进程的替代品，它在系统启动过程中处理任务和服务的启动，在系统运行期间监视它们，在系统关机的时候关闭它们。
+
+它最初是为 Ubuntu 而设计，但是它也能够完美的部署在其他所有 Linux 系统中，用来代替古老的 System-V。
+
+Upstart 被用于 Ubuntu 9.10 到 Ubuntu 14.10 和基于 RHEL 6 的系统，之后它被 systemd 取代。
+
+
+
+**systemd**
+
+systemd 是一个新的初始化系统和系统管理器，它被用于所有主要的 Linux 发行版，以取代传统的 SysV 初始化系统。
+
+systemd 兼容 SysV 和 LSB 初始化脚本。它可以直接替代 SysV 初始化系统。systemd 是被内核启动的第一个程序，它的 PID 是`1`。
+
+systemd 是所有程序的父进程，Fedora 15 是第一个用 systemd 取代 upstart 的发行版。`systemctl` 用于命令行，它是管理 systemd 的守护进程/服务的主要工具，例如：（开启、重启、关闭、启用、禁用、重载和状态）
+
+systemd 使用 `.service` 文件而不是 bash 脚本（SysVinit 使用的）。systemd 将所有守护进程添加到 cgroups 中排序，你可以通过浏览 `/cgroup/systemd` 文件查看系统等级。
+
+
+
+## 10.2、service
+
+`service`命令，顾名思义，就是用于管理 Linux 操作系统中服务的命令。
+
+这个命令不是在所有的 Linux 发行版本中都有。主要是在 redhat、fedora、mandriva 和 centos 中。
+
+```shell
+#查看所有服务当前的运行状态
+service --status-all
+
+#查看指定服务（vsftpd）的运行状态
+service vsftpd status
+
+#停止指定服务（vsftpd）
+service vsftpd stop
+
+#重启网络服务
+service network restart
+```
+
+
+
+## 10.4、systemctl
+
+systemd 核心概念 unit（单元）类型：unit 表示不同类型的 systemd 对象，通过配置文件进行标识和配置； 文件中主要包含了系统服务、监听socket、保存的系统快照以及其它与 init 相关的信息。
+
+下面为unit类型 ：
+
+- service：文件扩展名为`.service`，用于定义系统服务
+- target：文件扩展名为`.target`，用于模拟实现运行级别
+- device ：用于定义内核识别的设备
+- mount：定义文件系统挂载点
+- socket：用于标识进程间通信用的 socket 文件，也可在系统启动时，延迟启动服务，实现按需启动
+- snapshot ：管理系统快照
+- swap：用于标识 swap 设备
+- automount ：文件系统的自动挂载点
+- path：用于定义文件系统中的一个文件或目录使用，常用于当文件系统变化时，延迟激活服务
+
+如何查看这些类型呢?
+
+可以使用`-t`加上类型去查看，以`service`为例
+
+```shell
+ststemctl -t service
+```
+
+
+
+### 10.4.1、systemd 配置文件
+
+- `/usr/lib/systemd/system/`：每个服务最主要的启动脚本的配置放在这，有点类似以前的`/etc/init.d`。
+- `/run/systemd/system/`：系统执行过程中所产生的服务脚本所在目录，这些脚本的优先级要比`/usr/lib/systemd/system/`高。
+- `/etc/systemd/system/`：管理员根据主机系统的需求所创建的执行脚本所在目录，执行优先级比`/run/systemd/system/`高。
+
+从上面的功能及优先级次序，我们可以知道，`/etc/systemd/system/` 目录下的相关配置，决定系统了会不会执行某些服务，所以该目录下面一般放着一大堆链接文件。而 `/usr/lib/systemd/system/` 下，则放着实际执行的 systemd 启动脚本配置文件。因此如果你想要修改某个服务启动的设置，应该去 `/usr/lib/systemd/system/` 下面修改。`/etc/systemd/system/` 仅是链接到正确的执行脚本配置文件而已。所以想要看执行脚本设置，应该就得要到 `/usr/lib/systemd/system/` 去查阅。
+
+
+
+### 10.4.2、常用指令
+
+| 任务                 | 旧指令                          | 新指令                                                       |
+| -------------------- | ------------------------------- | ------------------------------------------------------------ |
+| 使某服务自动启动     | `chkconfig --level 3 httpd on`  | `systemctl enable httpd.service`                             |
+| 使某服务不自动启动   | `chkconfig --level 3 httpd off` | `systemctl disable httpd.service`                            |
+| 检查服务状态         | `service httpd status`          | `systemctl status httpd.service `（服务详细信息）<br>`systemctl is-active httpd.service` （仅显示是否 Active) |
+| 显示所有已启动的服务 | `chkconfig --list`              | `systemctl list-units --type=service`                        |
+| 启动某服务           | `service httpd start`           | `systemctl start httpd.service`                              |
+| 停止某服务           | ` service httpd stop`           | `systemctl stop httpd.service`                               |
+| 重启某服务           | `service httpd restart`         | `systemctl restart httpd.service`                            |
+
+
+
+**查看服务状态**
+
+```shell
+systemctl status httpd
+```
+
+运行状态：
+
+- `active（running）`：正有一只或多只程序正在系统中执行的意思
+- `active（exited）`：仅执行一次就正常结束的服务，目前并没有任何程序在系统中执行
+- `active（waiting）`：正在执行当中，不过还需要等待其他的事件才能继续处理
+- `inactive`：这个服务目前没有运行
+- `dead`：程序已经清除
+
+启动状态（有两个，`vendor preset` 前面的表示服务当前的启动状态，后面的表示服务默认的启动状态）：
+
+- `enabled`：这个 daemon 将在开机时被执行
+- `disabled`：这个 daemon 在开机时不会被执行
+- `static`：这个 daemon 不可以自己启动，不过可能会被其他的 `enabled` 的服务来唤醒（关联属性的服务）
+- `mask`：这个 daemon 无论如何都无法被启动，因为已经被强制注销（非删除），可通过 `systemctl unmask` 方式改回原本状态
+
+![image-20211129133826757](../Images/Linux/image-20211129133826757.png)
+
+
+
+**检查服务的所有配置详细信息**
+
+```shell
+systemctl show httpd
+```
+
+
+
+**查看各服务开机自启情况**
+
+```shell
+systemctl list-unit-files --type=service
+```
+
+
+
+**获取服务的依赖项列表**
+
+```shell
+systemctl list-dependencies httpd.service
+```
+
+
+
+**按层次列出控制组**
+
+```shell
+systemd-cgls
+```
+
+
+
+**根据CPU，内存，输入和输出列出控制组**
+
+```shell
+systemd-cgtop
+```
+
+
+
+**分析每个进程在引导时花费的时间**
+
+```shell
+systemd-analyze blame
+```
+
+
+
+**列出所有可用的系统套接字**
+
+```shell
+systemctl list-unit-files --type=socket
+```
+
+套接字的操作：
+
+```shell
+systemctl start cups.socket #启动套接字
+systemctl restart cups.socket #重启套接字
+systemctl stop cups.socket #停止套接字
+systemctl reload cups.socket #重新加载套接字
+systemctl status cups.socket #查看套接字状态
+
+systemctl is-active cups.socket
+systemctl enable cups.socket
+systemctl disable cups.socket
+```
+
+
+
+**其他命令**
+
+```shell
+systemctl mask httpd.service   #禁用某个服务
+systemctl unmask httpd.service   #解除禁用某个服务
+
+systemctl isolate multi-user.target  #将目前的操作环境改为纯文本模式，关掉图形界面
+systemctl isolate graphical.target  #将目前的操作环境改为图形界面
+
+systemctl poweroff # 系统关机
+systemctl reboot  # 重新开机
+systemctl suspend  # 进入暂停模式
+systemctl hibernate # 进入休眠模式
+systemctl rescue  # 强制进入救援模式
+systemctl emergency # 强制进入紧急救援模式
+```
+
+
 
