@@ -1479,11 +1479,15 @@ SELECT b, d FROM cte1 JOIN cte2
 WHERE cte1.a = cte2.c;
 ```
 
+<br>
+
 在包含 `WITH` 子句的语句中，可以引用每个 CTE 名称来访问相应的 CTE 结果集。
 
 CTE 名称可以在其他 CTE 中引用，从而可以根据其他 CTE 定义 CTE。
 
 CTE 可以引用自身来定义递归 CTE。递归 CTE 的常见应用包括序列生成和层次或树结构数据的遍历。
+
+<br>
 
 公用表表达式是 DML 语句语法的可选部分。它们是使用 `WITH` 子句定义的：
 
@@ -1529,11 +1533,70 @@ WITH [RECURSIVE]
 	SELECT col1, col2 FROM cte;
 	```
 
-
+<br>
 
 在这些上下文中允许使用 `WITH` 子句：
 
-- 
+- 在 `SELECT`、``UPDATE` 和 `DELETE` 语句的开头。
+
+	```mysql
+	WITH ... SELECT ...
+	WITH ... UPDATE ...
+	WITH ... DELETE ...
+	```
+
+- 在子查询（包括派生表子查询）的开头：
+
+	```mysql
+	SELECT ... WHERE id IN (WITH ... SELECT ...) ...
+	SELECT * FROM (WITH ... SELECT ...) AS dt ...
+	```
+
+- 对于包含 `SELECT` 语句的语句，紧接在 `SELECT` 之前：
+
+	```mysql
+	INSERT ... WITH ... SELECT ...
+	REPLACE ... WITH ... SELECT ...
+	CREATE TABLE ... WITH ... SELECT ...
+	CREATE VIEW ... WITH ... SELECT ...
+	DECLARE CURSOR ... WITH ... SELECT ...
+	EXPLAIN ... WITH ... SELECT ...
+	```
+
+<br>
+
+同一级别只允许一个 `WITH` 子句。`WITH` 后面跟着 `WITH` 是不允许的，这是非法的：
+
+```mysql
+WITH cte1 AS (...) WITH cte2 AS (...) SELECT ...
+```
+
+要使该语句合法，请使用一个 `WITH` 子句，并用逗号分隔子句：
+
+```mysql
+WITH cte1 AS (...), cte2 AS (...) SELECT ...
+```
+
+然而，如果多个 `WITH` 子句出现在不同级别，则语句可以包含多个 `WITH`子句：
+
+```mysql
+WITH cte1 AS (SELECT 1)
+SELECT * FROM (WITH cte2 AS (SELECT 2) SELECT * FROM cte2 JOIN cte1) AS dt;
+```
+
+`WITH` 子句可以定义一个或多个通用表表达式，但每个 CTE 名称对于该子句必须是唯一的。这是非法的：
+
+```mysql
+WITH cte1 AS (...), cte1 AS (...) SELECT ...
+```
+
+要使声明合法，请使用唯一名称定义 CTE：
+
+```mysql
+WITH cte1 AS (...), cte2 AS (...) SELECT ...
+```
+
+
 
 
 
