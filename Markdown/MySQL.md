@@ -1479,15 +1479,11 @@ SELECT b, d FROM cte1 JOIN cte2
 WHERE cte1.a = cte2.c;
 ```
 
-
-
 在包含 `WITH` 子句的语句中，可以引用每个 CTE 名称来访问相应的 CTE 结果集。
 
 CTE 名称可以在其他 CTE 中引用，从而可以根据其他 CTE 定义 CTE。
 
 CTE 可以引用自身来定义递归 CTE。递归 CTE 的常见应用包括序列生成和层次或树结构数据的遍历。
-
-
 
 公用表表达式是 DML 语句语法的可选部分。它们是使用 `WITH` 子句定义的：
 
@@ -1503,7 +1499,7 @@ WITH [RECURSIVE]
 
 如果公共表表达式的子查询引用其自己的名称，则该表达式是递归的。如果  `WITH` 子句中的任何 CTE 是递归的，则必须包含关键字 `RECURSIVE`。
 
-
+<br>
 
 定义 CTE 的列名有以下情况：
 
