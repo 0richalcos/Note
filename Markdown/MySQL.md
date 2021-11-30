@@ -1463,9 +1463,81 @@ MySQL使用SELECT命令及WHERE子句来读取数据表中的数据，但是当�
 
 ## 7.9、WITH（CTE）
 
-MySQL 的 CTE 是在 MySQL8.0 版本开始支持的，公用表表达式（CTE）是一个命名的临时结果集，仅在单个 SQL 语句（例如select、insert、delete和update)的执行范围内存在。CTE分为递归CTE和非递归CTE。
+MySQL 的 CTE 是在 MySQL 8.0 版本开始支持的，公用表表达式 （CTE） 是一个命名的临时结果集，它存在于单个语句的范围内，以后可以在该语句中引用，可能多次引用。
 
 
+
+### 7.9.1、公用表表达式
+
+若要指定公用表表达式，请使用具有一个或多个逗号分隔子句的 `WITH` 子句。每个子句提供一个子查询，该子查询产生一个结果集，并将名称与子查询相关联。 下面的示例定义名为的 cte1 和 cte2 中 `WITH` 子句，并在 `WITH` 子句后面的 `SELECT` 中引用了它们：
+
+```mysql
+WITH
+  cte1 AS (SELECT a, b FROM table1),
+  cte2 AS (SELECT c, d FROM table2)
+SELECT b, d FROM cte1 JOIN cte2
+WHERE cte1.a = cte2.c;
+```
+
+
+
+在包含 `WITH` 子句的语句中，可以引用每个 CTE 名称来访问相应的 CTE 结果集。
+
+CTE 名称可以在其他 CTE 中引用，从而可以根据其他 CTE 定义 CTE。
+
+CTE 可以引用自身来定义递归 CTE。递归 CTE 的常见应用包括序列生成和层次或树结构数据的遍历。
+
+
+
+公用表表达式是 DML 语句语法的可选部分。它们是使用 `WITH` 子句定义的：
+
+```mysql
+WITH [RECURSIVE]
+	cte_name [(col_name [, col_name] ...)] AS (subquery)
+	[, cte_name [(col_name [, col_name] ...)] AS (subquery)] ...
+```
+
+*cte_name* 命名单个公共表表达式，并且可以在包含 `WITH` 子句的语句中用作表引用。
+
+*subquery* 被称为 "CTE 的子查询"，它是生成 CTE 结果集的原因。以下括号为必填项：`AS (subquery)`
+
+如果公共表表达式的子查询引用其自己的名称，则该表达式是递归的。如果  `WITH` 子句中的任何 CTE 是递归的，则必须包含关键字 `RECURSIVE`。
+
+
+
+定义 CTE 的列名有以下情况：
+
+- 如果 CTE 名称后面有一个带括号的名称列表，这些名称就是列名：
+
+	```mysql
+	WITH cte (col1, col2) AS
+	(
+	  SELECT 1, 2
+	  UNION ALL
+	  SELECT 3, 4
+	)
+	SELECT col1, col2 FROM cte;
+	```
+
+	列表中的列名数量必须与结果集中的列数量相同。
+
+- 否则，列名来选择列表中第一个 `SELECT` 的部分： `AS (subquery)`
+
+	```mysql
+	WITH cte AS
+	(
+	  SELECT 1 AS col1, 2 AS col2
+	  UNION ALL
+	  SELECT 3, 4
+	)
+	SELECT col1, col2 FROM cte;
+	```
+
+
+
+在这些上下文中允许使用 `WITH` 子句：
+
+- 
 
 
 
