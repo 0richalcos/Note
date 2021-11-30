@@ -1469,7 +1469,7 @@ MySQL 的 CTE 是在 MySQL 8.0 版本开始支持的，公用表表达式 （CTE
 
 ### 7.9.1、公用表表达式
 
-若要指定公用表表达式，请使用具有一个或多个逗号分隔子句的 `WITH` 子句。每个子句提供一个子查询，该子查询产生一个结果集，并将名称与子查询相关联。 下面的示例定义名为的 cte1 和 cte2 中 `WITH` 子句，并在 `WITH` 子句后面的 `SELECT` 中引用了它们：
+若要指定公用表表达式，请使用具有一个或多个逗号分隔子句的 `WITH` 子句。每个子句提供一个子查询，该子查询产生一个结果集，并将名称与子查询相关联。 下面的示例定义名为的 `cte1` 和 `cte2` 中 `WITH` 子句，并在 `WITH` 子句后面的 `SELECT` 中引用了它们：
 
 ```mysql
 WITH
@@ -1499,9 +1499,9 @@ WITH [RECURSIVE]
 
 *cte_name* 命名单个公共表表达式，并且可以在包含 `WITH` 子句的语句中用作表引用。
 
-*subquery* 被称为 "CTE 的子查询"，它是生成 CTE 结果集的原因。以下括号为必填项：`AS (subquery)`
+`AS (subquery)` 中的 *subquery* 被称为 “CTE的子查询”，是产生 CTE 结果集的原因。`AS` 后面的括号是必需的。
 
-如果公共表表达式的子查询引用其自己的名称，则该表达式是递归的。如果  `WITH` 子句中的任何 CTE 是递归的，则必须包含关键字 `RECURSIVE`。
+如果公共表表达式的子查询引用其自己的名称，则该表达式是递归的。如果 `WITH` 子句中的任何 CTE 是递归的，则必须包含 `RECURSIVE` 关键字 。
 
 <br>
 
@@ -1521,7 +1521,7 @@ WITH [RECURSIVE]
 
 	列表中的列名数量必须与结果集中的列数量相同。
 
-- 否则，列名来选择列表中第一个 `SELECT` 的部分： `AS (subquery)`
+- 否则，列名来选择列表中第一个 ` AS (subquery)` 部分中第一个 `SELECT` 的选择列表：
 
 	```mysql
 	WITH cte AS
@@ -1537,7 +1537,7 @@ WITH [RECURSIVE]
 
 在这些上下文中允许使用 `WITH` 子句：
 
-- 在 `SELECT`、``UPDATE` 和 `DELETE` 语句的开头。
+- 在 `SELECT`、`UPDATE` 和 `DELETE` 语句的开头。
 
 	```mysql
 	WITH ... SELECT ...
@@ -1596,7 +1596,117 @@ WITH cte1 AS (...), cte1 AS (...) SELECT ...
 WITH cte1 AS (...), cte2 AS (...) SELECT ...
 ```
 
+<br>
 
+一个 CTE 可以引用自己，也可以引用其他 CTE：
+
+- 自引用 CTE 是递归的。
+- CTE 可以引用前面在同一个 `WITH` 子句中定义的 CTE，但不能引用后面定义的 CTE。
+- 给定查询块中的 CTE 可以引用在更外部级别的查询块中定义的 CTE，但不能引用在更内部级别的查询块中定义的 CTE。
+
+<br>
+
+### 7.9.2、递归公用表表达式
+
+递归常见表表达式是具有引用其自己名称的子查询的表达式。例如：
+
+```mysql
+WITH RECURSIVE cte (n) AS
+(
+  SELECT 1
+  UNION ALL
+  SELECT n + 1 FROM cte WHERE n < 5
+)
+SELECT * FROM cte;
+```
+
+执行时，语句会产生此结果，该结果包含一个简单的线性序列：
+
+```mysql
++------+
+| n    |
++------+
+|    1 |
+|    2 |
+|    3 |
+|    4 |
+|    5 |
++------+
+```
+
+<br>
+
+递归 CTE 具有以下结构：
+
+- 如果 `WITH` 子句中的任何 CTE 指代自己，`WITH` 子句必须以 `WITH RECURSIVE` 开始。（如果没有 CTE 指代自己，`RECURSIVE` 是允许的，但不是必须的。）
+
+	如果你忘记了递归 CTE 的 `RECURSIVE`，则可能会出现以下错误：
+
+	```mysql
+	ERROR 1146 (42S02): Table 'cte_name' doesn't exist
+	```
+
+- 递归 CTE 子查询有两个部分，用 `UNION [ALL]` 或 `UNION DISTINCT` 分开：
+
+	```mysql
+	SELECT ...      -- return initial row set
+	UNION ALL
+	SELECT ...      -- return additional row sets
+	```
+
+	第一个 `SELECT` 生成 CTE 的初始行或初始行，但不引用 CTE 名称。第二个 `SELECT` 生成额外的行，并通过在其 `FROM` 子句中引用 CTE 名称来递归。当此部分不产生新行时，递归结束。因此，递归 CTE 由一个非递归 `SELECT` 部分和一个递归 `SELECT` 部分组成。
+
+	每个 `SELECT` 部件本身可以是多个 `SELECT` 语句的并集。
+
+- CTE 结果列的类型仅从非递归 `SELECT` 部分的列类型推断出来，并且所有列都是可为空的。对于类型确定，忽略递归 `SELECT` 部分。
+
+- 如果非递归部分和递归部分由 `UNION DISTINCT` 分隔，则消除重复行。这对于执行递归闭合的查询很有用，可以避免无限循环。
+
+- 递归部分的每个迭代只对前一个迭代产生的行进行操作。如果递归部分有多个查询块，每个查询块的迭代将以非指定的顺序调度，每个查询块对其前一次迭代或前一次迭代结束后的其他查询块所产生的行进行操作。
+
+<br>
+
+前面显示的递归 CTE 子查询有这个非递归部分，它检索了一条记录来产生初始行集：
+
+```mysql
+SELECT 1
+```
+
+CTE 子查询还具有此递归部分：
+
+```mysql
+SELECT n + 1 FROM cte WHERE n < 5
+```
+
+在每个迭代中，`SELECT` 产生一个新的值，比前一个行集的 `n` 的值大 `1`。第一次迭代在初始行集（1）上操作，产生 `1+1=2`；第二次迭代在第一次迭代的行集（2）上操作，产生 `2+1=3`；以此类推。这样一直持续到递归结束，当 `n` 不再小于 `5` 的时候，递归就结束了。
+
+<br>
+
+如果一个 CTE 的递归部分对某一列产生的值比非递归部分更宽，那么可能需要在非递归部分扩大该列，以避免数据被截断。考虑一下这个语句：
+
+```mysql
+WITH RECURSIVE cte AS
+(
+  SELECT 1 AS n, 'abc' AS str
+  UNION ALL
+  SELECT n + 1, CONCAT(str, str) FROM cte WHERE n < 3
+)
+SELECT * FROM cte;
+```
+
+在非严格的 SQL 模式下，该语句产生这样的输出：
+
+```mysql
++------+------+
+| n    | str  |
++------+------+
+|    1 | abc  |
+|    2 | abc  |
+|    3 | abc  |
++------+------+
+```
+
+`str` 列的值都是 `'abc'`，因为非递归 `SELECT` 确定了列的宽度。因此，由递归 `SELECT`产生的更宽的 `str` 值被截断了。
 
 
 
