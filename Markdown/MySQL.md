@@ -1535,7 +1535,7 @@ WITH [RECURSIVE]
 
 <br>
 
-在这些上下文中允许使用 `WITH` 子句：
+在这些情况下，允许使用 `WITH` 子句：
 
 - 在 `SELECT`、`UPDATE` 和 `DELETE` 语句的开头。
 
@@ -1707,6 +1707,177 @@ SELECT * FROM cte;
 ```
 
 `str` 列的值都是 `'abc'`，因为非递归 `SELECT` 确定了列的宽度。因此，由递归 `SELECT`产生的更宽的 `str` 值被截断了。
+
+在严格 SQL 模式下，该语句会产生错误：
+
+```mysql
+ERROR 1406 (22001): Data too long for column 'str' at row 1
+```
+
+要解决此问题，使语句不会产生截断或错误，请在非递归 `SELECT` 中使用 `CAST()`使 `str` 列变宽：
+
+```mysql
+WITH RECURSIVE cte AS
+(
+  SELECT 1 AS n, CAST('abc' AS CHAR(20)) AS str
+  UNION ALL
+  SELECT n + 1, CONCAT(str, str) FROM cte WHERE n < 3
+)
+SELECT * FROM cte;
+```
+
+现在，该语句生成以下结果，没有截断：
+
+```mysql
++------+--------------+
+| n    | str          |
++------+--------------+
+|    1 | abc          |
+|    2 | abcabc       |
+|    3 | abcabcabcabc |
++------+--------------+
+```
+
+<br>
+
+列是通过名称而不是位置来访问的，这意味着递归部分的列可以访问非递归部分中具有不同位置的列，如这个 CTE 所示：
+
+```mysql
+WITH RECURSIVE cte AS
+(
+  SELECT 1 AS n, 1 AS p, -1 AS q
+  UNION ALL
+  SELECT n + 1, q * 2, p * 2 FROM cte WHERE n < 5
+)
+SELECT * FROM cte;
+```
+
+因为一行的 `p` 是由前一行的 `q` 派生出来的，反之亦然，所以正负值在输出的每一行都会交换位置：
+
+```mysql
++------+------+------+
+| n    | p    | q    |
++------+------+------+
+|    1 |    1 |   -1 |
+|    2 |   -2 |    2 |
+|    3 |    4 |   -4 |
+|    4 |   -8 |    8 |
+|    5 |   16 |  -16 |
++------+------+------+
+```
+
+<br>
+
+一些语法约束适用于递归 CTE 子查询中：
+
+- 递归 `SELECT`部分不能包含这些结构：
+
+	- 聚合函数，如 `SUM()`
+	- 窗口函数
+	- `GROUP BY`
+	- `ORDER BY`
+	- `DISTINCT`
+
+	在 MySQL 8.0.19 之前，递归 CTE 的递归 `SELECT` 部分也不能使用 `LIMIT` 子句。在 MySQL 8.0.19 中取消了这一限制，现在在这种情况下支持 `LIMIT`，还有一个可选的 `OFFSET` 子句。对结果集的影响与在最外层的 `SELECT` 中使用 `LIMIT` 时相同，但也更有效，因为与递归`SELECT` 一起使用，一旦产生了所要求的行数，就停止生成行。
+
+	这些约束并不适用于递归 CTE 的非递归 `SELECT` 部分。对 `DISTINCT` 的禁止只适用于 `UNION` 成员；`UNION DISTINCT` 是允许的。
+
+- 递归 `SELECT` 部分必须只引用一次 CTE，并且只在它的 `FROM` 子句中，而不是在任何子查询中。它可以引用除 CTE 以外的表，并且用 CTE 连接它们。如果在这样的连接中使用，CTE 不能在 `LEFT JOIN` 的右边。
+
+<br>
+
+CTE 的实际成本也可能受到结果集大小的影响。产生许多行的 CTE 可能需要一个足够大的内部临时表来将内存格式转换为磁盘格式，并且可能会损失性能。如果是这样，增加内存中允许的临时表大小可能会提高性能。
+
+
+
+### 7.9.3、限制公共表表达式递归
+
+对于递归 CTE 来说，递归 `SELECT` 部分包括一个终止递归的条件是很重要的。作为一种防止失控递归 CTE 的开发技术，你可以通过限制执行时间来强制终止:
+
+- `cte_max_recursion_depth` 系统变量对 CTE 的递归层数进行了限制。如果递归的级别超过此变量的值，服务器将终止任何 CTE 的执行。
+- `max_execution_time` 系统变量为当前会话中执行的 `SELECT` 语句强制执行超时。
+- `MAX_EXECUTION_TIME` 优化器提示对出现在其中的 `SELECT` 语句强制执行每条查询的超时。
+
+假设一个递归 CTE 被错误地写成没有递归执行终止条件：
+
+```mysql
+WITH RECURSIVE cte (n) AS
+(
+  SELECT 1
+  UNION ALL
+  SELECT n + 1 FROM cte
+)
+SELECT * FROM cte;
+```
+
+默认情况下，`cte_max_recursion_depth` 的值为 1000，导致 CTE 在递归超过 `1000` 个级别时终止。应用程序可以改变会话值来调整他们的需求：
+
+```mysql
+SET SESSION cte_max_recursion_depth = 10;      -- 只允许浅递归
+SET SESSION cte_max_recursion_depth = 1000000; -- 允许更深的递归
+```
+
+还可以设置全局 `cte_max_recursion_depth` 值以影响随后开始的所有会话：
+
+```mysql
+SET GLOBAL cte_max_recursion_depth = 1000000;
+```
+
+对于执行速度慢的查询，或者在有理由将 `cte_max_recursion_depth` 值设置得很高的情况下，防止深度递归的另一种方法是设置每个会话超时。要做到这一点，在执行 CTE 语句之前执行类似这样的语句：
+
+```mysql
+SET max_execution_time = 1000; -- 设置一秒超时
+```
+
+或者，在 CTE 语句中包含一个优化提示：
+
+```mysql
+WITH RECURSIVE cte (n) AS
+(
+  SELECT 1
+  UNION ALL
+  SELECT n + 1 FROM cte
+)
+SELECT /*+ SET_VAR(cte_max_recursion_depth = 1M) */ * FROM cte;
+
+WITH RECURSIVE cte (n) AS
+(
+  SELECT 1
+  UNION ALL
+  SELECT n + 1 FROM cte
+)
+SELECT /*+ MAX_EXECUTION_TIME(1000) */ * FROM cte;
+```
+
+从 MySQL 8.0.19 开始，可以在递归查询中使用 `LIMIT` 来设置最外层 `SELECT` 要返回的最大行数，例如：
+
+```mysql
+WITH RECURSIVE cte (n) AS
+(
+  SELECT 1
+  UNION ALL
+  SELECT n + 1 FROM cte LIMIT 10000
+)
+SELECT * FROM cte;
+```
+
+你可以设置一个时间限制，也可以不设置时间限制。因此，下面这个 CTE 在返回一万条记录或者运行一秒钟（1000毫秒）后终止，以先发生者为准：
+
+```mysql
+WITH RECURSIVE cte (n) AS
+(
+  SELECT 1
+  UNION ALL
+  SELECT n + 1 FROM cte LIMIT 10000
+)
+SELECT /*+ MAX_EXECUTION_TIME(1000) */ * FROM cte;
+```
+
+如果一个没有执行时间限制的递归查询进入无限循环，你可以使用 `KILL QUERY` 从另一个会话终止它。在会话本身中，用于运行查询的客户程序可能提供一种方法来终止查询。例如，在 mysql 中，键入 `Control+C` 可以中断当前语句。
+
+
+
+### 7.9.4、递归公共表表达式示例
 
 
 
