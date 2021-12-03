@@ -1485,7 +1485,7 @@ WHERE cte1.a = cte2.c;
 
 CTE 名称可以在其他 CTE 中引用，从而可以根据其他 CTE 定义 CTE。
 
-CTE 可以引用自身来定义递归 CTE。递归 CTE 的常见应用包括序列生成和层次或树结构数据的遍历。
+CTE 可以引用自身来定义递归 CTE。递归 CTE 的常见应用包括序列生成和层次结构或树结构数据的遍历。
 
 <br>
 
@@ -1786,6 +1786,10 @@ SELECT * FROM cte;
 
 <br>
 
+对于递归 CTE，递归 `SELECT` 部分在 `EXPLAIN` 输出行 `Extra` 列中显示 `Recursive`。
+
+`EXPLAIN` 显示的成本估计值代表了每一次迭代的成本，它可能与总成本相差很大。优化器无法预测迭代的次数，因为它无法预测 `WHERE` 子句在什么时候变成 `false`。
+
 CTE 的实际成本也可能受到结果集大小的影响。产生许多行的 CTE 可能需要一个足够大的内部临时表来将内存格式转换为磁盘格式，并且可能会损失性能。如果是这样，增加内存中允许的临时表大小可能会提高性能。
 
 <br>
@@ -1878,6 +1882,308 @@ SELECT /*+ MAX_EXECUTION_TIME(1000) */ * FROM cte;
 <br>
 
 ### 7.9.4、递归公共表表达式示例
+
+如前所述，递归公共表表达式（CTEs）经常被用于序列生成和遍历层次结构或树状结构的数据。本节展示了这些技术的一些简单例子。
+
+- 斐波那契序列生成
+- 日期序列生成
+- 分层数据遍历
+
+<br>
+
+#### 斐波那契序列生成
+
+斐波那契数列以两个数字 `0` 和 `1`（或 `1` 和  `1`）开始，之后的每个数字都是前两个数字的总和。如果由递归 `SELECT` 产生的每一行都可以访问系列中的前两个数字，那么递归的普通表表达式就可以生成一个斐波那契数列。下面的 CTE 使用 `0` 和 `1` 作为前两个数字，生成了一个 10 数字系列：
+
+```mysql
+WITH RECURSIVE fibonacci (n, fib_n, next_fib_n) AS
+(
+  SELECT 1, 0, 1
+  UNION ALL
+  SELECT n + 1, next_fib_n, fib_n + next_fib_n
+    FROM fibonacci WHERE n < 10
+)
+SELECT * FROM fibonacci;
+```
+
+CTE产生以下结果：
+
+```mysql
++------+-------+------------+
+| n    | fib_n | next_fib_n |
++------+-------+------------+
+|    1 |     0 |          1 |
+|    2 |     1 |          1 |
+|    3 |     1 |          2 |
+|    4 |     2 |          3 |
+|    5 |     3 |          5 |
+|    6 |     5 |          8 |
+|    7 |     8 |         13 |
+|    8 |    13 |         21 |
+|    9 |    21 |         34 |
+|   10 |    34 |         55 |
++------+-------+------------+
+```
+
+CTE的工作原理：
+
+- `n` 是一个显示列，表示该行包含第 `n` 个斐波那契数。例如，第 `8` 个斐波那契数是 `13`。
+- `fib_n` 列显示斐波那契数 `n`。
+- `next_fib_n` 列显示数字 `n` 之后的下一个斐波那契数字。该列向下一行提供下一个序列值，以便该行可以生成其 `fib_n` 列中前两个序列值的和。
+- 当 `n` 达到 10 时，递归结束。
+
+前面的输出显示了整个 CTE 的结果。要想只选择其中的一部分，可以在顶层的 `SELECT` 中添加一个适当的 `WHERE` 子句。例如，要选择第 `8` 个斐波那契数，请这样做：
+
+```mysql
+mysql> WITH RECURSIVE fibonacci ...
+       ...
+       SELECT fib_n FROM fibonacci WHERE n = 8;
++-------+
+| fib_n |
++-------+
+|    13 |
++-------+
+```
+
+<br>
+
+#### 日期序列生成
+
+公共表表达式可以生成一系列连续的日期，这对于生成包含序列中所有日期行（包括汇总数据中未表示的日期）的摘要非常有用。
+
+假设一个销售数据表包含以下行：
+
+```mysql
+mysql> SELECT * FROM sales ORDER BY date, price;
++------------+--------+
+| date       | price  |
++------------+--------+
+| 2017-01-03 | 100.00 |
+| 2017-01-03 | 200.00 |
+| 2017-01-06 |  50.00 |
+| 2017-01-08 |  10.00 |
+| 2017-01-08 |  20.00 |
+| 2017-01-08 | 150.00 |
+| 2017-01-10 |   5.00 |
++------------+--------+
+```
+
+这个查询汇总了每天的销售情况：
+
+```mysql
+mysql> SELECT date, SUM(price) AS sum_price
+       FROM sales
+       GROUP BY date
+       ORDER BY date;
++------------+-----------+
+| date       | sum_price |
++------------+-----------+
+| 2017-01-03 |    300.00 |
+| 2017-01-06 |     50.00 |
+| 2017-01-08 |    180.00 |
+| 2017-01-10 |      5.00 |
++------------+-----------+
+```
+
+然而，该结果包含了表所跨越的日期范围内没有表示的日期的 “空洞”。可以使用递归 CTE 生成表示该范围内所有日期的结果，并使用 `LEFT JOIN` 将该日期结果集连接到销售数据。
+
+以下是生成日期范围系列的 CTE：
+
+```mysql
+WITH RECURSIVE dates (date) AS
+(
+  SELECT MIN(date) FROM sales
+  UNION ALL
+  SELECT date + INTERVAL 1 DAY FROM dates
+  WHERE date + INTERVAL 1 DAY <= (SELECT MAX(date) FROM sales)
+)
+SELECT * FROM dates;
+```
+
+CTE 产生如下结果：
+
+```mysql
++------------+
+| date       |
++------------+
+| 2017-01-03 |
+| 2017-01-04 |
+| 2017-01-05 |
+| 2017-01-06 |
+| 2017-01-07 |
+| 2017-01-08 |
+| 2017-01-09 |
+| 2017-01-10 |
++------------+
+```
+
+CTE 的工作原理：
+
+- 非递归 `SELECT` 产生 `sales` 表所跨越的日期范围内的最低日期。
+- 递归 `SELECT` 产生的每一条记录都会在前一条记录产生的日期上增加一天。
+- 在日期达到 `sales` 表所跨越的日期范围中的最高日期后，递归结束。
+
+使用 `LEFT JOIN` 连接 CTE 与 `sales` 表，产生销售汇总表，在这个范围内的每个日期都有一行：
+
+```mysql
+WITH RECURSIVE dates (date) AS
+(
+  SELECT MIN(date) FROM sales
+  UNION ALL
+  SELECT date + INTERVAL 1 DAY FROM dates
+  WHERE date + INTERVAL 1 DAY <= (SELECT MAX(date) FROM sales)
+)
+SELECT dates.date, COALESCE(SUM(price), 0) AS sum_price
+FROM dates LEFT JOIN sales ON dates.date = sales.date
+GROUP BY dates.date
+ORDER BY dates.date;
+```
+
+输出如下所示：
+
+```mysql
++------------+-----------+
+| date       | sum_price |
++------------+-----------+
+| 2017-01-03 |    300.00 |
+| 2017-01-04 |      0.00 |
+| 2017-01-05 |      0.00 |
+| 2017-01-06 |     50.00 |
+| 2017-01-07 |      0.00 |
+| 2017-01-08 |    180.00 |
+| 2017-01-09 |      0.00 |
+| 2017-01-10 |      5.00 |
++------------+-----------+
+```
+
+需要注意的几点：
+
+- 这些查询是否效率低下，特别是在递归 `SELECT` 中对每条记录执行 `MAX()`子查询的查询？`EXPLAIN` 显示，包含 `MAX()`的子查询只计算一次，并且结果会被缓存。
+- 使用 `COALESCE()` 可以避免在销售表中没有销售数据的日子里，`sum_price` 列显示 `NULL`。
+
+<br>
+
+#### 分层数据遍历
+
+递归公共表表达式对于遍历形成层次结构的数据很有用。考虑这些语句，创建了一个小的数据集，对于公司的每个员工，显示员工的名字和 ID号，以及员工的经理的 ID。最高级别的员工（CEO），其经理 ID 为 `NULL`（没有经理）。
+
+```mysql
+CREATE TABLE employees (
+  id         INT PRIMARY KEY NOT NULL,
+  name       VARCHAR(100) NOT NULL,
+  manager_id INT NULL,
+  INDEX (manager_id),
+FOREIGN KEY (manager_id) REFERENCES employees (id)
+);
+INSERT INTO employees VALUES
+(333, "Yasmina", NULL),  # Yasmina is the CEO (manager_id is NULL)
+(198, "John", 333),      # John has ID 198 and reports to 333 (Yasmina)
+(692, "Tarek", 333),
+(29, "Pedro", 198),
+(4610, "Sarah", 29),
+(72, "Pierre", 29),
+(123, "Adil", 692);
+```
+
+生成的数据集如下所示：
+
+```mysql
+mysql> SELECT * FROM employees ORDER BY id;
++------+---------+------------+
+| id   | name    | manager_id |
++------+---------+------------+
+|   29 | Pedro   |        198 |
+|   72 | Pierre  |         29 |
+|  123 | Adil    |        692 |
+|  198 | John    |        333 |
+|  333 | Yasmina |       NULL |
+|  692 | Tarek   |        333 |
+| 4610 | Sarah   |         29 |
++------+---------+------------+
+```
+
+为了生成带有每个员工管理链的组织结构图（即从 CEO 到员工的路径），请使用一个递归 CTE：
+
+```mysql
+WITH RECURSIVE employee_paths (id, name, path) AS
+(
+  SELECT id, name, CAST(id AS CHAR(200))
+    FROM employees
+    WHERE manager_id IS NULL
+  UNION ALL
+  SELECT e.id, e.name, CONCAT(ep.path, ',', e.id)
+    FROM employee_paths AS ep JOIN employees AS e
+      ON ep.id = e.manager_id
+)
+SELECT * FROM employee_paths ORDER BY path;
+```
+
+CTE产生如下输出：
+
+```mysql
++------+---------+-----------------+
+| id   | name    | path            |
++------+---------+-----------------+
+|  333 | Yasmina | 333             |
+|  198 | John    | 333,198         |
+|   29 | Pedro   | 333,198,29      |
+| 4610 | Sarah   | 333,198,29,4610 |
+|   72 | Pierre  | 333,198,29,72   |
+|  692 | Tarek   | 333,692         |
+|  123 | Adil    | 333,692,123     |
++------+---------+-----------------+
+```
+
+CTE 的工作原理：
+
+- 非递归 `SELECT`生成 CEO 的行（具有 `NULL` 的 `manager_id`行）。
+
+	`path` 列被扩展为 `CHAR(200)`，以确保有空间容纳递归 `SELECT` 产生的更长的 `path` 值。
+
+- 由递归 `SELECT` 生成的每一行都会找到所有直接向前一行生成的员工报告的员工。对于每个这样的员工，该行包括员工 ID 和姓名，以及雇员管理链。该链是经理的链，末尾添加了员工 ID。
+
+- 当员工没有其他人向他们报告时，递归结束。
+
+要查找一个或多个特定雇员的路径，请向顶级 `SELECT` 添加 `WHERE` 子句。例如，为了显示 `Tarek` 和 `Sarah` 的结果，像这样修改 `SELECT`：
+
+```mysql
+mysql> WITH RECURSIVE ...
+       ...
+       SELECT * FROM employees_extended
+       WHERE id IN (692, 4610)
+       ORDER BY path;
++------+-------+-----------------+
+| id   | name  | path            |
++------+-------+-----------------+
+| 4610 | Sarah | 333,198,29,4610 |
+|  692 | Tarek | 333,692         |
++------+-------+-----------------+
+```
+
+<br>
+
+### 7.9.5、CTE 和类似结构的比较
+
+公共表表达式（CTE）在某些方面与派生表类似：
+
+- 两个结构都有名称。
+- 这两种结构都存在于单个语句的作用域中。
+
+由于这些相似之处，CTE 和派生表经常可以互换使用。作为一个简单的例子，这些语句是等同的：
+
+```mysql
+WITH cte AS (SELECT 1) SELECT * FROM cte;
+SELECT * FROM (SELECT 1) AS dt;
+```
+
+然而，与派生表相比，CTE 有一些优势：
+
+- 一个派生表在一个查询中只能被引用一次。一个 CTE 可以被多次引用。要使用一个派生表结果的多个实例，你必须多次派生该结果。
+- CTE 可以是自引用（递归）。
+- 一个 CTE 可以引用另一个 CTE。
+- 如果 CTE 的定义出现在语句的开头，而不是嵌入在语句中，可能会更容易阅读。
+
+CTE 类似于用 `CREATE [TEMPORARY] TABLE` 创建的表，但不需要明确定义或删除。对于 CTE，你不需要任何权限来创建表。
 
 <br>
 
