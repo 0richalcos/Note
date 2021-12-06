@@ -2215,7 +2215,13 @@ MySQL 支持窗口函数，对于查询中的每一行，使用与该行相关�
 
 <br>
 
-**CUME_DIST() *over_clause***
+#### CUME_DIST() 
+
+语法：
+
+```mysql
+CUME_DIST() over_clause
+```
 
 返回一组数值中的累积分布；也就是说，分区值小于或等于当前行的值的百分比。这表示在窗口分区的窗口排序中，在当前行之前或同级的行数除以窗口分区的总行数。返回值的范围从 0 到 1。
 
@@ -2246,39 +2252,89 @@ mysql> SELECT
 +------+------------+--------------------+--------------+
 ```
 
-或者用另一个例子：
+在此示例中，`val` 按从 1 到 5 的升序排序。
+
+对于第一行，函数查找结果集中的行数，其值小于或等于 1 。结果为 2。然后 `CUME_DIST()` 函数将 2 除以总行数 9：2/9。结果是 0.2222222222222222。相同的逻辑应用于第二行。
+
+对于第三行，函数查找值小于或等于 2 的行数。有 3 行。然后 `CUME_DIST()` 函数的结果是：3/9 = 0.3333333333333333。
+
+相同的计算逻辑应用于其余行。
+
+<br>
+
+#### DENSE_RANK() 
+
+语法：
+
+```mysql
+DENSE_RANK() over_clause
+```
+
+返回当前行在其分区中的排名，没有空隙。同行被认为是并列的，获得相同的排名。这个函数将连续的排名分配给同级组；结果是大小大于 1 的组不会产生非连续的等级数字。
+
+这个函数应该和 `ORDER BY` 一起使用，将分区行排序到所需的顺序。没有 `ORDER BY`，所有的行都是同行。
+
+```mysql
+mysql>SELECT
+        val,
+        DENSE_RANK() OVER (
+            ORDER BY val
+        ) my_rank
+      FROM
+        rankDemo; 
++------+---------+
+| val  | my_rank |
++------+---------+
+|    1 |       1 |
+|    2 |       2 |
+|    2 |       2 |
+|    3 |       3 |
+|    4 |       4 |
+|    4 |       4 |
+|    5 |       5 |
++------+---------+
+```
+
+<br>
+
+#### FIRST_VALUE()
+
+语法：
+
+```mysql
+FIRST_VALUE(expr) [null_treatment] over_clause
+```
+
+从窗口框架的第一行返回 *expr* 的值。*null_treatment* 如介绍部分所述。
+
+下面的查询演示了 `FIRST_VALUE()`、`LAST_VALUE()` 和两个 `NTH_VALUE()` 实例：
 
 ```mysql
 mysql> SELECT
-         name,
-         score,
-         ROW_NUMBER() OVER (ORDER BY score) row_num,
-         CUME_DIST() OVER (ORDER BY score) cume_dist_val
-       FROM
-         scores; 
-+----------+-------+---------+---------------+
-| name     | score | row_num | cume_dist_val |
-+----------+-------+---------+---------------+
-| Jones    |    55 |       1 |           0.2 |
-| Williams |    55 |       2 |           0.2 |
-| Brown    |    62 |       3 |           0.4 |
-| Taylor   |    62 |       4 |           0.4 |
-| Thomas   |    72 |       5 |           0.6 |
-| Wilson   |    72 |       6 |           0.6 |
-| Smith    |    81 |       7 |           0.7 |
-| Davies   |    84 |       8 |           0.8 |
-| Evans    |    87 |       9 |           0.9 |
-| Johnson  |   100 |      10 |             1 |
-+----------+-------+---------+---------------+
+         time, subject, val,
+         FIRST_VALUE(val)  OVER w AS 'first',
+         LAST_VALUE(val)   OVER w AS 'last',
+         NTH_VALUE(val, 2) OVER w AS 'second',
+         NTH_VALUE(val, 4) OVER w AS 'fourth'
+       FROM observations
+       WINDOW w AS (PARTITION BY subject ORDER BY time
+                    ROWS UNBOUNDED PRECEDING);
++----------+---------+------+-------+------+--------+--------+
+| time     | subject | val  | first | last | second | fourth |
++----------+---------+------+-------+------+--------+--------+
+| 07:00:00 | st113   |   10 |    10 |   10 |   NULL |   NULL |
+| 07:15:00 | st113   |    9 |    10 |    9 |      9 |   NULL |
+| 07:30:00 | st113   |   25 |    10 |   25 |      9 |   NULL |
+| 07:45:00 | st113   |   20 |    10 |   20 |      9 |     20 |
+| 07:00:00 | xh458   |    0 |     0 |    0 |   NULL |   NULL |
+| 07:15:00 | xh458   |   10 |     0 |   10 |     10 |   NULL |
+| 07:30:00 | xh458   |    5 |     0 |    5 |     10 |   NULL |
+| 07:45:00 | xh458   |   30 |     0 |   30 |     10 |     30 |
+| 08:00:00 | xh458   |   25 |     0 |   25 |     10 |     30 |
++----------+---------+------+-------+------+--------+--------+
 ```
 
-在此示例中，分数按从 55 到 100 的升序排序。
 
-对于第一行，函数查找结果集中的行数，其值小于或等于 55。结果为 2。然后 `CUME_DIST()` 函数将 2 除以总行数 10：2/10。结果是 0.2 或 20％。相同的逻辑应用于第二行。
-
-对于第三行，函数查找值小于或等于 62 的行数。有四行。然后 `CUME_DIST()` 函数的结果是：4/10 = 0.4，即 40％。
-
-相同的计算逻辑应用于其余行。
 
 <br>
 
