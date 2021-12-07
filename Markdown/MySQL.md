@@ -2193,6 +2193,207 @@ MySQL 支持窗口函数，对于查询中的每一行，使用与该行相关�
 
 <br>
 
+### 7.10.1、窗口函数的概念和语法
+
+本节介绍如何使用窗口函数。
+
+```mysql
+mysql> SELECT * FROM sales ORDER BY country, year, product;
++------+---------+------------+--------+
+| year | country | product    | profit |
++------+---------+------------+--------+
+| 2000 | Finland | Computer   |   1500 |
+| 2000 | Finland | Phone      |    100 |
+| 2001 | Finland | Phone      |     10 |
+| 2000 | India   | Calculator |     75 |
+| 2000 | India   | Calculator |     75 |
+| 2000 | India   | Computer   |   1200 |
+| 2000 | USA     | Calculator |     75 |
+| 2000 | USA     | Computer   |   1500 |
+| 2001 | USA     | Calculator |     50 |
+| 2001 | USA     | Computer   |   1500 |
+| 2001 | USA     | Computer   |   1200 |
+| 2001 | USA     | TV         |    150 |
+| 2001 | USA     | TV         |    100 |
++------+---------+------------+--------+
+```
+
+窗口函数在一组查询行上执行类似于聚合的操作。然而，聚合操作将查询行组合成一个单一的结果行，而窗口函数为每一个查询行产生一个结果。
+
+- 对其进行函数求值的行称为当前行。
+- 与发生函数计算的当前行相关的查询行组成当前行的窗口。
+
+例如，使用销售信息表，这两个查询执行聚合操作，为作为一个组的所有行生成一个全局总和，并对每个国家进行分组：
+
+```mysql
+mysql> SELECT SUM(profit) AS total_profit
+       FROM sales;
++--------------+
+| total_profit |
++--------------+
+|         7535 |
++--------------+
+mysql> SELECT country, SUM(profit) AS country_profit
+       FROM sales
+       GROUP BY country
+       ORDER BY country;
++---------+----------------+
+| country | country_profit |
++---------+----------------+
+| Finland |           1610 |
+| India   |           1350 |
+| USA     |           4575 |
++---------+----------------+
+```
+
+相比之下，窗口函数不会将一组查询行折叠为单个输出行。相反，它们为每行产生一个结果。和前面的查询一样，下面的查询使用了 `SUM()`，但这次是作为一个窗口函数：
+
+```mysql
+mysql> SELECT
+         year, country, product, profit,
+         SUM(profit) OVER() AS total_profit,
+         SUM(profit) OVER(PARTITION BY country) AS country_profit
+       FROM sales
+       ORDER BY country, year, product, profit;
++------+---------+------------+--------+--------------+----------------+
+| year | country | product    | profit | total_profit | country_profit |
++------+---------+------------+--------+--------------+----------------+
+| 2000 | Finland | Computer   |   1500 |         7535 |           1610 |
+| 2000 | Finland | Phone      |    100 |         7535 |           1610 |
+| 2001 | Finland | Phone      |     10 |         7535 |           1610 |
+| 2000 | India   | Calculator |     75 |         7535 |           1350 |
+| 2000 | India   | Calculator |     75 |         7535 |           1350 |
+| 2000 | India   | Computer   |   1200 |         7535 |           1350 |
+| 2000 | USA     | Calculator |     75 |         7535 |           4575 |
+| 2000 | USA     | Computer   |   1500 |         7535 |           4575 |
+| 2001 | USA     | Calculator |     50 |         7535 |           4575 |
+| 2001 | USA     | Computer   |   1200 |         7535 |           4575 |
+| 2001 | USA     | Computer   |   1500 |         7535 |           4575 |
+| 2001 | USA     | TV         |    100 |         7535 |           4575 |
+| 2001 | USA     | TV         |    150 |         7535 |           4575 |
++------+---------+------------+--------+--------------+----------------+
+```
+
+查询中的每个窗口操作都包含一个 `OVER` 子句，指定如何将查询行划分为一组，以便由窗口函数处理。
+
+- 第一个 `OVER` 子句是空的，它将整个查询行集作为一个单一的分区。因此，窗口函数产生一个全局性的和，但对每一行都是如此。
+- 第二个 `OVER` 子句按国家划分行，产生每个分区（每个国家）的总和。该函数对每个分区的行产生这个总和。
+
+窗口函数只允许在选择列表和 `ORDER BY` 子句中使用。查询结果行由 `FORM` 子句确定，在 `WHERE`、`GROUP BY` 和 `HAVING` 处理之后，窗口执行发生在 `ORDER BY`、`LIMIT` 和 `SELECT DISTINCT` 之前。
+
+`OVER` 子句被允许用于许多聚合函数，因此可以作为窗口函数或非窗口函数使用，这取决于 `OVER` 子句是存在还是不存在：
+
+```
+AVG()
+BIT_AND()
+BIT_OR()
+BIT_XOR()
+COUNT()
+JSON_ARRAYAGG()
+JSON_OBJECTAGG()
+MAX()
+MIN()
+STDDEV_POP(), STDDEV(), STD()
+STDDEV_SAMP()
+SUM()
+VAR_POP(), VARIANCE()
+VAR_SAMP()
+```
+
+MySQL 还支持仅作为窗口函数使用的非聚合函数。对于这些，`OVER` 子句是强制性的：
+
+```
+CUME_DIST()
+DENSE_RANK()
+FIRST_VALUE()
+LAG()
+LAST_VALUE()
+LEAD()
+NTH_VALUE()
+NTILE()
+PERCENT_RANK()
+RANK()
+ROW_NUMBER()
+```
+
+作为这些非集合窗口函数中的一个例子，这个查询使用 `ROW_NUMBER()`，产生其分区中每一行的行号。在这种情况下，行是按国家编号的。默认情况下，分区的行是无序的，行的编号是不确定的。要对分区行进行排序，请在窗口定义中包含一个 `ORDER BY` 子句。这个查询使用无序分区和有序分区（`row_num1` 和 `row_num2` 列）来说明省略和包含 `ORDER BY` 的区别：
+
+```mysql
+mysql> SELECT
+         year, country, product, profit,
+         ROW_NUMBER() OVER(PARTITION BY country) AS row_num1,
+         ROW_NUMBER() OVER(PARTITION BY country ORDER BY year, product) AS row_num2
+       FROM sales;
++------+---------+------------+--------+----------+----------+
+| year | country | product    | profit | row_num1 | row_num2 |
++------+---------+------------+--------+----------+----------+
+| 2000 | Finland | Computer   |   1500 |        2 |        1 |
+| 2000 | Finland | Phone      |    100 |        1 |        2 |
+| 2001 | Finland | Phone      |     10 |        3 |        3 |
+| 2000 | India   | Calculator |     75 |        2 |        1 |
+| 2000 | India   | Calculator |     75 |        3 |        2 |
+| 2000 | India   | Computer   |   1200 |        1 |        3 |
+| 2000 | USA     | Calculator |     75 |        5 |        1 |
+| 2000 | USA     | Computer   |   1500 |        4 |        2 |
+| 2001 | USA     | Calculator |     50 |        2 |        3 |
+| 2001 | USA     | Computer   |   1500 |        3 |        4 |
+| 2001 | USA     | Computer   |   1200 |        7 |        5 |
+| 2001 | USA     | TV         |    150 |        1 |        6 |
+| 2001 | USA     | TV         |    100 |        6 |        7 |
++------+---------+------------+--------+----------+----------+
+```
+
+如前所述，要使用窗口函数（或将聚合函数视为窗口函数），请在函数调用后包含一个 `OVER` 子句。`OVER` 子句有两种形式：
+
+```mysql
+over_clause:
+    {OVER (window_spec) | OVER window_name}
+```
+
+这两种形式都定义了窗口函数应该如何处理查询行。它们的区别在于窗口是直接在 `OVER` 子句中定义，还是通过对查询中其他地方定义的命名窗口的引用来提供：
+
+- 在第一种情况下，窗口规范直接出现在 `OVER`  子句中，在括号之间。
+- 在第二种情况下，*window_name* 是由查询中其他地方的 `WINDOW` 子句定义的窗口规范的名称。
+
+对于 `OVER (window_spec)`语法，窗口规范有几个部分，都是可选的：
+
+```mysql
+window_spec:
+    [window_name] [partition_clause] [order_clause] [frame_clause]
+```
+
+如果 `OVER()` 为空，则窗口由所有查询行组成，窗口函数使用所有行计算结果。否则，括号内的子句决定了哪些查询行被用来计算函数结果，以及如何对它们进行分区和排序：
+
+- *window_name*：由查询中其他地方的 `WINDOW` 子句定义的窗口名称。如果 *window_name* 本身出现在 `OVER` 子句中，它就完全定义了这个窗口。如果还给出了分区、排序或者框架子句，那么它们会修改对命名的窗口的解释。
+
+- *partition_clause*：`PARTITION BY` 子句表示如何将查询行分成组，可以理解为 `GROUP BY`。如果忽略 `PARTITION BY`，则只有一个由所有查询行组成的分区。
+
+	*partition_clause* 具有以下语法：
+
+	```mysql
+	partition_clause:
+	    PARTITION BY expr [, expr] ...
+	```
+
+	标准 SQL 要求 `PARTITION BY` 后面只跟列名。MySQL 扩展允许表达式，而不仅仅是列名。例如，如果一个表包含一个名为 ts 的 `TIMESTAMP` 列，标准 SQL 允许 `PARTITION BY ts`，但不允许 `PARTITION BY HOUR(ts)`，而 MySQL 允许两者。
+
+- *order_clause*：`ORDER BY` 子句表明如何对每个分区的行进行排序。根据 `ORDER BY` 子句相等的分区行被认为是对等的。如果省略了 `ORDER BY`，分区行是无序的，不隐含处理顺序，所有的分区行都是对等的。
+
+	*order_clause* 具有以下语法：
+
+	```mysql
+	order_clause:
+	    ORDER BY expr [ASC|DESC] [, expr [ASC|DESC]] ...
+	```
+
+	每个 `ORDER BY` 表达式后面可以选择 `ASC` 或 `DESC` 来表示排序方向。如果没有指定方向，默认是 `ASC`。对于升序排序，`NULL` 值优先排序，对于降序排序，最后排序。
+
+	窗口定义中的 `ORDER BY` 适用于各个分区。要将结果集作为一个整体进行排序，请在查询的顶层包含一个 `ORDER BY`。
+
+- *frame_clause*：框架是当前分区的一个子集，*frame_clause* 指定了如何定义这个子集。*frame_clause* 有很多自己的子句。详见下一节。
+
+<br>
+
 ### 7.10.1、窗口函数介绍
 
 本节描述非聚合窗口函数，对于查询中的每一行，使用与该行相关的行执行计算。大多数聚合函数也可以用作窗口函数。
