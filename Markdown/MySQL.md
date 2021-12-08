@@ -2473,12 +2473,165 @@ frame_units:
     {ROWS | RANGE}
 ```
 
-在没有框架子句的情况下，默认的框架取决于是否存在 `ORDER BY` 子句，如本节后面所述。
+在没有框架子句的情况下，默认的框架取决于是否存在 `ORDER BY` 子句，后面会讲。
 
 *frame_units* 值表示当前行与框架行之间的关系类型：
 
 - `ROWS`：框架由开始和结束行位置定义。偏移量是行号与当前行号之间的差异。
 - `RANGE`：框架是由数值范围内的行定义的。偏移量是行值与当前行值的差异。
+
+*frame_extent* 值表示框架的开始和结束点。你可以只指定框架的起点（在这种情况下，当前行是隐含的终点），或者使用 `BETWEEN` 来指定两个框架的端点：
+
+```mysql
+frame_extent:
+    {frame_start | frame_between}
+
+frame_between:
+    BETWEEN frame_start AND frame_end
+
+frame_start, frame_end: {
+    CURRENT ROW
+  | UNBOUNDED PRECEDING
+  | UNBOUNDED FOLLOWING
+  | expr PRECEDING
+  | expr FOLLOWING
+}
+```
+
+对于 `BETWEEN` 语法，*frame_start* 不能出现在 *frame_end* 之后。
+
+允许的 *frame_start* 和 *frame_end* 值有这些含义：
+
+- `CURRENT ROW`：对于 `ROWS`，边界是当前行。对于 `RANGE`，边界是当前行的同级。
+
+- `UNBOUNDED PRECEDING`：边界是第一个分区行。
+
+- `UNBOUNDED FOLLOWING`：边界是最后一个分区行。
+
+- `expr PRECEDING`：对于 `ROWS`，边界是当前行之前的 *expr* 行。对于 `RANGE`，边界是值等于当前行值减去 *expr* 的行；如果当前行值是`NULL`，边界是该行的同级。
+
+- `expr FOLLOWING`：对于 `ROWS` 来说，边界是当前行之后的 *expr* 行。对于 `RANGE`，边界是值等于当前行值加上 *expr* 的行；如果当前行值是 `NULL`，边界是该行的同级。
+
+	对于 `expr PRECEDING`（和 `expr FOLLOWING`），*expr* 可以是一个 ? 参数标记（在准备好的语句中使用），一个非负数的数字字头，或者一个 `INTERVAL val unit` 形式的时间间隔。对于 `INTERVAL` 表达式，*val* 指定了非负的间隔值，*unit* 是一个关键字，表示该值应该被解释的单位。
+
+	数字或时间 *expr* 上的 `RANGE` 分别要求数字或时间表达式上的 `ORDER BY`。
+
+	有效的 `expr PRECEDING` 和 `expr FOLLOWING` 指标的例子：
+
+	```mysql
+	10 PRECEDING
+	INTERVAL 5 DAY PRECEDING
+	5 FOLLOWING
+	INTERVAL '2:30' MINUTE_SECOND FOLLOWING
+	```
+
+下面的查询演示了 `FIRST_VALUE()`、`LAST_VALUE()`  和 `NTH_VALUE()` 的两个实例：
+
+```mysql
+mysql> SELECT
+         time, subject, val,
+         FIRST_VALUE(val)  OVER w AS 'first',
+         LAST_VALUE(val)   OVER w AS 'last',
+         NTH_VALUE(val, 2) OVER w AS 'second',
+         NTH_VALUE(val, 4) OVER w AS 'fourth'
+       FROM observations
+       WINDOW w AS (PARTITION BY subject ORDER BY time
+                    ROWS UNBOUNDED PRECEDING);
++----------+---------+------+-------+------+--------+--------+
+| time     | subject | val  | first | last | second | fourth |
++----------+---------+------+-------+------+--------+--------+
+| 07:00:00 | st113   |   10 |    10 |   10 |   NULL |   NULL |
+| 07:15:00 | st113   |    9 |    10 |    9 |      9 |   NULL |
+| 07:30:00 | st113   |   25 |    10 |   25 |      9 |   NULL |
+| 07:45:00 | st113   |   20 |    10 |   20 |      9 |     20 |
+| 07:00:00 | xh458   |    0 |     0 |    0 |   NULL |   NULL |
+| 07:15:00 | xh458   |   10 |     0 |   10 |     10 |   NULL |
+| 07:30:00 | xh458   |    5 |     0 |    5 |     10 |   NULL |
+| 07:45:00 | xh458   |   30 |     0 |   30 |     10 |     30 |
+| 08:00:00 | xh458   |   25 |     0 |   25 |     10 |     30 |
++----------+---------+------+-------+------+--------+--------+
+```
+
+每个函数都使用当前框架中的行，根据所示的窗口定义，从第一个分区行延伸到当前框架。对于 `NTH_VALUE()` 的调用，当前框架并不总是包括所请求的行；在这种情况下，返回值是 `NULL`。
+
+<br>
+
+在没有框架子句的情况下，默认框架取决于是否存在 `ORDER BY` 子句：
+
+- 有 `ORDER BY`：默认的框架包括从分区开始到当前行的记录，包括当前行的所有同级别的记录（根据 `ORDER BY` 子句，等于当前行的记录）。默认情况下等同于这个框架规范：
+
+	```mysql
+	RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+	```
+
+- 没有 `ORDER BY`：默认的框架包括所有分区行（因为在没有 `ORDER BY`的情况下，所有分区行都是同行）。默认情况等同于这个框架规范：
+
+	```mysql
+	RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+	```
+
+因为默认的框架因 `ORDER BY` 的存在与否而不同，在查询中加入 `ORDER BY` 以获得确定的结果可能会改变结果。（例如，由 `SUM()` 产生的值可能会改变）。为了获得相同的结果，但按 `ORDER BY` 排序，请提供一个明确的框架规范，无论 `ORDER BY` 是否存在都要使用。
+
+<br>
+
+当当前行值为 `NULL` 时，框架规范的含义可能是不明显的。假设是这种情况，这些例子说明了各种框架规范的应用：
+
+- ```mysql
+	ORDER BY X ASC RANGE BETWEEN 10 FOLLOWING AND 15 FOLLOWING
+	```
+
+	这个框架从 `NULL` 开始，到 `NULL` 结束，因此只包括数值为 `NULL` 的记录。
+
+- ```mysql
+	ORDER BY X ASC RANGE BETWEEN 10 FOLLOWING AND UNBOUNDED FOLLOWING
+	```
+
+	这个框架从 `NULL` 开始，到分区的末尾为止。因为 `ASC` 排序将 `NULL` 值放在前面，所以框架是整个分区。
+
+- ```mysql
+	ORDER BY X DESC RANGE BETWEEN 10 FOLLOWING AND UNBOUNDED FOLLOWING
+	```
+
+	这个框架从 `NULL` 开始，在分区的末端停止。因为 `DESC` 排序将 `NULL` 值放在最后，所以框架中只有 `NULL` 值。
+
+- ```mysql
+	ORDER BY X ASC RANGE BETWEEN 10 PRECEDING AND UNBOUNDED FOLLOWING
+	```
+
+	这个框架从 `NULL` 开始，到分区的末尾为止。因为 `ASC` 排序将 `NULL` 值放在前面，所以框架是整个分区。
+
+- ```mysql
+	ORDER BY X ASC RANGE BETWEEN 10 PRECEDING AND 10 FOLLOWING
+	```
+
+	这个框架从 `NULL` 开始，到 `NULL` 结束，因此只包括数值为 `NULL` 的记录。
+
+- ```mysql
+	ORDER BY X ASC RANGE BETWEEN 10 PRECEDING AND 1 PRECEDING
+	```
+
+	这个框架从 `NULL` 开始，到 `NULL` 结束，因此只包括数值为 `NULL` 的记录。
+
+- ```mysql
+	ORDER BY X ASC RANGE BETWEEN UNBOUNDED PRECEDING AND 10 FOLLOWING
+	```
+
+	这个框架从分区的开始开始，到数值为 `NULL` 的行为止。因为 `ASC` 排序将 `NULL` 值放在首位，所以框架中只有 `NULL` 值。
+
+<br>
+
+### 7.10.3、命名窗口
+
+在 `OVER` 子句中，可以定义窗口并赋予其名称，以便对其进行引用。要做到这一点，需要使用 `WINDOW` 子句。如果在查询中出现，`WINDOW` 子句会在 `HAVING` 子句和 `ORDER BY` 子句的位置之间，并且有这样的语法：
+
+```mysql
+WINDOW window_name AS (window_spec)
+    [, window_name AS (window_spec)] ...
+```
+
+
+
+<br>
 
 ### 7.10.1、窗口函数介绍
 
