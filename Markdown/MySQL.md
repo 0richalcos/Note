@@ -2620,7 +2620,7 @@ mysql> SELECT
 
 <br>
 
-### 7.10.3、命名窗口
+### 7.10.3、窗口的命名
 
 在 `OVER` 子句中，可以定义窗口并赋予其名称，以便对其进行引用。要做到这一点，需要使用 `WINDOW` 子句。如果在查询中出现，`WINDOW` 子句会在 `HAVING` 子句和 `ORDER BY` 子句的位置之间，并且有这样的语法：
 
@@ -2629,11 +2629,88 @@ WINDOW window_name AS (window_spec)
     [, window_name AS (window_spec)] ...
 ```
 
+对于每个窗口定义，*window_name* 是窗口名称，而 *window_spec* 是在 `OVER` 子句的括号中给出的相同类型的窗口规范：
 
+```mysql
+window_spec:
+    [window_name] [partition_clause] [order_clause] [frame_clause]
+```
 
 <br>
 
-### 7.10.1、窗口函数介绍
+`WINDOW` 子句在查询中非常有用，否则多个 `OVER` 子句会定义同一个窗口。相反，你可以只定义一次窗口，给它一个名字，然后在 `OVER` 子句中引用这个名字。考虑一下这个查询，它多次定义了同一个窗口：
+
+```mysql
+SELECT
+  val,
+  ROW_NUMBER() OVER (ORDER BY val) AS 'row_number',
+  RANK()       OVER (ORDER BY val) AS 'rank',
+  DENSE_RANK() OVER (ORDER BY val) AS 'dense_rank'
+FROM numbers;
+```
+
+通过使用 `WINDOW` 来定义一次窗口，并在 `OVER` 子句中用名称来引用窗口，可以更简单地编写查询：
+
+```mysql
+SELECT
+  val,
+  ROW_NUMBER() OVER w AS 'row_number',
+  RANK()       OVER w AS 'rank',
+  DENSE_RANK() OVER w AS 'dense_rank'
+FROM numbers
+WINDOW w AS (ORDER BY val);
+```
+
+<br>
+
+命名窗口还可以更容易地试验窗口定义，以查看对查询结果的影响。只需要修改 `window` 子句中的窗口定义，而不需要修改多个 `OVER` 子句定义。
+
+如果 `OVER` 子句使用 `OVER(window_name ...)` 而不是 `OVER window_name` ，那么可以通过增加其他子句来修改命名的窗口。例如，这个查询定义了一个包括分区的窗口，并在 `OVER` 子句中使用 `ORDER BY` 以不同的方式修改该窗口：
+
+```mysql
+SELECT
+  DISTINCT year, country,
+  FIRST_VALUE(year) OVER (w ORDER BY year ASC) AS first,
+  FIRST_VALUE(year) OVER (w ORDER BY year DESC) AS last
+FROM sales
+WINDOW w AS (PARTITION BY country);
+```
+
+`OVER` 子句只能向命名的窗口添加属性，不能修改它们。如果命名的窗口定义包括分区、排序或框架属性，那么引用窗口名称的 `OVER` 子句也不能包括同种属性，否则会发生错误：
+
+- 这个结构是允许的，因为窗口定义和引用的 `OVER` 子句不包含同种属性：
+
+	```mysql
+	OVER (w ORDER BY country)
+	... WINDOW w AS (PARTITION BY country)
+	```
+
+- 这个结构是不允许的，因为 `OVER` 子句为一个已经有 `PARTITION BY` 的命名窗口指定了 `PARTITION BY`：
+
+	```mysql
+	OVER (w PARTITION BY year)
+	... WINDOW w AS (PARTITION BY country)
+	```
+
+<br>
+
+一个命名的窗口的定义本身可以以 *window_name* 开始。在这种情况下，允许向前和向后引用，但不允许循环：
+
+- 这是被允许的；它包含向前和向后的引用，但没有循环：
+
+	```mysql
+	WINDOW w1 AS (w2), w2 AS (), w3 AS (w1)
+	```
+
+- 这是不允许的，因为它包含一个循环：
+
+	```mysql
+	WINDOW w1 AS (w2), w2 AS (w3), w3 AS (w1)
+	```
+
+<br>
+
+### 7.10.4、窗口函数介绍
 
 本节描述非聚合窗口函数，对于查询中的每一行，使用与该行相关的行执行计算。大多数聚合函数也可以用作窗口函数。
 
