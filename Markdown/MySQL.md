@@ -2473,14 +2473,244 @@ frame_units:
     {ROWS | RANGE}
 ```
 
-在没有框架子句的情况下，默认的框架取决于是否存在 `ORDER BY` 子句，如本节后面所述。
+在没有框架子句的情况下，默认的框架取决于是否存在 `ORDER BY` 子句，后面会讲。
 
 *frame_units* 值表示当前行与框架行之间的关系类型：
 
 - `ROWS`：框架由开始和结束行位置定义。偏移量是行号与当前行号之间的差异。
 - `RANGE`：框架是由数值范围内的行定义的。偏移量是行值与当前行值的差异。
 
-### 7.10.1、窗口函数介绍
+*frame_extent* 值表示框架的开始和结束点。你可以只指定框架的起点（在这种情况下，当前行是隐含的终点），或者使用 `BETWEEN` 来指定两个框架的端点：
+
+```mysql
+frame_extent:
+    {frame_start | frame_between}
+
+frame_between:
+    BETWEEN frame_start AND frame_end
+
+frame_start, frame_end: {
+    CURRENT ROW
+  | UNBOUNDED PRECEDING
+  | UNBOUNDED FOLLOWING
+  | expr PRECEDING
+  | expr FOLLOWING
+}
+```
+
+对于 `BETWEEN` 语法，*frame_start* 不能出现在 *frame_end* 之后。
+
+允许的 *frame_start* 和 *frame_end* 值有这些含义：
+
+- `CURRENT ROW`：对于 `ROWS`，边界是当前行。对于 `RANGE`，边界是当前行的同级。
+
+- `UNBOUNDED PRECEDING`：边界是第一个分区行。
+
+- `UNBOUNDED FOLLOWING`：边界是最后一个分区行。
+
+- `expr PRECEDING`：对于 `ROWS`，边界是当前行之前的 *expr* 行。对于 `RANGE`，边界是值等于当前行值减去 *expr* 的行；如果当前行值是`NULL`，边界是该行的同级。
+
+- `expr FOLLOWING`：对于 `ROWS` 来说，边界是当前行之后的 *expr* 行。对于 `RANGE`，边界是值等于当前行值加上 *expr* 的行；如果当前行值是 `NULL`，边界是该行的同级。
+
+	对于 `expr PRECEDING`（和 `expr FOLLOWING`），*expr* 可以是一个 ? 参数标记（在准备好的语句中使用），一个非负数的数字字头，或者一个 `INTERVAL val unit` 形式的时间间隔。对于 `INTERVAL` 表达式，*val* 指定了非负的间隔值，*unit* 是一个关键字，表示该值应该被解释的单位。
+
+	数字或时间 *expr* 上的 `RANGE` 分别要求数字或时间表达式上的 `ORDER BY`。
+
+	有效的 `expr PRECEDING` 和 `expr FOLLOWING` 指标的例子：
+
+	```mysql
+	10 PRECEDING
+	INTERVAL 5 DAY PRECEDING
+	5 FOLLOWING
+	INTERVAL '2:30' MINUTE_SECOND FOLLOWING
+	```
+
+下面的查询演示了 `FIRST_VALUE()`、`LAST_VALUE()`  和 `NTH_VALUE()` 的两个实例：
+
+```mysql
+mysql> SELECT
+         time, subject, val,
+         FIRST_VALUE(val)  OVER w AS 'first',
+         LAST_VALUE(val)   OVER w AS 'last',
+         NTH_VALUE(val, 2) OVER w AS 'second',
+         NTH_VALUE(val, 4) OVER w AS 'fourth'
+       FROM observations
+       WINDOW w AS (PARTITION BY subject ORDER BY time
+                    ROWS UNBOUNDED PRECEDING);
++----------+---------+------+-------+------+--------+--------+
+| time     | subject | val  | first | last | second | fourth |
++----------+---------+------+-------+------+--------+--------+
+| 07:00:00 | st113   |   10 |    10 |   10 |   NULL |   NULL |
+| 07:15:00 | st113   |    9 |    10 |    9 |      9 |   NULL |
+| 07:30:00 | st113   |   25 |    10 |   25 |      9 |   NULL |
+| 07:45:00 | st113   |   20 |    10 |   20 |      9 |     20 |
+| 07:00:00 | xh458   |    0 |     0 |    0 |   NULL |   NULL |
+| 07:15:00 | xh458   |   10 |     0 |   10 |     10 |   NULL |
+| 07:30:00 | xh458   |    5 |     0 |    5 |     10 |   NULL |
+| 07:45:00 | xh458   |   30 |     0 |   30 |     10 |     30 |
+| 08:00:00 | xh458   |   25 |     0 |   25 |     10 |     30 |
++----------+---------+------+-------+------+--------+--------+
+```
+
+每个函数都使用当前框架中的行，根据所示的窗口定义，从第一个分区行延伸到当前框架。对于 `NTH_VALUE()` 的调用，当前框架并不总是包括所请求的行；在这种情况下，返回值是 `NULL`。
+
+<br>
+
+在没有框架子句的情况下，默认框架取决于是否存在 `ORDER BY` 子句：
+
+- 有 `ORDER BY`：默认的框架包括从分区开始到当前行的记录，包括当前行的所有同级别的记录（根据 `ORDER BY` 子句，等于当前行的记录）。默认情况下等同于这个框架规范：
+
+	```mysql
+	RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+	```
+
+- 没有 `ORDER BY`：默认的框架包括所有分区行（因为在没有 `ORDER BY`的情况下，所有分区行都是同行）。默认情况等同于这个框架规范：
+
+	```mysql
+	RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+	```
+
+因为默认的框架因 `ORDER BY` 的存在与否而不同，在查询中加入 `ORDER BY` 以获得确定的结果可能会改变结果。（例如，由 `SUM()` 产生的值可能会改变）。为了获得相同的结果，但按 `ORDER BY` 排序，请提供一个明确的框架规范，无论 `ORDER BY` 是否存在都要使用。
+
+<br>
+
+当当前行值为 `NULL` 时，框架规范的含义可能是不明显的。假设是这种情况，这些例子说明了各种框架规范的应用：
+
+- ```mysql
+	ORDER BY X ASC RANGE BETWEEN 10 FOLLOWING AND 15 FOLLOWING
+	```
+
+	这个框架从 `NULL` 开始，到 `NULL` 结束，因此只包括数值为 `NULL` 的记录。
+
+- ```mysql
+	ORDER BY X ASC RANGE BETWEEN 10 FOLLOWING AND UNBOUNDED FOLLOWING
+	```
+
+	这个框架从 `NULL` 开始，到分区的末尾为止。因为 `ASC` 排序将 `NULL` 值放在前面，所以框架是整个分区。
+
+- ```mysql
+	ORDER BY X DESC RANGE BETWEEN 10 FOLLOWING AND UNBOUNDED FOLLOWING
+	```
+
+	这个框架从 `NULL` 开始，在分区的末端停止。因为 `DESC` 排序将 `NULL` 值放在最后，所以框架中只有 `NULL` 值。
+
+- ```mysql
+	ORDER BY X ASC RANGE BETWEEN 10 PRECEDING AND UNBOUNDED FOLLOWING
+	```
+
+	这个框架从 `NULL` 开始，到分区的末尾为止。因为 `ASC` 排序将 `NULL` 值放在前面，所以框架是整个分区。
+
+- ```mysql
+	ORDER BY X ASC RANGE BETWEEN 10 PRECEDING AND 10 FOLLOWING
+	```
+
+	这个框架从 `NULL` 开始，到 `NULL` 结束，因此只包括数值为 `NULL` 的记录。
+
+- ```mysql
+	ORDER BY X ASC RANGE BETWEEN 10 PRECEDING AND 1 PRECEDING
+	```
+
+	这个框架从 `NULL` 开始，到 `NULL` 结束，因此只包括数值为 `NULL` 的记录。
+
+- ```mysql
+	ORDER BY X ASC RANGE BETWEEN UNBOUNDED PRECEDING AND 10 FOLLOWING
+	```
+
+	这个框架从分区的开始开始，到数值为 `NULL` 的行为止。因为 `ASC` 排序将 `NULL` 值放在首位，所以框架中只有 `NULL` 值。
+
+<br>
+
+### 7.10.3、窗口的命名
+
+在 `OVER` 子句中，可以定义窗口并赋予其名称，以便对其进行引用。要做到这一点，需要使用 `WINDOW` 子句。如果在查询中出现，`WINDOW` 子句会在 `HAVING` 子句和 `ORDER BY` 子句的位置之间，并且有这样的语法：
+
+```mysql
+WINDOW window_name AS (window_spec)
+    [, window_name AS (window_spec)] ...
+```
+
+对于每个窗口定义，*window_name* 是窗口名称，而 *window_spec* 是在 `OVER` 子句的括号中给出的相同类型的窗口规范：
+
+```mysql
+window_spec:
+    [window_name] [partition_clause] [order_clause] [frame_clause]
+```
+
+<br>
+
+`WINDOW` 子句在查询中非常有用，否则多个 `OVER` 子句会定义同一个窗口。相反，你可以只定义一次窗口，给它一个名字，然后在 `OVER` 子句中引用这个名字。考虑一下这个查询，它多次定义了同一个窗口：
+
+```mysql
+SELECT
+  val,
+  ROW_NUMBER() OVER (ORDER BY val) AS 'row_number',
+  RANK()       OVER (ORDER BY val) AS 'rank',
+  DENSE_RANK() OVER (ORDER BY val) AS 'dense_rank'
+FROM numbers;
+```
+
+通过使用 `WINDOW` 来定义一次窗口，并在 `OVER` 子句中用名称来引用窗口，可以更简单地编写查询：
+
+```mysql
+SELECT
+  val,
+  ROW_NUMBER() OVER w AS 'row_number',
+  RANK()       OVER w AS 'rank',
+  DENSE_RANK() OVER w AS 'dense_rank'
+FROM numbers
+WINDOW w AS (ORDER BY val);
+```
+
+<br>
+
+命名窗口还可以更容易地试验窗口定义，以查看对查询结果的影响。只需要修改 `window` 子句中的窗口定义，而不需要修改多个 `OVER` 子句定义。
+
+如果 `OVER` 子句使用 `OVER(window_name ...)` 而不是 `OVER window_name` ，那么可以通过增加其他子句来修改命名的窗口。例如，这个查询定义了一个包括分区的窗口，并在 `OVER` 子句中使用 `ORDER BY` 以不同的方式修改该窗口：
+
+```mysql
+SELECT
+  DISTINCT year, country,
+  FIRST_VALUE(year) OVER (w ORDER BY year ASC) AS first,
+  FIRST_VALUE(year) OVER (w ORDER BY year DESC) AS last
+FROM sales
+WINDOW w AS (PARTITION BY country);
+```
+
+`OVER` 子句只能向命名的窗口添加属性，不能修改它们。如果命名的窗口定义包括分区、排序或框架属性，那么引用窗口名称的 `OVER` 子句也不能包括同种属性，否则会发生错误：
+
+- 这个结构是允许的，因为窗口定义和引用的 `OVER` 子句不包含同种属性：
+
+	```mysql
+	OVER (w ORDER BY country)
+	... WINDOW w AS (PARTITION BY country)
+	```
+
+- 这个结构是不允许的，因为 `OVER` 子句为一个已经有 `PARTITION BY` 的命名窗口指定了 `PARTITION BY`：
+
+	```mysql
+	OVER (w PARTITION BY year)
+	... WINDOW w AS (PARTITION BY country)
+	```
+
+<br>
+
+一个命名的窗口的定义本身可以以 *window_name* 开始。在这种情况下，允许向前和向后引用，但不允许循环：
+
+- 这是被允许的；它包含向前和向后的引用，但没有循环：
+
+	```mysql
+	WINDOW w1 AS (w2), w2 AS (), w3 AS (w1)
+	```
+
+- 这是不允许的，因为它包含一个循环：
+
+	```mysql
+	WINDOW w1 AS (w2), w2 AS (w3), w3 AS (w1)
+	```
+
+<br>
+
+### 7.10.4、窗口函数介绍
 
 本节描述非聚合窗口函数，对于查询中的每一行，使用与该行相关的行执行计算。大多数聚合函数也可以用作窗口函数。
 
