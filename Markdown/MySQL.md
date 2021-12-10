@@ -3872,7 +3872,11 @@ SELECT DATE_FORMAT(NOW(),'%Y年%m月%d日 %H时%i分%s秒');
 
 **`DATE_FORMAT(date ,format)` 函数对应 Oracle 数据库中的 `TO_CHAR()` 函数。**
 
+```
+DATE_FORMAT(detail.OCCURRENCE_DATE, '%Y-%m-%d') AS occurrenceDate,
+```
 
+<br>
 
 #### STR_TO_DATE()
 
@@ -3889,6 +3893,8 @@ SELECT STR_TO_DATE('2019年01月17日 19时05分05秒','%Y年%m月%d日 %H时%i�
 2019-01-17 19:05:05
 
 **`STR_TO_DATE(str,format)` 函数对应 Oracle 数据库中的 `TO_DATE()` 函数。**
+
+ <br>
 
 ## 17.2、字符串相关
 
