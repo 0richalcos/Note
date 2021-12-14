@@ -1,4 +1,4 @@
-# Windows
+# Windows 10
 
 ## 【1】Windows默认管理员权限
 
@@ -12,7 +12,7 @@
 6. 分别选中并点击鼠标右键，再点击【属性】，进入配置窗口，将这两项都分别设置为 “已禁用”，再点击 【确定】
 7. 重启电脑，操作完成！
 
-
+<br>
 
 ## 【2】重装系统时将硬盘格式转换为GPT
 
@@ -25,14 +25,14 @@
 7. 最后输入 `exit` 命令并回车，退出 Diskpart 模式
 8. 再输入 `exit` 命令并回车，退出 cmd 命令行模式
 
-
+<br>
 
 ## 【3】修改系统引导
 
 1. win+R
 2. 输入 `msconfig`
 
-
+<br>
 
 ## 【4】查看后台运行的程序的详细信息
 
@@ -40,7 +40,7 @@ cmd 命令窗口输入 `netstat –ano`，回车。
 
 可以解决端口占用
 
-
+<br>
 
 ## 【5】Compact 压缩功能命令
 
@@ -50,14 +50,14 @@ cmd 命令窗口输入 `netstat –ano`，回车。
 
 关闭：`compact /compactos:never`
 
-
+<br>
 
 ## 【6】删除右键菜单新建中不要选项
 
 1. 按下 Win+R，运行 `regedit`
 2. 展开 HKEY_CLASSES_ROOT，找到需要删除的文件后缀名，然后展开文件夹找到 shellnew 选项，直接删除即可
 
-
+<br>
 
 ## 【7】取消开机密码
 
@@ -71,7 +71,7 @@ cmd 命令窗口输入 `netstat –ano`，回车。
 
 <img src="../Images/Mixed/image-20210513005900008.png" alt="image-20210513005900008" style="zoom: 67%;" />
 
-
+<br>
 
 ## 【8】微软输入法快速输入时间
 
@@ -97,7 +97,7 @@ cmd 命令窗口输入 `netstat –ano`，回车。
    %yyyy%年%MM%月%dd%日 %HH%:%mm%:%ss%
    ```
 
-
+<br>
 
 ## 【9】Windows Terminal SSH 保持连接
 
@@ -112,7 +112,7 @@ Host *
     ServerAliveInterval 40
 ```
 
-
+<br>
 
 ## 【10】删除桌面右键 Open in Terminal
 
@@ -124,7 +124,29 @@ Host *
 
 ![image-20210806112305321](../Images/Mixed/image-20210806112305321.png)
 
+<br>
 
+# Windows 11
+
+## 【1】关闭系统小组件
+
+隐藏只需要在任务栏设置中设置就好了。
+
+卸载 Win11 小组件需要用到 CMD。使用管理员权限打开 Windows Terminal 终端的 “命令提示符”，或者使用管理员权限运行 CMD，输入以下命令：
+
+```shell
+winget uninstall MicrosoftWindows.Client.WebExperience_cw5n1h2txyewy
+```
+
+按下回车键，Win11 小组件就会被卸载掉了。
+
+如果想要重新安装 Win11 小组件，则可以执行以下命令：
+
+```shell
+winget install 9MSSGKG348SP
+```
+
+<br>
 
 # Chrome
 
@@ -134,7 +156,7 @@ Chrome 默认的数据文件地址是：C:\Users\Orichalcos\AppData\Local\Google
 
 移动前需要关闭 Google，将文件移动到想要移动的地方，然后在 cmd（需要管理员权限）输入：mklink 旧地址 新地址，回车。
 
-
+<br>
 
 # IDEA
 
@@ -165,7 +187,7 @@ maven 由于他的约定大于配置，之后可能遇到写的配置文件，�
 </build>
 ```
 
-
+<br>
 
 ## 【2】Maven 框架 web-app 中 web.xml 版本过低
 
@@ -185,7 +207,7 @@ PS：上边的web-app标签中有一个**metadata-complete="true"**，这是个�
 
 该属性默认为true，表示容器在部署时只依赖部署描述文件，忽略所有标注，如果不配置该属性，或者将其设置为false，则表示启动注解支持。当metadata-complete="false"时，web.xml和注解对于Servlet的影响同时起作用，两种方法定义的url-partten都可以访问到该Servlet，但是当通过web.xml定义的url-partten访问时，注解定义的属性将失效。
 
-
+<br>
 
 ## 【3】修改内存大小
 
@@ -199,7 +221,7 @@ PS：上边的web-app标签中有一个**metadata-complete="true"**，这是个�
 
 <img src="../Images/Mixed/image-20200428212406493.png" alt="image-20200428212406493" style="zoom:67%;float:left" />
 
-
+<br>
 
 ## 【4】SpringBoot 实现热部署
 
@@ -234,13 +256,13 @@ IDEA：当我们修改了Java类后，IDEA默认是不自动编译的，而sprin
 -->
 ```
 
-
+<br>
 
 ## 【5】Maven 项目没有被识别
 
 在 pom.xml 上右键、点击 Add as Maven Project 
 
-
+<br>
 
 ## 【6】插件：camelCase
 
@@ -254,7 +276,7 @@ camelCase 包含 6 种格式的切换，可能某些格式是平时不用的，�
 
 ![图片描述](../Images/Mixed/5e7827dc0001c7ea11720724.png)
 
-
+<br>
 
 ## 【7】jar 包自动导入及优化
 
@@ -266,7 +288,7 @@ camelCase 包含 6 种格式的切换，可能某些格式是平时不用的，�
 
 第二个是 优化导入，也就是除去没有用到的 jar 包，这个设置只会对当前的项目有效！每个项目都需要单独设置 此选项！
 
-
+<br>
 
 ## 【8】保存时触发操作
 
@@ -326,7 +348,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 <img src="../Images/Mixed/image-20200428213849950.png" alt="image-20200428213849950" style="zoom: 50%;float:left" />
 
-
+<br>
 
 ## 【2】汉化
 
@@ -342,7 +364,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 找到中文简体安装就行了。
 
-
+<br>
 
 ## 【3】SpringBoot 打 jar 包
 
