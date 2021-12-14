@@ -451,21 +451,42 @@ InputStream is2 = servletContext.getResourceAsStream("/WEB-INF/classes/jdbc.prop
 
 ## 1.8、HttpServletResponse
 
-**简介**
+Web 服务器收到客户端的 HTTP 请求，会针对每一次请求，分别创建一个用于代表请求的 Request 对象、和代表响应的 Response 对象。
 
-Web服务器收到客户端的http请求，会针对每一次请求，分别创建一个用于代表请求的request对象、和代表响应的response对象。
+Request 和 Response 对象既然代表请求和响应，那我们要获取客户机提交过来的数据，只需要找 Request 对象就行了。要向客户机输出数据，只需要找 Response 对象就行了。
 
-request和response对象即然代表请求和响应，那我们要获取客户机提交过来的数据，只需要找request对象就行了。要向客户机输出数据，只需要找response对象就行了。
+HttpServletResponse 对象服务器的响应。这个对象中封装了向客户端发送数据、发送响应头，发送响应状态码的方法。
 
-HttpServletResponse对象服务器的响应。这个对象中封装了向客户端发送数据、发送响应头，发送响应状态码的方法。
+ServletResponse：封装了响应信息，如果想给用户什么响应，具体可以使用该接口的方法实现
 
-ServletResponse: 封装了响应信息, 如果想给用户什么响应, 具体可以使用该接口的方法实现
+- `getWriter()`：返回 PrintWriter 对象。调用该对象的 `print()` 方法，将把 `print()` 中的参数直接打印到客户的浏览器上。
+- `getOutputStream()`：返回 ServletOutputStream 对象。
+- 设置响应的内容类型：`response.setContentType("application/msword")`。
+- `sendRedirect(String location)`：请求的重定向（此方法为 HttpServletResponse 中定义）。
 
-- getWriter(): 返回 PrintWriter 对象. 调用该对象的 print() 方法, 将把 print() 中的参数直接打印到客户的浏览器上
-- 设置响应的内容类型: response.setContentType("application/msword");
-- void sendRedirect(String location): 请求的重定向. (此方法为 HttpServletResponse 中定义.)
+<br>
 
+**getWriter() 和 getOutputStream() 详解**
 
+- ```java
+	PrintWriter out = response.getWriter()
+	```
+
+	*out* 对象用于处理字符流数据。
+
+- ```java
+	ServletOutputStream os = response.getOutputStream();
+	```
+
+	*os* 用于输出字符流数据或者二进制的字节流数据都可以。
+
+`getOutputStream()` 和 `getWriter()` 这两个方法互相排斥，调用了其中的任何一个方法后，就不能再调用另一方法。 
+
+Servlet 程序向 ServletOutputStream 或 PrintWriter 对象中写入的数据将被 Servlet 引擎从 Response 里面获取，Servlet 引擎将这些数据当作响应消息的正文，然后再与响应状态行和各响应头组合后输出到客户端。
+
+Serlvet 的 `service()` 方法结束后，Servlet 引擎将检查 `getWriter()` 或 `getOutputStream()` 方法返回的输出流对象是否已经调用过 `close()` 方法，如果没有，Servlet 引擎 tomcat 将调用 `close()` 方法关闭该输出流对象。调用 `close()` 的时候，应该会调用 `flushBuffer()`。
+
+<br>
 
 **输出验证码图片**
 
@@ -543,19 +564,7 @@ graphics.dispose();
 ImageIO.write(image, "jpg", resp.getOutputStream());
 ```
 
-
-
-**response生成响应注意事项**
-
-getOutputStream和getWriter方法分别用于得到输出二进制数据、输出文本数据的ServletOuputStream、Printwriter对象。
-
-getOutputStream和getWriter这两个方法互相排斥，调用了其中的任何一个方法后，就不能再调用另一方法。 
-
-Servlet程序向ServletOutputStream或PrintWriter对象中写入的数据将被Servlet引擎从response里面获取，Servlet引擎将这些数据当作响应消息的正文，然后再与响应状态行和各响应头组合后输出到客户端。
-
-Serlvet的service方法结束后，Servlet引擎将检查getWriter或getOutputStream方法返回的输出流对象是否已经调用过close方法，如果没有，Servlet引擎tomcat将调用close方法关闭该输出流对象。调用close的时候，应该会调用flushBuffer。
-
-
+<br>
 
 ## 1.9、HttpServletRequest
 

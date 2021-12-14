@@ -4,7 +4,7 @@
 
 Oracle Database，又名 Oracle RDBMS，简称 Oracle。Oracle 数据库系统是美国 Oracle 公司（甲骨文）提供的以分布式数据库为核心的一组软件产品，是目前最流行的客户/服务器（client/server）或B/S体系结构的数据库之一，比如 SilverStream 就是基于数据库的一种中间件。Oracle 数据库是目前世界上使用最为广泛的数据库管理系统，作为一个通用的数据库系统，它具有完整的数据管理功能；作为一个关系型数据库，它是一个完备关系的产品；作为分布式数据库它实现了分布式处理功能。
 
-
+<br>
 
 **Oracle 体系结构**
 
@@ -18,19 +18,19 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 **Oracle用户：**表当中的数据是由 Oracle 用户放入到表空间当中的，而这些表空间会随机的把数据放入到一个或者多个数据文件当中。Oracle 对表数据的管理是通过用户对表的管理去查询，而不是直接对数据文件或表空间进行查询。因为不同用户可以在同一个表空间上面建立相同的表名。但是通过不同的用户管理自己的表数据。
 
-
+<br>
 
 **数据结构逻辑关系如下图：**
 
 ![数据结构逻辑关系](../Images/Oracle/viewImages.do)
 
-
+<br>
 
 **Oracle体系概要图如下：**
 
 <img src="../Images/Oracle/viewImages (1)-16358235683753.do" alt="Oracle体系概要图" style="zoom: 67%;" />
 
-
+<br>
 
 ## 1.2、Oracle 19c 安装
 
@@ -85,7 +85,7 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 	![在这里插入图片描述](../Images/Oracle/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly92LmNzZG4ubmV0L3dlaXhpbl80Mzc5MjQwMQ==,size_16,color_FFFFFF,t_70.png)
 
-
+<br>
 
 ## 1.3、Oracle 19c 卸载
 
@@ -121,7 +121,7 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 4. 清空 `C:\temp ` 和回收站。
 
-
+<br>
 
 ## 1.4、Navicat 连接 Oracle
 
@@ -135,3 +135,33 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 2. 在 Oracle 安装目录下找到 `oci.dll`， 这是我的路径：`E:\Database\Oracle\Oracle_WINDOWS.X64_193000_db_home\bin\oci.dll`，完成之后重新启动 Navicat。
 
+<br>
+
+# 2、查询
+
+我初学的数据库是 MySQL，由于 Oracle 也是使用 SQL 标准，这里用于记录工作中使用 Oracle 所遇到的查询问题。
+
+<br>
+
+## 2.1、对 CLOB 进行模糊查询
+
+在 Oracle 中多大文本数据我们没有办法使用 `LIKE` 进行查询，所以只能使用 Oracle 中的函数：
+
+```sql
+SELECT * FROM TABLE表 WHERE dbms_lob.instr(字段名（clod类型）,'查询条件',1,1) > 0
+```
+
+在 Oracle 中，可以使用 `instr()` 函数对某个字符串进行判断，判断其是否含有指定的字符。其语法为：
+
+```sql
+instr(sourceString, destString, start, appearPosition)
+```
+
+参数：
+
+- *sourceString* 代表源字符串。
+- *destString* 代表想从源字符串中查找的子串。
+- *start* 代表查找的开始位置，该参数是可选的，默认为 1，如果 *start* 的值为负数，那么代表从右往左进行查找。
+- *appearPosition* 代表想从源字符中查找出第几次出现的 *destString*，该参数也是可选的，默认为 1。
+
+返回值为：查找到的字符串的位置。

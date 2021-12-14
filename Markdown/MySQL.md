@@ -2381,7 +2381,7 @@ window_spec:
 	    PARTITION BY expr [, expr] ...
 	```
 
-	标准 SQL 要求 `PARTITION BY` 后面只跟列名。MySQL 扩展允许表达式，而不仅仅是列名。例如，如果一个表包含一个名为 ts 的 `TIMESTAMP` 列，标准 SQL 允许 `PARTITION BY ts`，但不允许 `PARTITION BY HOUR(ts)`，而 MySQL 允许两者。
+	标准 SQL 要求 `PARTITION BY` 后面只跟列名。MySQL 扩展允许表达式，而不仅仅是列名。例如，如果一个表包含一个名为 `ts` 的 `TIMESTAMP` 列，标准 SQL 允许 `PARTITION BY ts`，但不允许 `PARTITION BY HOUR(ts)`，而 MySQL 允许两者。
 
 - *order_clause*：`ORDER BY` 子句表明如何对每个分区的行进行排序。根据 `ORDER BY` 子句相等的分区行被认为是对等的。如果省略了 `ORDER BY`，分区行是无序的，不隐含处理顺序，所有的分区行都是对等的。
 
@@ -2465,7 +2465,7 @@ ROW_NUMBER()
 
 如果给出框架子句，其语法是这样的：
 
-```mysql
+```
 frame_clause:
     frame_units frame_extent
 
@@ -2482,7 +2482,7 @@ frame_units:
 
 *frame_extent* 值表示框架的开始和结束点。你可以只指定框架的起点（在这种情况下，当前行是隐含的终点），或者使用 `BETWEEN` 来指定两个框架的端点：
 
-```mysql
+```
 frame_extent:
     {frame_start | frame_between}
 
@@ -3045,6 +3045,75 @@ mysql> SELECT
 ```
 
 从 MySQL 8.0.22 开始，`NTILE(NULL)` 结构不再被允许。
+
+<br>
+
+#### PERCENT_RANK()
+
+```mysql
+PERCENT_RANK() over_clause
+```
+
+返回小于当前行中值的分区值的百分比，不包括最高值。返回值的范围是 0 到 1，代表行的相对等级，计算的结果是这个公式，其中 *rank* 是行的等级（`RANK()` 函数的返回值），*rows* 是分区行的数量：
+
+```mysql
+(rank - 1) / (rows - 1)
+```
+
+这个函数应该与 `ORDER BY` 一起使用，以按照所需的顺序对分区行进行排序。如果没有 `ORDER BY`，所有行都是对等的。
+
+有关示例，请参见 `CUME_DIST()` 函数说明。
+
+<br>
+
+#### RANK()
+
+```mysql
+RANK() over_clause
+```
+
+返回当前行在其分区中的排名，有空隙。同行被认为是并列的，获得相同的排名。如果存在大小大于 1 的组，这个函数不会给同级组分配连续的排名；结果是不连续的等级数字。
+
+这个函数应该和 `ORDER BY` 一起使用，将分区行排序到所需的顺序。没有 `ORDER BY`，所有的行都是同行。
+
+下面的查询显示了 `RANK()` 和 `DENSE_RANK()` 之间的区别，前者产生有间隙的排名，后者产生没有间隙的排名。该查询显示了 `val` 列中一组数值的每个成员的排名值，其中包含一些重复的数值，该查询还使用 `ROW_NUMBER()` 显示行数：
+
+```mysql
+mysql> SELECT
+         val,
+         ROW_NUMBER() OVER w AS 'row_number',
+         RANK()       OVER w AS 'rank',
+         DENSE_RANK() OVER w AS 'dense_rank'
+       FROM numbers
+       WINDOW w AS (ORDER BY val);
++------+------------+------+------------+
+| val  | row_number | rank | dense_rank |
++------+------------+------+------------+
+|    1 |          1 |    1 |          1 |
+|    1 |          2 |    1 |          1 |
+|    2 |          3 |    3 |          2 |
+|    3 |          4 |    4 |          3 |
+|    3 |          5 |    4 |          3 |
+|    3 |          6 |    4 |          3 |
+|    4 |          7 |    7 |          4 |
+|    4 |          8 |    7 |          4 |
+|    5 |          9 |    9 |          5 |
++------+------------+------+------------+
+```
+
+<br>
+
+#### ROW_NUMBER()
+
+```mysql
+ROW_NUMBER() over_clause
+```
+
+返回其分区中当前行的编号。行号的范围从 1 到分区行数。
+
+`ORDER BY` 影响行编号的顺序。如果没有 `ORDER BY`，行编号是不确定性的。
+
+`ROW_NUMBER()` 给同行分配不同的行号。要给同行分配相同的值，请使用 `RANK()` 或 `DENSE_RANK()` 。有关例子，请参见 `RANK()` 函数描述。
 
 <br>
 

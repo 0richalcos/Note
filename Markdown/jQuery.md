@@ -170,13 +170,13 @@ jQuery 元素选择器和属性选择器允许您通过标签名、属性名或�
 
 jQuery 是为事件处理特别设计的。
 
-
+<br>
 
 **jQuery 事件函数**
 
 jQuery 事件处理方法是 jQuery 中的核心函数。
 
-事件处理程序指的是当 HTML 中发生某些事件时所调用的方法。术语由事件“触发”（或“激发”）经常会被使用。
+事件处理程序指的是当 HTML 中发生某些事件时所调用的方法。术语由事件 “触发”（或“激发”）经常会被使用。
 
 ```html
 <body>
@@ -200,21 +200,21 @@ jQuery 事件处理方法是 jQuery 中的核心函数。
 $("button").click(function() {..some code... } )
 ```
 
-该方法隐藏所有 <p> 元素：
+该方法隐藏所有 `<p>` 元素：
 
 ```javascript
 $("p").hide();
 ```
 
-
+<br>
 
 **jQuery 名称冲突**
 
-jQuery 使用 $ 符号作为 jQuery 的简写方式。
+jQuery 使用 `$` 符号作为 jQuery 的简写方式。
 
-某些其他 JavaScript 库中的函数（比如 Prototype）同样使用 $ 符号；jQuery 使用名为 noConflict() 的方法来解决该问题。
+某些其他 JavaScript 库中的函数（比如 Prototype）同样使用 `$` 符号；jQuery 使用名为 `noConflict()` 的方法来解决该问题。
 
-*var jq=jQuery.noConflict()*，帮助您使用自己的名称（比如 jq）来代替 $ 符号。
+`var jq=jQuery.noConflict()`，帮助您使用自己的名称（比如 `jq`）来代替 `$` 符号。
 
 ```html
 <body>
@@ -234,7 +234,7 @@ jQuery 使用 $ 符号作为 jQuery 的简写方式。
 </body>
 ```
 
-
+<br>
 
 **jQuery 事件**
 
@@ -248,7 +248,37 @@ jQuery 使用 $ 符号作为 jQuery 的简写方式。
 | `$(selector).focus(function)`     | 触发或将函数绑定到被选元素的获得焦点事件       |
 | `$(selector).mouseover(function)` | 触发或将函数绑定到被选元素的鼠标悬停事件       |
 
+<br>
 
+**jQuery 获取当前事件对象**
+
+有两种常用方法：
+
+- 通过参数传入：
+
+	```html
+	<button onclick="clickEvent(this)"></button>
+	...
+	<script>
+	    function clickEvent(event) {
+	        $(event);
+	    }
+	</script>
+	```
+
+- 在事件方法体中通过 `$(this)` 获取：
+
+	```html
+	<button id="btn"></button>
+	...
+	<script>
+	    $('#btn').click(() => {
+	        $(this);
+	    })
+	</script>
+	```
+
+<br>
 
 # 2、jQuery 效果 
 
@@ -2047,11 +2077,11 @@ $.when(wait(dtd))
     .fail(function(){ alert("出错啦！"); });
 ```
 
-> jQuery 规定，deferred 对象有三种执行状态：未完成，已完成和已失败。如果执行状态是 "已完成"（resolved），deferred 对象立刻调用 done() 方法指定的回调函数；如果执行状态是 "已失败"，调用 fail() 方法指定的回调函数；如果执行状态是 "未完成"，则继续等待，或者调用progress() 方法指定的回调函数（jQuery1.7版本添加）。
+> jQuery 规定，deferred 对象有三种执行状态：未完成，已完成和已失败。如果执行状态是 "已完成"（resolved），deferred 对象立刻调用 done() 方法指定的回调函数；如果执行状态是 "已失败"，调用 fail() 方法指定的回调函数；如果执行状态是 "未完成"，则继续等待，或者调用progress() 方法指定的回调函数（jQuery1.7 版本添加）。
 
 类似的，还存在一个 `deferred.reject()` 方法，作用是将 dtd 对象的执行状态从 "未完成" 改为 "已失败"，从而触发 fail() 方法。
 
-
+<br>
 
 # 6、其他
 
