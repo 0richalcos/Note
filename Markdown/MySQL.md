@@ -886,6 +886,8 @@ ALTER TABLE Persons ALTER City DROP DEFAULT;
 SHOW CREATE TABLE <数据表名>;
 ```
 
+<br>
+
 # 6、增、删、改
 
 ## 6.1、插入数据
@@ -918,11 +920,11 @@ VALUES
 ('Java教程', 'runoob.com', '2016-05-06');
 ```
 
-实例中NOW()是一个MySQL函数，该函数返回日期和时间
+实例中 `NOW()`是一个 MySQL 函数，该函数返回日期和时间
 
+<br>
 
-
-**INSERT多条数据**
+**INSERT 多条数据**
 
 ```mysql
 INSERT INTO <表名>(field1, field2,…fieldN)
@@ -933,37 +935,44 @@ VALUES
 …;
 ```
 
-如果第一列是自增可以在添加数据的时候，写为0或NULL，这样添加数据可以自增，从而可以添加全部数据，而不用特意规定哪几列添加数据。
+如果第一列是自增可以在添加数据的时候，写为 0 或 `NULL`，这样添加数据可以自增，从而可以添加全部数据，而不用特意规定哪几列添加数据。
 
-
+<br>
 
 **复制表**
 
-复制表结构：
+- 复制表结构：
 
-```mysql
-CREATE TABLE targetTable LIKE sourceTable;
-```
+	```mysql
+	CREATE TABLE targetTable LIKE sourceTable;
+	```
 
-或者
+	或者
 
-```mysql
-CREATE TABLE targetTable AS SELECT * FROM sourceTable WHERE 1=2;
-```
+	```mysql
+	CREATE TABLE targetTable AS SELECT * FROM sourceTable WHERE 1=2;
+	```
 
-复制表数据：
+- 复制表数据：
 
-```mysql
-INSERT INTO targetTable SELECT * FROM sourceTable;
-```
+	```mysql
+	INSERT INTO targetTable SELECT * FROM sourceTable;
+	```
 
-复制表结构及数据到新表：
+	或者：
 
-```mysql
-CREATE TABLE newTable AS SELECT * FROM oldTable;
-```
+	```mysql
+	SELECT * INTO targetTable [IN externaldatabase] FROM sourceTable
+	```
+
+- 复制表结构及数据到新表：
+
+	```mysql
+	CREATE TABLE newTable AS SELECT * FROM oldTable;
+	```
 
 
+<br>
 
 ## 6.2、删除数据
 
