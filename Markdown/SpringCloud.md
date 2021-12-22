@@ -4,7 +4,7 @@
 
 微服务是一种架构，这种架构是将单个的整体应用程序分割成更小的项目关联的独立的服务。一个服务通常实现一组独立的特性或功能，包含自己的业务逻辑和适配器。各个微服务之间的关联通过暴露 API 来实现。这些独立的微服务不需要部署在同一个虚拟机、同一个系统和同一个应用服务器中。
 
-
+<br>
 
 ## 1.1、单体应用和微服务结构应用
 
@@ -23,7 +23,7 @@
 - 如果想整体应用采用新的技术、新的框架或者语言会很困难
 - 任意模块的漏洞或者错误都会影响整个应用，降低系统的可靠性
 
-
+<br>
 
 **微服务结构应用**
 
@@ -41,37 +41,37 @@
 - 多服务运维难度，随着服务的增加，运维的压力也在增大
 - 服务治理 和 服务监控 关键
 
-
+<br>
 
 ## 1.2、架构的演变
 
 `[单一应用架构] `==> ` [垂直应用架构] ` ==> ` [分布式服务架构] ` ==>` [流动计算架构]||[微服务架构]` 
 
-
+<br>
 
 **All in One Application		单一架构**
 
 起初当网站流量很小时，将所有功能都写在一个应用里面，对整个应用进行部署，以减少部署节点和成本。对于这个架构简化增删改查的工作量的数据访问框架（ORM）是关键。
 
-
+<br>
 
 **Vertical Application		垂直架构**
 
 当访问量逐渐增大，单一应用增加机器带来的加速度越来越小，提升效率的方法之一是将应用拆成互不相干的几个应用，以提升效率。此时，用于加速前端页面开发的Web框架（MVC）是关键。
 
-
+<br>
 
 **Distributed Service		分布式服务架构**
 
 当垂直应用越来越多，应用之间交互不可避免，将核心业务抽取出来，作为独立的服务，逐渐形成稳定的服务中心，使前端应用能更快速的响应多变的市场需求。此时，用于提高业务复用及整合的分布式服务框架（RPC）是关键。
 
-
+<br>
 
 **Elastic Computing		流动计算架构即微服务架构**
 
 当服务越来越多，容量的评估，小服务资源的浪费等问题逐渐显现，此时需增加一个调度中心基于访问压力实时管理集群容量，提高集群利用率。此时，用于提高机器利用率的资源调度和治理中心（SOA）是关键。
 
-
+<br>
 
 # 2、SpringCloud
 
@@ -81,7 +81,7 @@ SpringCloud 为开发人员提供了在分布式系统中快速构建一些通�
 
 > NetFlix 是美国的一个在线视频网站、微服务业的翘楚，它是公认的大规模生产级微服务的杰出实践者，NetFlix 的开源组件已经在它大规模分布式微服务环境中经过多年的生产实战验证，因此 SpringCloud 中很多组件都是基于NetFlix。
 
-
+<br>
 
 ## 2.1、核心组件说明
 
@@ -95,7 +95,7 @@ SpringCloud 为开发人员提供了在分布式系统中快速构建一些通�
 
 ![image-20200724161314786](../Images/SpringCloud/image-20200724161314786.png)
 
-
+<br>
 
 ## 2.2、命名和版本选择
 
@@ -105,7 +105,7 @@ SpringCloud 是一个由众多独立子项目组成的大型综合项目，原�
 
 这些名字是按字母顺序排列的，如伦敦地铁站的名称（“天使” 是第一个版本，“布里斯顿” 是第二个版本，”卡姆登“ 是第三个版本）。当单个项目的点发布累积到一个临界量，或者其中一个项目中有一个关键缺陷需要每个人都可以使用时，发布序列将推出名称以 “.SRX” 结尾的 “服务发布”，其中 “X” 是一个数字。
 
-
+<br>
 
 **SpringCloud 的版本选择**
 
@@ -123,7 +123,7 @@ SpringCloud 是一个由众多独立子项目组成的大型综合项目，原�
 
 ![image-20200709112427684](../Images/SpringCloud/image-20200709112427684.png)
 
-
+<br>
 
 # 2、环境搭建
 
@@ -135,7 +135,7 @@ SpringCloud 是一个由众多独立子项目组成的大型综合项目，原�
 - Maven 3.8.1
 - IDEA 2021.1
 
-
+<br>
 
 新建一个空项目，在空项目中新建一个 Maven 子项目用于版本管理（可以删除 src 目录只留 pom.xml）:
 
@@ -180,7 +180,7 @@ SpringCloud 是一个由众多独立子项目组成的大型综合项目，原�
 </project>
 ```
 
-
+<br>
 
 # 3、服务注册中心
 
@@ -196,7 +196,7 @@ SpringCloud 是一个由众多独立子项目组成的大型综合项目，原�
 
 SpringCloud 支持多种注册中心：Eureka、Consul、Zookeeper、以及阿里巴巴推出 Nacos。这些注册中心在本质上都是用来管理服务的注册和发现以及服务状态的检查的。
 
-
+<br>
 
 ## 3.1、Eureka
 
@@ -204,7 +204,7 @@ Eureka 是 Netflix 开发的服务发现框架，本身是一个基于 REST 的�
 
 Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 
-
+<br>
 
 ### 3.1.1、开发 Eureka Server
 
@@ -267,7 +267,7 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 
 7. 再次启动，当前应用就是一个单纯 Eureka Server，控制器也不再报错
 
-
+<br>
 
 ### 3.1.2、开发 Eureka Client
 
@@ -317,7 +317,7 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 
    ![image-20210714001846314](../Images/SpringCloud/image-20210714001846314.png)
 
-
+<br>
 
 ### 3.1.3、Eureka Server 集群
 
@@ -393,7 +393,7 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 
 	并且可以看到虽然 Eureka Client 之注册到了第一个 Eureka Server 上，但是可以看到 Eureka Server 节点之间的实例会相互同步
 
-
+<br>
 
 ### 3.1.4、Eureka 自我保护机制
 
@@ -417,7 +417,7 @@ Eureka Server 自动进入自我保护机制，此时会出现以下几种情况
 
 因此 Eureka Server 可以很好的应对因网络故障导致部分节点失联的情况，而不会像 ZK 那样如果有一半不可用的情况会导致整个集群不可用而变成瘫痪。
 
-
+<br>
 
 **关闭自我保护**
 
@@ -449,13 +449,13 @@ Eureka Server 自动进入自我保护机制，此时会出现以下几种情况
 
 > 关于 Eureka 2.x 的开源工作已经停止。作为 2.x 分支上现有工作存储库的一部分发布的代码库和工件被视为使用风险自负，在 1.x 版本项目还是活跃的。
 
-
+<br>
 
 ## 3.2、Consul
 
 Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其它分布式服务注册与发现的方案，Consul 的方案更 “一站式”，内置了服务注册与发现框架、分布一致性协议实现、健康检查、Key/Value 存储、多数据中心方案，不再需要依赖其它工具（比如 ZooKeeper 等）。使用起来也较为简单。Consul 使用 Go 语言编写，因此具有天然可移植性（支持Linux、windows和Mac OS X）；安装包仅包含一个可执行文件，方便部署，与 Docker 等轻量级容器可无缝配合。
 
-
+<br>
 
 ### 3.2.1、安装 Consul
 
@@ -501,7 +501,7 @@ Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统�
 
 > 如果前面使用的是 Windows CMD 开启了 Consul，记得按 Ctrl + C 关闭，然后还需重新启动 CMD
 
-
+<br>
 
 ### 3.2.2、开发 Consul Client
 
@@ -562,7 +562,7 @@ Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统�
 
 	![image-20210715175633678](../Images/SpringCloud/image-20210715175633678.png)
 
-
+<br>
 
 # 4、服务调用组件
 
@@ -572,13 +572,13 @@ Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统�
 
 在 SpringCloud 中服务间调用方式主要是使用 HTTP RESTful 方式进行服务间调用
 
-
+<br>
 
 ## 4.1、RestTemplate
 
 Spring 框架提供的 RestTemplate 类可用于在应用中调用 REST 服务，它简化了与 HTTP 服务的通信方式，统一了 RESTful 的标准，封装了 HTTP 链接， 我们只需要传入url 及返回值类型即可。相较于之前常用的 HttpClient，RestTemplate 是一种更优雅的调用 RESTful 服务的方式。
 
-
+<br>
 
 **发送简单的请求**
 
@@ -639,7 +639,7 @@ Spring 框架提供的 RestTemplate 类可用于在应用中调用 REST 服务�
 
 	![image-20210804004717424](../Images/SpringCloud/image-20210804004717424.png)
 
-
+<br>
 
 **添加请求头 Headers 和请求体 Body**
 
@@ -671,7 +671,7 @@ httpHeaders.setContentType(type);
 >
 > getForObject 函数实际上是对 getForEntity 函数的进一步封装，如果你只关注返回的消息体的内容，对其他信息都不关注，此时可以使用getForObject。
 
-
+<br>
 
 **发送其他类型的 HTTP 请求**
 
@@ -687,13 +687,13 @@ exchange(String url, HttpMethod method,HttpEntity requestEntity, Class responseT
 - responseType：返回数据类型
 - uriVariables：支持 PathVariable 类型的数据。
 
-
+<br>
 
 ## 4.2、OpenFeign
 
 Feign 是一个声明式的伪 HTTP 客户端，它使得写 HTTP 客户端变得更简单。使用 Feign，只需要创建一个接口并添加注解。它具有可插拔的注解特性，可以使用 SpringMVC 的注解，可使用 Feign 注解和 JAX-RS 注解。Feign 支持可插拔的编码器和解码器。Feign 默认集成了 Ribbon，默认实现了负载均衡的效果并且 SpringCloud 为 Feign 添加了 SpringMVC 注解的支持。
 
-
+<br>
 
 ### 4.2.1、OpenFeign 服务调用
 
@@ -781,13 +781,13 @@ Feign 是一个声明式的伪 HTTP 客户端，它使得写 HTTP 客户端变�
 
 	![image-20210822235320696](../Images/SpringCloud/image-20210822235320696.png)
 
-
+<br>
 
 ### 4.2.2、调用服务并传参
 
 服务和服务之间通信，不仅仅是调用，往往在调用过程中还伴随着参数传递，接下来重点来看看 OpenFeign 在调用服务时如何传递参数。
 
-
+<br>
 
 **GET 方式调用服务传递参数**
 
@@ -825,7 +825,7 @@ Feign 是一个声明式的伪 HTTP 客户端，它使得写 HTTP 客户端变�
 
 	![image-20210831235811079](../Images/SpringCloud/image-20210831235811079.png)
 
-
+<br>
 
 **POST 方式调用服务传递参数**
 
@@ -863,7 +863,7 @@ Feign 是一个声明式的伪 HTTP 客户端，它使得写 HTTP 客户端变�
 
 	![image-20210901001139833](../Images/SpringCloud/image-20210901001139833.png)
 
-
+<br>
 
 **传递对象参数 application/json 格式**
 
@@ -913,13 +913,13 @@ Feign 是一个声明式的伪 HTTP 客户端，它使得写 HTTP 客户端变�
 
 	![image-20210901003732017](../Images/SpringCloud/image-20210901003732017.png)
 
-
+<br>
 
 ### 4.2.3、OpenFeign 超时设置
 
 默认情况下，OpenFiegn 在进行服务调用时，要求服务提供方处理业务逻辑时间必须在 1S 内返回，如果超过 1S 没有返回则 OpenFeign 会直接报错，不会等待服务执行，但是往往在处理复杂业务逻辑是可能会超过 1S，因此需要修改 OpenFeign 的默认服务调用超时时间。
 
-
+<br>
 
 调用超时会出现如下错误
 
@@ -949,7 +949,7 @@ feign.client.config.PRODUCTS.readTimeout=5000		  	#配置指定服务等待超�
 #feign.client.config.default.readTimeout=5000			#配置所有服务等待超时
 ```
 
-
+<br>
 
 ### 4.2.4、日志展示
 
@@ -962,7 +962,7 @@ feign.client.config.PRODUCTS.readTimeout=5000		  	#配置指定服务等待超�
 - HEADERS 记录Basic级别的基础上，记录请求和响应的header
 - FULL 记录请求和响应的header、body和元数据
 
-
+<br>
 
 1. 开启日志展示
 
@@ -976,7 +976,7 @@ feign.client.config.PRODUCTS.readTimeout=5000		  	#配置指定服务等待超�
 
 	![image-20211102001811337](../Images/SpringCloud/image-20211102001811337.png)
 
-
+<br>
 
 # 5、服务负载均衡
 
@@ -984,7 +984,7 @@ feign.client.config.PRODUCTS.readTimeout=5000		  	#配置指定服务等待超�
 
 Spring Cloud Ribbon 是一个基于 HTTP 和 TCP 的客户端负载均衡工具，它基于 Netflix Ribbon 实现。通过 Spring Cloud 的封装，可以让我们轻松地将面向服务的 REST 模版请求自动转换成客户端负载均衡的服务调用。
 
-
+<br>
 
 ### 5.1.1、Ribbon 服务调用
 
@@ -1058,7 +1058,7 @@ Spring Cloud Ribbon 是一个基于 HTTP 和 TCP 的客户端负载均衡工具�
 
    ![image-20210805002959560](../Images/SpringCloud/image-20210805002959560.png)
 
-
+<br>
 
 **RestTemplate + Ribbon 的调用方式：**
 
@@ -1066,7 +1066,7 @@ Spring Cloud Ribbon 是一个基于 HTTP 和 TCP 的客户端负载均衡工具�
 - 使用 loadBalanceClient 进行客户端调用
 - 使用 @loadBalanced      进行客户端调用
 
-
+<br>
 
 **DiscoveryClient**
 
@@ -1095,7 +1095,7 @@ public String discoveryClient(){
 
 访问 http://localhost:9999/user/discoveryClient 查看，可重复刷新查看是否切换不同服务
 
-
+<br>
 
 **LoadBalance Client**
 
@@ -1120,7 +1120,7 @@ public String loadBalancerClient() {
 
 访问 http://localhost:9999/user/loadBalancerClient 查看，可重复刷新查看是否切换不同服务
 
-
+<br>
 
 **@LoadBalanced**
 
@@ -1155,7 +1155,7 @@ public String loadBalanced() {
 
 访问 http://localhost:9999/user/loadBalanced 查看，可重复刷新查看是否切换不同服务
 
-
+<br>
 
 ### 5.1.2、Ribbon 的负载均衡策略
 
@@ -1221,7 +1221,7 @@ public String loadBalanced() {
 - BestAviableRule
 	最低并发策略：会先过滤掉由于多次访问故障而处于断路器跳闸状态的服务，然后选择一个并发量最小的服务  
 
-
+<br>
 
 ### 5.1.3、修改默认负载均衡策略
 
@@ -1232,7 +1232,7 @@ public String loadBalanced() {
 order.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
 ```
 
-
+<br>
 
 # 6、服务断路器
 
@@ -1240,7 +1240,7 @@ order.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
 
  在分布式环境中，许多服务依赖项不可避免地会失败。Hystrix 是一个库，它通过添加延迟容忍和容错逻辑来帮助您控制这些分布式服务之间的交互。Hystrix 通过隔离服务之间的访问点、停止它们之间的级联故障以及提供后备选项来实现这一点，所有这些都可以提高系统的整体弹性。
 
-
+<br>
 
 ### 6.1.1、服务雪崩、熔断、降级
 
@@ -1256,7 +1256,7 @@ order.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
 
 ![image-20211103234721085](../Images/SpringCloud/image-20211103234721085.png)
 
-
+<br>
 
 **服务熔断**
 
@@ -1266,7 +1266,7 @@ order.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
 
 ![image-20211103234923258](../Images/SpringCloud/image-20211103234923258.png)
 
-
+<br>
 
 **服务降级**
 
@@ -1276,7 +1276,7 @@ order.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
 
 ![image-20211103235406735](../Images/SpringCloud/image-20211103235406735.png)
 
-
+<br>
 
 **降级和熔断总结**
 
@@ -1294,7 +1294,7 @@ order.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
 
 熔断必会触发降级，所以熔断也是降级一种，区别在于熔断是对调用链路的保护，而降级是对系统过载的一种保护处理
 
-
+<br>
 
 ### 6.2.2、服务熔断的实现
 
@@ -1361,7 +1361,7 @@ order.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
 
 	![image-20211107231830649](../Images/SpringCloud/image-20211107231830649.png)
 
-
+<br>
 
 **断路器的开启条件**
 
@@ -1376,13 +1376,13 @@ order.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
 
 当开启的时候，所有请求都不会进行转发。一段时间之后（默认是5秒），这个时候断路器是半开状态，会让其中一个请求进行转发。如果成功，断路器会关闭，若失败，继续开启。
 
-
+<br>
 
 **断路器流程**
 
 ![image-20211107232403809](../Images/SpringCloud/image-20211107232403809.png)
 
-
+<br>
 
 **默认的服务 FallBack 处理方法**
 
@@ -1400,7 +1400,7 @@ public String defaultFallback() {
 }
 ```
 
-
+<br>
 
 ### 6.2.3、服务降级的实现
 
@@ -1504,7 +1504,47 @@ public String defaultFallback() {
 
 	![image-20211108000721009](../Images/SpringCloud/image-20211108000721009.png)
 
-
+<br>
 
 # 7、服务网关组件
 
+**什么是服务网关？**
+
+网关统一服务入口，可方便实现对平台众多服务接口进行管控，对访问服务的身份认证、防报文重放与防数据篡改、功能调用的业务鉴权、响应数据的脱敏、流量与并发控制，甚至基于 API 调用的计量或者计费等等。
+
+网关 =  路由转发 + 过滤器。路由转发：接收一切外界请求，转发到后端的微服务上去；在服务网关中可以完成一系列的横切功能，例如权限校验、限流以及监控等，这些都可以通过过滤器完成。
+
+<br>
+
+**为什么需要网关？**
+
+- 网关可以实现服务的统一管理
+- 网关可以解决微服务中通用代码的冗余问题（如权限控制、流量监控、限流等）
+
+<br>
+
+**网关组件在微服务中架构**
+
+![image-20211221221738529](../Images/SpringCloud/image-20211221221738529.png)
+
+<br>
+
+## 7.1、Gateway
+
+这个项目提供了一个在 SpringMVC 之上构建 API 网关的库。SpringCloud Gateway 旨在提供一种简单而有效的方法来路由到 API，并为 API 提供横切关注点，比如：安全性、监控、度量和弹性。
+
+<br>
+
+**特性**
+
+- 基于 SpringBoot 2.x 和 Spring WebFlux 和 Reactor 构建，响应式异步非阻塞 IO 模型
+- 动态路由
+- 请求过滤
+
+<br>
+
+### 7.1.1、开发网关动态路由
+
+网关配置有两种方式：一种是快捷方式（Java 代码编写网关），一种是完全展开方式（配置文件方式）[推荐]。
+
+1. 创建项目引入网关依赖
