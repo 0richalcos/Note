@@ -3373,48 +3373,177 @@ CREATEPROCEDURE 存储过程名([IN,OUT,INOUT] 参数名 数据类形...)
 - 返回值使用OUT参数。
 - INOUT参数就尽量的少用。
 
-
+ <br>
 
 ## 9.3、变量
 
-**变量定义**
+MySQL 变量可分为两大类，即**系统变量**和**用户变量**。
+
+但根据实际应用又被细化为四种类型，即**局部变量**、**用户变量**、**会话变量**和**全局变量**。
+
+<br>
+
+### 9.3.1、各种变量的介绍
+
+**局部变量**
+
+MySQL 局部变量，只能用在 `begin/end`语句块中，比如存储过程中的 `begin/end` 语句块。
+
+其作用域仅限于该语句块。
+
+`DECLARE` 语句专门用于定义局部变量，可以使用 `DEFAULT` 来说明默认值：
 
 ```mysql
 DECLARE variable_name datatype [DEFAULT VALUE];
 ```
 
-其中，datatype 为 MySQL 的数据类型，如: INT, FLOAT, DATE,VARCHAR(length)
+其中，*datatype* 为 MySQL 的数据类型，如: `INT`、`FLOAT`、`DATE`、`VARCHAR(length)`。
 
+赋值方式：
 
+- ```mysql
+	set age=18;
+	```
 
-**变量赋值**
+- ```mysql
+	select StuAge into age from demo.student where StuNo='A001';
+	```
 
-```mysql
-SET 变量名 = 表达式值
-```
-
-
+<br>
 
 **用户变量**
 
-在MySQL客户端使用用户变量:
+MySQL 用户变量，MySQL 中用户变量不用提前申明，在用的时候直接用 `@变量名` 使用就可以了。
 
-<img src="../Images/MySQL/image-20200531171439487.png" alt="image-20200531171439487" style="zoom:80%;" />
+其作用域为当前连接。
 
-在存储过程中使用用户变量:
+两种赋值方式：
+
+- 使用 `set` 时可以用 `=` 或 `:=` 两种赋值符号赋值：
+
+	```mysql
+	set @age=19;
+	
+	set @age:=20;
+	```
+
+- 使用 `SELECT` 时必须用 `:=` 赋值符号赋值：
+
+	```mysql
+	select @age:=22;
+	
+	select @age:=StuAge from demo.student where StuNo='A001';
+	```
+
+在存储过程中使用用户变量：
 
 <img src="../Images/MySQL/image-20200531171451044.png" alt="image-20200531171451044" style="zoom:80%;" />
 
-在存储过程间传递全局范围的用户变量:
+在存储过程间传递全局范围的用户变量：
 
 <img src="../Images/MySQL/image-20200531171500385.png" alt="image-20200531171500385" style="zoom:80%;" />
 
 注意:
 
-- 用户变量名一般以@开头
+- 用户变量名一般以 `@` 开头
 - 滥用用户变量会导致程序难以理解及管理
 
+<br>
 
+**会话变量**
+
+MySQL 会话变量，服务器为每个连接的客户端维护一系列会话变量。
+
+其作用域仅限于当前连接，即每个连接中的会话变量是独立的。
+
+显示所有的会话变量：
+
+```mysql
+show session variables;
+```
+
+设置会话变量的值的三种方式：
+
+- ```mysql
+	set session auto_increment_increment=1;
+	```
+
+- ```mysql
+	set @@session.auto_increment_increment=2;
+	```
+
+- ```mysql
+	set auto_increment_increment=3;
+	```
+
+	当省略 `session` 关键字时，默认缺省为 `session`，即设置会话变量的值。
+
+查询会话变量的值的三种方式：
+
+- ```mysql
+	select @@auto_increment_increment;
+	```
+
+- ```mysql
+	select @@session.auto_increment_increment;
+	```
+
+- ```mysql
+	show session variables like '%auto_increment_increment%';
+	```
+
+	`session` 关键字可省略。
+
+关键字 `session` 也可用关键字 `local` 替代：
+
+```mysql
+set @@local.auto_increment_increment=1;
+select @@local.auto_increment_increment;
+```
+
+<br>
+
+**全局变量**
+
+MySQL 全局变量，全局变量影响服务器整体操作，当服务启动时，它将所有全局变量初始化为默认值。要想更改全局变量，必须具有 super 权限。
+
+其作用域为 server 的整个生命周期。
+
+显示所有的全局变量：
+
+```mysql
+show global variables;
+```
+
+设置全局变量的值的两种方式：
+
+- ```mysql
+	set global sql_warnings=ON;
+	```
+
+	`global` 不能省略
+
+- ```mysql
+	set @@global.sql_warnings=OFF;
+	```
+
+查询全局变量的值的两种方式：
+
+- ```mysql
+	select @@global.sql_warnings;
+	```
+
+- ```mysql
+	show global variables like '%sql_warnings%';
+	```
+
+<br>
+
+### 9.3.2、使用变量进行累加计算
+
+
+
+<br>
 
 ## 9.4、存储过程的删除
 
