@@ -3558,7 +3558,7 @@ show global variables;
 假如有上表 user_info，我们很容易根据时间维度统计出每日新增的人数。SQL 如下：
 
 ```mysql
-select reg_time, count(user_id) daily_quantity from user_info group by reg_time 
+SELECT reg_time, COUNT(user_id) daily_quantity FROM user_info GROUP BY reg_time 
 ```
 
 通过上面的 SQL 我们很容易得出以下列表：
@@ -3590,18 +3590,18 @@ select reg_time, count(user_id) daily_quantity from user_info group by reg_time
 当然，如果 MySQL 8.0 以上可以使用窗口函数解决，但是 8.0 以下呢？可以这么写：
 
 ```mysql
-select
+SELECT
   a.reg_time,
   a.daily,
-  @i := @i + a.daily as daily_quantity
-from
+  @i := @i + a.daily AS daily_quantity
+FROM
   (
-    select 
+    SELECT 
       reg_time, 
-      count(user_id) daily
-    from `user` group by reg_time
-  ) as a,
-  (select @i := 0 ) as b
+      COUNT(user_id) daily
+    FROM `user` GROUP BY reg_time
+  ) AS a,
+  (SELECT @i := 0 ) AS b
 ```
 
 <br>
