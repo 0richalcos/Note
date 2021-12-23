@@ -2084,6 +2084,7 @@ CREATE TABLE employees (
   INDEX (manager_id),
 FOREIGN KEY (manager_id) REFERENCES employees (id)
 );
+
 INSERT INTO employees VALUES
 (333, "Yasmina", NULL),  # Yasmina is the CEO (manager_id is NULL)
 (198, "John", 333),      # John has ID 198 and reports to 333 (Yasmina)
@@ -3541,7 +3542,67 @@ show global variables;
 
 ### 9.3.2、使用变量进行累加计算
 
+```mysql
++---------+------------+
+| user_id | reg_time   | 
++---------+------------+
+| 1       | 2019-09-03 |
+| 2       | 2019-09-04 |
+| 3       | 2019-09-04 |
+| 4       | 2019-09-05 |
+| 5       | 2019-09-05 |
+| 6       | 2019-09-06 |
++---------+------------+
+```
 
+假如有上表 user_info，我们很容易根据时间维度统计出每日新增的人数。SQL 如下：
+
+```mysql
+select reg_time, count(user_id) daily_quantity from user_info group by reg_time 
+```
+
+通过上面的 SQL 我们很容易得出以下列表：
+
+```mysql
++------------+----------------+
+| reg_time   | daily_quantity | 
++------------+----------------+
+| 2019-09-03 | 1              |
+| 2019-09-04 | 2              |
+| 2019-09-05 | 2              |
+| 2019-09-06 | 1              |
++------------+----------------+
+```
+
+如果我们要上一天的总人数加上今天的净增长数，以此类推。也就是我们想要：
+
+```mysql
++------------+----------------+
+| reg_time   | daily_quantity | 
++------------+----------------+
+| 2019-09-03 | 1              |
+| 2019-09-04 | 3              |
+| 2019-09-05 | 5              |
+| 2019-09-06 | 6              |
++------------+----------------+
+```
+
+当然，如果 MySQL 8.0 以上可以使用窗口函数解决，但是 8.0 以下呢？可以这么写：
+
+```mysql
+select
+  a.reg_time,
+  a.daily,
+  @i := @i + a.daily as daily_quantity
+from
+  (
+    select 
+      reg_time, 
+      count(user_id) daily
+    from `user` group by reg_time
+  ) as a,
+  (select @i := 0 ) as b
+```
 
 <br>
 
