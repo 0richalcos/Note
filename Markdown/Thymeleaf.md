@@ -448,7 +448,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 
 <br>
 
-`**#response` 示例：**
+**`#response` 示例：**
 
 ```html
 <!-- 200 -->
@@ -463,7 +463,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 
 <br>
 
-**`**#session` 示例：****
+**`#session` 示例：**
 
 ```html
 <!-- 2BCB2A0EACFF2D9D249D9799431B5127 -->
