@@ -1,6 +1,6 @@
-Thymeleaf 是一个服务器端 Java 模板引擎，能够处理 HTML、XML、CSS、JavaScript 等模板文件。Thymeleaf 模板可以直接当作静态原型来使用，它主要目标是为开发者的开发工作流程带来优雅的自然模板，也是 Java 服务器端 HTML5 开发的理想选择。
+# 1、Thymeleaf 
 
-# 1、创建模板文件
+Thymeleaf 是一个服务器端 Java 模板引擎，能够处理 HTML、XML、CSS、JavaScript 等模板文件。Thymeleaf 模板可以直接当作静态原型来使用，它主要目标是为开发者的开发工作流程带来优雅的自然模板，也是 Java 服务器端 HTML5 开发的理想选择。
 
 创建一个 HTML 模板文件
 
@@ -34,7 +34,7 @@ Thymeleaf 是一个服务器端 Java 模板引擎，能够处理 HTML、XML、CS
 
 HTML5 规范是允许 `data-*` 这样自定义的属性的。`th:*` 和 `data-th-*` 这两个符号是完全等效且可以互换的。但为了简单直观和代码的紧凑性，本文采用 `th:*` 的表示形式。
 
-
+<br>
 
 # 2、标准表达式语法
 
@@ -592,7 +592,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 
 **字符串连接**
 
-不管是字面值还是表达式的结果，都可以使用`+`符号将它们连接起来：
+不管是字面值还是表达式的结果，都可以使用 `+` 符号将它们连接起来：
 
 ```html
 <!-- Welcome to BeiJing! -->
@@ -603,7 +603,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 
 **字面值替换**
 
-符号`||`可以用来将字面值和表达式包裹起来，这样就能方便的替换变量的值，而不需要使用`+`连接符：
+符号 `||` 可以用来将字面值和表达式包裹起来，这样就能方便的替换变量的值，而不需要使用 `+` 连接符：
 
 ```html
 <!-- Welcome to BeiJing! -->
@@ -614,7 +614,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 
 ## 2.4、算术运算
 
-支持`+`（加）、`-`（减）、`*`（乘）、`/`（除）、`%`（模）运算：
+支持 `+`（加）、`-`（减）、`*`（乘）、`/`（除）、`%`（模）运算：
 
 ```html
 <!-- 6 -->
@@ -637,7 +637,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 
 ## 2.5、布尔运算
 
-支持`and`（且）、`or`（或）、`!`（非）、`not`（非）运算：
+支持 `and`（且）、`or`（或）、`!`（非）、`not`（非）运算：
 
 ```html
 <p th:text="${user.online and user.vip}"></p>
@@ -650,7 +650,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 
 ## 2.6、比较和相等
 
-支持`<`（`lt`）、`>`（`gt`）、`<=`（`le`）、`>=`（`ge`）、`==`（`eq`）、`！=`（`ne`）：
+支持 `<`（`lt`）、`>`（`gt`）、`<=`（`le`）、`>=`（`ge`）、`==`（`eq`）、`！=`（`ne`）：
 
 ```html
 <p th:text="${user.age < 60}"></p>
@@ -674,7 +674,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 
 二元运算符：`(value) ?: (defaultValue)`。
 
-其中，`value`非空（null）即真，条件为真时输出`value`，否则输出`defaultValue`。假设`token = null`，`user.email = fanlychie@gmail.com`
+其中，`value` 非空（null）即真，条件为真时输出 `value`，否则输出 `defaultValue`。假设 `token = null`，`user.email = fanlychie@gmail.com`
 
 ```html
 <!-- 你还没有登录，请先登录 -->
@@ -698,7 +698,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 
 # 3、使用文本
 
-首先介绍两个最基础的`th:*`属`th:text`和`th:utext`，它们都是用于处理文本消息内容。
+首先介绍两个最基础的 `th:*` 属 `th:text` 和 `th:utext`，它们都是用于处理文本消息内容。
 
 <br>
 
@@ -751,13 +751,13 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 
 # 4、设置属性值
 
-在 Thymeleaf 模板文件中，可以使用`th:*`（或者使用`th:attr`属性）来设置任意的 HTML5 标签属性的值。不仅如此，还可以`th:*-*`来同时为多个不同的标签属性设置相同的一个值，甚至你可以使用`th:attrappend`和`th:attrprepend`来追加新的值到现有的标签属性值中。
+在 Thymeleaf 模板文件中，可以使用 `th:*`（或者使用 `th:attr` 属性）来设置任意的 HTML5 标签属性的值。不仅如此，还可以 `th:*-*` 来同时为多个不同的标签属性设置相同的一个值，甚至你可以使用 `th:attrappend` 和 `th:attrprepend` 来追加新的值到现有的标签属性值中。
 
 <br>
 
 **th:attr**
 
-这种方式是不被推荐的，了解一下就行。下面是用`th:attr="href=..."`来设置标签`href`属性的值：
+这种方式是不被推荐的，了解一下就行。下面是用 `th:attr="href=..."` 来设置标签 `href` 属性的值：
 
 ```html
 <a th:attr="href=@{https://www.google.com.hk}">谷歌一下你就知道</a>
@@ -767,13 +767,13 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 
 **th:***
 
-显然`th:attr="href=@{http://www.baidu.com}"`不够简洁，所以更推荐下面的这种语法：
+显然 `th:attr="href=@{http://www.baidu.com}"` 不够简洁，所以更推荐下面的这种语法：
 
 ```html
 <a th:href="@{https://www.google.com.hk}">谷歌一下你就知道</a>
 ```
 
-其中`th:*`中的`*`可以是 HTML5 支持的任意属性名称，甚至这些属性名称可以是自定义的：
+其中 `th:*` 中的 `*` 可以是 HTML5 支持的任意属性名称，甚至这些属性名称可以是自定义的：
 
 ```html
 <!-- <div item-id="1001">Welcome to BeiJing!</div> -->
@@ -784,7 +784,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 
 **th:*-***
 
-如果想要同时为标签的多个不同属性设置相同的一个值，可以使用`th:*-*`的语法：
+如果想要同时为标签的多个不同属性设置相同的一个值，可以使用 `th:*-*` 的语法：
 
 ```html
 <img src="logo.png" th:alt-title="LOGO图片">
@@ -800,7 +800,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 
 **th:attrappend & th:attrprepend**
 
-`th:attrappend`和`th:attrprepend`可以将表达式的结果分别追加到指定的属性值之后和之前。
+`th:attrappend` 和 `th:attrprepend` 可以将表达式的结果分别追加到指定的属性值之后和之前。
 
 ```html
 <!-- <button class="btn enable">购买</button> -->
@@ -809,9 +809,9 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <button class="btn" th:attrprepend="class=${outOfStock} ? 'enable ' : 'disable '">购买</button>
 ```
 
-另外，还有两个常用的具体附加属性`th:classappend="..."`和`th:styleappend=""`。
+另外，还有两个常用的具体附加属性 `th:classappend="..."` 和 `th:styleappend=""`。
 
-它们分别用来代替`th:attrappend="class=..."`和`th:attrappend="style=..."`。
+它们分别用来代替 `th:attrappend="class=..."` 和 `th:attrappend="style=..."`。
 
 ```html
 <!-- <button class="btn enable">购买</button> -->
@@ -822,7 +822,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 
 **布尔属性**
 
-在 HTML 中有些属性是布尔属性，布尔属性是指没有值的属性，如`readonly`、`checked`、`selected`等。它们若存在那就意味着值为 true。
+在 HTML 中有些属性是布尔属性，布尔属性是指没有值的属性，如 `readonly`、`checked`、`selected` 等。它们若存在那就意味着值为 true。
 
 ```html
 <input type="checkbox" name="rememberme" checked /> 记住我
@@ -837,19 +837,19 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 </select>
 ```
 
-Thymeleaf 也允许我们通过`th:*`（这里的`*`表示任意的布尔属性） 来选择是否使用这些布尔属性。
+Thymeleaf 也允许我们通过 `th:*`（这里的 `*` 表示任意的布尔属性） 来选择是否使用这些布尔属性。
 
 ```html
 <input type="checkbox" name="rememberme" ch:checked="${rememberme}" /> 记住我
 ```
 
-如果表达式的结果为`true`，则自动勾选复选框，若为`false`，则不会自动勾选。
+如果表达式的结果为 `true`，则自动勾选复选框，若为 `false`，则不会自动勾选。
 
 <br>
 
 # 5、遍历
 
-遍历（迭代）的语法`th:each="自定义的元素变量名称 : ${集合变量名称}"`：
+遍历（迭代）的语法 `th:each="自定义的元素变量名称 : ${集合变量名称}"`：
 
 ```html
 <div>
@@ -860,7 +860,7 @@ Thymeleaf 也允许我们通过`th:*`（这里的`*`表示任意的布尔属性�
 </div>
 ```
 
-属性`th:each`提供了一个用于跟踪迭代的状态变量，它包含以下几个属性：
+属性 `th:each` 提供了一个用于跟踪迭代的状态变量，它包含以下几个属性：
 
 | 属性    | 类型    | 描述                             |
 | ------- | ------- | -------------------------------- |
@@ -884,7 +884,7 @@ Thymeleaf 也允许我们通过`th:*`（这里的`*`表示任意的布尔属性�
 </div>
 ```
 
-不管什么时候，Thymeleaf 始终会为每个`th:each`创建一个状态变量，默认的状态变量名称就是自定义的元素变量名称后面加`Stat`字符串组成：
+不管什么时候，Thymeleaf 始终会为每个 `th:each` 创建一个状态变量，默认的状态变量名称就是自定义的元素变量名称后面加 `Stat` 字符串组成：
 
 ```html
 <div>
@@ -914,11 +914,11 @@ Thymeleaf 也允许我们通过`th:*`（这里的`*`表示任意的布尔属性�
 真假评估的依据：
 
 - 当表达式的值不为空（null）时
-	- 如果表达式的值是一个布尔类型，且值为`true`评估为真，否则为假
-	- 如果表达式的值是一个数字类型，且值为非`0`评估为真，否则为假
-	- 如果表达式的值是一个字符类型，且值为非`0`评估为真，否则为假
-	- 如果表达式的值是一个字符串类型，且值为非`"false"`、`"off"`、`"no"`评估为真，否则为假
-	- 如果表达式的值不是一个`布尔`、`数字`、`字符`或`字符串`评估为真
+	- 如果表达式的值是一个布尔类型，且值为 `true` 评估为真，否则为假
+	- 如果表达式的值是一个数字类型，且值为非 `0` 评估为真，否则为假
+	- 如果表达式的值是一个字符类型，且值为非 `0` 评估为真，否则为假
+	- 如果表达式的值是一个字符串类型，且值为非 `"false"`、`"off"`、`"no"` 评估为真，否则为假
+	- 如果表达式的值不是一个 `布尔`、`数字`、`字符` 或 `字符串` 评估为真
 - 当表达式的值为空（null）时，评估结果为假
 
 因此，上面代码我们也可以简写成：
@@ -933,7 +933,7 @@ Thymeleaf 也允许我们通过`th:*`（这里的`*`表示任意的布尔属性�
 
 **th:unless**
 
-`th:unless`与`th:if`判断恰好相反，当表达式的评估结果为假时则显示内容，否则不显示：
+`th:unless` 与 `th:if` 判断恰好相反，当表达式的评估结果为假时则显示内容，否则不显示：
 
 ```html
 <a th:href="@{/user/order(uid=${user.id})}" th:unless="${user == null}">我的订单</a>
@@ -943,7 +943,7 @@ Thymeleaf 也允许我们通过`th:*`（这里的`*`表示任意的布尔属性�
 
 **th:swith**
 
-多路选择语句，它需要搭配`th:case`来使用：
+多路选择语句，它需要搭配 `th:case` 来使用：
 
 ```html
 <div th:switch="${user.role}">
@@ -956,7 +956,7 @@ Thymeleaf 也允许我们通过`th:*`（这里的`*`表示任意的布尔属性�
 
 # 7、定义局部变量
 
-使用`th:with`属性可以定义局部变量：
+使用 `th:with` 属性可以定义局部变量：
 
 ```html
 <p th:with="name='fanlychie'">
@@ -964,7 +964,7 @@ Thymeleaf 也允许我们通过`th:*`（这里的`*`表示任意的布尔属性�
 </p>
 ```
 
-同时定义多个局部变量时，用英文`,`号分隔开：
+同时定义多个局部变量时，用英文 `,` 号分隔开：
 
 ```html
 <p th:with="name=${user.name},age={user.age}">
@@ -1032,19 +1032,19 @@ Thymeleaf 也允许我们通过`th:*`（这里的`*`表示任意的布尔属性�
 
 # 9、内联表达式
 
-内联表达式允许我们直接在 HTML 文本中使用标准表达式，而不需要使用`th:*`标签属性。
+内联表达式允许我们直接在 HTML 文本中使用标准表达式，而不需要使用 `th:*` 标签属性。
 
 <br>
 
 ## 9.1、[[…]]
 
-`[[]]`相当于`th:text`，对含有 HTML 标签的内容自动进行字符转义。
+`[[]]` 相当于 `th:text`，对含有 HTML 标签的内容自动进行字符转义。
 
 <br>
 
 ## 9.2、[(…)]
 
-`[()]`相当于`th:utext`，对含有 HTML 标签的内容不进行字符转义。
+`[()]` 相当于 `th:utext`，对含有 HTML 标签的内容不进行字符转义。
 
 ```html
 <p>The message is : [(${htmlContent})]</p>
@@ -1054,7 +1054,7 @@ Thymeleaf 也允许我们通过`th:*`（这里的`*`表示任意的布尔属性�
 
 ## 9.3、th:inline
 
-使用`[[]]`和`[()]`语法可以直接在 HTML 文本中使用标准表达式，如果想要使用更多高级的功能，需要使用`th:inline`属性来激活，它的取值如下：
+使用 `[[]]` 和 `[()]` 语法可以直接在 HTML 文本中使用标准表达式，如果想要使用更多高级的功能，需要使用 `th:inline` 属性来激活，它的取值如下：
 
 | 值         | 描述                                             |
 | ---------- | ------------------------------------------------ |
@@ -1112,11 +1112,16 @@ Thymeleaf 也允许我们通过`th:*`（这里的`*`表示任意的布尔属性�
 
 # 10、其他
 
-**th:field和th:value：**
+**`th:field` 和 `th:value`：**
 
-thymeleaf 里的 **th:field** 等同于 **th:name** 和 **th:value**，浏览器在解析 **th:field** 的时候，会解析成 name="${th:field}" 的值。然后后台就可以接收到从前台传过来的值。而 th:value 可以接受到后台的的值，后台则可以根据 name 获取到前台的值。
+Thymeleaf 里的 `th:field` 等同于 `th:name` 和 `th:value`，浏览器在解析 `th:field` 的时候，会解析成 `name="${th:field}"` 的值。然后后台就可以接收到从前台传过来的值。而 `th:value` 可以接受到后台的的值，后台则可以根据 `name` 获取到前台的值。
 
-th:field 和 th:value 都有两种从后台接受值的方式:1、${obj.name} 2、*{name}。需要注意的是，**th:field** 需要有 **th:object** 指定前台传过来的参数，否则浏览器在解析的时候会出现错误。
+`th:field` 和 `th:value` 都有两种从后台接受值的方式：
+
+1. `${obj.name} `
+2. `*{name}`
+
+需要注意的是，`th:field` 需要有 `th:object` 指定前台传过来的参数，否则浏览器在解析的时候会出现错误。
 
 <br>
 
