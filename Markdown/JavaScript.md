@@ -1105,8 +1105,8 @@ function myFunction(value, index, array) {
 - 数组本身
 
 ```javascript
-var numbers = [45, 4, 9, 16, 25]; // [45,25]
-var over18 = numbers.filter(myFunction);
+var numbers = [45, 4, 9, 16, 25];
+var over18 = numbers.filter(myFunction); // [45,25]
 
 function myFunction(value, index, array) {
   return value > 18;
@@ -1131,7 +1131,7 @@ function myFunction(value, index, array) {
 - 数组本身
 
 ```javascript
-总和是：99//求数组中所有数字的总和：
+//求数组中所有数字的总和：
 var numbers1 = [45, 4, 9, 16, 25];
 var sum = numbers1.reduce(myFunction);	//总和是：99
 

@@ -72,6 +72,6 @@
 	- **文档合并：**[**Spire.Doc for JAVA**](https://github.com/0richalcos/Note/blob/main/Markdown/Spire.DocForJAVA.md)
 	- **在线编辑：**[**OnlyOffice**](https://github.com/0richalcos/Note/blob/main/Markdown/OnlyOffice.md)
 - [**IDE 及 Windows 设置**](https://github.com/0richalcos/Note/blob/main/Markdown/Mixed.md)
-- [**菜鸡走过の路**](https://github.com/0richalcos/Note/blob/main/Markdown/Petty.md)
-- [**十万个为什么**](https://github.com/0richalcos/Note/blob/main/Markdown/Why.md)
+- [**杂七杂八的**](https://github.com/0richalcos/Note/blob/main/Markdown/Petty.md)
+- [**Why？Why？Why？**](https://github.com/0richalcos/Note/blob/main/Markdown/Why.md)
 
