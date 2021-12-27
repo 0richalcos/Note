@@ -1547,4 +1547,88 @@ public String defaultFallback() {
 
 网关配置有两种方式：一种是快捷方式（Java 代码编写网关），一种是完全展开方式（配置文件方式）[推荐]。
 
-1. 创建项目引入网关依赖
+1. 创建项目引入网关依赖：
+
+	```xml
+	<dependencies>
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-web</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework.cloud</groupId>
+	        <artifactId>spring-cloud-starter-consul-discovery</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-actuator</artifactId>
+	    </dependency>
+	    <!--引入gateway网关依赖-->
+	    <dependency>
+	        <groupId>org.springframework.cloud</groupId>
+	        <artifactId>spring-cloud-starter-gateway</artifactId>
+	    </dependency>
+	</dependencies>
+	```
+
+	```java
+	@SpringBootApplication
+	@EnableDiscoveryClient
+	public class Gateway8989Application {
+	    public static void main(String[] args) {
+	        SpringApplication.run(Gateway8989Application.class, args);
+	    }
+	}
+	```
+
+2. 编写 application.yml 配置文件：
+
+	```yaml
+	server:
+	  port: 8989
+	spring:
+	  application:
+	    name: gateway
+	  cloud:
+	    consul:
+	      port: 8500
+	      host: localhost
+	    gateway:
+	      routes:
+	        - id: order_route               # 指定路由唯一标识
+	          uri: http://localhost:9996/   # 指定路由服务的地址
+	          predicates:
+	            - Path=/order/**            # 指定路由规则
+	
+	        - id: product_route
+	          uri: http://localhost:9993/
+	          predicates:
+	            - Path=/product/**
+	```
+
+3. 启动 Gateway 网关项目后发现抱错：
+
+	![image-20211226235723611](../Images/SpringCloud/image-20211226235723611.png)
+
+	根据上面描述（Description）中信息了解到 GatewayAutoConfiguration 这个配置中找不到 ServerCodecConfig 这个Bean。
+
+	从源码中得知 SpringBoot 在启动的时候会去加载它的配置，其中有一个叫做 GatewayClassPathWarningAutoConfiguration 的配置类中有这么一行代码：
+
+	![image-20211227001125725](../Images/SpringCloud/image-20211227001125725.png)
+
+	翻译过来是：在 classpath 上发现 Spring MVC，此时与 Spring Cloud Gateway 不兼容。请删除 spring-boot-starter-web 依赖项。
+
+	因为 Spring Cloud Gateway 是基于 Webflux 的，如果非要 Web 支持的话需要导入 `spring-boot-starter-webflux` 而不是 `spring-boot-start-web`。那我们直接把 pom.xml 中关于 `spring-boot-start-web` 模块的依赖去掉即可。
+
+	再次启动成功启动：
+
+	![image-20211227001927862](../Images/SpringCloud/image-20211227001927862.png)
+
+4. 启动订单和商品服务，测试网关路由转发：
+
+	测试通过网关访问订单服务: http://localhost:8989/order
+
+	测试通过网关访问商品服务: http://localhost:8989/product
+
+	
+
