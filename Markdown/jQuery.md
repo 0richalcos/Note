@@ -272,7 +272,7 @@ jQuery 使用 `$` 符号作为 jQuery 的简写方式。
 	<button id="btn"></button>
 	...
 	<script>
-	    $('#btn').click(() => {
+	    $('#btn').click(function () {
 	        $(this);
 	    })
 	</script>
@@ -2086,4 +2086,3 @@ $.when(wait(dtd))
 # 6、其他
 
 `$(window).height()` 获取当前可见区域的大小，当浏览器窗口大小改变时（如最大化或拉大窗口后），`$(window).height()` 随之改变。
-

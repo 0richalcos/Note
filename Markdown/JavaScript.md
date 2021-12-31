@@ -1431,7 +1431,7 @@ W3School
 24
 ```
 
-
+<br>
 
 ## 2.5、JS this 关键字
 
@@ -1449,7 +1449,101 @@ JavaScript this 关键词指的是它所属的对象。
 
 像 `call()` 和 `apply()` 这样的方法可以将 this 引用到任何对象。
 
+<br>
 
+**单独的 this**
+
+在单独使用时，拥有者是全局对象，因此 `this` 指的是全局对象。
+
+在浏览器窗口中，全局对象是 `[object Window]`：
+
+```javascript
+var x = this;	//[object Window]
+```
+
+在严格模式中，如果单独使用，那么 `this` 指的是全局对象 `[object Window]`：
+
+```javascript
+"use strict";
+var x = this;	//[object Window]
+```
+
+<br>
+
+**函数中的 this**
+
+在 JavaScript 函数中，函数的拥有者默认绑定 `this`。
+
+因此，在函数中，`this` 指的是全局对象 `[object Window]`。
+
+```javascript
+function myFunction() {
+  return this;	//[object Window]
+}
+```
+
+JavaScript 严格模式不允许默认绑定。
+
+因此，在函数中使用时，在严格模式下，`this` 是未定义的（`undefined`）。
+
+```javascript
+"use strict";
+function myFunction() {
+  return this;	//undefined
+}
+```
+
+<br>
+
+**事件处理程序中的 this**
+
+在 HTML 事件处理程序中，`this` 指的是接收此事件的 HTML 元素：
+
+```html
+<button onclick="this.style.display='none'">单击来删除我！</button>
+```
+
+<br>
+
+**对象方法绑定**
+
+在此例中，`this` 是 person 对象（person 对象是该函数的“拥有者”）：
+
+```javascript
+var person = {
+  firstName  : "Bill",
+  lastName   : "Gates",
+  id         : 678,
+  myFunction : function() {
+    return this;	//[object Object]
+  }
+};
+```
+
+换句话说，*this.firstName* 意味着 *this*（person）对象的 *firstName* 属性。
+
+<br>
+
+**显式函数绑定**
+
+`call()` 和 `apply()` 方法是预定义的 JavaScript 方法。它们都可以用于将另一个对象作为参数调用对象方法。
+
+在下面的例子中，当使用 *person2* 作为参数调用 *person1.fullName* 时，`this` 将引用 *person2*，即使它是 *person1* 的方法：
+
+```javascript
+var person1 = {
+  fullName: function() {
+    return this.firstName + " " + this.lastName;
+  }
+}
+var person2 = {
+  firstName:"Bill",
+  lastName: "Gates",
+}
+person1.fullName.call(person2);  // 会返回 "Bill Gates"
+```
+
+<br>
 
 # 2、JS 函数
 
@@ -1477,7 +1571,7 @@ document.getElementById("demo").innerHTML = toCelsius(77);
 
 **() 运算符调用函数**，使用上面的例子，`toCelsius` 引用的是函数对象，而 `toCelsius()` 引用的是函数结果。
 
-
+<br>
 
 ## 2.2、JS 箭头函数
 
@@ -1517,7 +1611,29 @@ ES6 中引入了箭头函数，箭头函数允许我们编写更短的函数。
  hello = val => "Hello " + val;
 ```
 
+<br>
 
+**this 怎么办？**
+
+与常规函数相比，箭头函数对 `this` 的处理也有所不同。
+
+简而言之，箭头函数没有自己的 `this` 对象，内部的 `this` 就是定义时上层作用域中的 `this`。
+
+```javascript
+var hello;
+
+hello = () => {
+  document.getElementById("demo").innerHTML += this;
+}
+
+//window 对象调用函数：
+window.addEventListener("load", hello);	//[object Window]
+
+//button 对象调用函数：
+document.getElementById("btn").addEventListener("click", hello);	//[object Window]
+```
+
+<br>
 
 ## 2.3、JS 函数 Call
 
