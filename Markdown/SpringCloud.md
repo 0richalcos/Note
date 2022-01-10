@@ -1547,6 +1547,8 @@ public String defaultFallback() {
 
 网关配置有两种方式：一种是快捷方式（Java 代码编写网关），一种是完全展开方式（配置文件方式）[推荐]。
 
+**配置文件方式：**
+
 1. 创建项目引入网关依赖：
 
 	```xml
@@ -1630,5 +1632,29 @@ public String defaultFallback() {
 
 	测试通过网关访问商品服务: http://localhost:8989/product
 
-	
+<br>
 
+**Java 方式配置路由：**
+
+1. 编写 Gateway 配置类：
+
+	```java
+	/**
+	 * @author Orichalcos
+	 */
+	@Configuration
+	public class GatewayConfig {
+	    @Bean
+	    public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
+	        return builder.routes()
+	                .route("category_route", r -> r.path("/category/**").uri("http://localhost:9995"))
+	                .build();
+	    }
+	}
+	```
+
+2. 测试通过网关访问类别服务：http://localhost:8989/category
+
+<br>
+
+### 7.1.2、查看网关路由规则
