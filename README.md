@@ -4,7 +4,7 @@
 
 ## Java
 
-- [**Java 基础**](https://github.com/0richalcos/Note/blob/main/Markdown/Java.md)
+- [**Java 基础**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaBasics.md)
 - [**Java Web**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaWeb.md)
 
 
