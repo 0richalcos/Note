@@ -6,6 +6,7 @@
 
 - [**Java 基础**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaBasics.md)
 - [**Java 类和对象**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaObject.md)
+- [**Java 集合**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaCollection.md)
 - [**Java Web**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaWeb.md)
 
 
