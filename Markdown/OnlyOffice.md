@@ -1,5 +1,3 @@
-
-
 # 1、OnlyOffice
 
 ## 1.1、基本概念和安装
@@ -18,7 +16,7 @@ ONLYOFFICE Document Server API 用于使开发人员将 ONLYOFFICE 文档/电子
 
 Docker 并非是一个通用的容器工具，它依赖于已存在并运行的 Linux 内核环境。它实质上是在已经运行的 Linux 下制造了一个隔离的文件环境，因此它执行的效率几乎等同于所部署的 Linux 主机。因此，Docker 必须部署在 Linux 内核的系统上。如果其他系统想部署 Docker 就必须安装一个虚拟 Linux 环境。
 
-
+<br>
 
 **Windows 平台上安装 Docker：**
 
@@ -52,7 +50,7 @@ https://docker.mirrors.ustc.edu.cn
 docker -v
 ```
 
-
+<br>
 
 Docker 安装好了拉取 Onlyoffice 镜像，创建容器：
 
@@ -156,7 +154,7 @@ config = {
 </html>
 ```
 
-
+<br>
 
 # 2、工作原理
 
@@ -182,7 +180,7 @@ config = {
 
 编辑完成后，将进行文档保存过程。
 
-
+<br>
 
 **实践**
 
@@ -231,7 +229,7 @@ new DocsAPI.DocEditor("placeholder", {
 > }
 > ```
 
-
+<br>
 
 ## 2.2、保存文件
 
@@ -246,7 +244,7 @@ new DocsAPI.DocEditor("placeholder", {
 5. 文档编辑服务使用 JavaScript API 中的 callbackUrl 通知文档存储服务有关文档编辑结束的信息，并返回到修改后的文档的链接。
 6. 文档存储服务从文档编辑服务下载带有所有已保存更改的文档文件并进行存储。
 
-
+<br>
 
 **实践**
 
@@ -304,7 +302,7 @@ new DocsAPI.DocEditor("placeholder", {
 
 5. 关闭文档编辑器。大约10秒钟后查看您的文档。应保存所有更改，这意味着配置正确。
 
-
+<br>
 
 **保存延时**
 
@@ -336,7 +334,7 @@ new DocsAPI.DocEditor("placeholder", {
 }
 ```
 
-
+<br>
 
 ## 3.3、审阅
 
@@ -367,7 +365,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 > 请注意，如果`mode`参数设置为`edit`，文档审阅将仅对文档编辑器可用。
 
-
+<br>
 
 # 3、文档
 
@@ -565,7 +563,7 @@ config = {
 
 > 其中example.com是安装了文档管理器和文档存储服务的服务器的名称。
 
-
+<br>
 
 ## 3.2、Config
 
@@ -579,7 +577,7 @@ config base 部分允许更改使用的平台类型、文档显示大小（宽�
 | type         | 定义用于访问文档的平台类型：desktop（电脑）、mobile（手机平板）、embedded（网页嵌入），默认为desktop | string | "desktop" |
 | width        | 在浏览器窗口中定义文档宽度（默认为100%）。                   | string | "100%"    |
 
-
+<br>
 
 **示例**
 
@@ -594,7 +592,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 });
 ```
 
-
+<br>
 
 ### Document
 
@@ -607,7 +605,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 | title    | 为已浏览或编辑的文档定义所需的文件名，该文件名也将在下载文档时用作文件名。长度限制为128个符号。 | string | "测试.docx"     |
 | url      | 定义存储已查看或编辑的源文档的绝对URL。                      | string |                 |
 
-
+<br>
 
 **示例**
 
@@ -625,7 +623,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 > key可以使用：0-9、a-z、a-z、-._=。最大密钥长度为20个字符。
 
-
+<br>
 
 #### Info
 
@@ -639,7 +637,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 ![img](../Images/OnlyOffice/sharing_settings.png)
 
-
+<br>
 
 | 名字     | 说明               | 类型   | 示例                 |
 | -------- | ------------------ | ------ | -------------------- |
@@ -647,7 +645,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 ![img](../Images/OnlyOffice/info.png)
 
-
+<br>
 
 **示例**
 
@@ -677,7 +675,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 });
 ```
 
-
+<br>
 
 #### Permissions
 
@@ -691,7 +689,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 ![img](../Images/OnlyOffice/comment.png)
 
-
+<br>
 
 | 名字     | 说明                                                         | 类型    | 示例 |
 | -------- | ------------------------------------------------------------ | ------- | ---- |
@@ -702,7 +700,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 ![img](../Images/OnlyOffice/permissions.png)
 
-
+<br>
 
 | 名字      | 说明                                                         | 类型    | 示例 |
 | --------- | ------------------------------------------------------------ | ------- | ---- |
@@ -712,7 +710,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 ![img](../Images/OnlyOffice/fill-forms.png)
 
-
+<br>
 
 | 名字                 | 说明                                                         | 类型    | 示例 |
 | -------------------- | ------------------------------------------------------------ | ------- | ---- |
@@ -721,7 +719,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 > 如果文档由具有完全访问权限的用户编辑，则由该用户应用的过滤器将对所有其他用户可见，而不管其本地设置如何。
 
-
+<br>
 
 | 名字   | 说明                                                         | 类型    | 示例 |
 | ------ | ------------------------------------------------------------ | ------- | ---- |
@@ -731,7 +729,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 ![img](../Images/OnlyOffice/review.png)
 
-
+<br>
 
 **审阅**
 
@@ -755,7 +753,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 });
 ```
 
-
+<br>
 
 # 4、故障排除
 
@@ -769,7 +767,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 检查到document.url中指定的文件的链接是否正确。 必须可以从文档编辑服务访问该链接。
 
-
+<br>
 
 **文件版本变更**
 
