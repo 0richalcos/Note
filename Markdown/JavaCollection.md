@@ -1,6 +1,4 @@
-# 9、集合、泛型
-
-## 9.1、集合详解
+# 1、集合详解
 
 在编程时，可以使用数组来保存多个对象，但数组长度不可变化，一旦在初始化数组时指定了数组长度，这个数组长度就是不可变的。如果需要保存数量变化的数据，数组就有点无能为力了。而且数组无法保存具有映射关系的数据，如成绩表为语文——79，数学——80，这种数据看上去像两个数组，但这两个数组的元素之间有一定的关联关系。
 
@@ -40,7 +38,7 @@
 
 
 
-## 9.2、Collection 接口
+# 9.2、Collection 接口
 
 ==Collection 接口是 List、Set 和 Queue 接口的父接口，通常情况下不被直接使用。==Collection 接口定义了一些通用的方法，通过这些方法可以实现对集合的基本操作。定义的方法既可用于操作 Set 集合，也可用于操作 List 和 Queue 集合。
 
@@ -137,7 +135,7 @@ one、three、
 
 
 
-## 9.3、List集合
+# 9.3、List集合
 
 List 是一个==有序、可重复的集合，==集合中每个元素都有其对应的顺序索引。List 集合允许使用重复元素，可以通过索引来访问指定位置的集合元素。List 集合默认按元素的添加顺序设置元素的索引，第一个添加到 List 集合中的元素的索引为 0，第二个为 1，依此类推。
 
@@ -227,7 +225,7 @@ ArrayList 有指定 index 新增，也有直接新增的，在这之前他会有
 
 指定位置新增的时候，在校验之后的操作很简单，就是数组的copy。
 
-<img src="../Images/JavaCollection/49334f7c56b0ceaf5afaac14c606efc4ed9b57d2.jpg@1320w_718h.webp" alt="img" style="zoom:50%;" />
+<img src="../Images/Java/49334f7c56b0ceaf5afaac14c606efc4ed9b57d2.jpg@1320w_718h.webp" alt="img" style="zoom:50%;" />
 
 比如有下面这样一个数组需要在index 5的位置去新增一个元素A。
 
@@ -239,7 +237,7 @@ ArrayList 有指定 index 新增，也有直接新增的，在这之前他会有
 
 给要新增的元素腾出了位置，然后在index的位置放入元素A就完成了新增的操作了。
 
-<img src="../Images/JavaCollection/fdae2991e37e9199b3d50d51b388cca9bde53fe8.jpg@746w_294h.webp" alt="img" style="zoom:67%;" />
+<img src="../Images/Java/fdae2991e37e9199b3d50d51b388cca9bde53fe8.jpg@746w_294h.webp" alt="img" style="zoom:67%;" />
 
 为啥效率低，这只是在一个这么小的List里面操作，要是我去一个几百几千几万大小的List新增一个元素，那就需要后面所有的元素都复制，然后如果再涉及到扩容啥的就更慢了。
 
@@ -247,7 +245,7 @@ ArrayList 有指定 index 新增，也有直接新增的，在这之前他会有
 
 删除其实跟新增是一样的，不过叫是叫删除，但是在代码里面发现，他还是在copy一个数组。
 
-<img src="../Images/JavaCollection/3fcf7803d359d9e99afbcc287da5b42873b91499.jpg@1320w_914h.webp" alt="img" style="zoom: 50%;" />
+<img src="../Images/Java/3fcf7803d359d9e99afbcc287da5b42873b91499.jpg@1320w_914h.webp" alt="img" style="zoom: 50%;" />
 
 继续打个比方，现在要删除下面这个数组中的index5这个位置，那代码他就复制一个index5+1开始到最后的数组，然后把它放到index开始的位置，index5的位置就成功被”删除“了其实就是被覆盖了，给了你被删除的感觉。同理他的效率也低，因为数组如果很大的话，一样需要复制和移动的位置就大了。
 
@@ -314,7 +312,7 @@ ArrayList 是基于动态数组数据结构的实现，访问元素速度优于 
 
 
 
-## 9.4、Set集合
+# 9.4、Set集合
 
 Set 集合类似于一个罐子，程序可以依次把多个对象“丢进”Set 集合，而 Set 集合通常不能记住元素的添加顺序。也就是说 ==Set 集合中的对象不按特定的方式排序，==只是简单地把对象加入集合。==Set 集合中不能包含重复的对象，=并且最多只允许包含一个 null 元素。
 
@@ -380,7 +378,7 @@ TreeSet 类除了实现 Collection 接口的所有方法之外，还提供了下
 
 
 
-## 9.5、Map集合
+# 9.5、Map集合
 
 ==Map 是一种键-值对（key-value）集合，==Map 集合中的每一个元素都包含一个键（key）对象和一个值（value）对象。==用于保存具有映射关系的数据。==
 
@@ -421,19 +419,19 @@ Map接口的常用方法
 
 HashMap 由**数组和链表组合构成**的数据结构。大概如下，数组里面每个地方都存了 Key-Value 这样的实例，在 Java7 叫 Entry 在 Java8 中叫 Node。
 
-<img src="../Images/JavaCollection/ad3570011e37cb8d2466f3300ad39237fc9bbfcc.jpg@1078w_190h.webp" alt="img" style="zoom:80%;" />
+<img src="../Images/Java/ad3570011e37cb8d2466f3300ad39237fc9bbfcc.jpg@1078w_190h.webp" alt="img" style="zoom:80%;" />
 
 因为他本身所有的位置都为 null，在 put 插入的时候会根据 key 的 hash 去计算一个 index 值。就比如 put("帅丙"，520)，插入了为 "帅丙" 的元素，这个时候会通过哈希函数计算出插入的位置，计算出来 index 是 2 那结果如下。
 
-<img src="../Images/JavaCollection/bebfb6f690765a6d76980417dbe1c6c45a2a8f26.jpg@1066w_242h.webp" alt="img" style="zoom:80%;" />
+<img src="../Images/Java/bebfb6f690765a6d76980417dbe1c6c45a2a8f26.jpg@1066w_242h.webp" alt="img" style="zoom:80%;" />
 
 但是由于哈希本身就存在概率性，比如 ”帅丙“ 和 ”丙帅“ 去 hash 有一定的概率会一样，就像上面的情况再次哈希 ”丙帅“ 极端情况也会 hash 到一个值上，那就形成了链表。
 
-<img src="../Images/JavaCollection/36785a9a74392e955bfc18ca2cff2b21fbbcc101.jpg@1060w_476h.webp" alt="img" style="zoom:80%;" />
+<img src="../Images/Java/36785a9a74392e955bfc18ca2cff2b21fbbcc101.jpg@1060w_476h.webp" alt="img" style="zoom:80%;" />
 
 每一个节点都会保存自身的 hash、key、value 以及下个节点，Node 的源码。
 
-<img src="../Images/JavaCollection/54dc28466296491cac1c2aeba928a48a4b95ef05.jpg@1142w_662h.webp" alt="img" style="zoom:80%;" />
+<img src="../Images/Java/54dc28466296491cac1c2aeba928a48a4b95ef05.jpg@1142w_662h.webp" alt="img" style="zoom:80%;" />
 
 
 
@@ -467,23 +465,23 @@ resize 有两个因素：
 
 扩容前：
 
-<img src="../Images/JavaCollection/c244cb079efdb2fc4d74a87fdd14bc44273da375.jpg@1054w_398h.webp" alt="img" style="zoom:80%;" />
+<img src="../Images/Java/c244cb079efdb2fc4d74a87fdd14bc44273da375.jpg@1054w_398h.webp" alt="img" style="zoom:80%;" />
 
 扩容后：
 
-<img src="../Images/JavaCollection/318f7f8d68a94fe1b8d8157556fb8605d3a8124a.jpg@1320w_212h.webp" alt="img" style="zoom:80%;" />
+<img src="../Images/Java/318f7f8d68a94fe1b8d8157556fb8605d3a8124a.jpg@1320w_212h.webp" alt="img" style="zoom:80%;" />
 
 现在要在容量为 2 的容器里面**用不同线程**插入 A，B，C，假如在 resize 之前打个短点，那意味着数据都插入了但是还没 resize，那扩容前可能是这样的：我们可以看到链表的指向 A => B => C（A 的下一个指针是指向 B 的）
 
-<img src="../Images/JavaCollection/8de44dd0cf0d938d5d3313bfeb7cf37d0e8a1cda.jpg@360w_552h.webp" alt="img" style="zoom:80%;" />
+<img src="../Images/Java/8de44dd0cf0d938d5d3313bfeb7cf37d0e8a1cda.jpg@360w_552h.webp" alt="img" style="zoom:80%;" />
 
 因为 resize 的赋值方式，也就是使用了单链表的头插入方式，同一位置上新元素总会被放在链表的头部位置，在旧数组中同一条 Entry 链上的元素，通过重新计算索引位置后，有可能被放到了新数组的不同位置上。就可能出现下面的情况：B 的下一个指针指向了 A
 
-<img src="../Images/JavaCollection/88e1df0cebe360cb17ee9393553d0e560119a2ba.jpg@686w_368h.webp" alt="img" style="zoom:80%;" />
+<img src="../Images/Java/88e1df0cebe360cb17ee9393553d0e560119a2ba.jpg@686w_368h.webp" alt="img" style="zoom:80%;" />
 
 一旦几个线程都调整完成，就可能出现环形链表
 
-<img src="../Images/JavaCollection/65fddfd00eebfaa1fbbdd0d82d3c82cfc5ddb8d2.jpg@762w_482h.webp" alt="img" style="zoom:80%;" />
+<img src="../Images/Java/65fddfd00eebfaa1fbbdd0d82d3c82cfc5ddb8d2.jpg@762w_482h.webp" alt="img" style="zoom:80%;" />
 
 如果这个时候去取值，悲剧就出现了——Infinite Loop（无限循环）。
 
@@ -493,7 +491,7 @@ resize 有两个因素：
 
 **使用头插**会改变链表的上的顺序，但是如果使用尾插，在扩容时会保持链表元素原本的顺序，就不会出现链表成环的问题了。就是说原本是 A => B，在扩容后那个链表还是 A => B：
 
-<img src="../Images/JavaCollection/aec263f93b937223e902d67dd1e8072a6a3e9796.jpg@678w_356h.webp" alt="img" style="zoom:80%;" />
+<img src="../Images/Java/aec263f93b937223e902d67dd1e8072a6a3e9796.jpg@678w_356h.webp" alt="img" style="zoom:80%;" />
 
 Java 7 在多线程操作 HashMap 时可能引起死循环，原因是扩容转移后前后链表顺序倒置，在转移过程中修改了原来链表中节点的引用关系。
 
@@ -801,7 +799,7 @@ get:
 
 
 
-## 9.6、Iterator（迭代器）
+# 9.6、Iterator（迭代器）
 
 首先说一下迭代器模式，它是 Java 中常用的设计模式之一。用于顺序访问集合对象的元素，无需知道集合对象的底层实现。Iterator 是可以遍历集合的对象，为各种容器提供了公共的操作接口，隔离对容器的遍历操作和底层实现，从而解耦。缺点是增加新的集合类需要对应增加新的迭代器类，迭代器类与集合类成对增加。
 
@@ -946,7 +944,7 @@ public class IteratorEach {
 
 
 
-## 9.7、Collections 类
+# 9.7、Collections 类
 
 ==Collections 类是 Java 提供的一个操作 Set、List 和 Map 等集合的工具类。==Collections 类提供了许多操作集合的静态方法，借助这些静态方法可以实现集合元素的排序、查找替换和复制等操作。下面介绍 Collections 类中操作集合的常用方法。
 
@@ -1006,7 +1004,7 @@ void copy(List <? super T> dest,List<? extends T> src)
 
 
 
-## 9.8、JDK8 新增集合操作
+# 9.8、JDK8 新增集合操作
 
 ### 9.8.1、使用Lambda表达式遍历Collection集合
 
@@ -1255,7 +1253,7 @@ public class CollectionStream {
 
 
 
-## 9.9、泛型
+# 9.9、泛型
 
 前面提到 Java 集合有个缺点，就是把一个对象“丢进”集合里之后，集合就会“忘记”这个对象的数据类型，当再次取出该对象时，该对象的编译类型就变成了 Object 类型（其运行时类型没变）。
 
@@ -1514,7 +1512,7 @@ c = new A<HashMap> ();    // 错误
 
 
 
-## 9.10、图书信息查询
+# 9.10、图书信息查询
 
 在图书管理系统中为了方便管理图书，将图书划分为几个类别。每个类别下有很多图书，每本图书都有相对应的类别，这就具备了一对多的关系映射，即一个类别对应多本图书。
 
