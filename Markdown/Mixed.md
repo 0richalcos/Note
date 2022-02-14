@@ -126,9 +126,7 @@ Host *
 
 <br>
 
-# Windows 11
-
-## 【1】关闭系统小组件
+## 【11】关闭系统小组件
 
 隐藏只需要在任务栏设置中设置就好了。
 
@@ -145,6 +143,12 @@ winget uninstall MicrosoftWindows.Client.WebExperience_cw5n1h2txyewy
 ```shell
 winget install 9MSSGKG348SP
 ```
+
+<br>
+
+## 【12】环境变量值只能一行显示，不是换行显示问题
+
+这是因为变量值的第一个是相对地址，只需要将一个绝对地址（带盘符）的放首位，然后逗号分隔，确定之后，再双击打开就是换行显示了！
 
 <br>
 

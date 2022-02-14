@@ -21,7 +21,7 @@
 
 注意：导入顺序很重要，Bootstrap Table 依赖 Bootstrap，所以 Bootstrap Table 的引用写在 Bootstrap 的后面！
 
-在`<body></body>`里面定义一个 table
+在 `<body></body>` 里面定义一个 table
 
 ```html
 <table id="table"></table>
@@ -75,7 +75,7 @@ $(function () {
     });
 ```
 
-此时会通过`/list`去获取 JSON 数据，默认请求方式是 GET，后台接口如下：
+此时会通过 `/list` 去获取 JSON 数据，默认请求方式是 `GET`，后台接口如下：
 
 ```java
 @RestController
@@ -455,7 +455,7 @@ CSS 方法要调用两组文件,一个是 css(或 less 或 scss) 样式表, 另�
 <link rel="stylesheet" href="fontawesome.min.css">
 ```
 
-使用 css 方式调用图标，以网页字体的方式显示，则 dom 结构内没有 svg 代码。
+使用 css 方式调用图标，以网页字体的方式显示，则 DOM 结构内没有 svg 代码。
 
 <br>
 
@@ -590,7 +590,26 @@ $(function() {
 
 **实现原理**
 
-通过 bootstrap table 自带的 `onClickCell` 方法，点击 td 添加 `contenteditable` 属性（ps：使元素可编辑），于是 td 元素具有了类似于文本框的 focus 和 blur 事件，用户点击 td 获取焦点，编辑完内容失去焦点后，调用 `updateCell`方法更新单元格数据。
+通过 bootstrap table 自带的 `onClickCell` 方法，点击 `<td></td>` 添加 `contenteditable` 属性（ps：使元素可编辑），于是 `<td></td>` 元素具有了类似于文本框的 focus 和 blur 事件，用户点击 `<td></td>` 获取焦点，编辑完内容失去焦点后，调用 `updateCell`方法更新单元格数据。
+
+最近发现该方法实现的动态编辑无法使用 Backspace 键进行删除，可以按照原思路在 `<td></td>` 内添加一个 `<input/>` 来实现：
+
+```javascript
+onDblClickCell: function (field, value, row, $element) {
+                if ($element.children().length === 0) {
+                    let elementVal = $element.html();
+                    $element.html("");
+                    $element.html(
+                        `<input id="editor" type="text" value="${elementVal}" style="border: none;outline: none"/>`)
+                    $('#editor').focus();
+                    $('#editor').blur(function () {
+                        $element.html($(this).val());
+                        let index = $element.parent().data('index');
+                        saveData(index, field, $(this).val());
+                    });
+                }
+            }
+```
 
 <br>
 

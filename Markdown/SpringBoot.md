@@ -427,7 +427,7 @@ spring:
 
 
 
-# 4、thymeleaf
+# 4、Thymeleaf
 
 ## 4.1、模板引擎
 
@@ -2138,7 +2138,7 @@ String username = userDetails.getUsername();
 	}
 	```
 
-	这里需要注意的是，setText的时候需要传一个布尔值进去，表名需要使用HTML样式。
+	这里需要注意的是，setText 的时候需要传一个布尔值进去，表名需要使用HTML样式。
 
 
 

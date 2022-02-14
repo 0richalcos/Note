@@ -440,3 +440,86 @@ function exp() {
 </div>
 ```
 
+
+
+# 【9】SpringBoot 返回前端 Long 丢失精度
+
+最近项目中将实体类主键由以前的 `String` 类型的 UUID 改为了 `Long` 类型的分布式 ID，修改后发现前端显示的 ID 和数据库中的 ID 不一致。例如数据库中存储的是：`812782555915911412`，显示出来却成了 `812782555915911400`，后面 2 位变成了 0，精度丢失了：
+
+```javascript
+console.log(812782555915911412);
+812782555915911400
+```
+
+<br>
+
+**这是什么原因呢？**
+
+原来，JavaScript 中数字的精度是有限的，Java 的 `Long` 类型的数字超出了 JavaScript 的处理范围。JavaScript 内部只有一种数字类型 `Number`，所有数字都是采用 [IEEE 754](https://links.jianshu.com/go?to=https%3A%2F%2Fzh.wikipedia.org%2Fwiki%2FIEEE_754) 标准定义的双精度 64 位格式存储，即使整数也是如此。这就是说，JavaScript 语言的底层根本没有整数，所有数字都是小数（64位浮点数）。其结构如图：
+
+![img](../Images/Petty/webp.webp)
+
+各位的含义如下：
+
+- 1位（s） 用来表示符号位，`0` 表示正数，`1` 表示负数
+- 11位（e） 用来表示指数部分
+- 52位（f） 表示小数部分（即有效数字）
+
+双精度浮点数（`double`）并不是能够精确表示范围内的所有数， 虽然双精度浮点型的范围看上去很大：2.23x10^-308^~1.79x10^308^。 可以表示的最大整数可以很大，但能够精确表示、使用算数运算的并没有这么大。因为小数部分最大是 `52` 位，因此 JavaScript 中能精准表示的最大整数是 2^52^-1，十进制为 `9007199254740991`。
+
+```javascript
+console.log(Math.pow(2, 53) - 1);
+console.log(1L<<53);
+9007199254740991
+```
+
+JavaScript 有所谓的最大和最小安全值：
+
+```javascript
+console.log(Number.MAX_SAFE_INTEGER);
+console.log(Number.MIN_SAFE_INTEGER);
+9007199254740991
+-9007199254740991
+```
+
+**安全**意思是说能够 `one-by-one` 表示的整数，也就是说在 (-2^53^,2^53^) 范围内，双精度数表示和整数是一对一的，在这个范围以内，所有的整数都有唯一的浮点数表示，这叫做**安全整数**。
+
+而超过这个范围，会有两个或更多整数的双精度表示是相同的；即超过这个范围，有的整数是无法精确表示的，只能大约(round)到与它相近的浮点数（说到底就是科学计数法）表示，这种情况下叫做**不安全整数**，例如：
+
+```javascript
+console.log(Number.MAX_SAFE_INTEGER + 1);   // 结果：9007199254740992，精度未丢失
+console.log(Number.MAX_SAFE_INTEGER + 2);   // 结果：9007199254740992，精度丢失
+console.log(Number.MAX_SAFE_INTEGER + 3);   // 结果：9007199254740994，精度未丢失
+console.log(Number.MAX_SAFE_INTEGER + 4);   // 结果：9007199254740996，精度丢失
+console.log(Number.MAX_SAFE_INTEGER + 5);   // 结果：9007199254740996，精度未丢失
+```
+
+而 Java 的 `Long` 类型的有效位数是 `63` 位（扣除一位符号位），其最大值为 2^63^-1，十进制为 `9223372036854775807`。
+
+```java
+public static void main(String[] args) {
+    System.out.println(Long.MAX_VALUE);
+    System.out.println((1L<<63) -1);
+}
+9223372036854775807
+9223372036854775807
+```
+
+所以只要 Java 传给 JavaScript 的 `Long` 类型的值超过 `9007199254740991`，就有可能产生精度丢失，从而导致数据和逻辑出错。
+
+<br>
+
+ **那有什么解决方法呢？**
+
+解决办法之一就是让 Javascript 把数字当成字符串进行处理，对 Javascript 来说如果不进行运算，数字和字符串处理起来没有什么区别。
+
+但如果需要进行运算，只能采用其他方法，例如 JavaScript 的一些开源库 [bignum](https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2Fjustmoon%2Fnode-bignum)、[bigint](https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2Fsubstack%2Fnode-bigint) 等支持长整型的处理。在我们这个场景里不需要进行运算，且 Java 进行 JSON 处理的时候是能够正确处理 `long` 型的，所以只需要将数字转化成字符串就可以了。
+
+而在后端中，可以使用注解`JsonSerialize`：
+
+```java
+@JsonSerialize(using=ToStringSerializer.class)
+private Long bankcardHash;
+```
+
+指定了 `ToStringSerializer` 进行序列化，将数字编码成字符串格式。这种方式的优点是颗粒度可以很精细；缺点同样是太精细，如果需要调整的字段比较多会比较麻烦。
