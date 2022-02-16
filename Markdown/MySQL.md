@@ -4589,9 +4589,11 @@ SELECT STR_TO_DATE('2019年01月17日 19时05分05秒','%Y年%m月%d日 %H时%i�
 
 ## 17.2、字符串相关
 
+### 17.2.1、拆分与拼接
+
 **SUBSTRING()**
 
-SUBSTRING函数从特定位置开始的字符串返回一个给定长度的子字符串。 MySQL提供了各种形式的子串功能。
+`SUBSTRING()` 函数从特定位置开始的字符串返回一个给定长度的子字符串。 MySQL 提供了各种形式的子串功能。
 
 语法：
 
@@ -4602,48 +4604,86 @@ SUBSTRING(string FROM position FOR length);
 
 参数：
 
-- string：要提取的字符串
-- position：起始下标，可以是负数，MySQL下标从1开始。
-- length：长度
+- *string*：要提取的字符串
+- *position*：起始下标，可以是负数，MySQL 下标从 1 开始
+- *length*：长度
 
-
+<br>
 
 **CONCAT()**
 
-返回连接参数产生的字符串，一个或多个待拼接的内容，任意一个为NULL则返回值为NULL。
+返回连接参数产生的字符串，一个或多个待拼接的内容，任意一个为 `NULL` 则返回值为 `NULL`。
 
+<br>
 
+### 17.2.2、字符串转数字
+
+**CAST()**
+
+`CAST()` 函数将任何类型的值转换为具有指定类型的值。
+
+语法：
+
+```mysql
+CAST(expression AS type)
+```
+
+参数：
+
+- *expression*：要转换的字符串
+- *type*：目标类型，可以是以下类型之一：`BINARY`、`CHAR`、`DATE`、`DATETIME`、`TIME`、`DECIMAL`、`SIGNED`、`UNSIGNED`。
+
+<br>
+
+**CONVERT()**
+
+`CONVERT()` 函数将值转换为指定的数据类型或字符集。
+
+语法：
+
+```mysql
+CONVERT(value, type);
+CONVERT(value USING charset);
+```
+
+参数：
+
+- *value*：要转换的值
+- *type*：目标类型，可以是以下类型之一：`BINARY`、`CHAR`、`DATE`、`DATETIME`、`TIME`、`SIGNED`、`UNSIGNED`。
+- *charset*：要转换为的字符集
+
+<br>
 
 ## 17.3、数字相关
 
 ### 17.3.1、保留两位小数
 
-ROUND(x,d)，四舍五入。ROUND(x) ，其实就是ROUND(x,0)，也就是默认d为0。
+`ROUND(x,d)`，四舍五入。`ROUND(x)` ，其实就是 `ROUND(x,0)`，也就是默认 *d* 为0。
 
 ```sql
 select round(110.35,1);
 # 110.4
 ```
 
+<br>
 
-
-TRUNCATE(x,d)，直接截取需要保留的小数位 。
+`TRUNCATE(x,d)`，直接截取需要保留的小数位 。
 
 ```sql
 select TRUNCATE(110.35,1);
 # 110.3
 ```
 
+<br>
 
-
-FORMAT（x,d），四舍五入，保留d位小数，返回string类型 
+`FORMAT(x,d)`，四舍五入，保留 *d* 位小数，返回 string 类型 
 
 ```sql
 select FORMAT(110.35,1);
 # 110.4
 ```
 
-
+<br>
 
 # 18、JDBC
 
