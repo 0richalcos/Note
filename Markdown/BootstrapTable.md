@@ -691,7 +691,7 @@ $('#table').bootstrapTable({
 
 **方案一**
 
-通过 `cellStyle` 添加 css 样式进行控制，显示的内容由 `max-width` 控制，只会显示一行，其余省略为 `...`
+通过 `cellStyle` 添加 css 样式进行控制，显示的内容由 `max-width` 控制，只会显示一行，其余省略为 `...`：
 
 ```javascript
 {
@@ -720,7 +720,7 @@ $('#table').bootstrapTable({
 
 **方案二**
 
-这种方法通过 `substring` 直接修改内容的长度，多出的内容省略为 `...`，列宽不够会自动换行
+这种方法通过 `substring` 直接修改内容的长度，多出的内容省略为 `...`，列宽不够会自动换行：
 
 ```javascript
 {
