@@ -1,4 +1,4 @@
-# 1、JDK 内置操作 Zip 文件
+# 1、JDK 内置操作 ZIP 文件
 
 ## 1.1、ZipInputStream
 
@@ -106,4 +106,233 @@ public static void unZipFile(String file) throws Exception {
 
 <br>
 
-2、Zip4j
+## 2.2、ZipOutputStream
+
+**Java 将多个文件压缩打包成 ZIP 下载：**
+
+步骤如下：
+
+1. 设置下载文件名编码
+2. 创建 ZIP 输出流 `ZipOutputStream`
+3. 将需要下载的文件流循环写入 `ZipOutputStream`
+4. 关闭各个流
+
+```java
+public void downloadFile(String ids, HttpServletResponse response) throws IOException {
+    //获取文件对象
+    List<SysFileInfo> sysFileInfos = selectSysFileInfoListByIds(ids);
+    response.reset();
+    response.setContentType("bin");
+    String localPath = Global.getProfile();
+    if (sysFileInfos.size() > 1) {
+         try (//获取响应中的输出流
+             ServletOutputStream outputStream = response.getOutputStream();
+             //构建Zip流对象
+             ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream)) {
+             response.addHeader("Content-Disposition", "attachment;filename=" + FileUtils.setFileDownloadHeader(request, "附件" + System.currentTimeMillis() + ".zip"));
+             for (SysFileInfo sysFileInfo : sysFileInfos) {
+                 String filePath = sysFileInfo.getFilePath();
+                 File file = new File(localPath + StringUtils.substringAfter(filePath, Constants.RESOURCE_PREFIX));
+                 //获取文件的绝对路径
+                 String absolutePath = file.getAbsolutePath();
+                 //将处理过后的文件名替换为文件的原名
+                 File newFile = new File(absolutePath.replace(file.getName(), sysFileInfo.getFileName()));
+                 if (file.exists()) {
+                     file.renameTo(newFile);
+                     //定义ZipEntry对象
+                     ZipEntry zipEntry = new ZipEntry(newFile.getName());
+                     //赋予Zip流对象属性
+                     zipOutputStream.putNextEntry(zipEntry);
+                     int let;
+                     byte[] bytes = new byte[100];
+                     try (FileInputStream fileInputStream = new FileInputStream(newFile)) {
+                         while ((let = fileInputStream.read(bytes)) > 0) {
+                             zipOutputStream.write(bytes, 0, let);
+                             zipOutputStream.flush();
+                         }
+                     }
+                     //关闭closeEntry
+                     zipOutputStream.closeEntry();
+                     newFile.renameTo(file);
+                 }
+             }
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+    } else {
+        ...
+    }
+}
+```
+
+<br>
+
+# 2、Zip4j
+
+Zip4j 默认采用的是 UTF-8 编码，所以本身支持中文（但是，还是建议在读取 ZIP 文件后，立即设置字符集），同时也支持密码，而且支持多种压缩算法，可以说功能强大，但使用起来却非常简单。如果有其他需求，需要自己从官网上看 API。
+
+**官网**：[GitHub - srikanth-lingala/zip4j: A Java library for zip files and streams](https://github.com/srikanth-lingala/zip4j)
+
+**特性**：
+
+1. 支持 Zip 文件的创建、添加、解压、更新、移除
+2. 可读写有密码保护的 ZIP文件
+3. 支持 AES 128/256 算法加密
+4. 支持标准 ZIP 算法加密
+5. 支持 ZIP64 格式
+6. 支持分块 ZIP 文件的创建和解压
+7. 支持 Unicode 编码的文件名
+8. 支持进度监控
+
+<br>
+
+**Maven依赖**：
+
+```xml
+<!-- https://mvnrepository.com/artifact/net.lingala.zip4j/zip4j -->
+<dependency>
+    <groupId>net.lingala.zip4j</groupId>
+    <artifactId>zip4j</artifactId>
+    <version>2.9.1</version>
+</dependency>
+
+```
+
+<br>
+
+## 2.1、解压
+
+**解压文件：**
+
+```java
+// 获取Zip文件
+ZipFile zipFile = new ZipFile(filePath);
+// 指定文件名编码
+zipFile.setCharset(Charset.forName("GBK"));
+
+// 验证文件有效性
+if (!zipFile.isValidZipFile()) {
+    return;
+}
+
+// 解压目录
+File fileDir = new File(destPath);
+
+// 目录不存在则创建
+if (fileDir.isDirectory() && !fileDir.exists()) {
+    fileDir.mkdir();
+}
+
+// 解压
+zipFile.extractAll(destPath);
+```
+
+<br>
+
+**过滤文件：**
+
+```java
+private void filterZipFile(ZipFile zipFile, String destPath) throws ZipException {
+    List fileHeaders = zipFile.getFileHeaders();
+
+    for (Object objFileHeader : fileHeaders) {
+        FileHeader fileHeader = (FileHeader) objFileHeader;
+        String fileName = fileHeader.getFileName();
+
+        // 匹配到是需要过滤的文件则跳过
+        if (isIllegalFile(fileName)) {
+            continue;
+        }
+
+        // 匹配到隐藏文件则跳过
+        if (isHiddenFile(fileName)) {
+            continue;
+        }
+
+        zipFile.extractFile(fileHeader, destPath);
+    }
+}
+```
+
+<br>
+
+## 2.2、压缩
+
+**压缩文件：**
+
+```java
+public File getOrCreateZipFile(String fullFilePath) {
+    File file = new File(fullFilePath);
+
+    // 文件存在
+    if (file.exists() && file.isFile()) {
+        return file;
+    }
+
+    // 从文件路径中截取文件后缀
+    int prefixMark = fullFilePath.lastIndexOf(".");
+    String filePath = fullFilePath.substring(0, prefixMark);
+
+    // 尝试获取解压后的文件目录
+    file = new File(filePath);
+
+    // 不存在则说明确实没有该文件，直接返回
+    if (!file.exists()) {
+        return file;
+    }
+
+    try {
+        // 创建压缩包
+        ZipFile zipFile = new ZipFile(fullFilePath);
+        ZipParameters zipParameters = new ZipParameters();
+        zipParameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
+        zipParameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
+        zipParameters.setIncludeRootFolder(false);
+
+        zipFile.addFolder(file, zipParameters);
+
+        // 将文件从新指定位压缩文件
+        file = new File((fullFilePath));
+    } catch (ZipException e) {
+        logger.error("文件压缩失败，teacherId -> {}, fullFilePath -> {}", super.getMemberId(), fullFilePath);
+    }
+
+    return file;
+}
+```
+
+<br>
+
+## 2.3、其他
+
+**不解压 ZIP 文件的前提下，直接利用流（InuptStream）形式读取其中的文件：**
+
+```java
+public static void readZipFile(String file) throws Exception {
+	ZipFile zFile = new ZipFile(file);
+    // 此处最好立即设置字符集
+    zipFile.setCharset(Charset.forName("GBK"));
+    if (!zFile.isValidZipFile()) {
+        return;
+    }
+
+    // 获取ZIP中所有文件的FileHeader，以便后面对ZIP中文件进行遍历
+    List<FileHeader> list = zFile.getFileHeaders();
+    // 此时list的size包括：文件夹、子文件夹、文件的个数
+    System.out.println(list.size());
+    // 遍历其中的文件
+    for (FileHeader fileHeader : list) {
+        String fileName = fileHeader.getFileName();
+        // fileName会将目录单独读出来，而且带有路径分割符
+        if (fileName.endsWith("/") || fileName.endsWith("\\\\") || fileName.endsWith("\\")) {
+            System.out.println(fileName + " 这是一个文件夹。");
+            continue;
+        } else {
+            ZipInputStream inputStream = zFile.getInputStream(fileHeader);
+            操作...
+            System.out.println(fileName + " 这是一个文件。");
+        }
+    }
+}
+```
+

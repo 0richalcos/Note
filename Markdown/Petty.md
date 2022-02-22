@@ -1,6 +1,6 @@
 # 【1】JS 实现 html 页面点击下载文件
 
-**使用 <a> 标签来完成**
+**使用 `<a>` 标签来完成**
 
 ```html
 <a href="/user/test/xxxx.txt" download="文件名.txt">点击下载</a>
@@ -17,7 +17,7 @@
 
 解决方案二：通过后端转发，后端请求第三方资源，返回给前端，前端使用 file-saver 等工具保存文件。
 
-
+<br>
 
 **使用表单提交**
 
@@ -32,7 +32,7 @@ $eleBtn2.click(function(){
 });
 ```
 
-
+<br>
 
 # 【2】transferto 遇到的问题 java.io.FileNotFoundException
 
@@ -78,64 +78,7 @@ public void saveOrUpdateImageFile(Info bean, MultipartFile image, HttpServletReq
 }
 ```
 
-
-
-# 【3】Java 将多个文件压缩打包成zip下载
-
-步骤如下：
-
-1. 设置下载文件名编码
-2. 创建zip输出流ZipOutputStream
-3. 将需要下载的文件流循环写入ZipOutputStream
-4. 关闭各个流
-
-```java
-@Override
-public void downloadFile(String ids, HttpServletResponse response) throws IOException {
-    //获取文件对象
-    List<SysFileInfo> sysFileInfos = selectSysFileInfoListByIds(ids);
-    response.reset();
-    response.setContentType("bin");
-    String localPath = Global.getProfile();
-    if (sysFileInfos.size() > 1) {
-        response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("附件.zip", "UTF-8"));
-        //获取响应中的输出流
-        ServletOutputStream outputStream = response.getOutputStream();
-        //构建Zip流对象
-        ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream);
-        for (SysFileInfo sysFileInfo : sysFileInfos) {
-            String filePath = sysFileInfo.getFilePath();
-            //获取本地文件
-            File file = new File(localPath + StringUtils.substringAfter(filePath, Constants.RESOURCE_PREFIX));
-            if (file.exists()) {
-                //定义ZipEntry对象
-                ZipEntry zipEntry = new ZipEntry(file.getName());
-                //赋予Zip流对象属性
-                zipOutputStream.putNextEntry(zipEntry);
-                int let;
-                //缓冲
-                byte[] bytes = new byte[100];
-                 //构建FileInputStream流对象
-                FileInputStream fileInputStream = new FileInputStream(file);
-                while ((let = fileInputStream.read(bytes)) > 0) {
-                    zipOutputStream.write(bytes, 0, let);
-                    zipOutputStream.flush();
-                }
-                //关闭closeEntry
-                zipOutputStream.closeEntry();
-                //关闭FileInputStream
-                fileInputStream.close();
-            }
-        }
-        //最后关闭ZIP流
-        zipOutputStream.close();
-    } else {
-        ...
-    }
-}
-```
-
-
+<br>
 
 # 【4】JS 获取 Model 的数据
 
@@ -163,7 +106,7 @@ public class ChartController {
 </script>
 ```
 
-
+<br>
 
 # 【5】JS 判断 NaN 和保留两位小数
 
@@ -179,7 +122,7 @@ window.isNaN('Hello')    // true
 window.isNaN(Number('Hello'))   // true
 ```
 
-
+<br>
 
 **先判断是不是数字,然后再使用 window.isNaN()**
 
@@ -195,7 +138,7 @@ judgeNaN([])           //false
 judgeNaN({})           //false
 ```
 
-
+<br>
 
 **Number.isNaN(value) ( 1. 首先判断 value 类型是不是 number; 2. 然后判断 value 是不是 NaN)**
 
@@ -221,7 +164,7 @@ Number.isNaN('');
 Number.isNaN(' ')
 ```
 
-
+<br>
 
 **两数字相除 保留两位小数**
 
@@ -229,7 +172,7 @@ Number.isNaN(' ')
 $('#aa').value=(a/b).toFixed(2);
 ```
 
-
+<br>
 
 # 【6】JS 图片预览
 
@@ -297,7 +240,7 @@ $('#aa').value=(a/b).toFixed(2);
 </script>
 ```
 
-
+<br>
 
 # 【7】Ajax 上传/下载文件
 
@@ -364,7 +307,7 @@ public String importProduct(MultipartFile file){
 
 通过`file.getOriginalFilename()`可以获取到文件名，通过`file.getInputStream()`可以获取文件流。
 
-
+<br>
 
 **下载（Excel）**
 
@@ -421,7 +364,7 @@ function exp() {
 }
 ```
 
-
+<br>
 
 # 【8】JS ajax请求后又刷新页面的问题
 
@@ -440,7 +383,7 @@ function exp() {
 </div>
 ```
 
-
+<br>
 
 # 【9】SpringBoot 返回前端 Long 丢失精度
 
