@@ -10,7 +10,7 @@ Apache POI 是 Apache 软件基金会的开放源码函数库，POI 提供 API �
 - HSLF - 提供读写 Microsoft PowerPoint 格式档案的功能
 - HDGF - 提供读写 Microsoft Visio 格式档案
 
-
+<br>
 
 **导入依赖**
 
@@ -52,7 +52,7 @@ Apache POI 是 Apache 软件基金会的开放源码函数库，POI 提供 API �
 </dependencies>
 ```
 
-
+<br>
 
 # 2、POI Excel 写
 
@@ -144,31 +144,13 @@ public class ExcelWriteTest {
 }
 ```
 
-
+<br>
 
 ## 2.2、数据批量导入
 
-- 大文件写 HSSF
-
-	> 缺点：最多只能处理 65536 行，否则会抛出异常
-	>
-	> 优点：过程中写入缓存，不操作磁盘，最后一次写入磁盘，速度快
-
-- 大文件写 XSSF
-
-	> 缺点：写数据时非常慢，非常耗内存，也会发生内存溢出，如 100 万条
-	>
-	> 优点：可以写较大的数据量，如 20 万条
-
-- 大文件写 SXSSF
-
-	> 优点：可以写非常大的数据量，如 100 万条甚至更多条，写数据速度快，占用更少的内存
-	>
-	> 注意：过程中会产生临时文件，需要清理临时文件，默认 100 条记录被保存在内存中，如果超过这数量，则前面的数据被写入临时文件，如果想自定义内存中数据的数量，可以使用`new SXSSFWorkbook(数量)`，SXSSF 仍然可能会消耗大量内存
-
-
-
 **大文件写 HSSF**
+
+POI 导出 Excel 最常用的方式；但是此种方式的局限就是导出的行数至多为 65535 行，超出 65536 条后系统就会报错。此方式因为行数不足七万行所以一般不会发生内存不足的情况（OOM）。
 
 ```java
 @Test
@@ -203,9 +185,11 @@ public void testWrite03BigData() {
 }
 ```
 
-
+<br>
 
 **大文件写 XSSF**
+
+这种形式的出现是为了突破 HSSF 的 65535 行局限。其对应的是 Excel2007（1048576 行，16384 列）扩展名为 “.xlsx”，最多可以导出 104 万行，不过这样就伴随着一个问题---OOM 内存溢出，原因是你所创建的 book、sheet、row、cell 等此时是存在内存的并没有持久化。
 
 ```java
 @Test
@@ -240,9 +224,15 @@ public void testWrite07BigData() {
 }
 ```
 
-
+<br>
 
 **大文件写 SXSSF**
+
+从 POI 3.8 版本开始，提供了一种基于 XSSF 的低内存占用的 SXSSF 方式。对于大型 Excel 文件的创建，一个关键问题就是，要确保不会内存溢出。其实，就算生成很小的 Excel（比如几 Mb），它用掉的内存是远大于 Excel 文件实际的 size 的。如果单元格还有各种格式（比如，加粗，背景标红之类的），那它占用的内存就更多了。对于大型 Excel 的创建且不会内存溢出的，就只有 `SXSSFWorkbook` 了。它的原理很简单，用硬盘空间换内存（就像 `HashMap` 用空间换时间一样）。
+
+`SXSSFWorkbook` 是 streaming 版本的 `XSSFWorkbook`，它只会保存最新的 Excel rows 在内存里供查看，在此之前的 Excel rows 都会被写入到硬盘里（Windows 电脑的话，是写入到 C 盘根目录下的 temp 文件夹）。被写入到硬盘里的 rows 是不可见的/不可访问的。只有还保存在内存里的才可以被访问到。
+
+> 注意：过程中会产生临时文件，需要清理临时文件，默认 100 条记录被保存在内存中，如果超过这数量，则前面的数据被写入临时文件，如果想自定义内存中数据的数量，可以使用 `new SXSSFWorkbook(数量)`，SXSSF 仍然可能会消耗大量内存
 
 ```java
 @Test
@@ -279,7 +269,7 @@ public void testWrite07BigDataS() {
 }
 ```
 
-
+<br>
 
 ## 2.3、合并单元格
 
@@ -312,7 +302,7 @@ public void testWrite07BigDataS() {
 }
 ```
 
-<img src="../Images/tools/20180720094625254" alt="img" style="zoom:80%;float:left" />
+<img src="../Images/tools/20180720094625254" alt="img"  />
 
 **合并单元格的关键代码：**
 
@@ -323,9 +313,9 @@ CellRangeAddress cra=new CellRangeAddress(0, 2, 3, 6);
 sheet.addMergedRegion(cra);
 ```
 
-创建合并单元格的方法 CellRangeAdress(int firstRow, int lastRow, int fitstCol, int lastCol); 中的参数四个参数分别表示，合并区域的第一行，最后一行，第一列，最后一列。并且合并区域的单元格数目必须大于2，否则出错。
+创建合并单元格的方法 `CellRangeAdress(int firstRow, int lastRow, int fitstCol, int lastCol);` 中的参数四个参数分别表示，合并区域的第一行，最后一行，第一列，最后一列。并且合并区域的单元格数目必须大于 2，否则出错。
 
-
+<br>
 
 # 3、POI Excel 读
 
@@ -379,7 +369,7 @@ public class ExcelReadTest {
 }
 ```
 
-
+<br>
 
 ## 3.2、读取不同类型数据
 
@@ -459,7 +449,7 @@ public void testCellType() throws IOException {
 }
 ```
 
-
+<br>
 
 ## 3.3、计算公式
 
@@ -493,11 +483,11 @@ public void testFormula() throws IOException {
 }
 ```
 
-
+<br>
 
 # 4、POI Word 读
 
-使用poi读取文档中的表格，当有多个表格时可以指定需要读取的表格，同时支持读取 docx 和 doc 格式。需要添加 poi 的 jar 包
+使用 POI 读取文档中的表格，当有多个表格时可以指定需要读取的表格，同时支持读取 docx 和 doc 格式。需要添加 poi 的 jar 包
 
 ```xml
 <!--apache-POI-->
@@ -541,7 +531,7 @@ public void testFormula() throws IOException {
 </dependency>
 ```
 
-<img src="../Images/ApachePOI/20180914173007117" alt="img" style="zoom:80%; float:left" />
+<img src="../Images/ApachePOI/20180914173007117" alt="img" />
 
 ```java
  /**
@@ -658,7 +648,7 @@ public class ExportDoc {
 表2-2	1	2	3	
 ```
 
-
+<br>
 
 ## 4.1、Word 转 HTML
 
@@ -706,7 +696,7 @@ public static String docxToHtml(File file) {
 }
 ```
 
-在 Web 中转化后的 html  页面无法访问图片的问题：因为 ` xhtmlOptions.URIResolver(new FileURIResolver(imageFolder));`生成的 url 是绝对路径，可以将其改为`xhtmlOptions.URIResolver(new BasicURIResolver(""));`，同时需要对 `E:\\upload`路径进行映射：
+在 Web 中转化后的 html  页面无法访问图片的问题：因为 ` xhtmlOptions.URIResolver(new FileURIResolver(imageFolder));` 生成的 url 是绝对路径，可以将其改为 `xhtmlOptions.URIResolver(new BasicURIResolver(""));`，同时需要对 `E:\\upload` 路径进行映射：
 
 ```yaml
 web:
@@ -719,9 +709,9 @@ spring:
     static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${web.upload-path}
 ```
 
+ <br>
 
-
-**03版word转html**
+**03 版 Word 转 Html**
 
 ```java
 public static String docToHtml(File file) {
