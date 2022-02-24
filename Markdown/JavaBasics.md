@@ -1416,7 +1416,7 @@ public class Test10 {
 
 <br>
 
-## 4.4、时间日期的处理
+## 4.4、时间和日期
 
  在 Java 中获取当前时间，可以使用 `java.util.Date` 类和 `java.util.Calendar` 类完成。其中，Date 类主要封装了系统的日期和时间的信息，Calendar 类则会根据系统的日历来解释 Date 对象。
 
@@ -1752,6 +1752,160 @@ Joda-Time 与以上两种有所区别如下：
 
 - 不仅仅可以对时间进行格式化输出，而且可以生成瞬时时间值，并与 Calendar、Date 等对象相互转化，极大的方便了程序的兼容性。
 - Joda-Time 的类具有不可变性，因此他们的实例是无法修改的，就跟 String 的对象一样。这种不可变性体现在所有 API 方法中，这些方法返回的都是新的类实例，与原来实例不同。
+
+<br>
+
+## 4.6、Java 8 新日期和时间 API
+
+在 Java 8 之前，所有关于日期和时间的 API 都存在各种使用方面的缺陷，主要有：
+
+1. Java的 `java.util.Date` 和 `java.util.Calendar` 类易用性差，不支持时区，而且他们都不是线程安全的
+2. 用于格式化日期的类 `DateFormat` 被放在 `java.text` 包中，它是一个抽象类，所以我们需要实例化一个 `SimpleDateFormat` 对象来处理日期格式化，并且 `DateFormat` 也是非线程安全，你得把它用 `ThreadLocal` 包起来才能在多线程中使用
+3. 对日期的计算方式繁琐，而且容易出错，因为月份是从 0 开始的，从 `Calendar` 中获取的月份需要加一才能表示当前月份
+
+由于以上这些问题，出现了一些三方的日期处理框架，例如 Joda-Time，date4j 等开源项目。但是，Java 需要一套标准的用于处理时间和日期的框架，于是 Java 8 中引入了新的日期 API。新的日期 API 是 JSR-310 规范的实现，Joda-Time 框架的作者正是 JSR-310 的规范的倡导者，所以能从 Java 8 的日期 API 中看到很多 Joda-Time 的特性。
+
+<br>
+
+### 4.6.1、Instant 
+
+`Instant` 实例表示时间线上的一个点。 参考点是标准的 Java 纪元（epoch），即1970-01-01 T00：00：00Z（1970 年 1 月 1 日 00:00 GMT）。 `Instant` 类的 `EPOCH` 属性返回表示 Java 纪元的 `Instant` 实例。 在纪元之后的时间是正值，而在此之前的时间即是负值。
+
+`Instant` 的静态 `now()` 方法返回一个表示当前时间的 `Instant` 对象：
+
+```java
+Instant now = Instant.now();
+```
+
+`getEpochSecond()` 方法返回自纪元以来经过的秒数。 `getNano()` 方法返回自上一秒开始以来的纳秒数。
+
+`Instant` 类的一个常用用途是用来操作时间，如以下代码所示：
+
+```java
+public static void main(String[] args) {
+    Instant start = Instant.now();
+    try {
+        Thread.sleep(1000);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+    Instant end = Instant.now();
+    System.out.println(Duration.between(start, end).toMillis());
+}
+```
+
+如上面代码所示，`Duration` 类用于返回两个 `Instant` 之间时间数量的差异。
+
+<br>
+
+### 4.6.2、LocalDate
+
+`LocalDate` 类只包括日期没有时间的部分。 它也没有时区。下表显示了 `LocalDate` 中一些重要的方法：
+
+| 方法                                              | 描述                                                  |
+| ------------------------------------------------- | ----------------------------------------------------- |
+| `now()`                                           | 静态方法，返回今天的日期                              |
+| `of()`                                            | 从指定年份、月份和日期创建 `LocalDate` 的静态方法     |
+| `getDayOfMonth()`、`getMonthValue()`、`getYear()` | 以 `int` 形式返回此 `LocalDate` 的日、月或年          |
+| `getMonth()`                                      | 以 `Month` 枚举常量返回此 `LocalDate` 的月份          |
+| `plusDays()`、`minusDays()`                       | 给 `LocalDate` 添加或减去指定的天数                   |
+| `plusWeeks()`、`minusWeeks()`                     | 给 `LocalDate` 添加或减去指定的星期数                 |
+| `plusMonths()`、`minusMonths()`                   | 给 `LocalDate` 添加或减去指定的月份数                 |
+| `plusYears()`、`minusYears()`                     | 给 `LocalDate` 添加或减去指定的年数                   |
+| `isLeapYear()`                                    | 检查 `LocalDate` 指定的年份是否为闰年                 |
+| `isAfter()`、`isBefore()`                         | 检查此 `LocalDate` 是在给定日期之后还是之前           |
+| `lengthOfMonth()`                                 | 返回此 `LocalDate` 中月份的天数                       |
+| `withDayOfMonth()`                                | 返回此 `LocalDate` 的拷贝，将月份中的某天设置为给定值 |
+| `withMonth()`                                     | 返回此 `LocalDate` 的拷贝，其月份设置为给定值         |
+| `withYear()`                                      | 返回此 `LocalDate` 的拷贝，并将年份设置为给定值       |
+
+`LocalDate` 提供了各种创建日期的方法。 例如，要创建代表今天日期的 `LocalDate`，使用静态 `now()` 方法。
+
+```java
+LocalDate today = LocalDate.now();
+```
+
+要创建代表特定年、月和日的 `LocalDate`，使用 `of()` 方法，该方法也是静态的。 例如，以下代码创建了一个代表 2018 年 3 月 7 日的 `LocalDate` 实例。
+
+```bash
+LocalDate date = LocalDate.of(2018, 3, 7);
+```
+
+还有一个接受 `java.time.Month` 枚举的常量作为第二个参数的 `of()` 方法。 例如，下面是使用第二种方法重载构造相同日期的代码。
+
+```bash
+LocalDate date = LocalDate.of(2018, Month.MARCH, 7);
+```
+
+还有获取 `LocalDate` 的日、月或年的方法，例如`getDayOfMonth`，`getMonth`，`getMonthValue`和`getYear`。 他们都没有任何参数，并返回一个 `int` 或 `Month` 的枚举常量。 另外，还有一个 `get` 方法，它接受一个 `TemporalField` 并返回这个 `LocalDate` 的一部分。 例如，传递 `ChronoField.YEAR` 以获取 `LocalDate` 的年份部分。
+
+```csharp
+int year = localDate.get(ChronoField.YEAR);
+```
+
+`ChronoField`是一个实现`TemporalField`接口的枚举，因此可以传递一个`ChronoField`常量来获取。 `TemporalField`和`ChronoField`都是`java.time.temporal`包的一部分。 但是，并非`ChronoField`中的所有常量都可以`get`获取，因为并非所有常量都受支持。 例如，传递`ChronoField.SECOND_OF_DAY`以引发异常。 因此，取而代之，最好使用`getMonth`，`getYear`或类似方法来获取`LocalDate`的组件。
+
+此外，还有拷贝`LocalDate`的方法，例如`plusDays`，`plusYears`，`minusMonths`等等。 例如，要获取表示明天的`LocalDate`，可以创建一个代表今天的`LocalDat`e，然后调用其`plusDays`方法。
+
+```java
+LocalDate tomorrow = LocalDate.now().plusDays(1);
+```
+
+要获取昨天表示的`LocalDate`，可以使用`minusDays`方法。
+
+```java
+LocalDate yesterday = LocalDate.now().minusDays(1);
+```
+
+另外，还有`plus`和`minus`方法以更通用的方式获得`LocalDate`的拷贝。 两者都接受一个int参数和一个`TemporalUnit`参数。 这些方法的签名如下。
+
+```java
+public LocalDate plus(long amountToAdd,
+
+        java.time.temporal.TemporalUnit unit)
+
+public LocalDate minus(long amountToSubtract,
+
+        java.time.temporal.TemporalUnit unit)
+```
+
+例如，获得一个从今天开始前20年的`LocalDate`，可以使用这段代码。
+
+```java
+LocalDate pastDate = LocalDate.now().minus(2, ChronoUnit.DECADES);
+```
+
+`ChronoUnit`是一个实现`TemporalUnit`的枚举，因此可以将`ChronoUnit`常量传递给`plus`和`minus`方法。
+
+`LocalDate`是不可变的，因此无法更改。 任何返回`LocalDate`的方法都返回`LocalDate`的新实例。
+
+以下是使用`LocalDate`的例子。
+
+```java
+import java.time.LocalDate;
+import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
+
+public class LocalDateDemo1 {
+
+    public static void main(String[] args) {
+        LocalDate today = LocalDate.now();
+         LocalDate tomorrow = today.plusDays(1);
+         LocalDate oneDecadeAgo = today.minus(1, ChronoUnit.DECADES);
+
+         System.out.println("Day of month: " + today.getDayOfMonth());
+         System.out.println("Today is " + today);
+         System.out.println("Tomorrow is " + tomorrow);
+         System.out.println("A decade ago was " + oneDecadeAgo);
+         System.out.println("Year : " + today.get(ChronoField.YEAR));
+         System.out.println("Day of year:" + today.getDayOfYear());
+    }
+}
+```
+
+
+
+
 
 <br>
 
