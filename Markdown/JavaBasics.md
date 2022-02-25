@@ -1819,31 +1819,31 @@ public static void main(String[] args) {
 | `withMonth()`                                     | 返回此 `LocalDate` 的拷贝，其月份设置为给定值         |
 | `withYear()`                                      | 返回此 `LocalDate` 的拷贝，并将年份设置为给定值       |
 
-`LocalDate` 提供了各种创建日期的方法。 例如，要创建代表今天日期的 `LocalDate`，使用静态 `now()` 方法。
+`LocalDate` 提供了各种创建日期的方法。 例如，要创建代表今天日期的 `LocalDate`，使用静态 `now()` 方法：
 
 ```java
 LocalDate today = LocalDate.now();
 ```
 
-要创建代表特定年、月和日的 `LocalDate`，使用 `of()` 方法，该方法也是静态的。 例如，以下代码创建了一个代表 2018 年 3 月 7 日的 `LocalDate` 实例。
+要创建代表特定年、月和日的 `LocalDate`，使用 `of()` 方法，该方法也是静态的。 例如，以下代码创建了一个代表 2018 年 3 月 7 日的 `LocalDate` 实例：
 
 ```bash
 LocalDate date = LocalDate.of(2018, 3, 7);
 ```
 
-还有一个接受 `java.time.Month` 枚举的常量作为第二个参数的 `of()` 方法。 例如，下面是使用第二种方法重载构造相同日期的代码。
+还有一个接受 `java.time.Month` 枚举的常量作为第二个参数的 `of()` 方法。 例如，下面是使用第二种方法重载构造相同日期的代码：
 
 ```bash
 LocalDate date = LocalDate.of(2018, Month.MARCH, 7);
 ```
 
-还有获取 `LocalDate` 的日、月或年的方法，例如`getDayOfMonth`，`getMonth`，`getMonthValue`和`getYear`。 他们都没有任何参数，并返回一个 `int` 或 `Month` 的枚举常量。 另外，还有一个 `get` 方法，它接受一个 `TemporalField` 并返回这个 `LocalDate` 的一部分。 例如，传递 `ChronoField.YEAR` 以获取 `LocalDate` 的年份部分。
+还有获取 `LocalDate` 的日、月或年的方法，例如`getDayOfMonth`、`getMonth`、`getMonthValue` 和 `getYear`。 他们都没有任何参数，并返回一个 `int` 或 `Month` 的枚举常量。 另外，还有一个 `get()` 方法，它接受一个 `TemporalField` 并返回这个 `LocalDate` 的一部分。 例如，传递 `ChronoField.YEAR` 以获取 `LocalDate` 的年份部分：
 
 ```csharp
 int year = localDate.get(ChronoField.YEAR);
 ```
 
-`ChronoField`是一个实现`TemporalField`接口的枚举，因此可以传递一个`ChronoField`常量来获取。 `TemporalField`和`ChronoField`都是`java.time.temporal`包的一部分。 但是，并非`ChronoField`中的所有常量都可以`get`获取，因为并非所有常量都受支持。 例如，传递`ChronoField.SECOND_OF_DAY`以引发异常。 因此，取而代之，最好使用`getMonth`，`getYear`或类似方法来获取`LocalDate`的组件。
+`ChronoField` 是一个实现 `TemporalField` 接口的枚举，因此可以传递一个 `ChronoField` 常量来获取。 `TemporalField` 和 `ChronoField` 都是 `java.time.temporal` 包的一部分。 但是，并非 `ChronoField` 中的所有常量都可以 `get()` 获取，因为并非所有常量都受支持。 例如，传递`ChronoField.SECOND_OF_DAY`以引发异常。 因此，取而代之，最好使用`getMonth`，`getYear`或类似方法来获取`LocalDate`的组件。
 
 此外，还有拷贝`LocalDate`的方法，例如`plusDays`，`plusYears`，`minusMonths`等等。 例如，要获取表示明天的`LocalDate`，可以创建一个代表今天的`LocalDat`e，然后调用其`plusDays`方法。
 
