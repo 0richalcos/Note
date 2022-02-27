@@ -1819,6 +1819,8 @@ public static void main(String[] args) {
 | `withMonth()`                                     | 返回此 `LocalDate` 的拷贝，其月份设置为给定值         |
 | `withYear()`                                      | 返回此 `LocalDate` 的拷贝，并将年份设置为给定值       |
 
+<br>
+
 `LocalDate` 提供了各种创建日期的方法。 例如，要创建代表今天日期的 `LocalDate`，使用静态 `now()` 方法：
 
 ```java
@@ -1837,75 +1839,420 @@ LocalDate date = LocalDate.of(2018, 3, 7);
 LocalDate date = LocalDate.of(2018, Month.MARCH, 7);
 ```
 
-还有获取 `LocalDate` 的日、月或年的方法，例如`getDayOfMonth`、`getMonth`、`getMonthValue` 和 `getYear`。 他们都没有任何参数，并返回一个 `int` 或 `Month` 的枚举常量。 另外，还有一个 `get()` 方法，它接受一个 `TemporalField` 并返回这个 `LocalDate` 的一部分。 例如，传递 `ChronoField.YEAR` 以获取 `LocalDate` 的年份部分：
+<br>
+
+还有获取 `LocalDate` 的日、月或年的方法，例如 `getDayOfMonth()`、`getMonth()`、`getMonthValue()` 和 `getYear()`。 他们都没有任何参数，并返回一个 `int` 或 `Month` 的枚举常量。 另外，还有一个 `get()` 方法，它接受一个 `TemporalField` 并返回这个 `LocalDate` 的一部分。 例如，传递 `ChronoField.YEAR` 以获取 `LocalDate` 的年份部分：
 
 ```csharp
 int year = localDate.get(ChronoField.YEAR);
 ```
 
-`ChronoField` 是一个实现 `TemporalField` 接口的枚举，因此可以传递一个 `ChronoField` 常量来获取。 `TemporalField` 和 `ChronoField` 都是 `java.time.temporal` 包的一部分。 但是，并非 `ChronoField` 中的所有常量都可以 `get()` 获取，因为并非所有常量都受支持。 例如，传递`ChronoField.SECOND_OF_DAY`以引发异常。 因此，取而代之，最好使用`getMonth`，`getYear`或类似方法来获取`LocalDate`的组件。
+> `ChronoField` 是一个实现 `TemporalField` 接口的枚举，因此可以传递一个 `ChronoField` 常量来获取。 `TemporalField` 和 `ChronoField` 都是 `java.time.temporal` 包的一部分。 但是，并非 `ChronoField` 中的所有常量都可以 `get()` 获取，因为并非所有常量都受支持。 例如，传递 `ChronoField.SECOND_OF_DAY` 以引发异常。 因此，取而代之，最好使用 `getMonth()`、`getYear()` 或类似方法来获取`LocalDate` 的组件。
 
-此外，还有拷贝`LocalDate`的方法，例如`plusDays`，`plusYears`，`minusMonths`等等。 例如，要获取表示明天的`LocalDate`，可以创建一个代表今天的`LocalDat`e，然后调用其`plusDays`方法。
+<br>
+
+此外，还有拷贝 `LocalDate` 的方法，例如 `plusDays()`、`plusYears()`、`minusMonths()` 等等。 例如，要获取表示明天的 `LocalDate`，可以创建一个代表今天的 `LocalDate`，然后调用其 `plusDays()` 方法：
 
 ```java
 LocalDate tomorrow = LocalDate.now().plusDays(1);
 ```
 
-要获取昨天表示的`LocalDate`，可以使用`minusDays`方法。
+要获取昨天表示的 `LocalDate`，可以使用 `minusDays()` 方法：
 
 ```java
 LocalDate yesterday = LocalDate.now().minusDays(1);
 ```
 
-另外，还有`plus`和`minus`方法以更通用的方式获得`LocalDate`的拷贝。 两者都接受一个int参数和一个`TemporalUnit`参数。 这些方法的签名如下。
+另外，还有 `plus()` 和 `minus()` 方法以更通用的方式获得 `LocalDate` 的拷贝。 两者都接受一个 `int` 参数和一个 `TemporalUnit` 参数。 这些方法的签名如下：
 
 ```java
-public LocalDate plus(long amountToAdd,
+public LocalDate plus(long amountToAdd, java.time.temporal.TemporalUnit unit)
 
-        java.time.temporal.TemporalUnit unit)
-
-public LocalDate minus(long amountToSubtract,
-
-        java.time.temporal.TemporalUnit unit)
+public LocalDate minus(long amountToSubtract, java.time.temporal.TemporalUnit unit)
 ```
 
-例如，获得一个从今天开始前20年的`LocalDate`，可以使用这段代码。
+例如，获得一个从今天开始前 20 年的 `LocalDate`，可以使用这段代码：
 
 ```java
 LocalDate pastDate = LocalDate.now().minus(2, ChronoUnit.DECADES);
 ```
 
-`ChronoUnit`是一个实现`TemporalUnit`的枚举，因此可以将`ChronoUnit`常量传递给`plus`和`minus`方法。
+> `ChronoUnit` 是一个实现 `TemporalUnit` 的枚举，因此可以将 `ChronoUnit` 常量传递给 `plus()` 和 `minus()` 方法。
 
-`LocalDate`是不可变的，因此无法更改。 任何返回`LocalDate`的方法都返回`LocalDate`的新实例。
+> `LocalDate` 是不可变的，因此无法更改。 任何返回 `LocalDate` 的方法都返回 `LocalDate` 的新实例。
 
-以下是使用`LocalDate`的例子。
+<br>
+
+### 4.6.3、Period
+
+`Period` 类基于日期的时间数量构建，例如五天、一周或三年。 下面列出了一些重要的方法：
+
+| 方法                                               | 描述                                                         |
+| -------------------------------------------------- | ------------------------------------------------------------ |
+| `between()`                                        | 在两个 `LocalDate` 之间创建一个 `Period` 示例                |
+| `ofDays()`、`ofWeeks()`、`ofMonths()`、`ofYears()` | 创建代表给定天数、周、月、年的 `Period` 实例                 |
+| `of()`                                             | 根据给定的年数、月数和天数创建一个 `Period` 实例             |
+| `getDays()`、`getMonths()`、`getYears()`           | 以 `int` 形式返回此 `Period` 的天数、月、年                  |
+| `isNegative()`                                     | 如果此 `Period` 的三个部分中的任何一个为负数，则返回 `true`，否则返回 `false` |
+| `isZero()`                                         | 如果此 `Period` 的所有三个部分均为零，则返回 `true`，否则返回 `false` |
+| `plusDays()`、`minusDays()`                        | 在此 `Period` 上添加或减去给定的天数                         |
+| `plusMonths()`、`minusMonths()`                    | 在此 `Period` 上增加或减去给定的月数                         |
+| `plusYears()`、`minusYears()`                      | 在此 `Period` 增加或减去给定的年数                           |
+| `withDays()`                                       | 以指定的天数返回此 `Period` 的拷贝                           |
+| `withMonths()`                                     | 以指定的月数返回此 `Period` 的拷贝                           |
+| `withYears()`                                      | 以指定的年数返回此 `Period` 的拷贝                           |
+
+<br>
+
+创建一个 `Period` 很简单，这要感谢`between()`、`of()`、`ofDays()`、`ofWeeks()`、`ofMonths()`、`ofYears()` 等静态工厂方法。 例如，以下是如何创建代表两周的 `Period` 实例：
+
+```java
+Period twoWeeks = Period.ofWeeks(2);
+```
+
+要创建代表一年两个月三天的 `Period` 实例，请使用 `of()` 方法：
+
+```java
+Period p = Period.of(1, 2, 3);
+```
+
+<br>
+
+要获取某个期间的年、月、日组件，调用其`getYears()`、`getMonths()`、`getDays()`方法。 例如，以下代码中的 `howManyDays` 变量的值是14：
+
+```java
+Period twoWeeks = Period.ofWeeks(2);
+
+int howManyDays = twoWeeks.getDays();
+```
+
+<br>
+
+最后，可以使用 `plusXXX()` 或 `minusXXX()` 方法以及 `withXXX()` 方法来创建 `Period` 的拷贝。 `Period` 是不可变的，所以这些方法返回新的 `Period` 实例。
+
+<br>
+
+下面的代码显示了一个计算个人年龄的年龄计算器。 它从两个 `LocalDate` 创建一个 `Period` 并调用它的 `getDays()`、`getMonths()` 和 `getYears()` 方法：
 
 ```java
 import java.time.LocalDate;
-import java.time.temporal.ChronoField;
-import java.time.temporal.ChronoUnit;
+import java.time.Period;
 
-public class LocalDateDemo1 {
-
+public class PeriodDemo1 {
     public static void main(String[] args) {
-        LocalDate today = LocalDate.now();
-         LocalDate tomorrow = today.plusDays(1);
-         LocalDate oneDecadeAgo = today.minus(1, ChronoUnit.DECADES);
-
-         System.out.println("Day of month: " + today.getDayOfMonth());
-         System.out.println("Today is " + today);
-         System.out.println("Tomorrow is " + tomorrow);
-         System.out.println("A decade ago was " + oneDecadeAgo);
-         System.out.println("Year : " + today.get(ChronoField.YEAR));
-         System.out.println("Day of year:" + today.getDayOfYear());
+        LocalDate dateA = LocalDate.of(1978, 8, 26);
+        LocalDate dateB = LocalDate.of(1988, 9, 28);
+        Period period = Period.between(dateA, dateB);
+        System.out.printf("Between %s and %s"
+                + " there are %d years, %d months"
+                + " and %d days%n", dateA, dateB,
+                period.getYears(),
+                period.getMonths(),
+                period.getDays());
     }
 }
 ```
 
+运行 `PeriodDemo1` 类打印下面字符串。
 
+```mipsasm
+Between 1978-08-26 and 1988-09-28 there are 10 years, 1 months and 2 days
+```
 
+<br>
 
+### 4.6.4、LocalDateTime
+
+`LocalDateTime` 类是一个没有时区的日期时间的构建。 下表显示了 `LocalDateTime` 中一些重要的方法。 这些方法类似于 `LocalDate` 的方法，以及用于修改时间部分的一些其他方法，例如在 `LocalDate` 中不可用的 `plusHours()`、`plusMinutes()` 和 `plusSeconds()`：
+
+| 方法                                                         | 描述                                                         |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `now()`                                                      | 返回当前日期和时间的静态方法                                 |
+| `of()`                                                       | 从指定年份、月份、日期、小时、分钟、秒和毫秒创建`LocalDateTime` 的静态方法 |
+| `getYear()`、`getMonthValue()`、`getDayOfMonth()`、`getHour()`、`getMinute()`、`getSecond()` | 以 `int` 形式返回此 `LocalDateTime` 的年、月、日、小时、分钟或秒部分 |
+| `plusDays()`、`minusDays()`                                  | 给当前 LocalDateTime 添加或减去指定的天数。                  |
+| `plusWeeks()`、`minusWeeks()`                                | 给当前 `LocalDateTime` 添加或减去指定的周数。                |
+| `plusMonths()`、`minusMonths()`                              | 给当前 `LocalDateTime` 添加或减去指定的月数。                |
+| `plusYears()`、`minusYears()`                                | 给当前 `LocalDateTime` 添加或减去指定的年数。                |
+| `plusHours()`、`minusHours()`                                | 给当前 `LocalDateTime` 添加或减去指定的小时数                |
+| `plusMinutes()`、`minusMinutes()`                            | 给当前 `LocalDateTime` 添加或减去指定的分钟数                |
+| `plusSeconds()`、`minusSeconds()`                            | 给当前 `LocalDateTime` 添加或减去指定的秒数                  |
+| `IsAfter()`、`isBefore()`                                    | 检查此 `LocalDateTime` 是否在指定的日期时间之后或之前        |
+| `withDayOfMonth()`                                           | 返回此 `LocalDateTime` 的拷贝，并将月份中的某天设置为指定值  |
+| `withMonth()`、`withYear()`                                  | 返回此 `LocalDateTime` 的拷贝，其月或年设置为指定值          |
+| `withHour()`、`withMinute()`、`withSecond()`                 | 返回此 `LocalDateTime` 的拷贝，其小时、分钟、秒设置为指定值  |
+
+<br>
+
+`LocalDateTime` 提供了各种静态方法来创建日期时间。 该方法现在带有三个重载方法返回当前的日期时间。 无参的方法是最容易使用的：
+
+```java
+LocalDateTime now = LocalDateTime.now();
+```
+
+要创建具有特定日期和时间的 `LocalDateTime`，请使用 `of()` 方法。 此方法有多个重载，并允许传递日期时间或 `LocalDate` 和 `LocalTime` 的单个部分。 以下是一些方法的签名：
+
+```java
+public static LocalDateTime of(int year, int month, int dayOfMonth, int hour, int minute)
+
+public static LocalDateTime of(int year, Month month, int dayOfMonth, int hour, int minute)
+
+public static LocalDateTime of(LocalDate date, LocalTime time)
+```
+
+例如，下面的代码段创建一个 `LocalDateTime`，代表 2015 年 12 月 31 日早上八点：
+
+```java
+LocalDateTime endOfYear = LocalDateTime.of(2015, 12, 31, 8, 0);
+```
+
+可以使用 `plusXXX()` 或 `minusXXX()` 方法创建 `LocalDateTime` 的拷贝。 例如，此代码创建一个 `LocalDateTime`，它表示明天的同一时间：
+
+```java
+LocalDateTime now = LocalDateTime.now();
+
+LocalDateTime sameTimeTomorrow = now.plusHours(24);
+```
+
+<br>
+
+### 4.6.5、Time Zones
+
+互联网数字分配机构（IANA）维护一个可从此网页下载的[时区数据库](http://www.iana.org/time-zones)。
+
+Java 日期和时间 API 也适用于时区。 抽象类 `ZoneId`（在 `java.time` 包中）表示一个区域标识符。 它有一个名为 `getAvailableZoneIds()` 的静态方法，它返回所有区域标识符。 下面展示了如何使用这种方法打印所有时区的排序列表：
+
+```java
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
+public class TimeZoneDemo1 {
+    public static void main(String[] args) {
+        Set<String> allZoneIds = ZoneId.getAvailableZoneIds();
+        List<String> zoneList = new ArrayList<>(allZoneIds);
+        Collections.sort(zoneList);      
+        for (String zoneId : zoneList) {
+            System.out.println(zoneId);
+        }
+        // alternatively, you can use this line of code to
+        // print a sorted list of zone ids
+        // ZoneId.getAvailableZoneIds().stream().sorted().
+        //        forEach(System.out::println);
+    }
+}
+```
+
+`getAvailableZoneIds()` 返回字符串的 `Set` 集合。 可以使用 `Collections.sort()` 或更优雅地通过调用它的 `stream()` 方法对 `Set` 进行排序。 可以编写此代码对区域标识符进行排序：
+
+```java
+ZoneId.getAvailableZoneIds().stream().sorted().forEach(System.out::println);
+```
+
+`getAvailableZoneIds()` 返回 586 个区域标识符的 `Set` 集合。 以下是上述代码中的一部分区域标识符：
+
+```
+Africa/Cairo
+Africa/Johannesburg
+America/Chicago
+America/Los_Angeles
+America/Mexico_City
+America/New_York
+America/Toronto
+Antarctica/South_Pole
+Asia/Hong_Kong
+Asia/Shanghai
+Asia/Tokyo
+Australia/Melbourne
+Australia/Sydney
+Canada/Atlantic
+Europe/Amsterdam
+Europe/London
+Europe/Paris
+US/Central
+US/Eastern
+US/Pacific
+```
+
+<br>
+
+### 4.6.6、ZonedDateTime
+
+`ZonedDateTime` 类以一个时区的日期时间的构建。例如，以下是一个时区的日期时间:
+
+```makefile
+2015-12-31T10:59:59+01:00 Europe/Paris
+```
+
+`ZonedDateTime` 始终是不可变的，时间分量的存储精度为纳秒。
+
+`ZonedDateTIme` 中一些重要方法的使用与 `LocalDateTime` 类似，只是多了一个时区的概念。可自行查阅 API。
+
+<br>
+
+像 `LocalDateTime` 一样，`ZonedDateTime `类现在提供静态 `now()` 和 `of()` 方法，并构造一个 `ZonedDateTime` 实例。 `now()` 方法创建一个 `ZonedDateTime` 代表执行的日期和时间。 无参 `now()` 方法会使用计算机的默认时区创建 `ZonedDateTime`：
+
+```java
+ZonedDateTime now = ZonedDateTime.now();
+```
+
+`now()` 的另一个重载方法允许传递区域标识符：
+
+```java
+ZonedDateTime parisTime = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
+```
+
+`of()` 方法也有好几个重载的方法。在所有情况下，都需要传递区域标识符：
+
+```java
+public static ZonedDateTime of(int year, int month, int dayOfMonth,
+        int hour, int minute, int second, int nanosecond,
+        ZoneId zone)
+    
+public static ZonedDateTime of(LocalDate date, LocalTime time, ZoneId zone)
+    
+public static ZonedDateTime of(LocalDateTime datetime, ZoneId zone)
+```
+
+<br>
+
+像 `LocalDate` 和 `LocalDateTime` 一样，`ZonedDateTime` 提供了使用 `plusXXX()`、`minusXXX()` 和 `withXXX()` 方法创建实例拷贝的方法。
+
+例如，下面代码行创建一个带默认时区的 `ZonedDateTime`，并调用它的 `minusDays()` 方法以在三天前创建相同的 `ZonedDateTime`：
+
+```java
+ZonedDateTime now = ZonedDateTime.now();
+ZonedDateTime threeDaysEarlier = now.minusDays(3);
+```
+
+<br>
+
+### 4.6.7、Duration
+
+`Duration` 类是基于时间的持续时间的构建。 它与 `Period` 类似，不同之处在于 `Duration` 的时间分量为纳秒精度，并考虑了`ZonedDateTime` 实例之间的时区。 下表显示了 `Duration` 中重要的方法：
+
+| 方法                                                         | 描述                                                         |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `between()`                                                  | 在两个时差的对象之间创建一个 `Duration` 实例，例如在两个 `LocalDateTime` 或两个 `ZonedDateTime` 之间。 |
+| `ofYears()`、`ofMonths()`、`ofWeeks()`、`ofDays()`、`ofHours()`、`ofMinutes()`、`ofSeconds()`、`ofNano()` | 创建给定年数、月、周、天、小时、分、秒、纳秒的 `Duration` 实例 |
+| `of()`                                                       | 根据指定数量的时间单位创建 `Duration` 实例                   |
+| `toDays()`、`toHours()`、`toMinutes()`                       | 以 `int` 形式返回此 `Duration` 的天数、小时、分钟数          |
+| `isNegative()`                                               | 如果此 `Duration` 为负则返回 `true`，否则返回 `false`        |
+| `isZero()`                                                   | 如果此 `Duration` 长度为零则返回 `true`，否则返回 `false`    |
+| `plusDays()`、`minusDays()`                                  | 在此 `Duration` 内添加或减去指定的天数                       |
+| `plusMonths()`、`minusMonths()`                              | 在此 `Duration` 内添加或减去指定的月数                       |
+| `plusYears()`、`minusYears()`                                | 在 `Duration` 内添加或减去指定的年数                         |
+| `withSeconds()`                                              | 以指定的秒数返回此 `Duration` 的拷贝                         |
+
+<br>
+
+可以通过调用静态方法 `between()` 或 `of()` 来创建 `Duration`。 下面的代码会在 2015 年 1 月 26 日 11:10 至 2015 年 1 月 26 日 12:40 之间创建两个 `LocalDateTime` 的 `Duration`：
+
+```java
+import java.time.Duration;
+import java.time.LocalDateTime;
+
+public class DurationDemo1 {
+    public static void main(String[] args) {
+        LocalDateTime dateTimeA = LocalDateTime.of(2015, 1, 26, 8, 10, 0, 0);
+        LocalDateTime dateTimeB = LocalDateTime.of(2015, 1, 26, 11, 40, 0, 0);
+        Duration duration = Duration.between(dateTimeA, dateTimeB);
+
+        System.out.printf("There are %d hours and %d minutes.%n",
+                duration.toHours(),
+                duration.toMinutes() % 60);
+    }
+}
+```
+
+运行 `DurationDemo1` 类的结果是这样的：
+
+```sql
+There are 3 hours and 30 minutes.
+```
+
+<br>
+
+下面的代码在两个 `ZoneDateTime` 之间创建一个 `Duration`，具有相同的日期和时间，但时区不同：
+
+```java
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
+public class DurationDemo2 {
+    public static void main(String[] args) {
+        ZonedDateTime zdt1 = ZonedDateTime.of(LocalDateTime.of(2015, Month.JANUARY, 1, 8, 0),
+                ZoneId.of("America/Denver"));
+        ZonedDateTime zdt2 = ZonedDateTime.of(LocalDateTime.of(2015, Month.JANUARY, 1, 8, 0),
+                ZoneId.of("America/Toronto"));
+
+        Duration duration = Duration.between(zdt1, zdt2);
+        System.out.printf("There are %d hours and %d minutes.%n",
+                duration.toHours(),
+                duration.toMinutes() % 60);
+    }
+}
+```
+
+运行 `DurationDemo2` 类在控制台上打印如下结果：
+
+```sql
+There are -2 hours and 0 minutes.
+```
+
+这是预料之中的，因为时区 `America/Denver`  和 `America/Toronto` 之间有两个小时的差异。
+
+<br>
+
+作为一个更复杂的例子，下面的代码显示了一个公交车旅行时间计算器。 它有一个方法 `calculateTravelTime()`，它需要一个离开的 `ZonedDateTime` 实例和一个到达的 `ZonedDateTime` 实例。 该代码调用 `calculateTravelTime()` 方法两次。 这两次公交车都在丹佛早上 8 点从科罗拉多州丹佛出发，并于多伦多时间第二天早上 8 点抵达多伦多。 公交车首次于 2014 年 3 月 8 日启程，第二次于 2014 年 3 月 18 日启程。
+
+两种情况下的旅行时间是多少?
+
+```java
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
+public class TravelTimeCalculator {
+    public Duration calculateTravelTime(ZonedDateTime departure, ZonedDateTime arrival) {
+        return Duration.between(departure, arrival);
+    }
+
+    public static void main(String[] args) {
+        TravelTimeCalculator calculator = new TravelTimeCalculator();
+        ZonedDateTime departure1 = ZonedDateTime.of(LocalDateTime.of(2014, Month.MARCH, 8, 8, 0),
+                ZoneId.of("America/Denver"));
+        ZonedDateTime arrival1 = ZonedDateTime.of(LocalDateTime.of(2014, Month.MARCH, 9, 8, 0),
+                ZoneId.of("America/Toronto"));
+        Duration travelTime1 = calculator.calculateTravelTime(departure1, arrival1);
+        System.out.println("Travel time 1: " + travelTime1.toHours() + " hours");
+
+        ZonedDateTime departure2 = ZonedDateTime.of(LocalDateTime.of(2014, Month.MARCH, 18,8, 0),
+                ZoneId.of("America/Denver"));
+        ZonedDateTime arrival2 = ZonedDateTime.of(LocalDateTime.of(2014, Month.MARCH, 19, 8, 0),
+                ZoneId.of("America/Toronto"));
+        Duration travelTime2 = calculator.calculateTravelTime(departure2, arrival2);
+        System.out.println("Travel time 2: " + travelTime2.toHours() + " hours");
+    }
+}
+```
+
+运行结果为：
+
+```less
+Travel time 1: 21 hours
+
+Travel time 2: 22 hours
+```
+
+为什么有这个区别？ 因为 2014 年的夏令时从 3 月 9 日星期日凌晨 2 点开始。 因此，在 2014 年 3 月 8 日至 2014 年 3 月 9 日之间 “失去” 了一小时。
 
 <br>
 
