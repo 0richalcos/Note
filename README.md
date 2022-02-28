@@ -53,6 +53,7 @@
 
 - [**JavaScript**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaScript.md)
 - [**jQuery**](https://github.com/0richalcos/Note/blob/main/Markdown/jQuery.md)
+- [**jQuery.print**](https://github.com/0richalcos/Note/blob/main/Markdown/jQuery.print.md)
 - [**Thymeleaf**](https://github.com/0richalcos/Note/blob/main/Markdown/Thymeleaf.md)
 - [**Bootstrap Table**](https://github.com/0richalcos/Note/blob/main/Markdown/BootstrapTable.md)
 - [**Axios**](https://github.com/0richalcos/Note/blob/main/Markdown/Axios.md)
