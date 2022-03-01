@@ -982,8 +982,8 @@ VALUES
 DELETE FROM <表名> [WHERE Clause]
 ```
 
-- 如果没有指定WHERE子句，MySQL表中所有记录将被删除
-- 你可以在WHERE子句中指定任何条件
+- 如果没有指定 `WHERE` 子句，MySQL 表中所有记录将被删除
+- 你可以在 `WHERE` 子句中指定任何条件
 - 你可以在单个表中一次性删除记录
 
 `DELETE` 是逐行删除速度极慢，不适合大量数据删除。
@@ -1002,15 +1002,15 @@ TRUNCATE TABLE <表名>
 
 **区别：**
 
-1. DELETE 语句执行删除的过程是每次从表中删除一行，并且同时将该行的删除操作作为事务记录在日志中保存以便进行进行回滚操作。
+1. `DELETE` 语句执行删除的过程是每次从表中删除一行，并且同时将该行的删除操作作为事务记录在日志中保存以便进行进行回滚操作。
 
-	TRUNCATE TABLE 则一次性地从表中删除所有的数据并不把单独的删除操作记录记入日志保存，删除行是不能恢复的。并且在删除的过程中不会激活与表有关的删除触发器。执行速度快。
+	`TRUNCATE TABLE` 则一次性地从表中删除所有的数据并不把单独的删除操作记录记入日志保存，删除行是不能恢复的。并且在删除的过程中不会激活与表有关的删除触发器。执行速度快。
 
-2. 当表被 TRUNCATE 后，这个表和索引所占用的空间会恢复到初始大小，DELETE 操作不会减少表或索引所占用的空间。DROP 语句将表所占用的空间全释放掉。
+2. 当表被 `TRUNCATE` 后，这个表和索引所占用的空间会恢复到初始大小，`DELETE` 操作不会减少表或索引所占用的空间。`DROP` 语句将表所占用的空间全释放掉。
 
-3. DELETE 语句为DML（data maintain Language)，这个操作会被放到 rollback segment 中，事务提交后才生效。如果有相应的 tigger，执行的时候将被触发。
+3. `DELETE` 语句为 DML（data maintain Language)，这个操作会被放到 rollback segment 中，事务提交后才生效。如果有相应的 tigger，执行的时候将被触发。
 
-	由于 TRUNCATE TABLE 不记录在日志中，所以它不能激活触发器。
+	由于 `TRUNCATE TABLE` 不记录在日志中，所以它不能激活触发器。
 
 
 
@@ -1029,7 +1029,7 @@ UPDATE <表名> SET field1=new_VALUE1, field2=new_VALUE2
 
 # 7、查询数据
 
-SELECT语句用于从数据库中选取数据，结果被存储在一个结果表中，称为结果集。
+`SELECT` 语句用于从数据库中选取数据，结果被存储在一个结果表中，称为结果集。
 
 ## 7.1、限制查询结果数和偏移
 
@@ -1291,13 +1291,13 @@ SELECT * FROM <表名> ORDER BY <字段名> ASC;
 SELECT * FROM <表名> ORDER BY CONVERT(<字段名> USING gbk) ASC;
 ```
 
-
+<br>
 
 ## 7.5、分组
 
-GROUP BY语句根据一个或多个列对结果集进行分组，在分组上我们可以使用COUNT、SUM、AVG等函数
+`GROUP BY` 语句根据一个或多个列对结果集进行分组，`GROUP BY` 子句经常使用与聚合函数，例如`SUM`、`AVG`、`MAX`、`MIN` 和 `COUNT`。
 
-GROUP BY语法：
+`GROUP BY` 语法：
 
 ```mysql
 SELECT column_name,FUNCTION(cloumns_name) FROM <表名>
@@ -1305,33 +1305,17 @@ WHERE columns_name operator VALUE
 GROUP BY column_name;
 ```
 
+`GROUP BY` 必须出现在 `FROM` 和 `WHERE` 之后。
 
+<br>
 
 ### 7.5.1、WITH  ROLLUP
 
-WITH  ROLLUP可以实现在分组数据基础上再进行相同的统计（SUM，AVG，COUNT…）
-
-例如我们将以上数据表按名字进行分组，再统计每个人登陆的次数：
-
-<img src="../Images/MySQL/image-20200531161241249.png" alt="image-20200531161241249" style="zoom:80%;" />
-
-其中记录NULL表示所有人的登陆次数
-
-可以使用COALESCE来设置一个可以取代NULL的名称
-
-COALESCE语法：
-
-```mysql
-SELECT COALESCE(a,b,c);
-```
-
-参数说明：如果 a == NULL，则选择b；如果 b == NULL ，则选择c；如果 a != NULL ，则选择a；如果a b c都为NULL，则返回为NULL（没意义）
-
-以下实例中如果name为空我们使用“总数”代替：
-
-<img src="../Images/MySQL/image-20200531161426907.png" alt="image-20200531161426907" style="zoom:80%;" />
+在数据库查询语句中，在 `GROUP BY` 表达式之后加上 `WITH ROLLUP` 语句，可以在查询结果中包含更多高层级的统计输出。ROLLUP 功能使得可以通过单个查询语句来实现对数据进行不同层级上的分析与统计。因此，ROLLUP 功能能够很好得为 OLAP（Online Analytical Processing）任务提供支持。
 
 
+
+<br>
 
 ### 7.5.2、HAVING 子句
 
