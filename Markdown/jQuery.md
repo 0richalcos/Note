@@ -1950,7 +1950,7 @@ name=Orichalcos&age=25
 
 简单说，deferred 对象就是 jQuery 的回调函数解决方案。在英语中，defer 的意思是"延迟"，所以 deferred 对象的含义就是 "延迟" 到未来某个点再执行。
 
-
+<br>
 
 ### 5.6.2、ajax 操作的链式写法
 
@@ -1968,9 +1968,9 @@ $.ajax({
 });
 ```
 
-在上面的代码中， $.ajax() 接受一个对象参数，这个对象包含两个方法：success 方法指定操作成功后的回调函数，error 方法指定操作失败后的回调函数。
+在上面的代码中，`$.ajax()` 接受一个对象参数，这个对象包含两个方法：`success()` 方法指定操作成功后的回调函数，`error()` 方法指定操作失败后的回调函数。
 
-$.ajax() 操作完成后，如果使用的是低于 1.5.0 版本的 jQuery，返回的是 XHR 对象，你没法进行链式操作；如果高于 1.5.0 版本，返回的是 deferred 对象，可以进行链式操作。
+`$.ajax()` 操作完成后，如果使用的是低于 1.5.0 版本的 jQuery，返回的是 XHR 对象，你没法进行链式操作；如果高于 1.5.0 版本，返回的是 deferred 对象，可以进行链式操作。
 
 现在，新的写法是这样的：
 
@@ -1980,20 +1980,20 @@ $.ajax("test.html")
     .fail(function(){ alert("出错啦！"); });
 ```
 
-可以看到，done() 相当于 success 方法，fail() 相当于 error 方法。采用链式写法以后，代码的可读性大大提高。
+可以看到，`done()` 相当于 `success()` 方法，`fail()` 相当于 `error()` 方法。采用链式写法以后，代码的可读性大大提高。
 
-有时为了省事，可以把done()和fail()合在一起写，这就是 then() 方法。
+有时为了省事，可以把 `done()` 和 `fail()` 合在一起写，这就是 `then()` 方法。
 
 ```javascript
 $.when($.ajax( "/main.php" ))
     .then(successFunc, failureFunc );
 ```
 
-如果 then() 有两个参数，那么第一个参数是 done() 方法的回调函数，第二个参数是 fail() 方法的回调方法。如果 then() 只有一个参数，那么等同于done()。
+如果 `then()` 有两个参数，那么第一个参数是 `done()` 方法的回调函数，第二个参数是 `fail()` 方法的回调方法。如果 `then()` 只有一个参数，那么等同于 `done()`。
 
-另外，还有个 always() 方法，不管调用的是 deferred.resolve() 还是 deferred.reject()，最后总是执行。
+另外，还有个 `always()` 方法，不管调用的是 `deferred.resolve()` 还是 `deferred.reject()`，最后总是执行。
 
-
+<br>
 
 ### 5.6.3、为操作指定多个回调函数
 

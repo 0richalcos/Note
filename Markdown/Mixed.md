@@ -166,7 +166,7 @@ Chrome 默认的数据文件地址是：C:\Users\Orichalcos\AppData\Local\Google
 
 ## 【1】Maven 部分文件无法导出
 
-maven 由于他的约定大于配置，之后可能遇到写的配置文件，无法被导出或者生效的问题
+maven 由于它的约定大于配置，之后可能遇到写的配置文件，无法被导出或者生效的问题
 
 ```xml
 <build>
@@ -195,33 +195,33 @@ maven 由于他的约定大于配置，之后可能遇到写的配置文件，�
 
 ## 【2】Maven 框架 web-app 中 web.xml 版本过低
 
-1. 找到 maven-archetype-webapp 的 jar 包位置：maven位置\repository\org\apache\maven\archetypes\maven-archetype-webapp\1.4。
+1. 找到 maven-archetype-webapp 的 jar 包位置：maven 位置 `\repository\org\apache\maven\archetypes\maven-archetype-webapp\1.4`。
 2. 用压缩包形式打开，不要解压！
-3. 然后依次点，archetype-resources\src\main\webapp\WEB-INF\web.xml，打开，将其修改成最新的模板。
+3. 然后依次点，`archetype-resources\src\main\webapp\WEB-INF\web.xml`，打开，将其修改成最新的模板。
 
-PS：上边的web-app标签中有一个**metadata-complete="true"**，这是个大坑，因为web-app标签3.0以上版本是可以使用servlet的注解的，如下图：
+PS：上边的 web-app 标签中有一个 `metadata-complete="true"`，这是个大坑，因为 web-app 标签 3.0 以上版本是可以使用 Servlet 的注解的，如下图：
 
 <img src="../Images/Mixed/1247983-20190604213809759-1772243544.png" alt="img" style="zoom:67%;float:left" />
 
-再也不用去web.xml写那servlet的那一堆映射了（下图就是那一堆映射）
+再也不用去 web.xml 写那 servlet 的那一堆映射了（下图就是那一堆映射）：
 
 <img src="../Images/Mixed/1247983-20190604214818782-1161183865.png" alt="img" style="zoom:67%;float:left" />
 
-如果忘记了改这个web-app标签里的metadata-complete的这个属性，所写的注解都将失效！！！
+如果忘记了改这个 web-app 标签里的 `metadata-complete` 的这个属性，所写的注解都将失效！！！
 
-该属性默认为true，表示容器在部署时只依赖部署描述文件，忽略所有标注，如果不配置该属性，或者将其设置为false，则表示启动注解支持。当metadata-complete="false"时，web.xml和注解对于Servlet的影响同时起作用，两种方法定义的url-partten都可以访问到该Servlet，但是当通过web.xml定义的url-partten访问时，注解定义的属性将失效。
+该属性默认为 `true`，表示容器在部署时只依赖部署描述文件，忽略所有标注，如果不配置该属性，或者将其设置为 `false`，则表示启动注解支持。当 `metadata-complete="false"` 时，web.xml 和注解对于 Servlet 的影响同时起作用，两种方法定义的 url-partten 都可以访问到该 Servlet，但是当通过 web.xml 定义的 url-partten 访问时，注解定义的属性将失效。
 
 <br>
 
 ## 【3】修改内存大小
 
-首先在IDEA中显示内存：在窗口下方右键，选中 Memory Indicator
+首先在 IDEA 中显示内存：在窗口下方右键，选中 Memory Indicator
 
 <img src="../Images/Mixed/image-20200428211739758.png" alt="image-20200428211739758" style="zoom:67%;float:left" />
 
-帮助 => 编辑自定义VM选项。
+帮助 => 编辑自定义 VM 选项。
 
-在弹出来的文件中修改Xms和Xmx：
+在弹出来的文件中修改 Xms 和 Xmx：
 
 <img src="../Images/Mixed/image-20200428212406493.png" alt="image-20200428212406493" style="zoom:67%;float:left" />
 
@@ -231,7 +231,7 @@ PS：上边的web-app标签中有一个**metadata-complete="true"**，这是个�
 
 ![img](../Images/Mixed/1676221-20200430155320785-521416484.png)
 
-在application.yml中配置一下devtools
+在 application.yml 中配置一下 devtools：
 
 ```yaml
 spring:
@@ -268,15 +268,15 @@ IDEA：当我们修改了Java类后，IDEA默认是不自动编译的，而sprin
 
 <br>
 
-## 【6】插件：camelCase
+## 【6】插件：Camel Case
 
 下划线 <=> 驼峰，你是怎么转换的，一个一个字母的修改吗？
 
-camelCase 可以用 一个快捷键 就搞定，去 IDEA 的插件库中搜索 camelCase 插件，安装上。
+Camel Case 可以用 一个快捷键 就搞定，去 IDEA 的插件库中搜索 Camel Case插件，安装上。
 
 使用方式：先选中要要格式转换的代码， 再用快捷键 Shift + Alt + u 进行转换，多个格式切换，就按多次快捷键。
 
-camelCase 包含 6 种格式的切换，可能某些格式是平时不用的，可以把不用的格式取消，这样在格式切换时，就不会包含已取消的格式了：
+Camel Case 包含 6 种格式的切换，可能某些格式是平时不用的，可以把不用的格式取消，这样在格式切换时，就不会包含已取消的格式了：
 
 ![图片描述](../Images/Mixed/5e7827dc0001c7ea11720724.png)
 
@@ -337,6 +337,64 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 ![image-20211214151502559](../Images/Mixed/image-20211214151502559.png)![image-20211214151601153](../Images/Mixed/image-20211214151601153.png)
 
 最后应用就行，在类的方法上方输入 `com` 按回车就可自动生成方法注释。
+
+<br>
+
+## 【11】插件：Translation
+
+可以在 IDEA 使用翻译功能，效果：
+
+![image-20200615171745094](E:/Users/Orichalcos/Documents/Note/Images/Mixed/image-20200615171745094.png)
+
+默认引擎使用 Google 翻译，但是如果请求次数过多提示 “翻译失败，请求过多，请稍后再试！”，这里我建议使用阿里翻译引擎。
+
+阿里翻译每月的前 100 万字符免费，超出的部分会按照 50 元 / 百万字符收取费用，费用由阿里翻译在它自己的阿里云官方网站收取，与 Translation 无关。
+
+申请步骤：
+
+1. 登录阿里云官网，点击右上角的控制台，在控制台的搜索框搜索 “机器翻译”：
+
+   ![image-20220328155154582](E:/Users/Orichalcos/Documents/Note/Images/Mixed/image-20220328155154582.png)
+
+2. 点击【通用版翻译引擎】下方的【立即开通】按钮：
+
+   ![image-20220328160104687](E:/Users/Orichalcos/Documents/Note/Images/Mixed/image-20220328160104687.png)
+
+   点击之后会让你勾选一个【机器翻译服务协议】，勾选之后点【立即开通】就能开通成功了。
+
+3. 开通后，回到 阿里云机器翻译控制台，把鼠标悬停在右上角用户头像上，然后点击【AccessKey 管理】，会跳转到 AccessKey 管理页面：
+
+   ![image-20220328160302854](E:/Users/Orichalcos/Documents/Note/Images/Mixed/image-20220328160302854.png)
+
+4. 进入后会弹出一个安全提示：
+
+   ![image-20220328160748769](E:/Users/Orichalcos/Documents/Note/Images/Mixed/image-20220328160748769.png)
+
+   简而言之，在这里创建的 AccessKey 能调用你账号下的所有资源，权限范围太大了，一旦泄露的话影响面很大，所以阿里云建议你创建一个子用户，然后给这个子用户只分配机器翻译的权限，这样的话即使泄露了也只会影响到机器翻译。
+
+5. 点击【创建用户】，填写用户信息 ：
+
+   - 设置登录名称：huacifanyi
+   - 填写显示名称：划词翻译
+   - 访问方式：勾选【Open API 调用访问】
+
+   ![image-20220328161056344](E:/Users/Orichalcos/Documents/Note/Images/Mixed/image-20220328161056344.png)
+
+6. 点击【确定】之后会让你输入手机短信验证码，输入之后会看到创建成功的 【AccessKey ID】 和 【AccessKey Secret】，如下图：
+
+   ![image-20220328161159317](E:/Users/Orichalcos/Documents/Note/Images/Mixed/image-20220328161159317.png)
+
+7. 然后勾选刚刚创建的用户，点击【添加权限】：
+
+   ![image-20220328161321740](E:/Users/Orichalcos/Documents/Note/Images/Mixed/image-20220328161321740.png)
+
+8. 搜索 “机器翻译”，单击选中【AliyunMTFullAccess】和【AliyunMTReadOnlyAccess】这两项即可，然后点击【确定】：
+
+   ![image-20220328161442913](E:/Users/Orichalcos/Documents/Note/Images/Mixed/image-20220328161442913.png)
+
+9. 最后在 IDEA 的 Translation 中，选择 阿里翻译并配置：
+
+   ![image-20220328161610458](E:/Users/Orichalcos/Documents/Note/Images/Mixed/image-20220328161610458.png)
 
 <br>
 

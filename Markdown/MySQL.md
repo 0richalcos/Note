@@ -120,6 +120,14 @@ MySQL 为关系型数据库（Relational Database Management System），这种�
 
 	![image-20211115141638695](../Images/MySQL/image-20211115141638695.png)
 
+3. 点击 MySQL Server，下方会出现 Advanced Options（高级选项），点击高级选项，盘它！（这里是第二次装发现的，所以版本不一样）：
+
+	<img src="E:/Users/Orichalcos/Documents/Note/Images/MySQL/image-20220320164455188.png" alt="image-20220320164455188" style="zoom: 67%;" />
+
+3. 这里可以更改安装地址，我建议改一下数据存储地址，防止数据太多占用 C 盘空间，然后点 OK 和 Next：
+
+	<img src="E:/Users/Orichalcos/Documents/Note/Images/MySQL/image-20220320164751257.png" alt="image-20220320164751257" style="zoom:67%;" />
+
 4. 取消了文档：
 
 	![image-20211115141735403](../Images/MySQL/image-20211115141735403.png)
@@ -1309,9 +1317,231 @@ GROUP BY column_name;
 
 <br>
 
-### 7.5.1、WITH  ROLLUP
+### 7.5.1、ROLLUP
 
 在数据库查询语句中，在 `GROUP BY` 表达式之后加上 `WITH ROLLUP` 语句，可以在查询结果中包含更多高层级的统计输出。ROLLUP 功能使得可以通过单个查询语句来实现对数据进行不同层级上的分析与统计。因此，ROLLUP 功能能够很好得为 OLAP（Online Analytical Processing）任务提供支持。
+
+<br>
+
+#### 功能介绍
+
+假如有一个 `sales` 表有 `year`、`country`、`product` 和 `profit` 四列，其中 `profit` 列为某年份某个国家的某种产品的一条收益。数据表的创建语句如下：
+
+```mysql
+CREATE TABLE sales (
+    year INT,
+    country VARCHAR(20),
+    product VARCHAR(32),
+    profit INT
+);
+```
+
+为了方便演示，在数据表中插入如下数据：
+
+```mysql
+INSERT INTO
+    sales (year, country, product, profit)
+VALUES
+    (2000, 'Finland', 'Computer', 500),
+    (2000, 'Finland', 'Computer', 1000),
+    (2000, 'India', 'Calculator', 150),
+    (2000, 'India', 'Computer', 400),
+    (2000, 'Finland', 'Phone', 100),
+    (2001, 'USA', 'Calculator', 50),
+    (2001, 'USA', 'Computer', 2700),
+    (2001, 'USA', 'TV', 1),
+    (2000, 'India', 'Computer', 300),
+    (2000, 'India', 'Computer', 500),
+    (2000, 'USA', 'Calculator', 75),
+    (2000, 'USA', 'Computer', 1500),
+    (2001, 'USA', 'TV', 249),
+    (2001, 'Finland', 'Phone', 10);
+```
+
+我们经常需要使用如下查询语句对某年份某个国家的某种产品的总收益进行汇总：
+
+```mysql
+SELECT
+    year,
+    country,
+    product,
+    SUM(profit) AS profit
+FROM
+    sales
+GROUP BY
+    year,
+    country,
+    product;
+```
+
+查询结果为：
+
+```mysql
++------+---------+------------+--------+
+| year | country | product    | profit |
++------+---------+------------+--------+
+| 2000 | Finland | Computer   |   1500 |
+| 2000 | India   | Calculator |    150 |
+| 2000 | India   | Computer   |   1200 |
+| 2000 | Finland | Phone      |    100 |
+| 2001 | USA     | Calculator |     50 |
+| 2001 | USA     | Computer   |   2700 |
+| 2001 | USA     | TV         |    250 |
+| 2000 | USA     | Calculator |     75 |
+| 2000 | USA     | Computer   |   1500 |
+| 2001 | Finland | Phone      |     10 |
++------+---------+------------+--------+
+```
+
+通常情况下，我们不光需要这种最高层次的统计结果，也需要在更低的层次进行分析。比如说，某年份某个国家在所有产品的收益总和，或者某年份所有国家的收益总和。为了达到这样的效果，我们可能需要对 Group By List 中的属性列进行调整，并重新执行查询语句得到我们需要的结果。但是 ROLLUP 功能使得我们可以仅通过一条查询语句实现上述效果：
+
+```mysql
+SELECT
+    year,
+    country,
+    product,
+    SUM(profit) AS profit
+FROM
+    sales
+GROUP BY
+    year,
+    country,
+    product WITH ROLLUP;
+```
+
+查询结果为：
+
+```mysql
++------+---------+------------+--------+
+| year | country | product    | profit |
++------+---------+------------+--------+
+| 2000 | Finland | Computer   |   1500 |
+| 2000 | Finland | Phone      |    100 |
+| 2000 | Finland | NULL       |   1600 |
+| 2000 | India   | Calculator |    150 |
+| 2000 | India   | Computer   |   1200 |
+| 2000 | India   | NULL       |   1350 |
+| 2000 | USA     | Calculator |     75 |
+| 2000 | USA     | Computer   |   1500 |
+| 2000 | USA     | NULL       |   1575 |
+| 2000 | NULL    | NULL       |   4525 |
+| 2001 | Finland | Phone      |     10 |
+| 2001 | Finland | NULL       |     10 |
+| 2001 | USA     | Calculator |     50 |
+| 2001 | USA     | Computer   |   2700 |
+| 2001 | USA     | TV         |    250 |
+| 2001 | USA     | NULL       |   3000 |
+| 2001 | NULL    | NULL       |   3010 |
+| NULL | NULL    | NULL       |   7535 |
++------+---------+------------+--------+
+```
+
+查询结果中的 `NULL` 值表示该行输出为更低层次上的聚合结果，在带 `WITH ROLLUP` 的聚合时，每当 `GROUP BY` 的属性列（非最后一列）的值发生变化时，查询结果中都会产生额外的聚合行。
+
+因此，借助 `ROLLUP`，我们通过一条查询语句就能够得到 `GROUP BY` 的属性列在不同层次上的聚合结果。适用于需要在不同层次上对数据进行统计分析的场景，不仅省去了写多条查询语句重复查询的麻烦，而且提升了执行效果。
+
+<br>
+
+#### GROUPING()
+
+要检查 `NULL` 结果集中是否表示小计或总计，请使用 `GROUPING()` 函数。
+
+当 `NULL` 在超级聚合时，`GROUPING()` 函数返回 `1` ，否则返回 `0`。`GROUPING()` 函数可用于查询，`HAVING` 子句和 `ORDER BY` 子句。
+
+> 该函数从 MySQL 8.0 开始支持
+
+请考虑以下查询：
+
+```mysql
+SELECT
+    year,
+    country,
+    product,
+    SUM(profit) AS profit,
+    GROUPING(year),
+    GROUPING(country),
+    GROUPING(product)
+FROM
+    sales
+GROUP BY
+    year,
+    country,
+    product WITH ROLLUP;
+```
+
+查询结果为：
+
+```mysql
++------+---------+------------+--------+----------------+-------------------+-------------------+
+| year | country | product    | profit | GROUPING(year) | GROUPING(country) | GROUPING(product) |
++------+---------+------------+--------+----------------+-------------------+-------------------+
+| 2000 | Finland | Computer   |   1500 |              0 |                 0 |                 0 |
+| 2000 | Finland | Phone      |    100 |              0 |                 0 |                 0 |
+| 2000 | Finland | NULL       |   1600 |              0 |                 0 |                 1 |
+| 2000 | India   | Calculator |    150 |              0 |                 0 |                 0 |
+| 2000 | India   | Computer   |   1200 |              0 |                 0 |                 0 |
+| 2000 | India   | NULL       |   1350 |              0 |                 0 |                 1 |
+| 2000 | USA     | Calculator |     75 |              0 |                 0 |                 0 |
+| 2000 | USA     | Computer   |   1500 |              0 |                 0 |                 0 |
+| 2000 | USA     | NULL       |   1575 |              0 |                 0 |                 1 |
+| 2000 | NULL    | NULL       |   4525 |              0 |                 1 |                 1 |
+| 2001 | Finland | Phone      |     10 |              0 |                 0 |                 0 |
+| 2001 | Finland | NULL       |     10 |              0 |                 0 |                 1 |
+| 2001 | USA     | Calculator |     50 |              0 |                 0 |                 0 |
+| 2001 | USA     | Computer   |   2700 |              0 |                 0 |                 0 |
+| 2001 | USA     | TV         |    250 |              0 |                 0 |                 0 |
+| 2001 | USA     | NULL       |   3000 |              0 |                 0 |                 1 |
+| 2001 | NULL    | NULL       |   3010 |              0 |                 1 |                 1 |
+| NULL | NULL    | NULL       |   7535 |              1 |                 1 |                 1 |
++------+---------+------------+--------+----------------+-------------------+-------------------+
+```
+
+当 `NULL` 在 `year`  列发生在行聚合时， `GROUPING(year)` 返回 `1`，否则为 `0`。类似地，当 `NULL` 在 `country` 列发生行聚合时， `GROUPING(country)` 返回 `1` ，否则为 `0`。
+
+我们经常使用 `GROUPING()` 函数将有意义的标签替换为超级聚合 `NULL` 值，而不是直接显示它。
+
+以下示例显示如何将 `IF()` 函数与 `GROUPING()` 函数组合以替换超聚合 `NULL` 值 `year`、`counttry` 和 `product` 列中的标签：
+
+```mysql
+SELECT
+    IF(GROUPING(year), 'ALL Years', year) AS year,
+    IF(GROUPING(country), 'ALL countrys', country) AS country,
+    IF(GROUPING(product), 'ALL products', product) AS product,
+    SUM(profit) AS profit
+FROM
+    sales
+GROUP BY
+    year,
+    country,
+    product WITH ROLLUP;
+```
+
+输出结果：
+
+```mysql
++-----------+--------------+--------------+--------+
+| year      | country      | product      | profit |
++-----------+--------------+--------------+--------+
+| 2000      | Finland      | Computer     |   1500 |
+| 2000      | Finland      | Phone        |    100 |
+| 2000      | Finland      | ALL products |   1600 |
+| 2000      | India        | Calculator   |    150 |
+| 2000      | India        | Computer     |   1200 |
+| 2000      | India        | ALL products |   1350 |
+| 2000      | USA          | Calculator   |     75 |
+| 2000      | USA          | Computer     |   1500 |
+| 2000      | USA          | ALL products |   1575 |
+| 2000      | ALL countrys | ALL products |   4525 |
+| 2001      | Finland      | Phone        |     10 |
+| 2001      | Finland      | ALL products |     10 |
+| 2001      | USA          | Calculator   |     50 |
+| 2001      | USA          | Computer     |   2700 |
+| 2001      | USA          | TV           |    250 |
+| 2001      | USA          | ALL products |   3000 |
+| 2001      | ALL countrys | ALL products |   3010 |
+| ALL Years | ALL countrys | ALL products |   7535 |
++-----------+--------------+--------------+--------+
+```
 
 
 
@@ -5270,34 +5500,90 @@ service mysql restart
 
 # 21、其他
 
-## 1、mysql 里一个汉字占多少字节？
+## 1、MySQL 一个汉字占多少字节
 
-varchar(N)，这里的Ｎ是指字符数，并不是字节数。占用的字节数与编码有关
+`varchar(N)`，这里的 *Ｎ* 是指字符数，并不是字节数。占用的字节数与编码有关
 
 在 mysql 5.1.5-alpha 下测试得出如下结论：
 
+- **latin1（ISO-8859-1的别名）:**
 
+  1 character = 1byte，1 汉字 = 2 character,
 
-**latin1（ISO-8859-1的别名）:**
+  也就是说一个字段定义成 `varchar(200)`，则它可以存储 100 个汉字或者 200 个字母。
 
-1character=1byte，1汉字=2character,
+  这一点要注意，尤其是当字段内容是字母和汉字组成时，尽量假设字段内容都是由汉字组成，据此来设置字段长度。
 
-也就是说一个字段定义成 varchar(200)，则它可以存储 100 个汉字或者 200 个字母。
+- **utf8:**
 
-这一点要注意，尤其是当字段内容是字母和汉字组成时，尽量假设字段内容都是由汉字组成，据此来设置字段长度
+  1 character = 3 bytes，1 汉字 = 1 character
 
+  也就是说一个字段定义成 `varchar(200)`，则它可以存储 200 个汉字或者 200 个字母。
 
+- **gbk:**
 
-**utf8:**
+  1 character = 2 bytes，1 汉字=1character
 
-1character=3bytes，1汉字=1character
+  也就是说一个字段定义成 `varchar(200)`，则它可以存储 200 个汉字或者 200 个字母。
 
-也就是说一个字段定义成 varchar(200)，则它可以存储 200 个汉字或者 200 个字母。
+<br>
 
+## 2、MySQL 自定义函数报错
 
+在 MySQL 中创建自定义函数报错信息如下：
 
-**gbk:**
+```
+ERROR 1418 (HY000): This function has none of DETERMINISTIC, NO SQL, or READS SQL DATA in its declaration and binary logging is enabled (you *might* want to use the less safe log_bin_trust_function_creators variable)
+```
 
-1character=2bytes，1汉字=1character
+解决方法：
 
-也就是说一个字段定义成 varchar(200)，则它可以存储 200 个汉字或者 200 个字母。
+```mysql
+mysql>set global log_bin_trust_function_creators=1;
+```
+
+<br>
+
+## 3、MySQL 8.0 Public Key Retrieval is not allowed
+
+在使用 JDBC 连接 MySQL 8.0 时，可能会出现 “Public Key Retrieval is not allowed” 的错误：
+
+````
+com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: Public Key Retrieval is not allowed
+````
+
+首先需要了解 MySQL 配置的密码认证插件为如下两种：
+
+- sha256_password
+- caching_sha2_password
+
+值得注意的是，如果使用 “mysql_native_password” 密码认证插件，不会出现 “Public Key Retrieval is not allowed”。MySQL 配置的密码认证方式可以通过如下命令进行查看：
+
+```mysql
+show variables like '%authentication%';
+```
+
+接着来详细分析 “Public Key Retrieval is not allowed” 错误产生的原因：MySQL 8.0 默认推荐使用 “sha256_password” 和 “caching_sha2_password” 这两种认证插件。只有较老的 MySQL 版本仍然会使用 “mysql_native_password”。
+
+根据 MySQL 提供的[官方文档](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html)，这两种插件都是使用 SHA256 算法来对密码进行保护。这些插件的具体执行流程如下：
+
+1. 检查客户端是否禁用 SSL/TLS 加密传输；
+2. 如果客户端未禁用 SSL/TLS 加密传输，则客户端在进行认证时的认证报文（传输用户名和密码的报文）是使用 TLS 进行传输的，两种插件认为认证报文传输安全，不进行任何其他操作；
+3. 如果客户端禁用 SSL/TLS 加密传输，则客户端在进行认证时的认证报文（传输用户名和密码的报文）是使用明文进行传输的，两种插件认为认证报文传输不安全，会单独对明文报文中的密码使用 RSA 加密方式进行加密。
+
+根据前面的分析，导致 “Public Key Retrieval is not allowed” 主要是由于当禁用 SSL/TLS 协议传输后，客户端会使用服务器的公钥进行传输，默认情况下客户端不会主动去找服务器拿公钥，此时就会出现上述错误。
+
+经过查阅官方文档，出现 Public Key Retrieval 的场景可以概括为在禁用 SSL/TLS 协议传输切当前用户在服务器端没有登录缓存的情况下，客户端没有办法拿到服务器的公钥。具体的场景如下：
+
+1. 新建数据库用户，首次登录；
+2. 数据库的用户名、密码发生改变后登录；
+3. 服务器端调用 `FLUSH PRIVELEGES` 指令刷新服务器缓存。
+
+针对上述错误，有如下的解决方案：
+
+1. 在条件允许的情况下，不要禁用 SSL/TLS 协议，即不要在 CLI 客户端使用 `--ssl-mode=disabled`，或在 JDBC 连接串中加入 `useSSL=false`
+2. 如果必须禁用 SSL/TLS 协议，则可以尝试使用 CLI 客户端登录一次 MySQL 数据库制造登录缓存
+3. 如果必须禁用 SSL/TLS 协议，则可以通过增加如下参数允许客户端获得服务器的公钥：
+   - 在 JDBC 连接串中加入 `allowPublicKeyRetrieval=true` 参数
+   - 在 CLI 客户端连接时加入 `--get-server-public-key` 参数
+   - 在 CLI 客户端连接时加入 `--server-public-key-path=file_name` 参数，指定存放在本地的公钥文件
