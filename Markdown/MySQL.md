@@ -1104,28 +1104,27 @@ SELECT field1, field2,…fieldN FROM TABLE_name1, TABLE_name2…
 [WHERE BINARY condition1 [AND | OR] condition2…]
 ```
 
-
+<br>
 
 ### 7.2.1、WHERE的运算符
 
-| 运算符  | 描述                                                  |
-| ------- | ----------------------------------------------------- |
-| =       | 等于                                                  |
-| <>      | 不等于。注释：在 SQL 的一些版本中，该操作符可被写成!= |
-| >       | 大于                                                  |
-| <       | 小于                                                  |
-| >=      | 大于等于                                              |
-| <=      | 小于等于                                              |
-| BETWEEN | 在某个范围内。实例：`BETWEEN 1 AND 3` => [1,3]        |
-| LIKE    | 搜索某种模式                                          |
-| IN      | 指定针对某个列的多个可能值。实例：`IN(1,2,3)`         |
-| AND     | 与                                                    |
-| OR      | 或                                                    |
-| NOT     | 非                                                    |
+| 运算符    | 描述                                                         |
+| --------- | ------------------------------------------------------------ |
+| `=`       | 等于                                                         |
+| `<>`      | 不等于。注释：在 SQL 的一些版本中，该操作符可被写成 `!=`     |
+| `<=>`     | 严格比较两个 `NULL` 值是否相等，两个操作码均为 `NULL` 时，其所得值为 `1`；当一个操作码为 `NULL` 时，其所得值为 `0` |
+| `>`       | 大于                                                         |
+| `<`       | 小于                                                         |
+| `>=`      | 大于等于                                                     |
+| `<=`      | 小于等于                                                     |
+| `BETWEEN` | 在某个范围内。实例：`BETWEEN 1 AND 3` => [1,3]               |
+| `LIKE`    | 搜索某种模式                                                 |
+| `IN`      | 指定针对某个列的多个可能值。实例：`IN(1,2,3)`                |
+| `AND`     | 与                                                           |
+| `OR`      | 或                                                           |
+| `NOT`     | 非                                                           |
 
-逻辑运算的优先级：() > ONT > AND > OR
-
-
+<br>
 
 **MySQL的整除和取余**
 
@@ -1141,13 +1140,7 @@ SELECT field1, field2,…fieldN FROM TABLE_name1, TABLE_name2…
 5 MOD 2 = 1;
 ```
 
-四舍五入：`ROUND`
-
-```mysql
-ROUND(1.5) = 2;
-```
-
-
+<br>
 
 ### 7.2.2、LIKE 子句
 
@@ -4805,7 +4798,7 @@ SELECT STR_TO_DATE('2019年01月17日 19时05分05秒','%Y年%m月%d日 %H时%i�
 
 ### 17.2.1、拆分与拼接
 
-**SUBSTRING()**
+**SUBSTRING(string, position, length)**
 
 `SUBSTRING()` 函数从特定位置开始的字符串返回一个给定长度的子字符串。 MySQL 提供了各种形式的子串功能。
 
@@ -4819,14 +4812,22 @@ SUBSTRING(string FROM position FOR length);
 参数：
 
 - *string*：要提取的字符串
-- *position*：起始下标，可以是负数，MySQL 下标从 1 开始
+- *position*：起始下标，可以是负数
 - *length*：长度
+
+> 在 MySQL 中，下标索引是从 1 开始的，而不是像 Java 中从 0 开始。
 
 <br>
 
-**CONCAT()**
+**CONCAT(str1, str2, …)**
 
 返回连接参数产生的字符串，一个或多个待拼接的内容，任意一个为 `NULL` 则返回值为 `NULL`。
+
+<br>
+
+**CONCAT_WS(separator, str1, str2, …)**
+
+`CONCAT_WS()` 代表 CONCAT With Separator ，是 `CONCAT()` 的特殊形式。 第一个参数 *separator* 是其它参数的分隔符。分隔符的位置放在要连接的两个字符串之间。分隔符可以是一个字符串，也可以是其它参数。如果分隔符为 `NULL`，则结果为 `NULL`。函数会忽略任何分隔符参数后的 `NULL` 值。
 
 <br>
 
@@ -4865,6 +4866,64 @@ CONVERT(value USING charset);
 - *value*：要转换的值
 - *type*：目标类型，可以是以下类型之一：`BINARY`、`CHAR`、`DATE`、`DATETIME`、`TIME`、`SIGNED`、`UNSIGNED`。
 - *charset*：要转换为的字符集
+
+<br>
+
+### 17.2.3、GROUP_CONCAT()
+
+MySQL `GROUP_CONCAT()` 函数将组中的字符串连接成为具有各种选项的单个字符串。
+
+下面说明了`GROUP_CONCAT()`函数的语法：
+
+```mysql
+GROUP_CONCAT(DISTINCT expression
+    ORDER BY expression
+    SEPARATOR sep);
+```
+
+`DISTINCT` 子句用于在连接分组之前消除组中的重复值。
+
+`ORDER BY` 子句允许在连接之前按升序或降序排序值。 默认情况下按升序排序值，如果要按降序对值进行排序，则需要明确指定 `DESC` 选项。
+
+`SEPARATOR` 指定在组中的值之间插入的文字值。如果不指定分隔符，则 `GROUP_CONCAT()` 函数使用逗号 `,` 作为默认分隔符。
+
+`GROUP_CONCAT()` 函数忽略 `NULL` 值，如果找不到匹配的行，或者所有参数都为 N`U`LL值，则返回 `NULL`。
+
+`GROUP_CONCAT()` 函数返回二进制或非二进制字符串，这取决于参数。 默认情况下，返回字符串的最大长度为 1024。如果您需要更多的长度，可以通过在 SESSION 或 GLOBAL 级别设置 `group_concat_max_len` 系统变量来扩展最大长度。
+
+以下是演示 `GROUP_CONCAT()` 函数如何工作的一个示例：
+
+```mysql
+USE testdb;
+
+CREATE TABLE t (
+    v CHAR
+);
+
+INSERT INTO t(v) VALUES('A'),('B'),('C'),('B');
+
+SELECT 
+    GROUP_CONCAT(
+        DISTINCT v
+        ORDER BY v ASC
+        SEPARATOR ';'
+    )
+FROM
+    t;
+```
+
+执行上面查询语句，得到以下结果：
+
+```mysql
++---------------------------------------------------------------------+
+| GROUP_CONCAT(DISTINCT v ORDER BY v ASC SEPARATOR ';')               |
++---------------------------------------------------------------------+
+| A;B;C                                                               |
++---------------------------------------------------------------------+
+1 row in set
+```
+
+> 注：上面语句类似于把 `SELECT v FROM t GROUP BY v;` 语句的结果串接起来。
 
 <br>
 
