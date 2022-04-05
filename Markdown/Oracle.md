@@ -165,3 +165,68 @@ instr(sourceString, destString, start, appearPosition)
 - *appearPosition* 代表想从源字符中查找出第几次出现的 *destString*，该参数也是可选的，默认为 1。
 
 返回值为：查找到的字符串的位置。
+
+<br>
+
+## 2.2、树形结构层级查询
+
+通常，在查询树形结构的数据时，需要使用 `START WITH...CONNECT BY PRIOR` 的方式查询。
+
+`START WITH...CONNECT BY PRIOR` 的语法为：
+
+```sql
+SELECT 字段
+FROM 表名
+WHERE condition1
+START WITH condition2
+CONNECT BY PRIOR condition3
+```
+
+参数：
+
+- *condition1*：过滤条件
+- *condition2*：起始的查询条件，指定根节点，当然可以放宽限定条件，以取得多个根结点，实际就是多棵树
+- *condition3*：指定父节点和子节点直接的关系，`PRIOR` 指定父节点
+
+<br>
+
+**示例**
+
+假设现有部门表 `DEPARTMENT`，部门表中字段包括 `DEPID`（部门 ID），`PARENTDEPID`（父部门 ID），`DEPNAME`（部门名称）
+
+1、我们要查询部门 `ID="1110"` 的部门的所有父部门的 ID 和名称（包含部门 `ID="1110"` 的部门，不包含可通过 `WHERE` 条件过滤）
+
+```sql
+SELECT DEPID, DEPNAME
+FROM FW_DEPARTMENT
+-- WHERE DEPID <> '1110'
+START WITH DEPID = '1110'
+CONNECT BY PRIOR PARENTDEPID = DEPID 
+```
+
+2、我们要查询部门 `ID="1110"` 的部门的所有子部门的 ID 和名称（包含部门 `ID="1110"` 的部门，不包含可通过 `WHERE` 条件过滤）
+
+```sql
+SELECT DEPID, DEPNAME
+FROM FW_DEPARTMENT
+-- WHERE DEPID <> '1110'
+START WITH DEPID = '1110'
+CONNECT BY PRIOR DEPID = PARENTDEPID
+```
+
+从上面 2 个 SQL 可以发现：
+
+- 查询当前节点的所有父节点时，需要将 `PRIOR` 放在父节点左侧
+- 查询当前节点的所有子节点时，需要将 `PRIOR` 放在子节点左侧
+
+<br>
+
+**排序**
+
+在层次查询中，如果想让 “亲兄弟” 按规矩进行升序排序就不得不借助 `ORDERSIBLINGS BY` 这个特定的排序语句而非 `ORDER BY` 子句，若要降序输出可以在其后添加 `DESC` 关键字。
+
+<br>
+
+## 2.3、关于 Oracle 中的 AS
+
+在 Oracle 中 `AS` 关键字不能用于指定表的别名，在 Oracle 中指定表的别名时只需在原有表名和表的别名之间用空格分隔即可，指定列的别名的用法和 MySQL 相同，但在存储过程中如果列的别名与原有列名相同，在运行时会报错（编译时不会出错），其他情况下列的别名可以与列名本身相同。
