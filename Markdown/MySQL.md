@@ -4887,7 +4887,7 @@ GROUP_CONCAT(DISTINCT expression
 
 `SEPARATOR` 指定在组中的值之间插入的文字值。如果不指定分隔符，则 `GROUP_CONCAT()` 函数使用逗号 `,` 作为默认分隔符。
 
-`GROUP_CONCAT()` 函数忽略 `NULL` 值，如果找不到匹配的行，或者所有参数都为 N`U`LL值，则返回 `NULL`。
+`GROUP_CONCAT()` 函数忽略 `NULL` 值，如果找不到匹配的行，或者所有参数都为 `NULL` 值，则返回 `NULL`。
 
 `GROUP_CONCAT()` 函数返回二进制或非二进制字符串，这取决于参数。 默认情况下，返回字符串的最大长度为 1024。如果您需要更多的长度，可以通过在 SESSION 或 GLOBAL 级别设置 `group_concat_max_len` 系统变量来扩展最大长度。
 
