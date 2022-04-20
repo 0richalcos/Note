@@ -122,11 +122,11 @@ MySQL 为关系型数据库（Relational Database Management System），这种�
 
 3. 点击 MySQL Server，下方会出现 Advanced Options（高级选项），点击高级选项，盘它！（这里是第二次装发现的，所以版本不一样）：
 
-	<img src="E:/Users/Orichalcos/Documents/Note/Images/MySQL/image-20220320164455188.png" alt="image-20220320164455188" style="zoom: 67%;" />
+	<img src="../Images/MySQL/image-20220320164455188.png" alt="image-20220320164455188" style="zoom: 67%;" />
 
 3. 这里可以更改安装地址，我建议改一下数据存储地址，防止数据太多占用 C 盘空间，然后点 OK 和 Next：
 
-	<img src="E:/Users/Orichalcos/Documents/Note/Images/MySQL/image-20220320164751257.png" alt="image-20220320164751257" style="zoom:67%;" />
+	<img src="../Images/MySQL/image-20220320164751257.png" alt="image-20220320164751257" style="zoom:67%;" />
 
 4. 取消了文档：
 
