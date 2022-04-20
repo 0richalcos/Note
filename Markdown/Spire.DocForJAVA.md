@@ -40,7 +40,7 @@ Spire.Doc for Java 能执行多种 Word 文档处理任务，包括生成、读�
 
 以下为两个示例文档，标注内容是它们的内容差异：
 
-![Java 比较两个 Word 文档的内容](E:/Users/Orichalcos/Documents/Note/Images/Spire.DocForJAVA/Compare-two-Word-documents-in-Java-1.png)
+![Java 比较两个 Word 文档的内容](../Images/Spire.DocForJAVA/Compare-two-Word-documents-in-Java-1-16504706498001.png)
 
 代码示例：
 
@@ -67,5 +67,5 @@ public class Comparison {
 
 比较结果：
 
-![Java 比较两个 Word 文档的内容](E:/Users/Orichalcos/Documents/Note/Images/Spire.DocForJAVA/Compare-two-Word-documents-in-Java-2.png)
+![Java 比较两个 Word 文档的内容](../Images/Spire.DocForJAVA/Compare-two-Word-documents-in-Java-2.png)
 
