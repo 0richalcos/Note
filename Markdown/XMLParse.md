@@ -884,6 +884,8 @@ XPath 通配符可用来选取未知的 XML 元素。
 
 | 路径表达式                       | 结果                                                         |
 | :-------------------------------- | :------------------------------------------------------------ |
-| ```//book/title |//book/price``` | 选取 book 元素的所有 title 和 price 元素。                   |
-| ```//title |//price```           | 选取文档中的所有 title 和 price 元素。                       |
-| ```/bookstore/book/title |//price``` | 选取属于 bookstore 元素的 book 元素的所有 title 元素，以及文档中所有的 price 元素。 |
+| `//book/title [斜杆]//book/price` | 选取 book 元素的所有 title 和 price 元素。                   |
+| `//title [斜杆]//price`       | 选取文档中的所有 title 和 price 元素。                       |
+| `/bookstore/book/title [斜杆]//price` | 选取属于 bookstore 元素的 book 元素的所有 title 元素，以及文档中所有的 price 元素。 |
+
+> 由于 MarkDown 转义问题，上面三个路径表达式的 `|` 被 `[斜杆]` 替换，使用时需替换回来
