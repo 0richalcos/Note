@@ -126,6 +126,17 @@ public String variables(ModelMap model, HttpSession session) {
 ctx.getVariable("message");
 ```
 
+> 此外 `Thymeleaf` 的官方文档中提到了 `${@myBean.doSomething()}` 可以访问容器中 bean 的数据。
+>
+> ```java
+> @Service("myBean")
+> public class DictService{
+>  public String doSomething(){
+>      return "Hello World!";
+>  }
+> }
+> ```
+
 <br>
 
 ### 2.1.2、*{...}
@@ -275,17 +286,6 @@ welcome.user.message = {0}, Welcome to BeiJing!
 <!-- /user/fanlychie/info -->
 <p th:text="@{/user/{username}/info(username=${session.user.name})}"></p>
 ```
-
-> 此外 `Thymeleaf` 的官方文档中提到了 `${@myBean.doSomething()}` 可以访问容器中 bean 的数据。
->
-> ```java
-> @Service("myBean")
-> public class DictService{
->     public String doSomething(){
->         return "Hello World!";
->     }
-> }
-> ```
 
 <br>
 

@@ -68,4 +68,3 @@ public class Comparison {
 比较结果：
 
 ![Java 比较两个 Word 文档的内容](../Images/Spire.DocForJAVA/Compare-two-Word-documents-in-Java-2.png)
-

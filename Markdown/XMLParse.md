@@ -606,18 +606,13 @@ public class JDomTest {
 
 # 4、DOM4J 解析
 
-特征：
+DOM4J 是一个 Java 的 XML API，是 JDOM 的升级品，用来读写 XML 文件的
 
-- JDOM 的一种智能分支，它合并了许多超出基本 XML 文档表示的功能。
-- 它使用接口和抽象基本类方法。
-- 具有性能优异、灵活性好、功能强大和极端易用的特点。
-- 是一个开放源码的文件
-- 可移植性差
-- 不可通过节点名获取节点
+DOM4J 是 JDOM 的一种智能分支，它合并了许多超出基本 XML 文档表示的功能。它使用接口和抽象基本类方法。具有性能优异、灵活性好、功能强大和极端易用的特点。是一个开放源码的文件。
 
 <br>
 
-以下是完整测试代码
+以下是完整测试代码：
 
 ```java
 package com.xiaobaizhiqian;
@@ -720,3 +715,175 @@ public class Dom4jTest {
 }
 ```
 
+<br>
+
+## 4.1、XPath 技术
+
+XPath 是一门在 XML 文档中查找信息的语言。在 DOM4J 解析中使用 XPath 技术可以快速的获取节点。XPath 技术有点像正则表达式，是一种语法格式，通过这种语法可以快速捕获节点。
+
+引入 Jaxen 包（Jaxen 是 Java 的通用 XPath 引擎）：
+
+```xml
+<!-- https://mvnrepository.com/artifact/jaxen/jaxen -->
+<dependency>
+    <groupId>jaxen</groupId>
+    <artifactId>jaxen</artifactId>
+    <version>1.2.0</version>
+</dependency>
+```
+
+<br>
+
+**案例：**
+
+book.xml 文件：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DTD -->
+<!-- <!DOCTYPE books [
+	<!ELEMENT books (book*)>
+	<!ELEMENT book (name,author,price)>
+	<!ELEMENT name (#PCDATA)>
+	<!ELEMENT author (#PCDATA)>
+	<!ELEMENT price (#PCDATA)>
+	<!ATTLIST book id CDATA #REQUIRED>
+]>
+ -->
+<books xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="{book.xsd}">
+	<book id="1001">
+		<name>java开发实战</name>
+		<author>张小三</author>
+		<price>98.5</price>
+	</book>
+	
+	<book id="1002">
+		<name>mysql从删库到跑路</name>
+		<author>飞毛腿</author>
+		<price>1000</price>
+	</book>
+</books>
+```
+
+TestXPath.java：
+
+```java
+import java.util.List;
+ 
+import org.dom4j.Attribute;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Node;
+import org.dom4j.io.SAXReader;
+ 
+public class TestXPath {
+ 
+	public static void main(String[] args) throws DocumentException {
+		//1、SAXReader对象
+		SAXReader reader=new SAXReader();
+		//2、读取XML文件
+		Document doc=reader.read("book.xml");
+		//得到第一个author节点
+		Node node=doc.selectSingleNode("//author");
+		System.out.println("节点的名称："+node.getName()+"t"+node.getText());
+		//获取所有的author
+		System.out.println("n-------------------------");
+		List<Node> list=doc.selectNodes("//author");
+		for(Node n:list){
+			System.out.println("节点名称："+n.getName()+"t"+n.getText());
+		}
+		//选择id属性的book元素
+		List<Attribute> attList=doc.selectNodes("//book/@id");
+		for(Attribute att:attList){
+			System.out.println("属性的名称："+att.getName()+"t"+att.getText());
+		}
+	}
+ 
+}
+```
+
+<br>
+
+## 4.2、XPath 语法
+
+XPath 使用路径表达式来选取 XML 文档中的节点或节点集。节点是通过沿着路径（path）或者步（steps）来选取的。
+
+<br>
+
+**选取节点**
+
+XPath 使用路径表达式在 XML 文档中选取节点。节点是通过沿着路径或者 step 来选取的。 下面列出了最有用的路径表达式：
+
+| 表达式     | 描述                                                         |
+| :--------- | :----------------------------------------------------------- |
+| `nodename` | 选取此节点的所有子节点。                                     |
+| `/`        | 从根节点选取（取子节点）。                                   |
+| `//`       | 从匹配选择的当前节点选择文档中的节点，而不考虑它们的位置（取子孙节点）。 |
+| `.`        | 选取当前节点。                                               |
+| `..`       | 选取当前节点的父节点。                                       |
+| `@`        | 选取属性。                                                   |
+
+在下面的表格中列出了一些路径表达式以及表达式的结果：
+
+| 路径表达式        | 结果                                                         |
+| :---------------- | :----------------------------------------------------------- |
+| `bookstore`       | 选取 bookstore 元素的所有子节点。                            |
+| `/bookstore`      | 选取根元素 bookstore。注释：假如路径起始于正斜杠 `/`，则此路径始终代表到某元素的绝对路径！ |
+| `bookstore/book`  | 选取属于 bookstore 的子元素的所有 book 元素。                |
+| `//book`          | 选取所有 book 子元素，而不管它们在文档中的位置。             |
+| `bookstore//book` | 选择属于 bookstore 元素的后代的所有 book 元素，而不管它们位于 bookstore 之下的什么位置。 |
+| `//@lang`         | 选取名为 lang 的所有属性。                                   |
+
+<br>
+
+**谓语（Predicates）**
+
+谓语用来查找某个特定的节点或者包含某个指定的值的节点。谓语被嵌在方括号中。
+
+在下面的表格中列出了带有谓语的一些路径表达式，以及表达式的结果：
+
+| 路径表达式                            | 结果                                                         |
+| :------------------------------------ | :----------------------------------------------------------- |
+| `/bookstore/book[1]`                  | 选取属于 bookstore 子元素的第一个 book 元素。                |
+| `/bookstore/book[last()]`             | 选取属于 bookstore 子元素的最后一个 book 元素。              |
+| `/bookstore/book[last()-1]`           | 选取属于 bookstore 子元素的倒数第二个 book 元素。            |
+| `/bookstore/book[position()<3]`       | 选取最前面的两个属于 bookstore 元素的子元素的 book 元素。    |
+| `//title[@lang]`                      | 选取所有拥有名为 lang 的属性的 title 元素。                  |
+| `//title[@lang='eng']`                | 选取所有 title 元素，且这些元素拥有值为 eng 的 lang 属性。   |
+| `/bookstore/book[price>35.00]`        | 选取 bookstore 元素的所有 book 元素，且其中的 price 元素的值须大于 35.00。 |
+| `/bookstore/book[price>35.00]//title` | 选取 bookstore 元素中的 book 元素的所有 title 元素，且其中的 price 元素的值须大于 35.00。 |
+
+<br>
+
+**选取未知节点**
+
+XPath 通配符可用来选取未知的 XML 元素。
+
+| 通配符   | 描述                 |
+| :------- | :------------------- |
+| `*`      | 匹配任何元素节点。   |
+| `@*`     | 匹配任何属性节点。   |
+| `node()` | 匹配任何类型的节点。 |
+
+在下面的表格中列出了一些路径表达式，以及这些表达式的结果：
+
+| 路径表达式     | 结果                              |
+| :------------- | :-------------------------------- |
+| `/bookstore/*` | 选取 bookstore 元素的所有子元素。 |
+| `//*`          | 选取文档中的所有元素。            |
+| `//title[@*]`  | 选取所有带有属性的 title 元素。   |
+
+<br>
+
+**选取若干路径**
+
+通过在路径表达式中使用 `|` 运算符可以选取若干个路径。
+
+在下面的表格中列出了一些路径表达式，以及这些表达式的结果：
+
+| 路径表达式                        | 结果                                                         |
+| :-------------------------------- | :----------------------------------------------------------- |
+| `//book/title | //book/price`     | 选取 book 元素的所有 title 和 price 元素。                   |
+| `//title | //price`               | 选取文档中的所有 title 和 price 元素。                       |
+| `/bookstore/book/title | //price` | 选取属于 bookstore 元素的 book 元素的所有 title 元素，以及文档中所有的 price 元素。 |
