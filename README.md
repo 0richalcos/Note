@@ -56,6 +56,7 @@
 - [**Thymeleaf**](https://github.com/0richalcos/Note/blob/main/Markdown/Thymeleaf.md)
 - [**Bootstrap Table**](https://github.com/0richalcos/Note/blob/main/Markdown/BootstrapTable.md)
 - [**Axios**](https://github.com/0richalcos/Note/blob/main/Markdown/Axios.md)
+- [**AntV-X6**](https://github.com/0richalcos/Note/blob/main/Markdown/AntV-X6.md)
 
 
 
