@@ -12,7 +12,7 @@
 
 > 把脚本置于 `<body>` 元素的底部，可改善显示速度，因为脚本编译会拖慢显示。
 
-外部脚本很实用，如果相同的脚本被用于许多不同的网页。
+如果相同的脚本被用于许多不同的网页，可将脚本放置于外部文件中。
 
 在外部文件中放置脚本有如下优势：
 
@@ -20,7 +20,46 @@
 - 使 HTML 和 JavaScript 更易于阅读和维护
 - 已缓存的 JavaScript 文件可加速页面加载
 
+<br>
 
+**JS 文件中引入另一个JS文件**
+
+1. 在调用文件的顶部加入下例代码：
+   ```javascript
+   document.write("<script language=javascript src="+url+"></script>");
+   ```
+
+   > 注：有时引用的文件还可能需要引用其他的 JS，我们需要将需要的那个 JS 文件也以同样的方法引用进来。
+
+2. 在 JS 中写如下代码：
+   ```javascript
+   function addScript(url){
+   	var script = document.createElement('script');
+   	script.setAttribute('type','text/javascript');
+   	script.setAttribute('src',url);
+   	document.getElementsByTagName('head')[0].appendChild(script);
+   }
+   ```
+
+   利用 `document.createElement("script")` 生成了一个 `script` 的标签，设置其 `type` 属性为 `text/javascript`。
+
+3. 利用 ES6 中 `export` 和 `import` 实现模块化：
+
+   一个 JS 文件代表一个 JS 模块 。ES6 引入外部模块分两种情况：
+
+   1. 导入外部的变量或函数等：
+
+      ```javascript
+      import {firstName, lastName} from './test';
+      ```
+
+   2. 导入外部的模块，并立即执行：
+      ```javascript
+      import './test'
+      //执行test.js，但不导入任何变量
+      ```
+
+<br>
 
 ## 1.2、JS Let
 
@@ -32,7 +71,7 @@ ES2015 引入了两个重要的 JavaScript 新关键词：`let` 和 `const`。
 
 在 ES2015 之前，JavaScript 只有两种类型的作用域：**全局作用域**和**函数作用域**。
 
-
+<br>
 
 ### 1.2.1、作用域
 
@@ -1542,6 +1581,125 @@ var person2 = {
 }
 person1.fullName.call(person2);  // 会返回 "Bill Gates"
 ```
+
+<br>
+
+## 2.6、void 0
+
+众所周知，`undefined` 是 JS 语言中的 7 大基本类型之一，表示未定义，它的值只有一个，就是 `undefined`。任何变量在赋值前都是 `undefined`。
+
+而在一些框架源码中，会出现一些这样的表达式：
+
+```javascript
+function foo() {
+    var a  = arguments[0] !== (void 0 ) ? arguments[0] : 2;
+    return a; 
+}
+```
+
+这是 《你不知道的JavaScript》的一段代码，用于实现 ES6 中函数参数默认值的 `transpiling` 处理，为了让不支持 ES6 这个新特性的浏览器可以正常使用。
+
+正如你可以看到的，它会检查 `arguments[0]` 的值是否为 `void 0`（也就是 `undefined`），如果是的话就提供默认值 `2`；否则就使用传入值。
+
+<br>
+
+**什么是void？**
+
+MDN中对void有这么一段说明：
+
+```js
+The void operator evaluates the given expression and then returns undefined.
+```
+
+翻译过来意思是：`void` 操作符对给定的表达式求值，然后返回 `undefined`。
+
+在 JavaScript 中 `void` 是一元运算符，出现在操作数的左边，操作数可以是任意类型的值，`void` 右边的表达式可以是带括号形式（例如：`void(0)`），也可以是不带括号的形式（例如：`void 0`）。
+
+<br>
+
+**为什么用 void 0 代替 undefined?**
+
+`void 0` 返回 `undefined`，我们都知道的，但是为什么不直接 `arguments[0] !== undefined`?
+
+1. `undefined` 可以被重写：
+
+   在 ES5 的全局环境中，`undefined` 是只读的，但是在部分低级别的浏览器（IE7,IE8）中可以被修改。而在局部作用域中，`undefined` 也是可变的。这个是 JS 语言公认的设计失误之一。
+   ```javascript
+   (function() {
+     var undefined = 10;
+    
+     // 10 -- chrome
+     alert(undefined);
+   })();
+    
+   (function() {
+     undefined = 10;
+    
+     // undefined -- chrome
+     alert(undefined);
+   })();
+   ```
+
+2. 从性能方面： `void 0` 比 `undefined` 少了三个字节：
+
+   当源码中有大量用 `undefined` 判断的时候，这个优化还是值得关注的。
+
+   ```javascript
+   >"undefined".length
+   9
+   >"void 0".length
+   6
+   ```
+
+3. 保证结果不变性：
+
+   `undefined` 并不是 Javascript中的保留字，我们可以使用 `undefined` 作为变量名字，然后给它赋值。`void 0` 输出唯一的结果 `undefined`，保证了不变性。
+
+<br>
+
+**void 0 应用场景**
+
+1. 立即调用的函数表达式：
+
+   在使用**立即执行的函数表达式**时，可以利用 `void` 运算符让 JavaScript 引擎把一个 `function` 关键字识别成函数表达式而不是函数声明（语句）。
+   ```javascript
+   void function iife() {
+       var bar = function () {};
+       var baz = function () {};
+       var foo = function () {
+           bar();
+           baz();
+        };
+       var biz = function () {};
+   
+       foo();
+       biz();
+   }();
+   ```
+
+2. `javascript URIs`：
+
+   当用户点击一个以 `javascript:` 开头的 URI 时，它会执行 URI 中的代码，然后用返回的值替换页面内容，除非返回的值是 `undefined`。`void` 运算符可用于返回 `undefined`。例如：
+   ```html
+   <a href="javascript:void(0);">
+     这个链接点击之后不会做任何事情，如果去掉 void()，
+     点击之后整个页面会被替换成一个字符 0。
+   </a>
+   <p> chrome中即使<a href="javascript:0;">也没变化，firefox中会变成一个字符串0 </p>
+   <a href="javascript:void(document.body.style.backgroundColor='green');">
+     点击这个链接会让页面背景变成绿色。
+   </a>
+   ```
+
+   注意，虽然这么做是可行的，但利用 `javascript:` 伪协议来执行 JavaScript 代码是不推荐的，推荐的做法是为链接元素绑定事件。
+
+3. 箭头函数中避免泄漏：
+
+   箭头函数标准中，允许在函数体不使用括号来直接返回值。 如果右侧调用了一个原本没有返回值的函数，其返回值改变后，则会导致非预期的副作用。 安全起见，当函数返回值是一个不会被使用到的时候，应该使用 `void` 运算符，来确保返回 `undefined`（如下方示例），这样，当 API 改变时，并不会影响箭头函数的行为。
+
+   ```javascript
+   button.onclick = () => void doSomething();
+   ```
 
 <br>
 
