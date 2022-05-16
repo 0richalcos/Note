@@ -29,7 +29,7 @@
 
    > 注意：在核心库（Bootstrap，jQuery-ui）的引用之后引用 X-ededible！
 
-3. 标记元素应该是可编辑的。通常它是标签 `<a></a>` 并具有附加`data-*`属性：
+3. 标记元素应该是可编辑的。通常它是标签 `<a></a>` 并具有附加 `data-*` 属性：
 
    ```html
    <a href="#" id="username" data-type="text" data-pk="1" data-url="/post" data-title="Enter username">Oricha</a>
@@ -75,7 +75,7 @@
    {
        name:  'username',  //字段名称 (数据库中的列)
        pk:    1            //主键 (记录 id)
-       value: 'superuser!' //新仁
+       value: 'superuser!' //新值
    }
    ```
 
@@ -98,7 +98,7 @@ $.fn.editable.defaults.ajaxOptions = {type: "PUT"};
 
 **JSON 响应**
 
-如果服务器返回 JSON，可以在响应正文中发送带有错误标志的 **HTTP status 200**。然后使用 `success()`  处理程序：
+如果服务器返回 JSON，可以在响应正文中发送带有错误标志的 **HTTP status 200**，然后使用 `success()`  处理程序：
 
 ```javascript
 //假设服务器响应：200 Ok {status: 'error', msg: 'field cannot be empty!'}
@@ -161,7 +161,7 @@ ajaxOptions: {
 - 类型：string
 - 默认：'auto'
 
-允许根据元素的值自动设置元素的文本。值可以为： `auto|always|never`：
+允许根据元素的值自动设置元素的文本。值可以为： auto、always、never：
 
 - `auto`：仅当元素为空时才会自动设置文本
 - `always|`：总是从不尝试设置元素的文本
@@ -314,7 +314,7 @@ success: function(response, newValue) {
 - 类型：string
 - 默认：'click'
 
-如何切换可编辑。可以为：`click|dblclick|mouseenter|manual`。
+如何切换可编辑。可以为：click、dblclick、mouseenter、manual。
 
 设置为 `manual` 时需要手动调用 X-editable 的 `show/hide` 的方法。
 
@@ -405,21 +405,21 @@ $('#price').editable({
 | 名称          | 类型                     | 默认             | 描述                                                         |
 | :------------ | :----------------------- | :--------------- | :----------------------------------------------------------- |
 | anim          | string                   | false            | 动画速度（仅限内联模式）                                     |
-| defaultValue  | string\|object           | null             | 当原始字段值为空（`null|undefined|''`）时在输入中显示的值。  |
+| defaultValue  | string\|object           | null             | 当原始字段值为空（null、undefined、''）时在输入中显示的值。  |
 | disabled      | boolean                  | false            | 设置可编辑的禁用状态                                         |
 | emptyclasss   | string                   | editable-empty   | 当可编辑文本为空时应用的 Css Class                           |
 | emptytext     | string                   | 'Empty'          | 元素为空时显示的文本                                         |
 | highlight     | string\|boolean          | #FFFF80          | 用于在更新后突出显示元素的颜色。通过 CSS3 过渡实现，适用于现代浏览器。 |
 | mode          | string                   | 'popup'          | 可编辑的模式，可以是 `popup` 或 `inline`                     |
 | name          | string                   | null             | 字段名称。将在服务器上提交。可以从 `id` 属性中获取           |
-| onblur        | string                   | 'cancel'         | 用户在容器外部单击时的操作。可以为： `cancel|submit|ignore`。<br>设置 `ignore` 允许打开多个容器。 |
+| onblur        | string                   | 'cancel'         | 用户在容器外部单击时的操作。可以为： cancel、submit、ignore。<br>设置 `ignore` 允许打开多个容器。 |
 | pk            | string\|object\|function | null             | 可编辑对象的主键（例如，数据库中的 ID）。<br>对于复合键，使用对象，例如 `{id: 1, lang: 'en'}`。<br>可以通过函数动态计算。 |
-| placement     | string                   | 'top'            | 容器相对于元素的放置。可以为：`top|right|bottom|left`。<br>不用于内联容器。 |
+| placement     | string                   | 'top'            | 容器相对于元素的放置。可以为：top、right、bottom、left。<br>不用于内联容器。 |
 | savenochange  | boolean                  | false            | 未更改值但已提交表单时是否保存或取消值                       |
-| send          | string                   | 'auto'           | 在服务器上发送数据的策略。可以为：`auto|always|never`。仅当定义了 pk和 URL 时，才会在服务器上发送 'auto' 数据，否则新值将存储在本地。 |
-| showbutton    | boolean\|string          | true             | 显示按钮的位置：`left(true)| bottom | false` 。<br>不带按钮的表单自动提交。 |
-| type          | string                   | 'text'           | 输入类型。可以`text|textarea|select|date|checklist`和更多    |
-| unsavedclasss | string                   | editable-unsaved | 存储值但未发送到服务器时应用的Css类（(`pk` 为空或`send = 'never'`)）。如果您在本地使用可编辑项并将它们一起提交，则可以将其设置为 `null` |
+| send          | string                   | 'auto'           | 在服务器上发送数据的策略。可以为：auto、always、never。仅当定义了 pk 和 URL 时，才会在服务器上发送 'auto' 数据，否则新值将存储在本地。 |
+| showbutton    | boolean\|string          | true             | 显示按钮的位置：left（true）、bottom、false。<br>不带按钮的表单自动提交。 |
+| type          | string                   | 'text'           | 输入类型。可以为：text、textarea、select、date、checklist    |
+| unsavedclasss | string                   | editable-unsaved | 存储值但未发送到服务器时应用的Css类（`pk` 为空或 `send = 'never'`）。如果在本地使用可编辑项并将它们一起提交，则可以将其设置为 `null` |
 
 > **注意:** 可以修改 `$.fn.editable.defaults` 为页面上的所有可编辑元素设置默认选项。
 >
@@ -457,10 +457,10 @@ $('#price').editable({
 | 名称        | 类型    | 默认                  | 描述                                                         |
 | :---------- | :------ | :-------------------- | :----------------------------------------------------------- |
 | clear       | boolean | true                  | 是否显示`clear` 按钮                                         |
-| escapes     | boolean | true                  | 如果为 `true`，HTML 将通过 `$ .text()` 方法在元素的内容中进行转义。 <br/>如果为 `false` HTML 不会被转义，则使用 `$ .html()`。 <br/>当使用自己的 `display` 功能时，此选项显然没有效果。 |
+| escapes     | boolean | true                  | 如果为 `true`，HTML 将通过 `$.text()` 方法在元素的内容中进行转义。 <br/>如果为 `false` HTML 不会被转义，则使用 `$.html()`。 <br/>当使用自己的 `display` 功能时，此选项显然没有效果。 |
 | inputclass  | string  | null                  | CSS  class 自动应用于输入                                    |
 | placeholder | string  | null                  | 输入的占位符属性，输入为空时显示                             |
-| tpl         | string  | `<input type="text">` | HTML输入模板，通常不应该改变它                               |
+| tpl         | string  | `<input type="text">` | HTML 输入模板，通常不应该改变它                              |
 
 <br>
 
@@ -468,11 +468,11 @@ $('#price').editable({
 
 | 名称        | 类型    | 默认                    | 描述                                                         |
 | :---------- | :------ | :---------------------- | :----------------------------------------------------------- |
-| escape      | boolean | true                    | 如果为 `true`，HTML 将通过 `$ .text()` 方法在元素的内容中进行转义。 <br>如果为 `false` HTML 不会被转义，则使用 `$ .html()`。 <br>当使用自己的 `display` 功能时，此选项显然没有效果。 |
+| escape      | boolean | true                    | 如果为 `true`，HTML 将通过 `$.text()` 方法在元素的内容中进行转义。 <br>如果为 `false` HTML 不会被转义，则使用 `$.html()`。 <br>当使用自己的 `display` 功能时，此选项显然没有效果。 |
 | inputclass  | string  | input-large             | CSS class 自动应用于输入                                     |
 | placeholder | string  | null                    | 输入的占位符属性，输入为空时显示                             |
 | rows        | integer | 7                       | textarea 中的行数                                            |
-| tpl         | string  | `<textarea></textarea>` | HTML输入模板，通常不应该改变它                               |
+| tpl         | string  | `<textarea></textarea>` | HTML 输入模板，通常不应该改变它                              |
 
 <br>
 
@@ -491,10 +491,10 @@ $('#price').editable({
 
 | 名称         | 类型                                  | 默认                    | 描述                                                         |
 | :----------- | :------------------------------------ | :---------------------- | :----------------------------------------------------------- |
-| escape       | boolean                               | true                    | 如果为 `true`，HTML 将通过 `$.text()` 方法在元素的内容中进行转义。 <br>如果为 `false`，HTML 不会被转义，则使用 `$.html（）`。<br>当使用自己的 `display` 功能时，此选项显然没有效果。 |
+| escape       | boolean                               | true                    | 如果为 `true`，HTML 将通过 `$.text()` 方法在元素的内容中进行转义。 <br>如果为 `false`，HTML 不会被转义，则使用 `$.html()`。<br>当使用自己的 `display` 功能时，此选项显然没有效果。 |
 | inputclass   | string                                | null                    | CSS class 自动应用于输入                                     |
 | prepend      | string \| array \| object \| function | false                   | 数据自动添加到下拉列表的开头                                 |
 | sourceCache  | boolean                               | true                    | 如果为 `true` 并且 source **string url**，将为具有相同源的字段缓存结果。 可用于网格中的可编辑列以防止额外请求 |
 | sourceError  | string                                | Error when loading list | 无法加载列表时出现错误消息（例如 AJAX 错误）                 |
-| sourceOption | object\|function                      | null                    | 从服务器加载列表时，`$.ajax（）` 中使用的其他 AJAX 选项。用于发送额外参数（`data` 键）或更改请求方法（`type` 键） |
+| sourceOption | object\|function                      | null                    | 从服务器加载列表时，`$.ajax()` 中使用的其他 AJAX 选项。用于发送额外参数（`data` 键）或更改请求方法（`type` 键） |
 | tpl          | string                                | `<select></select>`     | HTML 输入模板，通常不应该改变它                              |
