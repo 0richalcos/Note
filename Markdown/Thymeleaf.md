@@ -126,14 +126,14 @@ public String variables(ModelMap model, HttpSession session) {
 ctx.getVariable("message");
 ```
 
-> 此外 `Thymeleaf` 的官方文档中提到了 `${@myBean.doSomething()}` 可以访问容器中 bean 的数据。
+> 此外 `Thymeleaf` 的官方文档中提到了 `${@myBean.doSomething(new java.util.Date())}` 可以访问容器中 bean 的数据：
 >
 > ```java
 > @Service("myBean")
 > public class DictService{
->  public String doSomething(){
->      return "Hello World!";
->  }
+>      public String doSomething(Date date){
+>          return "Hello World!" + date.toString();
+>      }
 > }
 > ```
 
@@ -516,6 +516,8 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <p th:text="${#strings.isEmpty(message)}"></p>
 <!-- 2017-07-12 00:37:25 -->
 <p th:text="${#dates.format(now, 'yyyy-MM-dd HH:mm:ss')}"></p>
+<!-- 四舍五入显示两位小数 -->
+<span th:text="${#numbers.formatDecimal(num,1,'COMMA',2,'POINT')}"></span>
 ```
 
 <br>
@@ -1154,9 +1156,16 @@ Thymeleaf 里的 `th:field` 等同于 `th:name` 和 `th:value`，浏览器在解
 
 <br>
 
-**时间格式化**
+**获取 URL 地址跳转时所带参数**
+
+`th:value="${param.houseId}"` 即可接收到跳转时所带参数。
+
+地址为：`localhost:8080/toHousedesc?houseId=2`，在表单元素或标签中用 Thymeleaf 的语法进行接收：
 
 ```html
- <input th:value="${#dates.format(auditWorkload.fillingDate,'yyyy-MM-dd')}" class="form-control" type="text">
+
+<form id="addCollectForm">
+    <input type="text" id="houseId" th:value="${param.houseId}">
+</form>
 ```
 

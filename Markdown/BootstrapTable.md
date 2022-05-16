@@ -617,9 +617,16 @@ onDblClickCell: function (field, value, row, $element) {
 
 使用 X-editable 进行编辑
 
-简单使用可以用 bootstrap Table 的集成版本 `bootstrap-table-editable.js`
+需要引用 X-editable 插件：
 
-使用以下语句可以将气泡（默认）改为行内 input
+```html
+<link href="bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet">
+<script src="bootstrap-editable/js/bootstrap-editable.js"></script>
+```
+
+同时还要引入 BootstrapTable 集成 X-editable 的 [JS 文件](https://github.com/wenzhixin/bootstrap-table/blob/develop/src/extensions/editable/bootstrap-table-editable.js)。
+
+使用以下语句可以将气泡（默认）改为行内 input：
 
 ```javascript
 $.fn.editable.defaults.mode = 'inline';

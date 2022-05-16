@@ -1619,9 +1619,9 @@ A0A0, B1B1, C2C2, D3D3, E4E4
 
 **jQuery load() 方法**
 
-jQuery load() 方法是简单但强大的 AJAX 方法。从服务器加载数据，并把返回的数据放入被选元素中。
+jQuery `load()` 方法是简单但强大的 AJAX 方法。从服务器加载数据，并把返回的数据放入被选元素中。
 
-
+<br>
 
 **语法：**
 
@@ -1633,9 +1633,9 @@ $(selector).load(URL,data,callback);
 
 可选的 *data* 参数规定与请求一同发送的查询字符串键/值对集合。
 
-可选的 *callback* 参数是 load() 方法完成后所执行的函数名称。
+可选的 *callback* 参数是 `load()` 方法完成后所执行的函数名称。
 
-
+<br>
 
 **示例：**
 
@@ -1646,7 +1646,7 @@ $(selector).load(URL,data,callback);
 <p id="p1">This is some text in a paragraph.</p>
 ```
 
-把文件 "demo_test.txt" 的内容加载到指定的 <div> 元素中：
+把文件 "demo_test.txt" 的内容加载到指定的 `<div>` 元素中：
 
 ```javascript
 $("#div1").load("demo_test.txt");
@@ -1659,7 +1659,7 @@ $("#div1").load("demo_test.txt");
 $("#div1").load("demo_test.txt #p1");
 ```
 
-可选的 callback 参数规定当 load() 方法完成后所要允许的回调函数。回调函数可以设置不同的参数：
+可选的 *callback* 参数规定当 `load()` 方法完成后所要允许的回调函数。回调函数可以设置不同的参数：
 
 - *responseTxt* - 包含调用成功时的结果内容
 - *statusTXT* - 包含调用的状态
@@ -1677,7 +1677,7 @@ $("button").click(function(){
 });
 ```
 
-
+<br>
 
 ## 5.2、jQuery Get/Post
 
