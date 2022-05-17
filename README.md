@@ -64,6 +64,7 @@
 ## 数据结构及算法
 
 - [**算法**](https://github.com/0richalcos/Note/blob/main/Markdown/Algorithm.md)
+- [**设计模式**](https://github.com/0richalcos/Note/blob/main/Markdown/DesignPattern.md)
 
 
 
