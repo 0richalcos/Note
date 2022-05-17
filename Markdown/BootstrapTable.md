@@ -223,7 +223,7 @@ $('#table').bootstrapTable({
 | uniqueId               | String   | data-unique-id                 | undefined                                                    | 为每一行指定唯一的标识符                                     |
 | cardView               | Boolean  | data-card-view                 | false                                                        | 设置为 true 将显示 card 视图，适用于移动设备。否则为 table 视图，适用于pc |
 | detailView             | Boolean  | data-detail-view               | false                                                        | 设置为 true 可以显示详细页面模式。                           |
-| detailFormatter        | Function | data-detail-formatter          | function ( index, row ) {<br/>     return ''; <br/>}         | 格式化详细页面模式的视图。                                   |
+| detailFormatter        | Function | data-detail-formatter          | function ( index, row ) {<br/>&nbsp;&nbsp;&nbsp;&nbsp;return ''; <br/>} | 格式化详细页面模式的视图。                                   |
 | searchAlign            | String   | data-search-align              | 'right'                                                      | 指定 搜索框 水平方向的位置。'left' or 'right'                |
 | buttonsAlign           | String   | data-buttons-align             | 'right'                                                      | 指定 按钮 水平方向的位置。'left' or 'right'                  |
 | toolbarAlign           | String   | data-toolbar-align             | 'left'                                                       | 指定 toolbar 水平方向的位置。'left' or 'right'               |
