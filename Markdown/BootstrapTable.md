@@ -241,8 +241,8 @@ $('#table').bootstrapTable({
 | silentSort             | Boolean  | data-silent-sort               | true                                                         | 设置为 false 将在点击分页按钮时自动记住排序项。仅在 sidePagination 设置为 server 时生效 |
 | rowStyle               | Function | data-row-style                 | function ( row, index ) {<br/>     return class; <br/>}      | 自定义行样式 参数：row: 行数据，index: 行下标，返回值可以为 class 或者 css |
 | rowAttributes          | Function | data-row-attributes            | function ( row, index ) {<br/>     return attributes; <br/>} | 自定义行属性 参数为：row : 行数据，index: 行下标，返回值可以为 class 或者 css 支持所有自定义属性 |
-| customSearch           | Function | data-custom-search             | $.noop                                                       | 执行自定义搜索功能而不是内置搜索功能，需要一个参数：text：搜索文本，如：<br />function customSearch ( text ) { } |
-| customSort             | Function | data-custom-sort               | $.noop                                                       | 执行自定义排序函数而不是内置排序函数，有三个参数：sortName：排序名称，sortOrder：排序顺序，data：获取的原始数据，如:<br />function customSort ( sortName, sortOrder， data ) { } |
+| customSearch           | Function | data-custom-search             | $.noop                                                       | 执行自定义搜索功能而不是内置搜索功能<br>function ( text ) <br> - *text*：搜索文本 |
+| customSort             | Function | data-custom-sort               | $.noop                                                       | 执行自定义排序函数而不是内置排序函数<br>function ( sortName, sortOrder， data ) <br> - *sortName*：排序名称<br> - *sortOrder*：排序顺序<br> - *data*：获取的原始数据 |
 
 <br>
 
@@ -284,12 +284,12 @@ var columns = [{
 | switchable      | data-switchable        | Boolean  | true      | 列切换是否可见                                               |
 | clickToSelect   | data-click-to-select   | Boolean  | true      | 当该列被选择时，是否选中 checkbox 或者 radio                 |
 | checkboxEnabled | data-checkboxEnabled   | Boolean  | true      | checkboxEnabled：false，设为 false 禁用复选框列              |
-| formatter       | data-formatter         | Function | undefined | 格式化单元格内容，function ( value, row, index )，value：该 cell 本来的值，row：该行数据，index：该行序号（从 0 开始） |
-| footerFormatter | data-footer-formatter  | Function | undefined | 格式化 footer 内容，function ( rows )，rows：所有行数据      |
-| events          | data-events            | Object   | undefined | The cell 的事件监听，当使用 formatter function 的时候，有三个参数：event：the jQuery event，value：该cell的值，row：该行的数据，index：该行的序号 |
+| formatter       | data-formatter         | Function | undefined | 格式化单元格内容<br>function ( value, row, index )<br> - *value*：该 cell 本来的值<br> - *row*：该行数据<br> - *index*：该行序号（从 0 开始） |
+| footerFormatter | data-footer-formatter  | Function | undefined | 格式化 footer 内容<br>function ( rows )<br> - *rows*：所有行数据 |
+| events          | data-events            | Object   | undefined | cell 的事件监听<br>function (e, value, row, index)<br> - *event*：the jQuery event<br> - *value*：该 cell 的值<br> - *row*：该行的数据<br> - *index*：该行的序号 |
 | sorter          | data-sorter            | Function | undefined | 自定义字段排序函数，function ( a, b )                        |
-| sortName        | data-sort-name         | String   | undefined | 当列中有 html 等标签时，只排序实际内容（忽略标签和样式），例如字段为："abc"，则 sortName = abc |
-| cellStyle       | data-cell-style        | Function | undefined | 单元格样式，支持 css 和 classes，function ( value, row, index )，value：该cell的值，row：该行的数据，index：该行的序号 |
+| sortName        | data-sort-name         | String   | undefined | 当列中有 HTML 等标签时，只排序实际内容（忽略标签和样式）<br>例如字段为："abc"，则 `sortName = abc` |
+| cellStyle       | data-cell-style        | Function | undefined | 单元格样式，支持 css 和 classes<br>function (value, row, index)<br> - *value*：该cell的值<br> - *row*：该行的数据<br> - *index*：该行的序号 |
 | searchable      | data-searchable        | Boolean  | true      | 搜索时是否搜索此列                                           |
 | searchFormatter | data-search-formatter  | Boolean  | true      | 搜索是否使用格式化后的数据（即显示在页面上的数据）           |
 
@@ -311,31 +311,31 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
 | Option 事件      | jQuery 事件              | 参数                          | 描述                                                         |
 | ---------------- | ------------------------ | ----------------------------- | ------------------------------------------------------------ |
-| onAll            | all.bs.table             | name，args                    | 所有的事件都会触发该事件，参数包括： <br />name：事件名 <br />args：事件的参数 |
-| onClickRow       | click-row.bs.table       | row，$element，field          | 当用户点击某一行的时候触发，参数包括： <br />row：点击行的数据 <br />$element：tr 元素 <br />field：点击列的 field 名称 |
-| onDblClickRow    | dbl-click-row.bs.table   | row，$element，field          | 当用户双击某一行的时候触发，参数包括： <br />row：点击行的数据 <br />$element：tr 元素 <br />field：点击列的 field 名称 |
-| onClickCell      | click-cell.bs.table      | field，value，row，$element   | 当用户点击某一列的时候触发，参数包括： <br />field：点击列的 field 名称 <br />value：点击列的 value 值 <br />row：点击列的整行数据 <br />$element：td 元素 |
-| onDblClickCell   | dbl-click-cell.bs.table  | field，value， row， $element | 当用户双击某一列的时候触发，参数包括： <br />field：点击列的 field 名称 <br />value：点击列的 value 值 <br />row：点击列的整行数据 <br />$element：td 元素 |
-| onSort           | sort.bs.table            | name，order                   | 当用户对列进行排序时触发，参数包含： <br />name：排序列字段名 <br />order：排序列的顺序 'desc' or 'asc' |
-| onCheck          | check.bs.table           | row，$element                 | 当用户点击选择行时触发，参数包含： <br />row：与单击的行对应的记录<br />$element：选中DOM元素 |
-| onUncheck        | uncheck.bs.table         | row，$element                 | 在用户取消选中行时触发，参数包含：  <br />row：与单击的行对应的记录 <br />$element：取消选中DOM元素 |
-| onCheckAll       | check-all.bs.table       | rowsAfter，rowsBefore         | 当用户检查所有行时触发，参数包含： <br />rowsAfter：数组，返回全选后全部选中的数据<br>rowsBefore：全选前的数据<br>rowsBefore 在1.41之前此参数无效，1.52之后有效 |
-| onUncheckAll     | uncheck-all.bs.table     | rowsAfter，rowsBefore         | 当用户取消选中所有行时触发，参数包含： <br />rowsAfter：取消全选后全部选中的数据<br>rowsBefore：取消全选前的数据<br>rowsBefore 在1.41之前此参数无效，1.52之后有效 |
-| onCheckSome      | check-some.bs.table      | rows                          | 当用户检查某些行时触发，参数包含：  <br />rows：与先前检查的行对应的记录数组 |
-| onUncheckSome    | uncheck-some.bs.table    | rows                          | 当用户取消选中某些行时触发，参数包含： <br />rows：与先前检查的行对应的记录数组 |
+| onAll            | all.bs.table             | name，args                    | 所有的事件都会触发该事件，参数包括： <br /> - *name*：事件名 <br /> - *args*：事件的参数 |
+| onClickRow       | click-row.bs.table       | row，$element，field          | 当用户点击某一行的时候触发，参数包括： <br /> - *row*：点击行的数据 <br /> - *$element*：tr 元素 <br /> - *field*：点击列的 field 名称 |
+| onDblClickRow    | dbl-click-row.bs.table   | row，$element，field          | 当用户双击某一行的时候触发，参数包括： <br /> - *row*：点击行的数据 <br /> - *$element*：tr 元素 <br /> - *field*：点击列的 field 名称 |
+| onClickCell      | click-cell.bs.table      | field，value，row，$element   | 当用户点击某一列的时候触发，参数包括： <br /> - *field*：点击列的 field 名称 <br /> - *value*：点击列的 value 值 <br /> - *row*：点击列的整行数据 <br /> - *$element*：td 元素 |
+| onDblClickCell   | dbl-click-cell.bs.table  | field，value， row， $element | 当用户双击某一列的时候触发，参数包括： <br /> - *field*：点击列的 field 名称 <br /> - *value*：点击列的 value 值 <br /> - *row*：点击列的整行数据 <br /> - *$element*：td 元素 |
+| onSort           | sort.bs.table            | name，order                   | 当用户对列进行排序时触发，参数包含： <br /> - *name*：排序列字段名 <br /> - *order*：排序列的顺序 'desc' or 'asc' |
+| onCheck          | check.bs.table           | row，$element                 | 当用户点击选择行时触发，参数包含： <br /> - *row*：与单击的行对应的记录<br /> - *$element*：选中DOM元素 |
+| onUncheck        | uncheck.bs.table         | row，$element                 | 在用户取消选中行时触发，参数包含：  <br /> - *row*：与单击的行对应的记录 <br /> - *$element*：取消选中DOM元素 |
+| onCheckAll       | check-all.bs.table       | rowsAfter，rowsBefore         | 当用户检查所有行时触发，参数包含： <br /> - *rowsAfter*：数组，返回全选后全部选中的数据<br> - *rowsBefore*：全选前的数据<br> - *rowsBefore* 在1.41之前此参数无效，1.52之后有效 |
+| onUncheckAll     | uncheck-all.bs.table     | rowsAfter，rowsBefore         | 当用户取消选中所有行时触发，参数包含： <br /> - *rowsAfter*：取消全选后全部选中的数据<br> - *rowsBefore*：取消全选前的数据<br> - *rowsBefore* 在1.41之前此参数无效，1.52之后有效 |
+| onCheckSome      | check-some.bs.table      | rows                          | 当用户检查某些行时触发，参数包含：  <br /> - *rows*：与先前检查的行对应的记录数组 |
+| onUncheckSome    | uncheck-some.bs.table    | rows                          | 当用户取消选中某些行时触发，参数包含： <br /> - *rows*：与先前检查的行对应的记录数组 |
 | onLoadSuccess    | load-success.bs.table    | data                          | 在成功加载远程数据时触发                                     |
 | onLoadError      | load-error.bs.table      | status                        | 在加载远程数据时发生某些错误时触发                           |
-| onColumnSwitch   | column-switch.bs.table   | field，checked                | 切换列可见时触发<br>field：选中的列名称 字段名称<br>checked：是否显示该列 true 显示 false 不显示 |
+| onColumnSwitch   | column-switch.bs.table   | field，checked                | 切换列可见时触发，参数包含：<br> - *field*：选中的列名称 字段名称<br> - *checked*：是否显示该列 true 显示 false 不显示 |
 | onColumnSearch   | column-search.bs.table   | field，text                   | 在按列搜索时触发                                             |
-| onPageChange     | page-change.bs.table     | number，size                  | 当用户点击下一页上一页或页码时触发<br>number：当前第几页<br/>size：每页显示多少行数据 |
-| onSearch         | search.bs.table          | text                          | 在搜索表时触发<br/>text：用户输入的关键词                    |
-| onToggle         | toggle.bs.table          | cardView                      | 切换表视图时触发<br/>cardView：卡片状态 true 卡片视图 false 表格视图 |
+| onPageChange     | page-change.bs.table     | number，size                  | 当用户点击下一页上一页或页码时触发，参数包含：<br> - *number*：当前第几页<br/> - *size*：每页显示多少行数据 |
+| onSearch         | search.bs.table          | text                          | 在搜索表时触发，参数包含：<br/> - *text*：用户输入的关键词   |
+| onToggle         | toggle.bs.table          | cardView                      | 切换表视图时触发，参数包含：<br/> - *cardView*：卡片状态 true 卡片视图 false 表格视图 |
 | onPreBody        | pre-body.bs.table        | data                          | 在 bootstrap table 表格的 body 渲染之前执行的事件，<br>可以利用该事件对数据进行拦截、刷选、处理，该事件参数返回需要渲染的 data 数据 |
 | onPostBody       | post-body.bs.table       | data                          | 在 bootstrap table 表格的 body 渲染之后执行的事件，该事件参数返回需要渲染的data数据 |
 | onPostHeader     | post-header.bs.table     | none                          | 在表头渲染之后触发，并在DOM中可用                            |
-| onExpandRow      | expand-row.bs.table      | index，row，$detail           | 当点击详细图标展开详细页面的时候触发 <br />index：被展开行的索引行号，从0开始<br/>row：行的原始数据如 {id:1, name:'itxst'}<br/>$detail：被展开的详情 jQuery 对象 |
-| onCollapseRow    | collapse-row.bs.table    | index，row，$detail           | 当点击详细图片收起详细页面的时候触发<br />index：被收起行的索引行号，从0开始<br/>row：行的原始数据如 {id:1, name:'itxst'}<br/>$detail：被收起的详情 jQuery 对象 |
-| onRefreshOptions | refresh-options.bs.table | options                       | 在刷新配置选项时触发，调用如下方法时触发：<br> $('#table').bootstrapTable('refreshOptions', {}) |
+| onExpandRow      | expand-row.bs.table      | index，row，$detail           | 当点击详细图标展开详细页面的时候触发，参数包含：<br /> - *index*：被展开行的索引行号，从 0 开始<br/> - *row*：行的原始数据如 `{id:1, name:'itxst'}`<br> - *$detail*：被展开的详情 jQuery 对象 |
+| onCollapseRow    | collapse-row.bs.table    | index，row，$detail           | 当点击详细图片收起详细页面的时候触发，参数包含：<br /> - *index*：被收起行的索引行号，从 0 开始<br/> - *row*：行的原始数据如 `{id:1, name:'itxst'}`<br/> - *$detail*：被收起的详情 jQuery 对象 |
+| onRefreshOptions | refresh-options.bs.table | options                       | 在刷新配置选项时触发，调用如下方法时触发：<br> `$('#table').bootstrapTable('refreshOptions', {})` |
 | onRefresh        | refresh.bs.table         | params                        | 单击刷新按钮后触发                                           |
 
 <br>
@@ -355,45 +355,45 @@ var result=$table.bootstrapTable('方法名称',{field1:value1,field2:value2,...
 | getOptions           | none           | 返回表格的 Options                                           |
 | getSelections        | none           | 返回所选的行，当没有选择任何行的时候返回一个空数组           |
 | getAllSelections     | none           | 返回所有选择的行，包括搜索过滤前的，当没有选择任何行的时候返回一个空数组 |
-| getData              | options        | 获取表格数据（旧版本只有 useCurrentPage 一个参数，不需要对象直接填 true 或 false）<br>useCurrentPage：设置为 true 获取当前页码的数据，设置为 false 获取表格全部页码的数据<br>includeHiddenRows：设置 true 包含隐藏行的数据，设置 false 不包含隐藏行的数据 |
+| getData              | options        | 获取表格数据（旧版本只有 useCurrentPage 一个参数，不需要对象直接填 true 或 false）<br> - *useCurrentPage*：设置为 true 获取当前页码的数据，设置为 false 获取表格全部页码的数据<br> - *includeHiddenRows*：设置 true 包含隐藏行的数据，设置 false 不包含隐藏行的数据 |
 | getRowByUniqueId     | id             | 根据 uniqueId 获取行数据                                     |
 | load                 | data           | 加载数据到表格中，旧数据会被替换                             |
 | showAllColumns       | none           | 显示所有列                                                   |
 | hideAllColumns       | none           | 隐藏所有列                                                   |
 | append               | data           | 追加数据到表格末尾                                           |
 | prepend              | data           | 追加数据到表格头部                                           |
-| remove               | options        | 从表格中删除数据，包括两个参数： <br />field：根据那个字段来删除，如ID字段 <br />values：根据这个字段哪些值来删除，如把 id 为 2 的数据删除 |
+| remove               | options        | 从表格中删除数据，包括两个参数： <br /> - *field*：根据那个字段来删除，如 ID 字段 <br /> - *values*：根据这个字段哪些值来删除，如把 id 为 2 的数据删除 |
 | removeAll            | none           | 删除表格所有数据                                             |
 | removeByUniqueId     | id             | 根据 uniqueId 删除指定的行                                   |
-| insertRow            | options        | 插入新行，参数包括： <br />index：需要把数据插入到那以后，从 0 开始 <br />row：行数据对象，比如 {id:1,name:"丽莎"} |
-| updateRow            | options        | 更新指定的行，参数包括： <br />index：需要更新的数据索引，从 0 开始 <br />row：新的行数据对象，比如 {id:1,name:"丽莎"}<br>replace：可选项，新的数据对象是否替换旧的对象，设置 true 直接替换，设置 false 合并对象，默认为 false |
-| updateByUniqueId     | options        | 根据唯一 Id 更新行数据，参数包括： <br />id：唯一字段（主键字段）对应的值 <br />row：新的行数据对象，比如 {id:1,name:"丽莎"}<br/>replace：可选项，新的数据对象是否替换旧的对象，设置 true 直接替换，设置 false 合并对象，默认为 false |
-| showRow              | options        | 显示指定的行，参数包括： <br />index：行索引 0 开始，需要显示的行 <br />uniqueId：唯一字段值 |
-| hideRow              | options        | 显示指定的行，参数包括： <br />index：行索引 0 开始，需要隐藏的行 <br />uniqueId：唯一字段值 |
+| insertRow            | options        | 插入新行，参数包括： <br /> - *index*：需要把数据插入到那以后，从 0 开始 <br /> - *row*：行数据对象，比如 `{id:1,name:"丽莎"}` |
+| updateRow            | options        | 更新指定的行，参数包括： <br /> - *index*：需要更新的数据索引，从 0 开始 <br /> - *row*：新的行数据对象，比如 `{id:1,name:"丽莎"}`<br> - *replace*：可选项，新的数据对象是否替换旧的对象，设置 true 直接替换，设置 false 合并对象，默认为 false |
+| updateByUniqueId     | options        | 根据唯一 Id 更新行数据，参数包括：<br /> - *id*：唯一字段（主键字段）对应的值 <br /> - *row*：新的行数据对象，比如 `{id:1,name:"丽莎"}`<br/> - *replace*：可选项，新的数据对象是否替换旧的对象，设置 true 直接替换，设置 false 合并对象，默认为 false |
+| showRow              | options        | 显示指定的行，参数包括： <br /> - *index*：行索引 0 开始，需要显示的行 <br /> - *uniqueId*：唯一字段值 |
+| hideRow              | options        | 显示指定的行，参数包括： <br /> - *index*：行索引 0 开始，需要隐藏的行 <br /> - *uniqueId*：唯一字段值 |
 | getHiddenRows        | show           | 获取隐藏的行，如果参数传入 true 会把隐藏的行显示但是不会返回隐藏的行 |
-| mergeCells           | options        | 将某些单元格合并到一个单元格，选项包含以下属性： <br />index：从第几行开始合并索引<br />field：字段从哪一列开始合并<br />rowspan：要合并的 rowspan 数量<br />colspan：要合并的 colspan 数量 |
-| updateCell           | options        | 更新一个单元格，包含以下属性： <br />index：行索引0开始，需要更新哪行数据<br />field：字段名称<br />value：新字段值 |
-| updateCellByUniqueId | options        | 唯一字段更新单元格数据，包含以下属性： <br />id：唯一字段（或主键）对应的值<br />field：需要更新的字段<br />value：该字段需要被更新的值 |
+| mergeCells           | options        | 将某些单元格合并到一个单元格，选项包含以下属性： <br /> - *index*：从第几行开始合并索引<br /> - *field*：字段从哪一列开始合并<br /> - *rowspan*：要合并的 rowspan 数量<br /> - *colspan*：要合并的 colspan 数量 |
+| updateCell           | options        | 更新一个单元格，包含以下属性： <br /> - *index*：行索引0开始，需要更新哪行数据<br /> - *field*：字段名称<br /> - *value*：新字段值 |
+| updateCellByUniqueId | options        | 唯一字段更新单元格数据，包含以下属性： <br /> - *id*：唯一字段（或主键）对应的值<br /> - *field*：需要更新的字段<br /> - *value*：该字段需要被更新的值 |
 | refresh              | options        | 刷新远程服务器数据，可以设置` {silent：true} `以静默方式刷新数据，并设置` {url：newUrl} `更改URL。 要提供特定于此请求的查询参数，请设置` {query：{foo：’bar’}}` |
-| refreshOptions       | options        | 刷新选项<br>例：把每页显示 2 条数据更新为每页显示 5 条数据<br>$('#table').bootstrapTable('refreshOptions', {pageSize:5}); |
-| resetSearch          | text           | 设置搜索文本<br>text：设置搜索框的值，也可以不设置           |
+| refreshOptions       | options        | 刷新选项<br>例：把每页显示 2 条数据更新为每页显示 5 条数据<br>`$('#table').bootstrapTable('refreshOptions', {pageSize:5});` |
+| resetSearch          | text           | 设置搜索文本，参数包含：<br> - *text*：设置搜索框的值，也可以不设置 |
 | showLoading          | none           | 显示加载状态                                                 |
 | hideLoading          | none           | 隐藏加载状态                                                 |
 | checkAll             | none           | 选中所有行的方法，注如果有分页只会全部选中当前页，而不是选中全部页码的数据 |
 | uncheckAll           | none           | 反选所有行的方法，注如果有分页只会反选当前页，而不是选中全部页码的数据 |
 | check                | index          | 检查一行，行索引从0开始                                      |
 | uncheck              | index          | 取消选中一行，行索引从0开始                                  |
-| checkBy              | options        | 根据条件选中行<br />field：根据那个字段来选中行<br />values：据这个字段的哪些值来选中 <br />例： 选中Id为1和23的行 <br>$('#table').bootstrapTable('checkBy', {field: 'Id', values:[1, 23]}); |
-| uncheckBy            | options        | 根据条件取消选中行 <br />field：根据那个字段来取消选中行<br />values：据这个字段的哪些值来取消选中，格式：[1,51,18] <br />例:  取消选中Id为1和23的行<br>$('#table').bootstrapTable('uncheckBy', {field: 'Id', values:[22,23]}); |
+| checkBy              | options        | 根据条件选中行，参数包含：<br /> - *field*：根据那个字段来选中行<br /> - *values*：据这个字段的哪些值来选中 <br />例： 选中Id为1和23的行 <br>`$('#table').bootstrapTable('checkBy', {field: 'Id', values:[1, 23]});` |
+| uncheckBy            | options        | 根据条件取消选中行，参数包含： <br /> - *field*：根据那个字段来取消选中行<br /> - *values*：据这个字段的哪些值来取消选中，格式：`[1,51,18]` <br />例:  取消选中 Id 为 1 和 23 的行<br>`$('#table').bootstrapTable('uncheckBy', {field: 'Id', values:[22,23]});` |
 | checkInvert          | none           | 反选                                                         |
-| resetView            | options        | 重置引导表视图，例如重置表高度<br>$('#table').bootstrapTable('resetView',{height:200}); |
+| resetView            | options        | 重置引导表视图，例如重置表高度<br>`$('#table').bootstrapTable('resetView',{height:200});` |
 | resetWidth           | none           | 调整页眉和页脚的大小以适合当前列宽度                         |
 | destroy              | none           | 注销表格                                                     |
 | showColumn           | field          | 显示指定的列                                                 |
 | hideColumn           | field          | 隐藏指定的列                                                 |
 | getHiddenColumns     | none           | 获取隐藏的列                                                 |
 | getVisibleColumns    | none           | 获取可见列                                                   |
-| scrollTo             | value，options | 滚动滚动条到指定位置，可以设置 px 或者行的索引来实现，参数 options 或 value 二选一<br>value： 需要滚动到的位置，单位为px，如果设置为bottom表示滚动到底部<br>options：{unit: 'px', value: 100} 滚动到100px 位置，{unit: 'rows', value: 6} 滚动到第 6 行 |
+| scrollTo             | value，options | 滚动滚动条到指定位置，可以设置 px 或者行的索引来实现，参数 options 或 value 二选一<br> - *value*： 需要滚动到的位置，单位为 px，如果设置为 bottom 表示滚动到底部<br> - *options*：`{unit: 'px', value: 100}` 滚动到 100px 位置，`{unit: 'rows', value: 6}` 滚动到第 6 行 |
 | getScrollPosition    | none           | 获取当前滚动条的位置，单位为 px                              |
 | filterBy             | options        | （只能用于 client 端）过滤表格数据， 可以通过过滤`{age: 10}`来显示 age 等于 10 的数据 |
 | selectPage           | page           | 跳到指定的页                                                 |
