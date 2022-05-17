@@ -286,7 +286,7 @@ var columns = [{
 | checkboxEnabled | data-checkboxEnabled   | Boolean  | true      | checkboxEnabled：false，设为 false 禁用复选框列              |
 | formatter       | data-formatter         | Function | undefined | 格式化单元格内容<br>function ( value, row, index )<br> - *value*：该 cell 本来的值<br> - *row*：该行数据<br> - *index*：该行序号（从 0 开始） |
 | footerFormatter | data-footer-formatter  | Function | undefined | 格式化 footer 内容<br>function ( rows )<br> - *rows*：所有行数据 |
-| events          | data-events            | Object   | undefined | cell 的事件监听<br>function (e, value, row, index)<br> - *event*：the jQuery event<br> - *value*：该 cell 的值<br> - *row*：该行的数据<br> - *index*：该行的序号 |
+| events          | data-events            | Object   | undefined | cell 的事件监听<br>function (event, value, row, index)<br> - *event*：the jQuery event<br> - *value*：该 cell 的值<br> - *row*：该行的数据<br> - *index*：该行的序号 |
 | sorter          | data-sorter            | Function | undefined | 自定义字段排序函数，function ( a, b )                        |
 | sortName        | data-sort-name         | String   | undefined | 当列中有 HTML 等标签时，只排序实际内容（忽略标签和样式）<br>例如字段为："abc"，则 `sortName = abc` |
 | cellStyle       | data-cell-style        | Function | undefined | 单元格样式，支持 css 和 classes<br>function (value, row, index)<br> - *value*：该cell的值<br> - *row*：该行的数据<br> - *index*：该行的序号 |
