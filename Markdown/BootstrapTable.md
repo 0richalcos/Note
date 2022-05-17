@@ -192,12 +192,12 @@ $('#table').bootstrapTable({
 | contentType            | String   | data-content-type              | 'application/json'                                           | 发送到服务器的数据编码类型                                   |
 | dataType               | String   | data-data-type                 | 'json'                                                       | 服务器返回的数据类型                                         |
 | ajaxOptions            | Object   | data-ajax-options              | {}                                                           | 提交ajax请求时的附加参数                                     |
-| queryParams            | Function | data-query-params              | function ( params ) { <br/>     return params; <br/>}        | 请求服务器数据时，可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数，如果 queryParamsType = 'limit' ，返回参数必须包含: limit, offset, search, sort, order。否则需要包含: pageSize, pageNumber, searchText,  sortName, sortOrder。返回 false 将会终止请求 |
+| queryParams            | Function | data-query-params              | function ( params ) { <br/>&nbsp;&nbsp;&nbsp;&nbsp;return params; <br/>} | 请求服务器数据时，可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数，如果 `queryParamsType = 'limit'` ，返回参数必须包含: limit, offset, search, sort, order。否则需要包含: pageSize, pageNumber, searchText,  sortName, sortOrder。返回 false 将会终止请求 |
 | queryParamsType        | String   | data-query-params-type         | 'limit'                                                      | 设置为 'limit' 则会发送符合 RESTFul 格式的参数               |
-| responseHandler        | Function | data-response-handler          | function ( res ) {<br/>     return res; <br/>}               | 加载服务器数据之前的处理程序，可以用来格式化数据。 参数 res 为从服务器请求到的数据。 |
+| responseHandler        | Function | data-response-handler          | function ( res ) {<br/>&nbsp;&nbsp;&nbsp;&nbsp;return res; <br/>} | 加载服务器数据之前的处理程序，可以用来格式化数据。 参数 res 为从服务器请求到的数据。 |
 | pagination             | Boolean  | data-pagination                | false                                                        | 设置为 true 会在表格底部显示分页条                           |
 | paginationLoop         | Boolean  | data-pagination-loop           | true                                                         | 设置为 true 启用分页条无限循环的功能                         |
-| onlyInfoPagination     | Boolean  | data-only-info-pagination      | false                                                        | 设置为 true 只显示总数据数，而不显示分页按钮。需要 pagination = 'true' |
+| onlyInfoPagination     | Boolean  | data-only-info-pagination      | false                                                        | 设置为 true 只显示总数据数，而不显示分页按钮。需要 `pagination = 'true'` |
 | sidePagination         | String   | data-side-pagination           | 'client'                                                     | 设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server' 时，必须设置 服务器数据地址（url）或者重写 ajax 方法 |
 | pageNumber             | Number   | data-page-number               | 1                                                            | 如果设置了分页，首页页码                                     |
 | pageSize               | Number   | data-page-size                 | 10                                                           | 如果设置了分页，页面数据条数                                 |
@@ -224,23 +224,23 @@ $('#table').bootstrapTable({
 | cardView               | Boolean  | data-card-view                 | false                                                        | 设置为 true 将显示 card 视图，适用于移动设备。否则为 table 视图，适用于pc |
 | detailView             | Boolean  | data-detail-view               | false                                                        | 设置为 true 可以显示详细页面模式。                           |
 | detailFormatter        | Function | data-detail-formatter          | function ( index, row ) {<br/>&nbsp;&nbsp;&nbsp;&nbsp;return ''; <br/>} | 格式化详细页面模式的视图。                                   |
-| searchAlign            | String   | data-search-align              | 'right'                                                      | 指定 搜索框 水平方向的位置。'left' or 'right'                |
-| buttonsAlign           | String   | data-buttons-align             | 'right'                                                      | 指定 按钮 水平方向的位置。'left' or 'right'                  |
-| toolbarAlign           | String   | data-toolbar-align             | 'left'                                                       | 指定 toolbar 水平方向的位置。'left' or 'right'               |
-| paginationVAlign       | String   | data-pagination-v-align        | 'bottom'                                                     | 指定 分页条 在垂直方向的位置。'top' or 'bottom' or 'bonth'   |
-| paginationHAlign       | String   | data-pagination-h-align        | 'right'                                                      | 指定 分页条 在水平方向的位置。'left' or 'right'              |
-| paginationDetailHAlign | String   | data-pagination-detail-h-align | 'left'                                                       | 指定 分页详细信息 在水平方向的位置。'left' or 'right'        |
+| searchAlign            | String   | data-search-align              | 'right'                                                      | 指定 搜索框 水平方向的位置：'left'、'right'                  |
+| buttonsAlign           | String   | data-buttons-align             | 'right'                                                      | 指定 按钮 水平方向的位置：'left'、'right'                    |
+| toolbarAlign           | String   | data-toolbar-align             | 'left'                                                       | 指定 toolbar 水平方向的位置：'left'、'right'                 |
+| paginationVAlign       | String   | data-pagination-v-align        | 'bottom'                                                     | 指定 分页条 在垂直方向的位置：'top'、'bottom'、'bonth'       |
+| paginationHAlign       | String   | data-pagination-h-align        | 'right'                                                      | 指定 分页条 在水平方向的位置：'left'、'right'                |
+| paginationDetailHAlign | String   | data-pagination-detail-h-align | 'left'                                                       | 指定 分页详细信息 在水平方向的位置。'left'、'right'          |
 | paginationPreText      | String   | data-pagination-pre-text       | '<'                                                          | 指定分页条中上一页按钮的图标或文字                           |
 | paginationNextText     | String   | data-pagination-next-text      | '>'                                                          | 指定分页条中下一页按钮的图标或文字                           |
 | clickToSelect          | Boolean  | data-click-to-select           | false                                                        | 设置 true 将在点击行时，自动选择 rediobox 和 checkbox        |
 | singleSelect           | Boolean  | data-single-select             | false                                                        | 设置 true 将禁止多选                                         |
-| toolbar                | String   | data-toolbar                   | undefined                                                    | 一个 jQuery 选择器，指明自定义的toolbar，例如：#toolbar、 .toolbar |
+| toolbar                | String   | data-toolbar                   | undefined                                                    | 一个 jQuery 选择器，指明自定义的 toolbar，例如：`#toolbar`、 `.toolbar` |
 | checkboxHeader         | Boolean  | data-checkbox-header           | true                                                         | 设置 false 将在列头隐藏 check-all checkbox                   |
 | maintainSelected       | Boolean  | data-maintain-selected         | false                                                        | 设置为 true 在点击分页按钮或搜索按钮时，将记住 checkbox 的选择项 |
 | sortable               | Boolean  | data-sortable                  | true                                                         | 设置为 false 将禁止所有列的排序                              |
 | silentSort             | Boolean  | data-silent-sort               | true                                                         | 设置为 false 将在点击分页按钮时自动记住排序项。仅在 sidePagination 设置为 server 时生效 |
-| rowStyle               | Function | data-row-style                 | function ( row, index ) {<br/>     return class; <br/>}      | 自定义行样式 参数：row: 行数据，index: 行下标，返回值可以为 class 或者 css |
-| rowAttributes          | Function | data-row-attributes            | function ( row, index ) {<br/>     return attributes; <br/>} | 自定义行属性 参数为：row : 行数据，index: 行下标，返回值可以为 class 或者 css 支持所有自定义属性 |
+| rowStyle               | Function | data-row-style                 | function ( row, index ) {<br/>&nbsp;&nbsp;&nbsp;&nbsp;return class; <br/>} | 自定义行样式，参数：<br> - *row*: 行数据<br> - *index*: 行下标<br>返回值可以为 class 或者 css |
+| rowAttributes          | Function | data-row-attributes            | function ( row, index ) {<br/>&nbsp;&nbsp;&nbsp;&nbsp;return attributes; <br/>} | 自定义行属性，参数为：<br> - *row* : 行数据<br> - *index*: 行下标<br> - 返回值可以为 class 或者 css 支持所有自定义属性 |
 | customSearch           | Function | data-custom-search             | $.noop                                                       | 执行自定义搜索功能而不是内置搜索功能<br>function ( text ) <br> - *text*：搜索文本 |
 | customSort             | Function | data-custom-sort               | $.noop                                                       | 执行自定义排序函数而不是内置排序函数<br>function ( sortName, sortOrder， data ) <br> - *sortName*：排序名称<br> - *sortOrder*：排序顺序<br> - *data*：获取的原始数据 |
 
@@ -271,10 +271,10 @@ var columns = [{
 | class           | class / data-class     | String   | undefined | 该列的 class                                                 |
 | rowspan         | rowspan / data-rowspan | Number   | undefined | 合并单元格时定义合并多少行                                   |
 | colspan         | colspan / data-colspan | Number   | undefined | 合并单元格时定义合并多少列                                   |
-| align           | data-align             | String   | undefined | 表格数据的对齐方式，'left'，'right'，'center'                |
-| halign          | data-halign            | String   | undefined | 表格头部列名对齐方式，'left'，'right'，'center'              |
-| falign          | data-falign            | String   | undefined | 表格底部列对齐方式，'left'，'right'，'center'                |
-| valign          | data-valign            | String   | undefined | 垂直方向对齐方式，'top'，'middle'，'bottom'                  |
+| align           | data-align             | String   | undefined | 表格数据的对齐方式：'left'、'right'、'center'                |
+| halign          | data-halign            | String   | undefined | 表格头部列名对齐方式：'left'、'right'、'center'              |
+| falign          | data-falign            | String   | undefined | 表格底部列对齐方式：'left'、'right'、'center'                |
+| valign          | data-valign            | String   | undefined | 垂直方向对齐方式：'top'、'middle'、'bottom'                  |
 | width           | data-width             | Number   | undefined | 列的宽度，注意这里是数字类型不带单位 px 或者 %               |
 | widthUnit       | data-widthUnit         | String   | undefined | 列的宽度的单位，如 px 或 %，widthUnit: "px"                  |
 | sortable        | data-sortable          | Boolean  | false     | 该列是否排序（表头显示双箭头）                               |
@@ -439,7 +439,7 @@ var result=$table.bootstrapTable('方法名称',{field1:value1,field2:value2,...
 
 **基于网页字体,使用 CSS 调用图标**
 
-CSS 方法要调用两组文件,一个是 css(或 less 或 scss) 样式表, 另一组是图标字体文件。即 css 方法调用时，实际上要用到的是 **css 文件夹及 webfonts 文件夹**里的文件。
+CSS 方法要调用两组文件，一个是 CSS（或 less 或 SCSS）样式表,，另一组是图标字体文件。即 CSS 方法调用时，实际上要用到的是 **CSS 文件夹及 webfonts 文件夹**里的文件。
 
 若引入所有图标:
 
@@ -447,7 +447,7 @@ CSS 方法要调用两组文件,一个是 css(或 less 或 scss) 样式表, 另�
 <link rel="stylesheet" href="all.css">
 ```
 
-若只想引入brand的图标:
+若只想引入 brand 的图标:
 
 ```html
 <link rel="stylesheet" href="brands.min.css">
@@ -455,7 +455,7 @@ CSS 方法要调用两组文件,一个是 css(或 less 或 scss) 样式表, 另�
 <link rel="stylesheet" href="fontawesome.min.css">
 ```
 
-使用 css 方式调用图标，以网页字体的方式显示，则 DOM 结构内没有 svg 代码。
+使用 CSS 方式调用图标，以网页字体的方式显示，则 DOM 结构内没有 svg 代码。
 
 <br>
 
