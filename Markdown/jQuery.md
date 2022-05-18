@@ -278,6 +278,15 @@ jQuery 使用 `$` 符号作为 jQuery 的简写方式。
 	</script>
 	```
 
+可以通过上面方法获取获取 `<li></li>` 的索引：
+
+```javascript
+$("ul li").click(function () {
+    var index = $("ul li").index(this);
+    alert(index);
+ });
+```
+
 <br>
 
 # 2、jQuery 效果 
@@ -1529,7 +1538,7 @@ $(selector).each(function(index,element))
 
 | 参数                        | 描述                                                         |
 | --------------------------- | ------------------------------------------------------------ |
-| function ( index, element ) | 必需。为每个匹配元素规定运行的函数。<br> - index：选择器的 index 的位置<br> - element：当前的元素（也可用 `this` 选择器） |
+| function ( index, element ) | 必需。为每个匹配元素规定运行的函数。<br> - *index*：选择器的 index 的位置<br> - *element*：当前的元素（也可用 `this` 选择器） |
 
 **实例：**
 
