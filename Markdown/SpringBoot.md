@@ -2154,5 +2154,141 @@ spring.mail.properties.mail.smtp.socketFactory.port=465
 spring.mail.properties.mail.smtp.ssl.enable=true
 ```
 
+<br>
 
+# 11、处理静态资源
 
+静态资源，一般是网页端的：HTML文件、JavaScript 文件和图片。
+
+虽然真实项目里，图片可以直接存储在**对象存储的存储桶内**或者直接用 **Nginx进行反代**，但是一些小的静态资源，直接 SpringBoot 规划静态资源，也是个不错的选择。
+
+SpringBoot 内设置静态资源，或者说静态资源文件夹，主要有两种方法（均为 SpringMVC 实现）：
+
+- 在 `application.yml`/`application.properties` 内配置。
+- 设置 `Configuration 配置类`。
+
+以上两种方法，均可实现用户访问网址，不走 Controller 层的拦截，直接进行静态文件访问：
+
+![简单解释一下](../Images/SpringBoot/f1630117a2b8420a90a8a46dcfa68f2atplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp)
+
+<br>
+
+## 11.1、application 设置方法
+
+设置 application 方法很简单，主要涉及两个配置项：
+
+- `spring.mvc.static-path-pattern`：根据官网的描述和实际效果，可以理解为**静态文件 URL 匹配头**，也就是静态文件的 URL 地址开头。SpringBoot 默认为：`/**`。
+- `spring.web.resources.static-locations`：根据官网的描述和实际效果，可以理解为**实际静态文件地址**，也就是静态文件 URL 后，匹配的实际静态文件。SpringBoot 默认为：`classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/`。
+
+如何运作的？，这里画个简单的图：
+
+![简单演示](../Images/SpringBoot/f3d35e5cc4ca417b80f12680de0ad194tplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp)
+
+需要注意：
+
+- `spring.web.resources.static-locations` 是后续配置，旧版 SpringBoot 的配置项为：`spring.resources.static-locations`；在2.2.5 版本之后，旧版本配置已经失效。
+- `spring.web.resources.static-locations` 有多个配置项，在 SpringBoot 编译后，会合并为一个文件。多个配置文件，使用 `,` 进行分割。
+- `spring.web.resources.static-location` 仅仅允许一个配置，无法使用 `,` 进行分割，如果需要多个静态资源文件，可以使用下文的配置类方法。
+- `spring.web.resources.static-locations` 可以使用 `classpath`、`file` 进行匹配。如果使用 `file`，这个时候的相对路径为项目地址（打包为 .jar 后，相对路径就是 .jar 运行地址）。
+
+<br>
+
+现在来写一个示例，最终效果为浏览器输入：`http://localhost:8088/SystemData/UserData/Avatar/Mintimate.jpeg` 可以直接访问项目文件下的：`/SystemData/UserData/Avatar/Mintimate.jpeg`
+
+![就是这个文件了嗷](../Images/SpringBoot/502059a0bef4412a8b184ff1a2c9c989tplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp)
+
+配置文件为：
+
+```yaml
+spring:
+  mvc:
+  	# URL响应地址（Springboot默认为/**)
+    static-path-pattern: /SystemData/**
+  web:
+    resources:
+      # 静态文件地址，保留官方内容后，进行追加
+      static-locations: classpath:/static,classpath:/public,classpath:/resources,classpath:/META-INF/resources,file:SystemData
+```
+
+其中，`file:SystemData` 就是映射本地文件了。
+
+这样运行项目就可以直接访问静态资源了：
+
+![直接访问静态资源成功](../Images/SpringBoot/d952a35ea07f42be900efcb0af474c70tplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp)
+
+这样的配置，可以说最简单且粗暴，但是灵活性差一点点：URL 响应地址只能为一项，也就是 `spring.mvc.static-path-pattern` 配置只能写一项。
+
+这意味着，按上文设置了 `/SystemData/**` 为 URL 匹配，就不能设置第二个 `/resources/**` 这样的配置为第二静态目录。如果需要设置多个地址为静态资源目录，可以参考下文的 **设置配置类方法** 方法。
+
+<br>
+
+## 11.2、设置配置类方法
+
+写一个配置类，实现静态资源的文件夹方法很多。比如：
+
+- 继承于 `WebMvcConfigurationSupport` 父类，并实现 `addResourceHandlers` 方法。
+- 引用 `WebMvcConfigurer` 接口，并实现 `addInterceptors` 方法。
+
+这里使用 `WebMvcConfigurationSupport` 进行实现 `addResourceHandlers`：
+
+```java
+@Override
+protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+    
+}
+```
+
+这里的 `registry` 使用链式编程，方法为：
+
+- `addResourceHandler`：添加 URL 响应地址目录。
+- `addResourceLocations`：添加实际资源目录。
+
+和 `application.yml` 里设置一样，支持 `classpath` 和 `file` 等关键词。
+
+<br>
+
+现在就来配置，最终效果为（两组同时）:
+
+- 浏览器输入：`http://localhost:8088/SystemData/UserData/Avatar/Mintimate.jpeg` 可以直接访问项目文件下的：`/SystemData/UserData/Avatar/Mintimate.jpeg`
+- 浏览器输入：`http://localhost:8088/SystemDataTest/UserData/Avatar/Mintimate.jpeg` 可以直接访问项目文件下的：`/Test/UserData/Avatar/Demo.jpeg`
+
+![本地资源目录文件夹](../Images/SpringBoot/651815b7ad4346fda348bfdaf0b866dctplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp)
+
+添加一个配置类，并继承 `WebMvcConfigurationSupport`，实现 `addResourceHandlers` 方法，并打上 `@Configuration` 注解，使其成为配置类：
+
+```java
+@Configuration
+public class WebConfig extends WebMvcConfigurationSupport {
+    @Override
+    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+        super.addResourceHandlers(registry);
+    }
+}
+```
+
+之后，重写内容：
+
+```java
+@Configuration
+public class WebConfig extends WebMvcConfigurationSupport {
+    //定位到项目文件夹下的SystemData文件夹，作为个人静态资源目录
+    static final String IMG_PATH = System.getProperty("user.dir") + "SystemData/";
+    static final String IMG_PATH_TWO = System.getProperty("user.dir") + "/Test/";
+
+    @Override
+    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+        //静态资源银蛇
+        registry.addResourceHandler("/SystemData/**")
+                .addResourceLocations("file:" + IMG_PATH);
+        registry.addResourceHandler("/SystemDataTest/**")
+                .addResourceLocations("file:" + IMG_PATH_TWO);
+        super.addResourceHandlers(registry);
+    }
+}
+```
+
+之后，浏览器就可以访问了：
+
+![静态资源一](../Images/SpringBoot/776d165ad82d4247b201ab7f29ff06eetplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp)
+
+![静态资源二](../Images/SpringBoot/dba2e1b5b0bb4a7289f39e7d15f91e73tplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp)
