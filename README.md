@@ -59,6 +59,7 @@
 - [**Axios**](https://github.com/0richalcos/Note/blob/main/Markdown/Axios.md)
 - [**AntV-X6**](https://github.com/0richalcos/Note/blob/main/Markdown/AntV-X6.md)
 - [**X-editable**](https://github.com/0richalcos/Note/blob/main/Markdown/X-editable.md)
+- [**DHTMLX Gantt**](https://github.com/0richalcos/Note/blob/main/Markdown/DHTMLXGantt.md)
 
 
 
