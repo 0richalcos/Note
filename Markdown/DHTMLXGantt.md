@@ -49,7 +49,9 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 
 <br>
 
-# 2、属性
+# 2、API
+
+## 2.1、属性
 
 [官方文档](https://docs.dhtmlx.com/gantt/api__refs__gantt_props.html)
 
@@ -1861,3 +1863,53 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   ```
 
 <br>
+
+# 3、向导
+
+[官方文档](https://docs.dhtmlx.com/gantt/desktop__guides.html)
+
+<br>
+
+## 3.1、样式
+
+### 3.1.1、任务颜色
+
+给任务着色可以突出显示特定的任务，以便将用户注意：
+
+![img](../Images/DHTMLXGantt/coloring_tasks.png)
+
+要设置任务的自定义样式，可以使用以下方法之一：
+
+- 在任务对象的属性中设置样式值
+
+<br>
+
+**在任务对象的属性中设置样式值**
+
+要为任务指定自定义样式，可以向数据对象添加 3 个额外属性（或仅其中的一部分）：
+
+- **color**：任务栏的背景颜色
+- **textColor**：任务栏内的文本颜色
+- **progressColor**：进度条的颜色
+  （默认情况下，只是使用以下样式的背景色使其比任务的颜色暗一点：`'background-color: rgb(54, 54, 54); opacity: 0.2'`）
+
+![img](../Images/DHTMLXGantt/task_color_properties.png)
+
+> 注意，这些是特殊属性。默认情况下，Gantt 检查任务是否拥有它们，如果这样做，则将相关值应用于任务栏和文本。否则，将应用预定义的颜色。
+
+示例：
+
+```javascript
+var tasks = {
+  data:[
+     {id:1, text:"Project #1", start_date:"01-04-2013", duration:18, color:"red"},
+     {id:2, text:"Task #1", start_date:"02-04-2013", duration:8, color:"blue", parent:1},
+     {id:3, text:"Task #2", start_date:"11-04-2013", duration:8, color:"blue", parent:1}
+   ]
+};
+gantt.init("gantt_here");
+gantt.parse(tasks);
+ 
+gantt.getTask(1).color = "red"
+```
+
