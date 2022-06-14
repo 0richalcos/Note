@@ -12,7 +12,7 @@ Apache POI 是 Apache 软件基金会的开放源码函数库，POI 提供 API �
 
 <br>
 
-**导入依赖**
+**依赖**
 
 ```xml
 <!--导入依赖-->
@@ -51,6 +51,12 @@ Apache POI 是 Apache 软件基金会的开放源码函数库，POI 提供 API �
     </dependency>
 </dependencies>
 ```
+
+> poi-ooxml（07） 的依赖下包含 poi（03） 的依赖，如果两个都有需求可以只引入 poi-ooxml 依赖：
+>
+> ![image-20220614154245821](../Images/ApachePOI/image-20220614154245821.png)
+>
+> 望日常开发 Maven 项目中多留意依赖结构，优化导入代码。
 
 <br>
 
@@ -303,6 +309,8 @@ public void testWrite07BigDataS() {
 ```
 
 <img src="../Images/tools/20180720094625254" alt="img"  />
+
+<br>
 
 **合并单元格的关键代码：**
 
@@ -1011,41 +1019,13 @@ public void testFormula() throws IOException {
 
 # 4、POI Word 读
 
-使用 POI 读取文档中的表格，当有多个表格时可以指定需要读取的表格，同时支持读取 docx 和 doc 格式。需要添加 poi 的 jar 包
+使用 POI 读取文档中的表格，当有多个表格时可以指定需要读取的表格，同时支持读取 docx 和 doc 格式。需要添加 poi 的 jar 包：
 
 ```xml
 <!--apache-POI-->
 <dependency>
     <groupId>org.apache.poi</groupId>
-    <artifactId>poi</artifactId>
-    <version>3.14</version>
-</dependency>
-<!--POI Word(03)转为HTML工具-->
-<dependency>
-    <groupId>org.apache.poi</groupId>
-    <artifactId>poi-scratchpad</artifactId>
-    <version>3.14</version>
-</dependency>
-<dependency>
-    <groupId>org.apache.poi</groupId>
     <artifactId>poi-ooxml</artifactId>
-    <version>3.14</version>
-</dependency>
-<!--POI Word(07)转为HTML工具-->
-<dependency>
-    <groupId>fr.opensagres.xdocreport</groupId>
-    <artifactId>fr.opensagres.poi.xwpf.converter.xhtml</artifactId>
-    <version>2.0.1</version>
-</dependency>
-<!--如果遇见jar包冲突可以替换为这个jar包-->
-<!--<dependency>-->
-<!--    <groupId>fr.opensagres.xdocreport</groupId>-->
-<!--    <artifactId>org.apache.poi.xwpf.converter.xhtml</artifactId>-->
-<!--    <version>1.0.6</version>-->
-<!--</dependency>-->
-<dependency>
-    <groupId>org.apache.poi</groupId>
-    <artifactId>poi-ooxml-schemas</artifactId>
     <version>3.14</version>
 </dependency>
 <dependency>
@@ -1054,6 +1034,10 @@ public void testFormula() throws IOException {
     <version>1.3</version>
 </dependency>
 ```
+
+> 关于 Apache POI 的依赖版本注意保持统一，否则可能会报 `java.lang.NoSuchMethodError`
+
+<br>
 
 <img src="../Images/ApachePOI/20180914173007117" alt="img" />
 
@@ -1237,6 +1221,28 @@ spring:
 
 **03 版 Word 转 Html**
 
+03 版的 Word 需要额外导入以下依赖：
+
+```xml
+<!--POI Word(03)转为HTML工具-->
+<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi-scratchpad</artifactId>
+    <version>3.14</version>
+</dependency>
+<dependency>
+    <groupId>fr.opensagres.xdocreport</groupId>
+    <artifactId>fr.opensagres.poi.xwpf.converter.xhtml</artifactId>
+    <version>2.0.1</version>
+</dependency>
+<!--如果遇见jar包冲突可以替换为这个jar包-->
+<!--<dependency>-->
+<!--    <groupId>fr.opensagres.xdocreport</groupId>-->
+<!--    <artifactId>org.apache.poi.xwpf.converter.xhtml</artifactId>-->
+<!--    <version>1.0.6</version>-->
+<!--</dependency>-->
+```
+
 ```java
 public static String docToHtml(File file) {
     //获取word的文件名（去掉扩展名）
@@ -1286,31 +1292,5 @@ public static String docToHtml(File file) {
         return null;
     }
 }
-```
-
-如果显示缺少 class，看情况导入以下依赖：
-
-```xml
-<!--缺少的jar包-->
-<dependency>
-    <groupId>javax.xml.bind</groupId>
-    <artifactId>jaxb-api</artifactId>
-    <version>2.3.0</version>
-</dependency>
-<dependency>
-    <groupId>com.sun.xml.bind</groupId>
-    <artifactId>jaxb-impl</artifactId>
-    <version>2.3.0</version>
-</dependency>
-<dependency>
-    <groupId>com.sun.xml.bind</groupId>
-    <artifactId>jaxb-core</artifactId>
-    <version>2.3.0</version>
-</dependency>
-<dependency>
-    <groupId>javax.activation</groupId>
-    <artifactId>activation</artifactId>
-    <version>1.1.1</version>
-</dependency>
 ```
 
