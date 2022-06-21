@@ -49,7 +49,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 
 <br>
 
-# 2、API
+# 2、Gantt API
 
 ## 2.1、属性
 
@@ -1872,7 +1872,38 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 
 ## 3.1、样式
 
-### 3.1.1、任务颜色
+### 3.1.1、CSS 文档
+
+**网格样式**
+
+![img](../Images/DHTMLXGantt/grid_area.png)
+
+网格的 DOM 元素的整体结构如下：
+
+```
+- .gantt_grid
+    - .gantt_grid_scale
+        - .gantt_grid_head_cell
+    - .gantt_grid_data
+        - .gantt_row.odd 
+        - .gantt_row 
+        - .gantt_row.gantt_row_task
+        - .gantt_row.gantt_row_project
+        - .gantt_row.gantt_row_milestone
+            - gantt_cell.gantt_cell_tree
+                - .gantt_tree_indent
+                - .gantt_tree_icon.gantt_close
+                - .gantt_tree_icon.gantt_open
+                - .gantt_tree_content
+            - gantt_cell
+                - .gantt_tree_content
+```
+
+
+
+<br>
+
+### 3.1.2、任务着色
 
 给任务着色可以突出显示特定的任务，以便将用户注意：
 
@@ -1881,6 +1912,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 要设置任务的自定义样式，可以使用以下方法之一：
 
 - 在任务对象的属性中设置样式值
+- 重新定义默认任务的模板
 
 <br>
 
@@ -1913,3 +1945,413 @@ gantt.parse(tasks);
 gantt.getTask(1).color = "red"
 ```
 
+<br>
+
+**重新定义默认任务的模板**
+
+要通过模板为任务设置自定义样式，使用 `task_class` 模板。
+
+例如，要根据任务的优先级为其着色，请使用以下代码：
+
+```html
+<style>
+    /* common styles for overriding borders/progress color */
+    .gantt_task_line{
+        border-color: rgba(0, 0, 0, 0.25);
+    }
+    .gantt_task_line .gantt_task_progress {
+        background-color: rgba(0, 0, 0, 0.25);
+    }
+ 
+    /* high */
+    .gantt_task_line.high {
+        background-color: #03A9F4;
+    }
+    .gantt_task_line.high .gantt_task_content {
+        color: #fff;
+    }
+ 
+    /* medium */
+    .gantt_task_line.medium {
+        background-color: #f57730;
+    }
+    .gantt_task_line.medium .gantt_task_content {
+        color: #fff;
+    }
+ 
+    /* low */
+    .gantt_task_line.low {
+        background-color: #e157de;
+    }
+    .gantt_task_line.low .gantt_task_content {
+        color: #fff;
+    }
+</style>
+
+<script>
+gantt.templates.task_class  = function(start, end, task){
+    switch (task.priority){
+        case "1":
+            return "high";
+            break;
+        case "2":
+            return "medium";
+            break;
+        case "3":
+            return "low";
+            break;
+    }
+};
+</script>
+```
+
+<br>
+
+## 3.2、配置任务
+
+![img](../Images/DHTMLXGantt/gantt_tasks.png)
+
+<br>
+
+### 3.2.1、时间线区域的额外元素
+
+默认情况下，DHTMLX Gantt 将时间线区域的元素渲染为层，并按以下顺序执行：
+
+1. 时间轴的网格
+2. 链接
+3. 任务
+
+显示其他元素（如基线或截止日期标记）通常是通过创建一个可显示的层并在其中放置自定义元素（使用绝对定位将自定义元素放置在相关任务旁边）来完成。
+
+要在时间轴区域中增加一层，请使用 `addTasklayer()` 方法。作为参数，该方法采用一个函数：
+
+```javascript
+gantt.addTaskLayer(function myNewElement(task) {
+    var el = document.createElement('div');
+    // your code
+    return el;
+});
+```
+
+1. 调用该方法后，DHTMLX Gantt 将向时间线区域添加一个容器。
+2. 当DHTMLX Gantt 呈现数据时，将为每个任务调用 `addTaskLayer()` 方法，并将返回的 DOM 元素附加到容器中。
+3. 为了放置元素，您可以使用绝对位置。
+4. 更新甘特图的任务时，它将在所有层（包括自定义层）中更新（将为更新的任务调用函数，并替换相关的DOM元素）。
+5. DHTMLX Gantt 提供了一种计算任务的位置和大小的方法 `getTaskPosition()`。您也可以使用它来计算自定义元素的位置和大小。
+
+<br>
+
+**用法示例**
+
+要了解如何应用此功能，考虑一个示例：有一个计划和实际时间进行任务，需要显示两次：
+
+![img](../Images/DHTMLXGantt/baselines.png)
+
+1. **降低任务高度并将任务行上移**
+
+	在初始状态的任务是这样的：
+
+	![img](../Images/DHTMLXGantt/baselines_start.png)
+
+	首先，需要为任务下的基线释放一些空间。为此，有必要降低任务栏的高度，使其大约等于行高的一半：
+
+	```javascript
+	gantt.config.bar_height = 16;
+	gantt.config.row_height = 40;
+	```
+
+	并通过应用以下 CSS 代码将任务行移动到行的顶部：
+
+	```css
+	.gantt_task_line, .gantt_line_wrapper {
+	    margin-top: -9px;
+	}
+	.gantt_side_content {
+	    margin-bottom: 7px;
+	}
+	.gantt_task_link .gantt_link_arrow {
+	    margin-top: -12px
+	}
+	.gantt_side_content.gantt_right {
+	    bottom: 0;
+	}
+	```
+
+	结果如下：
+
+	![img](../Images/DHTMLXGantt/baselines_task_height.png)
+
+2. **添加额外的数据属性**
+
+	之后，需要向任务对象添加其他数据属性。这里命名为：`planned_start` 和 `planned_end`。
+
+	![img](../Images/DHTMLXGantt/baseline_task_object-16557781359655.png)
+
+3. **将添加的数据特性转换为日期对象**
+
+	DHTMLX Gantt只知道 `start_date` 和 `end_date` 数据属性，并自动将它们解析为日期对象。任何其他日期属性都需要额外处理。
+
+	要使添加的`planned_start`、`planned_end` 属性可由 DHTMLX Gantt识别，需要在 `onTaskLoading` 事件处理程序中使用 `parseDate()` 方法将它们解析为日期对象：
+
+	```javascript
+	gantt.attachEvent("onTaskLoading", function(task){
+	    task.planned_start = gantt.date.parseDate(task.planned_start, "xml_date");
+	    task.planned_end = gantt.date.parseDate(task.planned_end, "xml_date");
+	    return true;
+	});
+	```
+
+4. **显示计划时间的自定义元素**
+
+	然后，调用 `addTasklayer()` 方法显示任务的计划时间（由 `planned_start` 和 `planned_end` 属性定义）：
+
+	```javascript
+	gantt.addTaskLayer(function draw_planned(task) {
+	    if (task.planned_start && task.planned_end) {
+	        var sizes = gantt.getTaskPosition(task, task.planned_start, task.planned_end);
+	        var el = document.createElement('div');
+	        el.className = 'baseline';
+	        el.style.left = sizes.left + 'px';
+	        el.style.width = sizes.width + 'px';
+	        el.style.top = sizes.top + gantt.config.task_height  + 13 + 'px';
+	        return el;
+	    }
+	    return false;
+	});
+	```
+
+5. **为添加元素指定 CSS 样式**
+
+	为新元素添加样式：
+
+	```css
+	.baseline {
+	    position: absolute;
+	    border-radius: 2px;
+	    opacity: 0.6;
+	    margin-top: -7px;
+	    height: 12px;
+	    background: #ffd180;
+	    border: 1px solid rgb(255,153,0);
+	}
+	```
+
+<br>
+
+## 3.3、配置比例
+
+![img](../Images/DHTMLXGantt/gantt_dates.png)
+
+比例的配置通过 `scale` 属性指定。可以通过在比例配置的数组中设置比例对象来指定任意数量的比例：
+
+```javascript
+// a single day-scale
+gantt.config.scales = [
+    {unit: "day", step: 1, format: "%j, %D"}
+];
+ 
+// several scales at once
+gantt.config.scales = [
+    {unit: "month", step: 1, format: "%F, %Y"},
+    {unit: "week", step: 1, format: weekScaleTemplate},
+    {unit: "day", step:1, format: "%D", css:daysStyle }
+];
+```
+
+可以配置时间刻度（X轴）的以下方面：
+
+- 单位
+- 范围
+- 高度
+- 日期格式
+
+<br>
+
+### 3.3.1、时间单位
+
+![img](../Images/DHTMLXGantt/month_day_scale_units.png)
+
+要设置比例的单位，请在相应的比例对象中使用 `unit` 特性：
+
+可能的值为： `minute`、`hour`、`day`、`week`、`quarter`、`month`、`year`。
+
+```javascript
+gantt.config.scales = [
+    {unit: "month", step: 1, format: "%F, %Y"},
+    {unit: "day", step: 1, format: "%j, %D"}
+];
+ 
+gantt.init("gantt_here");
+```
+
+<br>
+
+### 3.3.2、范围
+
+![img](../Images/DHTMLXGantt/day_scale_unit.png)
+
+<br>
+
+**默认范围设置**
+
+如果没有明确指定日期范围，则 Gantt 使用已加载任务的日期，并在比例中第一个任务之前和最后一个任务之后添加偏移量。偏移由时间刻度的设置定义。
+
+可以使用 `getState()` 方法以编程方式获取显示的日期范围：
+
+```javascript
+var state = gantt.getState();
+ 
+console.log(state.min_date);
+// -> Mon Jan 01 2018 00:00:00
+ 
+console.log(state.max_date);
+// -> Tue Jan 01 2019 00:00:00
+```
+
+<br>
+
+**显式设置日期范围**
+
+另外，可以使用 `start_date` 和 `end_date` 配置选项明确设置日期范围：
+
+```javascript
+gantt.config.start_date = new Date(2018, 02, 31);
+gantt.config.end_date = new Date(2018, 03, 09);
+ 
+gantt.init("gantt_here");
+```
+
+它们也可以在 Gantt 初始化调用中指定：
+
+```javascript
+gantt.init("gantt_here", new Date(2018, 02, 31), new Date(2018, 03, 09));
+```
+
+不符合指定时间间隔的任务不会显示在甘特图中，除非它们标记为 `unscheduled`。
+
+<br>
+
+**显示显式日期范围之外的任务**
+
+可以在甘特图中显示不符合指定日期范围的任务。
+
+![img](../Images/DHTMLXGantt/tasks_outside_timescale.png)
+
+为此，需要将 `show_tasks_outside_timescale` 配置参数设置为 `true`：
+
+```javascript
+var data = {
+  "tasks": [
+    {"id":1, "text":"Project #1", "start_date": "01-09-2018", "end_date": "02-09-2018"},
+    {"id":2, "text":"Project #2", "start_date": "01-09-2021", "end_date": "02-09-2021"},
+    {"id":3, "text":"Task #1", "start_date": "03-02-2020", "end_date": "05-02-2020"},
+    ],
+    "links":[]
+};
+ 
+gantt.config.show_tasks_outside_timescale = true;
+ 
+gantt.init("gantt_here", new Date(2020, 1, 1), new Date(2020, 2,1));
+```
+
+结果，id为 1 和 2 的任务将在页面上显示为时间线区域中的空行，并在网格中显示指定的名称和开始日期。
+
+<br>
+
+### 3.3.3、高度
+
+![img](../Images/DHTMLXGantt/scale_height.png)
+
+可以通过 `scale_height` 属性设置比例的高度：
+
+```javascript
+gantt.config.scale_height = 54; 
+ 
+gantt.init("gantt_here");
+```
+
+如果有多个刻度，它们将平均共享指定的高度。例如，如果 `scale_height` 为 60 像素，而你有 3 个缩放，则每个缩放的高度为 60/3=20 像素。
+
+<br>
+
+### 3.3.4、日期格式
+
+使用相应比例对象中的 `format` 特性可以设置比例的格式。日期格式可以设置为字符串：
+
+```javascript
+gantt.config.scales = [
+    {unit: "month", step: 1, format: "%F, %Y"},
+    {unit: "week", step: 1, format: weekScaleTemplate},
+    {unit: "day", step:1, format: "%D", css:daysStyle }
+];
+ 
+gantt.init("gantt_here");
+```
+
+![img](../Images/DHTMLXGantt/multiple_scales.png)
+
+或作为以日期对象为参数的函数：
+
+```javascript
+gantt.config.scales = [
+  { unit: "day", step:1, format: function(date){
+    return "<strong>Day " + dayNumber(date) + "</strong><br/>" + dateFormat(date);
+  }}
+]
+```
+
+![img](../Images/DHTMLXGantt/scale_template.png)
+
+可用格式字符：
+
+- **%y** - 年份为两位数（00 至 99）；
+
+- **%Y** - 年份为四位数（1900-9999）；
+
+	
+
+- **%m** - 以数字形式表示的月份，前导零（01 到 12）；
+
+- **%n** - 以数字形式表示的月份，无前导零（1 到 12）；
+
+- **%M** - 月份的缩写（1 月至 12 月）；
+
+- **%F** - 全称月份（一月至十二月）；
+
+	
+
+- **%W** - ISO-8601年度周数。周从周一开始；
+
+- **%w** - 周数，周从周一或周日开始，具体取决于 `start_on_monday` 属性的值；
+
+	
+
+- **%d** - 以数字开头的零（01 到 31）表示的日期；
+
+- **%j** - 以无前导零（1 到 31）的数字表示的日期；
+
+- **%D** - 日的缩写（一到日）；
+
+- **%l** - 全称日期（星期一至星期天）；
+
+	
+
+- **%h** - 基于 12 小时制的小时数（00 到 11）；
+
+- **%H** - 基于 24 小时制的小时数（00 至 23）；
+
+- **%g** - 基于无前导零（1 到 12）的 12 小时时钟的小时数；
+
+- **%G** - 基于无前导零（0至23）的24小时时钟的小时数；
+
+	
+
+- **%i** - 以数字形式表示的分钟，前导零（00 到 59）；
+
+- **%s** - 以数字形式表示的秒，前导零（00 到 59）；
+
+- **%a** - 显示 am（从午夜到中午的时间）和 pm（从中午到午夜的时间）；
+
+- **%A** - 显示AM（从午夜到中午的时间）和PM（从中午到午夜的时间）。
+
+例如，如果要将 2019年6月1日 显示为 `01/06/2019`，则应指定 `%d/%m/%Y`。
