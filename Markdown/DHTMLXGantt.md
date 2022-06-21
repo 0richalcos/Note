@@ -1899,7 +1899,54 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
                 - .gantt_tree_content
 ```
 
+可以通过 `.gantt_grid_scale` 类选择器更改网格头元素的样式。
 
+以下是为网格和时间线的标题应用公共背景和字体颜色的示例：
+
+```css
+.gantt_grid_scale, .gantt_task_scale, .gantt_task_vscroll {
+    background-color: #eee;
+}
+.gantt_grid_scale, .gantt_task_scale, 
+.gantt_task .gantt_task_scale .gantt_scale_cell,
+.gantt_grid_scale .gantt_grid_head_cell {
+    color: #000;
+    font-size: 12px;
+    border-bottom: 1px solid #cecece;
+}
+```
+
+![img](../Images/DHTMLXGantt/grid_header.png)
+
+可以通过 `.gantt_grid_head_cell` 将自定义样式应用于网格标头的单元格。
+
+用于设置单元格样式的选择器如下所示：
+
+- `.gantt_grid_head_cell[data-column-id='columnName'] ` - 选择特定列的单元格
+
+	*columnName* 与列的 name 属性的值匹配：
+
+	```html
+	<style>
+	    .gantt_grid_head_cell[data-column-id='columnName'] {
+	        background-color: #ededed;
+	        color:black;
+	    }
+	</style>
+	<script>
+	gantt.config.columns = [
+	    ...
+	    {name: "columnName", align: "center"},
+	    ...
+	];
+	</script>
+	```
+
+	![img](../Images/DHTMLXGantt/header_cell.png)
+
+- `.gantt_grid_head_cell[data-column-index='1']` - 按索引选择特定列；
+
+- `.gantt_grid_head_cell[data-column-name='start_date']` - 按名称选择特定列。
 
 <br>
 
@@ -2138,11 +2185,17 @@ gantt.addTaskLayer(function myNewElement(task) {
 
 <br>
 
-## 3.3、配置比例
+## 3.3、配置刻度
+
+![img](../Images/DHTMLXGantt/gantt_right.png)
+
+<br>
+
+### 3.3.1、设置刻度
 
 ![img](../Images/DHTMLXGantt/gantt_dates.png)
 
-比例的配置通过 `scale` 属性指定。可以通过在比例配置的数组中设置比例对象来指定任意数量的比例：
+刻度的配置通过 `scale` 属性指定。可以通过在 `gantt.config.scales` 数组中设置刻度对象来指定任意数量的刻度：
 
 ```javascript
 // a single day-scale
@@ -2167,11 +2220,11 @@ gantt.config.scales = [
 
 <br>
 
-### 3.3.1、时间单位
+#### 时间单位
 
 ![img](../Images/DHTMLXGantt/month_day_scale_units.png)
 
-要设置比例的单位，请在相应的比例对象中使用 `unit` 特性：
+要设置刻度的单位，请在相应的刻度对象中使用 `unit` 特性：
 
 可能的值为： `minute`、`hour`、`day`、`week`、`quarter`、`month`、`year`。
 
@@ -2186,7 +2239,7 @@ gantt.init("gantt_here");
 
 <br>
 
-### 3.3.2、范围
+#### 范围
 
 ![img](../Images/DHTMLXGantt/day_scale_unit.png)
 
@@ -2194,7 +2247,7 @@ gantt.init("gantt_here");
 
 **默认范围设置**
 
-如果没有明确指定日期范围，则 Gantt 使用已加载任务的日期，并在比例中第一个任务之前和最后一个任务之后添加偏移量。偏移由时间刻度的设置定义。
+如果没有明确指定日期范围，则 Gantt 使用已加载任务的日期，并在刻度中第一个任务之前和最后一个任务之后添加偏移量。偏移由时间刻度的设置定义。
 
 可以使用 `getState()` 方法以编程方式获取显示的日期范围：
 
@@ -2258,11 +2311,11 @@ gantt.init("gantt_here", new Date(2020, 1, 1), new Date(2020, 2,1));
 
 <br>
 
-### 3.3.3、高度
+#### 高度
 
 ![img](../Images/DHTMLXGantt/scale_height.png)
 
-可以通过 `scale_height` 属性设置比例的高度：
+可以通过 `scale_height` 属性设置刻度的高度：
 
 ```javascript
 gantt.config.scale_height = 54; 
@@ -2274,9 +2327,9 @@ gantt.init("gantt_here");
 
 <br>
 
-### 3.3.4、日期格式
+#### 日期格式
 
-使用相应比例对象中的 `format` 特性可以设置比例的格式。日期格式可以设置为字符串：
+使用相应刻度对象中的 `format` 特性可以设置刻度的格式。日期格式可以设置为字符串：
 
 ```javascript
 gantt.config.scales = [
@@ -2355,3 +2408,193 @@ gantt.config.scales = [
 - **%A** - 显示AM（从午夜到中午的时间）和PM（从中午到午夜的时间）。
 
 例如，如果要将 2019年6月1日 显示为 `01/06/2019`，则应指定 `%d/%m/%Y`。
+
+<br>
+
+### 3.3.2、缩放
+
+DHTMLX Gantt 提供了一个内置模块，用于方便地管理时间刻度缩放。如果要自定义默认缩放行为，有一个灵活的 API 可以实现动态更改时间刻度设置的功能。
+
+<br>
+
+**内置缩放模块**
+
+嵌入式缩放模块在 `gantt.ext.zoom` 扩展中声明。要启用模块，需要调用 `gantt.ext.zoom.init(ZoomConfig)` 并传递一个 `zoomConfig` 对象。该对象具有包含缩放级别数组的配置设置。例如：
+
+```javascript
+var zoomConfig = {
+    levels: [
+      {
+        name:"day",
+        scale_height: 27,
+        min_column_width:80,
+        scales:[
+            {unit: "day", step: 1, format: "%d %M"}
+        ]
+      },
+      {
+         name:"week",
+         scale_height: 50,
+         min_column_width:50,
+         scales:[
+          {unit: "week", step: 1, format: function (date) {
+           var dateToStr = gantt.date.date_to_str("%d %M");
+           var endDate = gantt.date.add(date, 6, "day");
+           var weekNum = gantt.date.date_to_str("%W")(date);
+           return "#" + weekNum + ", " + dateToStr(date) + " - " + dateToStr(endDate);
+           }},
+           {unit: "day", step: 1, format: "%j %D"}
+         ]
+       },
+       {
+         name:"month",
+         scale_height: 50,
+         min_column_width:120,
+         scales:[
+            {unit: "month", format: "%F, %Y"},
+            {unit: "week", format: "Week #%W"}
+         ]
+        },
+        {
+         name:"quarter",
+         height: 50,
+         min_column_width:90,
+         scales:[
+          {unit: "month", step: 1, format: "%M"},
+          {
+           unit: "quarter", step: 1, format: function (date) {
+            var dateToStr = gantt.date.date_to_str("%M");
+            var endDate = gantt.date.add(gantt.date.add(date, 3, "month"), -1, "day");
+            return dateToStr(date) + " - " + dateToStr(endDate);
+           }
+         }
+        ]},
+        {
+          name:"year",
+          scale_height: 50,
+          min_column_width: 30,
+          scales:[
+            {unit: "year", step: 1, format: "%Y"}
+        ]}
+    ]
+};
+ 
+gantt.ext.zoom.init(zoomConfig);
+```
+
+<br>
+
+**自定义缩放设置**
+
+如果不想使用缩放模块，而希望手动控制缩放设置，可以通过相应的配置选项来实现。
+
+事实上，实现缩放功能意味着定义时间刻度配置（缩放级别）的多个预设，并为用户提供在它们之间切换的能力。
+
+需要以下设置来配置时间刻度：
+
+- `gantt.config.scales` - 允许设置任意数量的时间刻度行
+- `gantt.config.min_column_width`、`gantt.config.scale_height`  - 时间刻度的列宽度和总高度
+
+参考以下预设：
+
+```javascript
+/* global gantt */
+function setScaleConfig(level) {
+    switch (level) {
+        case "day":
+            gantt.config.scales = [
+                {unit: "day", step: 1, format: "%d %M"}
+            ];
+            gantt.config.scale_height = 27;
+            break;
+        case "week":
+            var weekScaleTemplate = function (date) {
+              var dateToStr = gantt.date.date_to_str("%d %M");
+              var endDate = gantt.date.add(gantt.date.add(date, 1, "week"), -1, "day");
+              return dateToStr(date) + " - " + dateToStr(endDate);
+            };
+            gantt.config.scales = [
+                {unit: "week", step: 1, format: weekScaleTemplate},
+                {unit: "day", step: 1, format: "%D"}
+            ];
+            gantt.config.scale_height = 50;
+            break;
+        case "month":
+            gantt.config.scales = [
+                {unit: "month", step: 1, format: "%F, %Y"},
+                {unit: "day", step: 1, format: "%j, %D"}
+            ];
+            gantt.config.scale_height = 50;
+            break;
+        case "year":
+            gantt.config.scales = [
+                {unit: "year", step: 1, format: "%Y"},
+                {unit: "month", step: 1, format: "%M"}
+            ];
+            gantt.config.scale_height = 90;
+            break;
+    }
+}
+```
+
+所述函数可以通过四种预定义配置之一配置甘特图对象，从 “天” 到 “年” 时间刻度。甘特图需要完全重新绘制才能显示配置的更改：
+
+```javascript
+setScaleConfig("year");
+gantt.init("gantt_here");
+```
+
+然后，可以为用户实现一个UI来切换缩放级别：
+
+```html
+<label><input type="radio" name="scale" value="day" checked/>Day scale</label>
+<label><input type="radio" name="scale" value="week"/>Week scale</label>
+<label><input type="radio" name="scale" value="month"/>Month scale</label>
+<label><input type="radio" name="scale" value="year"/>Year scale</label>
+```
+
+```javascript
+var els = document.querySelectorAll("input[name='scale']");
+for (var i = 0; i < els.length; i++) {
+    els[i].onclick = function(e){
+        var el = e.target;
+        var value = el.value;
+        setScaleConfig(value);
+        gantt.render();
+    };
+}
+```
+
+![image-20220621142321062](../Images/DHTMLXGantt/image-20220621142321062.png)
+
+<br>
+
+## 3.4、配置网格区域
+
+![img](../Images/DHTMLXGantt/gantt_left.png)
+
+<br>
+
+### 3.4.1、配置树列
+
+**设置树节点模板**
+
+要设置树节点的模板，需要使用 `columns` 属性中的 `template` 属性。
+
+模板函数的返回值将添加为内部 HTML。这就是为什么可以在属性中使用任何 HTML 结构。
+
+```javascript
+gantt.config.columns=[
+    {name:"text",       label:"Task name",  tree:true, width:230, template:myFunc },
+    {name:"start_date", label:"Start time", align: "center" },
+    {name:"duration",   label:"Duration",   align: "center" }
+];
+gantt.init("gantt_here");
+ 
+function myFunc(task){
+    if(task.priority ==1)
+        return "<div class='important'>"+task.text+" ("+task.users+") </div>";
+    return task.text+" ("+task.users+")";
+};
+```
+
