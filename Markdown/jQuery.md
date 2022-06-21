@@ -27,12 +27,12 @@ jQuery 库位于一个 JavaScript 文件中，其中包含了所有的 jQuery �
 
 请注意，<script> 标签应该位于页面的 <head> 部分。JavaScript 是 HTML5 以及所有现代浏览器中的默认脚本语言！所以不需要在 <script> 标签中使用 type="text/javascript" 。
 
-
+<br>
 
 下载 jQuery
 共有两个版本的 jQuery 可供下载：一份是精简过的，另一份是未压缩的（供调试或阅读）；这两个版本都可从  [jQuery.com](http://docs.jquery.com/Downloading_jQuery#Download_jQuery)  下载。
 
-
+<br>
 
 如果不愿意在自己的计算机上存放 jQuery 库，那么可以从 Google 或 Microsoft 加载 CDN jQuery 核心文件。
 
@@ -46,13 +46,13 @@ jQuery 库位于一个 JavaScript 文件中，其中包含了所有的 jQuery �
 
 使用谷歌或微软的 jQuery，有一个很大的优势：许多用户在访问其他站点时，已经从谷歌或微软加载过 jQuery。当他们访问您的站点时，会从缓存中加载 jQuery，这样可以减少加载时间。同时，大多数 CDN 都可以确保当用户向其请求文件时，会从离用户最近的服务器上返回响应，这样也可以提高加载速度。
 
-
+<br>
 
 ## 1.2、jQuery 语法
 
 通过 jQuery，您可以选取（查询，query） HTML 元素，并对它们执行“操作”（actions）。
 
-
+<br>
 
 基础语法是：*$(selector).action()*
 
@@ -70,7 +70,7 @@ jQuery 库位于一个 JavaScript 文件中，其中包含了所有的 jQuery �
 
 `$("#test").hide()` - 隐藏所有 id="test" 的元素
 
-
+<br>
 
 **文档就绪函数**
 
@@ -93,7 +93,7 @@ $(function(){
 - 试图隐藏一个不存在的元素
 - 获得未完全加载的图像的大小
 
-
+<br>
 
 ## 1.3、jQuery 选择器
 
@@ -103,7 +103,7 @@ jQuery 元素选择器和属性选择器允许您通过标签名、属性名或�
 
 在 HTML DOM 术语中：选择器允许您对 DOM 元素组或单个 DOM 节点进行操作。
 
-
+<br>
 
 | 选择器               | 实例                         | 选取                                       |
 | -------------------- | ---------------------------- | ------------------------------------------ |
@@ -154,7 +154,7 @@ jQuery 元素选择器和属性选择器允许您通过标签名、属性名或�
 | `:selected`          | `$(":selected")`             | 所有被选取的 input 元素                    |
 | `:checked`           | `$(":checked")`              | 所有被选中的 input 元素                    |
 
-
+<br>
 
 **更多的选择器实例**
 
@@ -164,7 +164,7 @@ jQuery 元素选择器和属性选择器允许您通过标签名、属性名或�
 | `$("ul li:first")`     | 每个 <ul> 的第一个 <li> 元素                         |
 | `$("div#intro .head")` | id="intro" 的 <div> 元素中的所有 class="head" 的元素 |
 
-
+<br>
 
 ## 1.4、jQuery 事件
 
@@ -318,7 +318,7 @@ $(selector).show(speed,callback);
 
 可选的 callback 参数是隐藏或显示完成后所执行的函数名称。
 
-
+<br>
 
 **jQuery toggle()**
 
@@ -342,7 +342,7 @@ $(selector).toggle(speed,callback);
 
 可选的 callback 参数是 toggle() 方法完成后所执行的函数名称。
 
-
+<br>
 
 ## 2.2、jQuery 淡入淡出
 
@@ -355,7 +355,7 @@ jQuery 拥有下面四种 fade 方法：
 - fadeToggle()
 - fadeTo()
 
-
+<br>
 
 **jQuery fadeIn() 方法**
 
@@ -379,7 +379,7 @@ $(selector).fadeIn(speed,callback);
 
 可选的 callback 参数是 fading 完成后所执行的函数名称。
 
-
+<br>
 
 **jQuery fadeOut() 方法**
 
@@ -403,7 +403,7 @@ $(selector).fadeOut(speed,callback);
 
 可选的 callback 参数是 fading 完成后所执行的函数名称。
 
-
+<br>
 
 **jQuery fadeToggle() 方法**
 
@@ -429,7 +429,7 @@ $(selector).fadeToggle(speed,callback);
 
 可选的 callback 参数是 fading 完成后所执行的函数名称。
 
-
+<br>
 
 **jQuery fadeTo() 方法**
 
@@ -455,7 +455,7 @@ fadeTo() 方法中必需的 opacity 参数将淡入淡出效果设置为给定�
 
 可选的 callback 参数是该函数完成后所执行的函数名称。
 
-
+<br>
 
 ## 2.3、jQuery 滑动
 
@@ -467,7 +467,7 @@ jQuery 拥有以下滑动方法：
 - slideUp()
 - slideToggle()
 
-
+<br>
 
 **jQuery slideDown() 方法**
 
@@ -489,7 +489,7 @@ $(selector).slideDown(speed,callback);
 
 可选的 callback 参数是滑动完成后所执行的函数名称。
 
-
+<br>
 
 **jQuery slideUp() 方法**
 
@@ -511,7 +511,7 @@ $(selector).slideUp(speed,callback);
 
 可选的 callback 参数是滑动完成后所执行的函数名称。
 
-
+<br>
 
 **jQuery slideToggle() 方法**
 
@@ -537,13 +537,13 @@ $(selector).slideToggle(speed,callback);
 
 可选的 callback 参数是滑动完成后所执行的函数名称。
 
-
+<br>
 
 ## 2.4、jQuery 动画
 
 jQuery animate() 方法允许创建自定义的动画。
 
-
+<br>
 
 **jQuery 动画 - animate() 方法**
 
@@ -570,7 +570,7 @@ $(selector).animate({params},speed,callback);
 
 **提示：**默认地，所有 HTML 元素都有一个静态位置，且无法移动。如需对位置进行操作，要记得首先把元素的 CSS position 属性设置为 relative、fixed 或 absolute！
 
-
+<br>
 
 **jQuery animate() - 操作多个属性**
 
@@ -587,11 +587,11 @@ $("button").click(function(){
 });
 ```
 
-==几乎==可以用 animate() 方法来操作所有 CSS 属性！不过，需要记住一件重要的事情：当使用 animate() 时，必须使用 Camel 标记法（驼峰）书写所有的属性名，比如，必须使用 paddingLeft 而不是 padding-left，使用 marginRight 而不是 margin-right，等等。
+几乎可以用 animate() 方法来操作所有 CSS 属性！不过，需要记住一件重要的事情：当使用 animate() 时，必须使用 Camel 标记法（驼峰）书写所有的属性名，比如，必须使用 paddingLeft 而不是 padding-left，使用 marginRight 而不是 margin-right，等等。
 
 同时，色彩动画并不包含在核心 jQuery 库中；如果需要生成颜色动画，需要从 jQuery.com 下载 Color Animations 插件。
 
-
+<br>
 
 **jQuery animate() - 使用相对值**
 
@@ -607,7 +607,7 @@ $("button").click(function(){
 });
 ```
 
-
+<br>
 
 **jQuery animate() - 使用预定义的值**
 
@@ -621,7 +621,7 @@ $("button").click(function(){
 });
 ```
 
-
+<br>
 
 **jQuery animate() - 使用队列功能**
 
@@ -649,7 +649,7 @@ $("button").click(function(){
 });
 ```
 
-
+<br>
 
 ## 2.5、jQuery stop()
 
@@ -675,7 +675,7 @@ $(selector).stop(stopAll,goToEnd);
 
 因此，默认地，stop() 会清除在被选元素上指定的当前动画。
 
-
+<br>
 
 ## 2.6、jQuery Callback
 
@@ -697,7 +697,7 @@ $("button").click(function(){
 
 为了避免这个情况，可以以参数的形式添加 Callback 函数。
 
-
+<br>
 
 **jQuery Callback 函数**
 
@@ -726,13 +726,13 @@ alert("The paragraph is now hidden");
 });
 ```
 
-
+<br>
 
 ## 2.7、jQuery Chaining
 
 通过 jQuery 可以把动作/方法链接起来。Chaining 允许在一条语句中运行多个 jQuery 方法（在相同的元素上）。
 
-
+<br>
 
 **jQuery 方法链接**
 
@@ -758,7 +758,7 @@ $("#p1").css("color","red")
 
 jQuery 会抛掉多余的空格，并按照一行长代码来执行上面的代码行。
 
-
+<br>
 
 # 3、jQuery HTML
 
@@ -853,7 +853,7 @@ $("#btn2").click(function(){
 });
 ```
 
-
+<br>
 
 **设置属性 - attr()**
 
@@ -886,7 +886,7 @@ $("button").click(function(){
 });
 ```
 
-
+<br>
 
 **设置属性 - prop()**
 
@@ -909,7 +909,17 @@ prop() 方法设置或返回被选元素的属性和值。功能和 attr() 基�
 
 根据官方的建议：**要检索和更改 DOM 属性，例如表单元素的选中、选中或禁用状态，请使用 .prop（）方法。**
 
+> property 和 attribute 的 区别：
+>
+> - `property` 是 DOM 中的属性，是 JavaScript 里的对象；它是与生俱来的，并不是后天赋予的。比如说，某些对象在定义时就具有某一些属性。
+> - `attribute `是 HTML 标签上的特性（属性），它的值只能够是字符串；它本身没有的，后天赋予的。比如说，某些对象在创建后，自定义赋予的一些属性。
+>
+> 对应到 jQuery 中就是：
+>
+> - 对于 HTML 元素本身就带有的固有属性，或者说 W3C 标准里就包含有这些属性，更直观的说法就是，编辑器里面可以智能提示出来的一些属性，如：`src`、`href`、`value`、`class`、`name`、`id` 等。在处理时，使用 `prop()` 方法。
+> - 对于 HTML 元素我们自定义的 DOM 属性，即元素本身是没有这个属性的，如：`data-*`。在处理时，使用 `attr()` 方法。
 
+<br>
 
 ## 3.3、jQuery 添加
 
@@ -920,7 +930,7 @@ prop() 方法设置或返回被选元素的属性和值。功能和 attr() 基�
 - after() - 在被选元素之后插入内容
 - before() - 在被选元素之前插入内容
 
-
+<br>
 
 **jQuery append() 方法**
 
@@ -930,7 +940,7 @@ jQuery append() 方法在被选元素的结尾插入内容。
 $("p").append("Some appended text.");
 ```
 
-
+<br>
 
 **jQuery prepend() 方法**
 
@@ -940,7 +950,7 @@ jQuery prepend() 方法在被选元素的开头插入内容。
 $("p").prepend("Some prepended text.");
 ```
 
-
+<br>
 
 **通过 append() 和 prepend() 方法添加若干新元素**
 
@@ -958,7 +968,7 @@ function appendText(){
 }
 ```
 
-
+<br>
 
 **jQuery after() 和 before() 方法**
 
@@ -972,7 +982,7 @@ $("img").after("Some text after");
 $("img").before("Some text before");
 ```
 
-
+<br>
 
 **通过 after() 和 before() 方法添加若干新元素**
 
@@ -990,7 +1000,7 @@ function afterText(){
 }
 ```
 
-
+<br>
 
 ## 3.4、jQuery 删除
 
@@ -999,7 +1009,7 @@ function afterText(){
 - remove() - 删除被选元素（及其子元素）
 - empty() - 从被选元素中删除子元素
 
-
+<br>
 
 **jQuery remove() 方法**
 
@@ -1009,7 +1019,7 @@ jQuery remove() 方法删除被选元素及其子元素。
 $("#div1").remove();
 ```
 
-
+<br>
 
 **jQuery empty() 方法**
 
@@ -1019,7 +1029,7 @@ jQuery empty() 方法删除被选元素的子元素。
 $("#div1").empty();
 ```
 
-
+<br>
 
 **过滤被删除的元素**
 
@@ -1030,7 +1040,7 @@ jQuery remove() 方法也可接受一个参数，允许对被删元素进行过�
 $("p").remove(".italic");
 ```
 
-
+<br>
 
 ## 3.5、jQuery CSS 类
 
@@ -1054,7 +1064,7 @@ jQuery 拥有若干进行 CSS 操作的方法。
 }
 ```
 
-
+<br>
 
 **jQuery addClass() 方法**
 
@@ -1075,7 +1085,7 @@ $("button").click(function(){
 });
 ```
 
-
+<br>
 
 **jQuery removeClass() 方法**
 
@@ -1085,7 +1095,7 @@ $("button").click(function(){
 });
 ```
 
-
+<br>
 
 **jQuery toggleClass() 方法**
 
@@ -1097,13 +1107,13 @@ $("button").click(function(){
 });
 ```
 
-
+<br>
 
 ## 3.6、jQuery css()
 
 css() 方法设置或返回被选元素的一个或多个样式属性。
 
-
+<br>
 
 **返回 CSS 属性**
 
@@ -1118,7 +1128,7 @@ css("propertyname");
 $("p").css("background-color");
 ```
 
-
+<br>
 
 **设置 CSS 属性**
 
@@ -1133,7 +1143,7 @@ css("propertyname","value");
 $("p").css("background-color","yellow");
 ```
 
-
+<br>
 
 **设置多个 CSS 属性**
 
@@ -1149,7 +1159,7 @@ css({"propertyname":"value","propertyname":"value",...});
 $("p").css({"background-color":"yellow","font-size":"200%"});
 ```
 
-
+<br>
 
 ## 3.7、jQuery 尺寸
 
@@ -1164,7 +1174,7 @@ jQuery 提供多个处理尺寸的重要方法：
 - outerWidth()
 - outerHeight()
 
-
+<br>
 
 **jQuery width() 和 height() 方法**
 
@@ -1182,7 +1192,7 @@ $("button").click(function(){
 });
 ```
 
-
+<br>
 
 **jQuery innerWidth() 和 innerHeight() 方法**
 
@@ -1200,7 +1210,7 @@ $("button").click(function(){
 });
 ```
 
-
+<br>
 
 **jQuery outerWidth() 和 outerHeight() 方法**
 
@@ -1231,7 +1241,7 @@ $("button").click(function(){
 });
 ```
 
-
+<br>
 
 **jQuery - 更多的 width() 和 height()**
 
@@ -1254,7 +1264,7 @@ $("button").click(function(){
 });
 ```
 
-
+<br>
 
 # 4、jQuery 遍历
 
@@ -1266,7 +1276,7 @@ $("button").click(function(){
 - parents()
 - parentsUntil()
 
-
+<br>
 
 **jQuery parent() 方法**
 
@@ -1279,7 +1289,7 @@ $(document).ready(function(){
 });
 ```
 
-
+<br>
 
 **jQuery parents() 方法**
 
@@ -1300,7 +1310,7 @@ $(document).ready(function(){
 });
 ```
 
-
+<br>
 
 **jQuery parentsUntil() 方法**
 
@@ -1313,7 +1323,7 @@ $(document).ready(function(){
 });
 ```
 
-
+<br>
 
 ## 4.2、jQuery 后代
 
@@ -1322,7 +1332,7 @@ $(document).ready(function(){
 - children()
 - find()
 
-
+<br>
 
 **jQuery children() 方法**
 
@@ -1344,7 +1354,7 @@ $(document).ready(function(){
 });
 ```
 
-
+<br>
 
 **jQuery find() 方法**
 
@@ -1364,7 +1374,7 @@ $(document).ready(function(){
 });
 ```
 
-
+<br>
 
 ## 4.3、jQuery 同胞
 
@@ -1380,7 +1390,7 @@ jQuery 有许多有用的方法在 DOM 树进行水平遍历：
 - prevAll()
 - prevUntil()
 
-
+<br>
 
 **jQuery siblings() 方法**
 
@@ -1402,7 +1412,7 @@ $(document).ready(function(){
 });
 ```
 
-
+<br>
 
 **jQuery next() 方法**
 
@@ -1415,7 +1425,7 @@ $(document).ready(function(){
 })
 ```
 
-
+<br>
 
 **jQuery nextAll() 方法**
 
@@ -1428,7 +1438,7 @@ $(document).ready(function(){
 });
 ```
 
-
+<br>
 
 **jQuery nextUntil() 方法**
 
@@ -1441,21 +1451,21 @@ $(document).ready(function(){
 });
 ```
 
-
+<br>
 
 **jQuery prev(), prevAll() & prevUntil() 方法**
 
-prev(), prevAll() 以及 prevUntil() 方法的工作方式与上面的方法类似，只不过方向相反而已：它们返回的是前面的同胞元素（在 DOM 树中沿着同胞元素向后遍历，而不是向前）。
+`prev()`、`prevAll()` 以及 `prevUntil()` 方法的工作方式与上面的方法类似，只不过方向相反而已：它们返回的是前面的同胞元素（在 DOM 树中沿着同胞元素向后遍历，而不是向前）。
 
-
+<br>
 
 ## 4.4、jQuery 过滤
 
-三个最基本的过滤方法是：first(), last() 和 eq()，它们允许基于其在一组元素中的位置来选择一个特定的元素。
+三个最基本的过滤方法是：`first()`、`last()` 和 `eq()`，它们允许基于其在一组元素中的位置来选择一个特定的元素。
 
-其他过滤方法，比如 filter() 和 not() 允许选取匹配或不匹配某项指定标准的元素。
+其他过滤方法，比如 `filter()` 和 `not()` 允许选取匹配或不匹配某项指定标准的元素。
 
-
+<br>
 
 **jQuery first() 方法**
 
@@ -1468,7 +1478,7 @@ $(document).ready(function(){
 });
 ```
 
-
+<br>
 
 **jQuery last() 方法**
 
@@ -1481,7 +1491,7 @@ $(document).ready(function(){
 });
 ```
 
-
+<br>
 
 **jQuery eq() 方法**
 
@@ -1494,7 +1504,7 @@ $(document).ready(function(){
 });
 ```
 
-
+<br>
 
 **jQuery filter() 方法**
 
@@ -1507,7 +1517,7 @@ $(document).ready(function(){
 });
 ```
 
-
+<br>
 
 **jQuery not() 方法**
 
@@ -1520,7 +1530,7 @@ $(document).ready(function(){
 });
 ```
 
-
+<br>
 
 ## 4.5、each()/map()
 
@@ -1569,7 +1579,7 @@ Milk
 Soda
 ```
 
-
+<br>
 
 **map()**
 
@@ -1620,7 +1630,7 @@ A0, B1, C2, D3, E4
 A0A0, B1B1, C2C2, D3D3, E4E4
 ```
 
-
+<br>
 
 # 5、jQuery AJAX
 
@@ -1699,7 +1709,7 @@ GET 基本上用于从服务器获得（取回）数据。注释：GET 方法可
 
 POST 也可用于从服务器获取数据。不过，POST 方法不会缓存数据，并且常用于连同请求一起发送数据。
 
-
+<br>
 
 **jQuery $.get() 方法**
 
@@ -1729,7 +1739,7 @@ $.get() 的第一个参数是希望请求的 URL（"demo_test.asp"）。
 
 第二个参数是回调函数。第一个回调参数存有被请求页面的内容，第二个回调参数存有请求的状态。
 
-
+<br>
 
 **jQuery $.post() 方法**
 
@@ -1770,7 +1780,7 @@ $.post() 的第一个参数是希望请求的 URL ("demo_test_post.asp")。
 
 第三个参数是回调函数。第一个回调参数存有被请求页面的内容，而第二个参数存有请求的状态。
 
-
+<br>
 
 ## 5.3、.serialize()
 
@@ -1828,7 +1838,7 @@ a=1&b=2&c=3&d=4&e=5
 
 > 只会将 ”成功的控件“ 序列化为字符串。如果不使用按钮来提交表单，则不对提交按钮的值序列化。如果要表单元素的值包含到序列字符串中，元素必须使用 name 属性。
 
-
+<br>
 
 ## 5.4、.serializeArray()
 
@@ -1905,13 +1915,13 @@ $(selector).serializeArray()
 ]
 ```
 
-
+<br>
 
 ## 5.5、jQuery Param
 
 有关 URL 操作的工具函数，暂时也只有一种，那就是`$.param()`方法。在 jQuery 中，我们可以使用`$.param()`方法将数组或对象转化为字符串序列，以便用于 URL 查询字符串或 Ajax 请求。
 
-
+<br>
 
 **语法：**
 
@@ -1945,7 +1955,7 @@ $.param(obj或array)
 name=Orichalcos&age=25
 ```
 
-
+<br>
 
 ## 5.6、jQuery When
 
@@ -2021,7 +2031,7 @@ $.ajax("test.html")
 
 回调函数可以添加任意多个，它们按照添加顺序执行。
 
-
+<br>
 
 ### 5.6.4、为多个操作指定回调函数
 
@@ -2037,7 +2047,7 @@ $.when($.ajax("test1.html"), $.ajax("test2.html"))
 
 这段代码的意思是，先执行两个操作 ` $.ajax("test1.html")` 和 `$.ajax("test2.html")`，如果都成功了，就运行 done() 指定的回调函数；如果有一个失败或都失败了，就执行 fail() 指定的回调函数。
 
-
+<br>
 
 ### 5.6.5、普通操作的回调函数接口
 
