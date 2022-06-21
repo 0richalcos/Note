@@ -8,7 +8,7 @@ SQL是用于访问和处理数据库的标准计算机语言。
 - SQL 可以让我们访问和处理数据库
 - SQL 是一种 ANSI（American National Standards Institute）标准的计算机语言
 
-
+<br>
 
 **SQL能做什么？**
 
@@ -23,7 +23,7 @@ SQL是用于访问和处理数据库的标准计算机语言。
 - SQL 可在数据库中创建视图
 - SQL 可以设置表、存储过程和视图的权限
 
-
+<br>
 
 **SQL分类**
 
@@ -49,7 +49,7 @@ SQL是用于访问和处理数据库的标准计算机语言。
 - 数据查询语言（Data Query Language）
 - SELECT
 
-
+<br>
 
 # 2、数据库
 
@@ -4535,6 +4535,30 @@ INSERT IGNORE INTO当插入数据时，在设置了记录的唯一性后，如�
 
 ### 17.1.1、时间差
 
+#### PERIOD_DIFF()
+
+PERIOD_DIFF() 函数返回两个日期之间的月份差。
+
+**语法：**
+
+```sql
+PERIOD_DIFF(startDate,endDate)
+```
+
+*startDate* 和 *endDate* 参数是合法的日期或日期/时间表达式。
+
+**示例：**
+
+```sql
+SELECT PERIOD_DIFF(201710, 201703);
+```
+
+![img](../Images/MySQL/12312312.png)
+
+如果小月份放前面，那么返回负数 -1。
+
+<br>
+
 #### DATEDIFF() 
 
 DATEDIFF() 函数返回两个日期之间的天数。
@@ -4557,7 +4581,7 @@ SELECT DATEDIFF(DATE_FORMAT(NOW(), '%Y-%m-%d'),DATE_FORMAT('2018-09-10','%Y-%m-%
 
 <img src="../Images/MySQL/20180917110456408370.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
 
-
+<br>
 
 #### TIMESTAMPDIFF()
 
@@ -4607,7 +4631,7 @@ SELECT TIMESTAMPDIFF(MONTH,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
 
 <img src="../Images/MySQL/20180917110456254083.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
 
-
+<br>
 
 ### 17.1.2、当前日期
 
@@ -4619,7 +4643,7 @@ SELECT NOW(),CURDATE(),CURTIME();
 
 <img src="../Images/MySQL/755765-20190227093739650-528895218.png" alt="img" style="zoom:80%;float:left" />
 
-
+<br>
 
 ### 17.1.3、求几天前几天后
 
@@ -4667,7 +4691,7 @@ SELECT DATE_SUB(CURDATE(),INTERVAL -1 DAY);
 
 <img src="../Images/MySQL/20180917110455998240.png" alt="技术分享图片" style="zoom:80%;float:left" />
 
-
+<br>
 
 ### 17.1.4、倒数第几天
 
@@ -4679,7 +4703,7 @@ LAST_DAY(<日期>)-1 #倒数第二天
 LAST_DAY(<日期>)-2 #倒数第三天
 ```
 
-
+<br>
 
 ### 17.1.5、提取年月日
 
@@ -4709,7 +4733,7 @@ date 参数是合法的日期表达式。unit 参数可以是下列的值：
 - HOUR_SECOND
 - HOUR_MINUTE
 
-
+<br>
 
 ### 17.1.6、日期格式转换
 
@@ -4962,15 +4986,15 @@ select FORMAT(110.35,1);
 
 ## 18.1、第一个JDBC程序
 
-**JDBC简介**
+**JDBC 简介**
 
-JDBC全称为：Java DataBase Connectivity（java数据库连接）。
+JDBC 全称为：Java DataBase Connectivity（java数据库连接）。
 
-SUN公司为了简化、统一对数据库的操作，定义了一套Java操作数据库的规范，称之为JDBC。
+SUN 公司为了简化、统一对数据库的操作，定义了一套 Java 操作数据库的规范，称之为 JDBC。
 
 
 
-实例：从user表中读取数据，并打印在命令行窗口中。
+实例：从 user 表中读取数据，并打印在命令行窗口中。
 
 1. 搭建实验环境 ：
 
@@ -5318,7 +5342,7 @@ Connection接口中定义事务隔离级别四个常量：
 不常用信息表和常用信息表，保证不常用信息表与常用信息表能够对应上：找一个具有唯一性的字段来共同连接两张表。
 一个常用表中的一条记录永远只能在一张不常用表中匹配一条记录，反之亦然。
 
-
+<br>
 
 **一对多**
 
@@ -5332,7 +5356,7 @@ Connection接口中定义事务隔离级别四个常量：
 母亲表：ID(P),名字，年龄，性别
 孩子表：ID(P),名字，年龄，性别，母亲表ID（母亲表主键）
 
-
+<br>
 
 **多对多**
 
@@ -5350,7 +5374,7 @@ Connection接口中定义事务隔离级别四个常量：
 学生找老师：找出学生ID--->中间表寻找匹配记录（多条）--->老师表匹配（一条）
 老师找学生：找出老师ID--->中间表寻找匹配记录（多条）--->学生表匹配（一条）
 
-
+<br>
 
 # 20、连接阿里云数据库
 
@@ -5388,7 +5412,7 @@ Connection接口中定义事务隔离级别四个常量：
 
 	现在是 mysql 数据库是没有密码的，Enter password: 处直接回车，就能够进入 mysql 数据库。
 
-
+<br>
 
 **初始化数据库**
 
@@ -5458,7 +5482,7 @@ Success.
 All done!
 ```
 
-
+<br>
 
 ## 20.2、远程访问
 
@@ -5511,7 +5535,7 @@ service mysql restart
 
 测试远程访问
 
-
+<br>
 
 ## 20.3、卸载
 
@@ -5555,7 +5579,7 @@ service mysql restart
 
 	![image-20210420112705768](../Images/MySQL/image-20210420112705768.png)
 
-
+<br>
 
 # 21、其他
 

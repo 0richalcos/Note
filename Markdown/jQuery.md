@@ -766,7 +766,7 @@ jQuery 会抛掉多余的空格，并按照一行长代码来执行上面的代�
 
 jQuery 拥有可操作 HTML 元素和属性的强大方法。
 
-
+<br>
 
 **获得内容 - text()、html() 以及 val()**
 
@@ -791,7 +791,7 @@ $("#btn1").click(function(){
 });
 ```
 
-
+<br>
 
 **获取属性 - attr()**
 
@@ -803,7 +803,7 @@ $("button").click(function(){
 });
 ```
 
-
+<br>
 
 **获取属性 - prop()**
 
@@ -813,7 +813,7 @@ $("button").click(function(){
 });
 ```
 
-
+<br>
 
 ## 3.2、jQuery 设置
 
