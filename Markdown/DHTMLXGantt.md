@@ -2544,7 +2544,7 @@ setScaleConfig("year");
 gantt.init("gantt_here");
 ```
 
-然后，可以为用户实现一个UI来切换缩放级别：
+然后，可以为用户实现一个 UI 来切换缩放级别：
 
 ```html
 <label><input type="radio" name="scale" value="day" checked/>Day scale</label>
