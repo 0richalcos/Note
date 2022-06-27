@@ -962,3 +962,249 @@ class Company {
 21. 访问者（Visitor）模式：在不改变集合元素的前提下，为一个集合中的每个元素提供多种访问方式，即每个元素有多个访问者对象访问。
 22. 备忘录（Memento）模式：在不破坏封装性的前提下，获取并保存一个对象的内部状态，以便以后恢复它。
 23. 解释器（Interpreter）模式：提供如何定义语言的文法，以及对语言句子的解释方法，即解释器。
+
+<br>
+
+# 5、创建型模式
+
+创建型模式的主要关注点是 “怎样创建对象？”，它的主要特点是 “将对象的创建与使用分离”。这样可以降低系统的耦合度，使用者不需要关注对象的创建细节，对象的创建由相关的工厂来完成。就像我们去商场购买商品时，不需要知道商品是怎么生产出来一样，因为它们由专门的厂商生产。
+
+创建型模式分为以下几种。
+
+- 单例（Singleton）模式：某个类只能生成一个实例，该类提供了一个全局访问点供外部获取该实例，其拓展是有限多例模式。
+- 原型（Prototype）模式：将一个对象作为原型，通过对其进行复制而克隆出多个和原型类似的新实例。
+- 工厂方法（FactoryMethod）模式：定义一个用于创建产品的接口，由子类决定生产什么产品。
+- 抽象工厂（AbstractFactory）模式：提供一个创建产品族的接口，其每个子类可以生产一系列相关的产品。
+- 建造者（Builder）模式：将一个复杂对象分解成多个相对简单的部分，然后根据不同需要分别创建它们，最后构建成该复杂对象。
+
+
+以上 5 种创建型模式，除了工厂方法模式属于类创建型模式，其他的全部属于对象创建型模式，这里将在之后的教程中详细地介绍它们的特点、结构与应用。
+
+<br>
+
+## 5.1、单例模式
+
+在有些系统中，为了节省内存资源、保证数据内容的一致性，对某些类要求只能创建一个实例，这就是所谓的单例模式。
+
+<br>
+
+### 5.1.1、单例模式的定义与特点
+
+单例（Singleton）模式的定义：指一个类只有一个实例，且该类能自行创建这个实例的一种模式。例如，Windows 中只能打开一个任务管理器，这样可以避免因打开多个任务管理器窗口而造成内存资源的浪费，或出现各个窗口显示内容的不一致等错误。
+
+在计算机系统中，还有 Windows 的回收站、操作系统中的文件系统、多线程中的线程池、显卡的驱动程序对象、打印机的后台处理服务、应用程序的日志对象、数据库的连接池、网站的计数器、Web 应用的配置对象、应用程序中的对话框、系统中的缓存等常常被设计成单例。
+
+单例模式在现实生活中的应用也非常广泛，例如公司 CEO、部门经理等都属于单例模型。J2EE 标准中的 ServletContext 和 ServletContextConfig、Spring 框架应用中的 ApplicationContext、数据库中的连接池等也都是单例模式。
+
+单例模式有 3 个特点：
+
+1. 单例类只有一个实例对象；
+2. 该单例对象必须由单例类自行创建；
+3. 单例类对外提供一个访问该单例的全局访问点。
+
+<br>
+
+### 5.1.2、单例模式的优点和缺点
+
+单例模式的优点：
+
+- 单例模式可以保证内存里只有一个实例，减少了内存的开销。
+- 可以避免对资源的多重占用。
+- 单例模式设置全局访问点，可以优化和共享资源的访问。
+
+单例模式的缺点：
+
+- 单例模式一般没有接口，扩展困难。如果要扩展，则除了修改原来的代码，没有第二种途径，违背开闭原则。
+- 在并发测试中，单例模式不利于代码调试。在调试过程中，如果单例中的代码没有执行完，也不能模拟生成一个新的对象。
+- 单例模式的功能代码通常写在一个类中，如果功能设计不合理，则很容易违背单一职责原则。
+
+<br>
+
+### 5.1.3、单例模式的应用场景
+
+对于 Java 来说，单例模式可以保证在一个 JVM 中只存在单一实例。单例模式的应用场景主要有以下几个方面。
+
+- 需要频繁创建的一些类，使用单例可以降低系统的内存压力，减少 GC。
+- 某类只要求生成一个对象的时候，如一个班中的班长、每个人的身份证号等。
+- 某些类创建实例时占用资源较多，或实例化耗时较长，且经常使用。
+- 某类需要频繁实例化，而创建的对象又频繁被销毁的时候，如多线程的线程池、网络连接池等。
+- 频繁访问数据库或文件的对象。
+- 对于一些控制硬件级别的操作，或者从系统上来讲应当是单一控制逻辑的操作，如果有多个实例，则系统会完全乱套。
+- 当对象需要被共享的场合。由于单例模式只允许创建一个对象，共享该对象可以节省内存，并加快对象访问速度。如 Web 中的配置对象、数据库的连接池等。
+
+<br>
+
+### 5.1.4、单例模式的结构与实现
+
+单例模式是设计模式中最简单的模式之一。通常，普通类的构造函数是公有的，外部类可以通过 “new 构造函数()” 来生成多个实例。但是，如果将类的构造函数设为私有的，外部类就无法调用该构造函数，也就无法生成多个实例。这时该类自身必须定义一个静态私有实例，并向外提供一个静态的公有函数用于创建或获取该静态私有实例。
+
+单例模式的主要角色如下。
+
+- 单例类：包含一个实例且能自行创建这个实例的类。
+- 访问类：使用单例的类。
+
+其结构如下图所示：
+
+![单例模式的结构图](../Images/DesignPattern/3-1Q1131K441K2.gif)
+
+<br>
+
+**懒汉式-线程不安全**
+
+以下实现中，私有静态变量 `uniqueInstance` 被延迟实例化，这样做的好处是，如果没有用到该类，那么就不会实例化 `uniqueInstance`，从而节约资源。
+
+这个实现在多线程环境下是不安全的，如果多个线程能够同时进入 `if (uniqueInstance == null)` ，并且此时 `uniqueInstance` 为 `null`，那么会有多个线程执行 `uniqueInstance = new Singleton();` 语句，这将导致多次实例化 `uniqueInstance`。
+
+```java
+public class Singleton {
+
+    private static Singleton uniqueInstance;
+
+    private Singleton() {
+    }
+
+    public static Singleton getUniqueInstance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new Singleton();
+        }
+        return uniqueInstance;
+    }
+}
+```
+
+<br>
+
+**饿汉式-线程安全**
+
+线程不安全问题主要是由于 `uniqueInstance` 被多次实例化，采取直接实例化 `uniqueInstance` 的方式就不会产生线程不安全问题。
+
+但是直接实例化的方式也丢失了延迟实例化带来的节约资源的好处。
+
+```java
+private static Singleton uniqueInstance = new Singleton();
+```
+
+<br>
+
+**懒汉式-线程安全**
+
+只需要对 `getUniqueInstance()` 方法加锁，那么在一个时间点只能有一个线程能够进入该方法，从而避免了多次实例化 `uniqueInstance` 的问题。
+
+但是当一个线程进入该方法之后，其它试图进入该方法的线程都必须等待，因此性能上有一定的损耗。
+
+```java
+public static synchronized Singleton getUniqueInstance() {
+    if (uniqueInstance == null) {
+        uniqueInstance = new Singleton();
+    }
+    return uniqueInstance;
+}
+```
+
+<br>
+
+**双重校验锁-线程安全**
+
+`uniqueInstance` 只需要被实例化一次，之后就可以直接使用了。加锁操作只需要对实例化那部分的代码进行，只有当 `uniqueInstance` 没有被实例化时，才需要进行加锁。
+
+双重校验锁先判断 `uniqueInstance` 是否已经被实例化，如果没有被实例化，那么才对实例化语句进行加锁。
+
+```java
+public class Singleton {
+
+    private volatile static Singleton uniqueInstance;
+
+    private Singleton() {
+    }
+
+    public static Singleton getUniqueInstance() {
+        if (uniqueInstance == null) {
+            synchronized (Singleton.class) {
+                if (uniqueInstance == null) {
+                    uniqueInstance = new Singleton();
+                }
+            }
+        }
+        return uniqueInstance;
+    }
+}
+```
+
+考虑下面的实现，也就是只使用了一个 `if` 语句。在 `uniqueInstance == null` 的情况下，如果两个线程同时执行 `if` 语句，那么两个线程就会同时进入 `if` 语句块内。虽然在 `if` 语句块内有加锁操作，但是两个线程都会执行 `uniqueInstance = new Singleton();` 这条语句，只是先后的问题，那么就会进行两次实例化，从而产生了两个实例。因此必须使用双重校验锁，也就是需要使用两个 if 语句。
+
+```java
+if (uniqueInstance == null) {
+    synchronized (Singleton.class) {
+        uniqueInstance = new Singleton();
+    }
+}
+```
+
+`uniqueInstance` 采用 `volatile` 关键字修饰也是很有必要的。`uniqueInstance = new Singleton();` 这段代码其实是分为三步执行。
+
+1. 分配内存空间
+2. 初始化对象
+3. 将 `uniqueInstance` 指向分配的内存地址
+
+但是由于 JVM 具有指令重排的特性，有可能执行顺序变为了 1>3>2，这在单线程情况下自然是没有问题。但如果是多线程下，有可能获得是一个还没有被初始化的实例，以致于程序出错。
+
+使用 `volatile` 可以禁止 JVM 的指令重排，保证在多线程环境下也能正常运行。
+
+<br>
+
+**静态内部类实现**
+
+当 Singleton 类加载时，静态内部类 SingletonHolder 没有被加载进内存。只有当调用 `getUniqueInstance()` 方法从而触发 `SingletonHolder.INSTANCE` 时 SingletonHolder 才会被加载，此时初始化 INSTANCE 实例。
+
+这种方式不仅具有延迟初始化的好处，而且由虚拟机提供了对线程安全的支持。
+
+```java
+public class Singleton {
+
+    private Singleton() {
+    }
+
+    private static class SingletonHolder {
+        private static final Singleton INSTANCE = new Singleton();
+    }
+
+    public static Singleton getUniqueInstance() {
+        return SingletonHolder.INSTANCE;
+    }
+}
+```
+
+<br>
+
+**枚举实现**
+
+这是单例模式的最佳实践，它实现简单，并且在面对复杂的序列化或者反射攻击的时候，能够防止实例化多次。
+
+```java
+public enum Singleton {
+    uniqueInstance;
+}
+```
+
+考虑以下单例模式的实现，该 Singleton 在每次序列化的时候都会创建一个新的实例，为了保证只创建一个实例，必须声明所有字段都是 `transient`，并且提供一个 `readResolve()` 方法。
+
+```java
+public class Singleton implements Serializable {
+
+    private static Singleton uniqueInstance;
+
+    private Singleton() {
+    }
+
+    public static synchronized Singleton getUniqueInstance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new Singleton();
+        }
+        return uniqueInstance;
+    }
+}
+```
+
+如果不使用枚举来实现单例模式，会出现反射攻击，因为通过 `setAccessible()` 方法可以将私有构造函数的访问级别设置为 `public`，然后调用构造函数从而实例化对象。如果要防止这种攻击，需要在构造函数中添加防止实例化第二个对象的代码。
+
+从上面的讨论可以看出，解决序列化和反射攻击很麻烦，而枚举实现不会出现这两种问题，所以说枚举实现单例模式是最佳实践。
