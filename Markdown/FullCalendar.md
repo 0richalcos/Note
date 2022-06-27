@@ -1,10 +1,12 @@
-# 1、介绍
+# 1、快速开始
+
+## 1.1、介绍
 
 如何获取 FullCalendar 的代码，初始化日历和其他基本原则。
 
 <br>
 
-## 1.1、加载代码
+### 1.1.1、加载代码
 
 在初始化日历之前，必须首先让 FullCalendar 的代码加载到页面上。你可以编写自己的 `<script>` 标签，也可以使用 Webpack 这样的构建系统。
 
@@ -50,7 +52,7 @@ import 'fullcalendar';
 
 <br>
 
-## 1.2、初始化选项
+### 1.1.2、初始化选项
 
 将 FullCalendar 及其依赖项加载到页面上后，就可以编写初始化日历的 JS 代码。该代码必须在初始化之后执行。最好的方法是使用 jQuery 的 `$(document).ready`，例如：
 
@@ -90,7 +92,7 @@ $('#calendar').fullCalendar({
 
 <br>
 
-## 1.3、处理程序（Handlers）
+### 1.1.3、处理程序（Handlers）
 
 处理程序（有时称为 “callbacks” ）有点像选项，但它们是在发生特殊情况时被调用的函数。在以下示例中，每当用户单击某一天时，都会出现一个警报框：
 
@@ -122,7 +124,7 @@ calendar.on('dayClick', function(date, jsEvent, view) {
 
 <br>
 
-## 1.4、方法（Methods）
+### 1.1.4、方法（Methods）
 
 方法提供了从 JavaScript 代码操纵日历的方法。方法对已初始化的日历的 jQuery 对象进行操作，使用熟悉的 `fullCalendar` 命令，但方式完全不同：
 
@@ -144,13 +146,13 @@ calendar.next();
 
 <br>
 
-# 2、日期库
+## 1.2、日期库
 
 FullCalendar 将 `MomentJS` 作为其日期库。Moment 和 Duration 对象可用于很多设置，并且在整个 API 中使用它们。
 
 <br>
 
-## 2.1、Moment 对象
+### 1.2.1、Moment 对象
 
 Moment 对象代表一个时间点，就像本地的 Date 对象一样，但要比它优越得多。
 
@@ -258,4 +260,571 @@ m.format();
 
 <br>
 
-# 3、
+# 2、整体显示
+
+## 2.1、工具栏
+
+日历顶部和底部包含按钮和其他控件的区域。
+
+<br>
+
+### 2.1.1、标题（header）
+
+定义日历顶部的按钮和标题。
+
+```javascript
+Object/false, default:
+{
+  left:   'title',
+  center: '',
+  right:  'today prev,next'
+}
+```
+
+将标题选项设置为 `false` 将不显示标题。可以为对象提供特性 `left`、`center` 和 `right` 三个属性。这些属性包含以逗号/空格分隔的字符串。用逗号分隔的值将相邻显示。用空格分隔的值将以较小的间距显示。字符串可以包含以下任意值：
+
+- `text` - 包含当前月/周/日的文本
+- `prev` - 用于将日历向后移动一个月/周/天的按钮
+- `next` - 用于将日历向前移动一个月/周/天的按钮
+- `prevYear` - 用于将日历向后移动一年的按钮
+- `nextYear` - 用于将日历向前移动一年的按钮
+- `today` - 用于将日历移动到当前月/周/日的按钮
+- 视图名称 - 将日历切换到任何可用视图的按钮
+
+为属性指定空字符串将导致其不显示文本/按钮。
+
+<br>
+
+## 2.2、调整大小
+
+如何控制日历的尺寸。
+
+<br>
+
+### 2.2.1、高度（height）
+
+设置整个日历的高度，包括标题和页脚。
+
+```
+Integer, Function, "parent", "auto"
+```
+
+默认情况下，此选项是未设置的，日历的高度由 aspectRatio 计算。
+
+如果指定了一个整数，则将保证日历的高度为精确的像素高度。如果内容不适合这个高度，就会出现滚动条（2.1.0版本的新内容）。
+
+如果指定了一个函数，这个函数将在每次请求高度更新时被调用。这个函数应该返回一个像素值。
+
+如果指定了 `"parent"`，日历的高度将与它的父容器元素的高度一致。
+
+如果指定了 `"auto"`，视图的内容将采用自然高度，不会使用滚动条。(2.1.0版新增）。
+
+`height` 用法示例：
+
+```javascript
+$('#calendar').fullCalendar({
+  height: 650
+});
+```
+
+<br>
+
+**Setter**
+
+可以在初始化后动态设置日历的高度：
+
+```javascript
+$('#calendar').fullCalendar('option', 'height', 700);
+```
+
+<br>
+
+# 3、视图
+
+## 3.1、月视图
+
+月视图以类似表格的形式显示当前月份的天数，通常还有上个月和下个月的几天。它可以像这样初始化：
+
+```javascript
+$('#calendar').fullCalendar({
+  defaultView: 'month'
+});
+```
+
+<img src="../Images/FullCalendar/image-20220627152424647.png" alt="image-20220627152424647" style="zoom: 33%;" />
+
+下面的选项是专门针对月视图的。然而，在整个文档中，还有许多其他的选项会影响到月视图的显示，比如与本地相关的选项和日期/时间显示选项。
+
+<br>
+
+**fixedWeekCount**
+
+确定月视图中显示的周数。
+
+```
+Boolean, default: true
+```
+
+如果为 `true`，日历将始终显示 6 周。如果为 `false`，日历将有 4 周、5 周或 6 周，具体取决于月份。
+
+<br>
+
+**showNonCurrentDates**
+
+在月视图中，上个月或下个月的日期是否应该显示。
+
+```
+Boolean, default: true
+```
+
+禁用的天数不会渲染事件。
+
+在月视图中设置为 `false` 时：
+
+<img src="../Images/FullCalendar/showNonCurrentDates-false.png" alt="not showing dates in other months" style="zoom: 50%;" />
+
+在月视图中设置为 `true` 时（默认值）：
+
+<img src="../Images/FullCalendar/showNonCurrentDates-true.png" alt="showing dates in other months" style="zoom:50%;" />
+
+<br>
+
+## 3.2、日程视图
+
+议程视图显示一个或多个水平天数，以及垂直轴上的时间轴，通常是午夜到午夜。两个预定义的议程视图是 `agendaDay` 和 `agendaWeek`。它们可以像这样被初始化：
+
+```javascript
+$('#calendar').fullCalendar({
+  defaultView: 'agendaWeek'
+});
+```
+
+<img src="../Images/FullCalendar/image-20220627154524890.png" alt="image-20220627154524890" style="zoom:33%;" />
+
+```javascript
+$('#calendar').fullCalendar({
+  defaultView: 'agendaDay'
+});
+```
+
+
+
+<img src="../Images/FullCalendar/image-20220627154849156.png" alt="image-20220627154849156" style="zoom:33%;" />
+
+可以使用类型为 `agenda` 的自定义视图创建其他工期的议程视图。
+
+下面的选项是针对议程视图的。然而，在整个文档中，还有许多其他选项影响到议程视图的显示，例如与本地有关的选项和日期/时间显示选项。
+
+<br>
+
+**allDaySlot**
+
+是否在日历顶部显示 “全天” 插槽。
+
+```
+Boolean, default: true
+```
+
+如果使用 `false` 隐藏，则日程视图中将不会显示全天事件。
+
+<br>
+
+**allDayText**
+
+日历顶部标题为 “全天” 的文本。
+
+```
+String, default: 'all-day'
+```
+
+默认值取决于当前区域设置。
+
+<br>
+
+## 3.3、列表视图
+
+列表视图在一个简单的垂直列表中显示特定时间间隔内的事件。如果在一个特定的时间间隔内没有事件，就会显示 `noEventsMessage`。列表视图是在 FullCalendar 3.0.0 版本中添加的。 有 4 个预设的列表视图：`listDay`、`listWeek`、`listMonth` 和 `listYear`。你可以像这样初始化一个列表视图：
+
+```javascript
+$('#calendar').fullCalendar({
+  defaultView: 'listWeek'
+});
+```
+
+<img src="../Images/FullCalendar/image-20220627155512294.png" alt="image-20220627155512294" style="zoom: 33%;" />
+
+如果需要不同的时间间隔，可以创建类型为 `list` 的自定义视图。
+
+下面的选项是针对列表视图的。然而，在整个文档中，还有许多其他选项影响到列表视图的显示，比如 `eventRender` 和 `eventClick`。
+
+<br>
+
+**listDayFormat **
+
+一个日期格式化字符串，影响列表视图中日期标题左侧的文本。
+
+```
+String, false
+```
+
+<img src="../Images/FullCalendar/listDayFormat.png" alt="customized list-view date strings" style="zoom: 50%;" />
+
+
+
+如果指定 `false`，则不显示文本。
+
+<br>
+
+**listDayAltFormat**
+
+一个日期格式字符串，影响列表视图中日期标题右侧的文本。
+
+```
+String, false
+```
+
+<img src="../Images/FullCalendar/listDayAltFormat.png" alt="displaying alt date strings" style="zoom:50%;" />
+
+如果指定 `false`，则不显示文本。
+
+<br>
+
+**noEventsMessage**
+
+显示在列表视图中间的文本，提醒用户在给定范围内没有事件。
+
+```
+String, default: "No events to display"
+```
+
+<br>
+
+# 4、日期和时间
+
+## 4.1、日期单击和选择
+
+检测用户何时单击日期或时间。让用户能够使用鼠标或触摸设备选择多个日期或时间段。
+
+<br>
+
+**dayClick**
+
+允许用户通过点击和拖动来突出显示多个日期或时间段。
+
+```
+Boolean, default: false
+```
+
+要让用户通过点击和拖动进行选择，这个选项必须设置为 `true`。
+
+<br>
+
+**unselectAuto**
+
+单击页面上的其他位置是否会导致清除当前选择。
+
+```
+Boolean, default: true
+```
+
+此选项仅在 `selectable` 设置为 `true` 时生效。
+
+<br>
+
+### 4.1.1、回调（CALLBACKS）
+
+**dayClick**
+
+当用户单击日期或时间时触发。
+
+```
+function( date, jsEvent, view, [ resourceObj ] ) { }
+```
+
+`date` 持有被点击的那一天的 Moment。如果一个全天的区域被点击了，那么这个时刻将是模糊的时间。如果议程周或议程日视图中的一个时段被点击了，`date` 将拥有该时段的时间。
+
+`jsEvent` 持有 jQuery 事件的低层次信息，如点击坐标。
+
+`view` 被设置为当前的视图对象。
+
+在回调函数中，`this` 被设置为被点击的日期的 `<td>`。
+
+下面是一个展示所有这些变量的例子：
+
+```javascript
+$('#calendar').fullCalendar({
+  dayClick: function(date, jsEvent, view) {
+
+    alert('Clicked on: ' + date.format());
+
+    alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+
+    alert('Current view: ' + view.name);
+
+    // 改变一天的背景颜色只是为了好玩
+    $(this).css('background-color', 'red');
+
+  }
+});
+```
+
+> 当用户单击列表视图中的日标题时，不会触发 `dayClick` 触发器。
+
+<br>
+
+**select**
+
+选择日期/时间时触发。
+
+```
+function( start, end, jsEvent, view, [ resource ] )
+```
+
+`start` 是一个 Moment，表示选择的开始。
+
+`end` 是一个表示选择结束的 Moment。它是一个排他性的值，所以如果选择是 all-day（全天）的，而最后一天是星期四，`end` 将是星期五。
+
+你可以通过调用 `hasTime` 来测试 `start`/`end` 是定时的还是全天的。
+
+`jsEvent` 持有 jQuery 事件的信息，如鼠标坐标。如果 `select` 是通过 `select` 方法触发的，`jsEvent` 则为 `undefined`。
+
+<br>
+
+# 5、事件
+
+## 5.1、事件数据
+
+如何将事件添加到日历中。如何在初始加载后动态操作它们。
+
+<br>
+
+### 5.1.1、事件（数组）
+
+将显示在日历上的事件对象数组。
+
+以下是如何指定事件数组的示例：
+
+```javascript
+$('#calendar').fullCalendar({
+  events: [
+    {
+      title  : 'event1',
+      start  : '2010-01-01'
+    },
+    {
+      title  : 'event2',
+      start  : '2010-01-05',
+      end    : '2010-01-07'
+    },
+    {
+      title  : 'event3',
+      start  : '2010-01-09T12:30:00',
+      allDay : false // 将显示时间
+    }
+  ]
+});
+```
+
+> 确保数组中最后一个事件后没有逗号！这将使 Internet Explorer 窒息。
+
+<br>
+
+### 5.1.2、事件（JSON feed）
+
+访问一个 JSON feed 的 URL 是 FullCalendar 获取事件对象的方式之一。当用户点击上一页/下一页或者改变日历视图时，就会发生此操作。FullCalendar 会确定它需要的事件的日期范围，并在 GET 参数中传递该信息。
+
+GET 参数名称将由 `startParam` 和 `endParam` 选项确定。（默认情况下为 `start` 和 `end`）。
+
+这些参数的值将是 ISO8601日期字符串（如 `2013-12-01`）。关于精确的行为，请参见时区文档。
+
+以下是 FullCalendar 可能访问的 URL，以从 JSON  feed 获取新事件数据：
+
+```
+/myfeed.php?start=2013-12-01&end=2014-01-12&_=1386054751381
+```
+
+`_` 参数是自动插入的，以防止浏览器缓存结果（更多内容见下文）。
+
+如果你需要访问一个在不同域中的 feed，你可以使用 JSONP，在你的 URL 中加一个 `?`（见 [$.ajax](https://api.jquery.com/jQuery.ajax/) 的 JSONP 讨论）。
+
+<br>
+
+**JSON日期字符串格式**
+
+以下是 JSON feed 中开始和结束日期的 ISO8601日期字符串的示例：`2015-03-17`
+
+FullCalendar 将接受用小时、分钟、秒和毫秒写入的 ISO8601日期字符串：`2015-03-17T13:13:55.008`
+
+FullCalendar 还接受带有时区偏移的 ISO8601日期字符串（请参阅时区文档）：`2015-03-17T13:13:55+0800`、`2015-03-17T13:13:55-0400`
+
+> 注意：FullCalendar 不接受 `new Date()` JavaScript构造函数作为日期字符串的一部分（例如 `new Date(2010, 12, 25)`），因为 JSON 格式不支持用 `new` 操作符进行对象实例化。日期字符串必须使用 ISO8601标准（YYYY-MM-DDTHH:mm:ss.ssZ）编写。
+
+带有 ISO8601日期字符串的脚本示例：
+
+```javascript
+$('#calendar').fullCalendar({
+  events: [
+    {
+      title: 'Event Title1',
+      start: '2015-03-17T13:13:55.008',
+      end: '2015-03-19T13:13:55.008'
+    },
+    {
+      title: 'Event Title2',
+      start: '2015-03-17T13:13:55-0400',
+      end: '2015-03-19T13:13:55-0400'
+    }
+  ]
+});
+```
+
+毫秒级的时间也可以添加到 JSON feeds 中。需要注意的是，这个数字必须以毫秒为单位，例如 1426612435000（"March 17, 2015 5:13:55 PM"），而不是秒 1426612435。
+
+具有Unix时间戳的脚本示例：
+
+```javascript
+$('#calendar').fullCalendar({
+  events: [
+    {
+      title: 'Event Title',
+      start: 1426612435000,
+      end: 1426785379000
+    }
+  ]
+});
+```
+
+<br>
+
+**jQuery $.ajax选项**
+
+也可以在同一个对象中指定任何 jQuery 的 $.ajax 选项，这允许你轻松地传递额外的参数给你的 feed 脚本，以及监听ajax 的回调：
+
+```javascript
+$('#calendar').fullCalendar({
+
+  events: {
+    url: '/myfeed.php',
+    type: 'POST',
+    data: {
+      custom_param1: 'something',
+      custom_param2: 'somethingelse'
+    },
+    error: function() {
+      alert('there was an error while fetching events!');
+    },
+    color: 'yellow',   // a non-ajax option
+    textColor: 'black' // a non-ajax option
+  }
+
+});
+```
+
+<br>
+
+**动态 `data` 参数**
+
+`date` 参数，通过 GET 或 POST 向你的 JSON 脚本发送信息，也可以被指定为一个函数，以便发送动态值：
+
+```javascript
+$('#calendar').fullCalendar({
+
+  events: {
+    url: '/myfeed.php',
+    data: function() { // 返回对象的函数
+      return {
+        dynamic_value: Math.random()
+      };
+    }
+  }
+
+});
+```
+
+<br>
+
+### 5.1.3、事件（函数）
+
+一个自定义函数，用于以编程方式生成事件对象。
+
+```
+function( start, end, timezone, callback ) { }
+```
+
+FullCalendar 在需要新的事件数据时都会调用这个函数。当用户点击上一页/下一页或切换视图时，就会触发这个功能。
+
+此函数将提供 `start` 和 `end` 参数，这些参数表示日历需要事件的范围。
+
+`timezone` 是一个 string/boolean，描述了日历的当前时区。它是时区选项的精确值。
+
+它也将被赋予 `callback`，一个必须在自定义事件函数产生其事件时被调用的函数。事件函数有责任确保回调是用一个事件对象的数组来调用的。
+
+下面的示例演示如何使用事件函数从假设的 XML feed 获取事件：
+
+```javascript
+$('#calendar').fullCalendar({
+  events: function(start, end, timezone, callback) {
+    $.ajax({
+      url: 'myxmlfeed.php',
+      dataType: 'xml',
+      data: {
+        // 我们假设的 feed 需要 UNIX 时间戳
+        start: start.unix(),
+        end: end.unix()
+      },
+      success: function(doc) {
+        var events = [];
+        $(doc).find('event').each(function() {
+          events.push({
+            title: $(this).attr('title'),
+            start: $(this).attr('start') // will be parsed
+          });
+        });
+        callback(events);
+      }
+    });
+  }
+});
+```
+
+然而，如果有选择，JSON 是一个更好的主意，因为可以直接指定一个feed URL。
+
+<br>
+
+### 5.1.4、事件对象
+
+一个普通的 JavaScript 对象，FullCalendar 用它来存储一个日历事件的信息。下面是它的属性：
+
+| 属性名           | 描述                                                         |
+| ---------------- | ------------------------------------------------------------ |
+| id               | String/Integer。可选的。唯一标识给定的事件。重复事件的不同实例应该都有相同的 `id`。 |
+| title            | String。必须的。事件元素上的文本                             |
+| allDay           | `true` 或 `false`。可选的。一个事件是否发生在一个特定的时间段。这个属性会影响事件的时间是否被显示。另外，在议程视图中，决定它是否显示在 “全天” 部分。如果没有明确指定这个值，如果定义了`allDayDefault`，就会使用它。如果其他都失败了，FullCalendar 会尝试猜测。如果 `start` 或 `end` 值有一个 `"T"` 作为 ISO8601日期字符串的一部分，`allDay` 将变为 `false`。否则，它将是 `true`。不要在你的 `true`/`false` 周围加入引号。这个值是一个布尔值，而不是一个字符串! |
+| start            | 事件开始的日期/时间。必需的。一个类似于 Moment 的输入，像一个 ISO8601 字符串。在整个 API 中，这将成为一个真正的 Moment 对象。 |
+| end              | 事件结束的唯一日期/时间。可选的。一个类似于 Moment 的输入，像一个 ISO8601字符串。在整个 API中，这将成为一个真正的 Moment 对象。它是事件结束后的第一时间。例如，如果一个事件的最后一天是星期四，那么事件的结束时间将是星期五的 00:00:00! |
+| url              | String。可选的。当该事件被用户点击时将被访问的 URL。关于控制这种行为的更多信息，请参见`eventClick` 回调。 |
+| className        | String/Array。可选的。一个 CSS class（或 class 的数组），将被附加到这个事件的元素上。 |
+| editable         | `true` 或 `false`。可选的。覆盖此单个事件的 `editable` 选项。 |
+| startEditable    | `true` 或 `false`。可选的。覆盖此单个事件的 `eventStartEditable` 选项。 |
+| durationEditable | `true` 或 `false`。可选的。覆盖此单个事件的 `eventDurationEditable` 选项。 |
+| resourceEditable | `true` 或 `false`。可选的。覆盖此单个事件的 ` eventResourceEditable ` 选项。 |
+| rendering        | 允许对事件进行交替渲染，例如背景事件。可以是空的，也可以是 `"background"` 或 `"inverse-background"`。 |
+| overlap          | `true` 或 `false`。可选的。覆盖此单个事件 `eventOverlap` 选项。如果是 `false`，可以防止此事件被拖动/调整到其他事件上。也防止其他事件在此事件上被拖动/调整大小。 |
+| constraint       | 一个事件 ID，"businessHours"，对象。可选的。覆盖此单个事件的 `eventConstraint` 选项。 |
+| color            | 设置一个事件的背景和边框颜色，就像日历范围内的 `eventColor` 选项一样。 |
+| backgroundColor  | 设置一个事件的背景颜色，就像日历范围内的 `eventBackgroundColor` 选项一样。 |
+| borderColor      | 设置一个事件的边框颜色，就像日历范围内的 `eventBorderColor` 选项一样。 |
+| textColor        | 设置一个事件的文本颜色，就像日历范围内的 `eventTextColor` 选项一样。 |
+
+<br>
+
+**非标准字段**
+
+除了上述字段外，还可以在每个事件对象中包含自己的非标准字段。FullCalendar 不会修改或删除这些字段。例如，开发人员经常包括一个描述字段，用于回调，如 `eventRender`。
+
+<br>
+
+## 5.2、事件方法
+
+**updateEvent**
+
