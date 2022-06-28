@@ -2,7 +2,7 @@
 
 ## 1.1、介绍
 
-如何获取 FullCalendar 的代码，初始化日历和其他基本原则。
+如何获取 [FullCalendar](https://fullcalendar.io/docs/v3) 的代码，初始化日历和其他基本原则。
 
 <br>
 
@@ -600,7 +600,7 @@ function( start, end, jsEvent, view, [ resource ] )
 
 ### 5.1.1、事件（数组）
 
-将显示在日历上的事件对象数组。
+将显示在日历上的 Event 对象数组。
 
 以下是如何指定事件数组的示例：
 
@@ -631,7 +631,7 @@ $('#calendar').fullCalendar({
 
 ### 5.1.2、事件（JSON feed）
 
-访问一个 JSON feed 的 URL 是 FullCalendar 获取事件对象的方式之一。当用户点击上一页/下一页或者改变日历视图时，就会发生此操作。FullCalendar 会确定它需要的事件的日期范围，并在 GET 参数中传递该信息。
+访问一个 JSON feed 的 URL 是 FullCalendar 获取 Event 对象的方式之一。当用户点击上一页/下一页或者改变日历视图时，就会发生此操作。FullCalendar 会确定它需要的事件的日期范围，并在 GET 参数中传递该信息。
 
 GET 参数名称将由 `startParam` 和 `endParam` 选项确定。（默认情况下为 `start` 和 `end`）。
 
@@ -745,7 +745,7 @@ $('#calendar').fullCalendar({
 
 ### 5.1.3、事件（函数）
 
-一个自定义函数，用于以编程方式生成事件对象。
+一个自定义函数，用于以编程方式生成 Event 对象。
 
 ```
 function( start, end, timezone, callback ) { }
@@ -757,7 +757,7 @@ FullCalendar 在需要新的事件数据时都会调用这个函数。当用户�
 
 `timezone` 是一个 string/boolean，描述了日历的当前时区。它是时区选项的精确值。
 
-它也将被赋予 `callback`，一个必须在自定义事件函数产生其事件时被调用的函数。事件函数有责任确保回调是用一个事件对象的数组来调用的。
+它也将被赋予 `callback`，一个必须在自定义事件函数产生其事件时被调用的函数。事件函数有责任确保回调是用一个 Event 对象的数组来调用的。
 
 下面的示例演示如何使用事件函数从假设的 XML feed 获取事件：
 
@@ -791,7 +791,7 @@ $('#calendar').fullCalendar({
 
 <br>
 
-### 5.1.4、事件对象
+### 5.1.4、Event 对象
 
 一个普通的 JavaScript 对象，FullCalendar 用它来存储一个日历事件的信息。下面是它的属性：
 
@@ -820,11 +820,410 @@ $('#calendar').fullCalendar({
 
 **非标准字段**
 
-除了上述字段外，还可以在每个事件对象中包含自己的非标准字段。FullCalendar 不会修改或删除这些字段。例如，开发人员经常包括一个描述字段，用于回调，如 `eventRender`。
+除了上述字段外，还可以在每个 Event 对象中包含自己的非标准字段。FullCalendar 不会修改或删除这些字段。例如，开发人员经常包括一个描述字段，用于回调，如 `eventRender`。
 
 <br>
 
-## 5.2、事件方法
+### 5.1.5、方法
 
 **updateEvent**
+
+改变单个事件的数据，重新渲染该事件。
+
+```
+.fullCalendar( ‘updateEvent’, event )
+```
+
+`event` 必须是事件的原始 Event 对象，而不仅仅是重构对象。原始 Event 对象可以通过回调（如 `eventClick`）或 `clientEvents` 方法获得。
+
+以下是单击后如何更新事件：
+
+```javascript
+$('#calendar').fullCalendar({
+  eventClick: function(event, element) {
+
+    event.title = "CLICKED!";
+
+    $('#calendar').fullCalendar('updateEvent', event);
+
+  }
+});
+```
+
+<br>
+
+**removeEvents**
+
+从日历中删除事件。
+
+```
+.fullCalendar( ‘removeEvents’ [, idOrFilter ] )
+```
+
+如果省略 `idOrFilter`，则删除所有事件。
+
+如果 `idOrFilter` 是一个 ID，则将删除所有具有相同 ID 的事件。
+
+`idOrFilter` 也可以是一个过滤器函数，它接受一个 Event 对象参数，如果应该删除它，则返回 `true`。
+
+<br>
+
+## 5.2、事件显示
+
+如何控制日历上事件的外观。
+
+<br>
+
+**eventColor**
+
+设置日历上所有事件的背景和边框颜色。
+
+```
+String
+```
+
+更改日历上所有事件的颜色，如下所示：
+
+```javascript
+$('#calendar').fullCalendar({
+  events: [
+    // my event data
+  ],
+  eventColor: '#378006'
+});
+```
+
+可以使用任何 CSS 颜色格式，如 `#f00`、`#ff0000`、`rgb(255,0,0)`或 `red`。
+
+`eventBackgroundColor`、`eventBorderColor` 和`eventTextColor` 选项可用于更细化。
+
+<br>
+
+**eventBackgroundColor**
+
+设置日历上所有事件的背景色。
+
+```
+String
+```
+
+可以使用任何 CSS 颜色格式，如 `#f00`、`#ff0000`、`rgb(255,0,0)`或 `red`。
+
+<br>
+
+**eventBorderColor**
+
+设置日历上所有事件的边框颜色。
+
+```
+String
+```
+
+可以使用任何 CSS 颜色格式，如 `#f00`、`#ff0000`、`rgb(255,0,0)`或 `red`。
+
+<br>
+
+**eventTextColor**
+
+设置日历上所有事件的文本颜色。
+
+```
+String
+```
+
+可以使用任何 CSS 颜色格式，如 `#f00`、`#ff0000`、`rgb(255,0,0)`或 `red`。
+
+<br>
+
+### 5.2.1、方法
+
+**renderEvent**
+
+在日历上呈现一个新事件。
+
+```
+.fullCalendar( ‘renderEvent’, event [, stick ] )
+```
+
+`event` 必须是具有 `title` 和 `start` 的 Event 对象。
+
+通常情况下，一旦日历重新获取其事件源（例如：点击上一个/下一个），该事件就会消失。然而，将 `stick` 设置为 `true` 将导致事件被永久地固定在日历上。
+
+<br>
+
+## 5.3、事件单击和悬停
+
+了解事件何时被单击或悬停。
+
+<br>
+
+**eventClick**
+
+当用户单击事件时触发。
+
+```
+function( event, jsEvent, view ) { }
+```
+
+`event` 是保存事件信息（日期、标题等）的 Event 对象。
+
+`jsEvent` 保存 jQuery 事件和低级信息，例如单击坐标。
+
+`view` 保存当前视图对象。
+
+在回调函数中，`this` 被设置为事件的 `<div>` 元素。
+
+下面是一个演示所有这些变量的示例：
+
+```javascript
+$('#calendar').fullCalendar({
+  eventClick: function(calEvent, jsEvent, view) {
+
+    alert('Event: ' + calEvent.title);
+    alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+    alert('View: ' + view.name);
+
+    // 更改边框颜色
+    $(this).css('border-color', 'red');
+
+  }
+});
+```
+
+通常，如果 Event 对象设置了其 URL 属性，则单击事件将导致浏览器访问事件的 URL（在同一窗口/选项卡中）。从函数中返回 `false` 可以防止这种情况发生
+
+通常情况下，开发者希望一个事件的 URL 在不同的标签页或弹出窗口中打开。下面的例子显示了如何做到这一点：
+
+```javascript
+$('#calendar').fullCalendar({
+  events: [
+    {
+      title: 'My Event',
+      start: '2010-01-01',
+      url: 'http://google.com/'
+    }
+    // other events here
+  ],
+  eventClick: function(event) {
+    if (event.url) {
+      window.open(event.url);
+      return false;
+    }
+  }
+});
+```
+
+<br>
+
+## 5.4、事件拖动和调整大小
+
+如何启用和控制用户可以拖放和调整事件的大小。首先将 `editable` 设置设为 `true`。如果想允许外部元素被放到日历上，请访问 `droppable`、`drop` 和 `eventReceive` 文章。
+
+<br>
+
+**editable**
+
+确定是否可以修改日历上的事件。
+
+```
+Boolean, default: false
+```
+
+这确定是否可以拖动事件并调整其大小。同时启用/禁用两者。如果不想两者兼得，请改用更具体的 `eventStartEditable` 和 `eventDurationEditable`。
+
+可以使用 Event 对象的 `editable` 属性在每个事件的基础上覆盖此选项。但是，无法拖动或调整后台事件的大小。
+
+<br>
+
+**eventStartEditable**
+
+允许通过拖动编辑事件的开始时间。
+
+```
+Boolean, default: true
+```
+
+<br>
+
+**eventDurationEditable**
+
+允许通过调整大小来编辑事件的持续时间。
+
+```
+Boolean, default: true
+```
+
+<br>
+
+### 5.4.1、回调（CALLBACK）
+
+**eventDrop**
+
+当拖动停止且事件已移至其他日期/时间时触发。
+
+```
+function( event, delta, revertFunc, jsEvent, ui, view ) { }
+```
+
+`event` 是一个 Event 对象，持有事件的信息（日期、标题等）。在事件的 `start`/`end` 时调用 `hasTime`，以查看它是否被丢在一个定时或全天的区域。
+
+`delta` 是一个Duration对象，表示事件移动的时间量。版本2.0.1及更高版本中提供。
+
+`revertFunc` 是一个函数，如果调用它，它会将事件的开始/结束日期还原为拖动之前的值。如果 `ajax` 调用失败，这很有用。
+
+`jsEvent` 持有 jQuery 事件的低层次信息，如鼠标坐标。
+
+`ui` 持有一个空对象。在 2.1 版本之前，[jQuery 的 UI 对象](https://jqueryui.com/draggable/)。
+
+`view` 保存当前视图对象。
+
+当外部事件到达日历时，不会调用 `eventDrop`。改为调用 `eventReceive`。
+
+示例：
+
+```javascript
+$('#calendar').fullCalendar({
+  events: [
+    // events here
+  ],
+  editable: true,
+  eventDrop: function(event, delta, revertFunc) {
+
+    alert(event.title + " was dropped on " + event.start.format());
+
+    if (!confirm("你确定要更改吗？")) {
+      revertFunc();
+    }
+
+  }
+});
+```
+
+<br>
+
+**eventResize**
+
+当调整大小停止且事件持续时间已更改时触发。
+
+```
+function( event, delta, revertFunc, jsEvent, ui, view ) { }
+```
+
+`event` 是保存事件信息（日期、标题等）的 Event 对象。
+
+`delta` 是一个 Duration 对象，表示事件的开始或结束 延长或缩短的时间量。
+
+ `revertFunc` 是一个函数，如果调用它，它会将事件的结束日期还原为拖动之前的值。如果 `ajax` 调用失败，这很有用。
+
+`jsEvent` 持有 jQuery 事件的低层次信息，如鼠标坐标。
+
+`ui` 持有一个空对象。在 2.1 版本之前，[jQuery 的 UI 对象](https://jqueryui.com/draggable/)。
+
+`view` 保存当前视图对象。
+
+示例：
+
+```javascript
+$('#calendar').fullCalendar({
+  events: [
+    // events here
+  ],
+  editable: true,
+  eventResize: function(event, delta, revertFunc) {
+
+    alert(event.title + " end is now " + event.end.format());
+
+    if (!confirm("这样可以吗？")) {
+      revertFunc();
+    }
+
+  }
+});
+```
+
+<br>
+
+# 6、国际化
+
+## 6.1、语言环境
+
+你可以为某些语言（又称 “地区”）定制日历。地区设置是最重要的，因为它同时设置了许多其他选项的默认值。
+
+<br>
+
+### 6.1.1、local
+
+自定义日历的语言和本地化选项。
+
+```
+A String locale code. default: "en"
+```
+
+此选项会影响许多事情，例如：
+
+- 按钮中的文本，由 `header` 定义
+- 包含月份或星期几字符串的文本
+- 日期格式字符串，如 `timeFormat`
+- `weekNumberCalculation`
+- `firstDay`
+
+<br>
+
+**如何使用其他地区**
+
+首先需要加载 local JavaScript 数据文件才能使用它。这些文件包含在 FullCalendar 下载的 `locale/` 目录中。在加载主 FullCalendar 库后，必须通过 `<script>` 标签加载它们。
+
+```html
+<script src='fullcalendar/fullcalendar.js'></script>
+```
+
+```html
+<script src='fullcalendar/locale/es.js'></script>
+<script>
+
+  $(function() {
+
+    $('#calendar').fullCalendar({
+    });
+
+  });
+
+</script>
+```
+
+如果只是加载一个区域设置，则无需指定 `local` 选项。FullCalendar 将查看最近加载的 local 文件并使用它。
+
+但是，如果加载了多个语言环境文件，或者加载了联合的 `locale-all.js` 文件，则必须通过 `local` 选项明确指定使用哪个语言环境：
+
+```html
+<script src='fullcalendar/fullcalendar.js'></script>
+<script src='fullcalendar/locale-all.js'></script>
+<script>
+
+  $(function() {
+
+    $('#calendar').fullCalendar({
+      locale: 'es'
+    });
+
+  });
+
+</script>
+```
+
+<br>
+
+**MomentJS and jQuery UI Datepicker**
+
+当你加载 FullCalendar 的 local 文件时，它也会加载 MomentJS 和 jQuery UI Datepicker 的翻译（如果该库已经在页面上）。只要确保在 FullCalendar 的 local 文件之前包含 Moment 和 Datepicker 的 `<script>` 标签就可以了。
+
+```html
+<script src='lib/moment.js'></script>
+```
+
+```html
+<script src='lib/jquery-ui.custom-datepicker.js'></script>
+<script src='fullcalendar/fullcalendar.js'></script>
+<script src='fullcalendar/locale-all.js'></script>
+```
 
