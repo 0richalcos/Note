@@ -138,3 +138,91 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 **维护保养**
 
 与任何企业系统一样，你需要工具来保护、管理和监控你的 Elasticsearch 集群。集成到 Elasticsearch 中的安全、监控和管理特性使你能使用 Kibana 作为管理集群的控制中心。数据汇总和索引生命周期管理等特性可帮助你随着时间的推移智能地管理数据。
+
+<br>
+
+# 2、安装
+
+## 2.1、Linux（Ubuntu）
+
+1. 安装 ES 不用使用 root 用户，创建普通用户：
+
+   ```shell
+   # 添加用户 esuser，并指定 /home/esuser 为用户目录
+   useradd -c es用户 –d /home/esuser -m esuser
+   # 修改 esuser 用户密码
+   passwd esuser
+   # 切换 es 用户登录（并使用 es 用户的工作目录）
+   su - esuser
+   ```
+
+2. 为你的操作系统下载 Elasticsearch 压缩包：
+
+   ```shell
+   curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.14.0-linux-x86_64.tar.gz
+   ```
+
+3. 解压文件：
+
+   ```shell
+   tar -xvf elasticsearch-7.14.0-linux-x86_64.tar.gz
+   ```
+
+4. 从 `bin` 目录中启动 Elasticsearch：
+
+   ```shell
+   cd elasticsearch-7.14.0/bin
+   ./elasticsearch
+   ```
+
+   现在你就运行起了一个单节点 Elasticsearch 集群！
+
+5. ES 启动默认监听 9200 端口，访问 9200：
+   ```shell
+   curl http://localhost:9200
+   ```
+
+   ![image-20220630111509343](../Images/Elasticsearch/image-20220630111509343.png)
+
+<br>
+
+**ES 目录结构：**
+
+![image-20220630105257034](../Images/Elasticsearch/image-20220630105257034.png)
+
+```shell
+- bin	  启动ES服务脚本目录
+- config  ES配置文件的目录
+- data    ES的数据存放目录
+- jdk     ES提供需要指定的jdk目录
+- lib     ES依赖第三方库的目录
+- logs    ES的日志目录
+- modules 模块的目录
+- plugins 插件目录
+```
+
+<br>
+
+## 2.3、使用 cURL 命令交互
+
+本指南中的大部分示例，允许你复制合适的 cURL 命令，并从命令行中向本地 Elasticsearch 实例提交请求。
+
+对 Elasticsearch 的请求包含与任何 HTTP 请求相同的部分：
+
+```shell
+curl -X<VERB> '<PROTOCOL>://<HOST>:<PORT>/<PATH>?<QUERY_STRING>' -d '<BODY>'
+```
+
+这个示例使用以下变量：
+
+- `<VERB>` - 合适的 HTTP 方法或操作。例如，`GET`、`POST`、`PUT`、`HEAD` 或 `DELETE`。
+- `<PROTOCOL>` - `http` 或 `https`。如果你在 Elasticsearch 之前有 HTTPS 代理，或者你使用的 Elasticsearch 安全特性去加密 HTTP 通信，使用后者。
+- `<HOST>` - Elasticsearch 集群的任意节点主机名。或者对本地机器上的节点使用 `localhost`。
+- `<PORT>` - 运行 Elasticsearch HTTP 服务的端口，默认为 `9200`。
+- `<PATH>` - API 路径，可以包含多部分，比如 `_cluster/stats` 或 `_nodes/stats/jvm`。
+- `<QUERY_STRING>` - 一些可选的查询字符串参数。比如，`?pretty` 将打印 JSON 响应以使其更易阅读。
+- `<BODY>` - JSON 编码的请求体（如果必须）。
+
+如果启用了 Elasticsearch 安全特性，你必须提供用于认证运行 API 的有效用户名（以及密码）。例如，使用 `-u` 或 `--u` 的 cURL 命令参数。
+
+Elasticsearch 对每个 API 请求响应 HTTP 状态码，如 `200 ok`。除了 `HEAD` 请求外，它还会返回一个 JSON 编码的响应体。
