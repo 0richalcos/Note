@@ -203,6 +203,29 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 <br>
 
+**开启远程访问**
+
+默认 ES 无法使用主机 ip 进行远程连接，需要开启远程连接权限。
+
+1. 修改 ES 安装包中 config/elasticsearch.yml 配置文件：
+
+   ```shell
+   vim /home/esuser/elasticsearch-7.14.0/config/elasticsearch.yml
+   ```
+
+   ![image-20220703192151746](../Images/Elasticsearch/image-20220703192151746.png)
+
+2. 重新启动 ES 服务：
+
+   ```shell
+   su - esuser
+   elasticsearch-7.14.0/bin/elasticsearch
+   ```
+
+3. 使用自己的浏览器远程访问
+
+<br>
+
 ## 2.3、使用 cURL 命令交互
 
 本指南中的大部分示例，允许你复制合适的 cURL 命令，并从命令行中向本地 Elasticsearch 实例提交请求。
