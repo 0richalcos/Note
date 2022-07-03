@@ -150,8 +150,10 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
    ```shell
    # 添加用户 esuser，并指定 /home/esuser 为用户目录
    useradd -c es用户 –d /home/esuser -m esuser
+   
    # 修改 esuser 用户密码
    passwd esuser
+   
    # 切换 es 用户登录（并使用 es 用户的工作目录）
    su - esuser
    ```
@@ -222,7 +224,80 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
    elasticsearch-7.14.0/bin/elasticsearch
    ```
 
-3. 使用自己的浏览器远程访问
+3. 启动错误（如果没有遇到则跳过）
+
+   ```
+   -- 引导检查失败。你必须在启动Elasticsearch之前解决以下[4]行中描述的问题。
+   ERROR: [4] bootstrap checks failed. You must address the points described in the following [4] lines before starting Elasticsearch.
+   
+   -- 引导检查失败[4]中的[1]：弹性搜索进程的最大文件描述符[4096]太低，至少增加到[65535]。
+   bootstrap check failure [1] of [4]: max file descriptors [4096] for elasticsearch process is too low, increase to at least [65535]
+   
+   -- 引导检查失败[4]中的[2]：用户[esuser]的最大线程数[3802]太少，至少增加到[4096]。
+   bootstrap check failure [2] of [4]: max number of threads [3802] for user [esuser] is too low, increase to at least [4096]
+   
+   -- 引导检查失败[4]中的[3]：最大虚拟内存区域vm.max_map_count [65530]太低，至少增加到[262144]。
+   bootstrap check failure [3] of [4]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
+   
+   -- bootstrap 检查失败[4]的[4]：默认的发现设置不适合生产使用；至少要配置[discovery.seed_hosts, discovery.seed_providers, cluster.initial_master_nodes]中的一个。
+   bootstrap check failure [4] of [4]: the default discovery settings are unsuitable for production use; at least one of [discovery.seed_hosts, discovery.seed_providers, cluster.initial_master_nodes] must be configured
+   ```
+
+   解决错误 [1]：
+
+   ```shell
+   vim /etc/security/limits.conf
+   
+   # 在最后面追加下面内容
+   *               soft    nofile          65536
+   *               hard    nofile          65536
+   *               soft    nproc           4096
+   *               hard    nproc           4096
+   
+   # 退出重新登录检测配置是否生效:
+   ulimit -Hn
+   ulimit -Sn
+   ulimit -Hu
+   ulimit -Su
+   ```
+
+   解决错误 [2]：
+
+   ```shell
+   # 进入limits.d目录下修改配置文件。
+   vim /etc/security/limits.d/20-nproc.conf
+   
+   # 修改为 
+   启动ES用户名 soft nproc 4096
+   ```
+
+   解决错误 [3]：
+
+   ```shell
+   # 编辑sysctl.conf文件
+   vim /etc/sysctl.conf
+   
+   # 在最后面追加下下面内容
+   vm.max_map_count=655360 #centos7 系统
+   vm.max_map_count=262144 #ubuntu 系统
+   
+   # 执行以下命令生效：
+   sysctl -p
+   ```
+
+   解决错误 [4]：
+
+   ```shell
+   # 编辑elasticsearch.yml配置文件
+   vim config/elasticsearch.yml
+   
+   # 找到 Discovery 部分，修改
+   cluster.initial_master_nodes: ["node-1"]
+   ```
+
+4. 使用自己的浏览器远程访问 ES 服务：
+
+   ![屏幕截图 2022-07-04 002254](../Images/Elasticsearch/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202022-07-04%20002254.png)
 
 <br>
 
