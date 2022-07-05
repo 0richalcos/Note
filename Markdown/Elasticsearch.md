@@ -141,7 +141,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 <br>
 
-# 2、安装
+# 2、安装 Elastisearch
 
 ## 2.1、Linux（Ubuntu）
 
@@ -301,6 +301,28 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 <br>
 
+## 2.2、Docker
+
+1. 获取镜像：
+
+   ```shell
+   docker pull elasticsearch:7.14.0
+   ```
+
+2. 运行 ES：
+
+   ```shell
+   docker run -d -p 9200:9200 -p 9300:9300  -e "discovery.type=single-node"  elasticsearch:7.14.0
+   ```
+
+   可以通过 `docker logs -f [容器ID]` 查看相关容器日志
+
+3. 访问 ES：
+
+   ![image-20220705222221335](../Images/Elasticsearch/image-20220705222221335.png)
+
+<br>
+
 ## 2.3、使用 cURL 命令交互
 
 本指南中的大部分示例，允许你复制合适的 cURL 命令，并从命令行中向本地 Elasticsearch 实例提交请求。
@@ -324,3 +346,135 @@ curl -X<VERB> '<PROTOCOL>://<HOST>:<PORT>/<PATH>?<QUERY_STRING>' -d '<BODY>'
 如果启用了 Elasticsearch 安全特性，你必须提供用于认证运行 API 的有效用户名（以及密码）。例如，使用 `-u` 或 `--u` 的 cURL 命令参数。
 
 Elasticsearch 对每个 API 请求响应 HTTP 状态码，如 `200 ok`。除了 `HEAD` 请求外，它还会返回一个 JSON 编码的响应体。
+
+<br>
+
+# 3、安装 Kibana
+
+Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化平台，使用 Kibana 可以查询、查看并与存储在 ES 索引的数据进行交互操作，使用 Kibana 能执行高级的数据分析，并能以图表、表格和地图的形式查看数据。
+
+<br>
+
+## 3.1、Linux（Ubuntu）
+
+1. 先切换到 esuser 用户下：
+
+   ```shell
+   su - esuser
+   ```
+
+2. 下载 Kibana：
+
+   ```shell
+   curl -L -O https://artifacts.elastic.co/downloads/kibana/kibana-7.14.0-linux-x86_64.tar.gz
+   ```
+
+3. 解压：
+
+   ```shell
+   tar -zxvf kibana-7.14.0-linux-x86_64.tar.gz
+   ```
+
+4. 编辑 Kibana 的配置文件：
+
+   ```shell
+   vim kibana-7.14.0-linux-x86_64/config/kibana.yml
+   ```
+
+   修改如下配置：
+
+   ![image-20220705225554258](../Images/Elasticsearch/image-20220705225554258.png)
+
+5. 启动 kibana（记得启动 ES）：
+
+   ```shell
+   kibana-7.14.0-linux-x86_64/bin/kibana
+   ```
+
+6. 访问 kibana 的 WEB 界面（Kibana 的默认端口为 5601）
+
+<br>
+
+## 3.2、Docker
+
+1. 获取镜像：
+
+   ```shell
+   docker pull kibana:7.14.0
+   ```
+
+2. 运行 Kibana：
+
+   ```shell
+   docker run -d  --name kibana -p 5601:5601 kibana:7.14.0
+   ```
+
+3. 进入容器连接到 ES，重启 Kibana 容器，访问 `http://服务器IP:5601`
+
+4. 基于数据卷加载配置文件方式运行：
+
+   ```shell
+   # 从容器复制kibana配置文件出来
+   # 修改配置文件为对应ES服务器地址
+   # 通过数据卷加载配置文件方式启动
+   docker run -d -v /root/kibana.yml:/usr/share/kibana/config/kibana.yml  --name kibana -p 5601:5601 kibana:7.14.0
+   ```
+
+<br>
+
+## 3.3、compose
+
+> 由于我服务器内存不够，启动服务太慢，这里使用 Docker Desktop for Windows 和 Docker-compose 在自己本地电脑上操作
+
+1. 创建一个 ES-Kibana 的文件夹，并在文件夹中创建 compose.yml：
+
+   ```yaml
+   version: "3.8"
+   volumes:
+     data:
+     config:
+     plugin:
+   networks:
+     es:
+   services:
+     elasticsearch:
+       image: elasticsearch:7.14.0
+       ports:
+         - "9200:9200"
+         - "9300:9300"
+       networks:
+         - "es"
+       environment:
+         - "discovery.type=single-node"
+         - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+       volumes:
+         - data:/usr/share/elasticsearch/data
+         - config:/usr/share/elasticsearch/config
+         - plugin:/usr/share/elasticsearch/plugins
+   
+     kibana:
+       image: kibana:7.14.0
+       ports:
+         - "5601:5601"
+       networks:
+         - "es"
+       volumes:
+         - ./kibana.yml:/usr/share/kibana/config/kibana.yml
+   ```
+
+2. Kibana.yml：
+
+   ```yaml
+   # kibana配置文件 连接到ES
+   server.host: "0"
+   server.shutdownTimeout: "5s"
+   elasticsearch.hosts: [ "http://elasticsearch:9200" ]
+   monitoring.ui.container.elasticsearch.enabled: true
+   ```
+
+3. 在当前文件夹中打开控制台，执行命令开始部署：
+
+   ```sheel
+   docker-compose up -d
+   ```
+
