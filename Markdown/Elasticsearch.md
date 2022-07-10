@@ -488,9 +488,124 @@ Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化�
 
 <br>
 
+**创建索引**
+
+```http
+PUT /索引名
+```
+
+1. ES 中索引健康状态：red（索引不可用）、yellwo（索引可用，存在风险）、green（健康）
+2. 默认 ES 在创建索引时回为索引创建 1 个 primary 索引和 1 个备份索引
+
+如果是单节点启动，primary 索引和备份索引会放在一个 ES 节点中，此时索引状态为 yellow，可以进行索引分片配置解决这个问题，但是还是不建议 “把鸡蛋放在一个篮子里”。
+
+创建一个 products 索引：
+
+```http
+PUT /products
+{
+  "settings": {
+    "number_of_shards": 1, #指定主分片的数量
+    "number_of_replicas": 0 #指定副本分片的数量
+  }
+}
+```
+
+![image-20220710231252432](../Images/Elasticsearch/image-20220710231252432.png)
+
+<br>
+
+**查询索引**
+
+```http
+GET /_cat/indices?v
+```
+
+![image-20220710231614286](../Images/Elasticsearch/image-20220710231614286.png)
+
+<br>
+
+**删除索引**
+
+```http
+DELETE /索引名
+```
+
+```http
+DELETE /*
+```
+
+`*` 是通配符，代表所有索引。
+
+删除 products 索引：
+
+```http
+DELETE /products
+```
+
+![image-20220710231843156](../Images/Elasticsearch/image-20220710231843156.png)
+
+<br>
+
 ## 4.2、Mapping（映射）
 
 映射是定义一个文档和它所包含的字段如何被存储和索引的过程。在默认配置下，ES 可以根据插入的数据自动地创建 Mapping，也可以手动创建 Mapping。 Mapping 中主要包括字段名、字段类型等。
+
+映射的数据类型：
+
+- 字符串类型：`keyword` 关键字 关键词 、`text` 一段文本
+- 数字类型：`integer` 、`long`  
+- 小数类型：`float` 、`double`
+- 布尔类型：`boolean` 
+- 日期类型：`date`
+
+<br>
+
+**创建映射**
+
+```http
+PUT /products
+{ 
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0
+  }, 
+  "mappings": {
+    "properties": {
+      "title":{
+        "type": "keyword"
+      },
+      "price":{
+        "type": "double"
+      },
+      "created_at":{
+        "type": "date"
+      },
+      "description":{
+        "type": "text"
+      }
+    }
+  }
+}
+```
+
+![image-20220710232622290](../Images/Elasticsearch/image-20220710232622290.png)
+
+<br>
+
+**查询映射**
+
+```http
+GET /索引名/_mapping
+```
+
+查询刚刚创建的 products 索引的映射：
+
+```http
+GET /products/_mapping
+```
+
+![image-20220710232831896](../Images/Elasticsearch/image-20220710232831896.png)
 
 <br>
 
@@ -500,7 +615,137 @@ Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化�
 
 <br>
 
-# 5、基本操作
+**添加文档**
 
-## 5.1、Index
+```http
+POST /索引名/_doc/文档ID
+{
+  文档 body...
+}
+```
 
+文档 ID 为可选项，如果不填写则默认使用 ES 创建的 ID。
+
+在 products 索引下添加一个文档并指定文档 ID 为 1： 
+
+```http
+POST /products/_doc/1
+{
+  "title":"iphone13",
+  "price":8999.99,
+  "created_at":"2021-09-15",
+  "description":"iPhone 13屏幕采用6.1英寸OLED屏幕。"
+}
+```
+
+![image-20220710233404098](../Images/Elasticsearch/image-20220710233404098.png)
+
+在 products 索引下添加一个文档，使用自动生成的文档 ID：
+
+```http
+POST /products/_doc/
+{
+  "title":"iphone14",
+  "price":8999.99,
+  "created_at":"2021-09-15",
+  "description":"iPhone 13屏幕采用6.8英寸OLED屏幕"
+}
+```
+
+![image-20220710233519074](../Images/Elasticsearch/image-20220710233519074.png)
+
+<br>
+
+**查询文档**
+
+```http
+GET /索引名/_doc/文档ID
+```
+
+查询 products 索引下 ID 为 1 的文档：
+
+```http
+GET /products/_doc/1
+```
+
+![image-20220710233616786](../Images/Elasticsearch/image-20220710233616786.png)
+
+<br>
+
+**删除文档**
+
+```http
+DELETE /索引名/_doc/文档ID
+```
+
+删除 products 索引下 ID 为 1 的文档： 
+
+```http
+DELETE /products/_doc/1
+```
+
+![image-20220710234406179](../Images/Elasticsearch/image-20220710234406179.png)
+
+<br>
+
+**更新文档**
+
+```http
+PUT /索引名/_doc/文档ID
+{
+  文档body...
+}
+```
+
+这种更新方式是先删除原始文档，再将更新文档以新的内容插入。
+
+```http
+POST /索引名/_doc/文档ID/_update
+{
+    "doc" : {
+        文档body...
+    }
+}
+```
+
+这种方式可以将数据原始内容保存，并在此基础上更新。
+
+修改 products 索引下 ID 为 wZbA6IEB0wOojxAnBiDQ 的文档：
+
+```http
+POST /products/_doc/wZbA6IEB0wOojxAnBiDQ/_update
+{
+    "doc" : {
+        "title" : "iphon15"
+    }
+}
+```
+
+![image-20220710235419580](../Images/Elasticsearch/image-20220710235419580.png)
+
+<br>
+
+**批量操作**
+
+ 批量索引两条文档：
+
+```http
+POST /products/_doc/_bulk
+ 	{"index":{"_id":"1"}}
+  		{"title":"iphone14","price":8999.99,"created_at":"2021-09-15","description":"iPhone 13屏幕采用6.8英寸OLED屏幕"}
+	{"index":{"_id":"2"}}
+  		{"title":"iphone15","price":8999.99,"created_at":"2021-09-15","description":"iPhone 15屏幕采用10.8英寸OLED屏幕"}
+```
+
+ 更新文档同时删除文档：
+
+```http
+POST /products/_doc/_bulk
+	{"update":{"_id":"1"}}
+		{"doc":{"title":"iphone17"}}
+	{"delete":{"_id":2}}
+	{"index":{}}
+		{"title":"iphone19","price":8999.99,"created_at":"2021-09-15","description":"iPhone 19屏幕采用61.8英寸OLED屏幕"}
+```
+
+> 批量时不会因为一个失败而全部失败，而是继续执行后续操作，在返回时按照执行的状态返回！
