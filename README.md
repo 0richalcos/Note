@@ -1,8 +1,8 @@
-# :pen:好记性不如烂笔头！！！:pen:
+## :pen:好记性不如烂笔头！！！:pen:
 
 
 
-## Java
+### Java
 
 - [**Java 基础**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaBasics.md)
 - [**Java 类和对象**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaObject.md)
@@ -13,7 +13,7 @@
 
 
 
-## 数据库
+### 数据库
 
 - [**MySQL**](https://github.com/0richalcos/Note/blob/main/Markdown/MySQL.md)
 	- [**查询题**](https://github.com/0richalcos/Note/blob/main/Markdown/MySQLQuery.md)
@@ -23,13 +23,13 @@
 
 
 
-## 持久层框架
+### 持久层框架
 
 - [**MyBatis**](https://github.com/0richalcos/Note/blob/main/Markdown/Mybatis.md)
 
 
 
-## Spring
+### Spring
 
 - [**Spring**](https://github.com/0richalcos/Note/blob/main/Markdown/Spring.md)
 - [**Spring MVC**](https://github.com/0richalcos/Note/blob/main/Markdown/SpringMVC.md)
@@ -38,25 +38,25 @@
 
 
 
-## 权限管理
+### 权限管理
 
 - [**Shiro**](https://github.com/0richalcos/Note/blob/main/Markdown/Shiro.md)
 
 
 
-# 搜索引擎
+### 搜索引擎
 
 - [**Elasticsearch**](https://github.com/0richalcos/Note/blob/main/Markdown/Elasticsearch.md)
 
 
 
-## Linux & 运维
+### Linux & 运维
 
 - [**Linux**](https://github.com/0richalcos/Note/blob/main/Markdown/Linux.md)
 
 
 
-## 前端
+### 前端
 
 - [**JavaScript**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaScript.md)
 - [**jQuery**](https://github.com/0richalcos/Note/blob/main/Markdown/jQuery.md)
@@ -70,14 +70,14 @@
 
 
 
-## 数据结构及算法
+### 数据结构及算法
 
 - [**算法**](https://github.com/0richalcos/Note/blob/main/Markdown/Algorithm.md)
 - [**设计模式**](https://github.com/0richalcos/Note/blob/main/Markdown/DesignPattern.md)
 
 
 
-## 其他
+### 其他
 
 - [**Swagger**](https://github.com/0richalcos/Note/blob/main/Markdown/Swagger.md)
 - **办公文档操作**
