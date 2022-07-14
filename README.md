@@ -12,16 +12,14 @@
 
 ### :coffee:Java
 
-- :o: [**Java 基础**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaBasics.md)
+- [**Java 基础**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaBasics.md)
 - [**Java 类和对象**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaObject.md)
 - [**Java 集合**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaCollection.md)
 - [**Java 8 新特性**](https://github.com/0richalcos/Note/blob/main/Markdown/Java8.md)
 - [**Java Web**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaWeb.md)
 - [**Java 工具类**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaUtils.md)
 
-​	:o:[**Java 基础**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaBasics.md)
 
-​	:o:[**Java 类和对象**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaObject.md)
 
 ### :chart_with_upwards_trend:数据库
 
@@ -68,6 +66,7 @@
 
 ### :globe_with_meridians:前端
 
+- [**HTTP**](https://github.com/0richalcos/Note/blob/main/Markdown/HTTP.md)
 - [**JavaScript**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaScript.md)
 - [**jQuery**](https://github.com/0richalcos/Note/blob/main/Markdown/jQuery.md)
 - [**Thymeleaf**](https://github.com/0richalcos/Note/blob/main/Markdown/Thymeleaf.md)
