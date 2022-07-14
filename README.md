@@ -1,16 +1,16 @@
 ## :pen:好记性不如烂笔头:pen:
 
 | Java | 数据库 | 持久层框架 | Spring | 权限管理 | 搜索引擎 | Linux & 运维 | 前端 | 数据结构及算法 |
-| :--: | :----: | :--------: | :----: | :------: | :------: | :------: | -------- | -------- |
+| :--: | :----: | :--------: | :----: | :------: | :------: | :------: | :------: | :------: |
 | [:coffee:](#coffeejava) | [:chart_with_upwards_trend:](#chart_with_upwards_trend数据库) | [:moyai:](#moyai持久层框架) | [:leaves:](#leavesSpring) | [:closed_lock_with_key:](#closed_lock_with_key权限管理) | [:mag:](#mag搜索引擎) | [:computer:](#computerLinux--运维) | [:globe_with_meridians:](#globe_with_meridians前端) | [:stars:](#stars数据结构及算法) |
 
-| 其他                    |
-| ----------------------- |
+|          其他           |
+| :---------------------: |
 | [:scroll:](#scroll其他) |
 
 
 
-### :coffee:Java
+### :coffee: Java
 
 - [**Java 基础**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaBasics.md)
 - [**Java 类和对象**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaObject.md)
@@ -21,7 +21,7 @@
 
 
 
-### :chart_with_upwards_trend:数据库
+### :chart_with_upwards_trend: 数据库
 
 - [**MySQL**](https://github.com/0richalcos/Note/blob/main/Markdown/MySQL.md)
 	- [**查询题**](https://github.com/0richalcos/Note/blob/main/Markdown/MySQLQuery.md)
@@ -31,13 +31,13 @@
 
 
 
-### :moyai:持久层框架
+### :moyai: 持久层框架
 
 - [**MyBatis**](https://github.com/0richalcos/Note/blob/main/Markdown/Mybatis.md)
 
 
 
-### :leaves:Spring
+### :leaves: Spring
 
 - [**Spring**](https://github.com/0richalcos/Note/blob/main/Markdown/Spring.md)
 - [**Spring MVC**](https://github.com/0richalcos/Note/blob/main/Markdown/SpringMVC.md)
@@ -46,25 +46,25 @@
 
 
 
-### :closed_lock_with_key:权限管理
+### :closed_lock_with_key: 权限管理
 
 - [**Shiro**](https://github.com/0richalcos/Note/blob/main/Markdown/Shiro.md)
 
 
 
-### :mag:搜索引擎
+### :mag: 搜索引擎
 
 - [**Elasticsearch**](https://github.com/0richalcos/Note/blob/main/Markdown/Elasticsearch.md)
 
 
 
-### :computer:Linux & 运维
+### :computer: Linux & 运维
 
 - [**Linux**](https://github.com/0richalcos/Note/blob/main/Markdown/Linux.md)
 
 
 
-### :globe_with_meridians:前端
+### :globe_with_meridians: 前端
 
 - [**JavaScript**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaScript.md)
 - [**jQuery**](https://github.com/0richalcos/Note/blob/main/Markdown/jQuery.md)
@@ -78,7 +78,7 @@
 
 
 
-### :stars:数据结构及算法
+### :stars: 数据结构及算法
 
 - [**算法**](https://github.com/0richalcos/Note/blob/main/Markdown/Algorithm.md)
 - [**设计模式**](https://github.com/0richalcos/Note/blob/main/Markdown/DesignPattern.md)
