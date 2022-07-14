@@ -81,31 +81,31 @@ JDK（Java Development Kit，Java 开发工具包）是一种用于构建在 Jav
 
 1. 在浏览器输入www.oracle.com，打开 Oracle 公司的官方网站：
 
-<img src="../Images/JavaBasics/image-20200422004026006.png" alt="image-20200422004026006" style="zoom: 50%;" />
+   <img src="../Images/JavaBasics/image-20200422004026006.png" alt="image-20200422004026006" style="zoom: 50%;" />
 
 2. 找到下载：
 
-	<img src="../Images/JavaBasics/image-20200422004245571.png" alt="image-20200422004245571" style="zoom: 67%;" />
+   <img src="../Images/JavaBasics/image-20200422004245571.png" alt="image-20200422004245571" style="zoom: 67%;" />
 
 3. 选择 Java：
 
-	<img src="../Images/JavaBasics/image-20200422004518386.png" alt="image-20200422004518386" style="zoom:50%;" />
+   <img src="../Images/JavaBasics/image-20200422004518386.png" alt="image-20200422004518386" style="zoom:50%;" />
 
 4. 选择 JDK：
 
-	<img src="../Images/JavaBasics/image-20200422004642820.png" alt="image-20200422004642820" style="zoom:50%;" />
+   <img src="../Images/JavaBasics/image-20200422004642820.png" alt="image-20200422004642820" style="zoom:50%;" />
 
 5. 下载 1.8 版本：
 
-	<img src="../Images/JavaBasics/image-20200422004732694.png" alt="image-20200422004732694" style="zoom: 67%;" />
+   <img src="../Images/JavaBasics/image-20200422004732694.png" alt="image-20200422004732694" style="zoom: 67%;" />
 
 6. 选择自己需要的版本：
 
-	<img src="../Images/JavaBasics/image-20200422004854336.png" alt="image-20200422004854336" style="zoom:50%;" />
+   <img src="../Images/JavaBasics/image-20200422004854336.png" alt="image-20200422004854336" style="zoom:50%;" />
 
 7. 同意协议，开始下载：
 
-	<img src="../Images/JavaBasics/image-20200422005006331.png" alt="image-20200422005006331" style="zoom:50%;" />
+   <img src="../Images/JavaBasics/image-20200422005006331.png" alt="image-20200422005006331" style="zoom:50%;" />
 
 8. 下载完成后运行 exe 执行文件，开始安装，一共会安装两次，第一次是安装 JDK，第二次是安装 JRE（Java Runtime Environment，Java 运行环境）。
 
