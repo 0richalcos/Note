@@ -1,8 +1,12 @@
-## :pen:好记性不如烂笔头！！！:pen:
+## :pen:好记性不如烂笔头:pen:
+
+| Java | 数据库 | 持久层框架 | Spring | 权限管理 | 搜索引擎 | Linux & 运维 | 前端 | 数据结构及算法 | 其他 |
+| ---- | ------ | ---------- | ------ | -------- | -------- | ------------ | ---- | -------------- | ---- |
+|      |        |            |        |          |          |              |      |                |      |
 
 
 
-### Java
+### :coffee:Java
 
 - [**Java 基础**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaBasics.md)
 - [**Java 类和对象**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaObject.md)
