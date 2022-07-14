@@ -2,13 +2,11 @@
 
 | Java | 数据库 | 持久层框架 | Spring | 权限管理 | 搜索引擎 | Linux & 运维 | 前端 | 数据结构及算法 |
 | :--: | :----: | :--------: | :----: | :------: | :------: | :------: | -------- | -------- |
-| [:coffee:](#coffee-Java) |        |            |        |          |          |          |          |          |
+| [:coffee:](#coffeejava) | [:chart_with_upwards_trend:](#cochart_with_upwards_tre数据库) | [:moyai:](#coffeejava) | [:leaves:](#coffeejava) | [:closed_lock_with_key:](#coffeejava) | [:mag:](#coffeejava) | [:computer:](#coffeejava) | [:globe_with_meridians:](#coffeejava) | [:stars:](#coffeejava) |
 
-
-
-| 其他     |
-| -------- |
-| :scroll: |
+| 其他                    |
+| ----------------------- |
+| [:scroll:](#scroll其他) |
 
 
 
@@ -23,7 +21,7 @@
 
 
 
-### 数据库
+### :chart_with_upwards_trend:数据库
 
 - [**MySQL**](https://github.com/0richalcos/Note/blob/main/Markdown/MySQL.md)
 	- [**查询题**](https://github.com/0richalcos/Note/blob/main/Markdown/MySQLQuery.md)
@@ -33,13 +31,13 @@
 
 
 
-### 持久层框架
+### :moyai:持久层框架
 
 - [**MyBatis**](https://github.com/0richalcos/Note/blob/main/Markdown/Mybatis.md)
 
 
 
-### Spring
+### :leaves:Spring
 
 - [**Spring**](https://github.com/0richalcos/Note/blob/main/Markdown/Spring.md)
 - [**Spring MVC**](https://github.com/0richalcos/Note/blob/main/Markdown/SpringMVC.md)
@@ -48,25 +46,25 @@
 
 
 
-### 权限管理
+### :closed_lock_with_key:权限管理
 
 - [**Shiro**](https://github.com/0richalcos/Note/blob/main/Markdown/Shiro.md)
 
 
 
-### 搜索引擎
+### :mag:搜索引擎
 
 - [**Elasticsearch**](https://github.com/0richalcos/Note/blob/main/Markdown/Elasticsearch.md)
 
 
 
-### Linux & 运维
+### :computer:Linux & 运维
 
 - [**Linux**](https://github.com/0richalcos/Note/blob/main/Markdown/Linux.md)
 
 
 
-### 前端
+### :globe_with_meridians:前端
 
 - [**JavaScript**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaScript.md)
 - [**jQuery**](https://github.com/0richalcos/Note/blob/main/Markdown/jQuery.md)
@@ -80,7 +78,7 @@
 
 
 
-### 数据结构及算法
+### :stars:数据结构及算法
 
 - [**算法**](https://github.com/0richalcos/Note/blob/main/Markdown/Algorithm.md)
 - [**设计模式**](https://github.com/0richalcos/Note/blob/main/Markdown/DesignPattern.md)
