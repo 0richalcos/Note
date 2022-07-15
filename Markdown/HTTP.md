@@ -66,11 +66,11 @@ Google Chrome、Internet Explorer 和 Firefox 等浏览器在网站含有由加�
 
 HTTP 链接显示不安全：
 
-<img src="../Images/HTTP/338F00ED-40D1-4E19-91AD-5005482353FA.jpeg" alt="img" style="zoom: 50%;" />
+<img src="../Images/HTTP/338F00ED-40D1-4E19-91AD-5005482353FA.jpeg" alt="img" style="width: 50%;" />
 
 HTTPS 链接显示为安全：
 
-<img src="../Images/HTTP/5C6F661D-345B-4E9A-9340-2B9367A58FB3.jpeg" alt="img" style="zoom: 50%;" />
+<img src="../Images/HTTP/5C6F661D-345B-4E9A-9340-2B9367A58FB3.jpeg" alt="img" style="width: 50%;" />
 
 <br>
 
@@ -109,7 +109,7 @@ Accept-Language: en, mi
 
 HTTP 响应也由四个部分组成，分别是：状态行、消息报头、空行和响应正文。
 
-<img src="../Images/HTTP/httpmessage.jpg" alt="img" style="zoom:80%;" />
+<img src="../Images/HTTP/httpmessage.jpg" alt="img" style="width:60%;" />
 
 示例：
 
