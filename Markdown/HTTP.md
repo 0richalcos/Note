@@ -66,7 +66,7 @@ Google Chrome、Internet Explorer 和 Firefox 等浏览器在网站含有由加�
 
 HTTP 链接显示不安全：
 
-<img src="../Images/HTTP/338F00ED-40D1-4E19-91AD-5005482353FA.jpeg" alt="img" style="width: 50%;" />
+<img src="../Images/HTTP/338F00ED-40D1-4E19-91AD-5005482353FA.jpeg" alt="img" style="width: 50%;ttext-align:center" />
 
 HTTPS 链接显示为安全：
 
