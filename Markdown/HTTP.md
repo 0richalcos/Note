@@ -40,7 +40,7 @@ HTTP 默认端口号为 `80`，但是你也可以改为 `8080` 或者其他端�
 
 以下图表展示了 HTTP 协议通信流程：
 
-![cgiarch](../Images/HTTP/cgiarch.gif)
+<img src="../Images/HTTP/cgiarch.gif" alt="cgiarch"  style="text-align:center" />
 
 > CGI（Common Gateway Interface）是 HTTP 服务器与你的或其它机器上的程序进行 “交谈” 的一种工具，其程序须运行在网络服务器上。
 >
@@ -66,11 +66,11 @@ Google Chrome、Internet Explorer 和 Firefox 等浏览器在网站含有由加�
 
 HTTP 链接显示不安全：
 
-<img src="../Images/HTTP/338F00ED-40D1-4E19-91AD-5005482353FA.jpeg" alt="img" style="width: 50%;ttext-align:center" />
+<img src="../Images/HTTP/338F00ED-40D1-4E19-91AD-5005482353FA.jpeg" alt="img" style="width: 50%;text-align:center" />
 
 HTTPS 链接显示为安全：
 
-<img src="../Images/HTTP/5C6F661D-345B-4E9A-9340-2B9367A58FB3.jpeg" alt="img" style="width: 50%;" />
+<img src="../Images/HTTP/5C6F661D-345B-4E9A-9340-2B9367A58FB3.jpeg" alt="img" style="width: 50%;text-align:center" />
 
 <br>
 
