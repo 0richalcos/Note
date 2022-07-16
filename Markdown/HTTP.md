@@ -10,7 +10,9 @@ HTTPS 经由 HTTP 进行通信，但利用 SSL/TLS 来加密数据包，HTTPS �
 
 HTTP 的 URL 是由 `http://` 起始与默认使用端口 `80`，而 HTTPS 的 URL 则是由 `https://` 起始与默认使用端口 `443`。
 
-![img](../Images/HTTP/1_5J6ULfBAvgLF8PBM4B__Qw.jpeg)
+<div align="center">
+	<img src="../Images/HTTP/1_5J6ULfBAvgLF8PBM4B__Qw.jpeg" alt="img"/>
+</div>
 
 <br>
 
@@ -40,7 +42,9 @@ HTTP 默认端口号为 `80`，但是你也可以改为 `8080` 或者其他端�
 
 以下图表展示了 HTTP 协议通信流程：
 
-<img src="../Images/HTTP/cgiarch.gif" alt="cgiarch"  style="text-align:center" />
+<div align="center">
+	<img src="../Images/HTTP/cgiarch.gif" alt="cgiarch"  />
+</div>
 
 > CGI（Common Gateway Interface）是 HTTP 服务器与你的或其它机器上的程序进行 “交谈” 的一种工具，其程序须运行在网络服务器上。
 >
@@ -66,11 +70,15 @@ Google Chrome、Internet Explorer 和 Firefox 等浏览器在网站含有由加�
 
 HTTP 链接显示不安全：
 
-<div align="center"><img src="../Images/HTTP/338F00ED-40D1-4E19-91AD-5005482353FA.jpeg" alt="img" style="width: 50%;text-align:center" /></div>
+<div align="center">
+	<img src="../Images/HTTP/338F00ED-40D1-4E19-91AD-5005482353FA.jpeg" alt="img" style="width: 50%" />
+</div>
 
 HTTPS 链接显示为安全：
 
-<img src="../Images/HTTP/5C6F661D-345B-4E9A-9340-2B9367A58FB3.jpeg" alt="img" style="width: 50%;text-align:center" />
+<div align="center">
+	<img src="../Images/HTTP/5C6F661D-345B-4E9A-9340-2B9367A58FB3.jpeg" alt="img" style="width: 50%" />
+</div>
 
 <br>
 
@@ -92,7 +100,9 @@ HTTP 使用统一资源标识符（Uniform Resource Identifiers，URI）来传�
 
 客户端发送一个 HTTP 请求到服务器的请求消息包括以下格式：请求行（request line）、请求头部（header）、空行和请求数据四个部分组成，下图给出了请求报文的一般格式。
 
-![img](../Images/HTTP/2012072810301161.png)
+<div align="center">
+    <img src="../Images/HTTP/2012072810301161.png"/>
+</div>
 
 示例：
 
@@ -109,7 +119,9 @@ Accept-Language: en, mi
 
 HTTP 响应也由四个部分组成，分别是：状态行、消息报头、空行和响应正文。
 
-<img src="../Images/HTTP/httpmessage.jpg" alt="img" style="width:60%;" />
+<div align="center">
+    <img src="../Images/HTTP/httpmessage.jpg" alt="img" style="width:60%;" />
+</div>
 
 示例：
 
