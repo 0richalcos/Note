@@ -20,13 +20,19 @@ public class Test {
 
 下图是 Java 7 的编译结果
 
-<img src="../Images/Java8/5-191119163Sb30.png" alt="Java 7 运行结果" style="zoom:80%;" />
+<div align="center">
+    <img src="../Images/Java8/5-191119163Sb30.png" alt="Java 7 运行结果" style="width:35%;" />
+</div>
 
 可以看到在 Java 7 中出现代码错误，提示我们必须显式的声明这个变量为 `final` 的（`run()` 方法中代码为输出 *name* 语句，即`System.out.println(name);`）。
 
-<img src="../Images/Java8/5-191119164126217.png" alt="img" style="zoom:80%;" />
+<div align="center">
+    <img src="../Images/Java8/5-191119164126217.png" alt="img" style="width:35%;" />
+</div>
 
-<img src="../Images/Java8/5-191119164142109.png" alt="img" style="zoom:80%;" />
+<div align="center">
+    <img src="../Images/Java8/5-191119164142109.png" alt="img" style="width:35%;" />
+</div>
 
 因为系统会默认添加 `final` 修饰符，所以在图 2 和图 3 中可以在匿名内部类中直接使用非 `final` 变量，而 `final` 修饰的局部变量不能在被重新赋值，所以图 3 中出现编译错误。也就是说从 Java 8 开始，它不要求程序员必须将访问的局部变量显式的声明为 `final` 的。只要该变量不被重新赋值就可以。
 

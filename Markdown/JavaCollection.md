@@ -6,11 +6,15 @@
 
 集合类和数组不一样，数组元素既可以是基本类型的值，也可以是对象（实际上保存的是对象的引用变量），而集合里只能保存对象（实际上只是保存对象的引用变量，但通常习惯上认为集合里保存的是对象）。
 
-==Java 集合类型分为 Collection 和 Map，==它们是 Java 集合的根接口，这两个接口又包含了一些子接口或实现类。
+Java 集合类型分为 Collection 和 Map，它们是 Java 集合的根接口，这两个接口又包含了一些子接口或实现类。
 
-<img src="../Images/JavaCollection/5-1912051036333V.png" alt="Collection接口结构"  />
+<div align="center">
+    <img src="../Images/JavaCollection/5-1912051036333V.png" alt="Collection接口结构" style="width:75%" />
+</div>
 
-<img src="../Images/JavaCollection/5-191205103G5960.png" alt="Map接口结构" style="zoom:80%;" />
+<div align="center">
+    <img src="../Images/JavaCollection/5-191205103G5960.png" alt="Map接口结构" style="width:45%;" />
+</div>
 
 黄色块为集合的接口，蓝色块为集合的实现类。
 
@@ -197,7 +201,9 @@ ArrayList的主要底层实现是数组Object[] elementData，可以通过构造
 
 就比如现在有一个长度为10的数组，现在我们要新增一个元素，发现已经满了：
 
-<img src="../Images/JavaCollection/275634327b031b1584201358e274914925d37e94.jpg@736w_134h.webp" alt="img" style="zoom:80%;" />
+<div align="center">
+    <img src="../Images/JavaCollection/275634327b031b1584201358e274914925d37e94.jpg@736w_134h.webp" alt="img" style="width:25%;" />
+</div>
 
 ArrayList首先会重新定义一个长度为10+10/2的数组也就是新增一个长度为15的数组（扩容为原容量的1.5倍）。
 
