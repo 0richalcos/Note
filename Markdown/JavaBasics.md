@@ -15,8 +15,10 @@ Java 平台已经嵌入了几乎所有的操作系统。这样的 Java 程序只
 1. **JavaSE**
 
 	JavaSE（Java Platform Standard Edition，Java 平台标准版）以前就称为 J2SE，它允许开发和部署在桌面、服务器、嵌入式环境和实时环境中使用 Java 应用程序。JavaSE 包含了支持 Java Web 服务开发的类，并为 JavaEE 提供基础，如 Java 语言基础、JDBC 操作、I/O 操作、网络通讯以及多线程等技术。下图为 JavaSE 的体系结构：
-
-<img src="../Images/JavaBasics/5-1ZZ3155933O7.jpg" alt="img"  />
+	
+	<div align="center">
+	    <img src="../Images/JavaBasics/5-1ZZ3155933O7.jpg" alt="img"/>
+	</div>
 
 2. **JavaEE**
 
@@ -81,31 +83,45 @@ JDK（Java Development Kit，Java 开发工具包）是一种用于构建在 Jav
 
 1. 在浏览器输入www.oracle.com，打开 Oracle 公司的官方网站：
 
-   <img src="../Images/JavaBasics/image-20200422004026006.png" alt="image-20200422004026006" style="zoom: 50%;" />
+   <div align="center">
+       <img src="../Images/JavaBasics/image-20200422004026006.png" alt="image-20200422004026006" style="width: 90%;" />
+   </div>
 
 2. 找到下载：
 
-   <img src="../Images/JavaBasics/image-20200422004245571.png" alt="image-20200422004245571" style="zoom: 67%;" />
+   <div align="center">
+       <img src="../Images/JavaBasics/image-20200422004245571.png" alt="image-20200422004245571" style="width: 90%;" />
+   </div>
 
 3. 选择 Java：
 
-   <img src="../Images/JavaBasics/image-20200422004518386.png" alt="image-20200422004518386" style="zoom:50%;" />
+   <div align="center">
+       <img src="../Images/JavaBasics/image-20200422004518386.png" alt="image-20200422004518386" style="width: 90%;" />
+   </div>
 
 4. 选择 JDK：
 
-   <img src="../Images/JavaBasics/image-20200422004642820.png" alt="image-20200422004642820" style="zoom:50%;" />
+   <div align="center">
+       <img src="../Images/JavaBasics/image-20200422004642820.png" alt="image-20200422004642820" style="width:90%;" />
+   </div>
 
 5. 下载 1.8 版本：
 
-   <img src="../Images/JavaBasics/image-20200422004732694.png" alt="image-20200422004732694" style="zoom: 67%;" />
+   <div align="center">
+       <img src="../Images/JavaBasics/image-20200422004732694.png" alt="image-20200422004732694" style="width: 65%;" />
+   </div>
 
 6. 选择自己需要的版本：
 
-   <img src="../Images/JavaBasics/image-20200422004854336.png" alt="image-20200422004854336" style="zoom:50%;" />
+   <div align="center">
+       <img src="../Images/JavaBasics/image-20200422004854336.png" alt="image-20200422004854336" style="width:90%;" />
+   </div>
 
 7. 同意协议，开始下载：
 
-   <img src="../Images/JavaBasics/image-20200422005006331.png" alt="image-20200422005006331" style="zoom:50%;" />
+   <div align="center">
+       <img src="../Images/JavaBasics/image-20200422005006331.png" alt="image-20200422005006331" style="width:90%;" />
+   </div>
 
 8. 下载完成后运行 exe 执行文件，开始安装，一共会安装两次，第一次是安装 JDK，第二次是安装 JRE（Java Runtime Environment，Java 运行环境）。
 
@@ -113,7 +129,9 @@ JDK（Java Development Kit，Java 开发工具包）是一种用于构建在 Jav
 
 安装完成后，在安装位置打开 JDK 的文件夹，内容如下：
 
-<img src="../Images/JavaBasics/image-20200422010111529.png" alt="image-20200422010111529" style="zoom:67%;" />
+<div align="center">
+    <img src="../Images/JavaBasics/image-20200422010111529.png" alt="image-20200422010111529" style="width:75%;" />
+</div>
 
 - bin：提供 JDK 工具程序，包括 javac、java、Javadoc、appletviewer 等可执行程序。
 - include：存放用于本地访问的文件。
@@ -139,8 +157,10 @@ JDK（Java Development Kit，Java 开发工具包）是一种用于构建在 Jav
 
 5. 一路确定！最后打开 Windows 控制台，输入 `java -version`：
 
-	![image-20220114103712647](../Images/JavaBasics/image-20220114103712647.png)
-
+	<div align="center">
+	    <img src="../Images/JavaBasics/image-20220114103712647.png" alt="image-20220114103712647" style="width:80%;" />
+	</div>
+	
 	出现 Java 版本即表示环境配置成功！
 
 <br>
@@ -153,7 +173,9 @@ Java 程序的运行必须经过编写、编译和运行 3 个步骤。
 2. **编译**：是指使用 Java 编译器对源文件进行错误排査的过程，编译后将生成后缀名为 `.class` 的字节码文件，不像 C 语言那样生成可执行文件。
 3. **运行**：是指使用 Java 解释器将字节码文件翻译成机器代码，执行并显示结果。
 
-<img src="../Images/JavaBasics/5-1ZZ41409331Y.png" alt="Java程序运行流程" style="zoom:80%;" />
+<div align="center">
+    <img src="../Images/JavaBasics/5-1ZZ41409331Y.png" alt="Java程序运行流程" style="width:65%;" />
+</div>
 
 字节码文件是一种和任何具体机器环境及操作系统环境无关的中间代码。它是一种二进制文件，是 Java 源文件由 Java 编译器编译后生成的目标代码文件。编程人员和计算机都无法直接读懂字节码文件，它必须由专用的 Java 解释器来解释执行，因此 Java 是一种在编译基础上进行解释运行的语言。
 
@@ -169,7 +191,9 @@ Java 虚拟机（JVM）是运行 Java 程序的软件环境，Java 解释器是 
 
 JVM 把这种不同软、硬件平台的具体差别隐藏起来，从而实现了真正的二进制代码级的跨平台移植。JVM 是 Java 平台架构的基础，Java 的跨平台特性正是通过在 JVM 中运行 Java 程序实现的。Java 的这种运行机制可以通过下图来说明。
 
-<img src="../Images/JavaBasics/5-1ZZ4140944b0.png" alt="JVM工作方式" style="zoom:80%;" />
+<div align="center">
+    <img src="../Images/JavaBasics/5-1ZZ4140944b0.png" alt="JVM工作方式" style="width:45%;" />
+</div>
 
 Java 语言这种 “一次编写，到处运行” 的方式，有效地解决了目前大多数高级程序设计语言需要针对不同系统来编译产生不同机器代码的问题，即硬件环境和操作平台的异构问题，大大降低了程序开发、维护和管理的开销。
 
@@ -183,7 +207,9 @@ Java 语言的开发运行，离不开 Java 语言的运行环境 JRE。没有 J
 
 其实啊，JDK 就是 JRE 加上一些常用工具组成的。JDK 不仅能运行已经被编译好了的 Java 程序，还能支持我们编译 Java 程序（ JDK=JER+各种工具）。
 
-<img src="../Images/JavaBasics/5-1ZZ3131133G3.jpg" alt="img" style="zoom:80%;" />
+<div align="center">
+    <img src="../Images/JavaBasics/5-1ZZ3131133G3.jpg" alt="img" style="width:25%;" />
+</div>
 
 - JDK（Java Development Kid，Java 开发	工具包），是针对 Java 开发人员的产品，是整个 Java 的核心，包括了 Java 运行环境 JRE、Java 工具和 Java 基础类库。
 - JRE（Java Runtime Environment，Java 运行时环境）是运行 JAVA 程序所必须的环境的集合，包含 JVM 标准实现及 Java 核心类库。
@@ -321,7 +347,9 @@ Java 语言支持的数据类型分为两种：基本数据类型（Primitive Ty
 
 所有的基本数据类型的大小（所占用的字节数）都已明确规定，在各种不同的平台上保持不变，这一特性有助于提高 Java 程序的可移植性。
 
-<img src="../Images/JavaBasics/5-1ZZZ91512493.jpg" alt="Java数据类型结构图" style="zoom:80%;" />
+<div align="center">
+    <img src="../Images/JavaBasics/5-1ZZZ91512493.jpg" alt="Java数据类型结构图" style="width:35%;" />
+</div>
 
 Java 是一种强制类型的语言，所有的变量都必须先明确定义其数据类型，然后才能使用。Java 中所有的变量、表达式和值都必须有自己的类型，没有 “无类型” 变量这样的概念。
 
@@ -783,7 +811,9 @@ StringBuffer、StringBuilder、String 中都实现了 CharSequence 接口。Char
 
 StringBuffer、StringBuilder、String 对 CharSequence 接口的实现过程不一样，如下图 所示：
 
-<img src="../Images/JavaBasics/5-1Z9241JI1449.png" alt="对CharSequence接口的实现" style="zoom:80%;" />
+<div align="center">
+    <img src="../Images/JavaBasics/5-1Z9241JI1449.png" alt="对CharSequence接口的实现" style="width:30%;" />
+</div>
 
 可见，String 直接实现了 CharSequence 接口，StringBuilder 和 StringBuffer 都是可变的字符序列，它们都继承于 AbstractStringBuilder，实现了 CharSequence 接口。
 
