@@ -936,11 +936,11 @@ Cookie 类的方法：
 
 一个 Web 站点可以给一个 Web 浏览器发送多个 Cookie，一个 Web 浏览器也可以存储多个 Web 站点提供的 Cookie。
 
-浏览器一般只允许存放 300 个Cookie，每个站点最多存放 20 个Cookie，每个 Cookie 的大小限制为 4KB。
+浏览器一般只允许存放 300 个 Cookie，每个站点最多存放 20 个 Cookie，每个 Cookie 的大小限制为 4KB。
 
 `void setPath(java.lang.String uri)` ：设置 cookie 的有效访问路径。有效路径指的是 cookie 的有效路径保存在哪里，那么浏    览器在有效路径下访问服务器时就会带着 cookie 信息，否则不带 cookie 信息。
 
-如果创建了一个cookie，并将他发送到浏览器，默认情况下它是一个会话级别的 cookie（即存储在浏览器的内存中），用户退出浏览器之后即被删除。若希望浏览器将该 cookie 存储在磁盘上，则需要使用 `maxAge`，并给出一个以秒为单位的时间。
+如果创建了一个 cookie，并将他发送到浏览器，默认情况下它是一个会话级别的 cookie（即存储在浏览器的内存中），用户退出浏览器之后即被删除。若希望浏览器将该 cookie 存储在磁盘上，则需要使用 `maxAge`，并给出一个以秒为单位的时间。
 
 删除持久 cookie，可以将 cookie 最大时效设为0（然后 `addCookie()`），注意，删除 cookie 时，path 必须一致，否则不会删除。
 
