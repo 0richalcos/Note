@@ -184,13 +184,17 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
    curl http://localhost:9200
    ```
 
-   ![image-20220630111509343](../Images/Elasticsearch/image-20220630111509343.png)
+   <div align="center">
+       <img src="../Images/Elasticsearch/image-20220630111509343.png" alt="image-20220630111509343" style="width:80%;" />
+   </div>
 
 <br>
 
 **ES 目录结构：**
 
-![image-20220630105257034](../Images/Elasticsearch/image-20220630105257034.png)
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220630105257034.png" alt="image-20220630105257034" style="width:70%;" />
+</div>
 
 ```shell
 - bin	  启动ES服务脚本目录
