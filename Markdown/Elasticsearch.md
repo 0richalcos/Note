@@ -185,7 +185,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
    ```
 
    <div align="center">
-       <img src="../Images/Elasticsearch/image-20220630111509343.png" alt="image-20220630111509343" style="width:80%;" />
+       <img src="../Images/Elasticsearch/image-20220630111509343.png" alt="image-20220630111509343" style="width:70%;" />
    </div>
 
 <br>
@@ -219,7 +219,9 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
    vim /home/esuser/elasticsearch-7.14.0/config/elasticsearch.yml
    ```
 
-   ![image-20220703192151746](../Images/Elasticsearch/image-20220703192151746.png)
+   <div align="center">
+       <img src="../Images/Elasticsearch/image-20220703192151746.png" alt="image-20220703192151746" style="width:70%;" />
+   </div>
 
 2. 重新启动 ES 服务：
 
