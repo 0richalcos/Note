@@ -662,7 +662,8 @@ POST /products/_doc/1
 
 <div align="center">
     <img src="../Images/Elasticsearch/image-20220710233404098.png" alt="image-20220710233404098" style="width:85%;" />
-</dv>
+</div>
+
 
 在 products 索引下添加一个文档，使用自动生成的文档 ID：
 
@@ -679,7 +680,6 @@ POST /products/_doc/
 <div align="center">
     <img src="../Images/Elasticsearch/image-20220710233519074.png" alt="image-20220710233519074" style="width:85%;" />
 </div>
-
 <br>
 
 **查询文档**
