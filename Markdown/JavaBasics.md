@@ -701,13 +701,19 @@ System.out.println(String.valueOf(null));
 
 第一种进入此方法：
 
-![image-20211021233444726](../Images/JavaBasics/image-20211021233444726.png)
+<div align="center">
+    <img src="../Images/JavaBasics/image-20211021233444726.png" alt="image-20211021233444726" style="width:70%;" />
+</div>
 
 第二种进入此方法：
 
-![image-20211021233456679](../Images/JavaBasics/image-20211021233456679.png)
+<div align="center">
+    <img src="../Images/JavaBasics/image-20211021233456679.png" alt="image-20211021233456679" style="width:70%;" />
+</div>
 
-![image-20211021233608783](../Images/JavaBasics/image-20211021233608783.png)
+<div align="center">
+    <img src="../Images/JavaBasics/image-20211021233608783.png" alt="image-20211021233608783" style="width:70%;" />
+</div>
 
 当第二种参数为 `null` 时，`null.length` 当然报出空指针异常。
 
