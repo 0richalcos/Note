@@ -2,24 +2,23 @@
 
 ## 1.1、Servlet简介
 
-Servlet（Server Applet）是Java Servlet的简称，是为小服务程序或服务连接器，用Java编写的服务器端程序，主要功能在于交互式地浏览和修改数据，生成动态Web内容。
+Servlet（Server Applet）是 Java Servlet 的简称，是为小服务程序或服务连接器，用 Java 编写的服务器端程序，主要功能在于交互式地浏览和修改数据，生成动态 Web 内容。
 
-Servlet是sun公司提供的一门用于开发动态web资源的技术。
+Servlet 是 Sun 公司提供的一门用于开发动态 Web 资源的技术。
 
-Servlet是一个小的java程序，能接收和响应从客户端发送过来的请求，使用的是HTTP的协议。
+Servlet 是一个小的 Java 程序，能接收和响应从客户端发送过来的请求，使用的是 HTTP 的协议。
 
-Sun公司在其API中提供了一个servlet接口，用户若想要开发一个动态web资源(即开发一个Java程序向浏览器输出数据)，需要完成以下2个步骤：
+Sun 公司在其 API 中提供了一个 Servlet 接口，用户若想要开发一个动态 Web 资源（即开发一个 Java  程序向浏览器输出数据），需要完成以下 2 个步骤：
 
-- 编写一个Java类，实现servlet接口。
-- 把开发好的Java类部署到web服务器中
+- 编写一个 Java 类，实现 Servlet 接口。
+- 把开发好的 Java  类部署到 Web 服务器中
 
+<br>
 
+## 1.2、Servlet 的开发步骤
 
-## 1.2、Servlet的开发步骤
-
-- 编写普通的类，实现Servlet接口，重写5个方法。
-	Servlet接口代码：
-
+- 编写普通的类，实现 Servlet 接口，重写 5 个方法。Servlet 接口代码：
+	
 	```java
 	public interface Servlet {
 	    void init(ServletConfig var1) throws ServletException;
@@ -33,8 +32,8 @@ Sun公司在其API中提供了一个servlet接口，用户若想要开发一个�
 	    void destroy();
 	}
 	```
-
-- 在WEB程序的web.xml文件进行配置
+	
+- 在 WEB 程序的 web.xml 文件进行配置：
 
 	```xml
 	<servlet>
@@ -49,24 +48,26 @@ Sun公司在其API中提供了一个servlet接口，用户若想要开发一个�
 
 访问顺序：
 
-<img src="../Images/JavaWeb/image-20200602000053667.png" alt="image-20200602000053667" style="zoom:80%;" />
+<div align="center">
+    <img src="../Images/JavaWeb/image-20200602000053667.png" alt="image-20200602000053667" style="width:40%;" />
+</div>
 
 
 
-## 1.3、Servlet生命周期
+## 1.3、Servlet 生命周期
 
 Servlet 是一个供其他 Java 程序（Servlet 引擎）调用的 Java 类，它不能独立运行，它的运行完全由 Servlet 引擎来控制和调度。
 
-- 实例化：在第一次访问或启动 tomcat 时，tomcat 会调用此无参构造方法实例化 servlet。
-- init() 方法：服务器调用该方法初始化Servlet。
-- service() 方法：初始化完毕，服务器调用该方法响应客户的请求。
-- destroy() 方法：服务器调用该方法消灭 servlet 对象。
+- 实例化：在第一次访问或启动 Tomcat 时，Tomcat 会调用此无参构造方法实例化 Servlet。
+- `init()` 方法：服务器调用该方法初始化 Servlet。
+- `service()` 方法：初始化完毕，服务器调用该方法响应客户的请求。
+- `destroy()` 方法：服务器调用该方法消灭 Servlet 对象。
 
-其中实例化，初始化，销毁只会执行一次，service 方法执行多次，==这说明 Serlvet 的单实例的！==当有客户再请求 Servlet 服务时，Web 服务器将启动一个新的线程，在该线程中，调用 service 方法响应客户的请求。
+其中实例化，初始化，销毁只会执行一次，`service` 方法执行多次，这说明 Serlvet 的单实例的！当有客户再请求 Servlet 服务时，Web 服务器将启动一个新的线程，在该线程中，调用 `service` 方法响应客户的请求。
 
-针对客户端的多次 Servlet 请求，通常情况下，服务器只会创建一个 Servlet 实例对象，也就是说 Servlet 实例对象一旦创建，它就会驻留在内存中，为后续的其它请求服务，直至 web 容器退出，servlet 实例对象才会销毁。
+针对客户端的多次 Servlet 请求，通常情况下，服务器只会创建一个 Servlet 实例对象，也就是说 Servlet 实例对象一旦创建，它就会驻留在内存中，为后续的其它请求服务，直至 Web 容器退出，Servlet 实例对象才会销毁。
 
----
+<br>
 
 **Servlet的运行过程**
 
