@@ -2,7 +2,7 @@
 
 ## 【1】Windows默认管理员权限
 
-1. 按下 Win+R 快捷键唤出 “运行” 窗口，输入 gpedit.msc
+1. 按下 Win+R 快捷键唤出 “运行” 窗口，输入 `gpedit.msc`
 2. 这时打开了 组策略编辑器，在左边找到【计算机配置】 =>【Windows设置】，再进入右边【安全设置】
 3.  进入【本地策略】
 4. 进入【安全选项】
@@ -64,12 +64,17 @@ cmd 命令窗口输入 `netstat –ano`，回车。
 使用微软账户登录：
 
 1. 确保 账户 => 登录选项 => 其他设置中 “为了提高安全性，仅允许...” 是关闭的：
-	![image-20210813000252683](../Images/Mixed/image-20210813000252683.png)
+	
+	<div align="center">
+	    <img src="../Images/Mixed/image-20210813000252683.png" alt="image-20210813000252683" style="width: 65%;" />
+	</div>
 2. 按 Win + R，弹出 ”运行“，输入`netplwiz`，点【确定】
 3. 取消 “要使用本计算机，用户必须输入用户名和密码”，点【确定 】
 4. 会弹出一个窗口，在窗口中输入 微软账户的用户名和密码，点【确定】
 
-<img src="../Images/Mixed/image-20210513005900008.png" alt="image-20210513005900008" style="zoom: 67%;" />
+   <div align="center">
+       <img src="../Images/Mixed/image-20210513005900008.png" alt="image-20210513005900008" style="width: 40%;" />
+   </div>
 
 <br>
 
@@ -87,8 +92,10 @@ cmd 命令窗口输入 `netstat –ano`，回车。
 
 6. 添加：
 
-   ![image-20210624233318170](../Images/Mixed/image-20210624233318170.png)
-
+   <div align="center">
+       <img src="../Images/Mixed/image-20210624233318170.png" alt="image-20210624233318170" style="width:50%;" />
+   </div>
+   
    ```
    # 2020-11-29 16:21:29
    %yyyy%-%MM%-%dd% %HH%:%mm%:%ss%
@@ -122,7 +129,9 @@ Host *
 
 然后在其中创建字**符串值**，**名称**为 `{9F156763-7844-4DC4-B2B1-901F640F5155}`，**数值**为 `WindowsTerminal`。
 
-![image-20210806112305321](../Images/Mixed/image-20210806112305321.png)
+<div align="center">
+    <img src="../Images/Mixed/image-20210806112305321.png" alt="image-20210806112305321" style="width:80%;" />
+</div>
 
 <br>
 
@@ -156,11 +165,15 @@ winget install 9MSSGKG348SP
 
 浏览器主页被篡改，直接去浏览器的设置里找首页设置一般没用，可以看一下是不是快捷方式出了问题，找到浏览器的快捷方式，右键查看【属性】，通常目标栏显示的都是浏览器的安装目录：
 
-![image-20220418233829422](../Images/Mixed/image-20220418233829422.png)
+<div align="center">
+    <img src="../Images/Mixed/image-20220418233829422.png" alt="image-20220418233829422" style="width:40%;" />
+</div>
 
 如果发现安装目录之后还跟着一串网址链接，那就是被强制锁定了对应的网址，只要删掉这串网址就可以了。当然，有些浏览器的快捷方式不允许修改，我们可以把界面切换到【常规】，然后把【只读】取消掉，就可以进行修改了：
 
-![image-20220418233922934](../Images/Mixed/image-20220418233922934.png)
+<div align="center">
+    <img src="../Images/Mixed/image-20220418233922934.png" alt="image-20220418233922934" style="width:40%;" />
+</div>
 
 当然也可以直接删除快捷方式，然后重新生成；或者在目标栏输入一个自己需要的网址（输入网址之前要加一个空格键，否则无法保存），然后将属性改为只读。
 
@@ -172,7 +185,7 @@ winget install 9MSSGKG348SP
 
 Chrome 默认的数据文件地址是：C:\Users\Orichalcos\AppData\Local\Google
 
-移动前需要关闭 Google，将文件移动到想要移动的地方，然后在 cmd（需要管理员权限）输入：mklink 旧地址 新地址，回车。
+移动前需要关闭 Google，将文件移动到想要移动的地方，然后在 cmd（需要管理员权限）输入：`mklink 旧地址 新地址`，回车。
 
 <br>
 
@@ -180,7 +193,7 @@ Chrome 默认的数据文件地址是：C:\Users\Orichalcos\AppData\Local\Google
 
 ## 【1】Maven 部分文件无法导出
 
-maven 由于它的约定大于配置，之后可能遇到写的配置文件，无法被导出或者生效的问题
+Maven 由于它的约定大于配置，之后可能遇到写的配置文件，无法被导出或者生效的问题
 
 ```xml
 <build>
@@ -209,17 +222,21 @@ maven 由于它的约定大于配置，之后可能遇到写的配置文件，�
 
 ## 【2】Maven 框架 web-app 中 web.xml 版本过低
 
-1. 找到 maven-archetype-webapp 的 jar 包位置：maven 位置 `\repository\org\apache\maven\archetypes\maven-archetype-webapp\1.4`。
+1. 找到 maven-archetype-webapp 的 jar 包位置：`Maven位置\repository\org\apache\maven\archetypes\maven-archetype-webapp\1.4`。
 2. 用压缩包形式打开，不要解压！
-3. 然后依次点，`archetype-resources\src\main\webapp\WEB-INF\web.xml`，打开，将其修改成最新的模板。
+3. 然后依次点：`archetype-resources\src\main\webapp\WEB-INF\web.xml`，打开，将其修改成最新的模板。
 
-PS：上边的 web-app 标签中有一个 `metadata-complete="true"`，这是个大坑，因为 web-app 标签 3.0 以上版本是可以使用 Servlet 的注解的，如下图：
+> 上边的 web-app 标签中有一个 `metadata-complete="true"`，这是个大坑，因为 web-app 标签 3.0 以上版本是可以使用 Servlet 的注解的，如下图：
 
-<img src="../Images/Mixed/1247983-20190604213809759-1772243544.png" alt="img" style="zoom:67%;float:left" />
+<div align="center">
+    <img src="../Images/Mixed/1247983-20190604213809759-1772243544.png" alt="img" style="width:50%" />
+</div>
 
-再也不用去 web.xml 写那 servlet 的那一堆映射了（下图就是那一堆映射）：
+再也不用去 web.xml 写那 Servlet 的那一堆映射了（下图就是那一堆映射）：
 
-<img src="../Images/Mixed/1247983-20190604214818782-1161183865.png" alt="img" style="zoom:67%;float:left" />
+<div align="center">
+    <img src="../Images/Mixed/1247983-20190604214818782-1161183865.png" alt="img" style="width:50%;" />
+</div>
 
 如果忘记了改这个 web-app 标签里的 `metadata-complete` 的这个属性，所写的注解都将失效！！！
 
@@ -229,21 +246,27 @@ PS：上边的 web-app 标签中有一个 `metadata-complete="true"`，这是个
 
 ## 【3】修改内存大小
 
-首先在 IDEA 中显示内存：在窗口下方右键，选中 Memory Indicator
+首先在 IDEA 中显示内存：在窗口下方右键，选中【Memory Indicator】：
 
-<img src="../Images/Mixed/image-20200428211739758.png" alt="image-20200428211739758" style="zoom:67%;float:left" />
+<div align="center">
+    <img src="../Images/Mixed/image-20200428211739758.png" alt="image-20200428211739758" style="width:60%" />
+</div>
 
-帮助 => 编辑自定义 VM 选项。
+【帮助】=>【编辑自定义 VM 选项】。
 
 在弹出来的文件中修改 Xms 和 Xmx：
 
-<img src="../Images/Mixed/image-20200428212406493.png" alt="image-20200428212406493" style="zoom:67%;float:left" />
+<div align="center">
+    <img src="../Images/Mixed/image-20200428212406493.png" alt="image-20200428212406493" style="width:30%" />
+</div>
 
 <br>
 
 ## 【4】SpringBoot 实现热部署
 
-![img](../Images/Mixed/1676221-20200430155320785-521416484.png)
+<div align="center">
+    <img src="../Images/Mixed/1676221-20200430155320785-521416484.png" alt="img" style="width:80%;" />
+</div>
 
 在 application.yml 中配置一下 devtools：
 
@@ -278,7 +301,7 @@ IDEA：当我们修改了Java类后，IDEA默认是不自动编译的，而sprin
 
 ## 【5】Maven 项目没有被识别
 
-在 pom.xml 上右键、点击 Add as Maven Project 
+在 pom.xml 上右键，点击【Add as Maven Project】 
 
 <br>
 
@@ -292,7 +315,9 @@ Camel Case 可以用 一个快捷键 就搞定，去 IDEA 的插件库中搜索 
 
 Camel Case 包含 6 种格式的切换，可能某些格式是平时不用的，可以把不用的格式取消，这样在格式切换时，就不会包含已取消的格式了：
 
-![图片描述](../Images/Mixed/5e7827dc0001c7ea11720724.png)
+<div align="center">
+    <img src="../Images/Mixed/5e7827dc0001c7ea11720724.png" alt="图片描述" style="width:80%;" />
+</div>
 
 <br>
 
@@ -300,7 +325,9 @@ Camel Case 包含 6 种格式的切换，可能某些格式是平时不用的，
 
 加快开发效率，除去没用的包，洁癖者必用!   这样设置，就可以自动导入包以及除去没有用到的包！
 
-![img](../Images/Mixed/1100499-20180530104314466-1984750519.png)
+<div align="center">
+    <img src="../Images/Mixed/1100499-20180530104314466-1984750519.png" alt="img" style="width:70%;" />
+</div>
 
 第一个是 自动导入需要的 jar 包，若有多个同名 jar 包，需要开发者自己选择导入
 
@@ -310,9 +337,11 @@ Camel Case 包含 6 种格式的切换，可能某些格式是平时不用的，
 
 ## 【8】保存时触发操作
 
-IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化，优化 Java 包导入。我们可以在 Preferences / Settings | Tools | Actions on Save 进行设置。
+IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化，优化 Java 包导入。我们可以在 Preferences / Settings | Tools | Actions on Save 进行设置：
 
-![image-20211025163148621](../Images/Mixed/image-20211025163148621.png)
+<div align="center">
+    <img src="../Images/Mixed/image-20211025163148621.png" alt="image-20211025163148621" style="width:70%;" />
+</div>
 
 比如上图这个格式化代码，保存时将会格式化你当前改动代码，这就不用担心写完代码忘记格式化了。
 
@@ -324,7 +353,9 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 在开发时遇到需要大量替换代码时，不需要一个一个的去改，可以使用**正则替换**：
 
-![image-20211025163611055](../Images/Mixed/image-20211025163611055.png)
+<div align="center">
+    <img src="../Images/Mixed/image-20211025163611055.png" alt="image-20211025163611055" style="width:80%;" />
+</div>
 
 比如上图将所有这个文件中的 `name=""` 替换为 `th:field=""` ，`()` 内填写正则表达式，`$1` 为正则匹配到的第一个内容的占位符。
 
@@ -336,7 +367,9 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 找到这里，可以添加自己所需要的注释：
 
-![image-20211214150741576](../Images/Mixed/image-20211214150741576.png)
+<div align="center">
+    <img src="../Images/Mixed/image-20211214150741576.png" alt="image-20211214150741576" style="width:80%;" />
+</div>
 
 <br>
 
@@ -344,11 +377,16 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 找到如下地方：
 
-![image-20211214151314708](../Images/Mixed/image-20211214151314708.png)
+<div align="center">
+    <img src="../Images/Mixed/image-20211214151314708.png" alt="image-20211214151314708" style="width:80%;" />
+</div>
 
 添加自己需要的模板后（展开方式选 `Enter`，表示回车触发），点击【更改】，添加使用环境，然后【编辑变量】：
 
-![image-20211214151502559](../Images/Mixed/image-20211214151502559.png)![image-20211214151601153](../Images/Mixed/image-20211214151601153.png)
+<div align="center">
+    <img src="../Images/Mixed/image-20211214151502559.png" alt="image-20211214151502559" style="width:25%;" />
+    <img src="../Images/Mixed/image-20211214151601153.png" alt="image-20211214151601153" style="width:60%;" />
+</div>
 
 最后应用就行，在类的方法上方输入 `com` 按回车就可自动生成方法注释。
 
@@ -358,7 +396,9 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 可以在 IDEA 使用翻译功能，效果：
 
-![image-20200615171745094](../Images/Mixed/image-20200615171745094.png)
+<div align="center">
+    <img src="../Images/Mixed/image-20200615171745094.png" alt="image-20200615171745094" style="width:80%;" />
+</div>
 
 默认引擎使用 Google 翻译，但是如果请求次数过多提示 “翻译失败，请求过多，请稍后再试！”，这里我建议使用阿里翻译引擎。
 
@@ -368,21 +408,29 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 1. 登录阿里云官网，点击右上角的控制台，在控制台的搜索框搜索 “机器翻译”：
 
-   ![image-20220328155154582](../Images/Mixed/image-20220328155154582.png)
+   <div align="center">
+       <img src="../Images/Mixed/image-20220328155154582.png" alt="image-20220328155154582" style="width:80%;" />
+   </div>
 
 2. 点击【通用版翻译引擎】下方的【立即开通】按钮：
 
-   ![image-20220328160104687](../Images/Mixed/image-20220328160104687.png)
+   <div align="center">
+       <img src="../Images/Mixed/image-20220328160104687.png" alt="image-20220328160104687" style="width:90%;" />
+   </div>
 
    点击之后会让你勾选一个【机器翻译服务协议】，勾选之后点【立即开通】就能开通成功了。
 
 3. 开通后，回到 阿里云机器翻译控制台，把鼠标悬停在右上角用户头像上，然后点击【AccessKey 管理】，会跳转到 AccessKey 管理页面：
 
-   ![image-20220328160302854](../Images/Mixed/image-20220328160302854.png)
+   <div align="center">
+       <img src="../Images/Mixed/image-20220328160302854.png" alt="image-20220328160302854" style="width:80%;" />
+   </div>
 
 4. 进入后会弹出一个安全提示：
 
-   ![image-20220328160748769](../Images/Mixed/image-20220328160748769.png)
+   <div align="center">
+       <img src="../Images/Mixed/image-20220328160748769.png" alt="image-20220328160748769" style="width:80%;" />
+   </div>
 
    简而言之，在这里创建的 AccessKey 能调用你账号下的所有资源，权限范围太大了，一旦泄露的话影响面很大，所以阿里云建议你创建一个子用户，然后给这个子用户只分配机器翻译的权限，这样的话即使泄露了也只会影响到机器翻译。
 
@@ -392,23 +440,33 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
    - 填写显示名称：划词翻译
    - 访问方式：勾选【Open API 调用访问】
 
-   ![image-20220328161056344](../Images/Mixed/image-20220328161056344.png)
+   <div align="center">
+       <img src="../Images/Mixed/image-20220328161056344.png" alt="image-20220328161056344" style="width:85%;" />
+   </div>
 
 6. 点击【确定】之后会让你输入手机短信验证码，输入之后会看到创建成功的 【AccessKey ID】 和 【AccessKey Secret】，如下图：
 
-   ![image-20220328161159317](../Images/Mixed/image-20220328161159317.png)
+   <div align="center">
+       <img src="../Images/Mixed/image-20220328161159317.png" alt="image-20220328161159317" style="width:100%;" />
+   </div>
 
 7. 然后勾选刚刚创建的用户，点击【添加权限】：
 
-   ![image-20220328161321740](../Images/Mixed/image-20220328161321740.png)
+   <div align="center">
+       <img src="../Images/Mixed/image-20220328161321740.png" alt="image-20220328161321740" style="width:85%;" />
+   </div>
 
 8. 搜索 “机器翻译”，单击选中【AliyunMTFullAccess】和【AliyunMTReadOnlyAccess】这两项即可，然后点击【确定】：
 
-   ![image-20220328161442913](../Images/Mixed/image-20220328161442913.png)
+   <div align="center">
+       <img src="../Images/Mixed/image-20220328161442913.png" alt="image-20220328161442913" style="width:80%;" />
+   </div>
 
 9. 最后在 IDEA 的 Translation 中，选择 阿里翻译并配置：
 
-   ![image-20220328161610458](../Images/Mixed/image-20220328161610458.png)
+   <div align="center">
+       <img src="../Images/Mixed/image-20220328161610458.png" alt="image-20220328161610458" style="width:80%;" />
+   </div>
 
 <br>
 
@@ -416,27 +474,35 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 ## 【1】修改内存大小
 
-显示内存：首选项 => 常规 => 显示堆状态 。
+显示内存：【首选项】=>【常规】=>【显示堆状态 】。
 
-在安装目录找到SpringToolSuite4.ini，修改Xms Xmx。
+在安装目录找到 SpringToolSuite4.ini，修改 Xms Xmx。
 
-然后在Java => 已安装的JRE中，修改缺省VM参数，添加Xms和Xmx，中间用空格隔开。
+然后在【Java】=>【已安装的 JRE】中，修改缺省 VM 参数，添加 Xms 和 Xmx，中间用空格隔开：
 
-<img src="../Images/Mixed/image-20200428213849950.png" alt="image-20200428213849950" style="zoom: 50%;float:left" />
+<div align="center">
+    <img src="../Images/Mixed/image-20200428213849950.png" alt="image-20200428213849950" style="width: 50%" />
+</div>
 
 <br>
 
 ## 【2】汉化
 
-<img src="../Images/Mixed/image-20200622113126300.png" alt="image-20200622113126300" style="zoom:80%;float:left" />
+<div align="center">
+    <img src="../Images/Mixed/image-20200622113126300.png" alt="image-20200622113126300" style="width:40%" />
+</div>
 
 打开 https://www.eclipse.org/babel/downloads.php 
 
-<img src="../Images/Mixed/image-20200622113248801.png" alt="image-20200622113248801" style="zoom: 50%;float:left" />
+<div align="center">
+    <img src="../Images/Mixed/image-20200622113248801.png" alt="image-20200622113248801" style="width: 50%" />
+</div>
 
 选择一个复制，在弹出的窗口中点击添加
 
-<img src="../Images/Mixed/image-20200622113354699.png" alt="image-20200622113354699" style="zoom: 50%;float:left" />
+<div align="center">
+    <img src="../Images/Mixed/image-20200622113354699.png" alt="image-20200622113354699" style="width: 80%" />
+</div>
 
 找到中文简体安装就行了。
 
@@ -444,9 +510,9 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 ## 【3】SpringBoot 打 jar 包
 
-SpringBoot是使用内置的tomcat的，所以不用打包成war文件，当然也可以打包成war文件进行部署，只是个人觉得没有那个必要，通过maven可将SpringBoot项目打包成jar文件运行。
+SpringBoot 是使用内置的 Tomcat 的，所以不用打包成 war 文件，当然也可以打包成 war 文件进行部署，只是个人觉得没有那个必要，通过 Maven 可将 SpringBoot 项目打包成 jar 文件运行。
 
-1. pom.xml文件中添加所需插件
+1. pom.xml 文件中添加所需插件：
 
 	```xml
 	<plugins>
@@ -465,14 +531,19 @@ SpringBoot是使用内置的tomcat的，所以不用打包成war文件，当然�
 	</plugins>
 	```
 
-2. 项目运行环境选择java jdk
-	<img src="../Images/Mixed/20191105110853305.png" alt="img" style="zoom:67%;" />
-
-3. 执行maven clean
-	**右键项目 run as 选择maven clean**
-
-4. 执行maven install
-	**右键项目 run as 选择maven install**
-
-5. 运行jar
-	**命令行运行： java -jar xxx.jar**
+2. 项目运行环境选择 Java JDK：
+	<div align="center">
+	    <img src="../Images/Mixed/20191105110853305.png" alt="img" style="width:60%;" />
+	</div>
+	
+3. 执行 `maven clean`：
+	
+	右键项目【run as】选择【maven clean】
+	
+4. 执行 `maven install`：
+	
+	右键项目【run as】选择【maven install】
+	
+5. 运行 jar：
+	
+	命令行运行： `java -jar xxx.jar`

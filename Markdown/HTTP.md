@@ -11,7 +11,7 @@ HTTPS 经由 HTTP 进行通信，但利用 SSL/TLS 来加密数据包，HTTPS �
 HTTP 的 URL 是由 `http://` 起始与默认使用端口 `80`，而 HTTPS 的 URL 则是由 `https://` 起始与默认使用端口 `443`。
 
 <div align="center">
-	<img src="../Images/HTTP/1_5J6ULfBAvgLF8PBM4B__Qw.jpeg" alt="img"/>
+	<img src="../Images/HTTP/1_5J6ULfBAvgLF8PBM4B__Qw.jpeg" alt="img" style="width:50%"/>
 </div>
 
 <br>

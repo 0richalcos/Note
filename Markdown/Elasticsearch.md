@@ -297,7 +297,9 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 4. 使用自己的浏览器远程访问 ES 服务：
 
-   ![屏幕截图 2022-07-04 002254](../Images/Elasticsearch/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202022-07-04%20002254.png)
+   <div align="center">
+       <img src="../Images/Elasticsearch/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202022-07-04%20002254.png" alt="屏幕截图 2022-07-04 002254" style="width:70%;" />
+   </div>
 
 <br>
 
@@ -319,7 +321,9 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 3. 访问 ES：
 
-   ![image-20220705222221335](../Images/Elasticsearch/image-20220705222221335.png)
+   <div align="center">
+       <img src="../Images/Elasticsearch/image-20220705222221335.png" alt="image-20220705222221335" style="width:80%;" />
+   </div>
 
 <br>
 
@@ -383,7 +387,9 @@ Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化�
 
    修改如下配置：
 
-   ![image-20220705225554258](../Images/Elasticsearch/image-20220705225554258.png)
+   <div align="center">
+       <img src="../Images/Elasticsearch/image-20220705225554258.png" alt="image-20220705225554258" style="width:80%;" />
+   </div>
 
 5. 启动 kibana（记得启动 ES）：
 
@@ -511,7 +517,9 @@ PUT /products
 }
 ```
 
-![image-20220710231252432](../Images/Elasticsearch/image-20220710231252432.png)
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220710231252432.png" alt="image-20220710231252432" style="width:90%;" />
+</div>
 
 <br>
 
@@ -521,7 +529,9 @@ PUT /products
 GET /_cat/indices?v
 ```
 
-![image-20220710231614286](../Images/Elasticsearch/image-20220710231614286.png)
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220710231614286.png" alt="image-20220710231614286" style="" />
+</div>
 
 <br>
 
@@ -543,7 +553,9 @@ DELETE /*
 DELETE /products
 ```
 
-![image-20220710231843156](../Images/Elasticsearch/image-20220710231843156.png)
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220710231843156.png" alt="image-20220710231843156" style="width:85%;" />
+</div>
 
 <br>
 
@@ -589,7 +601,9 @@ PUT /products
 }
 ```
 
-![image-20220710232622290](../Images/Elasticsearch/image-20220710232622290.png)
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220710232622290.png" alt="image-20220710232622290" style="width:85%;" />
+</div>
 
 <br>
 
@@ -605,7 +619,9 @@ GET /索引名/_mapping
 GET /products/_mapping
 ```
 
-![image-20220710232831896](../Images/Elasticsearch/image-20220710232831896.png)
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220710232831896.png" alt="image-20220710232831896" style="width:85%;" />
+</div>
 
 <br>
 
@@ -638,7 +654,9 @@ POST /products/_doc/1
 }
 ```
 
-![image-20220710233404098](../Images/Elasticsearch/image-20220710233404098.png)
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220710233404098.png" alt="image-20220710233404098" style="width:85%;" />
+</dv>
 
 在 products 索引下添加一个文档，使用自动生成的文档 ID：
 
@@ -652,7 +670,9 @@ POST /products/_doc/
 }
 ```
 
-![image-20220710233519074](../Images/Elasticsearch/image-20220710233519074.png)
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220710233519074.png" alt="image-20220710233519074" style="width:85%;" />
+</div>
 
 <br>
 
@@ -668,7 +688,9 @@ GET /索引名/_doc/文档ID
 GET /products/_doc/1
 ```
 
-![image-20220710233616786](../Images/Elasticsearch/image-20220710233616786.png)
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220710233616786.png" alt="image-20220710233616786" style="width:85%;" />
+</div>
 
 <br>
 
@@ -684,7 +706,9 @@ DELETE /索引名/_doc/文档ID
 DELETE /products/_doc/1
 ```
 
-![image-20220710234406179](../Images/Elasticsearch/image-20220710234406179.png)
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220710234406179.png" alt="image-20220710234406179" style="width:85%;" />
+</div>
 
 <br>
 
@@ -721,7 +745,9 @@ POST /products/_doc/wZbA6IEB0wOojxAnBiDQ/_update
 }
 ```
 
-![image-20220710235419580](../Images/Elasticsearch/image-20220710235419580.png)
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220710235419580.png" alt="image-20220710235419580" style="width:85%;" />
+</div>
 
 <br>
 
