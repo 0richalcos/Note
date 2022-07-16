@@ -52,7 +52,7 @@ Sun 公司在其 API 中提供了一个 Servlet 接口，用户若想要开发�
     <img src="../Images/JavaWeb/image-20200602000053667.png" alt="image-20200602000053667" style="width:40%;" />
 </div>
 
-
+<br>
 
 ## 1.3、Servlet 生命周期
 
@@ -69,41 +69,41 @@ Servlet 是一个供其他 Java 程序（Servlet 引擎）调用的 Java 类，�
 
 <br>
 
-**Servlet的运行过程**
+**Servlet 的运行过程**
 
-Servlet程序是由WEB服务器调用，web服务器收到客户端的Servlet访问请求后：
+Servlet 程序是由 Web 服务器调用，Web服务器收到客户端的 Servlet 访问请求后：
 
-1. Web服务器首先检查是否已经装载并创建了该 Servlet 的实例对象。如果是，则直接执行第④步，否则，执行第②步。
+1. Web 服务器首先检查是否已经装载并创建了该 Servlet 的实例对象。如果是，则直接执行第 ④ 步，否则，执行第 ② 步。
 2. 装载并创建该 Servlet 的一个实例对象。
-3. 调用 Servlet 实例对象的 init() 方法。
-4. 创建一个用于封装 HTTP 请求消息的 HttpServletRequest 对象和一个代表 HTTP 响应消息的 HttpServletResponse 对象，然后调用 Servlet 的service() 方法并将请求和响应对象作为参数传递进去。
-5. WEB 应用程序被停止或重新启动之前，Servlet 引擎将卸载 Servlet，并在卸载之前调用 Servlet 的 destroy() 方法。
+3. 调用 Servlet 实例对象的 `init()` 方法。
+4. 创建一个用于封装 HTTP 请求消息的 HttpServletRequest 对象和一个代表 HTTP 响应消息的 HttpServletResponse 对象，然后调用 Servlet 的 `service()` 方法并将请求和响应对象作为参数传递进去。
+5. Web 应用程序被停止或重新启动之前，Servlet 引擎将卸载 Servlet，并在卸载之前调用 Servlet 的 `destroy()` 方法。
 
+<br>
 
+## 1.4、Servlet 接口实现类
 
-## 1.4、Servlet接口实现类
+Sun 公司定义了 Servlet 接口的两个默认实现类，分别为：GenericServlet、HttpServlet。
 
-Servlet接口SUN公司定义了两个默认实现类，分别为：GenericServlet、HttpServlet。
+HttpServlet 指能够处理 HTTP 请求的 Servlet，它在原有 Servlet 接口上添加了一些与 HTTP 协议处理方法，它比 Servlet 接口的功能更为强大。因此开发人员在编写 Servlet 时，通常应继承这个类，而避免直接去实现 Servlet 接口。
 
-HttpServlet指能够处理HTTP请求的servlet，它在原有Servlet接口上添加了一些与HTTP协议处理方法，它比Servlet接口的功能更为强大。因此开发人员在编写Servlet时，通常应继承这个类，而避免直接去实现Servlet接口。
+HttpServlet 在实现 Servlet 接口时，覆写了 `service` 方法，该方法体内的代码会自动判断用户的请求方式，如为 GET 请求，则调用 HttpServlet 的 `doGet` 方法，如为 Post 请求，则调用 `doPost` 方法。因此，开发人员在编写 Servlet 时，通常只需要覆写 `doGet` 或 `doPost` 方法，而不要去覆写 `service` 方法。
 
-HttpServlet在实现Servlet接口时，覆写了service方法，该方法体内的代码会自动判断用户的请求方式，如为GET请求，则调用HttpServlet的doGet方法，如为Post请求，则调用doPost方法。因此，开发人员在编写Servlet时，通常只需要覆写doGet或doPost方法，而不要去覆写service方法。
-
-
+<br>
 
 **GenericServlet**
 
-是一个 Serlvet. 是 Servlet 接口和 ServletConfig 接口的实现类. 但是一个抽象类. 其中的 service 方法为抽象方法
+GenericServlet 是一个 Serlvet。是 Servlet 接口和 ServletConfig 接口的实现类。但是是一个抽象类，其中的 `service` 方法为抽象方法。
 
-如果新建的 Servlet 程序直接继承 GenericSerlvet 会使开发更简洁.
+如果新建的 Servlet 程序直接继承 `GenericSerlvet` 会使开发更简洁。
 
-具体实现:
+具体实现：
 
-- 在 GenericServlet 中声明了一个 SerlvetConfig 类型的成员变量, 在 init(ServletConfig) 方法中对其进行了初始化
-- 利用 servletConfig 成员变量的方法实现了 ServletConfig 接口的方法
-- 还定义了一个 init() 方法, 在 init(SerlvetConfig) 方法中对其进行调用, 子类可以直接覆盖 init() 在其中实现对 Servlet 的初始化.
-- 不建议直接覆盖 init(ServletConfig), 因为如果忘记编写 super.init(config); 而还是用了 SerlvetConfig 接口的方法,则会出现空指针异常.
-- 新建的 init(){} 并非 Serlvet 的生命周期方法. 而 init(ServletConfig) 是生命周期相关的方法.
+- 在 `GenericServlet` 中声明了一个 `SerlvetConfig` 类型的成员变量，在 `init(ServletConfig)` 方法中对其进行了初始化
+- 利用 `servletConfig` 成员变量的方法实现了 `ServletConfig` 接口的方法
+- 还定义了一个 `init()` 方法，在 `init(SerlvetConfig)` 方法中对其进行调用，子类可以直接覆盖 `init()` 在其中实现对 Servlet 的初始化.
+- 不建议直接覆盖 `init(ServletConfig)`，因为如果忘记编写 `super.init(config)`；而还是用了 `SerlvetConfig` 接口的方法，则会出现空指针异常.
+- 新建的 `init(){}` 并非 Serlvet 的生命周期方法。而 `init(ServletConfig)` 是生命周期相关的方法。
 
 ```java
 public abstract class GenericServlet implements Servlet, ServletConfig {
@@ -160,15 +160,15 @@ public abstract class GenericServlet implements Servlet, ServletConfig {
 }
 ```
 
-
+<br>
 
 **HttpServlet**
 
-是一个 Servlet, 继承自 GenericServlet. 针对于 HTTP 协议所定制.
+`HttpServlet` 是一个 Servlet，继承自 `GenericServlet`。针对于 HTTP 协议所定制。
 
-在 service() 方法中直接把 ServletReuqest 和 ServletResponse 转为 HttpServletRequest 和 HttpServletResponse.并调用了重载的 service(HttpServletRequest, HttpServletResponse)
+在 `service()` 方法中直接把 `ServletReuqest` 和 `ServletResponse` 转为 `HttpServletRequest` 和 `HttpServletResponse`。并调用了重载的 `service(HttpServletRequest, HttpServletResponse)`
 
-在 service(HttpServletRequest, HttpServletResponse) 获取了请求方式: request.getMethod(). 根据请求方式有创建了doXxx() 方法(xxx 为具体的请求方式, 比如 doGet, doPost)
+在 `service(HttpServletRequest, HttpServletResponse)` 获取了请求方式：`request.getMethod()`，根据请求方式有创建了`doXxx()` 方法（xxx 为具体的请求方式，比如 doGet、doPost）
 
 ```java
 @Override
@@ -213,19 +213,19 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 }
 ```
 
-实际开发中, 直接继承 HttpServlet, 并根据请求方式复写 doXxx() 方法即可.
+实际开发中，直接继承 `HttpServlet`，并根据请求方式复写 `doXxx()` 方法即可。
 
-好处: 直接由针对性的覆盖 doXxx() 方法; 直接使用 HttpServletRequest 和 HttpServletResponse, 不再需要强转.
+好处：直接由针对性的覆盖 `doXxx()` 方法；直接使用 `HttpServletRequest` 和 `HttpServletResponse`，不再需要强转。
 
+<br>
 
+## 1.5、Servlet 的配置
 
-## 1.5、Servlet的配置
+**配置 Servlet 自动加载**
 
-**配置 Servlet自动加载**
+如果在 `<servlet>` 元素中配置了一个 `<load-on-startup>` 元素，那么 Web 应用程序在启动时，就会装载并创建 Servlet 的实例对象、以及调用Servlet 实例对象的 `init()` 方法。 若为负数，则在第一次请求时被创建，若为 0 或正数，则在当前 WEB 应用被 Serlvet 容器加载时创建实例，且数越小越早被创建。
 
-如果在<servlet>元素中配置了一个<load-on-startup>元素，那么WEB应用程序在启动时，就会装载并创建Servlet的实例对象、以及调用Servlet实例对象的init()方法。 若为负数，则在第一次请求时被创建，若为 0 或正数，则在当前 WEB 应用被Serlvet 容器加载时创建实例，且数越小越早被创建。
-
-举例：
+举例，为 Web 应用写一个 InitServlet，这个 Servlet 配置为启动时装载，为整个 Web 应用创建必要的数据库表和数据：
 
 ```xml
 <servlet>
@@ -235,17 +235,15 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 </servlet>
 ```
 
-例如：为web应用写一个InitServlet，这个servlet配置为启动时装载，为整个web应用创建必要的数据库表和数据。
+<br>
 
+**配置 Servlet 路径映射配置**
 
+由于客户端是通过 URL 地址访问 Web 服务器中的资源，所以 Servlet 程序若想被外界访问，必须把 Servlet 程序映射到一个 URL 地址上，这个工作在 web.xml 文件中使用 `<servlet>` 元素和 `<servlet-mapping>` 元素完成。
 
-**配置Servlet路径映射配置**
+`<servlet>` 元素用于注册 Servlet，它包含有两个主要的子元素：`<servlet-name>` 和 `<servlet-class>`，分别用于设置 Servlet 的注册名称和 Servlet 的完整类名。 
 
-由于客户端是通过URL地址访问web服务器中的资源，所以Servlet程序若想被外界访问，必须把servlet程序映射到一个URL地址上，这个工作在web.xml文件中使用<servlet>元素和<servlet-mapping>元素完成。
-
-<servlet>元素用于注册Servlet，它包含有两个主要的子元素：<servlet-name>和<servlet-class>，分别用于设置Servlet的注册名称和Servlet的完整类名。 
-
-一个<servlet-mapping>元素用于映射一个已注册的Servlet的一个对外访问路径，它包含有两个子元素：<servlet-name>和<url-pattern>，分别用于指定Servlet的注册名称和Servlet的对外访问路径。例如：
+一个 `<servlet-mapping>` 元素用于映射一个已注册的 Servlet 的一个对外访问路径，它包含有两个子元素：`<servlet-name>` 和 `<url-pattern>`，分别用于指定 Servlet 的注册名称和 Servlet 的对外访问路径。例如：
 
 ```xml
 <web-app>
@@ -260,9 +258,9 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 </web-app>
 ```
 
-同一个Servlet可以被映射到多个URL上，即多个<servlet-mapping>元素的<servlet-name>子元素的设置值可以是同一个Servlet的注册名。 
+同一个 Servlet 可以被映射到多个URL上，即多个 `<servlet-mapping>` 元素的 `<servlet-name>` 子元素的设置值可以是同一个 Servlet 的注册名。 
 
-在Servlet映射到的URL中也可以使用 * 通配符，但是只能有两种固定的格式：一种格式是`*.扩展名`，另一种格式是以正斜杠（/）开头并以`/*`结尾。
+在 Servlet 映射到的 URL 中也可以使用 `*` 通配符，但是只能有两种固定的格式：一种格式是 `*.扩展名`，另一种格式是以正斜杠 `/` 开头并以 `/*` 结尾。
 
 ```xml
 <servlet-mapping>
@@ -276,44 +274,44 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 </servlet-mapping>
 ```
 
+<br>
 
+**Servlet 路径映射举例**
 
-**Servlet路径映射举例**
+- Servlet1 映射到 `/abc/*`
+- Servlet2 映射到 `/*`
+- Servlet3 映射到 `/abc`
+- Servlet4 映射到 `*.do`
 
-- Servlet1 映射到 /abc/*
-- Servlet2 映射到 /*
-- Servlet3 映射到 /abc
-- Servlet4 映射到 *.do
+当请求URL为 `/abc/a.html`，`/abc/*` 和 `/*` 都匹配，哪个 Servlet 响应？
 
-当请求URL为`/abc/a.html`，`/abc/*`和`/*`都匹配，哪个servlet响应
+- Servlet 引擎将调用 Servlet1。
 
-- Servlet引擎将调用Servlet1。
+当请求 URL 为 `/abc` 时，`/abc/*` 和 `/abc` 都匹配，哪个 Servlet 响应
 
-当请求URL为`/abc`时，`/abc/*`和`/abc`都匹配，哪个servlet响应
+- Servlet 引擎将调用 Servlet3。
 
-- Servlet引擎将调用Servlet3。
+当请求 URL 为 `/abc/a.do` 时，`/abc/*` 和 `*.do` 都匹配，哪个 Servlet响应
 
-当请求URL为`/abc/a.do`时，`/abc/*`和`*.do`都匹配，哪个servlet响应
+- Servlet 引擎将调用 Servlet1。
 
-- Servlet引擎将调用Servlet1。
+当请求 URL 为 `/a.do` 时，`/*` 和 `*.do` 都匹配，哪个 Servlet 响应
 
-当请求URL为`/a.do`时，`/*`和`*.do`都匹配，哪个servlet响应
+- Servlet 引擎将调用 Servlet2。
 
-- Servlet引擎将调用Servlet2。
+当请求 URL 为 `/xxx/yyy/a.do` 时，`/*` 和 `*.do` 都匹配，哪个 Servlet 响应
 
-当请求URL为`/xxx/yyy/a.do`时，`/*`和`*.do`都匹配，哪个servlet响应
+- Servlet 引擎将调用 Servlet2。
 
-- Servlet引擎将调用Servlet2。
+<br>
 
+**`init` 方法中的 ServletConfig 对象**
 
+继承了 `GenericServlet` 的类可以直接通过 `getServletConfig()` 方法获取。
 
-**init方法中的ServletConfig对象**
+在 Servlet 的配置文件中，可以使用一个或多个 `<init-param>` 标签为 Servlet  配置一些初始化参数。
 
-继承了GenericServlet的类可以直接通过getServletConfig()方法获取。
-
-在Servlet的配置文件中，可以使用一个或多个<init-param>标签为servlet配置一些初始化参数。
-
-当servlet配置了初始化参数后，web容器在创建servlet实例对象时，会自动将这些初始化参数封装到ServletConfig对象中，并在调用servlet的init方法时，将ServletConfig对象传递给servlet。进而，程序员通过ServletConfig对象就可以得到当前servlet的初始化参数信息。
+当 Servlet 配置了初始化参数后，Web 容器在创建 Servlet 实例对象时，会自动将这些初始化参数封装到 `ServletConfig` 对象中，并在调用 Servlet 的 in`i`t 方法时，将 `ServletConfig` 对象传递给 Servlet。进而，程序员通过 `ServletConfig` 对象就可以得到当前 Servlet 的初始化参数信息。
 
 ```xml
 <servlet>
@@ -338,9 +336,9 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 </servlet>
 ```
 
-getInitParameter(String name): 获取指定参数名的初始化参数
+`getInitParameter(String name)`：获取指定参数名的初始化参数
 
-getInitParameterNames(): 获取参数名组成的 Enumeration 对象. 
+`getInitParameterNames()`：获取参数名组成的 Enumeration 对象. 
 
 ```java
 String user = servletConfig.getInitParameter("user");
@@ -354,11 +352,11 @@ while(names.hasMoreElements()){
 }
 ```
 
-
+<br>
 
 ## 1.6、ServletContext
 
-ServletContext对象的简介
+ServletContext 对象的简介
 
 - 一个项目只有一个ServletContext对象！
 - 我们可以在N个Servlet中来获取这个唯一的对象，使用它可以给多个Servlet传递数据。（相当于只有这么一个快递员）
