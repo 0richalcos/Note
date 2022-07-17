@@ -749,7 +749,9 @@ $('#table').bootstrapTable({
 
 **效果对比**
 
-![image-20210624182508220](../Images/BootstrapTable/image-20210624182508220.png)
+<div align="center">
+    <img src="../Images/BootstrapTable/image-20210624182508220.png" alt="image-20210624182508220" style="width:60%;" />
+</div>
 
 <br>
 
