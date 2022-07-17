@@ -139,7 +139,9 @@ import { Graph } from '@antv/x6';
 
    到此，我们就得到一个最简单的 `Hello --> World` 示例：
 
-   ![image-20220505005938460](../Images/AntV-X6/image-20220505005938460.png)
+   <div align="center">
+       <img src="../Images/AntV-X6/image-20220505005938460.png" alt="image-20220505005938460" style="width:70%;" />
+   </div>
 
 <br>
 
@@ -166,7 +168,9 @@ const graph = new Graph({
 });
 ```
 
-![image-20220505010235847](../Images/AntV-X6/image-20220505010235847.png)
+<div align="center">
+    <img src="../Images/AntV-X6/image-20220505010235847.png" alt="image-20220505010235847" style="width:75%;" />
+</div>
 
 <br>
 
@@ -179,7 +183,9 @@ graph.zoom(-0.5)
 graph.translate(80, 40)
 ```
 
-![image-20220505010314434](../Images/AntV-X6/image-20220505010314434.png)
+<div align="center">
+    <img src="../Images/AntV-X6/image-20220505010314434.png" alt="image-20220505010314434" style="width:100%;" />
+</div>
 
 <br>
 
@@ -220,7 +226,9 @@ const data = {
 };
 ```
 
-![image-20220505010457515](../Images/AntV-X6/image-20220505010457515.png)
+<div align="center">
+    <img src="../Images/AntV-X6/image-20220505010457515.png" alt="image-20220505010457515" style="width:70%;" />
+</div>
 
 <br>
 
@@ -284,7 +292,9 @@ const data = {
 };
 ```
 
-![image-20220505010914905](../Images/AntV-X6/image-20220505010914905.png)
+<div align="center">
+    <img src="../Images/AntV-X6/image-20220505010914905.png" alt="image-20220505010914905" style="width:80%;" />
+</div>
 
 <br>
 
@@ -326,7 +336,9 @@ const data = {
 }
 ```
 
-![image-20220505011011412](../Images/AntV-X6/image-20220505011011412.png)
+<div align="center">
+    <img src="../Images/AntV-X6/image-20220505011011412.png" alt="image-20220505011011412" style="width:80%;" />
+</div>
 
 <br>
 
@@ -370,7 +382,9 @@ const data = {
 }
 ```
 
-![image-20220505011203840](../Images/AntV-X6/image-20220505011203840.png)
+<div align="center">
+    <img src="../Images/AntV-X6/image-20220505011203840.png" alt="image-20220505011203840" style="width:80%;" />
+</div>
 
 <br>
 
