@@ -232,120 +232,122 @@ SAX 解析 XML 步骤：
 
 2. 新建一个类 XmlParseHandler.java，该类需要继承 `DefaultHandler` 或者实现 `ContentHandler` 接口，这里通过继承 `DefaultHandler`（实现了 `ContentHandler` 接口）的方式，该类是 SAX 解析的核心所在，生命周期如下：
 
-	<img src="../Images/XMLParse/20181101171449337.jpeg" alt="XmlParseHandler生命周期" style="zoom:80%;" />
+  <div align="center">
+      <img src="../Images/XMLParse/20181101171449337.jpeg" alt="XmlParseHandler生命周期" style="width:16%;" />
+  </div>
 
-	代码：
+  代码：
 
-	```java
-	package com.xiaobaizhiqian;
-	 
-	import java.util.ArrayList;
-	 
-	import org.xml.sax.Attributes;
-	import org.xml.sax.SAXException;
-	import org.xml.sax.helpers.DefaultHandler;
-	 
-	public class SAXParserHandler extends DefaultHandler {
-		// 解析标签内容时存放数据，便于endElement使用
-		private String value = null;
-	    private Languages languages = null;
-	    private ArrayList<Languages> languagesList = null;
-	    
-	    /** 直接调用便可获取从xml中读取的数据
-	     * @return 返回值可自行设置（这里是返回的ArrayList<Languages>）
-	     */
-	    public ArrayList<Languages> getLanguages() {
-	        return languagesList;
-	    }
-	    
-	    /** 用来标识解析开始，只会执行一次
-	     */
-	    @Override
-	    public void startDocument() throws SAXException {
-	    	super.startDocument();
-	    	System.out.println("解析开始");
-	    	languagesList = new ArrayList<Languages>();
-	    }
-	    
-	    /** 开始解析节点时调用
-	     * @param uri xml文档的命名空间
-	     * @param localName
-	     * @param qName 标签的名字
-	     * @param attributes 标签属性集
-	     */
-	    @Override
-	    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-	    	// 调用父类的方法
-	    	super.startElement(uri, localName, qName, attributes);
-	    	if (qName.equals("languages")) {
-	           
-	            //开始解析book元素的属性
-	            System.out.println("======================开始遍历某一本书的内容=================");
-	            //不知道book元素下属性的名称以及个数，如何获取属性名以及属性值
-	            int num = attributes.getLength();
-	            for(int i = 0; i < num; i++){
-	                System.out.print("语言元素的第" + (i + 1) +  "个属性名是："
-	                        + attributes.getQName(i));
-	                System.out.println("---属性值是：" + attributes.getValue(i));
-	            }
-			}else if (!qName.equals("lan")) {
-	            System.out.print("节点名是：" + qName + "---");
-	        }else {
-	        	 //创建一个book对象
-	            languages = new Languages();
-	        	int num = attributes.getLength();
-	            for(int i = 0; i < num; i++){
-	                System.out.print("语言元素的第" + (i + 1) +  "个属性名是："
-	                        + attributes.getQName(i));
-	                System.out.println("---属性值是：" + attributes.getValue(i));
-	                if (attributes.getQName(i).equals("id")) {
-	                    languages.setId(attributes.getValue(i));
-	                }
-	            }
-			}
-	    }
-	    
-	    @Override
-	    public void endElement(String uri, String localName, String qName) throws SAXException {
-	    	//调用DefaultHandler类的endElement方法
-	        super.endElement(uri, localName, qName);
-	        //判断是否针对一本书已经遍历结束
-	        if (qName.equals("languages")) {
-	            System.out.println(languagesList.size());
-	            System.out.println("======================结束遍历某一本书的内容=================");
-	        }else if(qName.equals("lan")){
-	        	languagesList.add(languages);
-	        }else if(qName.equals("name")){
-	        	languages.setName(value);
-	        }else if (qName.equals("ide")) {
-	        	languages.setIde(value);
-	        }
-	    }
-	    
-	    /** 解析标签内容时调用
-	     * @param ch 当前读取到的TextNode(文本节点)的字节数组
-	     * @param start 字节开始的位置，为0则读取全部
-	     * @param length 当前TextNode的长度
-	     */
-	    @Override
-	    public void characters(char[] ch, int start, int length) throws SAXException {
-	    	super.characters(ch, start, length);
-	    	value = new String(ch, start, length);
-	        if (!value.trim().equals("")) {
-	            System.out.println("节点值是：" + value);
-	        }
-	    }
-	    
-	    /** 用来标识解析结束，只会执行一次
-	     * @see org.xml.sax.helpers.DefaultHandler#endDocument()
-	     */
-	    @Override
-	    public void endDocument() throws SAXException {
-	    	super.endDocument();
-	    	System.out.println("解析结束");
-	    }
-	}
-	```
+  ```java
+  package com.xiaobaizhiqian;
+   
+  import java.util.ArrayList;
+   
+  import org.xml.sax.Attributes;
+  import org.xml.sax.SAXException;
+  import org.xml.sax.helpers.DefaultHandler;
+   
+  public class SAXParserHandler extends DefaultHandler {
+  	// 解析标签内容时存放数据，便于endElement使用
+  	private String value = null;
+      private Languages languages = null;
+      private ArrayList<Languages> languagesList = null;
+      
+      /** 直接调用便可获取从xml中读取的数据
+       * @return 返回值可自行设置（这里是返回的ArrayList<Languages>）
+       */
+      public ArrayList<Languages> getLanguages() {
+          return languagesList;
+      }
+      
+      /** 用来标识解析开始，只会执行一次
+       */
+      @Override
+      public void startDocument() throws SAXException {
+      	super.startDocument();
+      	System.out.println("解析开始");
+      	languagesList = new ArrayList<Languages>();
+      }
+      
+      /** 开始解析节点时调用
+       * @param uri xml文档的命名空间
+       * @param localName
+       * @param qName 标签的名字
+       * @param attributes 标签属性集
+       */
+      @Override
+      public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+      	// 调用父类的方法
+      	super.startElement(uri, localName, qName, attributes);
+      	if (qName.equals("languages")) {
+             
+              //开始解析book元素的属性
+              System.out.println("======================开始遍历某一本书的内容=================");
+              //不知道book元素下属性的名称以及个数，如何获取属性名以及属性值
+              int num = attributes.getLength();
+              for(int i = 0; i < num; i++){
+                  System.out.print("语言元素的第" + (i + 1) +  "个属性名是："
+                          + attributes.getQName(i));
+                  System.out.println("---属性值是：" + attributes.getValue(i));
+              }
+  		}else if (!qName.equals("lan")) {
+              System.out.print("节点名是：" + qName + "---");
+          }else {
+          	 //创建一个book对象
+              languages = new Languages();
+          	int num = attributes.getLength();
+              for(int i = 0; i < num; i++){
+                  System.out.print("语言元素的第" + (i + 1) +  "个属性名是："
+                          + attributes.getQName(i));
+                  System.out.println("---属性值是：" + attributes.getValue(i));
+                  if (attributes.getQName(i).equals("id")) {
+                      languages.setId(attributes.getValue(i));
+                  }
+              }
+  		}
+      }
+      
+      @Override
+      public void endElement(String uri, String localName, String qName) throws SAXException {
+      	//调用DefaultHandler类的endElement方法
+          super.endElement(uri, localName, qName);
+          //判断是否针对一本书已经遍历结束
+          if (qName.equals("languages")) {
+              System.out.println(languagesList.size());
+              System.out.println("======================结束遍历某一本书的内容=================");
+          }else if(qName.equals("lan")){
+          	languagesList.add(languages);
+          }else if(qName.equals("name")){
+          	languages.setName(value);
+          }else if (qName.equals("ide")) {
+          	languages.setIde(value);
+          }
+      }
+      
+      /** 解析标签内容时调用
+       * @param ch 当前读取到的TextNode(文本节点)的字节数组
+       * @param start 字节开始的位置，为0则读取全部
+       * @param length 当前TextNode的长度
+       */
+      @Override
+      public void characters(char[] ch, int start, int length) throws SAXException {
+      	super.characters(ch, start, length);
+      	value = new String(ch, start, length);
+          if (!value.trim().equals("")) {
+              System.out.println("节点值是：" + value);
+          }
+      }
+      
+      /** 用来标识解析结束，只会执行一次
+       * @see org.xml.sax.helpers.DefaultHandler#endDocument()
+       */
+      @Override
+      public void endDocument() throws SAXException {
+      	super.endDocument();
+      	System.out.println("解析结束");
+      }
+  }
+  ```
 
 3. 使用 `XmlParseHandler` 通过 `getLanguages()` 直接获得数据，代码：
 
