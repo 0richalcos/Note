@@ -351,7 +351,9 @@ $('#calendar').fullCalendar({
 });
 ```
 
-<img src="../Images/FullCalendar/image-20220627152424647.png" alt="image-20220627152424647" style="zoom: 33%;" />
+<div align="center">
+    <img src="../Images/FullCalendar/image-20220627152424647.png" alt="image-20220627152424647" style="width: 60%;" />
+</div>
 
 下面的选项是专门针对月视图的。然而，在整个文档中，还有许多其他的选项会影响到月视图的显示，比如与本地相关的选项和日期/时间显示选项。
 
@@ -381,11 +383,15 @@ Boolean, default: true
 
 在月视图中设置为 `false` 时：
 
-<img src="../Images/FullCalendar/showNonCurrentDates-false.png" alt="not showing dates in other months" style="zoom: 50%;" />
+<div align="center">
+    <img src="../Images/FullCalendar/showNonCurrentDates-false.png" alt="not showing dates in other months" style="width: 45%;" />
+</div>
 
 在月视图中设置为 `true` 时（默认值）：
 
-<img src="../Images/FullCalendar/showNonCurrentDates-true.png" alt="showing dates in other months" style="zoom:50%;" />
+<div align="center">    
+    <img src="../Images/FullCalendar/showNonCurrentDates-true.png" alt="showing dates in other months" style="width:45%;" />
+</div>
 
 <br>
 
@@ -399,7 +405,9 @@ $('#calendar').fullCalendar({
 });
 ```
 
-<img src="../Images/FullCalendar/image-20220627154524890.png" alt="image-20220627154524890" style="zoom:33%;" />
+<div align="center">
+    <img src="../Images/FullCalendar/image-20220627154524890.png" alt="image-20220627154524890" style="width:45%;" />
+</div>
 
 ```javascript
 $('#calendar').fullCalendar({
@@ -407,9 +415,9 @@ $('#calendar').fullCalendar({
 });
 ```
 
-
-
-<img src="../Images/FullCalendar/image-20220627154849156.png" alt="image-20220627154849156" style="zoom:33%;" />
+<div align="center">
+    <img src="../Images/FullCalendar/image-20220627154849156.png" alt="image-20220627154849156" style="width:45%;" />
+</div>
 
 可以使用类型为 `agenda` 的自定义视图创建其他工期的议程视图。
 
@@ -451,7 +459,9 @@ $('#calendar').fullCalendar({
 });
 ```
 
-<img src="../Images/FullCalendar/image-20220627155512294.png" alt="image-20220627155512294" style="zoom: 33%;" />
+<div align="center">
+    <img src="../Images/FullCalendar/image-20220627155512294.png" alt="image-20220627155512294" style="width: 45%;" />
+</div>
 
 如果需要不同的时间间隔，可以创建类型为 `list` 的自定义视图。
 
@@ -467,9 +477,9 @@ $('#calendar').fullCalendar({
 String, false
 ```
 
-<img src="../Images/FullCalendar/listDayFormat.png" alt="customized list-view date strings" style="zoom: 50%;" />
-
-
+<div align="center">
+    <img src="../Images/FullCalendar/listDayFormat.png" alt="customized list-view date strings" style="width: 45%;" />
+</div>
 
 如果指定 `false`，则不显示文本。
 
@@ -483,7 +493,9 @@ String, false
 String, false
 ```
 
-<img src="../Images/FullCalendar/listDayAltFormat.png" alt="displaying alt date strings" style="zoom:50%;" />
+<div align="center">
+    <img src="../Images/FullCalendar/listDayAltFormat.png" alt="displaying alt date strings" style="width:45%;" />
+</div>
 
 如果指定 `false`，则不显示文本。
 
