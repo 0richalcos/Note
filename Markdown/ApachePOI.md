@@ -54,7 +54,9 @@ Apache POI 是 Apache 软件基金会的开放源码函数库，POI 提供 API �
 
 > poi-ooxml（07） 的依赖下包含 poi（03） 的依赖，如果两个都有需求可以只引入 poi-ooxml 依赖：
 >
-> ![image-20220614154245821](../Images/ApachePOI/image-20220614154245821.png)
+> <div align="center">
+>     <img src="../Images/ApachePOI/image-20220614154245821.png" alt="image-20220614154245821" style="width:60%;" />
+> </div>
 >
 > 望日常开发 Maven 项目中多留意依赖结构，优化导入代码。
 
@@ -308,7 +310,9 @@ public void testWrite07BigDataS() {
 }
 ```
 
-<img src="../Images/tools/20180720094625254" alt="img"  />
+<div align="center">
+    <img src="../Images/tools/20180720094625254" alt="img" style="width:60%"/>
+</div>
 
 <br>
 
@@ -1039,7 +1043,9 @@ public void testFormula() throws IOException {
 
 <br>
 
-<img src="../Images/ApachePOI/20180914173007117" alt="img" />
+<div align="center">
+    <img src="../Images/ApachePOI/20180914173007117" alt="img" style="width:70%;" />
+</div>
 
 ```java
  /**

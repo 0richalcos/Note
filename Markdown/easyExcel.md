@@ -2,7 +2,7 @@
 
 Java 解析、生成 Excel 比较有名的框架有 Apache POI、jxl。但他们都存在一个严重的问题就是非常的耗内存，POI 有一套 SAX 模式的 API 可以一定程度的解决一些内存溢出的问题，但 POI 还是有一些缺陷，比如 07 版 Excel 解压缩以及解压后存储都是在内存中完成的，内存消耗依然很大。easyExcel重写了 POI 对 07 版 Excel 的解析，能够原本一个 3M 的 Excel 用 POI SAX 依然需要100M 左右内存降低到几M，并且再大的 Excel 不会出现内存溢出，03 版依赖 POI 的 SAX 模式。在上层做了模型转换的封装，让使用者更加简单方便
 
-
+<br>
 
 **导入依赖**
 
@@ -20,7 +20,7 @@ Java 解析、生成 Excel 比较有名的框架有 Apache POI、jxl。但他们
 
 这里只介绍简单的读写，详情参考 alibaba 开源项目 [easyExcel](https://github.com/alibaba/easyexcel)。
 
-
+<br>
 
 # 2、easyExcel 写
 
@@ -79,7 +79,7 @@ public class easyExcelTest {
 }
 ```
 
-
+<br>
 
 ## 2.1、web 中的写
 
@@ -105,7 +105,7 @@ public void download(HttpServletResponse response) throws IOException {
 }
 ```
 
-
+<br>
 
 ## 2.2、复杂头写出
 
@@ -137,9 +137,11 @@ public class Product {
 }
 ```
 
-<img src="../Images/easyExcel/image-20201016151516010.png" alt="image-20201016151516010" style="float:left" />
+<div align="center">
+    <img src="../Images/easyExcel/image-20201016151516010.png" alt="image-20201016151516010" style="width:40%" />
+</div>
 
-
+<br>
 
 # 3、easyExcel 读
 
@@ -284,7 +286,7 @@ public class ReadTest {
 }
 ```
 
-
+<br>
 
 ## 3.1、web 中的读
 
@@ -306,3 +308,4 @@ public String upload(MultipartFile file) throws IOException {
 }
 ```
 
+<br>
