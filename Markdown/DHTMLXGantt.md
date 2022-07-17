@@ -45,7 +45,9 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 
 4. 效果预览：
 
-   ![image-20220525234529468](../Images/DHTMLXGantt/image-20220525234529468.png)
+   <div align="center">
+       <img src="../Images/DHTMLXGantt/image-20220525234529468.png" alt="image-20220525234529468" style="width:90%;" />
+   </div>
 
 <br>
 
@@ -1876,7 +1878,9 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 
 **网格样式**
 
-![img](../Images/DHTMLXGantt/grid_area.png)
+<div align="center">
+    <img src="../Images/DHTMLXGantt/grid_area.png" alt="img" style="width:50%;" />
+</div>
 
 网格的 DOM 元素的整体结构如下：
 
@@ -1916,7 +1920,9 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 }
 ```
 
-![img](../Images/DHTMLXGantt/grid_header.png)
+<div align="center">
+    <img src="../Images/DHTMLXGantt/grid_header.png" alt="img" style="width:50%;" />
+</div>
 
 可以通过 `.gantt_grid_head_cell` 将自定义样式应用于网格标头的单元格。
 
@@ -1924,25 +1930,27 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 
 - `.gantt_grid_head_cell[data-column-id='columnName'] ` - 选择特定列的单元格
 
-	*columnName* 与列的 name 属性的值匹配：
+  *columnName* 与列的 name 属性的值匹配：
 
-	```html
-	<style>
-	    .gantt_grid_head_cell[data-column-id='columnName'] {
-	        background-color: #ededed;
-	        color:black;
-	    }
-	</style>
-	<script>
-	gantt.config.columns = [
-	    ...
-	    {name: "columnName", align: "center"},
-	    ...
-	];
-	</script>
-	```
+  ```html
+  <style>
+      .gantt_grid_head_cell[data-column-id='columnName'] {
+          background-color: #ededed;
+          color:black;
+      }
+  </style>
+  <script>
+  gantt.config.columns = [
+      ...
+      {name: "columnName", align: "center"},
+      ...
+  ];
+  </script>
+  ```
 
-	![img](../Images/DHTMLXGantt/header_cell.png)
+  <div align="center">
+      <img src="../Images/DHTMLXGantt/header_cell.png" alt="img" style="width:50%;" />
+  </div>
 
 - `.gantt_grid_head_cell[data-column-index='1']` - 按索引选择特定列；
 
@@ -1954,7 +1962,9 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 
 给任务着色可以突出显示特定的任务，以便将用户注意：
 
-![img](../Images/DHTMLXGantt/coloring_tasks.png)
+<div align="center">
+    <img src="../Images/DHTMLXGantt/coloring_tasks.png" alt="img" style="width:45%;" />
+</div>
 
 要设置任务的自定义样式，可以使用以下方法之一：
 
@@ -1972,7 +1982,9 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 - **progressColor**：进度条的颜色
   （默认情况下，只是使用以下样式的背景色使其比任务的颜色暗一点：`'background-color: rgb(54, 54, 54); opacity: 0.2'`）
 
-![img](../Images/DHTMLXGantt/task_color_properties.png)
+<div align="center">
+    <img src="../Images/DHTMLXGantt/task_color_properties.png" alt="img" style="width:17%;" />
+</div>
 
 > 注意，这些是特殊属性。默认情况下，Gantt 检查任务是否拥有它们，如果这样做，则将相关值应用于任务栏和文本。否则，将应用预定义的颜色。
 
@@ -2056,7 +2068,9 @@ gantt.templates.task_class  = function(start, end, task){
 
 ## 3.2、配置任务
 
-![img](../Images/DHTMLXGantt/gantt_tasks.png)
+<div align="center">
+    <img src="../Images/DHTMLXGantt/gantt_tasks.png" alt="img" style="width:60%;" />
+</div>
 
 <br>
 
@@ -2092,47 +2106,57 @@ gantt.addTaskLayer(function myNewElement(task) {
 
 要了解如何应用此功能，考虑一个示例：有一个计划和实际时间进行任务，需要显示两次：
 
-![img](../Images/DHTMLXGantt/baselines.png)
+<div align="center">
+    <img src="../Images/DHTMLXGantt/baselines.png" alt="img" style="width:60%;" />
+</div>
 
 1. **降低任务高度并将任务行上移**
 
-	在初始状态的任务是这样的：
+  在初始状态的任务是这样的：
 
-	![img](../Images/DHTMLXGantt/baselines_start.png)
+  <div align="center">
+      <img src="../Images/DHTMLXGantt/baselines_start.png" alt="img" style="width:50%;" />
+  </div>
 
-	首先，需要为任务下的基线释放一些空间。为此，有必要降低任务栏的高度，使其大约等于行高的一半：
+  首先，需要为任务下的基线释放一些空间。为此，有必要降低任务栏的高度，使其大约等于行高的一半：
 
-	```javascript
-	gantt.config.bar_height = 16;
-	gantt.config.row_height = 40;
-	```
+  ```javascript
+  gantt.config.bar_height = 16;
+  gantt.config.row_height = 40;
+  ```
 
-	并通过应用以下 CSS 代码将任务行移动到行的顶部：
+  并通过应用以下 CSS 代码将任务行移动到行的顶部：
 
-	```css
-	.gantt_task_line, .gantt_line_wrapper {
-	    margin-top: -9px;
-	}
-	.gantt_side_content {
-	    margin-bottom: 7px;
-	}
-	.gantt_task_link .gantt_link_arrow {
-	    margin-top: -12px
-	}
-	.gantt_side_content.gantt_right {
-	    bottom: 0;
-	}
-	```
+  ```css
+  .gantt_task_line, .gantt_line_wrapper {
+      margin-top: -9px;
+  }
+  .gantt_side_content {
+      margin-bottom: 7px;
+  }
+  .gantt_task_link .gantt_link_arrow {
+      margin-top: -12px
+  }
+  .gantt_side_content.gantt_right {
+      bottom: 0;
+  }
+  ```
 
-	结果如下：
+  结果如下：
 
-	![img](../Images/DHTMLXGantt/baselines_task_height.png)
+  <div align="center">
+      <img src="../Images/DHTMLXGantt/baselines_task_height.png" alt="img" style="width:53%;" />
+  </div>
 
 2. **添加额外的数据属性**
 
-	之后，需要向任务对象添加其他数据属性。这里命名为：`planned_start` 和 `planned_end`。
+  之后，需要向任务对象添加其他数据属性。这里命名为：`planned_start` 和 `planned_end`。
 
-	![img](../Images/DHTMLXGantt/baseline_task_object-16557781359655.png)
+  <div align="center">
+      <img src="../Images/DHTMLXGantt/baseline_task_object-16557781359655.png" alt="img" style="width:17%;" />
+  </div>
+
+  
 
 3. **将添加的数据特性转换为日期对象**
 
@@ -2187,13 +2211,17 @@ gantt.addTaskLayer(function myNewElement(task) {
 
 ## 3.3、配置刻度
 
-![img](../Images/DHTMLXGantt/gantt_right.png)
+<div align="center">
+    <img src="../Images/DHTMLXGantt/gantt_right.png" alt="img" style="width:60%;" />
+</div>
 
 <br>
 
 ### 3.3.1、设置刻度
 
-![img](../Images/DHTMLXGantt/gantt_dates.png)
+<div align="center">
+    <img src="../Images/DHTMLXGantt/gantt_dates.png" alt="img" style="width:60%;" />
+</div>
 
 刻度的配置通过 `scale` 属性指定。可以通过在 `gantt.config.scales` 数组中设置刻度对象来指定任意数量的刻度：
 
@@ -2222,7 +2250,9 @@ gantt.config.scales = [
 
 #### 时间单位
 
-![img](../Images/DHTMLXGantt/month_day_scale_units.png)
+<div align="center">
+    <img src="../Images/DHTMLXGantt/month_day_scale_units.png" alt="img" style="width:45%;" />
+</div>
 
 要设置刻度的单位，请在相应的刻度对象中使用 `unit` 特性：
 
@@ -2241,7 +2271,9 @@ gantt.init("gantt_here");
 
 #### 范围
 
-![img](../Images/DHTMLXGantt/day_scale_unit.png)
+<div align="center">
+    <img src="../Images/DHTMLXGantt/day_scale_unit.png" alt="img" style="width:45%;" />
+</div>
 
 <br>
 
@@ -2288,7 +2320,9 @@ gantt.init("gantt_here", new Date(2018, 02, 31), new Date(2018, 03, 09));
 
 可以在甘特图中显示不符合指定日期范围的任务。
 
-![img](../Images/DHTMLXGantt/tasks_outside_timescale.png)
+<div align="center">
+    <img src="../Images/DHTMLXGantt/tasks_outside_timescale.png" alt="img" style="width:50%;" />
+</div>
 
 为此，需要将 `show_tasks_outside_timescale` 配置参数设置为 `true`：
 
@@ -2313,7 +2347,9 @@ gantt.init("gantt_here", new Date(2020, 1, 1), new Date(2020, 2,1));
 
 #### 高度
 
-![img](../Images/DHTMLXGantt/scale_height.png)
+<div align="center">
+    <img src="../Images/DHTMLXGantt/scale_height.png" alt="img" style="width:50%;" />
+</div>
 
 可以通过 `scale_height` 属性设置刻度的高度：
 
@@ -2341,7 +2377,9 @@ gantt.config.scales = [
 gantt.init("gantt_here");
 ```
 
-![img](../Images/DHTMLXGantt/multiple_scales.png)
+<div align="center">
+    <img src="../Images/DHTMLXGantt/multiple_scales.png" alt="img" style="width:50%;" />
+</div>
 
 或作为以日期对象为参数的函数：
 
@@ -2353,7 +2391,9 @@ gantt.config.scales = [
 ]
 ```
 
-![img](../Images/DHTMLXGantt/scale_template.png)
+<div align="center">
+    <img src="../Images/DHTMLXGantt/scale_template.png" alt="img" style="width:50%;" />
+</div>
 
 可用格式字符：
 
@@ -2565,13 +2605,17 @@ for (var i = 0; i < els.length; i++) {
 }
 ```
 
-![image-20220621142321062](../Images/DHTMLXGantt/image-20220621142321062.png)
+<div align="center">
+    <img src="../Images/DHTMLXGantt/image-20220621142321062.png" alt="image-20220621142321062" style="width:90%;" />
+</div>
 
 <br>
 
 ## 3.4、配置网格区域
 
-![img](../Images/DHTMLXGantt/gantt_left.png)
+<div align="center">
+    <img src="../Images/DHTMLXGantt/gantt_left.png" alt="img" style="width:70%;" />
+</div>
 
 <br>
 
