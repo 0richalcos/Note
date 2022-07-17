@@ -4,7 +4,7 @@
 
 相信无论是前端还是后端开发，都或多或少地被接口文档折磨过。前端经常抱怨后端给的接口文档与实际情况不一致。后端又觉得编写及维护接口文档会耗费不少精力，经常来不及更新。其实无论是前端调用后端，还是后端调用后端，都期望有一个好的接口文档。但是这个接口文档对于程序员来说，就跟注释一样，经常会抱怨别人写的代码没有写注释，然而自己写起代码起来，最讨厌的，也是写注释。所以仅仅只通过强制来规范大家是不够的，随着时间推移，版本迭代，接口文档往往很容易就跟不上代码了。
 
-
+<br>
 
 **什么是 Swagger？**
 
@@ -16,7 +16,7 @@
 >
 > 这个解释简单点来讲就是说，Swagger 是一款可以根据 RESTful 风格生成接口开发文档，并且支持做测试的一款中间软件。
 
-
+<br>
 
 **为什么要使用 Swagger？**
 
@@ -32,7 +32,7 @@
   对于某些没有前端界面UI的功能，可以用它来测试接口
   操作简单，不用了解具体代码就可以操作
 
-
+<br>
 
 # 2、Spring Boot 集成 Swagger 3.0
 
@@ -74,9 +74,11 @@
 
 5. 访问 http://localhost:8080/swagger-ui/index.html
 
-   ![image-20210706010548564](../Images/Swagger/image-20210706010548564.png)
+   <div align="center">
+       <img src="../Images/Swagger/image-20210706010548564.png" alt="image-20210706010548564" style="width:90%;" />
+   </div>
 
-
+<br>
 
 ## 2.2、Swagger 3.0 配置
 
@@ -91,17 +93,21 @@ public Docket docket(){
 }
 ```
 
-
+<br>
 
 ### 2.2.1、DocumentationType 
 
 这个时候发现构造函数需要一个参数，先别急，点进 Docket 构造函数源码看看：
 
-![image-20210707003434330](../Images/Swagger/image-20210707003434330.png)
+<div align="center">
+    <img src="../Images/Swagger/image-20210707003434330.png" alt="image-20210707003434330" style="width:80%;" />
+</div>
 
 可以看到这里需要一个 `DocumentationType`，那么点进去看看是啥：
 
-![image-20210707003643061](../Images/Swagger/image-20210707003643061.png)
+<div align="center">
+    <img src="../Images/Swagger/image-20210707003643061.png" alt="image-20210707003643061" style="width:80%;" />
+</div>
 
 可以看到，它提供了三个构造好的 DocumentationType 常量，设置了使用 Swagger 哪个版本。这里使用的是 Swagger 3.0，所以给出的参数是 `DocumentationType.OAS_30`：
 
@@ -112,33 +118,43 @@ public Docket docket() {
 }
 ```
 
-
+<br>
 
 ### 2.2.2、Docket
 
 再回去反观 Docket 的其他源码：
 
-![image-20210707004919074](../Images/Swagger/image-20210707004919074.png)
+<div align="center">
+    <img src="../Images/Swagger/image-20210707004919074.png" alt="image-20210707004919074" style="width:80%;" />
+</div>
 
 可以看见 Docket 提供了很多可以配置的属性，并且提供了相应的 setter（注：方法与属性名同名，返回值是 this (链式编程)）
 
-![image-20210707005052596](../Images/Swagger/image-20210707005052596.png)
+<div align="cetner">
+    <img src="../Images/Swagger/image-20210707005052596.png" alt="image-20210707005052596" style="width:100%;" />
+</div>
 
 它设置默认的分组 `DEFAULT_GROUP_NAME` 是 `default`，没错，这就和右上角的 spec 对应上了：
 
-![image-20210707005503455](../Images/Swagger/image-20210707005503455.png)
+<div align="center">
+    <img src="../Images/Swagger/image-20210707005503455.png" alt="image-20210707005503455" style="width:80%;" />
+</div>
 
-![image-20210707005438852](../Images/Swagger/image-20210707005438852.png)
+<div align="center">
+    <img src="../Images/Swagger/image-20210707005438852.png" alt="image-20210707005438852" style="width:90%;" />
+</div>
 
 另外，还有很多可以自行配置的属性，前面的 DocumentationType 就是其中之一。
 
-
+<br>
 
 ### 2.2.3、ApiInfo
 
 ApiInfo 见名知意，提供了一些基本信息的配置，这些配置信息可以显示 UI 界面上。同样的，点进它的源码看看：
 
-![image-20210707005814602](../Images/Swagger/image-20210707005814602.png)
+<div align="center">
+    <img src="../Images/Swagger/image-20210707005814602.png" alt="image-20210707005814602" style="width:80%;" />
+</div>
 
 可以看到，它提供了 8 个可以配置属性，根据名字也能猜出其中的意思：
 
@@ -153,11 +169,15 @@ ApiInfo 见名知意，提供了一些基本信息的配置，这些配置信息
 
 而在 ApiInfo 中还有一个默认配置 DEFAULT，它的详细信息在类的最下方：
 
-![image-20210707010126204](../Images/Swagger/image-20210707010126204.png)
+<div align="center">
+    <img src="../Images/Swagger/image-20210707010126204.png" alt="image-20210707010126204" style="width:100%;" />
+</div>
 
 它看起来是不是很熟悉？没错，它就是在不做任何配置下启动 Swagger 显示的基本信息：
 
-![image-20210707010158399](../Images/Swagger/image-20210707010158399.png)
+<div align="center">
+    <img src="../Images/Swagger/image-20210707010158399.png" alt="image-20210707010158399" style="width:90%;" />
+</div>
 
 那么现在可以配置自己的 ApiInfo：
 
@@ -182,29 +202,37 @@ public ApiInfo getApiInfo() {
 
 然后重启 Spring Boot 项目：
 
-![image-20210707012405981](../Images/Swagger/image-20210707012405981.png)
+<div align="center">
+    <img src="../Images/Swagger/image-20210707012405981.png" alt="image-20210707012405981" style="width:100%;" />
+</div>
 
-
+<br>
 
 ### 2.2.4、ApiSelectorBuilder
 
 构建 Docket 时通过 select() 方法配置怎么扫描接口，它会返回一个 ApiSelectorBuilder 对象
 
-![image-20210708001218399](../Images/Swagger/image-20210708001218399.png)
+<div align="center">
+    <img src="../Images/Swagger/image-20210708001218399.png" alt="image-20210708001218399" style="width:80%;" />
+</div>
 
 点开 ApiSelectorBuilder 源码：
 
-![image-20210708001526009](../Images/Swagger/image-20210708001526009.png)
+<div align="center">
+   <img src="../Images/Swagger/image-20210708001526009.png" alt="image-20210708001526009" style="width:100%;" />
+</div>
 
 可以看到需要配置的是 requestHandlerSelector 和 pathSelector。
 
-
+<br>
 
 **requestHandlerSelector**
 
 接口扫描方案。通过 ApiSelectorBuilder 下的 apis() 方法配置（也是链式编程），在 RequestHandlerSelectors.java 中提供了配置方案：
 
-![image-20210708001714146](../Images/Swagger/image-20210708001714146.png)
+<div align="center">
+    <img src="../Images/Swagger/image-20210708001714146.png" alt="image-20210708001714146" style="width:70%;" />
+</div>
 
 - any()：扫描所有，项目中的所有接口都会被扫描到
 - none()：不扫描接口
@@ -214,7 +242,7 @@ public ApiInfo getApiInfo() {
 
 > 常用的是 basePackage()，只去扫描 controller 包。
 
-
+<br>
 
 **pathSelector**
 
@@ -222,7 +250,9 @@ public ApiInfo getApiInfo() {
 
 Docket 配置规则这种方式通过 ApiSelectorBuilder 的 paths() 方法配置，在 PathSelectors 提供了配置方案：
 
-![image-20210708002213946](../Images/Swagger/image-20210708002213946.png)
+<div align="center">
+    <img src="../Images/Swagger/image-20210708002213946.png" alt="image-20210708002213946" style="width:70%;" />
+</div>
 
 - any()：任何路径都满足条件
 - none()：任何路径都不满足条件
@@ -231,15 +261,19 @@ Docket 配置规则这种方式通过 ApiSelectorBuilder 的 paths() 方法配�
 
 > PS：常用的是 any()，不做特殊处理。
 
-
+<br>
 
 在 ApiSelectorBuilder 中提供了默认配置方案 DEFAULT，即不扫描所有标有 @ApiIgnore 注解的类和方法，允许所有的请求路径：
 
-![image-20210708002436064](../Images/Swagger/image-20210708002436064.png)
+<div align="center">
+    <img src="../Images/Swagger/image-20210708002436064.png" alt="image-20210708002436064" style="width:100%;" />
+</div>
 
 所以，在一开始，我们才会看到列表中除了一开始自己写的 hello-contoller，还有 basic-error-controller 这些我们自己没配置过的接口：
 
-![image-20210708002545318](../Images/Swagger/image-20210708002545318.png)
+<div align="center">
+    <img src="../Images/Swagger/image-20210708002545318.png" alt="image-20210708002545318" style="width:90%;" />
+</div>
 
 那么在 docket() 中增加配置：
 
@@ -258,9 +292,11 @@ public Docket docket() {
 
 重启项目后发现只有 hello-controller 了：
 
-![image-20210708003351356](../Images/Swagger/image-20210708003351356.png)
+<div align="center">
+    <img src="../Images/Swagger/image-20210708003351356.png" alt="image-20210708003351356" style="width:100%;" />
+</div>
 
-
+<br>
 
 ### 2.2.5、groupName
 
@@ -294,15 +330,19 @@ public Docket docket1(){
 }
 ```
 
-![image-20210708003601775](../Images/Swagger/image-20210708003601775.png)
+<div align="center">
+    <img src="../Images/Swagger/image-20210708003601775.png" alt="image-20210708003601775" style="width:90%;" />
+</div>
 
-
+<br>
 
 ### 2.2.6、useDefaultResponseMessages
 
 点开接口文档中的接口，可以看见，在 Response 中 Swagger 默认提供了 200,401,403,404 这几个状态码
 
-![image-20210708003810034](../Images/Swagger/image-20210708003810034.png)
+<div align="center">
+    <img src="../Images/Swagger/image-20210708003810034.png" alt="image-20210708003810034" style="width:100%;" />
+</div>
 
 但是，在实际开发中，大多数都是自定义状态码的；所以，就可以通过 useDefaultResponseMessages(false) 关闭默认状态码：
 
@@ -321,9 +361,11 @@ public Docket docket() {
 
 重启项目后，可以看到，原先的 401,403,404 没有了：
 
-![image-20210708003924497](../Images/Swagger/image-20210708003924497.png)
+<div align="center">
+    <img src="../Images/Swagger/image-20210708003924497.png" alt="image-20210708003924497" style="width:100%;" />
+</div>
 
-
+<br>
 
 ### 2.2.7、enabled
 
@@ -333,7 +375,9 @@ public Docket docket() {
 
 1. 创建两个新的配置文件，application-dev.properties 和 application-por.properties，分别代表正式环境和开发环境的配置。在这两个配置文件中，分别把启动端口设为 8081 和 8080：
 
-   ![image-20210708005409853](../Images/Swagger/image-20210708005409853.png)
+   <div align="center">
+       <img src="../Images/Swagger/image-20210708005409853.png" alt="image-20210708005409853" style="width:70%;" />
+   </div>
 
 2. 修改 application.properties，将当前的环境设为 dev：
 
@@ -366,9 +410,11 @@ public Docket docket() {
 
    然后重启项目，就可以发现，8080 端口已经无法访问了，但8081 可以：
 
-   ![image-20210708005813542](../Images/Swagger/image-20210708005813542.png)
+   <div align="center">
+       <img src="../Images/Swagger/image-20210708005813542.png" alt="image-20210708005813542" style="width:100%;" />
+   </div>
 
-
+<br>
 
 ## 2.3、注解使用
 
@@ -401,7 +447,7 @@ public class OrderController {
 }
 ```
 
-
+<br>
 
 **@ApiOperation**
 
@@ -422,7 +468,7 @@ public String hello() {
 }
 ```
 
-
+<br>
 
 **@ApiImplicitParams、@ApiImplicitParam**
 
@@ -457,7 +503,7 @@ public User hey(@RequestBody User user) {
 
 > 被这个 paramType 坑过一次，当发 POST 请求的时候，当时接受的整个参数，不论用 body 还是 query，后台都会报 Body Missing 错误；这个参数貌似和 SpringMVC 中的 @RequestBody 冲突，去掉 paramType 对接口测试并没有影响
 
-
+<br>
 
 **@ApiResponses、@ApiResponse**
 
@@ -471,7 +517,7 @@ public User hey(@RequestBody User user) {
 | message  | 信息，例如 “请求参数没填好” |
 | response | 抛出异常类                  |
 
-
+<br>
 
 ### 2.3.2、实体类注解
 
@@ -483,7 +529,7 @@ public User hey(@RequestBody User user) {
 
 用在 JavaBean 的属性上面，说明属性的含义。
 
-
+<br>
 
 示例：
 
@@ -501,13 +547,13 @@ public class User {
 }
 ```
 
-
+<br>
 
 # 3、Swagger 2.0
 
 其实上面的 Swagger 3.0 已经使用了大量的 2.0 注解，所以这里主要讲与集成 3.0 的不同之处。
 
-
+<br>
 
 **pom.xml**
 
@@ -525,7 +571,7 @@ public class User {
 </dependency>
 ```
 
-
+<br>
 
 **SwaggerConfig.java**
 
@@ -542,19 +588,19 @@ public class SwaggerConfig {
 }
 ```
 
-
+<br>
 
 **访问路径**
 
 Swagger 2.0 的 Swagger UI 的访问路径为：http://localhost:8080/swagger-ui.html
 
-
+<br>
 
 # 4、禁用 Swagger
 
 除了前面提到的禁用方法，还有其他一些有意思的禁用方法。
 
-
+<br>
 
 **使用注解 @Value()**
 
@@ -573,7 +619,7 @@ public Docket docket() {
 swagger.enabled=true
 ```
 
-
+<br>
 
 **使用注解@Profile({"dev", "test"})**
 
@@ -586,7 +632,7 @@ swagger.enabled=true
 public class SwaggerConfig {}
 ```
 
-
+<br>
 
 **使用注解@ConditionalOnProperty**
 
