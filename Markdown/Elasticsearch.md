@@ -781,3 +781,136 @@ POST /products/_doc/_bulk
 ```
 
 > 批量时不会因为一个失败而全部失败，而是继续执行后续操作，在返回时按照执行的状态返回！
+
+<br>
+
+# 5、高级查询
+
+ES 中提供了一种强大的检索数据方式,这种检索方式称之为 Query DSL（Domain Specified Language>），Query DSL 是利用 Rest API 传递 JSON 格式的请求体（Request Body）数据与 ES 进行交互，这种方式的丰富查询语法让 ES 检索变得更强大，更简洁。
+
+语法：
+
+```http
+GET /索引名/_doc/_search {json格式请求体数据}
+```
+
+```http
+GET /索引名/_search {json格式请求体数据}
+```
+
+<br>
+
+准备一些测试数据：
+
+1. 创建索引、映射：
+
+   ```http
+   PUT /products
+   {
+     "mappings": {
+       "properties": {
+         "title":{
+           "type": "keyword"
+         },
+         "price":{
+           "type": "double"
+         },
+         "created_at":{
+           "type":"date"
+         },
+         "description":{
+           "type":"text"
+         }
+       }
+     }
+   }
+   ```
+
+2. 测试数据：
+
+   ```http
+   PUT /products/_doc/_bulk
+   {"index":{}}
+     {"title":"iphone12 pro","price":8999,"created_at":"2020-10-23","description":"iPhone 12 Pro采用超瓷晶面板和亚光质感玻璃背板，搭配不锈钢边框，有银色、石墨色、金色、海蓝色四种颜色。宽度:71.5毫米，高度:146.7毫米，厚度:7.4毫米，重量：187克"}
+   {"index":{}}
+     {"title":"iphone12","price":4999,"created_at":"2020-10-23","description":"iPhone 12 高度：146.7毫米；宽度：71.5毫米；厚度：7.4毫米；重量：162克（5.73盎司） [5]  。iPhone 12设计采用了离子玻璃，以及7000系列铝金属外壳。"}
+   {"index":{}}
+     {"title":"iphone13","price":6000,"created_at":"2021-09-15","description":"iPhone 13屏幕采用6.1英寸OLED屏幕；高度约146.7毫米，宽度约71.5毫米，厚度约7.65毫米，重量约173克。"}
+   {"index":{}}
+     {"title":"iphone13 pro","price":8999,"created_at":"2021-09-15","description":"iPhone 13Pro搭载A15 Bionic芯片，拥有四种配色，支持5G。有128G、256G、512G、1T可选，售价为999美元起。"}
+   ```
+
+<br>
+
+## 5.1、查询所有
+
+`match_all` 关键字：返回索引中的全部文档
+
+```http
+GET /products/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+```
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220719234152189.png" alt="image-20220719234152189" style="width:100%;" />
+</div>
+
+<br>
+
+## 5.2、关键字查询
+
+`term` 关键字：用来使用关键词查询
+
+```http
+GET /products/_search
+{
+ "query": {
+   "term": {
+     "price": {
+       "value": 4999
+     }
+   }
+ }
+}
+```
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220719234648719.png" alt="image-20220719234648719" style="width:100%;" />
+</div>
+
+> ES 中默认使用分词器为 标准分词器（StandardAnalyzer），标准分词器对于英文单词分词，对于中文单字分词。
+>
+> 在 ES 的 Mapping Type 中，keyword、date、integer、long、double、boolean 和 ip 这些类型不分词，只有 text 类型分词。
+
+<br>
+
+## 5.3、范围查询
+
+<br>
+
+## 5.4、前缀查询
+
+<br>
+
+## 5.5、通配符查询
+
+<br>
+
+## 5.6、多 id 查询
+
+<br>
+
+## 5.7、模糊查询
+
+<br>
+
+## 5.8、布尔查询
+
+<br>
+
+## 5.9、多字段查询
+
