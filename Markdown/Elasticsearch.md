@@ -865,6 +865,10 @@ GET /products/_search
 
 `term` 关键字：用来使用关键词查询
 
+> ES 中默认使用分词器为 标准分词器（StandardAnalyzer），标准分词器对于英文单词分词，对于中文单字分词。
+>
+> 在 ES 的 Mapping Type 中，keyword、date、integer、long、double、boolean 和 ip 这些类型不分词，只有 text 类型分词。
+
 ```http
 GET /products/_search
 {
@@ -881,36 +885,185 @@ GET /products/_search
 <div align="center">
     <img src="../Images/Elasticsearch/image-20220719234648719.png" alt="image-20220719234648719" style="width:100%;" />
 </div>
-
-> ES 中默认使用分词器为 标准分词器（StandardAnalyzer），标准分词器对于英文单词分词，对于中文单字分词。
->
-> 在 ES 的 Mapping Type 中，keyword、date、integer、long、double、boolean 和 ip 这些类型不分词，只有 text 类型分词。
-
 <br>
 
 ## 5.3、范围查询
+
+`range` 关键字：用来指定查询指定范围内的文档
+
+```http
+GET /products/_search
+{
+  "query": {
+    "range": {
+      "price": {
+        "gte": 1400,
+        "lte": 7000
+      }
+    }
+  }
+}
+```
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220722000537945.png" alt="image-20220722000537945" style="width:100%;" />
+</div>
 
 <br>
 
 ## 5.4、前缀查询
 
+`prefix` 关键字：用来检索含有指定前缀的关键词的相关文档
+
+```http
+GET /products/_search
+{
+  "query": {
+    "prefix": {
+      "title": {
+        "value": "iphone12"
+      }
+    }
+  }
+}
+```
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220722000733191.png" alt="image-20220722000733191" style="width:100%;" />
+</div>
+
 <br>
 
 ## 5.5、通配符查询
+
+`wildcard` 关键字：通配符查询，`?` 用来匹配一个任意字符，`*` 用来匹配多个任意字符
+
+```http
+GET /products/_search
+{
+  "query": {
+    "wildcard": {
+      "description": {
+        "value": "ole*"
+      }
+    }
+  }
+}
+```
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220722002035498.png" alt="image-20220722001822243" style="width:100%;" />
+</div>
 
 <br>
 
 ## 5.6、多 id 查询
 
+`ids` 关键字：值为数组类型，用来根据一组 id 获取多个对应的文档
+
+```http
+GET /products/_search
+{
+  "query": {
+    "ids": {
+      "values": ["r3wdF4IB3N7YJsMnBMy0","sXwdF4IB3N7YJsMnBMy0"]
+    }
+  }
+}
+```
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220722002239852.png" alt="image-20220722002239852" style="width:100%;" />
+</div>
+
 <br>
 
 ## 5.7、模糊查询
+
+`fuzzy` 关键字：用来模糊查询含有指定关键字的文档
+
+> `fuzzy` 模糊查询最大模糊错误必须在 0-2 之间
+>
+> - 搜索关键词长度为 2 不允许存在模糊
+>
+> - 搜索关键词长度为 3-5 允许一次模糊
+>
+> - 搜索关键词长度大于 5 允许最大两次模糊
+
+```http
+GET /products/_search
+{
+  "query": {
+    "fuzzy": {
+      "description": "olled"
+    }
+  }
+}
+```
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220722002527292.png" alt="image-20220722002527292" style="width:100%;" />
+</div>
 
 <br>
 
 ## 5.8、布尔查询
 
+`bool` 关键字：用来组合多个条件实现复杂查询
+
+- `must`：相当于 `&&`，同时成立
+- `should`：相当于 `||`， 成立一个就行
+- `must_not`：相当于 `!`， 不能满足任何一个
+
+```http
+GET /products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "price": {
+              "value": 4999
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220722003124196.png" alt="image-20220722003124196" style="width:100%;" />
+</div>
+
 <br>
 
 ## 5.9、多字段查询
 
+<br>
+
+## 5.10、默认字段分词查询
+
+<br>
+
+## 5.11、高亮查询
+
+<br>
+
+## 5.12、返回指定条数
+
+<br>
+
+## 5.13、分页查询
+
+<br>
+
+## 5.14、指定字段排序
+
+<br>
+
+## 5.15、返回指定字段
+
+<br>
