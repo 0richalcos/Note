@@ -844,7 +844,7 @@ GET /索引名/_search {json格式请求体数据}
 
 ## 5.1、查询所有
 
-`match_all` 关键字：返回索引中的全部文档
+`match_all` 关键字：返回索引中的全部文档。
 
 ```http
 GET /products/_search
@@ -863,7 +863,7 @@ GET /products/_search
 
 ## 5.2、关键字查询
 
-`term` 关键字：用来使用关键词查询
+`term` 关键字：用来使用关键词查询。
 
 > ES 中默认使用分词器为 标准分词器（StandardAnalyzer），标准分词器对于英文单词分词，对于中文单字分词。
 >
@@ -889,7 +889,7 @@ GET /products/_search
 
 ## 5.3、范围查询
 
-`range` 关键字：用来指定查询指定范围内的文档
+`range` 关键字：用来指定查询指定范围内的文档。
 
 ```http
 GET /products/_search
@@ -913,7 +913,7 @@ GET /products/_search
 
 ## 5.4、前缀查询
 
-`prefix` 关键字：用来检索含有指定前缀的关键词的相关文档
+`prefix` 关键字：用来检索含有指定前缀的关键词的相关文档。
 
 ```http
 GET /products/_search
@@ -936,7 +936,7 @@ GET /products/_search
 
 ## 5.5、通配符查询
 
-`wildcard` 关键字：通配符查询，`?` 用来匹配一个任意字符，`*` 用来匹配多个任意字符
+`wildcard` 关键字：通配符查询，`?` 用来匹配一个任意字符，`*` 用来匹配多个任意字符。
 
 ```http
 GET /products/_search
@@ -959,7 +959,7 @@ GET /products/_search
 
 ## 5.6、多 id 查询
 
-`ids` 关键字：值为数组类型，用来根据一组 id 获取多个对应的文档
+`ids` 关键字：值为数组类型，用来根据一组 id 获取多个对应的文档。
 
 ```http
 GET /products/_search
@@ -980,9 +980,9 @@ GET /products/_search
 
 ## 5.7、模糊查询
 
-`fuzzy` 关键字：用来模糊查询含有指定关键字的文档
+`fuzzy` 关键字：用来模糊查询含有指定关键字的文档。
 
-> `fuzzy` 模糊查询最大模糊错误必须在 0-2 之间
+> `fuzzy` 模糊查询最大模糊错误必须在 0-2 之间：
 >
 > - 搜索关键词长度为 2 不允许存在模糊
 >
@@ -1009,7 +1009,7 @@ GET /products/_search
 
 ## 5.8、布尔查询
 
-`bool` 关键字：用来组合多个条件实现复杂查询
+`bool` 关键字：用来组合多个条件实现复杂查询：
 
 - `must`：相当于 `&&`，同时成立
 - `should`：相当于 `||`， 成立一个就行
@@ -1037,33 +1037,174 @@ GET /products/_search
 <div align="center">
     <img src="../Images/Elasticsearch/image-20220722003124196.png" alt="image-20220722003124196" style="width:100%;" />
 </div>
-
 <br>
 
 ## 5.9、多字段查询
+
+`multi_match` 关键字：用于多字段查询。
+
+> 字段类型分词，将查询条件分词之后进行查询该字段；如果该字段不分词就会将查询条件作为整体进行查询。
+
+```http
+GET /products/_search
+{
+  "query": {
+    "multi_match": {
+      "query": "iphone13 毫",
+      "fields": ["title","description"]
+    }
+  }
+}
+```
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220726235523448.png" alt="image-20220726235523448" style="width:100%;" />
+</div>
 
 <br>
 
 ## 5.10、默认字段分词查询
 
+`query_string` 关键字：用于默认字段查询
+
+> 查询字段分词就将查询条件分词查询；查询字段不分词将查询条件不分词查询。
+
+```http
+GET /products/_search
+{
+  "query": {
+    "query_string": {
+      "default_field": "description",
+      "query": "屏幕真的非常不错"
+    }
+  }
+}
+```
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220727000009782.png" alt="image-20220727000009782" style="width:100%;" />
+</div>
+
 <br>
 
 ## 5.11、高亮查询
+
+`highlight` 关键字：可以让符合条件的文档中的关键词高亮。
+
+```http
+GET /products/_search
+{
+  "query": {
+    "term": {
+      "description": {
+        "value": "oled"
+      }
+    }
+  },
+  "highlight": {
+    "post_tags": ["</span>"], 
+    "pre_tags": ["<span style='color:red'>"],
+    "fields": {
+      "*":{}
+    }
+  }
+}
+```
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220727000535410.png" alt="image-20220727000535410" style="width:100%;" />
+</div>
 
 <br>
 
 ## 5.12、返回指定条数
 
+`size` 关键字：指定查询结果中返回指定条数。默认返回 10 条。
+
+```http
+GET /products/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "size": 2
+}
+```
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220727001019788.png" alt="image-20220727001019788" style="width:100%;" />
+</div>
+
 <br>
 
 ## 5.13、分页查询
+
+`form` 关键字：用来指定起始返回位置，和 `size` 关键字连用可实现分页效果。
+
+```http
+GET /products/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "size": 2,
+  "from": 0
+}
+```
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220727000655300.png" alt="image-20220727000655300" style="width:100%;" />
+</div>
 
 <br>
 
 ## 5.14、指定字段排序
 
+`sort` 关键字：用来指定排序字段和排序方式。
+
+```http
+GET /products/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "size": 2, 
+  "from": 1, 
+  "sort": [
+    {
+      "price": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+```
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220727001224927.png" alt="image-20220727001224927" style="width:100%;" />
+</div>
+
 <br>
 
 ## 5.15、返回指定字段
 
+`_source` 关键字：是一个数组，在数组中用来指定展示那些字段。
+
+```http
+GET /products/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "_source": ["title","description"]
+}
+```
+
+<div aling="center">
+    <img src="../Images/Elasticsearch/image-20220727001356990.png" alt="image-20220727001356990" style="width:100%;" />
+</div>
+
 <br>
+
+# 6、索引原理
+
