@@ -912,6 +912,78 @@ Thymeleaf 也允许我们通过 `th:*`（这里的 `*` 表示任意的布尔属�
 
 <br>
 
+**循环固定次数**
+
+输出 5 个 `<li></li>`：
+
+```html
+<ul>
+	<li th:each="index:${#numbers.sequence(1, 5)}" >
+		[(${index})]. some thing
+	</li>
+</ul>
+```
+
+输出结果：
+
+```html
+<ul>
+	<li>
+		1. some thing
+	</li>
+	<li>
+		2. some thing
+	</li>
+	<li>
+		3. some thing
+	</li>
+	<li>
+		4. some thing
+	</li>
+	<li>
+		5. some thing
+	</li>
+</ul>
+```
+
+<br>
+
+**循环次数由变量控制**
+
+输出 5 个 `<li></li>`：
+
+```html
+<ul th:with="liSize=5">
+	<li th:each="index : ${#numbers.sequence(1, liSize)}" >
+		[(${index})]. some thing
+	</li>
+</ul>
+```
+
+输出结果：
+
+```html
+<ul>
+	<li>
+		1. some thing
+	</li>
+	<li>
+		2. some thing
+	</li>
+	<li>
+		3. some thing
+	</li>
+	<li>
+		4. some thing
+	</li>
+	<li>
+		5. some thing
+	</li>
+</ul>
+```
+
+<br>
+
 # 6、条件判断
 
 条件判断语句有三种，分别是：`th:if`、`th:unless`、`th:swith`。

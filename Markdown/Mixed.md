@@ -1,4 +1,4 @@
-# Windows 10
+# Windows
 
 ## 【1】Windows默认管理员权限
 
@@ -38,7 +38,7 @@
 
 cmd 命令窗口输入 `netstat –ano`，回车。
 
-可以解决端口占用
+可以解决端口占用。
 
 <br>
 
@@ -46,9 +46,9 @@ cmd 命令窗口输入 `netstat –ano`，回车。
 
 它可以对所有的系统文件进行压缩，实现磁盘压缩，节约硬盘空间。
 
-开启：cmd命令窗口输入 `compact /compactos:always`，回车。
+开启：cmd 命令窗口输入 `compact /compactos:always`，回车。
 
-关闭：`compact /compactos:never`
+关闭：`compact /compactos:never`。
 
 <br>
 
@@ -174,8 +174,49 @@ winget install 9MSSGKG348SP
 <div align="center">
     <img src="../Images/Mixed/image-20220418233922934.png" alt="image-20220418233922934" style="width:40%;" />
 </div>
-
 当然也可以直接删除快捷方式，然后重新生成；或者在目标栏输入一个自己需要的网址（输入网址之前要加一个空格键，否则无法保存），然后将属性改为只读。
+
+<br>
+
+## 【14】使用 sc 命令控制服务
+
+`sc` 命令的语法格式：
+
+```shell
+sc <server> [command] [service name] <option1> <option2>...
+```
+
+`sc` 命令使用例子：
+
+- `sc query`：查看所有服务的运行状态。
+
+- `sc query 服务名`：查看某个服务的运行状态。
+
+- `sc qc 服务名`：查看某个服务的配置信息。
+
+- `sc start 服务名`：启动服务。
+
+- `sc stop 服务名`：停止服务。
+
+- `sc delete 服务名`：删除服务。
+
+- `sc config 服务名 start= auto|demand|disabled`：修改服务启动类型。
+
+  *start* 参数的值可以是 `demand`（手动）、`disabled`（禁用），`auto`（自动）。注意：`start=`后面有一个空格
+
+**使用提示**
+
+1. 如果服务名称中包含有空格，记得在服务名称上加引号。例如 `sc stop "my service"`。
+
+2. “服务名称” 和 “服务显示名称”  是不一样的。`sc` 指令使用的是 “服务名称”。我们在【服务】里看到是服务的显示名称，双击打开某个服务可以看到真正的服务名字。
+
+   <div align="center">
+       <img src="../Images/Mixed/image-20220728002211513.png" alt="image-20220728002211513" style="width:70%;" />
+   </div>
+
+3. `sc start` 和 `sc stop` 功能上类似于 `net start` 和 `net stop`，但速度更快且能停止的服务更多。
+
+4. `sc delete` 命令的实质都是删除 `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services` 下的 `ServiceName` 分支。所以也可以用 `reg` 命令删除名为 `ServiceName` 的服务：`reg delete HKLM\SYSTEM\CurrentControlSet\Services\ServiceName`。
 
 <br>
 
