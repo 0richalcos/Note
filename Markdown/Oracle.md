@@ -137,13 +137,124 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 <br>
 
-# 2、查询
+# 2、函数
+
+## 2.1、日期函数
+
+**获取当前日期和时间**
+
+```sql
+SYSDATE()
+```
+
+<br>
+
+**日期/时间转换为字符串函数**
+
+日期/时间转字符串函数：
+
+```sql
+TO_CHAR(dateField, 'yyyy-mm-dd hh24:mi:ss')
+```
+
+字符串转日期/时间函数：
+
+```sql
+TO_DATE("2017-04-11 06:30:01", 'yyyy-mm-dd hh24:mi:ss')
+```
+
+<br>
+
+**日期/时间增减函数**
+
+增减一小时：
+```sql
+dateField + 1/24;
+dateField - 1/24;
+```
+
+增减一天：
+
+```sql
+dateField + 1;
+dateField - 1;
+```
+
+增减一月：
+
+```sql
+ADD_MONTHS(dateField, 1);
+ADD_MONTHS(dateField, -1);
+```
+
+增减一季度：
+
+```sql
+ADD_MONTHS(dateField, 3);
+ADD_MONTHS(dateField, -3);
+```
+
+增减一年：
+
+```sql
+ADD_MONTHS(dateField, 12);
+ADD_MONTHS(dateField, -12);
+```
+
+<br>
+
+**求日期差**
+
+两个日期相差的小时、分钟、秒：
+
+```sql
+## Oracle中两个日期相差小时数
+select TO_NUMBER((TO_DATE('2021-09-22 11:22:13', 'yyyy-mm-dd hh24:mi:ss') - TO_DATE('2021-09-22 10:22:13', 'yyyy-mm-dd hh24:mi:ss'))*24)
+AS 相差小时数 from dual;
+ 
+## Oracle中两个日期相差分钟数
+select TO_NUMBER((TO_DATE('2021-09-22 11:22:13', 'yyyy-mm-dd hh24:mi:ss') - TO_DATE('2021-09-22 11:20:13', 'yyyy-mm-dd hh24:mi:ss'))*24*60)
+AS 相差分钟数 from dual;
+ 
+## Oracle中两个日期相差秒数
+select TO_NUMBER((TO_DATE('2021-09-22 11:22:13', 'yyyy-mm-dd hh24:mi:ss') - TO_DATE('2021-09-22 11:22:00', 'yyyy-mm-dd hh24:mi:ss'))*24*60*60)
+AS 相差秒数 from dual;
+```
+
+两个日期相差的天数：
+
+```sql
+## Oracle中两个日期相差天数
+select TO_NUMBER(TO_DATE('2021-10-01', 'yyyy-mm-dd hh24:mi:ss') - TO_DATE('2021-09-22', 'yyyy-mm-dd hh24:mi:ss'))
+AS 相差天数 from dual;
+```
+
+两个日期相差的月份：
+
+```sql
+## oracle两个日期的相差月数--
+## 1）月份都是最后一天，A日期 > B日期 ,返回整数
+select months_between(TO_DATE('2021-10-31', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-09-30', 'yyyy-mm-dd hh24:mi:ss'))
+As 相差月份1 from dual;
+ 
+## 2）月份都是最后一天，B日期 > A日期 ,返回负数
+select months_between(TO_DATE('2021-09-30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-10-31', 'yyyy-mm-dd hh24:mi:ss'))
+As 相差月份2 from dual;
+ 
+## 3）月份天数不一样，A日期 > B日期 ,返回带小数的数字
+select months_between(TO_DATE('2021-10-31', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-09-22', 'yyyy-mm-dd hh24:mi:ss'))
+As 相差月份3 from dual;
+```
+
+<br>
+
+# 3、查询
 
 我初学的数据库是 MySQL，由于 Oracle 也是使用 SQL 标准，这里用于记录工作中使用 Oracle 所遇到的查询问题。
 
 <br>
 
-## 2.1、对 CLOB 进行模糊查询
+## 3.1、对 CLOB 进行模糊查询
 
 在 Oracle 中多大文本数据我们没有办法使用 `LIKE` 进行查询，所以只能使用 Oracle 中的函数：
 
@@ -168,7 +279,7 @@ instr(sourceString, destString, start, appearPosition)
 
 <br>
 
-## 2.2、树形结构层级查询
+## 3.2、树形结构层级查询
 
 通常，在查询树形结构的数据时，需要使用 `START WITH...CONNECT BY PRIOR` 的方式查询。
 
@@ -227,6 +338,6 @@ CONNECT BY PRIOR DEPID = PARENTDEPID
 
 <br>
 
-## 2.3、关于 Oracle 中的 AS
+## 3.3、关于 Oracle 中的 AS
 
 在 Oracle 中 `AS` 关键字不能用于指定表的别名，在 Oracle 中指定表的别名时只需在原有表名和表的别名之间用空格分隔即可，指定列的别名的用法和 MySQL 相同，但在存储过程中如果列的别名与原有列名相同，在运行时会报错（编译时不会出错），其他情况下列的别名可以与列名本身相同。

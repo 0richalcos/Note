@@ -42,7 +42,7 @@ cmd 命令窗口输入 `netstat –ano`，回车。
 
 <br>
 
-## 【5】Compact 压缩功能命令
+## 【5】compact 压缩功能命令
 
 它可以对所有的系统文件进行压缩，实现磁盘压缩，节约硬盘空间。
 
@@ -132,6 +132,10 @@ Host *
 <div align="center">
     <img src="../Images/Mixed/image-20210806112305321.png" alt="image-20210806112305321" style="width:80%;" />
 </div>
+> 可以直接通过卸载 Windows Terminal（Windows 终端）这个软件来解决这个问题，删除注册表是为了解决 需要使用 Windows 终端但是又觉得右键菜单 “Open in Terminal...” 太长而影响美观的问题。
+>
+> 在新版的 Win11 中，该内容已被汉化为 “在终端中打开”。
+
 <br>
 
 ## 【11】关闭系统小组件
@@ -216,6 +220,14 @@ sc <server> [command] [service name] <option1> <option2>...
 3. `sc start` 和 `sc stop` 功能上类似于 `net start` 和 `net stop`，但速度更快且能停止的服务更多。
 
 4. `sc delete` 命令的实质都是删除 `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services` 下的 `ServiceName` 分支。所以也可以用 `reg` 命令删除名为 `ServiceName` 的服务：`reg delete HKLM\SYSTEM\CurrentControlSet\Services\ServiceName`。
+
+<br>
+
+## 【15】mstsc 远程连接计算机
+
+远程桌面的命令行指令 `mstsc`，它的意思是 Microsoft Terminal Server Connection（微软终端服务器连接）的缩写。
+
+使用 Windows + R 快捷键呼出运行窗口，在输入框输入 `mstsc` 命令即可使用远程连接功能，输入远程电脑的 IP、用户名、密码即可远程访问。
 
 <br>
 
