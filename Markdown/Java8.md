@@ -24,21 +24,25 @@ public class Test {
     <img src="../Images/Java8/5-191119163Sb30.png" alt="Java 7 运行结果" style="width:35%;" />
 </div>
 
+
 可以看到在 Java 7 中出现代码错误，提示我们必须显式的声明这个变量为 `final` 的（`run()` 方法中代码为输出 *name* 语句，即`System.out.println(name);`）。
 
 <div align="center">
     <img src="../Images/Java8/5-191119164126217.png" alt="img" style="width:35%;" />
 </div>
 
+
 <div align="center">
     <img src="../Images/Java8/5-191119164142109.png" alt="img" style="width:35%;" />
 </div>
 
-因为系统会默认添加 `final` 修饰符，所以在图 2 和图 3 中可以在匿名内部类中直接使用非 `final` 变量，而 `final` 修饰的局部变量不能在被重新赋值，所以图 3 中出现编译错误。也就是说从 Java 8 开始，它不要求程序员必须将访问的局部变量显式的声明为 `final` 的。只要该变量不被重新赋值就可以。
+因为从 Java 8 开始系统会默认添加 `final` 修饰符，所以在图 2 和图 3 中可以在匿名内部类中直接使用非 `final` 变量，而 `final` 修饰的局部变量不能在被重新赋值，所以图 3 中出现编译错误。
+
+也就是说从 Java 8 开始，它不要求程序员必须将访问的局部变量显式的声明为 `final` 的。只要该变量不被重新赋值就可以。
 
 一个非 `final` 的局部变量或方法参数，其值在初始化后就从未更改，那么该变量就是 effectively final。在 Lambda 表达式中，使用局部变量的时候，也要求该变量必须是 `final` 的，所以 effectively final 在 Lambda 表达式上下文中非常有用。
 
-Lambda 表达式在编程中是经常使用的，而匿名内部类是很少使用的。那么，我们在 Lambda 编程中每一个被使用到的局部变量都去显示定义成 `final` 吗？显然这不是一个好方法。所以，Java 8 引入了 effectively final 新概念。
+Lambda 表达式在编程中是经常使用的，而匿名内部类是很少使用的。那么，我们在 Lambda 编程中每一个被使用到的局部变量都去显示定义成 `final` 吗？显然这不是一个好方法。所以，Java 8 引入了 Effectively final 新概念。
 
 总结一下，规则没有改变，Lambda 表达式和匿名内部类访问的局部变量必须是 `final` 的，只是不需要程序员显式的声明变量为 `final` 的，从而节省时间。
 
@@ -190,35 +194,7 @@ Lambda 表达式标准语法形式如下：
 
 <br>
 
-## 2.1、函数式接口
-
-Lambda 表达式实现的接口不是普通的接口，而是**函数式接口**。如果一个接口中，有且只有一个抽象的方法（Object 类中的方法不包括在内），那这个接口就可以被看做是函数式接口。这种接口只能有一个方法。如果接口中声明多个抽象方法，那么 Lambda 表达式会发生编译错误：
-
-```
-The target type of this expression must be a functional interface
-//此表达式的目标类型必须是函数接口
-```
-
-这说明该接口不是函数式接口，为了防止在函数式接口中声明多个抽象方法，Java 8 提供了一个声明函数式接口注解 `@FunctionalInterface`，示例代码如下：
-
-```java
-// 可计算接口
-@FunctionalInterface
-public interface Calculable {
-    // 计算两个int数值
-    int calculateInt(int a, int b);
-}
-```
-
-在接口之前使用 `@FunctionalInterface` 注解修饰，那么试图增加一个抽象方法时会发生编译错误。但可以添加默认方法和静态方法。
-
-`@FunctionalInterface` 注解与 `@Override` 注解的作用类似。Java 8 中专门为函数式接口引入了一个新的注解 `@FunctionalInterface`。该注解可用于一个接口的定义上，一旦使用该注解来定义接口，编译器将会强制检查该接口是否确实有且仅有一个抽象方法，否则将会报错。需要注意的是，即使不使用该注解，只要满足函数式接口的定义，这仍然是一个函数式接口，使用起来都一样。
-
-> 提示：Lambda 表达式是一个匿名方法代码，Java 中的方法必须声明在类或接口中，那么 Lambda 表达式所实现的匿名方法是在函数式接口中声明的。
-
-<br>
-
-## 2.2、Lambda 的简写方式
+## 2.1、Lambda 的简写方式
 
 使用 Lambda 表达式是为了简化程序代码，Lambda 表达式本身也提供了多种简化形式，这些简化形式虽然简化了代码，但客观上使得代码可读性变差。
 
@@ -333,7 +309,7 @@ public static Calculable calculate(int power) {
 
 <br>
 
-## 2.3、Lambda 的使用
+## 2.2、Lambda 的使用
 
 **作为参数使用 Lambda 表达式**
 
@@ -453,7 +429,105 @@ Lambda 表达式只能访问局部变量而不能修改，否则会发生编译�
 
 <br>
 
-**方法引用**
+## 2.3、Lambda 与匿名内部类的联系和区别
+
+Java Lambda 表达式的一个重要用法是简化某些匿名内部类的写法，因此它可以部分取代匿名内部类的作用。
+
+Lambda 表达式与匿名内部类的相同点如下：
+
+- Lambda 表达式与匿名内部类一样，都可以直接访问 Effectively final 的局部变量，以及外部类的成员变量（包括实例变量和类变量）。
+- Lambda 表达式创建的对象与匿名内部类生成的对象一样，都可以直接调用从接口中继承的默认方法。
+
+下面程序示范了 Lambda 表达式与匿名内部类的相似之处。
+
+```java
+@FunctionalInterface
+interface Displayable {
+    // 定义一个抽象方法和默认方法
+    void display();
+    
+    default int add(int a, int b) {
+        return a + b;
+    }
+}
+
+public class LambdaAndInner {
+    private int age = 12;
+    private static String name = "C语言中文网";
+    
+    public void test() {
+        String url = "http://c.biancheng.net/";
+        Displayable dis = () -> {
+            // 访问的局部变量
+            System.out.println("url 局部变量为:" + url);
+            // 访问外部类的实例变量和类变量
+            System.out.println("外部类的 age 实例变量为：" + age);
+            System.out.println("外部类的 name 类变量为：" + name);
+        };
+        dis.display();
+        // 调用dis对象从接口中继承的add()方法
+        System.out.println(dis.add(3, 5)); 
+    }
+    
+    public static void main(String[] args) {
+        LambdaAndInner lambda = new LambdaAndInner();
+        lambda.test();
+    }
+}
+```
+
+输出结果为：
+
+```
+url 局部变量为：http://c.biancheng.net/
+外部类的 age 实例变量为：12
+外部类的 name 类变量为：C语言中文网
+8
+```
+
+上面程序使用 Lambda 表达式创建了一个 Displayable 的对象，Lambda 表达式的代码块中的代码第 19、21 和 22 行分别示范了访问 Effectively final 的局部变量、外部类的实例变量和类变量。从这点来看， Lambda 表达式的代码块与匿名内部类的方法体是相同的。
+
+与匿名内部类相似的是，由于 Lambda 表达式访问了 *url* 局部变量，因此该局部变量相当于有一个隐式的 `final` 修饰，因此同样不允许对 `url` 局部变量重新赋值。
+
+当程序使用 Lambda 表达式创建了 Displayable 的对象之后，该对象不仅可调用接口中唯一的抽象方法，也可调用接口中的默认方法，如上面程序代码第 26 行所示。
+
+Lambda 表达式与匿名内部类主要存在如下区别。
+
+- 匿名内部类可以为任意接口创建实例——不管接口包含多少个抽象方法，只要匿名内部类实现所有的抽象方法即可；但 Lambda 表达式只能为函数式接口创建实例。
+- 匿名内部类可以为抽象类甚至普通类创建实例；但 Lambda 表达式只能为函数式接口创建实例。
+- 匿名内部类实现的抽象方法的方法体允许调用接口中定义的默认方法；但 Lambda 表达式的代码块不允许调用接口中定义的默认方法。
+
+对于 Lambda 表达式的代码块不允许调用接口中定义的默认方法的限制，可以尝试对上面的 LambdaAndInner.java 程序稍做修改，在 Lambda 表达式的代码块中增加如下一行：
+
+```java
+// 尝试调用接口中的默认方法，编译器会报错
+System.out.println(add(3, 5));
+```
+
+虽然 Lambda 表达式的目标类型 Displayable 中包含了 `add()` 方法，但 Lambda 表达式的代码块不允许调用这个方法；如果将上面的 Lambda 表达式改为匿名内部类的写法，当匿名内部类实现 `display()` 抽象方法时，则完全可以调用这个 `add()` 方法，如下面代码所示。
+
+```java
+public void test() {
+    String url = "http://c.biancheng.net/";
+    Displayable dis = new Displayable() {
+        
+        @Override
+        public void display() {
+            // 访问的局部变量
+            System.out.println("url 局部变量为:" + url);
+            // 访问外部类的实例变量和类变量
+            System.out.println("外部类的 age 实例变量为：" + age);
+            System.out.println("外部类的 name 类变量为：" + name);
+            System.out.println(add(3, 5));
+        }
+    };
+    dis.display();
+}
+```
+
+<br>
+
+# 3、方法引用
 
 方法引用可以理解为 Lambda 表达式的快捷写法，它比 Lambda 表达式更加的简洁，可读性更高，有很好的重用性。如果实现比较简单，复用的地方又不多，推荐使用 Lambda 表达式，否则应该使用方法引用。
 
@@ -516,105 +590,100 @@ public class HelloWorld {
 
 <br>
 
-## 2.4、Lambda 与匿名内部类的联系和区别
+# 4、函数式接口
 
-Java Lambda 表达式的一个重要用法是简化某些匿名内部类的写法，因此它可以部分取代匿名内部类的作用。
+Lambda 表达式实现的接口不是普通的接口，而是**函数式接口**。如果一个接口中，有且只有一个抽象的方法（Object 类中的方法不包括在内），那这个接口就可以被看做是函数式接口。这种接口只能有一个方法。如果接口中声明多个抽象方法，那么 Lambda 表达式会发生编译错误：
 
-Lambda 表达式与匿名内部类的相同点如下：
+```
+The target type of this expression must be a functional interface
+//此表达式的目标类型必须是函数接口
+```
 
-- Lambda 表达式与匿名内部类一样，都可以直接访问 effectively final 的局部变量，以及外部类的成员变量（包括实例变量和类变量）。
-- Lambda 表达式创建的对象与匿名内部类生成的对象一样，都可以直接调用从接口中继承的默认方法。
-
-下面程序示范了 Lambda 表达式与匿名内部类的相似之处。
+这说明该接口不是函数式接口，为了防止在函数式接口中声明多个抽象方法，Java 8 提供了一个声明函数式接口注解 `@FunctionalInterface`，示例代码如下：
 
 ```java
+// 可计算接口
 @FunctionalInterface
-interface Displayable {
-    // 定义一个抽象方法和默认方法
-    void display();
-    
-    default int add(int a, int b) {
-        return a + b;
-    }
-}
-
-public class LambdaAndInner {
-    private int age = 12;
-    private static String name = "C语言中文网";
-    
-    public void test() {
-        String url = "http://c.biancheng.net/";
-        Displayable dis = () -> {
-            // 访问的局部变量
-            System.out.println("url 局部变量为:" + url);
-            // 访问外部类的实例变量和类变量
-            System.out.println("外部类的 age 实例变量为：" + age);
-            System.out.println("外部类的 name 类变量为：" + name);
-        };
-        dis.display();
-        // 调用dis对象从接口中继承的add()方法
-        System.out.println(dis.add(3, 5)); 
-    }
-    
-    public static void main(String[] args) {
-        LambdaAndInner lambda = new LambdaAndInner();
-        lambda.test();
-    }
+public interface Calculable {
+    // 计算两个int数值
+    int calculateInt(int a, int b);
 }
 ```
 
-输出结果为：
+在接口之前使用 `@FunctionalInterface` 注解修饰，那么试图增加一个抽象方法时会发生编译错误。但可以添加默认方法和静态方法。
 
-```
-url 局部变量为：http://c.biancheng.net/
-外部类的 age 实例变量为：12
-外部类的 name 类变量为：C语言中文网
-8
-```
+`@FunctionalInterface` 注解与 `@Override` 注解的作用类似。Java 8 中专门为函数式接口引入了一个新的注解 `@FunctionalInterface`。该注解可用于一个接口的定义上，一旦使用该注解来定义接口，编译器将会强制检查该接口是否确实有且仅有一个抽象方法，否则将会报错。需要注意的是，即使不使用该注解，只要满足函数式接口的定义，这仍然是一个函数式接口，使用起来都一样。
 
-上面程序使用 Lambda 表达式创建了一个 Displayable 的对象，Lambda 表达式的代码块中的代码第 19、21 和 22 行分别示范了访问 effectively final 的局部变量、外部类的实例变量和类变量。从这点来看， Lambda 表达式的代码块与匿名内部类的方法体是相同的。
+> 提示：Lambda 表达式是一个匿名方法代码，Java 中的方法必须声明在类或接口中，那么 Lambda 表达式所实现的匿名方法是在函数式接口中声明的。
 
-与匿名内部类相似的是，由于 Lambda 表达式访问了 *url* 局部变量，因此该局部变量相当于有一个隐式的 `final` 修饰，因此同样不允许对 `url` 局部变量重新赋值。
+JDK 1.8 之前已有的函数式接口：
 
-当程序使用 Lambda 表达式创建了 Displayable 的对象之后，该对象不仅可调用接口中唯一的抽象方法，也可调用接口中的默认方法，如上面程序代码第 26 行所示。
+- java.lang.Runnable
+- java.util.concurrent.Callable
+- java.security.PrivilegedAction
+- java.util.Comparator
+- java.io.FileFilter
+- java.nio.file.PathMatcher
+- java.lang.reflect.InvocationHandler
+- java.beans.PropertyChangeListener
+- java.awt.event.ActionListener
+- javax.swing.event.ChangeListener
 
-Lambda 表达式与匿名内部类主要存在如下区别。
+JDK 1.8 新增加的函数接口：
 
-- 匿名内部类可以为任意接口创建实例——不管接口包含多少个抽象方法，只要匿名内部类实现所有的抽象方法即可；但 Lambda 表达式只能为函数式接口创建实例。
-- 匿名内部类可以为抽象类甚至普通类创建实例；但 Lambda 表达式只能为函数式接口创建实例。
-- 匿名内部类实现的抽象方法的方法体允许调用接口中定义的默认方法；但 Lambda 表达式的代码块不允许调用接口中定义的默认方法。
+- java.util.function
 
-对于 Lambda 表达式的代码块不允许调用接口中定义的默认方法的限制，可以尝试对上面的 LambdaAndInner.java 程序稍做修改，在 Lambda 表达式的代码块中增加如下一行：
+java.util.function 它包含了很多类，用来支持 Java的函数式编程，该包中的函数式接口有：
 
-```java
-// 尝试调用接口中的默认方法，编译器会报错
-System.out.println(add(3, 5));
-```
-
-虽然 Lambda 表达式的目标类型 Displayable 中包含了 `add()` 方法，但 Lambda 表达式的代码块不允许调用这个方法；如果将上面的 Lambda 表达式改为匿名内部类的写法，当匿名内部类实现 `display()` 抽象方法时，则完全可以调用这个 `add()` 方法，如下面代码所示。
-
-```java
-public void test() {
-    String url = "http://c.biancheng.net/";
-    Displayable dis = new Displayable() {
-        
-        @Override
-        public void display() {
-            // 访问的局部变量
-            System.out.println("url 局部变量为:" + url);
-            // 访问外部类的实例变量和类变量
-            System.out.println("外部类的 age 实例变量为：" + age);
-            System.out.println("外部类的 name 类变量为：" + name);
-            System.out.println(add(3, 5));
-        }
-    };
-    dis.display();
-}
-```
+| 接口                      | 描述                                                         |
+| ------------------------- | ------------------------------------------------------------ |
+| `BiConsumer<T,U>`         | 代表了一个接受两个输入参数的操作，并且不返回任何结果。       |
+| `BiFunction<T,U,R>`       | 代表了一个接受两个输入参数的方法，并且返回一个结果。         |
+| `BinaryOperator<T>`       | 代表了一个作用于于两个同类型操作符的操作，并且返回了操作符同类型的结果。 |
+| `BiPredicate<T,U>`        | 代表了一个两个参数的 boolean 值方法。                        |
+| `BooleanSupplier`         | 代表了 boolean 值结果的提供方。                              |
+| `Consumer<T>`             | 代表了接受一个输入参数并且无返回的操作。                     |
+| `DoubleBinaryOperator`    | 代表了作用于两个 double 值操作符的操作，并且返回了一个 double 值的结果。 |
+| `DoubleConsumer`          | 代表一个接受 double 值参数的操作，并且不返回结果。           |
+| `DoubleFunction<R>`       | 代表接受一个 double 值参数的方法，并且返回结果。             |
+| `DoublePredicate`         | 代表一个拥有 double 值参数的 boolean 值方法。                |
+| `DoubleSupplier`          | 代表一个 double 值结构的提供方。                             |
+| `DoubleToIntFunction`     | 接受一个 double 类型输入，返回一个 int 类型结果。            |
+| `DoubleToLongFunction`    | 接受一个 double 类型输入，返回一个 long 类型结果。           |
+| `DoubleUnaryOperator`     | 接受一个参数同为类型 double，返回值类型也为 double 。        |
+| `Function<T,R>`           | 接受一个输入参数，返回一个结果。                             |
+| `IntBinaryOperator`       | 接受两个参数同为类型 int，返回值类型也为 int 。              |
+| `IntConsumer`             | 接受一个 int 类型的输入参数，无返回值 。                     |
+| `IntFunction<R>`          | 接受一个 int 类型输入参数，返回一个结果 。                   |
+| `IntPredicate`            | 接受一个 int 输入参数，返回一个 boolean 值的结果。           |
+| `IntSupplier`             | 无参数，返回一个 int 类型结果。                              |
+| `	IntToDoubleFunction` | 接受一个 int 类型输入，返回一个 double 类型结果 。           |
+| `IntToLongFunction`       | 接受一个 int 类型输入，返回一个 long 类型结果。              |
+| `IntUnaryOperator`        | 接受一个参数同为类型 int，返回值类型也为 int 。              |
+| `LongBinaryOperator`      | 接受两个参数同为类型 long，返回值类型也为 long。             |
+| `LongConsumer`            | 接受一个 long 类型的输入参数，无返回值。                     |
+| `LongFunction<R>`         | 接受一个 long 类型输入参数，返回一个结果。                   |
+| `LongPredicate`           | 接受一个 long 输入参数，返回一个布尔值类型结果。             |
+| `LongSupplier`            | 无参数，返回一个 long 类型结果。                             |
+| `LongToDoubleFunction`    | 接受一个 long 类型输入，返回一个 double 类型结果。           |
+| `LongToIntFunction`       | 接受一个 long 类型输入，返回一个 int 类型结果。              |
+| `LongUnaryOperator`       | 接受一个参数同为类型 long，返回值类型也为 long。             |
+| `ObjDoubleConsumer<T>`    | 接受一个 object 类型和一个 double 类型的输入参数，无返回值。 |
+| `	ObjIntConsumer<T>`   | 接受一个 object 类型和一个 int 类型的输入参数，无返回值。    |
+| `ObjLongConsumer<T>`      | 接受一个 object 类型和一个 long 类型的输入参数，无返回值。   |
+| `Predicate<T>`            | 接受一个输入参数，返回一个布尔值结果。                       |
+| `Supplier<T>`             | 无参数，返回一个结果。                                       |
+| `ToDoubleBiFunction<T,U>` | 接受两个输入参数，返回一个 double 类型结果。                 |
+| `ToDoubleFunction<T>`     | 接受一个输入参数，返回一个 double 类型结果。                 |
+| `ToIntBiFunction<T,U>`    | 接受两个输入参数，返回一个 int 类型结果。                    |
+| `ToIntFunction<T>`        | 接受一个输入参数，返回一个 int 类型结果。                    |
+| `ToLongBiFunction<T,U>`   | 接受两个输入参数，返回一个 long 类型结果。                   |
+| `ToLongFunction<T>`       | 接受一个输入参数，返回一个 long 类型结果。                   |
+| `UnaryOperator<T>`        | 接受一个参数为类型 T，返回值类型也为 T。                     |
 
 <br>
 
-# 3、新的日期和时间 API
+# 5、新的日期和时间 API
 
 在 Java 8 之前，所有关于日期和时间的 API 都存在各种使用方面的缺陷，主要有：
 
@@ -626,7 +695,7 @@ public void test() {
 
 <br>
 
-## 3.1、Instant 
+## 5.1、Instant 
 
 `Instant` 实例表示时间线上的一个点。 参考点是标准的 Java 纪元（epoch），即1970-01-01 T00：00：00Z（1970 年 1 月 1 日 00:00 GMT）。 `Instant` 类的 `EPOCH` 属性返回表示 Java 纪元的 `Instant` 实例。 在纪元之后的时间是正值，而在此之前的时间即是负值。
 
@@ -657,7 +726,7 @@ public static void main(String[] args) {
 
 <br>
 
-## 3.2、LocalDate
+## 5.2、LocalDate
 
 `LocalDate` 类只包括日期没有时间的部分。 它也没有时区。下表显示了 `LocalDate` 中一些重要的方法：
 
@@ -742,7 +811,7 @@ LocalDate pastDate = LocalDate.now().minus(2, ChronoUnit.DECADES);
 
 <br>
 
-## 3.3、Period
+## 5.3、Period
 
 `Period` 类基于日期的时间数量构建，例如五天、一周或三年。 下面列出了一些重要的方法：
 
@@ -820,7 +889,7 @@ Between 1978-08-26 and 1988-09-28 there are 10 years, 1 months and 2 days
 
 <br>
 
-## 3.4、LocalDateTime
+## 5.4、LocalDateTime
 
 `LocalDateTime` 类是一个没有时区的日期时间的构建。 下表显示了 `LocalDateTime` 中一些重要的方法。 这些方法类似于 `LocalDate` 的方法，以及用于修改时间部分的一些其他方法，例如在 `LocalDate` 中不可用的 `plusHours()`、`plusMinutes()` 和 `plusSeconds()`：
 
@@ -875,7 +944,7 @@ LocalDateTime sameTimeTomorrow = now.plusHours(24);
 
 <br>
 
-## 3.5、Time Zones
+## 5.5、Time Zones
 
 互联网数字分配机构（IANA）维护一个可从此网页下载的[时区数据库](http://www.iana.org/time-zones)。
 
@@ -937,7 +1006,7 @@ US/Pacific
 
 <br>
 
-## 3.6、ZonedDateTime
+## 5.6、ZonedDateTime
 
 `ZonedDateTime` 类以一个时区的日期时间的构建。例如，以下是一个时区的日期时间:
 
@@ -988,7 +1057,7 @@ ZonedDateTime threeDaysEarlier = now.minusDays(3);
 
 <br>
 
-## 3.7、Duration
+## 5.7、Duration
 
 `Duration` 类是基于时间的持续时间的构建。 它与 `Period` 类似，不同之处在于 `Duration` 的时间分量为纳秒精度，并考虑了`ZonedDateTime` 实例之间的时区。 下表显示了 `Duration` 中重要的方法：
 
@@ -1115,7 +1184,7 @@ Travel time 2: 22 hours
 
 <br>
 
-## 3.8、DateTimeFormatter
+## 5.8、DateTimeFormatter
 
 新的日期 API 中提供了一个`DateTimeFormatter` 类用于处理日期格式化操作，它被包含在 `java.time.format` 包中，Java 8 的日期类有一个 `format()` 方法用于将日期格式化为字符串，该方法接收一个 `DateTimeFormatter` 类型参数：
 
@@ -1157,7 +1226,7 @@ LocalDateTime localDateTime = LocalDateTime.ofInstant(new Date().toInstant(), zo
 
 <br>
 
-# 4、默认方法
+# 6、默认方法
 
 Java 8 新增了接口的默认方法。
 
@@ -1219,7 +1288,7 @@ public class Car implements Vehicle, FourWheeler {
 
 <br>
 
-## 4.1、静态默认方法
+## 6.1、静态默认方法
 
 Java 8 的另一个特性是接口可以声明（并且可以提供实现）静态方法。例如：
 
@@ -1237,7 +1306,7 @@ public interface Vehicle {
 
 <br>
 
-## 4.2、默认方法实例
+## 6.2、默认方法实例
 
 可以通过以下代码来了解关于默认方法的使用，可以将代码放入 Java8Tester.java 文件中：
 
@@ -1288,7 +1357,7 @@ $ java Java8Tester
 
 <br>
 
-# 5、Base64
+# 7、Base64
 
 在 Java 8 中，Base64 编码已经成为 Java 类库的标准。
 
@@ -1302,7 +1371,7 @@ Base64 工具类提供了一套静态方法获取下面三种 BASE64 编解码�
 
 <br>
 
-## 5.1、内嵌类
+## 7.1、内嵌类
 
 | 序号 | 内嵌类 & 描述                                                |
 | :--- | :----------------------------------------------------------- |
@@ -1311,7 +1380,7 @@ Base64 工具类提供了一套静态方法获取下面三种 BASE64 编解码�
 
 <br>
 
-## 5.2、方法
+## 7.2、方法
 
 | 序号 | 方法名 & 描述                                                |
 | :--- | :----------------------------------------------------------- |
@@ -1327,7 +1396,7 @@ Base64 工具类提供了一套静态方法获取下面三种 BASE64 编解码�
 
 <br>
 
-## 5.3、Base64 实例
+## 7.3、Base64 实例
 
 以下实例演示了 Base64 的使用：
 
@@ -1386,7 +1455,7 @@ LWEzMWItYjk3MmEwZTYyNTdk
 
 <br>
 
-# 6、Optional 类
+# 8、Optional 类
 
 Optional 类是一个可以为 `null` 的容器对象。如果值存在则 `isPresent()` 方法会返回 `true`，调用 `get()` 方法会返回该对象。
 
@@ -1396,7 +1465,7 @@ Optional 类的引入很好的解决空指针异常。
 
 <br>
 
-## 6.1、类声明
+## 8.1、Optional 声明
 
 以下是一个 `java.util.Optional<T>` 类的声明：
 
@@ -1406,24 +1475,78 @@ public final class Optional<T> extends Object
 
 <br>
 
-## 6.2、类方法
+## 8.2、Optional 方法
 
 | 方法                                                         | 描述                                                         |
 | :----------------------------------------------------------- | ------------------------------------------------------------ |
 | `static <T> Optional<T> empty()`                             | 返回空的 Optional 实例。                                     |
 | `boolean equals(Object obj)`                                 | 判断其他对象是否等于 Optional。                              |
-| `Optional<T> filter(Predicate<? super <T> predicate)`        | 如果值存在，并且这个值匹配给定的 predicate，返回一个Optional 用以描述这个值，否则返回一个空的 Optional。 |
-| `<U> Optional<U> flatMap(Function<? super T,Optional<U>> mapper)` | 如果值存在，返回基于 Optional 包含的映射方法的值，否则返回一个空的 Optional |
-| `T get()`                                                    | 如果在这个 Optional 中包含这个值，返回值，否则抛出异常：NoSuchElementException |
-| `int hashCode()`                                             | 返回存在值的哈希码，如果值不存在 返回 0。                    |
-| `void ifPresent(Consumer<? super T> consumer)`               | 如果值存在则使用该值调用 consumer , 否则不做任何事情。       |
-| `boolean isPresent()`                                        | 如果值存在则方法会返回 true，否则返回 false。                |
-| `<U>Optional<U> map(Function<? super T,? extends U> mapper)` | 如果有值，则对其执行调用映射函数得到返回值。如果返回值不为 null，则创建包含映射返回值的Optional作为map方法返回值，否则返回空Optional。 |
-| `static <T> Optional<T> of(T value)`                         | 返回一个指定非null值的Optional。                             |
+| `Optional<T> filter(Predicate<? super T> predicate)`         | 如果值存在，并且这个值匹配给定的 *predicate*，返回一个Optional 用以描述这个值，否则返回一个空的 Optional。 |
+| `<U> Optional<U> flatMap(Function<? super T, Optional<U>> mapper)` | 如果值存在，返回基于 Optional 包含的映射方法的值，否则返回一个空的 Optional。 |
+| `T get()`                                                    | 如果在这个 Optional 中包含这个值，返回值，否则抛出异常：NoSuchElementException。 |
+| `int hashCode()`                                             | 返回存在值的哈希码，如果值不存在则返回 `0`。                 |
+| `void ifPresent(Consumer<? super T> consumer)`               | 如果值存在则使用该值调用 *consumer*，否则不做任何事情。      |
+| `boolean isPresent()`                                        | 如果值存在则方法会返回 `true`，否则返回 `false`。            |
+| `<U>Optional<U> map(Function<? super T, ? extends U> mapper)` | 如果有值，则对其执行调用映射函数得到返回值。如果返回值不为 `null`，则创建包含映射返回值的 Optional 作为 `map` 方法返回值，否则返回空 Optional。 |
+| `static <T> Optional<T> of(T value)`                         | 返回一个指定非 `null` 值的 Optional。                        |
 | `static <T> Optional<T> ofNullable(T value)`                 | 如果为非空，返回 Optional 描述的指定值，否则返回空的 Optional。 |
-| `T orElse(T other)`                                          | 如果存在该值，返回值， 否则返回 other。                      |
-| `T orElseGet(Supplier<? extends T> other)`                   | 如果存在该值，返回值， 否则触发 other，并返回 other 调用的结果。 |
+| `T orElse(T other)`                                          | 如果存在该值，返回值， 否则返回 *other*。                    |
+| `T orElseGet(Supplier<? extends T> other)`                   | 如果存在该值，返回值， 否则触发 *other*，并返回 *other* 调用的结果。 |
 | `<X extends Throwable> T orElseThrow(Supplier<? extends X> exceptionSupplier)` | 如果存在该值，返回包含的值，否则抛出由 Supplier 继承的异常   |
-| `String toString()`                                          | 返回一个Optional的非空字符串，用来调试                       |
+| `String toString()`                                          | 返回一个 Optional 的非空字符串，用来调试                     |
 
-> 注意： 这些方法是从 **java.lang.Object** 类继承来的。
+> 注意： 这些方法是从 `java.lang.Object` 类继承来的。
+
+<br>
+
+## 8.3、Optional 实例
+
+```java
+import java.util.Optional;
+ 
+public class Java8Tester {
+   public static void main(String args[]){
+   
+      Java8Tester java8Tester = new Java8Tester();
+      Integer value1 = null;
+      Integer value2 = new Integer(10);
+        
+      // Optional.ofNullable - 允许传递为 null 参数
+      Optional<Integer> a = Optional.ofNullable(value1);
+        
+      // Optional.of - 如果传递的参数是 null，抛出异常 NullPointerException
+      Optional<Integer> b = Optional.of(value2);
+      System.out.println(java8Tester.sum(a,b));
+   }
+    
+   public Integer sum(Optional<Integer> a, Optional<Integer> b){
+    
+      // Optional.isPresent - 判断值是否存在
+        
+      System.out.println("第一个参数值存在: " + a.isPresent());
+      System.out.println("第二个参数值存在: " + b.isPresent());
+        
+      // Optional.orElse - 如果值存在，返回它，否则返回默认值
+      Integer value1 = a.orElse(new Integer(0));
+        
+      //Optional.get - 获取值，值需要存在
+      Integer value2 = b.get();
+      return value1 + value2;
+   }
+}
+```
+
+执行以上脚本，输出结果为：
+
+```
+$ javac Java8Tester.java 
+$ java Java8Tester
+第一个参数值存在: false
+第二个参数值存在: true
+10
+```
+
+<br>
+
+# 9、Stream
+
