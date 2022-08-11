@@ -633,52 +633,680 @@ JDK 1.8 新增加的函数接口：
 
 - java.util.function
 
-java.util.function 它包含了很多类，用来支持 Java的函数式编程，该包中的函数式接口有：
+<br>
+
+## 4.1、常用函数式接口
+
+这里只介绍最基础的函数式接口，至于它的变体只要明白了基础自然就能够明白。
+
+<br>
+
+### 4.1.1、`Consumer<T>`
+
+**`Consumer<T>`：消费型接口**
+
+```java
+/**
+ * Represents an operation that accepts a single input argument and returns no
+ * result. Unlike most other functional interfaces, {@code Consumer} is expected
+ * to operate via side-effects.
+ *
+ * <p>This is a <a href="package-summary.html">functional interface</a>
+ * whose functional method is {@link #accept(Object)}.
+ *
+ * @param <T> the type of the input to the operation
+ *
+ * @since 1.8
+ */
+@FunctionalInterface
+public interface Consumer<T> {
+
+    /**
+     * Performs this operation on the given argument.
+     *
+     * @param t the input argument
+     */
+    void accept(T t);
+
+    /**
+     * Returns a composed {@code Consumer} that performs, in sequence, this
+     * operation followed by the {@code after} operation. If performing either
+     * operation throws an exception, it is relayed to the caller of the
+     * composed operation.  If performing this operation throws an exception,
+     * the {@code after} operation will not be performed.
+     *
+     * @param after the operation to perform after this operation
+     * @return a composed {@code Consumer} that performs in sequence this
+     * operation followed by the {@code after} operation
+     * @throws NullPointerException if {@code after} is null
+     */
+    default Consumer<T> andThen(Consumer<? super T> after) {
+        Objects.requireNonNull(after);
+        return (T t) -> { accept(t); after.accept(t); };
+    }
+}
+```
+
+<br>
+
+**抽象方法：**`void accept(T t)`
+
+接收一个参数进行消费，但无需返回结果。
+
+**使用方式：**
+
+```java
+Consumer consumer = System.out::println;
+consumer.accept("hello function");
+```
+
+**结果：**
+
+```
+hello function
+```
+
+<br>
+
+**默认方法：** `andThen(Consumer<? super T> after)`
+
+先消费然后再消费，先执行调用 `andThen` 接口的 `accept` 方法，然后再执行 `andThen` 方法参数 *after* 中的 `accept` 方法。
+
+**使用方式：**
+
+```java
+Consumer<String> consumer1 = s -> System.out.print("车名：" + s.split(",")[0]);
+Consumer<String> consumer2 = s -> System.out.println("-->颜色：" + s.split(",")[1]);
+String[] strings = {"保时捷,白色", "法拉利,红色"};
+for (String string : strings) {
+    consumer1.andThen(consumer2).accept(string);
+}
+```
+
+**结果：**
+
+```
+车名：保时捷-->颜色：白色
+车名：法拉利-->颜色：红色
+```
+
+<br>
+
+### 4.1.2、`Supplier<T>`
+
+**`Supplier<T>`：供给型接口**
+
+```java
+/**
+ * Represents a supplier of results.
+ *
+ * <p>There is no requirement that a new or distinct result be returned each
+ * time the supplier is invoked.
+ *
+ * <p>This is a <a href="package-summary.html">functional interface</a>
+ * whose functional method is {@link #get()}.
+ *
+ * @param <T> the type of results supplied by this supplier
+ *
+ * @since 1.8
+ */
+@FunctionalInterface
+public interface Supplier<T> {
+
+    /**
+     * Gets a result.
+     *
+     * @return a result
+     */
+    T get();
+}
+```
+
+<br>
+
+**抽象方法**：`T get()`
+
+无参数，有返回值。
+
+**使用方式：**
+
+```java
+Supplier<String> supplier = () -> "我要变的很有钱";
+System.out.println(supplier.get());
+```
+
+**输出：**
+
+```java
+我要变得很有钱
+```
+
+这类接口适合提供数据的场景。
+
+<br>
+
+### 4.1.3、`Function<T,R>`
+
+**`Function<T,R>`: 函数型接口**
+
+```java
+/**
+ * Represents a function that accepts one argument and produces a result.
+ *
+ * <p>This is a <a href="package-summary.html">functional interface</a>
+ * whose functional method is {@link #apply(Object)}.
+ *
+ * @param <T> the type of the input to the function
+ * @param <R> the type of the result of the function
+ *
+ * @since 1.8
+ */
+@FunctionalInterface
+public interface Function<T, R> {
+
+    /**
+     * Applies this function to the given argument.
+     *
+     * @param t the function argument
+     * @return the function result
+     */
+    R apply(T t);
+
+    /**
+     * Returns a composed function that first applies the {@code before}
+     * function to its input, and then applies this function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <V> the type of input to the {@code before} function, and to the
+     *           composed function
+     * @param before the function to apply before this function is applied
+     * @return a composed function that first applies the {@code before}
+     * function and then applies this function
+     * @throws NullPointerException if before is null
+     *
+     * @see #andThen(Function)
+     */
+    default <V> Function<V, R> compose(Function<? super V, ? extends T> before) {
+        Objects.requireNonNull(before);
+        return (V v) -> apply(before.apply(v));
+    }
+
+    /**
+     * Returns a composed function that first applies this function to
+     * its input, and then applies the {@code after} function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <V> the type of output of the {@code after} function, and of the
+     *           composed function
+     * @param after the function to apply after this function is applied
+     * @return a composed function that first applies this function and then
+     * applies the {@code after} function
+     * @throws NullPointerException if after is null
+     *
+     * @see #compose(Function)
+     */
+    default <V> Function<T, V> andThen(Function<? super R, ? extends V> after) {
+        Objects.requireNonNull(after);
+        return (T t) -> after.apply(apply(t));
+    }
+
+    /**
+     * Returns a function that always returns its input argument.
+     *
+     * @param <T> the type of the input and output objects to the function
+     * @return a function that always returns its input argument
+     */
+    static <T> Function<T, T> identity() {
+        return t -> t;
+    }
+}
+
+```
+
+<br>
+
+**抽象方法：** `R apply(T t)`
+
+传入一个参数，返回想要的结果。
+
+**使用方式：**
+
+```java
+Function<Integer, Integer> function = e -> e * 6;
+System.out.println(function.apply(2));
+```
+
+**输出：**
+
+```
+12
+```
+
+<br>
+
+**默认方法：**`compose(Function<? super V, ? extends T> before)`
+
+先执行 `compose` 方法参数 *before* 中的 `apply` 方法，然后将执行结果传递给调用 `compose` 函数中的 `apply` 方法在执行。
+
+**使用方式：**
+
+```java
+Function<Integer, Integer> function1 = e -> e * 2;
+Function<Integer, Integer> function2 = e -> e * e;
+
+Integer apply2 = function1.compose(function2).apply(3);
+System.out.println(apply2);
+```
+
+**输出：**
+
+```
+18
+```
+
+还是举一个乘法的例子，`compose` 方法执行流程是先执行 `function2` 的表达式也就是 `3*3=9`，然后在将执行结果传给 `function1` 的表达式也就是 `9*2=18`，所以最终的结果是 `18`。
+
+> `andThen(Function<? super R, ? extends V> after)` 先执行调用 `andThen` 函数的 `apply` 方法，然后再将执行结果传递给 `andThen` 方法 `after` 参数中的 `apply` 方法再执行。它和 `compose` 方法正好是相反的执行顺序。
+
+<br>
+
+**默认方法：**`andThen(Function<? super R, ? extends V> after)`
+
+**使用方式：**
+
+```java
+Function<Integer, Integer> function1 = e -> e * 2;
+Function<Integer, Integer> function2 = e -> e * e;
+
+Integer apply3 = function1.andThen(function2).apply(3);
+System.out.println(apply3);
+```
+
+**输出：**
+
+```
+36
+```
+
+这里我们和 `compose` 方法使用一个例子，所以是一模一样的例子，由于方法的不同，执行顺序也就不相同，那么结果是大大不同的。`andThen` 方法是先执行 `function1` 表达式，也就是 `3*2=6`，然后再执行 `function2` 表达式也就是 `6*6=36`。结果就是 `36`。
+
+<br>
+
+**静态方法：**`identity()`
+
+获取一个输入参数和返回结果相同的 Function 实例。
+
+**使用方式：**
+
+```java
+Function<Integer, Integer> identity = Function.identity();
+Integer apply = identity.apply(3);
+System.out.println(apply);
+```
+
+**输出：**
+
+```
+3
+```
+
+平常没有遇到过使用这个方法的场景，总之这个方法的作用就是输入什么返回结果就是什么。
+
+<br>
+
+### 4.1.4、`Predicate<T>` 
+
+**`Predicate<T>` ： 断言型接口**
+
+```java
+/**
+ * Represents a predicate (boolean-valued function) of one argument.
+ *
+ * <p>This is a <a href="package-summary.html">functional interface</a>
+ * whose functional method is {@link #test(Object)}.
+ *
+ * @param <T> the type of the input to the predicate
+ *
+ * @since 1.8
+ */
+@FunctionalInterface
+public interface Predicate<T> {
+
+    /**
+     * Evaluates this predicate on the given argument.
+     *
+     * @param t the input argument
+     * @return {@code true} if the input argument matches the predicate,
+     * otherwise {@code false}
+     */
+    boolean test(T t);
+
+    /**
+     * Returns a composed predicate that represents a short-circuiting logical
+     * AND of this predicate and another.  When evaluating the composed
+     * predicate, if this predicate is {@code false}, then the {@code other}
+     * predicate is not evaluated.
+     *
+     * <p>Any exceptions thrown during evaluation of either predicate are relayed
+     * to the caller; if evaluation of this predicate throws an exception, the
+     * {@code other} predicate will not be evaluated.
+     *
+     * @param other a predicate that will be logically-ANDed with this
+     *              predicate
+     * @return a composed predicate that represents the short-circuiting logical
+     * AND of this predicate and the {@code other} predicate
+     * @throws NullPointerException if other is null
+     */
+    default Predicate<T> and(Predicate<? super T> other) {
+        Objects.requireNonNull(other);
+        return (t) -> test(t) && other.test(t);
+    }
+
+    /**
+     * Returns a predicate that represents the logical negation of this
+     * predicate.
+     *
+     * @return a predicate that represents the logical negation of this
+     * predicate
+     */
+    default Predicate<T> negate() {
+        return (t) -> !test(t);
+    }
+
+    /**
+     * Returns a composed predicate that represents a short-circuiting logical
+     * OR of this predicate and another.  When evaluating the composed
+     * predicate, if this predicate is {@code true}, then the {@code other}
+     * predicate is not evaluated.
+     *
+     * <p>Any exceptions thrown during evaluation of either predicate are relayed
+     * to the caller; if evaluation of this predicate throws an exception, the
+     * {@code other} predicate will not be evaluated.
+     *
+     * @param other a predicate that will be logically-ORed with this
+     *              predicate
+     * @return a composed predicate that represents the short-circuiting logical
+     * OR of this predicate and the {@code other} predicate
+     * @throws NullPointerException if other is null
+     */
+    default Predicate<T> or(Predicate<? super T> other) {
+        Objects.requireNonNull(other);
+        return (t) -> test(t) || other.test(t);
+    }
+
+    /**
+     * Returns a predicate that tests if two arguments are equal according
+     * to {@link Objects#equals(Object, Object)}.
+     *
+     * @param <T> the type of arguments to the predicate
+     * @param targetRef the object reference with which to compare for equality,
+     *               which may be {@code null}
+     * @return a predicate that tests if two arguments are equal according
+     * to {@link Objects#equals(Object, Object)}
+     */
+    static <T> Predicate<T> isEqual(Object targetRef) {
+        return (null == targetRef)
+                ? Objects::isNull
+                : object -> targetRef.equals(object);
+    }
+}
+```
+
+<br>
+
+**抽象方法：** `boolean test(T t)`
+
+传入一个参数，返回一个布尔值。
+
+**使用方式：**
+
+```java
+Predicate<Integer> predicate = t -> t > 0;
+boolean test = predicate.test(1);
+System.out.println(test);
+```
+
+**输出：**
+
+```
+true
+```
+
+当 `predicate` 函数调用 `test` 方法的时候，就会执行拿 `test` 方法的参数进行 `t -> t > 0` 的条件判断，`1` 肯定是大于 `0` 的，最终结果为 `true`。
+
+<br>
+
+**默认方法：**`and(Predicate<? super T> other)`
+
+相当于逻辑运算符中的 `&&`，当两个 Predicate 函数的返回结果都为 `true` 时才返回 `true`。
+
+**使用方式：**
+
+```java
+Predicate<String> predicate1 = s -> s.length() > 0;
+Predicate<String> predicate2 = Objects::nonNull;
+boolean test = predicate1.and(predicate2).test("&&测试");
+System.out.println(test);
+```
+
+**输出：**
+
+```
+true
+```
+
+<br>
+
+**默认方法：**`or(Predicate<? super T> other)` 
+
+相当于逻辑运算符中的 `||`，当两个 Predicate 函数的返回结果有一个为 `true` 则返回 true，否则返回 `false`。
+
+**使用方式：**
+
+```java
+Predicate<String> predicate1 = s -> false;
+Predicate<String> predicate2 = Objects::nonNull;
+boolean test = predicate1.and(predicate2).test("||测试");
+System.out.println(test);
+```
+
+**输出：**
+
+```
+false
+```
+
+<br>
+
+**默认方法：**`negate()`
+
+这个方法的意思就是取反。
+
+**使用方式：**
+
+```java
+Predicate<String> predicate = s -> s.length() > 0;
+boolean result = predicate.negate().test("取反");
+System.out.println(result);
+```
+
+**输出：**
+
+```
+false
+```
+
+很明显正常执行 `test` 方法的话应该为 `true`，但是调用 `negate` 方法后就返回为 `false` 了。 
+
+<br>
+
+**静态方法：**`isEqual(Object targetRef)`
+
+对当前操作进行 "=" 操作，即取等操作，可以理解为 A == B。
+
+**使用方式:**
+
+```java
+boolean test1 = Predicate.isEqual("test").test("test");
+boolean test2 = Predicate.isEqual("test").test("equal");
+System.out.println(test1);
+System.out.println(test2);
+```
+
+**输出：**
+
+```
+true
+false
+```
+
+<br>
+
+### 4.1.5、Operator
+
+可以简单理解成算术中的各种运算操作，当然不仅仅是运算这么简单，因为它只定义了运算这个定义，但至于运算成什么样你说了算。由于没有最基础的 Operator，这里将通过 BinaryOperator、IntBinaryOperator 来理解 Operator 函数式接口，先从简单的 IntBinaryOperator 开始。
+
+<br>
+
+**IntBinaryOperator **
+
+```java
+/**
+ * Represents an operation upon two {@code int}-valued operands and producing an
+ * {@code int}-valued result.   This is the primitive type specialization of
+ * {@link BinaryOperator} for {@code int}.
+ *
+ * <p>This is a <a href="package-summary.html">functional interface</a>
+ * whose functional method is {@link #applyAsInt(int, int)}.
+ *
+ * @see BinaryOperator
+ * @see IntUnaryOperator
+ * @since 1.8
+ */
+@FunctionalInterface
+public interface IntBinaryOperator {
+
+    /**
+     * Applies this operator to the given operands.
+     *
+     * @param left the first operand
+     * @param right the second operand
+     * @return the operator result
+     */
+    int applyAsInt(int left, int right);
+}
+```
+
+IntBinaryOperator 接口内只有一个 `applyAsInt` 方法，其接收两个 int 类型的参数，并返回一个 int 类型的结果，其实这个跟 Function 接口的 `apply` 有点像，但是这里限定了，只能是 int 类型。
+
+<br>
+
+**BinaryOperator**
+
+```java
+/**
+ * Represents an operation upon two operands of the same type, producing a result
+ * of the same type as the operands.  This is a specialization of
+ * {@link BiFunction} for the case where the operands and the result are all of
+ * the same type.
+ *
+ * <p>This is a <a href="package-summary.html">functional interface</a>
+ * whose functional method is {@link #apply(Object, Object)}.
+ *
+ * @param <T> the type of the operands and result of the operator
+ *
+ * @see BiFunction
+ * @see UnaryOperator
+ * @since 1.8
+ */
+@FunctionalInterface
+public interface BinaryOperator<T> extends BiFunction<T,T,T> {
+    /**
+     * Returns a {@link BinaryOperator} which returns the lesser of two elements
+     * according to the specified {@code Comparator}.
+     *
+     * @param <T> the type of the input arguments of the comparator
+     * @param comparator a {@code Comparator} for comparing the two values
+     * @return a {@code BinaryOperator} which returns the lesser of its operands,
+     *         according to the supplied {@code Comparator}
+     * @throws NullPointerException if the argument is null
+     */
+    public static <T> BinaryOperator<T> minBy(Comparator<? super T> comparator) {
+        Objects.requireNonNull(comparator);
+        return (a, b) -> comparator.compare(a, b) <= 0 ? a : b;
+    }
+
+    /**
+     * Returns a {@link BinaryOperator} which returns the greater of two elements
+     * according to the specified {@code Comparator}.
+     *
+     * @param <T> the type of the input arguments of the comparator
+     * @param comparator a {@code Comparator} for comparing the two values
+     * @return a {@code BinaryOperator} which returns the greater of its operands,
+     *         according to the supplied {@code Comparator}
+     * @throws NullPointerException if the argument is null
+     */
+    public static <T> BinaryOperator<T> maxBy(Comparator<? super T> comparator) {
+        Objects.requireNonNull(comparator);
+        return (a, b) -> comparator.compare(a, b) >= 0 ? a : b;
+    }
+}
+```
+
+BinaryOperator 是 BiFunction 生的，而 IntBinaryOperator 是从石头里蹦出来的，BinaryOperator 自身定义了`minBy`、`maxBy` 默认方法，并且参数都是 Comparator，就是根据传入的比较器的比较规则找出最小最大的数据。
+
+<br>
+
+## 4.2、function 包下所有接口
+
+java.util.function 它包含了很多类，用来支持 Java 的函数式编程，该包中的函数式接口有：
 
 | 接口                      | 描述                                                         |
 | ------------------------- | ------------------------------------------------------------ |
-| `BiConsumer<T,U>`         | 代表了一个接受两个输入参数的操作，并且不返回任何结果。       |
-| `BiFunction<T,U,R>`       | 代表了一个接受两个输入参数的方法，并且返回一个结果。         |
+| `BiConsumer<T,U>`         | 接受两个参数，无返回值。                                     |
+| `BiFunction<T,U,R>`       | 接受两个参数，返回一个结果。                                 |
 | `BinaryOperator<T>`       | 代表了一个作用于于两个同类型操作符的操作，并且返回了操作符同类型的结果。 |
-| `BiPredicate<T,U>`        | 代表了一个两个参数的 boolean 值方法。                        |
-| `BooleanSupplier`         | 代表了 boolean 值结果的提供方。                              |
-| `Consumer<T>`             | 代表了接受一个输入参数并且无返回的操作。                     |
+| `BiPredicate<T,U>`        | 接受一个参数，返回一个 boolean 类型结果。                    |
+| `BooleanSupplier`         | 无参数，返回一个 boolean 类型结果。                          |
+| `Consumer<T>`             | 接受一个参数，无返回值。                                     |
 | `DoubleBinaryOperator`    | 代表了作用于两个 double 值操作符的操作，并且返回了一个 double 值的结果。 |
-| `DoubleConsumer`          | 代表一个接受 double 值参数的操作，并且不返回结果。           |
-| `DoubleFunction<R>`       | 代表接受一个 double 值参数的方法，并且返回结果。             |
-| `DoublePredicate`         | 代表一个拥有 double 值参数的 boolean 值方法。                |
-| `DoubleSupplier`          | 代表一个 double 值结构的提供方。                             |
-| `DoubleToIntFunction`     | 接受一个 double 类型输入，返回一个 int 类型结果。            |
-| `DoubleToLongFunction`    | 接受一个 double 类型输入，返回一个 long 类型结果。           |
+| `DoubleConsumer`          | 接受一个 double 类型参数，无返回值。                         |
+| `DoubleFunction<R>`       | 接受一个 double 类型参数，返回一个结果。                     |
+| `DoublePredicate`         | 接受一个 double 类型参数，返回一个 boolean 类型结果。        |
+| `DoubleSupplier`          | 无参数，返回一个 double 类型结果。                           |
+| `DoubleToIntFunction`     | 接受一个 double 类型参数，返回一个 int 类型结果。            |
+| `DoubleToLongFunction`    | 接受一个 double 类型参数，返回一个 long 类型结果。           |
 | `DoubleUnaryOperator`     | 接受一个参数同为类型 double，返回值类型也为 double 。        |
 | `Function<T,R>`           | 接受一个输入参数，返回一个结果。                             |
 | `IntBinaryOperator`       | 接受两个参数同为类型 int，返回值类型也为 int 。              |
-| `IntConsumer`             | 接受一个 int 类型的输入参数，无返回值 。                     |
-| `IntFunction<R>`          | 接受一个 int 类型输入参数，返回一个结果 。                   |
-| `IntPredicate`            | 接受一个 int 输入参数，返回一个 boolean 值的结果。           |
+| `IntConsumer`             | 接受一个 int 类型的参数，无返回值。                          |
+| `IntFunction<R>`          | 接受一个 int 类型参数，返回一个结果 。                       |
+| `IntPredicate`            | 接受一个 int 类型参数，返回一个 boolean 类型结果。           |
 | `IntSupplier`             | 无参数，返回一个 int 类型结果。                              |
-| `	IntToDoubleFunction` | 接受一个 int 类型输入，返回一个 double 类型结果 。           |
-| `IntToLongFunction`       | 接受一个 int 类型输入，返回一个 long 类型结果。              |
+| `	IntToDoubleFunction` | 接受一个 int 类型参数，返回一个 double 类型结果 。           |
+| `IntToLongFunction`       | 接受一个 int 类型参数，返回一个 long 类型结果。              |
 | `IntUnaryOperator`        | 接受一个参数同为类型 int，返回值类型也为 int 。              |
 | `LongBinaryOperator`      | 接受两个参数同为类型 long，返回值类型也为 long。             |
-| `LongConsumer`            | 接受一个 long 类型的输入参数，无返回值。                     |
-| `LongFunction<R>`         | 接受一个 long 类型输入参数，返回一个结果。                   |
-| `LongPredicate`           | 接受一个 long 输入参数，返回一个布尔值类型结果。             |
+| `LongConsumer`            | 接受一个 long 类型的参数，不返回结果。                       |
+| `LongFunction<R>`         | 接受一个 long 类型参数，返回一个结果。                       |
+| `LongPredicate`           | 接受一个 long 类型参数，返回一个 boolean 类型结果。          |
 | `LongSupplier`            | 无参数，返回一个 long 类型结果。                             |
-| `LongToDoubleFunction`    | 接受一个 long 类型输入，返回一个 double 类型结果。           |
-| `LongToIntFunction`       | 接受一个 long 类型输入，返回一个 int 类型结果。              |
+| `LongToDoubleFunction`    | 接受一个 long 类型参数，返回一个 double 类型结果。           |
+| `LongToIntFunction`       | 接受一个 long 类型参数，返回一个 int 类型结果。              |
 | `LongUnaryOperator`       | 接受一个参数同为类型 long，返回值类型也为 long。             |
-| `ObjDoubleConsumer<T>`    | 接受一个 object 类型和一个 double 类型的输入参数，无返回值。 |
-| `	ObjIntConsumer<T>`   | 接受一个 object 类型和一个 int 类型的输入参数，无返回值。    |
-| `ObjLongConsumer<T>`      | 接受一个 object 类型和一个 long 类型的输入参数，无返回值。   |
-| `Predicate<T>`            | 接受一个输入参数，返回一个布尔值结果。                       |
+| `ObjDoubleConsumer<T>`    | 接受一个 object 类型和一个 double 类型的参数，无返回值。     |
+| `	ObjIntConsumer<T>`   | 接受一个 object 类型和一个 int 类型的参数，无返回值。        |
+| `ObjLongConsumer<T>`      | 接受一个 object 类型和一个 long 类型的参数，无返回值。       |
+| `Predicate<T>`            | 接受一个参数，返回一个 boolean 类型结果。                    |
 | `Supplier<T>`             | 无参数，返回一个结果。                                       |
-| `ToDoubleBiFunction<T,U>` | 接受两个输入参数，返回一个 double 类型结果。                 |
-| `ToDoubleFunction<T>`     | 接受一个输入参数，返回一个 double 类型结果。                 |
-| `ToIntBiFunction<T,U>`    | 接受两个输入参数，返回一个 int 类型结果。                    |
-| `ToIntFunction<T>`        | 接受一个输入参数，返回一个 int 类型结果。                    |
-| `ToLongBiFunction<T,U>`   | 接受两个输入参数，返回一个 long 类型结果。                   |
-| `ToLongFunction<T>`       | 接受一个输入参数，返回一个 long 类型结果。                   |
+| `ToDoubleBiFunction<T,U>` | 接受两个参数，返回一个 double 类型结果。                     |
+| `ToDoubleFunction<T>`     | 接受一个参数，返回一个 double 类型结果。                     |
+| `ToIntBiFunction<T,U>`    | 接受两个参数，返回一个 int 类型结果。                        |
+| `ToIntFunction<T>`        | 接受一个参数，返回一个 int 类型结果。                        |
+| `ToLongBiFunction<T,U>`   | 接受两个参数，返回一个 long 类型结果。                       |
+| `ToLongFunction<T>`       | 接受一个参数，返回一个 long 类型结果。                       |
 | `UnaryOperator<T>`        | 接受一个参数为类型 T，返回值类型也为 T。                     |
 
 <br>
