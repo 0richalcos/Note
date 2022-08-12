@@ -18,16 +18,60 @@
 
 <br>
 
-## 【2】重装系统时将硬盘格式转换为GPT
+## 【2】diskpart 操作硬盘
 
-1. 按 shift 键和 F10 键，启动 cmd 命令行模式
-2. 在命令行窗口中输入 `diskpart` 命令并回车，进入 Diskpart 模式
-3. 输入 `list disk` 命令并回车，确认电脑硬盘数量
-4. 继续输入 `select disk 0` 命令并回车，选择 disk0 的硬盘（C盘为disk0，视情况而定）
-5.  继续输入 `clean` 命令并回车，清除 disk0 硬盘中所有的分区和数据
-6. 继续 `convert GPT` 并回车，将硬盘格式从 MBR 转换成 GPT
-7. 最后输入 `exit` 命令并回车，退出 Diskpart 模式
-8. 再输入 `exit` 命令并回车，退出 cmd 命令行模式
+DiskPart 是 Windows 11 中的命令行实用程序，使您可以使用 DiskPart 命令提示符执行磁盘分区操作。下面通过示例了解如何使用 DiskPart。
+
+<br>
+
+**什么是DiskPart？**
+
+DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，可以管理自 Windows 2000 以来运行所有操作系统版本的计算机中的磁盘、分区或卷，还包括最新的 Windows 11。用户可以输入 DiskPart 命令直接组织硬盘分区，或创建文本文件脚本来执行多个命令。您可以在磁盘管理工具中使用的大多数命令都集成在 DiskPart 中。
+
+<br>
+
+**如何在 Windows 11 当中打开 DiskPart？**
+
+您需要以管理员权限启动 Windows 11 DiskPart 实用程序。一种方法是在 “搜索” 框中键入 `diskpart`，然后在搜索结果中出现【diskpart 】时，右击它并选择【以管理员身份运行】。另一种方法是按 Windows + R 键并在框中键入 `diskpart`，然后单击【确定】。
+
+<div align="center">
+    <img src="../Images/Mixed/image-20220812105905290.png" alt="image-20220812105905290" style="width:45%;" />
+</div>
+
+> 在使用微软官方工具制作的启动盘安装系统时，如果遇到硬盘格式问题无法安装，可以按 Shift + F10 打开 cmd 使用 diskpart 的 `convert` 命令转换硬盘格式解决问题。
+
+<br>
+
+**DiskPart Windows 11 命令和示例**
+
+在使用 DiskPart 命令之前，必须首先列出所有对象，然后选择一个对象使其获得焦点。当对象具有焦点时，您键入的任何DiskPart 命令都将作用于该对象。
+
+在 `DISKPART >` 提示符下：
+
+- 键入 `list disk` 以显示计算机中的所有磁盘。每个磁盘都有一个磁盘编号，从 0 开始。GPT 行下的星号 `*` 表示磁盘是 GPT 分区样式。除非只有一个磁盘，否则您必须通过使用 `select disk n` 告诉 DiskPart 实用程序选择哪个磁盘。`n` 表示磁盘的编号。
+- 键入 `list volume` 以显示所有磁盘上的所有卷。每个卷都有一个卷号，从 0 开始。要告诉 DiskPart 管理哪个卷，需要键入 `select volume n` 以使其成为焦点。`n` 可以是卷的数量或卷的驱动器号（如果有）。
+- 在已选择磁盘的情况下，键入 `list partition` 以显示该磁盘下的所有分区。每个分区有个编号，从 0 开始。可以输入 `select partition n` 选择某个分区。`n` 表示分区的编号。
+
+如果要查看 DiskPart 可以为您提供的服务，只需输入 `help` 以查看命令列表：
+
+<div align="center">
+    <img src="../Images/Mixed/image-20220812112727192.png" alt="image-20220812112727192" style="width:45%;" />
+</div>
+
+<br>
+
+**清理磁盘/将磁盘转换为 GPT /将磁盘转换为 MBR**
+
+要删除磁盘上的所有分区或卷并在 MBR 和 GPT 之间转换磁盘，请参阅以下命令：
+
+- 键入 `list disk`。
+- 键入 `select disk 1`。
+- 键入 `clean`。
+- 键入 `convert gpt` 或 `convert mbr`。
+
+> 使用微软官方工具制作启动盘安装系统时，如果系统盘的格式不是 GPT，就会报错，此时可以通过 `convert` 命令转换磁盘格式解决问题。
+>
+> `clean` 命令可以解决在【磁盘管理】中无法删除系统分区（比如 EFI 分区）的问题。
 
 <br>
 

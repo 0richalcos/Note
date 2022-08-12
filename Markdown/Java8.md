@@ -2178,3 +2178,228 @@ $ java Java8Tester
 
 # 9、Stream
 
+## 9.1、Stream 流是如何工作的？
+
+流表示包含着一系列元素的集合，我们可以对其做不同类型的操作，用来对这些元素执行计算：
+
+```java
+List<String> myList = Arrays.asList("a1", "a2", "b1", "c2", "c1");
+
+myList.stream() // 创建流
+        .filter(s -> s.startsWith("c")) // 执行过滤，过滤出以 c 为前缀的字符串
+        .map(String::toUpperCase) // 转换成大写
+        .sorted() // 排序
+        .forEach(System.out::println); // for 循环打印
+```
+
+输出：
+
+```
+C1
+C2
+```
+
+我们可以对流进行中间操作或者终端操作：
+
+<div align="center">
+    <img src="../Images/Java8/image-20220812142807269.png" alt="image-20220812142807269" style="width:80%;" />
+</div>
+
+1. 中间操作会再次返回一个流，所以，我们可以链接多个中间操作，注意这里是不用加分号的。上图中的 `filter` 过滤，`map` 对象转换，`sorted` 排序，就属于中间操作。
+2. 终端操作是对流操作的一个结束动作，一般返回 `void` 或者一个非流的结果。上图中的 `forEach` 循环就是一个终止操作。
+
+看完上面的操作，感觉是不是很像一个流水线式操作呢。
+
+实际上，大部分流操作都支持 lambda 表达式作为参数，正确理解，应该说是接受一个函数式接口的实现作为参数。
+
+<br>
+
+## 9.2、不同类型的 Stream 流
+
+我们可以从各种数据源中创建 Stream 流，其中以 Collection 集合最为常见。如 `List` 和 `Set` 均支持 `stream()` 方法来创建顺序流或者是并行流。
+
+并行流是通过多线程的方式来执行的，它能够充分发挥多核 CPU 的优势来提升性能。
+
+```java
+Arrays.asList("a1", "a2", "a3")
+        .stream() // 创建流
+        .findFirst() // 找到第一个元素
+        .ifPresent(System.out::println);  // 如果存在，即输出
+```
+
+输出：
+
+```
+a1
+```
+
+在集合上调用 `stream()` 方法会返回一个普通的 Stream 流。但是大可不必刻意地创建一个集合，再通过集合来获取 Stream 流，还可以通过如下这种方式：
+
+```java
+Stream.of("a1", "a2", "a3")
+    .findFirst()
+    .ifPresent(System.out::println);
+```
+
+输出：
+
+```
+a1
+```
+
+例如上面这样，我们可以通过 `Stream.of()` 从一堆对象中创建 Stream 流。
+
+除了常规对象流之外，Java 8 还附带了一些特殊类型的流，用于处理原始数据类型 `int`、`long` 以及 `double`，它们就是 `IntStream`、`LongStream` 还有 `DoubleStream`。
+
+其中，`IntStreams.range()` 方法还可以被用来取代常规的 `for` 循环, 如下所示：
+
+```go
+IntStream.range(1, 4)
+		.forEach(System.out::println);// 相当于 for (int i = 1; i < 4; i++) {}
+```
+
+输出：
+
+```
+1
+2
+3
+```
+
+上面这些原始类型流的工作方式与常规对象流基本是一样的，但还是略微存在一些区别：
+
+- 原始类型流使用其独有的函数式接口，例如 `IntFunction` 代替 `Function`、`IntPredicate` 代替 `Predicate`。
+- 原始类型流支持额外的终端聚合操作，比如 `sum()` 以及 `average()`，如下所示：
+
+```go
+IntStream.range(1, 4).map(n -> 2 * n + 1) // 对数值中的每个对象执行 2*n + 1 操作
+        .average() // 求平均值
+        .ifPresent(System.out::println);  // 如果值不为空，则输出
+```
+
+输出：
+
+```
+5.0
+```
+
+但是，偶尔我们也有这种需求，需要将常规对象流转换为原始类型流，这时中间操作 `mapToInt()`、`mapToLong()` 以及 `mapToDouble` 就派上用场了：
+
+```java
+Stream.of("a1", "a2", "a3")
+    .map(s -> s.substring(1)) // 对每个字符串元素从下标1位置开始截取
+    .mapToInt(Integer::parseInt) // 转成 int 基础类型类型流
+    .max() // 取最大值
+    .ifPresent(System.out::println);  // 不为空则输出
+```
+
+输出：
+
+```
+3
+```
+
+如果需要将原始类型流装换成对象流，可以使用 `mapToObj()` 来达到目的：
+
+```java
+IntStream.range(1, 4)
+    .mapToObj(i -> "a" + i) // for 循环 1->4, 拼接前缀 a
+    .forEach(System.out::println); // for 循环打印
+```
+
+输出：
+
+```
+a1
+a2
+a3
+```
+
+下面是一个组合示例，我们将双精度流首先转换成 int 类型流，然后再将其装换成对象流：
+
+```rust
+Stream.of(1.0, 2.0, 3.0)
+        .mapToInt(Double::intValue) // double 类型转 int
+        .mapToObj(i -> "a" + i) // 对值拼接前缀 a
+        .forEach(System.out::println); // for 循环打印
+```
+
+输出：
+
+```
+a1
+a2
+a3
+```
+
+<br>
+
+## 9.3、Stream 流的处理顺序
+
+Stream 流的中间操作的有个重要特性 —— **延迟性**。观察下面这个没有终端操作的示例代码：
+
+```kotlin
+Stream.of("d2", "a2", "b1", "b3", "c")
+        .filter(s -> {
+            System.out.println("filter: " + s);
+            return true;
+        });
+```
+
+执行此代码段前，您可能会认为将依次打印 "d2", "a2", "b1", "b3", "c" 元素。然而当你实际去执行的时候，它不会打印任何内容。因为当且仅当存在终端操作时，中间操作操作才会被执行。
+
+接下来，对上面的代码添加 `forEach`终端操作：
+
+```java
+Stream.of("d2", "a2", "b1", "b3", "c")
+    .filter(s -> {
+        System.out.println("filter: " + s);
+        return true;
+    })
+    .forEach(s -> System.out.println("forEach: " + s));
+```
+
+输出如下：
+
+```
+filter:  d2
+forEach: d2
+filter:  a2
+forEach: a2
+filter:  b1
+forEach: b1
+filter:  b3
+forEach: b3
+filter:  c
+forEach: c
+```
+
+输出的顺序可能会让你很惊讶！你脑海里肯定会想，应该是先将所有 `filter` 前缀的字符串打印出来，接着才会打印 `forEach` 前缀的字符串。
+
+事实上，输出的结果却是随着链条垂直移动的。比如说，当 Stream 开始处理 d2 元素时，它实际上会在执行完 filter 操作后，再执行 forEach 操作，接着才会处理第二个元素。
+
+是不是很神奇？为什么要设计成这样呢？
+
+原因是出于性能的考虑。这样设计可以减少对每个元素的实际操作数，看完下面代码你就明白了：
+
+```kotlin
+Stream.of("d2", "a2", "b1", "b3", "c")
+    .map(s -> {
+        System.out.println("map: " + s);
+        return s.toUpperCase(); // 转大写
+    })
+    .anyMatch(s -> {
+        System.out.println("anyMatch: " + s);
+        return s.startsWith("A"); // 过滤出以 A 为前缀的元素
+    });
+
+// map:      d2
+// anyMatch: D2
+// map:      a2
+// anyMatch: A2
+复制代码
+```
+
+终端操作 `anyMatch()`表示任何一个元素以 A 为前缀，返回为 `true`，就停止循环。所以它会从 `d2` 开始匹配，接着循环到 `a2` 的时候，返回为 `true` ，于是停止循环。
+
+由于数据流的链式调用是垂直执行的，`map`这里只需要执行两次。相对于水平执行来说，`map`会执行尽可能少的次数，而不是把所有元素都 `map` 转换一遍。
