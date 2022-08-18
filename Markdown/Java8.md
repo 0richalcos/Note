@@ -2353,25 +2353,25 @@ Stream.of("d2", "a2", "b1", "b3", "c")
 ```java
 Stream.of("d2", "a2", "b1", "b3", "c")
     .filter(s -> {
-        System.out.println("filter: " + s);
+        System.out.println("filter:\t\t" + s);
         return true;
     })
-    .forEach(s -> System.out.println("forEach: " + s));
+    .forEach(s -> System.out.println("forEach:\t" + s));
 ```
 
 输出如下：
 
 ```
-filter:  d2
-forEach: d2
-filter:  a2
-forEach: a2
-filter:  b1
-forEach: b1
-filter:  b3
-forEach: b3
-filter:  c
-forEach: c
+filter:		d2
+forEach:	d2
+filter:		a2
+forEach:	a2
+filter:		b1
+forEach:	b1
+filter:		b3
+forEach:	b3
+filter:		c
+forEach:	c
 ```
 
 代码并不是先将所有 `filter` 前缀的字符串打印出来，接着才会打印 `forEach` 前缀的字符串。事实上，输出的结果是随着链条垂直移动的。比如说，当 Stream 开始处理 `d2` 元素时，它实际上会在执行完 `filter` 操作后，再执行 `forEach` 操作，接着才会处理第二个元素。
@@ -2381,11 +2381,11 @@ forEach: c
 ```kotlin
 Stream.of("d2", "a2", "b1", "b3", "c")
         .map(s -> {
-            System.out.println("map: " + s);
+            System.out.println("map:\t\t" + s);
             return s.toUpperCase(); // 转大写
         })
         .anyMatch(s -> {
-            System.out.println("anyMatch: " + s);
+            System.out.println("anyMatch:\t" + s);
             return s.startsWith("A"); // 过滤出以 A 为前缀的元素
         });
 ```
@@ -2393,10 +2393,10 @@ Stream.of("d2", "a2", "b1", "b3", "c")
 输出：
 
 ```
-map: d2
-anyMatch: D2
-map: a2
-anyMatch: A2
+map:		d2
+anyMatch:	D2
+map:		a2
+anyMatch:	A2
 ```
 
 终端操作 `anyMatch()` 表示任何一个元素以 A 为前缀，返回为 `true`，就停止循环。所以它会从 `d2` 开始匹配，接着循环到 `a2` 的时候，返回为 `true` ，于是停止循环。
@@ -2412,30 +2412,30 @@ anyMatch: A2
 ```java
 Stream.of("d2", "a2", "b1", "b3", "c")
     .map(s -> {
-        System.out.println("map: " + s);
+        System.out.println("map:\t\t" + s);
         return s.toUpperCase(); // 转大写
     })
     .filter(s -> {
-        System.out.println("filter: " + s);
+        System.out.println("filter:\t\t" + s);
         return s.startsWith("A"); // 过滤出以 A 为前缀的元素
     })
-    .forEach(s -> System.out.println("forEach: " + s)); // for 循环输出
+    .forEach(s -> System.out.println("forEach:\t" + s)); // for 循环输出
 ```
 
 输出：
 
 ```
-map:     d2
-filter:  D2
-map:     a2
-filter:  A2
-forEach: A2
-map:     b1
-filter:  B1
-map:     b3
-filter:  B3
-map:     c
-filter:  C
+map:		d2
+filter:		D2
+map:		a2
+filter:		A2
+forEach:	A2
+map:		b1
+filter:		B1
+map:		b3
+filter:		B3
+map:		c
+filter:		C
 ```
 
 在上面的代码中，`map` 和 `filter` 会对集合中的每个字符串调用五次，而 `forEach` 却只会调用一次，因为只有 "a2" 满足过滤条件。
@@ -2445,26 +2445,26 @@ filter:  C
 ```java
 Stream.of("d2", "a2", "b1", "b3", "c")
     .filter(s -> {
-        System.out.println("filter: " + s)
+        System.out.println("filter:\t\t" + s);
         return s.startsWith("a"); // 过滤出以 a 为前缀的元素
     })
     .map(s -> {
-        System.out.println("map: " + s);
+        System.out.println("map:\t\t" + s);
         return s.toUpperCase(); // 转大写
     })
-    .forEach(s -> System.out.println("forEach: " + s)); // for 循环输出
+    .forEach(s -> System.out.println("forEach:\t" + s)); // for 循环输出
 ```
 
 输出：
 
 ```
-filter:  d2
-filter:  a2
-map:     a2
-forEach: A2
-filter:  b1
-filter:  b3
-filter:  c
+filter:		d2
+filter:		a2
+map:		a2
+forEach:	A2
+filter:		b1
+filter:		b3
+filter:		c
 ```
 
 现在，`map` 仅仅只需调用一次，性能得到了提升，这种小技巧对于流中存在大量元素来说，是非常很有用的。
@@ -2474,18 +2474,18 @@ filter:  c
 ```java
 Stream.of("d2", "a2", "b1", "b3", "c")
     .sorted((s1, s2) -> {
-        System.out.printf("sort: %s; %s\n", s1, s2);
+        System.out.printf("sort:\t\t%s; %s\n", s1, s2);
         return s1.compareTo(s2); // 排序
     })
     .filter(s -> {
-        System.out.println("filter: " + s);
+        System.out.println("filter:\t\t" + s);
         return s.startsWith("a"); // 过滤出以 a 为前缀的元素
     })
     .map(s -> {
-        System.out.println("map: " + s);
+        System.out.println("map:\t\t" + s);
         return s.toUpperCase(); // 转大写
     })
-    .forEach(s -> System.out.println("forEach: " + s)); // for 循环输出
+    .forEach(s -> System.out.println("forEach:\t" + s)); // for 循环输出
 ```
 
 `sorted` 是一个有状态的操作，因为它需要在处理的过程中，保存状态以对集合中的元素进行排序。
@@ -2493,21 +2493,21 @@ Stream.of("d2", "a2", "b1", "b3", "c")
 执行上面代码，输出如下：
 
 ```
-sort:    a2; d2
-sort:    b1; a2
-sort:    b1; d2
-sort:    b1; a2
-sort:    b3; b1
-sort:    b3; d2
-sort:    c; b3
-sort:    c; d2
-filter:  a2
-map:     a2
-forEach: A2
-filter:  b1
-filter:  b3
-filter:  c
-filter:  d2
+sort:		a2; d2
+sort:		b1; a2
+sort:		b1; d2
+sort:		b1; a2
+sort:		b3; b1
+sort:		b3; d2
+sort:		c; b3
+sort:		c; d2
+filter:		a2
+map:		a2
+forEach:	A2
+filter:		b1
+filter:		b3
+filter:		c
+filter:		d2
 ```
 
 `sorted` 是水平执行的。因此，在这种情况下，`sorted` 会对集合中的元素组合调用八次。这里也可以利用上面的优化技巧，将 `filter` 过滤中间操作移动到开头部分：
@@ -2515,30 +2515,30 @@ filter:  d2
 ```java
 Stream.of("d2", "a2", "b1", "b3", "c")
     .filter(s -> {
-        System.out.println("filter: " + s);
+        System.out.println("filter:\t\t" + s);
         return s.startsWith("a");
     })
     .sorted((s1, s2) -> {
-        System.out.printf("sort: %s; %s\n", s1, s2);
+        System.out.printf("sort:\t\t%s; %s\n", s1, s2);
         return s1.compareTo(s2);
     })
     .map(s -> {
-        System.out.println("map: " + s);
+        System.out.println("map:\t\t" + s);
         return s.toUpperCase();
     })
-    .forEach(s -> System.out.println("forEach: " + s));
+    .forEach(s -> System.out.println("forEach:\t" + s));
 ```
 
 输出：
 
 ```
-filter:  d2
-filter:  a2
-filter:  b1
-filter:  b3
-filter:  c
-map:     a2
-forEach: A2
+filter:		d2
+filter:		a2
+filter:		b1
+filter:		b3
+filter:		c
+map:		a2
+forEach:	A2
 ```
 
 从上面的输出中，我们看到了 `sorted` 从未被调用过，因为经过 `filter` 过后的元素已经减少到只有一个，这种情况下，是不用执行排序操作的。因此性能被大大提高了。
@@ -2554,18 +2554,17 @@ Stream<String> stream =
     Stream.of("d2", "a2", "b1", "b3", "c")
         .filter(s -> s.startsWith("a"));
 
-stream.anyMatch(s -> true);    // ok
-stream.noneMatch(s -> true);   // exception
+stream.anyMatch(s -> true); 	//true
+stream.noneMatch(s -> true);	//exception
 ```
 
 当我们对 stream 调用了 `anyMatch` 终端操作以后，流即关闭了，再调用 `noneMatch` 就会抛出异常：
 
 ```
 java.lang.IllegalStateException: stream has already been operated upon or closed
-    at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:229)
-    at java.util.stream.ReferencePipeline.noneMatch(ReferencePipeline.java:459)
-    at com.winterbe.java8.Streams5.test7(Streams5.java:38)
-    at com.winterbe.java8.Streams5.main(Streams5.java:28)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:229)
+	at java.util.stream.ReferencePipeline.noneMatch(ReferencePipeline.java:459)
+	at FunctionInterface.main(FunctionInterface.java:10)
 ```
 
 为了克服这个限制，必须为我们想要执行的每个终端操作创建一个新的流链，例如，我们可以通过 `Supplier` 来包装一下流，通过 `get()` 方法来构建一个新的 `Stream` 流，如下所示：
@@ -2575,8 +2574,8 @@ Supplier<Stream<String>> streamSupplier =
     () -> Stream.of("d2", "a2", "b1", "b3", "c")
             .filter(s -> s.startsWith("a"));
 
-streamSupplier.get().anyMatch(s -> true);   // ok
-streamSupplier.get().noneMatch(s -> true);  // ok
+streamSupplier.get().anyMatch(s -> true);   // true
+streamSupplier.get().noneMatch(s -> true);  // true
 ```
 
 通过构造一个新的流，来避开流不能被复用的限制，这也是取巧的一种方式。
@@ -2625,11 +2624,10 @@ List<Person> persons =
 先从一个非常常见的用例开始：
 
 ```java
-List<Person> filtered =
-    persons
-        .stream() // 构建流
-        .filter(p -> p.name.startsWith("P")) // 过滤出名字以 P 开头的
-        .collect(Collectors.toList()); // 生成一个新的 List
+List<Person> filtered = persons
+    .stream() // 构建流
+    .filter(p -> p.name.startsWith("P")) // 过滤出名字以 P 开头的
+    .collect(Collectors.toList()); // 生成一个新的 List
 
 System.out.println(filtered);
 ```
@@ -2649,8 +2647,7 @@ Map<Integer, List<Person>> personsByAge = persons
     .stream()
     .collect(Collectors.groupingBy(p -> p.age)); // 以年龄为 key,进行分组
 
-personsByAge
-    .forEach((age, p) -> System.out.format("age %s: %s\n", age, p));
+personsByAge.forEach((age, p) -> System.out.format("age %s: %s\n", age, p));
 ```
 
 输出：
@@ -2680,10 +2677,9 @@ System.out.println(averageAge);
 如果您还想得到一个更全面的统计信息，摘要收集器可以返回一个特殊的内置统计对象。通过它，我们可以简单地计算出最小年龄、最大年龄、平均年龄、总和以及总数量。
 
 ```java
-IntSummaryStatistics ageSummary =
-    persons
-        .stream()
-        .collect(Collectors.summarizingInt(p -> p.age)); // 生成摘要统计
+IntSummaryStatistics ageSummary = persons
+    .stream()
+    .collect(Collectors.summarizingInt(p -> p.age)); // 生成摘要统计
 
 System.out.println(ageSummary);
 ```
@@ -2744,7 +2740,8 @@ Collector<Person, StringJoiner, String> personNameCollector =
         () -> new StringJoiner(" | "),          // supplier 供应器
         (j, p) -> j.add(p.name.toUpperCase()),  // accumulator 累加器
         (j1, j2) -> j1.merge(j2),               // combiner 组合器
-        StringJoiner::toString);                // finisher 终止器
+        StringJoiner::toString					// finisher 终止器
+	);
 
 String names = persons
     .stream()
@@ -2839,7 +2836,7 @@ Bar3 <- Foo3
 IntStream.range(1, 4)
     .mapToObj(i -> new Foo("Foo" + i))
     .peek(f -> IntStream.range(1, 4)
-        .mapToObj(i -> new Bar("Bar" + i + " <- " f.name))
+        .mapToObj(i -> new Bar("Bar" + i + " <- " + f.name))
         .forEach(f.bars::add))
     .flatMap(f -> f.bars.stream())
     .forEach(b -> System.out.println(b.name));
@@ -3041,10 +3038,10 @@ System.out.println(commonPool.getParallelism());
 输出：
 
 ```
-3
+15
 ```
 
-在我的机器上，公共池初始化默认值为 3。你也可以通过设置以下 JVM 参数可以减小或增加此值：
+在我的机器上，公共池初始化默认值为 3。可以通过设置以下 JVM 参数可以减小或增加此值：
 
 ```ini
 -Djava.util.concurrent.ForkJoinPool.common.parallelism=5
@@ -3072,21 +3069,21 @@ Arrays.asList("a1", "a2", "b1", "c2", "c1")
 通过日志输出，我们可以对哪个线程被用于执行流式操作，有个更深入的理解：
 
 ```
-filter:  b1 [main]
-filter:  a2 [ForkJoinPool.commonPool-worker-1]
-map:     a2 [ForkJoinPool.commonPool-worker-1]
-filter:  c2 [ForkJoinPool.commonPool-worker-3]
-map:     c2 [ForkJoinPool.commonPool-worker-3]
-filter:  c1 [ForkJoinPool.commonPool-worker-2]
-map:     c1 [ForkJoinPool.commonPool-worker-2]
-forEach: C2 [ForkJoinPool.commonPool-worker-3]
-forEach: A2 [ForkJoinPool.commonPool-worker-1]
-map:     b1 [main]
-forEach: B1 [main]
-filter:  a1 [ForkJoinPool.commonPool-worker-3]
-map:     a1 [ForkJoinPool.commonPool-worker-3]
-forEach: A1 [ForkJoinPool.commonPool-worker-3]
-forEach: C1 [ForkJoinPool.commonPool-worker-2]
+filter:		b1 [main]
+filter:		c2 [ForkJoinPool.commonPool-worker-4]
+map:		c2 [ForkJoinPool.commonPool-worker-4]
+filter:		a2 [ForkJoinPool.commonPool-worker-9]
+map:		a2 [ForkJoinPool.commonPool-worker-9]
+filter:		a1 [ForkJoinPool.commonPool-worker-11]
+map:		a1 [ForkJoinPool.commonPool-worker-11]
+filter:		c1 [ForkJoinPool.commonPool-worker-2]
+map:		c1 [ForkJoinPool.commonPool-worker-2]
+forEach:	C1 [ForkJoinPool.commonPool-worker-2]
+forEach:	A1 [ForkJoinPool.commonPool-worker-11]
+forEach:	A2 [ForkJoinPool.commonPool-worker-9]
+forEach:	C2 [ForkJoinPool.commonPool-worker-4]
+map:		b1 [main]
+forEach:	B1 [main]
 ```
 
 并行流使用了所有的 `ForkJoinPool` 中的可用线程来执行流式操作。在持续的运行中，输出结果可能有所不同，因为所使用的特定线程是非特定的。
@@ -3097,45 +3094,46 @@ forEach: C1 [ForkJoinPool.commonPool-worker-2]
 Arrays.asList("a1", "a2", "b1", "c2", "c1")
     .parallelStream()
     .filter(s -> {
-        System.out.format("filter: %s [%s]\n", s, Thread.currentThread().getName());
+        System.out.format("filter:\t\t%s [%s]\n", s, Thread.currentThread().getName());
         return true;
     })
     .map(s -> {
-        System.out.format("map: %s [%s]\n", s, Thread.currentThread().getName());
+        System.out.format("map:\t\t%s [%s]\n", s, Thread.currentThread().getName());
         return s.toUpperCase();
     })
     .sorted((s1, s2) -> {
-        System.out.format("sort: %s <> %s [%s]\n", s1, s2, Thread.currentThread().getName());
+        System.out.format("sort:\t\t%s <> %s [%s]\n", s1, s2, 
+                          Thread.currentThread().getName());
         return s1.compareTo(s2);
     })
-    .forEach(s -> System.out.format("forEach: %s [%s]\n",
-        s, Thread.currentThread().getName()));
+    .forEach(s -> System.out.format("forEach:\t%s [%s]\n", s, 
+                                    Thread.currentThread().getName()));
 ```
 
 运行代码，输出结果看上去有些奇怪：
 
 ```java
-filter:  c2 [ForkJoinPool.commonPool-worker-3]
-filter:  c1 [ForkJoinPool.commonPool-worker-2]
-map:     c1 [ForkJoinPool.commonPool-worker-2]
-filter:  a2 [ForkJoinPool.commonPool-worker-1]
-map:     a2 [ForkJoinPool.commonPool-worker-1]
-filter:  b1 [main]
-map:     b1 [main]
-filter:  a1 [ForkJoinPool.commonPool-worker-2]
-map:     a1 [ForkJoinPool.commonPool-worker-2]
-map:     c2 [ForkJoinPool.commonPool-worker-3]
-sort:    A2 <> A1 [main]
-sort:    B1 <> A2 [main]
-sort:    C2 <> B1 [main]
-sort:    C1 <> C2 [main]
-sort:    C1 <> B1 [main]
-sort:    C1 <> C2 [main]
-forEach: A1 [ForkJoinPool.commonPool-worker-1]
-forEach: C2 [ForkJoinPool.commonPool-worker-3]
-forEach: B1 [main]
-forEach: A2 [ForkJoinPool.commonPool-worker-2]
-forEach: C1 [ForkJoinPool.commonPool-worker-1]
+filter:		b1 [main]
+filter:		a1 [ForkJoinPool.commonPool-worker-11]
+map:		a1 [ForkJoinPool.commonPool-worker-11]
+filter:		c1 [ForkJoinPool.commonPool-worker-2]
+map:		c1 [ForkJoinPool.commonPool-worker-2]
+filter:		c2 [ForkJoinPool.commonPool-worker-4]
+map:		c2 [ForkJoinPool.commonPool-worker-4]
+filter:		a2 [ForkJoinPool.commonPool-worker-9]
+map:		a2 [ForkJoinPool.commonPool-worker-9]
+map:		b1 [main]
+sort:		A2 <> A1 [main]
+sort:		B1 <> A2 [main]
+sort:		C2 <> B1 [main]
+sort:		C1 <> C2 [main]
+sort:		C1 <> B1 [main]
+sort:		C1 <> C2 [main]
+forEach:	B1 [main]
+forEach:	C1 [ForkJoinPool.commonPool-worker-11]
+forEach:	C2 [ForkJoinPool.commonPool-worker-13]
+forEach:	A1 [ForkJoinPool.commonPool-worker-2]
+forEach:	A2 [ForkJoinPool.commonPool-worker-9]
 ```
 
 貌似 `sort` 只在主线程上串行执行。但是实际上，并行流中的 `sort` 在底层使用了 Java 8 中新的方法`Arrays.parallelSort()`。如  [javadoc ](https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html#parallelSort-T:A-)官方文档解释的，这个方法会按照数据长度来决定以串行方式，或者以并行的方式来执行。
@@ -3157,12 +3155,12 @@ persons
     .parallelStream()
     .reduce(0,
         (sum, p) -> {
-            System.out.format("accumulator: sum=%s; person=%s [%s]\n",
+            System.out.format("accumulator:\tsum=%s; person=%s [%s]\n",
                 sum, p, Thread.currentThread().getName());
             return sum += p.age;
         },
         (sum1, sum2) -> {
-            System.out.format("combiner: sum1=%s; sum2=%s [%s]\n",
+            System.out.format("combiner:\t\tsum1=%s; sum2=%s [%s]\n",
                 sum1, sum2, Thread.currentThread().getName());
             return sum1 + sum2;
         });
@@ -3171,13 +3169,13 @@ persons
 通过控制台日志输出，累加器和组合器均在所有可用的线程上并行执行：
 
 ```
-accumulator: sum=0; person=Pamela; [main]
-accumulator: sum=0; person=Max;    [ForkJoinPool.commonPool-worker-3]
-accumulator: sum=0; person=David;  [ForkJoinPool.commonPool-worker-2]
-accumulator: sum=0; person=Peter;  [ForkJoinPool.commonPool-worker-1]
-combiner:    sum1=18; sum2=23;     [ForkJoinPool.commonPool-worker-1]
-combiner:    sum1=23; sum2=12;     [ForkJoinPool.commonPool-worker-2]
-combiner:    sum1=41; sum2=35;     [ForkJoinPool.commonPool-worker-2]
+accumulator:	sum=0; person=Max [ForkJoinPool.commonPool-worker-11]
+accumulator:	sum=0; person=Pamela [main]
+accumulator:	sum=0; person=David [ForkJoinPool.commonPool-worker-2]
+accumulator:	sum=0; person=Peter [ForkJoinPool.commonPool-worker-9]
+combiner:		sum1=18; sum2=23 [ForkJoinPool.commonPool-worker-9]
+combiner:		sum1=23; sum2=12 [ForkJoinPool.commonPool-worker-2]
+combiner:		sum1=41; sum2=35 [ForkJoinPool.commonPool-worker-2]
 ```
 
 总之，需要记住的是，并行流对含有大量元素的数据流提升性能极大。但是也需要记住并行流的一些操作，例如 `reduce` 和 `collect` 操作，需要额外的计算（如组合操作），这在串行执行时并不需要。
