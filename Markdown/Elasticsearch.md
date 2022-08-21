@@ -527,6 +527,7 @@ PUT /products
     <img src="../Images/Elasticsearch/image-20220710231252432.png" alt="image-20220710231252432" style="width:90%;" />
 </div>
 
+
 <br>
 
 **查询索引**
@@ -536,7 +537,7 @@ GET /_cat/indices?v
 ```
 
 <div align="center">
-    <img src="../Images/Elasticsearch/image-20220710231614286.png" alt="image-20220710231614286" style="" />
+    <img src="../Images/Elasticsearch/image-20220710231614286.png" alt="image-20220710231614286" style="width:90%" />
 </div>
 
 <br>
@@ -560,7 +561,7 @@ DELETE /products
 ```
 
 <div align="center">
-    <img src="../Images/Elasticsearch/image-20220710231843156.png" alt="image-20220710231843156" style="width:85%;" />
+    <img src="../Images/Elasticsearch/image-20220710231843156.png" alt="image-20220710231843156" style="width:90%;" />
 </div>
 
 <br>
@@ -1282,4 +1283,120 @@ GET /products/_search
 <br>
 
 # 7、分词器
+
+Analysis： 文本分析是把全文本转换一系列单词（term/token）的过程，也叫分词（Analyzer）。Analysis 是通过 Analyzer 来实现的。分词就是将文档通过 Analyzer 分成一个一个的 term（关键词查询），每一个 term 都指向包含这个 term 的文档。
+
+<br>
+
+**Analyzer 组成**
+
+分析器（Analyzer）都由三种构件组成的：Character Filters、Tokenizer、Token Filter。
+
+- Character Filter： 字符过滤器
+  
+  在一段文本进行分词之前，先进行预处理，比如说最常见的就是：过滤 HTML 标签（`<span>hello<span>` ==> `hello`）、`&` ==> `and`（`I&you` ==> `I and you`）。
+- Tokenizers： 分词器
+  
+  英文分词可以根据空格将单词分开，中文分词比较复杂，可以采用机器学习算法来分词。
+  
+- Token filters： Token 过滤器
+  
+  将切分的单词进行加工。大小写转换（例将 “Quick” 转为小写）、去掉停用词（例如停用词像 “a”、“and”、“the”等等）、加入同义词（例如同义词像 “jump” 和 “leap”）。
+
+> 三者顺序:	Character Filters ==> Tokenizer ==> Token Filter
+>
+> 三者个数：Character Filters（0个或多个） + Tokenizer + Token Filters（0个或多个）
+
+<br>
+
+**创建索引设置分词**
+
+```http
+PUT /索引名
+{
+  "settings": {},
+  "mappings": {
+    "properties": {
+      "title":{
+        "type": "text",
+        "analyzer": "standard" //显示指定分词器
+      }
+    }
+  }
+}
+```
+
+<br>
+
+## 7.1、内置分词器
+
+- Standard Analyzer - 默认分词器，英文按单词词切分，并小写处理
+- Simple Analyzer - 按照单词切分（符号被过滤），小写处理
+- Stop Analyzer - 小写处理，停用词过滤（the、a、is）
+- Whitespace Analyzer - 按照空格切分，不转小写
+- Keyword Analyzer - 不分词，直接将输入当作输出
+
+<br>
+
+**Standard Analyzer**
+
+特点：按照单词分词，英文统一转为小写，过滤标点符号 ，中文单字分词。
+
+```http
+POST /_analyze
+{
+  "analyzer": "standard",
+  "text": "this is a , good Man 中华人民共和国"
+}
+```
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220821223953829.png" alt="image-20220821223953829" style="width:90%;" />
+</div>
+
+<br>
+
+**Simple Analyzer**
+
+特点：英文按照单词分词，英文统一转为小写，去掉符号，中文按照空格进行分词。
+
+```http
+POST /_analyze
+{
+  "analyzer": "simple",
+  "text": "this is a , good Man 中华人民共和国"
+}
+```
+
+<div aling="center">
+    <img src="../Images/Elasticsearch/image-20220821224216488.png" alt="image-20220821224216488" style="width:95%;" />
+</div>
+
+<br>
+
+**Whitespace Analyzer**
+
+特点:  中文、英文按照空格分词，英文不会转为小写 ，不去掉标点符号。
+
+```http
+POST /_analyze
+{
+  "analyzer": "whitespace",
+  "text": "this is a , good Man"
+}
+```
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220821224422903.png" alt="image-20220821224422903" style="width:95%;" />
+</div>
+
+<br>
+
+## 7.2、中文分词器
+
+在 ES 中支持中文分词器非常多，如 smartCN、IK 等，推荐的就是 IK 分词器。
+
+
+
+**安装IK**
 
