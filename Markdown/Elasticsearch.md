@@ -1389,14 +1389,224 @@ POST /_analyze
 <div align="center">
     <img src="../Images/Elasticsearch/image-20220821224422903.png" alt="image-20220821224422903" style="width:95%;" />
 </div>
-
 <br>
 
 ## 7.2、中文分词器
 
 在 ES 中支持中文分词器非常多，如 smartCN、IK 等，推荐的就是 IK 分词器。
 
+<br>
 
+### 7.2.1、安装 IK
 
-**安装IK**
+**Linux 环境安装**
+
+> - IK分词器的版本要你安装 ES 的版本一致
+> - Docker 容器运行 ES 安装插件目录为 `/usr/share/elasticsearch/plugins`
+
+开源分词器 Ik 的 Github：https://github.com/medcl/elasticsearch-analysis-ik
+
+1. 下载对应版本：
+
+   ```shell
+   wget https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.14.0/elasticsearch-analysis-ik-7.14.0.zip
+   ```
+
+2. 解压：
+
+   ```shell
+   unzip elasticsearch-analysis-ik-7.14.0.zip #先使用yum install -y unzip
+   ```
+
+3. 移动到 ES 安装目录的 plugins 目录中：
+
+   ```shell
+   mv elasticsearch-analysis-ik-7.14.0 elasticsearch-7.14.0/plugins/
+   ```
+
+4. 重启 ES 生效
+
+<br>
+
+**Docker 环境**
+
+如果使用 Docker 则修改 compose.yml 文件为：
+
+```yaml
+version: "3.8"
+volumes:
+  data:
+  config:
+networks:
+  es:
+services:
+  elasticsearch:
+    image: elasticsearch:7.14.0
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - "es"
+    environment:
+      - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - data:/usr/share/elasticsearch/data
+      - config:/usr/share/elasticsearch/config
+      - ./elasticsearch-analysis-ik-7.14.0:/usr/share/elasticsearch/plugins/elasticsearch-analysis-ik-7.14.0
+
+  kibana:
+    image: kibana:7.14.0
+    ports:
+      - "5601:5601"
+    networks:
+      - "es"
+    volumes:
+      - ./kibana.yml:/usr/share/kibana/config/kibana.yml
+```
+
+<br>
+
+### 7.2.2、IK 使用
+
+IK有两种颗粒度的拆分：
+
+- `ik_smart`：会做最粗粒度的拆分
+
+- `ik_max_word`：会将文本做最细粒度的拆分
+
+<br>
+
+**ik_smart**
+
+```http
+POST /_analyze
+{
+  "analyzer": "ik_smart",
+  "text": "中华人民共和国国歌"
+}
+```
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220823235507682.png" alt="image-20220823235507682" style="width:95%;" />
+</div>
+
+<br>
+
+**ik_max_word**
+
+```http
+POST /_analyze
+{
+  "analyzer": "ik_max_word",
+  "text": "中华人民"
+}
+```
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220823235617310.png" alt="image-20220823235617310" style="width:95%;" />
+</div>
+
+<br>
+
+### 7.2.3、扩展词、停用词
+
+IK支持自定义扩展词典和停用词典
+
+- 扩展词典就是有些词并不是关键词，但是也希望被 ES 用来作为检索的关键词，可以将这些词加入扩展词典。
+- 停用词典就是有些词是关键词，但是出于业务场景不想使用这些关键词被检索到，可以将这些词放入停用词典。
+
+定义扩展词典和停用词典可以修改IK分词器中 config 目录中 IKAnalyzer.cfg.xml 这个文件。
+
+1. 修改 IKAnalyzer.cfg.xml：
+
+   ```shell
+   vim IKAnalyzer.cfg.xml
+   ```
+
+   添加值 `ext_dict.dic` 和 `ext_stopword.dic`：
+
+   ```xml
+   <?xml version="1.0" encoding="UTF-8"?>
+   <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+   <properties>
+   	<comment>IK Analyzer 扩展配置</comment>
+   	<!--用户可以在这里配置自己的扩展字典 -->
+   	<entry key="ext_dict">ext_dict.dic</entry>
+   	 <!--用户可以在这里配置自己的扩展停止词字典-->
+   	<entry key="ext_stopwords">ext_stopword.dic</entry>
+   	<!--用户可以在这里配置远程扩展字典 -->
+   	<!-- <entry key="remote_ext_dict">words_location</entry> -->
+   	<!--用户可以在这里配置远程扩展停止词字典-->
+   	<!-- <entry key="remote_ext_stopwords">words_location</entry> -->
+   </properties>
+   ```
+
+2. 在 IK 分词器目录下 config 目录中创建 ext_dict.dic 文件：
+
+   ```shell
+   vim ext_dict.dic
+   ```
+
+   加入扩展词即可，每个词用回车隔开：
+
+   ```
+   中华人
+   ```
+
+3. 在 IK 分词器目录下 config 目录中创建 ext_stopword.dic 文件：
+
+   ```shell
+   vim ext_stopword.dic
+   ```
+
+   加入扩展词即可，每个词用回车隔开：
+
+   ```
+   华人
+   ```
+
+4. 重启 ES 生效：
+
+   ```http
+   POST /_analyze
+   {
+     "analyzer": "ik_max_word",
+     "text": "中华人民"
+   }
+   ```
+
+   <div align="center">
+       <img src="../Images/Elasticsearch/image-20220824002925386.png" alt="image-20220824002925386" style="width:100%;" />
+   </div>
+
+> 词典的编码必须为 UTF-8，否则无法生效！
+
+<br>
+
+**IK 自带的字典**
+
+IK 自带许多常用的扩展字典：
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220824000833198.png" alt="image-20220824000833198" style="width:70%;" />
+</div>
+
+可以更改配置文件使用 IK 的扩展字典，后续对其扩充，会比较方便：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>IK Analyzer 扩展配置</comment>
+	<!--用户可以在这里配置自己的扩展字典 -->
+	<entry key="ext_dict">extra_main.dic</entry>
+	 <!--用户可以在这里配置自己的扩展停止词字典-->
+	<entry key="ext_stopwords">extra_stopword.dic</entry>
+	<!--用户可以在这里配置远程扩展字典 -->
+	<!-- <entry key="remote_ext_dict">words_location</entry> -->
+	<!--用户可以在这里配置远程扩展停止词字典-->
+	<!-- <entry key="remote_ext_stopwords">words_location</entry> -->
+</properties>
+```
 
