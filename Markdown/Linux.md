@@ -652,6 +652,8 @@ usermod -s /bin/ksh -d /home/z –g developer sam
 
 ### 6.1.4、切换账号
 
+`su` 为 switch user，即切换用户的简写。
+
 切换用户的命令：
 
 ```shell
@@ -1836,7 +1838,7 @@ systemctl emergency # 强制进入紧急救援模式
 
 # 11、进程管理
 
-## 11.1、 top
+## 11.1、top
 
 `top` 命令是 Linux 下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于 Windows 的任务管理器。`top` 是一个动态显示过程，即可以通过用户按键来不断刷新当前状态。如果在前台执行该命令，它将独占前台，直到用户终止该程序为止。比较准确的说，`top` 命令提供了实时的对系统处理器的状态监视。它将显示系统中 CPU 最 “敏感” 的任务列表。该命令可以按 CPU 使用、内存使用和执行时间对任务进行排序；而且该命令的很多特性都可以通过交互式命令或者在个人定制文件中进行设定。
 
@@ -2072,7 +2074,9 @@ cat /etc/passwd | grep /bin/bash | wc -l
 
 <br>
 
-# 13、curl
+# 13、数据传输
+
+## 13.1、curl
 
 `curl` 是用于在本地计算机与远程服务器之间传输数据的命令行工具。使用 `curl` 时您可以使用 HTTP、HTTPS、SCP、SFTP 和 FTP 等协议下载或上传数据。
 
@@ -2111,3 +2115,20 @@ curl [option] [url]
 - `-x`/`--proxy <host[:port]>` - 在给定的端口上使用 HTTP 代理
 - `-#`/`--progress-bar` - 进度条显示当前的传送状态
 
+<br>
+
+**下载文件**
+
+使用 `curl` 的内置 option:-o（小写）保存网页：
+
+```shell
+curl -o linux.html http://www.linux.com
+```
+
+<br>
+
+## 13.2、scp
+
+`scp` 是 secure copy 的简写，用于在 Linux 下进行远程拷贝文件的命令，和它类似的命令有 `cp`，不过 `cp` 只是在本机进行拷贝不能跨服务器，而且 `scp` 传输是加密的。当你服务器硬盘变为只读 read only system 时，用 `scp` 可以帮你把文件移出来。
+
+> 类似的工具有rsync；scp消耗资源少，不会提高多少系统负荷，在这一点上，rsync就远远不及它了。rsync比scp会快一点，但当小文件多的情况下，rsync会导致硬盘I/O非常高，而scp基本不影响系统正常使用。
