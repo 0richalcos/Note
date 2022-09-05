@@ -232,10 +232,10 @@ Linux的目录结构为树状结构，最顶级的目录为根目录 `/`。其�
 
 语法：
 
-```
-[root@www ~]# ls [-aAdfFhilnrRSt] 目录名称
-[root@www ~]# ls [--color={never,auto,always}] 目录名称
-[root@www ~]# ls [--full-time] 目录名称
+```shell
+ls [-aAdfFhilnrRSt] 目录名称
+ls [--color={never,auto,always}] 目录名称
+ls [--full-time] 目录名称
 ```
 
 选项与参数：
@@ -262,21 +262,21 @@ ls -al ~
  cd [相对路径或绝对路径]
 ```
 
-```
+```shell
 #使用 mkdir 命令创建 runoob 目录
-[root@www ~]# mkdir runoob
+mkdir runoob
 
 #使用绝对路径切换到 runoob 目录
-[root@www ~]# cd /root/runoob/
+cd /root/runoob/
 
 #使用相对路径切换到 runoob 目录
-[root@www ~]# cd ./runoob/
+cd ./runoob/
 
 # 表示回到自己的家目录，亦即是 /root 这个目录
-[root@www runoob]# cd ~
+cd ~
 
 # 表示去到目前的上一级目录，亦即是 /root 的上一级目录的意思；
-[root@www ~]# cd ..
+cd ..
 ```
 
 <br>
@@ -543,6 +543,12 @@ tail [参数] [文件]
 - `-v` - 显示详细的处理信息
 - `-c <数目>` - 显示的字节数
 - `--pid=<PID>` - 与 `-f`  合用，表示在进程 ID、PID 死掉之后结束
+
+<br>
+
+## 4.5、压缩/解压
+
+
 
 <br>
 
