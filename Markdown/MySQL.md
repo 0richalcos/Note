@@ -1582,7 +1582,7 @@ select goods_name,goods_number from sw_goods having goods_price > 100 //报错�
 
 ## 7.6、正则表达式
 
-MySQL同样支持其他正则表达式的匹配，MySQL中使用REGEXP或NOT REGEXP（或RLIKE和NOT RLIKE）运算符来进行正则表达式匹配
+MySQL 同样支持其他正则表达式的匹配，MySQL 中使用 `REGEXP` 或 `NOT REGEXP`（或 `RLIKE` 和 `NOT RLIKE` ）运算符来进行正则表达式匹配
 
 | 模式       | 描述                                                         |
 | ---------- | ------------------------------------------------------------ |
