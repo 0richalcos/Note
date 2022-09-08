@@ -2249,6 +2249,12 @@ cat@Ubuntu:~/unp/unpv13e/tcpcliserv$ fg %1
 ./tcpserv01
 ```
 
+也可以用 `kill %[number]` 或者 `kill PID` 杀死它：
+
+```shell
+kill %1
+```
+
 <br>
 
 ## 10.4、nohup
@@ -2268,6 +2274,36 @@ cat@Ubuntu:~/unp/unpv13e/tcpcliserv$ fg %1
 - *Command* - 要执行的命令
 - Arg - 一些参数，可以指定输出文件
 - & - 让命令在后台执行，终端退出后命令仍旧执行
+
+<br>
+
+**示例**
+
+以下命令在后台执行 root 目录下的 myScript.sh 脚本：
+
+```shell
+nohup /root/myScript.sh &
+```
+
+在终端如果看到以下输出说明运行成功：
+
+```
+appending output to nohup.out
+```
+
+这时打开 root 目录可以看到生成了 nohup.out 文件。
+
+如果要停止运行，你需要使用以下命令查找到 nohup 运行脚本的 PID，然后使用 kill 命令来删除：
+
+```shell
+ps -aux | grep "runoob.sh" 
+```
+
+以下命令在后台执行 root 目录下的 myScript.sh 脚本，并重定向输入到 myScript.log 文件：
+
+```shell
+nohup /root/myScript.sh > myScript.log 2>&1 &
+```
 
 <br>
 
