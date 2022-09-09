@@ -1900,7 +1900,7 @@ public class UserMapperImpl extends SqlSessionDaoSupport implements UserMapper {
 
 **编程式事务管理，在代码中调用 commit()、rollback()等事务管理相关的方法**
 
-maven pom.xml文件
+maven pom.xml 文件
 
 ```xml
 <dependency>
@@ -2290,7 +2290,7 @@ Exception in thread "main" java.lang.RuntimeException
 
 
 
-## 13.2、基于注解的事务
+## 13.4、基于注解的事务
 
 **基于 Aspectj AOP 配置（注解）事务**
 
@@ -2402,13 +2402,11 @@ public class TransactionTest {
 		testAspectjTransaction();
 	}
 	
-	
 	private static void testAspectjTransaction() {
 		UserDao userDao = (UserDao)context.getBean("userDao");
 		printUsers(userDao);
 		userDao.deleteUser(1);
 	}
- 
  
 	private static void printUsers(UserDao userDao) {
 		for (Map<String, Object> user : userDao.getUsers()) {
@@ -2427,5 +2425,77 @@ Exception in thread "main" java.lang.RuntimeException
 	at constxiong.interview.transaction.UserDaoImpl.deleteUser(UserDaoImpl.java:28)...
 ```
 
+<br>
 
+## 13.5、事务的传播属性
+
+- **PROPAGATION_REQUIRED = 0**
+
+  如果当前存在事务，则加入该事务；如果当前没有事务，则创建一个新的事务。
+
+  - 无父事务时：子事务作为独立事务执行
+  - 有父事务时：子事务中的操作串入父事务中执行，并且一起提交，一个操作失败全部回滚
+
+- **PROPAGATION_SUPPORTS = 1**
+
+  如果当前存在事务，则加入该事务；如果当前没有事务，则以非事务的方式继续运行。
+
+  - 无父事务时：以非事务方式执行
+  - 有父事务时：加入父事务执行，等同于 PROPAGATION_REQUIRED
+
+- **PROPAGATION_MANDATORY = 2**
+
+  如果当前存在事务，则加入该事务；如果当前没有事务，则抛出异常。
+
+  - 无父事务时：抛出异常
+  - 有父事务时：加入父事务执行，等同于 PROPAGATION_REQUIRED
+
+- **PROPAGATION_REQUIRES_NEW = 3**
+
+  创建一个新的事务，如果当前存在事务，则把当前事务挂起。
+
+  - 挂起（Suspend）：通知 TransactionManager 不再检查某事务的状态，直到 Resume
+    AbstractPlatformTransactionManager. handleExistingTransaction()
+  - 无父事务时：子事务新建事务作为独立事务执行
+  - 有父事务时：子事务新建事务作为独立事务执行，独立提交
+
+  ```
+  T1{
+  　　O(A);
+  　　T2{
+  　　　　O(B);
+  　　　　O(C);
+  　　};
+  　　O(D);
+  };
+  ```
+
+  子事务 T2 不受父事务 T1 回滚的影响，但仍作为 T1 的子逻辑，O(D) 失败，O(A) 回滚，T2 中的事务不回滚；
+
+  T2 失败回滚，T1 捕获异常后，可以选择提交或回滚，未捕获异常，同 T2 一起回滚。
+
+- **PROPAGATION_NOT_SUPPORTED = 4**
+
+  以非事务方式运行，如果当前存在事务，则把当前事务挂起。
+
+  - 无父事务时：以非事务方式执行
+  - 有父事务时：挂起父事务，自己按照无事务方式运行
+
+  子事务自身无回滚，出现异常若向上抛，可能导致父事务回滚，父事务回滚时，不会影响子事务
+
+- **PROPAGATION_NEVER = 5**
+
+  以非事务方式运行，如果当前存在事务，则抛出异常。
+
+  - 无父事务时：以非事务方式执行
+  - 有父事务时：抛出异常（若不处理会导致父事务回滚）
+
+- **PROPAGATION_NESTED = 6**
+
+  如果当前存在事务，则创建一个事务作为当前事务的嵌套事务来运行。
+
+  - 无父事务时：创建独立事务，等同于PROPAGATION_REQUIRED
+  - 有父事务时：嵌套在父事务之内
+  - 子事务依赖父事务：子事务于父事务提交时提交；父事务回滚，子事务也回滚
+  - Savepoint：子事务回滚时，父事务不回滚
 
