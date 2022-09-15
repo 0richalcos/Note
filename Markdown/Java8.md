@@ -2234,7 +2234,7 @@ Stream 类最常用的是其对各个数组以及集合的处，它可以很方�
 
 对于 Stream 流常见起始创建方法有3种：
 
-
+<br>
 
 **由集合类进行创建**
 
@@ -2247,7 +2247,7 @@ Stream<Integer> integerStream = streamList.stream();
 
 使用 `parallelStream()` 可以创建并行流，能够让数据集执行并行操作，后面会更详细地讲解。
 
-
+<br>
 
 **由数组进行创建**
 
@@ -2262,7 +2262,7 @@ Stream<Integer> stream = Arrays.stream(mArray).boxed();
 
 `boxed()` 方法的作用是装箱操作，将 `IntStream` 特定类型的流转化为 `Stream<Integer>` 普遍流操作，会在下文进行详细介绍。
 
-
+<br>
 
 **由`generate()`方法创建**
 
