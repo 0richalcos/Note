@@ -2178,6 +2178,16 @@ $ java Java8Tester
 
 # 9、Stream
 
+作为 Java 8 添加的一个新特性，Stream 流提供了一种声明的方式来处理数据。其基于函数式编程思想，将复杂的语句代码通过简洁的方法调用来表示，让程序员写出的代码更加的高效、简洁并具备可读性。
+
+**Javadoc** 对其的定义：
+
+> To perform a computation, stream operations are composed into a stream pipeline. A stream pipeline consists of a source (which might be an array, a collection, a generator function, an I/O channel, etc), zero or more intermediate operations (which transform a stream into another stream, such as filter(Predicate)), and a terminal operation (which produces a result or side-effect, such as count() or forEach(Consumer)).
+>
+> 为了执行计算，流操作被组合成一个流管道。流管道由源（这可能是一个数组，一个集合，一个生成器函数，一个 I/O 通道，等等），零个或多个中间业务（变换流到另一个流，如 `filter(Predicate)`），和一个终端操作（产生结果或副作用，如 `count()` 或 `forEach(Consumer)`）。
+
+<br>
+
 ## 9.1、Stream 流是如何工作的？
 
 流表示包含着一系列元素的集合，我们可以对其做不同类型的操作，用来对这些元素执行计算：
@@ -2214,40 +2224,61 @@ C2
 
 <br>
 
-## 9.2、不同类型的 Stream 流
+## 9.2、Stream 类
 
-我们可以从各种数据源中创建 Stream 流，其中以 Collection 集合最为常见。如 `List` 和 `Set` 均支持 `stream()` 方法来创建顺序流或者是并行流。
+Stream 类最常用的是其对各个数组以及集合的处，它可以很方便的去对数组以及集合中的元素进行筛选、处理、聚合并返回一个全新的数组/集合，其中对该数据类型的处理并不会影响原数组/集合本身。
 
-并行流是通过多线程的方式来执行的，它能够充分发挥多核 CPU 的优势来提升性能。
+<br>
 
-```java
-Arrays.asList("a1", "a2", "a3")
-        .stream() // 创建流
-        .findFirst() // 找到第一个元素
-        .ifPresent(System.out::println);  // 如果存在，即输出
-```
+### 9.2.1、源的创建
 
-输出：
+对于 Stream 流常见起始创建方法有3种：
 
-```
-a1
-```
 
-在集合上调用 `stream()` 方法会返回一个普通的 Stream 流。但是大可不必刻意地创建一个集合，再通过集合来获取 Stream 流，还可以通过如下这种方式：
+
+**由集合类进行创建**
+
+我们可以从各种数据源中创建 Stream 流，其中以 Collection 集合最为常见。如 `List` 和 `Set` 均支持 `stream()` 方法来创建顺序流：
 
 ```java
-Stream.of("a1", "a2", "a3")
-    .findFirst()
-    .ifPresent(System.out::println);
+List<Integer> streamList = new ArrayList<>();
+Stream<Integer> integerStream = streamList.stream();
 ```
 
-输出：
+使用 `parallelStream()` 可以创建并行流，能够让数据集执行并行操作，后面会更详细地讲解。
 
-```
-a1
+
+
+**由数组进行创建**
+
+```java
+Stream<Integer> stream = Stream.of(1, 2, 3, 4, 5)
 ```
 
-例如上面这样，我们可以通过 `Stream.of()` 从一堆对象中创建 Stream 流。
+```java
+int[] mArray = {1, 2, 3, 4, 5};
+Stream<Integer> stream = Arrays.stream(mArray).boxed();
+```
+
+`boxed()` 方法的作用是装箱操作，将 `IntStream` 特定类型的流转化为 `Stream<Integer>` 普遍流操作，会在下文进行详细介绍。
+
+
+
+**由`generate()`方法创建**
+
+```java
+Stream<Double> dStream = Stream.generate(Math::random);
+```
+
+`generate()` 方法根据传入参数生成一个无限的无序流
+
+<br>
+
+### 9.2.2、中间处理方法
+
+<br>
+
+## 9.3、其他特定类型的流
 
 除了常规对象流之外，Java 8 还附带了一些特殊类型的流，用于处理原始数据类型 `int`、`long` 以及 `double`，它们就是 `IntStream`、`LongStream` 还有 `DoubleStream`。
 
@@ -2334,7 +2365,9 @@ a3
 
 <br>
 
-## 9.3、Stream 流的处理顺序
+<br>
+
+## 9.4、Stream 流的处理顺序
 
 Stream 流的中间操作的有个重要特性 —— **延迟性**。观察下面这个没有终端操作的示例代码：
 
@@ -2405,7 +2438,7 @@ anyMatch:	A2
 
 <br>
 
-## 9.4、中间操作顺序这么重要？
+## 9.5、中间操作顺序这么重要？
 
 下面的例子由两个中间操作 `map` 和 `filter`，以及一个终端操作 `forEach` 组成。让我们再来看看这些操作是如何执行的：
 
@@ -2545,7 +2578,7 @@ forEach:	A2
 
 <br>
 
-## 9.5、数据流复用问题
+## 9.6、数据流复用问题
 
 Java8 Stream 流是不能被复用的，一旦你调用任何终端操作，流就会关闭：
 
@@ -2582,7 +2615,7 @@ streamSupplier.get().noneMatch(s -> true);  // true
 
 <br>
 
-## 9.6、高级操作
+## 9.7、高级操作
 
 `Streams` 支持的操作很丰富，除了上面介绍的这些比较常用的中间操作，如 `filter` 或 `map`（参见[Stream Javadoc](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html)）外。还有一些更复杂的操作，如 `collect`、`flatMap` 以及 `reduce`。
 
@@ -2615,7 +2648,7 @@ List<Person> persons =
 
 <br>
 
-### 9.6.1、Collect
+### 9.7.1、Collect
 
 `collect` 是一个非常有用的终端操作，它可以将流中的元素转变成另外一个不同的对象，例如一个 `List`、`Set` 或 `Map`。`collect` 接受入参为 `Collector`（收集器），它由四个不同的操作组成：供应器（supplier）、累加器（accumulator）、组合器（combiner）和终止器（finisher）。
 
@@ -2760,7 +2793,7 @@ MAX | PETER | PAMELA | DAVID
 
 <br>
 
-### 9.6.2、FlatMap
+### 9.7.2、FlatMap
 
 通过 `map` 操作可以将流中的对象转换为另一种类型。但是 `Map` 只能将每个对象映射到另一个对象。如果想要将一个对象转换为多个其他对象或者根本不做转换操作呢？这个时候 `flatMap` 就派上用场了。
 
@@ -2883,7 +2916,7 @@ Optional.of(new Outer())
 
 <br>
 
-### 9.6.3、Reduce
+### 9.7.3、Reduce
 
 规约操作可以将流的所有元素组合成一个结果。Java 8 支持三种不同的 `reduce` 方法。
 
@@ -3026,7 +3059,7 @@ combiner: sum1=41; sum2=35
 
 <br>
 
-## 9.7、并行流
+## 9.8、并行流
 
 流是可以并行执行的，当流中存在大量元素时，可以显著提升性能。并行流底层使用的 `ForkJoinPool`，它由 `ForkJoinPool.commonPool()` 方法提供。底层线程池的大小最多为五个（具体取决于 CPU 可用核心数）：
 
