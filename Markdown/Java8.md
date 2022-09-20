@@ -2184,7 +2184,7 @@ $ java Java8Tester
 
 > To perform a computation, stream operations are composed into a stream pipeline. A stream pipeline consists of a source (which might be an array, a collection, a generator function, an I/O channel, etc), zero or more intermediate operations (which transform a stream into another stream, such as filter(Predicate)), and a terminal operation (which produces a result or side-effect, such as count() or forEach(Consumer)).
 >
-> 为了执行计算，流操作被组合成一个流管道。流管道由源（这可能是一个数组，一个集合，一个生成器函数，一个 I/O 通道，等等），零个或多个中间业务（变换流到另一个流，如 `filter(Predicate)`），和一个终端操作（产生结果或副作用，如 `count()` 或 `forEach(Consumer)`）。
+> 为了执行计算，流操作被组合成一个流管道。流管道由源（这可能是一个数组，一个集合，一个生成器函数，一个 I/O 通道，等等）、零个或多个中间业务（变换流到另一个流，如 `filter(Predicate)`）和一个终端操作（产生结果或副作用，如 `count()` 或 `forEach(Consumer)`）组成。
 
 <br>
 
@@ -2276,6 +2276,425 @@ Stream<Double> dStream = Stream.generate(Math::random);
 
 ### 9.2.2、中间处理方法
 
+**`filter()` 方法**
+
+该方法接收一个判断式来对流中的元素进行筛选，将流中符合该判断的元素留下，不符合该判断的元素去除，并返回一个包含所有符合该判断的元素的新的流。
+
+```java
+int[] fList = StreamTestUtils.randomGenerate();
+
+System.out.println("筛选前的数组：");
+Arrays.stream(fList).forEach(num -> System.out.print(num + ", "));
+
+System.out.println("\n筛选后的数组：");
+/* 筛选出50以内的数字 */
+Arrays.stream(fList).filter(num -> num <= 50).forEach(num -> System.out.print(num + ", "));
+System.out.println();
+```
+
+`randomGenerate()` 方法用来生成一个区间为 [1, 100]，大小为 10 的随机数数组。
+
+控制台输出：
+
+```
+筛选前的数组：
+ 99, 18, 90, 85, 19, 5, 1, 54, 76, 6, 
+筛选后的数组：
+ 18, 19, 5, 1, 6, 
+```
+
+<br>
+
+**`map()` 方法**
+
+该方法用于对流中的元素进行转换操作，用于对流中的元素进行一系列的变换，返回一个变换后的新的流。
+
+```java
+int[] fList = StreamTestUtils.randomGenerate();
+
+System.out.println("转换前的数组：");
+Arrays.stream(fList).forEach(num -> System.out.print(num + ", "));
+
+System.out.println("\n转换后的数组：");
+/* 将每个数字加100后输出 */
+Arrays.stream(fList).map(num -> num += 100).forEach(num -> System.out.print(num + ", "));
+System.out.println();
+```
+
+控制台输出：
+
+```
+转换前的数组：
+69, 44, 59, 96, 99, 40, 79, 33, 85, 76, 
+转换后的数组：
+169, 144, 159, 196, 199, 140, 179, 133, 185, 176,
+```
+
+类似的方法还有 `mapToInt()`、`mapToLong()`、`mapToDouble()`，功能相同，只不过返回的是特定类型的流（`IntStream`、`LongStream` 和 `DoubleStream`）。
+
+<br>
+
+**`distinct()` 方法**
+
+该方法用于对流中的元素进行去重操作。
+
+```java
+int[] dList = {1, 1, 2, 5, 2, 4, 3, 1};
+
+System.out.println("去重前的数组：");
+Arrays.stream(dList).forEach(num -> System.out.print(num + ", "));
+
+System.out.println("\n去重后的数组：");
+Arrays.stream(dList).distinct().forEach(num -> System.out.print(num + ", "));
+System.out.println();
+```
+
+控制台输出：
+
+```
+去重前的数组：
+1, 1, 2, 5, 2, 4, 3, 1, 
+去重后的数组：
+1, 2, 5, 4, 3, 
+```
+
+要特别注意流中储存的内容是以数组为单位还是以数为单位，若以数组为单位的话调用 `distinct()` 是不生效的（比如用 `split()` 方法将字符串分割成一个个字符串数组再用 `map()` 方法进行变换），此时需要调用 `flatMap()` 方法对流进行扁平化处理，之后再调用 `distinct()` 方法去重。
+
+<br>
+
+**`sorted()` 方法**
+
+该方法用于对流中内容进行排序操作，默认为升序。
+
+```java
+List<Integer> isList = StreamTestUtils.intToList(StreamTestUtils.randomGenerate());
+
+System.out.println("排序前的数组：");
+isList.forEach(num -> System.out.print(num + ", "));
+
+System.out.println("\n排序为升序的数组：");
+isList.stream().sorted().forEach(num -> System.out.print(num + ", "));
+System.out.println();
+
+System.out.println("排序为降序的数组：");
+isList.stream().sorted((o1, o2) -> Integer.compare(o2, o1))
+    .forEach(num -> System.out.print(num + ", "));
+System.out.println();
+```
+
+控制台输出：
+
+```
+排序前的数组：
+79, 77, 36, 89, 32, 80, 12, 56, 78, 55, 
+排序为升序的数组：
+12, 32, 36, 55, 56, 77, 78, 79, 80, 89, 
+排序为降序的数组：
+89, 80, 79, 78, 77, 56, 55, 36, 32, 12, 
+```
+
+可传入 `Comparator` 表达式来自行拟定排序规则。
+
+对 map 的排序可以按键递增/递减：
+
+```java
+Map<Integer, Integer> map = new HashMap<>();
+Random random = new Random();
+
+for(int i=0; i<10; i++) {
+    map.put(random.nextInt(100)+1, random.nextInt(100)+1);
+}
+
+System.out.println("原Map为：\n" + map);
+
+System.out.println("按键递升排序后的Map为：");
+Map<Integer, Integer> kMap = map.entrySet().stream()
+    .sorted(Map.Entry.comparingByKey())
+    .collect(Collectors.toMap(Map.Entry::getKey, 
+                             Map.Entry::getValue, 
+                             (oldValue, newValue) -> oldValue, 
+                             LinkedHashMap::new));
+System.out.println(kMap);
+
+System.out.println("按键递减排序后的Map为：");
+Map<Integer, Integer> kMapDown = map.entrySet().stream()
+    .sorted(Map.Entry.<Integer, Integer>comparingByKey().reversed())
+    .collect(Collectors.toMap(Map.Entry::getKey,
+                              Map.Entry::getValue, 
+                              (oldValue, newValue) -> oldValue,
+                              LinkedHashMap::new));
+System.out.println(kMapDown);
+```
+
+控制台输出：
+
+```
+原Map为：
+{82=33, 34=32, 2=4, 68=8, 25=90, 60=95, 45=21, 62=19, 47=91}
+按键递升排序后的Map为：
+{2=4, 25=90, 34=32, 45=21, 47=91, 60=95, 62=19, 68=8, 82=33}
+按键递减排序后的Map为：
+{82=33, 68=8, 62=19, 60=95, 47=91, 45=21, 34=32, 25=90, 2=4}
+```
+
+<br>
+
+**`peek()` 方法**
+
+该方法主要用于调试，对于中间流程某个步骤的执行元素情况进行打印输出。
+
+```java
+int[] pList = StreamTestUtils.randomGenerate();
+
+System.out.println("原数组：");
+Arrays.stream(pList).sorted().forEach(num -> System.out.print(num + ", "));
+
+System.out.println("\n流程打印：");
+int sum = Arrays.stream(pList)
+    .filter(num -> num <= 50)
+    .peek(num -> System.out.print("[" + num + ", "))
+    .map(num -> num+=1)
+    .peek(num -> System.out.print(num + "], "))
+    .sum();
+System.out.println("\n和：" + sum);
+```
+
+控制台输出：
+
+```
+原数组：
+7, 22, 35, 55, 69, 77, 82, 83, 83, 92, 
+流程打印：
+[22, 23], [7, 8], [35, 36], 
+和：67
+```
+
+<br>
+
+**`limit()` 方法**
+
+该方法用于截取操作，可截取数组的前 n 个元素。
+
+```java
+int[] lList = StreamTestUtils.randomGenerate();
+
+System.out.println("原数组：");
+Arrays.stream(lList).forEach(num -> System.out.print(num + ", "));
+
+System.out.println("\n截取5个字符数组：");
+Arrays.stream(lList).limit(5).forEach(num -> System.out.print(num + ", "));
+System.out.println();
+```
+
+控制台输出：
+
+```
+原数组：
+69, 57, 13, 46, 66, 29, 78, 76, 95, 7, 
+截取5个字符数组：
+69, 57, 13, 46, 66, 
+```
+
+<br>
+
+**`skip()` 方法**
+
+该方法用于跳过元素操作，可以跳过前 n 个元素，返回剩余元素组成的流（若元素数目不满 n 个，则返回空流）。
+
+```java
+int[] sList = StreamTestUtils.randomGenerate();
+
+System.out.println("原数组：");
+Arrays.stream(sList).forEach(num -> System.out.print(num + ", "));
+
+System.out.println("\n跳过5个字符后数组：");
+Arrays.stream(sList).skip(5).forEach(num -> System.out.print(num + ", "));
+System.out.println();
+```
+
+控制台输出：
+
+```
+原数组：
+55, 13, 36, 43, 1, 5, 64, 11, 75, 57, 
+跳过5个字符后数组：
+5, 64, 11, 75, 57, 
+```
+
+<br>
+
+### 9.2.3、终端收集方法
+
+**`forEach()/forEachOrdered()` 方法**
+
+该方法用于对流中内容的循环遍历，而 `forEachOrdered()` 方法用于保持原有元素的既定顺序遍历。
+
+```java
+int[] fList = StreamTestUtils.randomGenerate();
+
+System.out.println("原数组：");
+Arrays.stream(fList).forEach(num -> System.out.print(num + ", "));
+
+System.out.println("\n并行流打印数组：");
+Arrays.stream(fList).parallel().forEach(num -> System.out.print(num + ", "));
+
+System.out.println("\n并行流顺序打印数组：");
+Arrays.stream(fList).parallel().forEachOrdered(num -> System.out.print(num + ", "));
+System.out.println();
+```
+
+控制台输出：
+
+```
+原数组：
+77, 49, 36, 21, 64, 36, 75, 100, 36, 46, 
+并行流打印数组：
+75, 36, 100, 49, 77, 36, 46, 64, 36, 21, 
+并行流顺序打印数组：
+77, 49, 36, 21, 64, 36, 75, 100, 36, 46, 
+```
+
+用普通的 `forEach()` 通过并行流打印数组，可以明显看到打印顺序为乱序的；但是利用 `forEachOrdered()` 方法即可保持数组的原有顺序打印。
+
+<br>
+
+**`toArray()` 方法**
+
+主要用于将给定数据源转换为数组返回，空参方法返回的是 `Object[]` 类型的数组，可以传入一个指定数组类型以返回特定类型数组。
+
+```java
+List<Integer> tList = StreamTestUtils.intToList(StreamTestUtils.randomGenerate());
+
+System.out.println("原集合：");
+tList.forEach(num -> System.out.print(num + ", "));
+
+System.out.println("\n正常方法转换Integer数组：");
+Integer[] tIns = tList.toArray(new Integer[0]);
+Arrays.stream(tIns).forEach(num -> System.out.print(num + ", "));
+
+System.out.println("\n经过Stream流筛选不大于50的元素后转换的Integer数组：");
+Integer[] tStreamToIns = tList.stream().filter(num -> num <= 50).toArray(Integer[]::new);
+Arrays.stream(tStreamToIns).forEach(num -> System.out.print(num + ", "));
+System.out.println();
+```
+
+控制台输出：
+
+```
+原集合：
+74, 17, 74, 14, 92, 36, 65, 93, 29, 26, 
+正常方法转换Integer数组：
+74, 17, 74, 14, 92, 36, 65, 93, 29, 26, 
+经过Stream流筛选不大于50的元素后转换的Integer数组：
+17, 14, 36, 29, 26, 
+```
+
+集合本身提供了 `toArray()` 方法来将集合转化为数组，但是中间如果涉及过滤、变换等操作，该方法就显得不是那么方便，而使用流操作可以直接在中间声明过滤、变换的方法，并在最后用 `toArray()` 方法来对操作后的流进行收集操作。
+
+<br>
+
+**`max()`/`min()`/`count()` 方法**
+
+这三个方法分别可获得流中元素的最大值、最小值以及长度。
+
+```java
+int[] mList = StreamTestUtils.randomGenerate();
+System.out.println("原数组：");
+
+Arrays.stream(mList).sorted().forEach(num -> System.out.print(num + ", "));
+
+int count = (int) Arrays.stream(mList).count();
+int max = Arrays.stream(mList).max().orElse(-1);
+int min = Arrays.stream(mList).min().orElse(-1);
+
+System.out.println("\n长度：" + count);
+System.out.println("最大值：" + max);
+System.out.println("最小值：" + min);
+```
+
+控制台输出：
+
+```
+原数组：
+15, 19, 30, 39, 48, 53, 92, 94, 95, 97, 
+长度：10
+最大值：97
+最小值：15
+```
+
+`min()` 和 `max()` 方法分别接收一个比较器，通过比较器来判断传参类型的比较方式（比如传入的 Person 类按名字取得最大/最小值，则比较器最后返回的是名字的比较值），并返回一个 `Optional<T>` 类
+
+这两个方法要求调用 `Optional<T>` 类的 `isPresent()` 判断流数据中是否存在该值，所以一般都会在其后跟 `orElse()` 方法指定不存在时的默认值。
+（这里为了方便所以调用的是 IntStream 特定流的方法，本质区别是将泛型设为 Integer，即返回 OptionalInt 类，默认的比较器为比较两数之间的大小）。
+
+<br>
+
+**`allMatch()`/`anyMatch()`/`noneMatch()` 方法**
+
+这三个方法是查看流中元素是否匹配某个特定逻辑
+
+- `allMatch()`：全部匹配才返回 `true`
+- `anyMatch()`：任意元素匹配就返回 `true`
+- `noneMatch()`：全部不匹配才返回 `true`
+
+```java
+int[] mList = StreamTestUtils.randomGenerate();
+System.out.println("原数组：");
+Arrays.stream(mList).sorted().forEach(num -> System.out.print(num + ", "));
+
+System.out.println("\n全部匹配测试：");
+boolean match = Arrays.stream(mList).allMatch(num -> num > 0);
+System.out.println("结果：" + match);
+System.out.println("部分匹配测试：");
+match = Arrays.stream(mList).anyMatch(num -> num > 50);
+System.out.println("结果：" + match);
+System.out.println("不匹配测试：");
+match = Arrays.stream(mList).noneMatch(num -> num < 0);
+System.out.println("结果：" + match);
+```
+
+控制台打印：
+
+```
+原数组：
+3, 8, 8, 46, 47, 52, 59, 67, 68, 77, 
+全部匹配测试：
+结果：true
+部分匹配测试：
+结果：true
+不匹配测试：
+结果：true
+```
+
+<br>
+
+**`findFirst()/findAny()` 方法**
+
+这两个方法返回流中数据的第一个元素，注意是流中数据操作的顺序，也就是说该流操作会以此数据作为第一个，而不是传入流的数据的顺序。
+
+```java
+int[] mList = StreamTestUtils.randomGenerate();
+System.out.println("原数组：");
+Arrays.stream(mList).sorted().forEach(num -> System.out.print(num + ", "));
+
+int firstNum = Arrays.stream(mList).findFirst().orElse(-1);
+System.out.println("\n第一个数为：" + firstNum);
+
+int anyNum = Arrays.stream(mList).findAny().orElse(-1);
+System.out.println("任意一个数为：" + anyNum);
+```
+
+控制台打印：
+
+```
+原数组：
+12, 19, 35, 41, 56, 58, 62, 67, 71, 80, 
+第一个数为：41
+任意一个数为：41
+```
+
+`findFirst()` 和 `findAny()` 方法的主要区别是前者对并行流的限制很多，而后者对并行流的限制较少，一般采用`findAny()`方法。
+
 <br>
 
 ## 9.3、其他特定类型的流
@@ -2362,8 +2781,6 @@ a1
 a2
 a3
 ```
-
-<br>
 
 <br>
 
@@ -2862,6 +3279,8 @@ Bar3 <- Foo3
 ```
 
 如上所示，我们已成功将 3 个 `foo` 对象的流转换为 9 个 `bar` 对象的流。
+
+相似的方法还有 `flatToInt()`、`flatToLong()`、`flatToDouble()`，分别对应特定类型的流。
 
 最后，上面的这段代码可以简化为单一的流式操作：
 
