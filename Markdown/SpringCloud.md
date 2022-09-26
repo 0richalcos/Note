@@ -641,7 +641,7 @@ Spring 框架提供的 RestTemplate 类可用于在应用中调用 REST 服务�
 
 <br>
 
-**添加请求头 Headers 和请求体 Body**
+**发送 POST 请求并添加请求头 Headers 和请求体 Body**
 
 ```java
 RestTemplate restTemplate = new RestTemplate();
@@ -669,7 +669,7 @@ httpHeaders.setContentType(type);
 
 > 如果想要获取更为完整的响应，可以使用 `postForEntity()`。
 >
-> getForObject 函数实际上是对 getForEntity 函数的进一步封装，如果你只关注返回的消息体的内容，对其他信息都不关注，此时可以使用getForObject。
+> `getForObject()` 函数实际上是对 `getForEntity()` 函数的进一步封装，如果你只关注返回的消息体的内容，对其他信息都不关注，此时可以使用 `getForObject()`。
 
 <br>
 
@@ -681,11 +681,11 @@ exchange(String url, HttpMethod method,HttpEntity requestEntity, Class responseT
 
 参数说明：
 
-- url：请求路径
-- method：请求的方法（GET、POST、PUT等）
-- requestEntity：HttpEntity 对象，封装了请求头和请求体
-- responseType：返回数据类型
-- uriVariables：支持 PathVariable 类型的数据。
+- *url*：请求路径
+- *method*：请求的方法（GET、POST、PUT等）
+- *requestEntity*：HttpEntity 对象，封装了请求头和请求体
+- *responseType*：返回数据类型
+- *uriVariables*：支持 PathVariable 类型的数据。
 
 <br>
 
