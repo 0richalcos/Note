@@ -18,6 +18,7 @@
 - [**Java 8 新特性**](https://github.com/0richalcos/Note/blob/main/Markdown/Java8.md)
 - [**Java Web**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaWeb.md)
 - [**Java 工具类**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaUtils.md)
+- [**Java 解决方案**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaSolutions.md)
 
 
 
@@ -98,6 +99,6 @@
 - [**XML 解析**](https://github.com/0richalcos/Note/blob/main/Markdown/XMLParse.md)
 - [**ZIP 压缩解压**](https://github.com/0richalcos/Note/blob/main/Markdown/Zip4j.md)
 - [**IDE 及 Windows 设置**](https://github.com/0richalcos/Note/blob/main/Markdown/Mixed.md)
-- [**杂七杂八的**](https://github.com/0richalcos/Note/blob/main/Markdown/Petty.md)
+- [**解决方案**](https://github.com/0richalcos/Note/blob/main/Markdown/Solutions.md)
 - [**Why？Why？Why？**](https://github.com/0richalcos/Note/blob/main/Markdown/Why.md)
 
