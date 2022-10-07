@@ -785,7 +785,419 @@ POST /products/_doc/_bulk
 
 <br>
 
-# 5、高级查询
+# 5、索引原理
+
+## 5.1、倒排索引
+
+倒排索引（Inverted Index）也叫反向索引，有反向索引必有正向索引。通俗地来讲，正向索引是通过 key 找 value，反向索引则是通过 value 找 key。ES 底层在检索时底层使用的就是倒排索引。
+
+<br>
+
+## 5.2、索引模型
+
+现有索引和映射如下：
+
+```json
+{
+  "products" : {
+    "mappings" : {
+      "properties" : {
+        "description" : {
+          "type" : "text"
+        },
+        "price" : {
+          "type" : "float"
+        },
+        "title" : {
+          "type" : "keyword"
+        }
+      }
+    }
+  }
+}
+```
+
+先录入如下数据，有三个字段 title、price、description：
+
+| _id  | title        | price | description        |
+| ---- | ------------ | ----- | ------------------ |
+| 1    | 蓝月亮洗衣液 | 19.9  | 蓝月亮洗衣液很高效 |
+| 2    | iphone13     | 19.9  | 很不错的手机       |
+| 3    | 小浣熊干脆面 | 1.5   | 小浣熊很好吃       |
+
+在 ES 中除了 text 类型分词，其他类型不分词，因此根据不同字段创建索引如下：
+
+- title 字段：
+
+  | term         | _id（文档 id） |
+  | ------------ | -------------- |
+  | 蓝月亮洗衣液 | 1              |
+  | iphone13     | 2              |
+  | 小浣熊干脆面 | 3              |
+
+- price 字段：
+
+  | term | _id（文档 id） |
+  | ---- | -------------- |
+  | 19.9 | [1, 2]         |
+  | 1.5  | 3              |
+
+- description 字段：
+
+  | term | _id                   | term | _id  | term | _id  |
+  | ---- | --------------------- | ---- | ---- | ---- | ---- |
+  | 蓝   | 1                     | 不   | 2    | 小   | 3    |
+  | 月   | 1                     | 错   | 2    | 浣   | 3    |
+  | 亮   | 1                     | 的   | 2    | 熊   | 3    |
+  | 洗   | 1                     | 手   | 2    | 好   | 3    |
+  | 衣   | 1                     | 机   | 2    | 吃   | 3    |
+  | 液   | 1                     |      |      |      |      |
+  | 很   | [1:1:9, 2:1:6, 3:1:6] |      |      |      |      |
+  | 高   | 1                     |      |      |      |      |
+  | 效   | 1                     |      |      |      |      |
+
+> Elasticsearch 分别为每个字段都建立了一个倒排索引。因此查询时查询字段的 term，就能知道文档 ID，就能快速找到文档。
+
+<br>
+
+# 6、分词器
+
+Analysis： 文本分析是把全文本转换一系列单词（term/token）的过程，也叫分词（Analyzer）。Analysis 是通过 Analyzer 来实现的。分词就是将文档通过 Analyzer 分成一个一个的 term（关键词查询），每一个 term 都指向包含这个 term 的文档。
+
+<br>
+
+**Analyzer 组成**
+
+分析器（Analyzer）都由三种构件组成的：Character Filters、Tokenizer、Token Filter。
+
+- Character Filter： 字符过滤器
+
+  在一段文本进行分词之前，先进行预处理，比如说最常见的就是：过滤 HTML 标签（`<span>hello<span>` ==> `hello`）、`&` ==> `and`（`I&you` ==> `I and you`）。
+
+- Tokenizers： 分词器
+
+  英文分词可以根据空格将单词分开，中文分词比较复杂，可以采用机器学习算法来分词。
+
+- Token filters： Token 过滤器
+
+  将切分的单词进行加工。大小写转换（例将 “Quick” 转为小写）、去掉停用词（例如停用词像 “a”、“and”、“the”等等）、加入同义词（例如同义词像 “jump” 和 “leap”）。
+
+> 三者顺序:	Character Filters ==> Tokenizer ==> Token Filter
+>
+> 三者个数：Character Filters（0个或多个） + Tokenizer + Token Filters（0个或多个）
+
+<br>
+
+**创建索引设置分词**
+
+```http
+PUT /索引名
+{
+  "settings": {},
+  "mappings": {
+    "properties": {
+      "title":{
+        "type": "text",
+        "analyzer": "standard" //显示指定分词器
+      }
+    }
+  }
+}
+```
+
+<br>
+
+## 6.1、内置分词器
+
+- Standard Analyzer - 默认分词器，英文按单词词切分，并小写处理
+- Simple Analyzer - 按照单词切分（符号被过滤），小写处理
+- Stop Analyzer - 小写处理，停用词过滤（the、a、is）
+- Whitespace Analyzer - 按照空格切分，不转小写
+- Keyword Analyzer - 不分词，直接将输入当作输出
+
+<br>
+
+**Standard Analyzer**
+
+特点：按照单词分词，英文统一转为小写，过滤标点符号 ，中文单字分词。
+
+```http
+POST /_analyze
+{
+  "analyzer": "standard",
+  "text": "this is a , good Man 中华人民共和国"
+}
+```
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220821223953829.png" alt="image-20220821223953829" style="width:90%;" />
+</div>
+
+
+<br>
+
+**Simple Analyzer**
+
+特点：英文按照单词分词，英文统一转为小写，去掉符号，中文按照空格进行分词。
+
+```http
+POST /_analyze
+{
+  "analyzer": "simple",
+  "text": "this is a , good Man 中华人民共和国"
+}
+```
+
+<div aling="center">
+    <img src="../Images/Elasticsearch/image-20220821224216488.png" alt="image-20220821224216488" style="width:95%;" />
+</div>
+
+
+<br>
+
+**Whitespace Analyzer**
+
+特点:  中文、英文按照空格分词，英文不会转为小写 ，不去掉标点符号。
+
+```http
+POST /_analyze
+{
+  "analyzer": "whitespace",
+  "text": "this is a , good Man"
+}
+```
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220821224422903.png" alt="image-20220821224422903" style="width:95%;" />
+</div>
+
+<br>
+
+## 6.2、中文分词器
+
+在 ES 中支持中文分词器非常多，如 smartCN、IK 等，推荐的就是 IK 分词器。
+
+<br>
+
+### 6.2.1、安装 IK
+
+**Linux 环境安装**
+
+> - IK分词器的版本要你安装 ES 的版本一致
+> - Docker 容器运行 ES 安装插件目录为 `/usr/share/elasticsearch/plugins`
+
+开源分词器 Ik 的 Github：https://github.com/medcl/elasticsearch-analysis-ik
+
+1. 下载对应版本：
+
+   ```shell
+   wget https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.14.0/elasticsearch-analysis-ik-7.14.0.zip
+   ```
+
+2. 解压：
+
+   ```shell
+   unzip elasticsearch-analysis-ik-7.14.0.zip #先使用yum install -y unzip
+   ```
+
+3. 移动到 ES 安装目录的 plugins 目录中：
+
+   ```shell
+   mv elasticsearch-analysis-ik-7.14.0 elasticsearch-7.14.0/plugins/
+   ```
+
+4. 重启 ES 生效
+
+<br>
+
+**Docker 环境**
+
+如果使用 Docker 则修改 compose.yml 文件为：
+
+```yaml
+version: "3.8"
+volumes:
+  data:
+  config:
+networks:
+  es:
+services:
+  elasticsearch:
+    image: elasticsearch:7.14.0
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - "es"
+    environment:
+      - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - data:/usr/share/elasticsearch/data
+      - config:/usr/share/elasticsearch/config
+      - ./elasticsearch-analysis-ik-7.14.0:/usr/share/elasticsearch/plugins/elasticsearch-analysis-ik-7.14.0
+
+  kibana:
+    image: kibana:7.14.0
+    ports:
+      - "5601:5601"
+    networks:
+      - "es"
+    volumes:
+      - ./kibana.yml:/usr/share/kibana/config/kibana.yml
+```
+
+<br>
+
+### 6.2.2、IK 使用
+
+IK有两种颗粒度的拆分：
+
+- `ik_smart`：会做最粗粒度的拆分
+
+- `ik_max_word`：会将文本做最细粒度的拆分
+
+<br>
+
+**ik_smart**
+
+```http
+POST /_analyze
+{
+  "analyzer": "ik_smart",
+  "text": "中华人民共和国国歌"
+}
+```
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220823235507682.png" alt="image-20220823235507682" style="width:95%;" />
+</div>
+
+
+<br>
+
+**ik_max_word**
+
+```http
+POST /_analyze
+{
+  "analyzer": "ik_max_word",
+  "text": "中华人民"
+}
+```
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220823235617310.png" alt="image-20220823235617310" style="width:95%;" />
+</div>
+
+
+<br>
+
+### 6.2.3、扩展词、停用词
+
+IK支持自定义扩展词典和停用词典
+
+- 扩展词典就是有些词并不是关键词，但是也希望被 ES 用来作为检索的关键词，可以将这些词加入扩展词典。
+- 停用词典就是有些词是关键词，但是出于业务场景不想使用这些关键词被检索到，可以将这些词放入停用词典。
+
+定义扩展词典和停用词典可以修改IK分词器中 config 目录中 IKAnalyzer.cfg.xml 这个文件。
+
+1. 修改 IKAnalyzer.cfg.xml：
+
+   ```shell
+   vim IKAnalyzer.cfg.xml
+   ```
+
+   添加值 `ext_dict.dic` 和 `ext_stopword.dic`：
+
+   ```xml
+   <?xml version="1.0" encoding="UTF-8"?>
+   <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+   <properties>
+   	<comment>IK Analyzer 扩展配置</comment>
+   	<!--用户可以在这里配置自己的扩展字典 -->
+   	<entry key="ext_dict">ext_dict.dic</entry>
+   	 <!--用户可以在这里配置自己的扩展停止词字典-->
+   	<entry key="ext_stopwords">ext_stopword.dic</entry>
+   	<!--用户可以在这里配置远程扩展字典 -->
+   	<!-- <entry key="remote_ext_dict">words_location</entry> -->
+   	<!--用户可以在这里配置远程扩展停止词字典-->
+   	<!-- <entry key="remote_ext_stopwords">words_location</entry> -->
+   </properties>
+   ```
+
+2. 在 IK 分词器目录下 config 目录中创建 ext_dict.dic 文件：
+
+   ```shell
+   vim ext_dict.dic
+   ```
+
+   加入扩展词即可，每个词用回车隔开：
+
+   ```
+   中华人
+   ```
+
+3. 在 IK 分词器目录下 config 目录中创建 ext_stopword.dic 文件：
+
+   ```shell
+   vim ext_stopword.dic
+   ```
+
+   加入扩展词即可，每个词用回车隔开：
+
+   ```
+   华人
+   ```
+
+4. 重启 ES 生效：
+
+   ```http
+   POST /_analyze
+   {
+     "analyzer": "ik_max_word",
+     "text": "中华人民"
+   }
+   ```
+
+   <div align="center">
+       <img src="../Images/Elasticsearch/image-20220824002925386.png" alt="image-20220824002925386" style="width:100%;" />
+   </div>
+
+> 词典的编码必须为 UTF-8，否则无法生效！
+
+<br>
+
+**IK 自带的字典**
+
+IK 自带许多常用的扩展字典：
+
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20220824000833198.png" alt="image-20220824000833198" style="width:70%;" />
+</div>
+
+
+可以更改配置文件使用 IK 的扩展字典，后续对其扩充，会比较方便：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>IK Analyzer 扩展配置</comment>
+	<!--用户可以在这里配置自己的扩展字典 -->
+	<entry key="ext_dict">extra_main.dic</entry>
+	 <!--用户可以在这里配置自己的扩展停止词字典-->
+	<entry key="ext_stopwords">extra_stopword.dic</entry>
+	<!--用户可以在这里配置远程扩展字典 -->
+	<!-- <entry key="remote_ext_dict">words_location</entry> -->
+	<!--用户可以在这里配置远程扩展停止词字典-->
+	<!-- <entry key="remote_ext_stopwords">words_location</entry> -->
+</properties>
+```
+
+<br>
+
+# 7、高级查询
 
 ES 中提供了一种强大的检索数据方式,这种检索方式称之为 Query DSL（Domain Specified Language>），Query DSL 是利用 Rest API 传递 JSON 格式的请求体（Request Body）数据与 ES 进行交互，这种方式的丰富查询语法让 ES 检索变得更强大，更简洁。
 
@@ -866,7 +1278,7 @@ GET /products/_search
 
 `term` 关键字：用来使用关键词查询。
 
-> ES 中默认使用分词器为 标准分词器（StandardAnalyzer），标准分词器对于英文单词分词，对于中文单字分词。
+> ES 中默认使用分词器为标准分词器（StandardAnalyzer），标准分词器对于英文单词分词，对于中文单字分词。
 >
 > 在 ES 的 Mapping Type 中，keyword、date、integer、long、double、boolean 和 ip 这些类型不分词，只有 text 类型分词。
 
@@ -1204,34 +1616,55 @@ GET /products/_search
 <div aling="center">
     <img src="../Images/Elasticsearch/image-20220727001356990.png" alt="image-20220727001356990" style="width:100%;" />
 </div>
-
 <br>
 
-# 6、索引原理
+# 8、过滤查询
 
-## 6.1、倒排索引
+过滤查询 `<filter query>`，其实准确来说，ES 中的查询操作分为 2 种：查询（query）和过滤（filter）。查询即是之前提到的 query 查询，它（查询）默认会计算每个返回文档的得分，然后根据得分排序。而过滤（filter）只会筛选出符合的文档，并不计算得分，而且它可以缓存文档 。所以，单从性能考虑，过滤比查询更快。 
 
-倒排索引（Inverted Index）也叫反向索引，有反向索引必有正向索引。通俗地来讲，正向索引是通过 key 找 value，反向索引则是通过 value 找 key。ES 底层在检索时底层使用的就是倒排索引。
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20221007160753752.png" alt="image-20221007160753752" style="width:80%;" />
+</div>
 
-<br>
+语法：
 
-## 6.2、索引模型
-
-现有索引和映射如下：
-
-```json
+```http
+GET /索引名/_search
 {
-  "products" : {
-    "mappings" : {
-      "properties" : {
-        "description" : {
-          "type" : "text"
-        },
-        "price" : {
-          "type" : "float"
-        },
-        "title" : {
-          "type" : "keyword"
+  "query": {
+    "bool": {
+      "must": [
+        {"match_all": {}} //查询条件
+      ],
+      "filter": {....} //过滤条件
+  }
+}
+```
+
+注意：
+
+- 在执行 filter  和  query  时，先执行 filter 再执行 query。
+- Elasticsearch 会自动缓存经常使用的过滤器，以加快性能。
+
+常见过滤类型有：`term`、`terms`、`ranage`、`exists`、`ids` 等。
+
+<br>
+
+## 8.1、term
+
+```http
+GET /products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match_all": {}
+        }
+      ],
+      "filter": {
+        "term": {
+          "description":"四种"
         }
       }
     }
@@ -1239,374 +1672,135 @@ GET /products/_search
 }
 ```
 
-先录入如下数据，有三个字段 title、price、description：
-
-| _id  | title        | price | description        |
-| ---- | ------------ | ----- | ------------------ |
-| 1    | 蓝月亮洗衣液 | 19.9  | 蓝月亮洗衣液很高效 |
-| 2    | iphone13     | 19.9  | 很不错的手机       |
-| 3    | 小浣熊干脆面 | 1.5   | 小浣熊很好吃       |
-
-在 ES 中除了 text 类型分词，其他类型不分词，因此根据不同字段创建索引如下：
-
-- title 字段：
-
-  | term         | _id（文档 id） |
-  | ------------ | -------------- |
-  | 蓝月亮洗衣液 | 1              |
-  | iphone13     | 2              |
-  | 小浣熊干脆面 | 3              |
-
-- price 字段：
-
-  | term | _id（文档 id） |
-  | ---- | -------------- |
-  | 19.9 | [1, 2]         |
-  | 1.5  | 3              |
-
-- description 字段：
-
-  | term | _id                   | term | _id  | term | _id  |
-  | ---- | --------------------- | ---- | ---- | ---- | ---- |
-  | 蓝   | 1                     | 不   | 2    | 小   | 3    |
-  | 月   | 1                     | 错   | 2    | 浣   | 3    |
-  | 亮   | 1                     | 的   | 2    | 熊   | 3    |
-  | 洗   | 1                     | 手   | 2    | 好   | 3    |
-  | 衣   | 1                     | 机   | 2    | 吃   | 3    |
-  | 液   | 1                     |      |      |      |      |
-  | 很   | [1:1:9, 2:1:6, 3:1:6] |      |      |      |      |
-  | 高   | 1                     |      |      |      |      |
-  | 效   | 1                     |      |      |      |      |
-
-> Elasticsearch 分别为每个字段都建立了一个倒排索引。因此查询时查询字段的 term，就能知道文档 ID，就能快速找到文档。
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20221007164412521.png" alt="image-20221007164412521" style="width:100%;" />
+</div>
 
 <br>
 
-# 7、分词器
-
-Analysis： 文本分析是把全文本转换一系列单词（term/token）的过程，也叫分词（Analyzer）。Analysis 是通过 Analyzer 来实现的。分词就是将文档通过 Analyzer 分成一个一个的 term（关键词查询），每一个 term 都指向包含这个 term 的文档。
-
-<br>
-
-**Analyzer 组成**
-
-分析器（Analyzer）都由三种构件组成的：Character Filters、Tokenizer、Token Filter。
-
-- Character Filter： 字符过滤器
-  
-  在一段文本进行分词之前，先进行预处理，比如说最常见的就是：过滤 HTML 标签（`<span>hello<span>` ==> `hello`）、`&` ==> `and`（`I&you` ==> `I and you`）。
-- Tokenizers： 分词器
-  
-  英文分词可以根据空格将单词分开，中文分词比较复杂，可以采用机器学习算法来分词。
-  
-- Token filters： Token 过滤器
-  
-  将切分的单词进行加工。大小写转换（例将 “Quick” 转为小写）、去掉停用词（例如停用词像 “a”、“and”、“the”等等）、加入同义词（例如同义词像 “jump” 和 “leap”）。
-
-> 三者顺序:	Character Filters ==> Tokenizer ==> Token Filter
->
-> 三者个数：Character Filters（0个或多个） + Tokenizer + Token Filters（0个或多个）
-
-<br>
-
-**创建索引设置分词**
+## 8.2、terms
 
 ```http
-PUT /索引名
+GET /products/_search
 {
-  "settings": {},
-  "mappings": {
-    "properties": {
-      "title":{
-        "type": "text",
-        "analyzer": "standard" //显示指定分词器
+  "query": {
+    "bool": {
+      "must": [
+        {"term": {
+          "name": {
+            "value": "中国"
+          }
+        }}
+      ],
+      "filter": {
+        "terms": {
+          "content":[
+              "科技",
+              "声音"
+            ]
+        }
       }
     }
   }
 }
 ```
 
-<br>
-
-## 7.1、内置分词器
-
-- Standard Analyzer - 默认分词器，英文按单词词切分，并小写处理
-- Simple Analyzer - 按照单词切分（符号被过滤），小写处理
-- Stop Analyzer - 小写处理，停用词过滤（the、a、is）
-- Whitespace Analyzer - 按照空格切分，不转小写
-- Keyword Analyzer - 不分词，直接将输入当作输出
+<div align="center">
+    <img src="../Images/Elasticsearch/image-20221007165512993.png" alt="image-20221007165512993" style="width:100%;" />
+</div>
 
 <br>
 
-**Standard Analyzer**
-
-特点：按照单词分词，英文统一转为小写，过滤标点符号 ，中文单字分词。
+## 8.3、range
 
 ```http
-POST /_analyze
+GET /products/_search
 {
-  "analyzer": "standard",
-  "text": "this is a , good Man 中华人民共和国"
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match_all": {}
+        }
+      ],
+      "filter": {
+        "range": {
+          "price": {
+            "gte": 4000,
+            "lte": 6000
+          }
+        }
+      }
+    }
+  }
 }
 ```
 
 <div align="center">
-    <img src="../Images/Elasticsearch/image-20220821223953829.png" alt="image-20220821223953829" style="width:90%;" />
+    <img src="../Images/Elasticsearch/image-20221007165638098.png" alt="image-20221007165638098" style="width:100%;" />
 </div>
 
 <br>
 
-**Simple Analyzer**
+## 8.4、exists
 
-特点：英文按照单词分词，英文统一转为小写，去掉符号，中文按照空格进行分词。
-
-```http
-POST /_analyze
-{
-  "analyzer": "simple",
-  "text": "this is a , good Man 中华人民共和国"
-}
-```
-
-<div aling="center">
-    <img src="../Images/Elasticsearch/image-20220821224216488.png" alt="image-20220821224216488" style="width:95%;" />
-</div>
-
-<br>
-
-**Whitespace Analyzer**
-
-特点:  中文、英文按照空格分词，英文不会转为小写 ，不去掉标点符号。
+存在指定字段，获取字段不为空的索引记录。
 
 ```http
-POST /_analyze
+GET /products/_search
 {
-  "analyzer": "whitespace",
-  "text": "this is a , good Man"
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match_all": {}
+        }
+      ],
+      "filter": {
+        "exists": {
+          "field":"description"
+        }
+      }
+    }
+  }
 }
 ```
 
 <div align="center">
-    <img src="../Images/Elasticsearch/image-20220821224422903.png" alt="image-20220821224422903" style="width:95%;" />
+    <img src="../Images/Elasticsearch/image-20221007170254465.png" alt="image-20221007170254465" style="width:100%;" />
 </div>
-<br>
-
-## 7.2、中文分词器
-
-在 ES 中支持中文分词器非常多，如 smartCN、IK 等，推荐的就是 IK 分词器。
 
 <br>
 
-### 7.2.1、安装 IK
+## 8.5、ids
 
-**Linux 环境安装**
-
-> - IK分词器的版本要你安装 ES 的版本一致
-> - Docker 容器运行 ES 安装插件目录为 `/usr/share/elasticsearch/plugins`
-
-开源分词器 Ik 的 Github：https://github.com/medcl/elasticsearch-analysis-ik
-
-1. 下载对应版本：
-
-   ```shell
-   wget https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.14.0/elasticsearch-analysis-ik-7.14.0.zip
-   ```
-
-2. 解压：
-
-   ```shell
-   unzip elasticsearch-analysis-ik-7.14.0.zip #先使用yum install -y unzip
-   ```
-
-3. 移动到 ES 安装目录的 plugins 目录中：
-
-   ```shell
-   mv elasticsearch-analysis-ik-7.14.0 elasticsearch-7.14.0/plugins/
-   ```
-
-4. 重启 ES 生效
-
-<br>
-
-**Docker 环境**
-
-如果使用 Docker 则修改 compose.yml 文件为：
-
-```yaml
-version: "3.8"
-volumes:
-  data:
-  config:
-networks:
-  es:
-services:
-  elasticsearch:
-    image: elasticsearch:7.14.0
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-    networks:
-      - "es"
-    environment:
-      - "discovery.type=single-node"
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    volumes:
-      - data:/usr/share/elasticsearch/data
-      - config:/usr/share/elasticsearch/config
-      - ./elasticsearch-analysis-ik-7.14.0:/usr/share/elasticsearch/plugins/elasticsearch-analysis-ik-7.14.0
-
-  kibana:
-    image: kibana:7.14.0
-    ports:
-      - "5601:5601"
-    networks:
-      - "es"
-    volumes:
-      - ./kibana.yml:/usr/share/kibana/config/kibana.yml
-```
-
-<br>
-
-### 7.2.2、IK 使用
-
-IK有两种颗粒度的拆分：
-
-- `ik_smart`：会做最粗粒度的拆分
-
-- `ik_max_word`：会将文本做最细粒度的拆分
-
-<br>
-
-**ik_smart**
+含有指定字段的索引记录。
 
 ```http
-POST /_analyze
+GET /products/_search
 {
-  "analyzer": "ik_smart",
-  "text": "中华人民共和国国歌"
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match_all": {}
+        }
+      ],
+      "filter": {
+        "ids": {
+          "values": ["le6WsYMBGXUk_s86vTaS", "lO6WsYMBGXUk_s86vTaS"]
+        }
+      }
+    }
+  }
 }
 ```
 
 <div align="center">
-    <img src="../Images/Elasticsearch/image-20220823235507682.png" alt="image-20220823235507682" style="width:95%;" />
+    <img src="../Images/Elasticsearch/image-20221007171001143.png" alt="image-20221007171001143" style="width:100%;" />
 </div>
 
 <br>
 
-**ik_max_word**
-
-```http
-POST /_analyze
-{
-  "analyzer": "ik_max_word",
-  "text": "中华人民"
-}
-```
-
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220823235617310.png" alt="image-20220823235617310" style="width:95%;" />
-</div>
-
-<br>
-
-### 7.2.3、扩展词、停用词
-
-IK支持自定义扩展词典和停用词典
-
-- 扩展词典就是有些词并不是关键词，但是也希望被 ES 用来作为检索的关键词，可以将这些词加入扩展词典。
-- 停用词典就是有些词是关键词，但是出于业务场景不想使用这些关键词被检索到，可以将这些词放入停用词典。
-
-定义扩展词典和停用词典可以修改IK分词器中 config 目录中 IKAnalyzer.cfg.xml 这个文件。
-
-1. 修改 IKAnalyzer.cfg.xml：
-
-   ```shell
-   vim IKAnalyzer.cfg.xml
-   ```
-
-   添加值 `ext_dict.dic` 和 `ext_stopword.dic`：
-
-   ```xml
-   <?xml version="1.0" encoding="UTF-8"?>
-   <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-   <properties>
-   	<comment>IK Analyzer 扩展配置</comment>
-   	<!--用户可以在这里配置自己的扩展字典 -->
-   	<entry key="ext_dict">ext_dict.dic</entry>
-   	 <!--用户可以在这里配置自己的扩展停止词字典-->
-   	<entry key="ext_stopwords">ext_stopword.dic</entry>
-   	<!--用户可以在这里配置远程扩展字典 -->
-   	<!-- <entry key="remote_ext_dict">words_location</entry> -->
-   	<!--用户可以在这里配置远程扩展停止词字典-->
-   	<!-- <entry key="remote_ext_stopwords">words_location</entry> -->
-   </properties>
-   ```
-
-2. 在 IK 分词器目录下 config 目录中创建 ext_dict.dic 文件：
-
-   ```shell
-   vim ext_dict.dic
-   ```
-
-   加入扩展词即可，每个词用回车隔开：
-
-   ```
-   中华人
-   ```
-
-3. 在 IK 分词器目录下 config 目录中创建 ext_stopword.dic 文件：
-
-   ```shell
-   vim ext_stopword.dic
-   ```
-
-   加入扩展词即可，每个词用回车隔开：
-
-   ```
-   华人
-   ```
-
-4. 重启 ES 生效：
-
-   ```http
-   POST /_analyze
-   {
-     "analyzer": "ik_max_word",
-     "text": "中华人民"
-   }
-   ```
-
-   <div align="center">
-       <img src="../Images/Elasticsearch/image-20220824002925386.png" alt="image-20220824002925386" style="width:100%;" />
-   </div>
-
-> 词典的编码必须为 UTF-8，否则无法生效！
-
-<br>
-
-**IK 自带的字典**
-
-IK 自带许多常用的扩展字典：
-
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220824000833198.png" alt="image-20220824000833198" style="width:70%;" />
-</div>
-
-可以更改配置文件使用 IK 的扩展字典，后续对其扩充，会比较方便：
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties>
-	<comment>IK Analyzer 扩展配置</comment>
-	<!--用户可以在这里配置自己的扩展字典 -->
-	<entry key="ext_dict">extra_main.dic</entry>
-	 <!--用户可以在这里配置自己的扩展停止词字典-->
-	<entry key="ext_stopwords">extra_stopword.dic</entry>
-	<!--用户可以在这里配置远程扩展字典 -->
-	<!-- <entry key="remote_ext_dict">words_location</entry> -->
-	<!--用户可以在这里配置远程扩展停止词字典-->
-	<!-- <entry key="remote_ext_stopwords">words_location</entry> -->
-</properties>
-```
+# 9、整合应用
 
