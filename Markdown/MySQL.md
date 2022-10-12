@@ -1035,9 +1035,13 @@ UPDATE <表名> SET field1=new_VALUE1, field2=new_VALUE2
 - 你可以在WHERE子句中指定任何条件
 - 你可以在一个单独表中同时更新数据
 
+<br>
+
 # 7、查询数据
 
 `SELECT` 语句用于从数据库中选取数据，结果被存储在一个结果表中，称为结果集。
+
+<br>
 
 ## 7.1、限制查询结果数和偏移
 
@@ -1076,7 +1080,7 @@ SELECT * FROM _TABLE LIMIT (page_number-1)*lines_perpage, lines_perpage
 SELECT * FROM _TABLE LIMIT lines_perpage OFFSET (page_number-1)*lines_perpage
 ```
 
-
+<br>
 
 ## 7.2、WHERE 条件查询
 
@@ -1154,7 +1158,7 @@ WHERE field1 LIKE condition1 [and | or] field2 = 'someVALUE'
 ```
 
 - 可以在 `WHERE` 子句中指定任何条件
-- 可以在 `WHERE` 子句中使用 LIKE 子句
+- 可以在 `WHERE` 子句中使用 `LIKE` 子句
 - 可以使用 `LIKE` 子句代替等号 `=`
 - `LIKE` 通常与 `%` 一同使用，类似于一个元字符的搜索
 - 可以使用 `and` 或者 `or` 指定一个或多个条件
@@ -1166,7 +1170,49 @@ WHERE field1 LIKE condition1 [and | or] field2 = 'someVALUE'
 - `%`：表示任意 0 个或多个字符，可匹配任意类型和长度的字符，有些情况下若是中文，请使用两个百分号（`%%`）表示。
 - `_`：表示任意单个字符，匹配单个任意字符，常用来限制表达式的字符长度语句。 
 
+<br>
 
+### 7.2.3、EXISTS 运算符
+
+`EXISTS` 运算符用于判断查询子句是否有记录，如果有一条或多条记录存在返回 True，否则返回 False。
+
+示例：
+
+```mysql
+SELECT column_name(s)
+FROM table_name
+WHERE EXISTS
+(SELECT column_name FROM table_name WHERE condition);
+```
+
+<br>
+
+**IN 和 EXISTS 的区别和分析**
+
+```mysql
+SELECT * FROM A WHERE id IN (SELECT id FROM B);
+
+SELECT * FROM A WHERE EXISTS (SELECT 1 FROM B WHERE A.id = B.id);
+```
+
+对于以上两种情况，`IN` 是在内存里遍历比较，而 `EXISTS` 需要查询数据库，所以当 B 表数据量较大时， `EXISTS` 效率优于 `IN`。
+
+`IN()` 只执行一次，它查出 B 表中的所有 id 字段并缓存起来。之后，检查 A 表的 id 是否与 B 表中的 id 相等，如果相等则将 A 表的记录加入结果集中，直到遍历完 A 表的所有记录。
+
+可以看出，当 B 表数据较大时不适合使用 `IN()`，因为它会 B 表数据全部遍历一次。
+
+- A 表有 10000 条记录，B 表有 1000000 条记录，那么最多有可能遍历 10000*1000000 次，效率很差。
+- A表有 10000 条记录，B表有 100 条记录，那么最多有可能遍历 10000*100 次，遍历次数大大减少，效率大大提升。
+
+`EXISTS()` 会执行 A.length 次，它并不缓存 `EXISTS()` 结果集，因为 `EXISTS()` 结果集的内容并不重要，重要的是其内查询语句的结果集空或者非空，空则返回 `false`，非空则返回 `true`。
+
+当 B 表比 A 表数据大时适合使用 `EXISTS()`，因为它没有那么多遍历操作，只需要再执行一次查询就行。
+
+- A 表有 10000 条记录，B 表有 1000000 条记录，那么 `EXISTS()` 会执行 10000 次去判断 A 表中的 id 是否与 B 表中的 id 相等。
+- A 表有 10000 条记录，B 表有 100000000 条记录，那么 `EXISTS()` 还是执行 10000次，因为它只执行 A.length 次，可见 B 表数据越多，越适合 `EXISTS()` 发挥效果。
+- A 表有 10000 条记录，B 表有 100 条记录，那么 `EXISTS()` 还是执行 10000 次，还不如使用 `IN()` 遍历 10000*100 次，因为 `IN()` 是在内存里遍历比较，而 `EXISTS()` 需要查询数据库，我们都知道查询数据库所消耗的性能更高，而内存比较很快。
+
+<br>
 
 ## 7.3、连接的使用
 

@@ -1377,6 +1377,8 @@ public class Test09 {
 
 BigInteger 和 BigDecimal 都能实现大数字的运算，不同的是 BigDecimal 加入了小数的概念。一般的 `float` 和 `double` 类型数据只能用来做科学计算或工程计算，但由于在商业计算中要求数字精度比较高，所以要用到 BigDecimal 类。BigDecimal 类支持任何精度的浮点数，可以用来精确计算货币值。
 
+> BigDecimal 还可以通过 `toPlainString()` 方法将科学计数法转为数字型字符串。
+
 BigDecimal 常用的构造方法如下。
 
 - `BigDecimal(double val)`：实例化时将双精度型转换为 BigDecimal 类型。

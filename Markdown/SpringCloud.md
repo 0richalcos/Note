@@ -641,6 +641,24 @@ Spring 框架提供的 RestTemplate 类可用于在应用中调用 REST 服务�
 
 <br>
 
+**发送 GET 请求添加请求头 Headers 并携带参数**
+
+```java
+RestTemplate restTemplate = new RestTemplate(); 
+String url = UriComponentsBuilder.fromHttpUrl("http://localhost:8080")
+                .queryParam("name", "张三")
+                .queryParam("sex", "男")
+                .queryParam("national", "中国")
+                .queryParam("birthday", "199002190")
+    			.build().encode().toString();
+HttpHeaders headers = new HttpHeaders();
+headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+HttpEntity<?> entity = new HttpEntity<>(headers);
+JSONObject jsonObject = restTemplate.getForObject(url, JSONObject.class, entity);
+```
+
+<br>
+
 **发送 POST 请求并添加请求头 Headers 和请求体 Body**
 
 ```java
