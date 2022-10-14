@@ -2020,7 +2020,7 @@ Web 存储 API 提供了 sessionStorage （会话存储） 和 localStorage（�
 - localStorage 用于长久保存整个网站的数据，保存的数据没有过期时间，直到手动去除。
 - sessionStorage 用于临时保存同一窗口（或标签页）的数据，在关闭窗口或标签页之后将会删除这些数据。
 
-
+<br>
 
 **存储对象属性**
 
@@ -2028,7 +2028,7 @@ Web 存储 API 提供了 sessionStorage （会话存储） 和 localStorage（�
 | ------ | ------------------------------ |
 | length | 返回存储对象中包含多少条数据。 |
 
-
+<br>
 
 **存储对象方法**
 
@@ -2040,7 +2040,7 @@ Web 存储 API 提供了 sessionStorage （会话存储） 和 localStorage（�
 | removeItem(keyname)     | 移除键                                             |
 | clear()                 | 清除存储对象中所有的键                             |
 
-
+<br>
 
 ### 3.1.1、localStorage
 
@@ -2048,14 +2048,14 @@ localStorage 和 sessionStorage 属性允许在浏览器中存储 key/value 对�
 
 localStorage 属性是只读的。
 
-
+<br>
 
 **localStorage 的优势**
 
 1. localStorage 拓展了 cookie 的 4K 限制。
 2.  localStorage 会可以将第一次请求的数据直接存储到本地，这个相当于一个 5M 大小的针对于前端页面的数据库，相比于 cookie 可以节约带宽，但是这个却是只有在高版本的浏览器中才支持的。
 
-
+<br>
 
 **localStorage 的局限**
 
@@ -2065,7 +2065,7 @@ localStorage 属性是只读的。
 4. localStorage 本质上是对字符串的读取，如果存储内容多的话会消耗内存空间，会导致页面变卡。
 5. localStorage 不能被爬虫抓取到。
 
-
+<br>
 
 **localStorage 使用**
 
@@ -2102,11 +2102,81 @@ if(!window.localStorage){
 
 这里面是三种对 localStorage 的读取，其中官方推荐的是 `getItem\setItem` 这两种方法对其进行存取，这里要特别说明一下 localStorage 的使用也是遵循同源策略的，所以不同的网站直接是不能共用相同的 localStorage。
 
+<br>
 
-
-### 3.2.2、sessionStorage 
+### 3.1.2、sessionStorage 
 
 localStorage 和 sessionStorage 属性允许在浏览器中存储 key/value 对的数据。sessionStorage 用于临时保存同一窗口(或标签页)的数据，在关闭窗口或标签页之后将会删除这些数据。
 
 其余和 localStorage  相似。
 
+<br>
+
+## 3.2、Window 对象
+
+Window 对象表示浏览器中打开的窗口。
+
+如果文档包含框架（`<frame>` 或 `<iframe>` 标签），浏览器会为 HTML 文档创建一个 window 对象，并为每个框架创建一个额外的 window 对象。
+
+> 注意： 没有应用于 window 对象的公开标准，不过所有浏览器都支持该对象。
+
+<br>
+
+### 3.2.1、Window 对象属性
+
+| 属性           | 描述                                                         |
+| -------------- | ------------------------------------------------------------ |
+| parent         | 返回父窗口。                                                 |
+| localStorage   | 在浏览器中存储 key/value 对。没有过期时间。                  |
+| sessionStorage | 在浏览器中存储 key/value 对。 在关闭窗口或标签页之后将会删除这些数据。 |
+
+<br>
+
+### 3.2.2、Window 对象方法
+
+**setInterval()**
+
+`setInterval()` 方法可按照指定的周期（以毫秒计）来调用函数或计算表达式。
+
+`setInterval()` 方法会不停地调用函数，直到 `clearInterval()` 被调用或窗口被关闭。由 `setInterval()` 返回的 ID 值可用作 `clearInterval()` 方法的参数。
+
+语法：
+
+```javascript
+setInterval(code, milliseconds);
+setInterval(function, milliseconds, param1, param2, ...);
+```
+
+| 参数                | 描述                                                         |
+| :------------------ | :----------------------------------------------------------- |
+| code/function       | 必需。要调用一个代码串，也可以是一个函数。                   |
+| milliseconds        | 必须。周期性执行或调用 code/function 之间的时间间隔，以毫秒计。 |
+| param1, param2, ... | 可选。 传给执行函数的其他参数（IE9 及其更早版本不支持该参数）。 |
+
+`setInterval()` 会返回一个 ID（数字），可以将这个 ID 传递给 `clearInterval()`  以取消执行。
+
+<br>
+
+**clearTimeout()**
+
+`clearTimeout()` 方法可取消由 `setTimeout()` 方法设置的定时操作。
+
+`clearTimeout()` 方法的参数必须是由 `setTimeout()` 返回的 ID 值。
+
+> 注意：使用 `clearTimeout()` 方法，在创建执行定时操作时要使用全局变量：
+>
+> ```javascript
+> myVar = setTimeout("javascript function", milliseconds);
+> ```
+>
+> 如果方法还未被执行，可以使用 `clearTimeout()` 来阻止它。
+
+语法：
+
+```javascript
+clearTimeout(id_of_settimeout)
+```
+
+| 参数              | 描述                                                         |
+| :---------------- | :----------------------------------------------------------- |
+| id_of_setinterval | 调用 `setTimeout()` 函数时所获得的返回值，使用该返回标识符作为参数，可以取消该 `setTimeout()` 所设定的定时执行操作。 |

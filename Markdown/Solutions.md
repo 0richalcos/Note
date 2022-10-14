@@ -1,4 +1,4 @@
-# 【1】JS 实现 html 页面点击下载文件
+# 【1】HTML 页面点击下载文件
 
 **使用 `<a>` 标签来完成**
 
@@ -6,12 +6,12 @@
 <a href="/user/test/xxxx.txt" download="文件名.txt">点击下载</a>
 ```
 
-这样当用户打开浏览器点击链接的时候就会直接下载文件。但是有个情况，比如 txt,png,jpg 等这些浏览器支持直接打开的文件是不会执行下载任务的，而是会直接打开文件，**这个时候就需要给 a 标签添加一个属性 “download”;**
+这样当用户打开浏览器点击链接的时候就会直接下载文件。但是有个情况，比如 txt、png、jpg 等这些浏览器支持直接打开的文件是不会执行下载任务的，而是会直接打开文件，这个时候就需要给 `<a></a>` 标签添加一个属性 `download`。
 
-其中 download 后面的属性是下载后文件的文件名字
+其中 `download` 后面的属性是下载后文件的文件名字
 
-- 如果 url 指向同源资源，是正常的。
-- 如果 url 指向第三方资源，download 会失效，表现和不使用 download 时一致——浏览器能打开的文件，浏览器会直接打开，不能打开的文件，会直接下载。浏览器打开的文件，可以手动下载。
+- 如果 `url` 指向同源资源，是正常的。
+- 如果 `url` 指向第三方资源，`download` 会失效，表现和不使用 `download` 时一致（浏览器能打开的文件，浏览器会直接打开，不能打开的文件，会直接下载）。浏览器打开的文件，可以手动下载。
 
 解决方案一：将文件打包为 .zip/.rar 等浏览器不能打开的文件下载。
 
@@ -34,87 +34,14 @@ $eleBtn2.click(function(){
 
 <br>
 
-# 【2】transferto 遇到的问题 java.io.FileNotFoundException
-
-解决前的代码：重点关注代码片段 image.transferTo(file)
-
-```java
- public void saveOrUpdateImageFile(Info bean, MultipartFile image, HttpServletRequest req)
-            throws Exception {
-     String filepath="E:/image/info";//指定图片上传到哪个文件夹的路径
-     File imageFolder = new File(filepath);
-     System.out.println(imageFolder);
-     File file = new File(imageFolder, bean.getId() + ".jpg");
-     System.out.println(file);
-     if (!file.getParentFile().exists())
-         file.getParentFile().mkdirs();
-     image.transferTo(file)；//出错地方
-
-     //以下片段用来判断文件是否jpg格式，不需要看
-     BufferedImage img = ImageUtil.change2jpg(file);
-     System.out.println(img);
-     ImageIO.write(img, "jpg", file);
- }
-```
-
-解决后的代码：引入commons-io的Maven依赖包，将`image.transferTo(file)`改为`FileUtils.copyInputStreamToFile(image.getInputStream(), file)`
-
-```java
-public void saveOrUpdateImageFile(Info bean, MultipartFile image, HttpServletRequest req)
-            throws Exception {
-    String filepath="E:/image/info";//指定图片上传到哪个文件夹的路径
-    File imageFolder = new File(filepath);
-    System.out.println(imageFolder);
-    File file = new File(imageFolder, bean.getId() + ".jpg");
-    System.out.println(file);
-    if (!file.getParentFile().exists())
-        file.getParentFile().mkdirs();
-    FileUtils.copyInputStreamToFile(image.getInputStream(), file);
-
-    //以下片段用来判断文件是否jpg格式，不需要看
-    BufferedImage img = ImageUtil.change2jpg(file);
-    System.out.println(img);
-    ImageIO.write(img, "jpg", file);
-}
-```
-
-<br>
-
-# 【4】JS 获取 Model 的数据
-
-```java
-@Controller
-public class ChartController {
-    @Autowired
-    private IReportService reportService;
-    @GetMapping("/report/index")
-    public String index(Model model){
-        //查询 课程平均分数据
-        List<ReportVo> reportVos = reportService.courseAvgReport();
-        //存入model
-        model.addAttribute("courseAvgs",reportVos);
-        //返回页面
-        return "views/report/report_list";
-    }
-}
-```
-
-```html
-<script th:inline="javascript">
-    let courseAvgs = [[${courseAvgs}]]
-    console.log(courseAvgs)
-</script>
-```
-
-<br>
-
-# 【5】JS 判断 NaN 和保留两位小数
+# 【2】JS 判断 NaN 和保留两位小数
 
 **window.isNaN()**
 
 ```javascript
 (1)  window.isNaN(NaN)   // true
 (2)  window.isNaN(123)   // false
+
 //注意: window.isNaN 只对数值有效，如果传入其他值，会被先转成数值。比如，传入字符串的时候，字符串会被先转成NaN，所以最后返回true，这点要特别引起注意。也就是说，isNaN为true的值，有可能不是NaN，而是一个字符串。(不是数值会先调用 Number 方法转化为数值)
 
 window.isNaN('Hello')    // true
@@ -124,7 +51,7 @@ window.isNaN(Number('Hello'))   // true
 
 <br>
 
-**先判断是不是数字,然后再使用 window.isNaN()**
+**先判断是不是数字，然后再使用 window.isNaN()**
 
 ```javascript
 function judgeNaN (value) {
@@ -140,7 +67,9 @@ judgeNaN({})           //false
 
 <br>
 
-**Number.isNaN(value) ( 1. 首先判断 value 类型是不是 number; 2. 然后判断 value 是不是 NaN)**
+**Number.isNaN(value)**
+
+`Number.isNaN()` 首先判断 *value* 类型是不是 number，然后判断 *value* 是不是 `NaN`
 
 ```javascript
 Number.isNaN(NaN);                 // true
@@ -174,7 +103,7 @@ $('#aa').value=(a/b).toFixed(2);
 
 <br>
 
-# 【6】JS 图片预览
+# 【3】JS 图片预览
 
 ```html
 <div>
@@ -242,7 +171,7 @@ $('#aa').value=(a/b).toFixed(2);
 
 <br>
 
-# 【7】Ajax 上传/下载文件
+# 【4】AJAX 上传/下载文件
 
 **上传**
 
@@ -261,7 +190,7 @@ HTML 上传按钮：
 </div>
 ```
 
-Ajax 上传：
+AJAX 上传：
 
 ```javascript
 function imp() {
@@ -305,7 +234,7 @@ public String importProduct(MultipartFile file){
 }
 ```
 
-通过`file.getOriginalFilename()`可以获取到文件名，通过`file.getInputStream()`可以获取文件流。
+通过 `file.getOriginalFilename()` 可以获取到文件名，通过 `file.getInputStream()` 可以获取文件流。
 
 <br>
 
@@ -334,11 +263,11 @@ public void export(HttpServletResponse response) {
 }
 ```
 
-通过`response.getOutputStream()`可以获取输出流。
+通过 `response.getOutputStream()` 可以获取输出流。
 
-Ajax 下载:
+AJAX 下载:
 
-jQuery 的 ajax 函数的返回类型只有 xml、text、json、html 等类型，没有“流”类型，所以要实现 ajax 下载，不能够使用相应的 ajax 函数进行文件下载。但可以用 js 生成一个 form，用这个 form 提交参数，并返回“流”类型的数据。在实现过程中，页面也没有进行刷新。
+jQuery 的 `ajax()` 函数的返回类型只有 xml、text、json、html 等类型，没有“流”类型，所以要实现 AJAX 下载，不能够使用相应的 `ajax()` 函数进行文件下载。但可以用 JS 生成一个 `<form>`，用这个 `<form>` 提交参数，并返回“流”类型的数据。在实现过程中，页面也没有进行刷新。
 
 ```javascript
 // 导出
@@ -366,11 +295,11 @@ function exp() {
 
 <br>
 
-# 【8】JS ajax请求后又刷新页面的问题
+# 【5】AJAX 请求后页面刷新的问题
 
-问题原因出在 HTML 文件上，原因是把所有按钮都放在了一个的表单里面了，form 里面的按钮默认 `type=submit` , 所以每次点击按钮后都会执行提交表单的操作，表单操作默认有刷新页面的功能。
+问题原因出在 HTML 文件上，原因是把所有按钮都放在了一个的表单里面了，`<form>` 里面的按钮默认 `type=submit` ，所以每次点击按钮后都会执行提交表单的操作，表单操作默认有刷新页面的功能。
 
-解决方法：将 button 的 type 改为 button
+解决方法：将 `<button>` 的 `type` 改为 `button`
 
 ```html
 <div class="box-footer">
@@ -385,7 +314,7 @@ function exp() {
 
 <br>
 
-# 【9】SpringBoot 返回前端 Long 丢失精度
+# 【6】返回前端 Long 丢失精度
 
 最近项目中将实体类主键由以前的 `String` 类型的 UUID 改为了 `Long` 类型的分布式 ID，修改后发现前端显示的 ID 和数据库中的 ID 不一致。例如数据库中存储的是：`812782555915911412`，显示出来却成了 `812782555915911400`，后面 2 位变成了 0，精度丢失了：
 
@@ -466,3 +395,82 @@ private Long bankcardHash;
 ```
 
 指定了 `ToStringSerializer` 进行序列化，将数字编码成字符串格式。这种方式的优点是颗粒度可以很精细；缺点同样是太精细，如果需要调整的字段比较多会比较麻烦。
+
+<br>
+
+# 【7】获取验证码按钮
+
+思路：按钮触发点击事件后发送 AJAX 请求获取验证码，如果发送成功则给按钮添加 `disabled` 属性并使用 `setInterval()` 每隔一秒修改按钮倒计时，倒计时结束后删除按钮 `disabled` 属性。
+
+防止页面刷新后 JS 无效：可以使用 localStorage、Cookie等缓存技术将信息缓存到本地。
+
+HTML：
+
+```html
+<input type="button" id="getCode" value="获取验证码">
+```
+
+CSS：
+
+```css
+input {
+    display: block;
+    cursor: pointer;
+    margin: 100px auto;
+}
+```
+
+JS：
+
+```javascript
+$(function({
+    $('#getCode').click(function () {
+        getValidateCode();
+    });
+
+    countdown();
+}))
+
+/*获取验证码*/
+function getValidateCode() {
+    window.localStorage.setItem("countdown", '60');
+    countdown();
+}
+
+/*验证码倒计时*/
+function countdown() {
+    let $button = $('#getCode');
+    //判断是否恶意刷新页面重复发送验证码
+    let localStorage = window.localStorage;
+    let countdown = localStorage.getItem("countdown");
+    if (countdown !== null || parseInt(countdown) > 0) {
+        $button.text(`重新获取(${countdown})`);
+        $button.attr("disabled", "true").css("cursor", "not-allowed");//增加不可操作属性
+    } else {
+        removeCountdown();
+        return;
+    }
+    //定时器
+    let timer = setInterval(function () {
+        countdown--;//衔接之前更改的秒数
+        localStorage.setItem("countdown", String(countdown));
+        $button.text(`重新获取(${countdown})`);
+        //如果秒数为0，关闭定时器
+        if (countdown === 0) {
+            clearInterval(timer);
+            //修改按钮val
+            $button.text("重新获取");
+            //去除不可操作属性
+            $button.removeAttr("disabled").css("cursor", "pointer");
+            removeCountdown();
+        }
+    }, 1000);
+}
+
+/*清除验证码定时器*/
+function removeCountdown() {
+    localStorage.removeItem("countdown");
+}
+```
+
+> 登录成功后记得清除验证码相关缓存信息，不然下次进入页面按钮会重新进入倒计时。
