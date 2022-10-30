@@ -1902,7 +1902,7 @@ public class Product {
 
 ### 9.1.2、索引文档
 
-1. 新建一个测试类：
+新建一个测试类：
 
 ```java
 public class ElasticSearchOptionsTests extends ElasticSearchApplicationTests {
@@ -1936,4 +1936,19 @@ public void testIndex() {
 
 运行测试示例后，查看结果：
 
+```http
+GET /products/_mapping
+```
+
 ![image-20221030192913106](../Images/Elasticsearch/image-20221030192913106.png)
+
+```http
+GET /products/_search
+{
+  "query":{
+    "match_all": {}
+  }
+}
+```
+
+![image-20221030224750875](../Images/Elasticsearch/image-20221030224750875.png)
