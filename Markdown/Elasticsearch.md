@@ -1800,7 +1800,140 @@ GET /products/_search
     <img src="../Images/Elasticsearch/image-20221007171001143.png" alt="image-20221007171001143" style="width:100%;" />
 </div>
 
-<br>
+
 
 # 9、整合应用
 
+新建一个 Spring Boot 对象，引入 ES 依赖：
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+</dependency>
+```
+
+在 Spring Boot 配置文件中写入 ES 服务地址相关配置：
+
+```properties
+# 自定义 es 主机和端口
+elasticsearch.host=localhost:9200
+```
+
+编写 ElasticSearchClientConfig.java 配置 ES 客户端：
+
+```java
+/**
+ * @author Orichalcos
+ */
+@Configuration
+public class ElasticSearchClientConfig extends AbstractElasticsearchConfiguration {
+
+    @Value("${elasticsearch.host}")
+    private String host;
+
+    @Override
+    @Bean
+    public RestHighLevelClient elasticsearchClient() {
+        final ClientConfiguration clientConfiguration = ClientConfiguration.builder()
+                .connectedTo(host)
+                .build();
+        return RestClients.create(clientConfiguration).rest();
+    }
+}
+
+```
+
+
+
+客户端对象
+
+- ElasticsearchOperations 
+
+  特点：使用使用面向对象方式操作 ES
+
+- RestHighLevelClient
+
+
+
+## 9.1、ElasticSearchOperations
+
+### 9.1.1、相关注解
+
+- `@Document` ：用在类上，代表一个对象为一个文档
+
+  - `indexName` 属性：创建索引的名称
+  - `createIndex` 属性：是否创建索引
+
+  示例：`@Document(indexName = "products", createIndex = true)`
+
+- `@Id`：用在属性上 ，将对象 id 字段与 ES 中文档的 _id 对应
+
+- `@Field`：用在属性上 ，用来描述属性在 ES 中存储类型以及分词情况
+
+  - `type` 属性：用来指定字段类型
+
+  示例：`@Field(type = FieldType.Keyword)`
+
+
+
+以下是一个 Product 对象的示例：
+
+```java
+/**
+ * @author Orichalcos
+ */
+@Document(indexName = "products",createIndex = true)
+public class Product {
+    @Id
+    private Integer id;
+    @Field(type = FieldType.Keyword)
+    private String title;
+    @Field(type = FieldType.Double)
+    private Double price;
+    @Field(type = FieldType.Text)
+    private String description;
+
+   	//get set...
+}
+```
+
+
+
+### 9.1.2、索引文档
+
+1. 新建一个测试类：
+
+```java
+public class ElasticSearchOptionsTests extends ElasticSearchApplicationTests {
+
+    private final ElasticsearchOperations elasticsearchOperations;
+
+    @Autowired
+    public ElasticSearchOptionsTests(ElasticsearchOperations elasticsearchOperations) {
+        this.elasticsearchOperations = elasticsearchOperations;
+    }
+
+}
+```
+
+在测试类中新增索引文档的测试方法：
+
+```java
+/**
+  * 索引一条文档
+  */
+@Test
+public void testIndex() {
+    Product product = new Product();
+    product.setId(1);
+    product.setTitle("小浣熊干脆面");
+    product.setPrice(1.5);
+    product.setDescription("小浣熊干脆面真好吃，曾经非常喜欢吃！");
+    elasticsearchOperations.save(product);
+}
+```
+
+运行测试示例后，查看结果：
+
+![image-20221030192913106](../Images/Elasticsearch/image-20221030192913106.png)
