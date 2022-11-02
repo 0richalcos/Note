@@ -4,7 +4,7 @@
 
 Oracle Database，又名 Oracle RDBMS，简称 Oracle。Oracle 数据库系统是美国 Oracle 公司（甲骨文）提供的以分布式数据库为核心的一组软件产品，是目前最流行的客户/服务器（client/server）或B/S体系结构的数据库之一，比如 SilverStream 就是基于数据库的一种中间件。Oracle 数据库是目前世界上使用最为广泛的数据库管理系统，作为一个通用的数据库系统，它具有完整的数据管理功能；作为一个关系型数据库，它是一个完备关系的产品；作为分布式数据库它实现了分布式处理功能。
 
-<br>
+
 
 **Oracle 体系结构**
 
@@ -18,19 +18,19 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 **Oracle用户：**表当中的数据是由 Oracle 用户放入到表空间当中的，而这些表空间会随机的把数据放入到一个或者多个数据文件当中。Oracle 对表数据的管理是通过用户对表的管理去查询，而不是直接对数据文件或表空间进行查询。因为不同用户可以在同一个表空间上面建立相同的表名。但是通过不同的用户管理自己的表数据。
 
-<br>
+
 
 **数据结构逻辑关系如下图：**
 
 ![数据结构逻辑关系](../Images/Oracle/viewImages.do)
 
-<br>
+
 
 **Oracle体系概要图如下：**
 
 <img src="../Images/Oracle/viewImages (1)-16358235683753.do" alt="Oracle体系概要图" style="zoom: 67%;" />
 
-<br>
+
 
 ## 1.2、Oracle 19c 安装
 
@@ -85,11 +85,11 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 	![在这里插入图片描述](../Images/Oracle/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly92LmNzZG4ubmV0L3dlaXhpbl80Mzc5MjQwMQ==,size_16,color_FFFFFF,t_70.png)
 
-<br>
+
 
 ## 1.3、Oracle 19c 卸载
 
-要在 Windows 上卸载 Oracle 数据库，我们必须手动删除所有相关的`Ora*`注册表项、文件和文件夹。
+要在 Windows 上卸载 Oracle 数据库，我们必须手动删除所有相关的 `Ora*` 注册表项、文件和文件夹。
 
 1. 停止Oracle *服务
 	
@@ -121,7 +121,7 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 4. 清空 `C:\temp ` 和回收站。
 
-<br>
+
 
 ## 1.4、Navicat 连接 Oracle
 
@@ -135,7 +135,7 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 2. 在 Oracle 安装目录下找到 `oci.dll`， 这是我的路径：`E:\Database\Oracle\Oracle_WINDOWS.X64_193000_db_home\bin\oci.dll`，完成之后重新启动 Navicat。
 
-<br>
+
 
 # 2、函数
 
@@ -147,7 +147,7 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 SYSDATE()
 ```
 
-<br>
+
 
 **日期/时间转换为字符串函数**
 
@@ -163,7 +163,7 @@ TO_CHAR(dateField, 'yyyy-mm-dd hh24:mi:ss')
 TO_DATE("2017-04-11 06:30:01", 'yyyy-mm-dd hh24:mi:ss')
 ```
 
-<br>
+
 
 **日期/时间增减函数**
 
@@ -201,7 +201,7 @@ ADD_MONTHS(dateField, 12);
 ADD_MONTHS(dateField, -12);
 ```
 
-<br>
+
 
 **求日期差**
 
@@ -246,7 +246,7 @@ select months_between(TO_DATE('2021-10-31', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2
 As 相差月份3 from dual;
 ```
 
-<br>
+
 
 ## 2.2、正则表达式
 
@@ -258,7 +258,7 @@ Oracle 中的支持正则表达式的函数主要有以下五个：
 - `REGEXP_SUBSTR` ：截取指定字符串中与正则表达式匹配的部分。
 - `REGEXP_REPLACE` ：替换指定字符串中与正则表达式匹配的部分
 
-<br>
+
 
 **REGEXP_LIKE()**
 
@@ -272,7 +272,7 @@ REGEXP_LIKE(STRING, REGEX, MODIFIER)
   - `i`：不区分大小写进行检索。
   - `c`：区分大小写进行检索。
 
-<br>
+
 
 **REGEXP_INSTR()**
 
@@ -292,13 +292,94 @@ REGEXP_INSTR(STRING, REGEX[, START_POSITION[, OCCURRENCE[, RETURN_OPTION[, MODIF
   - `m`：将源串视为多行。即 Oracle 中将 `^` 和 `$` 分别看作源串中任意位置任何行的开始和结束，而不是仅仅看作整个源串的开始或结束。如果省略该参数，则 Oracle 将源串看作一行。
   - `x`：忽略源串中的空格字符。默认情况下，空格字符与自身相匹配。
 
-<br>
+
+
+## 2.3、聚合函数
+
+### 2.3.1、WM_CONCAT
+
+语法：
+
+```sql
+WM_CONCAT(separator, colname)
+```
+
+用指定的 *separator* 做分隔符，连接 *colname* 中的值。
+
+参数：
+
+- *separator*：必填。STRING 类型常量，分隔符。
+- *colname*：必填。STRING 类型。如果输入为 BIGINT、DOUBLE 或 DATETIME 类型，会隐式转换为 STRING 类型后参与运算。
+
+返回 STRING 类型。返回规则如下：
+
+- *separator* 非 STRING 类型常量时，返回报错。
+- *colname* 非 STRING、BIGINT、DOUBLE 或 DATETIME 类型时，返回报错。
+- *colname* 值为 NULL 时，该行不会参与计算。
+
+> `select wm_concat(',', name) from table_name;` 语句中，如果 `table_name` 为空集合，该语句返回 NULL 值。
+
+
+
+示例 1：对所有职工的姓名（ename）进行合并。命令示例如下：
+
+```sql
+SELECT WM_CONCAT(',', ename) FROM emp;
+```
+
+返回结果如下：
+
+```
++------------+
+| _c0        |
++------------+
+| SMITH,ALLEN,WARD,JONES,MARTIN,BLAKE,CLARK,SCOTT,KING,TURNER,ADAMS,JAMES,FORD,MILLER,JACCKA,WELAN,TEBAGE |
++------------+
+```
+
+示例 2：与 `GROUP BY` 配合使用，对所有职工按照部门（deptno）进行分组，并将同组的职工姓名（ename）进行合并。命令示例如下：
+
+```sql
+SELECT deptno, WM_CONCAT(',', ename) FROM emp GROUP BY deptno ORDER BY deptno;
+```
+
+返回结果如下：
+
+```
++------------+------------+
+| deptno     | _c1        |
++------------+------------+
+| 10         | CLARK,KING,MILLER,JACCKA,WELAN,TEBAGE |
+| 20         | SMITH,JONES,SCOTT,ADAMS,FORD |
+| 30         | ALLEN,WARD,MARTIN,BLAKE,TURNER,JAMES |
++------------+------------+
+```
+
+示例 3：与 `GROUP BY` 配合使用，对所有职工按照部门（deptno）进行分组，并将同组的薪资（sal）去重后进行合并。命令示例如下：
+
+```sql
+SELECT deptno, WM_CONCAT(DISTINCT ',', sal) FROM emp GROUP BY deptno ORDER BY deptno;
+```
+
+返回结果如下：
+
+```
++------------+------------+
+| deptno     | _c1        |
++------------+------------+
+| 10         | 1300,2450,5000 |
+| 20         | 1100,2975,3000,800 |
+| 30         | 1250,1500,1600,2850,950 |
++------------+------------+
+```
+
+
 
 # 3、查询
 
 我初学的数据库是 MySQL，由于 Oracle 也是使用 SQL 标准，这里用于记录工作中使用 Oracle 所遇到的查询问题。
 
-<br>
+
 
 ## 3.1、对 CLOB 进行模糊查询
 
@@ -323,7 +404,7 @@ instr(sourceString, destString, start, appearPosition)
 
 返回值为：查找到的字符串的位置。
 
-<br>
+
 
 ## 3.2、树形结构层级查询
 
@@ -345,7 +426,7 @@ CONNECT BY PRIOR condition3
 - *condition2*：起始的查询条件，指定根节点，当然可以放宽限定条件，以取得多个根结点，实际就是多棵树
 - *condition3*：指定父节点和子节点直接的关系，`PRIOR` 指定父节点
 
-<br>
+
 
 **示例**
 
@@ -376,13 +457,13 @@ CONNECT BY PRIOR DEPID = PARENTDEPID
 - 查询当前节点的所有父节点时，需要将 `PRIOR` 放在父节点左侧
 - 查询当前节点的所有子节点时，需要将 `PRIOR` 放在子节点左侧
 
-<br>
+
 
 **排序**
 
 在层次查询中，如果想让 “亲兄弟” 按规矩进行升序排序就不得不借助 `ORDERSIBLINGS BY` 这个特定的排序语句而非 `ORDER BY` 子句，若要降序输出可以在其后添加 `DESC` 关键字。
 
-<br>
+
 
 ## 3.3、关于 Oracle 中的 AS
 
