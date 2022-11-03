@@ -4563,6 +4563,8 @@ INSERT IGNORE INTO当插入数据时，在设置了记录的唯一性后，如�
 
 <img src="../Images/MySQL/image-20200531211258198.png" alt="image-20200531211258198" style="zoom:80%;" />
 
+
+
 # 17、函数
 
 ## 17.1、时间日期相关
@@ -4571,7 +4573,7 @@ INSERT IGNORE INTO当插入数据时，在设置了记录的唯一性后，如�
 
 #### PERIOD_DIFF()
 
-PERIOD_DIFF() 函数返回两个日期之间的月份差。
+`PERIOD_DIFF()` 函数返回两个日期之间的月份差。
 
 **语法：**
 
@@ -4591,11 +4593,11 @@ SELECT PERIOD_DIFF(201710, 201703);
 
 如果小月份放前面，那么返回负数 -1。
 
-<br>
+
 
 #### DATEDIFF() 
 
-DATEDIFF() 函数返回两个日期之间的天数。
+`DATEDIFF()` 函数返回两个日期之间的天数。
 
 **语法：**
 
@@ -4613,21 +4615,21 @@ SELECT DATEDIFF(DATE_FORMAT(NOW(), '%Y-%m-%d'),DATE_FORMAT('2018-09-10','%Y-%m-%
 
 结果：
 
-<img src="../Images/MySQL/20180917110456408370.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
+<img src="../Images/MySQL/20180917110456408370.png" alt="技术分享图片" />
 
-<br>
+
 
 #### TIMESTAMPDIFF()
 
-根据单位返回时间差，对于传入的 begin 和 end 不需要相同的数据结构，可以存在一个为 Date 一个 DateTime。
+根据单位返回时间差，对于传入的 *begin* 和 *end* 不需要相同的数据结构，可以存在一个为 Date 一个 DateTime。
 
 **语法：**
 
 ```mysql
-TIMESTAMPDIFF(unit,begin,end);
+TIMESTAMPDIFF(unit, begin, end);
 ```
 
-unit 参数是确定 (end-begin) 的结果的单位，表示为整数。 以下是有效单位：
+unit 参数是确定 (*end*-*begin*) 的结果的单位，表示为整数。 以下是有效单位：
 
 - MICROSECOND  微秒
 - SECOND  秒 
@@ -4665,7 +4667,7 @@ SELECT TIMESTAMPDIFF(MONTH,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
 
 <img src="../Images/MySQL/20180917110456254083.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
 
-<br>
+
 
 ### 17.1.2、当前日期
 
@@ -4677,13 +4679,13 @@ SELECT NOW(),CURDATE(),CURTIME();
 
 <img src="../Images/MySQL/755765-20190227093739650-528895218.png" alt="img" style="zoom:80%;float:left" />
 
-<br>
+
 
 ### 17.1.3、求几天前几天后
 
-DATE_SUB() 函数从日期减去指定的时间间隔。
+`DATE_SUB()` 函数从日期减去指定的时间间隔。
 
-> DATE_ADD() 函数向日期添加指定的时间间隔。两种方法使用方式相同。
+> `DATE_ADD()` 函数向日期添加指定的时间间隔。两种方法使用方式相同。
 
 **语法：**
 
@@ -4691,7 +4693,7 @@ DATE_SUB() 函数从日期减去指定的时间间隔。
 DATE_SUB(date,INTERVAL expr type)
 ```
 
-*date* 参数是合法的日期表达式。*expr* 参数是您希望添加的时间间隔。type 参数可以是下列值：
+*date* 参数是合法的日期表达式。*expr* 参数是您希望添加的时间间隔。*type* 参数可以是下列值：
 
 - MICROSECOND
 - SECOND
@@ -4711,7 +4713,7 @@ DATE_SUB(date,INTERVAL expr type)
 SELECT DATE_SUB(CURDATE(),INTERVAL 1 DAY);
 ```
 
-当前日期2018-09-17，结果：
+当前日期 2018-09-17，结果：
 
 <img src="../Images/MySQL/20180917110455670136.png" alt="技术分享图片" style="zoom:80%;float:left" />
 
@@ -4721,15 +4723,15 @@ SELECT DATE_SUB(CURDATE(),INTERVAL 1 DAY);
 SELECT DATE_SUB(CURDATE(),INTERVAL -1 DAY);
 ```
 
-当前日期2018-09-17，结果：
+当前日期 2018-09-17，结果：
 
 <img src="../Images/MySQL/20180917110455998240.png" alt="技术分享图片" style="zoom:80%;float:left" />
 
-<br>
+
 
 ### 17.1.4、倒数第几天
 
-LAST_DAY()返回某月最后一天
+`LAST_DAY()` 返回某月最后一天
 
 ```mysql
 LAST_DAY(<日期>) #最后一天
@@ -4737,11 +4739,11 @@ LAST_DAY(<日期>)-1 #倒数第二天
 LAST_DAY(<日期>)-2 #倒数第三天
 ```
 
-<br>
+
 
 ### 17.1.5、提取年月日
 
-EXTRACT() 函数用于返回日期/时间的单独部分，比如年、月、日、小时、分钟等等。
+`EXTRACT()` 函数用于返回日期/时间的单独部分，比如年、月、日、小时、分钟等等。
 
 语法：
 
@@ -4749,7 +4751,7 @@ EXTRACT() 函数用于返回日期/时间的单独部分，比如年、月、日
 EXTRACT(unit FROM <日期>)
 ```
 
-date 参数是合法的日期表达式。unit 参数可以是下列的值：
+*date* 参数是合法的日期表达式。*unit* 参数可以是下列的值：
 
 - MICROSECOND（微秒：一百万分之一秒）
 - SECOND
@@ -4767,9 +4769,9 @@ date 参数是合法的日期表达式。unit 参数可以是下列的值：
 - HOUR_SECOND
 - HOUR_MINUTE
 
-<br>
 
-### 17.1.6、日期格式转换
+
+### 17.1.6、日期转换
 
 #### DATE_FORMAT()
 
@@ -4785,38 +4787,38 @@ DATE_FORMAT(date,format)
 
 | 格式 | 描述                                           |
 | ---- | ---------------------------------------------- |
-| %a   | 缩写星期名                                     |
-| %b   | 缩写月名                                       |
-| %c   | 月，数值                                       |
-| %D   | 带有英文前缀的月中的天                         |
-| %d   | 月的天，数值(00-31)                            |
-| %e   | 月的天，数值(0-31)                             |
-| %f   | 微秒                                           |
-| %H   | 小时 (00-23)                                   |
-| %h   | 小时 (01-12)                                   |
-| %I   | 小时 (01-12)                                   |
-| %i   | 分钟，数值(00-59)                              |
-| %j   | 年的天 (001-366)                               |
-| %k   | 小时 (0-23)                                    |
-| %M   | 月名                                           |
-| %m   | 月，数值(00-12)                                |
-| %p   | AM 或 PM                                       |
-| %r   | 时间，12-小时（hh:mm:ss AM 或 PM）             |
-| %S   | 秒(00-59)                                      |
-| %s   | 秒(00-59)                                      |
-| %T   | 时间, 24-小时 (hh:mm:ss)                       |
-| %U   | 周 (00-53) 星期日是一周的第一天                |
-| %u   | 周 (00-53) 星期一是一周的第一天                |
-| %V   | 周 (01-53) 星期日是一周的第一天，与 %X 使用    |
-| %v   | 周 (01-53) 星期一是一周的第一天，与 %x 使用    |
-| %W   | 星期名                                         |
-| %w   | 周的天 （0=星期日, 6=星期六）                  |
-| %X   | 年，其中的星期日是周的第一天，4 位，与 %V 使用 |
-| %x   | 年，其中的星期一是周的第一天，4 位，与 %v 使用 |
-| %Y   | 年，4 位                                       |
-| %y   | 年，2 位                                       |
+| `%a` | 缩写星期名                                     |
+| `%b` | 缩写月名                                       |
+| `%c` | 月，数值                                       |
+| `%D` | 带有英文前缀的月中的天                         |
+| `%d` | 月的天，数值(00-31)                            |
+| `%e` | 月的天，数值(0-31)                             |
+| `%f` | 微秒                                           |
+| `%H` | 小时 (00-23)                                   |
+| `%h` | 小时 (01-12)                                   |
+| `%I` | 小时 (01-12)                                   |
+| `%i` | 分钟，数值 (00-59)                             |
+| `%j` | 年的天 (001-366)                               |
+| `%k` | 小时 (0-23)                                    |
+| `%M` | 月名                                           |
+| `%m` | 月，数值 (00-12)                               |
+| `%p` | AM 或 PM                                       |
+| `%r` | 时间，12-小时（hh:mm:ss AM 或 PM）             |
+| `%S` | 秒 (00-59)                                     |
+| `%s` | 秒 (00-59)                                     |
+| `%T` | 时间, 24-小时 (hh:mm:ss)                       |
+| `%U` | 周 (00-53) 星期日是一周的第一天                |
+| `%u` | 周 (00-53) 星期一是一周的第一天                |
+| `%V` | 周 (01-53) 星期日是一周的第一天，与 %X 使用    |
+| `%v` | 周 (01-53) 星期一是一周的第一天，与 %x 使用    |
+| `%W` | 星期名                                         |
+| `%w` | 周的天 （0=星期日, 6=星期六）                  |
+| `%X` | 年，其中的星期日是周的第一天，4 位，与 %V 使用 |
+| `%x` | 年，其中的星期一是周的第一天，4 位，与 %v 使用 |
+| `%Y` | 年，4 位                                       |
+| `%y` | 年，2 位                                       |
 
-**示例：**使用 DATE_FORMAT 函数实现日期格式的转换。
+**示例：**使用 `DATE_FORMAT()` 函数实现日期格式的转换。
 
 ```mysql
 SELECT DATE_FORMAT(NOW(),'%Y年%m月%d日 %H时%i分%s秒');
@@ -4824,21 +4826,17 @@ SELECT DATE_FORMAT(NOW(),'%Y年%m月%d日 %H时%i分%s秒');
 
 **执行结果：**
 
+```
 2019年01月17日 19时05分05秒
-
-**`DATE_FORMAT(date ,format)` 函数对应 Oracle 数据库中的 `TO_CHAR()` 函数。**
-
-```
-DATE_FORMAT(detail.OCCURRENCE_DATE, '%Y-%m-%d') AS occurrenceDate,
 ```
 
-<br>
+
 
 #### STR_TO_DATE()
 
 使用 `STR_TO_DATE()` 函数实现字符串转换日期类型，`STR_TO_DATE(str,format)` 函数是将时间格式的字符串 *str*，按照所提供的显示格式 *format* 转换为 DATETIME 类型的值。
 
-**示例：**使用 STR_TO_DATE 函数，将上面示例的结果（字符串类型）转换回日期类型。
+**示例：**使用 `STR_TO_DATE()` 函数，将上面示例的结果（字符串类型）转换回日期类型。
 
 ```mysql
 SELECT STR_TO_DATE('2019年01月17日 19时05分05秒','%Y年%m月%d日 %H时%i分%s秒');
@@ -4846,11 +4844,11 @@ SELECT STR_TO_DATE('2019年01月17日 19时05分05秒','%Y年%m月%d日 %H时%i�
 
 **执行结果：**
 
+```
 2019-01-17 19:05:05
+```
 
-**`STR_TO_DATE(str,format)` 函数对应 Oracle 数据库中的 `TO_DATE()` 函数。**
-
- <br>
+ 
 
 ## 17.2、字符串相关
 
@@ -4875,19 +4873,19 @@ SUBSTRING(string FROM position FOR length);
 
 > 在 MySQL 中，下标索引是从 1 开始的，而不是像 Java 中从 0 开始。
 
-<br>
+
 
 **CONCAT(str1, str2, …)**
 
 返回连接参数产生的字符串，一个或多个待拼接的内容，任意一个为 `NULL` 则返回值为 `NULL`。
 
-<br>
+
 
 **CONCAT_WS(separator, str1, str2, …)**
 
 `CONCAT_WS()` 代表 CONCAT With Separator ，是 `CONCAT()` 的特殊形式。 第一个参数 *separator* 是其它参数的分隔符。分隔符的位置放在要连接的两个字符串之间。分隔符可以是一个字符串，也可以是其它参数。如果分隔符为 `NULL`，则结果为 `NULL`。函数会忽略任何分隔符参数后的 `NULL` 值。
 
-<br>
+
 
 ### 17.2.2、字符串转数字
 
@@ -4906,7 +4904,7 @@ CAST(expression AS type)
 - *expression*：要转换的字符串
 - *type*：目标类型，可以是以下类型之一：`BINARY`、`CHAR`、`DATE`、`DATETIME`、`TIME`、`DECIMAL`、`SIGNED`、`UNSIGNED`。
 
-<br>
+
 
 **CONVERT()**
 
@@ -4925,7 +4923,7 @@ CONVERT(value USING charset);
 - *type*：目标类型，可以是以下类型之一：`BINARY`、`CHAR`、`DATE`、`DATETIME`、`TIME`、`SIGNED`、`UNSIGNED`。
 - *charset*：要转换为的字符集
 
-<br>
+
 
 ### 17.2.3、GROUP_CONCAT()
 
@@ -4983,7 +4981,7 @@ FROM
 
 > 注：上面语句类似于把 `SELECT v FROM t GROUP BY v;` 语句的结果串接起来。
 
-<br>
+
 
 ## 17.3、数字相关
 
@@ -4996,7 +4994,7 @@ select round(110.35,1);
 # 110.4
 ```
 
-<br>
+
 
 `TRUNCATE(x,d)`，直接截取需要保留的小数位 。
 
@@ -5005,7 +5003,7 @@ select TRUNCATE(110.35,1);
 # 110.3
 ```
 
-<br>
+
 
 `FORMAT(x,d)`，四舍五入，保留 *d* 位小数，返回 string 类型 
 
@@ -5014,7 +5012,7 @@ select FORMAT(110.35,1);
 # 110.4
 ```
 
-<br>
+
 
 # 18、JDBC
 
