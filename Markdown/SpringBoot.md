@@ -67,7 +67,7 @@ all in one 的架构方式，我们把所有的功能单元放在一个应用里
 
 
 
-# 2、第一个SpringBoot程序
+# 2、第一个 SpringBoot 程序
 
 1. ![image-20200402181821619](../Images/SpringBoot/image-20200402181821619.png)
 
@@ -785,3 +785,95 @@ public class WebConfig extends WebMvcConfigurationSupport {
 ![静态资源一](../Images/SpringBoot/776d165ad82d4247b201ab7f29ff06eetplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp)
 
 ![静态资源二](../Images/SpringBoot/dba2e1b5b0bb4a7289f39e7d15f91e73tplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp)
+
+
+
+# 12、devtools 热部署
+
+devtools 是 boot 的一个热部署工具，会监听 classpath 下的文件变动（包括类文件、属性文件、页面等），并且会立即重启应用（发生在保存时机），会重新启动应用（由于其采用的双类加载器机制，这个启动会非常快，如果发现这个启动比较慢，可以选择使用 JRebel）
+
+双类加载器机制：将划分应用程序的类路径并分配给两个不同的类加载器来实现重启机制：
+
+- base 类加载器：用于加载不会改变的 jar（第三方依赖的 jar）
+- restart 类加载器：用于加载我们正在开发的 jar（整个项目里我们自己编写的类）。
+
+当应用重启后，原先的 restart 类加载器被丢掉、重新 new 一个 restart 类加载器来加载这些修改过的东西，而 base 类加载器却不需要动一下。这种方法意味着应用程序的重启通常比 “冷启动” 要快得多，因为 bc 没有受到影响并且一直存在着。
+
+devtools 可以
+
+- 实现页面热部署，即 JSP 页面修改后会立即生效。
+
+  在 Spring Boot 中，模板引擎的页面默认是开启缓存的，如果修改了页面的内容，则刷新页面是得不到修改后的页面的，因此如果只是想实现页面热部署可以在 application.properties 中关闭模版引擎的缓存，如下：
+
+  - Thymeleaf 的配置：
+
+    ```properties
+    spring.thymeleaf.cache=false
+    ```
+
+  - FreeMarker 的配置：
+
+    ```properties
+    spring.freemarker.cache=false
+    ```
+
+  - Groovy 的配置：
+
+    ```properties
+    spring.groovy.template.cache=false
+    ```
+
+  - Velocity 的配置：
+
+    ```properties
+    spring.velocity.cache=false
+    ```
+
+  devtools 默认关闭了模版缓存，如果使用则不用单独配置关闭模版缓存。
+
+- 实现类文件热部署（Java 类文件修改后不会立即生效）。Java 类热部署前提条件：类的结构不发生变化（即类方法结构不变、类属性不变）
+
+- 实现对属性文件的热部署。
+
+
+
+**使用**
+
+1. 引入 spring-boot-devtools 依赖：
+
+   <img src="../Images/SpringBoot/1676221-20200430155320785-521416484.png" alt="img" style="zoom: 80%;" />
+
+2. 在 application.yml 中配置一下 devtools：
+
+   ```yaml
+   spring:
+       devtools:
+           restart:
+               enabled: true  #设置开启热部署
+               additional-paths: src/main/java #重启目录
+               exclude: WEB-INF/**
+   ```
+
+配置了后再修改 Java 文件后也就支持了热启动，不过这种方式是属于项目重启（速度比较快的项目重启），会清空 session 中的值，也就是如果有用户登陆的话，项目重启后需要重新登陆。
+
+默认情况下 `/META-INF/maven`、`/META-INF/resources`、`/resources`、`/static`、`/templates`、`/public` 这些文件夹下的文件修改不会使应用重启，但是会重新加载（devtools 内嵌了一个 LiveReload server，当资源发生改变时，浏览器刷新）
+
+- 如果想改变默认的设置，可以自己设置不重启的目录：
+
+  ```properties
+  spring.devtools.restart.exclude=static/**,public/**
+  ```
+
+  这样的话，就只有这两个目录下的文件修改不会导致 restart 操作了。
+
+- 如果要在保留默认设置的基础上还要添加其他的排除目录：
+
+  ```properties
+  spring.devtools.restart.additional-exclude=[目录]
+  ```
+
+IDEA：当我们修改了 Java 类后，IDEA 默认是不自动编译的，而 spring-boot-devtools 又是监测 classpath 下的文件发生变化才会重启应用，所以需要设置 IDEA 的自动编译：
+
+1. File ==> Settings ==> Build, execute, deploy ==> Compiler  ==> Build Project automatically
+2. ctrl + shift + alt + / ==> 选择 Registry ==> 勾上 Compiler autoMake allow when app running
+
