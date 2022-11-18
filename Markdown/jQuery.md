@@ -287,7 +287,19 @@ $("ul li").click(function () {
  });
 ```
 
-<br>
+
+
+**手动触发事件**
+
+jQuery 的 `trigger()` 可以触发被选元素的指定事件类型：
+
+```javascript
+$('obj').trigger('event');
+$('btn').trigger('click');
+$('input').trigger('onblur');
+```
+
+
 
 # 2、jQuery 效果 
 

@@ -162,19 +162,33 @@ Host *
 
 
 
-## 【10】删除桌面右键 Open in Terminal
+## 【10】删除 Win11 右键菜单项
 
-按 win 键+ R 键，打开 “运行” 窗口，输入  `regedit`，按回车键，弹出 注册表编辑器。
+此方法通过修改注册表来完成。
 
-在注册表 `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\` 处右键创建名为 `Blocked` 的**项**。
+按 win 键 + R 键，打开 “运行” 窗口，输入  `regedit`，按回车键，弹出【注册表编辑器】。在注册表 `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\` 处右键创建名为 `Blocked` 的**项**。在其中创建不同的**字符串值**达到屏蔽对应右键菜单项的效果。
 
-然后在其中创建字**符串值**，**名称**为 `{9F156763-7844-4DC4-B2B1-901F640F5155}`，**数值**为 `WindowsTerminal`。
+
+
+**Open in Terminal**
+
+**名称**为 `{9F156763-7844-4DC4-B2B1-901F640F5155}`，**数值**为 `WindowsTerminal`。
 
 <img src="../Images/Mixed/image-20210806112305321.png" alt="image-20210806112305321" style="zoom:77%;" />
 
 > 可以直接通过卸载 Windows Terminal（Windows 终端）这个软件来解决这个问题，删除注册表是为了解决 需要使用 Windows 终端但是又觉得右键菜单 “Open in Terminal...” 太长而影响美观的问题。
 >
 > 在新版的 Win11 中，该内容已被汉化为 “在终端中打开”。
+
+
+
+**AMD Software : Adrenalin Edition**
+
+**名称**为 `{FDADFEE3-02D1-4E7C-A511-380F4C98D73B}`，**数值**为 `AMD Software : Adrenalin Edition`。
+
+<img src="../Images/Mixed/image-20221117151017598.png" alt="image-20221117151017598" style="zoom: 50%;" />
+
+> 可以直接通过卸载 AMD Software 这个驱动软件来解决这个问题，但是一般不建议卸载驱动软件。
 
 
 
