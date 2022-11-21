@@ -1739,7 +1739,6 @@ GET /products/_search
 <div align="center">
     <img src="../Images/Elasticsearch/image-20221007165638098.png" alt="image-20221007165638098" style="width:100%;" />
 </div>
-
 <br>
 
 ## 8.4、exists
@@ -1769,7 +1768,6 @@ GET /products/_search
 <div align="center">
     <img src="../Images/Elasticsearch/image-20221007170254465.png" alt="image-20221007170254465" style="width:100%;" />
 </div>
-
 <br>
 
 ## 8.5、ids
