@@ -2,13 +2,13 @@
 
 ## 1.1、介绍
 
-### 1.1.1、Vue.js 是什么
+**Vue.js 是什么**
 
 Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。
 
 
 
-### 1.1.2、安装
+**安装**
 
 创建一个 `.html` 文件，然后通过如下方式引入 Vue：
 
@@ -23,173 +23,6 @@ Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进
 <!-- 生产环境版本，优化了尺寸和速度 -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 ```
-
-
-
-### 1.1.4、条件与循环
-
-控制切换一个元素是否显示也相当简单：
-
-```html
-<div id="app-3">
-  <p v-if="seen">现在你看到我了</p>
-</div>
-```
-
-```javascript
-var app3 = new Vue({
-  el: '#app-3',
-  data: {
-    seen: true
-  }
-})
-```
-
-<img src="../Images/Vue/image-20221118155643655.png" alt="image-20221118155643655" style="zoom:50%;" />
-
-在控制台输入 `app3.seen = false`，你会发现之前显示的消息消失了。
-
-这个例子演示了我们不仅可以把数据绑定到 DOM 文本或 attribute，还可以绑定到 DOM **结构**。此外，Vue 也提供一个强大的过渡效果系统，可以在 Vue 插入/更新/移除元素时自动应用过渡效果。
-
-还有其它很多指令，每个都有特殊的功能。例如，`v-for` 指令可以绑定数组的数据来渲染一个项目列表：
-
-```html
-<div id="app-4">
-  <ol>
-    <li v-for="todo in todos">
-      {{ todo.text }}
-    </li>
-  </ol>
-</div>
-```
-
-```javascript
-var app4 = new Vue({
-  el: '#app-4',
-  data: {
-    todos: [
-      { text: '学习 JavaScript' },
-      { text: '学习 Vue' },
-      { text: '整个牛项目' }
-    ]
-  }
-})
-```
-
-<img src="../Images/Vue/image-20221118160043484.png" alt="image-20221118160043484" style="zoom:50%;" />
-
-在控制台里，输入 `app4.todos.push({ text: '新项目' })`，你会发现列表最后添加了一个新项目。
-
-
-
-### 1.1.5、处理用户输入
-
-为了让用户和你的应用进行交互，我们可以用 `v-on` 指令添加一个事件监听器，通过它调用在 Vue 实例中定义的方法：
-
-```html
-<div id="app-5">
-  <p>{{ message }}</p>
-  <button v-on:click="reverseMessage">反转消息</button>
-</div>
-```
-
-```javascript
-var app5 = new Vue({
-  el: '#app-5',
-  data: {
-    message: 'Hello Vue.js!'
-  },
-  methods: {
-    reverseMessage: function () {
-      this.message = this.message.split('').reverse().join('')
-    }
-  }
-})
-```
-
-<img src="../Images/Vue/image-20221118160226352.png" alt="image-20221118160226352" style="zoom:50%;" /><img src="../Images/Vue/image-20221118160245237.png" alt="image-20221118160245237" style="zoom:50%;" />
-
-注意在 `reverseMessage` 方法中，我们更新了应用的状态，但没有触碰 DOM——所有的 DOM 操作都由 Vue 来处理，你编写的代码只需要关注逻辑层面即可。
-
-Vue 还提供了 `v-model` 指令，它能轻松实现表单输入和应用状态之间的双向绑定。
-
-```html
-<div id="app-6">
-  <p>{{ message }}</p>
-  <input v-model="message">
-</div>
-```
-
-```javascript
-var app6 = new Vue({
-  el: '#app-6',
-  data: {
-    message: 'Hello Vue!'
-  }
-})
-```
-
-<img src="../Images/Vue/image-20221118160329232.png" alt="image-20221118160329232" style="zoom:50%;" /><img src="../Images/Vue/image-20221118160346313.png" alt="image-20221118160346313" style="zoom:50%;" />
-
-
-
-### 1.1.6、组件化应用构建
-
-组件系统是 Vue 的另一个重要概念，因为它是一种抽象，允许我们使用小型、独立和通常可复用的组件构建大型应用。仔细想想，几乎任意类型的应用界面都可以抽象为一个组件树：
-
-<img src="../Images/Vue/components.png" alt="Component Tree" style="zoom: 50%;" />
-
-在 Vue 里，一个组件本质上是一个拥有预定义选项的一个 Vue 实例。在 Vue 中注册组件很简单：
-
-```javascript
-// 定义名为 todo-item 的新组件
-Vue.component('todo-item', {
-  // todo-item 组件现在接受一个 "prop"，类似于一个自定义 attribute。
-  // 这个 prop 名为 todo。
-  props: ['todo'],
-  template: '<li>{{ todo.text }}</li>'
-})
-```
-
-现在，我们可以使用 `v-bind` 指令将待办项传到循环输出的每个组件中：
-
-```html
-<div id="app-7">
-  <ol>
-    <!--
-      现在我们为每个 todo-item 提供 todo 对象
-      todo 对象是变量，即其内容可以是动态的。
-      我们也需要为每个组件提供一个“key”，稍后再
-      作详细解释。
-    -->
-    <todo-item
-      v-for="item in groceryList"
-      v-bind:todo="item"
-      v-bind:key="item.id"
-    ></todo-item>
-  </ol>
-</div>
-```
-
-```javascript
-Vue.component('todo-item', {
-  props: ['todo'],
-  template: '<li>{{ todo.text }}</li>'
-})
-
-var app7 = new Vue({
-  el: '#app-7',
-  data: {
-    groceryList: [
-      { id: 0, text: '蔬菜' },
-      { id: 1, text: '奶酪' },
-      { id: 2, text: '随便其它什么人吃的东西' }
-    ]
-  }
-})
-```
-
-<img src="../Images/Vue/image-20221118160744196.png" alt="image-20221118160744196" style="zoom:50%;" />
 
 
 
@@ -296,7 +129,7 @@ vm.$watch('a', function (newValue, oldValue) {
 
 ### 1.2.3、生命周期钩子
 
-每个 Vue 实例在被创建时都要经过一系列的初始化过程——例如，需要设置数据监听、编译模板、将实例挂载到 DOM 并在数据变化时更新 DOM 等。同时在这个过程中也会运行一些叫做**生命周期钩子**的函数，这给了用户在不同阶段添加自己的代码的机会。
+每个 Vue 实例在被创建时都要经过一系列的初始化过程——例如，需要设置数据监听、编译模板、将实例挂载到 DOM 并在数据变化时更新 DOM 等。同时在这个过程中也会运行一些叫做**生命周期钩子**的函数。
 
 比如 `created` 钩子可以用来在一个实例被创建之后执行代码：
 
@@ -353,7 +186,7 @@ Vue.js 使用了基于 HTML 的模板语法，允许开发者声明式地将 DOM
 
 Mustache 标签将会被替代为对应数据对象上 `msg` property 的值。无论何时，绑定的数据对象上 `msg` property 发生了改变，插值处的内容都会更新。
 
-通过使用 `v-once` 指令，你也能执行一次性地插值，当数据改变时，插值处的内容不会更新。但请留心这会影响到该节点上的其它数据绑定：
+通过使用 `v-once` 指令，你也能执行一次性地插值，当数据改变时，插值处的内容不会更新。但这会影响到该节点上的其它数据绑定：
 
 ```html
 <span v-once>这个将不会改变: {{ msg }}</span>
@@ -372,7 +205,7 @@ Mustache 标签将会被替代为对应数据对象上 `msg` property 的值。�
 
 <img src="../Images/Vue/image-20221118165537850.png" alt="image-20221118165537850" style="zoom: 67%;" />
 
-这个 `span` 的内容将会被替换成为 property 值 `rawHtml`，直接作为 HTML——会忽略解析 property 值中的数据绑定。注意，你不能使用 `v-html` 来复合局部模板，因为 Vue 不是基于字符串的模板引擎。反之，对于用户界面 (UI)，组件更适合作为可重用和可组合的基本单位。
+这个 `span` 的内容将会被替换成为 property 值 `rawHtml`，直接作为 HTML——会忽略解析 property 值中的数据绑定。
 
 > 你的站点上动态渲染的任意 HTML 可能会非常危险，因为它很容易导致 XSS 攻击。请只对可信内容使用 HTML 插值，**绝不要**对用户提供的内容使用插值。
 
@@ -594,8 +427,6 @@ vm.message = 'Goodbye'
 console.log(vm.reversedMessage) // => 'eybdooG'
 ```
 
-打开浏览器的控制台，自行修改例子中的 vm。`vm.reversedMessage` 的值始终取决于 `vm.message` 的值。
-
 Vue 知道 `vm.reversedMessage` 依赖于 `vm.message`，因此当 `vm.message` 发生改变时，所有依赖 `vm.reversedMessage` 的绑定也会更新。
 
 
@@ -723,13 +554,13 @@ var watchExampleVM = new Vue({
 
 在这个示例中，使用 `watch` 选项允许我们执行异步操作 (访问一个 API)，限制我们执行该操作的频率，并在我们得到最终结果前，设置中间状态。这些都是计算属性无法做到的。
 
-除了 `watch` 选项之外，还可以使用命令式的 vm.$watch API。
+除了 `watch` 选项之外，还可以使用命令式的 `vm.$watch` API。
 
 
 
 **计算属性 vs 侦听属性**
 
-当你有一些数据需要随着其它数据变动而变动时，你很容易滥用 `watch`。然而，通常更好的做法是使用计算属性而不是命令式的 `watch` 回调。细想一下这个例子：
+当你有一些数据需要随着其它数据变动而变动时，很容易滥用 `watch`。然而，通常更好的做法是使用计算属性而不是命令式的 `watch` 回调。细想一下这个例子：
 
 ```html
 <div id="demo">{{ fullName }}</div>
@@ -832,7 +663,7 @@ data: {
 }
 ```
 
-渲染的结果和上面一样。我们也可以在这里绑定一个返回对象的计算属性。这是一个常用且强大的模式：
+渲染的结果和上面一样。也可以在这里绑定一个返回对象的计算属性。这是一个常用且强大的模式：
 
 ```html
 <div v-bind:class="classObject"></div>
@@ -1103,6 +934,622 @@ Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从�
 
 
 
+### 1.6.2、v-show
+
+另一个用于根据条件展示元素的选项是 `v-show` 指令。用法大致一样：
+
+```html
+h1 v-show="ok">Hello!</h1>
+```
+
+不同的是带有 `v-show` 的元素始终会被渲染并保留在 DOM 中。`v-show` 只是简单地切换元素的 CSS property `display`。
+
+> 注意，`v-show` 不支持 `<template>` 元素，也不支持 `v-else`。
+
+
+
+**`v-if` vs `v-show`**
+
+`v-if` 是“真正”的条件渲染，因为它会确保在切换过程中条件块内的事件监听器和子组件适当地被销毁和重建。
+
+`v-if` 也是**惰性的**：如果在初始渲染时条件为假，则什么也不做——直到条件第一次变为真时，才会开始渲染条件块。
+
+相比之下，`v-show` 就简单得多——不管初始条件是什么，元素总是会被渲染，并且只是简单地基于 CSS 进行切换。
+
+一般来说，`v-if` 有更高的切换开销，而 `v-show` 有更高的初始渲染开销。因此，如果需要非常频繁地切换，则使用 `v-show` 较好；如果在运行时条件很少改变，则使用 `v-if` 较好。
+
+
+
+## 1.7、列表渲染
+
+### 1.7.1、用 v-for 遍历数组
+
+我们可以用 `v-for` 指令基于一个数组来渲染一个列表。`v-for` 指令需要使用 `item in items` 形式的特殊语法，其中 `items` 是源数据数组，而 `item` 则是被迭代的数组元素的**别名**。
+
+```html
+<ul id="example-1">
+  <li v-for="item in items" :key="item.message">
+    {{ item.message }}
+  </li>
+</ul>
+```
+
+```javascript
+var example1 = new Vue({
+  el: '#example-1',
+  data: {
+    items: [
+      { message: 'Foo' },
+      { message: 'Bar' }
+    ]
+  }
+})
+```
+
+结果：
+
+<img src="../Images/Vue/image-20221122134434846.png" alt="image-20221122134434846" style="zoom:50%;" />
+
+在 `v-for` 块中，我们可以访问所有父作用域的 property。`v-for` 还支持一个可选的第二个参数，即当前项的索引。
+
+```html
+<ul id="example-2">
+  <li v-for="(item, index) in items">
+    {{ parentMessage }} - {{ index }} - {{ item.message }}
+  </li>
+</ul>
+```
+
+
+
+### 1.7.2、用 v-for 遍历对象
+
+你也可以用 `v-for` 来遍历一个对象的 property。
+
+```html
+<ul id="v-for-object" class="demo">
+  <li v-for="value in object">
+    {{ value }}
+  </li>
+</ul>
+```
+
+```javascript
+new Vue({
+  el: '#v-for-object',
+  data: {
+    object: {
+      title: 'How to do lists in Vue',
+      author: 'Jane Doe',
+      publishedAt: '2016-04-10'
+    }
+  }
+})
+```
+
+结果：
+
+<img src="../Images/Vue/image-20221122141244028.png" alt="image-20221122141244028" style="zoom:50%;" />
+
+可以提供第二个的参数为 property 名称 (也就是键名)：
+
+```html
+<div v-for="(value, name) in object">
+  {{ name }}: {{ value }}
+</div>
+```
+
+用第三个参数作为索引：
+
+```html
+<div v-for="(value, name, index) in object">
+  {{ index }}. {{ name }}: {{ value }}
+</div>
+```
+
+> 在遍历对象时，会按 `Object.keys()` 的结果遍历，但是**不能**保证它的结果在不同的 JavaScript 引擎下都一致。
+
+
+
+### 1.7.3、维护状态
+
+当 Vue 正在更新使用 `v-for` 渲染的元素列表时，它默认使用 “就地更新” 的策略。如果数据项的顺序被改变，Vue 将不会移动 DOM 元素来匹配数据项的顺序，而是就地更新每个元素，并且确保它们在每个索引位置正确渲染。
+
+这个默认的模式是高效的，但是**只适用于不依赖子组件状态或临时 DOM 状态 (例如：表单输入值) 的列表渲染输出**。
+
+为了给 Vue 一个提示，以便它能跟踪每个节点的身份，从而重用和重新排序现有元素，你需要为每项提供一个唯一 `key` attribute：
+
+```html
+<div v-for="item in items" v-bind:key="item.id">
+  <!-- 内容 -->
+</div>
+```
+
+建议尽可能在使用 `v-for` 时提供 `key` attribute，除非遍历输出的 DOM 内容非常简单，或者是刻意依赖默认行为以获取性能上的提升。
+
+> 不要使用对象或数组之类的非基本类型值作为 `v-for` 的 `key`。请用字符串或数值类型的值。
+
+
+
+### 1.7.4、数组更新检测
+
+**变更方法**
+
+Vue 将被侦听的数组的变更方法进行了包裹，所以它们也将会触发视图更新。这些被包裹过的方法包括：
+
+- `push()`
+- `pop()`
+- `shift()`
+- `unshift()`
+- `splice()`
+- `sort()`
+- `reverse()`
+
+
+
+**替换数组**
+
+变更方法，顾名思义，会变更调用了这些方法的原始数组。相比之下，也有非变更方法，例如 `filter()`、`concat()` 和 `slice()`。它们不会变更原始数组，而**总是返回一个新数组**。当使用非变更方法时，可以用新数组替换旧数组：
+
+```javascript
+example1.items = example1.items.filter(function (item) {
+  return item.message.match(/Foo/)
+})
+```
+
+Vue 为了使得 DOM 元素得到最大范围的重用而实现了一些智能的启发式方法，用一个含有相同元素的数组去替换原来的数组是非常高效的操作。
+
+
+
+### 1.7.5、v-for 的其他用法
+
+**在 `v-for` 里使用范围值**
+
+`v-for` 也可以接受整数。在这种情况下，它会把模板重复对应次数。
+
+```html
+<div>
+  <span v-for="n in 10">{{ n }} </span>
+</div>
+```
+
+结果：
+
+<img src="../Images/Vue/image-20221122150631688.png" alt="image-20221122150631688" style="zoom:50%;" />
+
+
+
+**在 `<template>` 上使用 `v-for`**
+
+类似于 `v-if`，你也可以利用带有 `v-for` 的 `<template>` 来循环渲染一段包含多个元素的内容。比如：
+
+```html
+<ul>
+  <template v-for="item in items">
+    <li>{{ item.msg }}</li>
+    <li class="divider" role="presentation"></li>
+  </template>
+</ul>
+```
+
+
+
+**`v-for` 与 `v-if` 一同使用**
+
+> **不**推荐在同一元素上使用 `v-if` 和 `v-for`。
+
+当它们处于同一节点，`v-for` 的优先级比 `v-if` 更高，这意味着 `v-if` 将分别重复运行于每个 `v-for` 循环中。当你只想为部分项渲染节点时，这种优先级的机制会十分有用，如下：
+
+```html
+<li v-for="todo in todos" v-if="!todo.isComplete">
+  {{ todo }}
+</li>
+```
+
+上面的代码将只渲染未完成的 todo。
+
+
+
+## 1.8、事件处理
+
+### 1.8.1、监听事件
+
+可以用 `v-on` 指令监听 DOM 事件，并在触发时运行一些 JavaScript 代码。
+
+```html
+<div id="example-1">
+  <button v-on:click="counter += 1">Add 1</button>
+  <p>The button above has been clicked {{ counter }} times.</p>
+</div>
+```
+
+```javascript
+var example1 = new Vue({
+  el: '#example-1',
+  data: {
+    counter: 0
+  }
+})
+```
+
+<img src="../Images/Vue/image-20221122161810159.png" alt="image-20221122161810159" style="zoom:50%;" />
+
+然而许多事件处理逻辑会更为复杂，所以直接把 JavaScript 代码写在 `v-on` 指令中是不可行的。因此 `v-on` 还可以接收一个需要调用的方法名称。
+
+```html
+<div id="example-2">
+  <!-- `greet` 是在下面定义的方法名 -->
+  <button v-on:click="greet">Greet</button>
+</div>
+```
+
+```javascript
+var example2 = new Vue({
+  el: '#example-2',
+  data: {
+    name: 'Vue.js'
+  },
+  // 在 `methods` 对象中定义方法
+  methods: {
+    greet: function (event) {
+      // `this` 在方法里指向当前 Vue 实例
+      alert('Hello ' + this.name + '!')
+      // `event` 是原生 DOM 事件
+      if (event) {
+        alert(event.target.tagName)
+      }
+    }
+  }
+})
+
+// 也可以用 JavaScript 直接调用方法
+example2.greet() // => 'Hello Vue.js!'
+```
+
+<img src="../Images/Vue/image-20221122162406591.png" alt="image-20221122162406591" style="zoom:50%;" /><img src="../Images/Vue/image-20221122162414936.png" alt="image-20221122162414936" style="zoom:50%;" />
+
+除了直接绑定到一个方法，也可以在内联 JavaScript 语句中调用方法：
+
+```html
+<div id="example-3">
+  <button v-on:click="say('hi')">Say hi</button>
+  <button v-on:click="say('what')">Say what</button>
+</div>
+```
+
+```javascript
+new Vue({
+  el: '#example-3',
+  methods: {
+    say: function (message) {
+      alert(message)
+    }
+  }
+})
+```
+
+有时也需要在内联语句处理器中访问原始的 DOM 事件。可以用特殊变量 `$event` 把它传入方法：
+
+```html
+<button v-on:click="warn('Form cannot be submitted yet.', $event)">
+  Submit
+</button>
+```
+
+```javascript
+// ...
+methods: {
+  warn: function (message, event) {
+    // 现在我们可以访问原生事件对象
+    if (event) {
+      event.preventDefault()
+    }
+    alert(message)
+  }
+}
+```
+
+
+
+### 1.8.2、事件修饰符
+
+Vue.js 为 `v-on` 提供了**事件修饰符**。修饰符是由点开头的指令后缀来表示的：
+
+- `.stop`：调用 `event.stopPropagation()` (阻止事件冒泡到父元素，阻止任何父事件处理程序被执行) 。
+
+- `.prevent`：调用 `event.preventDefault()` (阻止元素发生默认的行为) 。
+
+- `.capture`：添加事件侦听器时使用 capture 模式。
+
+- `.self`：只当事件是从侦听器绑定的元素本身触发时才触发回调。
+
+- `.once`：(2.1.4) 只触发一次回调。
+
+- `.passive`：(2.3.0) 以 `{ passive: true }` 模式添加侦听器
+
+  这个 `.passive` 修饰符尤其能够提升移动端的性能。
+
+```html
+<!-- 阻止单击事件继续传播 -->
+<a v-on:click.stop="doThis"></a>
+
+<!-- 提交事件不再重载页面 -->
+<form v-on:submit.prevent="onSubmit"></form>
+
+<!-- 修饰符可以串联 -->
+<a v-on:click.stop.prevent="doThat"></a>
+
+<!-- 只有修饰符 -->
+<form v-on:submit.prevent></form>
+
+<!-- 添加事件监听器时使用事件捕获模式 -->
+<!-- 即内部元素触发的事件先在此处理，然后才交由内部元素进行处理 -->
+<div v-on:click.capture="doThis">...</div>
+
+<!-- 只当在 event.target 是当前元素自身时触发处理函数 -->
+<!-- 即事件不是从内部元素触发的 -->
+<div v-on:click.self="doThat">...</div>
+
+<!-- 点击事件将只会触发一次 -->
+<a v-on:click.once="doThis"></a>
+
+<!-- 滚动事件的默认行为 (即滚动行为) 将会立即触发 -->
+<!-- 而不会等待 `onScroll` 完成  -->
+<!-- 这其中包含 `event.preventDefault()` 的情况 -->
+<div v-on:scroll.passive="onScroll">...</div>
+```
+
+> 使用修饰符时，顺序很重要；相应的代码会以同样的顺序产生。因此，用 `v-on:click.prevent.self` 会阻止**所有的点击**，而 `v-on:click.self.prevent` 只会阻止对元素自身的点击。
+
+
+
+### 1.8.3、按键修饰符
+
+Vue 允许为 `v-on` 在监听键盘事件时添加按键修饰符：
+
+```html
+<!-- 只有在 `key` 是 `Enter` 时调用 `vm.submit()` -->
+<input v-on:keyup.enter="submit">
+```
+
+
+
+**按键码**
+
+> `keyCode` 的事件用法已经被废弃了并可能不会被最新的浏览器支持。
+
+使用 `keyCode` attribute 也是允许的：
+
+```html
+<input v-on:keyup.13="submit">
+```
+
+为了在必要的情况下支持旧浏览器，Vue 提供了绝大多数常用的按键码的别名：
+
+- `.enter`
+- `.tab`
+- `.delete` (捕获“删除”和“退格”键)
+- `.esc`
+- `.space`
+- `.up`
+- `.down`
+- `.left`
+- `.right`
+
+还可以通过全局 config.keyCodes 对象自定义按键修饰符别名：
+
+```javascript
+// 可以使用 `v-on:keyup.f1`
+Vue.config.keyCodes.f1 = 112
+```
+
+
+
+### 1.8.4、系统修饰键
+
+2.1.0 新增。可以用如下修饰符来实现仅在按下相应按键时才触发鼠标或键盘事件的监听器。
+
+- `.ctrl`
+- `.alt`
+- `.shift`
+- `.meta`
+
+```html
+<!-- Alt + C -->
+<input v-on:keyup.alt.67="clear">
+
+<!-- Ctrl + Click -->
+<div v-on:click.ctrl="doSomething">Do something</div>
+```
+
+
+
+**`.exact` 修饰符**
+
+2.5.0 新增。`.exact` 修饰符允许你控制由精确的系统修饰符组合触发的事件。
+
+```html
+<!-- 即使 Alt 或 Shift 被一同按下时也会触发 -->
+<button v-on:click.ctrl="onClick">A</button>
+
+<!-- 有且只有 Ctrl 被按下的时候才触发 -->
+<button v-on:click.ctrl.exact="onCtrlClick">A</button>
+
+<!-- 没有任何系统修饰符被按下的时候才触发 -->
+<button v-on:click.exact="onClick">A</button>
+```
+
+
+
+**鼠标按钮修饰符**
+
+2.2.0 新增。
+
+- `.left`
+- `.right`
+- `.middle`
+
+这些修饰符会限制处理函数仅响应特定的鼠标按钮。
+
+
+
+## 1.9、表单输入绑定
+
+### 1.9.1、基础用法
+
+你可以用 `v-model` 指令在表单 `<input>`、`<textarea>` 及 `<select>` 元素上创建双向数据绑定。它负责监听用户的输入事件以更新数据，并对一些极端场景进行一些特殊处理。
+
+> `v-model` 会忽略所有表单元素的 `value`、`checked`、`selected` attribute 的初始值而总是将 Vue 实例的数据作为数据来源。
+
+`v-model` 在内部为不同的输入元素使用不同的 property 并抛出不同的事件：
+
+- text 和 textarea 元素使用 `value` property 和 `input` 事件；
+- checkbox 和 radio 使用 `checked` property 和 `change` 事件；
+- select 字段将 `value` 作为 prop 并将 `change` 作为事件。
+
+
+
+**文本**
+
+```html
+<input v-model="message" placeholder="edit me">
+<p>Message is: {{ message }}</p>
+```
+
+
+
+**多行文本**
+
+```html
+<span>Multiline message is:</span>
+<p style="white-space: pre-line;">{{ message }}</p>
+<br>
+<textarea v-model="message" placeholder="add multiple lines"></textarea>
+```
+
+<img src="../Images/Vue/image-20221122174128163.png" alt="image-20221122174128163" style="zoom: 50%;" />
+
+> 在文本区域插值 (`<textarea>{{text}}</textarea>`) 并不会生效，应用 `v-model` 来代替。
+
+
+
+**复选框**
+
+单个复选框，绑定到布尔值：
+
+```html
+<input type="checkbox" id="checkbox" v-model="checked">
+<label for="checkbox">{{ checked }}</label>
+```
+
+<img src="../Images/Vue/image-20221122174955652.png" alt="image-20221122174955652" style="zoom:50%;" />
+
+多个复选框，绑定到同一个数组：
+
+```html
+<input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+<label for="jack">Jack</label>
+<input type="checkbox" id="john" value="John" v-model="checkedNames">
+<label for="john">John</label>
+<input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+<label for="mike">Mike</label>
+<br>
+<span>Checked names: {{ checkedNames }}</span>
+```
+
+```javascript
+new Vue({
+  el: '...',
+  data: {
+    checkedNames: []
+  }
+})
+```
+
+<img src="../Images/Vue/image-20221122175009292.png" alt="image-20221122175009292" style="zoom:50%;" />
+
+
+
+**单选按钮**
+
+```html
+<div id="example-4">
+  <input type="radio" id="one" value="One" v-model="picked">
+  <label for="one">One</label>
+  <br>
+  <input type="radio" id="two" value="Two" v-model="picked">
+  <label for="two">Two</label>
+  <br>
+  <span>Picked: {{ picked }}</span>
+</div>
+```
+
+```javascript
+new Vue({
+  el: '#example-4',
+  data: {
+    picked: ''
+  }
+})
+```
+
+<img src="../Images/Vue/image-20221122175240916.png" alt="image-20221122175240916" style="zoom:50%;" />
+
+
+
+**选择框**
+
+单选时：
+
+```html
+<div id="example-5">
+  <select v-model="selected">
+    <option disabled value="">请选择</option>
+    <option>A</option>
+    <option>B</option>
+    <option>C</option>
+  </select>
+  <span>Selected: {{ selected }}</span>
+</div>
+```
+
+```javascript
+new Vue({
+  el: '...',
+  data: {
+    selected: ''
+  }
+})
+```
+
+> 如果 `v-model` 表达式的初始值未能匹配任何选项，`<select>` 元素将被渲染为“未选中”状态。
+
+多选时 (绑定到一个数组)。
+
+用 `v-for` 渲染的动态选项：
+
+```html
+<select v-model="selected">
+  <option v-for="option in options" v-bind:value="option.value">
+    {{ option.text }}
+  </option>
+</select>
+<span>Selected: {{ selected }}</span>
+```
+
+```javascript
+new Vue({
+  el: '...',
+  data: {
+    selected: 'A',
+    options: [
+      { text: 'One', value: 'A' },
+      { text: 'Two', value: 'B' },
+      { text: 'Three', value: 'C' }
+    ]
+  }
+})
+```
 
 
 
@@ -1146,6 +1593,101 @@ Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从�
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 组件化应用构建
+
+组件系统是 Vue 的另一个重要概念，因为它是一种抽象，允许我们使用小型、独立和通常可复用的组件构建大型应用。仔细想想，几乎任意类型的应用界面都可以抽象为一个组件树：
+
+<img src="../Images/Vue/components.png" alt="Component Tree" style="zoom: 50%;" />
+
+在 Vue 里，一个组件本质上是一个拥有预定义选项的一个 Vue 实例。在 Vue 中注册组件很简单：
+
+```javascript
+// 定义名为 todo-item 的新组件
+Vue.component('todo-item', {
+  // todo-item 组件现在接受一个 "prop"，类似于一个自定义 attribute。
+  // 这个 prop 名为 todo。
+  props: ['todo'],
+  template: '<li>{{ todo.text }}</li>'
+})
+```
+
+现在，我们可以使用 `v-bind` 指令将待办项传到循环输出的每个组件中：
+
+```html
+<div id="app-7">
+  <ol>
+    <!--
+      现在我们为每个 todo-item 提供 todo 对象
+      todo 对象是变量，即其内容可以是动态的。
+      我们也需要为每个组件提供一个“key”，稍后再
+      作详细解释。
+    -->
+    <todo-item
+      v-for="item in groceryList"
+      v-bind:todo="item"
+      v-bind:key="item.id"
+    ></todo-item>
+  </ol>
+</div>
+```
+
+```javascript
+Vue.component('todo-item', {
+  props: ['todo'],
+  template: '<li>{{ todo.text }}</li>'
+})
+
+var app7 = new Vue({
+  el: '#app-7',
+  data: {
+    groceryList: [
+      { id: 0, text: '蔬菜' },
+      { id: 1, text: '奶酪' },
+      { id: 2, text: '随便其它什么人吃的东西' }
+    ]
+  }
+})
+```
+
+<img src="../Images/Vue/image-20221118160744196.png" alt="image-20221118160744196" style="zoom:50%;" />
 
 
 

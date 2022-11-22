@@ -531,6 +531,22 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 
 
+## 【12】Defender 排除项目目录
+
+<img src="../Images/Mixed/image-20221122104415995.png" alt="image-20221122104415995" style="zoom: 67%;" />
+
+1. 打开设置，然后依次打开【隐私和安全性】==>【Windows 安全中心】==>【打开 Windows 安全中心】
+
+2. 在 Windows 安全中心中选择【病毒和威胁防护】，在 “病毒和威胁防护设置” 下，选择【管理设置】
+
+   <img src="../Images/Mixed/image-20221122105328603.png" alt="image-20221122105328603" style="zoom: 50%;" />
+
+3. 最后在 ”排除项“ 下，点击【添加或删除排除项】
+
+   <img src="../Images/Mixed/image-20221122105441981.png" alt="image-20221122105441981" style="zoom:50%;" />
+
+
+
 # STS
 
 ## 【1】修改内存大小
