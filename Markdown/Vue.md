@@ -723,44 +723,6 @@ data: {
 
 
 
-**用在组件上**
-
-当在一个自定义组件上使用 `class` property 时，这些 class 将被添加到该组件的根元素上面。这个元素上已经存在的 class 不会被覆盖。
-
-例如，如果你声明了这个组件：
-
-```javascript
-Vue.component('my-component', {
-  template: '<p class="foo bar">Hi</p>'
-})
-```
-
-然后在使用它的时候添加一些 class：
-
-```html
-<my-component class="baz boo"></my-component>
-```
-
-HTML 将被渲染为：
-
-```html
-<p class="foo bar baz boo">Hi</p>
-```
-
-对于带数据绑定 class 也同样适用：
-
-```html
-<my-component v-bind:class="{ active: isActive }"></my-component>
-```
-
-当 `isActive` 为 truthy 时，HTML 将被渲染成为：
-
-```html
-<p class="foo bar active">Hi</p>
-```
-
-
-
 ### 1.5.2、绑定内联样式
 
 **对象语法**
@@ -1553,141 +1515,356 @@ new Vue({
 
 
 
+### 1.9.2、值绑定
 
+对于单选按钮，复选框及选择框的选项，`v-model` 绑定的值通常是静态字符串 (对于复选框也可以是布尔值)：
 
+```html
+<!-- 当选中时，`picked` 为字符串 "a" -->
+<input type="radio" v-model="picked" value="a">
 
+<!-- `toggle` 为 true 或 false -->
+<input type="checkbox" v-model="toggle">
 
+<!-- 当选中第一个选项时，`selected` 为字符串 "abc" -->
+<select v-model="selected">
+  <option value="abc">ABC</option>
+</select>
+```
 
+但是有时我们可能想把值绑定到 Vue 实例的一个动态 property 上，这时可以用 `v-bind` 实现，并且这个 property 的值可以不是字符串。
 
 
 
+**复选框**
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# 组件化应用构建
-
-组件系统是 Vue 的另一个重要概念，因为它是一种抽象，允许我们使用小型、独立和通常可复用的组件构建大型应用。仔细想想，几乎任意类型的应用界面都可以抽象为一个组件树：
-
-<img src="../Images/Vue/components.png" alt="Component Tree" style="zoom: 50%;" />
-
-在 Vue 里，一个组件本质上是一个拥有预定义选项的一个 Vue 实例。在 Vue 中注册组件很简单：
+```html
+<input
+  type="checkbox"
+  v-model="toggle"
+  true-value="yes"
+  false-value="no"
+>
+```
 
 ```javascript
-// 定义名为 todo-item 的新组件
-Vue.component('todo-item', {
-  // todo-item 组件现在接受一个 "prop"，类似于一个自定义 attribute。
-  // 这个 prop 名为 todo。
-  props: ['todo'],
-  template: '<li>{{ todo.text }}</li>'
+// 当选中时
+vm.toggle === 'yes'
+// 当没有选中时
+vm.toggle === 'no'
+```
+
+这里的 `true-value` 和 `false-value` attribute 并不会影响输入控件的 `value` attribute，因为浏览器在提交表单时并不会包含未被选中的复选框。如果要确保表单中这两个值中的一个能够被提交，(即 “yes” 或 “no”)，请换用单选按钮。
+
+
+
+**单选按钮**
+
+```html
+<input type="radio" v-model="pick" v-bind:value="a">
+```
+
+```javascript
+ 当选中时
+vm.pick === vm.a
+```
+
+
+
+**选择框的选项**
+
+```html
+<select v-model="selected">
+    <!-- 内联对象字面量 -->
+  <option v-bind:value="{ number: 123 }">123</option>
+</select>
+```
+
+```javascript
+// 当选中时
+typeof vm.selected // => 'object'
+vm.selected.number // => 123
+```
+
+
+
+### 1.9.3、修饰符
+
+**`.lazy`**
+
+在默认情况下，`v-model` 在每次 `input` 事件触发后将输入框的值与数据进行同步 (除了上述输入法组合文字时)。你可以添加 `lazy` 修饰符，从而转为在 `change` 事件_之后_进行同步：
+
+```html
+<!-- 在“change”时而非“input”时更新 -->
+<input v-model.lazy="msg">
+```
+
+
+
+**`.number`**
+
+如果想自动将用户的输入值转为数值类型，可以给 `v-model` 添加 `number` 修饰符：
+
+```javascript
+<input v-model.number="age" type="number">
+```
+
+这通常很有用，因为即使在 `type="number"` 时，HTML 输入元素的值也总会返回字符串。如果这个值无法被 `parseFloat()` 解析，则会返回原始的值。
+
+
+
+**`.trim`**
+
+如果要自动过滤用户输入的首尾空白字符，可以给 `v-model` 添加 `trim` 修饰符：
+
+```html
+<input v-model.trim="msg">
+```
+
+
+
+## 1.10、组件基础
+
+### 1.10.1、基本示例
+
+这里有一个 Vue 组件的示例：
+
+```javascript
+// 定义一个名为 button-counter 的新组件
+Vue.component('button-counter', {
+  data: function () {
+    return {
+      count: 0
+    }
+  },
+  template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
 })
 ```
 
-现在，我们可以使用 `v-bind` 指令将待办项传到循环输出的每个组件中：
+组件是可复用的 Vue 实例，且带有一个名字：在这个例子中是 `<button-counter>`。我们可以在一个通过 `new Vue` 创建的 Vue 根实例中，把这个组件作为自定义元素来使用：
 
 ```html
-<div id="app-7">
-  <ol>
-    <!--
-      现在我们为每个 todo-item 提供 todo 对象
-      todo 对象是变量，即其内容可以是动态的。
-      我们也需要为每个组件提供一个“key”，稍后再
-      作详细解释。
-    -->
-    <todo-item
-      v-for="item in groceryList"
-      v-bind:todo="item"
-      v-bind:key="item.id"
-    ></todo-item>
-  </ol>
+<div id="components-demo">
+  <button-counter></button-counter>
 </div>
 ```
 
 ```javascript
-Vue.component('todo-item', {
-  props: ['todo'],
-  template: '<li>{{ todo.text }}</li>'
-})
+new Vue({ el: '#components-demo' })
+```
 
-var app7 = new Vue({
-  el: '#app-7',
+<img src="../Images/Vue/image-20221123155101574.png" alt="image-20221123155101574" style="zoom:50%;" />
+
+因为组件是可复用的 Vue 实例，所以它们与 `new Vue` 接收相同的选项，例如 `data`、`computed`、`watch`、`methods` 以及生命周期钩子等。仅有的例外是像 `el` 这样根实例特有的选项。
+
+
+
+**组件的复用**
+
+你可以将组件进行任意次数的复用：
+
+```html
+<div id="components-demo">
+  <button-counter></button-counter>
+  <button-counter></button-counter>
+  <button-counter></button-counter>
+</div>
+```
+
+<img src="../Images/Vue/image-20221123155123374.png" alt="image-20221123155123374" style="zoom:50%;" />
+
+注意当点击按钮时，每个组件都会各自独立维护它的 `count`。因为你每用一次组件，就会有一个它的新**实例**被创建。
+
+
+
+**`data` 必须是一个函数**
+
+当我们定义这个 `<button-counter>` 组件时，它的 `data` 并不是像这样直接提供一个对象：
+
+```javascript
+data: {
+  count: 0
+}
+```
+
+取而代之的是，**一个组件的 `data` 选项必须是一个函数**，因此每个实例可以维护一份被返回对象的独立的拷贝：
+
+```javascript
+data: function () {
+  return {
+    count: 0
+  }
+}
+```
+
+如果 Vue 没有这条规则，点击一个按钮就可能会影响到其它所有实例。
+
+
+
+**单个根元素**
+
+当构建一个 `<blog-post>` 组件时，你的模板最终会包含的东西远不止一个标题：
+
+```html
+<h3>{{ title }}</h3>
+```
+
+最最起码，你会包含这篇博文的正文：
+
+```html
+<h3>{{ title }}</h3>
+<div v-html="content"></div>
+```
+
+然而如果你在模板中尝试这样写，Vue 会显示一个错误，并解释道 **every component must have a single root element (每个组件必须只有一个根元素)**。你可以将模板的内容包裹在一个父元素内，来修复这个问题，例如：
+
+```html
+<div class="blog-post">
+  <h3>{{ title }}</h3>
+  <div v-html="content"></div>
+</div>
+```
+
+看起来当组件变得越来越复杂的时候，我们的博文不只需要标题和内容，还需要发布日期、评论等等。为每个相关的信息定义一个 prop 会变得很麻烦：
+
+```html
+<blog-post
+  v-for="post in posts"
+  v-bind:key="post.id"
+  v-bind:title="post.title"
+  v-bind:content="post.content"
+  v-bind:publishedAt="post.publishedAt"
+  v-bind:comments="post.comments"
+></blog-post>
+```
+
+可以重构一下这个 `<blog-post>` 组件了，让它变成接受一个单独的 `post` prop：
+
+```html
+<blog-post
+  v-for="post in posts"
+  v-bind:key="post.id"
+  v-bind:post="post"
+></blog-post>
+```
+
+```javascript
+Vue.component('blog-post', {
+  props: ['post'],
+  template: `
+    <div class="blog-post">
+      <h3>{{ post.title }}</h3>
+      <div v-html="post.content"></div>
+    </div>
+  `
+})
+```
+
+现在，不论何时为 `post` 对象添加一个新的 property，它都会自动地在 `<blog-post>` 内可用。
+
+
+
+### 1.10.2、组件的组织
+
+通常一个应用会以一棵嵌套的组件树的形式来组织：
+
+<img src="../Images/Vue/components.png" alt="Component Tree" style="zoom:50%;" />
+
+例如，你可能会有页头、侧边栏、内容区等组件，每个组件又包含了其它的像导航链接、博文之类的组件。
+
+为了能在模板中使用，这些组件必须先注册以便 Vue 能够识别。这里有两种组件的注册类型：**全局注册**和**局部注册**。至此，我们的组件都只是通过 `Vue.component` 全局注册的：
+
+```html
+Vue.component('my-component-name', {
+  // ... options ...
+})
+```
+
+全局注册的组件可以用在其被注册之后的任何 (通过 `new Vue`) 新创建的 Vue 根实例，也包括其组件树中的所有子组件的模板中。
+
+
+
+### 1.10.3、通过 Prop 向子组件传递数据
+
+Prop 是你可以在组件上注册的一些自定义 attribute。当一个值传递给一个 prop attribute 的时候，它就变成了那个组件实例的一个 property。为了给博文组件传递一个标题，我们可以用一个 `props` 选项将其包含在该组件可接受的 prop 列表中：
+
+```javascript
+Vue.component('blog-post', {
+  props: ['title'],
+  template: '<h3>{{ title }}</h3>'
+})
+```
+
+一个组件默认可以拥有任意数量的 prop，任何值都可以传递给任何 prop。
+
+一个 prop 被注册之后，你就可以像这样把数据作为一个自定义 attribute 传递进来：
+
+```html
+<blog-post title="My journey with Vue"></blog-post>
+<blog-post title="Blogging with Vue"></blog-post>
+<blog-post title="Why Vue is so fun"></blog-post>
+```
+
+<img src="../Images/Vue/image-20221123173930165.png" alt="image-20221123173930165" style="zoom:50%;" />
+
+还可以使用 `v-bind` 来动态传递 prop：
+
+```javascript
+new Vue({
+  el: '#blog-post-demo',
   data: {
-    groceryList: [
-      { id: 0, text: '蔬菜' },
-      { id: 1, text: '奶酪' },
-      { id: 2, text: '随便其它什么人吃的东西' }
+    posts: [
+      { id: 1, title: 'My journey with Vue' },
+      { id: 2, title: 'Blogging with Vue' },
+      { id: 3, title: 'Why Vue is so fun' }
     ]
   }
 })
 ```
 
-<img src="../Images/Vue/image-20221118160744196.png" alt="image-20221118160744196" style="zoom:50%;" />
+```html
+<blog-post
+  v-for="post in posts"
+  v-bind:key="post.id"
+  v-bind:title="post.title"
+></blog-post>
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
