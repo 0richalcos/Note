@@ -1,6 +1,4 @@
-# 1、基础
-
-## 1.1、介绍
+# 1、介绍
 
 **Vue.js 是什么**
 
@@ -26,9 +24,9 @@ Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进
 
 
 
-## 1.2、Vue 实例
+# 2、Vue 实例
 
-### 1.2.1、创建一个 Vue 实例
+## 2.1、创建一个 Vue 实例
 
 每个 Vue 应用都是通过用 `Vue` 函数创建一个新的 **Vue 实例**开始的：
 
@@ -40,7 +38,7 @@ var vm = new Vue({
 
 
 
-### 1.2.2、数据与方法
+## 2.2、数据与方法
 
 当一个 Vue 实例被创建时，它将 `data` 对象中的所有的 property 加入到 Vue 的**响应式系统**中。当这些 property 的值发生改变时，视图将会产生 “响应”，即匹配更新为新的值。
 
@@ -127,7 +125,7 @@ vm.$watch('a', function (newValue, oldValue) {
 
 
 
-### 1.2.3、生命周期钩子
+## 2.3、生命周期钩子
 
 每个 Vue 实例在被创建时都要经过一系列的初始化过程——例如，需要设置数据监听、编译模板、将实例挂载到 DOM 并在数据变化时更新 DOM 等。同时在这个过程中也会运行一些叫做**生命周期钩子**的函数。
 
@@ -166,7 +164,7 @@ new Vue({
 
 
 
-## 1.3、模板语法
+# 3、模板语法
 
 Vue.js 使用了基于 HTML 的模板语法，允许开发者声明式地将 DOM 绑定至底层 Vue 实例的数据。所有 Vue.js 的模板都是合法的 HTML，所以能被遵循规范的浏览器和 HTML 解析器解析。
 
@@ -174,7 +172,7 @@ Vue.js 使用了基于 HTML 的模板语法，允许开发者声明式地将 DOM
 
 
 
-### 1.3.1、插值
+## 3.1、插值
 
 **文本**
 
@@ -257,7 +255,7 @@ Mustache 语法不能作用在 HTML attribute 上，遇到这种情况应该使�
 
 
 
-### 1.3.2、指令
+## 3.2、指令
 
 指令 (Directives) 是带有 `v-` 前缀的特殊 attribute。指令 attribute 的值预期是**单个 JavaScript 表达式** (`v-for` 是例外情况)。指令的职责是，当表达式的值改变时，将其产生的连带影响，响应式地作用于 DOM。
 
@@ -338,7 +336,7 @@ Mustache 语法不能作用在 HTML attribute 上，遇到这种情况应该使�
 
 
 
-### 1.3.3、缩写
+## 3.3、缩写
 
 Vue 为 `v-bind` 和 `v-on` 这两个最常用的指令，提供了特定简写：
 
@@ -374,9 +372,9 @@ Vue 为 `v-bind` 和 `v-on` 这两个最常用的指令，提供了特定简写�
 
 
 
-## 1.4、计算属性和侦听器
+# 4、计算属性和侦听器
 
-### 1.4.1、计算属性
+## 4.1、计算属性
 
 模板内的表达式非常便利，但是设计它们的初衷是用于简单运算的。在模板中放入太多的逻辑会让模板过重且难以维护：
 
@@ -491,7 +489,7 @@ computed: {
 
 
 
-### 1.4.2、侦听器
+## 4.2、侦听器
 
 Vue 通过 `watch` 选项提供了一个更通用的方法，来响应数据的变化。当需要在数据变化时执行异步或开销较大的操作时，这个方式是最有用的。
 
@@ -604,13 +602,13 @@ var vm = new Vue({
 
 
 
-## 1.5、Class 与 Style 绑定
+# 5、Class 与 Style 绑定
 
 操作元素的 class 列表和内联样式是数据绑定的一个常见需求。因为它们都是 attribute，所以我们可以用 `v-bind` 处理它们：只需要通过表达式计算出字符串结果即可。不过，字符串拼接麻烦且易错。因此，在将 `v-bind` 用于 `class` 和 `style` 时，Vue.js 做了专门的增强。表达式结果的类型除了字符串之外，还可以是对象或数组。
 
 
 
-### 1.5.1、绑定 HTML Class
+## 5.1、绑定 HTML Class
 
 **对象语法**
 
@@ -723,7 +721,7 @@ data: {
 
 
 
-### 1.5.2、绑定内联样式
+## 5.2、绑定内联样式
 
 **对象语法**
 
@@ -787,9 +785,9 @@ data: {
 
 
 
-## 1.6、条件渲染
+# 6、条件渲染
 
-### 1.6.1、v-if
+## 6.1、v-if
 
 `v-if` 指令用于条件性地渲染一块内容。这块内容只会在指令的表达式返回 truthy 值的时候被渲染。
 
@@ -896,7 +894,7 @@ Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从�
 
 
 
-### 1.6.2、v-show
+## 6.2、v-show
 
 另一个用于根据条件展示元素的选项是 `v-show` 指令。用法大致一样：
 
@@ -922,9 +920,9 @@ h1 v-show="ok">Hello!</h1>
 
 
 
-## 1.7、列表渲染
+# 7、列表渲染
 
-### 1.7.1、用 v-for 遍历数组
+## 7.1、用 v-for 遍历数组
 
 我们可以用 `v-for` 指令基于一个数组来渲染一个列表。`v-for` 指令需要使用 `item in items` 形式的特殊语法，其中 `items` 是源数据数组，而 `item` 则是被迭代的数组元素的**别名**。
 
@@ -964,7 +962,7 @@ var example1 = new Vue({
 
 
 
-### 1.7.2、用 v-for 遍历对象
+## 7.2、用 v-for 遍历对象
 
 你也可以用 `v-for` 来遍历一个对象的 property。
 
@@ -1013,7 +1011,7 @@ new Vue({
 
 
 
-### 1.7.3、维护状态
+## 7.3、维护状态
 
 当 Vue 正在更新使用 `v-for` 渲染的元素列表时，它默认使用 “就地更新” 的策略。如果数据项的顺序被改变，Vue 将不会移动 DOM 元素来匹配数据项的顺序，而是就地更新每个元素，并且确保它们在每个索引位置正确渲染。
 
@@ -1033,7 +1031,7 @@ new Vue({
 
 
 
-### 1.7.4、数组更新检测
+## 7.4、数组更新检测
 
 **变更方法**
 
@@ -1063,7 +1061,7 @@ Vue 为了使得 DOM 元素得到最大范围的重用而实现了一些智能�
 
 
 
-### 1.7.5、v-for 的其他用法
+## 7.5、v-for 的其他用法
 
 **在 `v-for` 里使用范围值**
 
@@ -1112,9 +1110,9 @@ Vue 为了使得 DOM 元素得到最大范围的重用而实现了一些智能�
 
 
 
-## 1.8、事件处理
+# 8、事件处理
 
-### 1.8.1、监听事件
+## 8.1、监听事件
 
 可以用 `v-on` 指令监听 DOM 事件，并在触发时运行一些 JavaScript 代码。
 
@@ -1213,7 +1211,7 @@ methods: {
 
 
 
-### 1.8.2、事件修饰符
+## 8.2、事件修饰符
 
 Vue.js 为 `v-on` 提供了**事件修饰符**。修饰符是由点开头的指令后缀来表示的：
 
@@ -1265,7 +1263,7 @@ Vue.js 为 `v-on` 提供了**事件修饰符**。修饰符是由点开头的指�
 
 
 
-### 1.8.3、按键修饰符
+## 8.3、按键修饰符
 
 Vue 允许为 `v-on` 在监听键盘事件时添加按键修饰符：
 
@@ -1307,7 +1305,7 @@ Vue.config.keyCodes.f1 = 112
 
 
 
-### 1.8.4、系统修饰键
+## 8.4、系统修饰键
 
 2.1.0 新增。可以用如下修饰符来实现仅在按下相应按键时才触发鼠标或键盘事件的监听器。
 
@@ -1355,9 +1353,9 @@ Vue.config.keyCodes.f1 = 112
 
 
 
-## 1.9、表单输入绑定
+# 9、表单输入绑定
 
-### 1.9.1、基础用法
+## 9.1、基础用法
 
 你可以用 `v-model` 指令在表单 `<input>`、`<textarea>` 及 `<select>` 元素上创建双向数据绑定。它负责监听用户的输入事件以更新数据，并对一些极端场景进行一些特殊处理。
 
@@ -1515,7 +1513,7 @@ new Vue({
 
 
 
-### 1.9.2、值绑定
+## 9.2、值绑定
 
 对于单选按钮，复选框及选择框的选项，`v-model` 绑定的值通常是静态字符串 (对于复选框也可以是布尔值)：
 
@@ -1588,7 +1586,7 @@ vm.selected.number // => 123
 
 
 
-### 1.9.3、修饰符
+## 9.3、修饰符
 
 **`.lazy`**
 
@@ -1623,9 +1621,9 @@ vm.selected.number // => 123
 
 
 
-## 1.10、组件基础
+# 10、组件
 
-### 1.10.1、基本示例
+## 10.1、基本示例
 
 这里有一个 Vue 组件的示例：
 
@@ -1656,6 +1654,28 @@ new Vue({ el: '#components-demo' })
 <img src="../Images/Vue/image-20221123155101574.png" alt="image-20221123155101574" style="zoom:50%;" />
 
 因为组件是可复用的 Vue 实例，所以它们与 `new Vue` 接收相同的选项，例如 `data`、`computed`、`watch`、`methods` 以及生命周期钩子等。仅有的例外是像 `el` 这样根实例特有的选项。
+
+
+
+**组件名大小写**
+
+定义组件名的方式有两种：
+
+- 使用 kebab-case
+
+  ```javascript
+  Vue.component('my-component-name', { /* ... */ })
+  ```
+
+  当使用 kebab-case (短横线分隔命名) 定义一个组件时，你也必须在引用这个自定义元素时使用 kebab-case，例如 `<my-component-name>`。
+
+- 使用 PascalCase
+
+  ```javascript
+  Vue.component('MyComponentName', { /* ... */ })
+  ```
+
+  当使用 PascalCase (首字母大写命名) 定义一个组件时，你在引用这个自定义元素时两种命名法都可以使用。也就是说 `<my-component-name>` 和 `<MyComponentName>` 都是可接受的。注意，尽管如此，直接在 DOM (即非字符串的模板) 中使用时只有 kebab-case 是有效的。
 
 
 
@@ -1764,7 +1784,35 @@ Vue.component('blog-post', {
 
 
 
-### 1.10.2、组件的组织
+**解析 DOM 模板时的注意事项**
+
+有些 HTML 元素，诸如 `<ul>`、`<ol>`、`<table>` 和 `<select>`，对于哪些元素可以出现在其内部是有严格限制的。而有些元素，诸如 `<li>`、`<tr>` 和 `<option>`，只能出现在其它某些特定的元素内部。
+
+这会导致我们使用这些有约束条件的元素时遇到一些问题。例如：
+
+```html
+<table>
+  <blog-post-row></blog-post-row>
+</table>
+```
+
+这个自定义组件 `<blog-post-row>` 会被作为无效的内容提升到外部，并导致最终渲染结果出错。幸好这个特殊的 `is` attribute 给了我们一个变通的办法：
+
+```html
+<table>
+  <tr is="blog-post-row"></tr>
+</table>
+```
+
+需要注意的是如果从以下来源使用模板的话，这条限制是不存在的：
+
+- 字符串 (例如：`template: '...'`)
+- 单文件组件 (`.vue`)
+- `<script type="text/x-template">`
+
+
+
+## 10.2、组件注册
 
 通常一个应用会以一棵嵌套的组件树的形式来组织：
 
@@ -1772,19 +1820,71 @@ Vue.component('blog-post', {
 
 例如，你可能会有页头、侧边栏、内容区等组件，每个组件又包含了其它的像导航链接、博文之类的组件。
 
-为了能在模板中使用，这些组件必须先注册以便 Vue 能够识别。这里有两种组件的注册类型：**全局注册**和**局部注册**。至此，我们的组件都只是通过 `Vue.component` 全局注册的：
+为了能在模板中使用，这些组件必须先注册以便 Vue 能够识别。这里有两种组件的注册类型：**全局注册**和**局部注册**。
 
-```html
+
+
+**全局注册**
+
+到目前为止，我们只用过 `Vue.component` 来创建组件：
+
+```javascript
 Vue.component('my-component-name', {
   // ... options ...
 })
 ```
 
-全局注册的组件可以用在其被注册之后的任何 (通过 `new Vue`) 新创建的 Vue 根实例，也包括其组件树中的所有子组件的模板中。
+这些组件是**全局注册的**。也就是说它们在注册之后可以用在任何新创建的 Vue 根实例 (`new Vue`) 的模板中。比如：
+
+```javascript
+Vue.component('component-a', { /* ... */ })
+Vue.component('component-b', { /* ... */ })
+Vue.component('component-c', { /* ... */ })
+
+new Vue({ el: '#app' })
+```
+
+```html
+<div id="app">
+  <component-a></component-a>
+  <component-b></component-b>
+  <component-c></component-c>
+</div>
+```
+
+在所有子组件中也是如此，也就是说这三个组件*在各自内部*也都可以相互使用。
 
 
 
-### 1.10.3、通过 Prop 向子组件传递数据
+**局部注册**
+
+全局注册往往是不够理想的。比如，如果你使用一个像 webpack 这样的构建系统，全局注册所有的组件意味着即便你已经不再使用一个组件了，它仍然会被包含在你最终的构建结果中。这造成了用户下载的 JavaScript 的无谓的增加。
+
+在这些情况下可以通过一个普通的 JavaScript 对象来定义组件：
+
+```javascript
+var ComponentA = { /* ... */ }
+var ComponentB = { /* ... */ }
+var ComponentC = { /* ... */ }
+```
+
+然后在 `components` 选项中定义你想要使用的组件：
+
+```javascript
+new Vue({
+  el: '#app',
+  components: {
+    'component-a': ComponentA,
+    'component-b': ComponentB
+  }
+})
+```
+
+对于 `components` 对象中的每个 property 来说，其 property 名就是自定义元素的名字，其 property 值就是这个组件的选项对象。
+
+
+
+## 10.3、通过 Prop 向子组件传递数据
 
 Prop 是你可以在组件上注册的一些自定义 attribute。当一个值传递给一个 prop attribute 的时候，它就变成了那个组件实例的一个 property。为了给博文组件传递一个标题，我们可以用一个 `props` 选项将其包含在该组件可接受的 prop 列表中：
 
@@ -1832,37 +1932,199 @@ new Vue({
 
 
 
+## 10.4、监听子组件事件
+
+在我们开发 `<blog-post>` 组件时，它的一些功能可能要求我们和父级组件进行沟通。例如我们可能会引入一个辅助功能来放大博文的字号，同时让页面的其它部分保持默认的字号。
+
+在其父组件中，我们可以通过添加一个 `postFontSize` 数据 property 来支持这个功能：
+
+```javascript
+new Vue({
+  el: '#blog-posts-events-demo',
+  data: {
+    posts: [/* ... */],
+    postFontSize: 1
+  }
+})
+```
+
+它可以在模板中用来控制所有博文的字号：
+
+```html
+<div id="blog-posts-events-demo">
+  <div :style="{ fontSize: postFontSize + 'em' }">
+    <blog-post
+      v-for="post in posts"
+      v-bind:key="post.id"
+      v-bind:post="post"
+    ></blog-post>
+  </div>
+</div>
+```
+
+现在我们在每篇博文正文之前添加一个按钮来放大字号：
+
+```javascript
+Vue.component('blog-post', {
+  props: ['post'],
+  template: `
+    <div class="blog-post">
+      <h3>{{ post.title }}</h3>
+      <button>
+        Enlarge text
+      </button>
+      <div v-html="post.content"></div>
+    </div>
+  `
+})
+```
+
+问题是这个按钮不会做任何事：
+
+```html
+<button>
+  Enlarge text
+</button>
+```
+
+当点击这个按钮时，我们需要告诉父级组件放大所有博文的文本。Vue 实例提供了一个自定义事件的系统来解决这个问题。父级组件可以像处理 native DOM 事件一样通过 `v-on` 监听子组件实例的任意事件：
+
+```html
+<blog-post
+  ...
+  v-on:enlarge-text="postFontSize += 0.1"
+></blog-post>
+```
+
+同时子组件可以通过调用内建的 `$emit` 方法并传入事件名称来触发一个事件：
+
+```html
+<button v-on:click="$emit('enlarge-text')">
+  Enlarge text
+</button>
+```
+
+有了这个 `v-on:enlarge-text="postFontSize += 0.1"` 监听器，父级组件就会接收该事件并更新 `postFontSize` 的值。
 
 
 
+**使用事件抛出一个值**
+
+有的时候用一个事件来抛出一个特定的值是非常有用的。例如我们可能想让 `<blog-post>` 组件决定它的文本要放大多少。这时可以使用 `$emit` 的第二个参数来提供这个值：
+
+```html
+<button v-on:click="$emit('enlarge-text', 0.1)">
+  Enlarge text
+</button>
+```
+
+然后当在父级组件监听这个事件的时候，我们可以通过 `$event` 访问到被抛出的这个值：
+
+```html
+<blog-post
+  ...
+  v-on:enlarge-text="postFontSize += $event"
+></blog-post>
+```
+
+或者，如果这个事件处理函数是一个方法：
+
+```html
+<blog-post
+  ...
+  v-on:enlarge-text="onEnlargeText"
+></blog-post>
+```
+
+那么这个值将会作为第一个参数传入这个方法：
+
+```javascript
+methods: {
+  onEnlargeText: function (enlargeAmount) {
+    this.postFontSize += enlargeAmount
+  }
+}
+```
 
 
 
+**在组件上使用 `v-model`**
+
+自定义事件也可以用于创建支持 `v-model` 的自定义输入组件。
+
+```html
+<input v-model="searchText">
+```
+
+等价于：
+
+```html
+<input
+  v-bind:value="searchText"
+  v-on:input="searchText = $event.target.value"
+>
+```
+
+当用在组件上时，`v-model` 则会这样：
+
+```html
+<custom-input
+  v-bind:value="searchText"
+  v-on:input="searchText = $event"
+></custom-input>
+```
+
+为了让它正常工作，这个组件内的 `<input>` 必须：
+
+- 将其 `value` attribute 绑定到一个名叫 `value` 的 prop 上
+- 在其 `input` 事件被触发时，将新的值通过自定义的 `input` 事件抛出
+
+````javascript
+Vue.component('custom-input', {
+  props: ['value'],
+  template: `
+    <input
+      v-bind:value="value"
+      v-on:input="$emit('input', $event.target.value)"
+    >
+  `
+})
+````
+
+现在 `v-model` 就应该可以在这个组件上完美地工作起来了：
+
+```html
+<custom-input v-model="searchText"></custom-input>
+```
 
 
 
+## 10.5、通过插槽分发内容
 
+和 HTML 元素一样，我们经常需要向一个组件传递内容，像这样：
 
+```html
+<alert-box>
+  Something bad happened.
+</alert-box>
+```
 
+可能会渲染出这样的东西：
 
+<img src="../Images/Vue/image-20221125144316242.png" alt="image-20221125144316242" style="zoom:50%;" />
 
+幸好，Vue 自定义的 `<slot>` 元素让这变得非常简单：
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```javascript
+Vue.component('alert-box', {
+  template: `
+    <div class="demo-alert-box">
+      <strong>Error!</strong>
+      <slot></slot>
+    </div>
+  `
+})
+```
 
 
 

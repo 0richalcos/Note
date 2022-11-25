@@ -377,6 +377,10 @@ Maven 由于它的约定大于配置，之后可能遇到写的配置文件，�
 
 <img src="../Images/Mixed/image-20200428212406493.png" alt="image-20200428212406493" style="zoom:67%;" />
 
+如果在这里设置无效，可能是环境变量设置指向了其他文件：
+
+<img src="../Images/Mixed/image-20221125133936880.png" alt="image-20221125133936880" style="zoom: 50%;" />
+
 
 
 
