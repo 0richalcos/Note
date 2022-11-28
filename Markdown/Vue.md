@@ -1745,43 +1745,6 @@ data: function () {
 </div>
 ```
 
-看起来当组件变得越来越复杂的时候，我们的博文不只需要标题和内容，还需要发布日期、评论等等。为每个相关的信息定义一个 prop 会变得很麻烦：
-
-```html
-<blog-post
-  v-for="post in posts"
-  v-bind:key="post.id"
-  v-bind:title="post.title"
-  v-bind:content="post.content"
-  v-bind:publishedAt="post.publishedAt"
-  v-bind:comments="post.comments"
-></blog-post>
-```
-
-可以重构一下这个 `<blog-post>` 组件了，让它变成接受一个单独的 `post` prop：
-
-```html
-<blog-post
-  v-for="post in posts"
-  v-bind:key="post.id"
-  v-bind:post="post"
-></blog-post>
-```
-
-```javascript
-Vue.component('blog-post', {
-  props: ['post'],
-  template: `
-    <div class="blog-post">
-      <h3>{{ post.title }}</h3>
-      <div v-html="post.content"></div>
-    </div>
-  `
-})
-```
-
-现在，不论何时为 `post` 对象添加一个新的 property，它都会自动地在 `<blog-post>` 内可用。
-
 
 
 **解析 DOM 模板时的注意事项**
@@ -1852,7 +1815,7 @@ new Vue({ el: '#app' })
 </div>
 ```
 
-在所有子组件中也是如此，也就是说这三个组件*在各自内部*也都可以相互使用。
+在所有子组件中也是如此，也就是说这三个组件在各自内部也都可以相互使用。
 
 
 
@@ -1882,9 +1845,9 @@ new Vue({
 
 对于 `components` 对象中的每个 property 来说，其 property 名就是自定义元素的名字，其 property 值就是这个组件的选项对象。
 
+注意局部注册的组件在其子组件中不可用。例如，如果你希望 `ComponentA` 在 `ComponentB` 中可用，则你需要这样写：
 
-
-## 10.3、通过 Prop 向子组件传递数据
+## 10.3、Prop
 
 Prop 是你可以在组件上注册的一些自定义 attribute。当一个值传递给一个 prop attribute 的时候，它就变成了那个组件实例的一个 property。为了给博文组件传递一个标题，我们可以用一个 `props` 选项将其包含在该组件可接受的 prop 列表中：
 
@@ -1907,25 +1870,161 @@ Vue.component('blog-post', {
 
 <img src="../Images/Vue/image-20221123173930165.png" alt="image-20221123173930165" style="zoom:50%;" />
 
-还可以使用 `v-bind` 来动态传递 prop：
+
+
+**Prop 的大小写 (camelCase vs kebab-case)**
+
+HTML 中的 attribute 名是大小写不敏感的，所以浏览器会把所有大写字符解释为小写字符。这意味着当你使用 DOM 中的模板时，camelCase (驼峰命名法) 的 prop 名需要使用其等价的 kebab-case (短横线分隔命名) 命名：
 
 ```javascript
-new Vue({
-  el: '#blog-post-demo',
-  data: {
-    posts: [
-      { id: 1, title: 'My journey with Vue' },
-      { id: 2, title: 'Blogging with Vue' },
-      { id: 3, title: 'Why Vue is so fun' }
-    ]
-  }
+Vue.component('blog-post', {
+  // 在 JavaScript 中是 camelCase 的
+  props: ['postTitle'],
+  template: '<h3>{{ postTitle }}</h3>'
 })
 ```
 
 ```html
+<!-- 在 HTML 中是 kebab-case 的 -->
+<blog-post post-title="hello!"></blog-post>
+```
+
+如果你使用字符串模板，那么这个限制就不存在了。
+
+
+
+**Prop 类型**
+
+到这里，我们只看到了以字符串数组形式列出的 prop：
+
+```javascript
+props: ['title', 'likes', 'isPublished', 'commentIds', 'author']
+```
+
+如果你希望每个 prop 都有指定的值类型，可以以对象形式列出 prop，这些 property 的名称和值分别是 prop 各自的名称和类型：
+
+```javascript
+props: {
+  title: String,
+  likes: Number,
+  isPublished: Boolean,
+  commentIds: Array,
+  author: Object,
+  callback: Function,
+  contactsPromise: Promise // or any other constructor
+}
+```
+
+这不仅为你的组件提供了文档，还会在它们遇到错误的类型时从浏览器的 JavaScript 控制台提示用户。
+
+
+
+### 10.3.1、传递静态或动态 Prop
+
+可以像这样给 prop 传入一个静态的值：
+
+```html
+<blog-post title="My journey with Vue"></blog-post>
+```
+
+prop 也可以通过 `v-bind` 动态赋值，例如：
+
+```html
+<!-- 动态赋予一个变量的值 -->
+<blog-post v-bind:title="post.title"></blog-post>
+
+<!-- 动态赋予一个复杂表达式的值 -->
 <blog-post
-  v-for="post in posts"
-  v-bind:key="post.id"
+  v-bind:title="post.title + ' by ' + post.author.name"
+></blog-post>
+```
+
+在上述两个示例中传入的值都是字符串类型的，但实际上任何类型的值都可以传给一个 prop。
+
+
+
+**传入一个数字**
+
+```html
+<!-- 即便 `42` 是静态的，我们仍然需要 `v-bind` 来告诉 Vue -->
+<!-- 这是一个 JavaScript 表达式而不是一个字符串。-->
+<blog-post v-bind:likes="42"></blog-post>
+
+<!-- 用一个变量进行动态赋值。-->
+<blog-post v-bind:likes="post.likes"></blog-post>
+```
+
+
+
+**传入一个布尔值**
+
+```html
+<!-- 包含该 prop 没有值的情况在内，都意味着 `true`。-->
+<blog-post is-published></blog-post>
+
+<!-- 即便 `false` 是静态的，我们仍然需要 `v-bind` 来告诉 Vue -->
+<!-- 这是一个 JavaScript 表达式而不是一个字符串。-->
+<blog-post v-bind:is-published="false"></blog-post>
+
+<!-- 用一个变量进行动态赋值。-->
+<blog-post v-bind:is-published="post.isPublished"></blog-post>
+```
+
+
+
+**传入一个数组**
+
+```html
+<!-- 即便数组是静态的，我们仍然需要 `v-bind` 来告诉 Vue -->
+<!-- 这是一个 JavaScript 表达式而不是一个字符串。-->
+<blog-post v-bind:comment-ids="[234, 266, 273]"></blog-post>
+
+<!-- 用一个变量进行动态赋值。-->
+<blog-post v-bind:comment-ids="post.commentIds"></blog-post>
+```
+
+
+
+**传入一个对象**
+
+```html
+<!-- 即便对象是静态的，我们仍然需要 `v-bind` 来告诉 Vue -->
+<!-- 这是一个 JavaScript 表达式而不是一个字符串。-->
+<blog-post
+  v-bind:author="{
+    name: 'Veronica',
+    company: 'Veridian Dynamics'
+  }"
+></blog-post>
+
+<!-- 用一个变量进行动态赋值。-->
+<blog-post v-bind:author="post.author"></blog-post>
+```
+
+
+
+**传入一个对象的所有 property**
+
+如果你想要将一个对象的所有 property 都作为 prop 传入，你可以使用不带参数的 `v-bind` (取代 `v-bind:prop-name`)。例如，对于一个给定的对象 `post`：
+
+```javascript
+post: {
+  id: 1,
+  title: 'My Journey with Vue'
+}
+```
+
+下面的模板：
+
+```html
+<blog-post v-bind="post"></blog-post>
+```
+
+等价于：
+
+```html
+<blog-post
+  v-bind:id="post.id"
   v-bind:title="post.title"
 ></blog-post>
 ```

@@ -208,6 +208,28 @@ apt purge --auto-remove redis
 
 
 
+**Window环境下安装 Redis**
+
+前往[地址]([https://github.com/MSOpenTech/redis/releases](https://github.com/MSOpenTech/redis/releases))下载安装包：
+
+<img src="../Images/Redis/image-20221128134433247.png" alt="image-20221128134433247" style="zoom:50%;" />
+
+先完成后直接安装，使用 `.msi` 版本的在安装完成后会直接配置 Redis 服务，可以在【服务】界面看到：
+
+<img src="../Images/Redis/image-20221128134544993.png" alt="image-20221128134544993" style="zoom:50%;" />
+
+服务默认为自动启动状态（开机自启），如果不希望自动启动可以改为手动启动，通过服务页面或者以下命令控制 Redis 服务：
+
+```shell
+# 启动 Redis 服务
+sc start redis
+
+# 停止 Redis 服务
+sc stop redis
+```
+
+
+
 ## 2.3、基础知识
 
 ```bash
