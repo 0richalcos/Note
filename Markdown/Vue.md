@@ -1223,6 +1223,8 @@ Vue.js 为 `v-on` 提供了**事件修饰符**。修饰符是由点开头的指�
 
 - `.self`：只当事件是从侦听器绑定的元素本身触发时才触发回调。
 
+- `.native`：监听组件根元素的原生事件。
+
 - `.once`：(2.1.4) 只触发一次回调。
 
 - `.passive`：(2.3.0) 以 `{ passive: true }` 模式添加侦听器
@@ -1847,6 +1849,37 @@ new Vue({
 
 注意局部注册的组件在其子组件中不可用。例如，如果你希望 `ComponentA` 在 `ComponentB` 中可用，则你需要这样写：
 
+```javascript
+var ComponentA = { /* ... */ }
+
+var ComponentB = {
+  components: {
+    'component-a': ComponentA
+  },
+  // ...
+}
+```
+
+或者如果你通过 Babel 和 webpack 使用 ES2015 模块，那么代码看起来更像：
+
+```javascript
+import ComponentA from './ComponentA.vue'
+
+export default {
+  components: {
+    ComponentA
+  },
+  // ...
+}
+```
+
+注意在 ES2015+ 中，在对象中放一个类似 `ComponentA` 的变量名其实是 `ComponentA: ComponentA` 的缩写，即这个变量名同时是：
+
+- 用在模板中的自定义元素的名称
+- 包含了这个组件选项的变量名
+
+
+
 ## 10.3、Prop
 
 Prop 是你可以在组件上注册的一些自定义 attribute。当一个值传递给一个 prop attribute 的时候，它就变成了那个组件实例的一个 property。为了给博文组件传递一个标题，我们可以用一个 `props` 选项将其包含在该组件可接受的 prop 列表中：
@@ -1890,32 +1923,6 @@ Vue.component('blog-post', {
 ```
 
 如果你使用字符串模板，那么这个限制就不存在了。
-
-
-
-**Prop 类型**
-
-到这里，我们只看到了以字符串数组形式列出的 prop：
-
-```javascript
-props: ['title', 'likes', 'isPublished', 'commentIds', 'author']
-```
-
-如果你希望每个 prop 都有指定的值类型，可以以对象形式列出 prop，这些 property 的名称和值分别是 prop 各自的名称和类型：
-
-```javascript
-props: {
-  title: String,
-  likes: Number,
-  isPublished: Boolean,
-  commentIds: Array,
-  author: Object,
-  callback: Function,
-  contactsPromise: Promise // or any other constructor
-}
-```
-
-这不仅为你的组件提供了文档，还会在它们遇到错误的类型时从浏览器的 JavaScript 控制台提示用户。
 
 
 
@@ -2031,7 +2038,151 @@ post: {
 
 
 
-## 10.4、监听子组件事件
+### 10.3.2、单向数据流
+
+所有的 prop 都使得其父子 prop 之间形成了一个**单向下行绑定**：父级 prop 的更新会向下流动到子组件中，但是反过来则不行。这样会防止从子组件意外变更父级组件的状态，从而导致你的应用的数据流向难以理解。
+
+额外的，每次父级组件发生变更时，子组件中所有的 prop 都将会刷新为最新的值。这意味着你**不**应该在一个子组件内部改变 prop。如果你这样做了，Vue 会在浏览器的控制台中发出警告。
+
+这里有两种常见的试图变更一个 prop 的情形：
+
+1. **这个 prop 用来传递一个初始值；这个子组件接下来希望将其作为一个本地的 prop 数据来使用。**在这种情况下，最好定义一个本地的 data property 并将这个 prop 用作其初始值：
+
+   ```javascript
+   props: ['initialCounter'],
+   data: function () {
+     return {
+       counter: this.initialCounter
+     }
+   }
+   ```
+
+2. **这个 prop 以一种原始的值传入且需要进行转换。**在这种情况下，最好使用这个 prop 的值来定义一个计算属性：
+
+   ```javascript
+   props: ['size'],
+   computed: {
+     normalizedSize: function () {
+       return this.size.trim().toLowerCase()
+     }
+   }
+   ```
+
+> 注意在 JavaScript 中对象和数组是通过引用传入的，所以对于一个数组或对象类型的 prop 来说，在子组件中改变变更这个对象或数组本身**将会**影响到父组件的状态。
+
+
+
+### 10.3.3、Prop 类型和验证
+
+到这里，我们只看到了以字符串数组形式列出的 prop：
+
+```javascript
+props: ['title', 'likes', 'isPublished', 'commentIds', 'author']
+```
+
+如果你希望每个 prop 都有指定的值类型，可以以对象形式列出 prop，这些 property 的名称和值分别是 prop 各自的名称和类型：
+
+```javascript
+props: {
+  title: String,
+  likes: Number,
+  isPublished: Boolean,
+  commentIds: Array,
+  author: Object,
+  callback: Function,
+  contactsPromise: Promise // or any other constructor
+}
+```
+
+这不仅为你的组件提供了文档，还会在它们遇到错误的类型时从浏览器的 JavaScript 控制台提示用户。
+
+
+
+**Prop 验证**
+
+我们可以为组件的 prop 指定验证要求，例如你知道的这些类型。如果有一个需求没有被满足，则 Vue 会在浏览器控制台中警告你。这在开发一个会被别人用到的组件时尤其有帮助。例如：
+
+```javascript
+Vue.component('my-component', {
+  props: {
+    // 基础的类型检查 (`null` 和 `undefined` 会通过任何类型验证)
+    propA: Number,
+    // 多个可能的类型
+    propB: [String, Number],
+    // 必填的字符串
+    propC: {
+      type: String,
+      required: true
+    },
+    // 带有默认值的数字
+    propD: {
+      type: Number,
+      default: 100
+    },
+    // 带有默认值的对象
+    propE: {
+      type: Object,
+      // 对象或数组默认值必须从一个工厂函数获取
+      default: function () {
+        return { message: 'hello' }
+      }
+    },
+    // 自定义验证函数
+    propF: {
+      validator: function (value) {
+        // 这个值必须匹配下列字符串中的一个
+        return ['success', 'warning', 'danger'].includes(value)
+      }
+    }
+  }
+})
+```
+
+当 prop 验证失败的时候，(开发环境构建版本的) Vue 将会产生一个控制台的警告。
+
+> 注意那些 prop 会在一个组件实例创建**之前**进行验证，所以实例的 property (如 `data`、`computed` 等) 在 `default` 或 `validator` 函数中是不可用的。
+
+
+
+**类型检查**
+
+`type` 可以是下列原生构造函数中的一个：
+
+- `String`
+- `Number`
+- `Boolean`
+- `Array`
+- `Object`
+- `Date`
+- `Function`
+- `Symbol`
+
+额外的，`type` 还可以是一个自定义的构造函数，并且通过 `instanceof` 来进行检查确认。例如，给定下列现成的构造函数：
+
+```javascript
+function Person (firstName, lastName) {
+  this.firstName = firstName
+  this.lastName = lastName
+}
+```
+
+你可以使用：
+
+```javascript
+Vue.component('blog-post', {
+  props: {
+    author: Person
+  }
+})
+```
+
+来验证 `author` prop 的值是否是通过 `new Person` 创建的。
+
+
+
+
+
+## 10.4、自定义事件
 
 在我们开发 `<blog-post>` 组件时，它的一些功能可能要求我们和父级组件进行沟通。例如我们可能会引入一个辅助功能来放大博文的字号，同时让页面的其它部分保持默认的字号。
 
@@ -2107,7 +2258,28 @@ Vue.component('blog-post', {
 
 
 
-**使用事件抛出一个值**
+### 10.4.1、事件名
+
+不同于组件和 prop，事件名不存在任何自动化的大小写转换。而是触发的事件名需要完全匹配监听这个事件所用的名称。举个例子，如果触发一个 camelCase 名字的事件：
+
+```javascript
+this.$emit('myEvent')
+```
+
+则监听这个名字的 kebab-case 版本是不会有任何效果的：
+
+```html
+<!-- 没有效果 -->
+<my-component v-on:my-event="doSomething"></my-component>
+```
+
+不同于组件和 prop，事件名不会被用作一个 JavaScript 变量名或 property 名，所以就没有理由使用 camelCase 或 PascalCase 了。并且 `v-on` 事件监听器在 DOM 模板中会被自动转换为全小写 (因为 HTML 是大小写不敏感的)，所以 `v-on:myEvent` 将会变成 `v-on:myevent`——导致 `myEvent` 不可能被监听到。
+
+因此推荐始终使用 kebab-case 的事件名。
+
+
+
+### 10.4.2、使用事件抛出一个值
 
 有的时候用一个事件来抛出一个特定的值是非常有用的。例如我们可能想让 `<blog-post>` 组件决定它的文本要放大多少。这时可以使用 `$emit` 的第二个参数来提供这个值：
 
@@ -2147,7 +2319,7 @@ methods: {
 
 
 
-**在组件上使用 `v-model`**
+### 10.4.3、在组件上使用 v-model
 
 自定义事件也可以用于创建支持 `v-model` 的自定义输入组件。
 
@@ -2195,6 +2367,116 @@ Vue.component('custom-input', {
 ```html
 <custom-input v-model="searchText"></custom-input>
 ```
+
+
+
+**自定义组件的 `v-model`**
+
+> 2.2.0+ 新增
+
+一个组件上的 `v-model` 默认会利用名为 `value` 的 prop 和名为 `input` 的事件，但是像单选框、复选框等类型的输入控件可能会将 `value` attribute 用于不同的目的。`model` 选项可以用来避免这样的冲突：
+
+```javascript
+Vue.component('base-checkbox', {
+  model: {
+    prop: 'checked',
+    event: 'change'
+  },
+  props: {
+    checked: Boolean
+  },
+  template: `
+    <input
+      type="checkbox"
+      v-bind:checked="checked"
+      v-on:change="$emit('change', $event.target.checked)"
+    >
+  `
+})
+```
+
+现在在这个组件上使用 `v-model` 的时候：
+
+```html
+<base-checkbox v-model="lovingVue"></base-checkbox>
+```
+
+这里的 `lovingVue` 的值将会传入这个名为 `checked` 的 prop。同时当 `<base-checkbox>` 触发一个 `change` 事件并附带一个新的值的时候，这个 `lovingVue` 的 property 将会被更新。
+
+> 注意你仍然需要在组件的 `props` 选项里声明 `checked` 这个 prop。
+
+
+
+### 10.4.4、将原生事件绑定到组件
+
+现在在组件上使用 `v-on` 只会监听自定义事件 (组件用 `$emit` 触发的事件)。如果想要在一个组件的根元素上直接监听一个原生事件。这时，你可以使用 `v-on` 的 `.native` 修饰符：
+
+```html
+<base-input v-on:focus.native="onFocus"></base-input>
+```
+
+在有的时候这是很有用的，不过在你尝试监听一个类似 `<input>` 的非常特定的元素时，这并不是个好主意。比如上述 `<base-input>` 组件可能做了如下重构，所以根元素实际上是一个 `<label>` 元素：
+
+```html
+<label>
+  {{ label }}
+  <input
+    v-bind="$attrs"
+    v-bind:value="value"
+    v-on:input="$emit('input', $event.target.value)"
+  >
+</label>
+```
+
+这时，父级的 `.native` 监听器将静默失败。它不会产生任何报错，但是 `onFocus` 处理函数不会如你预期地被调用。
+
+为了解决这个问题，Vue 提供了一个 `$listeners` property，它是一个对象，里面包含了作用在这个组件上的所有监听器。例如：
+
+```javascript
+{
+  focus: function (event) { /* ... */ }
+  input: function (value) { /* ... */ },
+}
+```
+
+有了这个 `$listeners` property，你就可以配合 `v-on="$listeners"` 将所有的事件监听器指向这个组件的某个特定的子元素。对于类似 `<input>` 的你希望它也可以配合 `v-model` 工作的组件来说，为这些监听器创建一个类似下述 `inputListeners` 的计算属性通常是非常有用的：
+
+```javascript
+Vue.component('base-input', {
+  inheritAttrs: false,
+  props: ['label', 'value'],
+  computed: {
+    inputListeners: function () {
+      var vm = this
+      // `Object.assign` 将所有的对象合并为一个新对象
+      return Object.assign({},
+        // 我们从父级添加所有的监听器
+        this.$listeners,
+        // 然后我们添加自定义监听器，
+        // 或覆写一些监听器的行为
+        {
+          // 这里确保组件配合 `v-model` 的工作
+          input: function (event) {
+            vm.$emit('input', event.target.value)
+          }
+        }
+      )
+    }
+  },
+  template: `
+    <label>
+      {{ label }}
+      <input
+        v-bind="$attrs"
+        v-bind:value="value"
+        v-on="inputListeners"
+      >
+    </label>
+  `
+})
+```
+
+现在 `<base-input>` 组件是一个**完全透明的包裹器**了，也就是说它可以完全像一个普通的 `<input>` 元素一样使用了：所有跟它相同的 attribute 和监听器都可以工作，不必再使用 `.native` 监听器。
 
 
 

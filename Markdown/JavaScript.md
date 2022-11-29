@@ -1,6 +1,6 @@
-# 1、JS 教程
+# 1、基础
 
-## 1.1、JS 使用
+## 1.1、使用
 
 在 HTML 中，JavaScript 代码必须位于 `<script>` 与 `</script>` 标签之间。
 
@@ -20,7 +20,7 @@
 - 使 HTML 和 JavaScript 更易于阅读和维护
 - 已缓存的 JavaScript 文件可加速页面加载
 
-<br>
+
 
 **JS 文件中引入另一个JS文件**
 
@@ -59,9 +59,9 @@
       //执行test.js，但不导入任何变量
       ```
 
-<br>
 
-## 1.2、JS Let
+
+## 1.2、Let 和 Const
 
 **ECMAScript 2015**
 
@@ -71,7 +71,7 @@ ES2015 引入了两个重要的 JavaScript 新关键词：`let` 和 `const`。
 
 在 ES2015 之前，JavaScript 只有两种类型的作用域：**全局作用域**和**函数作用域**。
 
-<br>
+
 
 ### 1.2.1、作用域
 
@@ -307,11 +307,7 @@ let y = 6;       // 全局作用域
 
 
 
-## 1.3、JS Const
-
-**ECMAScript 2015**
-
-ES2015 引入了两个重要的 JavaScript 新关键词：`let` 和 `const`。
+### 1.2.4、Const
 
 通过 `const` 定义的变量与 `let` 变量类似，但不能重新赋值：
 
@@ -357,7 +353,7 @@ cars = ["Honda", "Toyota", "Volvo"];    // ERROR
 
 
 
-## 1.4、JS 数据类型
+## 1.2、数据类型
 
 **String，Number，Boolean，Undefined，Null，Object。**
 
@@ -458,41 +454,9 @@ typeof 运算符对数组返回 "object"，因为在 JavaScript 中数组属于�
 
 
 
-## 1.5、JS 对象
+## 1.3、字符串
 
-**访问对象属性**
-
-可以通过以两种方式访问属性：
-
-```javascript
-objectName.propertyName
-```
-
-或者
-
-```javascript
-objectName["propertyName"]
-```
-
-
-
-**访问对象方法**
-
-能够通过如下语法访问对象方法：
-
-```javascript
-objectName.methodName()
-```
-
-如果不使用 `()` 访问 fullName 方法，则将返回**函数定义**：
-
-```javascript
-name = person.fullName;
-```
-
-
-
-## 1.6、JS 字符串搜索
+### 1.3.1、字符串搜索
 
 **String.search()**
 
@@ -542,7 +506,7 @@ text.includes("world")    // 返回 true
 
 
 
-## 1.7、JS 字符串模板
+### 1.3.2、模板字符串
 
 **Back-Tics 语法**
 
@@ -616,7 +580,7 @@ html += `</ul>`;
 
 
 
-## 1.8、JS 数字
+## 1.4、数字
 
 **JavaScript 只有一种数值类型。书写数值时带不带小数点均可。**
 
@@ -747,7 +711,7 @@ myNumber.toString(2);      // 返回 10000000
 
 
 
-## 1.9、JS 数字方法
+### 1.4.1、数字方法
 
 **Number 方法和属性**
 
@@ -863,7 +827,56 @@ parseFloat("years 10");  // 返回 NaN
 
 
 
-## 2.0、JS 数组方法
+## 1.5、循环
+
+**For/In 循环**
+
+JavaScript `for/in` 语句遍历对象的属性：
+
+```javascript
+var person = {fname:"Bill", lname:"Gates", age:62}; 
+
+var text = ""; //Bill Gates 62
+var x;
+for (x in person) {
+    text += person[x];
+}
+```
+
+for in 循环遍历 person 对象，每次迭代返回一个键 (x)，键用于访问键的值，键的值为 person[x]
+
+
+
+**For Of 循环**
+
+JavaScript `for of` 语句循环遍历可迭代对象的值。
+
+它允许循环遍历可迭代的数据结构，例如数组、字符串、映射、节点列表等：
+
+```javascript
+for (variable of iterable) {
+  // code block to be executed
+}
+```
+
+*variable* - 对于每次迭代，下一个属性的值都会分配给变量。变量可以用 const、let 或 var 声明。
+
+*iterable* - 具有可迭代属性的对象。
+
+```javascript
+const cars = ["BMW", "Volvo", "Mini"];
+
+let text = ""; //BMWVolvoMini
+for (let x of cars) {
+    text += x;
+}
+```
+
+
+
+## 1.6、数组
+
+### 1.6.1、数组方法
 
 **把数组转换为字符串**
 
@@ -976,7 +989,7 @@ var citrus = fruits.slice(1, 3); //["Orange", "Lemon"]
 
 
 
-## 2.1、JS 数组排序
+### 1.6.2、数组排序
 
 **数组排序**
 
@@ -1084,7 +1097,7 @@ function myArrayMin(arr) {
 
 
 
-## 2.2、JS 数组迭代
+### 1.6.3、数组迭代
 
 **Array.forEach()**
 
@@ -1276,56 +1289,1002 @@ function myFunction(value, index, array) {
 
 
 
-## 2.3、JS 循环
+# 2、对象
 
-**For/In 循环**
+**访问对象属性**
 
-JavaScript `for/in` 语句遍历对象的属性：
+可以通过以两种方式访问属性：
 
 ```javascript
-var person = {fname:"Bill", lname:"Gates", age:62}; 
-
-var text = ""; //Bill Gates 62
-var x;
-for (x in person) {
-    text += person[x];
-}
+objectName.propertyName
 ```
 
-for in 循环遍历 person 对象，每次迭代返回一个键 (x)，键用于访问键的值，键的值为 person[x]
-
-
-
-**For Of 循环**
-
-JavaScript `for of` 语句循环遍历可迭代对象的值。
-
-它允许循环遍历可迭代的数据结构，例如数组、字符串、映射、节点列表等：
+或者
 
 ```javascript
-for (variable of iterable) {
-  // code block to be executed
-}
-```
-
-*variable* - 对于每次迭代，下一个属性的值都会分配给变量。变量可以用 const、let 或 var 声明。
-
-*iterable* - 具有可迭代属性的对象。
-
-```javascript
-const cars = ["BMW", "Volvo", "Mini"];
-
-let text = ""; //BMWVolvoMini
-for (let x of cars) {
-    text += x;
-}
+objectName["propertyName"]
 ```
 
 
 
-## 2.4、JS 正则表达式
+**访问对象方法**
 
-### 2.4.1、RegExp 对象
+能够通过如下语法访问对象方法：
+
+```javascript
+objectName.methodName()
+```
+
+如果不使用 `()` 访问 fullName 方法，则将返回**函数定义**：
+
+```javascript
+name = person.fullName;
+```
+
+
+
+# 3、函数
+
+## 3.1、函数
+
+**JavaScript 函数是被设计为执行特定任务的代码块。JavaScript 函数会在某代码调用它时被执行。**
+
+```javascript
+function myFunction(p1, p2) {
+    return p1 * p2;              // 该函数返回 p1 和 p2 的乘积
+}
+```
+
+
+
+**调用函数**
+
+```javascript
+function toCelsius(fahrenheit) {
+    return (5/9) * (fahrenheit-32);
+}
+
+document.getElementById("demo").innerHTML = toCelsius(77);
+```
+
+**() 运算符调用函数**，使用上面的例子，`toCelsius` 引用的是函数对象，而 `toCelsius()` 引用的是函数结果。
+
+
+
+## 3.2、箭头函数
+
+ES6 中引入了箭头函数，箭头函数允许我们编写更短的函数。
+
+之前：
+
+```
+ hello = function() {
+     return "Hello World!";
+ }
+```
+
+用了箭头函数之后：
+
+```
+ hello = () => {
+     return "Hello World!";
+ }
+```
+
+如果函数只有一个语句，并且该语句返回一个值，则可以去掉括号和 `return` 关键字：
+
+```
+ hello = () => "Hello World!";
+```
+
+如果有参数，则将它们传递到括号内：
+
+```
+ hello = (val) => "Hello " + val;
+```
+
+事实上，如果只有一个参数，也可以略过括号：
+
+```
+ hello = val => "Hello " + val;
+```
+
+
+
+**this 怎么办？**
+
+与常规函数相比，箭头函数对 `this` 的处理也有所不同。
+
+简而言之，箭头函数没有自己的 `this` 对象，内部的 `this` 就是定义时上层作用域中的 `this`。
+
+```javascript
+var hello;
+
+hello = () => {
+  document.getElementById("demo").innerHTML += this;
+}
+
+//window 对象调用函数：
+window.addEventListener("load", hello);	//[object Window]
+
+//button 对象调用函数：
+document.getElementById("btn").addEventListener("click", hello);	//[object Window]
+```
+
+
+
+## 3.3、函数 Call
+
+**方法重用**
+
+使用 `call()` 方法可以编写能够在不同对象上使用的方法。
+
+
+
+**函数是对象方法**
+
+在 JavaScript 中，函数是对象的方法。如果一个函数不是 JavaScript 对象的方法，那么它就是全局对象的函数。
+
+下面的例子创建了带有三个属性的对象（firstName、lastName、fullName）。
+
+```javascript
+var person = {
+    firstName:"Bill",
+    lastName: "Gates",
+    fullName: function () {
+        return this.firstName + " " + this.lastName;
+    }
+}
+person.fullName();		// 将返回 "Bill Gates"
+```
+
+fullName 属性是一个方法。person 对象是该方法的拥有者。fullName 属性属于 person 对象的方法。
+
+
+
+**JavaScript call() 方法**
+
+`call()` 方法是预定义的 JavaScript 方法，它可以用来调用所有者对象作为参数的方法。
+
+通过 `call()` 能够使用属于另一个对象的方法。
+
+本例调用 person 的 fullName 方法，并用于 person1：
+
+```javascript
+var person = {
+    fullName: function() {
+        return this.firstName + " " + this.lastName;
+    }
+}
+var person1 = {
+    firstName:"Bill",
+    lastName: "Gates",
+}
+person.fullName.call(person1);  // 将返回 "Bill Gates"
+```
+
+
+
+**带参数的 call() 方法**
+
+call() 方法可接受参数：
+
+```javascript
+var person = {
+    fullName: function(city, country) {
+        return this.firstName + " " + this.lastName + "," + city + "," + country;
+    }
+}
+var person1 = {
+    firstName:"Bill",
+    lastName: "Gates"
+}
+person.fullName.call(person1, "Seattle", "USA"); // 将返回 "Bill Gates,Seatle,USA"
+```
+
+
+
+## 3.4、函数 Apply
+
+**方法重用**
+
+通过 apply() 方法能够编写用于不同对象的方法。
+
+
+
+**JavaScript apply() 方法**
+
+`apply()` 方法与 `call() `方法非常相似：
+
+在本例中，person 的 fullName 方法被应用到 person1：
+
+```javascript
+var person = {
+    fullName: function() {
+        return this.firstName + " " + this.lastName;
+    }
+}
+var person1 = {
+    firstName: "Bill",
+    lastName: "Gates",
+}
+person.fullName.apply(person1);  // 将返回 "Bill Gates"
+```
+
+
+
+**call() 和 apply() 之间的区别**
+
+不同之处是：
+
+- `call() `方法分别接受参数。
+- `apply()` 方法接受数组形式的参数。
+
+如果要使用数组而不是参数列表，则 `apply()` 方法非常方便。
+
+
+
+**带参数的 apply() 方法**
+
+`apply()` 方法接受数组中的参数：
+
+```javascript
+var person = {
+  fullName: function(city, country) {
+    return this.firstName + " " + this.lastName + "," + city + "," + country;
+  }
+}
+var person1 = {
+  firstName:"John",
+  lastName: "Doe"
+}
+person.fullName.apply(person1, ["Oslo", "Norway"]); // 将返回 "Bill Gates,Seatle,USA"
+```
+
+
+
+**在数组上模拟 max 方法**
+
+可以使用 `Math.max()` 方法找到（数字列表中的）最大数字：
+
+```javascript
+Math.max(1,2,3);  // 会返回 3
+```
+
+由于 JavaScript 数组没有 `max()` 方法，因此可以应用 `Math.max()` 方法。
+
+```javascript
+Math.max.apply(null, [1,2,3]); // 也会返回 3
+```
+
+第一个参数（null）无关紧要。在本例中未使用它。
+
+
+
+## 3.5、闭包
+
+一个函数和对其周围状态（**lexical environment，词法环境**）的引用捆绑在一起（或者说函数被引用包围），这样的组合就是**闭包**（**closure**）。也就是说，闭包让你可以在一个内层函数中访问到其外层函数的作用域。在 JavaScript 中，每当创建一个函数，闭包就会在函数创建的同时被创建出来。
+
+
+
+**词法作用域**
+
+```javascript
+function init() {
+    var name = "Mozilla"; // name 是一个被 init 创建的局部变量
+    function displayName() { // displayName() 是内部函数，一个闭包
+        alert(name); // 使用了父函数中声明的变量
+    }
+    displayName();
+}
+init();
+```
+
+`init()` 创建了一个局部变量 `name` 和一个名为 `displayName()` 的函数。`displayName()` 是定义在 `init()` 里的内部函数，并且仅在 `init()` 函数体内可用。请注意，`displayName()` 没有自己的局部变量。然而，因为它可以访问到外部函数的变量，所以 `displayName()` 可以使用父函数 `init()` 中声明的变量 `name `。
+
+运行该代码后发现， `displayName()` 函数内的 `alert()` 语句成功显示出了变量 `name` 的值（该变量在其父函数中声明）。这个词法作用域的例子描述了分析器如何在函数嵌套的情况下解析变量名。词法（lexical）一词指的是，词法作用域根据源代码中声明变量的位置来确定该变量在何处可用。嵌套函数可访问声明于它们外部作用域的变量。
+
+
+
+**闭包**
+
+```javascript
+function makeFunc() {
+    var name = "Mozilla";
+    function displayName() {
+        alert(name);
+    }
+    return displayName;
+}
+
+var myFunc = makeFunc();
+myFunc();
+```
+
+运行这段代码的效果和之前 `init()` 函数的示例完全一样。其中不同的地方（也是有意思的地方）在于内部函数 `displayName()` 在执行前，从外部函数返回。
+
+第一眼看上去，也许不能直观地看出这段代码能够正常运行。在一些编程语言中，一个函数中的局部变量仅存在于此函数的执行期间。一旦 `makeFunc()` 执行完毕，你可能会认为 `name` 变量将不能再被访问。然而，因为代码仍按预期运行，所以在 JavaScript 中情况显然与此不同。
+
+原因在于，JavaScript 中的函数会形成了闭包。 闭包是由函数以及声明该函数的词法环境组合而成的。该环境包含了这个闭包创建时作用域内的任何局部变量。在本例子中，`myFunc` 是执行 `makeFunc` 时创建的 `displayName` 函数实例的引用。`displayName` 的实例维持了一个对它的词法环境（变量 `name` 存在于其中）的引用。因此，当 `myFunc` 被调用时，变量 `name` 仍然可用，其值 `Mozilla` 就被传递到 `alert` 中。
+
+下面是一个更有意思的示例 — 一个 `makeAdder` 函数：
+
+```javascript
+function makeAdder(x) {
+  return function(y) {
+    return x + y;
+  };
+}
+
+var add5 = makeAdder(5);
+var add10 = makeAdder(10);
+
+console.log(add5(2));  // 7
+console.log(add10(2)); // 12
+```
+
+在这个示例中，我们定义了 `makeAdder(x)` 函数，它接受一个参数 `x` ，并返回一个新的函数。返回的函数接受一个参数 `y`，并返回`x+y`的值。
+
+从本质上讲，`makeAdder` 是一个函数工厂 — 他创建了将指定的值和它的参数相加求和的函数。在上面的示例中，我们使用函数工厂创建了两个新函数 — 一个将其参数和 5 求和，另一个和 10 求和。
+
+`add5` 和 `add10` 都是闭包。它们共享相同的函数定义，但是保存了不同的词法环境。在 `add5` 的环境中，`x` 为 5。而在 `add10` 中，`x` 则为 10。
+
+
+
+# 4、Browser 对象
+
+## 4.1、存储对象
+
+Web 存储 API 提供了 sessionStorage （会话存储） 和 localStorage（本地存储）两个存储对象来对网页的数据进行添加、删除、修改、查询操作。
+
+- localStorage 用于长久保存整个网站的数据，保存的数据没有过期时间，直到手动去除。
+- sessionStorage 用于临时保存同一窗口（或标签页）的数据，在关闭窗口或标签页之后将会删除这些数据。
+
+
+
+**存储对象属性**
+
+| 属性   | 描述                           |
+| ------ | ------------------------------ |
+| length | 返回存储对象中包含多少条数据。 |
+
+
+
+**存储对象方法**
+
+| 方法                    | 描述                                               |
+| ----------------------- | -------------------------------------------------- |
+| key(n)                  | 返回存储对象中第 *n* 个键的名称                    |
+| getItem(keyname)        | 返回指定键的值                                     |
+| setItem(keyname, value) | 添加键和值，如果对应的值存在，则更新该键对应的值。 |
+| removeItem(keyname)     | 移除键                                             |
+| clear()                 | 清除存储对象中所有的键                             |
+
+
+
+### 4.1.1、localStorage
+
+localStorage 和 sessionStorage 属性允许在浏览器中存储 key/value 对的数据。localStorage 用于长久保存整个网站的数据，保存的数据没有过期时间，直到手动去删除。
+
+localStorage 属性是只读的。
+
+
+
+**localStorage 的优势**
+
+1. localStorage 拓展了 cookie 的 4K 限制。
+2.  localStorage 会可以将第一次请求的数据直接存储到本地，这个相当于一个 5M 大小的针对于前端页面的数据库，相比于 cookie 可以节约带宽，但是这个却是只有在高版本的浏览器中才支持的。
+
+
+
+**localStorage 的局限**
+
+1. 浏览器的大小不统一，并且在 IE8 以上的 IE 版本才支持 localStorage 这个属性。
+2. 目前所有的浏览器中都会把 localStorage 的值类型限定为 string 类型，这个在对我们日常比较常见的 JSON 对象类型需要一些转换。
+3. localStorage 在浏览器的隐私模式下面是不可读取的。
+4. localStorage 本质上是对字符串的读取，如果存储内容多的话会消耗内存空间，会导致页面变卡。
+5. localStorage 不能被爬虫抓取到。
+
+
+
+**localStorage 使用**
+
+首先在使用 localStorage 的时候，我们需要判断浏览器是否支持 localStorage 这个属性：
+
+```javascript
+if(!window.localStorage){
+    alert("浏览器不支持localstorage");
+    return false;
+}else{
+    //主逻辑业务
+}
+```
+
+localStorage 的写入有三种方法：
+
+```javascript
+if(!window.localStorage){
+    alert("浏览器不支持localstorage");
+    return false;
+}else{
+    var storage=window.localStorage;
+    //写入a字段
+    storage["a"]=1;
+    //写入b字段
+    storage.b=1;
+    //写入c字段
+    storage.setItem("c",3);
+    console.log(typeof storage["a"]); //string
+    console.log(typeof storage["b"]); //string
+    console.log(typeof storage["c"]); //string
+}
+```
+
+这里面是三种对 localStorage 的读取，其中官方推荐的是 `getItem\setItem` 这两种方法对其进行存取，这里要特别说明一下 localStorage 的使用也是遵循同源策略的，所以不同的网站直接是不能共用相同的 localStorage。
+
+
+
+### 4.1.2、sessionStorage 
+
+localStorage 和 sessionStorage 属性允许在浏览器中存储 key/value 对的数据。sessionStorage 用于临时保存同一窗口(或标签页)的数据，在关闭窗口或标签页之后将会删除这些数据。
+
+其余和 localStorage  相似。
+
+
+
+## 4.2、Window 对象
+
+Window 对象表示浏览器中打开的窗口。
+
+如果文档包含框架（`<frame>` 或 `<iframe>` 标签），浏览器会为 HTML 文档创建一个 window 对象，并为每个框架创建一个额外的 window 对象。
+
+> 注意： 没有应用于 window 对象的公开标准，不过所有浏览器都支持该对象。
+
+
+
+### 4.2.1、Window 对象属性
+
+| 属性           | 描述                                                         |
+| -------------- | ------------------------------------------------------------ |
+| parent         | 返回父窗口。                                                 |
+| localStorage   | 在浏览器中存储 key/value 对。没有过期时间。                  |
+| sessionStorage | 在浏览器中存储 key/value 对。 在关闭窗口或标签页之后将会删除这些数据。 |
+
+
+
+### 4.2.2、Window 对象方法
+
+**setInterval()**
+
+`setInterval()` 方法可按照指定的周期（以毫秒计）来调用函数或计算表达式。
+
+`setInterval()` 方法会不停地调用函数，直到 `clearInterval()` 被调用或窗口被关闭。由 `setInterval()` 返回的 ID 值可用作 `clearInterval()` 方法的参数。
+
+语法：
+
+```javascript
+setInterval(code, milliseconds);
+setInterval(function, milliseconds, param1, param2, ...);
+```
+
+| 参数                | 描述                                                         |
+| :------------------ | :----------------------------------------------------------- |
+| code/function       | 必需。要调用一个代码串，也可以是一个函数。                   |
+| milliseconds        | 必须。周期性执行或调用 code/function 之间的时间间隔，以毫秒计。 |
+| param1, param2, ... | 可选。 传给执行函数的其他参数（IE9 及其更早版本不支持该参数）。 |
+
+`setInterval()` 会返回一个 ID（数字），可以将这个 ID 传递给 `clearInterval()`  以取消执行。
+
+
+
+**clearTimeout()**
+
+`clearTimeout()` 方法可取消由 `setTimeout()` 方法设置的定时操作。
+
+`clearTimeout()` 方法的参数必须是由 `setTimeout()` 返回的 ID 值。
+
+> 注意：使用 `clearTimeout()` 方法，在创建执行定时操作时要使用全局变量：
+>
+> ```javascript
+> myVar = setTimeout("javascript function", milliseconds);
+> ```
+>
+> 如果方法还未被执行，可以使用 `clearTimeout()` 来阻止它。
+
+语法：
+
+```javascript
+clearTimeout(id_of_settimeout)
+```
+
+| 参数              | 描述                                                         |
+| :---------------- | :----------------------------------------------------------- |
+| id_of_setinterval | 调用 `setTimeout()` 函数时所获得的返回值，使用该返回标识符作为参数，可以取消该 `setTimeout()` 所设定的定时执行操作。 |
+
+
+
+# 5、关键字
+
+## 5.1、this
+
+**this 是什么？**
+
+JavaScript this 关键词指的是它所属的对象。
+
+它拥有不同的值，具体取决于它的使用位置：
+
+- 在方法中，this 指的是所有者对象。
+- 单独的情况下，this 指的是全局对象。
+- 在函数中，this 指的是全局对象。
+- 在函数中，严格模式下，this 是 undefined。
+- 在事件中，this 指的是接收事件的元素。
+
+像 `call()` 和 `apply()` 这样的方法可以将 this 引用到任何对象。
+
+
+
+**单独的 this**
+
+在单独使用时，拥有者是全局对象，因此 `this` 指的是全局对象。
+
+在浏览器窗口中，全局对象是 `[object Window]`：
+
+```javascript
+var x = this;	//[object Window]
+```
+
+在严格模式中，如果单独使用，那么 `this` 指的是全局对象 `[object Window]`：
+
+```javascript
+"use strict";
+var x = this;	//[object Window]
+```
+
+
+
+**函数中的 this**
+
+在 JavaScript 函数中，函数的拥有者默认绑定 `this`。
+
+因此，在函数中，`this` 指的是全局对象 `[object Window]`。
+
+```javascript
+function myFunction() {
+  return this;	//[object Window]
+}
+```
+
+JavaScript 严格模式不允许默认绑定。
+
+因此，在函数中使用时，在严格模式下，`this` 是未定义的（`undefined`）。
+
+```javascript
+"use strict";
+function myFunction() {
+  return this;	//undefined
+}
+```
+
+
+
+**事件处理程序中的 this**
+
+在 HTML 事件处理程序中，`this` 指的是接收此事件的 HTML 元素：
+
+```html
+<button onclick="this.style.display='none'">单击来删除我！</button>
+```
+
+
+
+**对象方法绑定**
+
+在此例中，`this` 是 person 对象（person 对象是该函数的“拥有者”）：
+
+```javascript
+var person = {
+  firstName  : "Bill",
+  lastName   : "Gates",
+  id         : 678,
+  myFunction : function() {
+    return this;	//[object Object]
+  }
+};
+```
+
+换句话说，*this.firstName* 意味着 *this*（person）对象的 *firstName* 属性。
+
+
+
+**显式函数绑定**
+
+`call()` 和 `apply()` 方法是预定义的 JavaScript 方法。它们都可以用于将另一个对象作为参数调用对象方法。
+
+在下面的例子中，当使用 *person2* 作为参数调用 *person1.fullName* 时，`this` 将引用 *person2*，即使它是 *person1* 的方法：
+
+```javascript
+var person1 = {
+  fullName: function() {
+    return this.firstName + " " + this.lastName;
+  }
+}
+var person2 = {
+  firstName:"Bill",
+  lastName: "Gates",
+}
+person1.fullName.call(person2);  // 会返回 "Bill Gates"
+```
+
+
+
+## 5.2、void
+
+众所周知，`undefined` 是 JS 语言中的 7 大基本类型之一，表示未定义，它的值只有一个，就是 `undefined`。任何变量在赋值前都是 `undefined`。
+
+而在一些框架源码中，会出现一些这样的表达式：
+
+```javascript
+function foo() {
+    var a  = arguments[0] !== (void 0 ) ? arguments[0] : 2;
+    return a; 
+}
+```
+
+这是 《你不知道的JavaScript》的一段代码，用于实现 ES6 中函数参数默认值的 `transpiling` 处理，为了让不支持 ES6 这个新特性的浏览器可以正常使用。
+
+正如你可以看到的，它会检查 `arguments[0]` 的值是否为 `void 0`（也就是 `undefined`），如果是的话就提供默认值 `2`；否则就使用传入值。
+
+
+
+**什么是void？**
+
+MDN中对void有这么一段说明：
+
+```js
+The void operator evaluates the given expression and then returns undefined.
+```
+
+翻译过来意思是：`void` 操作符对给定的表达式求值，然后返回 `undefined`。
+
+在 JavaScript 中 `void` 是一元运算符，出现在操作数的左边，操作数可以是任意类型的值，`void` 右边的表达式可以是带括号形式（例如：`void(0)`），也可以是不带括号的形式（例如：`void 0`）。
+
+
+
+**为什么用 void 0 代替 undefined?**
+
+`void 0` 返回 `undefined`，我们都知道的，但是为什么不直接 `arguments[0] !== undefined`?
+
+1. `undefined` 可以被重写：
+
+   在 ES5 的全局环境中，`undefined` 是只读的，但是在部分低级别的浏览器（IE7,IE8）中可以被修改。而在局部作用域中，`undefined` 也是可变的。这个是 JS 语言公认的设计失误之一。
+
+   ```javascript
+   (function() {
+     var undefined = 10;
+    
+     // 10 -- chrome
+     alert(undefined);
+   })();
+    
+   (function() {
+     undefined = 10;
+    
+     // undefined -- chrome
+     alert(undefined);
+   })();
+   ```
+
+2. 从性能方面： `void 0` 比 `undefined` 少了三个字节：
+
+   当源码中有大量用 `undefined` 判断的时候，这个优化还是值得关注的。
+
+   ```javascript
+   >"undefined".length
+   9
+   >"void 0".length
+   6
+   ```
+
+3. 保证结果不变性：
+
+   `undefined` 并不是 Javascript中的保留字，我们可以使用 `undefined` 作为变量名字，然后给它赋值。`void 0` 输出唯一的结果 `undefined`，保证了不变性。
+
+
+
+**void 0 应用场景**
+
+1. 立即调用的函数表达式：
+
+   在使用**立即执行的函数表达式**时，可以利用 `void` 运算符让 JavaScript 引擎把一个 `function` 关键字识别成函数表达式而不是函数声明（语句）。
+
+   ```javascript
+   void function iife() {
+       var bar = function () {};
+       var baz = function () {};
+       var foo = function () {
+           bar();
+           baz();
+        };
+       var biz = function () {};
+   
+       foo();
+       biz();
+   }();
+   ```
+
+2. `javascript URIs`：
+
+   当用户点击一个以 `javascript:` 开头的 URI 时，它会执行 URI 中的代码，然后用返回的值替换页面内容，除非返回的值是 `undefined`。`void` 运算符可用于返回 `undefined`。例如：
+
+   ```html
+   <a href="javascript:void(0);">
+     这个链接点击之后不会做任何事情，如果去掉 void()，
+     点击之后整个页面会被替换成一个字符 0。
+   </a>
+   <p> chrome中即使<a href="javascript:0;">也没变化，firefox中会变成一个字符串0 </p>
+   <a href="javascript:void(document.body.style.backgroundColor='green');">
+     点击这个链接会让页面背景变成绿色。
+   </a>
+   ```
+
+   注意，虽然这么做是可行的，但利用 `javascript:` 伪协议来执行 JavaScript 代码是不推荐的，推荐的做法是为链接元素绑定事件。
+
+3. 箭头函数中避免泄漏：
+
+   箭头函数标准中，允许在函数体不使用括号来直接返回值。 如果右侧调用了一个原本没有返回值的函数，其返回值改变后，则会导致非预期的副作用。 安全起见，当函数返回值是一个不会被使用到的时候，应该使用 `void` 运算符，来确保返回 `undefined`（如下方示例），这样，当 API 改变时，并不会影响箭头函数的行为。
+
+   ```javascript
+   button.onclick = () => void doSomething();
+   ```
+
+
+
+# 6、模块
+
+## 6.1、模块 (Module) 简介
+
+很长一段时间，JavaScript 都没有语言级（language-level）的模块语法。这不是一个问题，因为最初的脚本又小又简单，所以没必要将其模块化。
+
+但是最终脚本变得越来越复杂，因此社区发明了许多种方法来将代码组织到模块中，使用特殊的库按需加载模块。
+
+语言级的模块系统在 2015 年的时候出现在了标准（ES6）中，此后逐渐发展，现在已经得到了所有主流浏览器和 Node.js 的支持。
+
+
+
+### 6.1.1、什么是模块？
+
+一个模块（module）就是一个文件。一个脚本就是一个模块。就这么简单。
+
+模块可以相互加载，并可以使用特殊的指令 `export` 和 `import` 来交换功能，从另一个模块调用一个模块的函数：
+
+- `export` 关键字标记了可以从当前模块外部访问的变量和函数。
+- `import` 关键字允许从其他模块导入功能。
+
+例如，我们有一个 `sayHi.js` 文件导出了一个函数：
+
+```javascript
+// 📁 sayHi.js
+export function sayHi(user) {
+  alert(`Hello, ${user}!`);
+}
+```
+
+然后另一个文件可能导入并使用了这个函数：
+
+```javascript
+// 📁 main.js
+import { sayHi } from './sayHi.js';
+
+alert(sayHi); // function...
+sayHi('John'); // Hello, John!
+```
+
+`import` 指令通过相对于当前文件的路径 `./sayHi.js` 加载模块，并将导入的函数 `sayHi` 分配（assign）给相应的变量。
+
+由于模块支持特殊的关键字和功能，因此我们必须通过使用 `<script type="module">` 特性（attribute）来告诉浏览器，此脚本应该被当作模块（module）来对待。
+
+```html
+<!doctype html>
+<script type="module">
+  import {sayHi} from './say.js';
+
+  document.body.innerHTML = sayHi('John');
+</script>
+```
+
+> **模块只通过 HTTP(s) 工作，而非本地**
+>
+> 如果你尝试通过 `file://` 协议在本地打开一个网页，你会发现 `import/export` 指令不起作用。你可以使用本地 Web 服务器，例如 static-server，或者使用编辑器的“实时服务器”功能，例如 VS Code 的 Live Server Extension 来测试模块。
+
+
+
+### 6.1.2、模块核心功能
+
+**始终使用 “use strict”**
+
+模块始终在严格模式下运行。例如，对一个未声明的变量赋值将产生错误（译注：在浏览器控制台可以看到 error 信息）。
+
+```html
+<script type="module">
+  a = 5; // error
+</script>
+```
+
+
+
+**模块级作用域**
+
+每个模块都有自己的顶级作用域（top-level scope）。换句话说，一个模块中的顶级作用域变量和函数在其他脚本中是不可见的。
+
+在下面这个例子中，`hello.js` 尝试使用在 `user.js` 中声明的变量 `user`。它失败了，因为它是一个单独的模块（你在控制台中可以看到报错）：
+
+```javascript
+// 📁 user.js
+let user = "John";
+```
+
+```javascript
+// 📁 hello.js
+alert(user); // no such variable (each module has independent variables)
+```
+
+模块应该 `export` 它们想要被外部访问的内容，并 `import` 它们所需要的内容。
+
+- `user.js` 应该导出 `user` 变量。
+- `hello.js` 应该从 `user.js` 模块中导入它。
+
+换句话说，对于模块，我们使用导入/导出而不是依赖全局变量。
+
+这是正确的变体：
+
+```javascript
+// 📁 user.js
+export let user = "John";
+```
+
+```javascript
+// 📁 hello.js
+import {user} from './user.js';
+
+document.body.innerHTML = user; // John
+```
+
+在浏览器中，对于 HTML 页面，每个 `<script type="module">` 都存在独立的顶级作用域。
+
+下面是同一页面上的两个脚本，都是 `type="module"`。它们看不到彼此的顶级变量：
+
+```html
+<script type="module">
+  // 变量仅在这个 module script 内可见
+  let user = "John";
+</script>
+
+<script type="module">
+  alert(user); // Error: user is not defined
+</script>
+```
+
+> 在浏览器中，我们可以通过将变量显式地分配给 `window` 的一个属性，使其成为窗口级别的全局变量。例如 `window.user = "John"`。
+>
+> 这样所有脚本都会看到它，无论脚本是否带有 `type="module"`。
+>
+> 也就是说，创建这种全局变量并不是一个好的方式。请尽量避免这样做。
+
+
+
+**模块代码仅在第一次导入时被解析**
+
+如果同一个模块被导入到多个其他位置，那么它的代码只会执行一次，即在第一次被导入时。然后将其导出（export）的内容提供给进一步的导入（importer）。
+
+如果执行一个模块中的代码会带来副作用（side-effect），例如显示一条消息，那么多次导入它只会触发一次显示 —— 即第一次：
+
+```javascript
+// 📁 alert.js
+alert("Module is evaluated!");
+```
+
+```javascript
+// 在不同的文件中导入相同的模块
+
+// 📁 1.js
+import `./alert.js`; // Module is evaluated!
+
+// 📁 2.js
+import `./alert.js`; // (什么都不显示)
+```
+
+假设一个模块导出了一个对象：
+
+```javascript
+// 📁 admin.js
+export let admin = {
+  name: "John"
+};
+```
+
+如果这个模块被导入到多个文件中，模块仅在第一次被导入时被解析，并创建 `admin` 对象，然后将其传入到所有的导入。
+
+所有的导入都只获得了一个唯一的 `admin` 对象：
+
+```javascript
+// 📁 1.js
+import { admin } from './admin.js';
+admin.name = "Pete";
+
+// 📁 2.js
+import { admin } from './admin.js';
+alert(admin.name); // Pete
+
+// 1.js 和 2.js 引用的是同一个 admin 对象
+// 在 1.js 中对对象做的更改，在 2.js 中也是可见的
+```
+
+因为该模块只执行了一次。生成导出，然后这些导出在导入之间共享，因此如果更改了 `admin` 对象，在其他导入中也会看到。
+
+
+
+**import.meta**
+
+`import.meta` 对象包含关于当前模块的信息。
+
+它的内容取决于其所在的环境。在浏览器环境中，它包含当前脚本的 URL，或者如果它是在 HTML 中的话，则包含当前页面的 URL。
+
+```html
+<script type="module">
+  alert(import.meta.url); // 脚本的 URL
+  // 对于内联脚本来说，则是当前 HTML 页面的 URL
+</script>
+```
+
+
+
+**在一个模块中，“this” 是 undefined**
+
+在一个模块中，顶级 `this` 是 undefined。
+
+将其与非模块脚本进行比较会发现，非模块脚本的顶级 `this` 是全局对象：
+
+```html
+<script>
+  alert(this); // window
+</script>
+
+<script type="module">
+  alert(this); // undefined
+</script>
+```
+
+
+
+### 6.1.3、浏览器特定功能
+
+与常规脚本相比，拥有 `type="module"` 标识的脚本有一些特定于浏览器的差异。
+
+
+
+**模块脚本是延迟的**
+
+
+
+
+
+## 6.2、导出和导入
+
+
+
+## 6.3、动态导入
+
+
+
+# 7、杂项
+
+## 7.1、脚本：async，defer
+
+
+
+## 7.2、正则表达式
+
+### 7.2.1、RegExp 对象
 
 RegExp 对象表示正则表达式，它是对字符串执行模式匹配的强大工具。
 
@@ -1419,7 +2378,7 @@ Quantifiers 定义量词：
 
 
 
-### 2.4.2、RegExp 方法
+### 7.2.2、RegExp 方法
 
  **test()**
 
@@ -1470,713 +2429,3 @@ W3School
 24
 ```
 
-<br>
-
-## 2.5、JS this 关键字
-
-**this 是什么？**
-
-JavaScript this 关键词指的是它所属的对象。
-
-它拥有不同的值，具体取决于它的使用位置：
-
-- 在方法中，this 指的是所有者对象。
-- 单独的情况下，this 指的是全局对象。
-- 在函数中，this 指的是全局对象。
-- 在函数中，严格模式下，this 是 undefined。
-- 在事件中，this 指的是接收事件的元素。
-
-像 `call()` 和 `apply()` 这样的方法可以将 this 引用到任何对象。
-
-<br>
-
-**单独的 this**
-
-在单独使用时，拥有者是全局对象，因此 `this` 指的是全局对象。
-
-在浏览器窗口中，全局对象是 `[object Window]`：
-
-```javascript
-var x = this;	//[object Window]
-```
-
-在严格模式中，如果单独使用，那么 `this` 指的是全局对象 `[object Window]`：
-
-```javascript
-"use strict";
-var x = this;	//[object Window]
-```
-
-<br>
-
-**函数中的 this**
-
-在 JavaScript 函数中，函数的拥有者默认绑定 `this`。
-
-因此，在函数中，`this` 指的是全局对象 `[object Window]`。
-
-```javascript
-function myFunction() {
-  return this;	//[object Window]
-}
-```
-
-JavaScript 严格模式不允许默认绑定。
-
-因此，在函数中使用时，在严格模式下，`this` 是未定义的（`undefined`）。
-
-```javascript
-"use strict";
-function myFunction() {
-  return this;	//undefined
-}
-```
-
-<br>
-
-**事件处理程序中的 this**
-
-在 HTML 事件处理程序中，`this` 指的是接收此事件的 HTML 元素：
-
-```html
-<button onclick="this.style.display='none'">单击来删除我！</button>
-```
-
-<br>
-
-**对象方法绑定**
-
-在此例中，`this` 是 person 对象（person 对象是该函数的“拥有者”）：
-
-```javascript
-var person = {
-  firstName  : "Bill",
-  lastName   : "Gates",
-  id         : 678,
-  myFunction : function() {
-    return this;	//[object Object]
-  }
-};
-```
-
-换句话说，*this.firstName* 意味着 *this*（person）对象的 *firstName* 属性。
-
-<br>
-
-**显式函数绑定**
-
-`call()` 和 `apply()` 方法是预定义的 JavaScript 方法。它们都可以用于将另一个对象作为参数调用对象方法。
-
-在下面的例子中，当使用 *person2* 作为参数调用 *person1.fullName* 时，`this` 将引用 *person2*，即使它是 *person1* 的方法：
-
-```javascript
-var person1 = {
-  fullName: function() {
-    return this.firstName + " " + this.lastName;
-  }
-}
-var person2 = {
-  firstName:"Bill",
-  lastName: "Gates",
-}
-person1.fullName.call(person2);  // 会返回 "Bill Gates"
-```
-
-<br>
-
-## 2.6、void 0
-
-众所周知，`undefined` 是 JS 语言中的 7 大基本类型之一，表示未定义，它的值只有一个，就是 `undefined`。任何变量在赋值前都是 `undefined`。
-
-而在一些框架源码中，会出现一些这样的表达式：
-
-```javascript
-function foo() {
-    var a  = arguments[0] !== (void 0 ) ? arguments[0] : 2;
-    return a; 
-}
-```
-
-这是 《你不知道的JavaScript》的一段代码，用于实现 ES6 中函数参数默认值的 `transpiling` 处理，为了让不支持 ES6 这个新特性的浏览器可以正常使用。
-
-正如你可以看到的，它会检查 `arguments[0]` 的值是否为 `void 0`（也就是 `undefined`），如果是的话就提供默认值 `2`；否则就使用传入值。
-
-<br>
-
-**什么是void？**
-
-MDN中对void有这么一段说明：
-
-```js
-The void operator evaluates the given expression and then returns undefined.
-```
-
-翻译过来意思是：`void` 操作符对给定的表达式求值，然后返回 `undefined`。
-
-在 JavaScript 中 `void` 是一元运算符，出现在操作数的左边，操作数可以是任意类型的值，`void` 右边的表达式可以是带括号形式（例如：`void(0)`），也可以是不带括号的形式（例如：`void 0`）。
-
-<br>
-
-**为什么用 void 0 代替 undefined?**
-
-`void 0` 返回 `undefined`，我们都知道的，但是为什么不直接 `arguments[0] !== undefined`?
-
-1. `undefined` 可以被重写：
-
-   在 ES5 的全局环境中，`undefined` 是只读的，但是在部分低级别的浏览器（IE7,IE8）中可以被修改。而在局部作用域中，`undefined` 也是可变的。这个是 JS 语言公认的设计失误之一。
-   ```javascript
-   (function() {
-     var undefined = 10;
-    
-     // 10 -- chrome
-     alert(undefined);
-   })();
-    
-   (function() {
-     undefined = 10;
-    
-     // undefined -- chrome
-     alert(undefined);
-   })();
-   ```
-
-2. 从性能方面： `void 0` 比 `undefined` 少了三个字节：
-
-   当源码中有大量用 `undefined` 判断的时候，这个优化还是值得关注的。
-
-   ```javascript
-   >"undefined".length
-   9
-   >"void 0".length
-   6
-   ```
-
-3. 保证结果不变性：
-
-   `undefined` 并不是 Javascript中的保留字，我们可以使用 `undefined` 作为变量名字，然后给它赋值。`void 0` 输出唯一的结果 `undefined`，保证了不变性。
-
-<br>
-
-**void 0 应用场景**
-
-1. 立即调用的函数表达式：
-
-   在使用**立即执行的函数表达式**时，可以利用 `void` 运算符让 JavaScript 引擎把一个 `function` 关键字识别成函数表达式而不是函数声明（语句）。
-   ```javascript
-   void function iife() {
-       var bar = function () {};
-       var baz = function () {};
-       var foo = function () {
-           bar();
-           baz();
-        };
-       var biz = function () {};
-   
-       foo();
-       biz();
-   }();
-   ```
-
-2. `javascript URIs`：
-
-   当用户点击一个以 `javascript:` 开头的 URI 时，它会执行 URI 中的代码，然后用返回的值替换页面内容，除非返回的值是 `undefined`。`void` 运算符可用于返回 `undefined`。例如：
-   ```html
-   <a href="javascript:void(0);">
-     这个链接点击之后不会做任何事情，如果去掉 void()，
-     点击之后整个页面会被替换成一个字符 0。
-   </a>
-   <p> chrome中即使<a href="javascript:0;">也没变化，firefox中会变成一个字符串0 </p>
-   <a href="javascript:void(document.body.style.backgroundColor='green');">
-     点击这个链接会让页面背景变成绿色。
-   </a>
-   ```
-
-   注意，虽然这么做是可行的，但利用 `javascript:` 伪协议来执行 JavaScript 代码是不推荐的，推荐的做法是为链接元素绑定事件。
-
-3. 箭头函数中避免泄漏：
-
-   箭头函数标准中，允许在函数体不使用括号来直接返回值。 如果右侧调用了一个原本没有返回值的函数，其返回值改变后，则会导致非预期的副作用。 安全起见，当函数返回值是一个不会被使用到的时候，应该使用 `void` 运算符，来确保返回 `undefined`（如下方示例），这样，当 API 改变时，并不会影响箭头函数的行为。
-
-   ```javascript
-   button.onclick = () => void doSomething();
-   ```
-
-<br>
-
-# 2、JS 函数
-
-## 2.1、JS 函数
-
-**JavaScript 函数是被设计为执行特定任务的代码块。JavaScript 函数会在某代码调用它时被执行。**
-
-```javascript
-function myFunction(p1, p2) {
-    return p1 * p2;              // 该函数返回 p1 和 p2 的乘积
-}
-```
-
-
-
-**调用函数**
-
-```javascript
-function toCelsius(fahrenheit) {
-    return (5/9) * (fahrenheit-32);
-}
-
-document.getElementById("demo").innerHTML = toCelsius(77);
-```
-
-**() 运算符调用函数**，使用上面的例子，`toCelsius` 引用的是函数对象，而 `toCelsius()` 引用的是函数结果。
-
-<br>
-
-## 2.2、JS 箭头函数
-
-ES6 中引入了箭头函数，箭头函数允许我们编写更短的函数。
-
-之前：
-
-```
- hello = function() {
-     return "Hello World!";
- }
-```
-
-用了箭头函数之后：
-
-```
- hello = () => {
-     return "Hello World!";
- }
-```
-
-如果函数只有一个语句，并且该语句返回一个值，则可以去掉括号和 `return` 关键字：
-
-```
- hello = () => "Hello World!";
-```
-
-如果有参数，则将它们传递到括号内：
-
-```
- hello = (val) => "Hello " + val;
-```
-
-事实上，如果只有一个参数，也可以略过括号：
-
-```
- hello = val => "Hello " + val;
-```
-
-<br>
-
-**this 怎么办？**
-
-与常规函数相比，箭头函数对 `this` 的处理也有所不同。
-
-简而言之，箭头函数没有自己的 `this` 对象，内部的 `this` 就是定义时上层作用域中的 `this`。
-
-```javascript
-var hello;
-
-hello = () => {
-  document.getElementById("demo").innerHTML += this;
-}
-
-//window 对象调用函数：
-window.addEventListener("load", hello);	//[object Window]
-
-//button 对象调用函数：
-document.getElementById("btn").addEventListener("click", hello);	//[object Window]
-```
-
-<br>
-
-## 2.3、JS 函数 Call
-
-**方法重用**
-
-使用 `call()` 方法可以编写能够在不同对象上使用的方法。
-
-
-
-**函数是对象方法**
-
-在 JavaScript 中，函数是对象的方法。如果一个函数不是 JavaScript 对象的方法，那么它就是全局对象的函数。
-
-下面的例子创建了带有三个属性的对象（firstName、lastName、fullName）。
-
-```javascript
-var person = {
-    firstName:"Bill",
-    lastName: "Gates",
-    fullName: function () {
-        return this.firstName + " " + this.lastName;
-    }
-}
-person.fullName();		// 将返回 "Bill Gates"
-```
-
-fullName 属性是一个方法。person 对象是该方法的拥有者。fullName 属性属于 person 对象的方法。
-
-
-
-**JavaScript call() 方法**
-
-`call()` 方法是预定义的 JavaScript 方法，它可以用来调用所有者对象作为参数的方法。
-
-通过 `call()` 能够使用属于另一个对象的方法。
-
-本例调用 person 的 fullName 方法，并用于 person1：
-
-```javascript
-var person = {
-    fullName: function() {
-        return this.firstName + " " + this.lastName;
-    }
-}
-var person1 = {
-    firstName:"Bill",
-    lastName: "Gates",
-}
-person.fullName.call(person1);  // 将返回 "Bill Gates"
-```
-
-
-
-**带参数的 call() 方法**
-
-call() 方法可接受参数：
-
-```javascript
-var person = {
-    fullName: function(city, country) {
-        return this.firstName + " " + this.lastName + "," + city + "," + country;
-    }
-}
-var person1 = {
-    firstName:"Bill",
-    lastName: "Gates"
-}
-person.fullName.call(person1, "Seattle", "USA"); // 将返回 "Bill Gates,Seatle,USA"
-```
-
-
-
-## 2.4、JS 函数 Apply
-
-**方法重用**
-
-通过 apply() 方法能够编写用于不同对象的方法。
-
-
-
-**JavaScript apply() 方法**
-
-`apply()` 方法与 `call() `方法非常相似：
-
-在本例中，person 的 fullName 方法被应用到 person1：
-
-```javascript
-var person = {
-    fullName: function() {
-        return this.firstName + " " + this.lastName;
-    }
-}
-var person1 = {
-    firstName: "Bill",
-    lastName: "Gates",
-}
-person.fullName.apply(person1);  // 将返回 "Bill Gates"
-```
-
-
-
-**call() 和 apply() 之间的区别**
-
-不同之处是：
-
-- `call() `方法分别接受参数。
-- `apply()` 方法接受数组形式的参数。
-
-如果要使用数组而不是参数列表，则 `apply()` 方法非常方便。
-
-
-
-**带参数的 apply() 方法**
-
-`apply()` 方法接受数组中的参数：
-
-```javascript
-var person = {
-  fullName: function(city, country) {
-    return this.firstName + " " + this.lastName + "," + city + "," + country;
-  }
-}
-var person1 = {
-  firstName:"John",
-  lastName: "Doe"
-}
-person.fullName.apply(person1, ["Oslo", "Norway"]); // 将返回 "Bill Gates,Seatle,USA"
-```
-
-
-
-**在数组上模拟 max 方法**
-
-可以使用 `Math.max()` 方法找到（数字列表中的）最大数字：
-
-```javascript
-Math.max(1,2,3);  // 会返回 3
-```
-
-由于 JavaScript 数组没有 `max()` 方法，因此可以应用 `Math.max()` 方法。
-
-```javascript
-Math.max.apply(null, [1,2,3]); // 也会返回 3
-```
-
-第一个参数（null）无关紧要。在本例中未使用它。
-
-
-
-## 2.5、JS 闭包
-
-一个函数和对其周围状态（**lexical environment，词法环境**）的引用捆绑在一起（或者说函数被引用包围），这样的组合就是**闭包**（**closure**）。也就是说，闭包让你可以在一个内层函数中访问到其外层函数的作用域。在 JavaScript 中，每当创建一个函数，闭包就会在函数创建的同时被创建出来。
-
-
-
-**词法作用域**
-
-```javascript
-function init() {
-    var name = "Mozilla"; // name 是一个被 init 创建的局部变量
-    function displayName() { // displayName() 是内部函数，一个闭包
-        alert(name); // 使用了父函数中声明的变量
-    }
-    displayName();
-}
-init();
-```
-
-`init()` 创建了一个局部变量 `name` 和一个名为 `displayName()` 的函数。`displayName()` 是定义在 `init()` 里的内部函数，并且仅在 `init()` 函数体内可用。请注意，`displayName()` 没有自己的局部变量。然而，因为它可以访问到外部函数的变量，所以 `displayName()` 可以使用父函数 `init()` 中声明的变量 `name `。
-
-运行该代码后发现， `displayName()` 函数内的 `alert()` 语句成功显示出了变量 `name` 的值（该变量在其父函数中声明）。这个词法作用域的例子描述了分析器如何在函数嵌套的情况下解析变量名。词法（lexical）一词指的是，词法作用域根据源代码中声明变量的位置来确定该变量在何处可用。嵌套函数可访问声明于它们外部作用域的变量。
-
-
-
-**闭包**
-
-```javascript
-function makeFunc() {
-    var name = "Mozilla";
-    function displayName() {
-        alert(name);
-    }
-    return displayName;
-}
-
-var myFunc = makeFunc();
-myFunc();
-```
-
-运行这段代码的效果和之前 `init()` 函数的示例完全一样。其中不同的地方（也是有意思的地方）在于内部函数 `displayName()` 在执行前，从外部函数返回。
-
-第一眼看上去，也许不能直观地看出这段代码能够正常运行。在一些编程语言中，一个函数中的局部变量仅存在于此函数的执行期间。一旦 `makeFunc()` 执行完毕，你可能会认为 `name` 变量将不能再被访问。然而，因为代码仍按预期运行，所以在 JavaScript 中情况显然与此不同。
-
-原因在于，JavaScript 中的函数会形成了闭包。 闭包是由函数以及声明该函数的词法环境组合而成的。该环境包含了这个闭包创建时作用域内的任何局部变量。在本例子中，`myFunc` 是执行 `makeFunc` 时创建的 `displayName` 函数实例的引用。`displayName` 的实例维持了一个对它的词法环境（变量 `name` 存在于其中）的引用。因此，当 `myFunc` 被调用时，变量 `name` 仍然可用，其值 `Mozilla` 就被传递到 `alert` 中。
-
-下面是一个更有意思的示例 — 一个 `makeAdder` 函数：
-
-```javascript
-function makeAdder(x) {
-  return function(y) {
-    return x + y;
-  };
-}
-
-var add5 = makeAdder(5);
-var add10 = makeAdder(10);
-
-console.log(add5(2));  // 7
-console.log(add10(2)); // 12
-```
-
-在这个示例中，我们定义了 `makeAdder(x)` 函数，它接受一个参数 `x` ，并返回一个新的函数。返回的函数接受一个参数 `y`，并返回`x+y`的值。
-
-从本质上讲，`makeAdder` 是一个函数工厂 — 他创建了将指定的值和它的参数相加求和的函数。在上面的示例中，我们使用函数工厂创建了两个新函数 — 一个将其参数和 5 求和，另一个和 10 求和。
-
-`add5` 和 `add10` 都是闭包。它们共享相同的函数定义，但是保存了不同的词法环境。在 `add5` 的环境中，`x` 为 5。而在 `add10` 中，`x` 则为 10。
-
-
-
-# 3、Browser 对象
-
-## 3.1、存储对象
-
-Web 存储 API 提供了 sessionStorage （会话存储） 和 localStorage（本地存储）两个存储对象来对网页的数据进行添加、删除、修改、查询操作。
-
-- localStorage 用于长久保存整个网站的数据，保存的数据没有过期时间，直到手动去除。
-- sessionStorage 用于临时保存同一窗口（或标签页）的数据，在关闭窗口或标签页之后将会删除这些数据。
-
-<br>
-
-**存储对象属性**
-
-| 属性   | 描述                           |
-| ------ | ------------------------------ |
-| length | 返回存储对象中包含多少条数据。 |
-
-<br>
-
-**存储对象方法**
-
-| 方法                    | 描述                                               |
-| ----------------------- | -------------------------------------------------- |
-| key(n)                  | 返回存储对象中第 *n* 个键的名称                    |
-| getItem(keyname)        | 返回指定键的值                                     |
-| setItem(keyname, value) | 添加键和值，如果对应的值存在，则更新该键对应的值。 |
-| removeItem(keyname)     | 移除键                                             |
-| clear()                 | 清除存储对象中所有的键                             |
-
-<br>
-
-### 3.1.1、localStorage
-
-localStorage 和 sessionStorage 属性允许在浏览器中存储 key/value 对的数据。localStorage 用于长久保存整个网站的数据，保存的数据没有过期时间，直到手动去删除。
-
-localStorage 属性是只读的。
-
-<br>
-
-**localStorage 的优势**
-
-1. localStorage 拓展了 cookie 的 4K 限制。
-2.  localStorage 会可以将第一次请求的数据直接存储到本地，这个相当于一个 5M 大小的针对于前端页面的数据库，相比于 cookie 可以节约带宽，但是这个却是只有在高版本的浏览器中才支持的。
-
-<br>
-
-**localStorage 的局限**
-
-1. 浏览器的大小不统一，并且在 IE8 以上的 IE 版本才支持 localStorage 这个属性。
-2. 目前所有的浏览器中都会把 localStorage 的值类型限定为 string 类型，这个在对我们日常比较常见的 JSON 对象类型需要一些转换。
-3. localStorage 在浏览器的隐私模式下面是不可读取的。
-4. localStorage 本质上是对字符串的读取，如果存储内容多的话会消耗内存空间，会导致页面变卡。
-5. localStorage 不能被爬虫抓取到。
-
-<br>
-
-**localStorage 使用**
-
-首先在使用 localStorage 的时候，我们需要判断浏览器是否支持 localStorage 这个属性：
-
-```javascript
-if(!window.localStorage){
-    alert("浏览器不支持localstorage");
-    return false;
-}else{
-    //主逻辑业务
-}
-```
-
-localStorage 的写入有三种方法：
-
-```javascript
-if(!window.localStorage){
-    alert("浏览器不支持localstorage");
-    return false;
-}else{
-    var storage=window.localStorage;
-    //写入a字段
-    storage["a"]=1;
-    //写入b字段
-    storage.b=1;
-    //写入c字段
-    storage.setItem("c",3);
-    console.log(typeof storage["a"]); //string
-    console.log(typeof storage["b"]); //string
-    console.log(typeof storage["c"]); //string
-}
-```
-
-这里面是三种对 localStorage 的读取，其中官方推荐的是 `getItem\setItem` 这两种方法对其进行存取，这里要特别说明一下 localStorage 的使用也是遵循同源策略的，所以不同的网站直接是不能共用相同的 localStorage。
-
-<br>
-
-### 3.1.2、sessionStorage 
-
-localStorage 和 sessionStorage 属性允许在浏览器中存储 key/value 对的数据。sessionStorage 用于临时保存同一窗口(或标签页)的数据，在关闭窗口或标签页之后将会删除这些数据。
-
-其余和 localStorage  相似。
-
-<br>
-
-## 3.2、Window 对象
-
-Window 对象表示浏览器中打开的窗口。
-
-如果文档包含框架（`<frame>` 或 `<iframe>` 标签），浏览器会为 HTML 文档创建一个 window 对象，并为每个框架创建一个额外的 window 对象。
-
-> 注意： 没有应用于 window 对象的公开标准，不过所有浏览器都支持该对象。
-
-<br>
-
-### 3.2.1、Window 对象属性
-
-| 属性           | 描述                                                         |
-| -------------- | ------------------------------------------------------------ |
-| parent         | 返回父窗口。                                                 |
-| localStorage   | 在浏览器中存储 key/value 对。没有过期时间。                  |
-| sessionStorage | 在浏览器中存储 key/value 对。 在关闭窗口或标签页之后将会删除这些数据。 |
-
-<br>
-
-### 3.2.2、Window 对象方法
-
-**setInterval()**
-
-`setInterval()` 方法可按照指定的周期（以毫秒计）来调用函数或计算表达式。
-
-`setInterval()` 方法会不停地调用函数，直到 `clearInterval()` 被调用或窗口被关闭。由 `setInterval()` 返回的 ID 值可用作 `clearInterval()` 方法的参数。
-
-语法：
-
-```javascript
-setInterval(code, milliseconds);
-setInterval(function, milliseconds, param1, param2, ...);
-```
-
-| 参数                | 描述                                                         |
-| :------------------ | :----------------------------------------------------------- |
-| code/function       | 必需。要调用一个代码串，也可以是一个函数。                   |
-| milliseconds        | 必须。周期性执行或调用 code/function 之间的时间间隔，以毫秒计。 |
-| param1, param2, ... | 可选。 传给执行函数的其他参数（IE9 及其更早版本不支持该参数）。 |
-
-`setInterval()` 会返回一个 ID（数字），可以将这个 ID 传递给 `clearInterval()`  以取消执行。
-
-<br>
-
-**clearTimeout()**
-
-`clearTimeout()` 方法可取消由 `setTimeout()` 方法设置的定时操作。
-
-`clearTimeout()` 方法的参数必须是由 `setTimeout()` 返回的 ID 值。
-
-> 注意：使用 `clearTimeout()` 方法，在创建执行定时操作时要使用全局变量：
->
-> ```javascript
-> myVar = setTimeout("javascript function", milliseconds);
-> ```
->
-> 如果方法还未被执行，可以使用 `clearTimeout()` 来阻止它。
-
-语法：
-
-```javascript
-clearTimeout(id_of_settimeout)
-```
-
-| 参数              | 描述                                                         |
-| :---------------- | :----------------------------------------------------------- |
-| id_of_setinterval | 调用 `setTimeout()` 函数时所获得的返回值，使用该返回标识符作为参数，可以取消该 `setTimeout()` 所设定的定时执行操作。 |
