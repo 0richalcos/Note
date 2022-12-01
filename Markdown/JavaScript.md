@@ -2051,6 +2051,8 @@ The void operator evaluates the given expression and then returns undefined.
 
 
 
+
+
 ### 6.1.1、什么是模块？
 
 一个模块（module）就是一个文件。一个脚本就是一个模块。就这么简单。
@@ -2264,21 +2266,659 @@ alert(admin.name); // Pete
 
 **模块脚本是延迟的**
 
+模块脚本总是被延迟的，与 `defer` 特性对外部脚本和内联脚本（inline script）的影响相同。
 
+也就是说：
+
+- 下载外部模块脚本 `<script type="module" src="...">` 不会阻塞 HTML 的处理，它们会与其他资源并行加载。
+- 模块脚本会等到 HTML 文档完全准备就绪（即使它们很小并且比 HTML 加载速度更快），然后才会运行。
+- 保持脚本的相对顺序：在文档中排在前面的脚本先执行。
+
+它的一个副作用是，模块脚本总是会 “看到” 已完全加载的 HTML 页面，包括在它们下方的 HTML 元素。
+
+```html
+<script type="module">
+  alert(typeof button); // object：脚本可以“看见”下面的 button
+  // 因为模块是被延迟的（deferred，所以模块脚本会在整个页面加载完成后才运行
+</script>
+
+相较于下面这个常规脚本：
+
+<script>
+  alert(typeof button); // button 为 undefined，脚本看不到下面的元素
+  // 常规脚本会立即运行，常规脚本的运行是在在处理页面的其余部分之前进行的
+</script>
+
+<button id="button">Button</button>
+```
+
+上面的第二个脚本实际上要先于前一个脚本运行！所以我们会先看到 `undefined`，然后才是 `object`。
+
+这是因为模块脚本是被延迟的，所以要等到 HTML 文档被处理完成才会执行它。而常规脚本则会立即运行，所以我们会先看到常规脚本的输出。
+
+当使用模块脚本时，我们应该知道 HTML 页面在加载时就会显示出来，在 HTML 页面加载完成后才会执行 JavaScript 模块，因此用户可能会在 JavaScript 应用程序准备好之前看到该页面。某些功能那时可能还无法正使用。我们应该放置 “加载指示器（loading indicator）”，否则，请确保不会使用户感到困惑。
+
+
+
+**Async 适用于内联脚本（inline script）**
+
+对于非模块脚本，`async` 特性（attribute）仅适用于外部脚本。异步脚本会在准备好后立即运行，独立于其他脚本或 HTML 文档。
+
+对于模块脚本，它也适用于内联脚本。
+
+例如，下面的内联脚本具有 `async` 特性，因此它不会等待任何东西。
+
+它执行导入（fetch `./analytics.js`），并在导入完成时运行，即使 HTML 文档还未完成，或者其他脚本仍在等待处理中。
+
+这对于不依赖任何其他东西的功能来说是非常棒的，例如计数器，广告，文档级事件监听器。
+
+```html
+<!-- 所有依赖都获取完成（analytics.js）然后脚本开始运行 -->
+<!-- 不会等待 HTML 文档或者其他 <script> 标签 -->
+<script async type="module">
+  import {counter} from './analytics.js';
+
+  counter.count();
+</script>
+```
+
+
+
+**外部脚本**
+
+具有 `type="module"` 的外部脚本（external script）在两个方面有所不同：
+
+1. 具有相同 `src` 的外部脚本仅运行一次：
+
+   ```html
+   <!-- 脚本 my.js 被加载完成（fetched）并只被运行一次 -->
+   <script type="module" src="my.js"></script>
+   <script type="module" src="my.js"></script>
+   ```
+
+2. 从另一个源（例如另一个网站）获取的外部脚本需要 CORS header。换句话说，如果一个模块脚本是从另一个源获取的，则远程服务器必须提供表示允许获取的 header `Access-Control-Allow-Origin`。
+
+   ```html
+   <!-- another-site.com 必须提供 Access-Control-Allow-Origin -->
+   <!-- 否则，脚本将无法执行 -->
+   <script type="module" src="http://another-site.com/their.js"></script>
+   ```
+
+   默认这样做可以确保更好的安全性。
+
+
+
+**不允许裸模块（“bare” module）**
+
+在浏览器中，`import` 必须给出相对或绝对的 URL 路径。没有任何路径的模块被称为 “裸（bare）” 模块。在 `import` 中不允许这种模块。
+
+例如，下面这个 `import` 是无效的：
+
+```javascript
+import {sayHi} from 'sayHi'; // Error，“裸”模块
+// 模块必须有一个路径，例如 './sayHi.js' 或者其他任何路径
+```
+
+某些环境，像 Node.js 或者打包工具（bundle tool）允许没有任何路径的裸模块，因为它们有自己的查找模块的方法和钩子（hook）来对它们进行微调。但是浏览器尚不支持裸模块。
+
+
+
+**兼容性，“nomodule”**
+
+旧时的浏览器不理解 `type="module"`。未知类型的脚本会被忽略。对此，我们可以使用 `nomodule` 特性来提供一个后备：
+
+```html
+<script type="module">
+  alert("在现代浏览器中运行");
+</script>
+
+<script nomodule>
+  alert("现代浏览器都知道 type=module 和 nomodule，所以跳过这个")
+  alert("旧浏览器忽略 type=module 的未知脚本，但执行它。");
+</script>
+```
 
 
 
 ## 6.2、导出和导入
 
+导出（export）和导入（import）指令有几种语法变体。
 
 
-## 6.3、动态导入
+
+### 6.2.1、导出与声明
+
+**在声明前导出**
+
+我们可以通过在声明之前放置 `export` 来标记任意声明为导出，无论声明的是变量，函数还是类都可以。
+
+```javascript
+// 导出数组
+export let months = ['Jan', 'Feb', 'Mar','Apr', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+// 导出 const 声明的变量
+export const MODULES_BECAME_STANDARD_YEAR = 2015;
+
+// 导出类
+export class User {
+  constructor(name) {
+    this.name = name;
+  }
+}
+```
+
+> **导出 class/function 后没有分号**
+>
+> 注意，在类或者函数前的 `export` 不会让它们变成 函数表达式。尽管被导出了，但它仍然是一个函数声明。
+>
+> 大部分 JavaScript 样式指南都不建议在函数和类声明后使用分号。
+>
+> 这就是为什么在 `export class` 和 `export function` 的末尾不需要加分号：
+>
+> ```javascript
+> export function sayHi(user) {
+>   alert(`Hello, ${user}!`);
+> }  // 在这里没有分号 ;
+> ```
+
+
+
+**导出与声明分开**
+
+另外，我们还可以将 `export` 分开放置。
+
+```javascript
+// 📁 say.js
+function sayHi(user) {
+  alert(`Hello, ${user}!`);
+}
+
+function sayBye(user) {
+  alert(`Bye, ${user}!`);
+}
+
+export {sayHi, sayBye}; // 导出变量列表
+```
+
+……从技术上讲，我们也可以把 `export` 放在函数上面。
+
+
+
+### 6.2.2、Import *
+
+通常，我们把要导入的东西列在花括号 `import {...}` 中，就像这样：
+
+```javascript
+// 📁 main.js
+import {sayHi, sayBye} from './say.js';
+
+sayHi('John'); // Hello, John!
+sayBye('John'); // Bye, John!
+```
+
+但是如果有很多要导入的内容，我们可以使用 `import * as <obj>` 将所有内容导入为一个对象，例如：
+
+```javascript
+// 📁 main.js
+import * as say from './say.js';
+
+say.sayHi('John');
+say.sayBye('John');
+```
+
+乍一看，“通通导入” 看起来很酷，写起来也很短，但是我们通常为什么要明确列出我们需要导入的内容？
+
+1. 现代的构建工具（webpack 和其他工具）将模块打包到一起并对其进行优化，以加快加载速度并删除未使用的代码。
+
+   比如说，我们向我们的项目里添加一个第三方库 `say.js`，它具有许多函数：
+
+   ```javascript
+   // 📁 say.js
+   export function sayHi() { ... }
+   export function sayBye() { ... }
+   export function becomeSilent() { ... }
+   ```
+
+   现在，如果我们只在我们的项目里使用了 `say.js` 中的一个函数：
+
+   ```javascript
+   // 📁 main.js
+   import {sayHi} from './say.js';
+   ```
+
+   那么，优化器（optimizer）就会检测到它，并从打包好的代码中删除那些未被使用的函数，从而使构建更小。这就是所谓的 “摇树（tree-shaking）”。
+
+2. 明确列出要导入的内容会使得名称较短：`sayHi()` 而不是 `say.sayHi()`。
+
+3. 导入的显式列表可以更好地概述代码结构：使用的内容和位置。它使得代码支持重构，并且重构起来更容易。
+
+
+
+### 6.2.3、Import/Export “as”
+
+**Import “as”**
+
+我们也可以使用 `as` 让导入具有不同的名字。
+
+例如，简洁起见，我们将 `sayHi` 导入到局部变量 `hi`，将 `sayBye` 导入到 `bye`：
+
+```javascript
+// 📁 main.js
+import {sayHi as hi, sayBye as bye} from './say.js';
+
+hi('John'); // Hello, John!
+bye('John'); // Bye, John!
+```
+
+
+
+**Export “as”**
+
+导出也具有类似的语法。
+
+我们将函数导出为 `hi` 和 `bye`：
+
+```javascript
+// 📁 say.js
+...
+export {sayHi as hi, sayBye as bye};
+```
+
+现在 `hi` 和 `bye` 是在外面使用时的正式名称：
+
+```javascript
+// 📁 main.js
+import * as say from './say.js';
+
+say.hi('John'); // Hello, John!
+say.bye('John'); // Bye, John!
+```
+
+
+
+### 6.2.4、Export default
+
+在实际中，主要有两种模块。
+
+- 包含库或函数包的模块，像上面的 `say.js`。
+- 声明单个实体的模块，例如模块 `user.js` 仅导出 `class User`。
+
+大部分情况下，开发者倾向于使用第二种方式，以便每个 “东西” 都存在于它自己的模块中。
+
+当然，这需要大量文件，因为每个东西都需要自己的模块，但这根本不是问题。实际上，如果文件具有良好的命名，并且文件夹结构得当，那么代码导航（navigation）会变得更容易。
+
+模块提供了一个特殊的默认导出 `export default` 语法，以使 “一个模块只做一件事” 的方式看起来更好。
+
+将 `export default` 放在要导出的实体前：
+
+```javascript
+// 📁 user.js
+export default class User { // 只需要添加 "default" 即可
+  constructor(name) {
+    this.name = name;
+  }
+}
+```
+
+每个文件应该只有一个 `export default` 并且将其导入而不需要花括号：
+
+```javascript
+// 📁 main.js
+import User from './user.js'; // 不需要花括号 {User}，只需要写成 User 即可
+
+new User('John');
+```
+
+`import` 命名的导出时需要花括号，而 `import` 默认的导出时不需要花括号：
+
+| 命名的导出                | 默认的导出                        |
+| :------------------------ | :-------------------------------- |
+| `export class User {...}` | `export default class User {...}` |
+| `import {User} from ...`  | `import User from ...`            |
+
+导出的实体可能没有名称。因为每个文件只有一个 `export default`，因此不带花括号的 `import` 知道要导入的内容是什么。
+
+如果没有 `default`，这样的导出将会出错：
+
+```javascript
+export class { // Error!（非默认的导出需要名称）
+  constructor() {}
+}
+```
+
+
+
+**“default” 名称**
+
+在某些情况下，`default` 关键词被用于引用默认的导出。
+
+例如，要将函数与其定义分开导出：
+
+```javascript
+function sayHi(user) {
+  alert(`Hello, ${user}!`);
+}
+
+// 就像我们在函数之前添加了 "export default" 一样
+export {sayHi as default};
+```
+
+或者，另一种情况，假设模块 `user.js` 导出了一个主要的默认的导出和一些命名的导出（这种情况很少见，但确实会发生）：
+
+```javascript
+// 📁 user.js
+export default class User {
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+export function sayHi(user) {
+  alert(`Hello, ${user}!`);
+}
+```
+
+这是导入默认的导出以及命名的导出的方法：
+
+```javascript
+// 📁 main.js
+import {default as User, sayHi} from './user.js';
+
+new User('John');
+```
+
+如果我们将所有东西 `*` 作为一个对象导入，那么 `default` 属性正是默认的导出：
+
+```javascript
+// 📁 main.js
+import * as user from './user.js';
+
+let User = user.default; // 默认的导出
+new User('John');
+```
+
+
+
+**我应该使用默认的导出吗？**
+
+命名的导出是明确的。它们确切地命名了它们要导出的内容，因此我们能从它们获得这些信息，这是一件好事。
+
+命名的导出会强制我们使用正确的名称进行导入：
+
+```javascript
+import {User} from './user.js';
+// 导入 {MyUser} 不起作用，导入名字必须为 {User}
+```
+
+对于默认的导出，我们总是在导入时选择名称：
+
+```javascript
+import User from './user.js'; // 有效
+import MyUser from './user.js'; // 也有效
+// 使用任何名称导入都没有问题
+```
+
+通常，为了避免这种情况并使代码保持一致，可以遵从这条规则，即导入的变量应与文件名相对应，例如：
+
+```javascript
+import User from './user.js';
+import LoginForm from './loginForm.js';
+import func from '/path/to/func.js';
+...
+```
+
+
+
+### 6.2.5、重新导出
+
+“重新导出（Re-export）”语法 `export ... from ...` 允许导入内容，并立即将其导出（可能是用的是其他的名字），就像这样：
+
+```javascript
+export {sayHi} from './say.js'; // 重新导出 sayHi
+
+export {default as User} from './user.js'; // 重新导出 default
+```
+
+为什么要这样做？我们看一个实际开发中的用例。
+
+想象一下，我们正在编写一个 “package”：一个包含大量模块的文件夹，其中一些功能是导出到外部的（像 NPM 这样的工具允许我们发布和分发这样的 package，但我们不是必须要去使用它们），并且其中一些模块仅仅是供其他 package 中的模块内部使用的 “helpers”。
+
+文件结构可能是这样的：
+
+```
+auth/
+    index.js
+    user.js
+    helpers.js
+    tests/
+        login.js
+    providers/
+        github.js
+        facebook.js
+        ...
+```
+
+我们希望通过单个入口暴露包的功能。
+
+换句话说，想要使用我们的包的人，应该只从 “主文件” `auth/index.js` 导入。
+
+像这样：
+
+```javascript
+import {login, logout} from 'auth/index.js'
+```
+
+“主文件”，`auth/index.js` 导出了我们希望在包中提供的所有功能。
+
+这样做是因为，其他使用我们包的开发者不应该干预其内部结构，不应该搜索我们包的文件夹中的文件。我们只在 `auth/index.js` 中导出必要的部分，并保持其他内容 “不可见”。
+
+由于实际导出的功能分散在 package 中，所以我们可以将它们导入到 `auth/index.js`，然后再从中导出它们：
+
+```javascript
+// 📁 auth/index.js
+
+// 导入 login/logout 然后立即导出它们
+import {login, logout} from './helpers.js';
+export {login, logout};
+
+// 将默认导出导入为 User，然后导出它
+import User from './user.js';
+export {User};
+...
+```
+
+现在使用我们 package 的人可以 `import {login} from "auth/index.js"`。
+
+语法 `export ... from ...` 只是下面这种导入-导出的简写：
+
+```javascript
+// 📁 auth/index.js
+// 重新导出 login/logout
+export {login, logout} from './helpers.js';
+
+// 将默认导出重新导出为 User
+export {default as User} from './user.js';
+...
+```
+
+`export ... from` 与 `import/export` 相比的显着区别是重新导出的模块在当前文件中不可用。所以在上面的 `auth/index.js` 示例中，我们不能使用重新导出的 `login/logout` 函数。
+
+
+
+**重新导出默认导出**
+
+重新导出时，默认导出需要单独处理。
+
+假设我们有一个 `user.js` 脚本，其中写了 `export default class User`，并且我们想重新导出类 `User`：
+
+```javascript
+// 📁 user.js
+export default class User {
+  // ...
+}
+```
+
+我们可能会遇到两个问题：
+
+1. `export User from './user.js'` 无效。这会导致一个语法错误。
+
+   要重新导出默认导出，我们必须明确写出 `export {default as User}`，就像上面的例子中那样。
+
+2. `export * from './user.js'` 重新导出只导出了命名的导出，但是忽略了默认的导出。
+
+   如果我们想将命名的导出和默认的导出都重新导出，那么需要两条语句：
+
+   ```javascript
+   export * from './user.js'; // 重新导出命名的导出
+   export {default} from './user.js'; // 重新导出默认的导出
+   ```
+
+重新导出一个默认导出的这种奇怪现象，是某些开发者不喜欢默认导出，而是喜欢命名的导出的原因之一。
 
 
 
 # 7、杂项
 
 ## 7.1、脚本：async，defer
+
+现代的网站中，脚本往往比 HTML 更 “重”：它们的大小通常更大，处理时间也更长。
+
+当浏览器加载 HTML 时遇到 `<script>...</script>` 标签，浏览器就不能继续构建 DOM。它必须立刻执行此脚本。对于外部脚本 `<script src="..."></script>` 也是一样的：浏览器必须等脚本下载完，并执行结束，之后才能继续处理剩余的页面。
+
+这会导致两个重要的问题：
+
+1. 脚本不能访问到位于它们下面的 DOM 元素，因此，脚本无法给它们添加处理程序等。
+
+2. 如果页面顶部有一个笨重的脚本，它会 “阻塞页面”。在该脚本下载并执行结束前，用户都不能看到页面内容：
+
+   ```html
+   <p>...content before script...</p>
+   
+   <script src="https://javascript.info/article/script-async-defer/long.js?speed=1"></script>
+   
+   <!-- This isn't visible until the script loads -->
+   <p>...content after script...</p>
+   ```
+
+这里有一些解决办法。例如，我们可以把脚本放在页面底部。此时，它可以访问到它上面的元素，并且不会阻塞页面显示内容：
+
+```html
+<body>
+  ...all content is above the script...
+
+  <script src="https://javascript.info/article/script-async-defer/long.js?speed=1"></script>
+</body>
+```
+
+但是这种解决方案远非完美。例如，浏览器只有在下载了完整的 HTML 文档之后才会注意到该脚本（并且可以开始下载它）。对于长的 HTML 文档来说，这样可能会造成明显的延迟。
+
+幸运的是，这里有两个 `<script>` 特性（attribute）可以为我们解决这个问题：`defer` 和 `async`。
+
+
+
+### 7.1.1、defer
+
+`defer` 特性告诉浏览器不要等待脚本。相反，浏览器将继续处理 HTML，构建 DOM。脚本会 “在后台” 下载，然后等 DOM 构建完成后，脚本才会执行。
+
+这是与上面那个相同的示例，但是带有 `defer` 特性：
+
+```html
+<p>...content before script...</p>
+
+<script defer src="https://javascript.info/article/script-async-defer/long.js?speed=1"></script>
+
+<!-- 立即可见 -->
+<p>...content after script...</p>
+```
+
+换句话说：
+
+- 具有 `defer` 特性的脚本不会阻塞页面。
+- 具有 `defer` 特性的脚本总是要等到 DOM 解析完毕，但在 `DOMContentLoaded` 事件之前执行。
+
+```html
+<p>...content before scripts...</p>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => alert("DOM ready after defer!"));
+</script>
+
+<script defer src="https://javascript.info/article/script-async-defer/long.js?speed=1"></script>
+
+<p>...content after scripts...</p>
+```
+
+1. 页面内容立即显示。
+2. `DOMContentLoaded` 事件处理程序等待具有 `defer` 特性的脚本执行完成。它仅在脚本下载且执行结束后才会被触发。
+
+
+
+**具有 `defer` 特性的脚本保持其相对顺序，就像常规脚本一样。**
+
+假设，我们有两个具有 `defer` 特性的脚本：`long.js` 在前，`small.js` 在后。
+
+```html
+<script defer src="https://javascript.info/article/script-async-defer/long.js"></script>
+<script defer src="https://javascript.info/article/script-async-defer/small.js"></script>
+```
+
+浏览器扫描页面寻找脚本，然后并行下载它们，以提高性能。因此，在上面的示例中，两个脚本是并行下载的。`small.js` 可能会先下载完成。
+
+但是，`defer` 特性除了告诉浏览器 “不要阻塞页面” 之外，还可以确保脚本执行的相对顺序。因此，即使 `small.js` 先加载完成，它也需要等到 `long.js` 执行结束才会被执行。
+
+当我们需要先加载 JavaScript 库，然后再加载依赖于它的脚本时，这可能会很有用。
+
+> **`defer` 特性仅适用于外部脚本**
+>
+> 如果 `<script>` 脚本没有 `src`，则会忽略 `defer` 特性。
+
+
+
+### 7.1.2、async
+
+`async` 特性与 `defer` 有些类似。它也能够让脚本不阻塞页面。但是，在行为上二者有着重要的区别。
+
+`async` 特性意味着脚本是完全独立的：
+
+- 浏览器不会因 `async` 脚本而阻塞（与 `defer` 类似）。
+- 其他脚本不会等待 `async` 脚本加载完成，同样，`async` 脚本也不会等待其他脚本。
+- `DOMContentLoaded` 和异步脚本不会彼此等待：
+  - `DOMContentLoaded` 可能会发生在异步脚本之前（如果异步脚本在页面完成后才加载完成）
+  - `DOMContentLoaded` 也可能发生在异步脚本之后（如果异步脚本很短，或者是从 HTTP 缓存中加载的）
+
+换句话说，`async` 脚本会在后台加载，并在加载就绪时运行。DOM 和其他脚本不会等待它们，它们也不会等待其它的东西。`async` 脚本就是一个会在加载完成时执行的完全独立的脚本。
+
+下面是一个类似于我们在讲 `defer` 时所看到的例子：`long.js` 和 `small.js` 两个脚本，只是现在 `defer` 变成了 `async`。
+
+它们不会等待对方。先加载完成的（可能是 `small.js`）—— 先执行：
+
+```html
+<p>...content before scripts...</p>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => alert("DOM ready!"));
+</script>
+
+<script async src="https://javascript.info/article/script-async-defer/long.js"></script>
+<script async src="https://javascript.info/article/script-async-defer/small.js"></script>
+
+<p>...content after scripts...</p>
+```
+
+- 页面内容立刻显示出来：加载写有 `async` 的脚本不会阻塞页面渲染。
+- `DOMContentLoaded` 可能在 `async` 之前或之后触发，不能保证谁先谁后。
+- 较小的脚本 `small.js` 排在第二位，但可能会比 `long.js` 这个长脚本先加载完成，所以 `small.js` 会先执行。虽然，可能是 `long.js` 先加载完成，如果它被缓存了的话，那么它就会先执行。换句话说，异步脚本以 “加载优先” 的顺序执行。
+
+当我们将独立的第三方脚本集成到页面时，此时采用异步加载方式是非常棒的：计数器，广告等，因为它们不依赖于我们的脚本，我们的脚本也不应该等待它们：
+
+```html
+<!-- Google Analytics 脚本通常是这样嵌入页面的 -->
+<script async src="https://google-analytics.com/analytics.js"></script>
+```
+
+> **`async` 特性仅适用于外部脚本**
+>
+> 就像 `defer` 一样，如果 `<script>` 标签没有 `src` 特性（attribute），那么 `async` 特性会被忽
 
 
 

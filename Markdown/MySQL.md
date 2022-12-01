@@ -8,7 +8,7 @@ SQL是用于访问和处理数据库的标准计算机语言。
 - SQL 可以让我们访问和处理数据库
 - SQL 是一种 ANSI（American National Standards Institute）标准的计算机语言
 
-<br>
+
 
 **SQL能做什么？**
 
@@ -23,7 +23,7 @@ SQL是用于访问和处理数据库的标准计算机语言。
 - SQL 可在数据库中创建视图
 - SQL 可以设置表、存储过程和视图的权限
 
-<br>
+
 
 **SQL分类**
 
@@ -49,7 +49,7 @@ SQL是用于访问和处理数据库的标准计算机语言。
 - 数据查询语言（Data Query Language）
 - SELECT
 
-<br>
+
 
 # 2、数据库
 
@@ -2454,7 +2454,7 @@ CTE 类似于用 `CREATE [TEMPORARY] TABLE` 创建的表，但不需要明确定
 
 MySQL 支持窗口函数，对于查询中的每一行，使用与该行相关的行执行计算。下面几节讨论如何使用窗口函数，包括对 `OVER` 和 `WINDOW` 子句的介绍。
 
-<br>
+
 
 ### 7.10.1、窗口函数的概念和语法
 
@@ -2486,7 +2486,7 @@ mysql> SELECT * FROM sales ORDER BY country, year, product;
 - 对其进行函数求值的行称为当前行。
 - 与发生函数计算的当前行相关的查询行组成当前行的窗口。
 
-<br>
+
 
 例如，使用销售信息表，这两个查询执行聚合操作，为作为一个组的所有行生成一个全局总和，并对每个国家进行分组：
 
@@ -2544,7 +2544,7 @@ mysql> SELECT
 - 第一个 `OVER` 子句是空的，它将整个查询行集作为一个单一的分区。因此，窗口函数产生一个全局性的和，但对每一行都是如此。
 - 第二个 `OVER` 子句按国家划分行，产生每个分区（每个国家）的总和。该函数对每个分区的行产生这个总和。
 
-<br>
+
 
 窗口函数只允许在选择列表和 `ORDER BY` 子句中使用。查询结果行由 `FORM` 子句确定，在 `WHERE`、`GROUP BY` 和 `HAVING` 处理之后，窗口执行发生在 `ORDER BY`、`LIMIT` 和 `SELECT DISTINCT` 之前。
 
@@ -2610,7 +2610,7 @@ mysql> SELECT
 +------+---------+------------+--------+----------+----------+
 ```
 
-<br>
+
 
 如前所述，要使用窗口函数（或将聚合函数视为窗口函数），请在函数调用后包含一个 `OVER` 子句。`OVER` 子句有两种形式：
 
@@ -2661,7 +2661,7 @@ window_spec:
 
 - *frame_clause*：框架是当前分区的一个子集，*frame_clause* 指定了如何定义这个子集。*frame_clause* 有很多自己的子句。详见下一节。
 
-<br>
+
 
 ### 7.10.2、窗口功能框架规范
 
@@ -2701,7 +2701,7 @@ mysql> SELECT
 
 对于 `running_average` 列，在第一行之前和最后一行之后都没有框架行。在这些情况下，`AVG()` 计算的是现有行的平均值。
 
-<br>
+
 
 作为窗口函数的聚合函数对当前行框架中的行进行操作，这些非聚合窗口函数也是如此。
 
@@ -2724,7 +2724,7 @@ RANK()
 ROW_NUMBER()
 ```
 
-<br>
+
 
 如果给出框架子句，其语法是这样的：
 
@@ -2817,7 +2817,7 @@ mysql> SELECT
 
 每个函数都使用当前框架中的行，根据所示的窗口定义，从第一个分区行延伸到当前框架。对于 `NTH_VALUE()` 的调用，当前框架并不总是包括所请求的行；在这种情况下，返回值是 `NULL`。
 
-<br>
+
 
 在没有框架子句的情况下，默认框架取决于是否存在 `ORDER BY` 子句：
 
@@ -2835,7 +2835,7 @@ mysql> SELECT
 
 因为默认的框架因 `ORDER BY` 的存在与否而不同，在查询中加入 `ORDER BY` 以获得确定的结果可能会改变结果。（例如，由 `SUM()` 产生的值可能会改变）。为了获得相同的结果，但按 `ORDER BY` 排序，请提供一个明确的框架规范，无论 `ORDER BY` 是否存在都要使用。
 
-<br>
+
 
 当当前行值为 `NULL` 时，框架规范的含义可能是不明显的。假设是这种情况，这些例子说明了各种框架规范的应用：
 
@@ -2881,7 +2881,7 @@ mysql> SELECT
 
 	这个框架从分区的开始开始，到数值为 `NULL` 的行为止。因为 `ASC` 排序将 `NULL` 值放在首位，所以框架中只有 `NULL` 值。
 
-<br>
+
 
 ### 7.10.3、窗口的命名
 
@@ -2899,7 +2899,7 @@ window_spec:
     [window_name] [partition_clause] [order_clause] [frame_clause]
 ```
 
-<br>
+
 
 `WINDOW` 子句在查询中非常有用，否则多个 `OVER` 子句会定义同一个窗口。相反，你可以只定义一次窗口，给它一个名字，然后在 `OVER` 子句中引用这个名字。考虑一下这个查询，它多次定义了同一个窗口：
 
@@ -2924,7 +2924,7 @@ FROM numbers
 WINDOW w AS (ORDER BY val);
 ```
 
-<br>
+
 
 命名窗口还可以更容易地试验窗口定义，以查看对查询结果的影响。只需要修改 `window` 子句中的窗口定义，而不需要修改多个 `OVER` 子句定义。
 
@@ -2955,7 +2955,7 @@ WINDOW w AS (PARTITION BY country);
 	... WINDOW w AS (PARTITION BY country)
 	```
 
-<br>
+
 
 一个命名的窗口的定义本身可以以 *window_name* 开始。在这种情况下，允许向前和向后引用，但不允许循环：
 
@@ -2971,7 +2971,7 @@ WINDOW w AS (PARTITION BY country);
 	WINDOW w1 AS (w2), w2 AS (w3), w3 AS (w1)
 	```
 
-<br>
+
 
 ### 7.10.4、窗口函数介绍
 
@@ -2993,7 +2993,7 @@ WINDOW w AS (PARTITION BY country);
 
 在下面的函数描述中，*over_clause* 代表 `OVER` 子句，在下一节会介绍到。一些窗口函数允许使用 *null_treatment* 子句来指定在计算结果时如何处理 NULL 值。这个子句是可选的。它是 SQL 标准的一部分，但 MySQL 的实现只允许 `RESPECT NULLS`（这也是默认的）。这意味着在计算结果时会考虑空值。会解析 `IGNORE NULLS`，但会产生错误。
 
-<br>
+
 
 #### CUME_DIST() 
 
@@ -3040,7 +3040,7 @@ mysql> SELECT
 
 相同的计算逻辑应用于其余行。
 
-<br>
+
 
 #### DENSE_RANK() 
 
@@ -3075,7 +3075,7 @@ mysql>SELECT
 +------+---------+
 ```
 
-<br>
+
 
 #### FIRST_VALUE()
 
@@ -3116,7 +3116,7 @@ mysql> SELECT
 
 每个函数都使用当前框架中的行，根据所示的窗口定义，从第一个分区行延伸到当前行。对于 `NTH_VALUE()` 的调用，当前框架并不总是包括所请求的行；在这种情况下，返回值是 `NULL`。
 
-<br>
+
 
 #### LAG()
 
@@ -3163,7 +3163,7 @@ mysql> SELECT
 
 第一行显示了当没有 `LAG()` 的前一行时会发生什么:函数返回默认值（在本例中为 `NULL`）。当 `LEAD()` 没有下一行时，最后一行显示了相同的内容。
 
-<br>
+
 
 `LAG()` 和 `LEAD()` 也是为了计算总和而不是差异。考虑这个数据集，它包含斐波那契数列的前几个数字：
 
@@ -3208,7 +3208,7 @@ mysql> SELECT
 
 从 MySQL 8.0.22 开始，你不能为这个函数的行参数使用一个负值。
 
-<br>
+
 
 #### LAST VALUE()
 
@@ -3220,7 +3220,7 @@ LAST_VALUE(expr) [null_treatment] over_clause
 
 例子见 `FIRST_VALUE()` 函数描述。
 
-<br>
+
 
 #### LEAD()
 
@@ -3243,7 +3243,7 @@ LEAD(expr [, N[, default]]) [null_treatment] over_clause
 
 从 MySQL 8.0.22 开始，你不能为这个函数的行参数使用一个负值。
 
-<br>
+
 
 #### NTH_VALUE()
 
@@ -3261,7 +3261,7 @@ NTH_VALUE(expr, N) [from_first_last] [null_treatment] over_clause
 
 在 MySQL 8.0.22 及以后的版本中，你不能为这个函数的行参数使用 `NULL`。
 
-<br>
+
 
 #### NTILE()
 
@@ -3309,7 +3309,7 @@ mysql> SELECT
 
 从 MySQL 8.0.22 开始，`NTILE(NULL)` 结构不再被允许。
 
-<br>
+
 
 #### PERCENT_RANK()
 
@@ -3327,7 +3327,7 @@ PERCENT_RANK() over_clause
 
 有关示例，请参见 `CUME_DIST()` 函数说明。
 
-<br>
+
 
 #### RANK()
 
@@ -3364,7 +3364,7 @@ mysql> SELECT
 +------+------------+------+------------+
 ```
 
-<br>
+
 
 #### ROW_NUMBER()
 
@@ -3378,7 +3378,7 @@ ROW_NUMBER() over_clause
 
 `ROW_NUMBER()` 给同行分配不同的行号。要给同行分配相同的值，请使用 `RANK()` 或 `DENSE_RANK()` 。有关例子，请参见 `RANK()` 函数描述。
 
-<br>
+
 
 # 8、视图
 
