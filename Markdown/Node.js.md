@@ -30,7 +30,7 @@ npm 是随同 Node.js 一起安装的包管理工具，能解决 Node.js 代码�
 
 4. 安装完成后的目录如下所示：
 
-   <img src="../Images/Node.js/image-20221118104255998.png" alt="image-20221118104255998" style="zoom: 67%;" />
+   <img src="../Images/Node.js/image-20221118104255998.png" alt="image-20221118104255998" style="zoom: 50%;" />
 
 
 
@@ -42,7 +42,7 @@ npm 是随同 Node.js 一起安装的包管理工具，能解决 Node.js 代码�
 
 1. 在我安装的文件夹【D:\Develop\nodejsC:\Program Files\nodejs】下创建两个文件夹【node_global】及【node_cache】：
 
-   <img src="../Images/Node.js/image-20221118104639599.png" alt="image-20221118104639599" style="zoom:67%;" />
+   <img src="../Images/Node.js/image-20221118104639599.png" alt="image-20221118104639599" style="zoom: 50%;" />
 
 2. 创建完两个空文件夹之后，打开命令行窗口，输入：
 
