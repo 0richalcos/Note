@@ -8,7 +8,7 @@ Linux 是一套免费使用和自由传播的类 Unix 操作系统，是一个�
 
 Linux 能运行主要的 UNIX 工具软件、应用程序和网络协议。它支持 32 位和 64 位硬件。Linux 继承了 Unix 以网络为核心的设计思想，是一个性能稳定的多用户网络操作系统。
 
-<br>
+
 
 **Linux 的发行版**
 
@@ -22,13 +22,13 @@ Linux 的发行版说简单点就是将 Linux 内核与应用软件做一个打�
 
 这里用的 Linux 版本是 Ubuntu 20.04 64位。
 
-<br>
+
 
 # 2、系统目录结构
 
 ![preview](../Images/Linux/7ebc125005bebe6a6c0a2daa6c4d7f6e_r.jpg)
 
-<br>
+
 
 # 3、远程操作
 
@@ -44,7 +44,7 @@ ssh 用户名@IP地址
 
 除了连接之外，Linux 中还有一些关机/重启的命令： `shutdown`、`reboot`、`init`、`halt` 和 `poweroff`。
 
-<br>
+
 
 **shutdown**
 
@@ -72,31 +72,31 @@ shutdown -r now
 shutdown -r +30 '系统将在30分钟内重新启动'
 ```
 
-<br>
+
 
 **reboot**
 
 `reboot` 表示立即重启，效果等同于 `shutdown -r now`。
 
-<br>
+
 
 **halt**
 
 `halt` 命令是最简单的关机命令，其实就是调用 `shutdown -h`。`halt` 执行时，不理会目前系统状况下，进行硬件关机；杀死应用进程﹐执行 `sync` 系统调用，文件系统写操作完成后就会停止内核。
 
-<br>
+
 
 **poweroff**
 
 `poweroff` 表示立即关机，效果等同于 `shutdown -h now`，在多用户模式下（Run Level 3）不建议使用。
 
-<br>
+
 
 # 4、文件管理
 
 Linux 系统是一种典型的多用户系统，不同的用户处于不同的地位，拥有不同的权限。为了保护系统的安全性，Linux 系统对不同的用户访问同一文件（包括目录文件）的权限做了不同的规定。
 
-<br>
+
 
 ## 4.1、文件基本属性
 
@@ -134,7 +134,7 @@ drwxr-xr-x   3 root root      4096 Nov 12 09:27 boot
 
 其中，第 1、4、7 位表示读权限，如果用 `r` 字符表示，则有读权限，如果用 `-` 字符表示，则没有读权限；第 2、5、8 位表示写权限，如果用 `w` 字符表示，则有写权限，如果用 `-` 字符表示没有写权限；第 3、6、9 位表示可执行权限，如果用 `x` 字符表示，则有执行权限，如果用 `-` 字符表示，则没有执行权限。
 
-<br>
+
 
 **Linux 文件属主和属组**
 
@@ -155,7 +155,7 @@ drwxr-xr-x 3 mysql mysql 4096 Apr 21  2014 mysql
 
 对于 root 用户来说，一般情况下，文件的权限对其不起作用。
 
-<br>
+
 
 ## 4.2、更改文件属性
 
@@ -165,7 +165,7 @@ drwxr-xr-x 3 mysql mysql 4096 Apr 21  2014 mysql
 - chown（change owner）：修改所属用户与组
 - chmod（change mode）：修改用户的权限
 
-<br>
+
 
 **chgrp：更改文件属组**
 
@@ -179,7 +179,7 @@ chgrp [-R] 属组名 文件名
 
 - `-R`：递归更改文件属组，就是在更改某个目录文件的属组时，如果加上 `-R` 的参数，那么该目录下的所有文件的属组都会更改。
 
-<br>
+
 
 **chown：更改文件属主，也可以同时更改文件属组**
 
@@ -190,7 +190,7 @@ chown [–R] 属主名 文件名
 chown [-R] 属主名:属组名 文件名
 ```
 
-<br>
+
 
 **chmod：更改文件9个属性**
 
@@ -221,7 +221,7 @@ chmod [-R] xyz 文件或目录
 - `xyz` : 就是刚刚提到的数字类型的权限属性，为 rwx 属性数值的相加。
 - `-R` : 进行递归（recursive）的持续变更，亦即连同次目录下的所有文件都会变更。
 
-<br>
+
 
 **符号类型改变文件权限**
 
@@ -246,7 +246,7 @@ chmod [-R] xyz 文件或目录
 -rwxr-xr-- 1 root root 0 Nov 15 10:32 test1
 ```
 
-<br>
+
 
 ## 4.3、目录
 
@@ -272,7 +272,7 @@ Linux的目录结构为树状结构，最顶级的目录为根目录 `/`。其�
 
 可以使用 `man [命令]` 来查看各个命令的使用文档，如 ：`man cp`。
 
-<br>
+
 
 **ls（列出目录）**
 
@@ -298,7 +298,7 @@ ls [--full-time] 目录名称
 ls -al ~
 ```
 
-<br>
+
 
 **cd（切换目录）**
 
@@ -327,7 +327,7 @@ cd ~
 cd ..
 ```
 
-<br>
+
 
 **pwd（显示目前所在的目录）**
 
@@ -364,7 +364,7 @@ lrwxrwxrwx 1 root root 10 Sep  4 17:54 /var/mail -> spool/mail
 # 所以，加上 pwd -P 的选项后，会不以连结档的数据显示，而是显示正确的完整路径啊！
 ```
 
-<br>
+
 
 **rmdir（删除空的目录）**
 
@@ -391,7 +391,7 @@ ls: cannot access 'test/test1/test2': No such file or directory
 root@Orichalcos:~#
 ```
 
-<br>
+
 
 **cp（复制文件或目录）**
 
@@ -416,7 +416,7 @@ root@Orichalcos:~#
 - `-s`：复制成为符号连结档（symbolic link），亦即『捷径』文件
 - `-u`：若 destination 比 source 旧才升级 destination ！
 
-<br>
+
 
 **rm（移除文件或目录）**
 
@@ -432,7 +432,7 @@ root@Orichalcos:~#
 - `-i` ：互动模式，在删除前会询问使用者是否动作
 - `-r` ：递归删除啊！最常用在目录的删除了！这是非常危险的选项！！！
 
-<br>
+
 
 **mv（移动文件与目录，或修改名称）**
 
@@ -449,7 +449,7 @@ root@Orichalcos:~#
 - `-i` ：若目标文件（destination）已经存在时，就会询问是否覆盖
 - `-u` ：若目标文件已经存在，且 source 比较新，才会升级（update）
 
-<br>
+
 
 ## 4.4、文件内容查看
 
@@ -465,7 +465,7 @@ Linux 系统中使用以下命令来查看文件的内容：
 
 可以使用 `man [命令]`来查看各个命令的使用文档，如 ：`man cp`。
 
-<br>
+
 
 **cat**
 
@@ -486,13 +486,13 @@ cat [-AbEnTv] 文件
 - `-T` ：将 [tab] 按键以 ^I 显示出来
 - `-v `：列出一些看不出来的特殊字符
 
-<br>
+
 
 **tac**
 
 `tac` 与 `cat` 命令刚好相反，文件内容从最后一行开始显示，可以看出 `tac` 是 `cat` 的倒着写！
 
- <br>
+
 
 **nl**
 
@@ -515,7 +515,7 @@ nl [-bnw] 文件
 	- `-n rz` ：行号在自己栏位的最右方显示，且加 0 
 - `-w` ：行号栏位的占用的位数
 
-<br>
+
 
 **more**
 
@@ -536,7 +536,7 @@ more 文件
 - q       ：代表立刻离开 more ，不再显示该文件内容
 - b 或 [ctrl]-b ：代表往回翻页，不过这动作只对文件有用，对管线无用
 
-<br>
+
 
 **less**
 
@@ -553,7 +553,7 @@ more 文件
 - N     ：反向的重复前一个搜寻（与 / 或 ? 有关！）
 - q     ：离开 less 这个程序
 
-<br>
+
 
 **head**
 
@@ -569,7 +569,7 @@ head [-n number] 文件
 
 - `-n` ：后面接数字，代表显示几行的意思
 
-<br>
+
 
 **tail**
 
@@ -592,7 +592,7 @@ tail [参数] [文件]
 - `-c <数目>` - 显示的字节数
 - `--pid=<PID>` - 与 `-f`  合用，表示在进程 ID、PID 死掉之后结束
 
-<br>
+
 
 ## 4.5、压缩/解压
 
@@ -667,10 +667,64 @@ rar 格式的压缩，需要先下载 rar for Linux：
 rar a jpg.rar *.jpg
 ```
 
-zip 格式的压缩，需要先下载 zip for linux：
+
+
+### 4.5.2、zip
+
+Zip 是一种创建压缩存档文件的最普通、最流行的方法。它也是一种古老的文件归档文件格式，这种格式创建于 1989 年。由于它的广泛使用，你会经常遇见 zip 文件。
+
+先决条件：检查你是否安装了 `unzip`。
+
+为了解压 zip 归档文件，你必须在你的系统上安装了 `unzip` 软件包。大多数现代的的 Linux 发行版本提供了解压 zip 文件的支持，但是对这些 zip 文件进行校验以避免以后出现损坏总是没有坏处的
+
+在基于 Unbutu 和 Debian 的发行版上，可以使用下面的命令来安装 `unzip`。如果你已经安装了，会被告知已经被安装。
 
 ```shell
-zip jpg.zip *.jpg
+sudo apt install unzip
+```
+
+
+
+**解压到文件夹下**
+
+在 Linux 下使用 `unzip` 命令是非常简单的。在你放 zip 文件的目录，用下面的命令:
+
+```shell
+unzip zipped_file.zip
+```
+
+你可以给 zip 文件提供解压路径而不是解压到当前所在路径。你会在终端输出中看到提取的文件：
+
+```
+unzip metallic-container.zip -d my_zip
+Archive:  metallic-container.zip
+  inflating: my_zip/625993-PNZP34-678.jpg
+  inflating: my_zip/License free.txt
+  inflating: my_zip/License premium.txt
+```
+
+这种方式下，所有的提取文件都会被存储到你所指定的文件夹下。如果文件夹不存在，会创建该文件夹。
+
+
+
+**查看压缩文件中的内容而不解压压缩文件**
+
+```shell
+unzip -l zipped_file.zip
+```
+
+下面是该命令的输出：
+
+```
+unzip -l metallic-container.zip
+Archive:  metallic-container.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+  6576010  2019-03-07 10:30   625993-PNZP34-678.jpg
+     1462  2019-03-07 13:39   License free.txt
+     1116  2019-03-07 13:39   License premium.txt
+---------                     -------
+  6578588                     3 files
 ```
 
 
@@ -679,7 +733,7 @@ zip jpg.zip *.jpg
 
 所有的硬件设备必须挂载之后才能使用，只不过有些硬件设备（比如硬盘分区）在每次系统启动时会自动挂载，而有些（比如 U 盘、光盘）则需要手动进行挂载。`mount` 命令是 Linux 挂载命令。
 
-<br>
+
 
 **什么是 “挂载” 以及为什么 Linux 需要挂载。**
 
@@ -691,7 +745,7 @@ Linux系统中 “一切皆文件”，所有文件都放置在以根目录为�
 
 > 并不是根目录下任何一个目录都可以作为挂载点，由于挂载操作会使得原有目录中文件被隐藏，因此根目录以及系统原有目录都不要作为挂载点，会造成系统异常甚至崩溃，挂载点最好是新建的空目录。
 
-<br>
+
 
 **“挂载点” 的目录要求**
 
@@ -699,7 +753,7 @@ Linux系统中 “一切皆文件”，所有文件都放置在以根目录为�
 - 挂载点目录不可被其他进程使用到
 - 挂载点下原有文件将被隐藏
 
-<br>
+
 
 **`mount` 挂载文件系统**
 
@@ -740,7 +794,7 @@ mkdir /mnt/upan
 mount /dev/sda1 /mnt/upan
 ```
 
-<br>
+
 
 **umount 卸载文件系统**
 
@@ -782,7 +836,7 @@ umount: /mnt/cdrom: device is busy.
 
 卸载硬件设备成功与否，除了执行 `umount` 命令不报错之外，还可以使用 `df` 命令或 `mount -l` 来查看目标设备是否还挂载在系统中。
 
-<br>
+
 
 ## 4.7、创建文件
 
@@ -790,7 +844,7 @@ umount: /mnt/cdrom: device is busy.
 
 要创建一个新文件，您需要对父目录具有写权限。否则，您将收到一个权限被拒绝的错误。
 
-<br>
+
 
 **使用 `touch` 命令创建文件**
 
@@ -808,7 +862,7 @@ touch file1.txt
 touch file1.txt file2.txt file3.txt
 ```
 
-<br>
+
 
 **使用重定向运算符创建文件**
 
@@ -822,7 +876,7 @@ touch file1.txt file2.txt file3.txt
 
 这是在 Linux 中创建新文件的最短命令。使用重定向创建文件时，请注意不要覆盖现有的重要文件。
 
-<br>
+
 
 **使用 `echo` 命令创建文件**
 
@@ -832,7 +886,7 @@ touch file1.txt file2.txt file3.txt
 echo "Some line" > file1.txt
 ```
 
-<br>
+
 
 # 5、用户和用户组管理
 
@@ -846,13 +900,13 @@ Linux 系统是一个多用户多任务的分时操作系统，任何一个要�
 - 用户口令的管理
 - 用户组的管理
 
-<br>
+
 
 ## 5.1、系统用户账号的管理
 
 用户账号的管理工作主要涉及到用户账号的添加、修改和删除。
 
-<br>
+
 
 ### 5.1.1、添加帐号
 
@@ -902,7 +956,7 @@ useradd -s /bin/sh -g group –G adm,root gem
 
 Linux 提供了集成的系统管理工具 userconf，它可以用来对用户账号进行统一管理。
 
-<br>
+
 
 ### 5.1.2、删除帐号
 
@@ -924,7 +978,7 @@ userdel -r sam
 
 此命令删除用户 sam 在系统文件中（主要是 `/etc/passwd`、`/etc/shadow`、`/etc/group` 等）的记录，同时删除用户的主目录。
 
-<br>
+
 
 ### 5.1.3、修改帐号
 
@@ -948,7 +1002,7 @@ usermod -s /bin/ksh -d /home/z –g developer sam
 
 此命令将用户 sam 的登录 Shell 修改为 `/bin/ksh`，主目录改为 `/home/z`，用户组改为 developer。
 
-<br>
+
 
 ### 5.1.4、切换账号
 
@@ -975,7 +1029,7 @@ su - root
 
 提示符 `$` 表示普通用户，`#` 表示超级用户，即 root 用户。
 
-<br>
+
 
 ### 5.1.5、用户口令的管理
 
@@ -1031,7 +1085,7 @@ passwd 命令还可以用 `-l`（lock）选项锁定某一用户，使其不能�
 passwd -l sam
 ```
 
-<br>
+
 
 ## 5.2、系统用户组的管理
 
@@ -1039,7 +1093,7 @@ passwd -l sam
 
 用户组的管理涉及用户组的添加、删除和修改。组的增加、删除和修改实际上就是对 `/etc/group` 文件的更新。
 
-<br>
+
 
 **添加组**
 
@@ -1054,7 +1108,7 @@ groupadd 选项 用户组
 - `-g GID` ：指定新用户组的组标识号（GID），如果未指定，新组的组标识号在当前已有的最大组标识号的基础上加 1
 - `-o` ：一般与 `-g` 选项同时使用，表示新用户组的 GID 可以与系统已有用户组的 GID 相同
 
-<br>
+
 
 **删除组**
 
@@ -1064,7 +1118,7 @@ groupadd 选项 用户组
 groupdel 用户组
 ```
 
-<br>
+
 
 **修改组**
 
@@ -1080,7 +1134,7 @@ groupmod 选项 用户组
 - `-o` ：与 `-g` 选项同时使用，用户组的新 GID 可以与系统已有用户组的 GID 相同
 - `-n 新用户组` ：将用户组的名字改为新名字
 
-<br>
+
 
 **用户切换组**
 
@@ -1094,13 +1148,13 @@ newgrp root
 
 这条命令将当前用户切换到 root 用户组，前提条件是 root 用户组确实是该用户的主组或附加组。类似于用户账号的管理，用户组的管理也可以通过集成的系统管理工具来完成。
 
-<br>
+
 
 ## 5.3、与用户账号有关的系统文件
 
 完成用户管理的工作有许多种方法，但是每一种方法实际上都是对有关的系统文件进行修改。与用户和用户组相关的信息都存放在一些系统文件中，这些文件包括 `/etc/passwd`, `/etc/shadow`, `/etc/group` 等。
 
-<br>
+
 
 ### 5.3.1、/etc/passwd
 
@@ -1129,7 +1183,7 @@ sam:x:200:50:Sam san:/home/sam:/bin/sh
 用户名:口令:用户标识号:组标识号:注释性描述:主目录:登录Shell
 ```
 
-<br>
+
 
 **“用户名” 是代表用户账号的字符串**
 
@@ -1137,13 +1191,13 @@ sam:x:200:50:Sam san:/home/sam:/bin/sh
 
 为了兼容起见，登录名中最好不要包含点字符 `.`，并且不使用连字符 `-` 和加号 `+` 打头。
 
-<br>
+
 
 **“口令” 一些系统中，存放着加密后的用户口令字**
 
 虽然这个字段存放的只是用户口令的加密串，不是明文，但是由于 `/etc/passwd` 文件对所有用户都可读，所以这仍是一个安全隐患。因此，现在许多Linux 系统（如 SVR4）都使用了shadow 技术，把真正的加密后的用户口令字存放到 `/etc/shadow` 文件中，而在 `/etc/passwd` 文件的口令字段中只存放一个特殊的字符，例如 “x” 或者 “*”。
 
-<br>
+
 
 **“用户标识号” 是一个整数，系统内部用它来标识用户**
 
@@ -1151,25 +1205,25 @@ sam:x:200:50:Sam san:/home/sam:/bin/sh
 
 通常用户标识号的取值范围是 0～65 535。0 是超级用户 root 的标识号，1～99 由系统保留，作为管理账号，普通用户的标识号从 100 开始。在 Linux系统中，这个界限是 500。
 
-<br>
+
 
 **“组标识号” 字段记录的是用户所属的用户组**
 
 它对应着 `/etc/group` 文件中的一条记录。
 
-<br>
+
 
 **“注释性描述” 字段记录着用户的一些个人情况**
 
 例如用户的真实姓名、电话、地址等，这个字段并没有什么实际的用途。在不同的 Linux 系统中，这个字段的格式并没有统一。在许多 Linux 系统中，这个字段存放的是一段任意的注释性描述文字，用做 `finger` 命令的输出。
 
-<br>
+
 
 **“主目录” 也就是用户的起始工作目录**
 
 它是用户在登录到系统之后所处的目录。在大多数系统中，各用户的主目录都被组织在同一个特定的目录下，而用户主目录的名称就是该用户的登录名。各用户对自己的主目录有读、写、执行（搜索）权限，其他用户对此目录的访问权限则根据具体情况设置。
 
-<br>
+
 
 **用户登录后，要启动一个进程，负责将用户的操作传给内核，这个进程是用户登录到系统后运行的命令解释器或某个特定的程序，即 Shell**
 
@@ -1179,7 +1233,7 @@ Shell 是用户与 Linux 系统之间的接口。Linux 的 Shell 有许多种，
 
 用户的登录 Shell 也可以指定为某个特定的程序（此程序不是一个命令解释器）。利用这一特点，我们可以限制用户只能运行指定的应用程序，在该应用程序运行结束后，用户就自动退出了系统。有些 Linux 系统要求只有那些在系统中登记了的程序才能出现在这个字段中。
 
-<br>
+
 
 **系统中有一类用户称为伪用户（pseudo users）**
 
@@ -1199,7 +1253,7 @@ nobody NFS使用
 
 除了上面列出的伪用户外，还有许多标准的伪用户，例如：audit, cron, mail, usenet 等，它们也都各自为相关的进程和文件所需要。
 
-<br>
+
 
 ### 5.3.2、/etc/shadow
 
@@ -1246,7 +1300,7 @@ lp:*::0:0::::
 sam:EkdiSECLWPdSa:9740:0:0::::
 ```
 
-<br>
+
 
 ### 5.3.3、/etc/group
 
@@ -1282,7 +1336,7 @@ lp::7:root,lp
 users::20:root,sam
 ```
 
-<br>
+
 
 ### 5.3.4、添加批量用户
 
@@ -1344,7 +1398,7 @@ users::20:root,sam
 
 	这样就完成了大量用户的创建了，之后可以到 `/home` 下检查这些用户宿主目录的权限设置是否都正确，并登录验证用户密码是否正确。
 
-<br>
+
 
 # 6、磁盘管理
 
@@ -1356,7 +1410,7 @@ Linux 磁盘管理常用三个命令为 `df`、`du` 和 `fdisk`。
 - `du`（英文全称：disk used）：检查磁盘空间使用量。
 - `fdisk`：用于磁盘分区。
 
-<br>
+
 
 ## 6.1、df
 
@@ -1434,7 +1488,7 @@ Filesystem            Size  Used Avail Use% Mounted on
 /dev/hdc2             9.5G  3.7G  5.4G  41% /
 ```
 
-<br>
+
 
 ## 6.2、du
 
@@ -1503,7 +1557,7 @@ du [-ahskm] 文件或目录名称
 
 通配符 * 来代表每个目录。与 `df` 不一样的是，`du` 这个命令其实会直接到文件系统内去搜寻所有的文件数据。
 
-<br>
+
 
 ## 6.3、fdisk
 
@@ -1613,7 +1667,7 @@ Command (m for help): q
 
 想要不储存离开吗？按下 `q` 就对了！不要随便按 `w` 啊！使用 `p` 可以列出目前这颗磁盘的分割表信息，这个信息的上半部在显示整体磁盘的状态。
 
-<br>
+
 
 # 7、Vi/Vim
 
@@ -1621,7 +1675,7 @@ Command (m for help): q
 
 vim 具有程序编辑的能力，可以主动的以字体颜色辨别语法的正确性，方便程序设计。
 
-<br>
+
 
 ## 7.1、什么是 Vim
 
@@ -1635,13 +1689,13 @@ Vim 键盘图：
 
 ![img](../Images/Linux/vi-vim-cheat-sheet-sch.gif)
 
-<br>
+
 
 ## 7.2、Vi/Vim 的使用
 
 基本上 vi/vim 共分为三种模式，分别是**命令模式（Command mode）/一般模式**，**输入模式（Insert mode）/编辑模式**和**底线命令模式（Last line mode）**。 这三种模式的作用分别是：
 
-<br>
+
 
 **命令模式**
 
@@ -1657,7 +1711,7 @@ Vim 键盘图：
 
 命令模式只有一些最基本的命令，因此仍要依靠底线命令模式输入更多命令。
 
-<br>
+
 
 **输入模式**
 
@@ -1675,7 +1729,7 @@ Vim 键盘图：
 - `Insert`：切换光标为输入/替换模式，光标将变成竖线/下划线
 - `ESC`：退出输入模式，切换到命令模式
 
-<br>
+
 
 **底线命令模式**
 
@@ -1692,7 +1746,7 @@ Vim 键盘图：
 
 ![img](../Images/Linux/vim-vi-workmodel.png)
 
-<br>
+
 
 ## 7.3、Vi/Vim 按键说明
 
@@ -1754,8 +1808,6 @@ Vim 键盘图：
 | [Ctrl] + r           | 重做上一个动作（常用）                                       |
 | .                    | 不要怀疑！这就是小数点！意思是重复前一个动作的意思。<br>如果你想要重复删除、重复贴上等等动作，按下小数点『.』就好了（常用） |
 
-<br>
-
 **一般模式切换到编辑模式的可用的按钮说明**
 
 | **进入输入或取代的编辑模式** |                                                              |
@@ -1766,7 +1818,7 @@ Vim 键盘图：
 | r, R                         | 进入取代模式（Replace mode）： r 只会取代光标所在的那一个字符一次；<br>R 会一直取代光标所在的文字，直到按下 ESC 为止（常用） |
 | [Esc]                        | 退出编辑模式，回到一般模式中（常用）                         |
 
-<br>
+
 
 **一般模式切换到指令行模式的可用的按钮说明**
 
@@ -1790,7 +1842,7 @@ Vim 键盘图：
 | `:set nonumber`    | 与 `set number` 相反，为取消行号！                 |
 | `:set mouse=a`     | 鼠标可以控制光标快速定位                           |
 
-<br>
+
 
 ## 7.4、Vim 配置
 
@@ -1828,7 +1880,7 @@ set nonumber
 :help number
 ```
 
-<br>
+
 
 # 8、apt
 
@@ -1836,7 +1888,7 @@ apt（Advanced Packaging Tool）是一个在 Debian 和 Ubuntu 中的 Shell 前�
 
 apt 命令提供了查找、安装、升级、删除某一个、一组甚至全部软件包的命令，apt 命令执行需要超级管理员权限（root）。
 
-<br>
+
 
 **apt 语法**
 
@@ -1848,7 +1900,7 @@ apt 命令提供了查找、安装、升级、删除某一个、一组甚至全�
 - `command`：要进行的操作
 - `package`：安装的包名
 
-<br>
+
 
 **apt 常用命令**
 
@@ -1880,7 +1932,7 @@ apt 命令提供了查找、安装、升级、删除某一个、一组甚至全�
 
 - 列出所有已安装的包的版本信息：`apt list --all-versions`
 
-<br>
+
 
 # 9、服务管理
 
@@ -1906,7 +1958,7 @@ BIOS、MBR、GRUB 和内核程序在启动 init 之前就作为 Linux 的引导�
 - 5：图形界面模式
 - 6：重启
 
-<br>
+
 
 ## 9.1、初始化系统
 
@@ -1916,7 +1968,7 @@ BIOS、MBR、GRUB 和内核程序在启动 init 之前就作为 Linux 的引导�
 - Upstart
 - systemd
 
-<br>
+
 
 **System V（Sys V）**
 
@@ -1926,7 +1978,7 @@ System V（Sys V）是类 Unix 系统第一个也是传统的初始化系统。i
 
 但是 systemd 已经被几个主要的 Linux 发行版所采用，以取代传统的 SysV 初始化系统。
 
-<br>
+
 
 **Upstart**
 
@@ -1936,7 +1988,7 @@ Upstart 是一个基于事件的 `/sbin/init` 守护进程的替代品，它在�
 
 Upstart 被用于 Ubuntu 9.10 到 Ubuntu 14.10 和基于 RHEL 6 的系统，之后它被 systemd 取代。
 
-<br>
+
 
 **systemd**
 
@@ -1948,7 +2000,7 @@ systemd 是所有程序的父进程，Fedora 15 是第一个用 systemd 取代 u
 
 systemd 使用 `.service` 文件而不是 bash 脚本（SysVinit 使用的）。systemd 将所有守护进程添加到 cgroups 中排序，你可以通过浏览 `/cgroup/systemd` 文件查看系统等级。
 
-<br>
+
 
 ## 9.2、service
 
@@ -1970,7 +2022,7 @@ service vsftpd stop
 service network restart
 ```
 
-<br>
+
 
 ## 9.4、systemctl
 
@@ -1996,7 +2048,7 @@ systemd 核心概念 unit（单元）类型：unit 表示不同类型的 systemd
 ststemctl -t service
 ```
 
-<br>
+
 
 ### 9.4.1、systemd 配置文件
 
@@ -2006,7 +2058,7 @@ ststemctl -t service
 
 从上面的功能及优先级次序，我们可以知道，`/etc/systemd/system/` 目录下的相关配置，决定系统了会不会执行某些服务，所以该目录下面一般放着一大堆链接文件。而 `/usr/lib/systemd/system/` 下，则放着实际执行的 systemd 启动脚本配置文件。因此如果你想要修改某个服务启动的设置，应该去 `/usr/lib/systemd/system/` 下面修改。`/etc/systemd/system/` 仅是链接到正确的执行脚本配置文件而已。所以想要看执行脚本设置，应该就得要到 `/usr/lib/systemd/system/` 去查阅。
 
-<br>
+
 
 ### 9.4.2、常用指令
 
@@ -2020,7 +2072,7 @@ ststemctl -t service
 | 停止某服务           | ` service httpd stop`           | `systemctl stop httpd.service`                               |
 | 重启某服务           | `service httpd restart`         | `systemctl restart httpd.service`                            |
 
-<br>
+
 
 **查看服务状态**
 
@@ -2045,7 +2097,7 @@ systemctl status httpd
 
 ![image-20211129133826757](../Images/Linux/image-20211129133826757.png)
 
-<br>
+
 
 **检查服务的所有配置详细信息**
 
@@ -2053,7 +2105,7 @@ systemctl status httpd
 systemctl show httpd
 ```
 
-<br>
+
 
 **查看各服务开机自启情况**
 
@@ -2061,7 +2113,7 @@ systemctl show httpd
 systemctl list-unit-files --type=service
 ```
 
-<br>
+
 
 **获取服务的依赖项列表**
 
@@ -2069,7 +2121,7 @@ systemctl list-unit-files --type=service
 systemctl list-dependencies httpd.service
 ```
 
-<br>
+
 
 **按层次列出控制组**
 
@@ -2077,7 +2129,7 @@ systemctl list-dependencies httpd.service
 systemd-cgls
 ```
 
-<br>
+
 
 **根据CPU，内存，输入和输出列出控制组**
 
@@ -2085,7 +2137,7 @@ systemd-cgls
 systemd-cgtop
 ```
 
-<br>
+
 
 **分析每个进程在引导时花费的时间**
 
@@ -2093,7 +2145,7 @@ systemd-cgtop
 systemd-analyze blame
 ```
 
-<br>
+
 
 **列出所有可用的系统套接字**
 
@@ -2115,7 +2167,7 @@ systemctl enable cups.socket
 systemctl disable cups.socket
 ```
 
-<br>
+
 
 **其他命令**
 
@@ -2242,7 +2294,7 @@ htop 是一个 Linux 下的交互式的进程浏览器，可以用来替换 Linu
 
 Linux `ps` （英文全拼：process status）命令用于显示当前进程的状态，类似于 Windows 的任务管理器。
 
-<br>
+
 
 **语法：**
 
@@ -2291,7 +2343,7 @@ ps [options] [--help]
   - `TIME` - 执行的时间
   - `COMMAN` - 所执行的指令
 
-<br>
+
 
 ## 10.3、bg、fg、jobs
 
@@ -2315,7 +2367,7 @@ jobs [选项]
 - `-r` - 只列出运行中的进程
 - `-s` - 只列出已停止的进程
 
-<br>
+
 
 **示例**
 
@@ -2354,7 +2406,7 @@ cat@Ubuntu:~/unp/unpv13e/tcpcliserv$ fg %1
 kill %1
 ```
 
-<br>
+
 
 ## 10.4、nohup
 
@@ -2374,7 +2426,7 @@ kill %1
 - Arg：一些参数，可以指定输出文件
 - &：让命令在后台执行，终端退出后命令仍旧执行
 
-<br>
+
 
 **示例**
 
@@ -2404,7 +2456,7 @@ ps -aux | grep "runoob.sh"
 nohup /root/myScript.sh > myScript.log 2>&1 &
 ```
 
-<br>
+
 
 ## 10.3、kill
 
@@ -2412,7 +2464,7 @@ Linux `kill` 命令用于删除执行中的程序或工作。
 
 `kill` 可将指定的信息送至程序。预设的信息为 SIGTERM(15)，可将指定程序终止。若仍无法终止该程序，可使用 SIGKILL(9) 信息尝试强制删除程序。程序或工作的编号可利用 `ps` 指令或 `jobs` 指令查看。
 
-<br>
+
 
 **语法：**
 
@@ -2434,7 +2486,7 @@ kill [-s <信息名称或编号>][程序]　或　kill [-l <信息编号>]
 - 9（KILL）：杀死一个进程。
 - 15（TERM）：正常停止一个进程。
 
-<br>
+
 
 **实例：**
 
@@ -2457,7 +2509,7 @@ kill -9 $(ps -ef | grep hnlinux) //方法一 过滤出hnlinux用户进程
 kill -u hnlinux //方法二
 ```
 
-<br>
+
 
 # 12、重定向（>）和管道（|）
 
@@ -2485,7 +2537,7 @@ Linux 启动时，最开始会创建 init 进程，其余的程序都是这个�
 
 对于一条 shell 命令，其从标准输入（键盘）中获得输入，如果执行成功，则将输出打印在标准输出（屏幕）上；如果执行出错，将结果打印在标准错误（屏幕）上。
 
-<br>
+
 
 ## 12.1、重定向
 
@@ -2564,7 +2616,7 @@ command [1-n] > file或者文件描述符或者设备
 
   将标准错误绑定给标准输出，然后将标准输出发送给 /dev/null 设备，常用。
 
-<br>
+
 
 **重定向输出还存在以下需要注意的地方：**
 
@@ -2574,7 +2626,7 @@ command [1-n] > file或者文件描述符或者设备
 
 一条命令在执行前，先会检查输出是否正确，如果输出设备错误，将不会进行命令执行。
 
-<br>
+
 
 ### 12.1.2、输入重定向
 
@@ -2594,7 +2646,7 @@ cat > output.txt < input.txt
 
 与输出重定向类似，输入重定向的 `<<` 也表示追加。
 
-<br>
+
 
 ### 12.1.3、绑定重定向
 
@@ -2614,7 +2666,7 @@ exec 1 > &6
 
 说明：使用前先将标准输入保存到文件描述符 6，这里说明下，文件描述符默认会打开 0,1,2，还可以使用自定义描述符。然后对标准输出绑定到文件，接下来所有输出都会发送到文件。使用完后，恢复标准的输出，关闭打开文件描述符 6。
 
-<br>
+
 
 ## 12.2、管道符（'|'）
 
@@ -2622,7 +2674,7 @@ exec 1 > &6
 
 > 注意：管道命令只处理前一个命令正确输出，不处理错误输出。管道命令右边命令，必须能够接收标准输入流命令才行。
 
-<br>
+
 
 **示例：**
 
@@ -2642,7 +2694,7 @@ cat /etc/passwd | grep /bin/bash | wc -l
 
 这条命令使用了两个管道，利用第一个管道将 `cat` 命令（显示 passwd 文件的内容）的输出送给 `grep` 命令，`grep` 命令找出含有 “/bin/bash” 的所有行；第二个管道将 `grep` 的输出送给 `wc` 命令，`wc` 命令统计出输入中的行数。这个命令的功能在于找出系统中有多少个用户使用 bash。
 
-<br>
+
 
 **管道和重定向的区别**
 
@@ -2650,7 +2702,7 @@ cat /etc/passwd | grep /bin/bash | wc -l
 - 管道两边都是 shell 命令，重定向符号的右边只能是 Linux 文件（普通文件，文件描述符，文件设备）。
 - 重定向符号的优先级大于管道。
 
-<br>
+
 
 # 13、数据传输
 
@@ -2666,7 +2718,7 @@ cat /etc/passwd | grep /bin/bash | wc -l
 
 否则您将看到类似于 `curl` 命令未找到 `curl command not found` 的信息。如果你尚未安装 `curl`，则可以使用发行版的软件包管理器 `apt` 命令或者 `yum` 命令安装 `curl`。
 
-<br>
+
 
 **语法：**
 
@@ -2689,11 +2741,12 @@ curl [option] [url]
 - `-s`/`--silent`：静音模式。不输出任何东西
 - `-T`/`--upload-file <file>`：上传文件
 - `-u`/`--user <user[:password]>`：设置服务器的用户和密码
+- `-v`：详细输出，包含请求和响应的首部
 - `-w`/`--write-out [format]`：什么输出完成后
 - `-x`/`--proxy <host[:port]>`：在给定的端口上使用 HTTP 代理
 - `-#`/`--progress-bar`：进度条显示当前的传送状态
 
-<br>
+
 
 **下载文件**
 
@@ -2703,7 +2756,7 @@ curl [option] [url]
 curl -o linux.html http://www.linux.com
 ```
 
-<br>
+
 
 ## 13.2、scp
 
@@ -2711,7 +2764,7 @@ curl -o linux.html http://www.linux.com
 
 > 类似的工具有 rsync；`scp` 消耗资源少，不会提高多少系统负荷，在这一点上，`rsync` 就远远不及它了。`rsync` 比 `scp` 会快一点，但当小文件多的情况下，rsync 会导致硬盘 I/O 非常高，而 `scp` 基本不影响系统正常使用。
 
-<br>
+
 
 **语法：**
 
@@ -2739,7 +2792,7 @@ scp [参数] [原路径] [目标路径]
 - `-P`：port 指定数据传输用到的端口号
 - `-S`：program 指定加密传输时所使用的程序。此程序必须能够理解 ssh(1)的选项
 
-<br>
+
 
 **从本地服务器复制到远程服务器**
 
@@ -2762,3 +2815,257 @@ scp -r local_folder remote_ip:remote_folder
 > 指定了用户名，命令执行后需要输入用户密码；如果不指定用户名，命令执行后需要输入用户名和密码。
 
 从远程复制到本地的 `scp` 命令与上面的命令一样，只要将从本地复制到远程的命令后面 2 个参数互换顺序就行了。
+
+
+
+# 14、环境变量
+
+Linux 的一个重要概念是环境变量，环境变量需要进行定义。有些是由系统设置的，有些是由用户自定义的，还有一些是由 shell 或加载执行程序时，由程序设置的。环境变量是一个赋值给它的字符串。分配的值可以是数字、文本、文件名、设备或任何其他类型的数据。
+
+
+
+**环境变量的作用**
+
+环境变量相当于给系统或用户应用程序设置的一些参数，具体起什么作用这当然和具体的环境变量相关。
+
+比如 `PATH`，是告诉系统，当要求系统运行一个程序而没有告诉它程序所在的完整路径时，系统除了在当前目录下面寻找此程序外，还应到哪些目录下去寻找；再如 tc 或 vc++ 中，`set include=path1;path2;` 是告诉编译程序到哪里去找 .h 类型的文件。
+
+当然不仅仅是指定什么路径，还有其它的作用的，如 `set dircmd=/4` 设置一个环境变量的作用是在使用 `dir` 命令时会把 `/4` 作为缺省的参数添加到你的 `dir` 命令之后，就像你的每个命令都加了 `/4` 参数，它实际上是给命令解释程序 `command` 设置的一个环境变量，并且是给 `dir` 这个内部命令。
+
+
+
+## 14.1、环境变量介绍
+
+Linux 中环境变量包括系统级和用户级，系统级的环境变量是每个登录到系统的用户都要读取的系统变量，而用户级的环境变量则是该用户使用系统时加载的环境变量。所以管理环境变量的文件也分为系统级和用户级的。
+
+
+
+**系统级**
+
+- **/etc/environment**：系统在登录时读取的第一个文件，用于为所有进程设置环境变量。系统使用此文件时并不是执行此文件中的命令，而是根据 `KEY=VALUE` 模式的代码，对 `KEY` 赋值以 `VALUE`，因此文件中如果要定义 `PATH` 环境变量，只需加入类似如 `PATH=$PATH:/xxx/bin` 的代码即可。
+- **/etc/profile**：是系统登录时执行的第二个文件，可以用于设定针对全系统所有用户的环境变量。该文件一般是调用 `/etc/bashrc` 文件。
+- **/etc/bashrc**：系统级的 `bashrc` 文件，为每一个运行 bash shell 的用户执行此文件。此文件会在用户每次打开 shell 时执行一次。
+
+> 注意：`/etc/environment` 是设置整个系统的环境，而 `/etc/profile` 是设置所有用户的环境，前者与登录用户无关，后者与登录用户有关。 这两个文件修改后一般都要重启系统才能生效。
+
+
+
+**用户级**
+
+- **~/.profile**：是对应当前登录用户的 `profile` 文件，用于定制当前用户的个人工作环境。每个用户都可使用该文件输入专用于自己使用的 shell 信息，当用户登录时，该文件仅仅执行一次。默认情况下，会设置一些环境变量，执行用户的 `.bashrc` 文件。
+- **~/.bashrc**：是对应当前登录用户的 bash 初始化文件，当用户每次打开 shell 时，系统都会执行此文件一次。通常设置环境变量修改这个文件。
+
+
+
+上述配置文件执行先后顺序如下：
+
+```
+/etc/enviroment `–> `/etc/profile` –> `~/.profile` –> `/etc/bashrc `–> `~/.bashrc
+```
+
+
+
+## 14.2、配置环境变量的方法
+
+**读取环境变量**
+
+读取环境变量的方法：
+
+- `export` 命令显示当前系统定义的所有环境变量
+- `echo $PATH` 命令输出当前的 `PATH` 环境变量的值
+
+```
+uusama@ubuntu:~$ export
+declare -x HOME="/home/uusama"
+declare -x LANG="en_US.UTF-8"
+declare -x LANGUAGE="en_US:"
+declare -x LESSCLOSE="/usr/bin/lesspipe %s %s"
+declare -x LESSOPEN="| /usr/bin/lesspipe %s"
+declare -x LOGNAME="uusama"
+declare -x MAIL="/var/mail/uusama"
+declare -x PATH="/home/uusama/bin:/home/uusama/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+declare -x SSH_TTY="/dev/pts/0"
+declare -x TERM="xterm"
+declare -x USER="uusama"
+
+uusama@ubuntu:~$ echo $PATH
+/home/uusama/bin:/home/uusama/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+```
+
+
+
+**`export PATH`**
+
+使用 `export` 命令直接修改 `PATH` 的值，配置 MySQL 进入环境变量的方法：
+
+```shell
+export PATH=/home/uusama/mysql/bin:$PATH
+
+# 或者把PATH放在前面
+export PATH=$PATH:/home/uusama/mysql/bin
+```
+
+注意事项：
+
+- 生效时间：立即生效
+- 生效期限：当前终端有效，窗口关闭后无效
+- 生效范围：仅对当前用户有效
+- 配置的环境变量中不要忘了加上原来的配置，即 `$PATH` 部分，避免覆盖原来配置
+
+
+
+**`vim ~/.bashrc`**
+
+通过修改用户目录下的 `~/.bashrc` 文件进行配置：
+
+```shell
+vim ~/.bashrc
+
+# 在最后一行加上
+export PATH=$PATH:/home/uusama/mysql/bin
+```
+
+注意事项：
+
+- 生效时间：使用相同的用户打开新的终端时生效，或者手动 `source ~/.bashrc` 生效
+- 生效期限：永久有效
+- 生效范围：仅对当前用户有效
+- 如果有后续的环境变量加载文件覆盖了 `PATH` 定义，则可能不生效
+
+
+
+**`vim ~/.profile`**
+
+和修改 `~/.bashrc` 文件类似，也是要在文件最后加上新的路径即可：
+
+```shell
+vim ~/.profile
+
+# 在最后一行加上
+export PATH=$PATH:/home/uusama/mysql/bin
+```
+
+注意事项：
+
+- 生效时间：使用相同的用户打开新的终端时生效，或者手动 `source ~/.profile` 生效
+- 生效期限：永久有效
+- 生效范围：仅对当前用户有效
+- 如果没有 `~/.profile` 文件，则可以编辑 `~/.profile` 文件或者新建一个
+
+
+
+**`vim /etc/bashrc`**
+
+该方法是修改系统配置，需要管理员权限（如 root）或者对该文件的写入权限：
+
+```shell
+# 如果/etc/bashrc文件不可编辑，需要修改为可编辑
+chmod -v u+w /etc/bashrc
+
+vim /etc/bashrc
+
+# 在最后一行加上
+export PATH=$PATH:/home/uusama/mysql/bin
+```
+
+注意事项：
+
+- 生效时间：新开终端生效，或者手动 `source /etc/bashrc` 生效
+- 生效期限：永久有效
+- 生效范围：对所有用户有效
+
+
+
+**`vim /etc/profile`**
+
+该方法修改系统配置，需要管理员权限或者对该文件的写入权限，和 `vim /etc/bashrc` 类似：
+
+```shell
+# 如果/etc/profile文件不可编辑，需要修改为可编辑
+chmod -v u+w /etc/profile
+
+vim /etc/profile
+
+# 在最后一行加上
+export PATH=$PATH:/home/uusama/mysql/bin
+```
+
+注意事项：
+
+- 生效时间：新开终端生效，或者手动 `source /etc/profile` 生效
+- 生效期限：永久有效
+- 生效范围：对所有用户有效
+
+
+
+**`vim /etc/environment`**
+
+该方法是修改系统环境配置文件，需要管理员权限或者对该文件的写入权限：
+
+```shell
+# 如果/etc/bashrc文件不可编辑，需要修改为可编辑
+chmod -v u+w /etc/environment
+
+vim /etc/profile
+
+# 在最后一行加上
+export PATH=$PATH:/home/uusama/mysql/bin
+```
+
+注意事项：
+
+- 生效时间：新开终端生效，或者手动 `source /etc/environment` 生效
+- 生效期限：永久有效
+- 生效范围：对所有用户有效
+
+
+
+## 14.3、常用环境变量
+
+Linux 系统有一些重要常用的环境变量，具体如下：
+
+- **$HOME**：用户家目录。
+- **$SHELL**：用户在使用的 Shell 解释器名称。
+- **$HISTSIZE**：输出的历史命令记录条数。
+- **$HISTFILESIZE**：保存的历史命令记录条数。
+- **$MAIL**：邮件保存路径。
+- **$LANG**：系统语言、语系名称。
+- **$RANDOM**：生成一个随机数字。
+- **$PS1** ：Bash 解释器的提示符。
+- **$PATH**：定义解释器搜索用户执行命令的路径。
+- **$EDITOR**：用户默认的文本编辑器。
+- **$TERM**：表示显示类型。
+- **$RANDOM**：每次引用时生成一个 0 到 32767 之间的随机整数。
+- **$PWD**：指示由 cd 命令设置的当前工作目录。
+- **$TZ**：指时区。它可以使用 GMT、AST 等值。
+- **$UID**：显示当前用户的数字用户 ID，在 shell 启动时初始化。
+
+可以使用 `echo` 查看变量信息：
+
+```
+$ echo $HOME
+/root
+$ echo $TERM
+xterm
+$ echo $PATH
+/usr/local/bin:/bin:/usr/bin:/home/amrood/bin:/usr/local/bin
+```
+
+
+
+### 14.3.1、PATH 环境变量
+
+Linux 命令其实是一个个的命令行程序，这些程序是分布在不同的众多目录中的。当命令行中输入一个命令的时，Linux 需要到指定目录去查找命令对应的程序，而在 `PATH` 环境变量就记录这些目录。所以 `PATH` 环境变量的作用就是记录命令的查找路径，多个路径之间用英文冒号（`:`）分割的（和 Windows 系统的 `PATH` 变量不同，Windows 的 `PATH `变量的路径是用英文分号 （`;`）分割的），有需要时也可以加入自己的路径。具体配置方法如下：
+
+```shell
+#比如添加搜索路径 /home/cjavapy/python 和 /home/cjavapy/java 路径到PATH中,采用 : 来分隔,冒号左右不需要空格
+export PATH=$PATH:/home/cjavapy/python:/home/cjavapy/java
+
+#若需要将路径放在优先搜索位置，将 $PATH 放在后面
+export PATH=/home/cjavapy/python:/home/cjavapy/java:$PATH
+```
+
+> 配置 `PATH` 环境变量可以永久生效，也可以临时生效，具体可以参考上面介绍的配置环境变量的方法。
+
+
+

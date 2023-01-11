@@ -301,6 +301,46 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 
 
+## 【16】控制台设置代理
+
+**临时设置**
+
+1. 首先打开控制台（CMD 之类的都可以）
+
+2. 输入以下命令：
+
+   ```shell
+   set http_proxy=http://127.0.0.1:端口号
+   set https_proxy=http://127.0.0.1:端口号
+   ```
+
+   如果你的代理服务器要求用户名和密码的话，那么还需要：
+
+   ```shell
+   set http_proxy_user=
+   set http_proxy_pass=
+   ```
+
+3. 验证是否生效：
+
+   ```shell
+   curl -vk https://www.google.com
+   ```
+
+
+
+**永久生效**
+
+如果需要永久生效的话，是需要配置系统的环境变量的
+
+1. 【设置】 => 【系统】 => 【系统信息】 => 【高级系统设置】 => 【高级】 => 【环境变量】
+
+2. 添加如下的系统环境变量：
+
+   <img src="../Images/Mixed/image-20230105160615204.png" alt="image-20230105160615204" style="zoom: 67%;" />
+
+
+
 # Chrome
 
 ## 【1】移动Chrome的数据文件
