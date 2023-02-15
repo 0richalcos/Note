@@ -1836,23 +1836,25 @@ LocalDate date = LocalDate.parse(strDate6, DateTimeFormatter.ofPattern("yyyy-MM-
 LocalDateTime dateTime1 = LocalDateTime.parse(strDate7, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 ```
 
-<br>
+
 
 **Date 转换为 LocalDateTime**
 
 方法 1：
 
 ```java
+ZoneId zoneId = ZoneId.systemDefault();
 LocalDateTime localDateTime = new Date().toInstant().atZone(zoneId).toLocalDateTime();
 ```
 
 方法 2：
 
 ```java
+ZoneId zoneId = ZoneId.systemDefault();
 LocalDateTime localDateTime = LocalDateTime.ofInstant(new Date().toInstant(), zoneId);
 ```
 
-<br>
+
 
 # 6、默认方法
 
