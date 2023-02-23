@@ -148,7 +148,7 @@ Redis 是单线程的（6.0 是多线程），因为 Redis 是基于内存操作
 wget http://download.redis.io/releases/redis-6.0.5.tar.gz
 
 # 解压到 /usr/local
-tar xzf redis-6.0.5.tar.gz —C /usr/local
+tar xzf redis-6.0.5.tar.gz -C /usr/local
 
 # 进入目录，C/C++ 构建，类似 mvn install，npm build
 cd /usr/local/redis-6.0.5
@@ -203,7 +203,7 @@ redis-server &
 redis-cli
 
 # 卸载
-apt purge --auto-remove redis
+apt purge --auto-remove redis-server
 ```
 
 
@@ -1857,12 +1857,13 @@ replica-serve-stale-data yes
 
 ```bash
 # 设置客户端连接后进行任何其他指定前需要使用的密码。
-# 警告：因为redis速度相当快，所以在一台比较好的服务器下，一个外部的用户可以在一秒钟进行150K次的密码尝试，这意味着你需要指定非常非常强大
-# 的密码来防止暴力破解
-#
+# 警告：因为redis速度相当快，所以在一台比较好的服务器下，一个外部的用户可以在一秒钟进行150K次的密码尝试，
+# 这意味着你需要指定非常非常强大的密码来防止暴力破解
+# 
+# 取消以下注释并修改 foobared 来永久设置密码
 # requirepass foobared
 
-# 可以通过命令来设置这个密码
+# 也可以通过命令来设置这个密码
 # 获取密码
 config get requirepass
 
