@@ -1936,9 +1936,9 @@ function foo() {
 
 
 
-**什么是void？**
+**什么是 void？**
 
-MDN中对void有这么一段说明：
+MDN 中对 void 有这么一段说明：
 
 ```js
 The void operator evaluates the given expression and then returns undefined.
