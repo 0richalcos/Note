@@ -337,7 +337,13 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 2. 添加如下的系统环境变量：
 
-   <img src="../Images/Mixed/image-20230105160615204.png" alt="image-20230105160615204" style="zoom: 67%;" />
+   - 变量名：`http_proxy`
+   
+     变量值：`http://127.0.0.1:7890`
+   
+   - 变量名：`https_proxy`
+   
+     变量值：`http://127.0.0.1:7890`
 
 
 
