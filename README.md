@@ -79,6 +79,8 @@
 - [**FullCalendar**](https://github.com/0richalcos/Note/blob/main/Markdown/FullCalendar.md)
 - [**Node.js**](https://github.com/0richalcos/Note/blob/main/Markdown/Node.js.md)
 - [**Vue**](https://github.com/0richalcos/Note/blob/main/Markdown/Vue.md)
+- [**Node.js**](https://github.com/0richalcos/Note/blob/main/Markdown/Vue.md)
+- [**Yarn**](https://github.com/0richalcos/Note/blob/main/Markdown/Yarn.md)
 
 
 
@@ -92,15 +94,16 @@
 ### :scroll:其他
 
 - [**Swagger**](https://github.com/0richalcos/Note/blob/main/Markdown/Swagger.md)
+- [**Git**](https://github.com/0richalcos/Note/blob/main/Markdown/Git.md)
 - **办公文档操作**
 	- [**Apache POI**](https://github.com/0richalcos/Note/blob/main/Markdown/ApachePOI.md)
-	- [**easyExcel**](https://github.com/0richalcos/Note/blob/main/Markdown/easyExcel.md)
+	- [**EasyExcel**](https://github.com/0richalcos/Note/blob/main/Markdown/EasyExcel.md)
 	- [**Apache PDFBox**](https://github.com/0richalcos/Note/blob/main/Markdown/ApachePDFBox.md)
 	- **文档合并：**[**Spire.Doc for JAVA**](https://github.com/0richalcos/Note/blob/main/Markdown/Spire.DocForJAVA.md)
 	- **在线编辑：**[**OnlyOffice**](https://github.com/0richalcos/Note/blob/main/Markdown/OnlyOffice.md)
 - [**XML 解析**](https://github.com/0richalcos/Note/blob/main/Markdown/XMLParse.md)
 - [**ZIP 压缩解压**](https://github.com/0richalcos/Note/blob/main/Markdown/Zip4j.md)
-- [**IDE 及 Windows 设置**](https://github.com/0richalcos/Note/blob/main/Markdown/Mixed.md)
+- [**IDE 及 Windows 设置**](https://github.com/0richalcos/Note/blob/main/Markdown/IDE&Windows.md)
 - [**解决方案**](https://github.com/0richalcos/Note/blob/main/Markdown/Solutions.md)
-- [**Why？Why？Why？**](https://github.com/0richalcos/Note/blob/main/Markdown/Why.md)
+- [**Why**](https://github.com/0richalcos/Note/blob/main/Markdown/Why.md)
 
