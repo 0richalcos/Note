@@ -73,7 +73,6 @@
   - [**Yarn**](https://github.com/0richalcos/Note/blob/main/Markdown/Yarn.md)
 
 - [**Vue**](https://github.com/0richalcos/Note/blob/main/Markdown/Vue.md)
-- [**Axios**](https://github.com/0richalcos/Note/blob/main/Markdown/Axios.md)
 
 
 
@@ -83,6 +82,9 @@
 
 
 
+**库**
+
+- [**Axios**](https://github.com/0richalcos/Note/blob/main/Markdown/Axios.md)
 - 表格：[**Bootstrap Table**](https://github.com/0richalcos/Note/blob/main/Markdown/BootstrapTable.md)
   - 行内编辑：[**X-editable**](https://github.com/0richalcos/Note/blob/main/Markdown/X-editable.md)
 - 图编辑引擎：[**AntV-X6**](https://github.com/0richalcos/Note/blob/main/Markdown/AntV-X6.md)
@@ -98,16 +100,20 @@
 
 
 
+### Office 文档相关
+
+- [**Apache POI**](https://github.com/0richalcos/Note/blob/main/Markdown/ApachePOI.md)
+- [**EasyExcel**](https://github.com/0richalcos/Note/blob/main/Markdown/EasyExcel.md)
+- [**Apache PDFBox**](https://github.com/0richalcos/Note/blob/main/Markdown/ApachePDFBox.md)
+- **文档合并：**[**Spire.Doc for JAVA**](https://github.com/0richalcos/Note/blob/main/Markdown/Spire.DocForJAVA.md)
+- **在线编辑：**[**OnlyOffice**](https://github.com/0richalcos/Note/blob/main/Markdown/OnlyOffice.md)
+
+
+
 ### :scroll:其他
 
 - [**Swagger**](https://github.com/0richalcos/Note/blob/main/Markdown/Swagger.md)
 - [**Git**](https://github.com/0richalcos/Note/blob/main/Markdown/Git.md)
-- **办公文档操作**
-	- [**Apache POI**](https://github.com/0richalcos/Note/blob/main/Markdown/ApachePOI.md)
-	- [**EasyExcel**](https://github.com/0richalcos/Note/blob/main/Markdown/EasyExcel.md)
-	- [**Apache PDFBox**](https://github.com/0richalcos/Note/blob/main/Markdown/ApachePDFBox.md)
-	- **文档合并：**[**Spire.Doc for JAVA**](https://github.com/0richalcos/Note/blob/main/Markdown/Spire.DocForJAVA.md)
-	- **在线编辑：**[**OnlyOffice**](https://github.com/0richalcos/Note/blob/main/Markdown/OnlyOffice.md)
 - [**XML 解析**](https://github.com/0richalcos/Note/blob/main/Markdown/XMLParse.md)
 - [**ZIP 压缩解压**](https://github.com/0richalcos/Note/blob/main/Markdown/Zip4j.md)
 - [**IDE 及 Windows 设置**](https://github.com/0richalcos/Note/blob/main/Markdown/IDE&Windows.md)
