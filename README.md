@@ -1,4 +1,4 @@
-## :pen:好记性不如烂笔头:pen:
+## :pen::pen::pen::pen::pen::pen::pen::pen::pen:
 
 | Java | 数据库 | 持久层框架 | Spring | 权限管理 | 搜索引擎 | Linux & 运维 | 前端 | 数据结构及算法 |
 | :--: | :----: | :--------: | :----: | :------: | :------: | :------: | :------: | :------: |
@@ -18,7 +18,6 @@
 - [**Java 8 新特性**](https://github.com/0richalcos/Note/blob/main/Markdown/Java8.md)
 - [**Java Web**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaWeb.md)
 - [**Java 工具类**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaUtils.md)
-- [**Java 解决方案**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaSolutions.md)
 
 
 
@@ -70,17 +69,25 @@
 - [**HTTP**](https://github.com/0richalcos/Note/blob/main/Markdown/HTTP.md)
 - [**JavaScript**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaScript.md)
 - [**jQuery**](https://github.com/0richalcos/Note/blob/main/Markdown/jQuery.md)
-- [**Thymeleaf**](https://github.com/0richalcos/Note/blob/main/Markdown/Thymeleaf.md)
-- [**Bootstrap Table**](https://github.com/0richalcos/Note/blob/main/Markdown/BootstrapTable.md)
-- [**Axios**](https://github.com/0richalcos/Note/blob/main/Markdown/Axios.md)
-- [**AntV-X6**](https://github.com/0richalcos/Note/blob/main/Markdown/AntV-X6.md)
-- [**X-editable**](https://github.com/0richalcos/Note/blob/main/Markdown/X-editable.md)
-- [**DHTMLX Gantt**](https://github.com/0richalcos/Note/blob/main/Markdown/DHTMLXGantt.md)
-- [**FullCalendar**](https://github.com/0richalcos/Note/blob/main/Markdown/FullCalendar.md)
 - [**Node.js**](https://github.com/0richalcos/Note/blob/main/Markdown/Node.js.md)
+  - [**Yarn**](https://github.com/0richalcos/Note/blob/main/Markdown/Yarn.md)
+
 - [**Vue**](https://github.com/0richalcos/Note/blob/main/Markdown/Vue.md)
-- [**Node.js**](https://github.com/0richalcos/Note/blob/main/Markdown/Vue.md)
-- [**Yarn**](https://github.com/0richalcos/Note/blob/main/Markdown/Yarn.md)
+- [**Axios**](https://github.com/0richalcos/Note/blob/main/Markdown/Axios.md)
+
+
+
+**模板引擎**
+
+- [**Thymeleaf**](https://github.com/0richalcos/Note/blob/main/Markdown/Thymeleaf.md)
+
+
+
+- 表格：[**Bootstrap Table**](https://github.com/0richalcos/Note/blob/main/Markdown/BootstrapTable.md)
+  - 行内编辑：[**X-editable**](https://github.com/0richalcos/Note/blob/main/Markdown/X-editable.md)
+- 图编辑引擎：[**AntV-X6**](https://github.com/0richalcos/Note/blob/main/Markdown/AntV-X6.md)
+- 甘特图：[**DHTMLX Gantt**](https://github.com/0richalcos/Note/blob/main/Markdown/DHTMLXGantt.md)
+- 日历：[**FullCalendar**](https://github.com/0richalcos/Note/blob/main/Markdown/FullCalendar.md)
 
 
 

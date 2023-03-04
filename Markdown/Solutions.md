@@ -35,18 +35,18 @@ public static long getFileLineNum(String filePath) {
 | 9656204          | 1098 ms               | 1385 ms         |
 | 29691684         | 1512 ms               | 2237 ms         |
 
-<br>
 
-### 1、BufferedReader
+
+### 1.1、BufferedReader
 
 BufferedReader 提供了下面两个功能：
 
 1. 在普通 Reader 的基础上，提供了缓冲功能，可以更加高效的读取；
 2. 提供了读取一行的功能：`readLine()`。
 
-<br>
 
-### 2、LineNumberReader
+
+### 1.2、LineNumberReader
 
 `Java.io.LineNumberReader` 类是一个缓冲的字符输入流，用于跟踪行号。行被视为由换行符 `\n`、回车符 `\r`或者回车后立即换行。
 
@@ -55,7 +55,7 @@ LineNumberReader 继承自 BufferedReader，并且增加了下面两个功能：
 1. 获取行号：`getLineNumber()`
 2. 设置行号：`setLineNumber()`
 
-<br>
+
 
 **构造函数**
 
@@ -64,7 +64,7 @@ LineNumberReader 继承自 BufferedReader，并且增加了下面两个功能：
 | 1    | `LineNumberReader(Reader in)`<br>这将使用默认的输入缓冲区大小创建一个新的行号读取器。 |
 | 2    | `LineNumberReader(Reader in, int sz)`<br>这将创建一个新的行号读取器，将字符读取到给定大小的缓冲区中。 |
 
-<br>
+
 
 **类方法**
 
