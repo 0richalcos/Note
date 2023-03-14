@@ -1,8 +1,8 @@
 # 1、SQL简介
 
-SQL是用于访问和处理数据库的标准计算机语言。
+SQL 是用于访问和处理数据库的标准计算机语言。
 
-**SQL是什么？**
+**SQL 是什么？**
 
 - SQL，指结构化查询语言，全称是 Structured Query Language
 - SQL 可以让我们访问和处理数据库
@@ -10,7 +10,7 @@ SQL是用于访问和处理数据库的标准计算机语言。
 
 
 
-**SQL能做什么？**
+**SQL 能做什么？**
 
 - SQL 面向数据库执行查询
 - SQL 可从数据库取回数据
@@ -25,35 +25,29 @@ SQL是用于访问和处理数据库的标准计算机语言。
 
 
 
-**SQL分类**
+**SQL 分类**
 
-**DDL（数据定义语言）**
+- **DDL（数据定义语言）**
+  - 数据定义语言（Data Definition Language）
+  - 用来定义数据库的对象，如数据表、视图、索引等
+  - `CREATFE`、`DROP`、`ALTER`
+- **DML（数据操纵语言）**
+  - 数据处理语言（Data Manipulation Language）
+  - 在数据库中更新，增加和删除记录
+  - `UPDATE`、`DELETE`、`INSERT`
+- **DCL（数据控制语言）**
 
-- 数据定义语言（Data Definition Language）
-- 用来定义数据库的对象，如数据表、视图、索引等
-- CREATFE DROP ALTER
-
-**DML（数据操纵语言）**
-
-- 数据处理语言（Data Manipulation Language）
-- 在数据库中更新，增加和删除记录
-- UPDATE DELETE INSERT
-
-**DCL（数据控制语言）**
-
-- 数据控制语言（Data Control Language）
-- 指用于设置用户权限和控制事务语句
-
-**DQL（数据查询语言）**
-
-- 数据查询语言（Data Query Language）
-- SELECT
+  - 数据控制语言（Data Control Language）
+  - 指用于设置用户权限和控制事务语句
+- **DQL（数据查询语言）**
+  - 数据查询语言（Data Query Language）
+  - `SELECT`
 
 
 
 # 2、数据库
 
-MySQL 是最流行的关系型数据库管理系统，在 WEB 应用方面 MySQL 是最好的 RDBMS（Relational Database Management System：关系数据库管理系统）应用软件之一。
+MySQL 是最流行的关系型数据库管理系统，在 Web 应用方面 MySQL 是最好的 RDBMS（Relational Database Management System：关系数据库管理系统）应用软件之一。
 
 
 
@@ -4472,104 +4466,134 @@ MySQL临时表在需要保存一些临时数据时是非常有用的。临时表
 
 <img src="../Images/MySQL/image-20200531210706162.png" alt="image-20200531210706162" style="zoom:80%;" />
 
-# 15、序列的使用
-
-MySQL序列是一组整数：1,2,3,…,由于一张数据表只能有一个字段自增主键，如果想实现其他字段也实现自动增加，就可以使用MySQL序列来实现。
 
 
+# 15、备份
 
-**使用ATUO_INCREMENT**
+## 15.1、数据库备份
 
-MySQL中最简单使用序列的方法就是使用MySQL auto_increment来定义列
+数据库的主要作用就是对数据进行保存和维护，所以备份数据是数据库管理中最常用的操作。为了防止数据库意外崩溃或硬件损伤而导致的数据丢失，数据库系统提供了备份和恢复策略。
 
+保证数据安全的最重要的一个措施就是定期的对数据库进行备份。这样即使发生了意外，也会把损失降到最低。
 
+数据库备份是指通过导出数据或者复制表文件的方式来制作数据库的副本。当数据库出现故障或遭到破坏时，将备份的数据库加载到系统，从而使数据库从错误状态恢复到备份时的正确状态。
 
-**重置序列**
-
-如果删除了数据表中的多条记录，并希望对剩下数据的AUTO_INCREMENT列进行重新排列，那么可以通过删除自增的列，然后重新添加来实现。不过该操作要非常小心，如果在删除的同时又有新纪录添加，有可能会出现数据混乱，操作如下所示：
-
-<img src="../Images/MySQL/image-20200531210829143.png" alt="image-20200531210829143" style="zoom:80%;" />
+MySQL 中提供了两种备份方式，即 `mysqldump` 命令以及 mysqlhotcopy 脚本。由于 mysqlhotcopy 只能用于 MyISAM 表，所以 MySQL 5.7 移除了 mysqlhotcopy 脚本。
 
 
 
-**设置序列的开始值**
+### 15.1.1、mysqldump
 
-一般情况下序列的开始值为1，但如果需要指定一个开始值100，那么可以通过以下语句来实现：
+`mysqldump` 命令可以将数据库中的数据备份成一个文本文件。表的结构和表中的数据将存储在生成的文本文件中。
 
-<img src="../Images/MySQL/image-20200531210858494.png" alt="image-20200531210858494" style="zoom:80%;" />
 
-或者也可以在表创建成功后，通过以下语句来实现：
+
+**备份指定的数据库**
+
+mysqldump 基本语法：
 
 ```mysql
-ALTER TABLE <表名> AUTO_INCREMENT=100;
+mysqldump -u username -p dbname [tbname ...] > filename.sql
 ```
 
-# 16、处理重复数据
+对上述语法参数说明如下：
 
-有些MySQL数据表中可能存在重复的数据，有些情况允许重复数据的存在，但有时候也需要删除这些重复的数据
+- *username*：表示用户名称；
+- *dbname*：表示需要备份的数据库名称；
+- *tbname*：表示数据库中需要备份的数据表，可以指定多个数据表。省略该参数时，会备份整个数据库；
+- 右箭头 `>`：用来告诉 mysqldump 将备份数据表的定义和数据写入备份文件；
+- *filename.sql*：表示备份文件的名称，文件名前面可以加绝对路径。通常将数据库备份成一个后缀名为 `.sql` 的文件。
 
-
-
-**防止表中出现重复数据**
-
-可以在MySQL数据表中设置指定的字段为PRIMARY KEY（主键）或者UNIQUE（唯一）索引来保证数据的唯一性。
-
-比如想设置数据表中两个字段的数据不能重复，可以设置双主键模式来设置数据的唯一性。
-
-如果设置了唯一索引，那么在插入重复数据时，SQL语句将无法执行成功，并抛出错误。
-
-INSERT IGNORE INTO与INSERT INTO的区别就是INSERT IGNORE会忽略数据库中已经存在的数据，如果数据库没有数据，就插入新的数据，如果有数据的话就跳过这条数据。这样就可以保留数据库中已经存在数据，达到在间隙中插入数据的目的
-
-INSERT IGNORE INTO当插入数据时，在设置了记录的唯一性后，如果插入重复数据，将不会返回错误，只以警告形式返回。而REPLACE INTO如果存在PARIMARY KEY或UNIQUE相同的记录，则先删除掉。再插入新数据。
-
-另一种设置数据的唯一性方法是添加一个UNIQUE索引
+> 注意：`mysqldump` 命令备份的文件并非一定要求后缀名为 `.sql`，备份成其他格式的文件也是可以的。例如，后缀名为 `.txt` 的文件。通常情况下，建议备份成后缀名为 `.sql` 的文件。因为，后缀名为 `.sql` 的文件给人第一感觉就是与数据库有关的文件。
 
 
 
-**统计重复数据**
+下面使用 root 用户备份 test 数据库下的 student 表。打开命令行（cmd）窗口，输入备份命令和密码，运行过程如下：
 
-以下将统计表中first_name和last_name的重复记录数：
+```shell
+C:\Windows\system32>mysqldump -uroot -p test student>C:\student.sql
+Enter password: ****
+```
 
-<img src="../Images/MySQL/image-20200531211027701.png" alt="image-20200531211027701" style="zoom:80%;" />
+> 注意：`mysqldump` 命令必须在 cmd 窗口下执行，不能登录到 MySQL 服务中执行。
 
-以上查询语句将返回persion_tbl表中重复的记录数。一般情况下，查询重复的值，请执行以下操作：
+```mysql
+-- MySQL dump 10.13  Distrib 5.7.29, for Win64 (x86_64)
+--
+-- Host: localhost    Database: test
+-- ------------------------------------------------------
+-- Server version 5.7.29-log
 
-- 确定哪一列包含的值可能会重复
-- 在列选择列表使用COUNT(*)列出的那些列
-- 在GROUP BY组居中列出的列
-- HAVING子句设置重复数大于1
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+--此处删除了部分内容
+--
+-- Table structure for table `student`
+--
+
+DROP TABLE IF EXISTS `student`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `student` (
+  `id` int(4) NOT NULL,
+  `name` varchar(20) DEFAULT NULL,
+  `stuno` int(11) DEFAULT NULL,
+  `age` int(4) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `student`
+--
+
+LOCK TABLES `student` WRITE;
+/*!40000 ALTER TABLE `student` DISABLE KEYS */;
+INSERT INTO `student` VALUES (1,'zhangsan',23,18),(2,'lisi',24,19),(3,'wangwu',25,18),(4,'zhaoliu',26,18);
+/*!40000 ALTER TABLE `student` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+......
+-- Dump completed on 2019-03-09 13:03:15
+```
+
+student.sql 文件开头记录了 MySQL 的版本、备份的主机名和数据库名。
+
+文件中，以 -- 开头的都是 SQL 语言的注释。以 `/*!40101` 等形式开头的是与 MySQL 有关的注释。`40101` 是 MySQL 数据库的版本号，这里就表示 MySQL 4.1.1。如果恢复数据时，MySQL 的版本比 4.1.1 高，`/*!40101` 和 `*/` 之间的内容被当作 SQL 命令来执行。如果比 4.1.1 低，`/*!40101` 和 `*/` 之间的内容被当作注释。`/*!` 和 `*/` 中的内容在其它数据库中将被作为注释忽略，这可以提高数据库的可移植性。
+
+> 注意：上面 student.sql 文件中没有创建数据库的语句，因此，student.sql 文件中的所有表和记录必须恢复到一个已经存在的数据库中。恢复数据时，CREATE TABLE 语句会在数据库中创建表，然后执行 INSERT 语句向表中插入记录。
 
 
 
-**过滤重复数据**
+**备份多个数据库**
 
-如果需要读取不重复的数据可以在SELECT语句中使用DISTINCT关键字来过滤重复数据
+如果要使用 `mysqldump` 命令备份多个数据库，需要使用 `--databases` 参数。备份多个数据库的语法格式如下：
 
-<img src="../Images/MySQL/image-20200531211202605.png" alt="image-20200531211202605" style="zoom:80%;" />
+```mysql
+mysqldump -u username -P --databases dbname1 dbname2 ... > filename.sql
+```
 
-也可以使用GROUP BY来读取数据表中不重复的数据
-
-<img src="../Images/MySQL/image-20200531211213766.png" alt="image-20200531211213766" style="zoom:80%;" />
-
-
-
-**删除重复数据**
-
-如果想删除数据表中的重复数据，可以使用以下SQL语句：
-
-<img src="../Images/MySQL/image-20200531211248727.png" alt="image-20200531211248727" style="zoom:80%;" />
-
-当然也可以在数据表中添加INDEX（索引）和PRIMARY KEY（主键）这种简单的方法来删除表中的重复记录，方法如下：
-
-<img src="../Images/MySQL/image-20200531211258198.png" alt="image-20200531211258198" style="zoom:80%;" />
+加上 `--databases` 参数后，必须指定至少一个数据库名称，多个数据库名称之间用空格隔开。
 
 
 
-# 17、函数
+**备份所有数据库**
 
-## 17.1、时间日期相关
+`mysqldump` 命令备份所有数据库的语法格式如下：
 
-### 17.1.1、时间差
+```mysql
+mysqldump -u username -P --all-databases > filename.sql
+```
+
+使用 `--all-databases` 参数时，不需要指定数据库名称。
+
+
+
+# 16、函数
+
+## 16.1、时间日期相关
+
+### 16.1.1、时间差
 
 #### PERIOD_DIFF()
 
@@ -4850,9 +4874,9 @@ SELECT STR_TO_DATE('2019年01月17日 19时05分05秒','%Y年%m月%d日 %H时%i�
 
  
 
-## 17.2、字符串相关
+## 16.2、字符串相关
 
-### 17.2.1、拆分与拼接
+### 16.2.1、拆分与拼接
 
 **SUBSTRING(string, position, length)**
 
@@ -4887,7 +4911,7 @@ SUBSTRING(string FROM position FOR length);
 
 
 
-### 17.2.2、字符串转数字
+### 16.2.2、字符串转数字
 
 **CAST()**
 
@@ -4925,7 +4949,7 @@ CONVERT(value USING charset);
 
 
 
-### 17.2.3、GROUP_CONCAT()
+### 16.2.3、GROUP_CONCAT()
 
 MySQL `GROUP_CONCAT()` 函数将组中的字符串连接成为具有各种选项的单个字符串。
 
@@ -4983,9 +5007,9 @@ FROM
 
 
 
-## 17.3、数字相关
+## 16.3、数字相关
 
-### 17.3.1、保留两位小数
+### 16.3.1、保留两位小数
 
 `ROUND(x,d)`，四舍五入。`ROUND(x)` ，其实就是 `ROUND(x,0)`，也就是默认 *d* 为0。
 
@@ -5014,9 +5038,9 @@ select FORMAT(110.35,1);
 
 
 
-# 18、JDBC
+# 17、JDBC
 
-## 18.1、第一个JDBC程序
+## 17.1、第一个JDBC程序
 
 **JDBC 简介**
 
@@ -5176,7 +5200,7 @@ ResultSet 滚动结果集方法
 
 
 
-## 18.2、JDBC进行CRUD
+## 17.2、JDBC进行CRUD
 
 Jdbc中的statement对象用于向数据库发送SQL语句，想完成对数据库的增删改查，只需要通过这个对象向数据库发送增删改查语句即可。
 
@@ -5251,7 +5275,7 @@ while (rs.next()) {
 
 
 
-## 18.3、JDBC处理大数据
+## 17.3、JDBC处理大数据
 
 在实际开发中，程序需要把大文本 TEXT 或二进制数据 BLOB保存到数据库。TEXT是mysql叫法，Oracle中叫CLOB
 
@@ -5325,7 +5349,7 @@ st.executeBatch();
 
 
 
-## 18.4、JDBC事务控制管理
+## 17.4、JDBC事务控制管理
 
 当Jdbc程序向数据库获得一个Connection对象时，默认情况下这个Connection对象会自动向数据库提交在它上面发送的SQL语句。若想关闭这种默认提交方式，让多条SQL在一个事务中执行，可使用下列语句：
 
@@ -5358,59 +5382,9 @@ Connection接口中定义事务隔离级别四个常量：
 
 
 
-# 19、数据库设计表关系 
+# 18、连接阿里云数据库
 
-**一对一**
-
-一张表的一条记录一定只能与另外一张表的一条记录进行对应，反之亦然。
-
-学生表：姓名，性别，年龄，身高，体重，籍贯，家庭住址，紧急联系人
-其中姓名、性别、年龄、身高，体重属于常用数据，但是籍贯、住址和联系人为不常用数据
-如果每次查询都是查询所有数据，不常用的数据就会影响效率，实际又不用
-常用信息表：ID(P)，姓名，性别，年龄，身高，体重
-不常用信息表：ID(P)，籍贯，家庭住址，紧急联系人
-
-解决方案：将常用的和不常用的信息分享存储，分成两张表
-不常用信息表和常用信息表，保证不常用信息表与常用信息表能够对应上：找一个具有唯一性的字段来共同连接两张表。
-一个常用表中的一条记录永远只能在一张不常用表中匹配一条记录，反之亦然。
-
-<br>
-
-**一对多**
-
-一张表中有一条记录可以对应另外一张表中的多条记录；但是反过来，另外一张表的一条记录只能对应第一张表的一条记录，这种关系就是一对多或多对一
-
-母亲表：ID(P),名字，年龄，性别
-孩子表：ID(P),名字，年龄，性别
-以上关系：一个妈妈可以在孩子表中找到多条记录（也可能是一条），但是一个孩子只能找到一个妈妈，这是是一种典型的一对多的关系。
-
-解决方案：在某一张表中增加一个字段，能够找到另外一张表中的记录:在孩子表中增加一个字段指向母亲表，因为孩子表的记录只能匹配到一条母亲表的记录。
-母亲表：ID(P),名字，年龄，性别
-孩子表：ID(P),名字，年龄，性别，母亲表ID（母亲表主键）
-
-<br>
-
-**多对多**
-
-一对表中（A）的一条记录能够对应另外一张表（B）中的多条记录；同时B表中的一条记录也能对应A表中的多条记录
-
-老师和学生
-老师表 T_ID(P),姓名，性别
-学生表 S_ID(P),姓名，性别
-一个老师教过多个学生，一个学生也被多个老师教过
-
-解决方案：增加一张中间关系表
-老师与学生的关系表：ID(P),T_ID,S_ID
-老师表与中间表形成一对多的关系，而中间表是多表；维护了能够唯一找到一表的关系；
-同样的学生表与中间表也是一个一对多的关系;
-学生找老师：找出学生ID--->中间表寻找匹配记录（多条）--->老师表匹配（一条）
-老师找学生：找出老师ID--->中间表寻找匹配记录（多条）--->学生表匹配（一条）
-
-<br>
-
-# 20、连接阿里云数据库
-
-## 20.1、安装MySQL 8.0
+## 18.1、安装MySQL 8.0
 
 **系统 Ubuntu  20.04 64位**
 
@@ -5516,7 +5490,7 @@ All done!
 
 <br>
 
-## 20.2、远程访问
+## 18.2、远程访问
 
 在阿里云控制台连接 MySQL
 
@@ -5569,7 +5543,7 @@ service mysql restart
 
 <br>
 
-## 20.3、卸载
+## 18.3、卸载
 
 1. 首先停止 MySQL 服务
 
@@ -5613,7 +5587,7 @@ service mysql restart
 
 <br>
 
-# 21、其他
+# 20、其他
 
 ## 1、MySQL 一个汉字占多少字节
 
