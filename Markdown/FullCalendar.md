@@ -4,13 +4,13 @@
 
 如何获取 [FullCalendar](https://fullcalendar.io/docs/v3) 的代码，初始化日历和其他基本原则。
 
-<br>
+
 
 ### 1.1.1、加载代码
 
 在初始化日历之前，必须首先让 FullCalendar 的代码加载到页面上。你可以编写自己的 `<script>` 标签，也可以使用 Webpack 这样的构建系统。
 
-<br>
+
 
 **`<scritp>` 标签**
 
@@ -29,7 +29,7 @@
 
 在加载 FullCalendar 的 JS 文件之前，要先加载 jQuery 和 Moment 的 JS 文件。
 
-<br>
+
 
 **作为 NPM 模块（Webpack / Browserify）**
 
@@ -50,7 +50,7 @@ import 'fullcalendar';
 
 导入的 `fullcalendar` 不需要被命名。它将作为一个插件附在 jQuery 中。
 
-<br>
+
 
 ### 1.1.2、初始化选项
 
@@ -76,7 +76,7 @@ $(function() {
 
 就这样，应该可以在页面上看到一个基于月份的日历，上面没有任何事件。
 
-<br>
+
 
 **Options**
 
@@ -90,7 +90,7 @@ $('#calendar').fullCalendar({
 
 一个重要的选项是 `defaultView`，它确定加载日历时首先显示哪个日历视图。
 
-<br>
+
 
 ### 1.1.3、处理程序（Handlers）
 
@@ -104,7 +104,7 @@ $('#calendar').fullCalendar({
 });
 ```
 
-<br>
+
 
 **动态添加处理程序**
 
@@ -122,7 +122,7 @@ calendar.on('dayClick', function(date, jsEvent, view) {
 });
 ```
 
-<br>
+
 
 ### 1.1.4、方法（Methods）
 
@@ -144,13 +144,13 @@ var calendar = $('#calendar').fullCalendar('getCalendar');
 calendar.next();
 ```
 
-<br>
+
 
 ## 1.2、日期库
 
 FullCalendar 将 `MomentJS` 作为其日期库。Moment 和 Duration 对象可用于很多设置，并且在整个 API 中使用它们。
 
-<br>
+
 
 ### 1.2.1、Moment 对象
 
@@ -166,7 +166,7 @@ Moment 对象代表一个时间点，就像本地的 Date 对象一样，但要�
 - unix偏移量（自Unix Epoch以来的毫秒数）
 - 本地日期对象
 
-<br>
+
 
 **从头开始创建 Moments**
 
@@ -194,7 +194,7 @@ var calendar = $('#calendar').fullCalendar('getCalendar');
 var m = calendar.moment();
 ```
 
-<br>
+
 
 **模糊时间的时刻**
 
@@ -226,7 +226,7 @@ m.format();
 => "2013-01-22"
 ```
 
-<br>
+
 
 **模糊时区的时刻**
 
@@ -258,7 +258,7 @@ m.format();
 => "2014-01-22T05:00:00"
 ```
 
-<br>
+
 
 # 2、整体显示
 
@@ -266,7 +266,7 @@ m.format();
 
 日历顶部和底部包含按钮和其他控件的区域。
 
-<br>
+
 
 ### 2.1.1、标题（header）
 
@@ -293,13 +293,13 @@ Object/false, default:
 
 为属性指定空字符串将导致其不显示文本/按钮。
 
-<br>
+
 
 ## 2.2、调整大小
 
 如何控制日历的尺寸。
 
-<br>
+
 
 ### 2.2.1、高度（height）
 
@@ -327,7 +327,7 @@ $('#calendar').fullCalendar({
 });
 ```
 
-<br>
+
 
 **Setter**
 
@@ -337,7 +337,7 @@ $('#calendar').fullCalendar({
 $('#calendar').fullCalendar('option', 'height', 700);
 ```
 
-<br>
+
 
 # 3、视图
 
@@ -357,7 +357,7 @@ $('#calendar').fullCalendar({
 
 下面的选项是专门针对月视图的。然而，在整个文档中，还有许多其他的选项会影响到月视图的显示，比如与本地相关的选项和日期/时间显示选项。
 
-<br>
+
 
 **fixedWeekCount**
 
@@ -369,7 +369,7 @@ Boolean, default: true
 
 如果为 `true`，日历将始终显示 6 周。如果为 `false`，日历将有 4 周、5 周或 6 周，具体取决于月份。
 
-<br>
+
 
 **showNonCurrentDates**
 
@@ -395,7 +395,7 @@ Boolean, default: true
 </div>
 
 
-<br>
+
 
 ## 3.2、日程视图
 
@@ -427,7 +427,7 @@ $('#calendar').fullCalendar({
 
 下面的选项是针对议程视图的。然而，在整个文档中，还有许多其他选项影响到议程视图的显示，例如与本地有关的选项和日期/时间显示选项。
 
-<br>
+
 
 **allDaySlot**
 
@@ -439,7 +439,7 @@ Boolean, default: true
 
 如果使用 `false` 隐藏，则日程视图中将不会显示全天事件。
 
-<br>
+
 
 **allDayText**
 
@@ -451,7 +451,7 @@ String, default: 'all-day'
 
 默认值取决于当前区域设置。
 
-<br>
+
 
 ## 3.3、列表视图
 
@@ -472,7 +472,7 @@ $('#calendar').fullCalendar({
 
 下面的选项是针对列表视图的。然而，在整个文档中，还有许多其他选项影响到列表视图的显示，比如 `eventRender` 和 `eventClick`。
 
-<br>
+
 
 **listDayFormat **
 
@@ -489,7 +489,7 @@ String, false
 
 如果指定 `false`，则不显示文本。
 
-<br>
+
 
 **listDayAltFormat**
 
@@ -506,7 +506,7 @@ String, false
 
 如果指定 `false`，则不显示文本。
 
-<br>
+
 
 **noEventsMessage**
 
@@ -516,7 +516,7 @@ String, false
 String, default: "No events to display"
 ```
 
-<br>
+
 
 # 4、日期和时间
 
@@ -524,7 +524,7 @@ String, default: "No events to display"
 
 检测用户何时单击日期或时间。让用户能够使用鼠标或触摸设备选择多个日期或时间段。
 
-<br>
+
 
 **dayClick**
 
@@ -536,7 +536,7 @@ Boolean, default: false
 
 要让用户通过点击和拖动进行选择，这个选项必须设置为 `true`。
 
-<br>
+
 
 **unselectAuto**
 
@@ -548,7 +548,7 @@ Boolean, default: true
 
 此选项仅在 `selectable` 设置为 `true` 时生效。
 
-<br>
+
 
 ### 4.1.1、回调（CALLBACKS）
 
@@ -589,7 +589,7 @@ $('#calendar').fullCalendar({
 
 > 当用户单击列表视图中的日标题时，不会触发 `dayClick` 触发器。
 
-<br>
+
 
 **select**
 
@@ -607,7 +607,7 @@ function( start, end, jsEvent, view, [ resource ] )
 
 `jsEvent` 持有 jQuery 事件的信息，如鼠标坐标。如果 `select` 是通过 `select` 方法触发的，`jsEvent` 则为 `undefined`。
 
-<br>
+
 
 # 5、事件
 
@@ -615,7 +615,7 @@ function( start, end, jsEvent, view, [ resource ] )
 
 如何将事件添加到日历中。如何在初始加载后动态操作它们。
 
-<br>
+
 
 ### 5.1.1、事件（数组）
 
@@ -646,7 +646,7 @@ $('#calendar').fullCalendar({
 
 > 确保数组中最后一个事件后没有逗号！这将使 Internet Explorer 窒息。
 
-<br>
+
 
 ### 5.1.2、事件（JSON feed）
 
@@ -666,7 +666,7 @@ GET 参数名称将由 `startParam` 和 `endParam` 选项确定。（默认情�
 
 如果你需要访问一个在不同域中的 feed，你可以使用 JSONP，在你的 URL 中加一个 `?`（见 [$.ajax](https://api.jquery.com/jQuery.ajax/) 的 JSONP 讨论）。
 
-<br>
+
 
 **JSON日期字符串格式**
 
@@ -713,7 +713,7 @@ $('#calendar').fullCalendar({
 });
 ```
 
-<br>
+
 
 **jQuery $.ajax选项**
 
@@ -739,7 +739,7 @@ $('#calendar').fullCalendar({
 });
 ```
 
-<br>
+
 
 **动态 `data` 参数**
 
@@ -760,7 +760,7 @@ $('#calendar').fullCalendar({
 });
 ```
 
-<br>
+
 
 ### 5.1.3、事件（函数）
 
@@ -808,7 +808,7 @@ $('#calendar').fullCalendar({
 
 然而，如果有选择，JSON 是一个更好的主意，因为可以直接指定一个feed URL。
 
-<br>
+
 
 ### 5.1.4、Event 对象
 
@@ -835,13 +835,13 @@ $('#calendar').fullCalendar({
 | borderColor      | 设置一个事件的边框颜色，就像日历范围内的 `eventBorderColor` 选项一样。 |
 | textColor        | 设置一个事件的文本颜色，就像日历范围内的 `eventTextColor` 选项一样。 |
 
-<br>
+
 
 **非标准字段**
 
 除了上述字段外，还可以在每个 Event 对象中包含自己的非标准字段。FullCalendar 不会修改或删除这些字段。例如，开发人员经常包括一个描述字段，用于回调，如 `eventRender`。
 
-<br>
+
 
 ### 5.1.5、方法
 
@@ -869,7 +869,7 @@ $('#calendar').fullCalendar({
 });
 ```
 
-<br>
+
 
 **removeEvents**
 
@@ -885,13 +885,13 @@ $('#calendar').fullCalendar({
 
 `idOrFilter` 也可以是一个过滤器函数，它接受一个 Event 对象参数，如果应该删除它，则返回 `true`。
 
-<br>
+
 
 ## 5.2、事件显示
 
 如何控制日历上事件的外观。
 
-<br>
+
 
 **eventColor**
 
@@ -916,7 +916,7 @@ $('#calendar').fullCalendar({
 
 `eventBackgroundColor`、`eventBorderColor` 和`eventTextColor` 选项可用于更细化。
 
-<br>
+
 
 **eventBackgroundColor**
 
@@ -928,7 +928,7 @@ String
 
 可以使用任何 CSS 颜色格式，如 `#f00`、`#ff0000`、`rgb(255,0,0)`或 `red`。
 
-<br>
+
 
 **eventBorderColor**
 
@@ -940,7 +940,7 @@ String
 
 可以使用任何 CSS 颜色格式，如 `#f00`、`#ff0000`、`rgb(255,0,0)`或 `red`。
 
-<br>
+
 
 **eventTextColor**
 
@@ -952,7 +952,7 @@ String
 
 可以使用任何 CSS 颜色格式，如 `#f00`、`#ff0000`、`rgb(255,0,0)`或 `red`。
 
-<br>
+
 
 ### 5.2.1、方法
 
@@ -968,13 +968,13 @@ String
 
 通常情况下，一旦日历重新获取其事件源（例如：点击上一个/下一个），该事件就会消失。然而，将 `stick` 设置为 `true` 将导致事件被永久地固定在日历上。
 
-<br>
+
 
 ## 5.3、事件单击和悬停
 
 了解事件何时被单击或悬停。
 
-<br>
+
 
 **eventClick**
 
@@ -1032,13 +1032,13 @@ $('#calendar').fullCalendar({
 });
 ```
 
-<br>
+
 
 ## 5.4、事件拖动和调整大小
 
 如何启用和控制用户可以拖放和调整事件的大小。首先将 `editable` 设置设为 `true`。如果想允许外部元素被放到日历上，请访问 `droppable`、`drop` 和 `eventReceive` 文章。
 
-<br>
+
 
 **editable**
 
@@ -1052,7 +1052,7 @@ Boolean, default: false
 
 可以使用 Event 对象的 `editable` 属性在每个事件的基础上覆盖此选项。但是，无法拖动或调整后台事件的大小。
 
-<br>
+
 
 **eventStartEditable**
 
@@ -1062,7 +1062,7 @@ Boolean, default: false
 Boolean, default: true
 ```
 
-<br>
+
 
 **eventDurationEditable**
 
@@ -1072,7 +1072,7 @@ Boolean, default: true
 Boolean, default: true
 ```
 
-<br>
+
 
 ### 5.4.1、回调（CALLBACK）
 
@@ -1118,7 +1118,7 @@ $('#calendar').fullCalendar({
 });
 ```
 
-<br>
+
 
 **eventResize**
 
@@ -1160,7 +1160,7 @@ $('#calendar').fullCalendar({
 });
 ```
 
-<br>
+
 
 # 6、国际化
 
@@ -1168,7 +1168,7 @@ $('#calendar').fullCalendar({
 
 你可以为某些语言（又称 “地区”）定制日历。地区设置是最重要的，因为它同时设置了许多其他选项的默认值。
 
-<br>
+
 
 ### 6.1.1、local
 
@@ -1186,7 +1186,7 @@ A String locale code. default: "en"
 - `weekNumberCalculation`
 - `firstDay`
 
-<br>
+
 
 **如何使用其他地区**
 
@@ -1230,7 +1230,7 @@ A String locale code. default: "en"
 </script>
 ```
 
-<br>
+
 
 **MomentJS and jQuery UI Datepicker**
 
@@ -1245,4 +1245,76 @@ A String locale code. default: "en"
 <script src='fullcalendar/fullcalendar.js'></script>
 <script src='fullcalendar/locale-all.js'></script>
 ```
+
+
+
+# 7、第三方机构
+
+## 7.1、Vue
+
+FullCalendar 与 Vue JavaScript 框架无缝集成。它提供了一个与 FullCalendar 标准 API 的功能完全匹配的组件。
+
+这个包是在 MIT 许可证下发布的，与 FullCalendar 的标准版本使用的许可证相同。有用的链接：
+
+- [浏览 Github 仓库](https://github.com/fullcalendar/fullcalendar-vue)
+- [Bug 报告说明](https://fullcalendar.io/reporting-bugs)
+- 示例项目：
+  - [Vue 2 示例](https://github.com/fullcalendar/fullcalendar-examples/tree/main/vue2)（使用 [Webpack](https://webpack.js.org/) 和 [css-loader](https://webpack.js.org/loaders/css-loader/)）
+  - [Vue 3 示例](https://github.com/fullcalendar/fullcalendar-examples/tree/main/vue3) (使用 [Vite](https://github.com/vitejs/vite)）
+
+首先是安装与 FullCalendar 相关的依赖项，你需要 FullCalendar 核心、Vue 适配器以及你打算使用的插件。
+
+- 如果使用 Vue2：
+
+  ```shell
+  npm install --save @fullcalendar/core, @fullcalendar/vue
+  ```
+
+安装需要使用的 FullCalendar 插件，比如 `@fullcalendar/daygrid`：
+
+```shell
+npm install --save @fullcalendar/daygrid
+```
+
+然后你可以开始编写一个利用 `<FullCalendar>` 组件的父组件：
+
+```vue
+<template>
+  <FullCalendar :options="calendarOptions" />
+</template>
+
+<script>
+import FullCalendar from '@fullcalendar/vue'
+import dayGridPlugin from '@fullcalendar/daygrid'
+
+export default {
+  components: {
+    FullCalendar // make the <FullCalendar> tag available
+  },
+  data() {
+    return {
+      calendarOptions: {
+        plugins: [ dayGridPlugin ],
+        initialView: 'dayGridMonth'
+      }
+    }
+  }
+}
+</script>
+```
+
+
+
+### 7.1.1、插件索引
+
+FullCalendar 提供以下软件包（仅列出我常用的，详见[官网](https://fullcalendar.io/docs/plugin-index)）：
+
+| 包名                          | 功能/视图                                                    |
+| ----------------------------- | ------------------------------------------------------------ |
+| **@fullcalendar/core**        | 提供 `Calendar` 类等。                                       |
+| **@fullcalendar/interaction** | 检测日期点击动作、选择动作和事件拖放及大小调整。             |
+| **@fullcalendar/daygrid**     | 提供月和日的网格视图：dayGridYear、dayGridMonth、dayGridWeek、dayGridDay、dayGrid（通用）。 |
+| **@fullcalendar/vue**         | 提供 Vue 2 组件。                                            |
+
+
 
