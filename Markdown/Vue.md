@@ -2506,3 +2506,7 @@ Vue.component('alert-box', {
   `
 })
 ```
+
+
+
+# 11、过渡 & 动画
