@@ -2,42 +2,44 @@
 
 ## 1.1、简介
 
-SpringBoot 基于 Spring 开发，SpringBoot 本身并不提供 Spring 框架的核心特性以及扩展功能，只是用于快速、敏捷地开发新一代基于 Spring 框架的应用程序。也就是说，它并不是用来替代 Spring 的解决方案，而是和 Spring 框架紧密结合用于提升 Spring 开发者体验的工具。SpringBoot 以**约定大于配置**的核心思想，默认帮我们进行了很多设置，多数 SpringBoot 应用只需要很少的 Spring 配置。Spring Boot 内嵌 Servlet 容器，降低了对环境的要求，可以命令执行语句。同时它集成了大量常用的第三方库配置（例如Redis、MongoDB、Jpa、RabbitMQ、Quartz等等），SpringBoot 应用中这些第三方库几乎可以零配置的开箱即用。
+SpringBoot 基于 Spring 开发，SpringBoot 本身并不提供 Spring 框架的核心特性以及扩展功能，只是用于快速、敏捷地开发新一代基于 Spring 框架的应用程序。也就是说，它并不是用来替代 Spring 的解决方案，而是和 Spring 框架紧密结合用于提升 Spring 开发者体验的工具。
+
+SpringBoot 以 **约定大于配置** 的核心思想，默认帮我们进行了很多设置，多数 SpringBoot 应用只需要很少的 Spring 配置。Spring Boot 内嵌 Servlet 容器，降低了对环境的要求，可以命令执行语句。同时它集成了大量常用的第三方库配置（例如Redis、MongoDB、Jpa、RabbitMQ、Quartz等等），SpringBoot 应用中这些第三方库几乎可以零配置的开箱即用。
 
 简单的来说 SpringBoot 并不是什么新的框架，它默认配置了很多框架的使用方式，就像 maven 整合了所有的 jar 包，SpringBoot 整合了所有的框架。
 
 Spring Boot 解决的问题：
 
-- 使编码变得简单
-- 使配置变得简单
-- 使部署变得简单
-- 使监控变得简单
+- 使编码变得简单；
+- 使配置变得简单；
+- 使部署变得简单；
+- 使监控变得简单。
 
 SpringBoot 的核心功能：
 
-- 独自运行 Spring 项目，Spring Boot 可以以 jar 包的形式进行独立运行，使用`java -jar XX.jar`就可以成功运行
-- 内嵌 Servlet 容器，内嵌容器，使得我们可以直接执行运行项目的 main 函数，使得项目快速运行
-- 提供 starter 简化 maven 配置，SpringBoot 提供了一系列的 start XXX 来简化 maven 依赖
-- 自动配置 Spring，Spring Boot 会根据我们项目中的类路径的 jar 包，为 jar 包的类进行自动装配 bean
-- 应用监控。Spring Boot提供了基于 HTTP，ssh，Telnet 对运行的项目进行监控
+- 独自运行 Spring 项目：SpringBoot 可以以 jar 包的形式进行独立运行，使用 `java -jar XX.jar` 就可以成功运行；
+- 内嵌 Servlet 容器：内嵌容器，使得我们可以直接执行运行项目的 main 函数，使得项目快速运行；
+- 提供 starter 简化 maven 配置：SpringBoot 提供了一系列的 start-XXX 来简化 maven 依赖；
+- 自动配置 Spring：SpringBoot 会根据我们项目中的类路径的 jar 包，为 jar 包的类进行自动装配 bean；
+- 应用监控：SpringBoot 提供了基于 HTTP、ssh、Telnet 对运行的项目进行监控。
 
-Spring Boot 的缺点：
+SpringBoot 的缺点：
 
-- 高度集成，使用的时候不知道底层的实现
-- 由于不了解底层，导致项目出现了问题会很难排查
+- 高度集成，使用的时候不知道底层的实现；
+- 由于不了解底层，导致项目出现了问题会很难排查。
 
 四大核心：
 
-- 自动配置：针对很多 Spring 应用程序和常见的应用功能，Spring Boot 能自动提供相关配置
-- 起步依赖：告诉 Spring Boot 需要什么功能，它就能引入相关的依赖库
-- Actuator：提供在运行时检视应用程序内部情况的能力，让你能够深入运行应用程序，一探 Spring Boot 的内部信息
-- 命令行界面：这是 Spring Boot 的可选特性，主要针对于 Groovy 语言使用
+- 自动配置：针对很多 Spring 应用程序和常见的应用功能，SpringBoot 能自动提供相关配置；
+- 起步依赖：告诉 SpringBoot 需要什么功能，它就能引入相关的依赖库；
+- Actuator：提供在运行时检视应用程序内部情况的能力，让你能够深入运行应用程序，一探 SpringBoot 的内部信息；
+- 命令行界面：这是 SpringBoot 的可选特性，主要针对于 Groovy 语言使用。
 
 
 
 ## 1.2、微服务
 
-微服务架构是 “新标准”，是一种架构风格。构建小型，独立且可运行的应用程序可以带来极大的灵活性，并为您的代码增加弹性。 Spring Boot 的许多专用功能使在大规模生产中构建和运行微服务变得容易。 而且不要忘记，没有 Spring Cloud 简化管理并提高容错能力，就不会有完整的微服务架构。
+微服务架构是 “新标准”，是一种架构风格。构建小型，独立且可运行的应用程序可以带来极大的灵活性，并为您的代码增加弹性。 SpringBoot 的许多专用功能使在大规模生产中构建和运行微服务变得容易。 而且不要忘记，没有 SpringCloud 简化管理并提高容错能力，就不会有完整的微服务架构。
 
 
 
@@ -45,7 +47,7 @@ Spring Boot 的缺点：
 
 所谓单体应用架构（all in one）是指：我们将一个应用中的所有服务都封装在一个应用中。
 
-无论是 ERP、CRM 或是其他什么系统，都把数据库访问、web 访问等等各个功能放到一个 war 包内。
+无论是 ERP、CRM 或是其他什么系统，都把数据库访问、Web 访问等等各个功能放到一个 war 包内。
 
 - 这样做的好处是：易于开发和测试；也十分方便部署；当需要扩展时，只需要将 war 复制多份，然后放到多个服务器上，再做个负载均衡就可以了。
 - 单体应用架构的缺点是：哪怕要修改一个非常小的地方，都需要停掉整个服务，重新打包、部署这个应用 war 包。特别是对于一个大型应用，我们不可能把所有内容都放在一个应用内，我们如何维护、如何分工合作都是问题。
@@ -69,11 +71,15 @@ all in one 的架构方式，我们把所有的功能单元放在一个应用里
 
 # 2、第一个 SpringBoot 程序
 
-1. ![image-20200402181821619](../Images/SpringBoot/image-20200402181821619.png)
+1. 打开 IDEA，点击【新建项目】，选择 【Spring Initializr】，点确认：
 
-2. ![image-20200402181913472](../Images/SpringBoot/image-20200402181913472.png)
+   <img src="../Images/SpringBoot/image-20200402181821619.png" alt="image-20200402181821619" />
 
-3. 在application.java同级目录下创建controller包，编写UserController.java
+2. Spring Web 依赖的主要作用是提供 Web 开发场景所需的底层所有依赖，引入后就可以实现 Web 场景开发，而不需要额外导入Tomcat 服务器以及其他 Web 依赖文件等：
+
+   <img src="../Images/SpringBoot/image-20200402181913472.png" alt="image-20200402181913472" />
+
+3. 在 Application.java 同级目录下创建 controller 包，编写 UserController.java：
 
 	```java
 	@Controller
@@ -86,29 +92,29 @@ all in one 的架构方式，我们把所有的功能单元放在一个应用里
 	}
 	```
 
-4. 运行application.java
+4. 运行 Application.java
 
 
 
-更改端口号：在application.properties添加
+> 更改端口号：在 `application.properties` 添加
+>
+> ```properties
+> #更改项目端口号
+> server.port=8080
+> ```
 
-```properties
-#更改项目端口号
-server.port=8080
-```
 
 
+# 3、配置文件
 
-# 3、YAML
+当我们构建完 SpringBoot 项目后，会在 resources 目录下给我们一个默认的全局配置文件 `application.properties`，这是一个空文件，因为 SpringBoot 在底层已经把配置都给我们自动配置好了，当在配置文件进行配置时，会修改 SpringBoot 自动配置的默认值。
 
-**配置文件的作用**：修改 SpringBoot 自动配置的默认值，因为 SpringBoot 在底层都给我们配置好了。
+SpringBoot 有两种类型的配置文件，application 和 bootstrap 文件，SpringBoot 会自动加载 classpath 目录下的这两个文件，文件格式为 `properties` 或 `yml` 格式。
 
-Spring Boot 有两种类型的配置文件，application 和 bootstrap 文件，Spring Boot 会自动加载 classpath 目录下的这两个文件，文件格式为 properties 或 yml 格式。
+- `*.properties` 文件是 key=value 的形式；
+- `*.yml` 是 key: value 的形式，通过空格来确定层级关系，使配置文件结构更清晰。它的加载的属性是有顺序的，一般推荐用 yml 文件，看起来更加形象；但是 yml 不支持 `@PropertySource` 注解来导入配置。
 
-- *.properties 文件是 key=value 的形式
-- *.yml 是 key: value 的形式，通过空格来确定层级关系，使配置文件结构更清晰。它的加载的属性是有顺序的，但不支持 @PropertySource 注解来导入配置，一般推荐用yml文件，看起来更加形象。
-
-bootstrap 配置文件是系统级别的，用来加载外部配置，如配置中心的配置信息，也可以用来定义系统不会变化的属性；*.bootstatp 文件的加载先于application文件。
+bootstrap 配置文件是系统级别的，用来加载外部配置，如配置中心的配置信息，也可以用来定义系统不会变化的属性；`*.bootstatp` 文件的加载先于application文件。
 
 application 配置文件是应用级别的，是当前应用的配置文件。
 
@@ -116,73 +122,328 @@ application 配置文件是应用级别的，是当前应用的配置文件。
 
 ## 3.1、YAML
 
-YAML是“YAML Ain't a Markup Language”（YAML不是一种标记语言）的递归缩写。
+YAML 是 "YAML Ain't a Markup Language"（YAML 不是一种标记语言）的递归缩写。在开发的这种语言时，YAML 的意思其实是："Yet Another Markup Language"（仍是一种标记语言）。
 
-在开发这种语言时，YAML的意思其实是：“Yet Another Markup Language”（仍是一种标记语言）。
+YAML 的语法和其他高级语言类似，并且可以简单表达清单、散列表，标量等数据形态。它使用空白符号缩进和大量依赖外观的特色，特别适合用来表达或编辑数据结构、各种配置文件、倾印调试内容、文件大纲（例如：许多电子邮件标题格式和YAML非常接近）。
 
-
-
-**标记语言**
-
-以前的配置文件，大多数都是用xml来配置；比如一个简单的端口配置：
-
-- yaml配置：
-
-	```yaml
-	server:
-	  port: 8080
-	```
-
-- xml配置：
-
-	```xml
-	<server>
-		<port>8080</port>
-	</server>
-	```
+YAML 的配置文件后缀为 **.yml**，如：**application.yml** 。
 
 
 
-## 3.2、YAML语法
+**基本语法**
 
-**基础语法**：
+- 大小写敏感；
+- 使用缩进表示层级关系；
+- 缩进不允许使用 tab，只允许空格（一般是两个空格）；
+- 缩进的空格数不重要，只要相同层级的元素左对齐即可；
+- `#` 表示注释。
+
+
+
+**数据类型**
+
+YAML 支持以下几种数据类型：
+
+- 对象：键值对的集合，又称为映射（mapping）/ 哈希（hashes） / 字典（dictionary）；
+- 数组：一组按次序排列的值，又称为序列（sequence） / 列表（list）；
+- 纯量（scalars）：单个的、不可再分的值。
+
+
+
+### 3.1.1、YAML 对象
+
+对象键值对使用冒号结构表示（冒号后面要加一个空格）： 
 
 ```yaml
-k:(空格)v
+key: value
 ```
 
-以此来表示一对键值对（空格不能省略）；以空格的缩进来控制层级关系，只要是左边对齐的一列数据都是同一阶级的。
+转为 json 如下：
 
-注意：属性和值的大小写都是十分敏感的，而且对空格的要求十分高。
-
-
-
-**对象**
-
-```yaml
-studnet:
-  name: orichalcos
-  age: 3
+```json
+{ key: 'value' }
 ```
 
 
 
-**数组**
+Yaml 也允许另一种写法，将所有键值对写成一个行内对象：
 
 ```yaml
-pets:
-  - cat
-  - dog
-  - pig
+key: { key1: value1, key2: value2 }
+```
+
+转为 json 如下：
+
+```json
+{ key: { key1: 'value1', key2: 'value2' } }
+```
+
+ 还可以使用缩进表示层级关系：
+
+```yaml
+key: 
+  child-key: value
+  child-key2: value2
 ```
 
 
 
-## 3.3、通过YAML文件赋值
+### 3.1.2、YAML 数组
 
-1. 创建一个SpringBoot项目
+以 `-` 开头的行表示构成一个数组：
 
-2. 编写两个pojo类：Dog和Person
+```yaml
+- A
+- B
+- C
+```
+
+转为 json 如下：
+
+```json
+['A', 'B', 'C']
+```
+
+
+
+数据结构的子成员是一个数组，则可以在该项下面缩进一个空格：
+
+```yaml
+-
+  - A
+  - B
+  - C
+```
+
+转为 json 如下：
+
+```json
+[['A', 'B', 'C']]
+```
+
+
+
+数组也可以采用行内表示法：
+
+```yaml
+key: [ value1, value2 ]
+```
+
+转为 json 如下：
+
+```json
+{key: ['value1', 'value2']}
+```
+
+
+
+一个相对复杂的例子：
+
+```yaml
+companies:
+  - id: 1
+    name: company1
+    price: 200W
+  - id: 2
+    name: company2
+    price: 500W
+```
+
+意思是 `companies` 属性是一个数组，每一个数组元素又是由 `id`、`name`、`price` 三个属性构成。
+
+数组也可以使用流式（flow）的方式表示：
+
+```yaml
+companies: [ { id: 1,name: company1,price: 200W },{ id: 2,name: company2,price: 500W } ]
+```
+
+
+
+### 3.1.3、复合结构
+
+数组和对象可以构成复合结构，例：
+
+```yaml
+languages:
+  - Ruby
+  - Perl
+  - Python
+websites:
+  YAML: yaml.org
+  Ruby: ruby-lang.org
+  Python: python.org
+  Perl: use.perl.org
+```
+
+转换为 json 为：
+
+```json
+{ 
+  languages: [ 'Ruby', 'Perl', 'Python'],
+  websites: {
+    YAML: 'yaml.org',
+    Ruby: 'ruby-lang.org',
+    Python: 'python.org',
+    Perl: 'use.perl.org' 
+  } 
+}
+```
+
+
+
+### 3.1.4、纯量
+
+纯量是最基本的，不可再分的值，包括：
+
+- 字符串
+- 布尔值
+- 整数
+- 浮点数
+- Null
+- 时间
+- 日期
+
+使用一个例子来快速了解纯量的基本使用：
+
+```yaml
+boolean:
+  - TRUE   # true,True 都可以
+  - FALSE  # false，False 都可以
+float:
+  - 3.14
+  - 6.8523015e+5  # 可以使用科学计数法
+int:
+  - 123
+  - 0b1010_0111_0100_1010_1110    # 二进制表示
+null:
+  nodeName: 'node'
+  parent: ~         # 使用 ~ 表示 null
+string:
+  - 哈哈             # 字符串默认不使用引号表示
+  - 'Hello world'   # 可以使用双引号或者单引号包裹特殊字符
+  - '内容： 字符串'   # 如果字符串之中包含空格或特殊字符，需要放在引号之中。
+  - newline
+    newline2        # 字符串可以写成多行，从第二行开始，必须有一个单空格缩进。换行符会被转为空格。
+date:
+  - 2018-02-17      # 日期必须使用ISO 8601格式，即yyyy-MM-dd
+datetime:
+  - 2018-02-17T15:02:31+08:00    #时间使用ISO 8601格式，时间和日期之间使用T连接，最后使用+代表时区
+```
+
+
+
+### 3.1.5、引用
+
+`&` 用来建立锚点（defaults），`<<` 表示合并到当前数据，`*` 用来引用锚点：
+
+```yaml
+defaults: &defaults
+  adapter: postgres
+  host: localhost
+
+development:
+  database: myapp_development
+  <<: *defaults
+
+test:
+  database: myapp_test
+  <<: *defaults
+```
+
+相当于：
+
+```yaml
+defaults:
+  adapter: postgres
+  host: localhost
+
+development:
+  database: myapp_development
+  adapter: postgres
+  host: localhost
+
+test:
+  database: myapp_test
+  adapter: postgres
+  host: localhost
+```
+
+
+
+## 3.2、获取配置文件属性
+
+### 3.2.1、@Value
+
+`@Value` 可修饰到任一变量获取，使用较灵活
+
+优点：
+
+- 使用简单，且使用关联的链路较短；
+- 支持 SpEL。
+
+缺点：
+
+- 配置名不能被有效枚举到；
+- 每一个配置的使用都需重新定义，使用较为麻烦；
+- 项目强依赖配置的定义，配置不存在则会导致项目无法启动。
+
+使用场景：
+
+- 项目强依赖该配置的加载，想要从源头避免因配置缺失导致的未知问题；
+- 只想使用少数几个配置。
+
+
+
+示例：
+
+```properties
+server.port=8080
+```
+
+```java
+@Configuration
+public class ConfigByValueAnnotation {
+
+    @Value("${server.port}")
+    private String serverPort;
+
+    public String getServerPort() {
+        return serverPort;
+    }
+}
+```
+
+
+
+### 3.2.2、@ConfigurationProperties
+
+`@ConfigurationProperties` 告诉 SpringBoot 将本类中的所有属性和配置文件中相关的配置进行绑定，参数 `prefix = "xxx"`：将配置文件中 `xxx` 下面的属性一一对应。
+
+优点：
+
+- 使用配置只需确定 key 的前缀即能使用，有利于批量获取场景的使用；
+- 因采用前缀匹配，所以在使用新的相同前缀 key 的配置时无需改动代码；
+- 支持 JSR303 数据校验；
+- 支持复杂类型封装；
+- 松散绑定：比如 yaml 中写的是 `last-name`，那么这个和 `lastName` 是一样的，`-` 后面跟着的字母默认是大写的。
+
+缺点：
+
+- 使用复杂，需定义配置类或者手动创建 bean 后引入使用；
+- 增加新的前缀相同 key 时可能会引入不稳定因素。
+
+使用场景：
+
+- 需要同时使用多前缀相同 key 的配置；
+- 期望增加新配置但不修改代码的 properties 注入。
+
+
+
+示例：
+
+1. 创建一个 SpringBoot 项目
+
+2. 编写两个 pojo 类：Dog.java 和 Person.java：
 
 	```java
 	public class Dog {
@@ -204,7 +465,7 @@ pets:
 	}
 	```
 
-3. 编写application.yaml
+3. 编写 `application.yaml`：
 
 	```yaml
 	person:
@@ -222,13 +483,13 @@ pets:
 	    age: 3
 	```
 
-4. 在Person.java中引入
+4. 在 Person.java 中引入：
 
 	```java
 	@ConfigurationProperties(prefix = "person")
 	```
 
-	如果加入后爆红可以在pom.xml中加入下面的依赖解决：
+	如果加入后爆红可以在 pom.xml 中加入下面的依赖解决：
 
 	```xml
 	<dependency>
@@ -238,7 +499,7 @@ pets:
 	</dependency>
 	```
 
-5. 测试
+5. 测试：
 
 	```java
 	@SpringBootTest
@@ -255,19 +516,11 @@ pets:
 
 
 
-**@ConfigurationProperties作用**：
+### 3.2.3、@PropertySource
 
-将配置文件中配置的每一个属性的值，映射到这个组件中；
+`@PropertySource` 是 Spring 的注解，用于加载指定的属性文件的配置到 Spring 的 Environment 中，可以配合 `@Value` 和 `@ConfigurationProperties` 使用。
 
-告诉SpringBoot将本类中的所有属性和配置文件中相关的配置进行绑定
-
-参数prefix = “person” ：将配置文件中的person下面的属性一一对应
-
-
-
-**用Properties可以赋值**
-
-1. 创建一个application.properties
+1. 创建一个 `application.properties`
 
 	```properties
 	name=orichalcos
@@ -287,44 +540,55 @@ pets:
 
 
 
+可以组合注解使用` @PropertySource`+`@ConfigurationProperties`，`@PropertySource` 指定加载哪个文件，`@ConfigurationProperties` 指定加载文件中的哪一类属性。`@PropertySource`+`@ConfigurationProperties` 在一起解决了 `@ConfigurationProperties` 只能加载主文件内属性问题：
 
-但是Properties赋值体验并不好，因为我们需要为每一个属性单独注解赋值，比较麻烦；两种方法的对比如下：
+```java
+@Configuration
+@PropertySource("classpath:hellword.properties")
+@ConfigurationProperties(prefix = "my")
+public class HelloWorldConfig {
+  private String name;
+}
+```
 
-<img src="../Images/SpringBoot/image-20200407003311844.png" alt="image-20200407003311844" style="zoom:67%;" />
 
-- ConfigurationProperties只需要写一次即可，Value则需要每个字段都添加。
-- 松散绑定：比如yaml中写的是last-name，那么这个适合lastName是一样的，-后面跟着的字母默认是大写的。这就是松散绑定。
-- JSR303数据校验：这个就是我们可以在字段上增加一层过滤器验证，可以保证数据的合法性。
-- 复杂类型封装：yaml中可以封装对象，使用@Value就不支持。
 
-<br>
+## 3.3、多环境配置
 
-## 3.5、多环境配置
+很多时候，我们项目在开发环境和生成环境的环境配置是不一样的，例如，数据库配置，在开发的时候，我们一般用测试数据库，而在生产环境的时候，我们是用正式的数据，这时候，我们可以利用 profile 在不同的环境下配置用不同的配置文件或者不同的配置。
 
-多个配置文件存在时，不同位置的文件优先级不同
+配置文件可以放于以下四个位置，多个配置文件存在时，不同位置的文件优先级不同：
 
-1. file:./config/
-2. file:./
-3. classpath:/config
-4. classpath:/
+1. `file:./config/`
+2. `file:./`
+3. `classpath:/config`
+4. `classpath:/`
+
+
+
+### 3.3.1、active
+
+SpringBoot 允许你按照命名约定的格式（`application-{profile}.properties`）来定义多个配置文件，然后在`application.properties` 中通过 `spring.profiles.active` 来具体激活一个或者多个配置文件，如果没有没有指定任何 profile 的配置文件的话，SpringBoot 默认会启动`application.properties`。
+
+日常开发中一般有三个环境，分别是开发环境（dev），测试环境（test），生产环境（prod）。
 
 
 
 **properties**
 
-application.properties
+`application.properties`：
 
 ```properties
 spring.profiles.active=test
 ```
 
-application-test.properties
+`application-test.properties`：
 
 ```properties
 server.port=8082
 ```
 
-application-dev.properties
+`application-dev.properties`：
 
 ```properties
 server.port=8083
@@ -332,9 +596,38 @@ server.port=8083
 
 
 
-**yaml**
+**yml 多文件配置**
 
-application.yaml
+`application.yml`：
+
+```yaml
+# 需要使用的配置文件
+spring:
+  profiles:
+    active: test
+```
+
+`application-test.yml`：
+
+```yaml
+server:
+  port: 8082
+```
+
+`application-dev.yml`：
+
+```yaml
+server:
+  port: 8083
+```
+
+
+
+**yml 单文件配置**
+
+yml 可以不需要创建多个文件来区分，可以直接以 `---` 来当做一个配置文件环境。
+
+`application.yaml`：
 
 ```yaml
 server:
@@ -343,17 +636,101 @@ spring:
   profiles:
     active: test
 ---
-server:
-  port: 8082
 spring:
   profiles: test
+server:
+  port: 8082
 
 ---
-server:
-  port: 8083
 spring:
   profiles: dev
+server:
+  port: 8083
 ```
+
+
+
+### 3.3.2、include
+
+我们可以将一些公共的配置单独拿出来，然后其他文件都把这个配置给包含进去。
+
+
+
+**yml 多文件配置**
+
+`application.yml`：
+
+```yaml
+spring:
+  profiles:
+    # 导入其他配置（本处以eureka，feign为例）
+    include: eureka,feign
+
+spring:
+  application:
+    name: order
+```
+
+`application-eureka.yml `：
+
+```yaml
+eureka:
+  client:
+    service-Url:
+      defaultZone: http://localhost:7001/eureka
+```
+
+`application-feign.yml `：
+
+```yaml
+feign:
+  hystrix:
+    enabled: true
+```
+
+
+
+**yml 单文件配置**
+
+`application.yml`：
+
+```yaml
+spring:
+  profiles:
+    # 导入其他配置（本处以eureka，feign为例）
+    include: eureka,feign
+
+spring:
+  application:
+    name: order
+---
+# eureka配置
+spring:
+  profiles: eureka
+eureka:
+  client:
+    service-Url:
+      defaultZone: http://localhost:7001/eureka
+---
+# feign配置
+spring:
+  profiles: feign
+feign:
+  hystrix:
+    enabled: true
+```
+
+
+
+**active 和 include 的区别**
+
+我认为主要是语意上的区别，实际使用效果基本相同。假设，项目有 2 种环境：dev、prod，我们选择激活其中一种；其中涉及到 3 种组件：https、mysql、log，我们根据环境选择包含一个或多个。active 的构件被认为是与环境有关的，include 的构件被认为是与环境无关的。
+
+实际使用，只有下边这一处区别：
+
+The properties from spring.profile.include override default properties. The properties from active profiles override spring.profile.include and default properties.
+
+即：`spring.profile.include` 的属性会覆盖默认属性，`spring.profiles.active` 会覆盖 `spring.profile.include` 和默认属性。
 
 
 
@@ -666,7 +1043,7 @@ SpringBoot 内设置静态资源，或者说静态资源文件夹，主要有两
 
 <br>
 
-## 11.1、application 设置方法
+## 11.1、application.yml 配置
 
 设置 application 方法很简单，主要涉及两个配置项：
 
@@ -715,7 +1092,7 @@ spring:
 
 <br>
 
-## 11.2、设置配置类方法
+## 11.2、Configuration 配置类
 
 写一个配置类，实现静态资源的文件夹方法很多。比如：
 
