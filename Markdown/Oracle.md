@@ -40,7 +40,9 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 	![image-20211102113310795](../Images/Oracle/image-20211102113310795.png)
 
-2. 安装前需要把文件包解压，解压的位置为需要安装的位置，，所以要提前确定好解压路径，解压后的文件大概需要 6G 的空间，确保空间足够大。
+2. 安装前需要把文件包解压，解压的位置为需要安装的位置，所以要提前确定好解压路径，解压后的文件大概需要 6G 的空间，确保空间足够大。
+
+   > 解压的目录不要含有中文和空格！
 
 3. 以管理员身份运行 `setup.exe`：
 
@@ -87,29 +89,31 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 
 
+### 1.2.1、安装问题
+
+**Oracle19c 安装中的无法将 Windows 用户或 Windows 组 “XXX“ 添加到 Windows 组 “XXX“ 中**
+
+看看自己的计算机名称和自己用户名是不是相同，相同的话更改计算机名称为其他的。并不一定适用所有，可进行尝试。
+
+
+
 ## 1.3、Oracle 19c 卸载
 
 要在 Windows 上卸载 Oracle 数据库，我们必须手动删除所有相关的 `Ora*` 注册表项、文件和文件夹。
 
 1. 停止Oracle *服务
 	
-	![Oracle服务](../Images/Oracle/format,png.png)
+	<img src="../Images/Oracle/image-20230419152744833.png" alt="image-20230419152744833" style="zoom:50%;" />
 	
 2. 删除 Oracle *注册表项
 
-	-   `HKEY_LOCAL_MACHINE/SOFTWARE/Oracle*`
+	-   `计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Oracle*`
 
-		![Oracle注册表项](../Images/Oracle/format,png.png)
+	-   `计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Oracle*`
 
-	-   `HKEY_LOCAL_MACHINE/SOFTWARE/Wow6432Node/Oracle*`
+	-   `计算机\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Oracle*`
 
-		![Oracle注册表项](../Images/Oracle/format,png.png)
-
-	-   `HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Services/Oracle*`
-
-		![Oracle注册表项](../Images/Oracle/format,png.png)
-
-	  重新启动Windows。
+		重新启动Windows。
 
 3. 删除以下 Oracle * 文件夹和文件（如果存在）:
 

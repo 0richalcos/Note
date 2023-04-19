@@ -1,5 +1,3 @@
-
-
 # 1、UEditor
 
 UEditor 只提供 JSP 版本的后端入口代码。但提供了项目源码，因此可以根据业务需求修改源代码。此处使用了 SpringBoot 框架，配备了 Thymeleaf模板引擎，所以没有必要再添加 JSP 来兼容 UEditor，可通过修改源码满足需要。
