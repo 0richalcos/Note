@@ -1866,6 +1866,8 @@ Java 8 新增了接口的默认方法。
 >
 > 首先，之前的接口是个双刃剑，好处是面向抽象而不是面向具体编程，缺陷是，当需要修改接口时候，需要修改全部实现该接口的类，目前的 java 8 之前的集合框架没有 `foreach` 方法，通常能想到的解决办法是在 JDK 里给相关的接口添加新的方法及实现。然而，对于已经发布的版本，是没法在给接口添加新方法的同时不影响已有的实现。所以引进的默认方法。他们的目的是为了解决接口的修改与现有的实现不兼容的问题。
 
+
+
 **语法**
 
 默认方法语法格式如下：
@@ -1877,6 +1879,8 @@ public interface Vehicle {
    }
 }
 ```
+
+
 
 **多个默认方法**
 
@@ -1916,7 +1920,7 @@ public class Car implements Vehicle, FourWheeler {
 }
 ```
 
-<br>
+
 
 ## 6.1、静态默认方法
 
@@ -1934,7 +1938,7 @@ public interface Vehicle {
 }
 ```
 
-<br>
+
 
 ## 6.2、默认方法实例
 
@@ -1985,7 +1989,7 @@ $ java Java8Tester
 我是一辆汽车!
 ```
 
-<br>
+
 
 # 7、Base64
 
@@ -1999,7 +2003,7 @@ Base64 工具类提供了一套静态方法获取下面三种 BASE64 编解码�
 - URL：输出映射到一组字符 `A-Za-z0-9+_`，输出是 URL 和文件。
 - MIME：输出隐射到 MIME 友好格式。输出每行不超过 76 字符，并且使用 `\r` 并跟随 `\n` 作为分割。编码输出最后没有行分割。
 
-<br>
+
 
 ## 7.1、内嵌类
 
@@ -2008,7 +2012,7 @@ Base64 工具类提供了一套静态方法获取下面三种 BASE64 编解码�
 | 1    | **static class Base64.Decoder**<br>该类实现一个解码器，使用 Base64 编码来解码字节数据。 |
 | 2    | **static class Base64.Encoder**<br>该类实现一个编码器，使用 Base64 编码来编码字节数据。 |
 
-<br>
+
 
 ## 7.2、方法
 
@@ -2024,7 +2028,7 @@ Base64 工具类提供了一套静态方法获取下面三种 BASE64 编解码�
 
 > 注意：Base64 类的很多方法从 **java.lang.Object** 类继承。
 
-<br>
+
 
 ## 7.3、Base64 实例
 
@@ -2083,7 +2087,7 @@ ZDIzNGRhOWU4NDAtNTBiMi00ZmE2LWE0M2ItZjU3MWFiNTI2NmQ2NTlmMTFmZjctYjg1NC00NmE1
 LWEzMWItYjk3MmEwZTYyNTdk
 ```
 
-<br>
+
 
 # 8、Optional 类
 
