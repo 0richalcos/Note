@@ -4,9 +4,9 @@
 | :--: | :----: | :--------: | :----: | :------: | :------: | :------: | :------: | :------: |
 | [:coffee:](#coffeejava) | [:chart_with_upwards_trend:](#chart_with_upwards_trend数据库) | [:moyai:](#moyai持久层框架) | [:leaves:](#leavesSpring) | [:closed_lock_with_key:](#closed_lock_with_key权限管理) | [:mag:](#mag搜索引擎) | [:computer:](#computerLinux--运维) | [:globe_with_meridians:](#globe_with_meridians前端) | [:stars:](#stars数据结构及算法) |
 
-|          Office 文档相关           | 其他                    |
-| :--------------------------------: | ----------------------- |
-| [:scroll:](#scrollOffice 文档相关) | [:wrench:](#wrench其他) |
+|          Office 文档相关          | 其他                    |
+| :-------------------------------: | ----------------------- |
+| [:scroll:](#scrollOffice文档相关) | [:wrench:](#wrench其他) |
 
 
 
