@@ -90,6 +90,7 @@
 - 图编辑引擎：[**AntV-X6**](https://github.com/0richalcos/Note/blob/main/Markdown/AntV-X6.md)
 - 甘特图：[**DHTMLX Gantt**](https://github.com/0richalcos/Note/blob/main/Markdown/DHTMLXGantt.md)
 - 日历：[**FullCalendar**](https://github.com/0richalcos/Note/blob/main/Markdown/FullCalendar.md)
+- 图表：[**Apache ECharts**](https://github.com/0richalcos/Note/blob/main/Markdown/ApacheECharts.md)
 
 
 
