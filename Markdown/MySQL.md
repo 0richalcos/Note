@@ -5615,7 +5615,7 @@ service mysql restart
 
   也就是说一个字段定义成 `varchar(200)`，则它可以存储 200 个汉字或者 200 个字母。
 
-<br>
+
 
 ## 2、MySQL 自定义函数报错
 
@@ -5631,7 +5631,7 @@ ERROR 1418 (HY000): This function has none of DETERMINISTIC, NO SQL, or READS SQ
 mysql>set global log_bin_trust_function_creators=1;
 ```
 
-<br>
+
 
 ## 3、MySQL 8.0 Public Key Retrieval is not allowed
 
