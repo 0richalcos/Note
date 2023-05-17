@@ -756,6 +756,35 @@ spring.profiles.active=@profile.active@
 
 > `profile.active` 实际上就是一个变量，在 Maven 打包的时候指定的 `-P test` 传入的就是值
 
+因为 SpringBoot 配置文件中的默认占位符 `${}` 可能会与 Maven 的默认占位符 `${}` 冲突，所以可以使用以下插件将 SpringBoot 配置文件中的 Maven 占位符改为 `@@`：
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>3.1.0</version>
+            <configuration>
+                <delimiters>
+                    <!--将maven占位符替换为 @ @ -->
+                    <delimiter>@</delimiter>
+                </delimiters>
+                <!--不使用默认的变量分割符即${}-->
+                <useDefaultDelimiters>false</useDefaultDelimiters>
+            </configuration>
+        </plugin>
+    </plugins>
+    <resources>
+        <resource>
+            <directory>src/main/resources</directory>
+             <!--maven会自动读取includes配置文件，然后解析其中的占位符（占位符是${变量名称}这样的形式）-->
+            <filtering>true</filtering>
+        </resource>
+    </resources>
+</build>
+```
+
 
 
 **定义激活的变量**
@@ -860,7 +889,6 @@ Maven 中的 `profile` 的激活条件还可以根据 JDK、操作系统、文�
     <!--根据激活条件引入打包所需的配置和文件-->
     <resource>
       <directory>src/main/resources</directory>
-      <!--引入所需环境的配置文件-->
       <filtering>true</filtering>
       <includes>
         <include>application.yml</include>
