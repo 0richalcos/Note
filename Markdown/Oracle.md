@@ -739,3 +739,15 @@ CONNECT BY PRIOR DEPID = PARENTDEPID
 ## 3.3、关于 Oracle 中的 AS
 
 在 Oracle 中 `AS` 关键字不能用于指定表的别名，在 Oracle 中指定表的别名时只需在原有表名和表的别名之间用空格分隔即可，指定列的别名的用法和 MySQL 相同，但在存储过程中如果列的别名与原有列名相同，在运行时会报错（编译时不会出错），其他情况下列的别名可以与列名本身相同。
+
+
+
+# 4、数据结构
+
+## 4.1、varchar 和 varchar2
+
+1. varchar 是标准 SQL 里面的； varchar2 是 Oracle 提供的独有的数据类型。
+2. varchar 对于汉字占两个字节，对于英文是一个字节，占的内存小；varchar2 都是占两个字节。
+3. varchar 对空串不处理；varchar2 将空串当做 null 来处理。
+4. varchar 存放固定长度的字符串，最大长度是2000；varchar2 是存放可变长度的字符串，最大长度是4000。
+5. 如果是要跟换不同的数据库，例如 MySQL，那么就用 varchar，如果就用 Oracle，那么用 varchar2 比较好一点。
