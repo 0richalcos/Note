@@ -22,13 +22,13 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 **数据结构逻辑关系如下图：**
 
-![数据结构逻辑关系](../Images/Oracle/viewImages.do)
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/viewImages.png" alt="数据结构逻辑关系" />
 
 
 
 **Oracle体系概要图如下：**
 
-<img src="../Images/Oracle/viewImages (1)-16358235683753.do" alt="Oracle体系概要图" style="zoom: 67%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/viewImages-16358235683753.png" alt="Oracle体系概要图" style="zoom: 67%;" />
 
 
 
@@ -38,7 +38,7 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 1. 去官网下载 [Oracle 19c](https://www.oracle.com/database/technologies/oracle-database-software-downloads.html#19c)：
 
-	![image-20211102113310795](../Images/Oracle/image-20211102113310795.png)
+	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211102113310795.png" alt="image-20211102113310795" />
 
 2. 安装前需要把文件包解压，解压的位置为需要安装的位置，所以要提前确定好解压路径，解压后的文件大概需要 6G 的空间，确保空间足够大。
 
@@ -46,15 +46,15 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 3. 以管理员身份运行 `setup.exe`：
 
-	![img](../Images/Oracle/123.png)
+	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/123.png" alt="img" />
 
 4. 打开安装程序后，跟着安装向导，初学者建议选默认选择 “创建并配置单实例数据库”：
 
-	![img](../Images/Oracle/12dlaXhp20.png)
+	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/12dlaXhp20.png" alt="img" />
 	
 5. 选中【桌面类】，点击下一步：
 
-	![img](../Images/Oracle/watermark,type_ZmFuZ3poZW5.png)
+	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/watermark,type_ZmFuZ3poZW5.png" alt="img" />
 
 6. Oracle主目录用户，如下图所示：
 
@@ -65,27 +65,27 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 	此处本人选择虚拟账户，也是 Oracle 的官方建议之一。
 
-	![img](../Images/Oracle/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nL.png)
+	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nL.png" alt="img" />
 
 7. 更改【Oracle基目录】，取消勾选【创建为容器数据库】，填写【全局数据库名】及口令，点击下一步：
 
-	![在这里插入图片描述](../Images/Oracle/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0c.png)
+	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0c.png" alt="在这里插入图片描述" />
 
 8. 先决条件检查：
 
-	![img](../Images/Oracle/watermark,type_ZmFuZ3poZW5na4ubmV0L3FxXzE3MDU4OTkz,size_16,color_FFFFFF,t_70.png)
+	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/watermark,type_ZmFuZ3poZW5na4ubmV0L3FxXzE3MDU4OTkz,size_16,color_FFFFFF,t_70.png" alt="img" />
 
 9. 概要：
 
-	![在这里插入图片描述](../Images/Oracle/watermark,type_ZmFuZ3poZW5nNzZG4ubmV0L3dlaXhpbl80Mzc5MjQwMQ==,size_16,color_FFFFFF,t_70.png)
+	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/watermark,type_ZmFuZ3poZW5nNzZG4ubmV0L3dlaXhpbl80Mzc5MjQwMQ==,size_16,color_FFFFFF,t_70.png" alt="在这里插入图片描述" />
 
 10. 安装等待，这里会等待得比较久一点：
 
-	![在这里插入图片描述](../Images/Oracle/watermark,type_ZmFuZ3poZW5naGVpdGk,2zZG4ubmV0L3dlaXhpbl80Mzc5MjQwMQ==,size_16,color_FFFFFF,t_70.png)
+	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/watermark,type_ZmFuZ3poZW5naGVpdGk,2zZG4ubmV0L3dlaXhpbl80Mzc5MjQwMQ==,size_16,color_FFFFFF,t_70.png" alt="在这里插入图片描述" />
 
 11. 几十分钟后，显示成功的窗口，点击关闭：
 
-	![在这里插入图片描述](../Images/Oracle/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly92LmNzZG4ubmV0L3dlaXhpbl80Mzc5MjQwMQ==,size_16,color_FFFFFF,t_70.png)
+	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly92LmNzZG4ubmV0L3dlaXhpbl80Mzc5MjQwMQ==,size_16,color_FFFFFF,t_70.png" alt="在这里插入图片描述" />
 
 
 
@@ -103,7 +103,7 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 1. 停止Oracle *服务
 	
-	<img src="../Images/Oracle/image-20230419152744833.png" alt="image-20230419152744833" style="zoom:50%;" />
+	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230419152744833.png" alt="image-20230419152744833" style="zoom:50%;" />
 	
 2. 删除 Oracle *注册表项
 
@@ -135,7 +135,7 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 1. 【工具】 ==> 【选项】 ==> 【环境】：
 
-	![image-20211102124021098](../Images/Oracle/image-20211102124021098.png)
+	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211102124021098.png" alt="image-20211102124021098" />
 
 2. 在 Oracle 安装目录下找到 `oci.dll`， 这是我的路径：`E:\Database\Oracle\Oracle_WINDOWS.X64_193000_db_home\bin\oci.dll`，完成之后重新启动 Navicat。
 
@@ -258,7 +258,7 @@ As 相差月份3 from dual;
 
 如果有一个字符串 aabcd，并指定了一个 `a(b|c)d` 搜索，则将搜索后跟 b 或 c，接着是 d 的 a。
 
-<img src="../Images/Oracle/image-20221108142342799.png" alt="image-20221108142342799" style="zoom: 50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221108142342799.png" alt="image-20221108142342799" style="zoom: 50%;" />
 
 `a(b|c)d` 不匹配给定的字符串 aabcd。
 
