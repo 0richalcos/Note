@@ -1,8 +1,12 @@
+---
+typora-copy-images-to: upload
+---
+
 # 1、简介
 
 X6 是 AntV 旗下的图编辑引擎，提供了一系列开箱即用的交互组件和简单易用的节点定制能力，方便我们快速搭建流程图、DAG 图、ER 图等图应用。
 
-<br>
+
 
 **特性**
 
@@ -11,7 +15,7 @@ X6 是 AntV 旗下的图编辑引擎，提供了一系列开箱即用的交互�
 - 🧲　数据驱动：基于 MVC 架构，用户更加专注于数据逻辑和业务逻辑；
 - 💯　事件驱动：可以监听图表内发生的任何事件。
 
-<br>
+
 
 # 2、快速上手
 
@@ -53,7 +57,7 @@ import { Graph } from '@antv/x6';
 <script src="https://unpkg.com/@antv/x6@1.1.1/dist/x6.js"></script>
 ```
 
-<br>
+
 
 ## 2.2、开始使用
 
@@ -139,11 +143,9 @@ import { Graph } from '@antv/x6';
 
    到此，我们就得到一个最简单的 `Hello --> World` 示例：
 
-   <div align="center">
-       <img src="../Images/AntV-X6/image-20220505005938460.png" alt="image-20220505005938460" style="width:70%;" />
-   </div>
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220505005938460.png" alt="image-20220505005938460" style="width:70%;" />
 
-<br>
+
 
 ## 2.3、画布
 
@@ -168,11 +170,10 @@ const graph = new Graph({
 });
 ```
 
-<div align="center">
-    <img src="../Images/AntV-X6/image-20220505010235847.png" alt="image-20220505010235847" style="width:75%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220505010235847.png" alt="image-20220505010235847" style="width:75%;" />
 
-<br>
+
+
 
 **缩放和平移**
 
@@ -183,11 +184,10 @@ graph.zoom(-0.5)
 graph.translate(80, 40)
 ```
 
-<div align="center">
-    <img src="../Images/AntV-X6/image-20220505010314434.png" alt="image-20220505010314434" style="width:100%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220505010314434.png" alt="image-20220505010314434" style="width:100%;" />
 
-<br>
+
+
 
 ## 2.4、节点
 
@@ -226,11 +226,10 @@ const data = {
 };
 ```
 
-<div align="center">
-    <img src="../Images/AntV-X6/image-20220505010457515.png" alt="image-20220505010457515" style="width:70%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220505010457515.png" alt="image-20220505010457515" style="width:70%;" />
 
-<br>
+
+
 
 **定制样式**
 
@@ -292,11 +291,10 @@ const data = {
 };
 ```
 
-<div align="center">
-    <img src="../Images/AntV-X6/image-20220505010914905.png" alt="image-20220505010914905" style="width:80%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220505010914905.png" alt="image-20220505010914905" style="width:80%;" />
 
-<br>
+
+
 
 ## 2.5、边
 
@@ -336,11 +334,10 @@ const data = {
 }
 ```
 
-<div align="center">
-    <img src="../Images/AntV-X6/image-20220505011011412.png" alt="image-20220505011011412" style="width:80%;" />
-</div>
+ <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220505011011412.png" alt="image-20220505011011412" style="width:80%;" />
 
-<br>
+
+
 
 **定制样式**
 
@@ -382,11 +379,10 @@ const data = {
 }
 ```
 
-<div align="center">
-    <img src="../Images/AntV-X6/image-20220505011203840.png" alt="image-20220505011203840" style="width:80%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220505011203840.png" alt="image-20220505011203840" style="width:80%;" />
 
-<br>
+
+
 
 # 3、基础教程
 

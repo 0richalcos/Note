@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: upload
+---
+
 # 1、Apache POI
 
 Apache POI 是 Apache 软件基金会的开放源码函数库，POI 提供 API 给 Java 程序对 Microsoft Office 格式档案读和写的功能
@@ -10,7 +14,7 @@ Apache POI 是 Apache 软件基金会的开放源码函数库，POI 提供 API �
 - HSLF - 提供读写 Microsoft PowerPoint 格式档案的功能
 - HDGF - 提供读写 Microsoft Visio 格式档案
 
-<br>
+
 
 **依赖**
 
@@ -54,13 +58,12 @@ Apache POI 是 Apache 软件基金会的开放源码函数库，POI 提供 API �
 
 > poi-ooxml（07） 的依赖下包含 poi（03） 的依赖，如果两个都有需求可以只引入 poi-ooxml 依赖：
 >
-> <div align="center">
->     <img src="../Images/ApachePOI/image-20220614154245821.png" alt="image-20220614154245821" style="width:60%;" />
-> </div>
->
-> 望日常开发 Maven 项目中多留意依赖结构，优化导入代码。
+> <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220614154245821.png" alt="image-20220614154245821" style="width:60%;" />
+>    
+> 
+>望日常开发 Maven 项目中多留意依赖结构，优化导入代码。
 
-<br>
+
 
 # 2、POI Excel 写
 
@@ -152,7 +155,7 @@ public class ExcelWriteTest {
 }
 ```
 
-<br>
+
 
 ## 2.2、数据批量导入
 
@@ -193,7 +196,7 @@ public void testWrite03BigData() {
 }
 ```
 
-<br>
+
 
 **大文件写 XSSF**
 
@@ -232,7 +235,7 @@ public void testWrite07BigData() {
 }
 ```
 
-<br>
+
 
 **大文件写 SXSSF**
 
@@ -277,7 +280,7 @@ public void testWrite07BigDataS() {
 }
 ```
 
-<br>
+
 
 ## 2.3、合并单元格
 
@@ -310,11 +313,10 @@ public void testWrite07BigDataS() {
 }
 ```
 
-<div align="center">
-    <img src="../Images/tools/20180720094625254" alt="img" style="width:60%"/>
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180720094625254.png" alt="img" style="width:60%"/>
 
-<br>
+
+
 
 **合并单元格的关键代码：**
 
@@ -327,7 +329,7 @@ sheet.addMergedRegion(cra);
 
 创建合并单元格的方法 `CellRangeAdress(int firstRow, int lastRow, int fitstCol, int lastCol);` 中的参数四个参数分别表示，合并区域的第一行，最后一行，第一列，最后一列。并且合并区域的单元格数目必须大于 2，否则出错。
 
-<br>
+
 
 ## 2.4、基于注解的导出
 
@@ -851,7 +853,7 @@ sheet.addMergedRegion(cra);
 	}
 	```
 
-<br>
+
 
 # 3、POI Excel 读
 
@@ -905,7 +907,7 @@ public class ExcelReadTest {
 }
 ```
 
-<br>
+
 
 ## 3.2、读取不同类型数据
 
@@ -985,7 +987,7 @@ public void testCellType() throws IOException {
 }
 ```
 
-<br>
+
 
 ## 3.3、计算公式
 
@@ -1019,7 +1021,7 @@ public void testFormula() throws IOException {
 }
 ```
 
-<br>
+
 
 # 4、POI Word 读
 
@@ -1041,11 +1043,10 @@ public void testFormula() throws IOException {
 
 > 关于 Apache POI 的依赖版本注意保持统一，否则可能会报 `java.lang.NoSuchMethodError`
 
-<br>
 
-<div align="center">
-    <img src="../Images/ApachePOI/20180914173007117" alt="img" style="width:70%;" />
-</div>
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180914173007117.png" alt="img" style="width:70%;" />
+
 
 ```java
  /**
@@ -1162,7 +1163,7 @@ public class ExportDoc {
 表2-2	1	2	3	
 ```
 
-<br>
+
 
 ## 4.1、Word 转 HTML
 
@@ -1223,7 +1224,7 @@ spring:
     static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${web.upload-path}
 ```
 
- <br>
+
 
 **03 版 Word 转 Html**
 

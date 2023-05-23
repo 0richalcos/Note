@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: upload
+---
+
 # 1、软件设计模式概述
 
 **设计模式的产生背景**
@@ -105,7 +109,7 @@ UML 类图中具体类、抽象类、接口和包有不同的表示方法。
 - `#` 表示 `protected`；
 - 不带符号表示 `default`。
 
-<img src="../Images/DesignPattern/v2-71b22158f5b09dffa57a123d72ec4653_1440w.webp" alt="img" style="zoom: 50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/v2-71b22158f5b09dffa57a123d72ec4653_1440w.png" alt="img" style="zoom: 50%;" />
 
 
 
@@ -113,7 +117,7 @@ UML 类图中具体类、抽象类、接口和包有不同的表示方法。
 
 抽象类在 UML 类图中同样用矩形框表示，但是抽象类的类名以及抽象方法的名字都用斜体字表示。
 
-<img src="../Images/DesignPattern/v2-5c69cd9ff703377f7bbf37cee8199451_1440w.webp" alt="img" style="zoom: 50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/v2-5c69cd9ff703377f7bbf37cee8199451_1440w.png" alt="img" style="zoom: 50%;" />
 
 
 
@@ -121,7 +125,7 @@ UML 类图中具体类、抽象类、接口和包有不同的表示方法。
 
 接口在类图中也是用矩形框表示，但是与类的表示法不同的是，接口在类图中的第一层顶端用构造型 `<<interface>>` 表示，下面是接口的名字，第二层是方法。
 
-<img src="../Images/DesignPattern/v2-e39bdff5514c38e7797848372ac51365_1440w.webp" alt="img" style="zoom: 50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/v2-e39bdff5514c38e7797848372ac51365_1440w.png" alt="img" style="zoom: 50%;" />
 
 此外，接口还有另一种表示法，俗称棒棒糖表示法，就是类上面的一根棒棒糖（圆圈+实线）。圆圈旁为接口名称，接口方法在实现类中出现。
 
@@ -131,7 +135,7 @@ UML 类图中具体类、抽象类、接口和包有不同的表示方法。
 
 类和接口一般都出现在包中，UML类图中包的表示形式如下所示：
 
-<img src="../Images/DesignPattern/v2-b421c9c15219feba7dd9cf7681070682_1440w.webp" alt="img" style="zoom:50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/v2-b421c9c15219feba7dd9cf7681070682_1440w.png" alt="img" style="zoom:50%;" />
 
 
 
@@ -139,7 +143,7 @@ UML 类图中具体类、抽象类、接口和包有不同的表示方法。
 
 类和类、类和接口、接口和接口之间存在一定关系，UML 类图中一般会有连线指明它们之间的关系。关系共有六种类型，分别是实现关系、泛化关系、关联关系、依赖关系、聚合关系、组合关系，如下图所示。
 
-<img src="../Images/DesignPattern/v2-e6a48521352fff8270e753ea4a79d9fb_1440w.webp" alt="img" style="zoom:50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/v2-e6a48521352fff8270e753ea4a79d9fb_1440w.png" alt="img" style="zoom:50%;" />
 
 
 
@@ -149,7 +153,7 @@ UML 类图中具体类、抽象类、接口和包有不同的表示方法。
 
 在 UML 类图中，实现关系用空心三角和虚线组成的箭头来表示，从实现类指向接口，如下图所示。在 Java 代码中，实现关系可以直接翻译为关键字 `implements`。
 
-<img src="../Images/DesignPattern/v2-616c153ec74d496a811ac50c83c3653c_1440w.webp" alt="img" style="zoom:50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/v2-616c153ec74d496a811ac50c83c3653c_1440w.png" alt="img" style="zoom:50%;" />
 
 
 
@@ -161,7 +165,7 @@ UML 类图中具体类、抽象类、接口和包有不同的表示方法。
 
 在 UML 类图中，泛化关系用空心三角和实线组成的箭头表示，从子类指向父类，如下图所示。在 Java 代码中，对象之间的泛化关系可以直接翻译为关键字 `extends`。
 
-<img src="../Images/DesignPattern/v2-04064db11797cf36229d67407fea1b83_1440w.webp" alt="img" style="zoom:50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/v2-04064db11797cf36229d67407fea1b83_1440w.png" alt="img" style="zoom:50%;" />
 
 
 
@@ -175,7 +179,7 @@ UML 类图中具体类、抽象类、接口和包有不同的表示方法。
 
 在 UML 图中，双向关联关系用带双箭头的实线或者无箭头的实线双线表示。单向关联用一个带箭头的实线表示，箭头指向被关联的对象，如下图所示。这就是导航性（Navigatity）。
 
-<img src="../Images/DesignPattern/v2-3f331f3dc075abb4215413014688638f_1440w.webp" alt="img" style="zoom:50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/v2-3f331f3dc075abb4215413014688638f_1440w.png" alt="img" style="zoom:50%;" />
 
 一个对象可以持有其它对象的数组或者集合。在 UML 中，通过放置多重性（multipicity）表达式在关联线的末端来表示。多重性表达式可以是一个数字、一段范围或者是它们的组合。多重性允许的表达式示例如下：
 
@@ -196,7 +200,7 @@ UML 类图中具体类、抽象类、接口和包有不同的表示方法。
 
 在 UML 类图中，依赖关系用一个带虚线的箭头表示，由使用方指向被使用方，表示使用方对象持有被使用方对象的引用，如下图所示。
 
-<img src="../Images/DesignPattern/v2-431e044bbf26778a20dd788968e22aac_1440w.webp" alt="img" style="zoom:50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/v2-431e044bbf26778a20dd788968e22aac_1440w.png" alt="img" style="zoom:50%;" />
 
 依赖关系在 Java 中的具体代码表现形式为 **B 为 A 的构造器或方法中的局部变量**、**方法或构造器的参数**、**方法的返回值**，或者 **A 调用 B 的静态方法**。
 
@@ -276,7 +280,7 @@ public class A {
 
 在 UML 图中，聚合关系用空心菱形加实线箭头表示，空心菱形在整体一方，箭头指向部分一方，如下图所示。
 
-<img src="../Images/DesignPattern/v2-82cb160ed1566d1d04ea320575b54d5f_1440w.webp" alt="img" style="zoom:50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/v2-82cb160ed1566d1d04ea320575b54d5f_1440w.png" alt="img" style="zoom:50%;" />
 
 组合（Composition）也是关联关系的一种特例，它同样体现整体与部分间的包含关系，即 “contains a” 的关系。
 
@@ -286,7 +290,7 @@ public class A {
 
 在 UML 图中，组合关系用实心菱形加实线箭头表示，实心菱形在整体一方，箭头指向部分一方，如下图所示。
 
-<img src="../Images/DesignPattern/v2-e651244eeca9c0881cbdd2add429e850_1440w.webp" alt="img" style="zoom:50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/v2-e651244eeca9c0881cbdd2add429e850_1440w.png" alt="img" style="zoom:50%;" />
 
 在 Java 代码形式上，聚合和组合关系中的部分对象是整体对象的一个成员变量。但是，在实际应用开发时，两个对象之间的关系到底是聚合还是组合，有时候很难区别。在 Java 中，仅从类代码本身是区分不了聚合和组合的。如果一定要区分，那么如果在删除整体对象的时候，必须删掉部分对象，那么就是组合关系，否则可能就是聚合关系。从业务角度上来看，如果作为整体的对象必须要部分对象的参与，才能完成自己的职责，那么二者之间就是组合关系，否则就是聚合关系。
 
@@ -357,7 +361,7 @@ public class A {
 
 分析：Windows 的主题是桌面背景图片、窗口颜色和声音等元素的组合。用户可以根据自己的喜爱更换自己的桌面主题，也可以从网上下载新的主题。这些主题有共同的特点，可以为其定义一个抽象类（Abstract Subject），而每个具体的主题（Specific Subject）是其子类。用户窗体可以根据需要选择或者增加新的主题，而不需要修改原代码，所以它是满足开闭原则的，其类图如下图所示：
 
-![3-1Q113100151L5.gif](../Images/DesignPattern/3-1Q113100151L5.gif)
+![3-1Q113100151L5.gif](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/3-1Q113100151L5.png)
 
 
 
@@ -403,7 +407,7 @@ public class A {
 
 分析：鸟一般都会飞行，如燕子的飞行速度大概是每小时 120 千米。但是新西兰的几维鸟由于翅膀退化无法飞行。假如要设计一个实例，计算这两种鸟飞行 300 千米要花费的时间。显然，拿燕子来测试这段代码，结果正确，能计算出所需要的时间；但拿几维鸟来测试，结果会发生 “除零异常” 或是 “无穷大”，明显不符合预期，其类图如下图所示：
 
-![3-1Q11311094H32.gif](../Images/DesignPattern/3-1Q11311094H32.gif)
+![3-1Q11311094H32.gif](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/3-1Q11311094H32.png)
 
 程序代码如下：
 
@@ -454,9 +458,9 @@ class BrownKiwi extends Bird {
 
 程序运行错误的原因是：几维鸟类重写了鸟类的 `setSpeed(double speed)` 方法，这违背了里氏替换原则。正确的做法是：取消几维鸟原来的继承关系，定义鸟和几维鸟的更一般的父类，如动物类，它们都有奔跑的能力。几维鸟的飞行速度虽然为 0，但奔跑速度不为 0，可以计算出其奔跑 300 千米所要花费的时间。其类图如下图所示：
 
-![3-1Q11311101SN.gif](../Images/DesignPattern/3-1Q11311101SN.gif)
+![3-1Q11311101SN.gif](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/3-1Q11311101SN.png)
 
-<br>
+
 
 ## 3.3、合成复用原则
 
@@ -464,7 +468,7 @@ class BrownKiwi extends Bird {
 
 如果要使用继承关系，则必须严格遵循里氏替换原则。合成复用原则同里氏替换原则相辅相成的，两者都是开闭原则的具体实现规范。
 
-<br>
+
 
 **合成复用原则的重要性**
 
@@ -479,7 +483,7 @@ class BrownKiwi extends Bird {
 1. 它维持了类的封装性。因为成分对象的内部细节是新对象看不见的，所以这种复用又称为 “黑箱” 复用。
 2. 新旧类之间的耦合度低。这种复用所需的依赖较少，新对象存取成分对象的唯一方法是通过成分对象的接口。
 
-<br>
+
 
 **合成复用原则的实现方法**
 
@@ -489,13 +493,13 @@ class BrownKiwi extends Bird {
 
 分析：汽车按 “动力源” 划分可分为汽油汽车、电动汽车等；按 “颜色” 划分可分为白色汽车、黑色汽车和红色汽车等。如果同时考虑这两种分类，其组合就很多。下图所示是用继承关系实现的汽车分类的类图：
 
-![3-1Q113160133151.gif](../Images/DesignPattern/3-1Q113160133151.gif)
+![3-1Q113160133151.gif](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/3-1Q113160133151.png)
 
 从上图图可以看出用继承关系实现会产生很多子类，而且增加新的 “动力源” 或者增加新的 “颜色” 都要修改源代码，这违背了开闭原则，显然不可取。但如果改用组合关系实现就能很好地解决以上问题，其类图如下图所示。
 
-![3-1Q11316034X57.gif](../Images/DesignPattern/3-1Q11316034X57.gif)
+![3-1Q11316034X57.gif](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/3-1Q11316034X57.png)
 
-<br>
+
 
 ## 3.4、依赖倒置原则
 
@@ -511,7 +515,7 @@ class BrownKiwi extends Bird {
 
 使用接口或者抽象类的目的是制定好规范和契约，而不去涉及任何具体的操作，把展现细节的任务交给它们的实现类去完成。
 
-<br>
+
 
 **依赖倒置原则的作用**
 
@@ -522,7 +526,7 @@ class BrownKiwi extends Bird {
 - 依赖倒置原则可以减少并行开发引起的风险。
 - 依赖倒置原则可以提高代码的可读性和可维护性。
 
-<br>
+
 
 **依赖倒置原则的实现方法**
 
@@ -570,7 +574,7 @@ class Customer {
 
 这样，不管顾客类 Customer 访问什么商店，或者增加新的商店，都不需要修改原有代码了，其类图如下图所示：
 
-![3-1Q113131610L7.gif](../Images/DesignPattern/3-1Q113131610L7.gif)
+![3-1Q113131610L7.gif](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/3-1Q113131610L7.png)
 
 程序代码如下：
 
@@ -616,7 +620,7 @@ class Customer {
 婺源土特产：绿茶、酒糟鱼……
 ```
 
-<br>
+
 
 ## 3.5、单一职责原则
 
@@ -629,7 +633,7 @@ class Customer {
 1. 一个职责的变化可能会削弱或者抑制这个类实现其他职责的能力；
 2. 当客户端需要该对象的某一个职责时，不得不将其他不需要的职责全都包含进来，从而造成冗余代码或代码的浪费。
 
-<br>
+
 
 **单一职责原则的优点**
 
@@ -640,7 +644,7 @@ class Customer {
 - 提高系统的可维护性。可读性提高，那自然更容易维护了。
 - 变更引起的风险降低。变更是必然的，如果单一职责原则遵守得好，当修改一个功能时，可以显著降低对其他功能的影响。
 
-<br>
+
 
 **单一职责原则的实现方法**
 
@@ -650,11 +654,11 @@ class Customer {
 
 分析：大学学生工作主要包括学生生活辅导和学生学业指导两个方面的工作，其中生活辅导主要包括班委建设、出勤统计、心理辅导、费用催缴、班级管理等工作，学业指导主要包括专业引导、学习辅导、科研指导、学习总结等工作。如果将这些工作交给一位老师负责显然不合理，正确的做法是生活辅导由辅导员负责，学业指导由学业导师负责，其类图如下图所示：
 
-![3-1Q113133F4161.gif](../Images/DesignPattern/3-1Q113133F4161.gif)
+![3-1Q113133F4161.gif](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/3-1Q113133F4161.png)
 
 注意：单一职责同样也适用于方法。一个方法应该尽可能做好一件事情。如果一个方法处理的事情太多，其颗粒度会变得很粗，不利于重用。
 
-<br>
+
 
 ## 3.6、接口隔离原则
 
@@ -669,7 +673,7 @@ class Customer {
 - 单一职责原则注重的是职责，而接口隔离原则注重的是对接口依赖的隔离。
 - 单一职责原则主要是约束类，它针对的是程序中的实现和细节；接口隔离原则主要约束接口，主要针对抽象和程序整体框架的构建。
 
-<br>
+
 
 **接口隔离原则的优点**
 
@@ -681,7 +685,7 @@ class Customer {
 4. 使用多个专门的接口还能够体现对象的层次，因为可以通过接口的继承，实现对总接口的定义。
 5. 能减少项目工程中的代码冗余。过大的大接口里面通常放置许多不用的方法，当实现这个接口的时候，被迫设计冗余的代码。
 
-<br>
+
 
 **接口隔离原则的实现方法**
 
@@ -696,7 +700,7 @@ class Customer {
 
 分析：学生成绩管理程序一般包含插入成绩、删除成绩、修改成绩、计算总分、计算均分、打印成绩信息、査询成绩信息等功能，如果将这些功能全部放到一个接口中显然不太合理，正确的做法是将它们分别放在输入模块、统计模块和打印模块等 3 个模块中，其类图如下图所示：
 
-![3-1Q113141Q0X3.gif](../Images/DesignPattern/3-1Q113141Q0X3.gif)
+![3-1Q113141Q0X3.gif](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/3-1Q113141Q0X3.png)
 
 程序代码如下：
 
@@ -773,7 +777,7 @@ class StuScoreList implements InputModule, CountModule, PrintModule {
 打印模块的printStuInfo()方法被调用！
 ```
 
-<br>
+
 
 ## 3.7、迪米特法则
 
@@ -785,7 +789,7 @@ class StuScoreList implements InputModule, CountModule, PrintModule {
 
 迪米特法则中的 “朋友” 是指：当前对象本身、当前对象的成员对象、当前对象所创建的对象、当前对象的方法参数等，这些对象同当前对象存在关联、聚合或组合关系，可以直接访问这些对象的方法。
 
-<br>
+
 
 **迪米特法则的优点**
 
@@ -796,7 +800,7 @@ class StuScoreList implements InputModule, CountModule, PrintModule {
 
 但是，过度使用迪米特法则会使系统产生大量的中介类，从而增加系统的复杂性，使模块之间的通信效率降低。所以，在釆用迪米特法则时需要反复权衡，确保高内聚和低耦合的同时，保证系统的结构清晰。
 
-<br>
+
 
 **迪米特法则的实现方法**
 
@@ -818,7 +822,7 @@ class StuScoreList implements InputModule, CountModule, PrintModule {
 
 分析：明星由于全身心投入艺术，所以许多日常事务由经纪人负责处理，如与粉丝的见面会，与媒体公司的业务洽淡等。这里的经纪人是明星的朋友，而粉丝和媒体公司是陌生人，所以适合使用迪米特法则，其类图如下图所示：
 
-![3-1Q113152Q5W1.gif](../Images/DesignPattern/3-1Q113152Q5W1.gif)
+![3-1Q113152Q5W1.gif](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/3-1Q113152Q5W1.png)
 
 程序代码如下：
 
@@ -893,7 +897,7 @@ class Company {
 中国传媒有限公司与明星林心如洽淡业务。
 ```
 
-<br>
+
 
 # 4、GoF 的 23 种设计模式
 
@@ -903,7 +907,7 @@ class Company {
 2. 结构型模式：用于描述如何将类或对象按某种布局组成更大的结构，GoF 中提供了代理、适配器、桥接、装饰、外观、享元、组合等 7 种结构型模式。
 3. 行为型模式：用于描述类或对象之间怎样相互协作共同完成单个对象都无法单独完成的任务，以及怎样分配职责。GoF 中提供了模板方法、策略、命令、职责链、状态、观察者、中介者、迭代器、访问者、备忘录、解释器等 11 种行为型模式。
 
- <br>
+ 
 
 **GoF的23种设计模式的功能**
 
@@ -933,7 +937,7 @@ class Company {
 22. 备忘录（Memento）模式：在不破坏封装性的前提下，获取并保存一个对象的内部状态，以便以后恢复它。
 23. 解释器（Interpreter）模式：提供如何定义语言的文法，以及对语言句子的解释方法，即解释器。
 
-<br>
+
 
 # 5、创建型模式
 
@@ -950,13 +954,13 @@ class Company {
 
 以上 5 种创建型模式，除了工厂方法模式属于类创建型模式，其他的全部属于对象创建型模式，这里将在之后的教程中详细地介绍它们的特点、结构与应用。
 
-<br>
+
 
 ## 5.1、单例模式
 
 在有些系统中，为了节省内存资源、保证数据内容的一致性，对某些类要求只能创建一个实例，这就是所谓的单例模式。
 
-<br>
+
 
 ### 5.1.1、单例模式的定义与特点
 
@@ -972,7 +976,7 @@ class Company {
 2. 该单例对象必须由单例类自行创建；
 3. 单例类对外提供一个访问该单例的全局访问点。
 
-<br>
+
 
 **单例模式的优点：**
 
@@ -980,7 +984,7 @@ class Company {
 - 可以避免对资源的多重占用。
 - 单例模式设置全局访问点，可以优化和共享资源的访问。
 
-<br>
+
 
 **单例模式的缺点：**
 
@@ -988,7 +992,7 @@ class Company {
 - 在并发测试中，单例模式不利于代码调试。在调试过程中，如果单例中的代码没有执行完，也不能模拟生成一个新的对象。
 - 单例模式的功能代码通常写在一个类中，如果功能设计不合理，则很容易违背单一职责原则。
 
-<br>
+
 
 ### 5.1.2、单例模式的应用场景
 
@@ -1002,7 +1006,7 @@ class Company {
 - 对于一些控制硬件级别的操作，或者从系统上来讲应当是单一控制逻辑的操作，如果有多个实例，则系统会完全乱套。
 - 当对象需要被共享的场合。由于单例模式只允许创建一个对象，共享该对象可以节省内存，并加快对象访问速度。如 Web 中的配置对象、数据库的连接池等。
 
-<br>
+
 
 ### 5.1.3、单例模式的结构与实现
 
@@ -1014,7 +1018,7 @@ class Company {
 
 ![562f2844-d77c-40e0-887a-28a7128abd42](../Images/DesignPattern/562f2844-d77c-40e0-887a-28a7128abd42-16564338028036.png)
 
-<br>
+
 
 **懒汉式-线程不安全**
 
@@ -1039,7 +1043,7 @@ public class Singleton {
 }
 ```
 
-<br>
+
 
 **饿汉式-线程安全**
 
@@ -1051,7 +1055,7 @@ public class Singleton {
 private static Singleton uniqueInstance = new Singleton();
 ```
 
-<br>
+
 
 **懒汉式-线程安全**
 
@@ -1068,7 +1072,7 @@ public static synchronized Singleton getUniqueInstance() {
 }
 ```
 
-<br>
+
 
 **双重校验锁-线程安全**
 
@@ -1117,7 +1121,7 @@ if (uniqueInstance == null) {
 
 使用 `volatile` 可以禁止 JVM 的指令重排，保证在多线程环境下也能正常运行。
 
-<br>
+
 
 **静态内部类实现**
 
@@ -1141,7 +1145,7 @@ public class Singleton {
 }
 ```
 
-<br>
+
 
 **枚举实现**
 
@@ -1176,26 +1180,26 @@ public class Singleton implements Serializable {
 
 从上面的讨论可以看出，解决序列化和反射攻击很麻烦，而枚举实现不会出现这两种问题，所以说枚举实现单例模式是最佳实践。
 
-<br>
+
 
 ## 5.2、原型模式
 
 在有些系统中，存在大量相同或相似对象的创建问题，如果用传统的构造函数来创建对象，会比较复杂且耗时耗资源，用原型模式生成对象就很高效，就像孙悟空拔下猴毛轻轻一吹就变出很多孙悟空一样简单。
 
-<br>
+
 
 ### 5.2.1、原型模式的定义与特点
 
 原型（Prototype）模式的定义如下：用一个已经创建的实例作为原型，通过复制该原型对象来创建一个和原型相同或相似的新对象。在这里，原型实例指定了要创建的对象的种类。用这种方式创建对象非常高效，根本无须知道对象创建的细节。例如，Windows 操作系统的安装通常较耗时，如果复制就快了很多。在生活中复制的例子非常多，这里不一一列举了。
 
-<br>
+
 
 **原型模式的优点：**
 
 - Java 自带的原型模式基于内存二进制流的复制，在性能上比直接 new 一个对象更加优良。
 - 可以使用深克隆方式保存对象的状态，使用原型模式将对象复制一份，并将其状态保存起来，简化了创建对象的过程，以便在需要的时候使用（例如恢复到历史某一状态），可辅助实现撤销操作。
 
-<br>
+
 
 **原型模式的缺点：**
 
@@ -1203,7 +1207,7 @@ public class Singleton implements Serializable {
 - clone 方法位于类的内部，当对已有类进行改造的时候，需要修改代码，违背了开闭原则。
 - 当实现深克隆时，需要编写较为复杂的代码，而且当对象之间存在多重嵌套引用时，为了实现深克隆，每一层对象对应的类都必须支持深克隆，实现起来会比较麻烦。因此，深克隆、浅克隆需要运用得当。
 
-<br>
+
 
 ### 5.2.2、原型模式的应用场景
 
@@ -1216,7 +1220,7 @@ public class Singleton implements Serializable {
 
 在 Spring 中，原型模式应用的非常广泛，例如 `scope='prototype'`、`JSON.parseObject()` 等都是原型模式的具体应用。
 
-<br>
+
 
 ### 5.2.3、原型模式的结构与实现
 
@@ -1226,7 +1230,7 @@ public class Singleton implements Serializable {
 
 ![a40661e4-1a71-46d2-a158-ff36f7fc3331](../Images/DesignPattern/a40661e4-1a71-46d2-a158-ff36f7fc3331-16564338837499.png)
 
-<br>
+
 
 **实现**
 
@@ -1267,7 +1271,7 @@ public class Client {
 }
 ```
 
-<br>
+
 
 ## 5.3、简单工厂
 
@@ -1277,7 +1281,7 @@ public class Client {
 
 > 注意：上述复杂对象指的是类的构造函数参数过多等对类的构造有影响的情况，因为类的构造过于复杂，如果直接在其他业务类内使用，则两者的耦合过重，后续业务更改，就需要在任何引用该类的源代码内进行更改，光是查找所有依赖就很消耗时间了，更别说要一个一个修改了。
 
-<br>
+
 
 ### 5.3.1、简单工厂的定义与特点
 
@@ -1295,7 +1299,7 @@ public class Client {
 
 > “工厂方法模式” 是对简单工厂模式的进一步抽象化，其好处是可以使系统在不修改原来代码的情况下引进新的产品，即满足开闭原则。
 
-<br>
+
 
 **简单工厂的优点：**
 
@@ -1303,7 +1307,7 @@ public class Client {
 2. 客户端无需知道所创建具体产品的类名，只需知道参数即可。
 3. 也可以引入配置文件，在不修改客户端代码的情况下更换和添加新的具体产品类。
 
-<br>
+
 
 **简单工厂的缺点：**
 
@@ -1312,13 +1316,13 @@ public class Client {
 3. 系统扩展困难，一旦增加新产品不得不修改工厂逻辑，在产品类型较多时，可能造成逻辑过于复杂
 4. 简单工厂模式使用了 static 工厂方法，造成工厂角色无法形成基于继承的等级结构。
 
-<br>
+
 
 ### 5.3.2、简单工厂的应用场景
 
 对于产品种类相对较少的情况，考虑使用简单工厂模式。使用简单工厂模式的客户端只需要传入工厂类的参数，不需要关心如何创建对象的逻辑，可以很方便地创建所需产品。
 
-<br>
+
 
 ### 5.3.3、简单工厂的结构与实现
 
@@ -1328,7 +1332,7 @@ public class Client {
 
 ![c79da808-0f28-4a36-bc04-33ccc5b83c13](../Images/DesignPattern/c79da808-0f28-4a36-bc04-33ccc5b83c13-16565120768244.png)
 
-​	<br>
+
 
 **实现**
 
@@ -1396,7 +1400,7 @@ public class Client {
 }
 ```
 
-<br>
+
 
 ## 5.4、工厂方法
 

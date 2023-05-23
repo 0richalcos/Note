@@ -1,8 +1,12 @@
+---
+typora-copy-images-to: upload
+---
+
 DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 UI 组件。使用 dhtmlxSuite 生成企业级 WEB 应用程序有干净的界面、 快速的性能和丰富的用户体验。DHTMLX 组件是由位于俄罗斯圣彼得堡的 DHTMLX 公司开发的，适用于 B/S  模式的 WEB 应用开发，DHTMLX-Gantt 是该公司旗下开发的甘特图组件.
 
 它分 Pro 版和 Standard 版：Pro版需要付费，Standard 版不需要付费。
 
-<br>
+
 
 # 1、简单使用
 
@@ -45,11 +49,9 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 
 4. 效果预览：
 
-   <div align="center">
-       <img src="../Images/DHTMLXGantt/image-20220525234529468.png" alt="image-20220525234529468" style="width:90%;" />
-   </div>
+   <img src="../Images/DHTMLXGantt/image-20220525234529468.png" alt="image-20220525234529468" style="width:90%;" />
 
-<br>
+
 
 # 2、Gantt API
 
@@ -57,7 +59,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 
 [官方文档](https://docs.dhtmlx.com/gantt/api__refs__gantt_props.html)
 
-<br>
+
 
 **autofit**
 
@@ -73,7 +75,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.autofit = false;
   ```
 
-<br>
+
 
 **autoscroll**
 
@@ -89,7 +91,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.autoscroll = false;
   ```
 
-<br>
+
 
 **autoscroll_speed**
 
@@ -106,7 +108,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.autoscroll_speed = 50;
   ```
 
-<br>
+
 
 **autosize**
 
@@ -123,7 +125,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.autosize = "xy";
   ```
 
-<br>
+
 
 **autosize_min_width**
 
@@ -140,7 +142,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.autosize_min_width = 800;
   ```
 
-<br>
+
 
 **buttons_left**
 
@@ -179,7 +181,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   </script>
   ```
 
-<br>
+
 
 **buttons_right**
 
@@ -217,7 +219,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   </script>
   ```
 
-<br>
+
 
 **buttons_right**
 
@@ -248,7 +250,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   }
   ````
 
-<br>
+
 
 **cascade_delete**
 
@@ -264,7 +266,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.cascade_delete = false;
   ```
 
-<br>
+
 
 **columns**
 
@@ -302,7 +304,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   | tree      | 设置该列为树形控件                                           | boolean                   |
   | width     | 定义宽度                                                     | number                    |
 
-<br>
+
 
 **correct_work_time**
 
@@ -321,7 +323,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.correct_work_time = true;
   ```
 
-<br>
+
 
 **date_format**
 
@@ -337,7 +339,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.date_format = "%Y-%m-%d %H:%i";
   ```
 
-<br>
+
 
 **details_on_create**
 
@@ -353,7 +355,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.details_on_create = true;
   ```
 
-<br>
+
 
 **details_on_dblclick**
 
@@ -369,7 +371,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.details_on_dblclick = true;
   ```
 
-<br>
+
 
 **drag_lightbox**
 
@@ -385,7 +387,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.drag_lightbox = false;
   ```
 
-<br>
+
 
 **drag_links**
 
@@ -401,7 +403,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.drag_links = false;
   ```
 
-<br>
+
 
 **drag_mode**
 
@@ -439,7 +441,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   - "move"：用户拖动条形图来改变位置时触发
   - "ignore"：忽略拖拽行为
 
-<br>
+
 
 **drag_move**
 
@@ -455,7 +457,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.drag_move = false;
   ```
 
-<br>
+
 
 **drag_progress**
 
@@ -471,7 +473,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.drag_progress = false;
   ```
 
-<br>
+
 
 **drag_resize**
 
@@ -487,7 +489,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.drag_resize = false;
   ```
 
-<br>
+
 
 **duration_step**
 
@@ -505,7 +507,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   //当 task.duration = 2时, 工期为6 小时 (3*2)
   ```
 
-<br>
+
 
 **duration_unit**
 
@@ -523,7 +525,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   //当 task.duration = 2时, 工期为6 小时 (3*2)
   ```
 
-<br>
+
 
 **end_date**
 
@@ -541,7 +543,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.init("gantt_here");
   ```
 
-<br>
+
 
 **fit_tasks**
 
@@ -561,7 +563,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.fit_tasks = true; 
   ```
 
-<br>
+
 
 **grid_resizer_column_attribute**
 
@@ -577,7 +579,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.grid_resizer_column_attribute = "col_index";//"column_index" -> "col_index"1
   ```
 
-<br>
+
 
 **grid_width**
 
@@ -593,7 +595,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.grid_width = 400;
   ```
 
-<br>
+
 
 **inherit_scale_class**
 
@@ -609,7 +611,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.inherit_scale_class=true;
   ```
 
-<br>
+
 
 **initial_scroll**
 
@@ -625,7 +627,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.initial_scroll = false;
   ```
 
-<br>
+
 
 **keyboard_navigation_cells**
 
@@ -641,7 +643,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.keyboard_navigation_cells = true;
   ```
 
-<br>
+
 
 **layout**
 
@@ -670,7 +672,9 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   };
   ```
 
-<br>
+
+
+
 
 **lightbox**
 
@@ -696,7 +700,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   
   | 属性          | 说明                                                         | 值                                                           |
   | ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-  | name          | 名称用于索引国际化后的实际内容， 如 `name = time section`，<br>最后读取的是 `gantt.locale.labels.section_time` 的内容 | string                                                       |
+  | name          | 名称用于索引国际化后的实际内容， 如 `name = time section`，最后读取的是 `gantt.locale.labels.section_time` 的内容 | string                                                       |
   | height        | section 高度                                                 | number                                                       |
   | map_to        | data 的属性名，将相应的 data 属性映射到 section              | string                                                       |
   | type          | section 的编辑器类型                                         | string                                                       |
@@ -706,15 +710,17 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   | onchange      | 选择器的选项改变时触发                                       | function                                                     |
   | options       | 编辑器的候选项， 用于选择器，单选 radio，多选 checkbox       | 形如 `{ key: 1, lable: ‘demo’ }` 的对象数组                  |
   | readonly      | 只读模式，用在 time and duration                             | boolean                                                      |
-  | year_range    | 年份选择器的范围                                             | array/number, <br>array：`[2005 - 2025]`;<br>number：`10` = `[current, current + 10]` |
-  | single_date   | 设置后只有开始日期 start Date 可以选择，结束时间等于同一天，<br>这个对于选择里程碑比较有用 | boolean                                                      |
-  | allow_root    | 设置为 true 的时候会新增一个选项用于设置所有任务的根节点，<br>使用的时候要跟 root_label 属性一起使用<br>（section 是 parent 的时候才有） | boolean                                                      |
+  | year_range    | 年份选择器的范围                                             | array/number, array：`[2005 - 2025]`;number：`10` = `[current, current + 10]` |
+  | single_date   | 设置后只有开始日期 start Date 可以选择，结束时间等于同一天，这个对于选择里程碑比较有用 | boolean                                                      |
+  | allow_root    | 设置为 true 的时候会新增一个选项用于设置所有任务的根节点，使用的时候要跟 root_label 属性一起使用（section 是 parent 的时候才有） | boolean                                                      |
   | root_label    | 设置根节点的 label（section 是 parent 的时候才有）           | string                                                       |
   | filter        | 选择器的过滤方法                                             | function                                                     |
   | sort          | 选择器的排序方法                                             | function                                                     |
   | template      | 选择器的 option 渲染方法（section 是 parent 的时候才有）     | function                                                     |
 
-<br>
+
+
+
 
 **lightbox_additional_height**
 
@@ -730,7 +736,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.lightbox_additional_height = 90;
   ```
 
-<br>
+
 
 **link_arrow_size**
 
@@ -746,7 +752,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.link_arrow_size = 8;
   ```
 
-<br>
+
 
 **link_attribute**
 
@@ -763,7 +769,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   // <div class="grantt_task_link" l_id="14">...<div>123
   ```
 
-<br>
+
 
 **link_line_width**
 
@@ -779,7 +785,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.link_line_width = 3;
   ```
 
-<br>
+
 
 **link_wrapper_width**
 
@@ -795,7 +801,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.link_wrapper_width = 30;
   ```
 
-<br>
+
 
 **links**
 
@@ -818,7 +824,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   - "finish_to_finish"：后置任务需要等到前置任务结束才允许结束
   - "start_to_finish"：后置任务需要等到前置任务开始才允许结束
 
-<br>
+
 
 **min_column_width**
 
@@ -834,7 +840,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.min_column_width = 100;
   ```
 
-<br>
+
 
 **min_duration**
 
@@ -850,7 +856,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.min_duration = 24*60*60*1000;// 1 day
   ```
 
-<br>
+
 
 **min_grid_column_width**
 
@@ -866,7 +872,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.min_grid_column_width = 100;
   ```
 
-<br>
+
 
 **multiselect**
 
@@ -882,7 +888,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.multiselect = false;
   ```
 
-<br>
+
 
 **multiselect_one_level**
 
@@ -904,7 +910,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.init("gantt_here");
   ```
 
-<br>
+
 
 **open_tree_initially**
 
@@ -920,7 +926,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.open_tree_initially = true;
   ```
 
-<br>
+
 
 **order_branch**
 
@@ -936,7 +942,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.order_branch = true;
   ```
 
-<br>
+
 
 **order_branch_free**
 
@@ -954,7 +960,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.order_branch_free = true;
   ```
 
-<br>
+
 
 **placeholder_task**
 
@@ -977,7 +983,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.placeholder_task = true;
   ```
 
-<br>
+
 
 **preserve_scroll**
 
@@ -993,7 +999,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.preserve_scroll = false;
   ```
 
-<br>
+
 
 **prevent_default_scroll**
 
@@ -1013,7 +1019,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 
   - 禁用该选项的时候，滚动鼠标只滚动图表内部的滚动条，图表外部的滚动条不滚动（接收不到滚动事件）
 
-<br>
+
 
 **quick_info_detached**
 
@@ -1029,7 +1035,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.quick_info_detached = false;
   ```
 
-<br>
+
 
 **quickinfo_buttons**
 
@@ -1052,7 +1058,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   };
   ```
 
-<br>
+
 
 **readonly**
 
@@ -1068,7 +1074,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.readonly=true;
   ```
 
-<br>
+
 
 **readonly_property**
 
@@ -1084,7 +1090,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.readonly_property = "property_name";
   ```
 
-<br>
+
 
 **redo**
 
@@ -1100,7 +1106,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.redo = true;
   ```
 
-<br>
+
 
 **resource_calendars**
 
@@ -1140,7 +1146,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   }
   ```
 
-<br>
+
 
 **resource_render_empty_cells**
 
@@ -1156,7 +1162,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.resource_render_empty_cells = true;
   ```
 
-<br>
+
 
 **root_id**
 
@@ -1182,7 +1188,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   };
   ```
 
-<br>
+
 
 **round_dnd_dates**
 
@@ -1198,7 +1204,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.round_dnd_dates = false;
   ```
 
-<br>
+
 
 **row_height**
 
@@ -1214,7 +1220,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.row_height = 40;
   ```
 
-<br>
+
 
 **rtl**
 
@@ -1244,7 +1250,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   };
   ```
 
-<br>
+
 
 **scale_height**
 
@@ -1260,7 +1266,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.scale_height = 50;
   ```
 
-<br>
+
 
 **scroll_on_click**
 
@@ -1276,7 +1282,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.scroll_on_click= false;
   ```
 
-<br>
+
 
 **scroll_size**
 
@@ -1292,7 +1298,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.scroll_size = 20;
   ```
 
-<br>
+
 
 **select_task**
 
@@ -1308,7 +1314,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.select_task  = false;
   ```
 
-<br>
+
 
 **server_utc**
 
@@ -1324,7 +1330,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.server_utc = true;
   ```
 
-<br>
+
 
 **show_chart**
 
@@ -1341,7 +1347,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.show_chart = false;
   ```
 
-<br>
+
 
 **show_errors**
 
@@ -1357,7 +1363,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.show_errors = false;
   ```
 
-<br>
+
 
 **show_grid**
 
@@ -1374,7 +1380,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.show_grid = false;
   ```
 
-<br>
+
 
 **show_links**
 
@@ -1390,7 +1396,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.show_links = false;
   ```
 
-<br>
+
 
 **show_markers**
 
@@ -1410,7 +1416,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.show_markers = false;// 隐藏所有标记12345
   ```
 
-<br>
+
 
 **show_progress**
 
@@ -1426,6 +1432,8 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.show_progress = true;
   ```
 
+
+
 **show_quick_info**
 
 - 是否显示 quick_info（带有任务信息的 popup 表单）
@@ -1440,7 +1448,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.show_quick_info = false;
   ```
 
-<br>
+
 
 **show_task_cells**
 
@@ -1456,7 +1464,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.show_task_cells = false;
   ```
 
-<br>
+
 
 **show_unscheduled**
 
@@ -1472,7 +1480,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.show_unscheduled = true;
   ```
 
-<br>
+
 
 **smart_rendering**
 
@@ -1488,7 +1496,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.smart_rendering = true;
   ```
 
-<br>
+
 
 **smart_scales**
 
@@ -1504,7 +1512,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.smart_scales = true;
   ```
 
-<br>
+
 
 **sort**
 
@@ -1520,7 +1528,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.sort = true;
   ```
 
-<br>
+
 
 **start_date**
 
@@ -1537,7 +1545,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.end_date = new Date(2013, 08, 20);
   ```
 
-<br>
+
 
 **start_on_monday**
 
@@ -1553,7 +1561,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.start_on_monday = false; // 第一天将变为周日
   ```
 
-<br>
+
 
 **task_attribute**
 
@@ -1570,7 +1578,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   // <div t_id=11 class='gantt_task_line'></div>123
   ```
 
-<br>
+
 
 **task_date**
 
@@ -1586,7 +1594,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.task_date = "%d-%m-%Y";
   ```
 
-<br>
+
 
 **task_scroll_offset**
 
@@ -1604,7 +1612,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.task_scroll_offset = 120;
   ```
 
-<br>
+
 
 **time_picker**
 
@@ -1620,7 +1628,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.time_picker = "%H:%s";
   ```
 
-<br>
+
 
 **tooltip_hide_timeout**
 
@@ -1638,7 +1646,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.tooltip_hide_timeout = 5000;
   ```
 
-<br>
+
 
 **tooltip_offset_x**
 
@@ -1654,7 +1662,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.tooltip_offset_x = 30;
   ```
 
-<br>
+
 
 **tooltip_offset_y**
 
@@ -1670,7 +1678,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.tooltip_offset_y = 40;
   ```
 
-<br>
+
 
 **tooltip_timeout**
 
@@ -1686,7 +1694,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.tooltip_offset_x = 50;
   ```
 
-<br>
+
 
 **touch**
 
@@ -1708,7 +1716,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   - 'force'：不检测 UA，直接开启触屏模式
   - false：禁用触屏模式
 
-<br>
+
 
 **touch_drag**
 
@@ -1724,7 +1732,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.touch_drag = 75;
   ```
 
-<br>
+
 
 **touch_feedback**
 
@@ -1741,7 +1749,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.touch_feedback = false;
   ```
 
-<br>
+
 
 **touch_feedback_duration**
 
@@ -1757,7 +1765,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.touch_feedback_duration = 1;
   ```
 
-<br>
+
 
 **undo**
 
@@ -1773,7 +1781,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.undo = true;
   ```
 
-<br>
+
 
 **undo_actions**
 
@@ -1793,7 +1801,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   };
   ```
 
-<br>
+
 
 **undo_steps**
 
@@ -1809,7 +1817,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.undo_steps = 10;
   ```
 
-<br>
+
 
 **undo_types**
 
@@ -1828,7 +1836,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   };
   ```
 
-<br>
+
 
 **wai_aria_attributes**
 
@@ -1844,7 +1852,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.config.wai_aria_attributes = true;
   ```
 
-<br>
+
 
 **work_time**
 
@@ -1864,13 +1872,13 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   gantt.init("gantt_here");
   ```
 
-<br>
+
 
 # 3、向导
 
 [官方文档](https://docs.dhtmlx.com/gantt/desktop__guides.html)
 
-<br>
+
 
 ## 3.1、样式
 
@@ -1878,9 +1886,8 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 
 **网格样式**
 
-<div align="center">
-    <img src="../Images/DHTMLXGantt/grid_area.png" alt="img" style="width:50%;" />
-</div>
+<img src="../Images/DHTMLXGantt/grid_area.png" alt="img" style="width:50%;" />
+
 
 网格的 DOM 元素的整体结构如下：
 
@@ -1920,9 +1927,8 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 }
 ```
 
-<div align="center">
-    <img src="../Images/DHTMLXGantt/grid_header.png" alt="img" style="width:50%;" />
-</div>
+<img src="../Images/DHTMLXGantt/grid_header.png" alt="img" style="width:50%;" />
+
 
 可以通过 `.gantt_grid_head_cell` 将自定义样式应用于网格标头的单元格。
 
@@ -1948,30 +1954,27 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   </script>
   ```
 
-  <div align="center">
-      <img src="../Images/DHTMLXGantt/header_cell.png" alt="img" style="width:50%;" />
-  </div>
-
+  <img src="../Images/DHTMLXGantt/header_cell.png" alt="img" style="width:50%;" />
+  
 - `.gantt_grid_head_cell[data-column-index='1']` - 按索引选择特定列；
 
 - `.gantt_grid_head_cell[data-column-name='start_date']` - 按名称选择特定列。
 
-<br>
+
 
 ### 3.1.2、任务着色
 
 给任务着色可以突出显示特定的任务，以便将用户注意：
 
-<div align="center">
-    <img src="../Images/DHTMLXGantt/coloring_tasks.png" alt="img" style="width:45%;" />
-</div>
+<img src="../Images/DHTMLXGantt/coloring_tasks.png" alt="img" style="width:45%;" />
+
 
 要设置任务的自定义样式，可以使用以下方法之一：
 
 - 在任务对象的属性中设置样式值
 - 重新定义默认任务的模板
 
-<br>
+
 
 **在任务对象的属性中设置样式值**
 
@@ -1982,9 +1985,8 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 - **progressColor**：进度条的颜色
   （默认情况下，只是使用以下样式的背景色使其比任务的颜色暗一点：`'background-color: rgb(54, 54, 54); opacity: 0.2'`）
 
-<div align="center">
-    <img src="../Images/DHTMLXGantt/task_color_properties.png" alt="img" style="width:17%;" />
-</div>
+<img src="../Images/DHTMLXGantt/task_color_properties.png" alt="img" style="width:17%;" />
+
 
 > 注意，这些是特殊属性。默认情况下，Gantt 检查任务是否拥有它们，如果这样做，则将相关值应用于任务栏和文本。否则，将应用预定义的颜色。
 
@@ -2004,7 +2006,7 @@ gantt.parse(tasks);
 gantt.getTask(1).color = "red"
 ```
 
-<br>
+
 
 **重新定义默认任务的模板**
 
@@ -2064,15 +2066,13 @@ gantt.templates.task_class  = function(start, end, task){
 </script>
 ```
 
-<br>
+
 
 ## 3.2、配置任务
 
-<div align="center">
-    <img src="../Images/DHTMLXGantt/gantt_tasks.png" alt="img" style="width:60%;" />
-</div>
+<img src="../Images/DHTMLXGantt/gantt_tasks.png" alt="img" style="width:60%;" />
 
-<br>
+
 
 ### 3.2.1、时间线区域的额外元素
 
@@ -2100,128 +2100,117 @@ gantt.addTaskLayer(function myNewElement(task) {
 4. 更新甘特图的任务时，它将在所有层（包括自定义层）中更新（将为更新的任务调用函数，并替换相关的DOM元素）。
 5. DHTMLX Gantt 提供了一种计算任务的位置和大小的方法 `getTaskPosition()`。您也可以使用它来计算自定义元素的位置和大小。
 
-<br>
+
 
 **用法示例**
 
 要了解如何应用此功能，考虑一个示例：有一个计划和实际时间进行任务，需要显示两次：
 
-<div align="center">
-    <img src="../Images/DHTMLXGantt/baselines.png" alt="img" style="width:60%;" />
-</div>
+<img src="../Images/DHTMLXGantt/baselines.png" alt="img" style="width:60%;" />
+
 
 1. **降低任务高度并将任务行上移**
 
-  在初始状态的任务是这样的：
+   在初始状态的任务是这样的：
 
-  <div align="center">
-      <img src="../Images/DHTMLXGantt/baselines_start.png" alt="img" style="width:50%;" />
-  </div>
+   <img src="../Images/DHTMLXGantt/baselines_start.png" alt="img" style="width:50%;" />
 
-  首先，需要为任务下的基线释放一些空间。为此，有必要降低任务栏的高度，使其大约等于行高的一半：
+     首先，需要为任务下的基线释放一些空间。为此，有必要降低任务栏的高度，使其大约等于行高的一半：
 
-  ```javascript
-  gantt.config.bar_height = 16;
-  gantt.config.row_height = 40;
-  ```
+     ```javascript
+   gantt.config.bar_height = 16;
+   gantt.config.row_height = 40;
+     ```
 
-  并通过应用以下 CSS 代码将任务行移动到行的顶部：
+     并通过应用以下 CSS 代码将任务行移动到行的顶部：
 
-  ```css
-  .gantt_task_line, .gantt_line_wrapper {
-      margin-top: -9px;
-  }
-  .gantt_side_content {
-      margin-bottom: 7px;
-  }
-  .gantt_task_link .gantt_link_arrow {
-      margin-top: -12px
-  }
-  .gantt_side_content.gantt_right {
-      bottom: 0;
-  }
-  ```
+     ```css
+   .gantt_task_line, .gantt_line_wrapper {
+       margin-top: -9px;
+   }
+   .gantt_side_content {
+       margin-bottom: 7px;
+   }
+   .gantt_task_link .gantt_link_arrow {
+       margin-top: -12px
+   }
+   .gantt_side_content.gantt_right {
+       bottom: 0;
+   }
+     ```
 
-  结果如下：
+     结果如下：
 
-  <div align="center">
-      <img src="../Images/DHTMLXGantt/baselines_task_height.png" alt="img" style="width:53%;" />
-  </div>
+   <img src="../Images/DHTMLXGantt/baselines_task_height.png" alt="img" style="width:53%;" />
 
 2. **添加额外的数据属性**
 
-  之后，需要向任务对象添加其他数据属性。这里命名为：`planned_start` 和 `planned_end`。
+   之后，需要向任务对象添加其他数据属性。这里命名为：`planned_start` 和 `planned_end`。
 
-  <div align="center">
-      <img src="../Images/DHTMLXGantt/baseline_task_object-16557781359655.png" alt="img" style="width:17%;" />
-  </div>
-
-  
+   <img src="../Images/DHTMLXGantt/baseline_task_object-16557781359655.png" alt="img" style="width:17%;" />
 
 3. **将添加的数据特性转换为日期对象**
 
-	DHTMLX Gantt只知道 `start_date` 和 `end_date` 数据属性，并自动将它们解析为日期对象。任何其他日期属性都需要额外处理。
+   DHTMLX Gantt只知道 `start_date` 和 `end_date` 数据属性，并自动将它们解析为日期对象。任何其他日期属性都需要额外处理。
 
-	要使添加的`planned_start`、`planned_end` 属性可由 DHTMLX Gantt识别，需要在 `onTaskLoading` 事件处理程序中使用 `parseDate()` 方法将它们解析为日期对象：
+   要使添加的`planned_start`、`planned_end` 属性可由 DHTMLX Gantt识别，需要在 `onTaskLoading` 事件处理程序中使用 `parseDate()` 方法将它们解析为日期对象：
 
-	```javascript
-	gantt.attachEvent("onTaskLoading", function(task){
-	    task.planned_start = gantt.date.parseDate(task.planned_start, "xml_date");
-	    task.planned_end = gantt.date.parseDate(task.planned_end, "xml_date");
-	    return true;
-	});
-	```
+   ```javascript
+   gantt.attachEvent("onTaskLoading", function(task){
+       task.planned_start = gantt.date.parseDate(task.planned_start, "xml_date");
+       task.planned_end = gantt.date.parseDate(task.planned_end, "xml_date");
+       return true;
+   });
+   ```
 
 4. **显示计划时间的自定义元素**
 
-	然后，调用 `addTasklayer()` 方法显示任务的计划时间（由 `planned_start` 和 `planned_end` 属性定义）：
+   然后，调用 `addTasklayer()` 方法显示任务的计划时间（由 `planned_start` 和 `planned_end` 属性定义）：
 
-	```javascript
-	gantt.addTaskLayer(function draw_planned(task) {
-	    if (task.planned_start && task.planned_end) {
-	        var sizes = gantt.getTaskPosition(task, task.planned_start, task.planned_end);
-	        var el = document.createElement('div');
-	        el.className = 'baseline';
-	        el.style.left = sizes.left + 'px';
-	        el.style.width = sizes.width + 'px';
-	        el.style.top = sizes.top + gantt.config.task_height  + 13 + 'px';
-	        return el;
-	    }
-	    return false;
-	});
-	```
+   ```javascript
+   gantt.addTaskLayer(function draw_planned(task) {
+       if (task.planned_start && task.planned_end) {
+           var sizes = gantt.getTaskPosition(task, task.planned_start, task.planned_end);
+           var el = document.createElement('div');
+           el.className = 'baseline';
+           el.style.left = sizes.left + 'px';
+           el.style.width = sizes.width + 'px';
+           el.style.top = sizes.top + gantt.config.task_height  + 13 + 'px';
+           return el;
+       }
+       return false;
+   });
+   ```
 
 5. **为添加元素指定 CSS 样式**
 
-	为新元素添加样式：
+   为新元素添加样式：
 
-	```css
-	.baseline {
-	    position: absolute;
-	    border-radius: 2px;
-	    opacity: 0.6;
-	    margin-top: -7px;
-	    height: 12px;
-	    background: #ffd180;
-	    border: 1px solid rgb(255,153,0);
-	}
-	```
+   ```css
+   .baseline {
+       position: absolute;
+       border-radius: 2px;
+       opacity: 0.6;
+       margin-top: -7px;
+       height: 12px;
+       background: #ffd180;
+       border: 1px solid rgb(255,153,0);
+   }
+   ```
 
-<br>
+
 
 ## 3.3、配置刻度
 
-<div align="center">
-    <img src="../Images/DHTMLXGantt/gantt_right.png" alt="img" style="width:60%;" />
-</div>
+<img src="../Images/DHTMLXGantt/gantt_right.png" alt="img" style="width:60%;" />
 
-<br>
+
+
 
 ### 3.3.1、设置刻度
 
-<div align="center">
-    <img src="../Images/DHTMLXGantt/gantt_dates.png" alt="img" style="width:60%;" />
-</div>
+<img src="../Images/DHTMLXGantt/gantt_dates.png" alt="img" style="width:60%;" />
+
 
 刻度的配置通过 `scale` 属性指定。可以通过在 `gantt.config.scales` 数组中设置刻度对象来指定任意数量的刻度：
 
@@ -2246,13 +2235,12 @@ gantt.config.scales = [
 - 高度
 - 日期格式
 
-<br>
+
 
 #### 时间单位
 
-<div align="center">
-    <img src="../Images/DHTMLXGantt/month_day_scale_units.png" alt="img" style="width:45%;" />
-</div>
+<img src="../Images/DHTMLXGantt/month_day_scale_units.png" alt="img" style="width:45%;" />
+
 
 要设置刻度的单位，请在相应的刻度对象中使用 `unit` 特性：
 
@@ -2267,15 +2255,13 @@ gantt.config.scales = [
 gantt.init("gantt_here");
 ```
 
-<br>
+
 
 #### 范围
 
-<div align="center">
-    <img src="../Images/DHTMLXGantt/day_scale_unit.png" alt="img" style="width:45%;" />
-</div>
+<img src="../Images/DHTMLXGantt/day_scale_unit.png" alt="img" style="width:45%;" />
 
-<br>
+
 
 **默认范围设置**
 
@@ -2293,7 +2279,7 @@ console.log(state.max_date);
 // -> Tue Jan 01 2019 00:00:00
 ```
 
-<br>
+
 
 **显式设置日期范围**
 
@@ -2314,15 +2300,14 @@ gantt.init("gantt_here", new Date(2018, 02, 31), new Date(2018, 03, 09));
 
 不符合指定时间间隔的任务不会显示在甘特图中，除非它们标记为 `unscheduled`。
 
-<br>
+
 
 **显示显式日期范围之外的任务**
 
 可以在甘特图中显示不符合指定日期范围的任务。
 
-<div align="center">
-    <img src="../Images/DHTMLXGantt/tasks_outside_timescale.png" alt="img" style="width:50%;" />
-</div>
+<img src="../Images/DHTMLXGantt/tasks_outside_timescale.png" alt="img" style="width:50%;" />
+
 
 为此，需要将 `show_tasks_outside_timescale` 配置参数设置为 `true`：
 
@@ -2343,13 +2328,12 @@ gantt.init("gantt_here", new Date(2020, 1, 1), new Date(2020, 2,1));
 
 结果，id为 1 和 2 的任务将在页面上显示为时间线区域中的空行，并在网格中显示指定的名称和开始日期。
 
-<br>
+
 
 #### 高度
 
-<div align="center">
-    <img src="../Images/DHTMLXGantt/scale_height.png" alt="img" style="width:50%;" />
-</div>
+<img src="../Images/DHTMLXGantt/scale_height.png" alt="img" style="width:50%;" />
+
 
 可以通过 `scale_height` 属性设置刻度的高度：
 

@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: upload
+---
+
 # 1、简单案例
 
 这里使用了 Bootstrap 4.3.1、Bootstrap Table 1.15.3、FontAwesome 5.11.2、jQuery 3.3.1，下面是引用的 CSS 和 JS：
@@ -155,7 +159,7 @@ public interface ProductMapper {
 </mapper>
 ```
 
-<br>
+
 
 # 2、文档
 
@@ -244,7 +248,7 @@ $('#table').bootstrapTable({
 | customSearch           | Function | data-custom-search             | $.noop                                                       | 执行自定义搜索功能而不是内置搜索功能<br>function ( text ) <br> - *text*：搜索文本 |
 | customSort             | Function | data-custom-sort               | $.noop                                                       | 执行自定义排序函数而不是内置排序函数<br>function ( sortName, sortOrder， data ) <br> - *sortName*：排序名称<br> - *sortOrder*：排序顺序<br> - *data*：获取的原始数据 |
 
-<br>
+
 
 ## 2.1、列参数
 
@@ -293,7 +297,7 @@ var columns = [{
 | searchable      | data-searchable        | Boolean  | true      | 搜索时是否搜索此列                                           |
 | searchFormatter | data-search-formatter  | Boolean  | true      | 搜索是否使用格式化后的数据（即显示在页面上的数据）           |
 
-<br>
+
 
 ## 2.2、事件
 
@@ -338,7 +342,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 | onRefreshOptions | refresh-options.bs.table | options                       | 在刷新配置选项时触发，调用如下方法时触发：<br> `$('#table').bootstrapTable('refreshOptions', {})` |
 | onRefresh        | refresh.bs.table         | params                        | 单击刷新按钮后触发                                           |
 
-<br>
+
 
 ## 2.3、方法
 
@@ -407,13 +411,13 @@ var result=$table.bootstrapTable('方法名称',{field1:value1,field2:value2,...
 | expandAllRows        | is subtable    | 如果详细视图选项设置为 True，请展开所有行                    |
 | collapseAllRows      | is subtable    | 如果详细信息视图选项设置为 True，则折叠所有行                |
 
-<br>
+
 
 # 3、图标
 
 在做网页开发中，前端页面显示时经常会用到字体库图标，如 iconfont，fontawesome，glyphicons，lonicons 等。这里使用 fontawesome，下载地址：https://fontawesome.com/download
 
-<br>
+
 
 **基于 SVG 格式,使用 JS 调用图标**
 
@@ -435,7 +439,7 @@ var result=$table.bootstrapTable('方法名称',{field1:value1,field2:value2,...
 
 使用 js 方式调用的图标，最终在 DOM 中会以 svg 代码显示图标。
 
-<br>
+
 
 **基于网页字体,使用 CSS 调用图标**
 
@@ -457,7 +461,7 @@ CSS 方法要调用两组文件，一个是 CSS（或 less 或 SCSS）样式表,
 
 使用 CSS 方式调用图标，以网页字体的方式显示，则 DOM 结构内没有 svg 代码。
 
-<br>
+
 
 # 4、扩展 
 
@@ -491,7 +495,7 @@ onPostBody: function () {
 }
 ```
 
-<br>
+
 
 ## 4.2、行内编辑
 
@@ -611,7 +615,7 @@ onDblClickCell: function (field, value, row, $element) {
             }
 ```
 
-<br>
+
 
 **思路二**
 
@@ -667,7 +671,7 @@ $("#table").bootstrapTable({
             ]
 ```
 
-<br>
+
 
 ## 4.3、表格样式
 
@@ -682,7 +686,7 @@ $('#table').bootstrapTable({
 });
 ```
 
-<br>
+
 
 - table-bordered 设置表格边框
 - table-striped 设置隔行变色
@@ -690,7 +694,7 @@ $('#table').bootstrapTable({
 - table-dark 设置表格为黑色主题
 - table-hover 启用鼠标悬停状态
 
-<br>
+
 
 ## 4.4、表格超过长度自动隐藏
 
@@ -723,7 +727,7 @@ $('#table').bootstrapTable({
 }
 ```
 
-<br>
+
 
 **方案二**
 
@@ -745,15 +749,14 @@ $('#table').bootstrapTable({
 }
 ```
 
-<br>
+
 
 **效果对比**
 
-<div align="center">
-    <img src="../Images/BootstrapTable/image-20210624182508220.png" alt="image-20210624182508220" style="width:60%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210624182508220.png" alt="image-20210624182508220" style="width:60%;" />
 
-<br>
+
+
 
 ## 4.5、合并单元格
 
@@ -892,4 +895,3 @@ $('#table').bootstrapTable({
 </script>
 ```
 
-<br>
