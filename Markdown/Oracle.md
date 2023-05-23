@@ -1,3 +1,8 @@
+---
+typora-copy-images-to: upload
+---
+
+
 # 1、Oracle 简介
 
 ## 1.1、Oracle 简介
