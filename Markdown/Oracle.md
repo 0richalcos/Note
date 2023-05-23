@@ -2,7 +2,6 @@
 typora-copy-images-to: upload
 ---
 
-
 # 1、Oracle 简介
 
 ## 1.1、Oracle 简介
@@ -134,7 +133,11 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 ## 1.4、Navicat 连接 Oracle
 
+![image-20230523200124483](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523200124483.png)
+
 基本上直接连就行，这里主要记录下遇到的问题：
+
+
 
 **ORA-12514:TNS:监听程序当前无法识别连接述符中请求的服务**
 
@@ -146,9 +149,339 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 
 
-# 2、函数
+**ORA-12638: 身份证明检索失败**
 
-## 2.1、日期函数
+这个一般出现在远程连接 Oracle 时，找到 sqlnet.ora 文件，如果存在 `SQLNET.AUTHENTICATION_SERVICES= (NTS)` 设置，则修改为：`SQLNET.AUTHENTICATION_SERVICES= (NONE)`，如果不存在，则直接添加 `SQLNET.AUTHENTICATION_SERVICES= (NONE)`。
+
+
+
+## 1.5、Oracle 配置
+
+listener.ora、tnsnames.ora 和 sqlnet.ora 这 3 个文件是关系 Oracle 网络配置的 3 个主要文件，都是放在  `$ORACLE_HOME/network/admin/` 目录下。
+
+如果不知道 `$ORACLE_HOME` 在哪可以打开图形工具 Oracle Net Manager 查看：
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523183048714.png" alt="image-20230523183048714" />
+
+同时上面说到的三个文件都可以通过这个图形的配置工具来完成配置，这些都是Oracle自带的配置工具：
+
+- Net Manager：管理已经新建好的实例和监听器。
+- Database Configuration Assistant：数据库实例管理。
+- Net Configuration Assistant ：监听器管理。
+
+所有 Oracle 客户端都有这三个文件，其中 listener.ora 是和服务器端相关，而 tnsnames.ora 和 sqlnet.ora 主要的还是和客户端关系紧密。
+
+
+
+### 1.5.1、开放远程连接
+
+与连接远程数据库有关的只有远程数据库上的 listener.ora 文件，listener.ora 文件 是 Listener 监听器进程的配置文件。Listener 进程存在于服务器上，负责接受远程对数据库的接入申请并转交给 Oracle 的服务器进程。所以如果不是使用的远程的连接，Listener 进程就不是必需的，同样的如果关闭 Listener 进程并不会影响已经存在的数据库连接。
+
+Listener 即监听器，原则上，一个监听器对应一个数据库实例。
+
+一个典型的文件如下，由数据库自己生成：
+
+```
+# 这个的后缀对应着listener，它是listener监听器对应的实例列表
+SID_LIST_LISTENER =
+  (SID_LIST =
+    (SID_DESC =
+      (SID_NAME = CLRExtProc)
+      (ORACLE_HOME = C:\Oracle\Oracle_19c\Oracle_193000_db_home)
+      (PROGRAM = extproc)
+      (ENVS = "EXTPROC_DLLS=ONLY:C:\Oracle\Oracle_19c\Oracle_193000_db_home\bin\oraclr19.dll")
+    )
+  )
+
+# 定义一个叫listener的监听器，这里名称可变
+LISTENER =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+  )
+
+ADR_BASE_LISTENER = C:\Oracle\Oracle_19c\Oracle_193000_db_home\log
+```
+
+第二段定义了一个监听器，监听的 `HOST` 为本机名，可以是服务器名，也可以是`127.0.0.1` 或 `localhost`，因为这个监听器的作用就是监听本地请求，也就是在服务器上直接登录的情况。如果某个连接请求到了本地 ip，端口又为 1521，监听器就向实例列表中请求实例名称，以完成数据库连接。
+
+这样定义好以后，只是本地能访问了，也就是说如果不这样配好本地监听，连服务器自己都上不去 Oracle。所以这段代码一般在数据库安装好，新建实例后就会初始化好。
+
+接下来我们可以在 `LISTENER` 这个监听器的 `DESCRIPTION` 中添加一个局域网的地址，来监听在这个局域网地址上的访问。例如：
+
+```
+LISTENER =
+  (DESCRIPTION_LIST =
+    (DESCRIPTION =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.20.101)(PORT = 1521)) # 新增局域网地址
+    )
+  )
+```
+
+这样配置好后，监听器就会监听本机的局域网 ip，任何对这个 ip 的1 521 端口的请求都会被其捕获，并尝试进行数据库连接。
+
+> 将 `HOST` 设置为 `0.0.0.0` 表示不限制任何 ip 访问，配置完一定要记得重启 Listener 服务
+
+
+
+### 1.5.2、修改端口号
+
+Oracle 默认监听端口 1521，一众扫描器通常通过探测 1521 端口是否开启来探测是否存在 Oracle 服务，如果修改默认监听端口在一定程度上可以提升数据库和主机的安全性。
+
+比如这里我们修改成 2521 为例：
+
+1. 查看当前监听状态：
+
+   ```shell
+   lsnrctl status
+   ```
+
+2. 停止监听：
+
+   ```shell
+   lsnrctl stop
+   ```
+
+3. 修改监听配置文件：
+
+   打开 listener.ora 文件：
+
+   ```shell
+   vi $ORACLE_HOME/network/admin/listener.ora
+   ```
+
+   在 listener.ora 文件中，找到 `LISTENER` 条目，如下所示：
+
+   ```
+   LISTENER =
+     (DESCRIPTION =
+       (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+     )
+   ```
+
+   将 `PORT` 值从 `1521` 更改为您希望使用的新端口号。例如，如果您想将端口更改为 `2521`，则应将其更改为：
+
+   ```
+   (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 2521))
+   ```
+
+4. 修改连接配置文件：
+
+   打开 tnsnames.ora 文件：
+
+   ```shell
+   vi $ORACLE_HOME/network/admin/tnsnames.ora
+   ```
+
+   找到数据库服务别名（通常为 `ORCL`），并将 `PORT` 值更改为与 listener.ora 文件中相同的新端口号。例如：
+
+   ```
+   ORCL =
+     (DESCRIPTION =
+       (ADDRESS_LIST =
+         (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 2521))
+       )
+       (CONNECT_DATA =
+         (SERVICE_NAME = ORCL)
+       )
+     )
+   ```
+
+5. 登录数据库查看 `local_listener` 参数：
+
+   ```sql
+   sqlplus / as sysdba
+   show parameter local_listener
+   ```
+
+   如果之前没修改端口使用的是默认配置，则此时参数 `VALUE` 应为空值。
+
+6. 修改 `local_listener` 参数：
+
+   如果 `LOCAL_LISTENER` 参数已设置，请确保其值与在 `listener.ora` 文件中设置的新端口号一致。
+
+   ```sql
+   alter system set local_listener="(address = (PROTOCOL = TCP)(HOST = localhost) (PORT = 2521))";
+   ```
+
+7. 重新启动监听：
+
+   ```shell
+   lsnrctl start
+   ```
+
+
+
+### 1.5.3、sqlnet.ora
+
+通过这个文件来决定怎样找一个连接中出现的连接字符串，示例文件：
+
+```
+SQLNET.AUTHENTICATION_SERVICES= (NTS)
+NAMES.DIRECTORY_PATH= (TNSNAMES, HOSTNAME, ONAMES，EZCONNECT)
+#NAMES.DEFAULT_DOMAIN = oracle.com123
+```
+
+内容说明：
+
+- `SQLNET.AUTHENTICATION_SERVICES= (NTS)`
+
+  表明用户连接数据库用哪种验证方式，主要两种：
+
+  - `NTS`：表示系统身份验证 — 用户名和口令可输可不输 `conn / as sys dba`；
+  - `NONE`：Oracle 数据库身份验证 — 必须输入用户名和口令 `conn system/oracle as sysdba`；
+
+  在 Unix 环境下可能会有问题，一般在 Unix 下可以去掉这个配置。
+
+
+
+# 2、创建表空间及用户
+
+## 2.1、SQL Developer
+
+Oracle SQL Developer 是一个免费的图形化工具，可以提高生产力并简化数据库开发任务。使用 SQL Developer 可以浏览数据库对象、运行 SQL 语句和 SQL 脚本、编辑和调试 PL/SQL 语句、操作和导出数据以及查看和创建报告。您可以连接到 Oracle 数据库，也可以连接到选定的第三方（非 Oracle）数据库，查看元数据和数据，并将这些数据库迁移到 Oracle。
+
+SQL Developer 还将接口集成到一些相关技术中，包括 Oracle Data Miner、Oracle OLAP、Oracle TimesTen In Memory Database 和 SQL Developer Data Modeler（只读）。
+
+前往 [Oracle SQL Developer - Oracle SQL Developer Releases](https://docs.oracle.com/en/database/oracle/sql-developer/index.html) 可选择版本下载。
+
+
+
+以下为使用 SQL Developer 新建表空间以及用户的操作步骤：
+
+1. 连接到 Oracle 数据库后，选中 Oracle 连接然后点击【新建】：
+
+   ![image-20230523201401549](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523201401549.png)
+
+   在如下界面中可以看到新建表空间的选项：
+
+   ![image-20230523201523278](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523201523278.png)
+
+2. 在【其他用户】里，可以右键添加用户：
+
+   ![image-20230523202652586](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523202652586.png)
+
+3. 填写用户名和密码，并分配表空间：
+
+   ![image-20230523204127324](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523204127324.png)
+
+4. 授权里面选中 CONNECT、DBA、RESOURE 三个权限，保存即可：
+
+   ![image-20230523203347868](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523203347868.png)
+
+
+
+# 3、数据结构
+
+## 3.1、varchar 和 varchar2
+
+1. varchar 是标准 SQL 里面的； varchar2 是 Oracle 提供的独有的数据类型。
+2. varchar 对于汉字占两个字节，对于英文是一个字节，占的内存小；varchar2 都是占两个字节。
+3. varchar 对空串不处理；varchar2 将空串当做 `null` 来处理。
+4. varchar 存放固定长度的字符串，最大长度是2000；varchar2 是存放可变长度的字符串，最大长度是4000。
+5. 如果是要跟换不同的数据库，例如 MySQL，那么就用 varchar，如果就用 Oracle，那么用 varchar2 比较好一点。
+
+
+
+# 4、查询
+
+我初学的数据库是 MySQL，由于 Oracle 也是使用 SQL 标准，这里用于记录工作中使用 Oracle 所遇到的查询问题。
+
+
+
+## 4.1、对 CLOB 进行模糊查询
+
+在 Oracle 中多大文本数据我们没有办法使用 `LIKE` 进行查询，所以只能使用 Oracle 中的函数：
+
+```sql
+SELECT * FROM TABLE表 WHERE dbms_lob.instr(字段名（clod类型）,'查询条件',1,1) > 0
+```
+
+在 Oracle 中，可以使用 `instr()` 函数对某个字符串进行判断，判断其是否含有指定的字符。其语法为：
+
+```sql
+instr(sourceString, destString, start, appearPosition)
+```
+
+参数：
+
+- *sourceString* 代表源字符串。
+- *destString* 代表想从源字符串中查找的子串。
+- *start* 代表查找的开始位置，该参数是可选的，默认为 1，如果 *start* 的值为负数，那么代表从右往左进行查找。
+- *appearPosition* 代表想从源字符中查找出第几次出现的 *destString*，该参数也是可选的，默认为 1。
+
+返回值为：查找到的字符串的位置。
+
+
+
+## 4.2、树形结构层级查询
+
+通常，在查询树形结构的数据时，需要使用 `START WITH...CONNECT BY PRIOR` 的方式查询。
+
+`START WITH...CONNECT BY PRIOR` 的语法为：
+
+```sql
+SELECT 字段
+FROM 表名
+WHERE condition1
+START WITH condition2
+CONNECT BY PRIOR condition3
+```
+
+参数：
+
+- *condition1*：过滤条件
+- *condition2*：起始的查询条件，指定根节点，当然可以放宽限定条件，以取得多个根结点，实际就是多棵树
+- *condition3*：指定父节点和子节点直接的关系，`PRIOR` 指定父节点
+
+
+
+**示例**
+
+假设现有部门表 `DEPARTMENT`，部门表中字段包括 `DEPID`（部门 ID），`PARENTDEPID`（父部门 ID），`DEPNAME`（部门名称）
+
+1、我们要查询部门 `ID="1110"` 的部门的所有父部门的 ID 和名称（包含部门 `ID="1110"` 的部门，不包含可通过 `WHERE` 条件过滤）
+
+```sql
+SELECT DEPID, DEPNAME
+FROM FW_DEPARTMENT
+-- WHERE DEPID <> '1110'
+START WITH DEPID = '1110'
+CONNECT BY PRIOR PARENTDEPID = DEPID 
+```
+
+2、我们要查询部门 `ID="1110"` 的部门的所有子部门的 ID 和名称（包含部门 `ID="1110"` 的部门，不包含可通过 `WHERE` 条件过滤）
+
+```sql
+SELECT DEPID, DEPNAME
+FROM FW_DEPARTMENT
+-- WHERE DEPID <> '1110'
+START WITH DEPID = '1110'
+CONNECT BY PRIOR DEPID = PARENTDEPID
+```
+
+从上面 2 个 SQL 可以发现：
+
+- 查询当前节点的所有父节点时，需要将 `PRIOR` 放在父节点左侧
+- 查询当前节点的所有子节点时，需要将 `PRIOR` 放在子节点左侧
+
+
+
+**排序**
+
+在层次查询中，如果想让 “亲兄弟” 按规矩进行升序排序就不得不借助 `ORDERSIBLINGS BY` 这个特定的排序语句而非 `ORDER BY` 子句，若要降序输出可以在其后添加 `DESC` 关键字。
+
+
+
+## 4.3、关于 Oracle 中的 AS
+
+在 Oracle 中 `AS` 关键字不能用于指定表的别名，在 Oracle 中指定表的别名时只需在原有表名和表的别名之间用空格分隔即可，指定列的别名的用法和 MySQL 相同，但在存储过程中如果列的别名与原有列名相同，在运行时会报错（编译时不会出错），其他情况下列的别名可以与列名本身相同。
+
+
+
+# 5、函数
+
+## 5.1、日期函数
 
 **获取当前日期和时间**
 
@@ -257,7 +590,7 @@ As 相差月份3 from dual;
 
 
 
-## 2.2、正则表达式
+## 5.2、正则表达式
 
 **匹配机制**
 
@@ -330,7 +663,7 @@ Oracle 中的支持正则表达式的函数主要有以下五个：
 
 
 
-### 2.2.1、REGEXP_LIKE
+### 5.2.1、REGEXP_LIKE
 
 `REGEXP_LIKE()` 与 `LIKE` 的功能相似，可以支持按正则表达式与文本进行匹配。
 
@@ -367,7 +700,7 @@ SELECT ENAME, JOB FROM EMP WHERE REGEXP_LIKE(JOB, '(clerk|analyst)', 'i');
 
 
 
-### 2.2.2、REGEXP_INSTR
+### 5.2.2、REGEXP_INSTR
 
 `REGEXP_INSTR()` 返回指定字符串中与正则表达式匹配部分第一次出现的位置。
 
@@ -424,7 +757,7 @@ SELECT REGEXP_INSTR('11a22A33a11a22A33a', '2A', 1, 1, 1, 'c') AS STR FROM DUAL;
 
 
 
-### 2.3.3、REGEXP_COUNT
+### 5.3.3、REGEXP_COUNT
 
 `REGEXP_COUNT()` 返回指定字符串中与正则表达式匹配部分出现的次数。
 
@@ -459,7 +792,7 @@ SELECT REGEXP_COUNT('11a22A33a11a22A33a', '2A', 1, 'c') AS STR FROM DUAL;
 
 
 
-### 2.2.4、REGEXP_SUBSTR
+### 5.2.4、REGEXP_SUBSTR
 
 `REGEXP_SUBSTR()` 截取指定字符串中与正则表达式匹配的部分。
 
@@ -532,7 +865,7 @@ SELECT REGEXP_SUBSTR('11a22A33a', '[^A]+', 4, 1, 'c') AS STR FROM DUAL;
 
 
 
-### 2.2.5、REGEXP_REPLACE
+### 5.2.5、REGEXP_REPLACE
 
 `REGEXP_REPLACE()` 替换指定字符串中与正则表达式匹配的部分。
 
@@ -570,9 +903,9 @@ SELECT REGEXP_REPLACE('11a22A33a11a22A33a', '[^A]+', '#') AS STR FROM DUAL;
 
 
 
-## 2.3、聚合函数
+## 5.3、聚合函数
 
-### 2.3.1、WM_CONCAT
+### 5.3.1、WM_CONCAT
 
 语法：
 
@@ -651,108 +984,3 @@ SELECT deptno, WM_CONCAT(DISTINCT ',', sal) FROM emp GROUP BY deptno ORDER BY de
 
 
 
-# 3、查询
-
-我初学的数据库是 MySQL，由于 Oracle 也是使用 SQL 标准，这里用于记录工作中使用 Oracle 所遇到的查询问题。
-
-
-
-## 3.1、对 CLOB 进行模糊查询
-
-在 Oracle 中多大文本数据我们没有办法使用 `LIKE` 进行查询，所以只能使用 Oracle 中的函数：
-
-```sql
-SELECT * FROM TABLE表 WHERE dbms_lob.instr(字段名（clod类型）,'查询条件',1,1) > 0
-```
-
-在 Oracle 中，可以使用 `instr()` 函数对某个字符串进行判断，判断其是否含有指定的字符。其语法为：
-
-```sql
-instr(sourceString, destString, start, appearPosition)
-```
-
-参数：
-
-- *sourceString* 代表源字符串。
-- *destString* 代表想从源字符串中查找的子串。
-- *start* 代表查找的开始位置，该参数是可选的，默认为 1，如果 *start* 的值为负数，那么代表从右往左进行查找。
-- *appearPosition* 代表想从源字符中查找出第几次出现的 *destString*，该参数也是可选的，默认为 1。
-
-返回值为：查找到的字符串的位置。
-
-
-
-## 3.2、树形结构层级查询
-
-通常，在查询树形结构的数据时，需要使用 `START WITH...CONNECT BY PRIOR` 的方式查询。
-
-`START WITH...CONNECT BY PRIOR` 的语法为：
-
-```sql
-SELECT 字段
-FROM 表名
-WHERE condition1
-START WITH condition2
-CONNECT BY PRIOR condition3
-```
-
-参数：
-
-- *condition1*：过滤条件
-- *condition2*：起始的查询条件，指定根节点，当然可以放宽限定条件，以取得多个根结点，实际就是多棵树
-- *condition3*：指定父节点和子节点直接的关系，`PRIOR` 指定父节点
-
-
-
-**示例**
-
-假设现有部门表 `DEPARTMENT`，部门表中字段包括 `DEPID`（部门 ID），`PARENTDEPID`（父部门 ID），`DEPNAME`（部门名称）
-
-1、我们要查询部门 `ID="1110"` 的部门的所有父部门的 ID 和名称（包含部门 `ID="1110"` 的部门，不包含可通过 `WHERE` 条件过滤）
-
-```sql
-SELECT DEPID, DEPNAME
-FROM FW_DEPARTMENT
--- WHERE DEPID <> '1110'
-START WITH DEPID = '1110'
-CONNECT BY PRIOR PARENTDEPID = DEPID 
-```
-
-2、我们要查询部门 `ID="1110"` 的部门的所有子部门的 ID 和名称（包含部门 `ID="1110"` 的部门，不包含可通过 `WHERE` 条件过滤）
-
-```sql
-SELECT DEPID, DEPNAME
-FROM FW_DEPARTMENT
--- WHERE DEPID <> '1110'
-START WITH DEPID = '1110'
-CONNECT BY PRIOR DEPID = PARENTDEPID
-```
-
-从上面 2 个 SQL 可以发现：
-
-- 查询当前节点的所有父节点时，需要将 `PRIOR` 放在父节点左侧
-- 查询当前节点的所有子节点时，需要将 `PRIOR` 放在子节点左侧
-
-
-
-**排序**
-
-在层次查询中，如果想让 “亲兄弟” 按规矩进行升序排序就不得不借助 `ORDERSIBLINGS BY` 这个特定的排序语句而非 `ORDER BY` 子句，若要降序输出可以在其后添加 `DESC` 关键字。
-
-
-
-## 3.3、关于 Oracle 中的 AS
-
-在 Oracle 中 `AS` 关键字不能用于指定表的别名，在 Oracle 中指定表的别名时只需在原有表名和表的别名之间用空格分隔即可，指定列的别名的用法和 MySQL 相同，但在存储过程中如果列的别名与原有列名相同，在运行时会报错（编译时不会出错），其他情况下列的别名可以与列名本身相同。
-
-
-
-# 4、数据结构
-
-## 4.1、varchar 和 varchar2
-
-1. varchar 是标准 SQL 里面的； varchar2 是 Oracle 提供的独有的数据类型。
-2. varchar 对于汉字占两个字节，对于英文是一个字节，占的内存小；varchar2 都是占两个字节。
-3. varchar 对空串不处理；varchar2 将空串当做 null 来处理。
-4. varchar 存放固定长度的字符串，最大长度是2000；varchar2 是存放可变长度的字符串，最大长度是4000。
-5. 如果是要跟换不同的数据库，例如 MySQL，那么就用 varchar，如果就用 Oracle，那么用 varchar2 比较好一点。
