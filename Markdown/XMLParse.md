@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: upload
+---
+
 XML，即可扩展标记语言（Extensible Markup Language），标准通用标记语言的子集，一种用于标记电子文件使其具有结构性的标记语言。它可以用来标记数据、定义数据类型，是一种允许用户对自己的标记语言进行定义的源语言。它非常适合万维网传输，提供统一的方法描述和交换独立于应用程序或供应商的结构化数据。
 
 - XML 是一种标记语言，类似 HTML
@@ -16,7 +20,7 @@ XML解析方法分为 5 种：
 
 其中 DOM 解析和 SAX 解析属于基础方法，是官方提供的平台无关的解析方式；JDOM 解析和 DOM4J 属于扩展方法，它们是在基础的方法上扩展出来的，只适用于 java 平台。
 
-<br>
+
 
 # 1、DOM 解析
 
@@ -36,7 +40,7 @@ DOM 树所提供的随机访问方式给应用程序的开发带来了很大的�
 
 - 由于文件是一次性读取，所以对内存的耗费比较大，容易引发内存溢出等问题
 
-<br>
+
 
 下面是 DOM 解析与创建 XML 文件的完整代码：
 
@@ -191,7 +195,7 @@ public class DOMTest {
 }
 ```
 
-<br>
+
 
 # 2、SAX 解析
 
@@ -215,7 +219,7 @@ SAX 的全称是 Simple APIs for XML，即简单应用程序接口。与 DOM 不
 - 对于 CPU 资源宝贵的设备，如 Android 等移动设备
 - 对于只需从 XML 读取信息而无需修改 XML
 
-<br>
+
 
 SAX 解析 XML 步骤：
 
@@ -232,122 +236,120 @@ SAX 解析 XML 步骤：
 
 2. 新建一个类 XmlParseHandler.java，该类需要继承 `DefaultHandler` 或者实现 `ContentHandler` 接口，这里通过继承 `DefaultHandler`（实现了 `ContentHandler` 接口）的方式，该类是 SAX 解析的核心所在，生命周期如下：
 
-  <div align="center">
-      <img src="../Images/XMLParse/20181101171449337.jpeg" alt="XmlParseHandler生命周期" style="width:16%;" />
-  </div>
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20181101171449337.jpeg" alt="XmlParseHandler生命周期" style="width:16%;" />
 
-  代码：
+   代码：
 
-  ```java
-  package com.xiaobaizhiqian;
-   
-  import java.util.ArrayList;
-   
-  import org.xml.sax.Attributes;
-  import org.xml.sax.SAXException;
-  import org.xml.sax.helpers.DefaultHandler;
-   
-  public class SAXParserHandler extends DefaultHandler {
-  	// 解析标签内容时存放数据，便于endElement使用
-  	private String value = null;
-      private Languages languages = null;
-      private ArrayList<Languages> languagesList = null;
-      
-      /** 直接调用便可获取从xml中读取的数据
-       * @return 返回值可自行设置（这里是返回的ArrayList<Languages>）
-       */
-      public ArrayList<Languages> getLanguages() {
-          return languagesList;
-      }
-      
-      /** 用来标识解析开始，只会执行一次
-       */
-      @Override
-      public void startDocument() throws SAXException {
-      	super.startDocument();
-      	System.out.println("解析开始");
-      	languagesList = new ArrayList<Languages>();
-      }
-      
-      /** 开始解析节点时调用
-       * @param uri xml文档的命名空间
-       * @param localName
-       * @param qName 标签的名字
-       * @param attributes 标签属性集
-       */
-      @Override
-      public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-      	// 调用父类的方法
-      	super.startElement(uri, localName, qName, attributes);
-      	if (qName.equals("languages")) {
-             
-              //开始解析book元素的属性
-              System.out.println("======================开始遍历某一本书的内容=================");
-              //不知道book元素下属性的名称以及个数，如何获取属性名以及属性值
-              int num = attributes.getLength();
-              for(int i = 0; i < num; i++){
-                  System.out.print("语言元素的第" + (i + 1) +  "个属性名是："
-                          + attributes.getQName(i));
-                  System.out.println("---属性值是：" + attributes.getValue(i));
-              }
-  		}else if (!qName.equals("lan")) {
-              System.out.print("节点名是：" + qName + "---");
-          }else {
-          	 //创建一个book对象
-              languages = new Languages();
-          	int num = attributes.getLength();
-              for(int i = 0; i < num; i++){
-                  System.out.print("语言元素的第" + (i + 1) +  "个属性名是："
-                          + attributes.getQName(i));
-                  System.out.println("---属性值是：" + attributes.getValue(i));
-                  if (attributes.getQName(i).equals("id")) {
-                      languages.setId(attributes.getValue(i));
-                  }
-              }
-  		}
-      }
-      
-      @Override
-      public void endElement(String uri, String localName, String qName) throws SAXException {
-      	//调用DefaultHandler类的endElement方法
-          super.endElement(uri, localName, qName);
-          //判断是否针对一本书已经遍历结束
-          if (qName.equals("languages")) {
-              System.out.println(languagesList.size());
-              System.out.println("======================结束遍历某一本书的内容=================");
-          }else if(qName.equals("lan")){
-          	languagesList.add(languages);
-          }else if(qName.equals("name")){
-          	languages.setName(value);
-          }else if (qName.equals("ide")) {
-          	languages.setIde(value);
-          }
-      }
-      
-      /** 解析标签内容时调用
-       * @param ch 当前读取到的TextNode(文本节点)的字节数组
-       * @param start 字节开始的位置，为0则读取全部
-       * @param length 当前TextNode的长度
-       */
-      @Override
-      public void characters(char[] ch, int start, int length) throws SAXException {
-      	super.characters(ch, start, length);
-      	value = new String(ch, start, length);
-          if (!value.trim().equals("")) {
-              System.out.println("节点值是：" + value);
-          }
-      }
-      
-      /** 用来标识解析结束，只会执行一次
-       * @see org.xml.sax.helpers.DefaultHandler#endDocument()
-       */
-      @Override
-      public void endDocument() throws SAXException {
-      	super.endDocument();
-      	System.out.println("解析结束");
-      }
-  }
-  ```
+   ```java
+   package com.xiaobaizhiqian;
+    
+   import java.util.ArrayList;
+    
+   import org.xml.sax.Attributes;
+   import org.xml.sax.SAXException;
+   import org.xml.sax.helpers.DefaultHandler;
+    
+   public class SAXParserHandler extends DefaultHandler {
+   	// 解析标签内容时存放数据，便于endElement使用
+   	private String value = null;
+       private Languages languages = null;
+       private ArrayList<Languages> languagesList = null;
+       
+       /** 直接调用便可获取从xml中读取的数据
+        * @return 返回值可自行设置（这里是返回的ArrayList<Languages>）
+        */
+       public ArrayList<Languages> getLanguages() {
+           return languagesList;
+       }
+       
+       /** 用来标识解析开始，只会执行一次
+        */
+       @Override
+       public void startDocument() throws SAXException {
+       	super.startDocument();
+       	System.out.println("解析开始");
+       	languagesList = new ArrayList<Languages>();
+       }
+       
+       /** 开始解析节点时调用
+        * @param uri xml文档的命名空间
+        * @param localName
+        * @param qName 标签的名字
+        * @param attributes 标签属性集
+        */
+       @Override
+       public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+       	// 调用父类的方法
+       	super.startElement(uri, localName, qName, attributes);
+       	if (qName.equals("languages")) {
+              
+               //开始解析book元素的属性
+               System.out.println("======================开始遍历某一本书的内容=================");
+               //不知道book元素下属性的名称以及个数，如何获取属性名以及属性值
+               int num = attributes.getLength();
+               for(int i = 0; i < num; i++){
+                   System.out.print("语言元素的第" + (i + 1) +  "个属性名是："
+                           + attributes.getQName(i));
+                   System.out.println("---属性值是：" + attributes.getValue(i));
+               }
+   		}else if (!qName.equals("lan")) {
+               System.out.print("节点名是：" + qName + "---");
+           }else {
+           	 //创建一个book对象
+               languages = new Languages();
+           	int num = attributes.getLength();
+               for(int i = 0; i < num; i++){
+                   System.out.print("语言元素的第" + (i + 1) +  "个属性名是："
+                           + attributes.getQName(i));
+                   System.out.println("---属性值是：" + attributes.getValue(i));
+                   if (attributes.getQName(i).equals("id")) {
+                       languages.setId(attributes.getValue(i));
+                   }
+               }
+   		}
+       }
+       
+       @Override
+       public void endElement(String uri, String localName, String qName) throws SAXException {
+       	//调用DefaultHandler类的endElement方法
+           super.endElement(uri, localName, qName);
+           //判断是否针对一本书已经遍历结束
+           if (qName.equals("languages")) {
+               System.out.println(languagesList.size());
+               System.out.println("======================结束遍历某一本书的内容=================");
+           }else if(qName.equals("lan")){
+           	languagesList.add(languages);
+           }else if(qName.equals("name")){
+           	languages.setName(value);
+           }else if (qName.equals("ide")) {
+           	languages.setIde(value);
+           }
+       }
+       
+       /** 解析标签内容时调用
+        * @param ch 当前读取到的TextNode(文本节点)的字节数组
+        * @param start 字节开始的位置，为0则读取全部
+        * @param length 当前TextNode的长度
+        */
+       @Override
+       public void characters(char[] ch, int start, int length) throws SAXException {
+       	super.characters(ch, start, length);
+       	value = new String(ch, start, length);
+           if (!value.trim().equals("")) {
+               System.out.println("节点值是：" + value);
+           }
+       }
+       
+       /** 用来标识解析结束，只会执行一次
+        * @see org.xml.sax.helpers.DefaultHandler#endDocument()
+        */
+       @Override
+       public void endDocument() throws SAXException {
+       	super.endDocument();
+       	System.out.println("解析结束");
+       }
+   }
+   ```
 
 3. 使用 `XmlParseHandler` 通过 `getLanguages()` 直接获得数据，代码：
 
@@ -476,7 +478,7 @@ SAX 解析 XML 步骤：
 	}
 	```
 
-<br>
+
 
 # 3、JDOM 解析
 
@@ -496,7 +498,7 @@ JDOM 解析 XML 步骤
 4. 通过 `saxBuilder` 的 `build()` 方法，将输入流加载到 `saxBuilder` 中
 5. 获取节点信息
 
-<br>
+
 
 下面是完整代码
 
@@ -604,7 +606,7 @@ public class JDomTest {
 }
 ```
 
-<br>
+
 
 # 4、DOM4J 解析
 
@@ -612,7 +614,7 @@ DOM4J 是一个 Java 的 XML API，是 JDOM 的升级品，用来读写 XML 文�
 
 DOM4J 是 JDOM 的一种智能分支，它合并了许多超出基本 XML 文档表示的功能。它使用接口和抽象基本类方法。具有性能优异、灵活性好、功能强大和极端易用的特点。是一个开放源码的文件。
 
-<br>
+
 
 以下是完整测试代码：
 
@@ -717,7 +719,7 @@ public class Dom4jTest {
 }
 ```
 
-<br>
+
 
 ## 4.1、XPath 技术
 
@@ -734,7 +736,7 @@ XPath 是一门在 XML 文档中查找信息的语言。在 DOM4J 解析中使�
 </dependency>
 ```
 
-<br>
+
 
 **案例：**
 
@@ -805,13 +807,13 @@ public class TestXPath {
 }
 ```
 
-<br>
+
 
 ## 4.2、XPath 语法
 
 XPath 使用路径表达式来选取 XML 文档中的节点或节点集。节点是通过沿着路径（path）或者步（steps）来选取的。
 
-<br>
+
 
 **选取节点**
 
@@ -837,7 +839,7 @@ XPath 使用路径表达式在 XML 文档中选取节点。节点是通过沿着
 | `bookstore//book` | 选择属于 bookstore 元素的后代的所有 book 元素，而不管它们位于 bookstore 之下的什么位置。 |
 | `//@lang`         | 选取名为 lang 的所有属性。                                   |
 
-<br>
+
 
 **谓语（Predicates）**
 
@@ -856,7 +858,7 @@ XPath 使用路径表达式在 XML 文档中选取节点。节点是通过沿着
 | `/bookstore/book[price>35.00]`        | 选取 bookstore 元素的所有 book 元素，且其中的 price 元素的值须大于 35.00。 |
 | `/bookstore/book[price>35.00]//title` | 选取 bookstore 元素中的 book 元素的所有 title 元素，且其中的 price 元素的值须大于 35.00。 |
 
-<br>
+
 
 **选取未知节点**
 
@@ -876,7 +878,7 @@ XPath 通配符可用来选取未知的 XML 元素。
 | `//*`          | 选取文档中的所有元素。            |
 | `//title[@*]`  | 选取所有带有属性的 title 元素。   |
 
-<br>
+
 
 **选取若干路径**
 

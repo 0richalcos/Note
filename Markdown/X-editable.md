@@ -1,6 +1,10 @@
+---
+typora-copy-images-to: upload
+---
+
 此库允许在页面上创建可编辑元素。它可以与任何引擎（Bootstrap，jQuery-ui，jQuery）一起使用，包括弹出和内联模式。
 
-<br>
+
 
 # 1、快速开始
 
@@ -67,7 +71,7 @@
 
 6. 前端准备好了！
 
-   ![image-20220516195314317](../Images/X-editable/image-20220516195314317.png)
+   ![image-20220516195314317](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220516195314317.png)
 
    打开页面并单击元素。输入新值并提交表单。它将发送带有新值的 AJAX 请求 `/post`，下面为请求的数据：
 
@@ -79,7 +83,7 @@
    }
    ```
 
-<br>
+
 
 ## 1.2、后端
 
@@ -94,7 +98,7 @@ X-editable 对后端部分没有限制，例如，要在服务器上验证提交
 $.fn.editable.defaults.ajaxOptions = {type: "PUT"};
 ```
 
-<br>
+
 
 **JSON 响应**
 
@@ -111,7 +115,7 @@ $('#username').editable({
 });
 ```
 
-<br>
+
 
 **在本地工作**
 
@@ -127,7 +131,7 @@ $('#username').editable({
 });
 ```
 
-<br>
+
 
 # 2、$().editable(options)
 
@@ -138,7 +142,7 @@ Options 可以通过以下方式定义：
 - javascript ：`$().editable({...})`
 - HTML 元素属性：`data-*`
 
-<br>
+
 
 **ajaxOptions**
 
@@ -154,7 +158,7 @@ ajaxOptions: {
 }
 ```
 
-<br>
+
 
 **autotext**
 
@@ -169,7 +173,7 @@ ajaxOptions: {
 
 适用于 select 和 date。例如，如果下拉列表是 `{1: 'a', 2: 'b'}` 并且元素的 `value` 设置为 `1`，则它的 HTML 将自动设置为 `'a'`。
 
-<br>
+
 
 **display**
 
@@ -213,7 +217,7 @@ display: function(value, sourceData) {
 }
 ```
 
-<br>
+
 
 **error**
 
@@ -234,7 +238,7 @@ error: function(response, newValue) {
 }
 ```
 
-<br>
+
 
 **params**
 
@@ -255,7 +259,7 @@ params: function(params) {
 }
 ```
 
-<br>
+
 
 **selector**
 
@@ -289,7 +293,7 @@ $('#user').editable({
 </script>
 ```
 
-<br>
+
 
 **success**
 
@@ -307,7 +311,7 @@ success: function(response, newValue) {
 }
 ```
 
-<br>
+
 
 **toggle**
 
@@ -327,7 +331,7 @@ $('#edit-button').click(function(e) {
 });
 ```
 
-<br>
+
 
 **url**
 
@@ -356,7 +360,7 @@ url: function(params) {
 }
 ```
 
-<br>
+
 
 **validate**
 
@@ -375,7 +379,7 @@ validate: function(value) {
 }
 ```
 
-<br>
+
 
 **value**
 
@@ -400,7 +404,7 @@ $('#price').editable({
 </script>
 ```
 
-<br>
+
 
 | 名称          | 类型                     | 默认             | 描述                                                         |
 | :------------ | :----------------------- | :--------------- | :----------------------------------------------------------- |
@@ -425,7 +429,7 @@ $('#price').editable({
 >
 > 例如，如果要强制所有元素通过 `PUT` 方法提交：`$.fn.editable.defaults.ajaxOptions = {type: "put"}`
 
-<br>
+
 
 # 3、Inputs
 
@@ -450,7 +454,7 @@ $('#price').editable({
 - typeaheadjs
 - select2
 
-<br>
+
 
 ## 3.1、text
 
@@ -462,7 +466,7 @@ $('#price').editable({
 | placeholder | string  | null                  | 输入的占位符属性，输入为空时显示                             |
 | tpl         | string  | `<input type="text">` | HTML 输入模板，通常不应该改变它                              |
 
-<br>
+
 
 ## 3.2、textarea
 
@@ -474,7 +478,7 @@ $('#price').editable({
 | rows        | integer | 7                       | textarea 中的行数                                            |
 | tpl         | string  | `<textarea></textarea>` | HTML 输入模板，通常不应该改变它                              |
 
-<br>
+
 
 ## 3.3、select
 
