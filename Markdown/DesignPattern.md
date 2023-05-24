@@ -1016,7 +1016,7 @@ class Company {
 
 其结构如下图所示：
 
-![562f2844-d77c-40e0-887a-28a7128abd42](../Images/DesignPattern/562f2844-d77c-40e0-887a-28a7128abd42-16564338028036.png)
+![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/562f2844-d77c-40e0-887a-28a7128abd42.png)
 
 
 
@@ -1228,7 +1228,7 @@ public class Singleton implements Serializable {
 
 其结构如下图所示：
 
-![a40661e4-1a71-46d2-a158-ff36f7fc3331](../Images/DesignPattern/a40661e4-1a71-46d2-a158-ff36f7fc3331-16564338837499.png)
+![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/a40661e4-1a71-46d2-a158-ff36f7fc3331.png)
 
 
 
@@ -1330,7 +1330,7 @@ public class Client {
 
 这样做能把客户类和具体子类的实现解耦，客户类不再需要知道有哪些子类以及应当实例化哪个子类。因为客户类往往有多个，如果不使用简单工厂，所有的客户类都要知道所有子类的细节。而且一旦子类发生改变，例如增加子类，那么所有的客户类都要进行修改。
 
-![c79da808-0f28-4a36-bc04-33ccc5b83c13](../Images/DesignPattern/c79da808-0f28-4a36-bc04-33ccc5b83c13-16565120768244.png)
+![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/c79da808-0f28-4a36-bc04-33ccc5b83c13.png)
 
 
 

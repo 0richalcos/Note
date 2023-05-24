@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: upload
+---
+
 # 1、入门基础及环境搭建
 
 ## 1.1、Java 是什么
@@ -16,10 +20,8 @@ Java 平台已经嵌入了几乎所有的操作系统。这样的 Java 程序只
 
 	JavaSE（Java Platform Standard Edition，Java 平台标准版）以前就称为 J2SE，它允许开发和部署在桌面、服务器、嵌入式环境和实时环境中使用 Java 应用程序。JavaSE 包含了支持 Java Web 服务开发的类，并为 JavaEE 提供基础，如 Java 语言基础、JDBC 操作、I/O 操作、网络通讯以及多线程等技术。下图为 JavaSE 的体系结构：
 	
-	<div align="center">
-	    <img src="../Images/JavaBasics/5-1ZZ3155933O7.jpg" alt="img"/>
-	</div>
-
+	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/5-1ZZ3155933O7.jpg" alt="img"/>
+	
 2. **JavaEE**
 
 	JavaEE（Java Platform Enterprise Edition，Java 平台企业版）以前称为 J2EE。企业版本帮助开发和部署可移植、健壮、可伸缩且安全的服务端Java应用程序。JavaEE 是在 JavaSE 基础上构建的，它提供 Web 服务、组件模型、管理和通信 API，可以用来实现企业级的面向服务体系结构（Service Oriented Architecture，SOA）。
@@ -30,7 +32,7 @@ Java 平台已经嵌入了几乎所有的操作系统。这样的 Java 程序只
 
 	JavaME（Java Platform Micro Edition，Java 平台微型版）以前称为 J2ME，也叫 K-JAVA。JavaME 为在移动设备和嵌入式设备（比如手机、PDA、电视机顶盒和打印机）上运行的应用程序提供一个健壮且灵活的的环境。
 
-<br>
+
 
 ### 1.1.2、Java语言的特点
 
@@ -73,7 +75,7 @@ Java 语言是一种分布式的面向对象语言，具有面向对象、平台
 
 	Java 通常被用在网络环境中，为此，Java 提供了一个安全机制以防止恶意代码的攻击。除了 Java 语言具有许多的安全特性以外，Java 还对通过网络下载的类增加了一个安全防范机制，分配不同的名称空间以防代替本地的同名类，并包含安全管理机制。
 
-<br>
+
 
 ##  1.2、JDK的下载与安装
 
@@ -83,55 +85,40 @@ JDK（Java Development Kit，Java 开发工具包）是一种用于构建在 Jav
 
 1. 在浏览器输入www.oracle.com，打开 Oracle 公司的官方网站：
 
-   <div align="center">
-       <img src="../Images/JavaBasics/image-20200422004026006.png" alt="image-20200422004026006" style="width: 90%;" />
-   </div>
-
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200422004026006.png" alt="image-20200422004026006" style="width: 90%;" />
+   
 2. 找到下载：
 
-   <div align="center">
-       <img src="../Images/JavaBasics/image-20200422004245571.png" alt="image-20200422004245571" style="width: 90%;" />
-   </div>
-
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200422004245571.png" alt="image-20200422004245571" style="width: 90%;" />
+   
 3. 选择 Java：
 
-   <div align="center">
-       <img src="../Images/JavaBasics/image-20200422004518386.png" alt="image-20200422004518386" style="width: 90%;" />
-   </div>
-
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200422004518386.png" alt="image-20200422004518386" style="width: 90%;" />
+   
 4. 选择 JDK：
 
-   <div align="center">
-       <img src="../Images/JavaBasics/image-20200422004642820.png" alt="image-20200422004642820" style="width:90%;" />
-   </div>
-
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200422004642820.png" alt="image-20200422004642820" style="width:90%;" />
+   
 5. 下载 1.8 版本：
 
-   <div align="center">
-       <img src="../Images/JavaBasics/image-20200422004732694.png" alt="image-20200422004732694" style="width: 65%;" />
-   </div>
-
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200422004732694.png" alt="image-20200422004732694" style="width: 65%;" />
+   
 6. 选择自己需要的版本：
 
-   <div align="center">
-       <img src="../Images/JavaBasics/image-20200422004854336.png" alt="image-20200422004854336" style="width:90%;" />
-   </div>
-
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200422004854336.png" alt="image-20200422004854336" style="width:90%;" />
+   
 7. 同意协议，开始下载：
 
-   <div align="center">
-       <img src="../Images/JavaBasics/image-20200422005006331.png" alt="image-20200422005006331" style="width:90%;" />
-   </div>
-
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200422005006331.png" alt="image-20200422005006331" style="width:90%;" />
+   
 8. 下载完成后运行 exe 执行文件，开始安装，一共会安装两次，第一次是安装 JDK，第二次是安装 JRE（Java Runtime Environment，Java 运行环境）。
 
-<br>
+
 
 安装完成后，在安装位置打开 JDK 的文件夹，内容如下：
 
-<div align="center">
-    <img src="../Images/JavaBasics/image-20200422010111529.png" alt="image-20200422010111529" style="width:75%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200422010111529.png" alt="image-20200422010111529" style="width:75%;" />
+
 
 - bin：提供 JDK 工具程序，包括 javac、java、Javadoc、appletviewer 等可执行程序。
 - include：存放用于本地访问的文件。
@@ -139,7 +126,7 @@ JDK（Java Development Kit，Java 开发工具包）是一种用于构建在 Jav
 - lib：存放 Java 的类库文件，工具程序实际上使用的是 Java 类库。JDK 中的工具程序，大多数也由 Java 编写而成。
 - src.zip：Java 提供的 API 类的源代码压缩文件。如果需要查看 API 的某些功能是如何实现的，可以查看这个文件中的源代码内容。
 
-<br>
+
 
 ## 1.3、JDK 环境变量配置
 
@@ -157,13 +144,12 @@ JDK（Java Development Kit，Java 开发工具包）是一种用于构建在 Jav
 
 5. 一路确定！最后打开 Windows 控制台，输入 `java -version`：
 
-	<div align="center">
-	    <img src="../Images/JavaBasics/image-20220114103712647.png" alt="image-20220114103712647" style="width:80%;" />
-	</div>
+	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220114103712647.png" alt="image-20220114103712647" style="width:80%;" />
+	
 	
 	出现 Java 版本即表示环境配置成功！
 
-<br>
+
 
 ## 1.4、程序运行过程分析
 
@@ -173,9 +159,8 @@ Java 程序的运行必须经过编写、编译和运行 3 个步骤。
 2. **编译**：是指使用 Java 编译器对源文件进行错误排査的过程，编译后将生成后缀名为 `.class` 的字节码文件，不像 C 语言那样生成可执行文件。
 3. **运行**：是指使用 Java 解释器将字节码文件翻译成机器代码，执行并显示结果。
 
-<div align="center">
-    <img src="../Images/JavaBasics/5-1ZZ41409331Y.png" alt="Java程序运行流程" style="width:65%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/5-1ZZ41409331Y.png" alt="Java程序运行流程" style="width:65%;" />
+
 
 字节码文件是一种和任何具体机器环境及操作系统环境无关的中间代码。它是一种二进制文件，是 Java 源文件由 Java 编译器编译后生成的目标代码文件。编程人员和计算机都无法直接读懂字节码文件，它必须由专用的 Java 解释器来解释执行，因此 Java 是一种在编译基础上进行解释运行的语言。
 
@@ -191,15 +176,14 @@ Java 虚拟机（JVM）是运行 Java 程序的软件环境，Java 解释器是 
 
 JVM 把这种不同软、硬件平台的具体差别隐藏起来，从而实现了真正的二进制代码级的跨平台移植。JVM 是 Java 平台架构的基础，Java 的跨平台特性正是通过在 JVM 中运行 Java 程序实现的。Java 的这种运行机制可以通过下图来说明。
 
-<div align="center">
-    <img src="../Images/JavaBasics/5-1ZZ4140944b0.png" alt="JVM工作方式" style="width:45%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/5-1ZZ4140944b0.png" alt="JVM工作方式" style="width:45%;" />
+
 
 Java 语言这种 “一次编写，到处运行” 的方式，有效地解决了目前大多数高级程序设计语言需要针对不同系统来编译产生不同机器代码的问题，即硬件环境和操作平台的异构问题，大大降低了程序开发、维护和管理的开销。
 
 > 提示：Java 程序通过 JVM 可以实现跨平台特性，但 JVM 是不跨平台的。也就是说，不同操作系统之上的 JVM 是不同的，Windows 平台之上的 JVM 不能用在 Linux 平台，反之亦然。
 
-<br>
+
 
 ## 1.5、JVM、JRE 和 JDK 的关系
 
@@ -207,15 +191,14 @@ Java 语言的开发运行，离不开 Java 语言的运行环境 JRE。没有 J
 
 其实啊，JDK 就是 JRE 加上一些常用工具组成的。JDK 不仅能运行已经被编译好了的 Java 程序，还能支持我们编译 Java 程序（ JDK=JER+各种工具）。
 
-<div align="center">
-    <img src="../Images/JavaBasics/5-1ZZ3131133G3.jpg" alt="img" style="width:25%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/5-1ZZ3131133G3.jpg" alt="img" style="width:25%;" />
+
 
 - JDK（Java Development Kid，Java 开发	工具包），是针对 Java 开发人员的产品，是整个 Java 的核心，包括了 Java 运行环境 JRE、Java 工具和 Java 基础类库。
 - JRE（Java Runtime Environment，Java 运行时环境）是运行 JAVA 程序所必须的环境的集合，包含 JVM 标准实现及 Java 核心类库。
 - JVM（Java Virtual Machine，Java 虚拟机）是整个 Java 实现跨平台的最核心的部分，能够运行以 Java 语言写作的软件程序。
 
-<br>
+
 
 # 2、程序设计基础
 
@@ -225,7 +208,7 @@ Java 语言的开发运行，离不开 Java 语言的运行环境 JRE。没有 J
 
 常量值又称为字面常量，它是通过数据直接表示的，因此有很多种数据类型，像整型和字符串型等。
 
-<br>
+
 
 **整型常量值**
 
@@ -237,7 +220,7 @@ Java 的整型常量值主要有如下 3 种形式。
 
 整型（int）常量默认在内存中占 32 位，是具有整数类型的值，当运算过程中所需值超过 32 位长度时，可以把它表示为长整型（long）数值。长整型类型则要在数字后面加 `L` 或 `1`， 如 `697L`，表示一个长整型数，它在内存中占 64 位。
 
-<br>
+
 
 **实型常量值**
 
@@ -250,13 +233,13 @@ Java 实型常量默认在内存中占 64 位，是具有双精度型（double�
 
 单精度型数值一般要在该常数后面加 `F` 或 `f`，如 `69.7f`，表示一个 float 型实数，它在内存中占 32 位（取决于系统的版本高低）。
 
-<br>
+
 
 **布尔型常量**
 
 Java 的布尔型常量只有两个值，即 `false`（假）和 `true`（真）。
 
-<br>
+
 
 **字符型和字符串常量值**
 
@@ -278,7 +261,7 @@ Java 的字符型常量值是用单引号引起来的一个字符，如 `'e'`、
 | `\b`     | 退格                         |
 | `\t`     | 制表符                       |
 
-<br>
+
 
 ### 2.1.2、定义常量
 
@@ -320,13 +303,13 @@ public class HelloWorld {
 
 当常量被设定后，一般情况下不允许再进行更改，如果更改其值将提示错误。
 
-<br>
+
 
 ## 2.2、数据类型
 
 Java 语言支持的数据类型分为两种：基本数据类型（Primitive Type）和引用数据类型（Reference Type）。
 
-<br>
+
 
 ### 2.2.1、基本数据类型
 
@@ -347,15 +330,14 @@ Java 语言支持的数据类型分为两种：基本数据类型（Primitive Ty
 
 所有的基本数据类型的大小（所占用的字节数）都已明确规定，在各种不同的平台上保持不变，这一特性有助于提高 Java 程序的可移植性。
 
-<div align="center">
-    <img src="../Images/JavaBasics/5-1ZZZ91512493.jpg" alt="Java数据类型结构图" style="width:35%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/5-1ZZZ91512493.jpg" alt="Java数据类型结构图" style="width:35%;" />
+
 
 Java 是一种强制类型的语言，所有的变量都必须先明确定义其数据类型，然后才能使用。Java 中所有的变量、表达式和值都必须有自己的类型，没有 “无类型” 变量这样的概念。
 
 基本数据类型又可分为 4 大类，即整数类型（包括 `byte`、`short`，`int` 和 `long`）、浮点类型（包括 `float` 和 `double`）、布尔类型和字符类型（`char`），下面分别介绍这 4 大类数据类型。
 
-<br>
+
 
 **整数类型**
 
@@ -370,7 +352,7 @@ Java 定义了 4 种整数类型变量：字节型（`byte`）、短整型（`sh
 
 > 提示：因为 `byte` 类型、`short` 类型、`int` 类型和 `long` 类型都是整数类型，故可以使用 `+` 相加，而非字符串之间的连接。
 
-<br>
+
 
 **浮点类型**
 
@@ -382,7 +364,7 @@ Java 默认的浮点型为 `double`，例如，`11.11` 和 `1.2345` 都是 `doub
 
 > 注意：一个值要能被真正看作 `float`，它必须以 `f`（或 `F`）结束；否则会被当作 `double` 值。对 `double` 值来说，`d`（或 `D`）是可选的。
 
-<br>
+
 
 **布尔类型**
 
@@ -390,7 +372,7 @@ Java 默认的浮点型为 `double`，例如，`11.11` 和 `1.2345` 都是 `doub
 
 在 Java 语言中，布尔类型的值不能转换成任何数据类型，`true` 常量不等于 1，而 `false` 常量也不等于 0。这两个值只能赋给声明为 `boolean` 类型的变量，或者用于布尔运算表达式中。
 
-<br>
+
 
 **字符类型**
 
@@ -400,7 +382,7 @@ Java 语言中的字符类型（`char`）使用两个字节的 Unicode 编码表
 
 Unicode 字符通常用十六进制表示。例如 `\u0000` ~ `\u00ff` 表示 ASCII 码集。`\u` 表示转义字符，它用来表示其后 4 个十六进制数字是 Unicode 码。
 
-<br>
+
 
 ### 2.2.2、引用数据类型
 
@@ -416,7 +398,7 @@ Unicode 字符通常用十六进制表示。例如 `\u0000` ~ `\u00ff` 表示 AS
 
 注意：空引用（`null`）只能被转换成引用类型，不能转换成基本类型，因此不要把一个 `null` 值赋给基本数据类型的变量。
 
-<br>
+
 
 ## 2.3、运算符优先级
 
@@ -438,13 +420,13 @@ Unicode 字符通常用十六进制表示。例如 `\u0000` ~ `\u00ff` 表示 AS
 | 赋值     | `=`、`+=`、`-=`、`*=`、`/=`、`％=`、`>>=`、`<<=`、`＆=`、`^=` | 右到左     |
 | 逗号     | `,`                                                          | 左到右     |
 
-<br>
+
 
 ## 2.4、== 和 euqals
 
 `==` 是 Java 中的一个运算符，而 `equals` 是 Java 中的一个方法。
 
-<br>
+
 
 **== 解读**
 
@@ -465,7 +447,7 @@ System.out.println(x.equals(z)); // true
 
 代码解读：因为 `x` 和 `y` 指向的是同一个引用（提示：常量池），所以 `==` 也是 `true`，而 `new String()` 方法则重写开辟了内存空间，所以 `==` 结果为 `false`，而 `equals` 比较的一直是值，所以结果都为 `true`。
 
-<br>
+
 
 **equals 解读**
 
@@ -531,7 +513,7 @@ String 重写了 `equals()` 方法，当参数类型是 String 时，将引用�
 
 **总结** ：`==` 对于基本类型来说是值比较，对于引用类型来说是比较的是引用；而 `equals` 默认情况下是引用比较，只是很多类重新了 `equals` 方法，比如 String、Integer 等把它变成了值比较，所以一般情况下 `equals` 比较的是值是否相等。
 
-<br>
+
 
 # 3、字符串 String
 
@@ -543,7 +525,7 @@ String 重写了 `equals()` 方法，当参数类型是 String 时，将引用�
 
 不论使用哪种形式创建字符串，字符串对象一旦被创建，其值是不能改变的，但可以使用其他变量重新赋值的方式进行更改。
 
-<br>
+
 
 ### 3.1.1、直接定义字符串
 
@@ -562,7 +544,7 @@ str = "Hello Java";
 
 > 注意：字符串变量必须经过初始化才能使用。
 
-<br>
+
 
 ### 3.1.2、使用 String 类定义
 
@@ -570,13 +552,13 @@ Java 中每个双引号定义的字符串都是一个 String 类的对象。因�
 
 String 类的构造方法有多种重载形式，每种形式都可以定义字符串。
 
-<br>
+
 
 **String()**
 
 初始化一个新创建的 String 对象，表示一个空字符序列。
 
-<br>
+
 
 **String(String original)**
 
@@ -591,7 +573,7 @@ String str2 = new String(str1);
 
 > `String str="i"` 的方式，java 虚拟机会将其分配到常量池中；而 `String str=new String("i")` 则会被分到堆内存中。
 
-<br>
+
 
 **String(char[] value)**
 
@@ -605,7 +587,7 @@ a[1] = 's';
 
 上述 `sChar` 变量的值是字符串 `"Hello"`。 即使在创建字符串之后，对 `a` 数组中的第 2 个元素进行了修改，但未影响 `sChar` 的值。
 
-<br>
+
 
 **String(char[] value, int offset, int count)**
 
@@ -619,7 +601,7 @@ a[1] = 's';
 
 上述 `sChar` 变量的值是字符串 `"ello"`。该构造方法使用字符数组中的部分连续元素来创建字符串对象。*offset* 参数指定起始索引值，*count* 指定截取元素的个数。创建字符串对象后，即使在后面修改了 `a` 数组中第 2 个元素的值，对 `sChar` 的值也没有任何影响。
 
-<br>
+
 
 ## 3.2、String 和 int 相互转换
 
@@ -632,7 +614,7 @@ String 字符类型转整型 `int` 有以下两种方式:
 
 在 String 转换 `int` 时，String 的值一定是整数，否则会报数字转换异常（java.lang.NumberFormatException）。
 
-<br>
+
 
 ### 3.2.2、int 转 String
 
@@ -644,7 +626,7 @@ String 字符类型转整型 `int` 有以下两种方式:
 
 使用第三种方法相对第一第二种耗时比较大。在使用第一种 `valueOf()` 方法时，注意 `valueOf` 括号中的值不能为空，否则会报空指针异常（NullPointerException）。
 
-<br>
+
 
 ### 3.2.3、valueOf() 、parse() 和 toString()
 
@@ -664,19 +646,19 @@ static String valueOf(char chars[], int startIndex, int numChars)
 
 这里 *chars* 是存放字符的数组，*startIndex* 是字符数组中期望得到的子字符串的首字符下标，*numChars* 指定子字符串的长度。
 
-<br>
+
 
 **parse()**
 
 `parseXxx(String)` 这种形式，是指把字符串转换为数值型，其中 `Xxx` 对应不同的数据类型，然后转换为 `Xxx` 指定的类型，如 `int` 型和 `float` 型。
 
-<br>
+
 
 **toString()**
 
 `toString()` 可以把一个引用类型转换为 String 字符串类型，是 sun 公司开发 Java 的时候为了方便所有类的字符串操作而特意加入的一个方法。
 
-<br>
+
 
 **String.valueOf() 的异常**
 
@@ -701,23 +683,19 @@ System.out.println(String.valueOf(null));
 
 第一种进入此方法：
 
-<div align="center">
-    <img src="../Images/JavaBasics/image-20211021233444726.png" alt="image-20211021233444726" style="width:70%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211021233444726.png" alt="image-20211021233444726" style="width:70%;" />
+
 
 第二种进入此方法：
 
-<div align="center">
-    <img src="../Images/JavaBasics/image-20211021233456679.png" alt="image-20211021233456679" style="width:70%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211021233456679.png" alt="image-20211021233456679" style="width:70%;" />
 
-<div align="center">
-    <img src="../Images/JavaBasics/image-20211021233608783.png" alt="image-20211021233608783" style="width:70%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211021233608783.png" alt="image-20211021233608783" style="width:70%;" />
+
 
 当第二种参数为 `null` 时，`null.length` 当然报出空指针异常。
 
-<br>
+
 
 ## 3.3、StringBuffer 类
 
@@ -725,7 +703,7 @@ System.out.println(String.valueOf(null));
 
 因为 StringBuffer 类是可变字符串类，创建 StringBuffer 类的对象后可以随意修改字符串的内容。每个 StringBuffer 类的对象都能够存储指定容量的字符串，如果字符串的长度超过了 StringBuffer 类对象的容量，则该对象的容量会自动扩大。
 
-<br>
+
 
 **创建 StringBuffer 类**
 
@@ -735,7 +713,7 @@ StringBuffer 类提供了 3 个构造方法来创建一个字符串，如下所�
 - `StringBuffer(int length)`：创建一个空的字符串缓冲区，并且初始化为指定长度 *length* 的容量。
 - `StringBuffer(String str)`：创建一个字符串缓冲区，并将其内容初始化为指定的字符串内容 *str*，字符串缓冲区的初始容量为 16 加上字符串 *str* 的长度。
 
-<br>
+
 
 **追加字符串**
 
@@ -747,7 +725,7 @@ StringBuffer对象.append(String str)
 
 该方法的作用是追加内容到当前 StringBuffer 对象的末尾，类似于字符串的连接。
 
-<br>
+
 
 **替换字符**
 
@@ -765,7 +743,7 @@ StringBuffer对象.setCharAt(int index, char ch);
 StringBuffer对象.replace(int start, int end, String str);
 ```
 
-<br>
+
 
 **插入字符**
 
@@ -775,13 +753,13 @@ StringBuffer对象.replace(int start, int end, String str);
 StringBuffer对象.insert(int index, String str);
 ```
 
-<br>
+
 
 **反转字符串**
 
 StringBuffer 类中的 `reverse()` 方法用于将字符串序列用其反转的形式取代。
 
-<br>
+
 
 **删除字符串**
 
@@ -803,7 +781,7 @@ StringBuffer对象.delete(int start,int end);
 
 其中，*start* 表示要删除字符的起始索引值（包括索引值所对应的字符），*end* 表示要删除字符串的结束索引值（不包括索引值所对应的字符）。该方法的作用是删除指定区域以内的所有字符。
 
-<br>
+
 
 ## 3.4、String、StringBuffer 和 StringBuilder 的区别
 
@@ -817,13 +795,12 @@ StringBuffer、StringBuilder、String 中都实现了 CharSequence 接口。Char
 
 StringBuffer、StringBuilder、String 对 CharSequence 接口的实现过程不一样，如下图 所示：
 
-<div align="center">
-    <img src="../Images/JavaBasics/5-1Z9241JI1449.png" alt="对CharSequence接口的实现" style="width:30%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/5-1Z9241JI1449.png" alt="对CharSequence接口的实现" style="width:30%;" />
+
 
 可见，String 直接实现了 CharSequence 接口，StringBuilder 和 StringBuffer 都是可变的字符序列，它们都继承于 AbstractStringBuilder，实现了 CharSequence 接口。
 
-<br>
+
 
 **总结**
 
@@ -843,7 +820,7 @@ StringBuffer 就是为了解决大量拼接字符串时产生很多中间对象�
 	- 单线程操作大量数据使用 StringBuilder。
 	- 多线程操作大量数据使用 StringBuffer。
 
-<br>
+
 
 ## 3.5、正则表达式详解
 
@@ -862,7 +839,7 @@ String 类里也提供了如下几个特殊的方法。
 
 正则表达式是一个用于匹配字符串的模板。实际上，任意字符串都可以当成正则表达式使用。例如 `"abc"`，它也是一个正则表达式，只是它只能匹配 `"abc"` 字符串。
 
-<br>
+
 
 **正则表达式支持字符**
 
@@ -981,7 +958,7 @@ System.out.println(str.replaceFirst("\w*?" , "■"));    //输出■hello, java!
 
 当从 `"hello java!"` 字符串中查找匹配 `\w*` 子串时，因为 `\w*` 使用了贪婪模式，数量表示符 `*` 会一直匹配下去，所以该字符串前面的所有单词字符都被它匹配到，直到遇到空格，所以替换后的效果是 `"■，Java!"`；如果使用勉强模式，数量表示符 `?` 会尽量匹配最少字符，即匹配 0 个字符，所以替换后的结果是 `"■hello，java!"`。
 
-<br>
+
 
 ## 3.6、Pattern 类和 Matcher 类
 
@@ -1161,7 +1138,7 @@ Java 哈哈:) oracular expressions
 
 正则表达式是一个功能非常灵活的文本处理工具，增加了正则表达式支持后的 Java，可以不再使用 StringTokenizer 类（也是一个处理字符串的工具，但功能远不如正则表达式强大）即可进行复杂的字符串处理。
 
-<br>
+
 
 # 4、数字和日期
 
@@ -1171,7 +1148,7 @@ Java 哈哈:) oracular expressions
 
 Math 类中包含 `E` 和 `PI` 两个静态常量，正如它们名字所暗示的，它们的值分别等于 `e`（自然对数）和 `π`（圆周率）。
 
-<br>
+
 
 **求最大值、最小值和绝对值**
 
@@ -1190,7 +1167,7 @@ Math 类中包含 `E` 和 `PI` 两个静态常量，正如它们名字所暗示�
 | `static double min(double x, double y)` | 返回 *x* 和 *y* 中的最小值 |
 | `static float min(float x, float y)`    | 返回 *x* 和 *y* 中的最小值 |
 
-<br>
+
 
 **求整运算**
 
@@ -1202,7 +1179,7 @@ Math 类中包含 `E` 和 `PI` 两个静态常量，正如它们名字所暗示�
 | `static int round(float a)`     | 将参数加上 1/2 后返回向下取整的整数                          |
 | `static long round(double a)`   | 将参数加上 1/2 后返回向下取整的整数，然后强制转换为长整型    |
 
-<br>
+
 
 **指数运算**
 
@@ -1215,7 +1192,7 @@ Math 类中包含 `E` 和 `PI` 两个静态常量，正如它们名字所暗示�
 | `static double log(double a)`          | 返回 *a* 的自然对数，即 ln*a* 的值     |
 | `static double log10(double a)`        | 返回以 10 为底 *a* 的对数              |
 
-<br>
+
 
 ## 4.2、数字格式化
 
@@ -1274,13 +1251,13 @@ public class Test08 {
 ###.### 格式：5
 ```
 
-<br>
+
 
 ## 4.3、大数字运算
 
 在 Java 中提供了用于大数字运算的类，即 `java.math.BigInteger` 类和 `java.math.BigDecimal` 类。这两个类用于高精度计算，其中 BigInteger 类是针对整型大数字的处理类，而 BigDecimal 类是针对大小数的处理类。
 
-<br>
+
 
 ### 4.4.1、BigInteger 类
 
@@ -1371,7 +1348,7 @@ public class Test09 {
 取相反数操作结果：-125
 ```
 
-<br>
+
 
 ### 4.4.2、BigDecimal 类
 
@@ -1446,25 +1423,25 @@ public class Test10 {
 除法操作结果(保留 5 位小数)：31.84714
 ```
 
-<br>
+
 
 **setScale(int number, int round)**
 
 根据 round 的值的不同，会有不同的 “四舍五入” 的取舍规则。
 
-<br>
+
 
 ## 4.4、时间和日期
 
  在 Java 中获取当前时间，可以使用 `java.util.Date` 类和 `java.util.Calendar` 类完成。其中，Date 类主要封装了系统的日期和时间的信息，Calendar 类则会根据系统的日历来解释 Date 对象。
 
-<br>
+
 
 ### 4.4.1、Data类
 
 Date 类表示系统特定的时间戳，可以精确到毫秒。Date 对象表示时间的默认顺序是星期、月、日、小时、分、秒、年。
 
-<br>
+
 
 **构造方法**
 
@@ -1488,7 +1465,7 @@ Date 类带 `long` 类型参数的构造方法获取的是距离 GMT 指定毫�
 
 还可以用 `Date(int year,int month,int date)` 方法来指定时间，但是需要注意的是：*year* 属性传入的值应该是 `正确年份-1900`，比如你要设置1988，你传入的值应该是 88；*month* 传入的值应该是 `正确月份-1`。
 
-<br>
+
 
 **常用方法**
 
@@ -1541,7 +1518,7 @@ public class Test11 {
 【收快递】事情已经过去了 60 秒
 ```
 
-<br>
+
 
 ### 4.4.2、Calendar 类
 
@@ -1701,7 +1678,7 @@ public class CalenderDemo {
 26	 27	  28   29	30	 31	
 ```
 
-<br>
+
 
 ## 4.5、日期格式化
 
@@ -1749,7 +1726,7 @@ public class Test13 {
 今天是 2018 年 10 月 15 日 星期一 09 点 26 分 23 秒
 ```
 
-<br>
+
 
 **SimpleDateFormat 线程不安全**
 
@@ -1791,7 +1768,7 @@ Joda-Time 与以上两种有所区别如下：
 - 不仅仅可以对时间进行格式化输出，而且可以生成瞬时时间值，并与 Calendar、Date 等对象相互转化，极大的方便了程序的兼容性。
 - Joda-Time 的类具有不可变性，因此他们的实例是无法修改的，就跟 String 的对象一样。这种不可变性体现在所有 API 方法中，这些方法返回的都是新的类实例，与原来实例不同。
 
-<br>
+
 
 # 5、数组
 
@@ -1813,7 +1790,7 @@ Joda-Time 与以上两种有所区别如下：
 - 数组元素可以是任何类型，包括数组类型。
 - 数组类型是从抽象基类 Array 派生的引用类型。
 
-<br>
+
 
 **数组也是一种数据类型**
 
@@ -1825,7 +1802,7 @@ Joda-Time 与以上两种有所区别如下：
 
 没错，`int[]` 就是一种数据类型，与 `int` 类型、String 类型相似，一样可以使用该类型来定义变量，也可以使用该类型进行类型转换等。使用 `int[]` 类型来定义变量、进行类型转换时与使用其他普通类型没有任何区别。`int[]` 类型是一种引用类型，创建 `int[]` 类型的对象也就是创建数组，需要使用创建数组的语法。
 
-<br>
+
 
 ## 5.2、数组操作
 
@@ -1839,7 +1816,7 @@ Arrays.equals(arrayA, arrayB);
 
 *arrayA* 是用于比较的第一个数组，*arrayB* 是用于比较的第二个数组。
 
-<br>
+
 
 **填充数组**
 
@@ -1851,7 +1828,7 @@ Arrays.fill(array,value);
 
 *array* 表示数组，*value* 表示填充的值。只能使用同一个数值进行填充。
 
-<br>
+
 
 **数组查找**
 
@@ -1871,7 +1848,7 @@ binarySearch(Object[] a, int fromIndex, int toIndex,Object key);
 
 *a* 表示要进行查找的数组，*fromIndex* 指定范围的开始处索引（包含开始处），*toIndex* 指定范围的结束处索引（不包含结束处），*key* 表示要搜索的元素。
 
-<br>
+
 
 **复制数组**
 
@@ -1906,7 +1883,7 @@ binarySearch(Object[] a, int fromIndex, int toIndex,Object key);
 	```
 
 
-<br>
+
 
 ## 5.3、数组排序
 
@@ -1918,7 +1895,7 @@ Java 数组中有 5 种常见排序方法，分别是：
 4. 选择排序
 5. 直接插入
 
-<br>
+
 
 ### 5.3.1、sort()数组排序
 
@@ -1959,7 +1936,7 @@ public static void main(String[] args) {
 45.0    78.0    85.0    87.0    97.0
 ```
 
-<br>
+
 
 **降序**
 
@@ -1983,7 +1960,7 @@ public static void main(String[] args) {
 
 注意：使用这种方法时，数组必须是包装类型，否则会编译不通过。
 
- <br>
+
 
 ### 5.3.2、冒泡排序法
 
@@ -2059,7 +2036,7 @@ public static void main(String[] args) {
 	59.0 【68.0 77.0 80.0 90.0 】
 	```
 
-<br>
+
 
 ### 5.3.3、快速排序法
 
@@ -2126,7 +2103,7 @@ public class QuickSort {
 1 2 3 11 13 14 15 24 99 
 ```
 
-<br>
+
 
 ### 5.3.4、选择排序法
 
@@ -2167,7 +2144,7 @@ for (int i = 1;i < number.length;i++) {
 【1 】4 13 15 24 99 
 ```
 
-<br>
+
 
 ### 5.3.5、直接插入排序法
 
@@ -2206,7 +2183,7 @@ public static void main(String[] args) {
 1 4 13 15 24 99
 ```
 
-<br>
+
 
 ## 5.4、数组和字符串的相互转换
 
@@ -2244,7 +2221,7 @@ public static void main(String[] args) {
 	byte [] arr = str.getBytes();
 	```
 
-<br>
+
 
 ### 5.4.2、数组转换为字符串
 

@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: upload
+---
+
 # 1、回顾 MVC
 
 什么是 MVC？
@@ -7,7 +11,7 @@
 - MVC 主要作用是降低了视图与业务逻辑间的双向耦合。
 - MVC 不是一种设计模式，MVC 是一种架构模式。
 
-<br>
+
 
 **Model（模型）**：数据模型，提供要展示的数据，因此包含数据和行为，可以认为是领域模型或 JavaBean 组件（包含数据和行为），不过现在一般都分离开：Value Object（数据 Dao）和服务层（行为 Service）。也就是模型提供了模型数据查询和模型数据的状态更新等功能，包括数据和业务。
 
@@ -15,32 +19,32 @@
 
 **Controller（控制器）**：接收用户请求，委托给模型进行处理（状态改变），处理完毕后吧返回的模型数据返回给视图，由视图负责展示。也就是说控制器做了一个调度员的工作。
 
-<br>
+
 
 最典型的 MVC 就是 JSP + Servlet + JavaBean 的模式。
 
-<img src="../Images/SpringMVC/image-20200324220816875.png" alt="image-20200324220816875" style="zoom:67%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200324220816875.png" alt="image-20200324220816875" style="zoom:67%;" />
 
-<br>
+
 
 ## 1.1、Model1 时代
 
 - 在早期的开发中，通常采用的都是 Model1。
 - Model1 中，主要分为两层，视图层和模型层。
 
-<img src="../Images/SpringMVC/image-20200324221307068.png" alt="image-20200324221307068" style="zoom:67%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200324221307068.png" alt="image-20200324221307068" style="zoom:67%;" />
 
 Model1 优点：架构简单，比较适合小型项目开发；
 
 Model1 缺点：JSP 职责不单一，职责较重，不便于维护；
 
-<br>
+
 
 ## 1.2、Model2 时代
 
 Model2 把一个项目分成三部分，包括视图、控制、模型。
 
-<img src="../Images/SpringMVC/image-20200324231255654.png" alt="image-20200324231255654" style="zoom:67%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200324231255654.png" alt="image-20200324231255654" style="zoom:67%;" />
 
 1. 用户发送请求
 2. Servlet 接受请求数据，并调用对应的业务逻辑方法
@@ -48,7 +52,7 @@ Model2 把一个项目分成三部分，包括视图、控制、模型。
 4. Servlet 转向 JSP，由 JSP 来渲染页面
 5. 响应给前端更新后的页面
 
-<br>
+
 
 **职责分析：**
 
@@ -67,11 +71,11 @@ View：视图
 
 1. 显示页面
 
-<br>
+
 
 Model2 这样不仅提高了代码的复用率和项目的扩展性，且大大降低了项目的维护成本。Model1 模式的实现比较简单，适用于快速开发小规模项目，Model1 中的 JSP 页面身兼 View 和 Controller 两种角色，将控制逻辑和表现逻辑混在在一起，从而导致代码的重用性非常低，增加了应用的扩展性和维护性的难度。Model2 消除了 Model1 的缺点。
 
-<br>
+
 
 # 2、回顾 Servlet
 
@@ -185,7 +189,7 @@ Model2 这样不仅提高了代码的复用率和项目的扩展性，且大大�
 	- localhost:8080/hello?method=add
 	- localhost:8080/hello?method=delete
 
-<br>
+
 
 MVC 框架要做那些事情
 
@@ -194,7 +198,7 @@ MVC 框架要做那些事情
 3. 处理请求--调用相关的业务处理--封装响应数据
 4. 将相应数据进行渲染，JSP/HTML 等表示层数据
 
-<br>
+
 
 # 3、SpringMVC
 
@@ -215,7 +219,7 @@ Spring 的 Web 框架围绕 DispatcherServlet 设计。
 
 DispatcherServlet 的作用是将请求分发到不同的处理器。从 Spring 2.5 开始，使用 Java 5 或以上版本的用户可以采用基于注解形式进行开发，十分简洁。
 
-<br>
+
 
 ## 3.2、工作原理
 
@@ -225,7 +229,7 @@ Spring MVC 框架像许多其他 MVC 框架一样，以请求为驱动，围绕�
 
 Spring MVC 的工作原理图：
 
-![img](E:/Users/Orichalcos/Documents/Note/Images/SpringMVC/249993-20161212142542042-2117679195.jpg)
+![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/249993-20161212142542042-2117679195.jpg)
 
 1. 用户发送请求至前端控制器 DispatcherServlet
 2. DispatcherServlet 收到请求调用 HandlerMapping（处理器映射器）
@@ -239,7 +243,7 @@ Spring MVC 的工作原理图：
 10. DispatcherServlet 根据 View 进行渲染视图（即将模型数据填充至视图中）
 11. DispatcherServlet 响应用户
 
-<br>
+
 
 **组件说明：**
 
@@ -274,7 +278,7 @@ Spring MVC 的工作原理图：
 
   View 是一个接口，实现类支持不同的 View 类型（JSP、FreeMarker、PDF...）
 
-<br>
+
 
 # 4、HelloSpringMVC
 
@@ -391,18 +395,18 @@ Spring MVC 的工作原理图：
 
 11. 配置 Tomcat 进行测试
 
-<br>
+
 
 可能遇到的问题：访问出现 404，排查步骤：
 
 1. 查看控制台输出，看一下是不是缺少了什么 jar 包
 2. 如果 jar 包存在，显示无法输出，就在 IDEA 的项目发布中，添加 lib 依赖：
 
-<img src="../Images/SpringMVC/image-20200326005840940.png" alt="image-20200326005840940" style="zoom: 67%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200326005840940.png" alt="image-20200326005840940" style="zoom: 67%;" />
 
 3. 重启 Tomcat 即可解决！
 
-<br>
+
 
 ## 4.2、注解版
 
@@ -520,13 +524,13 @@ Spring MVC 的工作原理图：
 
 8. 配置 Tomcat 并运行
 
-<br>
+
 
 使用 Spring MVC 必须配置的三大件：**处理器映射器**、**处理器适配器**、**视图解析器**
 
 通常，我们只需要手动配置视图解析器，而处理器映射器和处理器适配器只需要开启注解驱动即可。
 
-<br>
+
 
 # 5、Controller 及 RESTful 风格
 
@@ -534,7 +538,7 @@ Spring MVC 的工作原理图：
 
 控制器负责提供访问应用程序的行为，通常通过接口定义或注解定义两种方法实现。
 
-<br>
+
 
 **实现 Controller 接口**
 
@@ -550,7 +554,7 @@ public interface Controller {
 
 实现接口 Controller 定义控制器是较老的办法。一个控制器中只有一个方法，如果要多个方法则需要定义多个 Controller，并且定义的方式比较麻烦。
 
-<br>
+
 
 **使用注解 @Controller**
 
@@ -562,20 +566,20 @@ public interface Controller {
 	<context:component-scan base-package="com.kuang.controller"/>
 	```
 
-<br>
+
 
 
 ## 5.2、RequestMapping
 
 `@RequestMapping` 注解用于映射 URL 到控制器类或一个特定的处理程序方法。可用于类或方法上。用于类上则表示类中的所有响应请求的方法都是以该地址作为父路径。
 
-<br>
+
 
 ## 5.3、RESTful 风格
 
 RESTful 就是一个资源定位及资源操作的风格。不是标准也不是协议，只是一种风格。基于这个风格设计的软件可以更简洁、更有层次，更易于实现缓存等机制。
 
-<br>
+
 
 **传统方式操作资源**
 
@@ -586,7 +590,7 @@ RESTful 就是一个资源定位及资源操作的风格。不是标准也不是
 - http://127.0.0.1/item/updateItem.action	更新，`POST`
 - http://127.0.0.1/item/deleteItem.action?id=1	删除，`GET` 或 `POST`
 
-<br>
+
 
 **使用 RESTful 操作资源**
 
@@ -597,7 +601,7 @@ RESTful 就是一个资源定位及资源操作的风格。不是标准也不是
 - http://127.0.0.1/item/	更新，`PUT`
 - http://127.0.0.1/item/1	删除，`DELETE`
 
-<br>
+
 
 **测试：**
 
@@ -619,7 +623,7 @@ RESTful 就是一个资源定位及资源操作的风格。不是标准也不是
 
    在 Spring MVC 中可以使用 `@PathVariable` 注解，让方法参数的值对应绑定到一个 URL 模板变量上
 
-<br>
+
 
 
 所有的地址栏请求默认都会是 HTTP GET 类型的。
@@ -636,7 +640,7 @@ RESTful 就是一个资源定位及资源操作的风格。不是标准也不是
 
 例子中：`@RequestMapping(value = "/add/{a}/{b}",method = RequestMethod.GET)` 可写成 `@GetMapping("/add/{a}/{b}")`
 
-<br>
+
 
 # 6、结果跳转方式
 
@@ -667,7 +671,7 @@ public class HelloController implements Controller {
 }
 ```
 
-<br>
+
 
 ## 6.2、SpringAPI
 
@@ -691,7 +695,7 @@ public class ModelTest1 {
 }
 ```
 
-<br>
+
 
 ## 6.3、Spring MVC
 
@@ -709,7 +713,7 @@ public class ModelTest1 {
 }
 ```
 
-<br>
+
 
 **有视图解析器**
 
@@ -725,7 +729,7 @@ public class ModelTest1 {
 }
 ```
 
-<br>
+
 
 # 7、数据处理
 
@@ -751,7 +755,7 @@ public class UserController {
 }
 ```
 
-<br>
+
 
 **对象（User.java）：**
 
@@ -781,7 +785,7 @@ public class UserController {
 
 说明：如果使用对象的话，前端传递的参数名和对象属性名必须一致，否则就是 `null`。
 
-<br>
+
 
 **日期**
 
@@ -805,7 +809,7 @@ public @ResponseBody String fetchResult(@RequestParam("from") @DateTimeFormat(pa
 
 通过 `@DateTimeFormat` 这个日期格式化注解，就可以将前端传入的字符串格式化为日期类型可以识别的内容信息了。当然也可以使用 `@DateTimeFormat(iso=ISO.DATE)` 这样子的格式化来进行处理，效果是一样的。
 
-<br>
+
 
 ## 7.2、乱码问题
 
@@ -841,7 +845,7 @@ public class EncodingController {
 }
 ```
 
-<br>
+
 
 **手动配置过滤器**
 
@@ -882,7 +886,7 @@ public class EncodingFilter implements Filter {
 </filter-mapping>
 ```
 
-<br>
+
 
 **Spring MVC 自带的过滤器**
 
@@ -904,7 +908,7 @@ public class EncodingFilter implements Filter {
 </filter-mapping>
 ```
 
-<br>
+
 
 # 8、JSON
 
@@ -928,7 +932,7 @@ JSON（JavaScript Object Notation，JS 对象简谱）是一种轻量级的数�
 }
 ```
 
-<br>
+
 
 **JSON 和 JavaScript 对象互转：**
 
@@ -952,7 +956,7 @@ let user = {
 	let obj = JSON.parse(json);
 	```
 
-<br>
+
 
 ## 8.2、Controller 返回 JSON
 
@@ -1060,7 +1064,7 @@ let user = {
 	@RequestMapping(value = "/j1", produces = "application/json;charset=utf-8")
 	```
 
-<br>
+
 
 ## 8.3、代码优化
 
@@ -1127,7 +1131,7 @@ let user = {
    }
    ```
 
-<br>
+
 
 ## 8.4、FastJson
 
@@ -1148,7 +1152,7 @@ FastJson.jar 是阿里开发的一款专门用于 Java  开发的包，可以方
 - Java 对象转 JSON 对象：`JSON.toJSON()`
 - JSON 对象转 Java 对象：`JSON.toJavaObject()`
 
-<br>
+
 
 # 9、整合 SSM
 
@@ -1177,7 +1181,7 @@ INSERT INTO books(bookID, bookName, bookCount, detail) VALUES
 (3, "Linux", 5, "从进门到进牢");
 ```
 
-<br>
+
 
 **基本环境搭建**
 
@@ -1284,7 +1288,7 @@ INSERT INTO books(bookID, bookName, bookCount, detail) VALUES
 	- mybatis-config.xml
 	- applicationContext.xml
 
-<br>
+
 
 ## 9.1、Mybatis 层
 
@@ -1428,7 +1432,7 @@ INSERT INTO books(bookID, bookName, bookCount, detail) VALUES
 	}
 	```
 
-<br>
+
 
 ## 9.2、Spring 层
 
@@ -1526,7 +1530,7 @@ INSERT INTO books(bookID, bookName, bookCount, detail) VALUES
    </beans>
    ```
 
-<br>
+
 
 ## 9.3、Spring MVC 层
 
@@ -1605,7 +1609,7 @@ INSERT INTO books(bookID, bookName, bookCount, detail) VALUES
 
 4. 配置 Tomcat
 
-<br>
+
 
 # 10、添加业务功能
 
@@ -1710,7 +1714,7 @@ INSERT INTO books(bookID, bookName, bookCount, detail) VALUES
 	```
 	
 
-<br>
+
 
 ## 10.2、添加书籍
 
@@ -1776,7 +1780,7 @@ INSERT INTO books(bookID, bookName, bookCount, detail) VALUES
 	<a class="btn btn-primary" href="${pageContext.request.contextPath}/book/toAddBook">添加书籍</a>
 	```
 
-<br>
+
 
 ## 10.3、修改书籍
 
@@ -1849,7 +1853,7 @@ INSERT INTO books(bookID, bookName, bookCount, detail) VALUES
 	</td>
 	```
 
-<br>
+
 
 ## 10.4、删除书籍
 
@@ -1874,7 +1878,7 @@ INSERT INTO books(bookID, bookName, bookCount, detail) VALUES
 	```
 
 
-<br>
+
 
 ## 10.5、查询书籍
 
@@ -1932,7 +1936,7 @@ INSERT INTO books(bookID, bookName, bookCount, detail) VALUES
 	</form>
 	```
 
-<br>
+
 
 # 11、拦截器
 
@@ -1952,7 +1956,7 @@ Spring MVC 的处理器拦截器类似于 Servelt 开发中的过滤器 Filter�
 - 拦截器是 SpringMVC 框架自己的，只有使用了 Spring MVC 框架的工程才能使用。
 - 拦截器只会拦截访问的控制器方法，如果访问的是 `jsp/html/css/image/js` 是不会拦截的。
 
-<br>
+
 
 ## 11.2、自定义拦截器
 

@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: upload
+---
+
 # Windows
 
 ## 【1】Windows默认管理员权限
@@ -34,7 +38,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 您需要以管理员权限启动 Windows 11 DiskPart 实用程序。一种方法是在 “搜索” 框中键入 `diskpart`，然后在搜索结果中出现【diskpart 】时，右击它并选择【以管理员身份运行】。另一种方法是按 Windows + R 键并在框中键入 `diskpart`，然后单击【确定】。
 
-<img src="../Images/Mixed/image-20220812105905290.png" alt="image-20220812105905290" style="zoom:50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220812105905290.png" alt="image-20220812105905290" style="zoom:50%;" />
 
 
 > 在使用微软官方工具制作的启动盘安装系统时，如果遇到硬盘格式问题无法安装，可以按 Shift + F10 打开 cmd 使用 diskpart 的 `convert` 命令转换硬盘格式解决问题。
@@ -53,7 +57,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 如果要查看 DiskPart 可以为您提供的服务，只需输入 `help` 以查看命令列表：
 
-<img src="../Images/Mixed/image-20220812112727192.png" alt="image-20220812112727192" style="zoom: 50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220812112727192.png" alt="image-20220812112727192" style="zoom: 50%;" />
 
 
 
@@ -111,12 +115,12 @@ cmd 命令窗口输入 `netstat –ano`，回车。
 
 1. 确保 账户 => 登录选项 => 其他设置中 “为了提高安全性，仅允许...” 是关闭的：
 	
-	<img src="../Images/Mixed/image-20210813000252683.png" alt="image-20210813000252683" style="zoom:50%;" />
+	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210813000252683.png" alt="image-20210813000252683" style="zoom:50%;" />
 2. 按 Win + R，弹出 ”运行“，输入 `netplwiz`，点【确定】
 3. 取消 “要使用本计算机，用户必须输入用户名和密码”，点【确定 】
 4. 会弹出一个窗口，在窗口中输入 微软账户的用户名和密码，点【确定】
 
-   <img src="../Images/Mixed/image-20210513005900008.png" alt="image-20210513005900008" style="zoom:50%;" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210513005900008.png" alt="image-20210513005900008" style="zoom:50%;" />
 
 
 
@@ -134,7 +138,7 @@ cmd 命令窗口输入 `netstat –ano`，回车。
 
 6. 添加：
 
-   <img src="../Images/Mixed/image-20210624233318170.png" alt="image-20210624233318170" style="zoom: 43%;" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210624233318170.png" alt="image-20210624233318170" style="zoom: 43%;" />
    
    
    ```
@@ -174,7 +178,7 @@ Host *
 
 **名称**为 `{9F156763-7844-4DC4-B2B1-901F640F5155}`，**数值**为 `WindowsTerminal`。
 
-<img src="../Images/Mixed/image-20210806112305321.png" alt="image-20210806112305321" style="zoom:77%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210806112305321.png" alt="image-20210806112305321" style="zoom:77%;" />
 
 > 可以直接通过卸载 Windows Terminal（Windows 终端）这个软件来解决这个问题，删除注册表是为了解决 需要使用 Windows 终端但是又觉得右键菜单 “Open in Terminal...” 太长而影响美观的问题。
 >
@@ -186,7 +190,7 @@ Host *
 
 **名称**为 `{FDADFEE3-02D1-4E7C-A511-380F4C98D73B}`，**数值**为 `AMD Software : Adrenalin Edition`。
 
-<img src="../Images/Mixed/image-20221117151017598.png" alt="image-20221117151017598" style="zoom: 50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221117151017598.png" alt="image-20221117151017598" style="zoom: 50%;" />
 
 > 可以直接通过卸载 AMD Software 这个驱动软件来解决这个问题，但是一般不建议卸载驱动软件。
 
@@ -222,12 +226,12 @@ winget install 9MSSGKG348SP
 
 浏览器主页被篡改，直接去浏览器的设置里找首页设置一般没用，可以看一下是不是快捷方式出了问题，找到浏览器的快捷方式，右键查看【属性】，通常目标栏显示的都是浏览器的安装目录：
 
-<img src="../Images/Mixed/image-20220418233829422.png" alt="image-20220418233829422" style="zoom:50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220418233829422.png" alt="image-20220418233829422" style="zoom:50%;" />
 
 
 如果发现安装目录之后还跟着一串网址链接，那就是被强制锁定了对应的网址，只要删掉这串网址就可以了。当然，有些浏览器的快捷方式不允许修改，我们可以把界面切换到【常规】，然后把【只读】取消掉，就可以进行修改了：
 
-<img src="../Images/Mixed/image-20220418233922934.png" alt="image-20220418233922934" style="zoom:50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220418233922934.png" alt="image-20220418233922934" style="zoom:50%;" />
 
 当然也可以直接删除快捷方式，然后重新生成；或者在目标栏输入一个自己需要的网址（输入网址之前要加一个空格键，否则无法保存），然后将属性改为只读。
 
@@ -265,7 +269,7 @@ sc <server> [command] [service name] <option1> <option2>...
 
 2. “服务名称” 和 “服务显示名称”  是不一样的。`sc` 指令使用的是 “服务名称”。我们在【服务】里看到是服务的显示名称，双击打开某个服务可以看到真正的服务名字。
 
-   <img src="../Images/Mixed/image-20220728002211513.png" alt="image-20220728002211513" style="zoom: 50%;" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220728002211513.png" alt="image-20220728002211513" style="zoom: 50%;" />
    
 3. `sc start` 和 `sc stop` 功能上类似于 `net start` 和 `net stop`，但速度更快且能停止的服务更多。
 
@@ -287,15 +291,15 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 1. 按 Win + R 呼出【运行】，输入 gpedit.msc 按回车，打开组策略编辑器
 
-   <img src="../Images/Mixed/image-20221104154634735.png" alt="image-20221104154634735" style="zoom: 50%;" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221104154634735.png" alt="image-20221104154634735" style="zoom: 50%;" />
 
 2. 在组策略管理控制台上，转到计算机配置 ==> 管理模板 ==> 系统 ==> Device Guard
 
-   <img src="../Images/Mixed/image-20221104154738722.png" alt="image-20221104154738722" style="zoom:50%;" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221104154738722.png" alt="image-20221104154738722" style="zoom:50%;" />
 
 3. 双击打开【基于虚拟化的安全】，然后单击禁用选项：
 
-   <img src="../Images/Mixed/image-20221104154813968.png" alt="image-20221104154813968" style="zoom:50%;" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221104154813968.png" alt="image-20221104154813968" style="zoom:50%;" />
 
    确定配置并重启电脑即可解决。
 
@@ -396,12 +400,12 @@ Maven 由于它的约定大于配置，之后可能遇到写的配置文件，�
 
 > 上边的 web-app 标签中有一个 `metadata-complete="true"`，这是个大坑，因为 web-app 标签 3.0 以上版本是可以使用 Servlet 的注解的，如下图：
 
-<img src="../Images/Mixed/1247983-20190604213809759-1772243544.png" alt="img" style="zoom:50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1247983-20190604213809759-1772243544.png" alt="img" style="zoom:50%;" />
 
 
 再也不用去 web.xml 写那 Servlet 的那一堆映射了（下图就是那一堆映射）：
 
-<img src="../Images/Mixed/1247983-20190604214818782-1161183865.png" alt="img" style="zoom:50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1247983-20190604214818782-1161183865.png" alt="img" style="zoom:50%;" />
 
 
 如果忘记了改这个 web-app 标签里的 `metadata-complete` 的这个属性，所写的注解都将失效！！！
@@ -414,18 +418,18 @@ Maven 由于它的约定大于配置，之后可能遇到写的配置文件，�
 
 首先在 IDEA 中显示内存：在窗口下方右键，选中【Memory Indicator】：
 
-<img src="../Images/Mixed/image-20200428211739758.png" alt="image-20200428211739758" style="zoom: 67%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200428211739758.png" alt="image-20200428211739758" style="zoom: 67%;" />
 
 
 【帮助】=>【编辑自定义 VM 选项】。
 
 在弹出来的文件中修改 Xms 和 Xmx：
 
-<img src="../Images/Mixed/image-20200428212406493.png" alt="image-20200428212406493" style="zoom:67%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200428212406493.png" alt="image-20200428212406493" style="zoom:67%;" />
 
 如果在这里设置无效，可能是环境变量设置指向了其他文件：
 
-<img src="../Images/Mixed/image-20221125133936880.png" alt="image-20221125133936880" style="zoom: 50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221125133936880.png" alt="image-20221125133936880" style="zoom: 50%;" />
 
 
 
@@ -450,7 +454,7 @@ Camel Case 可以用 一个快捷键 就搞定，去 IDEA 的插件库中搜索 
 
 Camel Case 包含 6 种格式的切换，可能某些格式是平时不用的，可以把不用的格式取消，这样在格式切换时，就不会包含已取消的格式了：
 
-<img src="../Images/Mixed/5e7827dc0001c7ea11720724.png" alt="图片描述" style="zoom: 80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/5e7827dc0001c7ea11720724.png" alt="图片描述" style="zoom: 80%;" />
 
 
 
@@ -459,7 +463,7 @@ Camel Case 包含 6 种格式的切换，可能某些格式是平时不用的，
 
 加快开发效率，除去没用的包，洁癖者必用!   这样设置，就可以自动导入包以及除去没有用到的包！
 
-<img src="../Images/Mixed/1100499-20180530104314466-1984750519.png" alt="img" style="zoom: 80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1100499-20180530104314466-1984750519.png" alt="img" style="zoom: 80%;" />
 
 
 第一个是 自动导入需要的 jar 包，若有多个同名 jar 包，需要开发者自己选择导入
@@ -472,7 +476,7 @@ Camel Case 包含 6 种格式的切换，可能某些格式是平时不用的，
 
 IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化，优化 Java 包导入。我们可以在 Preferences / Settings | Tools | Actions on Save 进行设置：
 
-<img src="../Images/Mixed/image-20211025163148621.png" alt="image-20211025163148621" style="zoom: 80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211025163148621.png" alt="image-20211025163148621" style="zoom: 80%;" />
 
 
 比如上图这个格式化代码，保存时将会格式化你当前改动代码，这就不用担心写完代码忘记格式化了。
@@ -485,7 +489,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 在开发时遇到需要大量替换代码时，不需要一个一个的去改，可以使用**正则替换**：
 
-<img src="../Images/Mixed/image-20211025163611055.png" alt="image-20211025163611055" style="zoom:80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211025163611055.png" alt="image-20211025163611055" style="zoom:80%;" />
 
 
 比如上图将所有这个文件中的 `name=""` 替换为 `th:field=""` ，`()` 内填写正则表达式，`$1` 为正则匹配到的第一个内容的占位符。
@@ -498,7 +502,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 找到这里，可以添加自己所需要的注释：
 
-<img src="../Images/Mixed/image-20211214150741576.png" alt="image-20211214150741576" style="zoom:80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211214150741576.png" alt="image-20211214150741576" style="zoom:80%;" />
 
 
 
@@ -507,7 +511,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 找到如下地方：
 
-<img src="../Images/Mixed/image-20211214151314708.png" alt="image-20211214151314708" style="zoom:80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211214151314708.png" alt="image-20211214151314708" style="zoom:80%;" />
 
 添加自己需要的模板后（展开方式选 `Enter`，表示回车触发），点击【更改】，添加使用环境，然后【编辑变量】：
 
@@ -524,7 +528,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 可以在 IDEA 使用翻译功能，效果：
 
-<img src="../Images/Mixed/image-20200615171745094.png" alt="image-20200615171745094" style="zoom:67%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200615171745094.png" alt="image-20200615171745094" style="zoom:67%;" />
 
 
 默认引擎使用 Google 翻译，但是如果请求次数过多提示 “翻译失败，请求过多，请稍后再试！”，这里我建议使用阿里翻译引擎。
@@ -535,22 +539,22 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 1. 登录阿里云官网，点击右上角的控制台，在控制台的搜索框搜索 “机器翻译”：
 
-   <img src="../Images/Mixed/image-20220328155154582.png" alt="image-20220328155154582" style="zoom: 50%;" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220328155154582.png" alt="image-20220328155154582" style="zoom: 50%;" />
 
 2. 点击【通用版翻译引擎】下方的【立即开通】按钮：
 
-   <img src="../Images/Mixed/image-20220328160104687.png" alt="image-20220328160104687" style="zoom: 50%;" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220328160104687.png" alt="image-20220328160104687" style="zoom: 50%;" />
 
 
    点击之后会让你勾选一个【机器翻译服务协议】，勾选之后点【立即开通】就能开通成功了。
 
 3. 开通后，回到 阿里云机器翻译控制台，把鼠标悬停在右上角用户头像上，然后点击【AccessKey 管理】，会跳转到 AccessKey 管理页面：
 
-   <img src="../Images/Mixed/image-20220328160302854.png" alt="image-20220328160302854" style="zoom:67%;" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220328160302854.png" alt="image-20220328160302854" style="zoom:67%;" />
 
 4. 进入后会弹出一个安全提示：
 
-   <img src="../Images/Mixed/image-20220328160748769.png" alt="image-20220328160748769" style="zoom: 60%;" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220328160748769.png" alt="image-20220328160748769" style="zoom: 60%;" />
 
 
    简而言之，在这里创建的 AccessKey 能调用你账号下的所有资源，权限范围太大了，一旦泄露的话影响面很大，所以阿里云建议你创建一个子用户，然后给这个子用户只分配机器翻译的权限，这样的话即使泄露了也只会影响到机器翻译。
@@ -561,39 +565,39 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
    - 填写显示名称：划词翻译
    - 访问方式：勾选【Open API 调用访问】
 
-   <img src="../Images/Mixed/image-20220328161056344.png" alt="image-20220328161056344" style="zoom:80%;" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220328161056344.png" alt="image-20220328161056344" style="zoom:80%;" />
 
 6. 点击【确定】之后会让你输入手机短信验证码，输入之后会看到创建成功的 【AccessKey ID】 和 【AccessKey Secret】，如下图：
 
-   <img src="../Images/Mixed/image-20220328161159317.png" alt="image-20220328161159317" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220328161159317.png" alt="image-20220328161159317" />
 
 7. 然后勾选刚刚创建的用户，点击【添加权限】：
 
-   <img src="../Images/Mixed/image-20220328161321740.png" alt="image-20220328161321740" style="zoom:80%;" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220328161321740.png" alt="image-20220328161321740" style="zoom:80%;" />
 
 8. 搜索 “机器翻译”，单击选中【AliyunMTFullAccess】和【AliyunMTReadOnlyAccess】这两项即可，然后点击【确定】：
 
-   <img src="../Images/Mixed/image-20220328161442913.png" alt="image-20220328161442913" style="zoom:67%;" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220328161442913.png" alt="image-20220328161442913" style="zoom:67%;" />
 
 9. 最后在 IDEA 的 Translation 中，选择 阿里翻译并配置：
 
-   <img src="../Images/Mixed/image-20220328161610458.png" alt="image-20220328161610458" style="zoom:67%;" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220328161610458.png" alt="image-20220328161610458" style="zoom:67%;" />
 
 
 
 ## 【12】Defender 排除项目目录
 
-<img src="../Images/Mixed/image-20221122104415995.png" alt="image-20221122104415995" style="zoom: 67%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221122104415995.png" alt="image-20221122104415995" style="zoom: 67%;" />
 
 1. 打开设置，然后依次打开【隐私和安全性】==>【Windows 安全中心】==>【打开 Windows 安全中心】
 
 2. 在 Windows 安全中心中选择【病毒和威胁防护】，在 “病毒和威胁防护设置” 下，选择【管理设置】
 
-   <img src="../Images/Mixed/image-20221122105328603.png" alt="image-20221122105328603" style="zoom: 50%;" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221122105328603.png" alt="image-20221122105328603" style="zoom: 50%;" />
 
 3. 最后在 ”排除项“ 下，点击【添加或删除排除项】
 
-   <img src="../Images/Mixed/image-20221122105441981.png" alt="image-20221122105441981" style="zoom:50%;" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221122105441981.png" alt="image-20221122105441981" style="zoom:50%;" />
 
 
 
@@ -607,24 +611,24 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 然后在【Java】=>【已安装的 JRE】中，修改缺省 VM 参数，添加 Xms 和 Xmx，中间用空格隔开：
 
-<img src="../Images/Mixed/image-20200428213849950.png" alt="image-20200428213849950" style="zoom: 50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200428213849950.png" alt="image-20200428213849950" style="zoom: 50%;" />
 
 
 <br>
 
 ## 【2】汉化
 
-<img src="../Images/Mixed/image-20200622113126300.png" alt="image-20200622113126300" style="zoom:67%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200622113126300.png" alt="image-20200622113126300" style="zoom:67%;" />
 
 
 打开 https://www.eclipse.org/babel/downloads.php 
 
-<img src="../Images/Mixed/image-20200622113248801.png" alt="image-20200622113248801" style="zoom:50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200622113248801.png" alt="image-20200622113248801" style="zoom:50%;" />
 
 
 选择一个复制，在弹出的窗口中点击添加
 
-<img src="../Images/Mixed/image-20200622113354699.png" alt="image-20200622113354699"  />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200622113354699.png" alt="image-20200622113354699"  />
 
 
 找到中文简体安装就行了。
@@ -656,7 +660,7 @@ SpringBoot 是使用内置的 Tomcat 的，所以不用打包成 war 文件，�
 
 2. 项目运行环境选择 Java JDK：
 	
-	<img src="../Images/Mixed/20191105110853305.png" alt="img" style="zoom: 80%;" />
+	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20191105110853305.png" alt="img" style="zoom: 80%;" />
 	
 3. 执行 `maven clean`：
 	

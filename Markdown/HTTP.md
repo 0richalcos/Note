@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: upload
+---
+
 # 1、HTTP/HTTPS 简介
 
 HTTP 协议是 Hyper Text Transfer Protocol（超文本传输协议）的缩写，是用于从万维网（ WWW:World Wide Web ）服务器传输超文本到本地浏览器的传送协议。
@@ -10,11 +14,10 @@ HTTPS 经由 HTTP 进行通信，但利用 SSL/TLS 来加密数据包，HTTPS �
 
 HTTP 的 URL 是由 `http://` 起始与默认使用端口 `80`，而 HTTPS 的 URL 则是由 `https://` 起始与默认使用端口 `443`。
 
-<div align="center">
-	<img src="../Images/HTTP/1_5J6ULfBAvgLF8PBM4B__Qw.jpeg" alt="img" style="width:50%"/>
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1_5J6ULfBAvgLF8PBM4B__Qw.jpeg" alt="img" style="width:50%"/>
 
-<br>
+
+
 
 ## 1.1、HTTP 工作原理
 
@@ -42,15 +45,14 @@ HTTP 默认端口号为 `80`，但是你也可以改为 `8080` 或者其他端�
 
 以下图表展示了 HTTP 协议通信流程：
 
-<div align="center">
-	<img src="../Images/HTTP/cgiarch.gif" alt="cgiarch"  />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/cgiarch.gif" alt="cgiarch"  />
+
 
 > CGI（Common Gateway Interface）是 HTTP 服务器与你的或其它机器上的程序进行 “交谈” 的一种工具，其程序须运行在网络服务器上。
 >
 > 绝大多数的 CGI 程序被用来解释处理来自表单的输入信息，并在服务器产生相应的处理，或将相应的信息反馈给浏览器。CGI 程序使网页具有交互功能。
 
-<br>
+
 
 ## 1.2、HTTPS 作用
 
@@ -70,17 +72,15 @@ Google Chrome、Internet Explorer 和 Firefox 等浏览器在网站含有由加�
 
 HTTP 链接显示不安全：
 
-<div align="center">
-	<img src="../Images/HTTP/338F00ED-40D1-4E19-91AD-5005482353FA.jpeg" alt="img" style="width: 50%" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/338F00ED-40D1-4E19-91AD-5005482353FA.jpeg" alt="img" style="width: 50%" />
+
 
 HTTPS 链接显示为安全：
 
-<div align="center">
-	<img src="../Images/HTTP/5C6F661D-345B-4E9A-9340-2B9367A58FB3.jpeg" alt="img" style="width: 50%" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/5C6F661D-345B-4E9A-9340-2B9367A58FB3.jpeg" alt="img" style="width: 50%" />
 
-<br>
+
+
 
 # 2、HTTP 消息结构
 
@@ -94,15 +94,14 @@ HTTP 使用统一资源标识符（Uniform Resource Identifiers，URI）来传�
 
 一旦建立连接后，数据消息就通过类似 Internet 邮件所使用的格式 [RFC5322] 和多用途 Internet 邮件扩展（MIME）[RFC2045] 来传送。
 
-<br>
+
 
 ## 2.1、客户端请求消息
 
 客户端发送一个 HTTP 请求到服务器的请求消息包括以下格式：请求行（request line）、请求头部（header）、空行和请求数据四个部分组成，下图给出了请求报文的一般格式。
 
-<div align="center">
-    <img src="../Images/HTTP/2012072810301161.png"/>
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/2012072810301161.png"/>
+
 
 示例：
 
@@ -113,15 +112,14 @@ Host: www.example.com
 Accept-Language: en, mi
 ```
 
-<br>
+
 
 ## 2.2、服务器响应消息
 
 HTTP 响应也由四个部分组成，分别是：状态行、消息报头、空行和响应正文。
 
-<div align="center">
-    <img src="../Images/HTTP/httpmessage.jpg" alt="img" style="width:60%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/httpmessage.jpg" alt="img" style="width:60%;" />
+
 
 示例：
 
@@ -137,7 +135,7 @@ Vary: Accept-Encoding
 Content-Type: text/plain
 ```
 
-<br>
+
 
 # 3、HTTP 请求方法
 
@@ -159,7 +157,7 @@ HTTP 1.1 新增了六种请求方法：OPTIONS、PUT、PATCH、DELETE、TRACE �
 | 8    | TRACE   | 回显服务器收到的请求，主要用于测试或诊断。                   |
 | 9    | PATCH   | 是对 PUT 方法的补充，用来对已知资源进行局部更新 。           |
 
-<br>
+
 
 # 4、HTTP 响应头信息
 
@@ -180,7 +178,7 @@ HTTP 请求头提供了关于请求、响应或者其他的发送实体的信息
 | Set-Cookie       | 设置和页面关联的 Cookie。Servlet 不应使用 `response.setHeader("Set-Cookie", ...)`，而是应使用 `HttpServletResponse` 提供的专用方法 `addCookie`。参见下文有关 Cookie 设置的讨论。 |
 | WWW-Authenticate | 客户应该在 Authorization 头中提供什么类型的授权信息？在包含 `401`（Unauthorized）状态行的应答中这个头是必需的。例如，`response.setHeader("WWW-Authenticate", "BASIC realm=＼"executives＼"")`。 注意 Servlet 一般不进行这方面的处理，而是让 Web 服务器的专门机制来控制受密码保护页面的访问（例如.htaccess）。 |
 
-<br>
+
 
 # 5、HTTP 状态码
 
@@ -195,7 +193,7 @@ HTTP 状态码的英文为 **HTTP Status Code**。。
 - 404 - 请求的资源（网页等）不存在
 - 500 - 内部服务器错误
 
-<br>
+
 
 ## 5.1、HTTP 状态码分类
 
@@ -259,7 +257,7 @@ HTTP状态码列表：
 | 504    | Gateway Time-out                | 充当网关或代理的服务器，未及时从远端服务器获取请求           |
 | 505    | HTTP Version not supported      | 服务器不支持请求的 HTTP 协议的版本，无法完成处理             |
 
-<br>
+
 
 # 6、HTTP content-type
 
@@ -298,7 +296,7 @@ Content-Type: multipart/form-data; boundary=something
 
 - multipart/form-data：需要在表单中进行文件上传时，就需要使用该格式
 
-<br>
+
 
 ## 6.1、HTTP content-type 对照表
 
@@ -477,7 +475,7 @@ Content-Type: multipart/form-data; boundary=something
 | .x_t                                | application/x-x_t                       | .ipa       | application/vnd.iphone              |
 | .apk                                | application/vnd.android.package-archive | .xap       | application/x-silverlight-app       |
 
-<br>
+
 
 # 7、MIME 类型
 
@@ -502,7 +500,7 @@ MIME 类型对大小写不敏感，但是传统写法都是小写。
 - `text/plain` 表示文本文件的默认值。
 - `application/octet-stream` 表示所有其他情况的默认值。
 
-<br>
+
 
 **常见的 MIME 类型**
 

@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: upload
+---
+
 # 1、后端
 
 ## 【1】Java 高效获取大文件的行数
@@ -106,7 +110,7 @@ LineNumberReader 继承自 BufferedReader，并且增加了下面两个功能：
 
 解决方案二：通过后端转发，后端请求第三方资源，返回给前端，前端使用 file-saver 等工具保存文件。
 
-<br>
+
 
 **使用表单提交**
 
@@ -121,7 +125,7 @@ $eleBtn2.click(function(){
 });
 ```
 
-<br>
+
 
 ## 【2】JS 判断 NaN 和保留两位小数
 
@@ -138,7 +142,7 @@ window.isNaN('Hello')    // true
 window.isNaN(Number('Hello'))   // true
 ```
 
-<br>
+
 
 **先判断是不是数字，然后再使用 window.isNaN()**
 
@@ -154,7 +158,7 @@ judgeNaN([])           //false
 judgeNaN({})           //false
 ```
 
-<br>
+
 
 **Number.isNaN(value)**
 
@@ -182,7 +186,7 @@ Number.isNaN('');
 Number.isNaN(' ')
 ```
 
-<br>
+
 
 **两数字相除 保留两位小数**
 
@@ -190,7 +194,7 @@ Number.isNaN(' ')
 $('#aa').value=(a/b).toFixed(2);
 ```
 
-<br>
+
 
 ## 【3】JS 图片预览
 
@@ -258,7 +262,7 @@ $('#aa').value=(a/b).toFixed(2);
 </script>
 ```
 
-<br>
+
 
 ## 【4】AJAX 上传/下载文件
 
@@ -326,7 +330,7 @@ public String importProduct(MultipartFile file){
 
 通过 `file.getOriginalFilename()` 可以获取到文件名，通过 `file.getInputStream()` 可以获取文件流。
 
-<br>
+
 
 **下载（Excel）**
 
@@ -383,7 +387,7 @@ function exp() {
 }
 ```
 
-<br>
+
 
 ## 【5】AJAX 请求后页面刷新的问题
 
@@ -402,7 +406,7 @@ function exp() {
 </div>
 ```
 
-<br>
+
 
 ## 【6】返回前端 Long 丢失精度
 
@@ -413,13 +417,13 @@ console.log(812782555915911412);
 812782555915911400
 ```
 
-<br>
+
 
 **这是什么原因呢？**
 
 原来，JavaScript 中数字的精度是有限的，Java 的 `Long` 类型的数字超出了 JavaScript 的处理范围。JavaScript 内部只有一种数字类型 `Number`，所有数字都是采用 [IEEE 754](https://links.jianshu.com/go?to=https%3A%2F%2Fzh.wikipedia.org%2Fwiki%2FIEEE_754) 标准定义的双精度 64 位格式存储，即使整数也是如此。这就是说，JavaScript 语言的底层根本没有整数，所有数字都是小数（64位浮点数）。其结构如图：
 
-![img](../Images/Petty/webp.webp)
+![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/webp.webp)
 
 各位的含义如下：
 
@@ -469,7 +473,7 @@ public static void main(String[] args) {
 
 所以只要 Java 传给 JavaScript 的 `Long` 类型的值超过 `9007199254740991`，就有可能产生精度丢失，从而导致数据和逻辑出错。
 
-<br>
+
 
  **那有什么解决方法呢？**
 
@@ -486,7 +490,7 @@ private Long bankcardHash;
 
 指定了 `ToStringSerializer` 进行序列化，将数字编码成字符串格式。这种方式的优点是颗粒度可以很精细；缺点同样是太精细，如果需要调整的字段比较多会比较麻烦。
 
-<br>
+
 
 ## 【7】获取验证码按钮
 

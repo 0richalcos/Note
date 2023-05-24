@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: upload
+---
+
 在构建网络应用中，客户端（一般为浏览器）需要经常与服务端进行持续的通讯一保持双方信息的同步。出于人性化的考虑，减少用户操作，通常这种持久通讯在不刷新页面的情况下进行。
 
 但是 HTTP 协议有一个缺陷：通信只能由客户端发起，服务器返回查询结果。HTTP 协议做不到服务器主动向客户端推送信息。这种单向请求的特点，注定了如果服务器有连续的状态变化，客户端要获知就非常麻烦。我们只能使用轮询：每隔一段时候，就发出一个询问，了解服务器有没有新的信息。
@@ -46,7 +50,7 @@ function poll() {
 
 在长轮询机制中，客户端像传统轮询一样从服务器请求数据，如果服务器没有可以立即返回给客户端的数据，则不会立刻返回一个空结果，其连接的服务器会 “hold” 住此次连接，保持这个请求等待数据到来（或者恰当的超时：小于 ajax 的超时时间），直到有新消息才返回响应信息并关闭连接，客户端处理完响应信息后再向服务器发送新的 Http 请求,以此类推。
 
-![img](../Images/WebSocket/20190708144449764.png)
+![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20190708144449764.png)
 
 长轮询可能在以下 3 种情况时终止：
 
@@ -143,7 +147,7 @@ WebSocket 是 HTML5 开始提供的一种在单个 TCP 连接上进行全双工�
 
 WebSocket API 最伟大之处在于服务器和客户端可以在给定的时间范围内的任意时刻，相互推送信息。WebSocket 并不限于以 Ajax（或 XHR）方式通信，因为 Ajax 技术需要客户端发起请求，而 WebSocket 服务器和客户端可以彼此相互推送信息。
 
-![img](../Images/WebSocket/bg2017051502.png)
+![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/bg2017051502.png)
 
 其他特点包括：
 
@@ -163,7 +167,7 @@ WebSocket API 最伟大之处在于服务器和客户端可以在给定的时间
 	ws://example.com:80/some/path
 	```
 
-![img](../Images/WebSocket/bg2017051503.jpg)
+![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/bg2017051503.jpg)
 
 
 

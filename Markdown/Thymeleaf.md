@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: upload
+---
+
 # 1、Thymeleaf 
 
 Thymeleaf 是一个服务器端 Java 模板引擎，能够处理 HTML、XML、CSS、JavaScript 等模板文件。Thymeleaf 模板可以直接当作静态原型来使用，它主要目标是为开发者的开发工作流程带来优雅的自然模板，也是 Java 服务器端 HTML5 开发的理想选择。
@@ -34,7 +38,7 @@ Thymeleaf 是一个服务器端 Java 模板引擎，能够处理 HTML、XML、CS
 
 HTML5 规范是允许 `data-*` 这样自定义的属性的。`th:*` 和 `data-th-*` 这两个符号是完全等效且可以互换的。但为了简单直观和代码的紧凑性，本文采用 `th:*` 的表示形式。
 
-<br>
+
 
 # 2、标准表达式语法
 
@@ -49,7 +53,7 @@ Thymeleaf 提供了非常丰富的标准表达式语法，总共有 8 大类：
 - 条件运算
 - 无操作符
 
-<br>
+
 
 ## 2.1 简单表达式
 
@@ -61,7 +65,7 @@ Thymeleaf 提供了非常丰富的标准表达式语法，总共有 8 大类：
 | `@{...}` | Link URL Expressions           | 链接表达式     | 用于表示各种超链接地址 |
 | `~{...}` | Fragment Expressions           | 片段表达式     | 引用一段公共的代码片段 |
 
-<br>
+
 
 ### 2.1.1、${...}
 
@@ -137,7 +141,7 @@ ctx.getVariable("message");
 > }
 > ```
 
-<br>
+
 
 ### 2.1.2、*{...}
 
@@ -168,7 +172,7 @@ ctx.getVariable("message");
 <p th:text="${session.user.name}"></p>
 ```
 
-<br>
+
 
 ### 2.1.3、#{…}
 
@@ -194,9 +198,8 @@ welcome.message = Welcome to BeiJing!
 
 在 IntelliJ IDEA 编辑视图：
 
-<div align="center">
-    <img src="../Images/Thymeleaf/i18n-messages.png" alt="img" style="width:60%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/i18n-messages.png" alt="img" style="width:60%;" />
+
 
 `messages` 是 Spring Boot 加载资源文件默认采用的名称（`basename`），如果你所使用的资源文件名称不是以 `messages` 命名或所使用的资源文件不是在 `src/main/resources` 根目录，你可以通过 `spring.messages.basename` 属性来做具体的配置。如，资源文件`messages.properties` 和 `messages_en_US.properties` 假设它们所在的目录位置是 `src/main/resources/i18n`。
 
@@ -242,7 +245,7 @@ welcome.user.message = {0}, Welcome to BeiJing!
 <p th:text="#{welcome.user.message(${session.user.name})}"></p>
 ```
 
-<br>
+
 
 ### 2.1.4、@{…}
 
@@ -289,7 +292,7 @@ welcome.user.message = {0}, Welcome to BeiJing!
 <p th:text="@{/user/{username}/info(username=${session.user.name})}"></p>
 ```
 
-<br>
+
 
 ### 2.1.5、~{…}
 
@@ -363,7 +366,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <div th:replace="~{base :: footerFragment}"></div>
 ```
 
-<br>
+
 
 ### 2.1.6、内置对象
 
@@ -379,7 +382,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 | `#session`        | HttpSession 对象，可参考 javax.servlet.http.HttpSession      |
 | `#servletContext` | ServletContext 对象，可参考 javax.servlet.ServletContext     |
 
-<br>
+
 
 **`#ctx` 示例：**
 
@@ -392,7 +395,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <p th:text="${#ctx.containsVariable('message')}"></p>
 ```
 
-<br>
+
 
 **`#vars` 示例：**
 
@@ -405,7 +408,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <p th:text="${#vars.containsVariable('message')}"></p>
 ```
 
-<br>
+
 
 **`#locale` 示例：**
 
@@ -424,7 +427,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <p th:text="${#locale.displayName}"></p>
 ```
 
-<br>
+
 
 **`#request` 示例：**
 
@@ -459,7 +462,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <p th:text="${param.q}"></p>
 ```
 
-<br>
+
 
 **`#response` 示例：**
 
@@ -474,7 +477,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <p th:text="${#response.contentType}"></p>
 ```
 
-<br>
+
 
 **`#session` 示例：**
 
@@ -493,7 +496,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <p th:text="${session.user.name}"></p>
 ```
 
-<br>
+
 
 ### 2.1.7、工具类
 
@@ -522,13 +525,13 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <span th:text="${#numbers.formatDecimal(num,1,'COMMA',2,'POINT')}"></span>
 ```
 
-<br>
+
 
 ## 2.2、字面值
 
 所谓字面值，首先它不是一个变量，它是一个具体的确切的值，通常这些值是比较简单的，例如：`18`、`'welcome'` 等，它们没有名称，以至于我们只能用值来称呼它们，因此我们称其为字面值。
 
-<br>
+
 
 **文字字面值**
 
@@ -541,7 +544,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <p th:text="'\'Welcome to BeiJing!\''"></p>
 ```
 
-<br>
+
 
 **数字字面值**
 
@@ -552,7 +555,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <p th:text="2017 + 1"></p>
 ```
 
-<br>
+
 
 **布尔字面值**
 
@@ -563,7 +566,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <p th:text="1 > 2 ? '是' : '否'"></p>
 ```
 
-<br>
+
 
 **空字面值**
 
@@ -572,7 +575,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <p th:text="${user == null}"></p>
 ```
 
-<br>
+
 
 **字面令牌**
 
@@ -597,13 +600,13 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <p th:text="'Welcome to BeiJing!'"></p>
 ```
 
-<br>
+
 
 ## 2.3、文本操作
 
 对文本内容进行常用的操作，分别为字符串连接和字符串替换。
 
-<br>
+
 
 **字符串连接**
 
@@ -614,7 +617,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <p th:text="'Welcome to ' + ${location} + '!'"></p>
 ```
 
-<br>
+
 
 **字面值替换**
 
@@ -625,7 +628,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <p th:text="|Welcome to ${location}!|"></p>
 ```
 
-<br>
+
 
 ## 2.4、算术运算
 
@@ -648,7 +651,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <p th:text="${pagination.page} + 1"></p>
 ```
 
-<br>
+
 
 ## 2.5、布尔运算
 
@@ -661,7 +664,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <p th:text="${not user.online}"></p>
 ```
 
-<br>
+
 
 ## 2.6、比较和相等
 
@@ -676,7 +679,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <p th:text="${user.age != 18}"></p>
 ```
 
-<br>
+
 
 ## 2.7、条件运算
 
@@ -698,7 +701,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <p th:text="${user.email} ?: '你还没有绑定邮箱'"></p>
 ```
 
-<br>
+
 
 ## 2.8、无操作符
 
@@ -709,13 +712,13 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <p th:text="${token} ?: _">你还没有登录，请先登录</p>
 ```
 
-<br>
+
 
 # 3、使用文本
 
 首先介绍两个最基础的 `th:*` 属 `th:text` 和 `th:utext`，它们都是用于处理文本消息内容。
 
-<br>
+
 
 **th:text**
 
@@ -735,7 +738,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 
 当它作为模板文件运行在服务器端时，`th:text` 属性的具体值将会替换 `<p>` 标签体的文本内容。
 
-<br>
+
 
 **th:utext**
 
@@ -762,13 +765,13 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 
 `th:utext` 效果：`Welcome to BeiJing!`
 
-<br>
+
 
 # 4、设置属性值
 
 在 Thymeleaf 模板文件中，可以使用 `th:*`（或者使用 `th:attr` 属性）来设置任意的 HTML5 标签属性的值。不仅如此，还可以 `th:*-*` 来同时为多个不同的标签属性设置相同的一个值，甚至你可以使用 `th:attrappend` 和 `th:attrprepend` 来追加新的值到现有的标签属性值中。
 
-<br>
+
 
 **th:attr**
 
@@ -778,7 +781,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <a th:attr="href=@{https://www.google.com.hk}">谷歌一下你就知道</a>
 ```
 
-<br>
+
 
 **th:***
 
@@ -795,7 +798,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <div th:item-id="${user.id}">Welcome to BeiJing!</div>
 ```
 
-<br>
+
 
 **th:*-***
 
@@ -811,7 +814,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <img src="logo.png" th:alt="LOGO图片" th:title="LOGO图片">
 ```
 
-<br>
+
 
 **th:attrappend & th:attrprepend**
 
@@ -833,7 +836,7 @@ src/main/resources/templates/index.html，通过 `th:insert` 属性引用一段�
 <button class="btn" th:classappend="${outOfStock} ? ' enable' : ' disable'">购买</button>
 ```
 
-<br>
+
 
 **布尔属性**
 
@@ -860,7 +863,7 @@ Thymeleaf 也允许我们通过 `th:*`（这里的 `*` 表示任意的布尔属�
 
 如果表达式的结果为 `true`，则自动勾选复选框，若为 `false`，则不会自动勾选。
 
-<br>
+
 
 # 5、遍历
 
@@ -910,7 +913,7 @@ Thymeleaf 也允许我们通过 `th:*`（这里的 `*` 表示任意的布尔属�
 </div>
 ```
 
-<br>
+
 
 **循环固定次数**
 
@@ -946,7 +949,7 @@ Thymeleaf 也允许我们通过 `th:*`（这里的 `*` 表示任意的布尔属�
 </ul>
 ```
 
-<br>
+
 
 **循环次数由变量控制**
 
@@ -982,13 +985,13 @@ Thymeleaf 也允许我们通过 `th:*`（这里的 `*` 表示任意的布尔属�
 </ul>
 ```
 
-<br>
+
 
 # 6、条件判断
 
 条件判断语句有三种，分别是：`th:if`、`th:unless`、`th:swith`。
 
-<br>
+
 
 **th:if**
 
@@ -1016,7 +1019,7 @@ Thymeleaf 也允许我们通过 `th:*`（这里的 `*` 表示任意的布尔属�
 
 但是，为了代码的可读性，并不建议这样使用。
 
-<br>
+
 
 **th:unless**
 
@@ -1026,7 +1029,7 @@ Thymeleaf 也允许我们通过 `th:*`（这里的 `*` 表示任意的布尔属�
 <a th:href="@{/user/order(uid=${user.id})}" th:unless="${user == null}">我的订单</a>
 ```
 
-<br>
+
 
 **th:swith**
 
@@ -1039,7 +1042,7 @@ Thymeleaf 也允许我们通过 `th:*`（这里的 `*` 表示任意的布尔属�
 </div>
 ```
 
-<br>
+
 
 # 7、定义局部变量
 
@@ -1059,7 +1062,7 @@ Thymeleaf 也允许我们通过 `th:*`（这里的 `*` 表示任意的布尔属�
 </p>
 ```
 
-<br>
+
 
 # 8、注释
 
@@ -1067,7 +1070,7 @@ Thymeleaf 也允许我们通过 `th:*`（这里的 `*` 表示任意的布尔属�
 
 语法：`<!-- ... --->`，注释的代码块会在文件源代码中显示出来。
 
-<br>
+
 
 **单行注释**
 
@@ -1075,7 +1078,7 @@ Thymeleaf 也允许我们通过 `th:*`（这里的 `*` 表示任意的布尔属�
 <!-- <span>${message}</span> --->
 ```
 
-<br>
+
 
 **多行注释**
 
@@ -1088,13 +1091,13 @@ Thymeleaf 也允许我们通过 `th:*`（这里的 `*` 表示任意的布尔属�
 --->
 ```
 
-<br>
+
 
 ## 8.2、解析器级注释
 
 语法：`<!--/* ... */-->`，注释的代码块会在引擎解析的时候抹去。
 
-<br>
+
 
 **单行注释：**
 
@@ -1102,7 +1105,7 @@ Thymeleaf 也允许我们通过 `th:*`（这里的 `*` 表示任意的布尔属�
 <!--/* <span>${message}</span> */-->
 ```
 
-<br>
+
 
 **多行注释**
 
@@ -1115,19 +1118,19 @@ Thymeleaf 也允许我们通过 `th:*`（这里的 `*` 表示任意的布尔属�
 <!--*/-->
 ```
 
-<br>
+
 
 # 9、内联表达式
 
 内联表达式允许我们直接在 HTML 文本中使用标准表达式，而不需要使用 `th:*` 标签属性。
 
-<br>
+
 
 ## 9.1、[[…]]
 
 `[[]]` 相当于 `th:text`，对含有 HTML 标签的内容自动进行字符转义。
 
-<br>
+
 
 ## 9.2、[(…)]
 
@@ -1137,7 +1140,7 @@ Thymeleaf 也允许我们通过 `th:*`（这里的 `*` 表示任意的布尔属�
 <p>The message is : [(${htmlContent})]</p>
 ```
 
-<br>
+
 
 ## 9.3、th:inline
 
@@ -1150,7 +1153,7 @@ Thymeleaf 也允许我们通过 `th:*`（这里的 `*` 表示任意的布尔属�
 | css        | 样式内联，如：`<style th:inline="css">`          |
 | javascript | 脚本内联，如：`<style th:inline="javascript">`   |
 
-<br>
+
 
 **none**
 
@@ -1159,7 +1162,7 @@ Thymeleaf 也允许我们通过 `th:*`（这里的 `*` 表示任意的布尔属�
 <p th:inline="none">[[1, 2], [3, 4]]</p>
 ```
 
-<br>
+
 
 **text**
 
@@ -1172,7 +1175,7 @@ Thymeleaf 也允许我们通过 `th:*`（这里的 `*` 表示任意的布尔属�
 </p>
 ```
 
-<br>
+
 
 **css**
 
@@ -1184,7 +1187,7 @@ Thymeleaf 也允许我们通过 `th:*`（这里的 `*` 表示任意的布尔属�
 </style>
 ```
 
-<br>
+
 
 **javascript**
 
@@ -1195,7 +1198,7 @@ Thymeleaf 也允许我们通过 `th:*`（这里的 `*` 表示任意的布尔属�
 </script>
 ```
 
-<br>
+
 
 # 10、其他
 
@@ -1210,7 +1213,7 @@ Thymeleaf 里的 `th:field` 等同于 `th:name` 和 `th:value`，浏览器在解
 
 需要注意的是，`th:field` 需要有 `th:object` 指定前台传过来的参数，否则浏览器在解析的时候会出现错误。
 
-<br>
+
 
 **checkbox 多选回显**
 
@@ -1228,7 +1231,7 @@ Thymeleaf 里的 `th:field` 等同于 `th:name` 和 `th:value`，浏览器在解
 </div>
 ```
 
-<br>
+
 
 **获取 URL 地址跳转时所带参数**
 

@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: upload
+---
+
 # 1、介绍
 
 **Vue.js 是什么**
