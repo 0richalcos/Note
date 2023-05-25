@@ -1,16 +1,20 @@
+---
+typora-copy-images-to: upload
+---
+
 # 1、微服务
 
 微服务就是由一系列围绕自己业务开发的微小服务构成，他们独立部署运行在自己的进程里，基于分布式进行管理。
 
 微服务是一种架构，这种架构是将单个的整体应用程序分割成更小的项目关联的独立的服务。一个服务通常实现一组独立的特性或功能，包含自己的业务逻辑和适配器。各个微服务之间的关联通过暴露 API 来实现。这些独立的微服务不需要部署在同一个虚拟机、同一个系统和同一个应用服务器中。
 
-<br>
+
 
 ## 1.1、单体应用和微服务结构应用
 
 **单体应用**
 
-![image-20200708224716035](../Images/SpringCloud/image-20200708224716035.png)
+![image-20200708224716035](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200708224716035.png)
 
 优点：
 
@@ -23,11 +27,11 @@
 - 如果想整体应用采用新的技术、新的框架或者语言会很困难
 - 任意模块的漏洞或者错误都会影响整个应用，降低系统的可靠性
 
-<br>
+
 
 **微服务结构应用**
 
-![image-20200723155352063](../Images/SpringCloud/image-20200723155352063.png)
+![image-20200723155352063](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200723155352063.png)
 
 优点：
 
@@ -41,37 +45,37 @@
 - 多服务运维难度，随着服务的增加，运维的压力也在增大
 - 服务治理 和 服务监控 关键
 
-<br>
+
 
 ## 1.2、架构的演变
 
 `[单一应用架构] `==> ` [垂直应用架构] ` ==> ` [分布式服务架构] ` ==>` [流动计算架构]||[微服务架构]` 
 
-<br>
+
 
 **All in One Application		单一架构**
 
 起初当网站流量很小时，将所有功能都写在一个应用里面，对整个应用进行部署，以减少部署节点和成本。对于这个架构简化增删改查的工作量的数据访问框架（ORM）是关键。
 
-<br>
+
 
 **Vertical Application		垂直架构**
 
 当访问量逐渐增大，单一应用增加机器带来的加速度越来越小，提升效率的方法之一是将应用拆成互不相干的几个应用，以提升效率。此时，用于加速前端页面开发的Web框架（MVC）是关键。
 
-<br>
+
 
 **Distributed Service		分布式服务架构**
 
 当垂直应用越来越多，应用之间交互不可避免，将核心业务抽取出来，作为独立的服务，逐渐形成稳定的服务中心，使前端应用能更快速的响应多变的市场需求。此时，用于提高业务复用及整合的分布式服务框架（RPC）是关键。
 
-<br>
+
 
 **Elastic Computing		流动计算架构即微服务架构**
 
 当服务越来越多，容量的评估，小服务资源的浪费等问题逐渐显现，此时需增加一个调度中心基于访问压力实时管理集群容量，提高集群利用率。此时，用于提高机器利用率的资源调度和治理中心（SOA）是关键。
 
-<br>
+
 
 # 2、SpringCloud
 
@@ -81,7 +85,7 @@ SpringCloud 为开发人员提供了在分布式系统中快速构建一些通�
 
 > NetFlix 是美国的一个在线视频网站、微服务业的翘楚，它是公认的大规模生产级微服务的杰出实践者，NetFlix 的开源组件已经在它大规模分布式微服务环境中经过多年的生产实战验证，因此 SpringCloud 中很多组件都是基于NetFlix。
 
-<br>
+
 
 ## 2.1、核心组件说明
 
@@ -93,9 +97,9 @@ SpringCloud 为开发人员提供了在分布式系统中快速构建一些通�
 - Bus  													消息总线组件
 - ...
 
-![image-20200724161314786](../Images/SpringCloud/image-20200724161314786.png)
+![image-20200724161314786](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200724161314786.png)
 
-<br>
+
 
 ## 2.2、命名和版本选择
 
@@ -105,7 +109,7 @@ SpringCloud 是一个由众多独立子项目组成的大型综合项目，原�
 
 这些名字是按字母顺序排列的，如伦敦地铁站的名称（“天使” 是第一个版本，“布里斯顿” 是第二个版本，”卡姆登“ 是第三个版本）。当单个项目的点发布累积到一个临界量，或者其中一个项目中有一个关键缺陷需要每个人都可以使用时，发布序列将推出名称以 “.SRX” 结尾的 “服务发布”，其中 “X” 是一个数字。
 
-<br>
+
 
 **SpringCloud 的版本选择**
 
@@ -121,9 +125,9 @@ SpringCloud 是一个由众多独立子项目组成的大型综合项目，原�
 - Greenwich								版本基于 SpringBoot2.1.x 版本进行构建，不能兼容 1.x 版本
 - Hoxton									  版本基于 SpringBoot2.2.x 版本进行构建
 
-![image-20200709112427684](../Images/SpringCloud/image-20200709112427684.png)
+![image-20200709112427684](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200709112427684.png)
 
-<br>
+
 
 # 2、环境搭建
 
@@ -135,7 +139,7 @@ SpringCloud 是一个由众多独立子项目组成的大型综合项目，原�
 - Maven 3.8.1
 - IDEA 2021.1
 
-<br>
+
 
 新建一个空项目，在空项目中新建一个 Maven 子项目用于版本管理（可以删除 src 目录只留 pom.xml）:
 
@@ -180,13 +184,13 @@ SpringCloud 是一个由众多独立子项目组成的大型综合项目，原�
 </project>
 ```
 
-<br>
+
 
 # 3、服务注册中心
 
 所谓服务注册中心就是在整个的微服务架构中单独提出一个服务，这个服务不完成系统的任何的业务功能，仅仅用来完成对整个微服务系统的服务注册和服务发现，以及对服务健康状态的监控和管理功能。
 
-![image-20200709124952525](../Images/SpringCloud/image-20200709124952525.png)
+![image-20200709124952525](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200709124952525.png)
 
 服务注册中心：
 
@@ -196,7 +200,7 @@ SpringCloud 是一个由众多独立子项目组成的大型综合项目，原�
 
 SpringCloud 支持多种注册中心：Eureka、Consul、Zookeeper、以及阿里巴巴推出 Nacos。这些注册中心在本质上都是用来管理服务的注册和发现以及服务状态的检查的。
 
-<br>
+
 
 ## 3.1、Eureka
 
@@ -204,7 +208,7 @@ Eureka 是 Netflix 开发的服务发现框架，本身是一个基于 REST 的�
 
 Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 
-<br>
+
 
 ### 3.1.1、开发 Eureka Server
 
@@ -244,15 +248,15 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 
 4. 启动项目，访问 Eureka 的服务注册页面：http://localhost:8761
 
-	![image-20210713122030329](../Images/SpringCloud/image-20210713122030329.png)
+	![image-20210713122030329](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210713122030329.png)
 
 5. 同时在项目启动的时候控制台会报错
 
-	![image-20210713122150531](../Images/SpringCloud/image-20210713122150531.png)
+	![image-20210713122150531](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210713122150531.png)
 
 	出现上述问题原因：EurekaServer 依赖内部包含了 EurekaClient
 
-	<img src="../Images/SpringCloud/image-20210714002253735.png" alt="image-20210714002253735"  />
+	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210714002253735.png" alt="image-20210714002253735"  />
 
 	Server 是一个服务注册中心，用来接受客户端的注册。Client 的特性会让当前启动的服务把自己作为 Eureka 的客户端进行服务中心的注册，当项目启动时服务注册中心还没有创建好，所以找不到服务的客户端组件就直接报错了，当启动成功服务注册中心创建好了，Client 就能进行注册并且不再报错啦！
 
@@ -267,7 +271,7 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 
 7. 再次启动，当前应用就是一个单纯 Eureka Server，控制器也不再报错
 
-<br>
+
 
 ### 3.1.2、开发 Eureka Client
 
@@ -311,13 +315,13 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 
 4. 启动之前的 Eureka Server，再启动 Eureka Client
 
-   ![image-20210714001817434](../Images/SpringCloud/image-20210714001817434.png)
+   ![image-20210714001817434](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210714001817434.png)
 
 5. 查看 Eureka Server 的服务注册情况
 
-   ![image-20210714001846314](../Images/SpringCloud/image-20210714001846314.png)
+   ![image-20210714001846314](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210714001846314.png)
 
-<br>
+
 
 ### 3.1.3、Eureka Server 集群
 
@@ -379,21 +383,21 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 
 3. 分别启动三个注册中心，环境变量 `spring.profiles.active` 激活对应的集群配置
 
-	![image-20210714153603951](../Images/SpringCloud/image-20210714153603951.png)
+	![image-20210714153603951](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210714153603951.png)
 
 	启动之后访问 `http://peer1:8761/` 进入 `peer1` 这个注册中心，就可以看到另外两个分片 `peer2、peer3`，说明集群中有3个节点了
 
-	![image-20210714154331476](../Images/SpringCloud/image-20210714154331476.png)
+	![image-20210714154331476](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210714154331476.png)
 
 	再去访问其他两个注册中也能看到另外两个分片
 
-	![image-20210714154403887](../Images/SpringCloud/image-20210714154403887.png)
+	![image-20210714154403887](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210714154403887.png)
 
-	![image-20210714154423775](../Images/SpringCloud/image-20210714154423775.png)
+	![image-20210714154423775](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210714154423775.png)
 
 	并且可以看到虽然 Eureka Client 之注册到了第一个 Eureka Server 上，但是可以看到 Eureka Server 节点之间的实例会相互同步
 
-<br>
+
 
 ### 3.1.4、Eureka 自我保护机制
 
@@ -407,7 +411,7 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 
 如果在 Eureka Server 的首页看到以下这段提示，则说明 Eureka 已经进入了保护模式。 
 
-![image-20210714185558794](../Images/SpringCloud/image-20210714185558794.png)
+![image-20210714185558794](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210714185558794.png)
 
 Eureka Server 自动进入自我保护机制，此时会出现以下几种情况：
 
@@ -417,7 +421,7 @@ Eureka Server 自动进入自我保护机制，此时会出现以下几种情况
 
 因此 Eureka Server 可以很好的应对因网络故障导致部分节点失联的情况，而不会像 ZK 那样如果有一半不可用的情况会导致整个集群不可用而变成瘫痪。
 
-<br>
+
 
 **关闭自我保护**
 
@@ -445,17 +449,17 @@ Eureka Server 自动进入自我保护机制，此时会出现以下几种情况
 
 注意：更改 Eureka 更新频率将打破服务器的自我保护功能，生产环境下不建议自定义这些配置：
 
-![image-20210714192047475](../Images/SpringCloud/image-20210714192047475.png)
+![image-20210714192047475](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210714192047475.png)
 
 > 关于 Eureka 2.x 的开源工作已经停止。作为 2.x 分支上现有工作存储库的一部分发布的代码库和工件被视为使用风险自负，在 1.x 版本项目还是活跃的。
 
-<br>
+
 
 ## 3.2、Consul
 
 Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其它分布式服务注册与发现的方案，Consul 的方案更 “一站式”，内置了服务注册与发现框架、分布一致性协议实现、健康检查、Key/Value 存储、多数据中心方案，不再需要依赖其它工具（比如 ZooKeeper 等）。使用起来也较为简单。Consul 使用 Go 语言编写，因此具有天然可移植性（支持Linux、windows和Mac OS X）；安装包仅包含一个可执行文件，方便部署，与 Docker 等轻量级容器可无缝配合。
 
-<br>
+
 
 ### 3.2.1、安装 Consul
 
@@ -463,21 +467,21 @@ Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统�
 
 1. 前往 https://www.consul.io/downloads
 
-   ![image-20210714233845045](../Images/SpringCloud/image-20210714233845045.png)
+   ![image-20210714233845045](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210714233845045.png)
 
    选择自己电脑对应的版本下载
 
 2. 解压完后只有一个脚本文件
 
-   ![image-20210714234043504](../Images/SpringCloud/image-20210714234043504.png)
+   ![image-20210714234043504](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210714234043504.png)
 
 3. 使用终端切换到 consul.exe 目录并执行以下命令启动 Consul
 
-   ![image-20210714235520532](../Images/SpringCloud/image-20210714235520532.png)
+   ![image-20210714235520532](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210714235520532.png)
 
 4. 访问 Consul 的 WEB 服务端口：http://localhost:8500
 
-   ![image-20210714235639426](../Images/SpringCloud/image-20210714235639426.png)
+   ![image-20210714235639426](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210714235639426.png)
 
    左上角 Consul logo 旁边的 dc1 为数据中心，可以通过 `-datacenter` 进行设置：
 
@@ -489,19 +493,19 @@ Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统�
 
 1. 新建一个环境变量，路径指向 consul.exe  的文件夹
 
-   ![image-20210715000050208](../Images/SpringCloud/image-20210715000050208.png)
+   ![image-20210715000050208](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210715000050208.png)
 
 2. 在系统变量 Path 中将刚刚添加的变量加上
 
-   ![image-20210715000501565](../Images/SpringCloud/image-20210715000501565.png)
+   ![image-20210715000501565](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210715000501565.png)
 
 3. 赶紧试试~
 
-   ![image-20210715000842740](../Images/SpringCloud/image-20210715000842740.png)
+   ![image-20210715000842740](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210715000842740.png)
 
 > 如果前面使用的是 Windows CMD 开启了 Consul，记得按 Ctrl + C 关闭，然后还需重新启动 CMD
 
-<br>
+
 
 ### 3.2.2、开发 Consul Client
 
@@ -546,7 +550,7 @@ Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统�
 
 4. 启动服务查看 Consul 界面服务信息
 
-	![image-20210715173835645](../Images/SpringCloud/image-20210715173835645.png)
+	![image-20210715173835645](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210715173835645.png)
 
 5. 默认情况 Consul 监控健康是开启的，但是必须依赖健康监控依赖才能正确监控健康状态，所以直接启动会显示错误，引入健康监控依赖之后服务正常
 
@@ -560,25 +564,25 @@ Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统�
 
 6. 引入成功后重启项目，刷新 Consul 监控页面：
 
-	![image-20210715175633678](../Images/SpringCloud/image-20210715175633678.png)
+	![image-20210715175633678](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210715175633678.png)
 
-<br>
+
 
 # 4、服务调用组件
 
 接下来在整个微服务架构中，我们比较关心的就是服务间的服务改如何调用，有哪些调用方式？
 
-![image-20200713095528763](../Images/SpringCloud/image-20200713095528763.png)
+![image-20200713095528763](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200713095528763.png)
 
 在 SpringCloud 中服务间调用方式主要是使用 HTTP RESTful 方式进行服务间调用
 
-<br>
+
 
 ## 4.1、RestTemplate
 
 Spring 框架提供的 RestTemplate 类可用于在应用中调用 REST 服务，它简化了与 HTTP 服务的通信方式，统一了 RESTful 的标准，封装了 HTTP 链接， 我们只需要传入url 及返回值类型即可。相较于之前常用的 HttpClient，RestTemplate 是一种更优雅的调用 RESTful 服务的方式。
 
-<br>
+
 
 **发送简单的请求**
 
@@ -589,9 +593,9 @@ Spring 框架提供的 RestTemplate 类可用于在应用中调用 REST 服务�
 
 	 注意：这里服务仅仅用来测试，没有实际业务意义
 
-	![image-20210801002648820](../Images/SpringCloud/image-20210801002648820.png)
+	![image-20210801002648820](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210801002648820.png)
 
-	![image-20210801002754756](../Images/SpringCloud/image-20210801002754756.png)
+	![image-20210801002754756](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210801002754756.png)
 
 2. 创建一个 OrderController 提供服务：
 
@@ -635,11 +639,11 @@ Spring 框架提供的 RestTemplate 类可用于在应用中调用 REST 服务�
 
 4. 先启动 Consul，再启动 User 服务和 Order 服务，然后 http://localhost:9999/user 测试：
 
-	![image-20210804004640357](../Images/SpringCloud/image-20210804004640357.png)
+	![image-20210804004640357](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210804004640357.png)
 
-	![image-20210804004717424](../Images/SpringCloud/image-20210804004717424.png)
+	![image-20210804004717424](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210804004717424.png)
 
-<br>
+
 
 **发送 GET 请求添加请求头 Headers 并携带参数**
 
@@ -657,7 +661,7 @@ HttpEntity<?> entity = new HttpEntity<>(headers);
 JSONObject jsonObject = restTemplate.getForObject(url, JSONObject.class, entity);
 ```
 
-<br>
+
 
 **发送 POST 请求并添加请求头 Headers 和请求体 Body**
 
@@ -689,7 +693,7 @@ httpHeaders.setContentType(type);
 >
 > `getForObject()` 函数实际上是对 `getForEntity()` 函数的进一步封装，如果你只关注返回的消息体的内容，对其他信息都不关注，此时可以使用 `getForObject()`。
 
-<br>
+
 
 **发送其他类型的 HTTP 请求**
 
@@ -705,19 +709,19 @@ exchange(String url, HttpMethod method,HttpEntity requestEntity, Class responseT
 - *responseType*：返回数据类型
 - *uriVariables*：支持 PathVariable 类型的数据。
 
-<br>
+
 
 ## 4.2、OpenFeign
 
 Feign 是一个声明式的伪 HTTP 客户端，它使得写 HTTP 客户端变得更简单。使用 Feign，只需要创建一个接口并添加注解。它具有可插拔的注解特性，可以使用 SpringMVC 的注解，可使用 Feign 注解和 JAX-RS 注解。Feign 支持可插拔的编码器和解码器。Feign 默认集成了 Ribbon，默认实现了负载均衡的效果并且 SpringCloud 为 Feign 添加了 SpringMVC 注解的支持。
 
-<br>
+
 
 ### 4.2.1、OpenFeign 服务调用
 
 1. 新建两个服务 Category、Product，并将其注册到 Consul 中（Product 可根据启动文件启动两个，用于测试负载均衡）
 
-	![image-20210822234802589](../Images/SpringCloud/image-20210822234802589.png)
+	![image-20210822234802589](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210822234802589.png)
 
 2. 在 Product 服务中提供一个被调用接口：
 
@@ -795,17 +799,17 @@ Feign 是一个声明式的伪 HTTP 客户端，它使得写 HTTP 客户端变�
 	}
 	```
 
-	![image-20210822233948054](../Images/SpringCloud/image-20210822233948054.png)
+	![image-20210822233948054](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210822233948054.png)
 
-	![image-20210822235320696](../Images/SpringCloud/image-20210822235320696.png)
+	![image-20210822235320696](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210822235320696.png)
 
-<br>
+
 
 ### 4.2.2、调用服务并传参
 
 服务和服务之间通信，不仅仅是调用，往往在调用过程中还伴随着参数传递，接下来重点来看看 OpenFeign 在调用服务时如何传递参数。
 
-<br>
+
 
 **GET 方式调用服务传递参数**
 
@@ -839,11 +843,11 @@ Feign 是一个声明式的伪 HTTP 客户端，它使得写 HTTP 客户端变�
 
 4. 访问：http://localhost:9995/test1?name=Orichalcos&age=18
 
-	![image-20210901000521366](../Images/SpringCloud/image-20210901000521366.png)
+	![image-20210901000521366](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210901000521366.png)
 
-	![image-20210831235811079](../Images/SpringCloud/image-20210831235811079.png)
+	![image-20210831235811079](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210831235811079.png)
 
-<br>
+
 
 **POST 方式调用服务传递参数**
 
@@ -877,11 +881,11 @@ Feign 是一个声明式的伪 HTTP 客户端，它使得写 HTTP 客户端变�
 
 4. 访问：http://localhost:9995/test2/1/Orichalcos
 
-	![image-20210901001120701](../Images/SpringCloud/image-20210901001120701.png)
+	![image-20210901001120701](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210901001120701.png)
 
-	![image-20210901001139833](../Images/SpringCloud/image-20210901001139833.png)
+	![image-20210901001139833](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210901001139833.png)
 
-<br>
+
 
 **传递对象参数 application/json 格式**
 
@@ -927,17 +931,17 @@ Feign 是一个声明式的伪 HTTP 客户端，它使得写 HTTP 客户端变�
 
 5. 访问：http://localhost:9995/test3
 
-	![image-20210901003708149](../Images/SpringCloud/image-20210901003708149.png)
+	![image-20210901003708149](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210901003708149.png)
 
-	![image-20210901003732017](../Images/SpringCloud/image-20210901003732017.png)
+	![image-20210901003732017](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210901003732017.png)
 
-<br>
+
 
 ### 4.2.3、OpenFeign 超时设置
 
 默认情况下，OpenFiegn 在进行服务调用时，要求服务提供方处理业务逻辑时间必须在 1S 内返回，如果超过 1S 没有返回则 OpenFeign 会直接报错，不会等待服务执行，但是往往在处理复杂业务逻辑是可能会超过 1S，因此需要修改 OpenFeign 的默认服务调用超时时间。
 
-<br>
+
 
 调用超时会出现如下错误
 
@@ -954,7 +958,7 @@ Feign 是一个声明式的伪 HTTP 客户端，它使得写 HTTP 客户端变�
 
 2. 进行客户端调用：
 
-	![image-20211102000512159](../Images/SpringCloud/image-20211102000512159.png)
+	![image-20211102000512159](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211102000512159.png)
 
 
 
@@ -967,7 +971,7 @@ feign.client.config.PRODUCTS.readTimeout=5000		  	#配置指定服务等待超�
 #feign.client.config.default.readTimeout=5000			#配置所有服务等待超时
 ```
 
-<br>
+
 
 ### 4.2.4、日志展示
 
@@ -980,7 +984,7 @@ feign.client.config.PRODUCTS.readTimeout=5000		  	#配置指定服务等待超�
 - HEADERS 记录Basic级别的基础上，记录请求和响应的header
 - FULL 记录请求和响应的header、body和元数据
 
-<br>
+
 
 1. 开启日志展示
 
@@ -992,9 +996,9 @@ feign.client.config.PRODUCTS.readTimeout=5000		  	#配置指定服务等待超�
 
 2. 测试服务调用查看日志
 
-	![image-20211102001811337](../Images/SpringCloud/image-20211102001811337.png)
+	![image-20211102001811337](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211102001811337.png)
 
-<br>
+
 
 # 5、服务负载均衡
 
@@ -1002,7 +1006,7 @@ feign.client.config.PRODUCTS.readTimeout=5000		  	#配置指定服务等待超�
 
 Spring Cloud Ribbon 是一个基于 HTTP 和 TCP 的客户端负载均衡工具，它基于 Netflix Ribbon 实现。通过 Spring Cloud 的封装，可以让我们轻松地将面向服务的 REST 模版请求自动转换成客户端负载均衡的服务调用。
 
-<br>
+
 
 ### 5.1.1、Ribbon 服务调用
 
@@ -1074,9 +1078,9 @@ Spring Cloud Ribbon 是一个基于 HTTP 和 TCP 的客户端负载均衡工具�
 
 4. 分别启动三个注册中心，环境变量 `spring.profiles.active` 激活对应的集群配置
 
-   ![image-20210805002959560](../Images/SpringCloud/image-20210805002959560.png)
+   ![image-20210805002959560](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210805002959560.png)
 
-<br>
+
 
 **RestTemplate + Ribbon 的调用方式：**
 
@@ -1084,7 +1088,7 @@ Spring Cloud Ribbon 是一个基于 HTTP 和 TCP 的客户端负载均衡工具�
 - 使用 loadBalanceClient 进行客户端调用
 - 使用 @loadBalanced      进行客户端调用
 
-<br>
+
 
 **DiscoveryClient**
 
@@ -1113,7 +1117,7 @@ public String discoveryClient(){
 
 访问 http://localhost:9999/user/discoveryClient 查看，可重复刷新查看是否切换不同服务
 
-<br>
+
 
 **LoadBalance Client**
 
@@ -1138,7 +1142,7 @@ public String loadBalancerClient() {
 
 访问 http://localhost:9999/user/loadBalancerClient 查看，可重复刷新查看是否切换不同服务
 
-<br>
+
 
 **@LoadBalanced**
 
@@ -1173,55 +1177,55 @@ public String loadBalanced() {
 
 访问 http://localhost:9999/user/loadBalanced 查看，可重复刷新查看是否切换不同服务
 
-<br>
+
 
 ### 5.1.2、Ribbon 的负载均衡策略
 
 这里可以点进自动注入的 `LoadBalancerClient `查看其源码：
 
-![image-20210807001718136](../Images/SpringCloud/image-20210807001718136.png)
+![image-20210807001718136](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210807001718136.png)
 
 发现并没有我们调用的 `choose()` 方法，那直接从  `choose()` 方法中点进查看，发现该方法来源自 `LoadBalancerClient` 的父接口 `ServiceInstanceChooser`：
 
-![image-20210807001930520](../Images/SpringCloud/image-20210807001930520.png)
+![image-20210807001930520](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210807001930520.png)
 
 点击选中 `LoadBalancerClient` 按 F4 查看其实现，`ServiceInstanceChooser` 的 `choose()` 方法默认实现为 `RiibonLoadBalancerClient`：
 
-![image-20210807002537050](../Images/SpringCloud/image-20210807002537050.png)
+![image-20210807002537050](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210807002537050.png)
 
 在 `RiibonLoadBalancerClient` 的 `choose()` 方法中可以看到它又调用了自己的 `choose()` 方法，由方法中的 `getServer()` 方法获取服务：
 
-![image-20210807002831290](../Images/SpringCloud/image-20210807002831290.png)
+![image-20210807002831290](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210807002831290.png)
 
 继续追下去，发现 `getServer()` 又调用了 `chooseServer()`：
 
-![image-20210807003135718](../Images/SpringCloud/image-20210807003135718.png)
+![image-20210807003135718](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210807003135718.png)
 
 再点进去就发现进入了 `ILoadBalancer` 接口了，查看方法实现，发现有三个实现：
 
-![image-20210807003744210](../Images/SpringCloud/image-20210807003744210.png)
+![image-20210807003744210](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210807003744210.png)
 
 这里可以打个断点，然后使用 Step Into 追踪，会发现会调用 `ZoneAwareLoadBalancer` 的实现，而 `ZoneAwareLoadBalancer` 会调用父类的 `chooseServer()`：
 
-![image-20210807004001423](../Images/SpringCloud/image-20210807004001423.png)
+![image-20210807004001423](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210807004001423.png)
 
 继续追下去，发现到了 `BaseLoadBalancer` 中，这里有许多判断，用 dbug 可以清晰地看到判断一路走到了 `this.rule.choose(key)`：
 
-![image-20210807004405986](../Images/SpringCloud/image-20210807004405986.png)
+![image-20210807004405986](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210807004405986.png)
 
 再点下去就到了关键的接口 `IRule`:
 
-![image-20210807005034400](../Images/SpringCloud/image-20210807005034400.png)
+![image-20210807005034400](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210807005034400.png)
 
 这个接口定义 LoadBalancer 的 “规则”，规则可以被看作是负载均衡的策略。众所周知的负载均衡策略包括轮询、基于响应时间等。而 `choose()` 上面注解解释了：通过 `key` 从 `lb.allServers` 中选择一个活的服务器。
 
 到了这里已经很明朗了，`IRule` 就是所有负载均衡的父接口，点击这里的 `rule` 变量可以看到默认的负载均衡策略为轮询：
 
-![image-20210807010401158](../Images/SpringCloud/image-20210807010401158.png)
+![image-20210807010401158](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210807010401158.png)
 
 可以通过 IDEA 查看 `IRule` 的所有实现：
 
-![image-20210807010639929](../Images/SpringCloud/image-20210807010639929.png)
+![image-20210807010639929](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210807010639929.png)
 
 - RoundRobinRule 
   轮训策略：按顺序循环选择 Server
@@ -1239,7 +1243,7 @@ public String loadBalanced() {
 - BestAviableRule
 	最低并发策略：会先过滤掉由于多次访问故障而处于断路器跳闸状态的服务，然后选择一个并发量最小的服务  
 
-<br>
+
 
 ### 5.1.3、修改默认负载均衡策略
 
@@ -1250,7 +1254,7 @@ public String loadBalanced() {
 order.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
 ```
 
-<br>
+
 
 # 6、服务断路器
 
@@ -1258,7 +1262,7 @@ order.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
 
  在分布式环境中，许多服务依赖项不可避免地会失败。Hystrix 是一个库，它通过添加延迟容忍和容错逻辑来帮助您控制这些分布式服务之间的交互。Hystrix 通过隔离服务之间的访问点、停止它们之间的级联故障以及提供后备选项来实现这一点，所有这些都可以提高系统的整体弹性。
 
-<br>
+
 
 ### 6.1.1、服务雪崩、熔断、降级
 
@@ -1268,13 +1272,13 @@ order.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
 
 如存在如下调用链路：
 
-![image-20211103234624097](../Images/SpringCloud/image-20211103234624097.png)
+![image-20211103234624097](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211103234624097.png)
 
 而此时，Service A 的流量波动很大，流量经常会突然性增加！那么在这种情况下，就算 Service A 能扛得住请求，Service B 和Service C 未必能扛得住这突发的请求。此时，如果 Service C 因为抗不住请求，变得不可用。那么 Service B 的请求也会阻塞，慢慢耗尽 Service B 的线程资源，Service B 就会变得不可用。紧接着，Service A 也会不可用，这一过程如下图所示：
 
-![image-20211103234721085](../Images/SpringCloud/image-20211103234721085.png)
+![image-20211103234721085](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211103234721085.png)
 
-<br>
+
 
 **服务熔断**
 
@@ -1282,9 +1286,9 @@ order.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
 
 服务熔断图示：
 
-![image-20211103234923258](../Images/SpringCloud/image-20211103234923258.png)
+![image-20211103234923258](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211103234923258.png)
 
-<br>
+
 
 **服务降级**
 
@@ -1292,9 +1296,9 @@ order.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
 
 服务降级图示：
 
-![image-20211103235406735](../Images/SpringCloud/image-20211103235406735.png)
+![image-20211103235406735](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211103235406735.png)
 
-<br>
+
 
 **降级和熔断总结**
 
@@ -1312,7 +1316,7 @@ order.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
 
 熔断必会触发降级，所以熔断也是降级一种，区别在于熔断是对调用链路的保护，而降级是对系统过载的一种保护处理
 
-<br>
+
 
 ### 6.2.2、服务熔断的实现
 
@@ -1377,15 +1381,15 @@ order.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
 
 5. 测试，访问 [localhost:8990/demo?id=-1](http://localhost:8990/demo?id=-1) 和 [localhost:8990/demo?id=1](http://localhost:8990/demo?id=1)
 
-	![image-20211107231830649](../Images/SpringCloud/image-20211107231830649.png)
+	![image-20211107231830649](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211107231830649.png)
 
-<br>
+
 
 **断路器的开启条件**
 
 当多次调用错误参数后，断路器会自动打开，此时正常调用也会出发断路器：
 
-![image-20211107232033660](../Images/SpringCloud/image-20211107232033660.png)
+![image-20211107232033660](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211107232033660.png)
 
 因为当达成 Hystrix 的打开条件后，断路器就会自动打开：
 
@@ -1394,13 +1398,13 @@ order.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
 
 当开启的时候，所有请求都不会进行转发。一段时间之后（默认是5秒），这个时候断路器是半开状态，会让其中一个请求进行转发。如果成功，断路器会关闭，若失败，继续开启。
 
-<br>
+
 
 **断路器流程**
 
-![image-20211107232403809](../Images/SpringCloud/image-20211107232403809.png)
+![image-20211107232403809](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211107232403809.png)
 
-<br>
+
 
 **默认的服务 FallBack 处理方法**
 
@@ -1418,7 +1422,7 @@ public String defaultFallback() {
 }
 ```
 
-<br>
+
 
 ### 6.2.3、服务降级的实现
 
@@ -1447,7 +1451,7 @@ public String defaultFallback() {
 
 	因为 OpfenFeign 中包含了 Hystrix 依赖，所以无需再次引入：
 
-	![image-20211107235244640](../Images/SpringCloud/image-20211107235244640.png)
+	![image-20211107235244640](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211107235244640.png)
 
 2. 配置一下 application.properties，并开启openfeign支持服务降级：
 
@@ -1520,9 +1524,9 @@ public String defaultFallback() {
 	}
 	```
 
-	![image-20211108000721009](../Images/SpringCloud/image-20211108000721009.png)
+	![image-20211108000721009](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211108000721009.png)
 
-<br>
+
 
 # 7、服务网关组件
 
@@ -1532,26 +1536,26 @@ public String defaultFallback() {
 
 网关 =  路由转发 + 过滤器。路由转发：接收一切外界请求，转发到后端的微服务上去；在服务网关中可以完成一系列的横切功能，例如权限校验、限流以及监控等，这些都可以通过过滤器完成。
 
-<br>
+
 
 **为什么需要网关？**
 
 - 网关可以实现服务的统一管理
 - 网关可以解决微服务中通用代码的冗余问题（如权限控制、流量监控、限流等）
 
-<br>
+
 
 **网关组件在微服务中架构**
 
-![image-20211221221738529](../Images/SpringCloud/image-20211221221738529.png)
+![image-20211221221738529](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211221221738529.png)
 
-<br>
+
 
 ## 7.1、Gateway
 
 这个项目提供了一个在 SpringMVC 之上构建 API 网关的库。SpringCloud Gateway 旨在提供一种简单而有效的方法来路由到 API，并为 API 提供横切关注点，比如：安全性、监控、度量和弹性。
 
-<br>
+
 
 **特性**
 
@@ -1559,7 +1563,7 @@ public String defaultFallback() {
 - 动态路由
 - 请求过滤
 
-<br>
+
 
 ### 7.1.1、开发网关动态路由
 
@@ -1628,13 +1632,13 @@ public String defaultFallback() {
 
 3. 启动 Gateway 网关项目后发现抱错：
 
-	![image-20211226235723611](../Images/SpringCloud/image-20211226235723611.png)
+	![image-20211226235723611](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211226235723611.png)
 
 	根据上面描述（Description）中信息了解到 GatewayAutoConfiguration 这个配置中找不到 ServerCodecConfig 这个Bean。
 
 	从源码中得知 SpringBoot 在启动的时候会去加载它的配置，其中有一个叫做 GatewayClassPathWarningAutoConfiguration 的配置类中有这么一行代码：
 
-	![image-20211227001125725](../Images/SpringCloud/image-20211227001125725.png)
+	![image-20211227001125725](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211227001125725.png)
 
 	翻译过来是：在 classpath 上发现 Spring MVC，此时与 Spring Cloud Gateway 不兼容。请删除 spring-boot-starter-web 依赖项。
 
@@ -1642,7 +1646,7 @@ public String defaultFallback() {
 
 	再次启动成功启动：
 
-	![image-20211227001927862](../Images/SpringCloud/image-20211227001927862.png)
+	![image-20211227001927862](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211227001927862.png)
 
 4. 启动订单和商品服务，测试网关路由转发：
 
@@ -1650,7 +1654,7 @@ public String defaultFallback() {
 
 	测试通过网关访问商品服务: http://localhost:8989/product
 
-<br>
+
 
 **Java 方式配置路由：**
 
@@ -1673,6 +1677,6 @@ public String defaultFallback() {
 
 2. 测试通过网关访问类别服务：http://localhost:8989/category
 
-<br>
+
 
 ### 7.1.2、查看网关路由规则

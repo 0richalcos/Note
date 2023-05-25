@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: upload
+---
+
 # 1、Effectively final
 
 Java 中局部内部类和匿名内部类访问的局部变量必须由 `final` 修饰，以保证内部类和外部类的数据一致性。但从 Java 8 开始，我们可以不加 `final` 修饰符，由系统默认添加，当然这在 Java 8 以前的版本是不允许的。Java 将这个功能称为 Effectively final 功能。
@@ -20,21 +24,16 @@ public class Test {
 
 下图是 Java 7 的编译结果
 
-<div align="center">
-    <img src="../Images/Java8/5-191119163Sb30.png" alt="Java 7 运行结果" style="width:35%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/5-191119163Sb30.png" alt="Java 7 运行结果" style="width:35%;" />
+
 
 
 可以看到在 Java 7 中出现代码错误，提示我们必须显式的声明这个变量为 `final` 的（`run()` 方法中代码为输出 *name* 语句，即`System.out.println(name);`）。
 
-<div align="center">
-    <img src="../Images/Java8/5-191119164126217.png" alt="img" style="width:35%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/5-191119164126217.png" alt="img" style="width:35%;" />
 
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/5-191119164142109.png" alt="img" style="width:35%;" />
 
-<div align="center">
-    <img src="../Images/Java8/5-191119164142109.png" alt="img" style="width:35%;" />
-</div>
 
 因为从 Java 8 开始系统会默认添加 `final` 修饰符，所以在图 2 和图 3 中可以在匿名内部类中直接使用非 `final` 变量，而 `final` 修饰的局部变量不能在被重新赋值，所以图 3 中出现编译错误。
 
@@ -46,7 +45,7 @@ Lambda 表达式在编程中是经常使用的，而匿名内部类是很少使�
 
 总结一下，规则没有改变，Lambda 表达式和匿名内部类访问的局部变量必须是 `final` 的，只是不需要程序员显式的声明变量为 `final` 的，从而节省时间。
 
-<br>
+
 
 # 2、Lambda 表达式
 
@@ -175,7 +174,7 @@ Lambda 表达式标准语法形式如下：
 - 左侧：Lambda 表达式的参数列表。
 - 右侧：Lambda 表达式中所需执行的功能，用 `{}` 包起来，即 Lambda 体。
 
-<br>
+
 
 **Java Lambda 表达式的优缺点**
 
@@ -192,13 +191,13 @@ Lambda 表达式标准语法形式如下：
 2. 在非并行计算中，很多计算未必有传统的 `for` 性能要高
 3. 不容易进行调试
 
-<br>
+
 
 ## 2.1、Lambda 的简写方式
 
 使用 Lambda 表达式是为了简化程序代码，Lambda 表达式本身也提供了多种简化形式，这些简化形式虽然简化了代码，但客观上使得代码可读性变差。
 
-<br>
+
 
 **省略参数类型**
 
@@ -222,7 +221,7 @@ public static Calculable calculate(char opr) {
 }
 ```
 
-<br>
+
 
 **省略参数小括号**
 
@@ -283,7 +282,7 @@ public static Calculable calculate(int power) {
 10三次方 = 1000 
 ```
 
-<br>
+
 
 **省略 return 和大括号**
 
@@ -307,7 +306,7 @@ public static Calculable calculate(int power) {
 }
 ```
 
-<br>
+
 
 ## 2.2、Lambda 的使用
 
@@ -341,7 +340,7 @@ public static void display(Calculable calc, int n1, int n2) {
 
 上述代码第 19 行定义 `display()` 打印计算结果方法，其中参数 *calc* 类型是 Calculable，这个参数即可以接收实现 Calculable 接口的对象，也可以接收 Lambda 表达式，因为 Calculable 是函数式接口。 代码第 7 行和第 9 行两次调用 `display()` 方法，它们第一个参数都是 Lambda 表达式。
 
-<br>
+
 
 **访问变量**
 
@@ -427,7 +426,7 @@ public class LambdaDemo {
 
 Lambda 表达式只能访问局部变量而不能修改，否则会发生编译错误，但对静态变量和成员变量可读可写。
 
-<br>
+
 
 ## 2.3、Lambda 与匿名内部类的联系和区别
 
@@ -525,7 +524,7 @@ public void test() {
 }
 ```
 
-<br>
+
 
 # 3、方法引用
 
@@ -588,7 +587,7 @@ public class HelloWorld {
 
 提示：代码第 6 行的 `LambdaDemo::add` 和第 9 行的 `d::sub` 是方法引用，此时并没有调用方法，只是将引用传递给 `display()` 方法，在 `display()` 方法中才真正调用方法。
 
-<br>
+
 
 # 4、函数式接口
 
@@ -633,13 +632,13 @@ JDK 1.8 新增加的函数接口：
 
 - java.util.function
 
-<br>
+
 
 ## 4.1、常用函数式接口
 
 这里只介绍最基础的函数式接口，至于它的变体只要明白了基础自然就能够明白。
 
-<br>
+
 
 ### 4.1.1、`Consumer<T>`
 
@@ -687,7 +686,7 @@ public interface Consumer<T> {
 }
 ```
 
-<br>
+
 
 **抽象方法：**`void accept(T t)`
 
@@ -706,7 +705,7 @@ consumer.accept("hello function");
 hello function
 ```
 
-<br>
+
 
 **默认方法：** `andThen(Consumer<? super T> after)`
 
@@ -730,7 +729,7 @@ for (String string : strings) {
 车名：法拉利-->颜色：红色
 ```
 
-<br>
+
 
 ### 4.1.2、`Supplier<T>`
 
@@ -762,7 +761,7 @@ public interface Supplier<T> {
 }
 ```
 
-<br>
+
 
 **抽象方法**：`T get()`
 
@@ -783,7 +782,7 @@ System.out.println(supplier.get());
 
 这类接口适合提供数据的场景。
 
-<br>
+
 
 ### 4.1.3、`Function<T,R>`
 
@@ -865,7 +864,7 @@ public interface Function<T, R> {
 
 ```
 
-<br>
+
 
 **抽象方法：** `R apply(T t)`
 
@@ -884,7 +883,7 @@ System.out.println(function.apply(2));
 12
 ```
 
-<br>
+
 
 **默认方法：**`compose(Function<? super V, ? extends T> before)`
 
@@ -910,7 +909,7 @@ System.out.println(apply2);
 
 > `andThen(Function<? super R, ? extends V> after)` 先执行调用 `andThen` 函数的 `apply` 方法，然后再将执行结果传递给 `andThen` 方法 `after` 参数中的 `apply` 方法再执行。它和 `compose` 方法正好是相反的执行顺序。
 
-<br>
+
 
 **默认方法：**`andThen(Function<? super R, ? extends V> after)`
 
@@ -932,7 +931,7 @@ System.out.println(apply3);
 
 这里我们和 `compose` 方法使用一个例子，所以是一模一样的例子，由于方法的不同，执行顺序也就不相同，那么结果是大大不同的。`andThen` 方法是先执行 `function1` 表达式，也就是 `3*2=6`，然后再执行 `function2` 表达式也就是 `6*6=36`。结果就是 `36`。
 
-<br>
+
 
 **静态方法：**`identity()`
 
@@ -954,7 +953,7 @@ System.out.println(apply);
 
 平常没有遇到过使用这个方法的场景，总之这个方法的作用就是输入什么返回结果就是什么。
 
-<br>
+
 
 ### 4.1.4、`Predicate<T>` 
 
@@ -1054,7 +1053,7 @@ public interface Predicate<T> {
 }
 ```
 
-<br>
+
 
 **抽象方法：** `boolean test(T t)`
 
@@ -1076,7 +1075,7 @@ true
 
 当 `predicate` 函数调用 `test` 方法的时候，就会执行拿 `test` 方法的参数进行 `t -> t > 0` 的条件判断，`1` 肯定是大于 `0` 的，最终结果为 `true`。
 
-<br>
+
 
 **默认方法：**`and(Predicate<? super T> other)`
 
@@ -1097,7 +1096,7 @@ System.out.println(test);
 true
 ```
 
-<br>
+
 
 **默认方法：**`or(Predicate<? super T> other)` 
 
@@ -1118,7 +1117,7 @@ System.out.println(test);
 false
 ```
 
-<br>
+
 
 **默认方法：**`negate()`
 
@@ -1140,7 +1139,7 @@ false
 
 很明显正常执行 `test` 方法的话应该为 `true`，但是调用 `negate` 方法后就返回为 `false` 了。 
 
-<br>
+
 
 **静态方法：**`isEqual(Object targetRef)`
 
@@ -1162,13 +1161,13 @@ true
 false
 ```
 
-<br>
+
 
 ### 4.1.5、Operator
 
 可以简单理解成算术中的各种运算操作，当然不仅仅是运算这么简单，因为它只定义了运算这个定义，但至于运算成什么样你说了算。由于没有最基础的 Operator，这里将通过 BinaryOperator、IntBinaryOperator 来理解 Operator 函数式接口，先从简单的 IntBinaryOperator 开始。
 
-<br>
+
 
 **IntBinaryOperator **
 
@@ -1201,7 +1200,7 @@ public interface IntBinaryOperator {
 
 IntBinaryOperator 接口内只有一个 `applyAsInt` 方法，其接收两个 int 类型的参数，并返回一个 int 类型的结果，其实这个跟 Function 接口的 `apply` 有点像，但是这里限定了，只能是 int 类型。
 
-<br>
+
 
 **BinaryOperator**
 
@@ -1257,7 +1256,7 @@ public interface BinaryOperator<T> extends BiFunction<T,T,T> {
 
 BinaryOperator 是 BiFunction 生的，而 IntBinaryOperator 是从石头里蹦出来的，BinaryOperator 自身定义了`minBy`、`maxBy` 默认方法，并且参数都是 Comparator，就是根据传入的比较器的比较规则找出最小最大的数据。
 
-<br>
+
 
 ## 4.2、function 包下所有接口
 
@@ -1309,7 +1308,7 @@ java.util.function 它包含了很多类，用来支持 Java 的函数式编程�
 | `ToLongFunction<T>`       | 接受一个参数，返回一个 long 类型结果。                       |
 | `UnaryOperator<T>`        | 接受一个参数为类型 T，返回值类型也为 T。                     |
 
-<br>
+
 
 # 5、新的日期和时间 API
 
@@ -1321,7 +1320,7 @@ java.util.function 它包含了很多类，用来支持 Java 的函数式编程�
 
 由于以上这些问题，出现了一些三方的日期处理框架，例如 Joda-Time，date4j 等开源项目。但是，Java 需要一套标准的用于处理时间和日期的框架，于是 Java 8 中引入了新的日期 API。新的日期 API 是 JSR-310 规范的实现，Joda-Time 框架的作者正是 JSR-310 的规范的倡导者，所以能从 Java 8 的日期 API 中看到很多 Joda-Time 的特性。
 
-<br>
+
 
 ## 5.1、Instant 
 
@@ -1352,7 +1351,7 @@ public static void main(String[] args) {
 
 如上面代码所示，`Duration` 类用于返回两个 `Instant` 之间时间数量的差异。
 
-<br>
+
 
 ## 5.2、LocalDate
 
@@ -1375,7 +1374,7 @@ public static void main(String[] args) {
 | `withMonth()`                                     | 返回此 `LocalDate` 的拷贝，其月份设置为给定值         |
 | `withYear()`                                      | 返回此 `LocalDate` 的拷贝，并将年份设置为给定值       |
 
-<br>
+
 
 `LocalDate` 提供了各种创建日期的方法。 例如，要创建代表今天日期的 `LocalDate`，使用静态 `now()` 方法：
 
@@ -1395,7 +1394,7 @@ LocalDate date = LocalDate.of(2018, 3, 7);
 LocalDate date = LocalDate.of(2018, Month.MARCH, 7);
 ```
 
-<br>
+
 
 还有获取 `LocalDate` 的日、月或年的方法，例如 `getDayOfMonth()`、`getMonth()`、`getMonthValue()` 和 `getYear()`。 他们都没有任何参数，并返回一个 `int` 或 `Month` 的枚举常量。 另外，还有一个 `get()` 方法，它接受一个 `TemporalField` 并返回这个 `LocalDate` 的一部分。 例如，传递 `ChronoField.YEAR` 以获取 `LocalDate` 的年份部分：
 
@@ -1405,7 +1404,7 @@ int year = localDate.get(ChronoField.YEAR);
 
 > `ChronoField` 是一个实现 `TemporalField` 接口的枚举，因此可以传递一个 `ChronoField` 常量来获取。 `TemporalField` 和 `ChronoField` 都是 `java.time.temporal` 包的一部分。 但是，并非 `ChronoField` 中的所有常量都可以 `get()` 获取，因为并非所有常量都受支持。 例如，传递 `ChronoField.SECOND_OF_DAY` 以引发异常。 因此，取而代之，最好使用 `getMonth()`、`getYear()` 或类似方法来获取`LocalDate` 的组件。
 
-<br>
+
 
 此外，还有拷贝 `LocalDate` 的方法，例如 `plusDays()`、`plusYears()`、`minusMonths()` 等等。 例如，要获取表示明天的 `LocalDate`，可以创建一个代表今天的 `LocalDate`，然后调用其 `plusDays()` 方法：
 
@@ -1437,7 +1436,7 @@ LocalDate pastDate = LocalDate.now().minus(2, ChronoUnit.DECADES);
 
 > `LocalDate` 是不可变的，因此无法更改。 任何返回 `LocalDate` 的方法都返回 `LocalDate` 的新实例。
 
-<br>
+
 
 ## 5.3、Period
 
@@ -1458,7 +1457,7 @@ LocalDate pastDate = LocalDate.now().minus(2, ChronoUnit.DECADES);
 | `withMonths()`                                     | 以指定的月数返回此 `Period` 的拷贝                           |
 | `withYears()`                                      | 以指定的年数返回此 `Period` 的拷贝                           |
 
-<br>
+
 
 创建一个 `Period` 很简单，这要感谢`between()`、`of()`、`ofDays()`、`ofWeeks()`、`ofMonths()`、`ofYears()` 等静态工厂方法。 例如，以下是如何创建代表两周的 `Period` 实例：
 
@@ -1472,7 +1471,7 @@ Period twoWeeks = Period.ofWeeks(2);
 Period p = Period.of(1, 2, 3);
 ```
 
-<br>
+
 
 要获取某个期间的年、月、日组件，调用其`getYears()`、`getMonths()`、`getDays()`方法。 例如，以下代码中的 `howManyDays` 变量的值是14：
 
@@ -1482,11 +1481,11 @@ Period twoWeeks = Period.ofWeeks(2);
 int howManyDays = twoWeeks.getDays();
 ```
 
-<br>
+
 
 最后，可以使用 `plusXXX()` 或 `minusXXX()` 方法以及 `withXXX()` 方法来创建 `Period` 的拷贝。 `Period` 是不可变的，所以这些方法返回新的 `Period` 实例。
 
-<br>
+
 
 下面的代码显示了一个计算个人年龄的年龄计算器。 它从两个 `LocalDate` 创建一个 `Period` 并调用它的 `getDays()`、`getMonths()` 和 `getYears()` 方法：
 
@@ -1515,7 +1514,7 @@ public class PeriodDemo1 {
 Between 1978-08-26 and 1988-09-28 there are 10 years, 1 months and 2 days
 ```
 
-<br>
+
 
 ## 5.4、LocalDateTime
 
@@ -1538,7 +1537,7 @@ Between 1978-08-26 and 1988-09-28 there are 10 years, 1 months and 2 days
 | `withMonth()`、`withYear()`                                  | 返回此 `LocalDateTime` 的拷贝，其月或年设置为指定值          |
 | `withHour()`、`withMinute()`、`withSecond()`                 | 返回此 `LocalDateTime` 的拷贝，其小时、分钟、秒设置为指定值  |
 
-<br>
+
 
 `LocalDateTime` 提供了各种静态方法来创建日期时间。 该方法现在带有三个重载方法返回当前的日期时间。 无参的方法是最容易使用的：
 
@@ -1570,7 +1569,7 @@ LocalDateTime now = LocalDateTime.now();
 LocalDateTime sameTimeTomorrow = now.plusHours(24);
 ```
 
-<br>
+
 
 ## 5.5、Time Zones
 
@@ -1632,7 +1631,7 @@ US/Eastern
 US/Pacific
 ```
 
-<br>
+
 
 ## 5.6、ZonedDateTime
 
@@ -1646,7 +1645,7 @@ US/Pacific
 
 `ZonedDateTIme` 中一些重要方法的使用与 `LocalDateTime` 类似，只是多了一个时区的概念。可自行查阅 API。
 
-<br>
+
 
 像 `LocalDateTime` 一样，`ZonedDateTime `类现在提供静态 `now()` 和 `of()` 方法，并构造一个 `ZonedDateTime` 实例。 `now()` 方法创建一个 `ZonedDateTime` 代表执行的日期和时间。 无参 `now()` 方法会使用计算机的默认时区创建 `ZonedDateTime`：
 
@@ -1672,7 +1671,7 @@ public static ZonedDateTime of(LocalDate date, LocalTime time, ZoneId zone)
 public static ZonedDateTime of(LocalDateTime datetime, ZoneId zone)
 ```
 
-<br>
+
 
 像 `LocalDate` 和 `LocalDateTime` 一样，`ZonedDateTime` 提供了使用 `plusXXX()`、`minusXXX()` 和 `withXXX()` 方法创建实例拷贝的方法。
 
@@ -1683,7 +1682,7 @@ ZonedDateTime now = ZonedDateTime.now();
 ZonedDateTime threeDaysEarlier = now.minusDays(3);
 ```
 
-<br>
+
 
 ## 5.7、Duration
 
@@ -1702,7 +1701,7 @@ ZonedDateTime threeDaysEarlier = now.minusDays(3);
 | `plusYears()`、`minusYears()`                                | 在 `Duration` 内添加或减去指定的年数                         |
 | `withSeconds()`                                              | 以指定的秒数返回此 `Duration` 的拷贝                         |
 
-<br>
+
 
 可以通过调用静态方法 `between()` 或 `of()` 来创建 `Duration`。 下面的代码会在 2015 年 1 月 26 日 11:10 至 2015 年 1 月 26 日 12:40 之间创建两个 `LocalDateTime` 的 `Duration`：
 
@@ -1729,7 +1728,7 @@ public class DurationDemo1 {
 There are 3 hours and 30 minutes.
 ```
 
-<br>
+
 
 下面的代码在两个 `ZoneDateTime` 之间创建一个 `Duration`，具有相同的日期和时间，但时区不同：
 
@@ -1763,7 +1762,7 @@ There are -2 hours and 0 minutes.
 
 这是预料之中的，因为时区 `America/Denver`  和 `America/Toronto` 之间有两个小时的差异。
 
-<br>
+
 
 作为一个更复杂的例子，下面的代码显示了一个公交车旅行时间计算器。 它有一个方法 `calculateTravelTime()`，它需要一个离开的 `ZonedDateTime` 实例和一个到达的 `ZonedDateTime` 实例。 该代码调用 `calculateTravelTime()` 方法两次。 这两次公交车都在丹佛早上 8 点从科罗拉多州丹佛出发，并于多伦多时间第二天早上 8 点抵达多伦多。 公交车首次于 2014 年 3 月 8 日启程，第二次于 2014 年 3 月 18 日启程。
 
@@ -1810,7 +1809,7 @@ Travel time 2: 22 hours
 
 为什么有这个区别？ 因为 2014 年的夏令时从 3 月 9 日星期日凌晨 2 点开始。 因此，在 2014 年 3 月 8 日至 2014 年 3 月 9 日之间 “失去” 了一小时。
 
-<br>
+
 
 ## 5.8、DateTimeFormatter
 
@@ -2097,7 +2096,7 @@ Optional 是个容器：它可以保存类型 T 的值，或者仅仅保存 `nul
 
 Optional 类的引入很好的解决空指针异常。
 
-<br>
+
 
 ## 8.1、Optional 声明
 
@@ -2107,7 +2106,7 @@ Optional 类的引入很好的解决空指针异常。
 public final class Optional<T> extends Object
 ```
 
-<br>
+
 
 ## 8.2、Optional 方法
 
@@ -2131,7 +2130,7 @@ public final class Optional<T> extends Object
 
 > 注意： 这些方法是从 `java.lang.Object` 类继承来的。
 
-<br>
+
 
 ## 8.3、Optional 实例
 
@@ -2180,7 +2179,7 @@ $ java Java8Tester
 10
 ```
 
-<br>
+
 
 # 9、Stream
 
@@ -2192,7 +2191,7 @@ $ java Java8Tester
 >
 > 为了执行计算，流操作被组合成一个流管道。流管道由源（这可能是一个数组，一个集合，一个生成器函数，一个 I/O 通道，等等）、零个或多个中间业务（变换流到另一个流，如 `filter(Predicate)`）和一个终端操作（产生结果或副作用，如 `count()` 或 `forEach(Consumer)`）组成。
 
-<br>
+
 
 ## 9.1、Stream 流是如何工作的？
 
@@ -2217,9 +2216,8 @@ C2
 
 我们可以对流进行中间操作或者终端操作：
 
-<div align="center">
-    <img src="../Images/Java8/image-20220812142807269.png" alt="image-20220812142807269" style="width:80%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220812142807269.png" alt="image-20220812142807269" style="width:80%;" />
+
 
 1. 中间操作会再次返回一个流，所以，我们可以链接多个中间操作，注意这里是不用加分号的。上图中的 `filter` 过滤，`map` 对象转换，`sorted` 排序，就属于中间操作。
 2. 终端操作是对流操作的一个结束动作，一般返回 `void` 或者一个非流的结果。上图中的 `forEach` 循环就是一个终止操作。
@@ -2228,19 +2226,19 @@ C2
 
 实际上，大部分流操作都支持 lambda 表达式作为参数，正确理解，应该说是接受一个函数式接口的实现作为参数。
 
-<br>
+
 
 ## 9.2、Stream 类
 
 Stream 类最常用的是其对各个数组以及集合的处，它可以很方便的去对数组以及集合中的元素进行筛选、处理、聚合并返回一个全新的数组/集合，其中对该数据类型的处理并不会影响原数组/集合本身。
 
-<br>
+
 
 ### 9.2.1、源的创建
 
 对于 Stream 流常见起始创建方法有3种：
 
-<br>
+
 
 **由集合类进行创建**
 
@@ -2253,7 +2251,7 @@ Stream<Integer> integerStream = streamList.stream();
 
 使用 `parallelStream()` 可以创建并行流，能够让数据集执行并行操作，后面会更详细地讲解。
 
-<br>
+
 
 **由数组进行创建**
 
@@ -2268,7 +2266,7 @@ Stream<Integer> stream = Arrays.stream(mArray).boxed();
 
 `boxed()` 方法的作用是装箱操作，将 `IntStream` 特定类型的流转化为 `Stream<Integer>` 普遍流操作，会在下文进行详细介绍。
 
-<br>
+
 
 **由`generate()`方法创建**
 
@@ -2278,7 +2276,7 @@ Stream<Double> dStream = Stream.generate(Math::random);
 
 `generate()` 方法根据传入参数生成一个无限的无序流
 
-<br>
+
 
 ### 9.2.2、中间处理方法
 
@@ -2309,7 +2307,7 @@ System.out.println();
  18, 19, 5, 1, 6, 
 ```
 
-<br>
+
 
 **`map()` 方法**
 
@@ -2338,7 +2336,7 @@ System.out.println();
 
 类似的方法还有 `mapToInt()`、`mapToLong()`、`mapToDouble()`，功能相同，只不过返回的是特定类型的流（`IntStream`、`LongStream` 和 `DoubleStream`）。
 
-<br>
+
 
 **`distinct()` 方法**
 
@@ -2366,7 +2364,7 @@ System.out.println();
 
 要特别注意流中储存的内容是以数组为单位还是以数为单位，若以数组为单位的话调用 `distinct()` 是不生效的（比如用 `split()` 方法将字符串分割成一个个字符串数组再用 `map()` 方法进行变换），此时需要调用 `flatMap()` 方法对流进行扁平化处理，之后再调用 `distinct()` 方法去重。
 
-<br>
+
 
 **`sorted()` 方法**
 
@@ -2443,7 +2441,7 @@ System.out.println(kMapDown);
 {82=33, 68=8, 62=19, 60=95, 47=91, 45=21, 34=32, 25=90, 2=4}
 ```
 
-<br>
+
 
 **`peek()` 方法**
 
@@ -2475,7 +2473,7 @@ System.out.println("\n和：" + sum);
 和：67
 ```
 
-<br>
+
 
 **`limit()` 方法**
 
@@ -2501,7 +2499,7 @@ System.out.println();
 69, 57, 13, 46, 66, 
 ```
 
-<br>
+
 
 **`skip()` 方法**
 
@@ -2527,7 +2525,7 @@ System.out.println();
 5, 64, 11, 75, 57, 
 ```
 
-<br>
+
 
 ### 9.2.3、终端收集方法
 
@@ -2562,7 +2560,7 @@ System.out.println();
 
 用普通的 `forEach()` 通过并行流打印数组，可以明显看到打印顺序为乱序的；但是利用 `forEachOrdered()` 方法即可保持数组的原有顺序打印。
 
-<br>
+
 
 **`toArray()` 方法**
 
@@ -2597,7 +2595,7 @@ System.out.println();
 
 集合本身提供了 `toArray()` 方法来将集合转化为数组，但是中间如果涉及过滤、变换等操作，该方法就显得不是那么方便，而使用流操作可以直接在中间声明过滤、变换的方法，并在最后用 `toArray()` 方法来对操作后的流进行收集操作。
 
-<br>
+
 
 **`max()`/`min()`/`count()` 方法**
 
@@ -2633,7 +2631,7 @@ System.out.println("最小值：" + min);
 这两个方法要求调用 `Optional<T>` 类的 `isPresent()` 判断流数据中是否存在该值，所以一般都会在其后跟 `orElse()` 方法指定不存在时的默认值。
 （这里为了方便所以调用的是 IntStream 特定流的方法，本质区别是将泛型设为 Integer，即返回 OptionalInt 类，默认的比较器为比较两数之间的大小）。
 
-<br>
+
 
 **`allMatch()`/`anyMatch()`/`noneMatch()` 方法**
 
@@ -2672,7 +2670,7 @@ System.out.println("结果：" + match);
 结果：true
 ```
 
-<br>
+
 
 **`findFirst()/findAny()` 方法**
 
@@ -2701,7 +2699,7 @@ System.out.println("任意一个数为：" + anyNum);
 
 `findFirst()` 和 `findAny()` 方法的主要区别是前者对并行流的限制很多，而后者对并行流的限制较少，一般采用`findAny()`方法。
 
-<br>
+
 
 ## 9.3、其他特定类型的流
 
@@ -2788,7 +2786,7 @@ a2
 a3
 ```
 
-<br>
+
 
 ## 9.4、Stream 流的处理顺序
 
@@ -2859,7 +2857,7 @@ anyMatch:	A2
 
 由于数据流的链式调用是垂直执行的，`map` 这里只需要执行两次。相对于水平执行来说，`map` 会执行尽可能少的次数，而不是把所有元素都 `map` 转换一遍。
 
-<br>
+
 
 ## 9.5、中间操作顺序这么重要？
 
@@ -2999,7 +2997,7 @@ forEach:	A2
 
 从上面的输出中，我们看到了 `sorted` 从未被调用过，因为经过 `filter` 过后的元素已经减少到只有一个，这种情况下，是不用执行排序操作的。因此性能被大大提高了。
 
-<br>
+
 
 ## 9.6、数据流复用问题
 
@@ -3036,7 +3034,7 @@ streamSupplier.get().noneMatch(s -> true);  // true
 
 通过构造一个新的流，来避开流不能被复用的限制，这也是取巧的一种方式。
 
-<br>
+
 
 ## 9.7、高级操作
 
@@ -3069,7 +3067,7 @@ List<Person> persons =
         new Person("David", 12));
 ```
 
-<br>
+
 
 ### 9.7.1、Collect
 
@@ -3214,7 +3212,7 @@ MAX | PETER | PAMELA | DAVID
 
 由于 Java 中的字符串是 final 类型的，我们需要借助辅助类 `StringJoiner`，来帮我们构造字符串。最开始供应器使用分隔符构造了一个 `StringJointer`。累加器用于将每个人的人名转大写，然后加到 `StringJointer` 中。组合器将两个 `StringJointer` 合并为一个。最终，终结器从 `StringJointer` 构造出预期的字符串。
 
-<br>
+
 
 ### 9.7.2、FlatMap
 
@@ -3339,13 +3337,13 @@ Optional.of(new Outer())
 
 如果不为空的话，每个 `flatMap` 的调用都会返回预期对象的 `Optional` 包装，否则返回为 `null` 的 `Optional` 包装类。
 
-<br>
+
 
 ### 9.7.3、Reduce
 
 规约操作可以将流的所有元素组合成一个结果。Java 8 支持三种不同的 `reduce` 方法。
 
-<br>
+
 
 第一种将流中的元素规约成流中的一个元素：
 
@@ -3370,7 +3368,7 @@ Pamela
 
 lambada 表达式的 *p1* 参数是表达式的执行结果的缓存，也就是表达式这一次的执行结果会被作为下一次执行的参数，而第二个参数 *p2* 则是依次为 stream 中每个元素。如果表达式是第一次被执行，*p1* 则是 stream 中的第一个元素。
 
-<br>
+
 
 第二种 `reduce` 方法接受标识值和 `BinaryOperator` 累加器：
 
@@ -3401,7 +3399,7 @@ System.out.format("name=%s; age=%s", result.name, result.age);
 name=MaxPeterPamelaDavid; age=76
 ```
 
-<br>
+
 
 第三种 `reduce` 方法接受三个参数：标识值、`BiFunction` 累加器和类型的组合器函数 `BinaryOperator`：
 
@@ -3482,7 +3480,7 @@ combiner: sum1=41; sum2=35
 
 并行流的执行方式完全不同。这里组合器被调用了。实际上，由于累加器被并行调用，组合器需要被用于计算部分累加值的总和。
 
-<br>
+
 
 ## 9.8、并行流
 

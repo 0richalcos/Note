@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: upload
+---
+
 # 1、OnlyOffice
 
 ## 1.1、基本概念和安装
@@ -16,7 +20,7 @@ ONLYOFFICE Document Server API 用于使开发人员将 ONLYOFFICE 文档/电子
 
 Docker 并非是一个通用的容器工具，它依赖于已存在并运行的 Linux 内核环境。它实质上是在已经运行的 Linux 下制造了一个隔离的文件环境，因此它执行的效率几乎等同于所部署的 Linux 主机。因此，Docker 必须部署在 Linux 内核的系统上。如果其他系统想部署 Docker 就必须安装一个虚拟 Linux 环境。
 
-<br>
+
 
 **Windows 平台上安装 Docker：**
 
@@ -24,9 +28,8 @@ Windows10 中内置了 Linux（WSL），如何打开可以去微软官网 **[查
 
 首先去 Docker 官网下载 **[Docker Desktop](https://desktop.docker.com/win/stable/Docker%20Desktop%20Installer.exe)**，下载完了直接安装。安装好了需要配置一下 Docker 的镜像源，替换为国内源。
 
-<div align="center">
-    <img src="../Images/OnlyOffice/image-20210303001708558.png" alt="image-20210303001708558" style="width:80%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210303001708558.png" alt="image-20210303001708558" style="width:80%;" />
+
 
 推荐的几个国内源：
 
@@ -52,7 +55,7 @@ https://docker.mirrors.ustc.edu.cn
 docker -v
 ```
 
-<br>
+
 
 Docker 安装好了拉取 Onlyoffice 镜像，创建容器：
 
@@ -86,9 +89,8 @@ docker rmi onlyoffice/documentserver
 http://电脑ip:绑定端口
 ```
 
-<div align="center">
-    <img src="../Images/OnlyOffice/image-20210303003314432.png" alt="image-20210303003314432" style="width:100%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210303003314432.png" alt="image-20210303003314432" style="width:100%;" />
+
 
 通常可以在以下编辑器文件夹中找到 API JavaScript 文件：
 
@@ -158,7 +160,7 @@ config = {
 </html>
 ```
 
-<br>
+
 
 # 2、工作原理
 
@@ -166,9 +168,8 @@ config = {
 
 参考图和以下步骤说明了在ONLYOFFICE Document Server中打开文档的过程：
 
-<div align="center">
-    <img src="../Images/OnlyOffice/image-20210304001457116.png" alt="image-20210304001457116" style="width:50%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210304001457116.png" alt="image-20210304001457116" style="width:50%;" />
+
 
 1. 用户使用文档管理器（在他/她的浏览器中找到）打开文档进行查看或编辑。
 
@@ -186,7 +187,7 @@ config = {
 
 编辑完成后，将进行文档保存过程。
 
-<br>
+
 
 **实践**
 
@@ -235,15 +236,14 @@ new DocsAPI.DocEditor("placeholder", {
 > }
 > ```
 
-<br>
+
 
 ## 2.2、保存文件
 
 参考图和以下步骤说明了将文档保存在ONLYOFFICE Document Server中的过程。
 
-<div align="center">
-    <img src="../Images/OnlyOffice/image-20210307232148928.png" alt="image-20210307232148928" style="width:50%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210307232148928.png" alt="image-20210307232148928" style="width:50%;" />
+
 
 1. 用户在文档编辑器中编辑文档。
 2. 文档编辑器将所做的更改发送到文档编辑服务。
@@ -252,7 +252,7 @@ new DocsAPI.DocEditor("placeholder", {
 5. 文档编辑服务使用 JavaScript API 中的 callbackUrl 通知文档存储服务有关文档编辑结束的信息，并返回到修改后的文档的链接。
 6. 文档存储服务从文档编辑服务下载带有所有已保存更改的文档文件并进行存储。
 
-<br>
+
 
 **实践**
 
@@ -310,7 +310,7 @@ new DocsAPI.DocEditor("placeholder", {
 
 5. 关闭文档编辑器。大约10秒钟后查看您的文档。应保存所有更改，这意味着配置正确。
 
-<br>
+
 
 **保存延时**
 
@@ -342,23 +342,21 @@ new DocsAPI.DocEditor("placeholder", {
 }
 ```
 
-<br>
+
 
 ## 3.3、审阅
 
 “审阅” 选项允许您审阅文档、更改句子、短语和其他页面元素、更正拼写等，而无需实际编辑文档。所有更改都将被记录并显示给创建文档的用户。
 
-<div align="center">
-    <img src="../Images/OnlyOffice/review.png" alt="img" style="width:40%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/review.png" alt="img" style="width:40%;" />
+
 
 要启用“审阅”选项，必须将文档初始化的`permissions `部分中的`review`参数设置为`true`。文档状态栏将包含“审阅”菜单选项。
 
 如果`edit`参数设置为`true`，`review`参数也设置为`true`，则用户将能够编辑文档、接受或拒绝更改并切换到审阅模式。
 
-<div align="center">
-    <img src="../Images/OnlyOffice/accept_reject.png" alt="Reviewing" style="width:50%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/accept_reject.png" alt="Reviewing" style="width:50%;" />
+
 
 如果`edit`参数设置为`false`，而`review`参数设置为`true`，则文档将仅可用于审阅。
 
@@ -377,7 +375,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 > 请注意，如果`mode`参数设置为`edit`，文档审阅将仅对文档编辑器可用。
 
-<br>
+
 
 # 3、文档
 
@@ -575,7 +573,7 @@ config = {
 
 > 其中example.com是安装了文档管理器和文档存储服务的服务器的名称。
 
-<br>
+
 
 ## 3.2、Config
 
@@ -589,7 +587,7 @@ config base 部分允许更改使用的平台类型、文档显示大小（宽�
 | type         | 定义用于访问文档的平台类型：desktop（电脑）、mobile（手机平板）、embedded（网页嵌入），默认为desktop | string | "desktop" |
 | width        | 在浏览器窗口中定义文档宽度（默认为100%）。                   | string | "100%"    |
 
-<br>
+
 
 **示例**
 
@@ -604,7 +602,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 });
 ```
 
-<br>
+
 
 ### Document
 
@@ -617,7 +615,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 | title    | 为已浏览或编辑的文档定义所需的文件名，该文件名也将在下载文档时用作文件名。长度限制为128个符号。 | string | "测试.docx"     |
 | url      | 定义存储已查看或编辑的源文档的绝对URL。                      | string |                 |
 
-<br>
+
 
 **示例**
 
@@ -635,7 +633,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 > key可以使用：0-9、a-z、a-z、-._=。最大密钥长度为20个字符。
 
-<br>
+
 
 #### Info
 
@@ -647,23 +645,18 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 | owner           | 定义文档所有者/创建者的名称。                                | string   | "John Smith"    |
 | sharingSettings | 显示有关允许与其他用户共享文档的设置的信息：<br>**isLink**--将用户图标更改为链接图标，**type**：boolean，**example**：false。<br>**permissions**--具有上述名称的用户的访问权限。可以是 **Full Access**, **Read Only** 或者 **Deny Access**。**type**：string，**example**："Full Access"。<br>**user**--将与之共享文档的用户的名称。**type**：string，**example**：”John Smith“。 | 对象数组 |                 |
 
-<div align="center">
-    <img src="../Images/OnlyOffice/sharing_settings.png" alt="img" style="width:60%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/sharing_settings.png" alt="img" style="width:60%;" />
 
-<br>
+
+
 
 | 名字     | 说明               | 类型   | 示例                 |
 | -------- | ------------------ | ------ | -------------------- |
 | uploaded | 定义文档上传日期。 | string | "2010-07-07 3:46 PM" |
 
-<div align="center">
-    <img src="../Images/OnlyOffice/info.png" alt="img" style="width:60%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/info.png" alt="img" style="width:60%;" />
 
 
-
-<br>
 
 **示例**
 
@@ -693,7 +686,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 });
 ```
 
-<br>
+
 
 #### Permissions
 
@@ -705,11 +698,10 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 > 如果`edit`设置为`true`，`comment`也设置为`true`，用户将能够编辑文档和注释。如果`edit`设置为`true`，`comment`设置为`false`，用户只能编辑，相应的评论功能只能查看，评论的添加和编辑将不可用。如果`edit`设置为`false`，而`comment`设置为`true`，则文档仅可用于注释。如果`edit`设置为`false`，`review`设置为`false`，`comment`设置为`true`，则不考虑`fillForms`值，表格填写不可用。
 
-<div align="center">
-    <img src="../Images/OnlyOffice/comment.png" alt="img" style="width:35%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/comment.png" alt="img" style="width:35%;" />
 
-<br>
+
+
 
 | 名字     | 说明                                                         | 类型    | 示例 |
 | -------- | ------------------------------------------------------------ | ------- | ---- |
@@ -718,11 +710,10 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 | edit     | 定义文档是可以编辑还是只能查看。 如果将编辑权限设置为“ true”，则“文件”菜单将包含“编辑文档”菜单选项； 请注意，如果将编辑权限设置为“ false”，则将在查看器中打开该文档，即使将`mode`参数设置为`edit`，也将无法将其切换到编辑器。 默认值是true。 | boolean | true |
 | print    | 定义是否可以打印文档。 如果将打印许可设置为“ false”，则“文件”菜单中将不存在“打印”菜单选项。 默认值是true。 | boolean | true |
 
-<div align="center">
-    <img src="../Images/OnlyOffice/permissions.png" alt="img" style="width:60%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/permissions.png" alt="img" style="width:60%;" />
 
-<br>
+
+
 
 | 名字      | 说明                                                         | 类型    | 示例 |
 | --------- | ------------------------------------------------------------ | ------- | ---- |
@@ -730,11 +721,10 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 > 如果将edit设置为“ true”或将review设置为“ true”，则不考虑fillForms值，并且可以进行表单填充。 如果将edit设置为“ false”，将review设置为“ false”，并且fillForms也设置为“ true”，则用户只能在文档中填写表单。 如果edit设置为“ false”且审阅设置为“ false”且fillForms设置为“ true”，则不考虑注释值，并且注释不可用。 当前仅表单填写模式仅适用于“文档编辑器”。
 
-<div align="center">
-    <img src="../Images/OnlyOffice/fill-forms.png" alt="img" style="width:40%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/fill-forms.png" alt="img" style="width:40%;" />
 
-<br>
+
+
 
 | 名字                 | 说明                                                         | 类型    | 示例 |
 | -------------------- | ------------------------------------------------------------ | ------- | ---- |
@@ -743,7 +733,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 > 如果文档由具有完全访问权限的用户编辑，则由该用户应用的过滤器将对所有其他用户可见，而不管其本地设置如何。
 
-<br>
+
 
 | 名字   | 说明                                                         | 类型    | 示例 |
 | ------ | ------------------------------------------------------------ | ------- | ---- |
@@ -751,11 +741,10 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 > 如果将编辑设置为“ true”，并且审阅也设置为“ true”，则用户将能够编辑文档，接受/拒绝所做的更改并自己切换到审阅模式。 如果编辑设置为“ true”，而审阅设置为“ false”，则用户将只能进行编辑。 如果将编辑设置为“ false”，将审阅设置为“ true”，则该文档仅在审阅模式下可用。
 
-<div align="center">
-    <img src="../Images/OnlyOffice/review.png" alt="img" style="width:33%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/review.png" alt="img" style="width:33%;" />
 
-<br>
+
+
 
 **审阅**
 
@@ -779,15 +768,14 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 });
 ```
 
-<br>
+
 
 # 4、故障排除
 
 **下载失败**
 
-<div align="center">
-    <img src="../Images/OnlyOffice/e-download.png" alt="Download failed" style="width:33%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/e-download.png" alt="Download failed" style="width:33%;" />
+
 
 编辑器加载过程中将显示“下载失败”消息。
 
@@ -795,13 +783,12 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 检查到 `document.url` 中指定的文件的链接是否正确。 必须可以从文档编辑服务访问该链接。
 
-<br>
+
 
 **文件版本变更**
 
-<div align="center">
-    <img src="../Images/OnlyOffice/e-key.png" alt="The file version has been changed" style="width:50%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/e-key.png" alt="The file version has been changed" style="width:50%;" />
+
 
 编辑器加载“The file version has been changed. The page will be reloaded（文件版本已被更改”。页面将被重新加载）”的消息。
 

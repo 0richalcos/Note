@@ -49,7 +49,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 
 4. 效果预览：
 
-   <img src="../Images/DHTMLXGantt/image-20220525234529468.png" alt="image-20220525234529468" style="width:90%;" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220525234529468.png" alt="image-20220525234529468" style="width:90%;" />
 
 
 
@@ -1886,7 +1886,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 
 **网格样式**
 
-<img src="../Images/DHTMLXGantt/grid_area.png" alt="img" style="width:50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/grid_area.png" alt="img" style="width:50%;" />
 
 
 网格的 DOM 元素的整体结构如下：
@@ -1927,7 +1927,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 }
 ```
 
-<img src="../Images/DHTMLXGantt/grid_header.png" alt="img" style="width:50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/grid_header.png" alt="img" style="width:50%;" />
 
 
 可以通过 `.gantt_grid_head_cell` 将自定义样式应用于网格标头的单元格。
@@ -1954,7 +1954,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
   </script>
   ```
 
-  <img src="../Images/DHTMLXGantt/header_cell.png" alt="img" style="width:50%;" />
+  <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/header_cell.png" alt="img" style="width:50%;" />
   
 - `.gantt_grid_head_cell[data-column-index='1']` - 按索引选择特定列；
 
@@ -1966,7 +1966,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 
 给任务着色可以突出显示特定的任务，以便将用户注意：
 
-<img src="../Images/DHTMLXGantt/coloring_tasks.png" alt="img" style="width:45%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/coloring_tasks.png" alt="img" style="width:45%;" />
 
 
 要设置任务的自定义样式，可以使用以下方法之一：
@@ -1985,7 +1985,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 - **progressColor**：进度条的颜色
   （默认情况下，只是使用以下样式的背景色使其比任务的颜色暗一点：`'background-color: rgb(54, 54, 54); opacity: 0.2'`）
 
-<img src="../Images/DHTMLXGantt/task_color_properties.png" alt="img" style="width:17%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/task_color_properties.png" alt="img" style="width:17%;" />
 
 
 > 注意，这些是特殊属性。默认情况下，Gantt 检查任务是否拥有它们，如果这样做，则将相关值应用于任务栏和文本。否则，将应用预定义的颜色。
@@ -2070,7 +2070,7 @@ gantt.templates.task_class  = function(start, end, task){
 
 ## 3.2、配置任务
 
-<img src="../Images/DHTMLXGantt/gantt_tasks.png" alt="img" style="width:60%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/gantt_tasks.png" alt="img" style="width:60%;" />
 
 
 
@@ -2106,14 +2106,14 @@ gantt.addTaskLayer(function myNewElement(task) {
 
 要了解如何应用此功能，考虑一个示例：有一个计划和实际时间进行任务，需要显示两次：
 
-<img src="../Images/DHTMLXGantt/baselines.png" alt="img" style="width:60%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/baselines.png" alt="img" style="width:60%;" />
 
 
 1. **降低任务高度并将任务行上移**
 
    在初始状态的任务是这样的：
 
-   <img src="../Images/DHTMLXGantt/baselines_start.png" alt="img" style="width:50%;" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/baselines_start.png" alt="img" style="width:50%;" />
 
      首先，需要为任务下的基线释放一些空间。为此，有必要降低任务栏的高度，使其大约等于行高的一半：
 
@@ -2141,13 +2141,13 @@ gantt.addTaskLayer(function myNewElement(task) {
 
      结果如下：
 
-   <img src="../Images/DHTMLXGantt/baselines_task_height.png" alt="img" style="width:53%;" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/baselines_task_height.png" alt="img" style="width:53%;" />
 
 2. **添加额外的数据属性**
 
    之后，需要向任务对象添加其他数据属性。这里命名为：`planned_start` 和 `planned_end`。
 
-   <img src="../Images/DHTMLXGantt/baseline_task_object-16557781359655.png" alt="img" style="width:17%;" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/baseline_task_object-16557781359655.png" alt="img" style="width:17%;" />
 
 3. **将添加的数据特性转换为日期对象**
 
@@ -2202,14 +2202,14 @@ gantt.addTaskLayer(function myNewElement(task) {
 
 ## 3.3、配置刻度
 
-<img src="../Images/DHTMLXGantt/gantt_right.png" alt="img" style="width:60%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/gantt_right.png" alt="img" style="width:60%;" />
 
 
 
 
 ### 3.3.1、设置刻度
 
-<img src="../Images/DHTMLXGantt/gantt_dates.png" alt="img" style="width:60%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/gantt_dates.png" alt="img" style="width:60%;" />
 
 
 刻度的配置通过 `scale` 属性指定。可以通过在 `gantt.config.scales` 数组中设置刻度对象来指定任意数量的刻度：
@@ -2239,7 +2239,7 @@ gantt.config.scales = [
 
 #### 时间单位
 
-<img src="../Images/DHTMLXGantt/month_day_scale_units.png" alt="img" style="width:45%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/month_day_scale_units.png" alt="img" style="width:45%;" />
 
 
 要设置刻度的单位，请在相应的刻度对象中使用 `unit` 特性：
@@ -2259,7 +2259,7 @@ gantt.init("gantt_here");
 
 #### 范围
 
-<img src="../Images/DHTMLXGantt/day_scale_unit.png" alt="img" style="width:45%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/day_scale_unit.png" alt="img" style="width:45%;" />
 
 
 
@@ -2306,7 +2306,7 @@ gantt.init("gantt_here", new Date(2018, 02, 31), new Date(2018, 03, 09));
 
 可以在甘特图中显示不符合指定日期范围的任务。
 
-<img src="../Images/DHTMLXGantt/tasks_outside_timescale.png" alt="img" style="width:50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/tasks_outside_timescale.png" alt="img" style="width:50%;" />
 
 
 为此，需要将 `show_tasks_outside_timescale` 配置参数设置为 `true`：
@@ -2332,7 +2332,7 @@ gantt.init("gantt_here", new Date(2020, 1, 1), new Date(2020, 2,1));
 
 #### 高度
 
-<img src="../Images/DHTMLXGantt/scale_height.png" alt="img" style="width:50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/scale_height.png" alt="img" style="width:50%;" />
 
 
 可以通过 `scale_height` 属性设置刻度的高度：
@@ -2345,7 +2345,7 @@ gantt.init("gantt_here");
 
 如果有多个刻度，它们将平均共享指定的高度。例如，如果 `scale_height` 为 60 像素，而你有 3 个缩放，则每个缩放的高度为 60/3=20 像素。
 
-<br>
+
 
 #### 日期格式
 
@@ -2361,9 +2361,8 @@ gantt.config.scales = [
 gantt.init("gantt_here");
 ```
 
-<div align="center">
-    <img src="../Images/DHTMLXGantt/multiple_scales.png" alt="img" style="width:50%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/multiple_scales.png" alt="img" style="width:50%;" />
+
 
 或作为以日期对象为参数的函数：
 
@@ -2375,9 +2374,8 @@ gantt.config.scales = [
 ]
 ```
 
-<div align="center">
-    <img src="../Images/DHTMLXGantt/scale_template.png" alt="img" style="width:50%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/scale_template.png" alt="img" style="width:50%;" />
+
 
 可用格式字符：
 
@@ -2433,13 +2431,13 @@ gantt.config.scales = [
 
 例如，如果要将 2019年6月1日 显示为 `01/06/2019`，则应指定 `%d/%m/%Y`。
 
-<br>
+
 
 ### 3.3.2、缩放
 
 DHTMLX Gantt 提供了一个内置模块，用于方便地管理时间刻度缩放。如果要自定义默认缩放行为，有一个灵活的 API 可以实现动态更改时间刻度设置的功能。
 
-<br>
+
 
 **内置缩放模块**
 
@@ -2506,7 +2504,7 @@ var zoomConfig = {
 gantt.ext.zoom.init(zoomConfig);
 ```
 
-<br>
+
 
 **自定义缩放设置**
 
@@ -2589,19 +2587,17 @@ for (var i = 0; i < els.length; i++) {
 }
 ```
 
-<div align="center">
-    <img src="../Images/DHTMLXGantt/image-20220621142321062.png" alt="image-20220621142321062" style="width:90%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220621142321062.png" alt="image-20220621142321062" style="width:90%;" />
 
-<br>
+
+
 
 ## 3.4、配置网格区域
 
-<div align="center">
-    <img src="../Images/DHTMLXGantt/gantt_left.png" alt="img" style="width:70%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/gantt_left.png" alt="img" style="width:70%;" />
 
-<br>
+
+
 
 ### 3.4.1、配置树列
 

@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: upload
+---
+
 # 1、什么是 Elastisearch？
 
 > 你懂的，用来搜索（也用来分析）
@@ -16,7 +20,7 @@ Elasticsearch 为各种数据类型提供接近实时的搜索和分析。不论
 
 我们一直对人们使用搜索的新奇方式感觉惊奇。但是不论你的实例与其中一个相似，还是你正使用 Elasticsearch 来解决一个新的问题，你在 Elasticsearch处理数据、文档和索引的方式是相同的。
 
-<br>
+
 
 ## 1.1、数据输入：文档和索引
 
@@ -42,7 +46,7 @@ Elasticsearch 也具有无模式能力，这意味着文档无需明确地指定
 
 用于索引期间的全文字段的分析链，也被用于搜索时。当你查询一个全文字段时，在索引中查询词语（`term`）之前，这个查询文本将经历相同的分析。
 
-<br>
+
 
 ## 1.2、信息输出：搜索和分析
 
@@ -50,7 +54,7 @@ Elasticsearch 也具有无模式能力，这意味着文档无需明确地指定
 
 Elasticsearch 提供一种简单、一致的 REST API，用于管理你的集群以及索引和搜索数据。用于测试目的，你可以轻松地从命令行或者在 Kibana 中通过开发者控制台提交请求。从你的应用里，你可以为你的语言选择 Elasticsearch 客户端：Java、JavaScript、GO、.Net、PHP、Perl、Python 或者 Ruby。
 
-<br>
+
 
 **搜索你的数据**
 
@@ -62,7 +66,7 @@ Elasticsearch REST API 支持结构化查询、全文查询以及结合二者的
 
 你可以访问使用 Elasticsearch 全部 JSON 风格的查询语言（查询 DSL）的所有搜索能力。你也可以构造 SQL 风格的查询搜索和聚合在 Elasticsearch 中的内部数据，JDBC 和 ODBC 驱动使得各种第三方应用能通过 SQL 与 Elasticsearch 交互。
 
-<br>
+
 
 **分析你的数据**
 
@@ -82,7 +86,7 @@ Elasticsearch 聚合使你能够构建数据的复杂摘要，并深入了解关
 
 此外，聚合随着搜索请求一起运行。你可以搜索文档、过滤结果以及在单个请求中同时对同样的数据实时地执行分析。由于聚合是在特定搜索的上下文中计算的，你不仅能展示 70 号针的数量，你还能展示匹配你的用户搜索标准——比如不粘的绣花针——的 70 号针数量。
 
-<br>
+
 
 **但是等等，还有更多**
 
@@ -94,7 +98,7 @@ Elasticsearch 聚合使你能够构建数据的复杂摘要，并深入了解关
 
 最好的部分呢？你可以这样做，而不必指定算法、模型或其他与科学相关的配置。
 
-<br>
+
 
 ## 1.3、可伸缩性和弹性
 
@@ -108,7 +112,7 @@ Elasticsearch 被构建为始终可用，并且能按需扩展。它是通过天
 
 索引中的主分片的数量是索引创建时固定的，但副本分片数量可以随时更改而不会中断索引或者查询操作。
 
-<br>
+
 
 **看具体情况……**
 
@@ -123,7 +127,7 @@ Elasticsearch 被构建为始终可用，并且能按需扩展。它是通过天
 
 确定你的用例的最优配置的最好方法，是 [`用你自己的数据和查询进行测试`](https://www.elastic.co/cn/elasticon/conf/2016/sf/quantitative-cluster-sizing)。
 
-<br>
+
 
 **容灾**
 
@@ -133,13 +137,13 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 跨集群备份（`CCR`）是 `主动-被动模式`（`active-passive`）。主集群上的索引是活动的领导者索引，且处理所有写请求。复制到备份集群的索引是只读的追随者。
 
-<br>
+
 
 **维护保养**
 
 与任何企业系统一样，你需要工具来保护、管理和监控你的 Elasticsearch 集群。集成到 Elasticsearch 中的安全、监控和管理特性使你能使用 Kibana 作为管理集群的控制中心。数据汇总和索引生命周期管理等特性可帮助你随着时间的推移智能地管理数据。
 
-<br>
+
 
 # 2、安装 Elastisearch
 
@@ -184,17 +188,14 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
    curl http://localhost:9200
    ```
 
-   <div align="center">
-       <img src="../Images/Elasticsearch/image-20220630111509343.png" alt="image-20220630111509343" style="width:70%;" />
-   </div>
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220630111509343.png" alt="image-20220630111509343" style="width:70%;" />
 
-<br>
+
 
 **ES 目录结构：**
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220630105257034.png" alt="image-20220630105257034" style="width:70%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220630105257034.png" alt="image-20220630105257034" style="width:70%;" />
+
 
 ```shell
 - bin	  启动ES服务脚本目录
@@ -207,7 +208,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 - plugins 插件目录
 ```
 
-<br>
+
 
 **开启远程访问**
 
@@ -219,10 +220,8 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
    vim /home/esuser/elasticsearch-7.14.0/config/elasticsearch.yml
    ```
 
-   <div align="center">
-       <img src="../Images/Elasticsearch/image-20220703192151746.png" alt="image-20220703192151746" style="width:70%;" />
-   </div>
-
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220703192151746.png" alt="image-20220703192151746" style="width:70%;" />
+   
 2. 重新启动 ES 服务：
 
    ```shell
@@ -303,11 +302,9 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 4. 使用自己的浏览器远程访问 ES 服务：
 
-   <div align="center">
-       <img src="../Images/Elasticsearch/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202022-07-04%20002254.png" alt="屏幕截图 2022-07-04 002254" style="width:70%;" />
-   </div>
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202022-07-04%20002254.png" alt="屏幕截图 2022-07-04 002254" style="width:70%;" />
 
-<br>
+
 
 ## 2.2、Docker
 
@@ -327,11 +324,9 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 3. 访问 ES：
 
-   <div align="center">
-       <img src="../Images/Elasticsearch/image-20220705222221335.png" alt="image-20220705222221335" style="width:80%;" />
-   </div>
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220705222221335.png" alt="image-20220705222221335" style="width:80%;" />
 
-<br>
+
 
 ## 2.3、使用 cURL 命令交互
 
@@ -357,13 +352,13 @@ curl -X<VERB> '<PROTOCOL>://<HOST>:<PORT>/<PATH>?<QUERY_STRING>' -d '<BODY>'
 
 Elasticsearch 对每个 API 请求响应 HTTP 状态码，如 `200 ok`。除了 `HEAD` 请求外，它还会返回一个 JSON 编码的响应体。
 
-<br>
+
 
 # 3、安装 Kibana
 
 Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化平台，使用 Kibana 可以查询、查看并与存储在 ES 索引的数据进行交互操作，使用 Kibana 能执行高级的数据分析，并能以图表、表格和地图的形式查看数据。
 
-<br>
+
 
 ## 3.1、Linux（Ubuntu）
 
@@ -393,10 +388,8 @@ Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化�
 
    修改如下配置：
 
-   <div align="center">
-       <img src="../Images/Elasticsearch/image-20220705225554258.png" alt="image-20220705225554258" style="width:80%;" />
-   </div>
-
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220705225554258.png" alt="image-20220705225554258" style="width:80%;" />
+   
 5. 启动 kibana（记得启动 ES）：
 
    ```shell
@@ -405,7 +398,7 @@ Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化�
 
 6. 访问 kibana 的 WEB 界面（Kibana 的默认端口为 5601）
 
-<br>
+
 
 ## 3.2、Docker
 
@@ -432,7 +425,7 @@ Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化�
    docker run -d -v /root/kibana.yml:/usr/share/kibana/config/kibana.yml  --name kibana -p 5601:5601 kibana:7.14.0
    ```
 
-<br>
+
 
 ## 3.3、compose
 
@@ -490,7 +483,7 @@ Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化�
    docker-compose up -d
    ```
 
-<br>
+
 
 # 4、核心概念
 
@@ -498,7 +491,7 @@ Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化�
 
 一个索引就是一个拥有几分相似特征的文档的集合。比如说，你可以有一个商品数据的索引，一个订单数据的索引，还有一个用户数据的索引。一个索引由一个名字来标识（必须全部是小写字母的），并且当我们要对这个索引中的文档进行索引、搜索、更新和删除的时候，都要使用到这个名字。
 
-<br>
+
 
 **创建索引**
 
@@ -523,12 +516,9 @@ PUT /products
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220710231252432.png" alt="image-20220710231252432" style="width:90%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220710231252432.png" alt="image-20220710231252432" style="width:90%;" />
 
 
-<br>
 
 **查询索引**
 
@@ -540,7 +530,7 @@ GET /_cat/indices?v
     <img src="../Images/Elasticsearch/image-20220710231614286.png" alt="image-20220710231614286" style="width:90%" />
 </div>
 
-<br>
+
 
 **删除索引**
 
@@ -560,11 +550,10 @@ DELETE /*
 DELETE /products
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220710231843156.png" alt="image-20220710231843156" style="width:90%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220710231843156.png" alt="image-20220710231843156" style="width:90%;" />
 
-<br>
+
+
 
 ## 4.2、Mapping（映射）
 
@@ -578,7 +567,7 @@ DELETE /products
 - 布尔类型：`boolean` 
 - 日期类型：`date`
 
-<br>
+
 
 **创建映射**
 
@@ -608,11 +597,10 @@ PUT /products
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220710232622290.png" alt="image-20220710232622290" style="width:85%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220710232622290.png" alt="image-20220710232622290" style="width:85%;" />
 
-<br>
+
+
 
 **查询映射**
 
@@ -626,17 +614,16 @@ GET /索引名/_mapping
 GET /products/_mapping
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220710232831896.png" alt="image-20220710232831896" style="width:85%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220710232831896.png" alt="image-20220710232831896" style="width:85%;" />
 
-<br>
+
+
 
 ## 4.3、Document（文档）
 
 文档是索引中存储的一条条数据。一条文档是一个可被索引的最小单元。ES 中的文档采用了轻量级的 JSON 格式数据来表示。
 
-<br>
+
 
 **添加文档**
 
@@ -661,9 +648,8 @@ POST /products/_doc/1
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220710233404098.png" alt="image-20220710233404098" style="width:85%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220710233404098.png" alt="image-20220710233404098" style="width:85%;" />
+
 
 
 在 products 索引下添加一个文档，使用自动生成的文档 ID：
@@ -678,10 +664,9 @@ POST /products/_doc/
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220710233519074.png" alt="image-20220710233519074" style="width:85%;" />
-</div>
-<br>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220710233519074.png" alt="image-20220710233519074" style="width:85%;" />
+
+
 
 **查询文档**
 
@@ -695,11 +680,10 @@ GET /索引名/_doc/文档ID
 GET /products/_doc/1
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220710233616786.png" alt="image-20220710233616786" style="width:85%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220710233616786.png" alt="image-20220710233616786" style="width:85%;" />
 
-<br>
+
+
 
 **删除文档**
 
@@ -713,11 +697,10 @@ DELETE /索引名/_doc/文档ID
 DELETE /products/_doc/1
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220710234406179.png" alt="image-20220710234406179" style="width:85%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220710234406179.png" alt="image-20220710234406179" style="width:85%;" />
 
-<br>
+
+
 
 **更新文档**
 
@@ -752,11 +735,10 @@ POST /products/_doc/wZbA6IEB0wOojxAnBiDQ/_update
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220710235419580.png" alt="image-20220710235419580" style="width:85%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220710235419580.png" alt="image-20220710235419580" style="width:85%;" />
 
-<br>
+
+
 
 **批量操作**
 
@@ -783,7 +765,7 @@ POST /products/_doc/_bulk
 
 > 批量时不会因为一个失败而全部失败，而是继续执行后续操作，在返回时按照执行的状态返回！
 
-<br>
+
 
 # 5、索引原理
 
@@ -791,7 +773,7 @@ POST /products/_doc/_bulk
 
 倒排索引（Inverted Index）也叫反向索引，有反向索引必有正向索引。通俗地来讲，正向索引是通过 key 找 value，反向索引则是通过 value 找 key。ES 底层在检索时底层使用的就是倒排索引。
 
-<br>
+
 
 ## 5.2、索引模型
 
@@ -858,13 +840,13 @@ POST /products/_doc/_bulk
 
 > Elasticsearch 分别为每个字段都建立了一个倒排索引。因此查询时查询字段的 term，就能知道文档 ID，就能快速找到文档。
 
-<br>
+
 
 # 6、分词器
 
 Analysis： 文本分析是把全文本转换一系列单词（term/token）的过程，也叫分词（Analyzer）。Analysis 是通过 Analyzer 来实现的。分词就是将文档通过 Analyzer 分成一个一个的 term（关键词查询），每一个 term 都指向包含这个 term 的文档。
 
-<br>
+
 
 **Analyzer 组成**
 
@@ -886,7 +868,7 @@ Analysis： 文本分析是把全文本转换一系列单词（term/token）的�
 >
 > 三者个数：Character Filters（0个或多个） + Tokenizer + Token Filters（0个或多个）
 
-<br>
+
 
 **创建索引设置分词**
 
@@ -905,7 +887,7 @@ PUT /索引名
 }
 ```
 
-<br>
+
 
 ## 6.1、内置分词器
 
@@ -915,7 +897,7 @@ PUT /索引名
 - Whitespace Analyzer - 按照空格切分，不转小写
 - Keyword Analyzer - 不分词，直接将输入当作输出
 
-<br>
+
 
 **Standard Analyzer**
 
@@ -929,12 +911,9 @@ POST /_analyze
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220821223953829.png" alt="image-20220821223953829" style="width:90%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220821223953829.png" alt="image-20220821223953829" style="width:90%;" />
 
 
-<br>
 
 **Simple Analyzer**
 
@@ -948,12 +927,9 @@ POST /_analyze
 }
 ```
 
-<div aling="center">
-    <img src="../Images/Elasticsearch/image-20220821224216488.png" alt="image-20220821224216488" style="width:95%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220821224216488.png" alt="image-20220821224216488" style="width:95%;" />
 
 
-<br>
 
 **Whitespace Analyzer**
 
@@ -967,17 +943,16 @@ POST /_analyze
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220821224422903.png" alt="image-20220821224422903" style="width:95%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220821224422903.png" alt="image-20220821224422903" style="width:95%;" />
 
-<br>
+
+
 
 ## 6.2、中文分词器
 
 在 ES 中支持中文分词器非常多，如 smartCN、IK 等，推荐的就是 IK 分词器。
 
-<br>
+
 
 ### 6.2.1、安装 IK
 
@@ -1008,7 +983,7 @@ POST /_analyze
 
 4. 重启 ES 生效
 
-<br>
+
 
 **Docker 环境**
 
@@ -1047,7 +1022,7 @@ services:
       - ./kibana.yml:/usr/share/kibana/config/kibana.yml
 ```
 
-<br>
+
 
 ### 6.2.2、IK 使用
 
@@ -1057,7 +1032,7 @@ IK有两种颗粒度的拆分：
 
 - `ik_max_word`：会将文本做最细粒度的拆分
 
-<br>
+
 
 **ik_smart**
 
@@ -1069,12 +1044,9 @@ POST /_analyze
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220823235507682.png" alt="image-20220823235507682" style="width:95%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220823235507682.png" alt="image-20220823235507682" style="width:95%;" />
 
 
-<br>
 
 **ik_max_word**
 
@@ -1086,12 +1058,9 @@ POST /_analyze
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220823235617310.png" alt="image-20220823235617310" style="width:95%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220823235617310.png" alt="image-20220823235617310" style="width:95%;" />
 
 
-<br>
 
 ### 6.2.3、扩展词、停用词
 
@@ -1160,21 +1129,18 @@ IK支持自定义扩展词典和停用词典
    }
    ```
 
-   <div align="center">
-       <img src="../Images/Elasticsearch/image-20220824002925386.png" alt="image-20220824002925386" style="width:100%;" />
-   </div>
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220824002925386.png" alt="image-20220824002925386" style="width:100%;" />
 
 > 词典的编码必须为 UTF-8，否则无法生效！
 
-<br>
+
 
 **IK 自带的字典**
 
 IK 自带许多常用的扩展字典：
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220824000833198.png" alt="image-20220824000833198" style="width:70%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220824000833198.png" alt="image-20220824000833198" style="width:70%;" />
+
 
 
 可以更改配置文件使用 IK 的扩展字典，后续对其扩充，会比较方便：
@@ -1195,7 +1161,7 @@ IK 自带许多常用的扩展字典：
 </properties>
 ```
 
-<br>
+
 
 # 7、高级查询
 
@@ -1211,7 +1177,7 @@ GET /索引名/_doc/_search {json格式请求体数据}
 GET /索引名/_search {json格式请求体数据}
 ```
 
-<br>
+
 
 准备一些测试数据：
 
@@ -1253,9 +1219,9 @@ GET /索引名/_search {json格式请求体数据}
      {"title":"iphone13 pro","price":8999,"created_at":"2021-09-15","description":"iPhone 13Pro搭载A15 Bionic芯片，拥有四种配色，支持5G。有128G、256G、512G、1T可选，售价为999美元起。"}
    ```
 
-<br>
 
-## 5.1、查询所有
+
+## 7.1、查询所有
 
 `match_all` 关键字：返回索引中的全部文档。
 
@@ -1268,13 +1234,12 @@ GET /products/_search
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220719234152189.png" alt="image-20220719234152189" style="width:100%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220719234152189.png" alt="image-20220719234152189" style="width:100%;" />
 
-<br>
 
-## 5.2、关键字查询
+
+
+## 7.2、关键字查询
 
 `term` 关键字：用来使用关键词查询。
 
@@ -1295,12 +1260,11 @@ GET /products/_search
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220719234648719.png" alt="image-20220719234648719" style="width:100%;" />
-</div>
-<br>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220719234648719.png" alt="image-20220719234648719" style="width:100%;" />
 
-## 5.3、范围查询
+
+
+## 7.3、范围查询
 
 `range` 关键字：用来指定查询指定范围内的文档。
 
@@ -1318,13 +1282,12 @@ GET /products/_search
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220722000537945.png" alt="image-20220722000537945" style="width:100%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220722000537945.png" alt="image-20220722000537945" style="width:100%;" />
 
-<br>
 
-## 5.4、前缀查询
+
+
+## 7.4、前缀查询
 
 `prefix` 关键字：用来检索含有指定前缀的关键词的相关文档。
 
@@ -1341,13 +1304,12 @@ GET /products/_search
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220722000733191.png" alt="image-20220722000733191" style="width:100%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220722000733191.png" alt="image-20220722000733191" style="width:100%;" />
 
-<br>
 
-## 5.5、通配符查询
+
+
+## 7.5、通配符查询
 
 `wildcard` 关键字：通配符查询，`?` 用来匹配一个任意字符，`*` 用来匹配多个任意字符。
 
@@ -1364,13 +1326,12 @@ GET /products/_search
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220722002035498.png" alt="image-20220722001822243" style="width:100%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220722002035498.png" alt="image-20220722001822243" style="width:100%;" />
 
-<br>
 
-## 5.6、多 id 查询
+
+
+## 7.6、多 id 查询
 
 `ids` 关键字：值为数组类型，用来根据一组 id 获取多个对应的文档。
 
@@ -1385,13 +1346,12 @@ GET /products/_search
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220722002239852.png" alt="image-20220722002239852" style="width:100%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220722002239852.png" alt="image-20220722002239852" style="width:100%;" />
 
-<br>
 
-## 5.7、模糊查询
+
+
+## 7.7、模糊查询
 
 `fuzzy` 关键字：用来模糊查询含有指定关键字的文档。
 
@@ -1414,13 +1374,12 @@ GET /products/_search
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220722002527292.png" alt="image-20220722002527292" style="width:100%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220722002527292.png" alt="image-20220722002527292" style="width:100%;" />
 
-<br>
 
-## 5.8、布尔查询
+
+
+## 7.8、布尔查询
 
 `bool` 关键字：用来组合多个条件实现复杂查询：
 
@@ -1447,12 +1406,11 @@ GET /products/_search
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220722003124196.png" alt="image-20220722003124196" style="width:100%;" />
-</div>
-<br>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220722003124196.png" alt="image-20220722003124196" style="width:100%;" />
 
-## 5.9、多字段查询
+
+
+## 7.9、多字段查询
 
 `multi_match` 关键字：用于多字段查询。
 
@@ -1470,13 +1428,12 @@ GET /products/_search
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220726235523448.png" alt="image-20220726235523448" style="width:100%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220726235523448.png" alt="image-20220726235523448" style="width:100%;" />
 
-<br>
 
-## 5.10、默认字段分词查询
+
+
+## 7.10、默认字段分词查询
 
 `query_string` 关键字：用于默认字段查询
 
@@ -1494,13 +1451,12 @@ GET /products/_search
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220727000009782.png" alt="image-20220727000009782" style="width:100%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220727000009782.png" alt="image-20220727000009782" style="width:100%;" />
 
-<br>
 
-## 5.11、高亮查询
+
+
+## 7.11、高亮查询
 
 `highlight` 关键字：可以让符合条件的文档中的关键词高亮。
 
@@ -1524,13 +1480,12 @@ GET /products/_search
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220727000535410.png" alt="image-20220727000535410" style="width:100%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220727000535410.png" alt="image-20220727000535410" style="width:100%;" />
 
-<br>
 
-## 5.12、返回指定条数
+
+
+## 7.12、返回指定条数
 
 `size` 关键字：指定查询结果中返回指定条数。默认返回 10 条。
 
@@ -1544,13 +1499,12 @@ GET /products/_search
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220727001019788.png" alt="image-20220727001019788" style="width:100%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220727001019788.png" alt="image-20220727001019788" style="width:100%;" />
 
-<br>
 
-## 5.13、分页查询
+
+
+## 7.13、分页查询
 
 `form` 关键字：用来指定起始返回位置，和 `size` 关键字连用可实现分页效果。
 
@@ -1565,13 +1519,12 @@ GET /products/_search
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220727000655300.png" alt="image-20220727000655300" style="width:100%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220727000655300.png" alt="image-20220727000655300" style="width:100%;" />
 
-<br>
 
-## 5.14、指定字段排序
+
+
+## 7.14、指定字段排序
 
 `sort` 关键字：用来指定排序字段和排序方式。
 
@@ -1593,13 +1546,12 @@ GET /products/_search
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20220727001224927.png" alt="image-20220727001224927" style="width:100%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220727001224927.png" alt="image-20220727001224927" style="width:100%;" />
 
-<br>
 
-## 5.15、返回指定字段
+
+
+## 7.15、返回指定字段
 
 `_source` 关键字：是一个数组，在数组中用来指定展示那些字段。
 
@@ -1613,18 +1565,16 @@ GET /products/_search
 }
 ```
 
-<div aling="center">
-    <img src="../Images/Elasticsearch/image-20220727001356990.png" alt="image-20220727001356990" style="width:100%;" />
-</div>
-<br>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220727001356990.png" alt="image-20220727001356990" style="width:100%;" />
+
+
 
 # 8、过滤查询
 
 过滤查询 `<filter query>`，其实准确来说，ES 中的查询操作分为 2 种：查询（query）和过滤（filter）。查询即是之前提到的 query 查询，它（查询）默认会计算每个返回文档的得分，然后根据得分排序。而过滤（filter）只会筛选出符合的文档，并不计算得分，而且它可以缓存文档 。所以，单从性能考虑，过滤比查询更快。 
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20221007160753752.png" alt="image-20221007160753752" style="width:80%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221007160753752.png" alt="image-20221007160753752" style="width:80%;" />
+
 
 语法：
 
@@ -1648,7 +1598,7 @@ GET /索引名/_search
 
 常见过滤类型有：`term`、`terms`、`ranage`、`exists`、`ids` 等。
 
-<br>
+
 
 ## 8.1、term
 
@@ -1672,11 +1622,10 @@ GET /products/_search
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20221007164412521.png" alt="image-20221007164412521" style="width:100%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221007164412521.png" alt="image-20221007164412521" style="width:100%;" />
 
-<br>
+
+
 
 ## 8.2、terms
 
@@ -1705,11 +1654,10 @@ GET /products/_search
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20221007165512993.png" alt="image-20221007165512993" style="width:100%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221007165512993.png" alt="image-20221007165512993" style="width:100%;" />
 
-<br>
+
+
 
 ## 8.3、range
 
@@ -1736,10 +1684,9 @@ GET /products/_search
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20221007165638098.png" alt="image-20221007165638098" style="width:100%;" />
-</div>
-<br>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221007165638098.png" alt="image-20221007165638098" style="width:100%;" />
+
+
 
 ## 8.4、exists
 
@@ -1765,10 +1712,9 @@ GET /products/_search
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20221007170254465.png" alt="image-20221007170254465" style="width:100%;" />
-</div>
-<br>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221007170254465.png" alt="image-20221007170254465" style="width:100%;" />
+
+
 
 ## 8.5、ids
 
@@ -1794,9 +1740,8 @@ GET /products/_search
 }
 ```
 
-<div align="center">
-    <img src="../Images/Elasticsearch/image-20221007171001143.png" alt="image-20221007171001143" style="width:100%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221007171001143.png" alt="image-20221007171001143" style="width:100%;" />
+
 
 
 
@@ -1938,7 +1883,7 @@ public void testIndex() {
 GET /products/_mapping
 ```
 
-![image-20221030192913106](../Images/Elasticsearch/image-20221030192913106.png)
+![image-20221030192913106](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221030192913106.png)
 
 ```http
 GET /products/_search
@@ -1949,4 +1894,4 @@ GET /products/_search
 }
 ```
 
-![image-20221030224750875](../Images/Elasticsearch/image-20221030224750875.png)
+![image-20221030224750875](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221030224750875.png)

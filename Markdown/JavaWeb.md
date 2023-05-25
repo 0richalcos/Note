@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: upload
+---
+
 # 1、Servlet
 
 ## 1.1、Servlet简介
@@ -13,7 +17,7 @@ Sun 公司在其 API 中提供了一个 Servlet 接口，用户若想要开发�
 - 编写一个 Java 类，实现 Servlet 接口。
 - 把开发好的 Java  类部署到 Web 服务器中
 
-<br>
+
 
 ## 1.2、Servlet 的开发步骤
 
@@ -48,11 +52,10 @@ Sun 公司在其 API 中提供了一个 Servlet 接口，用户若想要开发�
 
 访问顺序：
 
-<div align="center">
-    <img src="../Images/JavaWeb/image-20200602000053667.png" alt="image-20200602000053667" style="width:40%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200602000053667.png" alt="image-20200602000053667" style="width:40%;" />
 
-<br>
+
+
 
 ## 1.3、Servlet 生命周期
 
@@ -67,7 +70,7 @@ Servlet 是一个供其他 Java 程序（Servlet 引擎）调用的 Java 类，�
 
 针对客户端的多次 Servlet 请求，通常情况下，服务器只会创建一个 Servlet 实例对象，也就是说 Servlet 实例对象一旦创建，它就会驻留在内存中，为后续的其它请求服务，直至 Web 容器退出，Servlet 实例对象才会销毁。
 
-<br>
+
 
 **Servlet 的运行过程**
 
@@ -79,7 +82,7 @@ Servlet 程序是由 Web 服务器调用，Web服务器收到客户端的 Servle
 4. 创建一个用于封装 HTTP 请求消息的 HttpServletRequest 对象和一个代表 HTTP 响应消息的 `HttpServletResponse` 对象，然后调用 Servlet 的 `service()` 方法并将请求和响应对象作为参数传递进去。
 5. Web 应用程序被停止或重新启动之前，Servlet 引擎将卸载 Servlet，并在卸载之前调用 Servlet 的 `destroy()` 方法。
 
-<br>
+
 
 ## 1.4、Servlet 接口实现类
 
@@ -89,7 +92,7 @@ HttpServlet 指能够处理 HTTP 请求的 Servlet，它在原有 Servlet 接口
 
 HttpServlet 在实现 Servlet 接口时，覆写了 `service` 方法，该方法体内的代码会自动判断用户的请求方式，如为 GET 请求，则调用 `HttpServlet` 的 `doGet` 方法，如为 Post 请求，则调用 `doPost` 方法。因此，开发人员在编写 Servlet 时，通常只需要覆写 `doGet` 或 `doPost` 方法，而不要去覆写 `service` 方法。
 
-<br>
+
 
 **GenericServlet**
 
@@ -160,7 +163,7 @@ public abstract class GenericServlet implements Servlet, ServletConfig {
 }
 ```
 
-<br>
+
 
 **HttpServlet**
 
@@ -217,7 +220,7 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 
 好处：直接由针对性的覆盖 `doXxx()` 方法；直接使用 `HttpServletRequest` 和 `HttpServletResponse`，不再需要强转。
 
-<br>
+
 
 ## 1.5、Servlet 的配置
 
@@ -235,7 +238,7 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 </servlet>
 ```
 
-<br>
+
 
 **配置 Servlet 路径映射配置**
 
@@ -274,7 +277,7 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 </servlet-mapping>
 ```
 
-<br>
+
 
 **Servlet 路径映射举例**
 
@@ -303,7 +306,7 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 
 - Servlet 引擎将调用 Servlet2。
 
-<br>
+
 
 **`init` 方法中的 ServletConfig 对象**
 
@@ -352,7 +355,7 @@ while(names.hasMoreElements()){
 }
 ```
 
-<br>
+
 
 ## 1.6、ServletContext
 
@@ -409,7 +412,7 @@ String contextPath = servletContext.getContextPath();
 InputStream is2 = servletContext.getResourceAsStream("/WEB-INF/classes/jdbc.properties");
 ```
 
-<br>
+
 
 ## 1.7、域对象概述
 
@@ -446,7 +449,7 @@ InputStream is2 = servletContext.getResourceAsStream("/WEB-INF/classes/jdbc.prop
 
 - `Enumeration getAttributeNames()`：获取所有域属性的名称；
 
-<br>
+
 
 ## 1.8、HttpServletResponse
 
@@ -463,7 +466,7 @@ Web 服务器收到客户端的 HTTP 请求，会针对每一次请求，分别�
 - 设置响应的内容类型：`response.setContentType("application/msword")`。
 - `sendRedirect(String location)`：请求的重定向（此方法为 `HttpServletResponse` 中定义）。
 
-<br>
+
 
 **getWriter() 和 getOutputStream() 详解**
 
@@ -485,7 +488,7 @@ Servlet 程序向 `ServletOutputStream` 或 `PrintWriter` 对象中写入的数�
 
 Serlvet 的 `service()` 方法结束后，Servlet 引擎将检查 `getWriter()` 或 `getOutputStream()` 方法返回的输出流对象是否已经调用过 `close()` 方法，如果没有，Servlet 引擎 Tomcat 将调用 `close()` 方法关闭该输出流对象。调用 `close()` 的时候，应该会调用 `flushBuffer()`。
 
-<br>
+
 
 **输出验证码图片**
 
@@ -563,7 +566,7 @@ graphics.dispose();
 ImageIO.write(image, "jpg", resp.getOutputStream());
 ```
 
-<br>
+
 
 ## 1.9、HttpServletRequest
 
@@ -571,7 +574,7 @@ ImageIO.write(image, "jpg", resp.getOutputStream());
 
 `HttpServletRequest` 是 `SerlvetRequest` 的子接口，针对于 HTTP 请求所定义，里边包含了大量获取 HTTP 请求相关的方法。
 
-<br>
+
 
 **Request 获取客户机信息**
 
@@ -588,7 +591,7 @@ ImageIO.write(image, "jpg", resp.getOutputStream());
 | `String getRequestURI()`  | 获取请求 URI，等于 项目名+Servlet 路径。/day10/AServlet      |
 | `String getRequestURL()`  | 获取请求 URL，等于不包含参数的整个请求路径。`http://localhost:8080/day10/AServlet` |
 
-<br>
+
 
 **Request 获取请求参数**
 
@@ -599,7 +602,7 @@ ImageIO.write(image, "jpg", resp.getOutputStream());
 | `Enumeration<String> getParameterNames` | 获得所有 *name*                |
 | `getParameterMap Map<String,String[ ]>` | key :name value: 多值          |
 
-<br>
+
 
 **Request 利用请求域传递对象**
 
@@ -617,7 +620,7 @@ RequestDispatcher dispatcher = request.getRequestDispatcher("/request2");
 dispatcher.forward(request, response);
 ```
 
-<br>
+
 
 ## 1.10、重定向和转发的区别
 
@@ -650,7 +653,7 @@ redirect 和 forward 是 Servlet 中的两种主要的跳转方式：redirect �
 
 - forword 只有一次请求；而 redirect 有两次请求。
 
-<br>
+
 
 # 2、@webservlet 注解详解
 
@@ -698,7 +701,7 @@ public class UserServlet extends HttpServlet {
 }
 ```
 
-<br>
+
 
 # 3、JSP
 
@@ -725,15 +728,14 @@ Java 注释：`//`、`/**/`、`/***/`，编译阶段消失
 
 HTML 注释：`<!-- … -->`, 不会消失，在页面中也能看到
 
-<br>
+
 
 ## 3.2、JSP 的运行原理
 
 JSP 其实是一种特殊的 Servlet，当 JSP 页面第一次被访问时，服务器会把 JSP 编译成 Java 文件（这个 Java 其实是一个 Servlet 类），然后再把 Java 编译成 `.class`，然后创建该类对象，最后调用它的 `service()` 方法，第二次请求同一 JSP 时，直接调用 `service()` 方法。
 
-<div align="center">
-    <img src="../Images/JavaWeb/image-20200603004751826.png" alt="image-20200603004751826" style="width:50%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200603004751826.png" alt="image-20200603004751826" style="width:50%;" />
+
 
 
 
@@ -751,7 +753,7 @@ JSP 其实是一种特殊的 Servlet，当 JSP 页面第一次被访问时，服
 - include 指令标记
 - taglib 指令标记
 
-<br>
+
 
 **page 指令标记**
 
@@ -773,7 +775,7 @@ page 指令用来定义 JSP 文件的全局属性
 | isELIgnored  | 用来指定 EL 是否被忽略。`ture` 则忽略，`false` 则计算表达式的值 | `isELIgnored="false"`                   |
 | pageEncoding | JSP 页面字符编码，其优先权高于 contentType                   | `pageEncoding="utf-8"`                  |
 
-<br>
+
 
 **include 指令标记**
 
@@ -800,7 +802,7 @@ include 指令的作用是在 JSP 页面中静态包含一个文件，同时由 
 	<%@ include file = "jw.jsp?nm=browser" %>
 	```
 
-<br>
+
 
 **taglib 指令标记**
 
@@ -813,7 +815,7 @@ taglib 指令用于在 JSP 页面中导入标签库
 - uri：标签文件的  URI 地址
 - prefix：标签组的命名空间前缀
 
-<br>
+
 
 ## 3.4、JSP 内置对象
 
@@ -831,7 +833,7 @@ taglib 指令用于在 JSP 页面中导入标签库
 | config      | 本 JSP 的 ServletConfig                  | Throwable           | page        |
 | exception   | 表示 JSP 页面运行时产生的异常            | JspWriter           | page        |
 
-<br>
+
 
 **四大域对象**
 
@@ -882,7 +884,7 @@ PageContext、Request、Session、ServletConext
 	>	`pageContext.findAttribute("x");`
 	>	会在四大作用域中自动搜索属性，顺序从低到高：page、request、session、application。如果搜索到就直接获取该值，如果所有域中都找不到，返回一个 `null`。
 
-<br>
+
 
 **通过 pageContext 获得其他对象**
 
@@ -895,7 +897,7 @@ PageContext、Request、Session、ServletConext
 - `getSession` 方法返回 session 隐式对象 
 - `getOut` 方法返回 out 隐式对象
 
-<br>
+
 
 # 4、会话管理
 
@@ -917,7 +919,7 @@ PageContext、Request、Session、ServletConext
 	
 	Session 是服务器端技术，利用这个技术，服务器在运行时可以为每一个用户的浏览器创建一个其独享的 session 对象，由于 session 为用户浏览器独享，所以用户在访问服务器的 Web 资源时，可以把各自的数据放在各自的 session 中，当用户再去访问服务器中的其它 Web 资源时，其它 Web 资源再从用户各自的 session 中取出数据为用户服务。
 
-<br>
+
 
 ## 4.1、Cookie
 
@@ -944,13 +946,12 @@ Cookie 类的方法：
 
 删除持久 cookie，可以将 cookie 最大时效设为0（然后 `addCookie()`），注意，删除 cookie 时，path 必须一致，否则不会删除。
 
-<br>
+
 
 **案例-显示用户上次访问时间**
 
-<div align="center">
-    <img src="../Images/JavaWeb/20180319145720896" alt="img" style="width:80%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180319145720896.png" alt="img" style="width:80%;" />
+
 
 
 
@@ -977,7 +978,7 @@ Session 对象由服务器创建，开发人员可以调用 Request 对象的 `g
 
 `void setMaxInactiveInterval(int interval)`：设置 session 的有效时间，默认情况 30 分服务器自动回收
 
-<br>
+
 
 **session 原理**
 
@@ -1000,21 +1001,19 @@ Session 对象由服务器创建，开发人员可以调用 Request 对象的 `g
 
 5. 如果找到对应编号的 session 对象，直接返回该对象，如果找不到对应编号的 session 对象，创建新的 session 对象，继续走1的流程
 
-<br>
+
 
 **案例 创建和获取 session**
 
 创建 session 
 
-<div align="center">
-    <img src="../Images/JavaWeb/20180319164035404" alt="img" style="width:80%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180319164035404.png" alt="img" style="width:80%;" />
+
 
 获取 session
 
-<div align="center">
-    <img src="../Images/JavaWeb/2018031916405859" alt="img" style="width:80%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/2018031916405859.png" alt="img.png" style="width:80%;" />
+
 
 
 
@@ -1026,19 +1025,14 @@ Session 对象由服务器创建，开发人员可以调用 Request 对象的 `g
 
 在服务器端生成一个唯一的随机标识号，专业术语称为 Token（令牌），同时在当前用户的 Session 域中保存这个 Token。然后将 Token 发送到客户端的 Form 表单中，在 Form 表单中使用隐藏域来存储这个 Token，表单提交的时候连同这个 Token 一起提交到服务器端，然后在服务器端判断客户端提交上来的 Token 与服务器端生成的 Token 是否一致，如果不一致，那就是重复提交了，此时服务器端就可以不处理重复提交的表单。如果相同则处理表单提交，处理完后清除当前用户的 Session 域中存储的标识号。
 
-<div align="center">
-    <img src="../Images/JavaWeb/20180320104403671" alt="img" style="width:80%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180320104403671.png" alt="img" style="width:80%;" />
 
-<div align="center">
-    <img src="../Images/JavaWeb/20180320111511238" alt="img" style="width:60%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180320111511238.png" alt="img" style="width:60%;" />
 
-<div align="center">
-    <img src="../Images/JavaWeb/20180320111547811" alt="img" style="width:80%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180320111547811.png" alt="img" style="width:80%;" />
 
-<br>
+
+
 
 # 5、过滤器
 
@@ -1046,9 +1040,7 @@ Session 对象由服务器创建，开发人员可以调用 Request 对象的 `g
 
 当然，过滤器既可以拦截 Request，也可以拦截返回的 Response
 
-<div align="center">
-    <img src="../Images/JavaWeb/1693413-20190910104134290-43589150.png" alt="img" style="width:60%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1693413-20190910104134290-43589150.png" alt="img" style="width:60%;" />
 
 **过滤器的本质就是一个实现了 Filter 接口的 Java 类**
 
@@ -1070,7 +1062,7 @@ public class FilterDemo1 implements Filter {
 }
 ```
 
-<br>
+
 
 ## 5.1、Filter 配置
 
@@ -1115,7 +1107,7 @@ public class FilterDemo1 implements Filter {
 - INCLUDE：包含访问资源：`RequestDispatcher.include();`
 - ERROR：错误跳转资源：被声明式异常处理机制调用的时候
 
-<br>
+
 
 **使用注解配置**
 
@@ -1137,7 +1129,7 @@ public class FilterDemo1 implements Filter {
 @WebFilter(value = "/*",dispatcherTypes ={DispatcherType.FORWARD,DispatcherType.FORWARD})
 ```
 
-<br>
+
 
 ## 5.2、过滤器的生命周期
 
@@ -1168,7 +1160,7 @@ public interface FilterChain {
 - 注解配置：按照类名字符串比较，值小的先执行（AFilterDemo 优先于 BFilterDemo）
 - web.xml 配置：`<filter-mapping>` 中谁在上面，谁优先执行
 
-<br>
+
 
 # 6、JSP 动态包含和静态包含
 
@@ -1181,9 +1173,8 @@ JSP 中有两种包含：
 
 项目文件树：
 
-<div align="center">
-    <img src="../Images/JavaWeb/20181212200247237.png" alt="img" style="style:60%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20181212200247237.png" alt="img" style="style:60%;" />
+
 
 header.jsp 文件中内容：
 
@@ -1221,7 +1212,7 @@ footer.jsp 文件中内容：
 </html>
 ```
 
-<br>
+
 
 **静态包含**
 
@@ -1239,17 +1230,15 @@ index.jsp 文件中内容：
 
 页面显示结果：
 
-<div align="center">
-    <img src="../Images/JavaWeb/20181212200718992.png" alt="img" style="width:30%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20181212200718992.png" alt="img" style="width:30%;" />
+
 
 被编译成的 Java 文件：
 
-<div align="center">
-    <img src="../Images/JavaWeb/20181212200734757.png" alt="img" style="width:35%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20181212200734757.png" alt="img" style="width:35%;" />
 
-<br>
+
+
 
 **动态包含**
 
@@ -1265,19 +1254,17 @@ index.jsp 文件中内容：
 
 页面显示结果：
 
-<div align="center">
-    <img src="../Images/JavaWeb/20181212200848170.png" alt="img" style="width:30%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20181212200848170.png" alt="img" style="width:30%;" />
+
 
 被编译成的 Java 文件：
 
-<div align="center">
-    <img src="../Images/JavaWeb/20181212200858508.png" alt="img" style="width:35%;" />
-</div>
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20181212200858508.png" alt="img" style="width:35%;" />
+
 
 说明：使用静态包含和动态包含最终的执行结果相同，但是实现过程不同，很明显编译成的 Java 文件数目不同。
 
-<br>
+
 
 **静态和动态包含的区别与联系**
 

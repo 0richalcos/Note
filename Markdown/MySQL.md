@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: upload
+---
+
 # 1、SQL简介
 
 SQL 是用于访问和处理数据库的标准计算机语言。
@@ -86,7 +90,7 @@ RDBMS 即关系数据库管理系统（Relational Database Management System）�
 
 MySQL 为关系型数据库（Relational Database Management System），这种所谓的 “关系型” 可以理解为 “表格” 的概念，一个关系型数据库由一个或数个表格组成，如下图所示的一个表格：
 
-<img src="../Images/MySQL/image-20200528004923567.png" alt="image-20200528004923567" style="zoom:80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200528004923567.png" alt="image-20200528004923567" style="zoom:80%;" />
 
 - 表头（header）：每一列的名称
 - 列（col）：具有相同数据类型的数据的集合
@@ -100,64 +104,64 @@ MySQL 为关系型数据库（Relational Database Management System），这种�
 
 1. 先下载 [MySQL](https://dev.mysql.com/downloads/mysql/)，现在的版本是 8.0.27：
 
-	![image-20211115115209195](../Images/MySQL/image-20211115115209195.png)
+	![image-20211115115209195](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115115209195.png)
 
 	这里下载的是 Zip 安装包版，可以点击 【Go to Download Page】，去载 MSI 安装版（这里下载的是安装版）：
 
-	![image-20211115115812248](../Images/MySQL/image-20211115115812248.png)
+	![image-20211115115812248](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115115812248.png)
 
 2. 下载后打开文件开始安装，这里选择自定义安装：
 
-	![image-20211115141345534](../Images/MySQL/image-20211115141345534.png)
+	![image-20211115141345534](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115141345534.png)
 
 3. 这里选择只安装基础的 MySQL 服务和 JDBC，并且勾选下面的选项：
 
-	![image-20211115141638695](../Images/MySQL/image-20211115141638695.png)
+	![image-20211115141638695](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115141638695.png)
 
 3. 点击 MySQL Server，下方会出现 Advanced Options（高级选项），点击高级选项，盘它！（这里是第二次装发现的，所以版本不一样）：
 
-	<img src="../Images/MySQL/image-20220320164455188.png" alt="image-20220320164455188" style="zoom: 67%;" />
+	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220320164455188.png" alt="image-20220320164455188" style="zoom: 67%;" />
 
 3. 这里可以更改安装地址，我建议改一下数据存储地址，防止数据太多占用 C 盘空间，然后点 OK 和 Next：
 
-	<img src="../Images/MySQL/image-20220320164751257.png" alt="image-20220320164751257" style="zoom:67%;" />
+	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220320164751257.png" alt="image-20220320164751257" style="zoom:67%;" />
 
 4. 取消了文档：
 
-	![image-20211115141735403](../Images/MySQL/image-20211115141735403.png)
+	![image-20211115141735403](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115141735403.png)
 
 5. 开始安装：
 
-	![image-20211115141804300](../Images/MySQL/image-20211115141804300.png)
+	![image-20211115141804300](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115141804300.png)
 
 6. 开始配置：
 
-	![image-20211115141841846](../Images/MySQL/image-20211115141841846.png)
+	![image-20211115141841846](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115141841846.png)
 
 7. 选择开发电脑：
 
-	![image-20211115142116388](../Images/MySQL/image-20211115142116388.png)
+	![image-20211115142116388](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142116388.png)
 
 8. 这里使用默认的加密加密方法：
 
-	![image-20211115142310317](../Images/MySQL/image-20211115142310317.png)
+	![image-20211115142310317](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142310317.png)
 
 9. 填写数据库密码：
 
-	![image-20211115142333702](../Images/MySQL/image-20211115142333702.png)
+	![image-20211115142333702](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142333702.png)
 
 10. 取消开机自启：
 
-	![image-20211115142440712](../Images/MySQL/image-20211115142440712.png)
+	![image-20211115142440712](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142440712.png)
 
 11. 应用配置：
 
-	![image-20211115142501957](../Images/MySQL/image-20211115142501957.png)
+	![image-20211115142501957](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142501957.png)
 
 12. 配置环境变量：
 
-	![image-20211115142610319](../Images/MySQL/image-20211115142610319.png)
-	![image-20211115142647651](../Images/MySQL/image-20211115142647651.png)
+	![image-20211115142610319](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142610319.png)
+	![image-20211115142647651](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142647651.png)
 
 13. 访问：
 
@@ -289,7 +293,7 @@ MySQL 提供了多个不同的存储引擎，包括处理事务安全表的引�
 
 支持的存储引擎有 InnoDB、MyISAM、Memory、Merge、Archive、Federated、CSV、BLACKHOLE 等。可以使用 `SHOW ENGINES` 语句查看系统所支持的引擎类型，结果如图所示：
 
-<img src="../Images/MySQL/image-20200528235456064.png" alt="image-20200528235456064" style="zoom: 67%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200528235456064.png" alt="image-20200528235456064" style="zoom: 67%;" />
 
 Support 列的值表示某种引擎是否能使用，YES 表示可以使用，NO 表示不能使用，DEFAULT 表示该引擎为当前默认的存储引擎。
 
@@ -888,7 +892,7 @@ ALTER TABLE Persons ALTER City DROP DEFAULT;
 SHOW CREATE TABLE <数据表名>;
 ```
 
-<br>
+
 
 # 6、增、删、改
 
@@ -924,7 +928,7 @@ VALUES
 
 实例中 `NOW()`是一个 MySQL 函数，该函数返回日期和时间
 
-<br>
+
 
 **INSERT 多条数据**
 
@@ -939,7 +943,7 @@ VALUES
 
 如果第一列是自增可以在添加数据的时候，写为 0 或 `NULL`，这样添加数据可以自增，从而可以添加全部数据，而不用特意规定哪几列添加数据。
 
-<br>
+
 
 **复制表**
 
@@ -974,7 +978,7 @@ VALUES
 	```
 
 
-<br>
+
 
 ## 6.2、删除数据
 
@@ -1029,13 +1033,13 @@ UPDATE <表名> SET field1=new_VALUE1, field2=new_VALUE2
 - 你可以在WHERE子句中指定任何条件
 - 你可以在一个单独表中同时更新数据
 
-<br>
+
 
 # 7、查询数据
 
 `SELECT` 语句用于从数据库中选取数据，结果被存储在一个结果表中，称为结果集。
 
-<br>
+
 
 ## 7.1、限制查询结果数和偏移
 
@@ -1074,7 +1078,7 @@ SELECT * FROM _TABLE LIMIT (page_number-1)*lines_perpage, lines_perpage
 SELECT * FROM _TABLE LIMIT lines_perpage OFFSET (page_number-1)*lines_perpage
 ```
 
-<br>
+
 
 ## 7.2、WHERE 条件查询
 
@@ -1102,7 +1106,7 @@ SELECT field1, field2,…fieldN FROM TABLE_name1, TABLE_name2…
 [WHERE BINARY condition1 [AND | OR] condition2…]
 ```
 
-<br>
+
 
 ### 7.2.1、WHERE的运算符
 
@@ -1122,7 +1126,7 @@ SELECT field1, field2,…fieldN FROM TABLE_name1, TABLE_name2…
 | `OR`      | 或                                                           |
 | `NOT`     | 非                                                           |
 
-<br>
+
 
 **MySQL的整除和取余**
 
@@ -1138,7 +1142,7 @@ SELECT field1, field2,…fieldN FROM TABLE_name1, TABLE_name2…
 5 MOD 2 = 1;
 ```
 
-<br>
+
 
 ### 7.2.2、LIKE 子句
 
@@ -1164,7 +1168,7 @@ WHERE field1 LIKE condition1 [and | or] field2 = 'someVALUE'
 - `%`：表示任意 0 个或多个字符，可匹配任意类型和长度的字符，有些情况下若是中文，请使用两个百分号（`%%`）表示。
 - `_`：表示任意单个字符，匹配单个任意字符，常用来限制表达式的字符长度语句。 
 
-<br>
+
 
 ### 7.2.3、EXISTS 运算符
 
@@ -1179,7 +1183,7 @@ WHERE EXISTS
 (SELECT column_name FROM table_name WHERE condition);
 ```
 
-<br>
+
 
 **IN 和 EXISTS 的区别和分析**
 
@@ -1206,7 +1210,7 @@ SELECT * FROM A WHERE EXISTS (SELECT 1 FROM B WHERE A.id = B.id);
 - A 表有 10000 条记录，B 表有 100000000 条记录，那么 `EXISTS()` 还是执行 10000次，因为它只执行 A.length 次，可见 B 表数据越多，越适合 `EXISTS()` 发挥效果。
 - A 表有 10000 条记录，B 表有 100 条记录，那么 `EXISTS()` 还是执行 10000 次，还不如使用 `IN()` 遍历 10000*100 次，因为 `IN()` 是在内存里遍历比较，而 `EXISTS()` 需要查询数据库，我们都知道查询数据库所消耗的性能更高，而内存比较很快。
 
-<br>
+
 
 ## 7.3、连接的使用
 
@@ -1220,7 +1224,7 @@ SELECT * FROM A WHERE EXISTS (SELECT 1 FROM B WHERE A.id = B.id);
 
 建两张表，第一张表命名为 kemu，第二张表命名为 score：
 
-![clipboard.png](../Images/MySQL/bVbk2or.png)![clipboard.png](../Images/MySQL/bVbk2oz.png)
+![clipboard.png](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/bVbk2or.png)![clipboard.png](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/bVbk2oz.png)
 
 
 
@@ -1236,7 +1240,7 @@ select * from kemu left join score on kemu.id = score.id
 
 结果集：
 
-![clipboard.png](../Images/MySQL/bVbk2uE.png)![clipboard.png](../Images/MySQL/bVbk2qQ.png)
+![clipboard.png](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/bVbk2uE.png)![clipboard.png](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/bVbk2qQ.png)
 
 
 
@@ -1250,7 +1254,7 @@ select * from kemu right join score on kemu.id = score.id
 
 结果集：
 
-![clipboard.png](../Images/MySQL/bVbk2uI.png)![clipboard.png](../Images/MySQL/bVbk2uP.png)
+![clipboard.png](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/bVbk2uI.png)![clipboard.png](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/bVbk2uP.png)
 
 
 
@@ -1264,7 +1268,7 @@ select * from kemu join score on kemu.id = score.id
 
 结果集：
 
-![clipboard.png](../Images/MySQL/bVbk2v1.png)![clipboard.png](../Images/MySQL/bVbk2MW.png)
+![clipboard.png](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/bVbk2v1.png)![clipboard.png](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/bVbk2MW.png)
 
 
 
@@ -1279,7 +1283,7 @@ select * from kemu join score on kemu.id = score.id
 
 假设有两张表：
 
-![image-20211129161954956](../Images/MySQL/image-20211129161954956.png)![image-20211129162050479](../Images/MySQL/image-20211129162050479.png)
+![image-20211129161954956](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211129161954956.png)![image-20211129162050479](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211129162050479.png)
 
 两条 SQL：
 
@@ -1288,7 +1292,7 @@ select * form tab1 left join tab2 on (tab1.size = tab2.size) where tab2.name='AA
 select * form tab1 left join tab2 on (tab1.size = tab2.size and tab2.name='AAA’)
 ```
 
-![image-20211129162254328](../Images/MySQL/image-20211129162254328.png)![image-20211129162304566](../Images/MySQL/image-20211129162304566.png)
+![image-20211129162254328](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211129162254328.png)![image-20211129162304566](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211129162304566.png)
 
 
 
@@ -1332,7 +1336,7 @@ SELECT * FROM <表名> ORDER BY <字段名> ASC;
 SELECT * FROM <表名> ORDER BY CONVERT(<字段名> USING gbk) ASC;
 ```
 
-<br>
+
 
 ## 7.5、分组
 
@@ -1348,13 +1352,13 @@ GROUP BY column_name;
 
 `GROUP BY` 必须出现在 `FROM` 和 `WHERE` 之后。
 
-<br>
+
 
 ### 7.5.1、ROLLUP
 
 在数据库查询语句中，在 `GROUP BY` 表达式之后加上 `WITH ROLLUP` 语句，可以在查询结果中包含更多高层级的统计输出。ROLLUP 功能使得可以通过单个查询语句来实现对数据进行不同层级上的分析与统计。因此，ROLLUP 功能能够很好得为 OLAP（Online Analytical Processing）任务提供支持。
 
-<br>
+
 
 #### 功能介绍
 
@@ -1473,7 +1477,7 @@ GROUP BY
 
 因此，借助 `ROLLUP`，我们通过一条查询语句就能够得到 `GROUP BY` 的属性列在不同层次上的聚合结果。适用于需要在不同层次上对数据进行统计分析的场景，不仅省去了写多条查询语句重复查询的麻烦，而且提升了执行效果。
 
-<br>
+
 
 #### GROUPING()
 
@@ -1577,8 +1581,6 @@ GROUP BY
 ```
 
 
-
-<br>
 
 ### 7.5.2、HAVING 子句
 
@@ -1711,17 +1713,17 @@ MySQL使用SELECT命令及WHERE子句来读取数据表中的数据，但是当�
 
 实例：
 
-<img src="../Images/MySQL/image-20200531163220282.png" alt="image-20200531163220282" style="zoom:80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531163220282.png" alt="image-20200531163220282" style="zoom:80%;" />
 
 当输出列中有NULL值时可以使用函数IFNULL()或COALESCE()
 
-<br>
+
 
 ## 7.9、WITH（CTE）
 
 MySQL 的 CTE 是在 MySQL 8.0 版本开始支持的，公用表表达式 （CTE） 是一个命名的临时结果集，它存在于单个语句的范围内，以后可以在该语句中引用，可能多次引用。
 
-<br>
+
 
 ### 7.9.1、公用表表达式
 
@@ -1735,7 +1737,7 @@ SELECT b, d FROM cte1 JOIN cte2
 WHERE cte1.a = cte2.c;
 ```
 
-<br>
+
 
 在包含 `WITH` 子句的语句中，可以引用每个 CTE 名称来访问相应的 CTE 结果集。
 
@@ -1743,7 +1745,7 @@ CTE 名称可以在其他 CTE 中引用，从而可以根据其他 CTE 定义 CT
 
 CTE 可以引用自身来定义递归 CTE。递归 CTE 的常见应用包括序列生成和层次结构或树结构数据的遍历。
 
-<br>
+
 
 公用表表达式是 DML 语句语法的可选部分。它们是使用 `WITH` 子句定义的：
 
@@ -1759,7 +1761,7 @@ WITH [RECURSIVE]
 
 如果公共表表达式的子查询引用自己的名称，则该表达式是递归的。如果 `WITH` 子句中的任何 CTE 是递归的，则必须包含 `RECURSIVE` 关键字 。
 
-<br>
+
 
 定义 CTE 的列名有以下情况：
 
@@ -1789,7 +1791,7 @@ WITH [RECURSIVE]
 	SELECT col1, col2 FROM cte;
 	```
 
-<br>
+
 
 在这些情况下，允许使用 `WITH` 子句：
 
@@ -1819,7 +1821,7 @@ WITH [RECURSIVE]
 	EXPLAIN ... WITH ... SELECT ...
 	```
 
-<br>
+
 
 同一级别只允许一个 `WITH` 子句。`WITH` 后面跟着 `WITH` 是不允许的，这是非法的：
 
@@ -1852,7 +1854,7 @@ WITH cte1 AS (...), cte1 AS (...) SELECT ...
 WITH cte1 AS (...), cte2 AS (...) SELECT ...
 ```
 
-<br>
+
 
 一个 CTE 可以引用自己，也可以引用其他 CTE：
 
@@ -1860,7 +1862,7 @@ WITH cte1 AS (...), cte2 AS (...) SELECT ...
 - CTE 可以引用前面在同一个 `WITH` 子句中定义的 CTE，但不能引用后面定义的 CTE。
 - 给定查询块中的 CTE 可以引用在更外部级别的查询块中定义的 CTE，但不能引用在更内部级别的查询块中定义的 CTE。
 
-<br>
+
 
 ### 7.9.2、递归公用表表达式
 
@@ -1890,7 +1892,7 @@ SELECT * FROM cte;
 +------+
 ```
 
-<br>
+
 
 递归 CTE 具有以下结构：
 
@@ -1920,7 +1922,7 @@ SELECT * FROM cte;
 
 - 递归部分的每个迭代只对前一个迭代产生的行进行操作。如果递归部分有多个查询块，每个查询块的迭代将以非指定的顺序调度，每个查询块对其前一次迭代或前一次迭代结束后的其他查询块所产生的行进行操作。
 
-<br>
+
 
 前面显示的递归 CTE 子查询有这个非递归部分，它检索了一条记录来产生初始行集：
 
@@ -1936,7 +1938,7 @@ SELECT n + 1 FROM cte WHERE n < 5
 
 在每个迭代中，`SELECT` 产生一个新的值，比前一个行集的 `n` 的值大 `1`。第一次迭代在初始行集（1）上操作，产生 `1+1=2`；第二次迭代在第一次迭代的行集（2）上操作，产生 `2+1=3`；以此类推。这样一直持续到递归结束，当 `n` 不再小于 `5` 的时候，递归就结束了。
 
-<br>
+
 
 如果一个 CTE 的递归部分对某一列产生的值比非递归部分更宽，那么可能需要在非递归部分扩大该列，以避免数据被截断。考虑一下这个语句：
 
@@ -1994,7 +1996,7 @@ SELECT * FROM cte;
 +------+--------------+
 ```
 
-<br>
+
 
 列是通过名称而不是位置来访问的，这意味着递归部分的列可以访问非递归部分中具有不同位置的列，如这个 CTE 所示：
 
@@ -2022,7 +2024,7 @@ SELECT * FROM cte;
 +------+------+------+
 ```
 
-<br>
+
 
 一些语法约束适用于递归 CTE 子查询中：
 
@@ -2040,7 +2042,7 @@ SELECT * FROM cte;
 
 - 递归 `SELECT` 部分必须只引用一次 CTE，并且只在它的 `FROM` 子句中，而不是在任何子查询中。它可以引用除 CTE 以外的表，并且用 CTE 连接它们。如果在这样的连接中使用，CTE 不能在 `LEFT JOIN` 的右边。
 
-<br>
+
 
 对于递归 CTE，递归 `SELECT` 部分在 `EXPLAIN` 输出行 `Extra` 列中显示 `Recursive`。
 
@@ -2048,7 +2050,7 @@ SELECT * FROM cte;
 
 CTE 的实际成本也可能受到结果集大小的影响。产生许多行的 CTE 可能需要一个足够大的内部临时表来将内存格式转换为磁盘格式，并且可能会损失性能。如果是这样，增加内存中允许的临时表大小可能会提高性能。
 
-<br>
+
 
 ### 7.9.3、限制公共表表达式递归
 
@@ -2135,7 +2137,7 @@ SELECT /*+ MAX_EXECUTION_TIME(1000) */ * FROM cte;
 
 如果一个没有执行时间限制的递归查询进入无限循环，你可以使用 `KILL QUERY` 从另一个会话终止它。在会话本身中，用于运行查询的客户程序可能提供一种方法来终止查询。例如，在 mysql 中，键入 `Control+C` 可以中断当前语句。
 
-<br>
+
 
 ### 7.9.4、递归公共表表达式示例
 
@@ -2145,7 +2147,7 @@ SELECT /*+ MAX_EXECUTION_TIME(1000) */ * FROM cte;
 - 日期序列生成
 - 分层数据遍历
 
-<br>
+
 
 #### 斐波那契序列生成
 
@@ -2201,7 +2203,7 @@ mysql> WITH RECURSIVE fibonacci ...
 +-------+
 ```
 
-<br>
+
 
 #### 日期序列生成
 
@@ -2317,7 +2319,7 @@ ORDER BY dates.date;
 - 这些查询是否效率低下，特别是在递归 `SELECT` 中对每条记录执行 `MAX()`子查询的查询？`EXPLAIN` 显示，包含 `MAX()`的子查询只计算一次，并且结果会被缓存。
 - 使用 `COALESCE()` 可以避免在销售表中没有销售数据的日子里，`sum_price` 列显示 `NULL`。
 
-<br>
+
 
 #### 分层数据遍历
 
@@ -2417,7 +2419,7 @@ mysql> WITH RECURSIVE ...
 +------+-------+-----------------+
 ```
 
-<br>
+
 
 ### 7.9.5、CTE 和类似结构的比较
 
@@ -2442,7 +2444,7 @@ SELECT * FROM (SELECT 1) AS dt;
 
 CTE 类似于用 `CREATE [TEMPORARY] TABLE` 创建的表，但不需要明确定义或删除。对于 CTE，你不需要任何权限来创建表。
 
-<br>
+
 
 ## 7.10、窗口函数
 
@@ -3405,7 +3407,7 @@ CREATE VIEW <视图名> AS <SELECT语句>
 
 默认情况下，创建的视图和基本表的字段是一样的，也可以通过指定视图字段的名称来创建视图。
 
-<img src="../Images/MySQL/image-20200531164924587.png" alt="image-20200531164924587" style="zoom:80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531164924587.png" alt="image-20200531164924587" style="zoom:80%;" />
 
 
 
@@ -3515,7 +3517,7 @@ SET @p_in=1
 DECLARE l_INT UNSIGNED DEFAULT 1;
 ```
 
-可以使用 ==SHOW PROCEDURE STATUS== 命令查看数据库中存在哪些存储过程，若要查看某个存储过程的具体信息，则可以使用 ==SHOW CREATE PROCEDURE <存储过程名>==。
+可以使用 `SHOW PROCEDURE STATUS` 命令查看数据库中存在哪些存储过程，若要查看某个存储过程的具体信息，则可以使用 `SHOW CREATE PROCEDURE <存储过程名>`。
 
 
 
@@ -3621,7 +3623,7 @@ CREATEPROCEDURE 存储过程名([IN,OUT,INOUT] 参数名 数据类形...)
 - 返回值使用OUT参数。
 - INOUT参数就尽量的少用。
 
- <br>
+
 
 ## 9.3、变量
 
@@ -3629,7 +3631,7 @@ MySQL 变量可分为两大类，即**系统变量**和**用户变量**。
 
 但根据实际应用又被细化为四种类型，即**局部变量**、**用户变量**、**会话变量**和**全局变量**。
 
-<br>
+
 
 ### 9.3.1、各种变量的介绍
 
@@ -3657,7 +3659,7 @@ DECLARE variable_name datatype [DEFAULT VALUE];
 	select StuAge into age from demo.student where StuNo='A001';
 	```
 
-<br>
+
 
 **用户变量**
 
@@ -3685,18 +3687,18 @@ MySQL 用户变量，MySQL 中用户变量不用提前申明，在用的时候�
 
 在存储过程中使用用户变量：
 
-<img src="../Images/MySQL/image-20200531171451044.png" alt="image-20200531171451044" style="zoom:80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531171451044.png" alt="image-20200531171451044" style="zoom:80%;" />
 
 在存储过程间传递全局范围的用户变量：
 
-<img src="../Images/MySQL/image-20200531171500385.png" alt="image-20200531171500385" style="zoom:80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531171500385.png" alt="image-20200531171500385" style="zoom:80%;" />
 
 注意:
 
 - 用户变量名一般以 `@` 开头
 - 滥用用户变量会导致程序难以理解及管理
 
-<br>
+
 
 **会话变量**
 
@@ -3749,7 +3751,7 @@ set @@local.auto_increment_increment=1;
 select @@local.auto_increment_increment;
 ```
 
-<br>
+
 
 **全局变量**
 
@@ -3785,7 +3787,7 @@ show global variables;
 	show global variables like '%sql_warnings%';
 	```
 
-<br>
+
 
 ### 9.3.2、使用变量进行累加计算
 
@@ -3851,7 +3853,7 @@ FROM
   (SELECT @i := 0 ) AS b
 ```
 
-<br>
+
 
 ## 9.4、存储过程的删除
 
@@ -3875,7 +3877,7 @@ SHOWCREATE PROCEDURE 数据库.存储过程名;
 
 内部的变量在其作用域范围内享有更高的优先权，当执行到 end。变量时，内部变量消失，此时已经在其作用域外，变量不再可见了，应为在存储过程外再也不能找到这个申明的变量，但是你可以通过 out 参数或者将其值指派给会话变量来保存其值。
 
-<img src="../Images/MySQL/image-20200531195043445.png" alt="image-20200531195043445" style="zoom:80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531195043445.png" alt="image-20200531195043445" style="zoom:80%;" />
 
 
 
@@ -3883,13 +3885,13 @@ SHOWCREATE PROCEDURE 数据库.存储过程名;
 
 **if-then-else**
 
-<img src="../Images/MySQL/image-20200531195130654.png" alt="image-20200531195130654" style="zoom:80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531195130654.png" alt="image-20200531195130654" style="zoom:80%;" />
 
 
 
 **case语句**
 
-<img src="../Images/MySQL/image-20200531195143678.png" alt="image-20200531195143678" style="zoom:80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531195143678.png" alt="image-20200531195143678" style="zoom:80%;" />
 
 
 
@@ -3897,7 +3899,7 @@ SHOWCREATE PROCEDURE 数据库.存储过程名;
 
 **while ···· end while**
 
-<img src="../Images/MySQL/image-20200531195208679.png" alt="image-20200531195208679" style="zoom:80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531195208679.png" alt="image-20200531195208679" style="zoom:80%;" />
 
 
 
@@ -3905,7 +3907,7 @@ SHOWCREATE PROCEDURE 数据库.存储过程名;
 
 它在执行操作后检查结果，而 while 则是执行前进行检查。
 
-<img src="../Images/MySQL/image-20200531195231262.png" alt="image-20200531195231262" style="zoom:80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531195231262.png" alt="image-20200531195231262" style="zoom:80%;" />
 
 
 
@@ -3913,7 +3915,7 @@ SHOWCREATE PROCEDURE 数据库.存储过程名;
 
 loop 循环不需要初始条件，这点和 while 循环相似，同时和 repeat 循环一样不需要结束条件, leave 语句的意义是离开循环。
 
-<img src="../Images/MySQL/image-20200531195245319.png" alt="image-20200531195245319" style="zoom:80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531195245319.png" alt="image-20200531195245319" style="zoom:80%;" />
 
 
 
@@ -3927,7 +3929,7 @@ loop 循环不需要初始条件，这点和 while 循环相似，同时和 repe
 
 ITERATE 通过引用复合语句的标号,来从新开始复合语句:
 
-<img src="../Images/MySQL/image-20200531195350919.png" alt="image-20200531195350919" style="zoom:80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531195350919.png" alt="image-20200531195350919" style="zoom:80%;" />
 
 # 10、触发器
 
@@ -4036,7 +4038,7 @@ ON <表名> FOR EACH ROW<触发器主体>
 
 注意：每个表都支持 INSERT、UPDATE 和 DELETE 的 BEFORE 与 AFTER，因此每个表最多支持 6 个触发器。每个表的每个事件每次只允许有一个触发器。单一触发器不能与多个事件或多个表关联。
 
-另外，在 MySQL 中，若需要查看数据库中已有的触发器，则可以使用 ==SHOW TRIGGERS== 语句。
+另外，在 MySQL 中，若需要查看数据库中已有的触发器，则可以使用 `SHOW TRIGGERS` 语句。
 
 
 
@@ -4088,7 +4090,7 @@ RETURNS <类型>
 
 若要查看数据库中存在哪些自定义函数，可以使用 SHOW FUNCTION STATUS 语句；若要查看数据库中某个具体的自定义函数，可以使用 SHOW CREATE FUNCTION<函数名> 语句，其中<函数名>用于指定该自定义函数的名称。
 
-<img src="../Images/MySQL/image-20200531205053160.png" alt="image-20200531205053160" style="zoom:80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531205053160.png" alt="image-20200531205053160" style="zoom:80%;" />
 
 成功创建自定义函数后，就可以如同调用系统内置函数一样，使用关键字 SELECT 调用用户自定义的函数，语法格式为：
 
@@ -4149,7 +4151,7 @@ MYSQL事务处理主要有两种方法：
 
 实例：
 
-<img src="../Images/MySQL/image-20200531205816289.png" alt="image-20200531205816289" style="zoom:80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531205816289.png" alt="image-20200531205816289" style="zoom:80%;" />
 
 
 
@@ -4162,7 +4164,7 @@ MYSQL事务处理主要有两种方法：
 - **隔离性（Isolation）**：数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。事务隔离分为不同级别，包括读未提交、读已提交、可重复读和串行化
 - **持久性（Durability）**：事务处理结束后，对数据的修改就是永久的，即使系统故障也不会丢失
 
-<br>
+
 
 ## 12.2、事务的隔离级别
 
@@ -4174,7 +4176,7 @@ MYSQL事务处理主要有两种方法：
 - 不可重复读：一个事务重新读取前面读取过的数据， 发现该数据已经被另一个已提交的事务修改过。
 - 虚读（幻读）：一个事务重新执行一个查询，返回一套符合查询条件的行， 发现这些行因为其他最近提交的事务而发生了改变。
 
-<br>
+
 
 **脏读**
 
@@ -4189,7 +4191,7 @@ update account set money=money-100 while name='a';
 
 当第1条sql执行完，第2条还没执行(A未提交时)，如果此时Ｂ查询自己的帐户，就会发现自己多了100元钱。如果A等B走后再回滚，B就会损失100元。
 
-<br>
+
 
 **不可重复读**
 
@@ -4201,7 +4203,7 @@ update account set money=money-100 while name='a';
 
 很多人认为这种情况就对了，无须困惑，当然是后面的为准。我们可以考虑这样一种情况，比如银行程序需要将查询结果分别输出到电脑屏幕和写到文件中，结果在一个事务中针对输出的目的地，进行的两次查询不一致，导致文件和屏幕中的结果不一致，银行工作人员就不知道以哪个为准了。
 
-<br>
+
 
 **虚读(幻读)**
 
@@ -4210,7 +4212,7 @@ update account set money=money-100 while name='a';
 
 > 这里注意：不可重复读针对的是修改操作，幻读针对的是新增记录的操作
 
-<br>
+
 
 **事务隔离性的设置**
 
@@ -4226,7 +4228,7 @@ set session transaction isolation level XXX #（XXX代表隔离级别）设置�
 select @@transaction_isolation;  #查询当前事务隔离级别
 ```
 
-<br>
+
 
 **演示脏读**
 
@@ -4265,7 +4267,7 @@ select @@transaction_isolation;  #查询当前事务隔离级别
 	rollback;
 	```
 
-<br>
+
 
 **演示不可重复读（避免脏读）**
 
@@ -4302,7 +4304,7 @@ select @@transaction_isolation;  #查询当前事务隔离级别
 
 6. B窗口的数据已经提交了，在A窗口中查询数据，发现两次查询的结果发生了变化，这就导致了不可重复读的发生。
 
-<br>
+
 
 **避免不可重复读**
 
@@ -4339,7 +4341,7 @@ select @@transaction_isolation;  #查询当前事务隔离级别
 
 6. B窗口的数据已经提交了，在A窗口中查询数据，发现两次查询的结果一致，说明已经避免了不可重复读的发生。
 
-<br>
+
 
 **避免虚读**
 
@@ -4367,7 +4369,7 @@ select @@transaction_isolation;  #查询当前事务隔离级别
 	select * from user;
 	```
 
-<br>
+
 
 # 13、索引
 
@@ -4452,7 +4454,7 @@ MySQL临时表在需要保存一些临时数据时是非常有用的。临时表
 
 实例：
 
-<img src="../Images/MySQL/image-20200531210628430.png" alt="image-20200531210628430" style="zoom:80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531210628430.png" alt="image-20200531210628430" style="zoom:80%;" />
 
 当使用SHOW TABLES命令显示数据表列表时，将无法看到SalesSummary表。
 
@@ -4464,7 +4466,7 @@ MySQL临时表在需要保存一些临时数据时是非常有用的。临时表
 
 默认情况下，在断开与数据库的连接后，临时表就会自动销毁，当然也可以在当前MySQL会话使用DROP TABLE命令来手动删除临时表。
 
-<img src="../Images/MySQL/image-20200531210706162.png" alt="image-20200531210706162" style="zoom:80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531210706162.png" alt="image-20200531210706162" style="zoom:80%;" />
 
 
 
@@ -4613,7 +4615,7 @@ PERIOD_DIFF(startDate,endDate)
 SELECT PERIOD_DIFF(201710, 201703);
 ```
 
-![img](../Images/MySQL/12312312.png)
+![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/12312312.png)
 
 如果小月份放前面，那么返回负数 -1。
 
@@ -4639,7 +4641,7 @@ SELECT DATEDIFF(DATE_FORMAT(NOW(), '%Y-%m-%d'),DATE_FORMAT('2018-09-10','%Y-%m-%
 
 结果：
 
-<img src="../Images/MySQL/20180917110456408370.png" alt="技术分享图片" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180917110456408370.png" alt="技术分享图片" />
 
 
 
@@ -4673,7 +4675,7 @@ unit 参数是确定 (*end*-*begin*) 的结果的单位，表示为整数。 以
 SELECT TIMESTAMPDIFF(DAY,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
 ```
 
-<img src="../Images/MySQL/20180917110456532385.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180917110456532385.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
 
 2017-05-01 距现在多少年：
 
@@ -4681,7 +4683,7 @@ SELECT TIMESTAMPDIFF(DAY,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
 SELECT TIMESTAMPDIFF(YEAR,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
 ```
 
-<img src="../Images/MySQL/99f5964ea791f1ca0521e3fb4bc1ab96.png" alt="img" style="zoom:80%;FLOAT:LEFT"  />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/99f5964ea791f1ca0521e3fb4bc1ab96.png" alt="img" style="zoom:80%;FLOAT:LEFT"  />
 
 2017-05-01 距现在多少月：
 
@@ -4689,7 +4691,7 @@ SELECT TIMESTAMPDIFF(YEAR,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
 SELECT TIMESTAMPDIFF(MONTH,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
 ```
 
-<img src="../Images/MySQL/20180917110456254083.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180917110456254083.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
 
 
 
@@ -4701,7 +4703,7 @@ SELECT NOW(),CURDATE(),CURTIME();
 
 结果类似：
 
-<img src="../Images/MySQL/755765-20190227093739650-528895218.png" alt="img" style="zoom:80%;float:left" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/755765-20190227093739650-528895218.png" alt="img" style="zoom:80%;float:left" />
 
 
 
@@ -4739,7 +4741,7 @@ SELECT DATE_SUB(CURDATE(),INTERVAL 1 DAY);
 
 当前日期 2018-09-17，结果：
 
-<img src="../Images/MySQL/20180917110455670136.png" alt="技术分享图片" style="zoom:80%;float:left" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180917110455670136.png" alt="技术分享图片" style="zoom:80%;float:left" />
 
 获取后一天
 
@@ -4749,7 +4751,7 @@ SELECT DATE_SUB(CURDATE(),INTERVAL -1 DAY);
 
 当前日期 2018-09-17，结果：
 
-<img src="../Images/MySQL/20180917110455998240.png" alt="技术分享图片" style="zoom:80%;float:left" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180917110455998240.png" alt="技术分享图片" style="zoom:80%;float:left" />
 
 
 
@@ -5111,7 +5113,7 @@ DriverManager类的是管理一组 JDBC 驱动程序的基本服务。作用有�
 
 URL用于标识数据库的位置，程序员通过URL地址告诉JDBC程序连接哪个数据库，URL的写法为：
 
-<img src="../Images/MySQL/image-20200603120231842.png" alt="image-20200603120231842" style="zoom:80%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200603120231842.png" alt="image-20200603120231842" style="zoom:80%;" />
 
 
 
@@ -5271,7 +5273,7 @@ while (rs.next()) {
 
 
 
-==使用JDBC完成数据的CURD操作具有很多重复性的代码，像驱动加载、获取链接、释放资源等，所以可以封装成工具类方便使用。==
+使用JDBC完成数据的CURD操作具有很多重复性的代码，像驱动加载、获取链接、释放资源等，所以可以封装成工具类方便使用。
 
 
 
@@ -5418,7 +5420,7 @@ Connection接口中定义事务隔离级别四个常量：
 
 	现在是 mysql 数据库是没有密码的，Enter password: 处直接回车，就能够进入 mysql 数据库。
 
-<br>
+
 
 **初始化数据库**
 
@@ -5488,7 +5490,7 @@ Success.
 All done!
 ```
 
-<br>
+
 
 ## 18.2、远程访问
 
@@ -5531,7 +5533,7 @@ vim /etc/mysql/mysql.conf.d/mysqld.cnf
 
 注释掉 `bind-address`：
 
-![image-20210420120254515](../Images/MySQL/image-20210420120254515.png)
+![image-20210420120254515](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210420120254515.png)
 
 重启服务：
 
@@ -5541,7 +5543,7 @@ service mysql restart
 
 测试远程访问
 
-<br>
+
 
 ## 18.3、卸载
 
@@ -5567,7 +5569,7 @@ service mysql restart
 
 4. 如果看到没有删除的文件记得手动删除：
 
-	![image-20210420112319964](../Images/MySQL/image-20210420112319964.png)
+	![image-20210420112319964](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210420112319964.png)
 
 5. 清除残留数据：
 
@@ -5583,9 +5585,9 @@ service mysql restart
 
 7. 删除 MySQL 的数据库信息，位置：`/var/lib/mysql/`：
 
-	![image-20210420112705768](../Images/MySQL/image-20210420112705768.png)
+	![image-20210420112705768](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210420112705768.png)
 
-<br>
+
 
 # 20、其他
 

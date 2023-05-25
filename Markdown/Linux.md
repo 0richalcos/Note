@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: upload
+---
+
 # 1、Linux 简介
 
 Linux 英文解释为 **Linux is not Unix**。
@@ -14,11 +18,11 @@ Linux 能运行主要的 UNIX 工具软件、应用程序和网络协议。它�
 
 Linux 的发行版说简单点就是将 Linux 内核与应用软件做一个打包。
 
-![img](../Images/Linux/1511849829609658.jpg)
+![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1511849829609658.jpg)
 
 目前市面上较知名的发行版有：Ubuntu、RedHat、CentOS、Debian、Fedora、SuSE、OpenSUSE、Arch Linux、SolusOS 等。
 
-![img](../Images/Linux/wKioL1bvVPWAu7hqAAEyirVUn3c446.jpg-wh_651x-s_3197843091.jpg)
+![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/wKioL1bvVPWAu7hqAAEyirVUn3c446.jpg-wh_651x-s_3197843091.jpg)
 
 这里用的 Linux 版本是 Ubuntu 20.04 64位。
 
@@ -26,7 +30,7 @@ Linux 的发行版说简单点就是将 Linux 内核与应用软件做一个打�
 
 # 2、系统目录结构
 
-![preview](../Images/Linux/7ebc125005bebe6a6c0a2daa6c4d7f6e_r.jpg)
+![preview](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/7ebc125005bebe6a6c0a2daa6c4d7f6e_r.jpg)
 
 
 
@@ -122,11 +126,11 @@ drwxr-xr-x   3 root root      4096 Nov 12 09:27 boot
 
 接下来的字符中，以三个为一组，且均为 `rwx` 的三个参数的组合。其中， `r` 代表可（read）、 `w` 代表可写（write）、 `x` 代表可执行（execute）。 要注意的是，这三个权限的位置不会改变，如果没有权限，就会出现减号 `-` 而已。
 
-![img](../Images/Linux/file-llls22.jpg)
+![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/file-llls22.jpg)
 
 每个文件的属性由左边第一部分的 10 个字符来确定（如下图）。
 
-![363003_1227493859FdXT](../Images/Linux/363003_1227493859FdXT.png)
+![363003_1227493859FdXT](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/363003_1227493859FdXT.png)
 
 从左至右用 0-9 这些数字来表示。
 
@@ -233,7 +237,7 @@ chmod [-R] xyz 文件或目录
 
 那么就可以使用 **u, g, o** 来代表三种身份的权限。此外， **a** 则代表 **all**，即全部的身份。读写的权限可以写成 `r, w, x`，也就是可以使用下表的方式来看：
 
-![image-20211114155622930](../Images/Linux/image-20211114155622930.png)
+![image-20211114155622930](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211114155622930.png)
 
 如果需要将文件权限设置为 **-rwxr-xr--** ，可以使用 `chmod u=rwx,g=rx,o=r 文件名` 来设定:
 
@@ -1686,7 +1690,7 @@ Vim 是从 vi 发展出来的一个文本编辑器。代码补全、编译及错
 
 Vim 键盘图：
 
-![img](../Images/Linux/vi-vim-cheat-sheet-sch.gif)
+![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/vi-vim-cheat-sheet-sch.gif)
 
 
 
@@ -1743,7 +1747,7 @@ Vim 键盘图：
 
 简单的说，可以将这三个模式想成底下的图标来表示：
 
-![img](../Images/Linux/vim-vi-workmodel.png)
+![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/vim-vi-workmodel.png)
 
 
 
@@ -2094,7 +2098,7 @@ systemctl status httpd
 - `static`：这个 daemon 不可以自己启动，不过可能会被其他的 `enabled` 的服务来唤醒（关联属性的服务）
 - `mask`：这个 daemon 无论如何都无法被启动，因为已经被强制注销（非删除），可通过 `systemctl unmask` 方式改回原本状态
 
-![image-20211129133826757](../Images/Linux/image-20211129133826757.png)
+![image-20211129133826757](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211129133826757.png)
 
 
 
@@ -2199,7 +2203,7 @@ systemctl emergency # 强制进入紧急救援模式
 
 任务是一个逻辑概念，指由一个软件完成的活动，或者是为实现某个目的的一系列操作。通常一个任务是一个程序的一次运行，一个任务包含一个或多个完成独立功能的子任务，**这个独立的子任务是进程或者是线程。**例如，一个杀毒软件的一次运行是一个任务，目的是从各种病毒的侵害中保护计算机系统，这个任务包含多个独立功能的子任务（进程或线程）：包括实时监控功能、定时查杀功能、防火墙功能以及用户交互功能等。任务、进程和线程之间的关系如下图所示：
 
-<img src="../Images/Linux/20140509165409250.jpeg" alt="img" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20140509165409250.jpeg" alt="img" />
 
 
 
@@ -2236,7 +2240,7 @@ Linux 系统中主要包括下面几种类型的进程：
 
 `top` 命令是 Linux 下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于 Windows 的任务管理器。`top` 是一个动态显示过程，即可以通过用户按键来不断刷新当前状态。如果在前台执行该命令，它将独占前台，直到用户终止该程序为止。比较准确的说，`top` 命令提供了实时的对系统处理器的状态监视。它将显示系统中 CPU 最 “敏感” 的任务列表。该命令可以按 CPU 使用、内存使用和执行时间对任务进行排序；而且该命令的很多特性都可以通过交互式命令或者在个人定制文件中进行设定。
 
-![image-20220628161259586](../Images/Linux/image-20220628161259586.png)
+![image-20220628161259586](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220628161259586.png)
 
 - **第一行**
   - 16:12:28：系统当前时间

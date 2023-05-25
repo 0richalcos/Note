@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: upload
+---
+
 # 1、基础
 
 ## 1.1、使用
