@@ -131,7 +131,9 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 
 
-## 1.4、Navicat 连接 Oracle
+## 1.4、连接 Oracle
+
+### 1.4.1、Navicat 
 
 ![image-20230523200124483](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523200124483.png)
 
@@ -152,6 +154,42 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 **ORA-12638: 身份证明检索失败**
 
 这个一般出现在远程连接 Oracle 时，找到 sqlnet.ora 文件，如果存在 `SQLNET.AUTHENTICATION_SERVICES= (NTS)` 设置，则修改为：`SQLNET.AUTHENTICATION_SERVICES= (NONE)`，如果不存在，则直接添加 `SQLNET.AUTHENTICATION_SERVICES= (NONE)`。
+
+
+
+### 1.4.2、SQL Developer
+
+Oracle SQL Developer 是一个免费的图形化工具，可以提高生产力并简化数据库开发任务。使用 SQL Developer 可以浏览数据库对象、运行 SQL 语句和 SQL 脚本、编辑和调试 PL/SQL 语句、操作和导出数据以及查看和创建报告。您可以连接到 Oracle 数据库，也可以连接到选定的第三方（非 Oracle）数据库，查看元数据和数据，并将这些数据库迁移到 Oracle。
+
+SQL Developer 还将接口集成到一些相关技术中，包括 Oracle Data Miner、Oracle OLAP、Oracle TimesTen In Memory Database 和 SQL Developer Data Modeler（只读）。
+
+前往 [Oracle SQL Developer - Oracle SQL Developer Releases](https://docs.oracle.com/en/database/oracle/sql-developer/index.html) 可选择版本下载。
+
+
+
+以下为使用 SQL Developer 新建表空间以及用户的操作步骤：
+
+1. 连接到 Oracle 数据库后，选中 Oracle 连接然后点击【新建】：
+
+   ![image-20230523201401549](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523201401549.png)
+
+   在如下界面中可以看到新建表空间的选项：
+
+   ![image-20230523201523278](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523201523278.png)
+
+2. 在【其他用户】里，可以右键添加用户：
+
+   ![image-20230523202652586](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523202652586.png)
+
+3. 填写用户名和密码，并分配表空间：
+
+   ![image-20230523204127324](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523204127324.png)
+
+4. 授权里面选中 CONNECT、DBA、RESOURE 三个权限，保存即可：
+
+   ![image-20230523203347868](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523203347868.png)
+
+
 
 
 
@@ -335,39 +373,53 @@ NAMES.DIRECTORY_PATH= (TNSNAMES, HOSTNAME, ONAMES，EZCONNECT)
 
 
 
-# 2、创建表空间及用户
+# 2、用户及表空间
 
-## 2.1、SQL Developer
+## 2.1、用户管理
 
-Oracle SQL Developer 是一个免费的图形化工具，可以提高生产力并简化数据库开发任务。使用 SQL Developer 可以浏览数据库对象、运行 SQL 语句和 SQL 脚本、编辑和调试 PL/SQL 语句、操作和导出数据以及查看和创建报告。您可以连接到 Oracle 数据库，也可以连接到选定的第三方（非 Oracle）数据库，查看元数据和数据，并将这些数据库迁移到 Oracle。
+**账户解锁**
 
-SQL Developer 还将接口集成到一些相关技术中，包括 Oracle Data Miner、Oracle OLAP、Oracle TimesTen In Memory Database 和 SQL Developer Data Modeler（只读）。
+1. Win + R，输入 `cmd` 进入控制台并运行 `sqlplus` 命令进入 sqlplus 环境：
 
-前往 [Oracle SQL Developer - Oracle SQL Developer Releases](https://docs.oracle.com/en/database/oracle/sql-developer/index.html) 可选择版本下载。
+   ```shell
+   sqlplus/nolog
+   ```
+
+   其中 `/nolog` 是不登陆到数据库服务器的意思，如果没有 `/nolog` 参数，sqlplus 会提示你输入用户名和密码。
+
+2. 以系统管理员（sysdba）身份连接数据库：
+
+   ```sql
+   conn/as sysdba
+   ```
+
+3. 输入解锁语句：
+
+   ```sql
+   alter user <用户名> account unlock;
+   ```
 
 
 
-以下为使用 SQL Developer 新建表空间以及用户的操作步骤：
+**修改密码**
 
-1. 连接到 Oracle 数据库后，选中 Oracle 连接然后点击【新建】：
+1. 进入 sqlplus 环境：
 
-   ![image-20230523201401549](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523201401549.png)
+   ```shell
+   sqlplus/nolog
+   ```
 
-   在如下界面中可以看到新建表空间的选项：
+2. 以系统管理员（sysdba）身份连接数据库：
 
-   ![image-20230523201523278](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523201523278.png)
+   ```
+   conn/as sysdba
+   ```
 
-2. 在【其他用户】里，可以右键添加用户：
+3. 输入修改密码语句：
 
-   ![image-20230523202652586](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523202652586.png)
-
-3. 填写用户名和密码，并分配表空间：
-
-   ![image-20230523204127324](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523204127324.png)
-
-4. 授权里面选中 CONNECT、DBA、RESOURE 三个权限，保存即可：
-
-   ![image-20230523203347868](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523203347868.png)
+   ```sql
+   alter user <用户名> identified by <密码>;
+   ```
 
 
 
@@ -984,3 +1036,105 @@ SELECT deptno, WM_CONCAT(DISTINCT ',', sal) FROM emp GROUP BY deptno ORDER BY de
 
 
 
+# 6、Spring Boot 集成
+
+## 6.1、集成步骤
+
+**Spring Boot 配置 Oracle19c 数据库**
+
+1. pom.xml 文件添加依赖包：
+
+   ```xml
+   <!-- Oracle数据库驱动 -->
+   <dependency>
+   	<groupId>com.oracle.ojdbc</groupId>
+   	<artifactId>ojdbc8</artifactId>
+   	<version>19.3.0.0</version>
+   </dependency>
+   
+   <!-- 这里使用的是JDBC包，也可使用JPA包进行 -->
+   <dependency>
+   	<groupId>org.springframework.boot</groupId>
+   	<artifactId>spring-boot-starter-jdbc</artifactId>
+   </dependency>
+   
+   <!--        <dependency>-->
+   <!--            <groupId>org.springframework.boot</groupId>-->
+   <!--            <artifactId>spring-boot-starter-data-jpa</artifactId>-->
+   <!--        </dependency>-->
+   
+   <!-- druid -->
+   <dependency>
+   	<groupId>com.alibaba</groupId>
+   	<artifactId>druid</artifactId>
+   	<version>1.1.16</version>
+   </dependency>
+   ```
+
+2. application.yml 配置文件加入 Oracle 数据库信息：
+
+   ```yaml
+   spring:
+     application:
+       name: cloud-payment-service # 服务名称
+     datasource:
+       type: com.alibaba.druid.pool.DruidDataSource # 当前数据源操作类型
+       driver-class-name: oracle.jdbc.OracleDriver # Oracle数据库驱动包
+       url: jdbc:oracle:thin:@//localhost:1521/ORCL
+       username: yma
+       password: 123456
+   ```
+
+   
+
+## 6.2、遇到的问题
+
+### 6.2.1、ORA-28040: 没有匹配的验证协议
+
+可能的原因有：
+
+
+
+**连接数据库驱动和 Oracle 版本不一致**
+
+可以通过下载新的驱动解决，也可以使用修改配置的方式。
+
+1. 在 Oracle 的安装路径下找到 sqlnet.ora 文件，在文件的最后添加如下配置：
+
+   ```
+   SQLNET.ALLOWED_LOGON_VERSION=8
+    
+   SQLNET.ALLOWED_LOGON_VERSION_SERVER=8
+    
+   SQLNET.ALLOWED_LOGON_VERSION_CLIENT=8
+   ```
+
+2. 重启 Oracle 数据库服务，主要是监听，不过最好都重启一下。
+
+3. 此时通过 Java 连接出现 `java.sql.SQLException: ORA-01017: 用户名/口令无效; 登录被拒绝 `，但是通过 SQL Developer 又能正常连接。解决办法就是重新修改用户的密码即可：
+
+   ```sql
+   sqlplus / as sysdba;
+   
+   alter user <用户名> identified by <密码>;
+   ```
+
+4. 此时再次连接即可正常连接了。
+
+
+
+**加密机制问题**
+
+默认情况下 Oracle 19c 将使用新的加密机制（SHA-2）而非以前版本的（SHA-1）。你需要禁用 SHA-2 并强制使用 SHA-1 加密机制，可以通过在 JDBC URL 参数中添加 `?oracle.net.disableOob=true` 来实现。
+
+例如，你可以将 dbURL 修改成以下格式：
+
+```
+jdbc:oracle:thin:@//localhost:1521/ORCL?oracle.net.disableOob=true
+```
+
+
+
+### 6.2.2、NL Exception was generated
+
+出现这个错误，主要是数据库配置文件中 url 字符串写错导致的。仔细检查 url 字符串，问题基本就解决了。
