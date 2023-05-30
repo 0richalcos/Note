@@ -157,6 +157,12 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 
 
+**ORA-12516 TNS: 监听程序找不到符合协议堆栈要求的可用处理程序**
+
+
+
+
+
 ### 1.4.2、SQL Developer
 
 Oracle SQL Developer 是一个免费的图形化工具，可以提高生产力并简化数据库开发任务。使用 SQL Developer 可以浏览数据库对象、运行 SQL 语句和 SQL 脚本、编辑和调试 PL/SQL 语句、操作和导出数据以及查看和创建报告。您可以连接到 Oracle 数据库，也可以连接到选定的第三方（非 Oracle）数据库，查看元数据和数据，并将这些数据库迁移到 Oracle。
@@ -366,7 +372,7 @@ NAMES.DIRECTORY_PATH= (TNSNAMES, HOSTNAME, ONAMES，EZCONNECT)
 
   表明用户连接数据库用哪种验证方式，主要两种：
 
-  - `NTS`：表示系统身份验证 — 用户名和口令可输可不输 `conn / as sys dba`；
+  - `NTS`：表示系统身份验证 — 用户名和口令可输可不输 `conn / as sysdba`；
   - `NONE`：Oracle 数据库身份验证 — 必须输入用户名和口令 `conn system/oracle as sysdba`；
 
   在 Unix 环境下可能会有问题，一般在 Unix 下可以去掉这个配置。
