@@ -568,6 +568,8 @@ public class HelloWorldConfig {
 3. `classpath:/config`
 4. `classpath:/`
 
+如果多个配置文件含有相同的变量名，并且在使用 `${}` 进行引用时没有指定文件名，那么 Spring Boot 会按照特定的顺序查找配置文件，并使用第一个找到的变量值。这个查找顺序为： `application-{suffix}.properties` 或 `application-{suffix}.yml > application.properties` 或 `application.yml` > 其他自定义的配置文件。其中`，{suffix}` 指的是 Spring Profiles 中的激活配置 `profile`。
+
 
 
 ### 3.3.1、active
