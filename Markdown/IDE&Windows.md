@@ -305,6 +305,20 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 
 
+**删除远程连接记录**
+
+1. Win + R 打开【运行】，输入 `regedit` 命令打开注册表；
+
+2. 找到注册表里面的 `计算机\HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client\Default` 其中右边的就是连接过的记录了,删除需要清除的文件即可：
+
+   ![image-20230613190839331](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613190839331.png)
+
+3. 如果有保存凭据，需要在【凭据管理器】里删除对应的凭据：
+
+   ![image-20230613190733588](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613190733588.png)
+
+
+
 ## 【16】控制台设置代理
 
 **临时设置**

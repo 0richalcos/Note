@@ -5678,3 +5678,132 @@ show variables like '%authentication%';
    - 在 JDBC 连接串中加入 `allowPublicKeyRetrieval=true` 参数
    - 在 CLI 客户端连接时加入 `--get-server-public-key` 参数
    - 在 CLI 客户端连接时加入 `--server-public-key-path=file_name` 参数，指定存放在本地的公钥文件
+
+
+
+## 4、MySQL only_full_group_by
+
+当我们迁移到 MySQL 5.7+ 的版本时，常会碰到 ERROR 1055 only_full_group_by 错误，这是 5.7 之后 SQL_MODE 默认打开了严格模式导致的错误。说明你代码里有地方写的不严谨。
+
+```
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause 
+and contains nonaggregated column 'kalacloud.user_id' which is not functionally 
+dependent on columns in GROUP BY clause; this is incompatible 
+with sql_mode=only_full_group_by
+```
+
+
+
+**SQL_MODE 是什么？**
+
+`SQL_MODE` 是 MySQL 中的一个环境变量，定义了 MySQL 支持的 SQL 语法和数据校验程度。
+
+`SQL_MODE` 一共三种模式：
+
+- ANSI 模式：宽松模式。对插入数据进行校验，如不符合定义类型或长度，对保存数据进行截断；
+- TRADITIONAL 模式：严格模式。对插入数据进行严格校验，保证错误数据不能插入，ERROR 报错。用于事物时，事物会进行回滚；
+- STRICT_TRANS_TABLES 模式：严格模式。对插入数据进行严格校验，错误数据不能插入，ERROR 报错。
+
+MySQL 5.7.4 之前，MySQL 默认不开启严格模式：
+
+![image-20230613223206479](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613223206479.png)
+
+MySQL 升级到 5.7.5 之后默认 SQL_MODE 为严格模式：
+
+![image-20230613223248699](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613223248699.png)
+
+
+
+**SQL_MODE 严格模式的意义**
+
+在宽松模式下，即便 `INSERT` 一个错误的数据，MySQL 也会不加判断的全盘接受。
+
+首先关闭 `SQL_MODE` 严格模式：
+
+```sql
+set session sql_mode='';
+```
+
+创建一个表并向其中插入一组超范围的数据：
+
+```sql
+create table kalacloud_t1(website char(9));
+insert into kalacloud_t1 values('kalacloud.com');
+```
+
+![image-20230613223443413](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613223443413.png)
+
+从返回值可以看出，向 `websie char(9)` 中插入了一条长为 13 的值，没有报错，直接插入，但超过 9 的部分，即「.com」被截断丢掉了。
+
+接着在严格模式下试试，首先打开 `SQL_MODE` 严格模式：
+
+```sql
+set session sql_mode='TRADITIONAL';
+create table kalacloud_t2(website char(9));
+insert into kalacloud_t2 values('kalacloud.com');
+```
+
+![image-20230613223646323](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613223646323.png)
+
+可以从返回值看出，MySQL 直接报错，告诉你插入的数据有问题。
+
+
+
+**ONLY_FULL_GROUP_BY 问题**
+
+当我们数据库迁移至 5.7 或者 8.0 之后，最常见的错误就是 `Error 1055 only_full_group_by` 错误，这个错误的关键原因是不规范的 SQL 语法，5.7 之后默认 `SQL_MODE` 变为严格模式。
+
+看一个实例，这是一组卡拉云用户点击网页的 log 记录：
+
+![image-20230613223810275](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613223810275.png)
+
+现在使用 `GROUP BY` 来排序找出访问量最大的网页，先关掉 `SQL_MODE` 的严格模式来试试：
+
+在宽松模式下可以看出这个 query 虽然可以查询，但语法和逻辑上稍有问题。我们想对 `page_url` 进行排序，但 query 中也加入了 `user_id` ，在返回值中可以发现问题，index.html 这个页面不仅 user_id 1 的用户访问过，用户 2 和 3 也访问了，那么这张返回的表表格数据就是有问题的。
+
+user_id 1 列在返回数据里，到底代表什么？是第一个访问 index.html 还是最后一个访问这个页面的意思呢？没人知道，这是个随机盲盒，运行原理未知。
+
+打开 `SQL_MODE` 严格模式跑一下上面这段代码：
+
+![image-20230613224004998](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613224004998.png)
+
+返回一个 ERROR 1055 报错，`ONLY_FULL_GROUP_BY` 是 `SQL_MODE` 中 `TRADITIONAL` 的选项参数，从 5.7 开始默认开启为严格模式。这就是为什么迁移到 MySQL 新版会报 1055 错误的原因。
+
+
+
+**解决办法**
+
+1. 重写代码：
+
+   找到报错语法中错误的部分，根据逻辑重写 query，本示例中去掉 `user_id` 即可：
+
+   ![image-20230613224327685](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613224327685.png)
+
+2. 返回宽松模式：
+
+   在 MySQL 5.7 及以上版本中 SQL_MODE 包含：`ONLY_FULL_GROUP_BY`、`STRINCT_TRANS_TABLES`、`NO_ZERO_IN_DATE`、`NO_ZERO_DATE`、`ERROR_FOR_DIVISION_BY_ZERO`、`NO_AUTO_CREATE_USER`。
+
+   我们直接在 MySQL 配置文件中更改，或者临时全部关闭：
+
+   ```sql
+   SET GLOBAL sql_mode='';
+   ```
+
+   或者单关闭 `ONLY_FULL_GROUP_BY`：
+
+   ```sql
+   SET GLOBAL sql_mode='STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_ENGINE_SUBSTITUTION';
+   ```
+
+3. 使用聚合函数：
+
+   如果某些特别的原因就是要查询 `user_id` ，但又没空改代码，那么可使用 `MAX()`、`MIN()` 或者 `GROUP_CONCAT()` 聚合函数来规避这类错误：
+
+   ![image-20230613224631111](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613224631111.png)
+
+   MySQL 还提供了 `ANY_VALUE()` 函数，来解决这类问题：
+
+   ![image-20230613224657574](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613224657574.png)
+
+   > `ANY_VALUE()` 会选择被分到同一组的数据里第一条数据的指定列值作为返回数据。
+

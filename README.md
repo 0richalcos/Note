@@ -136,6 +136,12 @@
 
 
 
+### 🛖对象存储
+
+- [**MinIO**](https://github.com/0richalcos/Note/blob/main/Markdown/MinIO.md)
+
+
+
 ### :wrench:其他
 
 - [**Swagger**](https://github.com/0richalcos/Note/blob/main/Markdown/Swagger.md)

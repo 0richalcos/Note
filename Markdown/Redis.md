@@ -145,38 +145,56 @@ Redis 是单线程的（6.0 是多线程），因为 Redis 是基于内存操作
 
 ## 2.2、Reids 安装
 
-**最常用的 Linux 安装及卸载**
+### 2.2.1、Linxu 环境安装
 
-```shell
-# 下载源码 
-wget http://download.redis.io/releases/redis-6.0.5.tar.gz
+#### 最常用的 Linux 安装及卸载
 
-# 解压到 /usr/local
-tar xzf redis-6.0.5.tar.gz -C /usr/local
+1. 下载源码：
 
-# 进入目录，C/C++ 构建，类似 mvn install，npm build
-cd /usr/local/redis-6.0.5
-make
+   ```shell
+   wget http://download.redis.io/releases/redis-6.0.5.tar.gz
+   ```
 
-# 进入源码目录，安装
-cd src
-make install
+2. 解压到 `/usr/local` ：
 
-# 启动服务器程序
-redis-server &
+   ```shell
+   tar xzf redis-6.0.5.tar.gz -C /usr/local
+   ```
 
-# 启动客户端 
-redis-cli
+3. 更改文件夹名称为 `redis`：
 
-# 卸载：先停止redis，再删除 redis目录和文件
-ls /usr/local/bin
-rm -f /usr/local/bin/redis*
-rm -rf /usr/local/redis*
-```
+   ```shell
+   mv /usr/local/redis-6.0.5 /usr/local/redis
+   ```
+
+4. 进入目录，C/C++ 构建，类似 mvn install，npm build：
+
+   ```shell
+   cd /usr/local/redis
+   make
+   ```
+
+5. 安装：
+
+   ```shell
+   make PREFIX=/usr/local/redis install
+   ```
+
+   这里多了一个关键字 `PREFIX=` ，这个关键字的作用是编译的时候用于指定程序存放的路径。比如我们现在就是指定了 Redis 必须存放在 `/usr/local/redis` 目录。假设不添加该关键字 Linux 会将可执行文件存放在 `/usr/local/bin` 目录，库文件会存放在 `/usr/local/lib` 目录，配置文件会存放在 `/usr/local/etc` 目录，其他的资源文件会存放在 `usr/local/share` 目录。
+
+   这里指定号目录也方便后续的卸载，后续直接 `rm -rf /usr/local/redis` 即可删除 Redis。
+
+6. 启动 Redis：
+
+   根据上面的操作已经将 Redis 安装完成了。在目录 `/usr/local/redis` 输入下面命令启动 Redis：
+
+   ```shell
+   ./bin/redis-server & ./redis.conf
+   ```
 
 
 
-**使用 Docker**
+#### 使用 Docker
 
 ```shell
 # 下载 redis 镜像
@@ -194,7 +212,7 @@ redis-cli
 
 
 
-**Ubuntu 系统下使用 `apt` 安装**
+#### Ubuntu 使用 `apt` 安装
 
 ```bash
 # 安装redis，安装后redis默认为启动状态
@@ -212,7 +230,7 @@ apt purge --auto-remove redis-server
 
 
 
-**Window环境下安装 Redis**
+### 2.2.2、Windows 环境安装
 
 前往[地址]([https://github.com/MSOpenTech/redis/releases](https://github.com/MSOpenTech/redis/releases))下载安装包：
 
@@ -251,6 +269,8 @@ redis-cli -h 127.0.0.1 -p 6379
 
 # 关闭redis
 redis-cli shutdown
+# 如果redis设置密码，需要登录redis后先认证再 shutdown 命令关闭
+auth <密码>
 
 # redis性能测试工具
 redis-benchmark

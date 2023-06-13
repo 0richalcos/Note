@@ -633,6 +633,34 @@ server:
 
 yml 可以不需要创建多个文件来区分，可以直接以 `---` 来当做一个配置文件环境。
 
+`application.yaml`:
+
+```yaml
+server:
+  port: 8081
+spring:
+  profiles:
+    active: test
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+server:
+  port: 8082
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+server:
+  port: 8083
+```
+
+
+
+> 如果 Spring Boot 版本为 2.4 以下，请使用以下方法配置：
+
 `application.yaml`：
 
 ```yaml
@@ -646,7 +674,6 @@ spring:
   profiles: test
 server:
   port: 8082
-
 ---
 spring:
   profiles: dev
@@ -712,6 +739,42 @@ spring:
 ---
 # eureka配置
 spring:
+  config:
+    activate:
+      on-profile:: eureka
+eureka:
+  client:
+    service-Url:
+      defaultZone: http://localhost:7001/eureka
+---
+# feign配置
+spring:
+  config:
+    activate:
+      on-profile:: feign
+feign:
+  hystrix:
+    enabled: true
+```
+
+
+
+> 如果 Spring Boot 版本为 2.4 以下，请使用以下方法配置：
+
+`application.yml`：
+
+```yaml
+spring:
+  profiles:
+    # 导入其他配置（本处以eureka，feign为例）
+    include: eureka,feign
+
+spring:
+  application:
+    name: order
+---
+# eureka配置
+spring:
   profiles: eureka
 eureka:
   client:
@@ -740,7 +803,59 @@ The properties from spring.profile.include override default properties. The prop
 
 
 
-### 3.3.3、Maven
+### 3.3.3、Profile 组
+
+Spring Boot 2.4 之后增加了 Profile 不能使用 `spring.profiles.active` 和 `spring.profiles.include` 的限制，但有个常用的场景，就是可能需要同时使用两个 Profile 配置， 比如线上配置了 MySQL 以及 RabbitMQ：
+
+```yaml
+spring:
+  config:
+    activate:
+      on-profile: "mysql"
+  datasource:
+    url: "jdbc:mysql://localhost/test"
+    username: "dbuser"
+    password: "dbpass"
+---
+spring:
+  config:
+    activate:
+      on-profile: "rabbitmq"
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "admin"
+    password: "secret"
+```
+
+所以 Spring Boot 引入了 “组” 的概念，方便创建相应的便捷操作，比如以下是一个 prod 的 Profile 配置，包含上面两个 Profile 配置，方便启用：
+
+```yaml
+spring:
+  config:
+    activate:
+      on-profile: "prod"
+  profiles:
+    group:
+      prod: "mysql,rabbitmq"
+```
+
+
+
+> 如果 Spring Boot 版本为 2.4 以下，请使用以下方法配置：
+
+```yaml
+spring:
+  config:
+    activate:
+      on-profile: "prod"
+  profiles:
+    include: "mysql,rabbitmq"
+```
+
+
+
+### 3.3.4、Maven
 
 Maven 本身也提供了对多环境的支持，不仅仅支持 Spring Boot 项目，只要是基于 Maven 的项目都可以配置。
 

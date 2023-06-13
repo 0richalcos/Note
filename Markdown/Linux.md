@@ -2427,9 +2427,8 @@ jobs [选项]
 
 如果程序正在前台运行，可以使用 Ctrl + z 选项把程序放到后台，并且处于暂停状态，然后用 `bg %[number]` 命令把这个程序放到后台运行（摁Ctrl+z，然后在最后一行加上 `bg %number`）：
 
-<div align="center">
-    <img src="../Images/Linux/1392964-20180926172955963-1572189618.png" alt="img" style="width:80%;" />
-</div>
+![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1392964-20180926172955963-1572189618.png)
+
 
 对于所有运行的程序，我们可以用 `jobs –l` 指令查看：
 
@@ -2437,9 +2436,8 @@ jobs [选项]
 jobs -l
 ```
 
-<div align="center">
-    <img src="../Images/Linux/1392964-20180926173213203-320447770.png" alt="img" style="width:100%;" />
-</div>
+![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1392964-20180926173213203-320447770.png)
+
 
 也可以用 `fg %[number]` 指令把一个程序调到前台：
 
