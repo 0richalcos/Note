@@ -1885,7 +1885,9 @@ set nonumber
 
 
 
-# 8、apt
+# 8、软件安装
+
+## 8.1、apt
 
 apt（Advanced Packaging Tool）是一个在 Debian 和 Ubuntu 中的 Shell 前端软件包管理器。
 

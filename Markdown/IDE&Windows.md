@@ -687,3 +687,79 @@ SpringBoot 是使用内置的 Tomcat 的，所以不用打包成 war 文件，�
 5. 运行 jar：
 	
 	命令行运行： `java -jar xxx.jar` 
+
+
+
+# Clash for Windows
+
+## 【1】配置文件预处理
+
+在 Clash for Windows 中，如果直接编辑 Profile 的规则只会临时有效，每次重新刷新配置文件后，规则都会重置。有个处理办法就是编辑配置文件预处理规则，每次刷新文件都对配置文件进行预处理。
+
+如果需要对下载地址为 `https://example.com/profile.yaml` 的配置文件进行预处理，操作如下：
+
+1. 进入 Settings 界面。
+
+2. 滚动至 Profiles 栏。
+
+3. 点击 Parsers 右边 Edit 打开编辑器，填入：
+
+   ```yaml
+   parsers:
+     - url: https://example.com/profile.yaml
+       yaml:
+         prepend-rules:
+           - DOMAIN,test.com,DIRECT # rules最前面增加一个规则
+   ```
+
+   - *prepend-rules*：见下方 参数说明；
+   - *DOMAIN*：域名匹配规则；
+   - *test.com*：域名；
+   - *DIRECT*：直连代理模式。
+
+4. 点击编辑器右下角保存按钮。
+
+当配置文件触发刷新（包括自动更新）时，CFW 会读取 `yaml` 字段定义的值，将对应值插入/合并到原配置文件中
+
+
+
+**参数说明**
+
+| 键                   | 值类型 | 操作                                     |
+| -------------------- | ------ | ---------------------------------------- |
+| append-rules         | 数组   | 数组合并至原配置`rules`数组后            |
+| prepend-rules        | 数组   | 数组合并至原配置`rules`数组前            |
+| append-proxies       | 数组   | 数组合并至原配置`proxies`数组后          |
+| prepend-proxies      | 数组   | 数组合并至原配置`proxies`数组前          |
+| append-proxy-groups  | 数组   | 数组合并至原配置`proxy-groups`数组后     |
+| prepend-proxy-groups | 数组   | 数组合并至原配置`proxy-groups`数组前     |
+| mix-proxy-providers  | 对象   | 对象合并至原配置`proxy-providers`中      |
+| mix-rule-providers   | 对象   | 对象合并至原配置`rule-providers`中       |
+| mix-object           | 对象   | 对象合并至原配置最外层中                 |
+| commands             | 数组   | 在上面操作完成后执行简单命令操作配置文件 |
+
+
+
+**匹配规则**
+
+- DOMAIN-SUFFIX：域名后缀匹配
+- DOMAIN：域名匹配
+- DOMAIN-KEYWORD：域名关键字匹配
+- IP-CIDR：IP 段匹配
+- SRC-IP-CIDR：源 IP 段匹配
+- GEOIP：GEOIP 数据库（国家代码）匹配
+- DST-PORT：目标端口匹配
+- SRC-PORT：源端口匹配
+- PROCESS-NAME：源进程名匹配
+- RULE-SET：Rule Provider 规则匹配
+- MATCH：全匹配
+
+
+
+**代理模式**
+
+Clash 共有三种工作模式：
+
+- Global：全局，所有请求直接发往代理服务器
+- Rule：规则，所有请求根据配置文件规则进行分流
+- Direct：直连，所有请求直接发往目的地
