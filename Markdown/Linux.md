@@ -1887,7 +1887,53 @@ set nonumber
 
 # 8、软件安装
 
-## 8.1、apt
+## 8.1、make
+
+Linux 中安装软件方式的一种是：将源码 sourcecode.tar.gz 进行解压，然后输入 `./configure`，接着 `make`，最后 `make install`，一个软件就安装完成了。
+
+1. `configure`：这一步一般用来生成 Makefile，为下一步的编译做准备，可以通过在 `configure` 后加上参数来对安装进行控制。
+
+   例如安装 Apache 时：`./configure --prefix=/opt/sudytech/apache2` 意思是将该软件安装在 `/opt/sudytech/apache2` 下面，执行文件就会安装在 `/opt/sudytech/apache2/bin` （而不是默认的 `/usr/local/bin`），资源文件就会安装在 `/opt/sudytech/apache2/share`（而不是默认的 `/usr/local/share`）。
+
+   同时一些软件的配置文件你可以通过指定 `--sys-config=`  参数进行设定。
+
+   有一些软件还可以加上 `-with`、`-enable`、`-without`、`-disable` 等等参数对编译加以控制（具体可以查看基础环境安装文档的参数），你可以通过 `./configure -help` 察看详细的说明帮助。
+
+   当 `configure` 执行的时候 console 一般会打印这样的信息：
+
+   ```
+   checking for stdlib.h... yes
+   checking for string.h... yes
+   checking for memory.h... yes
+   checking for strings.h... yes
+   checking for inttypes.h... yes
+   checking for stdint.h... yes
+   checking for unistd.h... yes
+   checking for xxxxxxxx... no
+   checking for xxxxxxxx... yes
+   ```
+
+   这是configure正在检测你的安装平台的目标特征。比如它会检测你是不是有CC或GCC，并不是需要CC或GCC，其实configure它本身就是个shell脚本。
+
+2. `make`：这一步就是编译，既然 `configure` 已经生成了 Makefile，那 `make` 就可以直接进行编译了。
+
+   大多数的源代码包都经过这一步进行编译（当然有些 perl 或 python 编写的软件需要调用 perl 或 python 来进行编译）。如果在 `make` 过程中出现 error ，一般是你的系统少了一些依赖库等，这些需要自己仔细研究错误代码。执行完之后，会发现 sourcecode 目录中多了一些编译产生的可执行文件及目标文件（object file、*.o）。
+
+3. `make insatll`：这条命令来进行安装（当然有些软件需要先运行 `make check` 或 `make test` 来进行一些测试），这一步一般需要你有 root 权限（因为要向系统写入文件），通常会带来相应的一系列 `mkdir`、`cp`、`ln` 操作。
+
+   若源码不支持 `./configure` 方式指定安装目录，可通过 `make install -prefix=` 再次指定安装路径。  
+
+
+
+其实除了这三条之外还有几个非常有用的操作：
+
+- `make clean`：清除编译产生的可执行文件及目标文件（object file、*.o），这点在 `make` 出错时变得极为有用。
+- `make distclean`：这条命令除了清除可执行文件和目标文件外，还会把 `configure` 所产生的 Makefile 也清除掉。
+- `make uninstall`：虽然不是每个 sourcecode 包都有这个功能，但是这个东西确实是挺好的，如果一时脑热直接 `./configure`、`make`、`make install` 之后不知道程序装去哪儿了，这时候可以用这个进行卸载（当然 `uninstall` 只能执行 1 次，并且 sourcecode 目录中要有当前安装对应的 Makefile）。
+
+
+
+## 8.2、apt
 
 apt（Advanced Packaging Tool）是一个在 Debian 和 Ubuntu 中的 Shell 前端软件包管理器。
 

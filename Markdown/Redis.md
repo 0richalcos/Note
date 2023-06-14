@@ -147,7 +147,7 @@ Redis 是单线程的（6.0 是多线程），因为 Redis 是基于内存操作
 
 ### 2.2.1、Linxu 环境安装
 
-#### 最常用的 Linux 安装及卸载
+#### 最常用的 Linux 安装
 
 1. 下载源码：
 
@@ -177,20 +177,26 @@ Redis 是单线程的（6.0 是多线程），因为 Redis 是基于内存操作
 5. 安装：
 
    ```shell
-   make PREFIX=/usr/local/redis install
+   make install
    ```
-
-   这里多了一个关键字 `PREFIX=` ，这个关键字的作用是编译的时候用于指定程序存放的路径。比如我们现在就是指定了 Redis 必须存放在 `/usr/local/redis` 目录。假设不添加该关键字 Linux 会将可执行文件存放在 `/usr/local/bin` 目录，库文件会存放在 `/usr/local/lib` 目录，配置文件会存放在 `/usr/local/etc` 目录，其他的资源文件会存放在 `usr/local/share` 目录。
-
-   这里指定号目录也方便后续的卸载，后续直接 `rm -rf /usr/local/redis` 即可删除 Redis。
 
 6. 启动 Redis：
 
-   根据上面的操作已经将 Redis 安装完成了。在目录 `/usr/local/redis` 输入下面命令启动 Redis：
-
    ```shell
-   ./bin/redis-server & ./redis.conf
+   redis-server
    ```
+
+
+
+**卸载**
+
+```shell
+# 先停下redis，然后删除安装目录
+rm -rf /usr/local/redis 
+
+# 删除所有redis相关命令脚本
+rm -rf /usr/bin/redis-*
+```
 
 
 

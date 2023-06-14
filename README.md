@@ -61,6 +61,7 @@
 ### :computer:Linux & 运维
 
 - [**Linux**](https://github.com/0richalcos/Note/blob/main/Markdown/Linux.md)
+- [**Nginx**](https://github.com/0richalcos/Note/blob/main/Markdown/Nginx.md)
 
 
 
