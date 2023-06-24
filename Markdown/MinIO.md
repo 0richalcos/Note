@@ -124,7 +124,7 @@ MinIO 服务安装后，可以直接通过浏览器登录系统，完成文件�
    上面的启动方式，当我们关闭 shell 连接时，MinIO 也就关闭了，可以通过下面的命令进行后台启动：
 
    ```shell
-   nohup MINIO_ROOT_USER=admin MINIO_ROOT_PASSWORD=password /opt/minio/minio server /opt/minio/data --console-address ":55555" --address ":9000" > /opt/minio/minio.log 2>&1 &
+   nohup MINIO_ROOT_USER=admin MINIO_ROOT_PASSWORD=password /opt/minio/minio server /opt/minio/data --console-address ":9001" --address ":9000" > /opt/minio/minio.log 2>&1 &
    ```
 
 
