@@ -1224,6 +1224,124 @@ HikariCP是数据库连接池的后起之秀，号称性能最好，可以完美
 
 
 
+# 6、打包
+
+## 6.1、war
+
+Spring Boot 提供了内置的 Tomcat、Undertow、Jetty 三种 Servlet Web 容器让我们开箱即用，可以迅速以 JAR 启动一个 Web 应用。但是在某些场景中可能还需要将我们的 Spring Boot 容器以 War 的形式进行传统的部署。这时就需要通过借助于 `SpringBootServletInitializer` 来实现。
+
+`SpringBootServletInitializer` 是 `WebApplicationInitializer` 的实现，它从部署在 Web 容器上的传统 War 包运行 Spring Boot 应用。该类将 Servlet、Filter 和 ServletContextInitializer Bean 从应用程序上下文绑定到服务器。`SpringBootServletInitializer` 类还允许我们通过覆盖 `SpringApplicationBuilder configure(SpringApplicationBuilder application)` 方法来配置由 Servlet 容器运行的应用程序。
+
+
+
+ Spring Boot War 部署步骤：
+
+1. 修改打包方式为 War。
+
+   修改 Spring Boot 项目的 `pom.xml` 文件将打包方式修改为 `war` 。
+
+   默认打 `jar` 包：
+
+   ```xml
+   <packaging>jar</packaging>
+   ```
+
+   改为打 `war` 包：
+
+   ```xml
+   <packaging>war</packaging>
+   ```
+
+2. 排除内嵌的 Web 容器。
+
+   默认使用内嵌 Tomcat Web 容器。如果此前使用了内嵌的 Jetty、Undertow ，请务必清除相关的 Starter 依赖。然后我们可以使用两种方式来处理：
+
+   - 方法一
+
+     Spring Boot 内嵌的 Tomcat 默认已经集成在 `spring-boot-starter-web` 包里，所以要排除掉它。
+
+     ```xml
+     <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-web</artifactId>
+         <exclusions>
+             <exclusion>
+                 <groupId>org.springframework.boot</groupId>
+                 <artifactId>spring-boot-starter-tomcat</artifactId>
+             </exclusion>
+         </exclusions>
+     </dependency>
+     ```
+
+     此方式我们把 Servlet Api 依赖也排除掉了，`SpringBootServletInitializer` 需要依赖 Servlet Api ，因此要加上它（务必注意  versionNumber 版本要跟外置的 Tomcat 版本兼容）。
+
+     ```xml
+     <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>javax.servlet-api</artifactId>
+          <version>${versionNumber}</version>
+          <scope>provided</scope>
+     </dependency>
+     ```
+
+   - 方法二
+
+     通过引入 `spring-boot-starter-tomcat` 覆盖掉默认的内置 Tomcat 并设置作用范围（scope）为 `provided`(编译、测试)。
+
+     ```xml
+     <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-tomcat</artifactId>
+         <scope>provided</scope>
+     </dependency>                      
+     ```
+
+3. 添加 War 包打包插件。
+
+   如果用的是继承 `spring-boot-starter-parent` 的形式使用 Spring Boot，那可以跳过，因为它已经帮你配置好了。如果使用的依赖 `spring-boot-dependencies` 形式，你需要添加以下插件：
+
+   ```xml
+   <plugin>
+       <groupId>org.apache.maven.plugins</groupId>
+       <artifactId>maven-war-plugin</artifactId>
+       <configuration>
+           <failOnMissingWebXml>false</failOnMissingWebXml>
+       </configuration>
+   </plugin>
+   ```
+
+4. 实现 SpringBootServletInitializer 接口。
+
+   启动类继承 `SpringBootServletInitializer` 类，并覆盖 `configure`。
+
+   ```java
+   @SpringBootApplication
+   public class Application extends SpringBootServletInitializer {
+   
+       @Override
+       protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+           return application.sources(Application.class);
+       }
+   
+       public static void main(String[] args) throws Exception {
+           SpringApplication.run(Application.class, args);
+       }
+   
+   }
+   ```
+
+5. 打包。
+
+   打 War 包方式和打 Jar 包方式一样，没有区别。
+
+   - 在 Maven 中使用 `mvn cleanpackage` 命令即可打包。
+
+   - 在 Idea 中可以这样设置打包：
+
+     ![image-20230626153638578](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230626153638578.png)
+
+
+
 # 10、发送邮件
 
 1. **开启 SMTP**
