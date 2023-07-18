@@ -499,3 +499,41 @@ systemctl status DmServiceDMSERVER.service
 以实例 DAMENG 为例，该目录下存放 DAMENG 实例的配置文件（`*.ini`）、控制文件（`dm.ctl`）、数据文件（`*.DBF`）、日志文件（`*.log`） 等。
 
 ![目录](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/dictionary-instance-DAMENG1.png)
+
+
+
+# 3、备份和迁移
+
+## 3.1、DTS工具迁移
+
+1. 新建工程
+
+   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20210202164357901.png)
+
+2. 新建迁移
+
+   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20210202164528157.png)
+
+3. 双击打开 dm-dm 进行迁移配置
+
+   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20210202164622570.png)
+
+4. 选择相应的迁移模式（此处选 dm-dm 迁移）
+
+   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20210202164743774.png)
+
+5. 填写相应的源数据库和目标数据库的连接信息
+
+   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/2021020216493840.png)
+
+6. 选择要迁移的源模式，并指定目的模式，其中 "目录"、"公共同义词"、"上下文" 取消勾选
+
+   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20210202165336811.png)
+
+7. 勾选相应的对象，"转换" 选择迁移策略，可以根据实际情况选择，只迁移表结构、数据，约束，或删除原有数据在迁移等具体情况，大字段表选项改小 256 即可
+
+   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20210202165939365.png)
+
+8. 确认无误后完成即可
+
+   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20210202170509591.png)
