@@ -763,3 +763,82 @@ Clash 共有三种工作模式：
 - Global：全局，所有请求直接发往代理服务器
 - Rule：规则，所有请求根据配置文件规则进行分流
 - Direct：直连，所有请求直接发往目的地
+
+
+
+# Windows Server 2022
+
+## 【1】激活
+
+1. 首先输入下面的命令，更改 Windows server 2022 操作系统序列号：
+
+   ```shell
+   slmgr -ipk WX4NM-KYWYW-QJJR4-XV3QB-6VM33
+   ```
+
+   ![image-20230721145853625](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230721145853625.png)
+
+2. 接下来更改 KMS 激活服务器，使用下面的命令进行更改：
+
+   ```shell
+   slmgr /skms kms.03k.org
+   ```
+
+   ![image-20230721145909063](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230721145909063.png)
+
+3. 完成KMS服务器的设置以后，就可以使用下面的命令来激活 Windows server 2022 操作系统：
+
+   ```shell
+   slmgr /skms kms.03k.org
+   ```
+
+   ![image-20230721145919926](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230721145919926.png)
+
+4. 通过 `slmgr.vbs -dlv` 命令可以看到激活后的使用期限为 180 天，可以重置的计数 1000 次以上，应该可以让你完成测试使用。
+
+   ![image-20230721145929877](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230721145929877.png)
+
+>  以上的方法供学习使用。 
+
+
+
+## 【2】安装 Windows Terminal
+
+1. 在 Windows Server 2022 上打开 “开始”。
+
+2. 搜索 PowerShell，右键单击顶部结果，然后选择 “以管理员身份运行” 选项。
+
+3. 键入以下命令以下载运行库，然后按 Enter 键：
+
+   ```shell
+   Invoke-WebRequest -Uri https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -outfile Microsoft.VCLibs.x86.14.00.Desktop.appx
+   ```
+
+   ![PowerShell download VClibs](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/powershell-download-vclibs-windows-server.webp)
+
+4. 键入以下命令以安装 “.appx” 程序包，然后按 Enter 键：
+
+   ```shell
+   Add-AppxPackage Microsoft.VCLibs.x86.14.00.Desktop.appx
+   ```
+
+5. 输入以下命令下载最新版本的 Windows Terminal 并按 “Enter”：
+
+   ```shell
+   Invoke-WebRequest -Uri https://github.com/microsoft/terminal/releases/download/v1.16.10261.0/Microsoft.WindowsTerminal_Win10_1.16.10261.0_8wekyb3d8bbwe.msixbundle -outfile Microsoft.WindowsTerminal_Win10_1.16.10261.0_8wekyb3d8bbwe.msixbundle
+   ```
+
+   ![PowerShell download Terminal](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/download-terminal-powershell.webp)
+
+   > 如果服务器无法下载可以直接去 [GItHub](https://github.com/microsoft/terminal/releases) 下载后传输到服务器，然后执行安装命令。建议下载的版本和上面命令行保持一致，其他版本由于缺少其他包无法进行安装。
+
+6. 键入以下命令以安装 Windows Terminal 应用程序，然后按 Enter 键：
+
+   ```shell
+   Add-AppxPackage Microsoft.WindowsTerminal_Win10_1.16.10261.0_8wekyb3d8bbwe.msixbundle
+   ```
+
+完成这些步骤后，终端将安装在 Windows Server 上。
+
+也可以使用相同的说明升级到命令控制台的新版本。但是需要使用旧版 PowerShell 控制台来完成该过程，因为在应用程序运行时无法升级终端。
+
