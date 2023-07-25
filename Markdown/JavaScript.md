@@ -474,8 +474,8 @@ str.search("locate")     // 返回 7
 关于 `indexOf()` 和 `search()` ：
 
 1. 都可以进行字符串的查找
-2. serach() 支持正则，indexOf() 不支持
-3. indexOf() 性能更高
+2. `serach()` 支持正则，`indexOf()` 不支持
+3. `indexOf()` 性能更高
 
 
 
@@ -1807,7 +1807,7 @@ clearTimeout(id_of_settimeout)
 
 
 
-# 5、关键字
+# 5、关键字和运算符
 
 ## 5.1、this
 
@@ -2040,6 +2040,120 @@ The void operator evaluates the given expression and then returns undefined.
    ```javascript
    button.onclick = () => void doSomething();
    ```
+
+
+
+## 5.3、…
+
+扩展操作符 `…` 是 ES6 中引入的，将可迭代对象展开到其单独的元素中，所谓的可迭代对象就是任何能用 `for of` 循环进行遍历的对象，例如：数组、字符串、Map、Set 、DOM 节点等。
+
+
+
+**拷贝数组对象**
+
+使用扩展符拷贝数组是 ES6 中常用的操作：
+
+```javascript
+const years = [2018, 2019, 2020, 2021];
+const copyYears = [...years];
+
+console.log(copyYears); // [ 2018, 2019, 2020, 2021 ]
+```
+
+拷贝对象，代码如下：
+
+```javascript
+const time = {
+    year: 2021,
+    month: 7,
+    day: {
+        value: 1,
+    },
+};
+const copyTime = { ...time };
+console.log(copyTime); // { year: 2021, month: 7, day: { value: 1 } }
+```
+
+
+
+**合并操作**
+
+数组的合并，如下：
+
+```javascript
+const halfMonths1 = [1, 2, 3, 4, 5, 6];
+const halfMonths2 = [7, 8, 9, 10, 11, 12];
+
+const allMonths = [...halfMonths1, ...halfMonths2];
+console.log(allMonths); // [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ]
+```
+
+合并对象，在合并对象时，如果一个键已经存在，它会被具有相同键的最后一个对象给替换。
+
+```javascript
+const time1 = {
+    month: 7,
+    day: {
+        value: 1,
+    },
+};
+const time2 = {
+    year: 2021,
+    month: 8,
+    day: {
+        value: 10,
+    },
+};
+const time = { ...time1, ...time2 };
+console.log(time); // { month: 8, day: { value: 10 }, year: 2021 }
+```
+
+
+
+**参数传递**
+
+```javascript
+const sum = (num1, num2) => num1 + num2;
+
+console.log(sum(...[6, 7])); // 13
+console.log(sum(...[6, 7, 8])); // 13
+```
+
+从上面的代码看，函数定义了多少个参数，扩展运算符传入的值就是多少个。
+
+和 `math` 函数一起使用，如下：
+
+```javascript
+const arrayNumbers = [1, 5, 9, 3, 5, 7, 10];
+const min = Math.min(...arrayNumbers);
+const max = Math.max(...arrayNumbers);
+console.log(min); // 1
+console.log(max); // 10
+```
+
+
+
+**数组去重**
+
+与 `Set` 一起使用消除数组的重复项，如下：
+
+```javascript
+const arrayNumbers = [1, 5, 9, 3, 5, 7, 10, 4, 5, 2, 5];
+const newNumbers = [...new Set(arrayNumbers)];
+console.log(newNumbers); // [ 1,  5, 9, 3, 7, 10, 4, 2 ]
+```
+
+
+
+**字符串转字符数组**
+
+`String` 也是一个可迭代对象，所以也可以使用扩展运算符 `...` 将其转为字符数组，如下：
+
+```javascript
+const title = "china";
+const charts = [...title];
+console.log(charts); // [ 'c', 'h', 'i', 'n', 'a' ]
+```
 
 
 
