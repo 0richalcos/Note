@@ -4,9 +4,9 @@
 | :--: | :----: | :--------: | :----: | :------: | :------: | :------: | :------: | :------: |
 | [:coffee:](#coffeejava) | [:chart_with_upwards_trend:](#chart_with_upwards_trend数据库) | [:moyai:](#moyai持久层框架) | [:leaves:](#leavesSpring) | [:closed_lock_with_key:](#closed_lock_with_key权限管理) | [:mag:](#mag搜索引擎) | [:computer:](#computerLinux--运维) | [:globe_with_meridians:](#globe_with_meridians前端) | [:stars:](#stars数据结构及算法) |
 
-|    协议     | 文件相关                    | 其他                    |
-| :---------: | --------------------------- | ----------------------- |
-| [📡](#📡协议) | [:scroll:](#scroll文件相关) | [:wrench:](#wrench其他) |
+|    协议     | 文件相关                    | 开发工具        | 其他                    |
+| :---------: | --------------------------- | --------------- | ----------------------- |
+| [📡](#📡协议) | [:scroll:](#scroll文件相关) | [🛠️](#🛠️开发工具) | [:wrench:](#wrench其他) |
 
 
 
@@ -63,6 +63,7 @@
 
 - [**Linux**](https://github.com/0richalcos/Note/blob/main/Markdown/Linux.md)
 - [**Nginx**](https://github.com/0richalcos/Note/blob/main/Markdown/Nginx.md)
+- [**WebLogic**](https://github.com/0richalcos/Note/blob/main/Markdown/WebLogic.md)
 
 
 
@@ -144,9 +145,15 @@
 
 
 
-### :wrench:其他
+### 🛠️开发工具
 
 - [**Swagger**](https://github.com/0richalcos/Note/blob/main/Markdown/Swagger.md)
 - [**Git**](https://github.com/0richalcos/Note/blob/main/Markdown/Git.md)
+- [**Maven**](https://github.com/0richalcos/Note/blob/main/Markdown/Maven.md)
+
+
+
+### :wrench:其他
+
 - [**IDE 及 Windows 设置**](https://github.com/0richalcos/Note/blob/main/Markdown/IDE&Windows.md)
 - [**解决方案**](https://github.com/0richalcos/Note/blob/main/Markdown/Solutions.md)

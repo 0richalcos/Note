@@ -541,6 +541,8 @@ CONNECT BY PRIOR DEPID = PARENTDEPID
 
 ## 5.1、日期函数
 
+### 5.1.1、SYSDATE()
+
 **获取当前日期和时间**
 
 ```sql

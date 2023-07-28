@@ -877,7 +877,48 @@ spring.profiles.active=@profile.active@
 
 > `profile.active` 实际上就是一个变量，在 Maven 打包的时候指定的 `-P test` 传入的就是值
 
-因为 SpringBoot 配置文件中的默认占位符 `${}` 可能会与 Maven 的默认占位符 `${}` 冲突，所以可以使用以下插件将 SpringBoot 配置文件中的 Maven 占位符改为 `@@`：
+为啥 SpringBoot 中的占位符就变成 `@@` 了呢？可以从 pom 文件中看到：
+
+1. 自己 pom 文件中的 `<parent>` 标签：
+
+   ```xml
+   <parent>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-parent</artifactId>
+       <version>2.0.3.RELEASE</version>
+   </parent>
+   ```
+
+2. 点击 `<version>` 标签中的 “2.0.3.RELEASE” 后，进入 spring-boot-starter-parent-2.0.3.RELEASE.pom 文件。在该 pom 文件中，`<properties>` 定义了占位符为 `@`，如下：
+
+   ```xml
+   <properties>
+       <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+       <java.version>1.8</java.version>
+       <resource.delimiter>@</resource.delimiter>
+       <maven.compiler.source>${java.version}</maven.compiler.source>
+       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+       <maven.compiler.target>${java.version}</maven.compiler.target>
+   </properties>
+   ```
+
+   同时，还配置了 maven-resources-plugin 插件，该插件禁用了默认的占位符，替换为 `@`。如下：
+
+   ```xml
+   <plugin>
+       <artifactId>maven-resources-plugin</artifactId>
+       <configuration>
+           <delimiters>
+               <!-- 声明自己的占位符 -->
+               <delimiter>${resource.delimiter}</delimiter>
+           </delimiters>
+           <!-- 禁用默认占位符 -->
+           <useDefaultDelimiters>false</useDefaultDelimiters>
+       </configuration>
+   </plugin>
+   ```
+
+但是这个只有继承了 spring-boot-starter-parent 的 SpringBoot 项目才会默认使用 `@@` 占位符，否则 SpringBoot 配置文件中的默认占位符 `${}` 可能会与 Maven 的默认占位符 `${}` 冲突，可以使用以下插件将 SpringBoot 配置文件中的 Maven 占位符改为 `@@`：
 
 ```xml
 <build>
@@ -898,9 +939,14 @@ spring.profiles.active=@profile.active@
     </plugins>
     <resources>
         <resource>
-            <directory>src/main/resources</directory>
              <!--maven会自动读取includes配置文件，然后解析其中的占位符（占位符是${变量名称}这样的形式）-->
             <filtering>true</filtering>
+            <directory>src/main/resources</directory>
+            <includes>
+                <include>**/application*.yml</include>
+                <include>**/application*.yaml</include>
+                <include>**/application*.properties</include>
+            </includes>
         </resource>
     </resources>
 </build>
