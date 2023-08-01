@@ -1354,6 +1354,16 @@ GROUP BY column_name;
 
 
 
+**去重统计**
+
+`COUNT()` 聚合函数可配合 `DISTINCT` 关键字达到去重统计的效果：
+
+```mysql
+SELECT COUNT(DISTINCT <去重字段>) FROM <表>
+```
+
+
+
 ### 7.5.1、ROLLUP
 
 在数据库查询语句中，在 `GROUP BY` 表达式之后加上 `WITH ROLLUP` 语句，可以在查询结果中包含更多高层级的统计输出。ROLLUP 功能使得可以通过单个查询语句来实现对数据进行不同层级上的分析与统计。因此，ROLLUP 功能能够很好得为 OLAP（Online Analytical Processing）任务提供支持。
