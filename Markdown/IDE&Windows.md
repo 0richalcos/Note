@@ -615,6 +615,31 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 
 
+## 【13】修改（文件）编码格式
+
+IntelliJ IDEA 可以在菜单中的 File => Settings => Editor => File Encoding 下修改项目文件的编码：
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230803120704470.png" alt="image-20230803120704470" style="zoom: 50%;" />
+
+- IDE 的默认的全局编码是 UTF-8，Project Encoding 默认会是操作系统的 GBK，一般会修改为 UTF-8。
+- IntelliJ IDEA 可以对 Properties 文件进行专门的编码设置，也建议改为 UTF-8，其中有一个重点就是属性 **Transparent native-to-ascii conversion** ，一般都要勾选，不然 Properties 文件中的注释显示的都不会是中文。
+- IntelliJ IDEA 除了支持对整个 Project 设置编码之外，还支持对目录、文件进行编码设置。如果你要对目录进行编码设置的话，可能会出现需要 Convert 编码的弹出操作选择，强烈建议在转换之前做好文件备份，不然可能出现转换过程变成乱码，无法还原。
+
+另外，单独文件的编码也可以这样设置：
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230803120845477.png" alt="image-20230803120845477" style="zoom:50%;" />
+
+可能会弹出这样一个弹框：
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230803120926821.png" alt="image-20230803120926821" style="zoom:50%;" />
+
+- Reload 表示使用新编码重新加载，新编码不会保存到文件中。
+- Convert 表示使用新编码进行转换，新编码会保存到文件中。
+
+> 含有中文的代码文件，Convert 之后可能会使中文变成乱码，所以在转换成请做好备份，不然可能出现转换过程变成乱码，无法还原。
+
+
+
 # STS
 
 ## 【1】修改内存大小
@@ -628,7 +653,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200428213849950.png" alt="image-20200428213849950" style="zoom: 50%;" />
 
 
-<br>
+
 
 ## 【2】汉化
 

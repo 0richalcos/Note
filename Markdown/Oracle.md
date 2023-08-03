@@ -157,9 +157,29 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 
 
-**ORA-12516 TNS: 监听程序找不到符合协议堆栈要求的可用处理程序**
+**ORA-28547:connection to server failed, probable Oracle Net admin error**
 
+因为 Navicat 是通过 Oracle 客户端连接 Oracle 服务器的，Oracle 的客户端分为两种，一种是标准版，一种是简洁版，即 Oracle Install Client。而我们用 Navicat 时通常会在自己的安装路径下包含多个版本的 OCI，如果使用 Navicat 连接 Oracle 服务器出现 ORA-28547 错误时，多数是因为 Navicat本地的 OCI 版本与 Oracle 服务器服务器不符造成的。所以我们要做的就是下载 OCI 使之与我们所安装的 Oracle 服务器相符合。
 
+OCI 下载地址：https://www.oracle.com/database/technologies/instant-client/downloads.html
+
+1. 选择自己的运行环境：
+
+   ![image-20230803121856769](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230803121856769.png)
+
+2. 选择自己的 Oracle 版本：
+
+   ![image-20230803122123579](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230803122123579.png)
+
+   > 还有一点要注意，Oracle9i 或以上版本的，要安装 Install Client11 或以下；Oracle8 或 8i 服务器，需要安装 Install Client10 或以下。这个问题不大，因为我们现在的 Oracle 都是 10 或 11 了，注意一下就好。
+
+3.  然后在 Navicat 中配置一下，选择【工具】 ==> 【选项】 ==> 【环境】：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230803122833129.png" alt="image-20230803122833129" style="zoom: 67%;" />
+
+   在 OCI library 中找到刚刚下载的文件夹中的 oci.dll。
+
+4. 这样就完成了 Navicat 配置，也就使得 Navicat 中的 oci.dll 版本和 Oracle 中的版本一致了，必须重启 Navicat 才能生效。
 
 
 
