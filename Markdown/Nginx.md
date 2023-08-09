@@ -2,6 +2,20 @@
 typora-copy-images-to: upload
 ---
 
+# 1、简介
+
+Nginx 是 lgor Sysoev 为俄罗斯访问量第二的 rambler.ru 站点设计开发的。从 2004 年发布至今，凭借开源的力量，已经接近成熟与完善。
+
+Nginx 功能丰富，可作为HTTP服务器，也可作为反向代理服务器，邮件服务器。支持 FastCGI、SSL、Virtual Host、URL Rewrite、Gzip 等功能。并且支持很多第三方的模块扩展。
+
+Nginx 的稳定性、功能集、示例配置文件和低系统资源的消耗让他后来居上，在全球活跃的网站中有 12.18% 的使用比率，大约为 2220 万个网站。
+
+
+
+# 2、安装
+
+## 2.1、Linux 安装
+
 **安装**
 
 1. 去 [官网](http://nginx.org/en/download.html) 下载压缩包：
@@ -50,7 +64,7 @@ typora-copy-images-to: upload
 
    安装完成后再前往 `/usr/local/nginx` 目录执行 `./configure`：
 
-   ![image-20230615003550134](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230615003550134.png)
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230615003550134.png" alt="image-20230615003550134" style="zoom: 33%;" />
 
    这里显示缺少 zlib 库，可以从 [官网](http://www.zlib.net) 下载，然后上传至服务器、解压、执行配置文件、安装：
 
@@ -84,7 +98,8 @@ typora-copy-images-to: upload
    ./nginx
    ```
 
-   
+
+
 
 **常用命令**
 
@@ -99,5 +114,34 @@ ps aux | grep nginx           //查看ngnix进程
 
 cd /usr/local/nginx/conf      //进入配置目录
 vim nginx.conf                //编辑配置文件
+```
+
+
+
+## 2.2、Windows 安装
+
+**安装**
+
+去 [官网](http://nginx.org/en/download.html) 下载压缩包：
+
+![image-20230810003412376](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230810003412376.png)
+
+下载好，找个目录解压缩一下，其中最主要的配置文件 `nginx.conf` 在 conf 文件夹中。
+
+
+
+**常用命令**
+
+```shell
+cd C:\Nginx					//进入目录
+
+start nginx					//启动nginx，或者直接双击nginx.exe
+
+nginx.exe -s stop			//快速停止nginx
+nginx.exe -s quit			//完整有序的停止nginx，并保存相关信息
+
+nginx.exe -s reload			//重新载入nginx配置信息
+nginx.exe -s reopen			//重新打开nginx的日志文件
+nginx.exe -v				//查看nginx版本信息
 ```
 
