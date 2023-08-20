@@ -598,7 +598,7 @@ The target type of this expression must be a functional interface
 //此表达式的目标类型必须是函数接口
 ```
 
-这说明该接口不是函数式接口，为了防止在函数式接口中声明多个抽象方法，Java 8 提供了一个声明函数式接口注解 `@FunctionalInterface`，示例代码如下：
+为了防止在函数式接口中声明多个抽象方法，Java 8 提供了一个声明函数式接口注解 `@FunctionalInterface`，示例代码如下：
 
 ```java
 // 可计算接口
@@ -611,26 +611,26 @@ public interface Calculable {
 
 在接口之前使用 `@FunctionalInterface` 注解修饰，那么试图增加一个抽象方法时会发生编译错误。但可以添加默认方法和静态方法。
 
-`@FunctionalInterface` 注解与 `@Override` 注解的作用类似。Java 8 中专门为函数式接口引入了一个新的注解 `@FunctionalInterface`。该注解可用于一个接口的定义上，一旦使用该注解来定义接口，编译器将会强制检查该接口是否确实有且仅有一个抽象方法，否则将会报错。需要注意的是，即使不使用该注解，只要满足函数式接口的定义，这仍然是一个函数式接口，使用起来都一样。
+`@FunctionalInterface` 注解与 `@Override` 注解的作用类似。该注解可用于一个接口的定义上，一旦使用该注解来定义接口，编译器将会强制检查该接口是否确实有且仅有一个抽象方法，否则将会报错。需要注意的是，即使不使用该注解，只要满足函数式接口的定义，这仍然是一个函数式接口，使用起来都一样。
 
 > 提示：Lambda 表达式是一个匿名方法代码，Java 中的方法必须声明在类或接口中，那么 Lambda 表达式所实现的匿名方法是在函数式接口中声明的。
 
 JDK 1.8 之前已有的函数式接口：
 
-- java.lang.Runnable
-- java.util.concurrent.Callable
-- java.security.PrivilegedAction
-- java.util.Comparator
-- java.io.FileFilter
-- java.nio.file.PathMatcher
-- java.lang.reflect.InvocationHandler
-- java.beans.PropertyChangeListener
-- java.awt.event.ActionListener
-- javax.swing.event.ChangeListener
+- `java.lang.Runnable`
+- `java.util.concurrent.Callable`
+- `java.security.PrivilegedAction`
+- `java.util.Comparator`
+- `java.io.FileFilter`
+- `java.nio.file.PathMatcher`
+- `java.lang.reflect.InvocationHandler`
+- `java.beans.PropertyChangeListener`
+- `java.awt.event.ActionListener`
+- `javax.swing.event.ChangeListener`
 
 JDK 1.8 新增加的函数接口：
 
-- java.util.function
+- `java.util.function`
 
 
 
