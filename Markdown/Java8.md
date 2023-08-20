@@ -2092,7 +2092,7 @@ LWEzMWItYjk3MmEwZTYyNTdk
 
 Optional 类是一个可以为 `null` 的容器对象。如果值存在则 `isPresent()` 方法会返回 `true`，调用 `get()` 方法会返回该对象。
 
-Optional 是个容器：它可以保存类型 T 的值，或者仅仅保存 `null`。Optional 提供很多有用的方法，这样我们就不用显式进行空值检测。
+Optional 是个容器：它可以保存类型 `T` 的值，或者仅仅保存 `null`。Optional 提供很多有用的方法，这样我们就不用显式进行空值检测。
 
 Optional 类的引入很好的解决空指针异常。
 
@@ -2115,12 +2115,12 @@ public final class Optional<T> extends Object
 | `static <T> Optional<T> empty()`                             | 返回空的 Optional 实例。                                     |
 | `boolean equals(Object obj)`                                 | 判断其他对象是否等于 Optional。                              |
 | `Optional<T> filter(Predicate<? super T> predicate)`         | 如果值存在，并且这个值匹配给定的 *predicate*，返回一个Optional 用以描述这个值，否则返回一个空的 Optional。 |
+| `<U> Optional<U> map(Function<? super T, ? extends U> mapper)` | 如果有值，则对其执行调用映射函数得到返回值。如果返回值不为 `null`，则创建包含映射返回值的 Optional 作为 `map` 方法返回值，否则返回空 Optional。 |
 | `<U> Optional<U> flatMap(Function<? super T, Optional<U>> mapper)` | 如果值存在，返回基于 Optional 包含的映射方法的值，否则返回一个空的 Optional。 |
 | `T get()`                                                    | 如果在这个 Optional 中包含这个值，返回值，否则抛出异常：NoSuchElementException。 |
 | `int hashCode()`                                             | 返回存在值的哈希码，如果值不存在则返回 `0`。                 |
 | `void ifPresent(Consumer<? super T> consumer)`               | 如果值存在则使用该值调用 *consumer*，否则不做任何事情。      |
 | `boolean isPresent()`                                        | 如果值存在则方法会返回 `true`，否则返回 `false`。            |
-| `<U>Optional<U> map(Function<? super T, ? extends U> mapper)` | 如果有值，则对其执行调用映射函数得到返回值。如果返回值不为 `null`，则创建包含映射返回值的 Optional 作为 `map` 方法返回值，否则返回空 Optional。 |
 | `static <T> Optional<T> of(T value)`                         | 返回一个指定非 `null` 值的 Optional。                        |
 | `static <T> Optional<T> ofNullable(T value)`                 | 如果为非空，返回 Optional 描述的指定值，否则返回空的 Optional。 |
 | `T orElse(T other)`                                          | 如果存在该值，返回值， 否则返回 *other*。                    |
@@ -2178,6 +2178,81 @@ $ java Java8Tester
 第二个参数值存在: true
 10
 ```
+
+
+
+## 8.4、正确使用 Optional
+
+**尽量避免使用的地方：**
+
+1. 避免使用 `Optional.isPresent()` 来检查实例是否存在，因为这种方式和 `null != obj` 没有区别，这样用就没什么意义了。
+2. 避免使用 `Optional.get()` 方式来获取实例对象，因为使用前需要使用 `Optional.isPresent()` 来检查实例是否存在，否则会出现 NPE 问题。
+3. 避免使用 Optional 作为类或者实例的属性，而应该在返回值中用来包装返回实例对象。
+4. 避免使用 Optional 作为方法的参数，原因同 3。
+
+
+
+**正确使用方式：**
+
+1. 实例对象存在则返回，否则提供默认值或者通过方法来设置返回值，即使用 `orElse`/`orElseGet` 方式：
+
+   ```java
+   //存在则返回
+   User king = new User(1, "king");
+   Optional<User> userOpt = Optional.of(king);
+   User user = userOpt.orElse(null);
+   System.out.println(user.getName());
+   ```
+
+   ```java
+   //不存在提供默认值
+   User user2 = null;
+   Optional<User> userOpt2 = Optional.ofNullable(user2);
+   User user3 = userOpt2.orElse(unknown);
+   System.out.println(user3.getName());
+   ```
+
+   ```java
+   //通过方法提供值
+   User user4 = userOpt2.orElseGet(() -> new User(0, "DEFAULT")); 
+   System.out.println(user4.getName())
+   ```
+
+   不建议这样使用：
+
+   ```java
+   if(userOpt.isPresent()) {
+       System.out.println(userOpt.get().getName());
+   } else {
+       //。。。
+   }
+   ```
+
+2. 使用 `ifPresent()` 来进行对象操作，存在则操作，否则不操作：
+
+   ```java
+   //实例存在则操作，否则不操作
+   userOpt.ifPresent(u -> System.out.println(u.getName()));
+   userOpt2.ifPresent(u -> System.out.println(u.getName()));
+   ```
+
+3. 使用 `map`/`flatMap` 来获取关联数据：
+
+   ```java
+   //使用map方法获取关联数据
+   System.out.println(userOpt.map(u -> u.getName()).orElse("Unknown"));
+   System.out.println(userOpt2.map(u -> u.getName()).orElse("Default"));
+   //使用flatMap方法获取关联数据
+   List<String> interests = new ArrayList<String>();
+   interests.add("a");
+   interests.add("b");
+   interests.add("c");
+   user.setInterests(interests);
+   List<String> interests2 = Optional.of(user)
+       .flatMap(u -> Optional.ofNullable(u.getInterests()))
+       .orElse(Collections.emptyList());
+   System.out.println(interests2.isEmpty());
+   ```
 
 
 
