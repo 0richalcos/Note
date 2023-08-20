@@ -926,7 +926,6 @@ spring.profiles.active=@profile.active@
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-resources-plugin</artifactId>
-            <version>3.1.0</version>
             <configuration>
                 <delimiters>
                     <!--将maven占位符替换为 @ @ -->
@@ -939,9 +938,9 @@ spring.profiles.active=@profile.active@
     </plugins>
     <resources>
         <resource>
+            <directory>src/main/resources</directory>
              <!--maven会自动读取includes配置文件，然后解析其中的占位符（占位符是${变量名称}这样的形式）-->
             <filtering>true</filtering>
-            <directory>src/main/resources</directory>
             <includes>
                 <include>**/application*.yml</include>
                 <include>**/application*.yaml</include>

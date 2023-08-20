@@ -1355,6 +1355,35 @@ document.getElementById("demo").innerHTML = toCelsius(77);
 
 
 
+**默认参数**
+
+设置函数的默认参数是在 JavaScript 中比较常见的需求。
+
+在 ES6 以前，我们可以使用一些技巧来模拟函数默认参数值的功能，比如利用 JavaScript 中逻辑运算符 `||` 的特性，只要第一个表达式为 `false`，则返回第二个表达式的值。利用这个特性，我们就可以设置函数的默认参数：
+
+```javascript
+function sayHello(name) {
+  name = name || 'guest'; // 如果 name 为 false（例如 undefined、null、false、0），则把 name 赋值为 'guest'
+  console.log('Hello, ' + name);
+}
+
+sayHello('Bob'); // 输出：Hello, Bob
+sayHello(); // 输出：Hello, guest
+```
+
+在 ES6 中，可以很方便地设置函数的默认参数，只需要在函数参数中直接给出默认值即可。如下面的代码所示：
+
+```javascript
+function sayHello(name = 'guest') { // 如果 name 没有传入值，则默认为 'guest'
+  console.log('Hello, ' + name);
+}
+
+sayHello('Bob'); // 输出：Hello, Bob
+sayHello(); // 输出：Hello, guest
+```
+
+
+
 ## 3.2、箭头函数
 
 ES6 中引入了箭头函数，箭头函数允许我们编写更短的函数。
