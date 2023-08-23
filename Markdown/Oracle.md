@@ -1064,6 +1064,14 @@ SELECT deptno, WM_CONCAT(DISTINCT ',', sal) FROM emp GROUP BY deptno ORDER BY de
 
 
 
+## 5.4、判空
+
+### 5.4.1、NVL
+
+
+
+
+
 # 6、Spring Boot 集成
 
 ## 6.1、集成步骤
