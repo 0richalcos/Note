@@ -1782,7 +1782,7 @@ Vim 键盘图：
 | ---------------------------------------------- | ------------------------------------------------------------ |
 | `/word`                                        | 向光标之下寻找一个名称为 word 的字符串。例如要在档案内搜寻 vbird 这个字符串，就输入 /vbird 即可（常用） |
 | `?word`                                        | 向光标之上寻找一个字符串名称为 word 的字符串                 |
-| n                                              | 这个 n 是英文按键。代表重复前一个搜寻的动作。举例来说， 如果刚刚执行 `/vbird` 去向下搜寻 vbird 这个字符串，则按下 n 后，会向下继续搜寻下一个名称为 vbird 的字符串。如果是执行 `?vbird` 的话，那么按下 n 则会向上继续搜寻名称为 vbird 的字符串！ |
+| n                                              | 这个 n 是英文按键，代表 “next”（下一个）的意思。用于重复前一个搜寻的动作。举例来说， 如果刚刚执行 `/vbird` 去向下搜寻 vbird 这个字符串，则按下 n 后，会向下继续搜寻下一个名称为 vbird 的字符串。如果是执行 `?vbird` 的话，那么按下 n 则会向上继续搜寻名称为 vbird 的字符串！ |
 | N                                              | 这个 N 是英文按键。与 n 刚好相反，为『反向』进行前一个搜寻动作。 例如 `/vbird` 后，按下 N 则表示『向上』搜寻 vbird |
 | `:n1,n2s/word1/word2/g`                        | n1 与 n2 为数字。在第 n1 与 n2 行之间寻找 word1 这个字符串，并将该字符串取代为 word2 ！举例来说，在 100 到 200 行之间搜寻 vbird 并取代为 VBIRD 则：``:100,200s/vbird/VBIRD/g`（常用） |
 | `:1,$s/word1/word2/g` 或 `:%s/word1/word2/g`   | 从第一行到最后一行寻找 word1 字符串，并将该字符串取代为 word2 ！(常用) |
@@ -1889,39 +1889,69 @@ set nonumber
 
 ## 8.1、make
 
-Linux 中安装软件方式的一种是：将源码 sourcecode.tar.gz 进行解压，然后输入 `./configure`，接着 `make`，最后 `make install`，一个软件就安装完成了。
+Linux 中安装软件的一种方式是：将源码 sourcecode.tar.gz 进行解压，然后输入 `./configure`，接着 `make`，最后 `make install`，一个软件就安装完成了。
 
-1. `configure`：这一步一般用来生成 Makefile，为下一步的编译做准备，可以通过在 `configure` 后加上参数来对安装进行控制。
 
-   例如安装 Apache 时：`./configure --prefix=/opt/sudytech/apache2` 意思是将该软件安装在 `/opt/sudytech/apache2` 下面，执行文件就会安装在 `/opt/sudytech/apache2/bin` （而不是默认的 `/usr/local/bin`），资源文件就会安装在 `/opt/sudytech/apache2/share`（而不是默认的 `/usr/local/share`）。
 
-   同时一些软件的配置文件你可以通过指定 `--sys-config=`  参数进行设定。
+**configure**
 
-   有一些软件还可以加上 `-with`、`-enable`、`-without`、`-disable` 等等参数对编译加以控制（具体可以查看基础环境安装文档的参数），你可以通过 `./configure -help` 察看详细的说明帮助。
+这一步一般用来生成 Makefile，为下一步的编译做准备，可以通过在 `configure` 后加上参数来对安装进行控制。
 
-   当 `configure` 执行的时候 console 一般会打印这样的信息：
+例如安装 Apache 时：`./configure --prefix=/opt/sudytech/apache2` 意思是将该软件安装在 `/opt/sudytech/apache2` 下面，执行文件就会安装在 `/opt/sudytech/apache2/bin` （而不是默认的 `/usr/local/bin`），资源文件就会安装在 `/opt/sudytech/apache2/share`（而不是默认的 `/usr/local/share`）。
 
-   ```
-   checking for stdlib.h... yes
-   checking for string.h... yes
-   checking for memory.h... yes
-   checking for strings.h... yes
-   checking for inttypes.h... yes
-   checking for stdint.h... yes
-   checking for unistd.h... yes
-   checking for xxxxxxxx... no
-   checking for xxxxxxxx... yes
-   ```
+通过 `--prefix` 选项指定安装目录的方法在安装软件时具有一些优点和缺点，以下是其中一些主要的考虑因素：
 
-   这是configure正在检测你的安装平台的目标特征。比如它会检测你是不是有CC或GCC，并不是需要CC或GCC，其实configure它本身就是个shell脚本。
+优点：
 
-2. `make`：这一步就是编译，既然 `configure` 已经生成了 Makefile，那 `make` 就可以直接进行编译了。
+1. 自定义安装位置： 使用 `--prefix` 可以让你将软件安装到你想要的任意目录中，而不是默认的系统目录。这对于用户或系统管理员来说很有用，特别是在你想要在特定目录中保持清晰的软件组织结构时。
+2. 避免权限问题： 安装到系统默认目录可能需要管理员权限，而通过指定自定义目录，你可以在没有管理员权限的情况下进行安装，避免了权限问题。
+3. 避免与系统包管理冲突： 有时，系统包管理器（如 APT、Yum、dnf 等）安装的软件可能与你想要安装的软件版本不兼容。通过自定义安装目录，你可以避免与系统包冲突，因为系统软件和自定义安装的软件相互隔离。
+4. 多版本支持**：** 如果你需要在同一系统上安装多个版本的同一软件，自定义安装目录可以帮助你保持版本的隔离。
 
-   大多数的源代码包都经过这一步进行编译（当然有些 perl 或 python 编写的软件需要调用 perl 或 python 来进行编译）。如果在 `make` 过程中出现 error ，一般是你的系统少了一些依赖库等，这些需要自己仔细研究错误代码。执行完之后，会发现 sourcecode 目录中多了一些编译产生的可执行文件及目标文件（object file、*.o）。
+缺点：
 
-3. `make insatll`：这条命令来进行安装（当然有些软件需要先运行 `make check` 或 `make test` 来进行一些测试），这一步一般需要你有 root 权限（因为要向系统写入文件），通常会带来相应的一系列 `mkdir`、`cp`、`ln` 操作。
+1. 设置 PATH 和环境变量： 安装到自定义目录后，你需要确保将该目录添加到 PATH 环境变量中，以便能够轻松找到和执行软件。否则，你需要每次指定完整的路径来执行软件。
+2. 依赖问题**：** 安装到自定义目录可能导致依赖项的路径问题。其他软件可能无法找到你自定义安装的软件，除非你正确地设置了相关的路径和环境变量。
+3. 管理复杂性： 自定义安装目录可能会增加系统管理的复杂性，特别是当有多个自定义安装的软件时。你需要管理不同目录中的各种文件和版本，以及可能的依赖关系。
+4. 卸载问题： 卸载自定义安装的软件可能需要手动删除相关文件，而不像通过包管理器安装的软件那样方便。
 
-   若源码不支持 `./configure` 方式指定安装目录，可通过 `make install -prefix=` 再次指定安装路径。  
+总体而言，通过 `--prefix` 指定安装目录在一些情况下非常有用，特别是当你需要在系统中保持更多的控制和定制性时。然而，这种方法可能需要更多的管理和维护工作，需要在优点和缺点之间做出权衡。
+
+同时一些软件的配置文件你可以通过指定 `--sys-config=`  参数进行设定。
+
+有一些软件还可以加上 `--with`、`--enable`、`--without`、`--disable` 等等参数对编译加以控制（具体可以查看基础环境安装文档的参数），你可以通过 `./configure --help` 察看详细的说明帮助。
+
+当 `configure` 执行的时候 console 一般会打印这样的信息：
+
+```
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking for xxxxxxxx... no
+checking for xxxxxxxx... yes
+```
+
+这是 `configure` 正在检测你的安装平台的目标特征。比如它会检测你是不是有 CC 或 GCC，是不是需要 CC 或 GCC，其实 `configure` 它本身就是个 shell 脚本。
+
+
+
+**make**
+
+这一步就是编译，既然 `configure` 已经生成了 Makefile，那 `make` 就可以直接进行编译了。
+
+大多数的源代码包都经过这一步进行编译（当然有些 perl 或 python 编写的软件需要调用 perl 或 python 来进行编译）。如果在 `make` 过程中出现 error ，一般是你的系统少了一些依赖库等，这些需要自己仔细研究错误代码。执行完之后，会发现 sourcecode 目录中多了一些编译产生的可执行文件及目标文件（object file、*.o）。
+
+
+
+**make insatll**
+
+这条命令来进行安装（当然有些软件需要先运行 `make check` 或 `make test` 来进行一些测试），这一步一般需要你有 root 权限（因为要向系统写入文件），通常会带来相应的一系列 `mkdir`、`cp`、`ln` 操作。
+
+若源码不支持 `./configure` 方式指定安装目录，可通过 `make install --prefix=` 再次指定安装路径。  
 
 
 

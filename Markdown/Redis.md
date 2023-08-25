@@ -177,7 +177,7 @@ Redis 是单线程的（6.0 是多线程），因为 Redis 是基于内存操作
 5. 安装：
 
    ```shell
-   make install
+   sudo make install
    ```
 
 6. 启动 Redis：
