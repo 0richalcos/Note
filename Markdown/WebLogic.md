@@ -255,3 +255,41 @@ WebLogic 的默认 JVM 堆大小为 3GB。该大小是在 Linux 的 `setDomainEn
 4. 保存文件。
 
 5. 重新启动 WebLogic 服务器。
+
+
+
+## 2.4、修改 WebLogic 的端口 
+
+两种方法可以修改，第一种方法是后台管理界面修改，第二种是配置文件修改。
+
+
+
+**后台修改**
+
+1. 进入 WebLogic 登陆界面：
+
+   ![image-20230829172847335](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230829172847335.png)
+
+2. 登录之后找到【环境】=>【服务器】：
+
+   ![image-20230829173017666](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230829173017666.png)
+
+3. 点击管理项目的服务器超链接：
+
+   ![image-20230829173137105](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230829173137105.png)
+
+4. 点击【锁定并编辑】，修改监听端口后保存即可：
+
+   ![image-20230829173236833](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230829173236833.png)
+
+   此种方式不需要重启。
+
+
+
+**配置文件修改方式**
+
+修改 `%weblogic%\user_projects\domains\base_domain\config\config.xml`，大概在 55 行：
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230829173614635.png" alt="image-20230829173614635" style="zoom: 67%;" />
+
+此种方式需要重启。
