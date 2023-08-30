@@ -469,7 +469,7 @@ NAMES.DIRECTORY_PATH= (TNSNAMES, HOSTNAME, ONAMES，EZCONNECT)
 
 ## 4.1、对 CLOB 进行模糊查询
 
-在 Oracle 中多大文本数据我们没有办法使用 `LIKE` 进行查询，所以只能使用 Oracle 中的函数：
+在 Oracle 中大文本数据我们没有办法使用 `LIKE` 进行查询，所以只能使用 Oracle 中的函数：
 
 ```sql
 SELECT * FROM TABLE表 WHERE dbms_lob.instr(字段名（clod类型）,'查询条件',1,1) > 0
@@ -554,6 +554,51 @@ CONNECT BY PRIOR DEPID = PARENTDEPID
 ## 4.3、关于 Oracle 中的 AS
 
 在 Oracle 中 `AS` 关键字不能用于指定表的别名，在 Oracle 中指定表的别名时只需在原有表名和表的别名之间用空格分隔即可，指定列的别名的用法和 MySQL 相同，但在存储过程中如果列的别名与原有列名相同，在运行时会报错（编译时不会出错），其他情况下列的别名可以与列名本身相同。
+
+
+
+## 4.4、限制查询条数
+
+在 MySQL 数据库中，`LIMIT` 关键字用于限制查询结果的返回行数。它通常用于分页查询或限制结果集的大小。
+
+但是 Oracle 中并没有 `LIMIMT`，在 Oracle 数据库中，`ROWNUM` 是一个伪列（Pseudocolumn），它用于标识查询结果集中的行号。每当从查询结果集中检索出一行时，`ROWNUM` 就会递增。这使得它成为限制返回行数、分页查询的一种方式。
+
+
+
+**限制返回行数**
+
+可以使用 `ROWNUM` 限制查询结果的返回行数，例如：
+
+```sql
+SELECT column1, column2
+FROM your_table
+WHERE conditions
+AND ROWNUM <= 10;
+```
+
+这将返回满足条件的前 10 行。
+
+
+
+**分页查询**
+
+对于这种形式的查询，Oracle 不像 MySQL 那么方便，它必须使用子查询或者是集合操作来实现。
+
+因为当你查询 `ROWNUM` 大于 2 的记录时会得到一个空的结果集，由于 `ROWNUM` 是根据查询的结果集来对记录进行编号，当 Oracle 查询得到第 1 条记录时，发现 `ROWNUM` 为 1 不满足条件，然后就继续查询第 2 条记录，但此时第 2 条记录又被编号为 1（也即 `ROWNUM` 变为 1），所以查询得到的始终是 `rownum=1`，因此无法满足约束，最终查询的结果集为空。
+
+使用 `ROWNUM` 结合子查询实现分页查询，例如：
+
+```sql
+SELECT column1, column2
+FROM (
+    SELECT column1, column2, ROWNUM AS rnum
+    FROM your_table
+    WHERE conditions
+)
+WHERE rnum >= 11 AND rnum <= 20;
+```
+
+这将返回满足条件的第 11 到 20 行，用于实现分页。
 
 
 
@@ -1068,7 +1113,13 @@ SELECT deptno, WM_CONCAT(DISTINCT ',', sal) FROM emp GROUP BY deptno ORDER BY de
 
 ### 5.4.1、NVL
 
+NVL函数的格式如下：
 
+```sql
+NVL(expr1,expr2)
+```
+
+如果 *expr1* 为空那么显示 *expr2* 的值，如果 *expr1* 的值不为空，则显示 *expr1*本来的值。
 
 
 

@@ -1435,18 +1435,30 @@ public class RTransaction {
 
 # 7、Spring Boot 整合
 
-Spring Boot 操作数据：Spring Date JPA JDBC MongoDB Redis
+`RedisTemplate` 是 Spring Data Redis 提供的一个强大的模板类，用于在 Spring 应用中与 Redis 进行交互。它是与 Spring 框架紧密集成的，可以适用于多种 Redis 客户端实现，包括 Jedis 和 Lettuce。
 
-在 Spring Boot 2.X 之后，原来使用的 Jedis 被替换为了 lettuce
+在早期版本的 Spring Data Redis 中，默认使用的是 Jedis 作为 Redis 客户端。但从 Spring Data Redis 2.0 版本开始，Lettuce 成为了默认的 Redis 客户端实现。
 
-- Jedis：采用的直连，多个线程操作的话是不安全的，如果想要避免不安全，可以使用 Jedis Pool 连接池，更像 BIO 模式。
-- lettuce：采用 netty，实例可以在多个线程中进行共享，不存在线程不安全的情况！可以减少线程数据，更像 NIO 模式。
+Jedis 是一个基于同步、非线程安全的 Redis 客户端，如果想要避免不安全，可以使用 Jedis Pool 连接池。
+
+相比之下，Lettuce 是一个基于异步、线程安全和可扩展的 Redis 客户端，支持多个连接和高级功能。
+
+如果你使用 Spring Boot，当添加了 `spring-boot-starter-data-redis` 依赖后，默认情况下会使用 Lettuce 作为 Redis 客户端实现。但是，如果你的应用需要，你也可以手动配置使用 Jedis。
+
+无论使用 Jedis 还是 Lettuce，`RedisTemplate` 都提供了一种在 Spring 应用中更方便地与 Redis 进行交互的方式。你可以使用它来执行各种 Redis 操作，如设置键值、获取值、执行事务等。当然，具体的代码和配置可能因为你使用的客户端实现而略有不同，但使用 `RedisTemplate` 能够在你切换 Redis 客户端实现时减少代码改动的工作量。
 
 
 
 整合测试
 
 1. 导入依赖
+
+   ```xml
+   <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-data-redis</artifactId>
+   </dependency>
+   ```
 
 2. 配置连接
 
@@ -1485,7 +1497,7 @@ Spring Boot 操作数据：Spring Date JPA JDBC MongoDB Redis
 
 ## 7.1、RedisTemplate 及序列化方式
 
-运行上个例子后，在 Redis 中通过 `keys *`命令可以看到：
+运行上个例子后，在 Redis 中通过 `keys *` 命令可以看到：
 
 ```shell
 "\xac\xed\x00\x05t\x00\x05mykey"
@@ -1515,7 +1527,7 @@ RedisSerializer 接口 是 Redis 序列化接口，用于 Redis KEY 和 VALUE �
 	>
 	> <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180311192010923.png" alt="img" style="zoom:80%;" /> 
 	>
-	> ==当然从 Redis 获取数据的时候也会默认将数据当做字节数组转化==，这样就会导致一个问题，当需要获取的数据不是以字节数组存在 Redis 当中而是正常的可读的字符串的时候，比如说下面这种形式的数据：
+	> 当然从 Redis 获取数据的时候也会默认将数据当做字节数组转化，这样就会导致一个问题，当需要获取的数据不是以字节数组存在 Redis 当中而是正常的可读的字符串的时候，比如说下面这种形式的数据：
 	> <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180311192129306.png" alt="img" style="zoom:80%;" />
 	>
 	> RedisTemplate 就无法获取导数据，这个时候获取到的值就是 NULL。此时 StringRedisTempate 就派上了用场， StringRedisTemplate 使用的是 StringRedisSerializer，当 Redis 当中的数据值是以可读的形式显示出来的时候，只能使用 StringRedisTemplate 才能获取到里面的数据。
@@ -1733,6 +1745,29 @@ class Redis02SpringbootApplicationTests {
         System.out.println(redisTemplate.opsForValue().get("user"));
     }
 }
+```
+
+
+
+## 7.2、获取 Redis 连接信息
+
+获取 Redis 连接的主机名和端口是由 Redis 客户端库自身提供的功能。这些细节在不同的客户端库（如 Jedis 和 Lettuce）中可能有所不同。
+
+对于 Jedis 客户端库，可以使用以下方式获取连接信息：
+
+```java
+JedisConnectionFactory jedisConnectionFactory = (JedisConnectionFactory) redisTemplate.getConnectionFactory();
+String host = jedisConnectionFactory.getHostName();
+int port = jedisConnectionFactory.getPort();
+```
+
+对于 Lettuce 客户端库，获取连接信息的方式可能会有所不同：
+
+```java
+LettuceConnectionFactory lettuceConnectionFactory = (LettuceConnectionFactory) redisTemplate.getConnectionFactory();
+RedisURI redisUri = lettuceConnectionFactory.getStandaloneConfiguration().getClientOptions().getUris().get(0);
+String host = redisUri.getHost();
+int port = redisUri.getPort();
 ```
 
 

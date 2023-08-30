@@ -106,6 +106,30 @@ Nginx 的稳定性、功能集、示例配置文件和低系统资源的消耗�
 
 
 
+**卸载**
+
+1. 停止 Nginx 软件：
+   ```shell
+   /usr/local/nginx/sbin/nginx -s stop
+   ```
+
+   如果不知道 Nginx 的安装路径，可以通过 `ps` 查看 Nginx 的 PID，然后 `kill`  其 PID。
+
+2. 查找根下所有名字包含 Nginx 的文件：
+
+   ```shell
+   find / -name nginx
+   ```
+
+3. 执行命令 `rm -rf *` 删除 Nignx 安装的相关文件：
+
+   ```shell
+   rm -rf /usr/local/sbin/nginx
+   ...
+   ```
+
+
+
 
 **常用命令**
 
