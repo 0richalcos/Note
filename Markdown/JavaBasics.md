@@ -1431,6 +1431,23 @@ public class Test10 {
 
 
 
+**判断 Bigdecimal 类型是否等于 0**
+
+判断 Bigdecimal 类型是否等于 0 最好不要使用 `equals` 方法和 `BigDecimal.ZERO` 进行比较，因为 Bigdecimal 的 `equals` 方法不仅仅比较值的大小是否相等，还会比较 scale（scale 是 BigDecimal 的保留小数点位数，比如 `new Bigdecimal("1.001");` scale 为 3），也就是说，不但值的大小要相等，保留位数也要相等，`equals` 才能返回 `true`。 
+
+```java
+// Bigdecimal.ZERO的scale为0 
+Bigdecimal b = new Bigdecimal("0");
+Bigdecimal c = new Bigdecimal("0.0");
+
+System.out.println(b.equals(c));
+// false
+```
+
+可以用 `b.compareTo(BigDecimal.ZERO)==0` 比较是否等于 0，返回 `true` 则等于 0，返回 `false` 则不等于 0。
+
+
+
 ## 4.4、时间和日期
 
  在 Java 中获取当前时间，可以使用 `java.util.Date` 类和 `java.util.Calendar` 类完成。其中，Date 类主要封装了系统的日期和时间的信息，Calendar 类则会根据系统的日历来解释 Date 对象。

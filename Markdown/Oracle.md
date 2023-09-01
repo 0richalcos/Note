@@ -604,11 +604,11 @@ WHERE rnum >= 11 AND rnum <= 20;
 
 # 5、函数
 
-## 5.1、日期函数
+## 5.1、时间日期
 
-### 5.1.1、SYSDATE()
+### 5.1.1、SYSDATE
 
-**获取当前日期和时间**
+获取当前日期和时间：
 
 ```sql
 SYSDATE()
@@ -616,23 +616,9 @@ SYSDATE()
 
 
 
-**日期/时间转换为字符串函数**
+### 5.1.2、ADD_MONTHS
 
-日期/时间转字符串函数：
-
-```sql
-TO_CHAR(dateField, 'yyyy-mm-dd hh24:mi:ss')
-```
-
-字符串转日期/时间函数：
-
-```sql
-TO_DATE("2017-04-11 06:30:01", 'yyyy-mm-dd hh24:mi:ss')
-```
-
-
-
-**日期/时间增减函数**
+日期/时间增减
 
 增减一小时：
 ```sql
@@ -665,52 +651,32 @@ ADD_MONTHS(dateField, -3);
 
 ```sql
 ADD_MONTHS(dateField, 12);
-ADD_MONTHS(dateField, -12);
+ADD_MONTHS(dateField, -12;
 ```
 
 
 
-**求日期差**
+### 5.1.3、MONTHS_BETWEEN
 
-两个日期相差的小时、分钟、秒：
+`MONTHS_BETWEEN` 函数用于计算两个日期之间的月份差。它返回一个浮点数，表示两个日期之间相差的月份数量。这个函数可以用于计算例如年龄差、账单周期等涉及月份差异的情况。
 
 ```sql
-## Oracle中两个日期相差小时数
-select TO_NUMBER((TO_DATE('2021-09-22 11:22:13', 'yyyy-mm-dd hh24:mi:ss') - TO_DATE('2021-09-22 10:22:13', 'yyyy-mm-dd hh24:mi:ss'))*24)
-AS 相差小时数 from dual;
- 
-## Oracle中两个日期相差分钟数
-select TO_NUMBER((TO_DATE('2021-09-22 11:22:13', 'yyyy-mm-dd hh24:mi:ss') - TO_DATE('2021-09-22 11:20:13', 'yyyy-mm-dd hh24:mi:ss'))*24*60)
-AS 相差分钟数 from dual;
- 
-## Oracle中两个日期相差秒数
-select TO_NUMBER((TO_DATE('2021-09-22 11:22:13', 'yyyy-mm-dd hh24:mi:ss') - TO_DATE('2021-09-22 11:22:00', 'yyyy-mm-dd hh24:mi:ss'))*24*60*60)
-AS 相差秒数 from dual;
+MONTHS_BETWEEN(date1, date2)
 ```
 
-两个日期相差的天数：
+*date1* 和 *date2* 是要比较的两个日期。函数返回一个浮点数，表示从 *date1* 到 *date2* 的月份差。
+
+> `MONTHS_BETWEEN` 函数需要的是实际的日期值，而不是字符串。需要使用 `TO_DATE` 函数将字符串转换为日期，然后再计算月份差。
+
+
+
+`MONTHS_BETWEEN` 函数的返回值包括了小数部分，表示不足一个月的部分。如果要得到整数的月份差，可以使用取整函数（如 `ROUND`、`FLOOR`、`CEIL` 等）对结果进行处理：
 
 ```sql
-## Oracle中两个日期相差天数
-select TO_NUMBER(TO_DATE('2021-10-01', 'yyyy-mm-dd hh24:mi:ss') - TO_DATE('2021-09-22', 'yyyy-mm-dd hh24:mi:ss'))
-AS 相差天数 from dual;
-```
-
-两个日期相差的月份：
-
-```sql
-## oracle两个日期的相差月数--
-## 1）月份都是最后一天，A日期 > B日期 ,返回整数
-select months_between(TO_DATE('2021-10-31', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-09-30', 'yyyy-mm-dd hh24:mi:ss'))
-As 相差月份1 from dual;
- 
-## 2）月份都是最后一天，B日期 > A日期 ,返回负数
-select months_between(TO_DATE('2021-09-30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-10-31', 'yyyy-mm-dd hh24:mi:ss'))
-As 相差月份2 from dual;
- 
-## 3）月份天数不一样，A日期 > B日期 ,返回带小数的数字
-select months_between(TO_DATE('2021-10-31', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-09-22', 'yyyy-mm-dd hh24:mi:ss'))
-As 相差月份3 from dual;
+SELECT ROUND(MONTHS_BETWEEN(TO_DATE('2023-08-31', 'YYYY-MM-DD'),
+                            TO_DATE('2022-01-15', 'YYYY-MM-DD'))) AS months_difference
+FROM dual;
+-- 输出：20
 ```
 
 
@@ -1120,6 +1086,73 @@ NVL(expr1,expr2)
 ```
 
 如果 *expr1* 为空那么显示 *expr2* 的值，如果 *expr1* 的值不为空，则显示 *expr1*本来的值。
+
+
+
+## 5.5、类型转换
+
+### 5.5.1、TO_CHAR
+
+`TO_CHAR` 用于将特定数据类型的值，通常是日期或数字，转换为格式化的字符串表示。
+
+```sql
+TO_CHAR(value, format)
+```
+
+- *value*：要转换的值，可以是日期、数字或其他支持的数据类型。
+- *format*：一个字符串，指定了希望将值转换成的格式。对于日期和数字，这个格式字符串可以包含不同的占位符来表示年、月、日、小时、分钟、秒等等。
+
+
+
+日期/时间转字符串：
+
+```sql
+SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS') FROM DUAL;
+-- 输出类似：'2023-08-31 15:30:00'
+```
+
+将数字转换为带有千位分隔符的字符串：
+
+```sql
+SELECT TO_CHAR(1234567.89, '9,999,999.99') FROM DUAL;
+-- 输出：'1,234,567.89'
+```
+
+格式化货币金额：
+
+```sql
+SELECT TO_CHAR(1234.56, '$9,999.99') FROM DUAL;
+-- 输出：'$1,234.56'
+```
+
+
+
+### 5.5.2、TO_DATE
+
+`TO_DATE` 用于将一个字符串值转换为日期类型。
+
+```sql
+TO_DATE(string, format)
+```
+
+- *string*：要转换为日期的字符串。
+- *format*：一个字符串，指定了输入字符串的格式，以便正确解析为日期。
+
+
+
+将字符串日期转换为日期类型：
+
+```sql
+SELECT TO_DATE('2023-08-31', 'YYYY-MM-DD') FROM DUAL;
+-- 输出：2023-08-31
+```
+
+指定小时、分钟和秒的时间戳转换：
+
+```sql
+SELECT TO_DATE('2023-08-31 15:30:00', 'YYYY-MM-DD HH24:MI:SS') FROM DUAL;
+-- 输出：2023-08-31 15:30:00
+```
 
 
 
