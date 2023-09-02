@@ -96,11 +96,10 @@ MinIO 服务安装后，可以直接通过浏览器登录系统，完成文件�
    wget https://dl.minio.org.cn/server/minio/release/linux-amd64/minio
    ```
 
-3. 进入 `minio` 文件夹创建 log 文件：
+3. 创建 `data` 文件夹用于存放静态文件：
 
    ```shell
-   cd /minio
-   touch minio.log
+   mkdir data
    ```
 
 4. 赋予 `minio` 文件执行权限，最高权限：
@@ -109,7 +108,7 @@ MinIO 服务安装后，可以直接通过浏览器登录系统，完成文件�
    chmod 777 minio
    ```
 
-5. 启动 minio：
+5. 启动 MinIO：
 
    ```shell
    MINIO_ROOT_USER=admin MINIO_ROOT_PASSWORD=password ./minio server /opt/minio/data --console-address ":9001"
@@ -121,10 +120,24 @@ MinIO 服务安装后，可以直接通过浏览器登录系统，完成文件�
    - *--console-address*：设置 console 的端口（设置的话每次启动该端口都会变动）；
    - *--address*：设置 API 端口，该端口重新启动是不变的，但是可以通过 `--address ":9000"` 手动改变。
 
-   上面的启动方式，当我们关闭 shell 连接时，MinIO 也就关闭了，可以通过下面的命令进行后台启动：
+   上面的启动方式，当我们关闭 shell 连接时，MinIO 也就关闭了，可以通过 `nohup` 命令进行后台启动。
+
+   由于 `nohup` 命令后无法使用 `MINIO_ROOT_USER/MINIO_ROOT_PASSWORD` 参数设置 root 用户名和密码，所以需要提前在环境变量设置（如果没有自定义密码的需求可以跳过这一步，默认用户名和密码都是 `minioadmin`）：
 
    ```shell
-   nohup MINIO_ROOT_USER=admin MINIO_ROOT_PASSWORD=password /opt/minio/minio server /opt/minio/data --console-address ":9001" --address ":9000" > /opt/minio/minio.log 2>&1 &
+   vim ~/.profile
+   
+   # 在最后一行加上
+   export MINIO_ACCESS_KEY=minioxx
+   export MINIO_SECRET_KEY=minioxxx
+   
+   source ~/.profile
+   ```
+
+   后台启动 MinIO：
+
+   ```shell
+   nohup ./minio server /opt/minio/data --console-address ":9001" --address ":9000" &
    ```
 
 
