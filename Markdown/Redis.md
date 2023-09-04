@@ -1435,7 +1435,7 @@ public class RTransaction {
 
 # 7、Spring Boot 整合
 
-`RedisTemplate` 是 Spring Data Redis 提供的一个强大的模板类，用于在 Spring 应用中与 Redis 进行交互。它是与 Spring 框架紧密集成的，可以适用于多种 Redis 客户端实现，包括 Jedis 和 Lettuce。
+RedisTemplate 是 Spring Data Redis 提供的一个强大的模板类，用于在 Spring 应用中与 Redis 进行交互。它是与 Spring 框架紧密集成的，可以适用于多种 Redis 客户端实现，包括 Jedis 和 Lettuce。
 
 在早期版本的 Spring Data Redis 中，默认使用的是 Jedis 作为 Redis 客户端。但从 Spring Data Redis 2.0 版本开始，Lettuce 成为了默认的 Redis 客户端实现。
 
@@ -1445,7 +1445,7 @@ Jedis 是一个基于同步、非线程安全的 Redis 客户端，如果想要�
 
 如果你使用 Spring Boot，当添加了 `spring-boot-starter-data-redis` 依赖后，默认情况下会使用 Lettuce 作为 Redis 客户端实现。但是，如果你的应用需要，你也可以手动配置使用 Jedis。
 
-无论使用 Jedis 还是 Lettuce，`RedisTemplate` 都提供了一种在 Spring 应用中更方便地与 Redis 进行交互的方式。你可以使用它来执行各种 Redis 操作，如设置键值、获取值、执行事务等。当然，具体的代码和配置可能因为你使用的客户端实现而略有不同，但使用 `RedisTemplate` 能够在你切换 Redis 客户端实现时减少代码改动的工作量。
+无论使用 Jedis 还是 Lettuce，RedisTemplate 都提供了一种在 Spring 应用中更方便地与 Redis 进行交互的方式。你可以使用它来执行各种 Redis 操作，如设置键值、获取值、执行事务等。当然，具体的代码和配置可能因为你使用的客户端实现而略有不同，但使用 RedisTemplate 能够在你切换 Redis 客户端实现时减少代码改动的工作量。
 
 
 
@@ -1654,7 +1654,7 @@ public GenericJackson2JsonRedisSerializer(@Nullable String classPropertyTypeName
 
 ```
 
-classPropertyTypeName 不为空的话，使用传入对象的 classPropertyTypeName 属性对应的值，作为默认类型（Default Typing） ，否则使用传入对象的类全名，作为默认类型（Default Typing）。同时通过 Default Typing ，会在字符串多冗余一个类型，这样反序列化就知道具体的类型了
+*classPropertyTypeName* 不为空的话，使用传入对象的 *classPropertyTypeName* 属性对应的值，作为默认类型（Default Typing） ，否则使用传入对象的类全名，作为默认类型（Default Typing）。同时通过 Default Typing ，会在字符串多冗余一个类型，这样反序列化就知道具体的类型了
 
 ```java
 @Bean

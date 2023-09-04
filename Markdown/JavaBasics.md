@@ -660,7 +660,7 @@ static String valueOf(char chars[], int startIndex, int numChars)
 
 
 
-**String.valueOf() 的异常**
+### 3.2.4、String.valueOf() 的异常
 
 其他类型转 String 类型的时候一般来说有两种方法，`+""` 或者是 `String.valueOf()` 官方推荐使用 `String.valueOf()`。
 
@@ -681,12 +681,27 @@ System.out.println(String.valueOf(null));
 
 可以查看源码得知第一种和第二种进入的是不同的重载方法：
 
-第一种进入此方法：
+
+
+**第一种进入此方法：**
 
 <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211021233444726.png" alt="image-20211021233444726" style="width:70%;" />
 
+可以看到如果 *obj* 为 `null` 时会返回 `"null"`，如果不希望出现  `"null"` 的结果，可以时候三元运算符进行控制结果：
 
-第二种进入此方法：
+```java
+(obj != null) ? String.valueOf(obj) : "";
+```
+
+如果你使用的是 Java 8 或更高版本，你还可以使用 `Objects.toString(Object obj, String defaultValue)` 方法来处理这个问题。这个方法会在对象为 `null` 时返回指定的默认值，如下所示：
+
+```java
+Objects.toString(obj, "");
+```
+
+
+
+**第二种进入此方法：**
 
 <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211021233456679.png" alt="image-20211021233456679" style="width:70%;" />
 

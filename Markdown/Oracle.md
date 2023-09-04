@@ -483,12 +483,12 @@ instr(sourceString, destString, start, appearPosition)
 
 参数：
 
-- *sourceString* 代表源字符串。
-- *destString* 代表想从源字符串中查找的子串。
-- *start* 代表查找的开始位置，该参数是可选的，默认为 1，如果 *start* 的值为负数，那么代表从右往左进行查找。
-- *appearPosition* 代表想从源字符中查找出第几次出现的 *destString*，该参数也是可选的，默认为 1。
+- *sourceString*：源字符串。
+- *destString*：想从源字符串中查找的子串。
+- *start*：查找的开始位置，该参数是可选的，默认为 1，如果 *start* 的值为负数，那么代表从右往左进行查找。
+- *appearPosition*：想从源字符中查找出第几次出现的 *destString*，该参数也是可选的，默认为 1。
 
-返回值为：查找到的字符串的位置。
+返回值：查找到的字符串的位置。
 
 
 
@@ -599,6 +599,36 @@ WHERE rnum >= 11 AND rnum <= 20;
 ```
 
 这将返回满足条件的第 11 到 20 行，用于实现分页。
+
+
+
+## 4.5、不等于空字符串
+
+之前的应用一直是连接 MySQL 数据库，MySQL 对空和空字符串的识别是不相等的，如：
+
+```sql
+-- FALSE
+SELECT 1 FROM DUAL WHERE '' IS NULL; 
+-- TRUE
+SELECT 1 FROM DUAL WHERE '' IS NOT NULL; 
+-- 注意：NULL 不能用 =、!=、<> 进行比较，只能用 IS、IS NOT 进行比较
+```
+
+而 Oracle 对空和空字符串的识别是等同的，即 `''` 等同于 `NULL`，这样以前写的：
+
+```sql
+SELECT 1 FROM 表名 WHERE 字段名A <> '';
+```
+
+就相当于
+
+```sql
+SELECT 1 FROM 表名 WHERE 字段名A <> NULL;
+```
+
+而 Oracle 的 `NULL` 只能用 `IS` 或 `IS NOT` 进行比较，而不能用 `=` 、`!=` 、`<>` 进行比较。
+
+
 
 
 
