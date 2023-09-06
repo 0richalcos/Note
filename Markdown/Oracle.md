@@ -105,11 +105,11 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 要在 Windows 上卸载 Oracle 数据库，我们必须手动删除所有相关的 `Ora*` 注册表项、文件和文件夹。
 
-1. 停止Oracle *服务
+1. 停止Oracle *服务：
 	
 	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230419152744833.png" alt="image-20230419152744833" style="zoom:50%;" />
 	
-2. 删除 Oracle *注册表项
+2. 删除 Oracle *注册表项：
 
 	-   `计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Oracle*`
 
@@ -399,6 +399,121 @@ NAMES.DIRECTORY_PATH= (TNSNAMES, HOSTNAME, ONAMES，EZCONNECT)
 
 
 
+### 1.5.4、修改字符集
+
+**查看参数**
+
+操作前先查看几个参数，用于后续的还原步骤：
+
+1. 检查 RESTRICTED SESSION 模式：
+
+   ```sql
+   SELECT logins FROM v$instance;
+   ```
+
+   如果 `logins` 列的值为 `RESTRICTED`，则表示 RESTRICTED SESSION 模式已打开。如果值为 `ALLOWED`，则表示模式未打开。
+
+2. 查看 JOB_QUEUE_PROCESSES 参数：
+
+   ```sql
+   SELECT name, value FROM v$parameter WHERE name = 'job_queue_processes';
+   ```
+
+3. 查看 AQ_TM_PROCESSES 参数：
+
+   ```sql
+   SELECT name, value FROM v$parameter WHERE name = 'aq_tm_processes';
+   ```
+
+
+
+**修改字符集**
+
+1. 进入 SQL*Plus 命令行工具：
+
+   ```sql
+   sqlplus /nolog
+   ```
+
+2. 以 SYSDBA 特权连接到数据库实例：
+
+   ```sql
+   conn /as sysdba
+   ```
+
+3. 立即关闭数据库，以确保数据库不处于运行状态，从而允许后续的数据库修改操作：
+
+   ```sql
+   shutdown immediate;
+   ```
+
+4. 启动数据库实例，并将其保持在MOUNT（已装载）状态：
+
+   ```sql
+   startup mount
+   ```
+
+5. 为了确保只有授权用户能够在字符集更改期间访问数据库，启用 RESTRICTED SESSION 模式，只允许具有 RESTRICTED SESSION 特权的用户连接：
+
+   ```sql
+   ALTER SYSTEM ENABLE RESTRICTED SESSION;
+   ```
+
+6. 为了防止后台作业和队列在字符集更改期间对数据库产生干扰，禁用作业队列和高级队列：
+
+   ```sql
+   ALTER SYSTEM SET JOB_QUEUE_PROCESSES=0;
+   ALTER SYSTEM SET AQ_TM_PROCESSES=0;
+   ```
+
+7. 在 MOUNT 状态下，数据库不能正常工作，需要先打开数据库：
+
+   ```sql
+   alter database open;
+   ```
+
+8. 修改数据库字符集为 ZHS16GBK，修改内部使用的数据库字符集为 ZHS16GBK：
+
+   ```sql
+   ALTER DATABASE CHARACTER SET ZHS16GBK;
+   ALTER DATABASE CHARACTER SET INTERNAL_USE ZHS16GBK;
+   ```
+
+9. 查询 NLS 参数以验证字符集更改是否生效：
+
+   ```sql
+   -- 在内容中找下NLS_CHARACTERSET，这个值：ZHS16GBK
+   select * from v$nls_parameters;
+   ```
+
+10. 关闭之前还原修改的参数：
+
+    ```sql
+    ALTER SYSTEM ENABLE <参数> SESSION;
+    ALTER SYSTEM SET JOB_QUEUE_PROCESSES=<参数>;
+    ALTER SYSTEM SET AQ_TM_PROCESSES=<参数>;
+    ```
+
+11. 关闭数据库以进行最终的清理工作：
+
+    ```sql
+    shutdown immediate;
+    ```
+
+12. 再次启动数据库以确保所有更改生效：
+
+    ```sql
+    startup
+    ```
+
+13. 查查询 NLS 参数以验证字符集更改是否持久生效：
+
+    ```sql
+    select * from v$nls_parameters;
+    ```
+
+
+
 # 2、用户及表空间
 
 ## 2.1、用户管理
@@ -629,6 +744,24 @@ SELECT 1 FROM 表名 WHERE 字段名A <> NULL;
 而 Oracle 的 `NULL` 只能用 `IS` 或 `IS NOT` 进行比较，而不能用 `=` 、`!=` 、`<>` 进行比较。
 
 
+
+## 4.6、字段名与 SQL 关键字重名
+
+ORACLE中，如果表中的字段名正好跟 SQL 中关键字重名，写 SQL 语句时要注意：
+
+1. 要将该字段名大写
+
+2. 字段名两边要加双引号 `""`（注：必须是双引号，单引号将无效）
+
+   > 在 MySQL 数据库中是使用反引号（数字 1 按键左边）
+
+比如要创建的表中有 `group` 字段：
+
+```sql
+CREATE TABLE address(
+   "group" char(30)
+)
+```
 
 
 
