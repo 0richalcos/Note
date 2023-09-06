@@ -821,7 +821,7 @@ ADD_MONTHS(dateField, -12;
 
 ### 5.1.3、MONTHS_BETWEEN
 
-`MONTHS_BETWEEN` 函数用于计算两个日期之间的月份差。它返回一个浮点数，表示两个日期之间相差的月份数量。这个函数可以用于计算例如年龄差、账单周期等涉及月份差异的情况。
+Oracle `MONTHS_BETWEEN` 函数用于计算两个日期之间的月份差。它返回一个浮点数，表示两个日期之间相差的月份数量。这个函数可以用于计算例如年龄差、账单周期等涉及月份差异的情况。
 
 ```sql
 MONTHS_BETWEEN(date1, date2)
@@ -962,11 +962,11 @@ SELECT ENAME, JOB FROM EMP WHERE REGEXP_LIKE(JOB, '(clerk|analyst)', 'i');
 REGEXP_INSTR(STRING, REGEX[, START_POSITION[, OCCURRENCE[, RETURN_OPTION[, MODIFIER]]]])
 ```
 
-- *STRING*：需要进行正则处理的字符串
-- *REGEX*：进行匹配的正则表达式
-- *START_POSITION*：起始位置，从字符串的第几个字符开始正则表达式匹配（默认从第一个字符开始，值为 1）
-- *OCCURRENCE*：获取分割出来的第几组子串（分割后最初的字符串会按分割的顺序排列成数组）
-- *RETURN_OPTION*：指定返回值的类型。为 0，则返回匹配值第一次出现的第一个字符的角标，非 0，则返回匹配值第一次出现的最后一个字符的角标 +1
+- *STRING*：需要进行正则处理的字符串。
+- *REGEX*：进行匹配的正则表达式。
+- *START_POSITION*：起始位置，从字符串的第几个字符开始正则表达式匹配（默认从第一个字符开始，值为 1）。
+- *OCCURRENCE*：获取分割出来的第几组子串（分割后最初的字符串会按分割的顺序排列成数组）。
+- *RETURN_OPTION*：指定返回值的类型。为 0，则返回匹配值第一次出现的第一个字符的角标，非 0，则返回匹配值第一次出现的最后一个字符的角标 +1。
 - *MODIFIER*：模式，默认为 `c`：
   - `c`：区分大小写进行检索。
   - `i`：不区分大小写进行检索。
@@ -1019,10 +1019,10 @@ SELECT REGEXP_INSTR('11a22A33a11a22A33a', '2A', 1, 1, 1, 'c') AS STR FROM DUAL;
 REGEXP_COUNT(STRING, REGEX[, START_POSITION[, MODIFIER]])
 ```
 
-- *STRING*：需要进行正则处理的字符串
-- *REGEX*：进行匹配的正则表达式
-- *START_POSITION*：起始位置，从字符串的第几个字符开始正则表达式匹配（默认从第一个字符开始，值为 1）
-- *MODIFIER*：模式，默认为 `c`
+- *STRING*：需要进行正则处理的字符串。
+- *REGEX*：进行匹配的正则表达式。
+- *START_POSITION*：起始位置，从字符串的第几个字符开始正则表达式匹配（默认从第一个字符开始，值为 1）。
+- *MODIFIER*：模式，默认为 `c`：
   - `c`：区分大小写进行检索。
   - `i`：不区分大小写进行检索。
   - `n`：允许句点 `.` 作为通配符去匹配换行符。如果省略该参数，句点将不匹配换行符。
@@ -1054,16 +1054,16 @@ SELECT REGEXP_COUNT('11a22A33a11a22A33a', '2A', 1, 'c') AS STR FROM DUAL;
 REGEXP_SUBSTR(STRING, REGEX[, START_POSITION[, OCCURRENCE[, MODIFIER]]])
 ```
 
-- *STRING*：需要进行正则处理的字符串
-- *REGEX*：进行匹配的正则表达式
-- *START_POSITION*：起始位置，从字符串的第几个字符开始正则表达式匹配（默认从第一个字符开始，值为 1）
-- *OCCURRENCE*：获取分割出来的第几组子串（分割后最初的字符串会按分割的顺序排列成数组）
-- *MODIFIER*：模式，默认为 `c`
+- *STRING*：需要进行正则处理的字符串。
+- *REGEX*：进行匹配的正则表达式。
+- *START_POSITION*：起始位置，从字符串的第几个字符开始正则表达式匹配（默认从第一个字符开始，值为 1）。
+- *OCCURRENCE*：获取分割出来的第几组子串（分割后最初的字符串会按分割的顺序排列成数组）。
+- *MODIFIER*：模式，默认为 `c`：
   - `c`：区分大小写进行检索。
-    `i`：不区分大小写进行检索。
-    `n`：允许句点 `.` 作为通配符去匹配换行符。如果省略该参数，句点将不匹配换行符。
-    `m`：将源串视为多行。即 Oracle 中将 `^` 和 `$` 分别看作源串中任意位置任何行的开始和结束，而不是仅仅看作整个源串的开始或结束。如果省略该参数，则 Oracle 将源串看作一行。
-    `x`：忽略源串中的空格字符。默认情况下，空格字符与自身相匹配。
+  - `i`：不区分大小写进行检索。
+  - `n`：允许句点 `.` 作为通配符去匹配换行符。如果省略该参数，句点将不匹配换行符。
+  - `m`：将源串视为多行。即 Oracle 中将 `^` 和 `$` 分别看作源串中任意位置任何行的开始和结束，而不是仅仅看作整个源串的开始或结束。如果省略该参数，则 Oracle 将源串看作一行。
+  - `x`：忽略源串中的空格字符。默认情况下，空格字符与自身相匹配。
 
 
 
@@ -1242,7 +1242,7 @@ SELECT deptno, WM_CONCAT(DISTINCT ',', sal) FROM emp GROUP BY deptno ORDER BY de
 
 ### 5.4.1、NVL
 
-NVL函数的格式如下：
+Oracle `NVL` 函数的格式如下：
 
 ```sql
 NVL(expr1,expr2)
@@ -1256,7 +1256,7 @@ NVL(expr1,expr2)
 
 ### 5.5.1、TO_CHAR
 
-`TO_CHAR` 用于将特定数据类型的值，通常是日期或数字，转换为格式化的字符串表示。
+Oracle `TO_CHAR` 函数用于将特定数据类型的值，通常是日期或数字，转换为格式化的字符串表示。
 
 ```sql
 TO_CHAR(value, format)
@@ -1292,7 +1292,7 @@ SELECT TO_CHAR(1234.56, '$9,999.99') FROM DUAL;
 
 ### 5.5.2、TO_DATE
 
-`TO_DATE` 用于将一个字符串值转换为日期类型。
+Oracle `TO_DATE` 函数用于将一个字符串值转换为日期类型。
 
 ```sql
 TO_DATE(string, format)
@@ -1315,6 +1315,54 @@ SELECT TO_DATE('2023-08-31', 'YYYY-MM-DD') FROM DUAL;
 ```sql
 SELECT TO_DATE('2023-08-31 15:30:00', 'YYYY-MM-DD HH24:MI:SS') FROM DUAL;
 -- 输出：2023-08-31 15:30:00
+```
+
+
+
+### 5.5.3、CAST
+
+Oracle `CAST()` 是一个内置函数，它将给定的参数从一种类型转换为另一种类型。此函数支持基本数据类型和集合类型。
+
+```sql
+CAST({expr AS type_name [ DEFAULT return_value ON CONVERSION ERROR ] [, fmt [, 'nlsparam' ] ])
+```
+
+- *expr*：要转换为不同数据类型的值或表达式，可以是内置数据类型、集合类型或 ANYDATA 类型的实例。
+- *type_name*：要将表达式转换为的目标数据类型。
+- *DEFAULT return_value ON CONVERSION ERROR*：可选的。它允许您指定在转换发生错误时返回的值。
+- *fmt*：可选的。格式化字符串。
+- *'nlsparam'* ：可选的。你可以使用这个 `'NLS_DATE_LANGUAGE = language'` 形式设置此参数，其中 `language` 是语言名称。
+
+
+
+字符串日期转为 TIMESTAMP 类型：
+
+```sql
+ALTER SESSION SET NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SSXFF';
+SELECT
+    CAST('2023-02-28' AS TIMESTAMP, 'YYYY-MM-DD') Result
+FROM dual;
+-- 输出：2023-02-28 00:00:00.000000000
+```
+
+指定语言以按照指定的语言进行转换：
+
+```sql
+SELECT CAST(
+        '28-Feb-23' AS TIMESTAMP,
+        'DD-MON-YY',
+        'NLS_DATE_LANGUAGE = American'
+    ) Result
+FROM dual;
+-- 输出：2023-02-28 00:00:00.000000000
+
+SELECT CAST(
+        '20-2月 -23' AS TIMESTAMP,
+        'DD-MON-YY',
+        'NLS_DATE_LANGUAGE = ''Simplified Chinese'''
+    ) Result
+FROM dual;
+-- 输出：20-2月 -23 12.00.00.000000000 上午
 ```
 
 
