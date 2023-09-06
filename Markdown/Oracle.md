@@ -1161,7 +1161,7 @@ SELECT REGEXP_REPLACE('11a22A33a11a22A33a', '[^A]+', '#') AS STR FROM DUAL;
 
 ### 5.3.1、WM_CONCAT
 
-语法：
+Oracle 的 `WM_CONCAT` 函数是一个已废弃的函数，用于将多个行的值合并成一个单一字符串。它类似于 `LISTAGG` 函数，但不像 `LISTAGG` 那样强大和灵活。`WM_CONCAT` 函数在较早版本的 Oracle 数据库中存在，但在 Oracle 11g 之后的版本中被弃用。
 
 ```sql
 WM_CONCAT(separator, colname)
@@ -1235,6 +1235,32 @@ SELECT deptno, WM_CONCAT(DISTINCT ',', sal) FROM emp GROUP BY deptno ORDER BY de
 | 30         | 1250,1500,1600,2850,950 |
 +------------+------------+
 ```
+
+
+
+### 5.3.2、LISTAGG
+
+Oracle 的 `LISTAGG` 函数是一个用于将多个行的值合并成一个单一字符串的聚合函数。它可以用于将查询结果中的多个行的某一列的值连接在一起，并以指定的分隔符分隔它们。
+
+```sql
+LISTAGG(column_name, delimiter) WITHIN GROUP (ORDER BY order_column)
+```
+
+- *column_name*：要连接的列的名称。
+- *delimiter*：用于分隔连接值的字符串。
+- *ORDER BY order_column*：用于指定连接值的顺序。
+
+
+
+假设我们有一个名为 `employees` 的表，其中包含员工的姓名和部门：
+
+```sql
+SELECT department, LISTAGG(employee_name, ', ') WITHIN GROUP (ORDER BY employee_name) AS employees_list
+FROM employees
+GROUP BY department;
+```
+
+这个查询将会按部门分组，并将每个部门中的员工姓名连接成一个以逗号和空格分隔的字符串。
 
 
 

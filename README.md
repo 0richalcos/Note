@@ -69,6 +69,7 @@
 
 ### :globe_with_meridians:前端
 
+- [**CSS**](https://github.com/0richalcos/Note/blob/main/Markdown/CSS.md)
 - [**JavaScript**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaScript.md)
 - [**jQuery**](https://github.com/0richalcos/Note/blob/main/Markdown/jQuery.md)
 - [**Node.js**](https://github.com/0richalcos/Note/blob/main/Markdown/Node.js.md)
