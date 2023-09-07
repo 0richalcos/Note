@@ -1301,7 +1301,205 @@ JavaScript 中有八种数据类型。有七种原始类型，因为它们的值
 
 我们可以通过使用带有可选属性列表的花括号 `{…}` 来创建对象。一个属性就是一个键值对（“key: value”），其中键（key）是一个字符串（也叫做属性名），值（value）可以是任何值。
 
-可以把对象想象成一个带有签名文件的文件柜。每一条数据都基于键（key）存储在文件中。这样我们就可以很容易根据文件名（也就是 “键”）查找文件或添加/删除文件了。
+两种语法中的任一种可以用来创建一个空的对象：
+
+```javascript
+let user = new Object(); // “构造函数” 的语法
+let user = {};  // “字面量” 的语法
+```
+
+通常，我们用花括号。这种方式我们叫做 **字面量**。
+
+
+
+### 2.1.1、文本和属性
+
+在创建对象的时候，可以立即将一些属性以键值对的形式放到 `{...}` 中：
+
+```javascript
+let user = {     // 一个对象
+  name: "John",  // 键 "name"，值 "John"
+  age: 30        // 键 "age"，值 30
+};
+```
+
+属性有键（或者也可以叫做 “名字” 或 “标识符”），位于冒号 `:` 的前面，值在冒号的右边。
+
+在 `user` 对象中，有两个属性：
+
+1. 第一个的键是 `name`，值是 `"John"`。
+2. 第二个的键是 `age`，值是 `30`。
+
+可以使用点符号访问属性值：
+
+```javascript
+// 读取文件的属性：
+alert( user.name ); // John
+alert( user.age ); // 30
+```
+
+可以用 `delete` 操作符移除属性：
+
+```javascript
+delete user.age;
+```
+
+也可以用多字词语来作为属性名，但必须给它们加上引号：
+
+```javascript
+let user = {
+  name: "John",
+  age: 30,
+  "likes birds": true  // 多词属性名必须加引号
+};
+```
+
+
+
+### 2.1.2、方括号
+
+对于多词属性，点操作就不能用了：
+
+```javascript
+// 这将提示有语法错误
+user.likes birds = true
+```
+
+JavaScript 理解不了。它认为我们在处理 `user.likes`，然后在遇到意外的 `birds` 时给出了语法错误。
+
+点符号要求 `key` 是有效的变量标识符。这意味着：不包含空格，不以数字开头，也不包含特殊字符（允许使用 `$` 和 `_`）。
+
+有另一种方法，就是使用方括号，可用于任何字符串：
+
+```javascript
+let user = {};
+
+// 设置
+user["likes birds"] = true;
+
+// 读取
+alert(user["likes birds"]); // true
+
+// 删除
+delete user["likes birds"];
+```
+
+方括号同样提供了一种可以通过任意表达式来获取属性名的方式 —— 与文本字符串不同 —— 例如下面的变量：
+
+```javascript
+let key = "likes birds";
+
+// 跟 user["likes birds"] = true; 一样
+user[key] = true;
+```
+
+点符号不能以类似的方式使用：
+
+```javascript
+let user = {
+  name: "John",
+  age: 30
+};
+
+let key = "name";
+alert( user.key ) // undefined
+```
+
+
+
+### 2.1.3、属性值简写
+
+在实际开发中，我们通常用已存在的变量当做属性名，例如：
+
+```javascript
+function makeUser(name, age) {
+  return {
+    name: name,
+    age: age,
+    // ……其他的属性
+  };
+}
+
+let user = makeUser("John", 30);
+alert(user.name); // John
+```
+
+在上面的例子中，属性名跟变量名一样。这种通过变量生成属性的应用场景很常见，在这有一种特殊的 **属性值缩写** 方法，使属性名变得更短。
+
+可以用 `name` 来代替 `name:name` 像下面那样：
+
+```javascript
+function makeUser(name, age) {
+  return {
+    name, // 与 name: name 相同
+    age,  // 与 age: age 相同
+    // ...
+  };
+}
+```
+
+我们可以把属性名简写方式和正常方式混用：
+
+```javascript
+let user = {
+  name,  // 与 name:name 相同
+  age: 30
+};
+```
+
+
+
+### 2.1.4、属性存在性测试
+
+相比于其他语言，JavaScript 的对象有一个需要注意的特性：能够被访问任何属性。即使属性不存在也不会报错！
+
+读取不存在的属性只会得到 `undefined`。所以我们可以很容易地判断一个属性是否存在：
+
+```javascript
+let user = {};
+
+alert( user.noSuchProperty === undefined ); // true 意思是没有这个属性
+```
+
+这里还有一个特别的，检查属性是否存在的操作符 `in`，语法为：
+
+```javascript
+"key" in object
+```
+
+例如：
+
+```javascript
+let user = { name: "John", age: 30 };
+
+alert( "age" in user ); // true，user.age 存在
+alert( "blabla" in user ); // false，user.blabla 不存在。
+```
+
+`in` 的左边必须是 **属性名**，通常是一个带引号的字符串。如果我们省略引号，就意味着左边是一个变量，它应该包含要判断的实际属性名。例如：
+
+```javascript
+let user = { age: 30 };
+
+let key = "age";
+alert( key in user ); // true，属性 "age" 存在
+```
+
+为何会有 `in` 运算符呢？与 `undefined` 进行比较来判断还不够吗？
+
+确实，大部分情况下与 `undefined` 进行比较来判断就可以了。但有一个例外情况，这种比对方式会有问题，但 `in` 运算符的判断结果仍是对的。
+
+那就是属性存在，但存储的值是 `undefined` 的时候：
+
+```javascript
+let obj = {
+  test: undefined
+};
+
+alert( obj.test ); // 显示 undefined，所以属性不存在？
+
+alert( "test" in obj ); // true，属性存在！
+```
 
 
 
