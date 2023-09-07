@@ -1503,6 +1503,158 @@ alert( "test" in obj ); // true，属性存在！
 
 
 
+## 2.2、对象引用和复制
+
+对象与原始类型的根本区别之一是，对象是 “通过引用” 存储和复制的，而原始类型：字符串、数字、布尔值等 —— 总是 “作为一个整体” 复制。
+
+例如一个字符串，这里我们将 `message` 复制到 `phrase`：
+
+```javascript
+let message = "Hello!";
+let phrase = message;
+```
+
+结果我们就有了两个独立的变量，每个都存储着字符串 `"Hello!"`。
+
+但是对象不是这样的。赋值了对象的变量存储的不是对象本身，而是该对象 “在内存中的地址”，换句话说就是对该对象的 “引用”。当一个对象变量被复制（引用被复制），而该对象自身并没有被复制。例如：
+
+```javascript
+let user = { name: "John" };
+
+let admin = user; // 复制引用
+```
+
+现在我们有了两个变量，它们保存的都是对同一个对象的引用，所以我们可以通过其中任意一个变量来访问该对象并修改它的内容：
+
+```javascript
+let user = { name: 'John' };
+
+let admin = user;
+
+admin.name = 'Pete'; // 通过 "admin" 引用来修改
+
+alert(user.name); // 'Pete'，修改能通过 "user" 引用看到
+```
+
+
+
+### 2.2.1、通过引用来比较
+
+仅当两个对象为同一对象时，两者才相等。
+
+例如，这里 `a` 和 `b` 两个变量都引用同一个对象，所以它们相等：
+
+```javascript
+let a = {};
+let b = a; // 复制引用
+
+alert( a == b ); // true，都引用同一对象
+alert( a === b ); // true
+```
+
+而这里两个独立的对象则并不相等，即使它们看起来很像（都为空）：
+
+```javascript
+let a = {};
+let b = {}; // 两个独立的对象
+
+alert( a == b ); // false
+```
+
+
+
+### 2.2.2、克隆与合并
+
+我们可以使用 `Object.assign` 方法来达到克隆的效果。
+
+```javascript
+Object.assign(dest, [src1, src2, src3...])
+```
+
+- 第一个参数 *dest* 是指目标对象。
+- 更后面的参数 *src1, ..., srcN*（可按需传递多个参数）是源对象。
+- 该方法将所有源对象的属性拷贝到目标对象 *dest* 中。换句话说，从第二个开始的所有参数的属性都被拷贝到第一个参数的对象中。
+- 调用结果返回 *dest*。
+
+例如，将对象中的所有属性拷贝到了一个空对象中，并返回这个新的对象：
+
+```javascript
+let user = {
+  name: "John",
+  age: 30
+};
+
+let clone = Object.assign({}, user);
+```
+
+可以用它来合并多个对象：
+
+```javascript
+let user = { name: "John" };
+
+let permissions1 = { canView: true };
+let permissions2 = { canEdit: true };
+
+// 将 permissions1 和 permissions2 中的所有属性都拷贝到 user 中
+Object.assign(user, permissions1, permissions2);
+
+// 现在 user = { name: "John", canView: true, canEdit: true }
+```
+
+如果被拷贝的属性的属性名已经存在，那么它会被覆盖：
+
+```javascript
+let user = { name: "John" };
+
+Object.assign(user, { name: "Pete" });
+
+alert(user.name); // 现在 user = { name: "Pete" }
+```
+
+
+
+### 2.2.3、深层克隆
+
+到现在为止，我们都假设 `user` 的所有属性均为原始类型。但属性可以是对其他对象的引用：
+
+```javascript
+let user = {
+  name: "John",
+  sizes: {
+    height: 182,
+    width: 50
+  }
+};
+
+alert( user.sizes.height ); // 182
+```
+
+现在这样拷贝 `clone.sizes = user.sizes` 已经不足够了，因为 `user.sizes` 是个对象，它会以引用形式被拷贝。因此 `clone` 和 `user` 会共用一个 `sizes`：
+
+```javascript
+let user = {
+  name: "John",
+  sizes: {
+    height: 182,
+    width: 50
+  }
+};
+
+let clone = Object.assign({}, user);
+
+alert( user.sizes === clone.sizes ); // true，同一个对象
+
+// user 和 clone 分享同一个 sizes
+user.sizes.width++;       // 通过其中一个改变属性值
+alert(clone.sizes.width); // 51，能从另外一个获取到变更后的结果
+```
+
+为了解决这个问题，并让 `user` 和 `clone` 成为两个真正独立的对象，应该使用一个拷贝循环来检查 `user[key]` 的每个值，如果它是一个对象，那么也复制它的结构。这就是所谓的 “深拷贝”。
+
+这里可以使用递归来实现它。或者为了不重复造轮子，采用现有的实现，例如 [lodash](https://lodash.com/) 库的 [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep)。
+
+
+
 # 3、（Function）函数
 
 ## 3.1、函数
