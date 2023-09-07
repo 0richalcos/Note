@@ -141,7 +141,9 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 
 
-**ORA-12514:TNS:监听程序当前无法识别连接述符中请求的服务**
+#### ORA-12514
+
+ORA-12514:TNS:监听程序当前无法识别连接述符中请求的服务
 
 1. 【工具】 ==> 【选项】 ==> 【环境】：
 
@@ -151,13 +153,61 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 
 
-**ORA-12638: 身份证明检索失败**
+#### ORA-12516
+
+ORA-12516:TNS:监听程序找不到符合协议堆栈要求的可用处理程序
+
+出现这个问题是连接数过大导致的，也正是因为这个连接数过大，即使使用 as sysdba 也是登录不上。所以要解决这个问题，首先就要先断开当前连着的 process，然后使用 `sqlplus` 进行登录修改 process 和 session 的最大值：
+
+1. 启动 SQL*Plus 并直接以 SYS 用户的身份连接到数据库：
+
+   ```shell
+   sqlplus / as sysdba
+   ```
+
+2. 查看 process 的参数值和占有值：
+
+   ```sql
+   show parameter processes;
+   
+   select count(*) from v$process;
+   ```
+
+   会发现 processes 的参数值不太大，一般默认是 150 或者 300。
+
+3. 修改 process 和 session 的最大值：
+
+   ```sql
+   alter system set processes=2000 scope=spfile;
+   
+   alter system set sessions=3005 scope=spfile;
+   ```
+
+   > processes 的值和 sessions 的值 Oracle 官方文档中要求 sessions = processes * 1.5 + 5
+
+4. 重启服务：
+
+   ```sql
+   -- 关闭数据库
+   shutdown immediate
+   
+   -- 启动数据库使配置生效
+   startup;
+   ```
+
+
+
+#### ORA-12638
+
+ORA-12638: 身份证明检索失败
 
 这个一般出现在远程连接 Oracle 时，找到 sqlnet.ora 文件，如果存在 `SQLNET.AUTHENTICATION_SERVICES= (NTS)` 设置，则修改为：`SQLNET.AUTHENTICATION_SERVICES= (NONE)`，如果不存在，则直接添加 `SQLNET.AUTHENTICATION_SERVICES= (NONE)`。
 
 
 
-**ORA-28547:connection to server failed, probable Oracle Net admin error**
+#### ORA-28547
+
+ORA-28547:connection to server failed, probable Oracle Net admin error
 
 因为 Navicat 是通过 Oracle 客户端连接 Oracle 服务器的，Oracle 的客户端分为两种，一种是标准版，一种是简洁版，即 Oracle Install Client。而我们用 Navicat 时通常会在自己的安装路径下包含多个版本的 OCI，如果使用 Navicat 连接 Oracle 服务器出现 ORA-28547 错误时，多数是因为 Navicat本地的 OCI 版本与 Oracle 服务器服务器不符造成的。所以我们要做的就是下载 OCI 使之与我们所安装的 Oracle 服务器相符合。
 
@@ -214,8 +264,6 @@ SQL Developer 还将接口集成到一些相关技术中，包括 Oracle Data Mi
 4. 授权里面选中 CONNECT、DBA、RESOURE 三个权限，保存即可：
 
    ![image-20230523203347868](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523203347868.png)
-
-
 
 
 
@@ -401,34 +449,6 @@ NAMES.DIRECTORY_PATH= (TNSNAMES, HOSTNAME, ONAMES，EZCONNECT)
 
 ### 1.5.4、修改字符集
 
-**查看参数**
-
-操作前先查看几个参数，用于后续的还原步骤：
-
-1. 检查 RESTRICTED SESSION 模式：
-
-   ```sql
-   SELECT logins FROM v$instance;
-   ```
-
-   如果 `logins` 列的值为 `RESTRICTED`，则表示 RESTRICTED SESSION 模式已打开。如果值为 `ALLOWED`，则表示模式未打开。
-
-2. 查看 JOB_QUEUE_PROCESSES 参数：
-
-   ```sql
-   SELECT name, value FROM v$parameter WHERE name = 'job_queue_processes';
-   ```
-
-3. 查看 AQ_TM_PROCESSES 参数：
-
-   ```sql
-   SELECT name, value FROM v$parameter WHERE name = 'aq_tm_processes';
-   ```
-
-
-
-**修改字符集**
-
 1. 进入 SQL*Plus 命令行工具：
 
    ```sql
@@ -456,13 +476,23 @@ NAMES.DIRECTORY_PATH= (TNSNAMES, HOSTNAME, ONAMES，EZCONNECT)
 5. 为了确保只有授权用户能够在字符集更改期间访问数据库，启用 RESTRICTED SESSION 模式，只允许具有 RESTRICTED SESSION 特权的用户连接：
 
    ```sql
+   -- 检查 RESTRICTED SESSION 模式，如果 logins 列的值为 RESTRICTED，则表示 RESTRICTED SESSION 模式已打开。如果值为 ALLOWED，则表示模式未打开。
+   SELECT logins FROM v$instance;
+   
    ALTER SYSTEM ENABLE RESTRICTED SESSION;
    ```
 
 6. 为了防止后台作业和队列在字符集更改期间对数据库产生干扰，禁用作业队列和高级队列：
 
    ```sql
+   -- 查看 JOB_QUEUE_PROCESSES 参数。
+   SELECT name, value FROM v$parameter WHERE name = 'job_queue_processes';
+   
    ALTER SYSTEM SET JOB_QUEUE_PROCESSES=0;
+   
+   -- 查看 AQ_TM_PROCESSES 参数。
+   SELECT name, value FROM v$parameter WHERE name = 'aq_tm_processes';
+   
    ALTER SYSTEM SET AQ_TM_PROCESSES=0;
    ```
 
@@ -523,7 +553,7 @@ NAMES.DIRECTORY_PATH= (TNSNAMES, HOSTNAME, ONAMES，EZCONNECT)
 1. Win + R，输入 `cmd` 进入控制台并运行 `sqlplus` 命令进入 sqlplus 环境：
 
    ```shell
-   sqlplus/nolog
+   sqlplus /nolog
    ```
 
    其中 `/nolog` 是不登陆到数据库服务器的意思，如果没有 `/nolog` 参数，sqlplus 会提示你输入用户名和密码。
@@ -531,7 +561,7 @@ NAMES.DIRECTORY_PATH= (TNSNAMES, HOSTNAME, ONAMES，EZCONNECT)
 2. 以系统管理员（sysdba）身份连接数据库：
 
    ```sql
-   conn/as sysdba
+   conn / as sysdba
    ```
 
 3. 输入解锁语句：
@@ -547,13 +577,13 @@ NAMES.DIRECTORY_PATH= (TNSNAMES, HOSTNAME, ONAMES，EZCONNECT)
 1. 进入 sqlplus 环境：
 
    ```shell
-   sqlplus/nolog
+   sqlplus /nolog
    ```
 
 2. 以系统管理员（sysdba）身份连接数据库：
 
-   ```
-   conn/as sysdba
+   ```sql
+   conn / as sysdba
    ```
 
 3. 输入修改密码语句：

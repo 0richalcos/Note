@@ -1293,41 +1293,19 @@ function myFunction(value, index, array) {
 
 
 
-# 2、对象
+# 2、（Object）对象
 
-**访问对象属性**
+## 2.1、对象
 
-可以通过以两种方式访问属性：
+JavaScript 中有八种数据类型。有七种原始类型，因为它们的值只包含一种东西（字符串，数字或者其他）。相反，对象则用来存储键值对和更复杂的实体。
 
-```javascript
-objectName.propertyName
-```
+我们可以通过使用带有可选属性列表的花括号 `{…}` 来创建对象。一个属性就是一个键值对（“key: value”），其中键（key）是一个字符串（也叫做属性名），值（value）可以是任何值。
 
-或者
-
-```javascript
-objectName["propertyName"]
-```
+可以把对象想象成一个带有签名文件的文件柜。每一条数据都基于键（key）存储在文件中。这样我们就可以很容易根据文件名（也就是 “键”）查找文件或添加/删除文件了。
 
 
 
-**访问对象方法**
-
-能够通过如下语法访问对象方法：
-
-```javascript
-objectName.methodName()
-```
-
-如果不使用 `()` 访问 fullName 方法，则将返回**函数定义**：
-
-```javascript
-name = person.fullName;
-```
-
-
-
-# 3、函数
+# 3、（Function）函数
 
 ## 3.1、函数
 
