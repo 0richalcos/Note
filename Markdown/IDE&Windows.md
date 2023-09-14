@@ -914,3 +914,43 @@ Clash 共有三种工作模式：
 
 也可以使用相同的说明升级到命令控制台的新版本。但是需要使用旧版 PowerShell 控制台来完成该过程，因为在应用程序运行时无法升级终端。
 
+
+
+# TortoiseSVN
+
+## 【1】存储库尚未启用接受修订注释更改
+
+使用 SVN 提交版本信息时，注释内容写的不全。
+
+通过右键 TortoiseSVN 的 “Show log” 看到提交的的注释，右键每条日志信息看到 “Edit log message” 的选项，然而提交后却给出错误提示：
+
+```
+Repository has not been enabled to accept revision propchanges;
+
+ask the administrator to create a pre-revprop-change hook
+```
+
+解决方案：
+
+1. 编写批处理文件 `pre-revprop-change.bat`，内容如下：
+
+   ```bat
+   SET REPOS="%1"
+   
+   SET REV="%2"
+   
+   SET USER="%3"
+   
+   SET PROPNAME="%4"
+   
+   SET ACTION="%5"
+   
+   IF %ACTION% == "M" (IF %PROPNAME% == "svn:log" (EXIT 0))
+   
+   ECHO "Changing revision properties %PROPNAME% is prohibited" >&2
+   
+   EXIT 1
+   ```
+
+2. 将文件放到 `\Repositories\SVN文件夹\hooks\` 下执行即可。
+

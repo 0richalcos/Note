@@ -30,7 +30,13 @@ Linux 的发行版说简单点就是将 Linux 内核与应用软件做一个打�
 
 # 2、系统目录结构
 
-![preview](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/7ebc125005bebe6a6c0a2daa6c4d7f6e_r.jpg)
+使用 Linux 时，通过命令行输入 `ls -l /` 可以看到，在 Linux 根目录（/）下包含很多的子目录（称为一级目录），例如 bin、boot、dev 等。同时，各一级目录下还含有很多子目录（称为二级目录），比如 /bin/bash、/bin/ed 等。Linux 文件系统目录总体呈现树形结构，/ 根目录就相当于树根。
+
+由于 Linux 系统免费开源，使得 Linux 发行版本有很多，利用 Linux 开发产品的团队也有很多，如果任由每个人都按照自己的想法来配置 Linux 系统文件目录，后期可能会产生诸多的管理问题。试想，如果你进入一家公司，所用 Linux 系统的文件目录结构与所学的完全不同，实在令人头疼。
+
+为了避免诸多使用者对 Linux 系统目录结构天马行空，Linux 基金会发布了 FHS 标准。多数 Linux 发行版系统都遵循这一标准。
+
+FHS（Filesystem Hierarchy Standard），文件系统层次化标准，该标
 
 
 
