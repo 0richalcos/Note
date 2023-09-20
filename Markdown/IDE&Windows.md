@@ -414,7 +414,7 @@ RemoteSigned
 
 # Chrome
 
-## 【1】移动Chrome的数据文件
+## 【1】移动 Chrome 的数据文件
 
 Chrome 默认的数据文件地址是：C:\Users\Orichalcos\AppData\Local\Google
 

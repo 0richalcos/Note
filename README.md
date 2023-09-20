@@ -72,9 +72,6 @@
 - [**CSS**](https://github.com/0richalcos/Note/blob/main/Markdown/CSS.md)
 - [**JavaScript**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaScript.md)
 - [**jQuery**](https://github.com/0richalcos/Note/blob/main/Markdown/jQuery.md)
-- [**Node.js**](https://github.com/0richalcos/Note/blob/main/Markdown/Node.js.md)
-  - [**Yarn**](https://github.com/0richalcos/Note/blob/main/Markdown/Yarn.md)
-
 - [**Vue**](https://github.com/0richalcos/Note/blob/main/Markdown/Vue.md)
 
 
@@ -151,6 +148,8 @@
 - [**Swagger**](https://github.com/0richalcos/Note/blob/main/Markdown/Swagger.md)
 - [**Git**](https://github.com/0richalcos/Note/blob/main/Markdown/Git.md)
 - [**Maven**](https://github.com/0richalcos/Note/blob/main/Markdown/Maven.md)
+- [**Node.js**](https://github.com/0richalcos/Note/blob/main/Markdown/Node.js.md)
+  - [**Yarn**](https://github.com/0richalcos/Note/blob/main/Markdown/Yarn.md)
 
 
 
