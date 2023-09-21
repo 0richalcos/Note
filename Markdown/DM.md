@@ -537,3 +537,63 @@ systemctl status DmServiceDMSERVER.service
 8. 确认无误后完成即可
 
    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20210202170509591.png)
+
+
+
+# 4、数据库状态和模式
+
+DM 数据库包含以下几种状态：
+
+1. 配置状态（MOUNT）：不允许访问数据库对象，只能进行控制文件维护、归档配置、数据库模式修改等操作。
+2. 打开状态（OPEN）：不能进行控制文件维护、归档配置等操作，可以访问数据库对象，对外提供正常的数据库服务。
+3. 挂起状态（SUSPEND）：与 OPEN 状态的唯一区别就是，限制磁盘写入功能；一旦修改了数据页，触发 REDO 日志、数据页刷盘，当前用户将被挂起。
+
+OPEN 状态与 MOUNT 和 SUSPEND 能相互转换，但是 MOUNT 和 SUSPEND 之间不能相互转换。
+
+DM 数据库包含以下几种模式：
+
+1. 普通模式（NORMAL）：用户可以正常访问数据库，操作没有限制。
+2. 主库模式（PRIMARY）：用户可以正常访问数据库，所有对数据库对象的修改强制生成 REDO 日志，在归档有效时，发送 REDO 日志到备库。
+3. 备库模式（STANDBY）：接收主库发送过来的 REDO 日志并重做。数据对用户只读。
+
+三种模式只能在 MOUNT 状态下设置，模式之间可以相互转换。
+
+对于新初始化的库，首次启动不允许使用 MOUNT 方式，需要先正常启动并正常退出，然后才允许 MOUNT 方式启动。
+
+一般情况下，数据库为 NORMAL 模式，如果不指定 MOUNT 状态启动，则自动启动到 OPEN 状态。
+
+在需要对数据库配置时（如配置数据守护、数据复制），服务器需要指定 MOUNT 状态启动。当数据库模式为非 NORMAL 模式（PRIMARY、STANDBY 模式），无论是否指定启动状态，服务器启动时自动启动到 MOUNT 状态。
+
+
+
+## 4.1、状态切换
+
+**命令行方式**
+
+以 SYSDBA 角色连接数据库后，可执行命令切换数据库状态。
+
+将数据库转为 MOUNT 配置状态，可读取数据库配置文件，不可对数据文件读写：
+
+```sql
+alter database mount;
+```
+
+将数据库转为 OPEN 打开状态，可读取数据库配置文件，可对数据文件读写：
+
+```sql
+alter database open;
+```
+
+
+
+**图形化界面配置**
+
+1. 打开管理工具 => 连接数据库 => 右键管理服务器：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230922004306995.png" alt="image-20230922004306995" style="zoom: 67%;" />
+
+2. 切换到系统管理页面，选择需要切换的状态，最后点击转换：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230922004422477.png" alt="image-20230922004422477" style="zoom:67%;" />
+
+   左侧目录刷新，即可看到数据库对象信息。
