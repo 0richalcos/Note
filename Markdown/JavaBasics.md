@@ -546,7 +546,7 @@ str = "Hello Java";
 
 
 
-### 3.1.2、使用 String 类定义
+### 3.1.2、使用 String 定义
 
 Java 中每个双引号定义的字符串都是一个 String 类的对象。因此，可以通过使用 String 类的构造方法来创建字符串，该类位于 `java.lang` 包中。
 
@@ -712,7 +712,9 @@ Objects.toString(obj, "");
 
 
 
-## 3.3、StringBuffer 类
+## 3.3、可变字符串
+
+### 3.3.1、StringBuffer
 
 在 Java 中，除了通过 String 类创建和处理字符串之外，还可以使用 StringBuffer 类来处理字符串。StringBuffer 类可以比 String 类更高效地处理字符串。
 
@@ -798,7 +800,7 @@ StringBuffer对象.delete(int start,int end);
 
 
 
-## 3.4、String、StringBuffer 和 StringBuilder 的区别
+### 3.3.2、String、StringBuffer 和 StringBuilder 的区别
 
 在 Java 中字符串属于对象，Java 提供了 String 类来创建和操作字符串。String 类是不可变类，即一旦一个 String 对象被创建以后，包含在这个对象中的字符序列是不可改变的，直至这个对象被销毁。
 
@@ -837,7 +839,9 @@ StringBuffer 就是为了解决大量拼接字符串时产生很多中间对象�
 
 
 
-## 3.5、正则表达式详解
+## 3.4、正则表达式
+
+### 3.4.1、正则表达式详解
 
 正则表达式（Regular Expression）又称正规表示法、常规表示法，在代码中常简写为 regex、regexp 或 RE，它是计算机科学的一个概念。
 
@@ -855,8 +859,6 @@ String 类里也提供了如下几个特殊的方法。
 正则表达式是一个用于匹配字符串的模板。实际上，任意字符串都可以当成正则表达式使用。例如 `"abc"`，它也是一个正则表达式，只是它只能匹配 `"abc"` 字符串。
 
 
-
-**正则表达式支持字符**
 
 创建正则表达式就是创建一个特殊的字符串。正则表达式所支持的合法字符如下表所示。
 
@@ -975,7 +977,7 @@ System.out.println(str.replaceFirst("\w*?" , "■"));    //输出■hello, java!
 
 
 
-## 3.6、Pattern 类和 Matcher 类
+### 3.4.2、Pattern 和 Matcher
 
 `java.util.regex` 是一个用正则表达式所订制的模式来对字符串进行匹配工作的类库包。它包括两个类：Pattern 和 Matcher。
 
@@ -1157,7 +1159,7 @@ Java 哈哈:) oracular expressions
 
 # 4、数字和日期
 
-## 4.1、Math 类的常用方法
+## 4.1、Math 的常用方法
 
 **静态常量**
 
@@ -1274,7 +1276,7 @@ public class Test08 {
 
 
 
-### 4.4.1、BigInteger 类
+### 4.4.1、BigInteger
 
 如果要存储比 Integer 更大的数字，Integer 数据类型就无能为力了。因此，Java 中提供 BigInteger 类来处理更大的数字。
 
@@ -1365,7 +1367,7 @@ public class Test09 {
 
 
 
-### 4.4.2、BigDecimal 类
+### 4.4.2、BigDecimal
 
 BigInteger 和 BigDecimal 都能实现大数字的运算，不同的是 BigDecimal 加入了小数的概念。一般的 `float` 和 `double` 类型数据只能用来做科学计算或工程计算，但由于在商业计算中要求数字精度比较高，所以要用到 BigDecimal 类。BigDecimal 类支持任何精度的浮点数，可以用来精确计算货币值。
 
@@ -1469,7 +1471,7 @@ System.out.println(b.equals(c));
 
 
 
-### 4.4.1、Data类
+### 4.4.1、Data
 
 Date 类表示系统特定的时间戳，可以精确到毫秒。Date 对象表示时间的默认顺序是星期、月、日、小时、分、秒、年。
 
@@ -1552,7 +1554,7 @@ public class Test11 {
 
 
 
-### 4.4.2、Calendar 类
+### 4.4.2、Calendar
 
 Calendar 类是一个抽象类，它为特定瞬间与 `YEAR`、`MONTH`、`DAY_OF—MONTH`、`HOUR` 等日历字段之间的转换提供了一些方法，并为操作日历字段（如获得下星期的日期） 提供了一些方法。
 
@@ -1929,7 +1931,7 @@ Java 数组中有 5 种常见排序方法，分别是：
 
 
 
-### 5.3.1、sort()数组排序
+### 5.3.1、sort() 数组排序
 
 **升序**
 

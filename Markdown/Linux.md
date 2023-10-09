@@ -102,15 +102,15 @@ FHS 建议，`/usr` 目录应具备下表所示的子目录：
 
 `/var` 目录用于存储动态数据，例如缓存、日志文件、软件运行过程中产生的文件等。通常，此目录下建议包含下表所示的这些子目录：
 
-| /var子目录              | 功能（作用）                                                 |
-| ----------------------- | ------------------------------------------------------------ |
-| `/var/lib/`             | 程序运行中需要调用或改变的数据保存位置。如 MySQL 的数据库保存在 `/var/lib/mysql/` 目录中。 |
-| `/var/log/`             | 登陆文件放置的目录，其中所包含比较重要的文件如 `/var/log/messages`、`/var/log/wtmp` 等。 |
-| `/var/run/`             | 一些服务和程序运行后，它们的 PID（进程 ID）保存位置。        |
-| `/var/spool/`           | 里面主要都是一些临时存放，随时会被用户所调用的数据，例如 `/var/spool/mail/` 存放新收到的邮件，`/var/spool/cron/` 存放系统定时任务。 |
-| `/var/www/`             | RPM 包安装的 Apache 的网页主目录。                           |
-| `/var/nis` 和 `/var/yp` | NIS 服务机制所使用的目录，nis 主要记录所有网络中每一个 client 的连接信息；yp 是 linux 的 nis 服务的日志文件存放的目录。 |
-| `/var/tmp`              | 一些应用程序在安装或执行时，需要在重启后使用的某些文件，此目录能将该类文件暂时存放起来，完成后再行删除。 |
+| /var子目录             | 功能（作用）                                                 |
+| ---------------------- | ------------------------------------------------------------ |
+| `/var/lib/`            | 程序运行中需要调用或改变的数据保存位置。如 MySQL 的数据库保存在 `/var/lib/mysql/` 目录中。 |
+| `/var/log/`            | 登陆文件放置的目录，其中所包含比较重要的文件如 `/var/log/messages`、`/var/log/wtmp` 等。 |
+| `/var/run/`            | 一些服务和程序运行后，它们的 PID（进程 ID）保存位置。        |
+| `/var/spool/`          | 里面主要都是一些临时存放，随时会被用户所调用的数据，例如 `/var/spool/mail/` 存放新收到的邮件，`/var/spool/cron/` 存放系统定时任务。 |
+| `/var/www/`            | RPM 包安装的 Apache 的网页主目录。                           |
+| `/var/nis`、 `/var/yp` | NIS 服务机制所使用的目录，nis 主要记录所有网络中每一个 client 的连接信息；yp 是 linux 的 nis 服务的日志文件存放的目录。 |
+| `/var/tmp`             | 一些应用程序在安装或执行时，需要在重启后使用的某些文件，此目录能将该类文件暂时存放起来，完成后再行删除。 |
 
 
 
@@ -144,8 +144,8 @@ FHS 建议，`/usr` 目录应具备下表所示的子目录：
 | `/etc/issue`                                       | 认证前的输出信息，默认输出版本内核信息。                     |
 | `/etc/motd`                                        | 设置认证后的输出信息。                                       |
 | `/etc/passwd`                                      | 用户数据库，其中的域给出了用户名、真实姓名、家目录、加密的口令和用户的其他信息。 |
-| `/etc/group`                                       | 类似 `/etc/passwd`，但说明的不是用户而是组。                 |
 | `/etc/shadow`                                      | 在安装了影子口令软件的系统上的影子口令文件。影子口令文件将 `/etc/passwd` 文件中的加密口令移动到 `/etc/shadow` 中，而后者只对 root 可读。这使破译口令更困难。 |
+| `/etc/group`                                       | 类似 `/etc/passwd`，但说明的不是用户而是组。                 |
 | `/etc/sudoers`                                     | 可以 sudo 命令的配置文件。                                   |
 | `/etc/syslog.conf`                                 | 系统日志参数配置。                                           |
 | `/etc/login.defs`                                  | 设置用户帐号限制的文件。                                     |
@@ -2009,7 +2009,17 @@ set nonumber
 
 # 8、软件安装
 
-## 8.1、make
+在 Windows 操作系统中，我们要想安装某个软件的时候，只要点开相应的 exe 文件，一直按 “下一步”， 最后点 “完成”，这样就可以在我们电脑上使用这个软件了。前面我们也提到过，Ubuntu 提供了一个软件商店， 虽然它也可以提供软件的下载，并且能够自动安装，但是有些软件并不一定能够在里面搜索得到， 那只能以源码的方式来安装软件。
+
+采用源码的安装方式， 都需要检测当前的系统环境，设置编译的参数，如加入/剔除某个模块等，这样的安装方式就显得非常的繁琐。
+
+目前，大多数类 Unix 操作系统都提供了一种中心化的机制用来搜索和安装软件， 软件开发者先在固定的硬件平台上将需要安装或升级的软件编译好， 然后再将软件的所有相关的文件打包存放在公开的服务器中。用户想要安装某个软件时，通过包的形式进行分发， 包提供了操作系统的基本组件，以及共享的库、应用程序、服务和文档，当用户需要时， 可以运行特定的指令来安装。负责这部分工作内容的工具被称为包管理工具， 包管理工具除了安装软件外，它还负责更新已经安装的包。
+
+在 Linux 操作系统中，最常见的两种包分别是 deb 和 rpm。
+
+
+
+## 8.1、源码安装
 
 Linux 中安装软件的一种方式是：将源码 sourcecode.tar.gz 进行解压，然后输入 `./configure`，接着 `make`，最后 `make install`，一个软件就安装完成了。
 
@@ -2085,7 +2095,34 @@ checking for xxxxxxxx... yes
 
 
 
-## 8.2、apt
+## 8.2、deb 包、dpkg 及 apt
+
+在Debian、Ubuntu 等 Linux 发行版中，通常使用 deb（debian）形式的软件包，如下图是 Vim 软件的 deb 安装包。
+
+![未找到图片02|](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/softwa002.jpg)
+
+若下载了deb软件包，可使用如下命令进行安装，其中 `xxxx.deb` 为要安装的软件包的名字：
+
+```shell
+# 使用dpkg手动安装deb包的命令
+sudo dpkg -i xxxx.deb
+```
+
+命令中的 dpkg（Debian Packager）是 Debian 专门开发的包管理工具，它可以用来安装、更新和移除软件， 安装时它需要使用 deb 类型的软件包。
+
+dpkg 是一个底层的包管理工具，主要用于对已下载到本地和已经安装的软件包进行管理。 在它之上的 apt（Advanced Package Tool）包管理工具，其功能则更加丰富和方便使用， 使用apt能够自动从互联网的软件仓库中搜索、安装、升级、卸载软件，它会咨询软件仓库， 并能安装软件时的模块及依赖问题。
+
+如果是使用apt工具安装某个软件，直接使用如下命令即可，它会自动下载并安装软件：
+
+```shell
+sudo apt-get install 软件名
+```
+
+概括起来可以这么理解，deb是软件包，dpkg是手动安装工具，apt是自动安装工具。
+
+
+
+### 8.2.1、apt
 
 apt（Advanced Packaging Tool）是一个在 Debian 和 Ubuntu 中的 Shell 前端软件包管理器。
 
@@ -2107,33 +2144,39 @@ apt 命令提供了查找、安装、升级、删除某一个、一组甚至全�
 
 **apt 常用命令**
 
-- 列出所有可更新的软件清单命令：`sudo apt update`
+- 查询相关：
 
-- 升级软件包：`sudo apt upgrade`
+  - 查找软件包命令： `sudo apt search <keyword>`
+  - 显示软件包具体信息，例如：版本号，安装大小，依赖关系等等：`sudo apt show <package_name>`
 
-	列出可更新的软件包及版本信息：`apt list --upgradeable`
+- 安装相关：
 
-	升级软件包，升级前先删除需要更新软件包：`sudo apt full-upgrade`
+  - 列出所有已安装的包：`apt list --installed`
 
-- 安装指定的软件命令：`sudo apt install <package_name>`
+    列出所有已安装的包的版本信息：`apt list --all-versions`
 
-	安装多个软件包：`sudo apt install <package_1> <package_2> <package_3>`
+  - 安装指定的软件命令：`sudo apt install <package_name>`
 
-- 更新指定的软件命令：`sudo apt update <package_name>`
+    安装多个软件包：`sudo apt install <package_1> <package_2> <package_3>`
 
-- 显示软件包具体信息，例如：版本号，安装大小，依赖关系等等：`sudo apt show <package_name>`
+- 更新相关：
 
-- 删除软件包命令：`sudo apt remove <package_name>`
+  - 列出所有可更新的软件清单命令：`sudo apt update`
 
-- 清理不再使用的依赖和库文件：`sudo apt autoremove`
+    更新指定的软件命令：`sudo apt update <package_name>`
 
-- 移除软件包及配置文件：`sudo apt purge <package_name>`
+  - 列出可更新的软件包及版本信息：`apt list --upgradeable`
 
-- 查找软件包命令： `sudo apt search <keyword>`
+  - 升级软件包：`sudo apt upgrade`
 
-- 列出所有已安装的包：`apt list --installed`
+    升级软件包，升级前先删除需要更新软件包：`sudo apt full-upgrade`
 
-- 列出所有已安装的包的版本信息：`apt list --all-versions`
+- 删除相关：
+
+  - 移除软件包及配置文件：`sudo apt purge <package_name>`
+  - 删除软件包命令：`sudo apt remove <package_name>`
+  - 清理不再使用的依赖和库文件：`sudo apt autoremove`
+
 
 
 
@@ -3334,3 +3377,4 @@ export PATH=/home/cjavapy/python:/home/cjavapy/java:$PATH
 
 
 
+ 
