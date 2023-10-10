@@ -28,6 +28,8 @@ Java 解析、生成 Excel 比较有名的框架有 Apache POI、jxl。但他们
 
 # 2、EasyExcel 写
 
+## 2.1、最简单的写
+
 需要一个实体类，一个实体类对象代表一行数据
 
 ```java
@@ -85,7 +87,7 @@ public class easyExcelTest {
 
  
 
-## 2.1、web 中的写
+## 2.2、web 中的写
 
 ```java
 /**
@@ -111,7 +113,7 @@ public void download(HttpServletResponse response) throws IOException {
 
  
 
-## 2.2、复杂头写出
+## 2.3、复杂头写出
 
 ```java
 @Data
@@ -145,8 +147,9 @@ public class Product {
 
 
 
-
 # 3、EasyExcel 读
+
+## 3.1、最简单的读
 
 实体类：
 
@@ -291,7 +294,7 @@ public class ReadTest {
 
  
 
-## 3.1、web 中的读
+## 3.2、web 中的读
 
 ```java
 /**
