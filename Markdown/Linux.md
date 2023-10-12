@@ -4,7 +4,7 @@ typora-copy-images-to: upload
 
 # 1、Linux 简介
 
-Linux 英文解释为 **Linux is not Unix**。
+Linux 英文解释为 Linux is not Unix。
 
 Linux 内核最初只是由芬兰人林纳斯·托瓦兹（Linus Torvalds）在赫尔辛基大学上学时出于个人爱好而编写的。
 
@@ -30,7 +30,7 @@ Linux 的发行版说简单点就是将 Linux 内核与应用软件做一个打�
 
 # 2、系统目录结构
 
-使用 Linux 时，通过命令行输入 `ls -l /` 可以看到，在 Linux 根目录（`/`）下包含很多的子目录（称为一级目录），例如 `bin`、`boot`、`dev` 等。同时，各一级目录下还含有很多子目录（称为二级目录），比如 `/bin/bash`、`/bin/ed` 等。Linux 文件系统目录总体呈现树形结构，`/` 根目录就相当于树根。
+使用 Linux 时，通过命令行输入 `ls -l /` 可以看到，在 Linux 根目录（`/`）下包含很多的子目录（称为一级目录），例如 `bin`、`boot`、`dev` 等。同时，各一级目录下还含有很多子目录（称为二级目录），比如 `/bin/bash/`、`/bin/ed/` 等。Linux 文件系统目录总体呈现树形结构，`/` 根目录就相当于树根。
 
 <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230920085630781.png" alt="image-20230920085630781" style="zoom: 25%;" />
 
@@ -53,10 +53,10 @@ FHS 认为，Linux 系统的根目录（`/`）最为重要（没有之一），�
 
 | 一级目录  | 功能（作用）                                                 |
 | --------- | ------------------------------------------------------------ |
-| `/bin/`   | 存放系统命令，普通用户和 root 都可以执行。放在 `/bin` 下的命令在单用户模式下也可以执行。 |
+| `/bin/`   | 存放系统命令，普通用户和 root 都可以执行。放在 `/bin/` 下的命令在单用户模式下也可以执行。 |
 | `/boot/`  | 系统启动目录，保存与系统启动相关的文件，如内核文件和启动引导程序（grub）文件等。 |
 | `/dev/`   | 设备文件保存位置。                                           |
-| `/home/`  | 普通用户的主目录（也称为家目录）。在创建用户时，每个用户要有一个默认登录和保存自己数据的位置，就是用户的主目录，所有普通用户的主目录是在 `/home/` 下建立一个和用户名相同的目录。如用户 liming 的主目录就是 `/home/liming`。 |
+| `/home/`  | 普通用户的主目录（也称为家目录）。在创建用户时，每个用户要有一个默认登录和保存自己数据的位置，就是用户的主目录，所有普通用户的主目录是在 `/home/` 下建立一个和用户名相同的目录。如用户 liming 的主目录就是 `/home/liming/`。 |
 | `/lib/`   | 系统调用的函数库保存位置。                                   |
 | `/media/` | 挂载目录。系统建议用来挂载媒体设备，如软盘和光盘。           |
 | `/mnt/`   | 挂载目录。早期 Linux 中只有这一个挂载目录，并没有细分。系统建议这个目录用来挂载额外的设备，如 U 盘、移动硬盘和其他操作系统的分区。 |
@@ -71,63 +71,63 @@ FHS 针对根目录中包含的子目录仅限于上表，但除此之外，Linu
 
 | 一级目录       | 功能（作用）                                                 |
 | -------------- | ------------------------------------------------------------ |
-| `/lost+found/` | 当系统意外崩溃或意外关机时，产生的一些文件碎片会存放在这里。在系统启动的过程中，`fsck` 工具会检查这里，并修复已经损坏的文件系统。这个目录只在每个分区中出现，例如，`/lost+found` 就是根分区的备份恢复目录，`/boot/lost+found` 就是 `/boot` 分区的备份恢复目录。 |
+| `/lost+found/` | 当系统意外崩溃或意外关机时，产生的一些文件碎片会存放在这里。在系统启动的过程中，`fsck` 工具会检查这里，并修复已经损坏的文件系统。这个目录只在每个分区中出现，例如，`/lost+found/` 就是根分区的备份恢复目录，`/boot/lost+found/` 就是 `/boot/` 分区的备份恢复目录。 |
 | `/proc/`       | 虚拟文件系统。该目录中的数据并不保存在硬盘上，而是保存到内存中。主要保存系统的内核、进程、外部设备状态和网络状态等。如 `/proc/cpuinfo` 是保存 CPU 信息的，`/proc/devices` 是保存设备驱动的列表的，`/proc/filesystems` 是保存文件系统列表的，`/proc/net` 是保存网络协议信息的...... |
 | `/sys/`        | 虚拟文件系统。和 `/proc/` 目录相似，该目录中的数据都保存在内存中，主要保存与内核相关的信息。 |
 
 
 
-## 2.2、/usr目录
+## 2.2、/usr/ 目录
 
-usr（注意不是 user），全称为 Unix Software Resource，此目录用于存储系统软件资源。FHS 建议所有开发者，应把软件产品的数据合理的放置在 `/usr` 目录下的各子目录中，而不是为他们的产品创建单独的目录。
+usr（注意不是 user），全称为 Unix Software Resource，此目录用于存储系统软件资源。FHS 建议所有开发者，应把软件产品的数据合理的放置在 `/usr/` 目录下的各子目录中，而不是为他们的产品创建单独的目录。
 
-Linux 系统中，所有系统默认的软件都存储在 `/usr` 目录下，`/usr` 目录类似 Windows 系统中 `C:\Windows\`+`C:\Program files\` 两个目录的综合体。
+Linux 系统中，所有系统默认的软件都存储在 `/usr/` 目录下，`/usr/` 目录类似 Windows 系统中 `C:\Windows\`+`C:\Program files\` 两个目录的综合体。
 
-FHS 建议，`/usr` 目录应具备下表所示的子目录：
+FHS 建议，`/usr/` 目录应具备下表所示的子目录：
 
-| 子目录         | 功能（作用）                                                 |
-| -------------- | ------------------------------------------------------------ |
-| `/usr/bin/`    | 存放系统命令，普通用户和超级用户都可以执行。这些命令和系统启动无关，在单用户模式下不能执行。 |
-| `/usr/sbin/`   | 存放根文件系统不必要的系统管理命令，如多数服务程序，只有 root 可以使用。 |
-| `/usr/lib/`    | 应用程序调用的函数库保存位置。                               |
-| `/usr/XllR6/`  | 图形界面系统保存位置。                                       |
-| `/usr/local/`  | 手工安装的软件保存位置。我们一般建议源码包软件安装在这个位置。 |
-| `/usr/share/`  | 应用程序的资源文件保存位置，如帮助文档、说明文档和字体目录。 |
-| `/usr/src/`    | 源码包保存位置。我们手工下载的源码包和内核源码包都可以保存到这里。 |
-| `/usr/include` | C/C++ 等编程语言头文件的放置目录。                           |
-
-
-
-## 2.3、/var 目录
-
-`/var` 目录用于存储动态数据，例如缓存、日志文件、软件运行过程中产生的文件等。通常，此目录下建议包含下表所示的这些子目录：
-
-| /var子目录             | 功能（作用）                                                 |
-| ---------------------- | ------------------------------------------------------------ |
-| `/var/lib/`            | 程序运行中需要调用或改变的数据保存位置。如 MySQL 的数据库保存在 `/var/lib/mysql/` 目录中。 |
-| `/var/log/`            | 登陆文件放置的目录，其中所包含比较重要的文件如 `/var/log/messages`、`/var/log/wtmp` 等。 |
-| `/var/run/`            | 一些服务和程序运行后，它们的 PID（进程 ID）保存位置。        |
-| `/var/spool/`          | 里面主要都是一些临时存放，随时会被用户所调用的数据，例如 `/var/spool/mail/` 存放新收到的邮件，`/var/spool/cron/` 存放系统定时任务。 |
-| `/var/www/`            | RPM 包安装的 Apache 的网页主目录。                           |
-| `/var/nis`、 `/var/yp` | NIS 服务机制所使用的目录，nis 主要记录所有网络中每一个 client 的连接信息；yp 是 linux 的 nis 服务的日志文件存放的目录。 |
-| `/var/tmp`             | 一些应用程序在安装或执行时，需要在重启后使用的某些文件，此目录能将该类文件暂时存放起来，完成后再行删除。 |
+| 子目录          | 功能（作用）                                                 |
+| --------------- | ------------------------------------------------------------ |
+| `/usr/bin/`     | 存放系统命令，普通用户和超级用户都可以执行。这些命令和系统启动无关，在单用户模式下不能执行。 |
+| `/usr/sbin/`    | 存放根文件系统不必要的系统管理命令，如多数服务程序，只有 root 可以使用。 |
+| `/usr/lib/`     | 应用程序调用的函数库保存位置。                               |
+| `/usr/XllR6/`   | 图形界面系统保存位置。                                       |
+| `/usr/local/`   | 手工安装的软件保存位置。我们一般建议源码包软件安装在这个位置。 |
+| `/usr/share/`   | 应用程序的资源文件保存位置，如帮助文档、说明文档和字体目录。 |
+| `/usr/src/`     | 源码包保存位置。我们手工下载的源码包和内核源码包都可以保存到这里。 |
+| `/usr/include/` | C/C++ 等编程语言头文件的放置目录。                           |
 
 
 
-## 2.4、/etc 目录
+## 2.3、/var/ 目录
+
+`/var/` 目录用于存储动态数据，例如缓存、日志文件、软件运行过程中产生的文件等。通常，此目录下建议包含下表所示的这些子目录：
+
+| /var子目录               | 功能（作用）                                                 |
+| ------------------------ | ------------------------------------------------------------ |
+| `/var/lib/`              | 程序运行中需要调用或改变的数据保存位置。如 MySQL 的数据库保存在 `/var/lib/mysql/` 目录中。 |
+| `/var/log/`              | 登陆文件放置的目录，其中所包含比较重要的文件如 `/var/log/messages`、`/var/log/wtmp` 等。 |
+| `/var/run/`              | 一些服务和程序运行后，它们的 PID（进程 ID）保存位置。        |
+| `/var/spool/`            | 里面主要都是一些临时存放，随时会被用户所调用的数据，例如 `/var/spool/mail/` 存放新收到的邮件，`/var/spool/cron/` 存放系统定时任务。 |
+| `/var/www/`              | RPM 包安装的 Apache 的网页主目录。                           |
+| `/var/nis/`、 `/var/yp/` | NIS 服务机制所使用的目录，nis 主要记录所有网络中每一个 client 的连接信息；yp 是 linux 的 nis 服务的日志文件存放的目录。 |
+| `/var/tmp/`              | 一些应用程序在安装或执行时，需要在重启后使用的某些文件，此目录能将该类文件暂时存放起来，完成后再行删除。 |
+
+
+
+## 2.4、/etc/ 目录
 
 配置文件保存位置。系统内所有采用默认安装方式（rpm 安装）的服务配置文件全部保存在此目录中，如用户信息、服务的启动脚本、常用服务的配置文件等。
 
-> etc 不是什么缩写，是 and so on 的意思，来源于法语的 et cetera，翻译成中文就是 “等等” 的意思。至于为什么在 `/etc` 下面存放配置文件， 按照原始的 UNIX 的说法（Linux 文件结构参考 UNIX 的教学实现 MINIX）：这下面放的都是一堆零零碎碎的东西，就叫 etc，这其实是个历史遗留。
+> etc 不是什么缩写，是 and so on 的意思，来源于法语的 et cetera，翻译成中文就是 “等等” 的意思。至于为什么在 `/etc/` 下面存放配置文件， 按照原始的 UNIX 的说法（Linux 文件结构参考 UNIX 的教学实现 MINIX）：这下面放的都是一堆零零碎碎的东西，就叫 etc，这其实是个历史遗留。
 
-| /etc子目录               | 功能（作用）                                         |
-| ------------------------ | ---------------------------------------------------- |
-| `/etc/opt/`              | `/opt/` 的配置文件。                                 |
-| `/etc/X11/`              | X_Window 系统（版本11）的配置文件。                  |
-| `/etc/sgml/`             | SGML 的配置文件。                                    |
-| `/etc/xml/`              | XML 的配置文件。                                     |
-| `/etc/skel/`             | 默认创建用户时，把该目录拷贝到家目录下。             |
-| `/etc/sysconfig/network` | 包含系统配置文件，通常用于 Red Hat 系 Linux 发行版。 |
+| /etc子目录                | 功能（作用）                                         |
+| ------------------------- | ---------------------------------------------------- |
+| `/etc/opt/`               | `/opt/` 的配置文件。                                 |
+| `/etc/X11/`               | X_Window 系统（版本11）的配置文件。                  |
+| `/etc/sgml/`              | SGML 的配置文件。                                    |
+| `/etc/xml/`               | XML 的配置文件。                                     |
+| `/etc/skel/`              | 默认创建用户时，把该目录拷贝到家目录下。             |
+| `/etc/sysconfig/network/` | 包含系统配置文件，通常用于 Red Hat 系 Linux 发行版。 |
 
 `/etc` 除了上述的子目录，还有很多直接放在目录下的配置文件：
 
@@ -381,9 +381,9 @@ Linux 的目录结构为树状结构，最顶级的目录为根目录 `/`。其�
 绝对路径与相对路径：
 
 - **绝对路径：**
-  路径的写法，由根目录 `/` 写起，例如：` /usr/share/doc` 这个目录。
+  路径的写法，由根目录 `/` 写起，例如：` /usr/share/doc/` 这个目录。
 - **相对路径：**
-  路径的写法，不是由 `/` 写起，例如由 `/usr/share/doc` 要到 `/usr/share/man` 底下时，可以写成：`cd ../man` 这就是相对路径的写法。
+  路径的写法，不是由 `/` 写起，例如由 `/usr/share/doc/` 要到 `/usr/share/man/` 底下时，可以写成：`cd ../man/` 这就是相对路径的写法。
 
 处理目录的常用命令：
 
@@ -504,7 +504,7 @@ lrwxrwxrwx 1 root root 10 Sep  4 17:54 /var/mail -> spool/mail
 
 - `-p` ：从该目录起，一次删除多级空目录
 
-将 test/test1/test2 删除掉：
+将 `test/test1/test2` 删除掉：
 
 ```
 root@Orichalcos:~# ls -ld test/test1/test2
@@ -821,7 +821,7 @@ unzip zipped_file.zip
 你可以给 zip 文件提供解压路径而不是解压到当前所在路径。你会在终端输出中看到提取的文件：
 
 ```
-unzip metallic-container.zip -d my_zip
+unzip metallic-container.zip -d my_zip/
 Archive:  metallic-container.zip
   inflating: my_zip/625993-PNZP34-678.jpg
   inflating: my_zip/License free.txt
@@ -888,16 +888,16 @@ Linux系统中 “一切皆文件”，所有文件都放置在以根目录为�
 mount [-t vfstype] [-o options] [设备名称] [挂载点]
 ```
 
-- 挂载点：必须是一个已经存在的目录，这个目录可以不为空，但挂载后这个目录下以前的内容将不可用，`umount` 以后会恢复正常
-- 设备名称：可以是一个分区，一个usb设备，光驱，软盘，网络共享等
-- `-t`：指定文件系统的类型，通常不必指定，因为 `mount` 会自动选择正确的类型。常用类型有：
+- *挂载点*：必须是一个已经存在的目录，这个目录可以不为空，但挂载后这个目录下以前的内容将不可用，`umount` 以后会恢复正常
+- *设备名称*：可以是一个分区，一个usb设备，光驱，软盘，网络共享等
+- *`-t`*：指定文件系统的类型，通常不必指定，因为 `mount` 会自动选择正确的类型。常用类型有：
   - 光盘或光盘镜像：iso9660
   - DOS fat16 文件系统：msdos
   - Windows 9x fat32 文件系统：vfat
   - Windows NT ntfs 文件系统：ntfs
   - Mount Windows 文件网络共享：smbfs
   - UNIX（LINUX）文件网络共享：nfs
-- `-o`：主要用来描述设备或档案的挂接方式。常用的参数有：
+- *`-o`*：主要用来描述设备或档案的挂接方式。常用的参数有：
   - loop：用来把一个文件当成硬盘分区挂接上系统
   - ro：采用只读方式挂接设备
   - rw：采用读写方式挂接设备
@@ -909,14 +909,14 @@ mount [-t vfstype] [-o options] [设备名称] [挂载点]
 # 在mnt目录新建cdrom目录
 mkdir /mnt/cdrom
 # 执行挂载命令
-mount /dev/cdrom /mnt/cdrom
+mount /dev/cdrom /mnt/cdrom/
 ```
 
 `mount` 挂载 u 盘，如果计算机没有其它 SCSI 设备和 USB 外设的情况下，插入的 U 盘的设备路径是 `/dev/sda1`：
 
 ```shell
 mkdir /mnt/upan
-mount /dev/sda1 /mnt/upan
+mount /dev/sda1 /mnt/upan/
 ```
 
 
@@ -932,7 +932,7 @@ umount 设备文件名或挂载点
 注意，卸载命令后面既可以加设备文件名，也可以加挂载点，不过只能二选一，比如卸载光盘：
 
 ```shell
-umount /mnt/cdrom
+umount /mnt/cdrom/
 ```
 
 命令加设备文件名同样是可以卸载的：
@@ -1064,7 +1064,7 @@ useradd 选项 用户名
 **实例1：**
 
 ```shell
-useradd –d /home/sam -m sam
+useradd –d /home/sam/ -m sam
 ```
 
 此命令创建了一个用户 sam，其中 `-d` 和 `-m` 选项用来为登录名 sam 产生一个主目录 `/home/sam`（`/home` 为默认的用户主目录所在的父目录）。
@@ -1122,10 +1122,10 @@ usermod 选项 用户名
 例如：
 
 ```shell
-usermod -s /bin/ksh -d /home/z –g developer sam
+usermod -s /bin/ksh -d /home/z/ –g developer sam
 ```
 
-此命令将用户 sam 的登录 Shell 修改为 `/bin/ksh`，主目录改为 `/home/z`，用户组改为 developer。
+此命令将用户 sam 的登录 Shell 修改为 `/bin/ksh`，主目录改为 `/home/z/`，用户组改为 developer。
 
 
 
@@ -1468,69 +1468,57 @@ users::20:root,sam
 
 `/etc/security/limits.conf` 文件实际是 Linux PAM（插入式认证模块，Pluggable Authentication Modules）中 `pam_limits.so` 的配置文件，只针对于单个会话，并且该设置不会影响系统服务的资源限制。
 
-需要注意的是 `/etc/security/limits.d/` 的这个目录下按照字母顺序排列的配置文件会覆盖 `/etc/security/limits.conf` 中的 domain 相同的的配置。
-
-这意味着，例如使用通配符的 domain 会被子目录中相同的通配符配置所覆盖，但是某一用户的特定配置只能被字母路中用户的配置所覆盖。其实就是某一用户 A 如果在 `/etc/security/limits.conf` 有配置，当 `/etc/security/limits.d` 子目录下配置文件也有用户 A 的配置时，那么 A 中某些配置会被覆盖。最终取的值是 `/etc/security/limits.d` 下的配置文件的配置。
-
-`limits.conf` 的格式如下：
+`limits.conf` 中每一行描述一个用户配置，其格式和具体含义如下：
 
 ```
-username|@groupname type resource limit
+<domain> <type> <item> <value>
 ```
 
-- *username|@groupname*：
+- *domain*：
+  - 一个用户名
+  - 用户组格式为 `@GROUP_NAME`
+  - 默认配置为 `*`，代表所有用户
+
+- *type*：
+  - `soft`：指的是当前系统生效的设置值，软限制也可以理解为警告值
+  - `hard`：表明系统中所能设定的最大值，`soft` 的限制不能比 `hard` 限制高
+  - `-`：就表明同时设置了 `soft` 和 `hard` 的值
+- *item*：
+  - `core`：限制内核文件的大小（KB）
+  - `date`：最大数据大小（KB）
+  - `fsize`：最大文件大小（KB）
+  - `memlock`：最大锁定内存地址空间（KB）
+  - `nofile`：打开文件的最大数目
+  - `rss`：最大持久设置大小（KB）
+  - `stack`：最大栈大小（KB）
+  - `cpu`：以分钟为单位的最多 CPU 时间（MIN）
+  - `noproc`：进程的最大数目
+  - `as`：地址空间限制（KB）
+  - `maxlogins`：此用户允许登录的最大数目
+  - `maxsyslogins`：系统最大同时在线用户数
+  - `priority`：运行用户进程的优先级
+  - `locks`：用户可以持有的文件锁的最大数量
+
+`limits.conf` 文件的一个例子如下：
 
 ```shell
-
-#Each line describes a limit for a user in the form:
-#每一行描述一个用户配置
-#<domain> <type> <item> <value>
- 
-#Where:
-#<domain> can be:
-# - a user name    一个用户名
-# - a group name, with @group syntax    用户组格式为@GROUP_NAME
-# - the wildcard *, for default entry    默认配置为*，代表所有用户
-# - the wildcard %, can be also used with %group syntax,
-# for maxlogin limit 
-#
-#<type> can have the two values:
-# - "soft" for enforcing the soft limits 
-# - "hard" for enforcing hard limits
-有soft，hard和-，soft指的是当前系统生效的设置值，软限制也可以理解为警告值。
-hard表名系统中所能设定的最大值。soft的限制不能比hard限制高，用-表名同时设置了soft和hard的值。
-#<item> can be one of the following:    <item>可以使以下选项中的一个
-# - core - limits the core file size (KB)    限制内核文件的大小。
-# - data - max data size (KB)    最大数据大小
-# - fsize - maximum filesize (KB)    最大文件大小
-# - memlock - max locked-in-memory address space (KB)    最大锁定内存地址空间
-# - nofile - max number of open file descriptors 最大打开的文件数(以文件描叙符，file descripter计数) 
-# - rss - max resident set size (KB) 最大持久设置大小
-# - stack - max stack size (KB) 最大栈大小
-# - cpu - max CPU time (MIN)    最多CPU占用时间，单位为MIN分钟
-# - nproc - max number of processes 进程的最大数目
-# - as - address space limit (KB) 地址空间限制 
-# - maxlogins - max number of logins for this user    此用户允许登录的最大数目
-# - maxsyslogins - max number of logins on the system    系统最大同时在线用户数
-# - priority - the priority to run user process with    运行用户进程的优先级
-# - locks - max number of file locks the user can hold    用户可以持有的文件锁的最大数量
-# - sigpending - max number of pending signals
-# - msgqueue - max memory used by POSIX message queues (bytes)
-# - nice - max nice priority allowed to raise to values: [-20, 19] max nice优先级允许提升到值
-# - rtprio - max realtime pr iority
-#
-#<domain> <type> <item> <value>
-#
- 
-#* soft core 0
-#* hard rss 10000
-#@student hard nproc 20
-#@faculty soft nproc 20
-#@faculty hard nproc 50
-#ftp hard nproc 0
-#@st
- 
+* soft core 0
+* hard rss 10000
+@student hard nproc 20
+@faculty soft nproc 20
+@faculty hard nproc 50
+ftp hard nproc 0
 ```
+
+
+
+**`/etc/security/limits.d/` 目录**
+
+该目录下默认有 `*-nproc.conf` 文件，该文件是用于限制用户的线程限制。我们也可以在该目录创建配置文件在 `/etc/security/limits.d/` 下，以 `.conf` 结尾。
+
+需要注意的是 `/etc/security/limits.d/` 的这个目录下按照字母顺序排列的配置文件会覆盖 `/etc/security/limits.conf` 中的 domain 相同的的配置。
+
+这意味着，例如使用通配符的 domain 会被子目录中相同的通配符配置所覆盖，但是某一用户的特定配置只能被字母路中用户的配置所覆盖。其实就是某一用户 A 如果在 `/etc/security/limits.conf` 有配置，当 `/etc/security/limits.d/` 子目录下配置文件也有用户 A 的配置时，那么 A 中某些配置会被覆盖。最终取的值是 `/etc/security/limits.d/` 下的配置文件的配置。
 
 
 
@@ -1679,7 +1667,7 @@ sunrpc  rpc_pipefs         0       0         0   -  /var/lib/nfs/rpc_pipefs
 将 /etc 底下的可用的磁盘容量以易读的容量格式显示：
 
 ```
-[root@www ~]# df -h /etc
+[root@www ~]# df -h /etc/
 Filesystem            Size  Used Avail Use% Mounted on
 /dev/hdc2             9.5G  3.7G  5.4G  41% /
 ```
@@ -3403,21 +3391,21 @@ export PATH=$PATH:/home/uusama/mysql/bin
 
 Linux 系统有一些重要常用的环境变量，具体如下：
 
-- **$HOME**：用户家目录。
-- **$SHELL**：用户在使用的 Shell 解释器名称。
-- **$HISTSIZE**：输出的历史命令记录条数。
-- **$HISTFILESIZE**：保存的历史命令记录条数。
-- **$MAIL**：邮件保存路径。
-- **$LANG**：系统语言、语系名称。
-- **$RANDOM**：生成一个随机数字。
-- **$PS1** ：Bash 解释器的提示符。
-- **$PATH**：定义解释器搜索用户执行命令的路径。
-- **$EDITOR**：用户默认的文本编辑器。
-- **$TERM**：表示显示类型。
-- **$RANDOM**：每次引用时生成一个 0 到 32767 之间的随机整数。
-- **$PWD**：指示由 cd 命令设置的当前工作目录。
-- **$TZ**：指时区。它可以使用 GMT、AST 等值。
-- **$UID**：显示当前用户的数字用户 ID，在 shell 启动时初始化。
+- $HOME：用户家目录。
+- $SHELL：用户在使用的 Shell 解释器名称。
+- $HISTSIZE：输出的历史命令记录条数。
+- $HISTFILESIZE：保存的历史命令记录条数。
+- $MAIL：邮件保存路径。
+- $LANG：系统语言、语系名称。
+- $RANDOM：生成一个随机数字。
+- $PS1 ：Bash 解释器的提示符。
+- $PATH：定义解释器搜索用户执行命令的路径。
+- $EDITOR：用户默认的文本编辑器。
+- $TERM：表示显示类型。
+- $RANDOM：每次引用时生成一个 0 到 32767 之间的随机整数。
+- $PWD：指示由 cd 命令设置的当前工作目录。
+- $TZ：指时区。它可以使用 GMT、AST 等值。
+- $UID：显示当前用户的数字用户 ID，在 shell 启动时初始化。
 
 可以使用 `echo` 查看变量信息：
 
