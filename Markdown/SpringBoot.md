@@ -568,7 +568,7 @@ public class HelloWorldConfig {
 3. `classpath:/config`
 4. `classpath:/`
 
-如果多个配置文件含有相同的变量名，并且在使用 `${}` 进行引用时没有指定文件名，那么 Spring Boot 会按照特定的顺序查找配置文件，并使用第一个找到的变量值。这个查找顺序为： `application-{suffix}.properties` 或 `application-{suffix}.yml > application.properties` 或 `application.yml` > 其他自定义的配置文件。其中`，{suffix}` 指的是 Spring Profiles 中的激活配置 `profile`。
+如果多个配置文件含有相同的变量名，并且在使用 `${}` 进行引用时没有指定文件名，那么 Spring Boot 会按照特定的顺序查找配置文件，并使用第一个找到的变量值。这个查找顺序为： `application-{suffix}.properties` 或 `application-{suffix}.yml > application.properties` 或 `application.yml` > 其他自定义的配置文件。其中 `，{suffix}` 指的是 Spring Profiles 中的激活配置 `profile`。
 
 
 
@@ -636,11 +636,12 @@ yml 可以不需要创建多个文件来区分，可以直接以 `---` 来当做
 `application.yaml`:
 
 ```yaml
-server:
-  port: 8081
 spring:
   profiles:
     active: test
+server:
+  port: 8081
+  
 ---
 spring:
   config:
@@ -648,6 +649,7 @@ spring:
       on-profile: test
 server:
   port: 8082
+  
 ---
 spring:
   config:
@@ -664,16 +666,18 @@ server:
 `application.yaml`：
 
 ```yaml
-server:
-  port: 8081
 spring:
   profiles:
     active: test
+server:
+  port: 8081
+  
 ---
 spring:
   profiles: test
 server:
   port: 8082
+  
 ---
 spring:
   profiles: dev
@@ -698,8 +702,6 @@ spring:
   profiles:
     # 导入其他配置（本处以eureka，feign为例）
     include: eureka,feign
-
-spring:
   application:
     name: order
 ```
@@ -732,10 +734,9 @@ spring:
   profiles:
     # 导入其他配置（本处以eureka，feign为例）
     include: eureka,feign
-
-spring:
   application:
     name: order
+
 ---
 # eureka配置
 spring:
@@ -746,6 +747,7 @@ eureka:
   client:
     service-Url:
       defaultZone: http://localhost:7001/eureka
+      
 ---
 # feign配置
 spring:
@@ -768,10 +770,9 @@ spring:
   profiles:
     # 导入其他配置（本处以eureka，feign为例）
     include: eureka,feign
-
-spring:
   application:
     name: order
+
 ---
 # eureka配置
 spring:
@@ -780,6 +781,7 @@ eureka:
   client:
     service-Url:
       defaultZone: http://localhost:7001/eureka
+      
 ---
 # feign配置
 spring:
@@ -803,24 +805,31 @@ The properties from spring.profile.include override default properties. The prop
 
 
 
-### 3.3.3、Profile 组
+### 3.3.3、group
 
-Spring Boot 2.4 之后增加了 Profile 不能使用 `spring.profiles.active` 和 `spring.profiles.include` 的限制，但有个常用的场景，就是可能需要同时使用两个 Profile 配置， 比如线上配置了 MySQL 以及 RabbitMQ：
+Spring Boot 2.4 之后增加了 Profile 不能同时使用 `spring.profiles.active` 和 `spring.profiles.include` 的限制，但有个常用的场景，就是可能需要同时使用两个 Profile 配置， 比如线上配置了 MySQL 以及 RabbitMQ：
 
 ```yaml
 spring:
-  config:
-    activate:
-      on-profile: "mysql"
+  profiles:
+    active: "dev"
+    
+---
+spring:
+  profiles: "dev"
+  include: "mysql-dev,rabbitmq-dev"
+  
+---
+spring:
+  profiles: "mysql-dev"
   datasource:
     url: "jdbc:mysql://localhost/test"
     username: "dbuser"
     password: "dbpass"
+    
 ---
 spring:
-  config:
-    activate:
-      on-profile: "rabbitmq"
+  profiles: "rabbitmq-dev"
   rabbitmq:
     host: "localhost"
     port: 5672
@@ -828,30 +837,67 @@ spring:
     password: "secret"
 ```
 
-所以 Spring Boot 引入了 “组” 的概念，方便创建相应的便捷操作，比如以下是一个 prod 的 Profile 配置，包含上面两个 Profile 配置，方便启用：
+其中：
+
+1. 第一个`spring.profiles.active: dev`，代表默认激活 `dev` 配置。
+2. 第二段 `dev` 配置中使用了 `spring.profiles.include` 来引入其他配置信息，一个是 `dev` 的 mysql 配置，一个是 `dev` 的 rabbitmq 配置。
+
+在 2.3 和之前版本的时候，我们通常就是这样来分组配置不同中间件的。
+
+所以 Spring Boot 2.4 之后引入了 “组” 的概念，方便创建相应的便捷操作：
 
 ```yaml
 spring:
-  config:
-    activate:
-      on-profile: "prod"
   profiles:
+    active: "dev"
     group:
-      prod: "mysql,rabbitmq"
-```
+      dev: "mysql-dev,rabbitmq-dev"
+      prod: "mysql-prod,rabbitmq-prod"
 
-
-
-> 如果 Spring Boot 版本为 2.4 以下，请使用以下方法配置：
-
-```yaml
+---
 spring:
   config:
     activate:
-      on-profile: "prod"
-  profiles:
-    include: "mysql,rabbitmq"
+      on-profile: "mysql-dev"
+  datasource:
+    url: "jdbc:mysql://localhost/test"
+    username: "dbuser"
+    password: "dbpass"
+    
+---
+spring:
+  config:
+    activate:
+      on-profile: "rabbitmq-dev"
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "admin"
+    password: "secret"
+    
+---
+spring:
+  config:
+    activate:
+      on-profile: "mysql-prod"
+  datasource:
+    url: "jdbc:mysql://host/test"
+    username: "dbuser"
+    password: "dbpass"
+    
+---
+spring:
+  config:
+    activate:
+      on-profile: "rabbitmq-prod"
+  rabbitmq:
+    host: "host"
+    port: 5672
+    username: "admin"
+    password: "secret"
 ```
+
+可以看到，在 2.4 版本的配置中，不同环境的配置定义都在第一段默认配置中了，所有的环境定义都转移到了 `spring.profiles.group` 的 key 字段（上面配置了 `dev` 和 `prod`），value 字段则代表了每个环境需要加载的不同配置分组。
 
 
 
