@@ -34,7 +34,8 @@
 
 ### :moyai:持久层框架
 
-- [**MyBatis**](https://github.com/0richalcos/Note/blob/main/Markdown/Mybatis.md)
+- [**MyBatis**](https://github.com/0richalcos/Note/blob/main/Markdown/MyBatis.md)
+  - [**MyBatis-Plus**](https://github.com/0richalcos/Note/blob/main/Markdown/MyBatis-Plus.md)
 
 
 
