@@ -88,3 +88,109 @@ public class Application {
 
 }
 ```
+
+
+
+**配置选项**
+
+通常来说，一般的简单工程，通过以上配置即可正常使用 MyBatis-Plus，同时 MyBatis-Plus 提供了大量的个性化配置来满足不同复杂度的工程：
+
+```yaml
+mybatis-plus:
+  # MyBatis 配置文件位置
+  configLocation:
+  # MyBatis Mapper 所对应的 XML 文件位置，Maven 多模块项目的扫描路径需以 classpath*: 开头（即加载多个 jar 包下的 XML 文件）
+  mapperLocations: classpath*:/mapper/**/*.xml
+  # MyBaits 别名包扫描路径，通过该属性可以给包中的类注册别名
+  # 注册后在 Mapper 对应的 XML 文件中可以直接使用类名，而不用使用全限定的类名（即 XML 中调用的时候不用包含包名）
+  typeAliasesPackage:
+  # 该配置需要和 typeAliasesPackage 一起使用，如果配置了该属性，则仅仅会扫描路径下以该类作为父类的域对象
+  typeAliasesSuperType:
+  # TypeHandler 扫描路径，如果配置了该属性，SqlSessionFactoryBean 会把该包下面的类注册为对应的 TypeHandler
+  typeHandlersPackage:
+  # 启动时是否检查 MyBatis XML 文件的存在
+  checkConfigLocation: false
+  # 通过该属性可指定 MyBatis 的执行器，MyBatis 的执行器总共有三种：
+  # - ExecutorType.SIMPLE：该执行器类型不做特殊的事情，为每个语句的执行创建一个新的预处理语句（PreparedStatement）
+  # - ExecutorType.REUSE：该执行器类型会复用预处理语句（PreparedStatement）
+  # - ExecutorType.BATCH：该执行器类型会批量执行所有的更新语句
+  executorType: simple
+  # 指定外部化 MyBatis Properties 配置，通过该配置可以抽离配置，实现不同环境的配置部署
+  configurationProperties:
+  # 原生 MyBatis 所支持的配置，也可以通过 MyBatis XML 配置文件的形式进行配置
+  configuration:
+    # 是否开启自动驼峰命名规则（camel case）映射
+    # 即从经典数据库列名 A_COLUMN（下划线命名）到经典 Java 属性名 aColumn（驼峰命名）的类似映射
+    # 此属性在 MyBatis 中原默认值为 false，在 MyBatis-Plus 中此属性也将用于生成最终的 SQL 的 select body
+    # 如果你的数据库命名符合规则无需使用 @TableField 注解指定数据库字段名
+    mapUnderscoreToCamelCase: true
+    # 默认枚举处理类，如果配置了该属性，枚举将统一使用指定处理器进行处理
+    defaultEnumTypeHandler: org.apache.ibatis.type.EnumTypeHandler
+    # 当设置为 true 的时候，懒加载的对象可能被任何懒属性全部加载，否则，每个属性都按需加载，需要和 lazyLoadingEnabled 一起使用
+    aggressiveLazyLoading: true
+    # MyBatis 自动映射策略通过该配置可指定 MyBatis 是否并且如何来自动映射数据表字段与对象的属性，总共有 3 种可选值：
+    # - AutoMappingBehavior.NONE：不启用自动映射
+    # - AutoMappingBehavior.PARTIAL：只对非嵌套的 resultMap 进行自动映射
+    # - AutoMappingBehavior.FULL：对所有的 resultMap 都进行自动映射
+    autoMappingBehavior: partial
+    # MyBatis 自动映射时未知列或未知属性处理策略
+    # 通过该配置可指定 MyBatis 在自动映射过程中遇到未知列或者未知属性时如何处理，总共有 3 种可选值：
+    # - AutoMappingUnknownColumnBehavior.NONE：不做任何处理
+    # - AutoMappingUnknownColumnBehavior.WARNING：以日志的形式打印相关警告信息
+    # - AutoMappingUnknownColumnBehavior.FAILING：当作映射失败处理，并抛出异常和详细信息
+    autoMappingUnknownColumnBehavior: NONE
+    # Mybatis 一级缓存
+    # - SESSION：session 级别缓存，同一个 session 相同查询语句不会再次查询数据库
+    # - STATEMENT：关闭一级缓存
+    # 单服务架构中（有且仅有只有一个程序提供相同服务），一级缓存开启不会影响业务，只会提高性能
+    # 微服务架构中需要关闭一级缓存，原因：Service1 先查询数据，若之后 Service2 修改了数据，
+    # 之后 Service1 又再次以同样的查询条件查询数据，因走缓存会出现查处的数据不是最新数据
+    localCacheScope: SESSION
+    # 开启 Mybatis 二级缓存
+    cacheEnabled: true
+    # 指定当结果集中值为 null 的时候是否调用映射对象的 Setter（Map 对象时为 put）方法，
+    # 通常运用于有 Map.keySet() 依赖或 null 值初始化的情况
+    # 通俗的讲，即 MyBatis 在使用 resultMap 来映射查询结果中的列，如果查询结果中包含空值的列，
+    # 则 MyBatis 在映射的时候，不会映射这个字段，这就导致在调用到该字段的时候由于没有映射，取不到而报空指针异常
+    callSettersOnNulls: false
+    # 指定一个提供 Configuration 实例的工厂类，该工厂生产的实例将用来加载已经被反序列化对象的懒加载属性值，
+    # 其必须包含一个签名方法 static Configuration getConfiguration()
+    configurationFactory:
+  # MyBatis-Plus 全局策略配置
+  globalConfig:
+    # 是否控制台打印 mybatis-plus 的 LOGO
+    banner: true
+    # 是否初始化 SqlRunner（com.baomidou.mybatisplus.extension.toolkit.SqlRunner）
+    enableSqlRunner: false
+    # MyBatis-Plus 全局策略中的 DB 策略配置
+    dbConfig:
+      # 全局默认主键类型
+      idType: ASSIGN_ID
+      # 表名前缀
+      tablePrefix:
+      # schema
+      schema:
+      # 字段 format（对主键无效），例: %s
+      columnFormat:
+      # 字段 format（3.5.3.2 +），例: %s
+      tableFormat:
+      # entity 的字段（property）的 format，只有在 column as property 这种情况下生效（对主键无效），例: %s
+      propertyFormat:
+      # 表名是否使用驼峰转下划线命名，只对表名生效
+      tableUnderline: true
+      # 大写命名，对表名和字段名均生效
+      capitalMode: false
+      # 全局的 entity 的逻辑删除字段属性名（逻辑删除下有效）
+      logicDeleteField:
+      # 逻辑已删除值（逻辑删除下有效）
+      logicDeleteValue: 1
+      # 逻辑未删除值（逻辑删除下有效）
+      logicNotDeleteValue: 0
+      # 字段验证策略之 insert，在 insert 的时候的字段验证策略
+      insertStrategy: NOT_NULL
+      # 字段验证策略之 update，在 update 的时候的字段验证策略
+      updateStrategy: NOT_NULL
+      # 字段验证策略之 select，在 select 的时候的字段验证策略，即 wrapper 根据内部 entity 生成的 where 条件
+      whereStrategy: NOT_NULL
+```
+
