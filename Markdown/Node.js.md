@@ -44,7 +44,7 @@ npm 是随同 Node.js 一起安装的包管理工具，能解决 Node.js 代码�
 
 例如：我希望将全模块所在路径和缓存路径放在我 Node.js 安装的文件夹中。
 
-1. 在我安装的文件夹【D:\Develop\nodejsC:\Program Files\nodejs】下创建两个文件夹【node_global】及【node_cache】：
+1. 在我安装的文件夹【C:\Program Files\nodejs】下创建两个文件夹【node_global】及【node_cache】：
 
    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221118104639599.png" alt="image-20221118104639599" style="zoom: 50%;" />
 
