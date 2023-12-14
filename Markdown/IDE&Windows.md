@@ -6,14 +6,17 @@ typora-copy-images-to: upload
 
 ## 【1】Windows默认管理员权限
 
-1. 按下 Win+R 快捷键唤出 “运行” 窗口，输入 `gpedit.msc`
-2. 这时打开了 组策略编辑器，在左边找到【计算机配置】 =>【Windows设置】，再进入右边【安全设置】
-3. 进入【本地策略】
-4. 进入【安全选项】
-5. 向下滑，找到
-  -  “用户账户控制：以管理员批准模式运行所有管理员”
-  - “用户账户控制：用于内置管理员账户的管理员批准模式”
-6. 分别选中并点击鼠标右键，再点击【属性】，进入配置窗口，将这两项都分别设置为 “已禁用”，再点击 【确定】
+1. 按下 Win+R 快捷键唤出 “运行” 窗口，输入 `gpedit.msc` 打开 组策略编辑器。
+
+2. 依次选择 计算机配置 => Windows设置 => 安全设置 => 本地策略 => 安全选项，双击安全选项：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231215001054470.png" alt="image-20231215001054470" style="zoom:80%;" />
+
+3. 向下滑，找到
+
+     -  用户账户控制：以管理员批准模式运行所有管理员。
+     -  用户账户控制：用于内置管理员账户的管理员批准模式。
+6. 分别双击进入配置窗口，将这两项都分别设置为已禁用，再点击确定。
 7. 重启电脑，操作完成！
 
 > 此操作虽然以后会比较方便，但是由于所有软件都能获取到管理员权限，所以电脑安全性会有所降低。
@@ -84,11 +87,27 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 
 
-## 【4】查看后台运行的程序的详细信息
+## 【4】解决端口占用
 
-cmd 命令窗口输入 `netstat –ano`，回车。
+1. cmd 命令窗口输入 `netstat –ano` 回车，会显示所有已经在运行的端口情况，其中 PID 为进程号。
 
-可以解决端口占用。
+   如果想要具体查询正在占用的端口号，可以使用 ：
+
+   ```shell
+   netstat -ano | findstr <端口号>
+   ```
+
+2. 找到占用端口的进程号后，可以通过 PID 查询进程：
+
+   ```shell
+   tasklist | findstr <PID>
+   ```
+
+3. 输入以下命令终止进程：
+
+   ```shell
+   taskkill /f /t /im <PID>
+   ```
 
 
 
@@ -409,6 +428,38 @@ PS C:\WINDOWS\system32> set-executionpolicy remotesigned
 PS C:\WINDOWS\system32> get-executionpolicy
 RemoteSigned
 ```
+
+
+
+## 【18】彻底关闭病毒实时保护
+
+1. 首先按 Win+R，输入 `gpedit.msc` 按回车打开组策略编辑器。
+
+2. 依次选择 计算机配置 => 管理模板 => Windows 组件 => Microsoft Defender防病毒 => 实时保护，双击实时保护：
+
+   ![image-20231214235310490](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231214235310490.png)
+
+3. 双击 关闭实时保护，选择已启用，点击应用：
+
+   ![image-20231214235546195](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231214235546195.png)
+
+
+
+## 【19】需要使用新应用一打开此 ms-gamingoverlay 链接
+
+一般在打开游戏或者部分应用出现 “需要使用新应用一打开此 ms-gamingoverlay 链接”，是因为 xbox 搞事儿，没有 xbox 或者 xbox 没有卸载干净。
+
+解决办法：
+
+1. 首先按 Win+R，输入 `gpedit.msc` 按回车打开组策略编辑器。
+
+2. 依次选择 计算机配置 => 管理模板 => Windows组件 => Windows 游戏录制与广播，双击Windows 游戏录制与广播：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231215000604307.png" alt="image-20231215000604307" style="zoom:80%;" />
+
+3. 双击 启用或禁用 Windows 游戏录制和广播，选择已禁用，点击应用：
+
+   ![image-20231215000956699](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231215000956699.png)
 
 
 
@@ -954,3 +1005,14 @@ ask the administrator to create a pre-revprop-change hook
 
 2. 将文件放到 `\Repositories\SVN文件夹\hooks\` 下执行即可。
 
+
+
+## 【2】查看本地 SVN 账号密码
+
+1. 找到存放 SVN 账号密码的路径，默认路径 `C:\Users\{用户名}\AppData\Roaming\Subversion\auth\svn.simple`。
+
+2. 前往[这个地址](http://www.leapbeyond.com/ric/TSvnPD/)下载一个密码查看工具。
+
+3. 将 .exe 的文件拷到上面第一步的目录中去，启动该工具就可以看见对应的用户名密码了：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231214235920682.png" alt="image-20231214235920682" style="zoom:67%;" />
