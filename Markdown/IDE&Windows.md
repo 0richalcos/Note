@@ -121,7 +121,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 
 
-## 【6】删除右键菜单新建中不要选项
+## 【6】删除右键菜单新建中的选项
 
 1. 按下 Win+R，运行 `regedit`
 2. 展开 HKEY_CLASSES_ROOT，找到需要删除的文件后缀名，然后展开文件夹找到 shellnew 选项，直接删除即可
@@ -306,13 +306,17 @@ sc <server> [command] [service name] <option1> <option2>...
 
 
 
+**Windows11 远程桌面提示 Windows Defender Credential Guard 不允许使用已保存的凭据**
+
+![image-20231216141553114](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231216141553114.png)
+
 Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不能使用已经保存的密码来连接远程桌面。我也很绝望啊，所以我决定关闭他了。
 
 1. 按 Win + R 呼出【运行】，输入 gpedit.msc 按回车，打开组策略编辑器
 
    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221104154634735.png" alt="image-20221104154634735" style="zoom: 50%;" />
 
-2. 在组策略管理控制台上，转到计算机配置 ==> 管理模板 ==> 系统 ==> Device Guard
+2. 在组策略管理控制台上，转到计算机配置 ==> 管理模板 ==> 系统 ==> Device Guard，双击Device Guard：
 
    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221104154738722.png" alt="image-20221104154738722" style="zoom:50%;" />
 
@@ -445,7 +449,7 @@ RemoteSigned
 
 
 
-## 【19】需要使用新应用一打开此 ms-gamingoverlay 链接
+## 【19】需要使用新应用以打开此 ms-gamingoverlay 链接
 
 一般在打开游戏或者部分应用出现 “需要使用新应用一打开此 ms-gamingoverlay 链接”，是因为 xbox 搞事儿，没有 xbox 或者 xbox 没有卸载干净。
 
@@ -460,6 +464,84 @@ RemoteSigned
 3. 双击 启用或禁用 Windows 游戏录制和广播，选择已禁用，点击应用：
 
    ![image-20231215000956699](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231215000956699.png)
+
+
+
+## 【20】开发驱动器
+
+开发驱动器是一种新形式的存储卷，可用于提高关键开发人员工作负载的性能。
+
+开发驱动器在 ReFS 技术基础上构建，采用有针对性的文件系统优化，并且可以更好地控制存储卷设置和安全性，包括信任指定、防病毒配置和对附加筛选器的管理控制。
+
+![Visual Studio Dev Drive](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/DevDrivePerfChart.png)
+
+
+
+**开发驱动器如何运作？**
+
+存储卷指定如何以特定格式通过目录和文件将数据存储在文件系统上。 Windows 将 NTFS 用于系统驱动器，默认情况下，用于大多数不可移动驱动器。 复原文件系统 (ReFS) 是一种更新的 Microsoft 文件系统格式，旨在最大程度提升数据可用性、跨各种工作负载高效扩展到大数据集，并通过损坏复原提供数据完整性。 它旨在解决存储方案的扩展集问题以及为将来的革新打造基础。
+
+开发驱动器利用 ReFS 来支持初始化专用于开发工作负载的存储卷，从而提供更快的性能和针对开发方案优化的可自定义设置。 ReFS 包含多项特定于文件系统的优化，以提高关键开发人员方案的性能。
+
+
+
+**应该在开发驱动器上放置什么内容？**
+
+开发驱动器适用于：
+
+- 源代码存储库和项目文件
+- 包缓存
+- 生成输出和中间文件
+
+开发驱动器不可用于存储开发人员工具，例如：
+
+- Visual Studio
+- MSBuild
+- .NET SDK
+- Windows SDK 等。
+
+这些工具应存储在主 C:\ 驱动器上。
+
+
+
+**设置开发驱动器**
+
+先决条件：
+
+- Windows 11 版本 #10.0.22621.2338 或更高版本
+- 建议 16gb 内存（至少 8gb）
+- 最小 50gb 可用磁盘空间
+- 开发驱动器适用于所有 Windows SKU 版本。
+
+设置选项：
+
+1. Windows 设置并导航到 系统 => 存储 => 高级存储设置 => 磁盘和卷，选择创建 Dev Drive：
+
+   ![image-20231218005553385](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231218005553385.png)
+
+2. 系统会提供三个选项：
+
+   1. 创建新的 VHD：在新的虚拟硬盘上生成卷
+   2. 重设现有卷大小：创建新的未分配空间以进行构建
+   3. 磁盘上的未分配空间：使用现有磁盘上的未分配空间（仅当之前在存储中设置了未分配的空间时，才会显示此选项）。
+
+   这里推荐选择重设现有卷大小
+
+   ![image-20231218010059396](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231218010059396.png)
+
+3. 选择要调整大小的卷：
+
+   ![image-20231218010220051](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231218010220051.png)
+
+4. 为卷选择新大小，需要至少有 50GB 的未分配的可用空间，这是开发驱动器所需的最小大小。 设置大小后，选择下一步：
+
+   ![image-20231218010331196](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231218010331196.png)
+
+5. 若要在新的可用空间上设置开发驱动器的格式，请指定标签（驱动器名称）、驱动器号和大小分配。 最大大小是在上一步中分配的可用空间量，开发驱动器的最小大小为 50GB：
+
+   ![image-20231218010448788](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231218010448788.png)
+
+6. 到这里就已经创建并调整了开发驱动器的大小！
 
 
 

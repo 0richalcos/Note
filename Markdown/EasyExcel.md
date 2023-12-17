@@ -292,7 +292,19 @@ public class ReadTest {
 }
 ```
 
- 
+
+
+**记一次 EasyExce 读取 xlsx 文件实体 Bean 数据全部为 null 的问题**
+
+可能和 Lombok 的 `@Accessors` 注解有关，去掉就好了：
+
+```java
+@Data
+@EqualsAndHashCode()
+//@Accessors(chain = true)
+```
+
+
 
 ## 3.2、web 中的读
 
