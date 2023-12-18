@@ -8,7 +8,7 @@ typora-copy-images-to: upload
 
 SpringBoot 基于 Spring 开发，SpringBoot 本身并不提供 Spring 框架的核心特性以及扩展功能，只是用于快速、敏捷地开发新一代基于 Spring 框架的应用程序。也就是说，它并不是用来替代 Spring 的解决方案，而是和 Spring 框架紧密结合用于提升 Spring 开发者体验的工具。
 
-SpringBoot 以 **约定大于配置** 的核心思想，默认帮我们进行了很多设置，多数 SpringBoot 应用只需要很少的 Spring 配置。Spring Boot 内嵌 Servlet 容器，降低了对环境的要求，可以命令执行语句。同时它集成了大量常用的第三方库配置（例如Redis、MongoDB、Jpa、RabbitMQ、Quartz等等），SpringBoot 应用中这些第三方库几乎可以零配置的开箱即用。
+SpringBoot 以约定大于配置的核心思想，默认帮我们进行了很多设置，多数 SpringBoot 应用只需要很少的 Spring 配置。Spring Boot 内嵌 Servlet 容器，降低了对环境的要求，可以命令执行语句。同时它集成了大量常用的第三方库配置（例如Redis、MongoDB、Jpa、RabbitMQ、Quartz等等），SpringBoot 应用中这些第三方库几乎可以零配置的开箱即用。
 
 简单的来说 SpringBoot 并不是什么新的框架，它默认配置了很多框架的使用方式，就像 maven 整合了所有的 jar 包，SpringBoot 整合了所有的框架。
 
@@ -1118,71 +1118,133 @@ Maven 中的 `profile` 的激活条件还可以根据 JDK、操作系统、文�
 
 # 4、JSR303 数据校验
 
-JSR-303 是 JAVA EE 6 中的一项子规范，叫做 Bean Validation，官方参考实现是Hibernate Validator。
+数据的校验的重要性就不用说了，即使在前端对数据进行校验的情况下，我们还是要对传入后端的数据再进行一遍校验，避免用户绕过浏览器直接通过一些 HTTP 工具直接向后端请求一些违法数据。
 
-此实现与 Hibernate ORM 没有任何关系。 JSR 303 用于对 Java Bean 中的字段的值进行验证。 
-Spring MVC 3.x 之中也大力支持 JSR-303，可以在控制器中对表单提交的数据方便地验证。 
-注:可以使用注解的方式进行验证。
-
-
-
-**校检规则**
-
-空检查 
-@Null 验证对象是否为null 
-@NotNull 验证对象是否不为null, 无法查检长度为0的字符串 
-@NotBlank 检查约束字符串是不是Null还有被Trim的长度是否大于0,只对字符串,且会去掉前后空格. 
-@NotEmpty 检查约束元素是否为NULL或者是EMPTY.
-
-Booelan检查 
-@AssertTrue 验证 Boolean 对象是否为 true 
-@AssertFalse 验证 Boolean 对象是否为 false
-
-长度检查 
-@Size(min=, max=) 验证对象（Array,Collection,Map,String）长度是否在给定的范围之内 
-@Length(min=, max=) Validates that the annotated string is between min and max included.
-
-日期检查 
-@Past 验证 Date 和 Calendar 对象是否在当前时间之前，验证成立的话被注释的元素一定是一个过去的日期 
-@Future 验证 Date 和 Calendar 对象是否在当前时间之后 ，验证成立的话被注释的元素一定是一个将来的日期 
-@Pattern 验证 String 对象是否符合正则表达式的规则，被注释的元素符合制定的正则表达式，regexp:正则表达式 flags: 指定 Pattern.Flag 的数组，表示正则表达式的相关选项。
-
-数值检查 
-建议使用在Stirng,Integer类型，不建议使用在int类型上，因为表单值为“”时无法转换为int，但可以转换为Stirng为”“,Integer为null 
-@Min 验证 Number 和 String 对象是否大等于指定的值 
-@Max 验证 Number 和 String 对象是否小等于指定的值 
-@DecimalMax 被标注的值必须不大于约束中指定的最大值. 这个约束的参数是一个通过BigDecimal定义的最大值的字符串表示.小数存在精度 
-@DecimalMin 被标注的值必须不小于约束中指定的最小值. 这个约束的参数是一个通过BigDecimal定义的最小值的字符串表示.小数存在精度 
-@Digits 验证 Number 和 String 的构成是否合法 
-@Digits(integer=,fraction=) 验证字符串是否是符合指定格式的数字，interger指定整数精度，fraction指定小数精度。 
-@Range(min=, max=) 被指定的元素必须在合适的范围内 
-@Range(min=10000,max=50000,message=”range.bean.wage”) 
-@Valid 递归的对关联对象进行校验, 如果关联对象是个集合或者数组,那么对其中的元素进行递归校验,如果是一个map,则对其中的值部分进行校验.(是否进行递归验证) 
-@CreditCardNumber信用卡验证 
-@Email 验证是否是邮件地址，如果为null,不进行验证，算通过验证。 
-@ScriptAssert(lang= ,script=, alias=) 
-@URL(protocol=,host=, port=,regexp=, flags=)
-
-
-
-**案例**：
-
-在Person.java实体类上添加@Validated开启验证，然后在属性上添加验证规则：
+最普通的做法就像下面这样。我们通过 `if/else` 语句对请求的每一个参数一一校验。
 
 ```java
-@Component
-@Validated
-@ConfigurationProperties(prefix = "person")
-public class Person {
-    @Email(message = "邮箱格式错误")
-    private String name;
-    private Integer age;
-    private Boolean happy;
-    private Date birthday;
-    private Map<String, Object> map;
-    private List<Object> list;
-    private Dog dog;
+@RestController
+@RequestMapping("/api/person")
+public class PersonController {
+
+    @PostMapping
+    public ResponseEntity<PersonRequest> save(@RequestBody PersonRequest personRequest) {
+        if (personRequest.getClassId() == null
+                || personRequest.getName() == null
+                || !Pattern.matches("(^Man$|^Woman$|^UGM$)", personRequest.getSex())) {
+
+        }
+        return ResponseEntity.ok().body(personRequest);
+    }
+}
 ```
+
+但是，不太建议这样来写，这样的代码明显违背了单一职责原则。大量的非业务代码混杂在业务代码中，非常难以维护，还会导致业务层代码冗杂！
+
+实际上，我们是可以通过一些简单的手段对上面的代码进行改进的，比如使用 JSR303~
+
+
+
+## 4.1、简介
+
+JSR-303 是 JAVA EE 6 中的一项子规范，叫做 Bean Validation，官方参考实现是Hibernate Validator。
+
+Hibernate Validator 官网介绍：
+
+验证数据是一项常见任务，它发生在从表示层到持久层的所有应用程序层中。通常在每一层都实现相同的验证逻辑，这既耗时又容易出错。为了避免重复这些验证，开发人员经常将验证逻辑直接捆绑到域模型中，将域类与验证代码混在一起，而验证代码实际上是关于类本身的元数据。
+
+![application layers](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/application-layers.png)
+
+Jakarta Bean Validation 2.0 - 为实体和方法验证定义了元数据模型和 API。默认元数据源是注释，能够通过使用 XML 覆盖和扩展元数据。API 不依赖于特定的应用程序层或编程模型。它特别不依赖于 Web 或持久层，并且可用于服务器端应用程序编程以及富客户端 Swing 应用程序开发人员。
+
+![application layers2](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/application-layers2.png)
+
+
+
+## 4.2、快速开始
+
+导入依赖：
+
+```xml
+<dependency>
+   <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-validation</artifactId>
+</dependency>
+```
+
+在Spring Boot 2.3 1 之前，`spring-boot-starter-validation` 包括在了 `spring-boot-starter-web` 中，但如果使用的 Spring Boot 版本大于2.3.1，比如我当前使用的是 2.7.1，那么就必须手动添加依赖 `spring-boot-starter-validation`。
+
+
+
+### 4.2.1、验证 Controller 的输入
+
+
+
+### 4.2.2、验证 Service 中的方法
+
+
+
+## 4.3、级联校验和手动校验
+
+
+
+## 4.4、自定义 Validator
+
+
+
+## 4.5、常用注解总结
+
+**常用校验注解**
+
+JSR303 定义了 Bean Validation（校验）的标准 validation-api，并没有提供实现。Hibernate Validation是对这个规范的实现，并且增加了 `@Email`、`@Length`、`@Range` 等注解。Spring Validation 底层依赖的就是 Hibernate Validation。
+
+JSR 提供的校验注解:
+
+- `@Null`：被注释的元素必须为 `null`
+- `@NotNull`：被注释的元素必须不为 `null`
+- `@AssertTrue`：被注释的元素必须为 `true`
+- `@AssertFalse`：被注释的元素必须为 `false`
+- `@Min(value)`：被注释的元素必须是一个数字，其值必须大于等于指定的最小值
+- `@Max(value)`：被注释的元素必须是一个数字，其值必须小于等于指定的最大值
+- `@DecimalMin(value)`：被注释的元素必须是一个数字，其值必须大于等于指定的最小值
+- `@DecimalMax(value)`：被注释的元素必须是一个数字，其值必须小于等于指定的最大值
+- `@Size(max=, min=)`：被注释的元素的大小必须在指定的范围内
+- `@Digits (integer, fraction)`：被注释的元素必须是一个数字，其值必须在可接受的范围内
+- `@Past`：被注释的元素必须是一个过去的日期
+- `@Future`：被注释的元素必须是一个将来的日期
+- `@Pattern(regex=,flag=)`：被注释的元素必须符合指定的正则表达式
+
+Hibernate Validator 提供的校验注解：
+
+- `@NotBlank(message =)`：验证字符串非 `null`，且长度必须大于 0
+- `@Email`：被注释的元素必须是电子邮箱地址
+- `@Length(min=,max=)`：被注释的字符串的大小必须在指定的范围内
+- `@NotEmpty`：被注释的字符串的必须非空
+- `@Range(min=,max=,message=)`：被注释的元素必须在合适的范围内
+
+
+
+**`@Validated` 和 `@Valid` 的区别**
+
+1. `@Valid`：标准 JSR-303 规范的标记型注解，用来标记验证属性和方法返回值，进行级联和递归校验
+
+   `@Validated`：Spring 的注解，是标准 JSR-303 的一个变种（补充），提供了一个分组功能，可以在入参验证时，根据不同的分组采用不同的验证机制
+
+2. 在 Controller 中校验方法参数时，使用 `@Valid` 和 `@Validated` 并无特殊差异（若不需要分组校验的话）
+
+   在非 Controller 组件中校验方法参数时，`@Valid` 和 `@Validated` 必须配合使用，其中 `@Validated` 标记组件类，`@Valid` 标记方法参数，如果方法参数是平铺参数，那么只需要用 `@Validated` 标记类组件就行了
+
+3. 相比于 `@Validated`，`@Valid` 可以用在字段级别约束，用来表示级联校验
+
+   相比与 `@Valid`，`@Validated` 可以用于提供分组功能
+
+4. `@Valid` 和 `@Validated` 作为类注解都有一个共同作用：开启 Spring 自动参数校验；但 `@Valid` 作为类注解只能标记 Controller 组件，而 `@Validated` 可以标记除 Controller 组件的其他组件比如 Service
+
+
+
+**特别注意**
+
+`@NotNull(message = “您还未上传任何图像”) MultipartFile multipartFile`：校验 MultipartFile 是否为空，因为 `@NotNull` 直接对它进行标记，某种意义上它应该算平铺参数，所以最终的异常信息是 `ConstraintViolationException`，所以应该使用 `@Validated`。
 
 
 
@@ -1524,7 +1586,7 @@ spring.mail.properties.mail.smtp.socketFactory.port=465
 spring.mail.properties.mail.smtp.ssl.enable=true
 ```
 
-<br>
+
 
 # 11、处理静态资源
 
@@ -1541,7 +1603,7 @@ SpringBoot 内设置静态资源，或者说静态资源文件夹，主要有两
 
 ![简单解释一下](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/f1630117a2b8420a90a8a46dcfa68f2atplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp)
 
-<br>
+
 
 ## 11.1、application.yml 配置
 
@@ -1561,7 +1623,7 @@ SpringBoot 内设置静态资源，或者说静态资源文件夹，主要有两
 - `spring.web.resources.static-location` 仅仅允许一个配置，无法使用 `,` 进行分割，如果需要多个静态资源文件，可以使用下文的配置类方法。
 - `spring.web.resources.static-locations` 可以使用 `classpath`、`file` 进行匹配。如果使用 `file`，这个时候的相对路径为项目地址（打包为 .jar 后，相对路径就是 .jar 运行地址）。
 
-<br>
+
 
 现在来写一个示例，最终效果为浏览器输入：`http://localhost:8088/SystemData/UserData/Avatar/Mintimate.jpeg` 可以直接访问项目文件下的：`/SystemData/UserData/Avatar/Mintimate.jpeg`
 
@@ -1590,7 +1652,7 @@ spring:
 
 这意味着，按上文设置了 `/SystemData/**` 为 URL 匹配，就不能设置第二个 `/resources/**` 这样的配置为第二静态目录。如果需要设置多个地址为静态资源目录，可以参考下文的 **设置配置类方法** 方法。
 
-<br>
+
 
 ## 11.2、Configuration 配置类
 
@@ -1615,7 +1677,7 @@ protected void addResourceHandlers(ResourceHandlerRegistry registry) {
 
 和 `application.yml` 里设置一样，支持 `classpath` 和 `file` 等关键词。
 
-<br>
+
 
 现在就来配置，最终效果为（两组同时）:
 
