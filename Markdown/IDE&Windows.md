@@ -6,9 +6,9 @@ typora-copy-images-to: upload
 
 ## 【1】Windows默认管理员权限
 
-1. 按下 Win+R 快捷键唤出 “运行” 窗口，输入 `gpedit.msc` 打开 组策略编辑器。
+1. 按下 Win+R 快捷键唤出【运行】窗口，输入 `gpedit.msc` 打开【组策略编辑器】。
 
-2. 依次选择 计算机配置 => Windows设置 => 安全设置 => 本地策略 => 安全选项，双击安全选项：
+2. 依次选择【计算机配置】=>【Windows设置】=>【安全设置】=>【本地策略】=>【安全选项】，双击【安全选项】：
 
    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231215001054470.png" alt="image-20231215001054470" style="zoom:80%;" />
 
@@ -16,7 +16,7 @@ typora-copy-images-to: upload
 
      -  用户账户控制：以管理员批准模式运行所有管理员。
      -  用户账户控制：用于内置管理员账户的管理员批准模式。
-6. 分别双击进入配置窗口，将这两项都分别设置为已禁用，再点击确定。
+6. 分别双击进入配置窗口，将这两项都分别设置为【已禁用】，再点击【确定】。
 7. 重启电脑，操作完成！
 
 此操作虽然以后会比较方便，但是由于所有软件都能获取到管理员权限，所以电脑安全性会有所降低。
@@ -132,12 +132,12 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 使用微软账户登录：
 
-1. 确保 账户 => 登录选项 => 其他设置中 “为了提高安全性，仅允许...” 是关闭的：
+1. 确保【账户】=>【登录选项】=>【其他设置】中 “为了提高安全性，仅允许...” 是关闭的：
 	
 	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210813000252683.png" alt="image-20210813000252683" style="zoom:50%;" />
-2. 按 Win + R，弹出 ”运行“，输入 `netplwiz`，点【确定】
+2. 按 Win + R，弹出【运行】，输入 `netplwiz`，点【确定】
 3. 取消 “要使用本计算机，用户必须输入用户名和密码”，点【确定 】
-4. 会弹出一个窗口，在窗口中输入 微软账户的用户名和密码，点【确定】
+4. 会弹出一个窗口，在窗口中输入微软账户的用户名和密码，点【确定】
 
    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210513005900008.png" alt="image-20210513005900008" style="zoom:50%;" />
 
@@ -147,7 +147,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 1. 按下快捷键 Win + I，打开【设置】
 
-2. 依次进入：【时间和语言】 => 【语言 】
+2. 依次进入：【时间和语言】=>【语言 】
 
 3. 找到【首选语言】，点击首选语言（中文简体，中国）的【选项】
 
@@ -189,7 +189,7 @@ Host *
 
 此方法通过修改注册表来完成。
 
-按 win 键 + R 键，打开 “运行” 窗口，输入  `regedit`，按回车键，弹出【注册表编辑器】。在注册表 `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\` 处右键创建名为 `Blocked` 的**项**。在其中创建不同的**字符串值**达到屏蔽对应右键菜单项的效果。
+按 win 键 + R 键，打开【运行】窗口，输入  `regedit`，按回车键，弹出注册表编辑器。在注册表 `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\` 处右键创建名为 `Blocked` 的**项**。在其中创建不同的**字符串值**达到屏蔽对应右键菜单项的效果。
 
 
 
@@ -199,7 +199,7 @@ Host *
 
 <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210806112305321.png" alt="image-20210806112305321" style="zoom:77%;" />
 
-> 可以直接通过卸载 Windows Terminal（Windows 终端）这个软件来解决这个问题，删除注册表是为了解决 需要使用 Windows 终端但是又觉得右键菜单 “Open in Terminal...” 太长而影响美观的问题。
+> 可以直接通过卸载 Windows Terminal（Windows 终端）这个软件来解决这个问题，删除注册表是为了解决 需要使用 Windows 终端但是又觉得右键菜单【Open in Terminal...】太长而影响美观的问题。
 >
 > 在新版的 Win11 中，该内容已被汉化为 “在终端中打开”。
 
@@ -219,7 +219,7 @@ Host *
 
 隐藏只需要在任务栏设置中设置就好了。
 
-卸载 Win11 小组件需要用到 CMD。使用管理员权限打开 Windows Terminal 终端的 “命令提示符”，或者使用管理员权限运行 CMD，输入以下命令：
+卸载 Win11 小组件需要用到 CMD。使用管理员权限打开 Windows Terminal 终端的【命令提示符】，或者使用管理员权限运行 CMD，输入以下命令：
 
 ```shell
 winget uninstall MicrosoftWindows.Client.WebExperience_cw5n1h2txyewy
@@ -316,7 +316,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221104154634735.png" alt="image-20221104154634735" style="zoom: 50%;" />
 
-2. 在组策略管理控制台上，转到计算机配置 ==> 管理模板 ==> 系统 ==> Device Guard，双击Device Guard：
+2. 在组策略管理控制台上，转到【计算机配置】=>【管理模板】=>【系统】=>【Device Guard】，双击【Device Guard】：
 
    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221104154738722.png" alt="image-20221104154738722" style="zoom:50%;" />
 
@@ -374,7 +374,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 如果需要永久生效的话，是需要配置系统的环境变量的
 
-1. 【设置】 => 【系统】 => 【系统信息】 => 【高级系统设置】 => 【高级】 => 【环境变量】
+1. 【设置】=>【系统】=>【系统信息】=>【高级系统设置】=>【高级】=>【环境变量】
 
 2. 添加如下的系统环境变量：
 
@@ -437,13 +437,13 @@ RemoteSigned
 
 ## 【18】彻底关闭病毒实时保护
 
-1. 首先按 Win+R，输入 `gpedit.msc` 按回车打开组策略编辑器。
+1. 首先按 Win+R，输入 `gpedit.msc` 按回车打开【组策略编辑器】。
 
-2. 依次选择 计算机配置 => 管理模板 => Windows 组件 => Microsoft Defender防病毒 => 实时保护，双击实时保护：
+2. 依次选择【计算机配置】=>【管理模板】=>【Windows 组件】=>【Microsoft Defender防病毒】=>【实时保护】，双击【实时保护】：
 
    ![image-20231214235310490](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231214235310490.png)
 
-3. 双击 关闭实时保护，选择已启用，点击应用：
+3. 双击【关闭实时保护】，选择【已启用】，点击【应用】：
 
    ![image-20231214235546195](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231214235546195.png)
 
@@ -455,13 +455,13 @@ RemoteSigned
 
 解决办法：
 
-1. 首先按 Win+R，输入 `gpedit.msc` 按回车打开组策略编辑器。
+1. 首先按 Win+R，输入 `gpedit.msc` 按回车打开【组策略编辑器】。
 
-2. 依次选择 计算机配置 => 管理模板 => Windows组件 => Windows 游戏录制与广播，双击Windows 游戏录制与广播：
+2. 依次选择【计算机配置】=>【管理模板】=>【Windows组件】=>【Windows 游戏录制与广播】，双击【Windows 游戏录制与广播】：
 
    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231215000604307.png" alt="image-20231215000604307" style="zoom:80%;" />
 
-3. 双击 启用或禁用 Windows 游戏录制和广播，选择已禁用，点击应用：
+3. 双击【启用或禁用 Windows 游戏录制和广播】，选择【已禁用】，点击【应用】：
 
    ![image-20231215000956699](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231215000956699.png)
 
@@ -515,7 +515,7 @@ RemoteSigned
 
 设置选项：
 
-1. Windows 设置并导航到 系统 => 存储 => 高级存储设置 => 磁盘和卷，选择创建 Dev Drive：
+1. 打开 Windows 设置并导航到【系统】=>【存储】=>【高级存储设置】=>【磁盘和卷】，选择【创建 Dev Drive】：
 
    ![image-20231218005553385](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231218005553385.png)
 
@@ -525,7 +525,7 @@ RemoteSigned
    2. 重设现有卷大小：创建新的未分配空间以进行构建
    3. 磁盘上的未分配空间：使用现有磁盘上的未分配空间（仅当之前在存储中设置了未分配的空间时，才会显示此选项）。
 
-   这里推荐选择重设现有卷大小
+   这里推荐选择【重设现有卷大小】
 
    ![image-20231218010059396](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231218010059396.png)
 
@@ -533,7 +533,7 @@ RemoteSigned
 
    ![image-20231218010220051](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231218010220051.png)
 
-4. 为卷选择新大小，需要至少有 50GB 的未分配的可用空间，这是开发驱动器所需的最小大小。 设置大小后，选择下一步：
+4. 为卷选择新大小，需要至少有 50GB 的未分配的可用空间，这是开发驱动器所需的最小大小。 设置大小后，选择【下一步】：
 
    ![image-20231218010331196](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231218010331196.png)
 
@@ -551,7 +551,7 @@ RemoteSigned
 
 Chrome 默认的数据文件地址是：C:\Users\Orichalcos\AppData\Local\Google
 
-移动前需要关闭 Google，将文件移动到想要移动的地方，然后在 cmd（需要管理员权限）输入：`mklink 旧地址 新地址`，回车。
+移动前需要关闭 Google，将文件移动到想要移动的地方，然后在 Cmd（需要管理员权限）输入：`mklink 旧地址 新地址`，回车。
 
 
 
@@ -668,12 +668,12 @@ Camel Case 包含 6 种格式的切换，可能某些格式是平时不用的，
 
 ## 【8】保存时触发操作
 
-IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化，优化 Java 包导入。我们可以在 Preferences / Settings | Tools | Actions on Save 进行设置：
+IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化，优化 Java 包导入。我们可以在【Settings】=>【Tools】=>【Actions on Save】进行设置：
 
 <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211025163148621.png" alt="image-20211025163148621" style="zoom: 80%;" />
 
 
-比如上图这个格式化代码，保存时将会格式化你当前改动代码，这就不用担心写完代码忘记格式化了。
+比如上图这个 ”重新格式化代码“，保存时将会格式化你当前改动代码，这就不用担心写完代码忘记格式化了。
 
 额外再提一点，个人建议上面格式化代码不要设置成 **Whole file（整个文件）**，这是因为多人开发中同时改动这个文件，你整个格式化，比较容易造成冲突，解决这种格式化导致的冲突比较蛋疼。
 
@@ -783,9 +783,9 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221122104415995.png" alt="image-20221122104415995" style="zoom: 67%;" />
 
-1. 打开设置，然后依次打开【隐私和安全性】==>【Windows 安全中心】==>【打开 Windows 安全中心】
+1. 打开设置，然后依次打开【隐私和安全性】=>【Windows 安全中心】=>【打开 Windows 安全中心】
 
-2. 在 Windows 安全中心中选择【病毒和威胁防护】，在 “病毒和威胁防护设置” 下，选择【管理设置】
+2. 在 Windows 安全中心中选择【病毒和威胁防护】，在【病毒和威胁防护设置】下，选择【管理设置】
 
    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221122105328603.png" alt="image-20221122105328603" style="zoom: 50%;" />
 
@@ -797,7 +797,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 ## 【13】修改（文件）编码格式
 
-IntelliJ IDEA 可以在菜单中的 File => Settings => Editor => File Encoding 下修改项目文件的编码：
+IntelliJ IDEA 可以在菜单中的【File】=>【Settings】=>【Editor】=>【File Encoding】下修改项目文件的编码：
 
 <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230803120704470.png" alt="image-20230803120704470" style="zoom: 50%;" />
 
@@ -903,11 +903,11 @@ SpringBoot 是使用内置的 Tomcat 的，所以不用打包成 war 文件，�
 
 如果需要对下载地址为 `https://example.com/profile.yaml` 的配置文件进行预处理，操作如下：
 
-1. 进入 Settings 界面。
+1. 进入【Settings】界面。
 
-2. 滚动至 Profiles 栏。
+2. 滚动至【Profiles】栏。
 
-3. 点击 Parsers 右边 Edit 打开编辑器，填入：
+3. 点击【Parsers】右边【Edit】打开编辑器，填入：
 
    ```yaml
    parsers:
@@ -1009,11 +1009,11 @@ Clash 共有三种工作模式：
 
 ## 【2】安装 Windows Terminal
 
-1. 在 Windows Server 2022 上打开 “开始”。
+1. 在 Windows Server 2022 上打开【开始】。
 
-2. 搜索 PowerShell，右键单击顶部结果，然后选择 “以管理员身份运行” 选项。
+2. 搜索 PowerShell，右键单击顶部结果，然后选择 【以管理员身份运行】选项。
 
-3. 键入以下命令以下载运行库，然后按 Enter 键：
+3. 键入以下命令然后按 Enter 键以下载运行库：
 
    ```shell
    Invoke-WebRequest -Uri https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -outfile Microsoft.VCLibs.x86.14.00.Desktop.appx
@@ -1021,13 +1021,13 @@ Clash 共有三种工作模式：
 
    ![PowerShell download VClibs](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/powershell-download-vclibs-windows-server.webp)
 
-4. 键入以下命令以安装 “.appx” 程序包，然后按 Enter 键：
+4. 键入以下命令然后按 Enter 键以安装 “.appx” 程序包：
 
    ```shell
    Add-AppxPackage Microsoft.VCLibs.x86.14.00.Desktop.appx
    ```
 
-5. 输入以下命令下载最新版本的 Windows Terminal 并按 “Enter”：
+5. 输入以下命令并按 Enter 键下载最新版本的 Windows Terminal：
 
    ```shell
    Invoke-WebRequest -Uri https://github.com/microsoft/terminal/releases/download/v1.16.10261.0/Microsoft.WindowsTerminal_Win10_1.16.10261.0_8wekyb3d8bbwe.msixbundle -outfile Microsoft.WindowsTerminal_Win10_1.16.10261.0_8wekyb3d8bbwe.msixbundle
@@ -1037,7 +1037,7 @@ Clash 共有三种工作模式：
 
    > 如果服务器无法下载可以直接去 [GItHub](https://github.com/microsoft/terminal/releases) 下载后传输到服务器，然后执行安装命令。建议下载的版本和上面命令行保持一致，其他版本由于缺少其他包无法进行安装。
 
-6. 键入以下命令以安装 Windows Terminal 应用程序，然后按 Enter 键：
+6. 键入以下命令然后按 Enter 键以安装 Windows Terminal 应用程序：
 
    ```shell
    Add-AppxPackage Microsoft.WindowsTerminal_Win10_1.16.10261.0_8wekyb3d8bbwe.msixbundle
@@ -1055,7 +1055,7 @@ Clash 共有三种工作模式：
 
 使用 SVN 提交版本信息时，注释内容写的不全。
 
-通过右键 TortoiseSVN 的 “Show log” 看到提交的的注释，右键每条日志信息看到 “Edit log message” 的选项，然而提交后却给出错误提示：
+通过右键 TortoiseSVN 的【Show log】看到提交的的注释，右键每条日志信息看到【Edit log message】的选项，然而提交后却给出错误提示：
 
 ```
 Repository has not been enabled to accept revision propchanges;
