@@ -168,6 +168,10 @@ Linux 一般作为服务器使用，而服务器一般放在机房，你不可�
 ssh 用户名@IP地址
 ```
 
+
+
+## 3.1、关机/重启
+
 除了连接之外，Linux 中还有一些关机/重启的命令： `shutdown`、`reboot`、`init`、`halt` 和 `poweroff`。
 
 
@@ -215,6 +219,18 @@ shutdown -r +30 '系统将在30分钟内重新启动'
 **poweroff**
 
 `poweroff` 表示立即关机，效果等同于 `shutdown -h now`，在多用户模式下（Run Level 3）不建议使用。
+
+
+
+## 3.2、查看CPU的相关信息
+
+**lscpu**
+
+`lscpu` 命令来自英文词组 “list the CPU architecture” 的缩写，其功能是用于显示 CPU 架构信息。
+
+该命令会从 `/proc/cpuinfo` 文件中收集有关本机CPU架构的信息，并整理成易读的格式输出到Shell终端，，运维人员可以很方便地了解到本机CPU数量、架构、线程、核心、套接字等重要指标信息：
+
+![image-20231219110051082](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231219110051082.png)
 
 
 
