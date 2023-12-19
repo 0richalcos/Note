@@ -1178,6 +1178,121 @@ Jakarta Bean Validation 2.0 - 为实体和方法验证定义了元数据模型�
 
 ### 4.2.1、验证 Controller 的输入
 
+**验证请求体**
+
+验证请求体即是验证被 `@RequestBody` 注解标记的方法参数。
+
+我们在需要验证的参数上加上 `@Valid` 注解，如果验证失败，它将抛出 `MethodArgumentNotValidException`。默认情况下，Spring 会将此异常转换为 HTTP Status 400（错误请求）：
+
+```java
+@RestController
+@RequestMapping("/api/person")
+public class PersonController {
+
+    @PostMapping
+    public ResponseEntity<PersonRequest> save(@RequestBody @Valid PersonRequest personRequest) {
+        return ResponseEntity.ok().body(personRequest);
+    }
+}
+```
+
+> 注意：这里开启 Spring 数据校验使用 `@Validated` 也可以
+
+使用校验注解对请求的参数进行校验：
+
+```java
+@Data
+public class PersonRequest {
+
+    @NotNull(message = "classId 不能为空")
+    private String classId;
+
+    @Size(max = 33)
+    @NotNull(message = "name 不能为空")
+    private String name;
+
+    @Pattern(regexp = "(^Man$|^Woman$|^UGM$)", message = "sex 值不在可选范围")
+    @NotNull(message = "sex 不能为空")
+    private String sex;
+
+}
+```
+
+自定义异常处理器可以帮助我们捕获异常，并进行一些简单的处理：
+
+```java
+@Slf4j
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+    /**
+     * 处理参数校验失败异常
+     * @param exception 异常类
+     * @return 响应
+     */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResultBean exceptionHandler(MethodArgumentNotValidException exception){
+      //我们主要获取这个接口BindingResult的数据，它就包含了我们使用@RequestBody绑定的参数的所有信息，无论是校验异常错误信息还是JavaBean参数的属性信息
+      BindingResult bindingResult = exception.getBindingResult();
+      
+      Map<String, String> errorMap = new HashMap<>();
+      StringBuffer buffer = new StringBuffer();
+      if(bindingResult.getFieldErrors() != null){
+        for (FieldError fieldError : bindingResult.getFieldErrors()) {
+          String field = fieldError.getField();
+          Object rejectedValue = fieldError.getRejectedValue();
+          String defaultMessage = fieldError.getDefaultMessage();
+          errorMap.put(field, defaultMessage);
+          String msg = String.format("错误字段：%s, 错误值：%s, 原因：%s", field, rejectedValue, defaultMessage);
+          buffer.append(msg);
+          log.warn("错误字段：[{}], 错误值：[{}], 原因：[{}]", field, rejectedValue, defaultMessage);
+        }
+      }
+      return ResultBean.error(buffer.toString(), errorMap, 400);
+    }
+}
+```
+
+
+
+**验证请求参数**
+
+这些参数通常被 `@PathVariable` 以及 `@RequestParam` 标记，并且相对于 JavaBean 的参数，我们往往将其称为平铺参数。
+
+我们在需要验证的控制器上加上 `@Validated` 注解，如果验证失败，那么会抛出ConstraintViolationException异常：
+
+```java
+@RestController
+@RequestMapping("/api/person")
+@Validated
+public class PersonController {
+    @GetMapping("/{id}")
+    public ResponseEntity<Integer> getPersonByID(@PathVariable("id") @Max(value = 5, message = "超过 id 的范围了") Integer id) {
+        return ResponseEntity.ok().body(id);
+    }
+
+    @PutMapping("/{name}")
+    public ResponseEntity<String> getPersonByName(@RequestParam("name") @Size(max = 6, message = "超过 name 的范围了") String name) {
+        return ResponseEntity.ok().body(name);
+    }
+}
+```
+
+> 注意：这里用 `@Valid` 注解是不行的，因为它要求待校验的入参是 JavaBean，所以如果需要校验平铺参数，请使用 `@Validated` 开启 Spring 自动参数校验
+
+处理平铺参数校验失败：
+
+```java
+/**
+* 处理平铺参数校验失败
+*/
+@ExceptionHandler(ConstraintViolationException.class)
+public ResultBean exceptionHandler(ConstraintViolationException exception){
+    log.warn(exception.getMessage());
+    return ResultBean.error(exception.getMessage(), 400);
+}
+```
+
 
 
 ### 4.2.2、验证 Service 中的方法
