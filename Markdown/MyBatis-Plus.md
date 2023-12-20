@@ -194,3 +194,45 @@ mybatis-plus:
       whereStrategy: NOT_NULL
 ```
 
+
+
+## 1.4、注解
+
+### 1.4.1、@TableName
+
+- 描述：表名注解，标识实体类对应的表。
+- 使用位置：实体类。
+
+```java
+@TableName("sys_user")
+public class User {
+    private Long id;
+    private String name;
+    private Integer age;
+    private String email;
+}
+```
+
+| 属性             | 类型     | 必须指定 | 默认值  | 描述                                                         |
+| ---------------- | -------- | -------- | ------- | ------------------------------------------------------------ |
+| value            | String   | 否       | `""`    | 表名                                                         |
+| schema           | String   | 否       | `""`    | schema                                                       |
+| keepGlobalPrefix | boolean  | 否       | `false` | 是否保持使用全局的 tablePrefix 的值（当全局 tablePrefix 生效时） |
+| resultMap        | String   | 否       | `""`    | XML 中 resultMap 的 id（用于满足特定类型的实体类对象绑定）   |
+| autoResultMap    | boolean  | 否       | `false` | 是否自动构建 resultMap 并使用（如果设置 resultMap 则不会进行 resultMap 的自动构建与注入） |
+| excludeProperty  | String[] | 否       | `{}`    | 需要排除的属性名（3.3.1 起支持）                             |
+
+
+
+**关于  `autoResultMap`  的说明：**
+
+MP 会自动构建一个 `resultMap` 并注入到 MyBatis 里（一般用不上）。
+
+因为 MP 底层是 MyBatis，所以 MP 只是注入了常用 CRUD 到 MyBatis 里，注入之前是动态的（根据 Entity 字段以及注解变化而变化），但是注入之后是静态的（等于 XML 配置中的内容）。
+
+而对于 `typeHandler` 属性，MyBatis 只支持写在 2 个地方：
+
+1. 定义在 resultMap 里，作用于查询结果的封装。
+2. 定义在 `insert` 和 `update` 语句的 `#{property}` 中的 `property` 后面（例：`#{property,typehandler=xxx.xxx.xxx}`），并且只作用于当前设置值。
+
+除了以上两种直接指定 `typeHandler` 的形式，MyBatis 有一个全局扫描自定义 `typeHandler` 包的配置，原理是根据 `property` 类型去找其对应的 `typeHandler` 并使用。
