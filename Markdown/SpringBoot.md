@@ -1196,7 +1196,7 @@ public class PersonController {
 }
 ```
 
-> 注意：这里开启 Spring 数据校验使用 `@Validated` 也可以
+> 注意：这里开启 Spring 数据校验使用 `@Validated` 也可以。
 
 使用校验注解对请求的参数进行校验：
 
@@ -1259,7 +1259,7 @@ public class GlobalExceptionHandler {
 
 这些参数通常被 `@PathVariable` 以及 `@RequestParam` 标记，并且相对于 JavaBean 的参数，我们往往将其称为平铺参数。
 
-我们在需要验证的控制器上加上 `@Validated` 注解，如果验证失败，那么会抛出ConstraintViolationException异常：
+我们在需要验证的控制器上加上 `@Validated` 注解，如果验证失败，那么会抛出 `ConstraintViolationException` 异常：
 
 ```java
 @RestController
@@ -1278,14 +1278,16 @@ public class PersonController {
 }
 ```
 
-> 注意：这里用 `@Valid` 注解是不行的，因为它要求待校验的入参是 JavaBean，所以如果需要校验平铺参数，请使用 `@Validated` 开启 Spring 自动参数校验
+> 注意：这里用 `@Valid` 注解是不行的，因为它要求待校验的入参是 JavaBean，所以如果需要校验平铺参数，请使用 `@Validated` 开启 Spring 自动参数校验。
 
 处理平铺参数校验失败：
 
 ```java
 /**
-* 处理平铺参数校验失败
-*/
+  * 处理平铺参数校验失败异常
+  * @param exception 异常类
+  * @return 响应
+  */
 @ExceptionHandler(ConstraintViolationException.class)
 public ResultBean exceptionHandler(ConstraintViolationException exception){
     log.warn(exception.getMessage());
@@ -1297,13 +1299,123 @@ public ResultBean exceptionHandler(ConstraintViolationException exception){
 
 ### 4.2.2、验证 Service 中的方法
 
+我们不仅可以使用 `@Validated` 和 `@Valid` 验证 Controller 组件，也可以验证其他 Spring 管理的组件，比如 Service，不过 Controller 一般不提供接口，而 Service 一般是面向接口编程，所以需要额外注意一些情况。
+
+在实现类中重定义接口方法的参数校验配置会失败且会报错：`javax.validation.ConstraintDeclarationException: HV000151: A method overriding another method must not redefine the parameter constraint configuration`，这个异常信息也告诉我们：参数的校验配置应该写在接口方法中，并且实现类不能修改配置，要么保持一样，要么可以不用写参数校验配置。
+
+在非 Controller 组件中，像 Service，必须组合使用 `@Validated` 和 `@Valid`，其中 `@Validated` 作为类注解、`@Valid` 作为方法参数注解 JavaBean，这样参数校验才会生效，并且它产生的异常是 `ConstraintViolationException`，这个跟之前 Controller 中的平铺参数校验产生的异常是相同的，这个异常没有继承 `BindException` 接口，相对而言它的错误不好像 `BindException` 和 `MethodArgumentNotValidException` 那样处理：
+
+```java
+@Validated
+public interface PersonService {
+    PersonRequest insertPerson(@Valid PersonRequest person);
+}
+```
+
+> 注意：`@Validated` 可以放在接口中，也可以放在实现类中，不过我一般放在接口中
+
+如果方法参数是平铺参数，那么只要加 `@Validated` 就行了：
+
+```java 
+@Service
+public class PersonServiceImpl implements PersonService {
+    @Override 
+    public PersonRequest insertPerson(@NotNull @Min(10) Integer id, @NotNull String name) { 
+        return null; 
+    } 
+}
+```
+
+处理参数校验失败：
+
+```java
+@ExceptionHandler(ConstraintViolationException.class)
+public ResultBean exceptionHandler(ConstraintViolationException exception){
+    log.warn(exception.getMessage());
+    return ResultBean.error(exception.getMessage(), 400);
+}
+```
+
 
 
 ## 4.3、级联校验和手动校验
 
+**级联校验**
+
+级联校验关键点在于 `@Valid`，级联校验的意思是 JavaBean 内部有其他 JavaBean 需要验证，那么这个 JavaBean 就需要加`@Valid` 注解，并且只能用 `@Valid`，因为它可以标记字段，`@Validatd` 不行：
+
+```java
+@Data
+public class PersonRequest {
+
+  @NotNull(message = "classId 不能为空")
+  private String classId;
+
+  @Pattern(regexp = "(^Man$|^Woman$|^UGM$)", message = "sex 值不在可选范围")
+  @NotNull(message = "sex 不能为空")
+  private String sex;
+
+  @Valid //让InnerChild的属性也参与校验
+  @NotNull
+  private InnerChild child;     //内部的JavaBean
+
+  @Getter
+  @Setter
+  @ToString
+  public static class InnerChild {
+    @Size(max = 33)
+    @NotNull(message = "name 不能为空")
+    private String name;
+
+    @NotNull(message = "年龄不能为空")
+    @Positive(message = "年龄只能为正数")
+    private Integer age;
+  }
+}
+```
+
+
+
+**手动校验**
+
+某些场景下可能会需要我们手动校验并获得校验结果。
+
+可以通过 `Validator` 工厂类可以获得的 `Validator` 示例，如果是在 Spring Bean 中的话，还可以通过 `@Autowired` 直接注入的方式：
+
+```java
+@Autowired
+private Validator validate;
+```
+
+具体使用情况如下：
+
+```java
+/**
+ * 手动校验对象
+ */
+@Test
+public void check_person_manually() {
+    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+    Validator validator = factory.getValidator();
+    PersonRequest personRequest = PersonRequest.builder().sex("Man22")
+            .classId("82938390").build();
+    Set<ConstraintViolation<PersonRequest>> violations = validator.validate(personRequest);
+    violations.forEach(constraintViolation -> System.out.println(constraintViolation.getMessage()));
+}
+```
+
+输出结果如下：
+
+```
+sex 值不在可选范围
+name 不能为空
+```
+
 
 
 ## 4.4、自定义 Validator
+
+
 
 
 
