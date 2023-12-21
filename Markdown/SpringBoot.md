@@ -659,8 +659,6 @@ server:
   port: 8083
 ```
 
-
-
 > 如果 Spring Boot 版本为 2.4 以下，请使用以下方法配置：
 
 `application.yaml`：
@@ -758,8 +756,6 @@ feign:
   hystrix:
     enabled: true
 ```
-
-
 
 > 如果 Spring Boot 版本为 2.4 以下，请使用以下方法配置：
 
@@ -1147,7 +1143,7 @@ public class PersonController {
 
 ## 4.1、简介
 
-JSR-303 是 JAVA EE 6 中的一项子规范，叫做 Bean Validation，官方参考实现是Hibernate Validator。
+JSR-303 是 JAVA EE 6 中的一项子规范，叫做 Bean Validation，官方参考实现是 Hibernate Validator。
 
 Hibernate Validator 官网介绍：
 
@@ -1415,7 +1411,56 @@ name 不能为空
 
 ## 4.4、自定义 Validator
 
+虽然在 Spring Boot 中已经提供了非常多的预置注解，用以解决在日常开发工作中的各类内容，但是在特定情况仍然存在某些场景，无法满足需求，需要自行定义相关的 Validator。
 
+比如我们现在多了这样一个需求：`PersonRequest` 类多了一个 `Region` 字段，`Region` 字段只能是 China、China-Taiwan、China-HongKong 这三个中的一个。
+
+首先需要创建一个注解 `Region`：
+
+```java
+@Target({FIELD})
+@Retention(RUNTIME)
+@Constraint(validatedBy = RegionValidator.class)
+@Documented
+public @interface Region {
+
+    String message() default "Region 值不在可选范围内";
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
+}
+```
+
+自定义约束注解需要 `@Constraint` 修饰，必须包含 `message`、`groups`、`payload` 三个属性：
+
+- `@Constraint`：设置自定义验证器
+- `message`：定制化的提示信息，主要是从 `ValidationMessages.properties` 里提取，也可以依据实际情况进行定制
+- `groups`：这里主要进行将 Validator 进行分类，不同的类 group 中会执行不同的 Validator 操作
+- `payload`：主要是针对 Bean 的，使用不多。
+
+编写自定义验证器 `RegionValidator` 实现 `ConstraintValidator` 接口，并重写 `isValid` 方法：
+
+```java
+public class RegionValidator implements ConstraintValidator<Region, String> {
+
+    @Override
+    public boolean isValid(String value, ConstraintValidatorContext context) {
+        HashSet<Object> regions = new HashSet<>();
+        regions.add("China");
+        regions.add("China-Taiwan");
+        regions.add("China-HongKong");
+        return regions.contains(value);
+    }
+}
+```
+
+现在你就可以使用这个注解：
+
+```java
+@Region
+private String region;
+```
 
 
 
@@ -1423,7 +1468,7 @@ name 不能为空
 
 **常用校验注解**
 
-JSR303 定义了 Bean Validation（校验）的标准 validation-api，并没有提供实现。Hibernate Validation是对这个规范的实现，并且增加了 `@Email`、`@Length`、`@Range` 等注解。Spring Validation 底层依赖的就是 Hibernate Validation。
+JSR303 定义了 Bean Validation（校验）的标准 validation-api，并没有提供实现。Hibernate Validation 是对这个规范的实现，并且增加了 `@Email`、`@Length`、`@Range` 等注解。Spring Validation 底层依赖的就是 Hibernate Validation。
 
 JSR 提供的校验注解:
 
@@ -1477,7 +1522,7 @@ Hibernate Validator 提供的校验注解：
 
 #  5、JDBC
 
-首先新建一个SpringBoot项目
+首先新建一个 SpringBoot 项目
 
 需要导入的组件：Web（必须）、JDBC API（整合所需）、MySQL Driver（连接数据库）
 
