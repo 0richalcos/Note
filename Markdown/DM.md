@@ -506,35 +506,35 @@ systemctl status DmServiceDMSERVER.service
 
 ## 3.1、DTS工具迁移
 
-1. 新建工程
+1. 新建工程：
 
    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20210202164357901.png)
 
-2. 新建迁移
+2. 新建迁移：
 
    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20210202164528157.png)
 
-3. 双击打开 dm-dm 进行迁移配置
+3. 双击打开 dm-dm 进行迁移配置：
 
    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20210202164622570.png)
 
-4. 选择相应的迁移模式（此处选 dm-dm 迁移）
+4. 选择相应的迁移模式（此处选【dm ==> dm】迁移）：
 
    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20210202164743774.png)
 
-5. 填写相应的源数据库和目标数据库的连接信息
+5. 填写相应的源数据库和目标数据库的连接信息：
 
    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/2021020216493840.png)
 
-6. 选择要迁移的源模式，并指定目的模式，其中 "目录"、"公共同义词"、"上下文" 取消勾选
+6. 选择要迁移的源模式，并指定目的模式，其中 "目录"、"公共同义词"、"上下文" 取消勾选：
 
    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20210202165336811.png)
 
-7. 勾选相应的对象，"转换" 选择迁移策略，可以根据实际情况选择，只迁移表结构、数据，约束，或删除原有数据在迁移等具体情况，大字段表选项改小 256 即可
+7. 勾选相应的对象，点击【转换】选择迁移策略，可以根据实际情况选择只迁移表结构、数据、约束，或删除原有数据再迁移等具体情况，大字段表选项改小 256 即可
 
    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20210202165939365.png)
 
-8. 确认无误后完成即可
+8. 确认无误后完成即可：
 
    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20210202170509591.png)
 
@@ -588,11 +588,11 @@ alter database open;
 
 **图形化界面配置**
 
-1. 打开管理工具 => 连接数据库 => 右键管理服务器：
+1. 打开 DM管理工具 => 连接数据库 => 右键选择【管理服务器】：
 
    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230922004306995.png" alt="image-20230922004306995" style="zoom: 67%;" />
 
-2. 切换到系统管理页面，选择需要切换的状态，最后点击转换：
+2. 切换到【系统管理】页面，选择需要切换的状态，最后点击【转换】：
 
    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230922004422477.png" alt="image-20230922004422477" style="zoom:67%;" />
 

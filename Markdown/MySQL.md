@@ -4458,6 +4458,8 @@ SHOW INDEX FROM <表名> [ FROM <数据库名>];\G
 - Index_type：显示索引使用的类型和方法（BTREE、FULLTEXT、HASH、RTREE）。
 - Comment：显示评注。
 
+
+
 # 14、临时表
 
 MySQL临时表在需要保存一些临时数据时是非常有用的。临时表只在当前连接可见，当关闭连接时，MySQL会自动删除表并释放所有空间。

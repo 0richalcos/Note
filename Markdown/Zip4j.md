@@ -13,7 +13,7 @@ ZipInputStream(InputStream in, Charset charset)
 
 `ZipInputStream.getNextEntry()` 读取下一个 ZIP 文件条目，并将流定位在条目数据的开头。
 
-<br>
+
 
 **Java 读取 ZIP 示例**
 
@@ -72,7 +72,7 @@ ZipInputStream zin = new ZipInputStream(in);
 while ((ze = zin.getNextEntry()) != null) 
 ```
 
-<br>
+
 
 **Java 解压缩 ZIP 示例**
 
@@ -104,7 +104,7 @@ public static void unZipFile(String file) throws Exception {
 
 该示例使用 `ZipInputStream` 读取给定 ZIP 文件的内容，并使用 `FileOutputStream` 和 `BufferedOutputStream` 将该内容写入目录。
 
-<br>
+
 
 ## 2.2、ZipOutputStream
 
@@ -165,7 +165,7 @@ public void downloadFile(String ids, HttpServletResponse response) throws IOExce
 }
 ```
 
-<br>
+
 
 # 2、Zip4j
 
@@ -184,7 +184,7 @@ Zip4j 默认采用的是 UTF-8 编码，所以本身支持中文（但是，还�
 7. 支持 Unicode 编码的文件名
 8. 支持进度监控
 
-<br>
+
 
 **Maven依赖**：
 
@@ -198,7 +198,7 @@ Zip4j 默认采用的是 UTF-8 编码，所以本身支持中文（但是，还�
 
 ```
 
-<br>
+
 
 ## 2.1、解压
 
@@ -227,7 +227,7 @@ if (fileDir.isDirectory() && !fileDir.exists()) {
 zipFile.extractAll(destPath);
 ```
 
-<br>
+
 
 **过滤文件：**
 
@@ -254,54 +254,44 @@ private void filterZipFile(ZipFile zipFile, String destPath) throws ZipException
 }
 ```
 
-<br>
+
 
 ## 2.2、压缩
 
-**压缩文件：**
+**压缩一个文件**
+
+首先，我们将使用 `ZipFile addFile()` 方法将一个名为 `aFile.txt` 的文件压缩到一个名为 `compressed.zip` 的有密码保护的 Zip 文件：
 
 ```java
-public File getOrCreateZipFile(String fullFilePath) {
-    File file = new File(fullFilePath);
+ZipParameters zipParameters = new ZipParameters();
+zipParameters.setEncryptFiles(true);
+zipParameters.setCompressionLevel(CompressionLevel.HIGHER);
+zipParameters.setEncryptionMethod(EncryptionMethod.AES);
 
-    // 文件存在
-    if (file.exists() && file.isFile()) {
-        return file;
-    }
+ZipFile zipFile = new ZipFile("compressed.zip", "password".toCharArray());
+zipFile.addFile(new File("aFile.txt"), zipParameters);
+```
 
-    // 从文件路径中截取文件后缀
-    int prefixMark = fullFilePath.lastIndexOf(".");
-    String filePath = fullFilePath.substring(0, prefixMark);
+`setCompressionLevel` 一行是可选的。我们可以从 `FASTEST` 到 `ULTRA` 级别中选择（默认是 `NORMAL`）。
 
-    // 尝试获取解压后的文件目录
-    file = new File(filePath);
+在这个例子中，我们使用了 AES 加密。如果我们想使用Zip标准加密，我们只需用 `ZIP_STANDARD` 替换 `AES`。
 
-    // 不存在则说明确实没有该文件，直接返回
-    if (!file.exists()) {
-        return file;
-    }
+注意，如果文件 "aFile.txt" 在磁盘上不存在，该方法将抛出一个异常：`net.lingala.zip4j.exception.ZipException File does not exist: …`，为了解决这个问题，我们必须确保该文件是手动创建并放置在项目文件夹中，或者我们必须从 Java 中创建它。
 
-    try {
-        // 创建压缩包
-        ZipFile zipFile = new ZipFile(fullFilePath);
-        ZipParameters zipParameters = new ZipParameters();
-        zipParameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
-        zipParameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
-        zipParameters.setIncludeRootFolder(false);
-
-        zipFile.addFolder(file, zipParameters);
-
-        // 将文件从新指定位压缩文件
-        file = new File((fullFilePath));
-    } catch (ZipException e) {
-        logger.error("文件压缩失败，teacherId -> {}, fullFilePath -> {}", super.getMemberId(), fullFilePath);
-    }
-
-    return file;
+```java
+File fileToAdd = new File("aFile.txt");
+if (!fileToAdd.exists()) {
+    fileToAdd.createNewFile();
 }
 ```
 
-<br>
+另外，在我们完成了新的 `ZipFile` 之后，需要及时关闭资源：
+
+```javas
+zipFile.close();
+```
+
+
 
 ## 2.3、其他
 
