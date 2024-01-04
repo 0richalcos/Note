@@ -130,73 +130,73 @@ WebLogic 是美国 Oracle 公司出品的一个 application server，确切的�
 
 ## 2.1、部署 web 项目（war包）
 
-1. 启动并访问weblogic，进入登录页面
+1. 启动并访问 Weblogic，进入登录页面：
 
    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306162126594-39703724.png)
 
-2. 进入主页面，开始部署项目
+2. 进入主页面，开始部署项目：
 
    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306162231545-698664955.png)
 
-3. 上载项目 war 包
+3. 上载项目 war 包：
 
    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306162337244-1709328388.png)
 
-   选择需要上载的本地 war 包
+   选择需要上载的本地 war 包：
 
    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306162450722-952168594.png)
 
-4. 开始项目配置
+4. 开始项目配置：
 
    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306162650116-1150502665.png)
 
-   继续下一步
+   继续【下一步】：
 
    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306162750298-2077098431.png)
 
-   选择红色标记的配置
+   选择红色标记的配置：
 
    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306162929219-210649233.png)
 
    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306163010472-1944122109.png)
 
-5. 完成配置
+5. 完成配置：
 
    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306163130861-286537828.png)
 
-6. 激活配置
+6. 激活配置：
 
    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306163220376-548157725.png)
 
-7. 开始配置系统环境
+7. 开始配置系统环境：
 
    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306163343368-2147326009.png)
 
-8. 进入 AdminServer
+8. 进入【AdminServer（管理）】：
 
    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306163505382-510409227.png)
 
-9. 选择协议，然后选择 HTTP
+9. 选择【协议】，然后选择【HTTP】：
 
    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306163613423-725849867.png)
 
-10. 配置 HTTP 协议中的信息，没用红框标记的保持默认就行了
+10. 配置 HTTP 协议中的信息，没用红框标记的保持默认就行了，配置完成后再次点击左上角的【激活更改】：
 
     ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306163720539-688081214.png)
 
-11. 最后，再次部署项目
+11. 最后，再次点击【部署】：
 
     ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306163834622-1380453145.png)
 
     ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306163949387-1806740500.png)
 
-12. 启动部署项目
+12. 启动部署项目：
 
     ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306164039223-1396985426.png)
 
-13. 然后就可以访问项目了 http://IP:PORT/ProjectName
+13. 然后就可以访问项目了，链接格式为：http://IP:PORT/ProjectName
 
-    http://172.150.13.24:7001/jenkins_webdemo
+    例：http://172.150.13.24:7001/jenkins_webdemo
 
 
 
