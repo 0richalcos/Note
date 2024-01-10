@@ -272,11 +272,9 @@ ZipFile zipFile = new ZipFile("compressed.zip", "password".toCharArray());
 zipFile.addFile(new File("aFile.txt"), zipParameters);
 ```
 
-`setCompressionLevel` 一行是可选的。我们可以从 `FASTEST` 到 `ULTRA` 级别中选择（默认是 `NORMAL`）。
+在这个例子中 `setCompressionLevel()` 一行是可选的，我们可以从 `FASTEST` 到 `ULTRA` 级别中选择（默认是 `NORMAL`）。同时使用了 AES 加密，如果想使用 Zip 标准加密，只需用 `ZIP_STANDARD` 替换 `AES`。
 
-在这个例子中，我们使用了 AES 加密。如果我们想使用Zip标准加密，我们只需用 `ZIP_STANDARD` 替换 `AES`。
-
-注意，如果文件 "aFile.txt" 在磁盘上不存在，该方法将抛出一个异常：`net.lingala.zip4j.exception.ZipException File does not exist: …`，为了解决这个问题，我们必须确保该文件是手动创建并放置在项目文件夹中，或者我们必须从 Java 中创建它。
+注意，如果文件 "aFile.txt" 在磁盘上不存在，该方法将抛出一个异常：`net.lingala.zip4j.exception.ZipException File does not exist: …`，为了解决这个问题，必须确保该文件是手动创建并放置在项目文件夹中，或者必须从 Java 中创建它。
 
 ```java
 File fileToAdd = new File("aFile.txt");
@@ -289,6 +287,37 @@ if (!fileToAdd.exists()) {
 
 ```javas
 zipFile.close();
+```
+
+
+
+**压缩多个文件**
+
+修改一下代码，不使用 `addFile()` 方法，而是使用 `addFiles()` 并传入一个装有文件的 `List`，以便我们能够一次压缩多个文件：
+
+```java
+ZipParameters zipParameters = new ZipParameters();
+zipParameters.setEncryptFiles(true);
+zipParameters.setEncryptionMethod(EncryptionMethod.AES);
+
+List<File> filesToAdd = Arrays.asList(
+  new File("aFile.txt"),
+  new File("bFile.txt")
+);
+
+ZipFile zipFile = new ZipFile("compressed.zip", "password".toCharArray());
+zipFile.addFiles(filesToAdd, zipParameters);
+```
+
+
+
+**压缩一个目录**
+
+我们可以简单地用 `addFolder()` 代替 `addFile()` 方法来压缩一个文件夹：
+
+```java
+ZipFile zipFile = new ZipFile("compressed.zip", "password".toCharArray());
+zipFile.addFolder(new File("/users/folder_to_add"), zipParameters);
 ```
 
 
