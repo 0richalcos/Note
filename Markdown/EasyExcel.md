@@ -328,6 +328,82 @@ public String upload(MultipartFile file) throws IOException {
 
  
 
+## 3.3、模板校验
+
+只需要重写 `AnalysisEventListener` 抽象类的 `invokeHeadMap()` 方法即可：
+
+```java
+/**
+  * 将表头作为map返回，重写当前方法以接收标头数据。
+  *
+  * @param headMap
+  * @param context
+  */
+public void invokeHeadMap(Map<Integer, String> headMap, AnalysisContext context) {}
+```
+
+下面是一个完整的示例：
+
+1. 创建导入时数据对应的实体类，并使用 `@ExcelProperty` 注解配置模板表头：
+
+   ```java
+   @Data
+   public class EasyExcelData {
+       @ExcelProperty(value = "学号", index = 0)
+       private String no;
+       @ExcelProperty(value = "姓名", index = 1)
+       private String name;
+       @ExcelProperty(value = "性别", index = 2)
+       private String gender;
+   }
+   ```
+
+2. 创建监听类并继承 `AnalysisEventListener` 类，重写 `invokeHeadMap()` 方法，在该方法中判断是否符合模板：
+
+   ```java
+   public class EasyExcelDemoListener extends AnalysisEventListener<EasyExcelData> {
+   
+       /**
+        * 在这里进行模板的判断
+        * @param headMap 存放着导入表格的表头，键是索引，值是名称
+        * @param context
+        */
+       @Override
+       public void invokeHeadMap(Map<Integer, String> headMap, AnalysisContext context) {
+           /*
+           count 记录模板表头有几个，用以判断用户导入的表格是否和模板完全一致
+           如果用户导入表格较模板的表头多，但其余符合模板，这样不影响则不需要
+            */
+           int count = 0;
+           // 获取数据实体的字段列表
+           Field[] fields = EasyExcelData.class.getDeclaredFields();
+           // 遍历字段进行判断
+           for (Field field : fields) {
+               // 获取当前字段上的ExcelProperty注解信息
+               ExcelProperty fieldAnnotation = field.getAnnotation(ExcelProperty.class);
+               // 判断当前字段上是否存在ExcelProperty注解
+               if (fieldAnnotation != null) {
+                   ++count;
+                   // 存在ExcelProperty注解则根据注解的index索引到表头中获取对应的表头名
+                   String headName = headMap.get(fieldAnnotation.index());
+                   // 判断表头是否为空或是否和当前字段设置的表头名不相同
+                   if (StringUtils.isEmpty(headName) || !headName.equals(fieldAnnotation.value()[0])) {
+                       // 如果为空或不相同，则抛出异常不再往下执行
+                       throw new RuntimeException("模板错误，请检查导入模板");
+                   }
+               }
+           }
+   
+           // 判断用户导入表格的标题头是否完全符合模板
+           if (count != headMap.size()) {
+               throw new RuntimeException("模板错误，请检查导入模板");
+           }
+       }
+   }
+   ```
+
+
+
 # 4、填充 Excel
 
 ## 4.1、最简单的填充
