@@ -378,25 +378,23 @@ test:
 
 ### 3.2.1、@Value
 
-`@Value` 可修饰到任一变量获取，使用较灵活
+`@Value` 可修饰到任一变量获取，使用较灵活。
 
 优点：
 
-- 使用简单，且使用关联的链路较短；
-- 支持 SpEL。
+- 使用简单，且使用关联的链路较短
+- 支持 SpEL
 
 缺点：
 
-- 配置名不能被有效枚举到；
-- 每一个配置的使用都需重新定义，使用较为麻烦；
-- 项目强依赖配置的定义，配置不存在则会导致项目无法启动。
+- 配置名不能被有效枚举到
+- 每一个配置的使用都需重新定义，使用较为麻烦
+- 项目强依赖配置的定义，配置不存在则会导致项目无法启动
 
 使用场景：
 
-- 项目强依赖该配置的加载，想要从源头避免因配置缺失导致的未知问题；
-- 只想使用少数几个配置。
-
-
+- 项目强依赖该配置的加载，想要从源头避免因配置缺失导致的未知问题
+- 只想使用少数几个配置
 
 示例：
 
@@ -425,49 +423,65 @@ public class ConfigByValueAnnotation {
 
 优点：
 
-- 使用配置只需确定 key 的前缀即能使用，有利于批量获取场景的使用；
-- 因采用前缀匹配，所以在使用新的相同前缀 key 的配置时无需改动代码；
-- 支持 JSR303 数据校验；
-- 支持复杂类型封装；
-- 松散绑定：比如 yaml 中写的是 `last-name`，那么这个和 `lastName` 是一样的，`-` 后面跟着的字母默认是大写的。
+- 使用配置只需确定 key 的前缀即能使用，有利于批量获取场景的使用
+- 因采用前缀匹配，所以在使用新的相同前缀 key 的配置时无需改动代码
+- 支持 JSR303 数据校验
+- 支持复杂类型封装
+- 松散绑定：比如 yaml 中写的是 `last-name`，那么这个和 `lastName` 是一样的，`-` 后面跟着的字母默认是大写的
 
 缺点：
 
-- 使用复杂，需定义配置类或者手动创建 bean 后引入使用；
-- 增加新的前缀相同 key 时可能会引入不稳定因素。
+- 使用复杂，需定义配置类或者手动创建 Bean 后引入使用
+- 增加新的前缀相同 key 时可能会引入不稳定因素
 
 使用场景：
 
-- 需要同时使用多前缀相同 key 的配置；
-- 期望增加新配置但不修改代码的 properties 注入。
+- 需要同时使用多前缀相同 key 的配置
+- 期望增加新配置但不修改代码的 properties 注入
 
 
 
-示例：
+#### 简单使用
 
-1. 创建一个 SpringBoot 项目
+**自定义的 Bean 使用 `@ConfigurationProperties`**
 
-2. 编写两个 pojo 类：Dog.java 和 Person.java：
+1. 编写 Dog 类：
 
-	```java
-	public class Dog {
-	    private String name;
-	    private Integer age
-	}
-	```
+  ```java
+  public class Dog {
+      private String name;
+      private Integer age
+  }
+  ```
 
-	```java
-	@Component
-	public class Person {
-	    private String name;
-	    private Integer age;
-	    private Boolean happy;
-	    private Date birthday;
-	    private Map<String, Object> map;
-	    private List<Object> list;
-	    private Dog dog;
-	}
-	```
+  Person 类使用 `@ConfigurationProperties` 注解将配置中的属性值关联到实体类上：
+
+  ```java
+  @Component
+  @Data
+  @ConfigurationProperties(prefix = "person")
+  public class Person {
+      private String name;
+      private Integer age;
+      private Boolean happy;
+      private Date birthday;
+      private Map<String, Object> map;
+      private List<Object> list;
+      private Dog dog;
+  }
+  ```
+
+  > 实体类注意要提供属性对应的 setter 方法
+
+  如果加入 `@ConfigurationProperties` 后爆红可以在 pom.xml 中加入下面的依赖解决：
+
+  ```xml
+  <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+  </dependency>
+  ```
 
 3. 编写 `application.yaml`：
 
@@ -487,22 +501,6 @@ public class ConfigByValueAnnotation {
 	    age: 3
 	```
 
-4. 在 Person.java 中引入：
-
-	```java
-	@ConfigurationProperties(prefix = "person")
-	```
-
-	如果加入后爆红可以在 pom.xml 中加入下面的依赖解决：
-
-	```xml
-	<dependency>
-	    <groupId>org.springframework.boot</groupId>
-	    <artifactId>spring-boot-configuration-processor</artifactId>
-	    <optional>true</optional>
-	</dependency>
-	```
-
 5. 测试：
 
 	```java
@@ -517,6 +515,48 @@ public class ConfigByValueAnnotation {
 	    }
 	}
 	```
+
+
+
+**第三方 Bean 使用 `@ConfigurationProperties`**
+
+自定义 Bean 的 `@ConfigurationProperties` 注解是写在类定义的上方，而第三方开发的 Bean 源代码不是我们自己写的，我们也不可能到源代码中去添加 `@ConfigurationProperties` 注解，所以这里需要换种方法处理。
+
+1. 首先使用 `@Bean` 注解定义第三方 Bean：
+
+   ```java
+   @Bean
+   public DruidDataSource datasource(){
+       DruidDataSource ds = new DruidDataSource();
+       return ds;
+   }
+   ```
+
+2. 然后在 yml中 定义要绑定的属性，注意 `datasource` 此时全小写：
+
+   ```yaml
+   datasource:
+     driverClassName: com.mysql.cj.jdbc.Driver
+   ```
+
+3. 最后使用 `@ConfigurationProperties` 注解为第三方 Bean 进行属性绑定，注意前缀是全小写的 `datasource`：
+
+   ```java
+   @Bean
+   @ConfigurationProperties(prefix = "datasource")
+   public DruidDataSource datasource(){
+       DruidDataSource ds = new DruidDataSource();
+       return ds;
+   }
+   ```
+
+操作方式跟刚才一样，不同的是 `@ConfigurationProperties` 注解不仅能添加到类上，还可以添加到方法上，添加到类上是为 Spring 容器管理的当前类的对象绑定属性，添加到方法上是为 Spring 容器管理的当前方法的返回值对象绑定属性，本质上都一样。
+
+
+
+**`@EnableConfigurationProperties`**
+
+
 
 
 
