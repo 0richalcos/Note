@@ -447,74 +447,74 @@ public class ConfigByValueAnnotation {
 
 1. 编写 Dog 类：
 
+   ```java
+   public class Dog {
+       private String name;
+       private Integer age
+   }
+   ```
+
+     Person 类使用 `@ConfigurationProperties` 注解将配置中的属性值关联到实体类上：
+
+   ```java
+   @Component
+   @Data
+   @ConfigurationProperties(prefix = "person")
+   public class Person {
+       private String name;
+       private Integer age;
+       private Boolean happy;
+       private Date birthday;
+       private Map<String, Object> map;
+       private List<Object> list;
+       private Dog dog;
+   }
+   ```
+
+   > 实体类注意要提供属性对应的 setter 方法
+
+   如果加入 `@ConfigurationProperties` 后爆红可以在 pom.xml 中加入下面的依赖解决：
+
+   ```xml
+   <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-configuration-processor</artifactId>
+       <optional>true</optional>
+   </dependency>
+   ```
+
+2. 编写 `application.yaml`：
+
+   ```yaml
+   person:
+     name: qinjiang
+     age: 3
+     happy: false
+     birthday: 2019/11/02
+     map: {k1: v1, k2: v2}
+     list:
+       - code
+       - music
+       - girl
+     dog:
+       name: 旺财
+       age: 3
+   ```
+
+3. 测试：
+
   ```java
-  public class Dog {
-      private String name;
-      private Integer age
+  @SpringBootTest
+  class Springboot02ConfigApplicationTests {
+      @Autowired
+      private Person person;
+  
+      @Test
+      void contextLoads() {
+          System.out.println(person);
+      }
   }
   ```
-
-  Person 类使用 `@ConfigurationProperties` 注解将配置中的属性值关联到实体类上：
-
-  ```java
-  @Component
-  @Data
-  @ConfigurationProperties(prefix = "person")
-  public class Person {
-      private String name;
-      private Integer age;
-      private Boolean happy;
-      private Date birthday;
-      private Map<String, Object> map;
-      private List<Object> list;
-      private Dog dog;
-  }
-  ```
-
-  > 实体类注意要提供属性对应的 setter 方法
-
-  如果加入 `@ConfigurationProperties` 后爆红可以在 pom.xml 中加入下面的依赖解决：
-
-  ```xml
-  <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
-      <optional>true</optional>
-  </dependency>
-  ```
-
-3. 编写 `application.yaml`：
-
-	```yaml
-	person:
-	  name: qinjiang
-	  age: 3
-	  happy: false
-	  birthday: 2019/11/02
-	  map: {k1: v1, k2: v2}
-	  list:
-	    - code
-	    - music
-	    - girl
-	  dog:
-	    name: 旺财
-	    age: 3
-	```
-
-5. 测试：
-
-	```java
-	@SpringBootTest
-	class Springboot02ConfigApplicationTests {
-	    @Autowired
-	    private Person person;
-	
-	    @Test
-	    void contextLoads() {
-	        System.out.println(person);
-	    }
-	}
-	```
 
 
 
@@ -556,7 +556,63 @@ public class ConfigByValueAnnotation {
 
 **`@EnableConfigurationProperties`**
 
+`@EnableConfigurationProperties` 将标注了 `@ConfigurationProperties` 注解的类注入到 Spring 容器中。
 
+该注解是用来开启对 `@ConfigurationProperties` 注解的支持，也就是 `@EnableConfigurationProperties` 注解告诉 Spring 容器能支持 `@ConfigurationProperties` 注解。
+
+一般情况下会定义两个文件，一个用于绑定 application.yml 中的配置信息，一个用于定义配置类：
+
+1. 定义一个属性类用于绑定配置信息：
+
+   ```java
+   @Data
+   @ConfigurationProperties(prefix = "spring.drools")
+   public class DroolsProperties {
+       // 规则文件和决策表的路径(多个目录使用逗号分割)
+       private String path;
+       // 更新缓存的轮询周期 - 单位：秒(默认30秒)
+       private Long update;
+       // 模式: stream 或 cloud(默认stream模式)
+       private String mode;
+       // 是否开启监听器：true = 开, false = 关闭(默认开启)
+       private boolean listener;
+       // 是否自动更新：true = 开, false = 关闭(默认开启)
+       private boolean autoUpdate;
+       // 是否开启DRL的语法检查: true = 开, false = 关闭(默认开启)
+       private boolean verify;
+       // 是否开启REDIS的缓存: true = 开, false = 关闭(默认开启)
+       private boolean useRedis;
+   }
+   ```
+
+2. 定义一个配置类用于开启文件属性的绑定功能：
+
+   ```java
+   // 配置类
+   @Configuration
+   // 开启属性文件绑定功能
+   @EnableConfigurationProperties(DroolsProperties.class)
+   public class DroolsConfig {
+       @Bean
+       @ConditionalOnMissingBean(name = "kieTemplate")
+       public KieTemplate kieTemplate(DroolsProperties droolsProperties) {
+           KieTemplate kieTemplate = new KieTemplate();
+           kieTemplate.setPath(droolsProperties.getPath());
+           kieTemplate.setMode(droolsProperties.getMode());
+           if (droolsProperties.isAutoUpdate()) {
+               // 启用自动更新
+               kieTemplate.setUpdate(droolsProperties.getUpdate());
+           } else {
+               // 关闭自动更新
+               kieTemplate.setUpdate(999999L);
+           }
+           kieTemplate.setListener(droolsProperties.isListener());
+           kieTemplate.setVerify(droolsProperties.isVerify());
+           kieTemplate.setUseRedis(droolsProperties.isUseRedis());
+           return kieTemplate;
+       }
+   }
+   ```
 
 
 
