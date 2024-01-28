@@ -2115,7 +2115,7 @@ Window 对象表示浏览器中打开的窗口。
 
 ### 4.2.2、Window 对象方法
 
-**setInterval()**
+#### setInterval()
 
 `setInterval()` 方法可按照指定的周期（以毫秒计）来调用函数或计算表达式。
 
@@ -2128,17 +2128,17 @@ setInterval(code, milliseconds);
 setInterval(function, milliseconds, param1, param2, ...);
 ```
 
-| 参数                | 描述                                                         |
-| :------------------ | :----------------------------------------------------------- |
-| code/function       | 必需。要调用一个代码串，也可以是一个函数。                   |
-| milliseconds        | 必须。周期性执行或调用 code/function 之间的时间间隔，以毫秒计。 |
-| param1, param2, ... | 可选。 传给执行函数的其他参数（IE9 及其更早版本不支持该参数）。 |
+参数：
+
+- *code/function*：必需。要调用一个代码串，也可以是一个函数。
+- *milliseconds*：必须。周期性执行或调用 code/function 之间的时间间隔，以毫秒计。
+- *param1, param2, ...*：可选。 传给执行函数的其他参数（IE9 及其更早版本不支持该参数）。
 
 `setInterval()` 会返回一个 ID（数字），可以将这个 ID 传递给 `clearInterval()`  以取消执行。
 
 
 
-**clearTimeout()**
+#### clearTimeout()
 
 `clearTimeout()` 方法可取消由 `setTimeout()` 方法设置的定时操作。
 
@@ -2158,9 +2158,68 @@ setInterval(function, milliseconds, param1, param2, ...);
 clearTimeout(id_of_settimeout)
 ```
 
-| 参数              | 描述                                                         |
-| :---------------- | :----------------------------------------------------------- |
-| id_of_setinterval | 调用 `setTimeout()` 函数时所获得的返回值，使用该返回标识符作为参数，可以取消该 `setTimeout()` 所设定的定时执行操作。 |
+参数：
+
+- *id_of_setinterval*：调用 `setTimeout()` 函数时所获得的返回值，使用该返回标识符作为参数，可以取消该 `setTimeout()` 所设定的定时执行操作。
+
+
+
+#### open()
+
+用指定的名称将指定的资源加载到新的或已存在的浏览上下文（标签、窗口或 iframe）中。
+
+语法：
+
+```javascript
+open()
+open(url)
+open(url, target)
+open(url, target, windowFeatures)
+```
+
+参数：
+
+- *url*：可选。一个字符串，表示要加载的资源的 URL 或路径。如果指定空字符串（`""`）或省略此参数，则会在目标浏览上下文中打开一个空白页。
+
+- *target*：可选。一个不含空格的字符串，用于指定加载资源的浏览上下文的名称。如果该名称无法识别现有的上下文，则会创建一个新的上下文，并赋予指定的名称。还可以使用特殊的 target 关键字：`_self`、`_blank`、`_parent` 和 `_top`。
+
+- *windowFeatures*：可选。一个字符串，包含以逗号分隔的窗口特性列表，形式为 `name=value`，布尔特性则仅为 `name`。这些特性包括窗口的默认大小和位置、是否打开最小弹出窗口等选项。支持以下选项：
+
+  - `popup`：
+
+    如果启用此特性，则要求使用最小弹出窗口。弹出窗口中包含的用户界面功能将由浏览器自动决定，一般只包括地址栏。
+
+    如果未启用 `popup`，也没有声明窗口特性，则新的浏览上下文将是一个标签页。
+
+    要启用该特性，可以不指定 `popup` 值，或将其设置为 `yes`, `1` 或 `true`。
+
+    例如：`popup=yes`、`popup=1`、`popup=true` 和`popup` 的结果完全相同。
+
+  - `width` 或 `innerWidth`：
+
+    指定内容区域（包括滚动条）的宽度。最小要求值为 100。
+
+  - `height` 或 `innerHeight`：
+
+    指定内容区域（包括滚动条）的高度。最小要求值为 100。
+
+  - `top` 或 `screenX`：
+
+    指定从用户操作系统定义的工作区左侧到新窗口生成位置的距离（以像素为单位）。
+
+  - `top` 或 `screenY`：
+
+    指定从用户操作系统定义的工作区顶部到新窗口生成位置的距离（以像素为单位）。
+
+  - `noopener`：
+
+    如果设置了此特性，新窗口将无法通过 `Window.opener` 访问原窗口，并返回 `null`。
+
+    使用 `noopener` 时，在决定是否打开新的浏览上下文时，除 `_top`、`_self` 和 `_parent` 以外的非空目标名称会像 `_blank` 一样处理。
+
+  - `noreferrer`：
+
+    如果设置了此特性，浏览器将省略 Referer 标头，并将 `noopener` 设为 true。
 
 
 
