@@ -2456,936 +2456,6 @@ CTE 类似于用 `CREATE [TEMPORARY] TABLE` 创建的表，但不需要明确定
 
 
 
-## 7.10、窗口函数
-
-MySQL 支持窗口函数，对于查询中的每一行，使用与该行相关的行执行计算。下面几节讨论如何使用窗口函数，包括对 `OVER` 和 `WINDOW` 子句的介绍。
-
-
-
-### 7.10.1、窗口函数的概念和语法
-
-本节介绍如何使用窗口函数。
-
-```mysql
-mysql> SELECT * FROM sales ORDER BY country, year, product;
-+------+---------+------------+--------+
-| year | country | product    | profit |
-+------+---------+------------+--------+
-| 2000 | Finland | Computer   |   1500 |
-| 2000 | Finland | Phone      |    100 |
-| 2001 | Finland | Phone      |     10 |
-| 2000 | India   | Calculator |     75 |
-| 2000 | India   | Calculator |     75 |
-| 2000 | India   | Computer   |   1200 |
-| 2000 | USA     | Calculator |     75 |
-| 2000 | USA     | Computer   |   1500 |
-| 2001 | USA     | Calculator |     50 |
-| 2001 | USA     | Computer   |   1500 |
-| 2001 | USA     | Computer   |   1200 |
-| 2001 | USA     | TV         |    150 |
-| 2001 | USA     | TV         |    100 |
-+------+---------+------------+--------+
-```
-
-窗口函数在一组查询行上执行类似于聚合的操作。然而，聚合操作将查询行组合成一个单一的结果行，而窗口函数为每一个查询行产生一个结果。
-
-- 对其进行函数求值的行称为当前行。
-- 与发生函数计算的当前行相关的查询行组成当前行的窗口。
-
-
-
-例如，使用销售信息表，这两个查询执行聚合操作，为作为一个组的所有行生成一个全局总和，并对每个国家进行分组：
-
-```mysql
-mysql> SELECT SUM(profit) AS total_profit
-       FROM sales;
-+--------------+
-| total_profit |
-+--------------+
-|         7535 |
-+--------------+
-mysql> SELECT country, SUM(profit) AS country_profit
-       FROM sales
-       GROUP BY country
-       ORDER BY country;
-+---------+----------------+
-| country | country_profit |
-+---------+----------------+
-| Finland |           1610 |
-| India   |           1350 |
-| USA     |           4575 |
-+---------+----------------+
-```
-
-相比之下，窗口函数不会将一组查询行折叠为单个输出行。相反，它们为每行产生一个结果。和前面的查询一样，下面的查询使用了 `SUM()`，但这次是作为一个窗口函数：
-
-```mysql
-mysql> SELECT
-         year, country, product, profit,
-         SUM(profit) OVER() AS total_profit,
-         SUM(profit) OVER(PARTITION BY country) AS country_profit
-       FROM sales
-       ORDER BY country, year, product, profit;
-+------+---------+------------+--------+--------------+----------------+
-| year | country | product    | profit | total_profit | country_profit |
-+------+---------+------------+--------+--------------+----------------+
-| 2000 | Finland | Computer   |   1500 |         7535 |           1610 |
-| 2000 | Finland | Phone      |    100 |         7535 |           1610 |
-| 2001 | Finland | Phone      |     10 |         7535 |           1610 |
-| 2000 | India   | Calculator |     75 |         7535 |           1350 |
-| 2000 | India   | Calculator |     75 |         7535 |           1350 |
-| 2000 | India   | Computer   |   1200 |         7535 |           1350 |
-| 2000 | USA     | Calculator |     75 |         7535 |           4575 |
-| 2000 | USA     | Computer   |   1500 |         7535 |           4575 |
-| 2001 | USA     | Calculator |     50 |         7535 |           4575 |
-| 2001 | USA     | Computer   |   1200 |         7535 |           4575 |
-| 2001 | USA     | Computer   |   1500 |         7535 |           4575 |
-| 2001 | USA     | TV         |    100 |         7535 |           4575 |
-| 2001 | USA     | TV         |    150 |         7535 |           4575 |
-+------+---------+------------+--------+--------------+----------------+
-```
-
-查询中的每个窗口操作都包含一个 `OVER` 子句，指定如何将查询行划分为一组，以便由窗口函数处理。
-
-- 第一个 `OVER` 子句是空的，它将整个查询行集作为一个单一的分区。因此，窗口函数产生一个全局性的和，但对每一行都是如此。
-- 第二个 `OVER` 子句按国家划分行，产生每个分区（每个国家）的总和。该函数对每个分区的行产生这个总和。
-
-
-
-窗口函数只允许在选择列表和 `ORDER BY` 子句中使用。查询结果行由 `FORM` 子句确定，在 `WHERE`、`GROUP BY` 和 `HAVING` 处理之后，窗口执行发生在 `ORDER BY`、`LIMIT` 和 `SELECT DISTINCT` 之前。
-
-`OVER` 子句被允许用于许多聚合函数，因此可以作为窗口函数或非窗口函数使用，这取决于 `OVER` 子句是存在还是不存在：
-
-```
-AVG()
-BIT_AND()
-BIT_OR()
-BIT_XOR()
-COUNT()
-JSON_ARRAYAGG()
-JSON_OBJECTAGG()
-MAX()
-MIN()
-STDDEV_POP(), STDDEV(), STD()
-STDDEV_SAMP()
-SUM()
-VAR_POP(), VARIANCE()
-VAR_SAMP()
-```
-
-MySQL 还支持仅作为窗口函数使用的非聚合函数。对于这些，`OVER` 子句是强制性的：
-
-```
-CUME_DIST()
-DENSE_RANK()
-FIRST_VALUE()
-LAG()
-LAST_VALUE()
-LEAD()
-NTH_VALUE()
-NTILE()
-PERCENT_RANK()
-RANK()
-ROW_NUMBER()
-```
-
-作为这些非聚合窗口函数中的一个例子，这个查询使用 `ROW_NUMBER()`，产生其分区中每一行的行号。在这种情况下，行是按国家编号的。默认情况下，分区的行是无序的，行的编号是不确定的。要对分区行进行排序，请在窗口定义中包含一个 `ORDER BY` 子句。这个查询使用无序分区和有序分区（`row_num1` 和 `row_num2` 列）来说明省略和包含 `ORDER BY` 的区别：
-
-```mysql
-mysql> SELECT
-         year, country, product, profit,
-         ROW_NUMBER() OVER(PARTITION BY country) AS row_num1,
-         ROW_NUMBER() OVER(PARTITION BY country ORDER BY year, product) AS row_num2
-       FROM sales;
-+------+---------+------------+--------+----------+----------+
-| year | country | product    | profit | row_num1 | row_num2 |
-+------+---------+------------+--------+----------+----------+
-| 2000 | Finland | Computer   |   1500 |        2 |        1 |
-| 2000 | Finland | Phone      |    100 |        1 |        2 |
-| 2001 | Finland | Phone      |     10 |        3 |        3 |
-| 2000 | India   | Calculator |     75 |        2 |        1 |
-| 2000 | India   | Calculator |     75 |        3 |        2 |
-| 2000 | India   | Computer   |   1200 |        1 |        3 |
-| 2000 | USA     | Calculator |     75 |        5 |        1 |
-| 2000 | USA     | Computer   |   1500 |        4 |        2 |
-| 2001 | USA     | Calculator |     50 |        2 |        3 |
-| 2001 | USA     | Computer   |   1500 |        3 |        4 |
-| 2001 | USA     | Computer   |   1200 |        7 |        5 |
-| 2001 | USA     | TV         |    150 |        1 |        6 |
-| 2001 | USA     | TV         |    100 |        6 |        7 |
-+------+---------+------------+--------+----------+----------+
-```
-
-
-
-如前所述，要使用窗口函数（或将聚合函数视为窗口函数），请在函数调用后包含一个 `OVER` 子句。`OVER` 子句有两种形式：
-
-```mysql
-over_clause:
-    {OVER (window_spec) | OVER window_name}
-```
-
-这两种形式都定义了窗口函数应该如何处理查询行。它们的区别在于窗口是直接在 `OVER` 子句中定义，还是通过对查询中其他地方定义的命名窗口的引用来提供：
-
-- 在第一种情况下，窗口规范直接出现在 `OVER`  子句中，在括号之间。
-- 在第二种情况下，*window_name* 是由查询中其他地方的 `WINDOW` 子句定义的窗口规范的名称。
-
-对于 `OVER (window_spec)`语法，窗口规范有几个部分，都是可选的：
-
-```mysql
-window_spec:
-    [window_name] [partition_clause] [order_clause] [frame_clause]
-```
-
-如果 `OVER()` 为空，则窗口由所有查询行组成，窗口函数使用所有行计算结果。否则，括号内的子句决定了哪些查询行被用来计算函数结果，以及如何对它们进行分区和排序：
-
-- *window_name*：由查询中其他地方的 `WINDOW` 子句定义的窗口名称。如果 *window_name* 本身出现在 `OVER` 子句中，它就完全定义了这个窗口。如果还给出了分区、排序或者框架子句，那么它们会修改对命名的窗口的解释。
-
-- *partition_clause*：`PARTITION BY` 子句表示如何将查询行分成组，可以理解为 `GROUP BY`。如果忽略 `PARTITION BY`，则只有一个由所有查询行组成的分区。
-
-	*partition_clause* 具有以下语法：
-
-	```mysql
-	partition_clause:
-	    PARTITION BY expr [, expr] ...
-	```
-
-	标准 SQL 要求 `PARTITION BY` 后面只跟列名。MySQL 扩展允许表达式，而不仅仅是列名。例如，如果一个表包含一个名为 `ts` 的 `TIMESTAMP` 列，标准 SQL 允许 `PARTITION BY ts`，但不允许 `PARTITION BY HOUR(ts)`，而 MySQL 允许两者。
-
-- *order_clause*：`ORDER BY` 子句表明如何对每个分区的行进行排序。根据 `ORDER BY` 子句相等的分区行被认为是对等的。如果省略了 `ORDER BY`，分区行是无序的，不隐含处理顺序，所有的分区行都是对等的。
-
-	*order_clause* 具有以下语法：
-
-	```mysql
-	order_clause:
-	    ORDER BY expr [ASC|DESC] [, expr [ASC|DESC]] ...
-	```
-
-	每个 `ORDER BY` 表达式后面可以选择 `ASC` 或 `DESC` 来表示排序方向。如果没有指定方向，默认是 `ASC`。对于升序排序，`NULL` 值优先排序，对于降序排序，最后排序。
-
-	窗口定义中的 `ORDER BY` 适用于各个分区。要将结果集作为一个整体进行排序，请在查询的顶层包含一个 `ORDER BY`。
-
-- *frame_clause*：框架是当前分区的一个子集，*frame_clause* 指定了如何定义这个子集。*frame_clause* 有很多自己的子句。详见下一节。
-
-
-
-### 7.10.2、窗口功能框架规范
-
-与窗口函数一起使用的窗口的定义可以包括一个框架子句。框架是当前分区的一个子集，框架子句指定了如何定义这个子集。
-
-框架是相对于当前行确定的，这使得框架可以根据当前行在其分区中的位置在分区中移动。例子：
-
-- 通过将一个框架定义为从分区开始到当前行的所有行，你可以计算每行的累加值。
-- 通过将一个框架定义为在当前行的两侧延伸 N 行，你可以计算滚动平均值。
-
-下面的查询演示了使用移动框架来计算每组按时间顺序排列的 `val` 的累加值，以及从当前行及其前后的行中计算的滚动平均值：
-
-```mysql
-mysql> SELECT
-         time, subject, val,
-         SUM(val) OVER (PARTITION BY subject ORDER BY time
-                        ROWS UNBOUNDED PRECEDING)
-           AS running_total,
-         AVG(val) OVER (PARTITION BY subject ORDER BY time
-                        ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING)
-           AS running_average
-       FROM observations;
-+----------+---------+------+---------------+-----------------+
-| time     | subject | val  | running_total | running_average |
-+----------+---------+------+---------------+-----------------+
-| 07:00:00 | st113   |   10 |            10 |          9.5000 |
-| 07:15:00 | st113   |    9 |            19 |         14.6667 |
-| 07:30:00 | st113   |   25 |            44 |         18.0000 |
-| 07:45:00 | st113   |   20 |            64 |         22.5000 |
-| 07:00:00 | xh458   |    0 |             0 |          5.0000 |
-| 07:15:00 | xh458   |   10 |            10 |          5.0000 |
-| 07:30:00 | xh458   |    5 |            15 |         15.0000 |
-| 07:45:00 | xh458   |   30 |            45 |         20.0000 |
-| 08:00:00 | xh458   |   25 |            70 |         27.5000 |
-+----------+---------+------+---------------+-----------------+
-```
-
-对于 `running_average` 列，在第一行之前和最后一行之后都没有框架行。在这些情况下，`AVG()` 计算的是现有行的平均值。
-
-
-
-作为窗口函数的聚合函数对当前行框架中的行进行操作，这些非聚合窗口函数也是如此。
-
-```
-FIRST_VALUE()
-LAST_VALUE()
-NTH_VALUE()
-```
-
-标准 SQL 规定，对整个分区进行操作的窗口函数不应该有框架子句。MySQL 允许这类函数有一个框架子句，但会忽略它。即使指定了一个框架，这些函数也会使用整个分区：
-
-```
-CUME_DIST()
-DENSE_RANK()
-LAG()
-LEAD()
-NTILE()
-PERCENT_RANK()
-RANK()
-ROW_NUMBER()
-```
-
-
-
-如果给出框架子句，其语法是这样的：
-
-```
-frame_clause:
-    frame_units frame_extent
-
-frame_units:
-    {ROWS | RANGE}
-```
-
-在没有框架子句的情况下，默认的框架取决于是否存在 `ORDER BY` 子句，后面会讲。
-
-*frame_units* 值表示当前行与框架行之间的关系类型：
-
-- `ROWS`：框架由开始和结束行位置定义。偏移量是行号与当前行号之间的差异。
-- `RANGE`：框架是由数值范围内的行定义的。偏移量是行值与当前行值的差异。
-
-*frame_extent* 值表示框架的开始和结束点。你可以只指定框架的起点（在这种情况下，当前行是隐含的终点），或者使用 `BETWEEN` 来指定两个框架的端点：
-
-```
-frame_extent:
-    {frame_start | frame_between}
-
-frame_between:
-    BETWEEN frame_start AND frame_end
-
-frame_start, frame_end: {
-    CURRENT ROW
-  | UNBOUNDED PRECEDING
-  | UNBOUNDED FOLLOWING
-  | expr PRECEDING
-  | expr FOLLOWING
-}
-```
-
-对于 `BETWEEN` 语法，*frame_start* 不能出现在 *frame_end* 之后。
-
-允许的 *frame_start* 和 *frame_end* 值有这些含义：
-
-- `CURRENT ROW`：对于 `ROWS`，边界是当前行。对于 `RANGE`，边界是当前行的同级。
-
-- `UNBOUNDED PRECEDING`：边界是第一个分区行。
-
-- `UNBOUNDED FOLLOWING`：边界是最后一个分区行。
-
-- `expr PRECEDING`：对于 `ROWS`，边界是当前行之前的 *expr* 行。对于 `RANGE`，边界是值等于当前行值减去 *expr* 的行；如果当前行值是`NULL`，边界是该行的同级。
-
-- `expr FOLLOWING`：对于 `ROWS` 来说，边界是当前行之后的 *expr* 行。对于 `RANGE`，边界是值等于当前行值加上 *expr* 的行；如果当前行值是 `NULL`，边界是该行的同级。
-
-	对于 `expr PRECEDING`（和 `expr FOLLOWING`），*expr* 可以是一个 ? 参数标记（在准备好的语句中使用），一个非负数的数字字头，或者一个 `INTERVAL val unit` 形式的时间间隔。对于 `INTERVAL` 表达式，*val* 指定了非负的间隔值，*unit* 是一个关键字，表示该值应该被解释的单位。
-
-	数字或时间 *expr* 上的 `RANGE` 分别要求数字或时间表达式上的 `ORDER BY`。
-
-	有效的 `expr PRECEDING` 和 `expr FOLLOWING` 指标的例子：
-
-	```mysql
-	10 PRECEDING
-	INTERVAL 5 DAY PRECEDING
-	5 FOLLOWING
-	INTERVAL '2:30' MINUTE_SECOND FOLLOWING
-	```
-
-下面的查询演示了 `FIRST_VALUE()`、`LAST_VALUE()`  和 `NTH_VALUE()` 的两个实例：
-
-```mysql
-mysql> SELECT
-         time, subject, val,
-         FIRST_VALUE(val)  OVER w AS 'first',
-         LAST_VALUE(val)   OVER w AS 'last',
-         NTH_VALUE(val, 2) OVER w AS 'second',
-         NTH_VALUE(val, 4) OVER w AS 'fourth'
-       FROM observations
-       WINDOW w AS (PARTITION BY subject ORDER BY time
-                    ROWS UNBOUNDED PRECEDING);
-+----------+---------+------+-------+------+--------+--------+
-| time     | subject | val  | first | last | second | fourth |
-+----------+---------+------+-------+------+--------+--------+
-| 07:00:00 | st113   |   10 |    10 |   10 |   NULL |   NULL |
-| 07:15:00 | st113   |    9 |    10 |    9 |      9 |   NULL |
-| 07:30:00 | st113   |   25 |    10 |   25 |      9 |   NULL |
-| 07:45:00 | st113   |   20 |    10 |   20 |      9 |     20 |
-| 07:00:00 | xh458   |    0 |     0 |    0 |   NULL |   NULL |
-| 07:15:00 | xh458   |   10 |     0 |   10 |     10 |   NULL |
-| 07:30:00 | xh458   |    5 |     0 |    5 |     10 |   NULL |
-| 07:45:00 | xh458   |   30 |     0 |   30 |     10 |     30 |
-| 08:00:00 | xh458   |   25 |     0 |   25 |     10 |     30 |
-+----------+---------+------+-------+------+--------+--------+
-```
-
-每个函数都使用当前框架中的行，根据所示的窗口定义，从第一个分区行延伸到当前框架。对于 `NTH_VALUE()` 的调用，当前框架并不总是包括所请求的行；在这种情况下，返回值是 `NULL`。
-
-
-
-在没有框架子句的情况下，默认框架取决于是否存在 `ORDER BY` 子句：
-
-- 有 `ORDER BY`：默认的框架包括从分区开始到当前行的记录，包括当前行的所有同级别的记录（根据 `ORDER BY` 子句，等于当前行的记录）。默认情况下等同于这个框架规范：
-
-	```mysql
-	RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
-	```
-
-- 没有 `ORDER BY`：默认的框架包括所有分区行（因为在没有 `ORDER BY`的情况下，所有分区行都是同行）。默认情况等同于这个框架规范：
-
-	```mysql
-	RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
-	```
-
-因为默认的框架因 `ORDER BY` 的存在与否而不同，在查询中加入 `ORDER BY` 以获得确定的结果可能会改变结果。（例如，由 `SUM()` 产生的值可能会改变）。为了获得相同的结果，但按 `ORDER BY` 排序，请提供一个明确的框架规范，无论 `ORDER BY` 是否存在都要使用。
-
-
-
-当当前行值为 `NULL` 时，框架规范的含义可能是不明显的。假设是这种情况，这些例子说明了各种框架规范的应用：
-
-- ```mysql
-	ORDER BY X ASC RANGE BETWEEN 10 FOLLOWING AND 15 FOLLOWING
-	```
-
-	这个框架从 `NULL` 开始，到 `NULL` 结束，因此只包括数值为 `NULL` 的记录。
-
-- ```mysql
-	ORDER BY X ASC RANGE BETWEEN 10 FOLLOWING AND UNBOUNDED FOLLOWING
-	```
-
-	这个框架从 `NULL` 开始，到分区的末尾为止。因为 `ASC` 排序将 `NULL` 值放在前面，所以框架是整个分区。
-
-- ```mysql
-	ORDER BY X DESC RANGE BETWEEN 10 FOLLOWING AND UNBOUNDED FOLLOWING
-	```
-
-	这个框架从 `NULL` 开始，在分区的末端停止。因为 `DESC` 排序将 `NULL` 值放在最后，所以框架中只有 `NULL` 值。
-
-- ```mysql
-	ORDER BY X ASC RANGE BETWEEN 10 PRECEDING AND UNBOUNDED FOLLOWING
-	```
-
-	这个框架从 `NULL` 开始，到分区的末尾为止。因为 `ASC` 排序将 `NULL` 值放在前面，所以框架是整个分区。
-
-- ```mysql
-	ORDER BY X ASC RANGE BETWEEN 10 PRECEDING AND 10 FOLLOWING
-	```
-
-	这个框架从 `NULL` 开始，到 `NULL` 结束，因此只包括数值为 `NULL` 的记录。
-
-- ```mysql
-	ORDER BY X ASC RANGE BETWEEN 10 PRECEDING AND 1 PRECEDING
-	```
-
-	这个框架从 `NULL` 开始，到 `NULL` 结束，因此只包括数值为 `NULL` 的记录。
-
-- ```mysql
-	ORDER BY X ASC RANGE BETWEEN UNBOUNDED PRECEDING AND 10 FOLLOWING
-	```
-
-	这个框架从分区的开始开始，到数值为 `NULL` 的行为止。因为 `ASC` 排序将 `NULL` 值放在首位，所以框架中只有 `NULL` 值。
-
-
-
-### 7.10.3、窗口的命名
-
-在 `OVER` 子句中，可以定义窗口并赋予其名称，以便对其进行引用。要做到这一点，需要使用 `WINDOW` 子句。如果在查询中出现，`WINDOW` 子句会在 `HAVING` 子句和 `ORDER BY` 子句的位置之间，并且有这样的语法：
-
-```mysql
-WINDOW window_name AS (window_spec)
-    [, window_name AS (window_spec)] ...
-```
-
-对于每个窗口定义，*window_name* 是窗口名称，而 *window_spec* 是在 `OVER` 子句的括号中给出的相同类型的窗口规范：
-
-```mysql
-window_spec:
-    [window_name] [partition_clause] [order_clause] [frame_clause]
-```
-
-
-
-`WINDOW` 子句在查询中非常有用，否则多个 `OVER` 子句会定义同一个窗口。相反，你可以只定义一次窗口，给它一个名字，然后在 `OVER` 子句中引用这个名字。考虑一下这个查询，它多次定义了同一个窗口：
-
-```mysql
-SELECT
-  val,
-  ROW_NUMBER() OVER (ORDER BY val) AS 'row_number',
-  RANK()       OVER (ORDER BY val) AS 'rank',
-  DENSE_RANK() OVER (ORDER BY val) AS 'dense_rank'
-FROM numbers;
-```
-
-通过使用 `WINDOW` 来定义一次窗口，并在 `OVER` 子句中用名称来引用窗口，可以更简单地编写查询：
-
-```mysql
-SELECT
-  val,
-  ROW_NUMBER() OVER w AS 'row_number',
-  RANK()       OVER w AS 'rank',
-  DENSE_RANK() OVER w AS 'dense_rank'
-FROM numbers
-WINDOW w AS (ORDER BY val);
-```
-
-
-
-命名窗口还可以更容易地试验窗口定义，以查看对查询结果的影响。只需要修改 `window` 子句中的窗口定义，而不需要修改多个 `OVER` 子句定义。
-
-如果 `OVER` 子句使用 `OVER(window_name ...)` 而不是 `OVER window_name` ，那么可以通过增加其他子句来修改命名的窗口。例如，这个查询定义了一个包括分区的窗口，并在 `OVER` 子句中使用 `ORDER BY` 以不同的方式修改该窗口：
-
-```mysql
-SELECT
-  DISTINCT year, country,
-  FIRST_VALUE(year) OVER (w ORDER BY year ASC) AS first,
-  FIRST_VALUE(year) OVER (w ORDER BY year DESC) AS last
-FROM sales
-WINDOW w AS (PARTITION BY country);
-```
-
-`OVER` 子句只能向命名的窗口添加属性，不能修改它们。如果命名的窗口定义包括分区、排序或框架属性，那么引用窗口名称的 `OVER` 子句也不能包括同种属性，否则会发生错误：
-
-- 这个结构是允许的，因为窗口定义和引用的 `OVER` 子句不包含同种属性：
-
-	```mysql
-	OVER (w ORDER BY country)
-	... WINDOW w AS (PARTITION BY country)
-	```
-
-- 这个结构是不允许的，因为 `OVER` 子句为一个已经有 `PARTITION BY` 的命名窗口指定了 `PARTITION BY`：
-
-	```mysql
-	OVER (w PARTITION BY year)
-	... WINDOW w AS (PARTITION BY country)
-	```
-
-
-
-一个命名的窗口的定义本身可以以 *window_name* 开始。在这种情况下，允许向前和向后引用，但不允许循环：
-
-- 这是被允许的；它包含向前和向后的引用，但没有循环：
-
-	```mysql
-	WINDOW w1 AS (w2), w2 AS (), w3 AS (w1)
-	```
-
-- 这是不允许的，因为它包含一个循环：
-
-	```mysql
-	WINDOW w1 AS (w2), w2 AS (w3), w3 AS (w1)
-	```
-
-
-
-### 7.10.4、窗口函数介绍
-
-本节描述非聚合窗口函数，对于查询中的每一行，使用与该行相关的行执行计算。大多数聚合函数也可以用作窗口函数。
-
-| 名称             | 描述                             |
-| ---------------- | -------------------------------- |
-| `CUME_DIST()`    | 累计分布值                       |
-| `DENSE_RANK()`   | 当前行在其分区内的排名，没有间隙 |
-| `FIRST_VALUE()`  | 窗口框架第一行的参数值           |
-| `LAG()`          | 分区内滞后于当前行的参数值       |
-| `LAST_VALUE()`   | 窗口框架最后一行的参数值         |
-| `LEAD()`         | 分区内领先于当前行的参数值       |
-| `NTH_VALUE()`    | 窗口框架第 N 行的参数值          |
-| `NTILE()`        | 当前行在其分区中的桶号           |
-| `PERCENT_RANK()` | 百分比排名值                     |
-| `RANK()`         | 当前行在其分区中的排名，有空隙   |
-| `ROW_NUMBER()`   | 当前行在其分区中的编号           |
-
-在下面的函数描述中，*over_clause* 代表 `OVER` 子句，在下一节会介绍到。一些窗口函数允许使用 *null_treatment* 子句来指定在计算结果时如何处理 NULL 值。这个子句是可选的。它是 SQL 标准的一部分，但 MySQL 的实现只允许 `RESPECT NULLS`（这也是默认的）。这意味着在计算结果时会考虑空值。会解析 `IGNORE NULLS`，但会产生错误。
-
-
-
-#### CUME_DIST() 
-
-语法：
-
-```mysql
-CUME_DIST() over_clause
-```
-
-返回一组数值中的累积分布；也就是说，分区值小于或等于当前行的值的百分比。这表示在窗口分区的窗口排序中，在当前行之前或同级的行数除以窗口分区的总行数。返回值的范围从 0 到 1。
-
-这个函数应该与 `ORDER BY` 一起使用，以按照所需的顺序对分区行进行排序。如果没有 `ORDER BY`，所有行都是对等的，值为 `N/N = 1`，其中N 是分区大小。
-
-下面的查询显示：对于 `val` 列中的一组数值、每一行的 `CUME_DIST()` 值以及由类似的 `PERCENT_RANK()` 函数返回的百分比排名值。作为参考，该查询还使用 `ROW_NUMBER()` 显示行号：
-
-```mysql
-mysql> SELECT
-         val,
-         ROW_NUMBER()   OVER w AS 'row_number',
-         CUME_DIST()    OVER w AS 'cume_dist',
-         PERCENT_RANK() OVER w AS 'percent_rank'
-       FROM numbers
-       WINDOW w AS (ORDER BY val);
-+------+------------+--------------------+--------------+
-| val  | row_number | cume_dist          | percent_rank |
-+------+------------+--------------------+--------------+
-|    1 |          1 | 0.2222222222222222 |            0 |
-|    1 |          2 | 0.2222222222222222 |            0 |
-|    2 |          3 | 0.3333333333333333 |         0.25 |
-|    3 |          4 | 0.6666666666666666 |        0.375 |
-|    3 |          5 | 0.6666666666666666 |        0.375 |
-|    3 |          6 | 0.6666666666666666 |        0.375 |
-|    4 |          7 | 0.8888888888888888 |         0.75 |
-|    4 |          8 | 0.8888888888888888 |         0.75 |
-|    5 |          9 |                  1 |            1 |
-+------+------------+--------------------+--------------+
-```
-
-在此示例中，`val` 按从 1 到 5 的升序排序。
-
-对于第一行，函数查找结果集中的行数，其值小于或等于 1 。结果为 2。然后 `CUME_DIST()` 函数将 2 除以总行数 9：2/9。结果是 0.2222222222222222。相同的逻辑应用于第二行。
-
-对于第三行，函数查找值小于或等于 2 的行数。有 3 行。然后 `CUME_DIST()` 函数的结果是：3/9 = 0.3333333333333333。
-
-相同的计算逻辑应用于其余行。
-
-
-
-#### DENSE_RANK() 
-
-语法：
-
-```mysql
-DENSE_RANK() over_clause
-```
-
-返回当前行在其分区中的排名，没有空隙。同行被认为是并列的，获得相同的排名。这个函数将连续的排名分配给同级组；结果是大小大于 1 的组不会产生非连续的等级数字。
-
-这个函数应该和 `ORDER BY` 一起使用，将分区行排序到所需的顺序。没有 `ORDER BY`，所有的行都是同行。
-
-```mysql
-mysql>SELECT
-        val,
-        DENSE_RANK() OVER (
-            ORDER BY val
-        ) my_rank
-      FROM
-        rankDemo; 
-+------+---------+
-| val  | my_rank |
-+------+---------+
-|    1 |       1 |
-|    2 |       2 |
-|    2 |       2 |
-|    3 |       3 |
-|    4 |       4 |
-|    4 |       4 |
-|    5 |       5 |
-+------+---------+
-```
-
-
-
-#### FIRST_VALUE()
-
-语法：
-
-```mysql
-FIRST_VALUE(expr) [null_treatment] over_clause
-```
-
-从窗口框架的第一行返回 *expr* 的值。
-
-下面的查询演示了 `FIRST_VALUE()`、`LAST_VALUE()` 和两个 `NTH_VALUE()` 实例：
-
-```mysql
-mysql> SELECT
-         time, subject, val,
-         FIRST_VALUE(val)  OVER w AS 'first',
-         LAST_VALUE(val)   OVER w AS 'last',
-         NTH_VALUE(val, 2) OVER w AS 'second',
-         NTH_VALUE(val, 4) OVER w AS 'fourth'
-       FROM observations
-       WINDOW w AS (PARTITION BY subject ORDER BY time
-                    ROWS UNBOUNDED PRECEDING);
-+----------+---------+------+-------+------+--------+--------+
-| time     | subject | val  | first | last | second | fourth |
-+----------+---------+------+-------+------+--------+--------+
-| 07:00:00 | st113   |   10 |    10 |   10 |   NULL |   NULL |
-| 07:15:00 | st113   |    9 |    10 |    9 |      9 |   NULL |
-| 07:30:00 | st113   |   25 |    10 |   25 |      9 |   NULL |
-| 07:45:00 | st113   |   20 |    10 |   20 |      9 |     20 |
-| 07:00:00 | xh458   |    0 |     0 |    0 |   NULL |   NULL |
-| 07:15:00 | xh458   |   10 |     0 |   10 |     10 |   NULL |
-| 07:30:00 | xh458   |    5 |     0 |    5 |     10 |   NULL |
-| 07:45:00 | xh458   |   30 |     0 |   30 |     10 |     30 |
-| 08:00:00 | xh458   |   25 |     0 |   25 |     10 |     30 |
-+----------+---------+------+-------+------+--------+--------+
-```
-
-每个函数都使用当前框架中的行，根据所示的窗口定义，从第一个分区行延伸到当前行。对于 `NTH_VALUE()` 的调用，当前框架并不总是包括所请求的行；在这种情况下，返回值是 `NULL`。
-
-
-
-#### LAG()
-
-```mysql
-LAG(expr [, N[, default]]) [null_treatment] over_clause
-```
-
-返回 *expr* 的值，该值来自于在其分区内滞后于（先于）当前行的 *N* 行的行。如果没有这样的行，返回值为 *default*。例如，如果 *N* 是 3，返回的 *default* 值为前两行。如果缺少 *N* 或 *default*，默认值分别为 1 和 `NULL`。
-
-*N* 必须是一个文本非负整数。如果 *N* 为 0，*expr* 将被评估为当前行。
-
-从 MySQL 8.0.22 开始，*N* 不能是 `NULL`。此外，它现在必须是 1 到 2^63^ 范围内的一个整数，包括以下任何一种形式：
-
-- 无符号整数常量文字
-- 位置参数标记（?）
-- 用户定义的变量
-- 存储例程中的局部变量
-
-`LAG()`（和类似的 `LEAD()` 函数）经常被用来计算行之间的差异。下面的查询显示了一组按时间顺序排列的观测值，对于每一个观测值，都显示了相邻行的 `LAG()`和 `LEAD()` 值，以及当前行和相邻行的差异：
-
-```mysql
-mysql> SELECT
-         t, val,
-         LAG(val)        OVER w AS 'lag',
-         LEAD(val)       OVER w AS 'lead',
-         val - LAG(val)  OVER w AS 'lag diff',
-         val - LEAD(val) OVER w AS 'lead diff'
-       FROM series
-       WINDOW w AS (ORDER BY t);
-+----------+------+------+------+----------+-----------+
-| t        | val  | lag  | lead | lag diff | lead diff |
-+----------+------+------+------+----------+-----------+
-| 12:00:00 |  100 | NULL |  125 |     NULL |       -25 |
-| 13:00:00 |  125 |  100 |  132 |       25 |        -7 |
-| 14:00:00 |  132 |  125 |  145 |        7 |       -13 |
-| 15:00:00 |  145 |  132 |  140 |       13 |         5 |
-| 16:00:00 |  140 |  145 |  150 |       -5 |       -10 |
-| 17:00:00 |  150 |  140 |  200 |       10 |       -50 |
-| 18:00:00 |  200 |  150 | NULL |       50 |      NULL |
-+----------+------+------+------+----------+-----------+
-```
-
-在本例中，`LAG()` 和 `LEAD()` 调用的是默认的 *N* 和 *default*，值为 1 和 `NULL`。
-
-第一行显示了当没有 `LAG()` 的前一行时会发生什么:函数返回默认值（在本例中为 `NULL`）。当 `LEAD()` 没有下一行时，最后一行显示了相同的内容。
-
-
-
-`LAG()` 和 `LEAD()` 也是为了计算总和而不是差异。考虑这个数据集，它包含斐波那契数列的前几个数字：
-
-```mysql
-mysql> SELECT n FROM fib ORDER BY n;
-+------+
-| n    |
-+------+
-|    1 |
-|    1 |
-|    2 |
-|    3 |
-|    5 |
-|    8 |
-+------+
-```
-
-下面的查询显示了与当前行相邻的行的 `LAG()` 和 `LEAD()` 值。它还使用这些函数将前面和后面的行的值添加到当前行的值中。其效果是生成斐波那契数列中的下一个数字，以及其后的数字：
-
-```mysql
-mysql> SELECT
-         n,
-         LAG(n, 1, 0)      OVER w AS 'lag',
-         LEAD(n, 1, 0)     OVER w AS 'lead',
-         n + LAG(n, 1, 0)  OVER w AS 'next_n',
-         n + LEAD(n, 1, 0) OVER w AS 'next_next_n'
-       FROM fib
-       WINDOW w AS (ORDER BY n);
-+------+------+------+--------+-------------+
-| n    | lag  | lead | next_n | next_next_n |
-+------+------+------+--------+-------------+
-|    1 |    0 |    1 |      1 |           2 |
-|    1 |    1 |    2 |      2 |           3 |
-|    2 |    1 |    3 |      3 |           5 |
-|    3 |    2 |    5 |      5 |           8 |
-|    5 |    3 |    8 |      8 |          13 |
-|    8 |    5 |    0 |     13 |           8 |
-+------+------+------+--------+-------------+
-```
-
-生成斐波那契数字初始集的一种方法是使用递归公共表表达式。
-
-从 MySQL 8.0.22 开始，你不能为这个函数的行参数使用一个负值。
-
-
-
-#### LAST VALUE()
-
-```mysql
-LAST_VALUE(expr) [null_treatment] over_clause
-```
-
-返回窗口框架最后一行中 *expr* 的值。
-
-例子见 `FIRST_VALUE()` 函数描述。
-
-
-
-#### LEAD()
-
-```mysql
-LEAD(expr [, N[, default]]) [null_treatment] over_clause
-```
-
-返回 *expr* 的值，该值来自于在其分区中领先（跟随）当前行 *N* 行的行。如果没有这样的行，返回值为 *defalut*。例如，如果 *N* 是 3，那么返回的 *default* 值为后两行。如果缺少 *N* 或 *default*，默认值分别为 1 和 `NULL`。
-
-*N* 必须是一个文本非负整数。如果 *N* 是 0，*expr* 将被评估为当前行。
-
-从 MySQL 8.0.22 开始，*N* 不能是 `NULL`。此外，它现在必须是 1 到 2^63^ 范围内的一个整数，包括以下任何一种形式：
-
-- 无符号整数常量文字
-- 位置参数标记（?）
-- 用户定义的变量
-- 存储例程中的局部变量
-
-有关示例，请参阅 `LAG()` 函数描述。
-
-从 MySQL 8.0.22 开始，你不能为这个函数的行参数使用一个负值。
-
-
-
-#### NTH_VALUE()
-
-```mysql
-NTH_VALUE(expr, N) [from_first_last] [null_treatment] over_clause
-```
-
-从窗口框架的第 *N* 行返回 *expr* 的值。如果没有这样的行，则返回值为空。
-
-*N* 必须是一个文本正整数。
-
-*from_first_last* 是 SQL 标准的一部分，但 MySQL 的实现只允许 `FROM FIRST`（这也是默认的）。这意味着计算从窗口的第一行开始。`FROM LAST` 会被解析，但会产生错误。为了获得与 `FROM LAST` 相同的效果（从窗口的最后一行开始计算），使用 `ORDER BY` 以相反的顺序排序。
-
-有关示例，请参见 `FIRST_VALUE()` 函数描述。
-
-在 MySQL 8.0.22 及以后的版本中，你不能为这个函数的行参数使用 `NULL`。
-
-
-
-#### NTILE()
-
-```mysql
-NTILE(N) over_clause
-```
-
-将一个分区划分为 *N* 个组（桶），为分区中的每一行分配其桶号，并返回其分区中当前行的桶号。例如，如果 *N* 是4，`NTILE()` 将行分成四个桶。如果 *N* 是100，`NTILE()` 将行分成 100 个桶。
-
-*N* 必须是一个文本正整数。桶号返回值的范围是 1 到 *N*。
-
-从 MySQL 8.0.22 开始，*N* 不能是 `NULL`。此外，它现在必须是 1 到 2^63^ 范围内的一个整数，包括以下任何一种形式：
-
-- 无符号整数常量文字
-- 位置参数标记（?）
-- 用户定义的变量
-- 存储例程中的局部变量
-
-这个函数应该与 `ORDER BY` 一起使用，以按照所需的顺序对分区行进行排序。
-
-下面的查询显示，对于 `val` 列中的一组数值，将行分为两组或四组后得到的百分位数值。作为参考，该查询也使用 `ROW_NUMBER()` 显示行数：
-
-```mysql
-mysql> SELECT
-         val,
-         ROW_NUMBER() OVER w AS 'row_number',
-         NTILE(2)     OVER w AS 'ntile2',
-         NTILE(4)     OVER w AS 'ntile4'
-       FROM numbers
-       WINDOW w AS (ORDER BY val);
-+------+------------+--------+--------+
-| val  | row_number | ntile2 | ntile4 |
-+------+------------+--------+--------+
-|    1 |          1 |      1 |      1 |
-|    1 |          2 |      1 |      1 |
-|    2 |          3 |      1 |      1 |
-|    3 |          4 |      1 |      2 |
-|    3 |          5 |      1 |      2 |
-|    3 |          6 |      2 |      3 |
-|    4 |          7 |      2 |      3 |
-|    4 |          8 |      2 |      4 |
-|    5 |          9 |      2 |      4 |
-+------+------------+--------+--------+
-```
-
-从 MySQL 8.0.22 开始，`NTILE(NULL)` 结构不再被允许。
-
-
-
-#### PERCENT_RANK()
-
-```mysql
-PERCENT_RANK() over_clause
-```
-
-返回小于当前行中值的分区值的百分比，不包括最高值。返回值的范围是 0 到 1，代表行的相对等级，计算的结果是这个公式，其中 *rank* 是行的等级（`RANK()` 函数的返回值），*rows* 是分区行的数量：
-
-```mysql
-(rank - 1) / (rows - 1)
-```
-
-这个函数应该与 `ORDER BY` 一起使用，以按照所需的顺序对分区行进行排序。如果没有 `ORDER BY`，所有行都是对等的。
-
-有关示例，请参见 `CUME_DIST()` 函数说明。
-
-
-
-#### RANK()
-
-```mysql
-RANK() over_clause
-```
-
-返回当前行在其分区中的排名，有空隙。同行被认为是并列的，获得相同的排名。如果存在大小大于 1 的组，这个函数不会给同级组分配连续的排名；结果是不连续的等级数字。
-
-这个函数应该和 `ORDER BY` 一起使用，将分区行排序到所需的顺序。没有 `ORDER BY`，所有的行都是同行。
-
-下面的查询显示了 `RANK()` 和 `DENSE_RANK()` 之间的区别，前者产生有间隙的排名，后者产生没有间隙的排名。该查询显示了 `val` 列中一组数值的每个成员的排名值，其中包含一些重复的数值，该查询还使用 `ROW_NUMBER()` 显示行数：
-
-```mysql
-mysql> SELECT
-         val,
-         ROW_NUMBER() OVER w AS 'row_number',
-         RANK()       OVER w AS 'rank',
-         DENSE_RANK() OVER w AS 'dense_rank'
-       FROM numbers
-       WINDOW w AS (ORDER BY val);
-+------+------------+------+------------+
-| val  | row_number | rank | dense_rank |
-+------+------------+------+------------+
-|    1 |          1 |    1 |          1 |
-|    1 |          2 |    1 |          1 |
-|    2 |          3 |    3 |          2 |
-|    3 |          4 |    4 |          3 |
-|    3 |          5 |    4 |          3 |
-|    3 |          6 |    4 |          3 |
-|    4 |          7 |    7 |          4 |
-|    4 |          8 |    7 |          4 |
-|    5 |          9 |    9 |          5 |
-+------+------------+------+------------+
-```
-
-
-
-#### ROW_NUMBER()
-
-```mysql
-ROW_NUMBER() over_clause
-```
-
-返回其分区中当前行的编号。行号的范围从 1 到分区行数。
-
-`ORDER BY` 影响行编号的顺序。如果没有 `ORDER BY`，行编号是不确定性的。
-
-`ROW_NUMBER()` 给同行分配不同的行号。要给同行分配相同的值，请使用 `RANK()` 或 `DENSE_RANK()` 。有关例子，请参见 `RANK()` 函数描述。
-
-
-
 # 8、视图
 
 视图是可视化的表。
@@ -4075,7 +3145,11 @@ DROP TRIGGER [ IF EXISTS ] [数据库名] <触发器名>
 
 注意：删除一个表的同时，也会自动删除该表上的触发器。另外，触发器不能更新或覆盖，为了修改一个触发器，必须先删除它，再重新创建。
 
-# 11、自定义函数
+
+
+# 11、函数
+
+## 11.1、自定义函数
 
 **创建并使用自定义函数**
 
@@ -4130,6 +3204,1385 @@ DROP FUNCTION [ IF EXISTS ] <自定义函数名>
 
 - <自定义函数名>：指定要删除的自定义函数的名称。
 - IF EXISTS：指定关键字，用于防止因误删除不存在的自定义函数而引发错误。
+
+
+
+## 11.2、窗口函数
+
+MySQL 支持窗口函数，对于查询中的每一行，使用与该行相关的行执行计算。下面几节讨论如何使用窗口函数，包括对 `OVER` 和 `WINDOW` 子句的介绍。
+
+
+
+### 11.2.1、窗口函数的概念和语法
+
+本节介绍如何使用窗口函数。
+
+```mysql
+mysql> SELECT * FROM sales ORDER BY country, year, product;
++------+---------+------------+--------+
+| year | country | product    | profit |
++------+---------+------------+--------+
+| 2000 | Finland | Computer   |   1500 |
+| 2000 | Finland | Phone      |    100 |
+| 2001 | Finland | Phone      |     10 |
+| 2000 | India   | Calculator |     75 |
+| 2000 | India   | Calculator |     75 |
+| 2000 | India   | Computer   |   1200 |
+| 2000 | USA     | Calculator |     75 |
+| 2000 | USA     | Computer   |   1500 |
+| 2001 | USA     | Calculator |     50 |
+| 2001 | USA     | Computer   |   1500 |
+| 2001 | USA     | Computer   |   1200 |
+| 2001 | USA     | TV         |    150 |
+| 2001 | USA     | TV         |    100 |
++------+---------+------------+--------+
+```
+
+窗口函数在一组查询行上执行类似于聚合的操作。然而，聚合操作将查询行组合成一个单一的结果行，而窗口函数为每一个查询行产生一个结果。
+
+- 对其进行函数求值的行称为当前行。
+- 与发生函数计算的当前行相关的查询行组成当前行的窗口。
+
+
+
+例如，使用销售信息表，这两个查询执行聚合操作，为作为一个组的所有行生成一个全局总和，并对每个国家进行分组：
+
+```mysql
+mysql> SELECT SUM(profit) AS total_profit
+       FROM sales;
++--------------+
+| total_profit |
++--------------+
+|         7535 |
++--------------+
+mysql> SELECT country, SUM(profit) AS country_profit
+       FROM sales
+       GROUP BY country
+       ORDER BY country;
++---------+----------------+
+| country | country_profit |
++---------+----------------+
+| Finland |           1610 |
+| India   |           1350 |
+| USA     |           4575 |
++---------+----------------+
+```
+
+相比之下，窗口函数不会将一组查询行折叠为单个输出行。相反，它们为每行产生一个结果。和前面的查询一样，下面的查询使用了 `SUM()`，但这次是作为一个窗口函数：
+
+```mysql
+mysql> SELECT
+         year, country, product, profit,
+         SUM(profit) OVER() AS total_profit,
+         SUM(profit) OVER(PARTITION BY country) AS country_profit
+       FROM sales
+       ORDER BY country, year, product, profit;
++------+---------+------------+--------+--------------+----------------+
+| year | country | product    | profit | total_profit | country_profit |
++------+---------+------------+--------+--------------+----------------+
+| 2000 | Finland | Computer   |   1500 |         7535 |           1610 |
+| 2000 | Finland | Phone      |    100 |         7535 |           1610 |
+| 2001 | Finland | Phone      |     10 |         7535 |           1610 |
+| 2000 | India   | Calculator |     75 |         7535 |           1350 |
+| 2000 | India   | Calculator |     75 |         7535 |           1350 |
+| 2000 | India   | Computer   |   1200 |         7535 |           1350 |
+| 2000 | USA     | Calculator |     75 |         7535 |           4575 |
+| 2000 | USA     | Computer   |   1500 |         7535 |           4575 |
+| 2001 | USA     | Calculator |     50 |         7535 |           4575 |
+| 2001 | USA     | Computer   |   1200 |         7535 |           4575 |
+| 2001 | USA     | Computer   |   1500 |         7535 |           4575 |
+| 2001 | USA     | TV         |    100 |         7535 |           4575 |
+| 2001 | USA     | TV         |    150 |         7535 |           4575 |
++------+---------+------------+--------+--------------+----------------+
+```
+
+查询中的每个窗口操作都包含一个 `OVER` 子句，指定如何将查询行划分为一组，以便由窗口函数处理。
+
+- 第一个 `OVER` 子句是空的，它将整个查询行集作为一个单一的分区。因此，窗口函数产生一个全局性的和，但对每一行都是如此。
+- 第二个 `OVER` 子句按国家划分行，产生每个分区（每个国家）的总和。该函数对每个分区的行产生这个总和。
+
+
+
+窗口函数只允许在选择列表和 `ORDER BY` 子句中使用。查询结果行由 `FORM` 子句确定，在 `WHERE`、`GROUP BY` 和 `HAVING` 处理之后，窗口执行发生在 `ORDER BY`、`LIMIT` 和 `SELECT DISTINCT` 之前。
+
+`OVER` 子句被允许用于许多聚合函数，因此可以作为窗口函数或非窗口函数使用，这取决于 `OVER` 子句是存在还是不存在：
+
+```
+AVG()
+BIT_AND()
+BIT_OR()
+BIT_XOR()
+COUNT()
+JSON_ARRAYAGG()
+JSON_OBJECTAGG()
+MAX()
+MIN()
+STDDEV_POP(), STDDEV(), STD()
+STDDEV_SAMP()
+SUM()
+VAR_POP(), VARIANCE()
+VAR_SAMP()
+```
+
+MySQL 还支持仅作为窗口函数使用的非聚合函数。对于这些，`OVER` 子句是强制性的：
+
+```
+CUME_DIST()
+DENSE_RANK()
+FIRST_VALUE()
+LAG()
+LAST_VALUE()
+LEAD()
+NTH_VALUE()
+NTILE()
+PERCENT_RANK()
+RANK()
+ROW_NUMBER()
+```
+
+作为这些非聚合窗口函数中的一个例子，这个查询使用 `ROW_NUMBER()`，产生其分区中每一行的行号。在这种情况下，行是按国家编号的。默认情况下，分区的行是无序的，行的编号是不确定的。要对分区行进行排序，请在窗口定义中包含一个 `ORDER BY` 子句。这个查询使用无序分区和有序分区（`row_num1` 和 `row_num2` 列）来说明省略和包含 `ORDER BY` 的区别：
+
+```mysql
+mysql> SELECT
+         year, country, product, profit,
+         ROW_NUMBER() OVER(PARTITION BY country) AS row_num1,
+         ROW_NUMBER() OVER(PARTITION BY country ORDER BY year, product) AS row_num2
+       FROM sales;
++------+---------+------------+--------+----------+----------+
+| year | country | product    | profit | row_num1 | row_num2 |
++------+---------+------------+--------+----------+----------+
+| 2000 | Finland | Computer   |   1500 |        2 |        1 |
+| 2000 | Finland | Phone      |    100 |        1 |        2 |
+| 2001 | Finland | Phone      |     10 |        3 |        3 |
+| 2000 | India   | Calculator |     75 |        2 |        1 |
+| 2000 | India   | Calculator |     75 |        3 |        2 |
+| 2000 | India   | Computer   |   1200 |        1 |        3 |
+| 2000 | USA     | Calculator |     75 |        5 |        1 |
+| 2000 | USA     | Computer   |   1500 |        4 |        2 |
+| 2001 | USA     | Calculator |     50 |        2 |        3 |
+| 2001 | USA     | Computer   |   1500 |        3 |        4 |
+| 2001 | USA     | Computer   |   1200 |        7 |        5 |
+| 2001 | USA     | TV         |    150 |        1 |        6 |
+| 2001 | USA     | TV         |    100 |        6 |        7 |
++------+---------+------------+--------+----------+----------+
+```
+
+
+
+如前所述，要使用窗口函数（或将聚合函数视为窗口函数），请在函数调用后包含一个 `OVER` 子句。`OVER` 子句有两种形式：
+
+```mysql
+over_clause:
+    {OVER (window_spec) | OVER window_name}
+```
+
+这两种形式都定义了窗口函数应该如何处理查询行。它们的区别在于窗口是直接在 `OVER` 子句中定义，还是通过对查询中其他地方定义的命名窗口的引用来提供：
+
+- 在第一种情况下，窗口规范直接出现在 `OVER`  子句中，在括号之间。
+- 在第二种情况下，*window_name* 是由查询中其他地方的 `WINDOW` 子句定义的窗口规范的名称。
+
+对于 `OVER (window_spec)`语法，窗口规范有几个部分，都是可选的：
+
+```mysql
+window_spec:
+    [window_name] [partition_clause] [order_clause] [frame_clause]
+```
+
+如果 `OVER()` 为空，则窗口由所有查询行组成，窗口函数使用所有行计算结果。否则，括号内的子句决定了哪些查询行被用来计算函数结果，以及如何对它们进行分区和排序：
+
+- *window_name*：由查询中其他地方的 `WINDOW` 子句定义的窗口名称。如果 *window_name* 本身出现在 `OVER` 子句中，它就完全定义了这个窗口。如果还给出了分区、排序或者框架子句，那么它们会修改对命名的窗口的解释。
+
+- *partition_clause*：`PARTITION BY` 子句表示如何将查询行分成组，可以理解为 `GROUP BY`。如果忽略 `PARTITION BY`，则只有一个由所有查询行组成的分区。
+
+  *partition_clause* 具有以下语法：
+
+  ```mysql
+  partition_clause:
+      PARTITION BY expr [, expr] ...
+  ```
+
+  标准 SQL 要求 `PARTITION BY` 后面只跟列名。MySQL 扩展允许表达式，而不仅仅是列名。例如，如果一个表包含一个名为 `ts` 的 `TIMESTAMP` 列，标准 SQL 允许 `PARTITION BY ts`，但不允许 `PARTITION BY HOUR(ts)`，而 MySQL 允许两者。
+
+- *order_clause*：`ORDER BY` 子句表明如何对每个分区的行进行排序。根据 `ORDER BY` 子句相等的分区行被认为是对等的。如果省略了 `ORDER BY`，分区行是无序的，不隐含处理顺序，所有的分区行都是对等的。
+
+  *order_clause* 具有以下语法：
+
+  ```mysql
+  order_clause:
+      ORDER BY expr [ASC|DESC] [, expr [ASC|DESC]] ...
+  ```
+
+  每个 `ORDER BY` 表达式后面可以选择 `ASC` 或 `DESC` 来表示排序方向。如果没有指定方向，默认是 `ASC`。对于升序排序，`NULL` 值优先排序，对于降序排序，最后排序。
+
+  窗口定义中的 `ORDER BY` 适用于各个分区。要将结果集作为一个整体进行排序，请在查询的顶层包含一个 `ORDER BY`。
+
+- *frame_clause*：框架是当前分区的一个子集，*frame_clause* 指定了如何定义这个子集。*frame_clause* 有很多自己的子句。详见下一节。
+
+
+
+### 11.2.2、窗口功能框架规范
+
+与窗口函数一起使用的窗口的定义可以包括一个框架子句。框架是当前分区的一个子集，框架子句指定了如何定义这个子集。
+
+框架是相对于当前行确定的，这使得框架可以根据当前行在其分区中的位置在分区中移动。例子：
+
+- 通过将一个框架定义为从分区开始到当前行的所有行，你可以计算每行的累加值。
+- 通过将一个框架定义为在当前行的两侧延伸 N 行，你可以计算滚动平均值。
+
+下面的查询演示了使用移动框架来计算每组按时间顺序排列的 `val` 的累加值，以及从当前行及其前后的行中计算的滚动平均值：
+
+```mysql
+mysql> SELECT
+         time, subject, val,
+         SUM(val) OVER (PARTITION BY subject ORDER BY time
+                        ROWS UNBOUNDED PRECEDING)
+           AS running_total,
+         AVG(val) OVER (PARTITION BY subject ORDER BY time
+                        ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING)
+           AS running_average
+       FROM observations;
++----------+---------+------+---------------+-----------------+
+| time     | subject | val  | running_total | running_average |
++----------+---------+------+---------------+-----------------+
+| 07:00:00 | st113   |   10 |            10 |          9.5000 |
+| 07:15:00 | st113   |    9 |            19 |         14.6667 |
+| 07:30:00 | st113   |   25 |            44 |         18.0000 |
+| 07:45:00 | st113   |   20 |            64 |         22.5000 |
+| 07:00:00 | xh458   |    0 |             0 |          5.0000 |
+| 07:15:00 | xh458   |   10 |            10 |          5.0000 |
+| 07:30:00 | xh458   |    5 |            15 |         15.0000 |
+| 07:45:00 | xh458   |   30 |            45 |         20.0000 |
+| 08:00:00 | xh458   |   25 |            70 |         27.5000 |
++----------+---------+------+---------------+-----------------+
+```
+
+对于 `running_average` 列，在第一行之前和最后一行之后都没有框架行。在这些情况下，`AVG()` 计算的是现有行的平均值。
+
+
+
+作为窗口函数的聚合函数对当前行框架中的行进行操作，这些非聚合窗口函数也是如此。
+
+```
+FIRST_VALUE()
+LAST_VALUE()
+NTH_VALUE()
+```
+
+标准 SQL 规定，对整个分区进行操作的窗口函数不应该有框架子句。MySQL 允许这类函数有一个框架子句，但会忽略它。即使指定了一个框架，这些函数也会使用整个分区：
+
+```
+CUME_DIST()
+DENSE_RANK()
+LAG()
+LEAD()
+NTILE()
+PERCENT_RANK()
+RANK()
+ROW_NUMBER()
+```
+
+
+
+如果给出框架子句，其语法是这样的：
+
+```
+frame_clause:
+    frame_units frame_extent
+
+frame_units:
+    {ROWS | RANGE}
+```
+
+在没有框架子句的情况下，默认的框架取决于是否存在 `ORDER BY` 子句，后面会讲。
+
+*frame_units* 值表示当前行与框架行之间的关系类型：
+
+- `ROWS`：框架由开始和结束行位置定义。偏移量是行号与当前行号之间的差异。
+- `RANGE`：框架是由数值范围内的行定义的。偏移量是行值与当前行值的差异。
+
+*frame_extent* 值表示框架的开始和结束点。你可以只指定框架的起点（在这种情况下，当前行是隐含的终点），或者使用 `BETWEEN` 来指定两个框架的端点：
+
+```
+frame_extent:
+    {frame_start | frame_between}
+
+frame_between:
+    BETWEEN frame_start AND frame_end
+
+frame_start, frame_end: {
+    CURRENT ROW
+  | UNBOUNDED PRECEDING
+  | UNBOUNDED FOLLOWING
+  | expr PRECEDING
+  | expr FOLLOWING
+}
+```
+
+对于 `BETWEEN` 语法，*frame_start* 不能出现在 *frame_end* 之后。
+
+允许的 *frame_start* 和 *frame_end* 值有这些含义：
+
+- `CURRENT ROW`：对于 `ROWS`，边界是当前行。对于 `RANGE`，边界是当前行的同级。
+
+- `UNBOUNDED PRECEDING`：边界是第一个分区行。
+
+- `UNBOUNDED FOLLOWING`：边界是最后一个分区行。
+
+- `expr PRECEDING`：对于 `ROWS`，边界是当前行之前的 *expr* 行。对于 `RANGE`，边界是值等于当前行值减去 *expr* 的行；如果当前行值是`NULL`，边界是该行的同级。
+
+- `expr FOLLOWING`：对于 `ROWS` 来说，边界是当前行之后的 *expr* 行。对于 `RANGE`，边界是值等于当前行值加上 *expr* 的行；如果当前行值是 `NULL`，边界是该行的同级。
+
+  对于 `expr PRECEDING`（和 `expr FOLLOWING`），*expr* 可以是一个 ? 参数标记（在准备好的语句中使用），一个非负数的数字字头，或者一个 `INTERVAL val unit` 形式的时间间隔。对于 `INTERVAL` 表达式，*val* 指定了非负的间隔值，*unit* 是一个关键字，表示该值应该被解释的单位。
+
+  数字或时间 *expr* 上的 `RANGE` 分别要求数字或时间表达式上的 `ORDER BY`。
+
+  有效的 `expr PRECEDING` 和 `expr FOLLOWING` 指标的例子：
+
+  ```mysql
+  10 PRECEDING
+  INTERVAL 5 DAY PRECEDING
+  5 FOLLOWING
+  INTERVAL '2:30' MINUTE_SECOND FOLLOWING
+  ```
+
+下面的查询演示了 `FIRST_VALUE()`、`LAST_VALUE()`  和 `NTH_VALUE()` 的两个实例：
+
+```mysql
+mysql> SELECT
+         time, subject, val,
+         FIRST_VALUE(val)  OVER w AS 'first',
+         LAST_VALUE(val)   OVER w AS 'last',
+         NTH_VALUE(val, 2) OVER w AS 'second',
+         NTH_VALUE(val, 4) OVER w AS 'fourth'
+       FROM observations
+       WINDOW w AS (PARTITION BY subject ORDER BY time
+                    ROWS UNBOUNDED PRECEDING);
++----------+---------+------+-------+------+--------+--------+
+| time     | subject | val  | first | last | second | fourth |
++----------+---------+------+-------+------+--------+--------+
+| 07:00:00 | st113   |   10 |    10 |   10 |   NULL |   NULL |
+| 07:15:00 | st113   |    9 |    10 |    9 |      9 |   NULL |
+| 07:30:00 | st113   |   25 |    10 |   25 |      9 |   NULL |
+| 07:45:00 | st113   |   20 |    10 |   20 |      9 |     20 |
+| 07:00:00 | xh458   |    0 |     0 |    0 |   NULL |   NULL |
+| 07:15:00 | xh458   |   10 |     0 |   10 |     10 |   NULL |
+| 07:30:00 | xh458   |    5 |     0 |    5 |     10 |   NULL |
+| 07:45:00 | xh458   |   30 |     0 |   30 |     10 |     30 |
+| 08:00:00 | xh458   |   25 |     0 |   25 |     10 |     30 |
++----------+---------+------+-------+------+--------+--------+
+```
+
+每个函数都使用当前框架中的行，根据所示的窗口定义，从第一个分区行延伸到当前框架。对于 `NTH_VALUE()` 的调用，当前框架并不总是包括所请求的行；在这种情况下，返回值是 `NULL`。
+
+
+
+在没有框架子句的情况下，默认框架取决于是否存在 `ORDER BY` 子句：
+
+- 有 `ORDER BY`：默认的框架包括从分区开始到当前行的记录，包括当前行的所有同级别的记录（根据 `ORDER BY` 子句，等于当前行的记录）。默认情况下等同于这个框架规范：
+
+  ```mysql
+  RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+  ```
+
+- 没有 `ORDER BY`：默认的框架包括所有分区行（因为在没有 `ORDER BY`的情况下，所有分区行都是同行）。默认情况等同于这个框架规范：
+
+  ```mysql
+  RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+  ```
+
+因为默认的框架因 `ORDER BY` 的存在与否而不同，在查询中加入 `ORDER BY` 以获得确定的结果可能会改变结果。（例如，由 `SUM()` 产生的值可能会改变）。为了获得相同的结果，但按 `ORDER BY` 排序，请提供一个明确的框架规范，无论 `ORDER BY` 是否存在都要使用。
+
+
+
+当当前行值为 `NULL` 时，框架规范的含义可能是不明显的。假设是这种情况，这些例子说明了各种框架规范的应用：
+
+- ```mysql
+  ORDER BY X ASC RANGE BETWEEN 10 FOLLOWING AND 15 FOLLOWING
+  ```
+
+  这个框架从 `NULL` 开始，到 `NULL` 结束，因此只包括数值为 `NULL` 的记录。
+
+- ```mysql
+  ORDER BY X ASC RANGE BETWEEN 10 FOLLOWING AND UNBOUNDED FOLLOWING
+  ```
+
+  这个框架从 `NULL` 开始，到分区的末尾为止。因为 `ASC` 排序将 `NULL` 值放在前面，所以框架是整个分区。
+
+- ```mysql
+  ORDER BY X DESC RANGE BETWEEN 10 FOLLOWING AND UNBOUNDED FOLLOWING
+  ```
+
+  这个框架从 `NULL` 开始，在分区的末端停止。因为 `DESC` 排序将 `NULL` 值放在最后，所以框架中只有 `NULL` 值。
+
+- ```mysql
+  ORDER BY X ASC RANGE BETWEEN 10 PRECEDING AND UNBOUNDED FOLLOWING
+  ```
+
+  这个框架从 `NULL` 开始，到分区的末尾为止。因为 `ASC` 排序将 `NULL` 值放在前面，所以框架是整个分区。
+
+- ```mysql
+  ORDER BY X ASC RANGE BETWEEN 10 PRECEDING AND 10 FOLLOWING
+  ```
+
+  这个框架从 `NULL` 开始，到 `NULL` 结束，因此只包括数值为 `NULL` 的记录。
+
+- ```mysql
+  ORDER BY X ASC RANGE BETWEEN 10 PRECEDING AND 1 PRECEDING
+  ```
+
+  这个框架从 `NULL` 开始，到 `NULL` 结束，因此只包括数值为 `NULL` 的记录。
+
+- ```mysql
+  ORDER BY X ASC RANGE BETWEEN UNBOUNDED PRECEDING AND 10 FOLLOWING
+  ```
+
+  这个框架从分区的开始开始，到数值为 `NULL` 的行为止。因为 `ASC` 排序将 `NULL` 值放在首位，所以框架中只有 `NULL` 值。
+
+
+
+### 11.2.3、窗口的命名
+
+在 `OVER` 子句中，可以定义窗口并赋予其名称，以便对其进行引用。要做到这一点，需要使用 `WINDOW` 子句。如果在查询中出现，`WINDOW` 子句会在 `HAVING` 子句和 `ORDER BY` 子句的位置之间，并且有这样的语法：
+
+```mysql
+WINDOW window_name AS (window_spec)
+    [, window_name AS (window_spec)] ...
+```
+
+对于每个窗口定义，*window_name* 是窗口名称，而 *window_spec* 是在 `OVER` 子句的括号中给出的相同类型的窗口规范：
+
+```mysql
+window_spec:
+    [window_name] [partition_clause] [order_clause] [frame_clause]
+```
+
+
+
+`WINDOW` 子句在查询中非常有用，否则多个 `OVER` 子句会定义同一个窗口。相反，你可以只定义一次窗口，给它一个名字，然后在 `OVER` 子句中引用这个名字。考虑一下这个查询，它多次定义了同一个窗口：
+
+```mysql
+SELECT
+  val,
+  ROW_NUMBER() OVER (ORDER BY val) AS 'row_number',
+  RANK()       OVER (ORDER BY val) AS 'rank',
+  DENSE_RANK() OVER (ORDER BY val) AS 'dense_rank'
+FROM numbers;
+```
+
+通过使用 `WINDOW` 来定义一次窗口，并在 `OVER` 子句中用名称来引用窗口，可以更简单地编写查询：
+
+```mysql
+SELECT
+  val,
+  ROW_NUMBER() OVER w AS 'row_number',
+  RANK()       OVER w AS 'rank',
+  DENSE_RANK() OVER w AS 'dense_rank'
+FROM numbers
+WINDOW w AS (ORDER BY val);
+```
+
+
+
+命名窗口还可以更容易地试验窗口定义，以查看对查询结果的影响。只需要修改 `window` 子句中的窗口定义，而不需要修改多个 `OVER` 子句定义。
+
+如果 `OVER` 子句使用 `OVER(window_name ...)` 而不是 `OVER window_name` ，那么可以通过增加其他子句来修改命名的窗口。例如，这个查询定义了一个包括分区的窗口，并在 `OVER` 子句中使用 `ORDER BY` 以不同的方式修改该窗口：
+
+```mysql
+SELECT
+  DISTINCT year, country,
+  FIRST_VALUE(year) OVER (w ORDER BY year ASC) AS first,
+  FIRST_VALUE(year) OVER (w ORDER BY year DESC) AS last
+FROM sales
+WINDOW w AS (PARTITION BY country);
+```
+
+`OVER` 子句只能向命名的窗口添加属性，不能修改它们。如果命名的窗口定义包括分区、排序或框架属性，那么引用窗口名称的 `OVER` 子句也不能包括同种属性，否则会发生错误：
+
+- 这个结构是允许的，因为窗口定义和引用的 `OVER` 子句不包含同种属性：
+
+  ```mysql
+  OVER (w ORDER BY country)
+  ... WINDOW w AS (PARTITION BY country)
+  ```
+
+- 这个结构是不允许的，因为 `OVER` 子句为一个已经有 `PARTITION BY` 的命名窗口指定了 `PARTITION BY`：
+
+  ```mysql
+  OVER (w PARTITION BY year)
+  ... WINDOW w AS (PARTITION BY country)
+  ```
+
+
+
+一个命名的窗口的定义本身可以以 *window_name* 开始。在这种情况下，允许向前和向后引用，但不允许循环：
+
+- 这是被允许的；它包含向前和向后的引用，但没有循环：
+
+  ```mysql
+  WINDOW w1 AS (w2), w2 AS (), w3 AS (w1)
+  ```
+
+- 这是不允许的，因为它包含一个循环：
+
+  ```mysql
+  WINDOW w1 AS (w2), w2 AS (w3), w3 AS (w1)
+  ```
+
+
+
+### 11.2.4、窗口函数介绍
+
+本节描述非聚合窗口函数，对于查询中的每一行，使用与该行相关的行执行计算。大多数聚合函数也可以用作窗口函数。
+
+| 名称             | 描述                             |
+| ---------------- | -------------------------------- |
+| `CUME_DIST()`    | 累计分布值                       |
+| `DENSE_RANK()`   | 当前行在其分区内的排名，没有间隙 |
+| `FIRST_VALUE()`  | 窗口框架第一行的参数值           |
+| `LAG()`          | 分区内滞后于当前行的参数值       |
+| `LAST_VALUE()`   | 窗口框架最后一行的参数值         |
+| `LEAD()`         | 分区内领先于当前行的参数值       |
+| `NTH_VALUE()`    | 窗口框架第 N 行的参数值          |
+| `NTILE()`        | 当前行在其分区中的桶号           |
+| `PERCENT_RANK()` | 百分比排名值                     |
+| `RANK()`         | 当前行在其分区中的排名，有空隙   |
+| `ROW_NUMBER()`   | 当前行在其分区中的编号           |
+
+在下面的函数描述中，*over_clause* 代表 `OVER` 子句，在下一节会介绍到。一些窗口函数允许使用 *null_treatment* 子句来指定在计算结果时如何处理 NULL 值。这个子句是可选的。它是 SQL 标准的一部分，但 MySQL 的实现只允许 `RESPECT NULLS`（这也是默认的）。这意味着在计算结果时会考虑空值。会解析 `IGNORE NULLS`，但会产生错误。
+
+
+
+#### CUME_DIST() 
+
+语法：
+
+```mysql
+CUME_DIST() over_clause
+```
+
+返回一组数值中的累积分布；也就是说，分区值小于或等于当前行的值的百分比。这表示在窗口分区的窗口排序中，在当前行之前或同级的行数除以窗口分区的总行数。返回值的范围从 0 到 1。
+
+这个函数应该与 `ORDER BY` 一起使用，以按照所需的顺序对分区行进行排序。如果没有 `ORDER BY`，所有行都是对等的，值为 `N/N = 1`，其中N 是分区大小。
+
+下面的查询显示：对于 `val` 列中的一组数值、每一行的 `CUME_DIST()` 值以及由类似的 `PERCENT_RANK()` 函数返回的百分比排名值。作为参考，该查询还使用 `ROW_NUMBER()` 显示行号：
+
+```mysql
+mysql> SELECT
+         val,
+         ROW_NUMBER()   OVER w AS 'row_number',
+         CUME_DIST()    OVER w AS 'cume_dist',
+         PERCENT_RANK() OVER w AS 'percent_rank'
+       FROM numbers
+       WINDOW w AS (ORDER BY val);
++------+------------+--------------------+--------------+
+| val  | row_number | cume_dist          | percent_rank |
++------+------------+--------------------+--------------+
+|    1 |          1 | 0.2222222222222222 |            0 |
+|    1 |          2 | 0.2222222222222222 |            0 |
+|    2 |          3 | 0.3333333333333333 |         0.25 |
+|    3 |          4 | 0.6666666666666666 |        0.375 |
+|    3 |          5 | 0.6666666666666666 |        0.375 |
+|    3 |          6 | 0.6666666666666666 |        0.375 |
+|    4 |          7 | 0.8888888888888888 |         0.75 |
+|    4 |          8 | 0.8888888888888888 |         0.75 |
+|    5 |          9 |                  1 |            1 |
++------+------------+--------------------+--------------+
+```
+
+在此示例中，`val` 按从 1 到 5 的升序排序。
+
+对于第一行，函数查找结果集中的行数，其值小于或等于 1 。结果为 2。然后 `CUME_DIST()` 函数将 2 除以总行数 9：2/9。结果是 0.2222222222222222。相同的逻辑应用于第二行。
+
+对于第三行，函数查找值小于或等于 2 的行数。有 3 行。然后 `CUME_DIST()` 函数的结果是：3/9 = 0.3333333333333333。
+
+相同的计算逻辑应用于其余行。
+
+
+
+#### DENSE_RANK() 
+
+语法：
+
+```mysql
+DENSE_RANK() over_clause
+```
+
+返回当前行在其分区中的排名，没有空隙。同行被认为是并列的，获得相同的排名。这个函数将连续的排名分配给同级组；结果是大小大于 1 的组不会产生非连续的等级数字。
+
+这个函数应该和 `ORDER BY` 一起使用，将分区行排序到所需的顺序。没有 `ORDER BY`，所有的行都是同行。
+
+```mysql
+mysql>SELECT
+        val,
+        DENSE_RANK() OVER (
+            ORDER BY val
+        ) my_rank
+      FROM
+        rankDemo; 
++------+---------+
+| val  | my_rank |
++------+---------+
+|    1 |       1 |
+|    2 |       2 |
+|    2 |       2 |
+|    3 |       3 |
+|    4 |       4 |
+|    4 |       4 |
+|    5 |       5 |
++------+---------+
+```
+
+
+
+#### FIRST_VALUE()
+
+语法：
+
+```mysql
+FIRST_VALUE(expr) [null_treatment] over_clause
+```
+
+从窗口框架的第一行返回 *expr* 的值。
+
+下面的查询演示了 `FIRST_VALUE()`、`LAST_VALUE()` 和两个 `NTH_VALUE()` 实例：
+
+```mysql
+mysql> SELECT
+         time, subject, val,
+         FIRST_VALUE(val)  OVER w AS 'first',
+         LAST_VALUE(val)   OVER w AS 'last',
+         NTH_VALUE(val, 2) OVER w AS 'second',
+         NTH_VALUE(val, 4) OVER w AS 'fourth'
+       FROM observations
+       WINDOW w AS (PARTITION BY subject ORDER BY time
+                    ROWS UNBOUNDED PRECEDING);
++----------+---------+------+-------+------+--------+--------+
+| time     | subject | val  | first | last | second | fourth |
++----------+---------+------+-------+------+--------+--------+
+| 07:00:00 | st113   |   10 |    10 |   10 |   NULL |   NULL |
+| 07:15:00 | st113   |    9 |    10 |    9 |      9 |   NULL |
+| 07:30:00 | st113   |   25 |    10 |   25 |      9 |   NULL |
+| 07:45:00 | st113   |   20 |    10 |   20 |      9 |     20 |
+| 07:00:00 | xh458   |    0 |     0 |    0 |   NULL |   NULL |
+| 07:15:00 | xh458   |   10 |     0 |   10 |     10 |   NULL |
+| 07:30:00 | xh458   |    5 |     0 |    5 |     10 |   NULL |
+| 07:45:00 | xh458   |   30 |     0 |   30 |     10 |     30 |
+| 08:00:00 | xh458   |   25 |     0 |   25 |     10 |     30 |
++----------+---------+------+-------+------+--------+--------+
+```
+
+每个函数都使用当前框架中的行，根据所示的窗口定义，从第一个分区行延伸到当前行。对于 `NTH_VALUE()` 的调用，当前框架并不总是包括所请求的行；在这种情况下，返回值是 `NULL`。
+
+
+
+#### LAG()
+
+```mysql
+LAG(expr [, N[, default]]) [null_treatment] over_clause
+```
+
+返回 *expr* 的值，该值来自于在其分区内滞后于（先于）当前行的 *N* 行的行。如果没有这样的行，返回值为 *default*。例如，如果 *N* 是 3，返回的 *default* 值为前两行。如果缺少 *N* 或 *default*，默认值分别为 1 和 `NULL`。
+
+*N* 必须是一个文本非负整数。如果 *N* 为 0，*expr* 将被评估为当前行。
+
+从 MySQL 8.0.22 开始，*N* 不能是 `NULL`。此外，它现在必须是 1 到 2^63^ 范围内的一个整数，包括以下任何一种形式：
+
+- 无符号整数常量文字
+- 位置参数标记（?）
+- 用户定义的变量
+- 存储例程中的局部变量
+
+`LAG()`（和类似的 `LEAD()` 函数）经常被用来计算行之间的差异。下面的查询显示了一组按时间顺序排列的观测值，对于每一个观测值，都显示了相邻行的 `LAG()`和 `LEAD()` 值，以及当前行和相邻行的差异：
+
+```mysql
+mysql> SELECT
+         t, val,
+         LAG(val)        OVER w AS 'lag',
+         LEAD(val)       OVER w AS 'lead',
+         val - LAG(val)  OVER w AS 'lag diff',
+         val - LEAD(val) OVER w AS 'lead diff'
+       FROM series
+       WINDOW w AS (ORDER BY t);
++----------+------+------+------+----------+-----------+
+| t        | val  | lag  | lead | lag diff | lead diff |
++----------+------+------+------+----------+-----------+
+| 12:00:00 |  100 | NULL |  125 |     NULL |       -25 |
+| 13:00:00 |  125 |  100 |  132 |       25 |        -7 |
+| 14:00:00 |  132 |  125 |  145 |        7 |       -13 |
+| 15:00:00 |  145 |  132 |  140 |       13 |         5 |
+| 16:00:00 |  140 |  145 |  150 |       -5 |       -10 |
+| 17:00:00 |  150 |  140 |  200 |       10 |       -50 |
+| 18:00:00 |  200 |  150 | NULL |       50 |      NULL |
++----------+------+------+------+----------+-----------+
+```
+
+在本例中，`LAG()` 和 `LEAD()` 调用的是默认的 *N* 和 *default*，值为 1 和 `NULL`。
+
+第一行显示了当没有 `LAG()` 的前一行时会发生什么:函数返回默认值（在本例中为 `NULL`）。当 `LEAD()` 没有下一行时，最后一行显示了相同的内容。
+
+
+
+`LAG()` 和 `LEAD()` 也是为了计算总和而不是差异。考虑这个数据集，它包含斐波那契数列的前几个数字：
+
+```mysql
+mysql> SELECT n FROM fib ORDER BY n;
++------+
+| n    |
++------+
+|    1 |
+|    1 |
+|    2 |
+|    3 |
+|    5 |
+|    8 |
++------+
+```
+
+下面的查询显示了与当前行相邻的行的 `LAG()` 和 `LEAD()` 值。它还使用这些函数将前面和后面的行的值添加到当前行的值中。其效果是生成斐波那契数列中的下一个数字，以及其后的数字：
+
+```mysql
+mysql> SELECT
+         n,
+         LAG(n, 1, 0)      OVER w AS 'lag',
+         LEAD(n, 1, 0)     OVER w AS 'lead',
+         n + LAG(n, 1, 0)  OVER w AS 'next_n',
+         n + LEAD(n, 1, 0) OVER w AS 'next_next_n'
+       FROM fib
+       WINDOW w AS (ORDER BY n);
++------+------+------+--------+-------------+
+| n    | lag  | lead | next_n | next_next_n |
++------+------+------+--------+-------------+
+|    1 |    0 |    1 |      1 |           2 |
+|    1 |    1 |    2 |      2 |           3 |
+|    2 |    1 |    3 |      3 |           5 |
+|    3 |    2 |    5 |      5 |           8 |
+|    5 |    3 |    8 |      8 |          13 |
+|    8 |    5 |    0 |     13 |           8 |
++------+------+------+--------+-------------+
+```
+
+生成斐波那契数字初始集的一种方法是使用递归公共表表达式。
+
+从 MySQL 8.0.22 开始，你不能为这个函数的行参数使用一个负值。
+
+
+
+#### LAST VALUE()
+
+```mysql
+LAST_VALUE(expr) [null_treatment] over_clause
+```
+
+返回窗口框架最后一行中 *expr* 的值。
+
+例子见 `FIRST_VALUE()` 函数描述。
+
+
+
+#### LEAD()
+
+```mysql
+LEAD(expr [, N[, default]]) [null_treatment] over_clause
+```
+
+返回 *expr* 的值，该值来自于在其分区中领先（跟随）当前行 *N* 行的行。如果没有这样的行，返回值为 *defalut*。例如，如果 *N* 是 3，那么返回的 *default* 值为后两行。如果缺少 *N* 或 *default*，默认值分别为 1 和 `NULL`。
+
+*N* 必须是一个文本非负整数。如果 *N* 是 0，*expr* 将被评估为当前行。
+
+从 MySQL 8.0.22 开始，*N* 不能是 `NULL`。此外，它现在必须是 1 到 2^63^ 范围内的一个整数，包括以下任何一种形式：
+
+- 无符号整数常量文字
+- 位置参数标记（?）
+- 用户定义的变量
+- 存储例程中的局部变量
+
+有关示例，请参阅 `LAG()` 函数描述。
+
+从 MySQL 8.0.22 开始，你不能为这个函数的行参数使用一个负值。
+
+
+
+#### NTH_VALUE()
+
+```mysql
+NTH_VALUE(expr, N) [from_first_last] [null_treatment] over_clause
+```
+
+从窗口框架的第 *N* 行返回 *expr* 的值。如果没有这样的行，则返回值为空。
+
+*N* 必须是一个文本正整数。
+
+*from_first_last* 是 SQL 标准的一部分，但 MySQL 的实现只允许 `FROM FIRST`（这也是默认的）。这意味着计算从窗口的第一行开始。`FROM LAST` 会被解析，但会产生错误。为了获得与 `FROM LAST` 相同的效果（从窗口的最后一行开始计算），使用 `ORDER BY` 以相反的顺序排序。
+
+有关示例，请参见 `FIRST_VALUE()` 函数描述。
+
+在 MySQL 8.0.22 及以后的版本中，你不能为这个函数的行参数使用 `NULL`。
+
+
+
+#### NTILE()
+
+```mysql
+NTILE(N) over_clause
+```
+
+将一个分区划分为 *N* 个组（桶），为分区中的每一行分配其桶号，并返回其分区中当前行的桶号。例如，如果 *N* 是4，`NTILE()` 将行分成四个桶。如果 *N* 是100，`NTILE()` 将行分成 100 个桶。
+
+*N* 必须是一个文本正整数。桶号返回值的范围是 1 到 *N*。
+
+从 MySQL 8.0.22 开始，*N* 不能是 `NULL`。此外，它现在必须是 1 到 2^63^ 范围内的一个整数，包括以下任何一种形式：
+
+- 无符号整数常量文字
+- 位置参数标记（?）
+- 用户定义的变量
+- 存储例程中的局部变量
+
+这个函数应该与 `ORDER BY` 一起使用，以按照所需的顺序对分区行进行排序。
+
+下面的查询显示，对于 `val` 列中的一组数值，将行分为两组或四组后得到的百分位数值。作为参考，该查询也使用 `ROW_NUMBER()` 显示行数：
+
+```mysql
+mysql> SELECT
+         val,
+         ROW_NUMBER() OVER w AS 'row_number',
+         NTILE(2)     OVER w AS 'ntile2',
+         NTILE(4)     OVER w AS 'ntile4'
+       FROM numbers
+       WINDOW w AS (ORDER BY val);
++------+------------+--------+--------+
+| val  | row_number | ntile2 | ntile4 |
++------+------------+--------+--------+
+|    1 |          1 |      1 |      1 |
+|    1 |          2 |      1 |      1 |
+|    2 |          3 |      1 |      1 |
+|    3 |          4 |      1 |      2 |
+|    3 |          5 |      1 |      2 |
+|    3 |          6 |      2 |      3 |
+|    4 |          7 |      2 |      3 |
+|    4 |          8 |      2 |      4 |
+|    5 |          9 |      2 |      4 |
++------+------------+--------+--------+
+```
+
+从 MySQL 8.0.22 开始，`NTILE(NULL)` 结构不再被允许。
+
+
+
+#### PERCENT_RANK()
+
+```mysql
+PERCENT_RANK() over_clause
+```
+
+返回小于当前行中值的分区值的百分比，不包括最高值。返回值的范围是 0 到 1，代表行的相对等级，计算的结果是这个公式，其中 *rank* 是行的等级（`RANK()` 函数的返回值），*rows* 是分区行的数量：
+
+```mysql
+(rank - 1) / (rows - 1)
+```
+
+这个函数应该与 `ORDER BY` 一起使用，以按照所需的顺序对分区行进行排序。如果没有 `ORDER BY`，所有行都是对等的。
+
+有关示例，请参见 `CUME_DIST()` 函数说明。
+
+
+
+#### RANK()
+
+```mysql
+RANK() over_clause
+```
+
+返回当前行在其分区中的排名，有空隙。同行被认为是并列的，获得相同的排名。如果存在大小大于 1 的组，这个函数不会给同级组分配连续的排名；结果是不连续的等级数字。
+
+这个函数应该和 `ORDER BY` 一起使用，将分区行排序到所需的顺序。没有 `ORDER BY`，所有的行都是同行。
+
+下面的查询显示了 `RANK()` 和 `DENSE_RANK()` 之间的区别，前者产生有间隙的排名，后者产生没有间隙的排名。该查询显示了 `val` 列中一组数值的每个成员的排名值，其中包含一些重复的数值，该查询还使用 `ROW_NUMBER()` 显示行数：
+
+```mysql
+mysql> SELECT
+         val,
+         ROW_NUMBER() OVER w AS 'row_number',
+         RANK()       OVER w AS 'rank',
+         DENSE_RANK() OVER w AS 'dense_rank'
+       FROM numbers
+       WINDOW w AS (ORDER BY val);
++------+------------+------+------------+
+| val  | row_number | rank | dense_rank |
++------+------------+------+------------+
+|    1 |          1 |    1 |          1 |
+|    1 |          2 |    1 |          1 |
+|    2 |          3 |    3 |          2 |
+|    3 |          4 |    4 |          3 |
+|    3 |          5 |    4 |          3 |
+|    3 |          6 |    4 |          3 |
+|    4 |          7 |    7 |          4 |
+|    4 |          8 |    7 |          4 |
+|    5 |          9 |    9 |          5 |
++------+------------+------+------------+
+```
+
+
+
+#### ROW_NUMBER()
+
+```mysql
+ROW_NUMBER() over_clause
+```
+
+返回其分区中当前行的编号。行号的范围从 1 到分区行数。
+
+`ORDER BY` 影响行编号的顺序。如果没有 `ORDER BY`，行编号是不确定性的。
+
+`ROW_NUMBER()` 给同行分配不同的行号。要给同行分配相同的值，请使用 `RANK()` 或 `DENSE_RANK()` 。有关例子，请参见 `RANK()` 函数描述。
+
+
+
+## 11.3、时间日期相关
+
+### 11.3.1、时间差
+
+#### PERIOD_DIFF()
+
+`PERIOD_DIFF()` 函数返回两个日期之间的月份差。
+
+**语法：**
+
+```sql
+PERIOD_DIFF(startDate,endDate)
+```
+
+*startDate* 和 *endDate* 参数是合法的日期或日期/时间表达式。
+
+**示例：**
+
+```sql
+SELECT PERIOD_DIFF(201710, 201703);
+```
+
+![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/12312312.png)
+
+如果小月份放前面，那么返回负数 -1。
+
+
+
+#### DATEDIFF() 
+
+`DATEDIFF()` 函数返回两个日期之间的天数。
+
+**语法：**
+
+```mysql
+DATEDIFF(date1,date2)
+```
+
+*date1* 和 *date2* 参数是合法的日期或日期/时间表达式。
+
+**实例：**
+
+```MYSQL
+SELECT DATEDIFF(DATE_FORMAT(NOW(), '%Y-%m-%d'),DATE_FORMAT('2018-09-10','%Y-%m-%d'))
+```
+
+结果：
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180917110456408370.png" alt="技术分享图片" />
+
+
+
+#### TIMESTAMPDIFF()
+
+根据单位返回时间差，对于传入的 *begin* 和 *end* 不需要相同的数据结构，可以存在一个为 Date 一个 DateTime。
+
+**语法：**
+
+```mysql
+TIMESTAMPDIFF(unit, begin, end);
+```
+
+unit 参数是确定 (*end*-*begin*) 的结果的单位，表示为整数。 以下是有效单位：
+
+- MICROSECOND  微秒
+- SECOND  秒 
+- MINUTE  分钟 
+- HOUR  小时 
+- DAY  天 
+- WEEK  周 
+- MONTH  月份 
+- QUARTER  
+- YEAR  年份
+
+**实例：**
+
+2017-05-01 距现在多少天：
+
+```MYSQL
+SELECT TIMESTAMPDIFF(DAY,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
+```
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180917110456532385.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
+
+2017-05-01 距现在多少年：
+
+```mysql
+SELECT TIMESTAMPDIFF(YEAR,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
+```
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/99f5964ea791f1ca0521e3fb4bc1ab96.png" alt="img" style="zoom:80%;FLOAT:LEFT"  />
+
+2017-05-01 距现在多少月：
+
+```mysql
+SELECT TIMESTAMPDIFF(MONTH,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
+```
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180917110456254083.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
+
+
+
+### 11.3.2、当前日期
+
+```mysql
+SELECT NOW(),CURDATE(),CURTIME();
+```
+
+结果类似：
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/755765-20190227093739650-528895218.png" alt="img" style="zoom:80%;float:left" />
+
+
+
+### 11.3.3、求几天前几天后
+
+`DATE_SUB()` 函数从日期减去指定的时间间隔。
+
+> `DATE_ADD()` 函数向日期添加指定的时间间隔。两种方法使用方式相同。
+
+**语法：**
+
+```mysql
+DATE_SUB(date,INTERVAL expr type)
+```
+
+*date* 参数是合法的日期表达式。*expr* 参数是您希望添加的时间间隔。*type* 参数可以是下列值：
+
+- MICROSECOND
+- SECOND
+- MINUTE
+- HOUR
+- DAY
+- WEEK
+- MONTH
+- QUARTER
+- YEAR
+
+**实例：**
+
+获取前一天
+
+```mysql
+SELECT DATE_SUB(CURDATE(),INTERVAL 1 DAY);
+```
+
+当前日期 2018-09-17，结果：
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180917110455670136.png" alt="技术分享图片" style="zoom:80%;float:left" />
+
+获取后一天
+
+```mysql
+SELECT DATE_SUB(CURDATE(),INTERVAL -1 DAY);
+```
+
+当前日期 2018-09-17，结果：
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180917110455998240.png" alt="技术分享图片" style="zoom:80%;float:left" />
+
+
+
+### 11.3.4、倒数第几天
+
+`LAST_DAY()` 返回某月最后一天
+
+```mysql
+LAST_DAY(<日期>) #最后一天
+LAST_DAY(<日期>)-1 #倒数第二天
+LAST_DAY(<日期>)-2 #倒数第三天
+```
+
+
+
+### 11.3.5、提取年月日
+
+`EXTRACT()` 函数用于返回日期/时间的单独部分，比如年、月、日、小时、分钟等等。
+
+语法：
+
+```mysql
+EXTRACT(unit FROM <日期>)
+```
+
+*date* 参数是合法的日期表达式。*unit* 参数可以是下列的值：
+
+- MICROSECOND（微秒：一百万分之一秒）
+- SECOND
+- MINUTE
+- HOUR
+- DAY
+- WEEK
+- MONTH
+- QUARTER
+- YEAR
+- SECOND_MICROSECOND
+- MINUTE_MIRCROSECOND
+- MINUTE_SECOND
+- HOUR_MICROSECOND
+- HOUR_SECOND
+- HOUR_MINUTE
+
+
+
+### 11.3.6、日期转换
+
+#### DATE_FORMAT()
+
+MySQL 使用 `DATE_FORMAT()` 函数实现日期格式的转换，即日期类型转字符串类型，`DATE_FORMAT(date,format)` 函数按照表达式 *format* 的要求显示日期 *date*，其语法格式如下：
+
+```sql
+DATE_FORMAT(date,format)
+```
+
+*date* 为合法的日期；*format* 为规定日期/时间的输出格式。
+
+可以使用的格式有：
+
+| 格式 | 描述                                           |
+| ---- | ---------------------------------------------- |
+| `%a` | 缩写星期名                                     |
+| `%b` | 缩写月名                                       |
+| `%c` | 月，数值                                       |
+| `%D` | 带有英文前缀的月中的天                         |
+| `%d` | 月的天，数值(00-31)                            |
+| `%e` | 月的天，数值(0-31)                             |
+| `%f` | 微秒                                           |
+| `%H` | 小时 (00-23)                                   |
+| `%h` | 小时 (01-12)                                   |
+| `%I` | 小时 (01-12)                                   |
+| `%i` | 分钟，数值 (00-59)                             |
+| `%j` | 年的天 (001-366)                               |
+| `%k` | 小时 (0-23)                                    |
+| `%M` | 月名                                           |
+| `%m` | 月，数值 (00-12)                               |
+| `%p` | AM 或 PM                                       |
+| `%r` | 时间，12-小时（hh:mm:ss AM 或 PM）             |
+| `%S` | 秒 (00-59)                                     |
+| `%s` | 秒 (00-59)                                     |
+| `%T` | 时间, 24-小时 (hh:mm:ss)                       |
+| `%U` | 周 (00-53) 星期日是一周的第一天                |
+| `%u` | 周 (00-53) 星期一是一周的第一天                |
+| `%V` | 周 (01-53) 星期日是一周的第一天，与 %X 使用    |
+| `%v` | 周 (01-53) 星期一是一周的第一天，与 %x 使用    |
+| `%W` | 星期名                                         |
+| `%w` | 周的天 （0=星期日, 6=星期六）                  |
+| `%X` | 年，其中的星期日是周的第一天，4 位，与 %V 使用 |
+| `%x` | 年，其中的星期一是周的第一天，4 位，与 %v 使用 |
+| `%Y` | 年，4 位                                       |
+| `%y` | 年，2 位                                       |
+
+**示例：**使用 `DATE_FORMAT()` 函数实现日期格式的转换。
+
+```mysql
+SELECT DATE_FORMAT(NOW(),'%Y年%m月%d日 %H时%i分%s秒');
+```
+
+**执行结果：**
+
+```
+2019年01月17日 19时05分05秒
+```
+
+
+
+#### STR_TO_DATE()
+
+使用 `STR_TO_DATE()` 函数实现字符串转换日期类型，`STR_TO_DATE(str,format)` 函数是将时间格式的字符串 *str*，按照所提供的显示格式 *format* 转换为 DATETIME 类型的值。
+
+**示例：**使用 `STR_TO_DATE()` 函数，将上面示例的结果（字符串类型）转换回日期类型。
+
+```mysql
+SELECT STR_TO_DATE('2019年01月17日 19时05分05秒','%Y年%m月%d日 %H时%i分%s秒');
+```
+
+**执行结果：**
+
+```
+2019-01-17 19:05:05
+```
+
+ 
+
+## 11.4、字符串相关
+
+### 11.4.1、拆分与拼接
+
+**SUBSTRING(string, position, length)**
+
+`SUBSTRING()` 函数从特定位置开始的字符串返回一个给定长度的子字符串。 MySQL 提供了各种形式的子串功能。
+
+语法：
+
+```mysql
+SUBSTRING(string,position,length);
+SUBSTRING(string FROM position FOR length);
+```
+
+参数：
+
+- *string*：要提取的字符串
+- *position*：起始下标，可以是负数
+- *length*：长度
+
+> 在 MySQL 中，下标索引是从 1 开始的，而不是像 Java 中从 0 开始。
+
+
+
+**CONCAT(str1, str2, …)**
+
+返回连接参数产生的字符串，一个或多个待拼接的内容，任意一个为 `NULL` 则返回值为 `NULL`。
+
+
+
+**CONCAT_WS(separator, str1, str2, …)**
+
+`CONCAT_WS()` 代表 CONCAT With Separator ，是 `CONCAT()` 的特殊形式。 第一个参数 *separator* 是其它参数的分隔符。分隔符的位置放在要连接的两个字符串之间。分隔符可以是一个字符串，也可以是其它参数。如果分隔符为 `NULL`，则结果为 `NULL`。函数会忽略任何分隔符参数后的 `NULL` 值。
+
+
+
+### 11.4.2、字符串转数字
+
+**CAST()**
+
+`CAST()` 函数将任何类型的值转换为具有指定类型的值。
+
+语法：
+
+```mysql
+CAST(expression AS type)
+```
+
+参数：
+
+- *expression*：要转换的字符串
+- *type*：目标类型，可以是以下类型之一：`BINARY`、`CHAR`、`DATE`、`DATETIME`、`TIME`、`DECIMAL`、`SIGNED`、`UNSIGNED`。
+
+
+
+**CONVERT()**
+
+`CONVERT()` 函数将值转换为指定的数据类型或字符集。
+
+语法：
+
+```mysql
+CONVERT(value, type);
+CONVERT(value USING charset);
+```
+
+参数：
+
+- *value*：要转换的值
+- *type*：目标类型，可以是以下类型之一：`BINARY`、`CHAR`、`DATE`、`DATETIME`、`TIME`、`SIGNED`、`UNSIGNED`。
+- *charset*：要转换为的字符集
+
+
+
+### 11.4.3、GROUP_CONCAT()
+
+MySQL `GROUP_CONCAT()` 函数将组中的字符串连接成为具有各种选项的单个字符串。
+
+下面说明了`GROUP_CONCAT()`函数的语法：
+
+```mysql
+GROUP_CONCAT(DISTINCT expression
+    ORDER BY expression
+    SEPARATOR sep);
+```
+
+`DISTINCT` 子句用于在连接分组之前消除组中的重复值。
+
+`ORDER BY` 子句允许在连接之前按升序或降序排序值。 默认情况下按升序排序值，如果要按降序对值进行排序，则需要明确指定 `DESC` 选项。
+
+`SEPARATOR` 指定在组中的值之间插入的文字值。如果不指定分隔符，则 `GROUP_CONCAT()` 函数使用逗号 `,` 作为默认分隔符。
+
+`GROUP_CONCAT()` 函数忽略 `NULL` 值，如果找不到匹配的行，或者所有参数都为 `NULL` 值，则返回 `NULL`。
+
+`GROUP_CONCAT()` 函数返回二进制或非二进制字符串，这取决于参数。 默认情况下，返回字符串的最大长度为 1024。如果您需要更多的长度，可以通过在 SESSION 或 GLOBAL 级别设置 `group_concat_max_len` 系统变量来扩展最大长度。
+
+以下是演示 `GROUP_CONCAT()` 函数如何工作的一个示例：
+
+```mysql
+USE testdb;
+
+CREATE TABLE t (
+    v CHAR
+);
+
+INSERT INTO t(v) VALUES('A'),('B'),('C'),('B');
+
+SELECT 
+    GROUP_CONCAT(
+        DISTINCT v
+        ORDER BY v ASC
+        SEPARATOR ';'
+    )
+FROM
+    t;
+```
+
+执行上面查询语句，得到以下结果：
+
+```mysql
++---------------------------------------------------------------------+
+| GROUP_CONCAT(DISTINCT v ORDER BY v ASC SEPARATOR ';')               |
++---------------------------------------------------------------------+
+| A;B;C                                                               |
++---------------------------------------------------------------------+
+1 row in set
+```
+
+> 注：上面语句类似于把 `SELECT v FROM t GROUP BY v;` 语句的结果串接起来。
+
+
+
+## 11.5、数字相关
+
+### 11.5.1、保留两位小数
+
+`ROUND(x,d)`，四舍五入。`ROUND(x)` ，其实就是 `ROUND(x,0)`，也就是默认 *d* 为0。
+
+```sql
+select round(110.35,1);
+# 110.4
+```
+
+
+
+`TRUNCATE(x,d)`，直接截取需要保留的小数位 。
+
+```sql
+select TRUNCATE(110.35,1);
+# 110.3
+```
+
+
+
+`FORMAT(x,d)`，四舍五入，保留 *d* 位小数，返回 string 类型 
+
+```sql
+select FORMAT(110.35,1);
+# 110.4
+```
+
+
 
 # 12、事务
 
@@ -4603,452 +5056,7 @@ mysqldump -u username -P --all-databases > filename.sql
 
 
 
-# 16、函数
 
-## 16.1、时间日期相关
-
-### 16.1.1、时间差
-
-#### PERIOD_DIFF()
-
-`PERIOD_DIFF()` 函数返回两个日期之间的月份差。
-
-**语法：**
-
-```sql
-PERIOD_DIFF(startDate,endDate)
-```
-
-*startDate* 和 *endDate* 参数是合法的日期或日期/时间表达式。
-
-**示例：**
-
-```sql
-SELECT PERIOD_DIFF(201710, 201703);
-```
-
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/12312312.png)
-
-如果小月份放前面，那么返回负数 -1。
-
-
-
-#### DATEDIFF() 
-
-`DATEDIFF()` 函数返回两个日期之间的天数。
-
-**语法：**
-
-```mysql
-DATEDIFF(date1,date2)
-```
-
-*date1* 和 *date2* 参数是合法的日期或日期/时间表达式。
-
-**实例：**
-
-```MYSQL
-SELECT DATEDIFF(DATE_FORMAT(NOW(), '%Y-%m-%d'),DATE_FORMAT('2018-09-10','%Y-%m-%d'))
-```
-
-结果：
-
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180917110456408370.png" alt="技术分享图片" />
-
-
-
-#### TIMESTAMPDIFF()
-
-根据单位返回时间差，对于传入的 *begin* 和 *end* 不需要相同的数据结构，可以存在一个为 Date 一个 DateTime。
-
-**语法：**
-
-```mysql
-TIMESTAMPDIFF(unit, begin, end);
-```
-
-unit 参数是确定 (*end*-*begin*) 的结果的单位，表示为整数。 以下是有效单位：
-
-- MICROSECOND  微秒
-- SECOND  秒 
-- MINUTE  分钟 
-- HOUR  小时 
-- DAY  天 
-- WEEK  周 
-- MONTH  月份 
-- QUARTER  
-- YEAR  年份
-
-**实例：**
-
-2017-05-01 距现在多少天：
-
-```MYSQL
-SELECT TIMESTAMPDIFF(DAY,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
-```
-
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180917110456532385.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
-
-2017-05-01 距现在多少年：
-
-```mysql
-SELECT TIMESTAMPDIFF(YEAR,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
-```
-
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/99f5964ea791f1ca0521e3fb4bc1ab96.png" alt="img" style="zoom:80%;FLOAT:LEFT"  />
-
-2017-05-01 距现在多少月：
-
-```mysql
-SELECT TIMESTAMPDIFF(MONTH,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
-```
-
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180917110456254083.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
-
-
-
-### 17.1.2、当前日期
-
-```mysql
-SELECT NOW(),CURDATE(),CURTIME();
-```
-
-结果类似：
-
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/755765-20190227093739650-528895218.png" alt="img" style="zoom:80%;float:left" />
-
-
-
-### 17.1.3、求几天前几天后
-
-`DATE_SUB()` 函数从日期减去指定的时间间隔。
-
-> `DATE_ADD()` 函数向日期添加指定的时间间隔。两种方法使用方式相同。
-
-**语法：**
-
-```mysql
-DATE_SUB(date,INTERVAL expr type)
-```
-
-*date* 参数是合法的日期表达式。*expr* 参数是您希望添加的时间间隔。*type* 参数可以是下列值：
-
-- MICROSECOND
-- SECOND
-- MINUTE
-- HOUR
-- DAY
-- WEEK
-- MONTH
-- QUARTER
-- YEAR
-
-**实例：**
-
-获取前一天
-
-```mysql
-SELECT DATE_SUB(CURDATE(),INTERVAL 1 DAY);
-```
-
-当前日期 2018-09-17，结果：
-
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180917110455670136.png" alt="技术分享图片" style="zoom:80%;float:left" />
-
-获取后一天
-
-```mysql
-SELECT DATE_SUB(CURDATE(),INTERVAL -1 DAY);
-```
-
-当前日期 2018-09-17，结果：
-
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180917110455998240.png" alt="技术分享图片" style="zoom:80%;float:left" />
-
-
-
-### 17.1.4、倒数第几天
-
-`LAST_DAY()` 返回某月最后一天
-
-```mysql
-LAST_DAY(<日期>) #最后一天
-LAST_DAY(<日期>)-1 #倒数第二天
-LAST_DAY(<日期>)-2 #倒数第三天
-```
-
-
-
-### 17.1.5、提取年月日
-
-`EXTRACT()` 函数用于返回日期/时间的单独部分，比如年、月、日、小时、分钟等等。
-
-语法：
-
-```mysql
-EXTRACT(unit FROM <日期>)
-```
-
-*date* 参数是合法的日期表达式。*unit* 参数可以是下列的值：
-
-- MICROSECOND（微秒：一百万分之一秒）
-- SECOND
-- MINUTE
-- HOUR
-- DAY
-- WEEK
-- MONTH
-- QUARTER
-- YEAR
-- SECOND_MICROSECOND
-- MINUTE_MIRCROSECOND
-- MINUTE_SECOND
-- HOUR_MICROSECOND
-- HOUR_SECOND
-- HOUR_MINUTE
-
-
-
-### 17.1.6、日期转换
-
-#### DATE_FORMAT()
-
-MySQL 使用 `DATE_FORMAT()` 函数实现日期格式的转换，即日期类型转字符串类型，`DATE_FORMAT(date,format)` 函数按照表达式 *format* 的要求显示日期 *date*，其语法格式如下：
-
-```sql
-DATE_FORMAT(date,format)
-```
-
-*date* 为合法的日期；*format* 为规定日期/时间的输出格式。
-
-可以使用的格式有：
-
-| 格式 | 描述                                           |
-| ---- | ---------------------------------------------- |
-| `%a` | 缩写星期名                                     |
-| `%b` | 缩写月名                                       |
-| `%c` | 月，数值                                       |
-| `%D` | 带有英文前缀的月中的天                         |
-| `%d` | 月的天，数值(00-31)                            |
-| `%e` | 月的天，数值(0-31)                             |
-| `%f` | 微秒                                           |
-| `%H` | 小时 (00-23)                                   |
-| `%h` | 小时 (01-12)                                   |
-| `%I` | 小时 (01-12)                                   |
-| `%i` | 分钟，数值 (00-59)                             |
-| `%j` | 年的天 (001-366)                               |
-| `%k` | 小时 (0-23)                                    |
-| `%M` | 月名                                           |
-| `%m` | 月，数值 (00-12)                               |
-| `%p` | AM 或 PM                                       |
-| `%r` | 时间，12-小时（hh:mm:ss AM 或 PM）             |
-| `%S` | 秒 (00-59)                                     |
-| `%s` | 秒 (00-59)                                     |
-| `%T` | 时间, 24-小时 (hh:mm:ss)                       |
-| `%U` | 周 (00-53) 星期日是一周的第一天                |
-| `%u` | 周 (00-53) 星期一是一周的第一天                |
-| `%V` | 周 (01-53) 星期日是一周的第一天，与 %X 使用    |
-| `%v` | 周 (01-53) 星期一是一周的第一天，与 %x 使用    |
-| `%W` | 星期名                                         |
-| `%w` | 周的天 （0=星期日, 6=星期六）                  |
-| `%X` | 年，其中的星期日是周的第一天，4 位，与 %V 使用 |
-| `%x` | 年，其中的星期一是周的第一天，4 位，与 %v 使用 |
-| `%Y` | 年，4 位                                       |
-| `%y` | 年，2 位                                       |
-
-**示例：**使用 `DATE_FORMAT()` 函数实现日期格式的转换。
-
-```mysql
-SELECT DATE_FORMAT(NOW(),'%Y年%m月%d日 %H时%i分%s秒');
-```
-
-**执行结果：**
-
-```
-2019年01月17日 19时05分05秒
-```
-
-
-
-#### STR_TO_DATE()
-
-使用 `STR_TO_DATE()` 函数实现字符串转换日期类型，`STR_TO_DATE(str,format)` 函数是将时间格式的字符串 *str*，按照所提供的显示格式 *format* 转换为 DATETIME 类型的值。
-
-**示例：**使用 `STR_TO_DATE()` 函数，将上面示例的结果（字符串类型）转换回日期类型。
-
-```mysql
-SELECT STR_TO_DATE('2019年01月17日 19时05分05秒','%Y年%m月%d日 %H时%i分%s秒');
-```
-
-**执行结果：**
-
-```
-2019-01-17 19:05:05
-```
-
- 
-
-## 16.2、字符串相关
-
-### 16.2.1、拆分与拼接
-
-**SUBSTRING(string, position, length)**
-
-`SUBSTRING()` 函数从特定位置开始的字符串返回一个给定长度的子字符串。 MySQL 提供了各种形式的子串功能。
-
-语法：
-
-```mysql
-SUBSTRING(string,position,length);
-SUBSTRING(string FROM position FOR length);
-```
-
-参数：
-
-- *string*：要提取的字符串
-- *position*：起始下标，可以是负数
-- *length*：长度
-
-> 在 MySQL 中，下标索引是从 1 开始的，而不是像 Java 中从 0 开始。
-
-
-
-**CONCAT(str1, str2, …)**
-
-返回连接参数产生的字符串，一个或多个待拼接的内容，任意一个为 `NULL` 则返回值为 `NULL`。
-
-
-
-**CONCAT_WS(separator, str1, str2, …)**
-
-`CONCAT_WS()` 代表 CONCAT With Separator ，是 `CONCAT()` 的特殊形式。 第一个参数 *separator* 是其它参数的分隔符。分隔符的位置放在要连接的两个字符串之间。分隔符可以是一个字符串，也可以是其它参数。如果分隔符为 `NULL`，则结果为 `NULL`。函数会忽略任何分隔符参数后的 `NULL` 值。
-
-
-
-### 16.2.2、字符串转数字
-
-**CAST()**
-
-`CAST()` 函数将任何类型的值转换为具有指定类型的值。
-
-语法：
-
-```mysql
-CAST(expression AS type)
-```
-
-参数：
-
-- *expression*：要转换的字符串
-- *type*：目标类型，可以是以下类型之一：`BINARY`、`CHAR`、`DATE`、`DATETIME`、`TIME`、`DECIMAL`、`SIGNED`、`UNSIGNED`。
-
-
-
-**CONVERT()**
-
-`CONVERT()` 函数将值转换为指定的数据类型或字符集。
-
-语法：
-
-```mysql
-CONVERT(value, type);
-CONVERT(value USING charset);
-```
-
-参数：
-
-- *value*：要转换的值
-- *type*：目标类型，可以是以下类型之一：`BINARY`、`CHAR`、`DATE`、`DATETIME`、`TIME`、`SIGNED`、`UNSIGNED`。
-- *charset*：要转换为的字符集
-
-
-
-### 16.2.3、GROUP_CONCAT()
-
-MySQL `GROUP_CONCAT()` 函数将组中的字符串连接成为具有各种选项的单个字符串。
-
-下面说明了`GROUP_CONCAT()`函数的语法：
-
-```mysql
-GROUP_CONCAT(DISTINCT expression
-    ORDER BY expression
-    SEPARATOR sep);
-```
-
-`DISTINCT` 子句用于在连接分组之前消除组中的重复值。
-
-`ORDER BY` 子句允许在连接之前按升序或降序排序值。 默认情况下按升序排序值，如果要按降序对值进行排序，则需要明确指定 `DESC` 选项。
-
-`SEPARATOR` 指定在组中的值之间插入的文字值。如果不指定分隔符，则 `GROUP_CONCAT()` 函数使用逗号 `,` 作为默认分隔符。
-
-`GROUP_CONCAT()` 函数忽略 `NULL` 值，如果找不到匹配的行，或者所有参数都为 `NULL` 值，则返回 `NULL`。
-
-`GROUP_CONCAT()` 函数返回二进制或非二进制字符串，这取决于参数。 默认情况下，返回字符串的最大长度为 1024。如果您需要更多的长度，可以通过在 SESSION 或 GLOBAL 级别设置 `group_concat_max_len` 系统变量来扩展最大长度。
-
-以下是演示 `GROUP_CONCAT()` 函数如何工作的一个示例：
-
-```mysql
-USE testdb;
-
-CREATE TABLE t (
-    v CHAR
-);
-
-INSERT INTO t(v) VALUES('A'),('B'),('C'),('B');
-
-SELECT 
-    GROUP_CONCAT(
-        DISTINCT v
-        ORDER BY v ASC
-        SEPARATOR ';'
-    )
-FROM
-    t;
-```
-
-执行上面查询语句，得到以下结果：
-
-```mysql
-+---------------------------------------------------------------------+
-| GROUP_CONCAT(DISTINCT v ORDER BY v ASC SEPARATOR ';')               |
-+---------------------------------------------------------------------+
-| A;B;C                                                               |
-+---------------------------------------------------------------------+
-1 row in set
-```
-
-> 注：上面语句类似于把 `SELECT v FROM t GROUP BY v;` 语句的结果串接起来。
-
-
-
-## 16.3、数字相关
-
-### 16.3.1、保留两位小数
-
-`ROUND(x,d)`，四舍五入。`ROUND(x)` ，其实就是 `ROUND(x,0)`，也就是默认 *d* 为0。
-
-```sql
-select round(110.35,1);
-# 110.4
-```
-
-
-
-`TRUNCATE(x,d)`，直接截取需要保留的小数位 。
-
-```sql
-select TRUNCATE(110.35,1);
-# 110.3
-```
-
-
-
-`FORMAT(x,d)`，四舍五入，保留 *d* 位小数，返回 string 类型 
-
-```sql
-select FORMAT(110.35,1);
-# 110.4
-```
 
 
 
@@ -5396,9 +5404,11 @@ Connection接口中定义事务隔离级别四个常量：
 
 
 
-# 18、连接阿里云数据库
+# 18、服务管理
 
-## 18.1、安装MySQL 8.0
+## 18.1、访问远程 MySQL 服务
+
+### 18.1.1、安装MySQL 8.0
 
 **系统 Ubuntu  20.04 64位**
 
@@ -5504,7 +5514,7 @@ All done!
 
 
 
-## 18.2、远程访问
+### 18.1.2、远程访问
 
 在阿里云控制台连接 MySQL
 
@@ -5557,7 +5567,7 @@ service mysql restart
 
 
 
-## 18.3、卸载
+### 18.1.3、卸载
 
 1. 首先停止 MySQL 服务
 
@@ -5601,6 +5611,340 @@ service mysql restart
 
 
 
+## 18.2、服务 SQL 模式
+
+MySQL 服务可以在不同的 SQL 模式下运行，并且可以根据 `sql_mode` 系统变量的值将这些模式应用于不同的客户端。DBA 可以设置全局 SQL 模式以匹配站点服务器的操作要求，并且每个应用程序可以根据自己的要求设置其会话 SQL 模式。
+
+模式会影响 MySQL 支持的 SQL 语法及其执行的数据验证检查。这使得在不同的环境中使用 MySQL 以及将 MySQL 与其他数据库服务器一起使用更容易。
+
+> 当使用 InnoDB 表时，还要考虑 `innodb_strict_mode` 系统变量。它为 InnoDB 表启用了额外的错误检查。
+
+
+
+### 18.2.1、设置 SQL 模式
+
+SQL 模式在不同的版本有不同的默认值：
+
+- MySQL 5.6 版本默认为 NO_ENGINE_SUBSTITUTION。
+- MySQL 5.7 版本中默认为 ONLY_FULL_GROUP_BY、STRICT_TRANS_TABLES、NO_ZERO_IN_DATE、NO_ZERO_DATE、ERROR_FOR_DIVISION_BY_ZERO、NO_AUTO_CREATE_USER 和 NO_ENGINE_SUBSTITUTION。
+- MySQL 8.0 版本中默认为：ONLY_FULL_GROUP _BY、STRICT_TRANS_TABLES、NO_ZERO_in_DATE、NO_ZERO_DATE、ERROR_FOR_DIVISION_BY_ZERO 和 NO_ENGINE_SUBSTITION。
+
+要在服务启动时设置 SQL 模式，请在命令行中使用 `--sql-mode="modes"` 选项，或在选项文件（如 my.cnf（Unix 操作系统）或 my.ini（Windows））中使用 `--sql-mode="modes"` 。*modes* 是用逗号分隔的不同模式的列表。要明确清除 SQL 模式，请在命令行中使用 `--sql-mode=""` 或在选项文件中使用 `--sql-mode=""` 将其设置为空字符串。
+
+> MySQL 安装程序可能会在安装过程中配置 SQL 模式。 如果 SQL 模式与默认值或您期望的不同，请检查服务器在启动时读取的选项文件中的设置。
+
+要在运行时更改 SQL 模式，请使用 `SET` 语句设置全局或会话 `sql_mode` 系统变量：
+
+```mysql
+SET GLOBAL sql_mode = 'modes';
+SET SESSION sql_mode = 'modes';
+```
+
+设置全局变量需要 SYSTEM_VARIABLES_ADMIN 权限（或不推荐使用的 SUPER 权限），并且会影响从那时起连接的所有客户端的操作。设置会话变量仅影响当前客户端。每个客户端都可以随时更改其会话 `sql_mode` 值。
+
+要确定当前全局或会话 `sql_mode` 设置，请 `SELECT` 其值：
+
+```mysql
+SELECT @@GLOBAL.sql_mode;
+SELECT @@SESSION.sql_mode;
+```
+
+
+
+### 18.2.2、SQL模式的完整列表
+
+以下列表介绍了所有支持的 SQL 模式：
+
+- ALLOW_INVALID_DATES
+- ANSI_QUOTES
+- ERROR_FOR_DIVISION_BY_ZERO
+- HIGH_NOT_PRECEDENCE
+- IGNORE_SPACE
+- NO_AUTO_VALUE_ON_ZERO
+- NO_BACKSLASH_ESCAPES
+- NO_DIR_IN_CREATE
+- NO_ENGINE_SUBSTITUTION
+- NO_UNSIGNED_SUBTRACTION
+- NO_ZERO_DATE
+- NO_ZERO_IN_DATE
+- ONLY_FULL_GROUP_BY
+- PAD_CHAR_TO_FULL_LENGTH
+- PIPES_AS_CONCAT
+- REAL_AS_FLOAT
+- STRICT_ALL_TABLES
+- STRICT_TRANS_TABLES
+- TIME_TRUNCATE_FRACTIONAL
+
+
+
+#### NO_ZERO_DATE
+
+该模式下不允许 "0000-00-00" 作为有效日期，插入会产生警告，通常和严格模式一同使用。
+
+```MYSQL
+mysql> create table t_date(c1 date);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> set sql_mode="no_zero_date";
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> insert into t_date values ("0000-00-00");
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+mysql> show warnings;
++---------+------+---------------------------------------------+
+| Level   | Code | Message                                     |
++---------+------+---------------------------------------------+
+| Warning | 1264 | Out of range value for column 'c1' at row 1 |
++---------+------+---------------------------------------------+
+1 row in set (0.01 sec)
+
+-------------
+
+mysql> set sql_mode="";
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into t_date values ("0000-00-00");
+Query OK, 1 row affected (0.00 sec)
+```
+
+
+
+#### NO_ZERO_IN_DATE
+
+该模式下不允许月或者日部分出现 0 的日期，插入会转换成 "0000-00-00" 并产生警告，通常和严格模式一起使用。
+
+```MYSQL
+mysql> set sql_mode="no_zero_in_date";
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> insert into t_date values ("2021-00-11");
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+mysql> insert into t_date values ("2021-11-00");
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into t_date values ("2021-00-00");  
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> select * from t_date;
++------------+
+| c1         |
++------------+
+| 0000-00-00 |
+| 0000-00-00 |
+| 0000-00-00 |
++------------+
+3 rows in set (0.00 sec)
+```
+
+
+
+#### ONLY_FULL_GROUP_BY
+
+该模式下当 `SELECT`、`HAVING` 和 `ORDER BY` 的字段使用了非聚合列，如果既不在 `GROUP BY` 子句中引用或命名，也不是一个聚合函数时将会拒绝执行。
+
+```mysql
+mysql> set sql_mode="only_full_group_by";
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select c1,c2 from t_mode_t group by c2;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'ymh.t_mode_t.c1' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+
+---------------
+
+mysql> set sql_mode="";
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select c1,c2 from t_mode_t group by c2;
++------+-----+
+| c1   | c2  |
++------+-----+
+|    0 | ccc |
+|    2 |     |
++------+-----+
+2 rows in set (0.00 sec)
+```
+
+
+
+#### PAD_CHAR_TO_FULL_LENGTH
+
+该模式下 `CHAR(N)` 字段类型将会在尾部填充空格到其全长；
+
+> 注意：禁用该模式将会裁剪 `CHAR` 字段的尾部空格；
+
+```mysql
+mysql> create table t_char(c1 char(10),c2 varchar(10));
+Query OK, 0 rows affected (0.28 sec)
+
+mysql> set sql_mode='PAD_CHAR_TO_FULL_LENGTH';
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> insert into t_char value ('a ','a ');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select char_length(c1),char_length(c2) from t_char;
++-----------------+-----------------+
+| char_length(c1) | char_length(c2) |
++-----------------+-----------------+
+|              10 |               2 |
++-----------------+-----------------+
+1 row in set (0.01 sec)
+ 
+mysql> truncate table t_char;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> 
+mysql> set sql_mode="";
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into t_char value ('a ','a ');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select char_length(c1),char_length(c2) from t_char;
++-----------------+-----------------+
+| char_length(c1) | char_length(c2) |
++-----------------+-----------------+
+|               1 |               2 |
++-----------------+-----------------+
+1 row in set (0.01 sec)
+```
+
+
+
+#### PIPES_AS_CONCAT
+
+该模式下将 `||` 作为字符串连接运算符（和 `CONCAT()` 函数相同），而不是作为 `OR` 的同义词。
+
+```mysql
+mysql> set sql_mode="pipes_as_concat"; 
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select 1||0;
++------+
+| 1||0 |
++------+
+| 10   |
++------+
+1 row in set (0.00 sec)
+
+mysql> set sql_mode="";
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select 1||0;
++------+
+| 1||0 |
++------+
+|    1 |
++------+
+1 row in set, 1 warning (0.00 sec)
+```
+
+
+
+#### REAL_AS_FLOAT
+
+该模式将 `REAL` 作为 `FLOAT` 的同义词；禁用该模式 MySQL 将 `REAL` 作为 `DOUBLE` 的同义词。
+
+```mysql
+mysql> set sql_mode="real_as_float";
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table t_real(c1 real);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc t_real;
++-------+-------+------+-----+---------+-------+
+| Field | Type  | Null | Key | Default | Extra |
++-------+-------+------+-----+---------+-------+
+| c1    | float | YES  |     | NULL    |       |
++-------+-------+------+-----+---------+-------+
+1 row in set (0.04 sec)
+
+mysql> set sql_mode="";
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> create table t_real_1(c1 real);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc t_real_1;
++-------+--------+------+-----+---------+-------+
+| Field | Type   | Null | Key | Default | Extra |
++-------+--------+------+-----+---------+-------+
+| c1    | double | YES  |     | NULL    |       |
++-------+--------+------+-----+---------+-------+
+1 row in set (0.01 sec)
+```
+
+
+
+#### TIME_TRUNCATE_FRACTIONAL
+
+控制对 `DATE`、`DATETIME`、`TIMESTAMP` 类型的带小数部分的秒的处理，该模式下会根据精度截断。默认会做四舍五入。
+
+```mysql
+mysql> create table t_time_fractional(c1 time(2),c2 datetime(2),c3 timestamp(2));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> set sql_mode="time_truncate_fractional";
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into t_time_fractional values (10.999,"2021-08-08 08:08:08.999","2021-08-08 08:08:08.999");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from t_time_fractional;
++-------------+------------------------+------------------------+
+| c1          | c2                     | c3                     |
++-------------+------------------------+------------------------+
+| 00:00:10.99 | 2021-08-08 08:08:08.99 | 2021-08-08 08:08:08.99 |
++-------------+------------------------+------------------------+
+1 row in set (0.00 sec)
+
+------------------
+
+mysql> truncate table t_time_fractional;
+Query OK, 0 rows affected (0.06 sec)
+
+------------------
+
+mysql> set sql_mode="";
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into t_time_fractional values (10.999,"2021-08-08 08:08:08.999","2021-08-08 08:08:08.999");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from t_time_fractional; 
++-------------+------------------------+------------------------+
+| c1          | c2                     | c3                     |
++-------------+------------------------+------------------------+
+| 00:00:11.00 | 2021-08-08 08:08:09.00 | 2021-08-08 08:08:09.00 |
++-------------+------------------------+------------------------+
+1 row in set (0.00 sec)
+```
+
+
+
+### 18.2.3、组合SQL模式
+
+以下特殊模式是前面列表中模式值组合的简写：
+
+- ANSI
+
+  此模式会更改语法和行为，以更接近标准 SQL。
+
+  等效于 REAL_AS_FLOAT、PIPES_AS_CONCAT、ANSI_QUOTES、IGNORE_SPACE 和 ONLY_FULL_GROUP _BY。
+
+- TRADITIONAL
+
+  设置 TRADITIONAL 模式使得 MySQL 使用起来表现的像一个 “传统” 数据库。简单来说在 TRADITIONAL 模式下插入不正确的值时会导致错误而不是返回 warning。
+
+  TRADITIONA L等效于 STRICT_TRANS_TABLES、STRICT_ALL_TABLES，NO_ZERO_IN_DATE、NO_ZERO_DATE、ERROR_FOR_DIVISION_BY_ZERO 和 NO_ENGINE_SUBSTITION。
+
+  > 启用 TRADITIONAL 模式后，一旦出现错误，`INSERT` 或 `UPDATE` 就会中止。如果您使用的是非事务存储引擎，这可能不是您想要的，因为在发生错误之前所做的数据更改可能不会回滚，从而导致 “部分完成” 更新。
+
+
+
 # 20、其他
 
 ## 1、MySQL 一个汉字占多少字节
@@ -5625,7 +5969,7 @@ service mysql restart
 
 - **gbk:**
 
-  1 character = 2 bytes，1 汉字=1character
+  1 character = 2 bytes，1 汉字 = 1 character
 
   也就是说一个字段定义成 `varchar(200)`，则它可以存储 200 个汉字或者 200 个字母。
 
@@ -5690,132 +6034,3 @@ show variables like '%authentication%';
    - 在 JDBC 连接串中加入 `allowPublicKeyRetrieval=true` 参数
    - 在 CLI 客户端连接时加入 `--get-server-public-key` 参数
    - 在 CLI 客户端连接时加入 `--server-public-key-path=file_name` 参数，指定存放在本地的公钥文件
-
-
-
-## 4、MySQL only_full_group_by
-
-当我们迁移到 MySQL 5.7+ 的版本时，常会碰到 ERROR 1055 only_full_group_by 错误，这是 5.7 之后 SQL_MODE 默认打开了严格模式导致的错误。说明你代码里有地方写的不严谨。
-
-```
-ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause 
-and contains nonaggregated column 'kalacloud.user_id' which is not functionally 
-dependent on columns in GROUP BY clause; this is incompatible 
-with sql_mode=only_full_group_by
-```
-
-
-
-**SQL_MODE 是什么？**
-
-`SQL_MODE` 是 MySQL 中的一个环境变量，定义了 MySQL 支持的 SQL 语法和数据校验程度。
-
-`SQL_MODE` 一共三种模式：
-
-- ANSI 模式：宽松模式。对插入数据进行校验，如不符合定义类型或长度，对保存数据进行截断；
-- TRADITIONAL 模式：严格模式。对插入数据进行严格校验，保证错误数据不能插入，ERROR 报错。用于事物时，事物会进行回滚；
-- STRICT_TRANS_TABLES 模式：严格模式。对插入数据进行严格校验，错误数据不能插入，ERROR 报错。
-
-MySQL 5.7.4 之前，MySQL 默认不开启严格模式：
-
-![image-20230613223206479](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613223206479.png)
-
-MySQL 升级到 5.7.5 之后默认 SQL_MODE 为严格模式：
-
-![image-20230613223248699](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613223248699.png)
-
-
-
-**SQL_MODE 严格模式的意义**
-
-在宽松模式下，即便 `INSERT` 一个错误的数据，MySQL 也会不加判断的全盘接受。
-
-首先关闭 `SQL_MODE` 严格模式：
-
-```sql
-set session sql_mode='';
-```
-
-创建一个表并向其中插入一组超范围的数据：
-
-```sql
-create table kalacloud_t1(website char(9));
-insert into kalacloud_t1 values('kalacloud.com');
-```
-
-![image-20230613223443413](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613223443413.png)
-
-从返回值可以看出，向 `websie char(9)` 中插入了一条长为 13 的值，没有报错，直接插入，但超过 9 的部分，即「.com」被截断丢掉了。
-
-接着在严格模式下试试，首先打开 `SQL_MODE` 严格模式：
-
-```sql
-set session sql_mode='TRADITIONAL';
-create table kalacloud_t2(website char(9));
-insert into kalacloud_t2 values('kalacloud.com');
-```
-
-![image-20230613223646323](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613223646323.png)
-
-可以从返回值看出，MySQL 直接报错，告诉你插入的数据有问题。
-
-
-
-**ONLY_FULL_GROUP_BY 问题**
-
-当我们数据库迁移至 5.7 或者 8.0 之后，最常见的错误就是 `Error 1055 only_full_group_by` 错误，这个错误的关键原因是不规范的 SQL 语法，5.7 之后默认 `SQL_MODE` 变为严格模式。
-
-看一个实例，这是一组卡拉云用户点击网页的 log 记录：
-
-![image-20230613223810275](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613223810275.png)
-
-现在使用 `GROUP BY` 来排序找出访问量最大的网页，先关掉 `SQL_MODE` 的严格模式来试试：
-
-在宽松模式下可以看出这个 query 虽然可以查询，但语法和逻辑上稍有问题。我们想对 `page_url` 进行排序，但 query 中也加入了 `user_id` ，在返回值中可以发现问题，index.html 这个页面不仅 user_id 1 的用户访问过，用户 2 和 3 也访问了，那么这张返回的表表格数据就是有问题的。
-
-user_id 1 列在返回数据里，到底代表什么？是第一个访问 index.html 还是最后一个访问这个页面的意思呢？没人知道，这是个随机盲盒，运行原理未知。
-
-打开 `SQL_MODE` 严格模式跑一下上面这段代码：
-
-![image-20230613224004998](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613224004998.png)
-
-返回一个 ERROR 1055 报错，`ONLY_FULL_GROUP_BY` 是 `SQL_MODE` 中 `TRADITIONAL` 的选项参数，从 5.7 开始默认开启为严格模式。这就是为什么迁移到 MySQL 新版会报 1055 错误的原因。
-
-
-
-**解决办法**
-
-1. 重写代码：
-
-   找到报错语法中错误的部分，根据逻辑重写 query，本示例中去掉 `user_id` 即可：
-
-   ![image-20230613224327685](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613224327685.png)
-
-2. 返回宽松模式：
-
-   在 MySQL 5.7 及以上版本中 SQL_MODE 包含：`ONLY_FULL_GROUP_BY`、`STRINCT_TRANS_TABLES`、`NO_ZERO_IN_DATE`、`NO_ZERO_DATE`、`ERROR_FOR_DIVISION_BY_ZERO`、`NO_AUTO_CREATE_USER`。
-
-   我们直接在 MySQL 配置文件中更改，或者临时全部关闭：
-
-   ```sql
-   SET GLOBAL sql_mode='';
-   ```
-
-   或者单关闭 `ONLY_FULL_GROUP_BY`：
-
-   ```sql
-   SET GLOBAL sql_mode='STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_ENGINE_SUBSTITUTION';
-   ```
-
-3. 使用聚合函数：
-
-   如果某些特别的原因就是要查询 `user_id` ，但又没空改代码，那么可使用 `MAX()`、`MIN()` 或者 `GROUP_CONCAT()` 聚合函数来规避这类错误：
-
-   ![image-20230613224631111](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613224631111.png)
-
-   MySQL 还提供了 `ANY_VALUE()` 函数，来解决这类问题：
-
-   ![image-20230613224657574](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613224657574.png)
-
-   > `ANY_VALUE()` 会选择被分到同一组的数据里第一条数据的指定列值作为返回数据。
-
