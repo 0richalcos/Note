@@ -147,9 +147,11 @@ Redis 是单线程的（6.0 是多线程），因为 Redis 是基于内存操作
 
 ### 2.2.1、Linxu 环境安装
 
-#### 最常用的 Linux 安装
+#### 离线安装
 
-1. 下载源码：
+**安装**
+
+1. 下载源码（服务离线可以使用 SFTP 等工具上传过去）：
 
    ```shell
    wget http://download.redis.io/releases/redis-6.0.5.tar.gz
@@ -158,7 +160,7 @@ Redis 是单线程的（6.0 是多线程），因为 Redis 是基于内存操作
 2. 解压到 `/usr/local` ：
 
    ```shell
-   tar xzf redis-6.0.5.tar.gz -C /usr/local
+   tar -xzf redis-6.0.5.tar.gz -C /usr/local
    ```
 
 3. 更改文件夹名称为 `redis`：
@@ -183,7 +185,54 @@ Redis 是单线程的（6.0 是多线程），因为 Redis 是基于内存操作
 6. 启动 Redis：
 
    ```shell
-   redis-server
+   src/redis-server
+   ```
+
+
+
+**编写开机自启系统服务文件**
+
+1. 新建一个系统服务文件：
+
+   ```shell
+   vim /etc/systemd/system/redis.service
+   ```
+
+2. 文件内容如下：
+
+   ```shell
+   [Unit]
+   Description=Redis Server
+   After=network.target
+   
+   [Service]
+   ExecStart=/usr/local/redis/src/redis-server /usr/local/redis/redis.conf
+   ExecStop=/usr/local/redis/src/redis-cli shutdown
+   Restart=always
+   
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+3. 重载系统服务：
+
+   ```shell
+   sudo systemctl daemon-reload
+   ```
+
+4. 接下来可以使用以下命令来启动、停止、重启和检查 Redis 服务的状态：
+
+   ```shell
+   sudo systemctl start redis
+   sudo systemctl stop redis
+   sudo systemctl restart redis
+   sudo systemctl status redis
+   ```
+
+5. 如果想要在系统启动时自动启动 Redis 服务，可以运行以下命令：
+
+   ```shell
+   sudo systemctl enable redis
    ```
 
 
@@ -254,6 +303,49 @@ sc start redis
 
 # 停止 Redis 服务
 sc stop redis
+```
+
+
+
+### 2.2.3、安装遇到的一些问题
+
+#### ARM64环境启动BUG
+
+```
+1:C 24 Apr 2022 14:31:23.525 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:C 24 Apr 2022 14:31:23.525 # Redis version=6.2.6, bits=64, commit=00000000, modified=0, pid=1, just started
+1:C 24 Apr 2022 14:31:23.525 # Configuration loaded
+1:M 24 Apr 2022 14:31:23.526 * monotonic clock: POSIX clock_gettime
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 6.2.6 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                  
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 16379
+ |    `-._   `._    /     _.-'    |     PID: 1
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           https://redis.io       
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+1:M 24 Apr 2022 14:31:23.526 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.
+1:M 24 Apr 2022 14:31:23.526 # Server initialized
+1:M 24 Apr 2022 14:31:23.527 # WARNING Your kernel has a bug that could lead to data corruption during background save. Please upgrade to the latest stable kernel.
+1:M 24 Apr 2022 14:31:23.527 # Redis will now exit to prevent data corruption. Note that it is possible to suppress this warning by setting the following config: ignore-warnings ARM64-COW-BUG
+```
+
+**解决办法**
+
+在 redis.conf 内添加：
+
+```
+ignore-warnings ARM64-COW-BUG
 ```
 
 

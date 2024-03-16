@@ -16,6 +16,8 @@ Nginx 的稳定性、功能集、示例配置文件和低系统资源的消耗�
 
 ## 2.1、Linux 安装
 
+### 2.1.1、离线安装
+
 **安装**
 
 1. 去 [官网](http://nginx.org/en/download.html) 下载压缩包：
@@ -32,7 +34,7 @@ Nginx 的稳定性、功能集、示例配置文件和低系统资源的消耗�
 
    ```shell
    # 改名
-   mv /usr/local/nginx-1.24.0 /usr/local/nginx
+   mv /usr/local/nginx-1.24.0/ /usr/local/nginx
    
    # 进入
    cd /usr/local/nginx
@@ -53,7 +55,7 @@ Nginx 的稳定性、功能集、示例配置文件和低系统资源的消耗�
    ```shell
    tar -xzf pcre2-10.42.tar.gz -C /usr/local
    
-   mv /usr/local/pcre2-10.42.tar.gz /usr/local/pcre2
+   mv /usr/local/pcre2-10.42.tar.gz/ /usr/local/pcre2
    
    cd /usr/local/pcre2
    
@@ -73,7 +75,7 @@ Nginx 的稳定性、功能集、示例配置文件和低系统资源的消耗�
    ```shell
    tar -xzf zlib-1.2.13.tar.gz -C /usr/local
    
-   mv /usr/local/zlib-1.2.13.tar.gz /usr/local/zlib
+   mv /usr/local/zlib-1.2.13.tar.gz/ /usr/local/zlib
    
    cd /usr/local/zlib
    
@@ -85,6 +87,12 @@ Nginx 的稳定性、功能集、示例配置文件和低系统资源的消耗�
    ```
 
    之后再前往 `/usr/local/nginx` 目录执行 `./configure`，缺少库就去安装，直到 `./configure` 不显示错误。
+
+   > Nginx 对 OpenSSL 不做硬性要求，在不使用 SSL 模块的情况下没有 OpenSSL 也可以安装通过，如果需要此功能，请先安装 OpenSSL 然后执行以下配置命令：
+   >
+   > ```shell
+   > ./configure --with-http_stub_status_module --with-http_ssl_module --with-openssl=/usr/local/openssl
+   > ```
 
 5. 编译并安装：
 
@@ -127,7 +135,6 @@ Nginx 的稳定性、功能集、示例配置文件和低系统资源的消耗�
    rm -rf /usr/local/sbin/nginx
    ...
    ```
-
 
 
 
