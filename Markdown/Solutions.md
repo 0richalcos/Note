@@ -85,11 +85,37 @@ LineNumberReader 继承自 BufferedReader，并且增加了下面两个功能：
 
 
 
+## 【2】java.Net.UnknownHostException 异常
+
+在统信 UOS 上启动 SpringBoot 项目的时候出现了 [ Java.NET.UnknownHostException：域名解析暂时失败 ] 异常。
+
+问题原因是在系统的 `/etc/hostname` 中配置了主机名，而在 `/etc/hosts` 文件中没有相应的配置。
+
+简单的解决办法是对应关系配好就可以，甚至删除 `/etc/Hostname` 这个文件也可以。
+
+
+
+**深层的原因**
+
+在大多数 Linux 操作系统中，都是以 `/etc/hosts` 中的配置查找主机名的，但是 Detian 等一些系统也用 `/etc/hostname` 文件中的配置做主机名。
+
+而 Java 的 `InetAddress` 调用 `InetAddressImpl` 的  `public native String getLocalHostName() throws UnknownHostException;` 来获取本地主机名，Java 的这个方法是 `native` 的，是本地系统的一个实现，所以在本地配置出现问题的情况下，Java 代码出现问题。
+
+hostname 查看本机名称,
+
+- 若本机名称不是一个 IP 地址，比如是 "Orichalcos"，则必须在 `/etc/hosts` 中配置 "Orichalcos" 对应本机 IP，否则 `java.net.InetAddress.getLocalHost` 会抛出 `java.Net.UnknownHostException`异常。
+
+  > 配置格式为（示例）：
+  >
+  > ```
+  > 本机IP	Orichalcos
+  > ```
+
+- 若本机名称是一个 IP 地址，而且必须是本机某块网卡的 IP。
+
+
+
 # 2、前端
-
-
-
-# 3、混合双打
 
 ## 【1】HTML 页面点击下载文件
 
@@ -264,7 +290,107 @@ $('#aa').value=(a/b).toFixed(2);
 
 
 
-## 【4】AJAX 上传/下载文件
+## 【4】AJAX 请求后页面刷新的问题
+
+问题原因出在 HTML 文件上，原因是把所有按钮都放在了一个的表单里面了，`<form>` 里面的按钮默认 `type=submit` ，所以每次点击按钮后都会执行提交表单的操作，表单操作默认有刷新页面的功能。
+
+解决方法：将 `<button>` 的 `type` 改为 `button`
+
+```html
+<div class="box-footer">
+    <button type="button" class="btn btn-info " onclick="timerMan('start')">
+        开启
+    </button>
+    <button type="button" class="btn btn-default" onclick="timerMan('stop')">
+        停止
+    </button>
+</div>
+```
+
+
+
+## 【5】获取验证码按钮
+
+思路：按钮触发点击事件后发送 AJAX 请求获取验证码，如果发送成功则给按钮添加 `disabled` 属性并使用 `setInterval()` 每隔一秒修改按钮倒计时，倒计时结束后删除按钮 `disabled` 属性。
+
+防止页面刷新后 JS 无效：可以使用 localStorage、Cookie等缓存技术将信息缓存到本地。
+
+HTML：
+
+```html
+<input type="button" id="getCode" value="获取验证码">
+```
+
+CSS：
+
+```css
+input {
+    display: block;
+    cursor: pointer;
+    margin: 100px auto;
+}
+```
+
+JS：
+
+```javascript
+$(function({
+    $('#getCode').click(function () {
+        getValidateCode();
+    });
+
+    countdown();
+}))
+
+/*获取验证码*/
+function getValidateCode() {
+    window.localStorage.setItem("countdown", '60');
+    countdown();
+}
+
+/*验证码倒计时*/
+function countdown() {
+    let $button = $('#getCode');
+    //判断是否恶意刷新页面重复发送验证码
+    let localStorage = window.localStorage;
+    let countdown = localStorage.getItem("countdown");
+    if (countdown !== null || parseInt(countdown) > 0) {
+        $button.text(`重新获取(${countdown})`);
+        $button.attr("disabled", "true").css("cursor", "not-allowed");//增加不可操作属性
+    } else {
+        removeCountdown();
+        return;
+    }
+    //定时器
+    let timer = setInterval(function () {
+        countdown--;//衔接之前更改的秒数
+        localStorage.setItem("countdown", String(countdown));
+        $button.text(`重新获取(${countdown})`);
+        //如果秒数为0，关闭定时器
+        if (countdown === 0) {
+            clearInterval(timer);
+            //修改按钮val
+            $button.text("重新获取");
+            //去除不可操作属性
+            $button.removeAttr("disabled").css("cursor", "pointer");
+            removeCountdown();
+        }
+    }, 1000);
+}
+
+/*清除验证码定时器*/
+function removeCountdown() {
+    localStorage.removeItem("countdown");
+}
+```
+
+> 登录成功后记得清除验证码相关缓存信
+
+
+
+# 3、混合双打
+
+## 【1】AJAX 上传/下载文件
 
 **上传**
 
@@ -389,26 +515,7 @@ function exp() {
 
 
 
-## 【5】AJAX 请求后页面刷新的问题
-
-问题原因出在 HTML 文件上，原因是把所有按钮都放在了一个的表单里面了，`<form>` 里面的按钮默认 `type=submit` ，所以每次点击按钮后都会执行提交表单的操作，表单操作默认有刷新页面的功能。
-
-解决方法：将 `<button>` 的 `type` 改为 `button`
-
-```html
-<div class="box-footer">
-    <button type="button" class="btn btn-info " onclick="timerMan('start')">
-        开启
-    </button>
-    <button type="button" class="btn btn-default" onclick="timerMan('stop')">
-        停止
-    </button>
-</div>
-```
-
-
-
-## 【6】返回前端 Long 丢失精度
+## 【2】返回前端 Long 丢失精度
 
 最近项目中将实体类主键由以前的 `String` 类型的 UUID 改为了 `Long` 类型的分布式 ID，修改后发现前端显示的 ID 和数据库中的 ID 不一致。例如数据库中存储的是：`812782555915911412`，显示出来却成了 `812782555915911400`，后面 2 位变成了 0，精度丢失了：
 
@@ -492,79 +599,4 @@ private Long bankcardHash;
 
 
 
-## 【7】获取验证码按钮
-
-思路：按钮触发点击事件后发送 AJAX 请求获取验证码，如果发送成功则给按钮添加 `disabled` 属性并使用 `setInterval()` 每隔一秒修改按钮倒计时，倒计时结束后删除按钮 `disabled` 属性。
-
-防止页面刷新后 JS 无效：可以使用 localStorage、Cookie等缓存技术将信息缓存到本地。
-
-HTML：
-
-```html
-<input type="button" id="getCode" value="获取验证码">
-```
-
-CSS：
-
-```css
-input {
-    display: block;
-    cursor: pointer;
-    margin: 100px auto;
-}
-```
-
-JS：
-
-```javascript
-$(function({
-    $('#getCode').click(function () {
-        getValidateCode();
-    });
-
-    countdown();
-}))
-
-/*获取验证码*/
-function getValidateCode() {
-    window.localStorage.setItem("countdown", '60');
-    countdown();
-}
-
-/*验证码倒计时*/
-function countdown() {
-    let $button = $('#getCode');
-    //判断是否恶意刷新页面重复发送验证码
-    let localStorage = window.localStorage;
-    let countdown = localStorage.getItem("countdown");
-    if (countdown !== null || parseInt(countdown) > 0) {
-        $button.text(`重新获取(${countdown})`);
-        $button.attr("disabled", "true").css("cursor", "not-allowed");//增加不可操作属性
-    } else {
-        removeCountdown();
-        return;
-    }
-    //定时器
-    let timer = setInterval(function () {
-        countdown--;//衔接之前更改的秒数
-        localStorage.setItem("countdown", String(countdown));
-        $button.text(`重新获取(${countdown})`);
-        //如果秒数为0，关闭定时器
-        if (countdown === 0) {
-            clearInterval(timer);
-            //修改按钮val
-            $button.text("重新获取");
-            //去除不可操作属性
-            $button.removeAttr("disabled").css("cursor", "pointer");
-            removeCountdown();
-        }
-    }, 1000);
-}
-
-/*清除验证码定时器*/
-function removeCountdown() {
-    localStorage.removeItem("countdown");
-}
-```
-
-> 登录成功后记得清除验证码相关缓存信息，不然下次进入页面按钮会重新进入倒计时。
+> 息，不然下次进入页面按钮会重新进入倒计时。
