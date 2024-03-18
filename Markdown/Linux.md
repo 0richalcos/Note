@@ -2794,7 +2794,7 @@ kill %1
 
 ## 10.4、nohup
 
-`nohup` 英文全称 no hang up（不挂起），这个命令会使程序忽略 `HUP` 信号，保证程序能够正常进行。`HUP` 是在终端被中止的时候向它所关联的进程所发出的信号，进程收到这个信号后就会中止运行。所以如果你不希望进程被这个信号干掉的话，就可以忽略这个信号。而 `nohup` 命令做的就是这个事情。用于在系统后台不挂断地运行命令，退出终端不会影响程序的运行。
+`nohup` 英文全称 no hang up（不挂起），这个命令会使程序忽略 HUP 信号，保证程序能够正常进行。HUP 是在终端被中止的时候向它所关联的进程所发出的信号，进程收到这个信号后就会中止运行。所以如果你不希望进程被这个信号干掉的话，就可以忽略这个信号。而 `nohup` 命令做的就是这个事情。用于在系统后台不挂断地运行命令，退出终端不会影响程序的运行。
 
 `nohup` 命令，在默认情况下（非重定向时），会输出一个名叫 nohup.out 的文件到当前目录下，如果当前目录的 nohup.out 文件不可写，输出重定向到 `$HOME/nohup.out` 文件中。
 
@@ -2828,7 +2828,7 @@ appending output to nohup.out
 
 这时打开 root 目录可以看到生成了 nohup.out 文件。
 
-如果要停止运行，你需要使用以下命令查找到 nohup 运行脚本的 PID，然后使用 kill 命令来删除：
+如果要停止运行，你需要使用以下命令查找到 `nohup` 运行脚本的 PID，然后使用 `kill` 命令来删除：
 
 ```shell
 ps -aux | grep "runoob.sh" 
@@ -2975,7 +2975,17 @@ command [1-n] > file或者文件描述符或者设备
   ls exists.txt no-exists.txt 1 > success.txt 2 > fail.txt
   ```
 
-  命令执行，屏幕上将不显示任何信息，但是多了两个文件，其中 succcess.txt 中是执行成功的结果，标准输出重定向的文件，内容为 `exists.txt`，而 fail.txt 是执行出错的结果，标准错误重定向的结果，内容为 `ls: no-exists.txt: No such file or directory`。
+  命令执行，屏幕上将不显示任何信息，但是多了两个文件，其中 succcess.txt 中是执行成功的结果，标准输出重定向的文件，内容为：
+
+  ```
+  exists.txt
+  ```
+
+  而 fail.txt 是执行出错的结果，标准错误重定向的结果，内容为：
+
+  ```
+  ls: no-exists.txt: No such file or directory
+  ```
 
 - 只重定向标准输出
 
