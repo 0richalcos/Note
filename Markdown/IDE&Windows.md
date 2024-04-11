@@ -124,7 +124,9 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 ## 【6】删除右键菜单新建中的选项
 
 1. 按下 Win+R，运行 `regedit`
-2. 展开 HKEY_CLASSES_ROOT，找到需要删除的文件后缀名，然后展开文件夹找到 shellnew 选项，直接删除即可
+2. 展开 `HKEY_CLASSES_ROOT`，找到需要删除的文件后缀名，然后展开文件夹找到 `ShellNew` 选项，直接删除即可
+
+> 如果角色这个快捷方式以后可能会用到，需要重新打开，可以将 `ShellNew` 选项的名字改掉，比如改为 `ShellNew-`。
 
 
 
@@ -388,6 +390,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 
 
+<<<<<<< Updated upstream
 ## 【17】修改 CMD 窗口标题
 
 在命令行中输入：
@@ -401,6 +404,25 @@ title 名字
 ```bat
 set "title=名字"
 ```
+=======
+## 【17】解决腾讯文档替换 Windows 右键快捷方式
+
+在使用一段腾讯文档之后，发现腾讯文档替换掉了我 Windows 上原来 Office 三件套的右键新建文件快捷方式：
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/3eca1cfd0665441f9ddc6464b153c57a.png" alt="3eca1cfd0665441f9ddc6464b153c57a" style="zoom:50%;" />
+
+解决办法：
+
+1. 首先按照[【6】删除右键菜单新建中的选项](#【6】删除右键菜单新建中的选项) 这里的步骤将 `.tdoc`、`.tsheet`、`.tslide` 三个选项取消掉。
+
+2. 然后找到 `.xlsx` 选项并单击选中，双击打开右侧里面的默认项，将数值改为 `Excel.Sheet.12`，其他的同理：
+
+   ![image-20240411184726892](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240411184726892.png)
+
+3. 全部修改完成后，打开任务管理器，将文件资源管理器重启即可：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240411185129951.png" alt="image-20240411185129951" style="zoom:50%;" />
+>>>>>>> Stashed changes
 
 
 
