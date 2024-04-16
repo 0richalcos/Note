@@ -1168,3 +1168,35 @@ PS C:\WINDOWS\system32> set-executionpolicy remotesigned
 PS C:\WINDOWS\system32> get-executionpolicy
 RemoteSigned
 ```
+
+
+
+# IDM
+
+## 【1】关闭假序列号弹窗
+
+使用破解版的 IDM 会时不时出现假序列号弹窗：
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240416143932381.png" alt="image-20240416143932381" style="zoom:67%;" />
+
+解决方案：
+
+1. 打开 host 文件（C:\Windows\System32\drivers\etc\hosts），添加以下几项，将 IDM 的认证服务器域名屏蔽了：
+
+   ```
+   127.0.0.1 http://tonec.com
+   127.0.0.1 http://www.tonec.com
+   127.0.0.1 http://registeridm.com
+   127.0.0.1 http://www.registeridm.com
+   127.0.0.1 http://secure.registeridm.com
+   127.0.0.1 http://internetdownloadmanager.com
+   127.0.0.1 http://www.internetdownloadmanager.com
+   127.0.0.1 http://secure.internetdownloadmanager.com
+   127.0.0.1 http://mirror.internetdownloadmanager.com
+   127.0.0.1 http://mirror2.internetdownloadmanager.com
+   127.0.0.1 http://mirror3.internetdownloadmanager.com
+   ```
+
+2. 每次 IDM 启动的时候，都会修改 hosts 文件，将以上内容注释，可以将 hosts 文件设置为【只读】，也可以使用火绒的自定义防护禁止 IDMan.exe 修改 hosts：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240416144317613.png" alt="image-20240416144317613" style="zoom:67%;" />
