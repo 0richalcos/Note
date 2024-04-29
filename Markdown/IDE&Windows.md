@@ -390,21 +390,6 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 
 
-<<<<<<< Updated upstream
-## 【17】修改 CMD 窗口标题
-
-在命令行中输入：
-
-```bash
-title 名字
-```
-
-如果在启动 Tomcat 时候，无法输入命令，可右键文本形式打开批处理，输入命令：
-
-```bat
-set "title=名字"
-```
-=======
 ## 【17】解决腾讯文档替换 Windows 右键快捷方式
 
 在使用一段腾讯文档之后，发现腾讯文档替换掉了我 Windows 上原来 Office 三件套的右键新建文件快捷方式：
@@ -422,7 +407,6 @@ set "title=名字"
 3. 全部修改完成后，打开任务管理器，将文件资源管理器重启即可：
 
    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240411185129951.png" alt="image-20240411185129951" style="zoom:50%;" />
->>>>>>> Stashed changes
 
 
 
@@ -533,6 +517,22 @@ set "title=名字"
    ![image-20231218010448788](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231218010448788.png)
 
 6. 到这里就已经创建并调整了开发驱动器的大小！
+
+
+
+## 【21】修改 CMD 窗口标题
+
+在命令行中输入：
+
+```bash
+title 名字
+```
+
+如果在启动 Tomcat 时候，无法输入命令，可右键文本形式打开批处理，输入命令：
+
+```bat
+set "title=名字"
+```
 
 
 
