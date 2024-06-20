@@ -146,6 +146,12 @@
 
 
 
+### :hourglass:定时任务
+
+- [**XXL-JOB**](https://github.com/0richalcos/Note/blob/main/Markdown/XXL-JOB.md)
+
+
+
 ### 🛠️开发工具
 
 - [**Swagger**](https://github.com/0richalcos/Note/blob/main/Markdown/Swagger.md)
