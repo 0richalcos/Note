@@ -75,13 +75,13 @@ XXL-JOB 是一个分布式任务调度平台，其核心设计目标是开发迅
 
 **数据库**
 
-数据库文件在源码 doc/db 目录下，xxl_job 的数据库里有如下几个表：
+数据库文件在源码 doc/db 目录下，XXL_JOB 的数据库里有如下几个表：
 
 - xxl_job_group：执行器信息表，用于维护任务执行器的信息。
-- xxl_job_info：调度扩展信息表，主要是用于保存 xxl-job 的调度任务的扩展信息，比如说像任务分组、任务名、机器的地址等等。
+- xxl_job_info：调度扩展信息表，主要是用于保存 XXL_JOB 的调度任务的扩展信息，比如说像任务分组、任务名、机器的地址等等。
 - xxl_job_lock：任务调度锁表。
-- xxl_job_log：日志表，主要是用在保存 xxl-job 任务调度历史信息，像调度结果、执行结果、调度入参等等。
-- xxl_job_log_report：日志报表，会存储 xxl-job 任务调度的日志报表，会在调度中心里的报表功能里使用到。
+- xxl_job_log：日志表，主要是用在保存 XXL_JOB 任务调度历史信息，像调度结果、执行结果、调度入参等等。
+- xxl_job_log_report：日志报表，会存储 XXL_JOB 任务调度的日志报表，会在调度中心里的报表功能里使用到。
 - xxl_job_logglue：任务的 GLUE 日志，用于保存 GLUE 日志的更新历史变化，支持 GLUE 版本的回溯功能。
 - xxl_job_registry：执行器的注册表，用在维护在线的执行器与调度中心的地址信息。
 - xxl_job_user：系统的用户表。
@@ -116,9 +116,197 @@ xxl.job.accessToken=javaxiaobear.cn
 
 默认登录账号密码：admin/123456，登录后运行界面如下图所示：
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/c23e62fe8380589fc8cfd5d3de56489e.png)
+![image-20240621154025166](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240621154025166.png)
 
 
 
 ## 2.2、调度中心界面介绍
 
+### 2.2.1、运行报表
+
+以图形化来展示了整体的任务执行情况：
+
+![image-20240621155943274](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240621155943274.png)
+
+- 任务数量：能够看到调度中心运行的任务数量。
+- 调度次数：调度中心所触发的调度次数。
+- 执行器数量：在整个调度中心中，在线的执行器数量有多少。
+
+
+
+### 2.2.2、任务管理
+
+显示执行器下的所有执行任务：
+
+![image-20240621160005625](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240621160005625.png)
+
+点击 “新增” 即可开始配置执行任务：
+
+![image-20240621160422064](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240621160422064.png)
+
+- 示例执行器：所用到的执行器。
+- 任务描述：概述该任务是做什么的。
+- 负责人：填写该任务调度的负责人。
+- 报警邮件：出现报警，则发送邮件。
+- Cron：执行规则。
+- JobHandler：定义执行器的名字（如果 “运行模式” 选择 Bean 模式，那么这里对应 Bean 的名称）。
+- 路由策略：
+  - 第一个：选择第一个机器。
+  - 最后一个：选择最后一个机器。
+  - 轮询：依次选择执行。
+  - 随机：随机选择在线的机器。
+  - 一致性 HASH：每个任务按照 Hash 算法固定选择某一台机器，并且所有的任务均匀散列在不同的机器上。
+  - 最不经常使用：使用频率最低的机器优先被使用。
+  - 最近最久未使用：最久未使用的机器优先被选举。
+  - 故障转移：按照顺序依次进行心跳检测，第一个心跳检测成功的机器选定为目标的执行器并且会发起任务调度。
+  - 忙碌转移：按照顺序来依次进行空闲检测，第一个空闲检测成功的机器会被选定为目标群机器，并且会发起任务调度。
+  - 分片广播：广播触发对于集群中的所有机器执行任务，同时会系统会自动传递分片的参数。
+- 子任务ID：输入子任务的任务 ID，可填写多个。
+- 调度过期策略：调度中心错过调度时间的补偿处理策略，包括：忽略、立即补偿触发一次等。
+- 阻塞处理策略：
+  - 单机串行：新的调度任务在进入到执行器之后，该调度任务进入 FIFO 队列，并以串行的方式去进行。
+  - 丢弃后续调度：新的调度任务在进入到执行器之后，如果存在相同的且正在运行的调度任务，本次的调度任务请求就会被丢弃掉，并且标记为失败。
+  - 覆盖之前的调度：新的调度任务在进入到执行器之后，如果存在相同的且正在运行的调度任务，就会终止掉当前正在运行的调度任务，并且清空队列，运行新的调度任务。
+- 任务超时时间：添加任务超时的时候，单位 s，设置时间大于 0 的时候就会生效。
+- 失败重试次数：设置失败重试的次数，设置时间大于 0 的时候就会生效。
+
+
+
+### 2.2.3、调度日志
+
+这里是查看调度的日志，根据日志来查看任务具体的执行情况是怎样的：
+
+![image-20240621160611361](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240621160611361.png)
+
+
+
+### 2.2.4、执行器管理
+
+这里是配置执行器，等待执行器启动的时候都会被调度中心监听加入到地址列表：
+
+![image-20240621161257121](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240621161257121.png)
+
+
+
+### 2.2.5、用户管理
+
+可以对用户的一些操作：
+
+![image-20240621160844422](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240621160844422.png)
+
+
+
+## 2.3、整合 XXL_JOB
+
+### 2.3.1、项目搭建
+
+**引入 XXL_JOB 依赖**
+
+```xml
+<!-- http://repo1.maven.org/maven2/com/xuxueli/xxl-job-core/ -->
+<dependency>
+    <groupId>com.xuxueli</groupId>
+    <artifactId>xxl-job-core</artifactId>
+    <version>2.3.1</version>
+</dependency>
+```
+
+
+
+**配置 yaml**
+
+```yaml
+xxl:
+  job:
+    admin:
+      addresses: http://127.0.0.1:8080/xxl-job-admin
+    # 执行器的名字
+    executor:
+      appname: xxl-job-test
+    accessToken: default_token
+server:
+  port: 8081
+```
+
+
+
+**编写配置类**
+
+```java
+@Configuration
+@Slf4j
+public class XxlJobConfig {
+
+    @Value("${xxl.job.admin.addresses}")
+    private String adminAddresses;
+
+    @Value("${xxl.job.executor.appname}")
+    private String appName;
+
+    @Value("${xxl.job.accessToken}")
+    private String accessToken;
+
+    @Bean
+    public XxlJobSpringExecutor xxlJobExecutor() {
+        log.info(">>>>>>>>>>> xxl-job config init.");
+        XxlJobSpringExecutor xxlJobSpringExecutor = new XxlJobSpringExecutor();
+        xxlJobSpringExecutor.setAdminAddresses(adminAddresses);
+        xxlJobSpringExecutor.setAppname(appName);
+		//xxlJobSpringExecutor.setIp(ip);
+		//xxlJobSpringExecutor.setPort(port);
+        xxlJobSpringExecutor.setAccessToken(accessToken);
+		//xxlJobSpringExecutor.setLogPath(logPath);
+		//xxlJobSpringExecutor.setLogRetentionDays(logRetentionDays);
+        return xxlJobSpringExecutor;
+    }
+}
+```
+
+
+
+### 2.3.2、添加分布式调度任务
+
+**代码配置 JobHandler**
+
+```java
+@Slf4j
+@Component
+public class MyXxlJobHandler {
+
+    /**
+     * 简单任务示例（Bean模式）
+     */
+    @XxlJob("demoJobHandler")
+    public ReturnT<String> execute(String param){
+        for (int i = 0; i < 5; i++) {
+            log.info("beat at:" + i);
+            TimeUnit.SECONDS.sleep(2);
+        }
+        log.info("========================定时任务执行");
+    }
+}
+```
+
+
+
+**新增执行器**
+
+在 “执行器管理” 界面新增一个执行器：
+
+![image-20240621173423002](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240621173423002.png)
+
+
+
+**新增任务**
+
+在 “任务管理” 界面新增一个任务：
+
+![image-20240621174414866](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240621174414866.png)
+
+
+
+**重新启动项目**
+
+重新启动项目，等待执行器上线后，在 “任务管理” 界面选择执行一次任务：
+
+![image-20240621175803016](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240621175803016.png)
