@@ -33,7 +33,9 @@ Yarn 是由 Facebook、Google、Exponent 和 Tilde 联合推出了一个新的 J
 
 ## 1.2、安装
 
-### 1.2.1、安装 Corepack
+### 1.2.1、通过  Corepack 安装
+
+**安装 Corepack**
 
 管理 Yarn 的首选方法是通过 Corepack，这是一个从 16.10 开始的所有 Node.js 版本附带的新二进制文件。它充当您和 Yarn 之间的中介，并允许您在多个项目中使用不同的包管理器版本，而无需再签入 Yarn 二进制文件。
 
@@ -59,7 +61,7 @@ Yarn 是由 Facebook、Google、Exponent 和 Tilde 联合推出了一个新的 J
 
 
 
-### 1.2.2、更新全局 Yarn 版本
+**更新全局 Yarn 版本**
 
 用户根据自己的 Node.js 版本执行以下 corepack 命令：
 
@@ -85,7 +87,7 @@ Yarn 是由 Facebook、Google、Exponent 和 Tilde 联合推出了一个新的 J
 
 
 
-**直接安装**
+### 1.2.2、直接安装
 
 也可以直接通过 npm 安装：
 
