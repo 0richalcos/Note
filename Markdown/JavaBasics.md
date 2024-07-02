@@ -1157,6 +1157,30 @@ Java 哈哈:) oracular expressions
 
 
 
+## 3.5、字符串格式化
+
+MessageFormat 提供了一种与语言无关（不管你在中国还是其它国家，效果一样）的方式生成拼接消息/拼接字符串的方法。使用它来构造显示给最终用户的消息。MessageFormat 接受一组对象，对它们进行格式化，然后在模式的适当位置插入格式化的字符串。
+
+简单示例：
+
+```java
+public void test9() {
+    String sourceStrPattern = "Hello {0},my name is {1}";
+    Object[] args = new Object[]{"girl", "YourBatman"};
+
+    String formatedStr = MessageFormat.format(sourceStrPattern, args);
+    System.out.println(formatedStr);
+}
+```
+
+运行程序，输出：
+
+```
+Hello girl,my name is YourBatman
+```
+
+
+
 # 4、数字和日期
 
 ## 4.1、Math 的常用方法

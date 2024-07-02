@@ -962,6 +962,106 @@ Clash 共有三种工作模式：
 
 
 
+# Clash Verge Rev
+
+## 【1】自定义规则
+
+可以通过 Merge 配置实现：在 Clash Verge Rev 【订阅】页面中，点击右上角的【新建】按钮，类型选择【Merge】，点击【保存】即可创建配置。
+
+> 如果创建了多个 Merge 配置，按照启用顺序先后，链式执行。
+>
+> 配置修改后需要重新启用，生效时卡片有颜色标识（右键配置 【禁用】 再 【启用】 ，也可以点击右上角的 🔥 按钮）。
+
+
+
+**配置说明**
+
+```yaml
+# 前置规则
+prepend-rules: []
+# 前置代理
+prepend-proxies: []
+# 前置代理组
+prepend-proxy-groups: []
+# 后置规则
+append-rules: []
+# 后置代理
+append-proxies: []
+# 后置代理组
+append-proxy-groups: []
+```
+
+
+
+**配置用法**
+
+> 规则的匹配顺序是从上到下依次进行匹配，匹配成功会提前结束匹配。
+>
+> `MATCH` 规则一定会匹配成功 ，因此配置文件的规则一般均以 `MATCH` 规则结尾。
+>
+> 基于上述，配置自定义规则一般使用的是 `prepend-rules` 而非 `append-rules`（使用 `append-rules` 会插入规则到原配置中的 `MATCH` 规则后，会导致插入的规则无效）。
+>
+> 基于上述，使用 `prepend-rules` 一般不会插入 `MATCH` 规则（使用 `prepend-rules` 插入 `MATCH` 规则到原配置规则前，会导致原配置的规则无效）。
+
+例如:
+
+- 网站 `www.baidu.com`， 走节点 `🇯🇵6日本-东部优化(hy2)` 。
+- 网站 `www.google.com`， 走节点 `🇰🇷9韩国-全网优化(hy2)` 。
+- 网站 `www.youtube.com`， 走策略组 `♻️自动选择` 。
+- 网站 `www.bilibili.com`，走直连策略组 `DIRECT` 。
+- 网段 `10.11.12.0/24`，走直连策略组 `DIRECT` 。
+
+写法一：
+
+```yaml
+# Profile Enhancement Merge Template for Clash Verge
+
+prepend-rules: [
+  "DOMAIN-SUFFIX,baidu.com,🇯🇵6日本-东部优化(hy2)",
+  "DOMAIN-SUFFIX,google.com,🇰🇷9韩国-全网优化(hy2)",
+  "DOMAIN-SUFFIX,youtube.com,♻️自动选择",
+  "DOMAIN-SUFFIX,bilibili.com,DIRECT",
+  "IP-CIDR,10.11.12.0/24,DIRECT,no-resolve"
+]
+
+prepend-proxies: []
+
+prepend-proxy-groups: []
+
+append-rules: []
+
+append-proxies: []
+
+append-proxy-groups: []
+```
+
+写法二：
+
+```yaml
+# Profile Enhancement Merge Template for Clash Verge
+
+prepend-rules:
+  - DOMAIN-SUFFIX,baidu.com,🇯🇵6日本-东部优化(hy2)
+  - DOMAIN-SUFFIX,google.com,🇰🇷9韩国-全网优化(hy2)
+  - DOMAIN-SUFFIX,youtube.com,♻️自动选择
+  - DOMAIN-SUFFIX,bilibili.com,DIRECT
+  - IP-CIDR,10.11.12.0/24,DIRECT,no-resolve
+
+prepend-proxies: []
+
+prepend-proxy-groups: []
+
+append-rules: []
+
+append-proxies: []
+
+append-proxy-groups: []
+```
+
+> 规则配置请参考 [规则配置文档](https://wiki.metacubex.one/config/rules/)
+
+
+
 # Windows Server 2022
 
 ## 【1】激活
