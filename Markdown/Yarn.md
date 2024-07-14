@@ -213,3 +213,22 @@ yarn install
 这些过程都需要进行大量的文件 I/O 操作，这无疑是非常低效的。为了解决这些问题，Facebook 提出了 Plug’n’Play(PnP) 方案。
 
 在 Yarn 中，当我们开启 PnP 后，Yarn 会生成一个 `.png.js` 文件来描述项目的依赖信息和所需模块的查找路径。同时，项目目录下不再需要一个 node_modules 目录，取而代之的是一个全局的缓存目录，项目所需依赖都可以从这个目录中获取。
+
+
+
+## 2.2、快速删除 node_modules
+
+当安装了较多模块后，node_modules 目录下的文件会很多，直接删除整个目录会很慢。可以全局安装 rimraf  模块，然后通过其命令来快速删除 node_modules 目录。
+
+全局安装 rimraf：
+
+```shell
+npm install rimraf -g
+```
+
+删除 node_modules：
+
+```shell
+rimraf node_modules
+```
+

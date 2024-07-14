@@ -1855,11 +1855,78 @@ Spring Boot 提供了内置的 Tomcat、Undertow、Jetty 三种 Servlet Web 容�
 
    打 War 包方式和打 Jar 包方式一样，没有区别。
 
-   - 在 Maven 中使用 `mvn cleanpackage` 命令即可打包。
+   - 在 Maven 中使用 `mvn clean package` 命令即可打包。
 
    - 在 Idea 中可以这样设置打包：
 
      ![image-20230626153638578](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230626153638578.png)
+
+
+
+## 6.2、jar
+
+在项目根目录下找到 pom.xml 文件，确保其中包含了 spring-boot-maven-plugin 插件，如果没有的话需要添加：
+
+```xml 
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+    </plugins>
+</build>
+```
+
+在命令行中进入项目根目录，执行以下命令先清理再进行打包：
+
+```shell
+mvn clean package
+```
+
+或者使用以下命令跳过测试：
+
+```shell
+mvn clean package -DskipTests
+```
+
+执行完毕后，在项目根目录的 target 目录下会生成一个可执行的 JAR 文件，生成的 JAR 文件可以通过以下命令来运行项目：
+
+```shell
+java -jar your-project-name.jar
+```
+
+
+
+### 6.2.1、打 jar 包后乱码
+
+**在 pom 文件中指定编码**
+
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <configuration>
+        <source>1.8</source>
+        <target>1.8</target>
+        <encoding>UTF-8</encoding>
+    </configuration>
+</plugin>
+```
+
+
+
+**在 IDE 中设置项目的编码格式（这里使用的IDEA）**
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/QQ_1720978751626.png" alt="QQ_1720978751626" style="zoom: 67%;" />
+
+
+
+**运行 jar 时指定文件编码**
+
+```shell
+java -Dfile.encoding=utf-8 -jar your-project-name.jar
+```
 
 
 

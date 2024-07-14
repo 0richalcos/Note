@@ -1181,6 +1181,93 @@ Hello girl,my name is YourBatman
 
 
 
+**参数模式**
+
+MessageFormat 采用 `{}` 来标记需要被替换/插入的部分，其中 `{}` 里面的参数结构具有一定模式：
+
+```
+ArgumentIndex[,FormatType[,FormatStyle]] 
+```
+
+- *ArgumentIndex*：非必须，从 0 开始的索引值。
+- *FormatType*：非必须，使用不同的 `java.text.Format` 实现类对入参进行格式化处理。它能有如下值：
+  - `number`：调用 NumberFormat 进行格式化。
+  - `date`：调用 DateFormat 进行格式化。
+  - `time`：调用 DateFormat 进行格式化。
+  - `choice`：调用 ChoiceFormat 进行格式化。
+- *FormatStyle*：非必须，设置 FormatType 使用的样式。它能有如下值：
+  - short、medium、long、full、integer、currency、percent、SubformPattern（如日期格式、数字格式#.##等）
+
+> 说明：FormatType 和 FormatStyle 只有在传入值为日期时间、数字、百分比等类型时才有可能需要设置，使用得并不多。毕竟：我在外部格式化好后再放进去不香吗？
+
+```java
+@Test
+public void test10() {
+    MessageFormat messageFormat = new MessageFormat("Hello, my name is {0}. I’am {1,number,#.##} years old. Today is {2,date,yyyy-MM-dd HH:mm:ss}");
+    // 亦可通过编程式 显示指定某个位置要使用的格式化器
+    // messageFormat.setFormatByArgumentIndex(1, new DecimalFormat("#.###"));
+
+    System.out.println(messageFormat.format(new Object[]{"YourBatman", 24.123456, new Date()}));
+}
+```
+
+运行程序，输出：
+
+```
+Hello, my name is YourBatman. I’am 24.12 years old. Today is 2020-12-26 15:24:28
+```
+
+
+
+**注意事项**
+
+下面基于此示例，对 MessageFormat 的使用注意事项作出几点强调：
+
+```java
+@Test
+public void test11() {
+    System.out.println(MessageFormat.format("{1} - {1}", new Object[]{1})); // {1} - {1}
+    System.out.println(MessageFormat.format("{0} - {1}", new Object[]{1})); // 输出：1 - {1}
+    System.out.println(MessageFormat.format("{0} - {1}", new Object[]{1, 2, 3})); // 输出：1 - 2
+
+    System.out.println("---------------------------------");
+
+    System.out.println(MessageFormat.format("'{0} - {1}", new Object[]{1, 2})); // 输出：{0} - {1}
+    System.out.println(MessageFormat.format("''{0} - {1}", new Object[]{1, 2})); // 输出：'1 - 2
+    System.out.println(MessageFormat.format("'{0}' - {1}", new Object[]{1, 2})); // {0} - 2
+    // 若你数据库值两边都需要''包起来，请你这么写
+    System.out.println(MessageFormat.format("''{0}'' - {1}", new Object[]{1, 2})); // '1' - 2
+
+    System.out.println("---------------------------------");
+    System.out.println(MessageFormat.format("0} - {1}", new Object[]{1, 2})); // 0} - 2
+    System.out.println(MessageFormat.format("{0 - {1}", new Object[]{1, 2})); // java.lang.IllegalArgumentException: Unmatched braces in the pattern.
+}
+```
+
+1. 参数模式的索引值必须从 0 开始，否则所有索引值无效。
+2. 实际传入的参数个数可以和索引个数不匹配，不报错（能匹配上几个算几个）。
+3. 两个单引号 `''` 才算作一个  `'`，若只写一个将被忽略甚至影响整个表达式：
+   - 谨慎使用单引号 `'`。
+   - 关注 `'` 的匹配关系。
+4. `{}` 只写左边报错，只写右边正常输出（注意参数的对应关系）。
+
+
+
+**`static` 方法的性能问题**
+
+MessageFormat 提供有一个 `static` 静态方法，非常方便的的使用：
+
+```java
+public static String format(String pattern, Object ... arguments) {
+    MessageFormat temp = new MessageFormat(pattern);
+    return temp.format(arguments);
+}
+```
+
+可以清晰看到，该静态方法本质上还是构造了一个 MessageFormat 实例去做格式化的。因此：若你要多次（如高并发场景）格式化同一个模版（参数可不一样）的话，那么提前创建好一个全局的（非 `static`） MessageFormat 实例再执行格式化是最好的，而非一直调用其静态方法。
+
+
+
 # 4、数字和日期
 
 ## 4.1、Math 的常用方法
