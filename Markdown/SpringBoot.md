@@ -1928,6 +1928,20 @@ java -jar your-project-name.jar
 java -Dfile.encoding=utf-8 -jar your-project-name.jar
 ```
 
+Windows 控制台中默认显示的编码是 GBK，此时控制台打印的中文会乱码，切换下就好了。
+
+切换 UTF-8：
+
+```shell
+chcp 65001
+```
+
+切换回 GBK：
+
+```shell
+chcp 936
+```
+
 
 
 # 10、发送邮件
