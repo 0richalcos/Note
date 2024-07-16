@@ -1616,7 +1616,9 @@ Hibernate Validator 提供的校验注解：
 
 
 
-#  5、JDBC
+# 5、数据源
+
+##  5.1、JDBC
 
 首先新建一个 SpringBoot 项目
 
@@ -1940,6 +1942,27 @@ chcp 65001
 
 ```shell
 chcp 936
+```
+
+
+
+# 7、日志
+
+```yaml
+logging:
+  #日志文件
+  config: classpath:log4g2.xml
+  level:
+    com.alibaba.nacos.client.config.impl: WARN
+    cn.jay.repository: trace
+  file:
+    #${file.name} 后期可以改成${spring.application.name}
+    path: /log/${file.name}
+```
+
+```xml
+<!-- ${sys:LOG_PATH} 读取的就是 application.yml 中的 logging.file.path 的值 -->
+<Property name="LOG_HOME" value="${sys:LOG_PATH}"/>
 ```
 
 
