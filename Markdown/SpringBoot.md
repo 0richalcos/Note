@@ -1948,10 +1948,27 @@ chcp 936
 
 # 7、日志
 
+Spirngboot 整合的 log4j2 默认有内置的 xml 配置文件 log4j2.xml：
+
+```yaml
+# log4j2 配置
+logging:
+  config: classpath:log4j2.xml
+```
+
+但是如果你的 log4j2.xml 配置文件中含有以下占位符：
+
+```
+${sys:CONSOLE_LOG_PATTERN}
+${sys:LOG_PATH}
+```
+
+IDEA 运行时候会报错，但是 log 日志文件可以正常建设，建议使用 log4j2-spring.xml 文件命名配置文件：
+
 ```yaml
 logging:
   #日志文件
-  config: classpath:log4g2.xml
+  config: classpath:log4j2-spring.xml
   level:
     com.alibaba.nacos.client.config.impl: WARN
     cn.jay.repository: trace
