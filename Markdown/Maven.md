@@ -63,8 +63,16 @@ mvn <指令> –P <环境定义id>
 示例：
 
 ```shell
-mvn install –P pro_env
+mvn clean package –P pro_env
 ```
+
+
+
+## 2.3、命令行指定 localRepository
+
+ ```shell
+ mvn compile -D maven.repo.local=/opt/maven_build/2ADD3ECC60358D583AEDDA5FB085F2FD/repos
+ ```
 
 
 
