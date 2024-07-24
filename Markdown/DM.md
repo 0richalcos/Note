@@ -504,7 +504,7 @@ systemctl status DmServiceDMSERVER.service
 
 # 3、备份和迁移
 
-## 3.1、DTS工具迁移
+## 3.1、DTS 工具迁移
 
 1. 新建工程：
 

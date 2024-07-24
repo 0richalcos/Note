@@ -1948,6 +1948,63 @@ chcp 936
 
 # 7、日志
 
+## 7.1、Logback
+
+Logback 是 Java 社区中使用最广泛的日志框架之一。 它是其前身 Log4j 的替代品。 Logback 提供了更快的执行速度，提供了更多的配置选项，以及归档旧日志文件的更大灵活性。
+
+使用 Logback 做日志，xml 中会希望动态读取 yml 中的配置参数，比如：日志的输出位置可能要根据部署的环境动态进行配置：
+
+1. 将 logback.xml 名称改为 logback-spring.xml。
+
+2. 在 yml 文件中配置日志存放路径：
+
+   ```yaml
+   # 日志配置
+   logging:
+     config: classpath:logback-spring.xml
+     path: /home/xlaims/logs
+   ```
+
+3. 在 logback-spring.xml 加入 Spring 属性读取 yml 配置：
+
+   ```xml
+   <!--读取yml中的日志路径-->
+   <springProperty scope="context" name="logPath" source="logging.path"/>
+   ```
+
+4. 使用配置：
+
+   ```xml
+   <!--日志存放路径-->
+   <property name="log.path" value="${logPath}"/>
+   ```
+
+配置完成后，部署时就可以在启动前修改 application.yml 文件中的相关配置，达到自定义的目的。
+
+
+
+**logback-spring.xml 和 logback.xml 的区别**
+
+logback.xml：
+
+- logback.xml 是 Logback 的标准配置文件，由Logback 在初始化时直接加载。
+- 当应用启动时，Logback 会按照其内置机制查找并加载 logback.xml 文件，这个过程与 Spring Boot 的启动流程无关。
+- 这意味着 logback.xml 在 Spring 环境初始化之前就被加载，因此它不能利用 Spring Boot 的高级特性，如 profiles 或环境属性。
+- 如果你的应用不是特别依赖 Spring Boot 的特性来配置日志，使用 logback.xml 就足够了。
+
+logback-spring.xml：
+
+- logback-spring.xml 是专门为 Spring Boot 应用设计的，允许日志配置更紧密地集成 Spring Boot 的特性。
+- 使用 logback-spring.xml，你可以在日志配置中使用 Spring Boot 的属性和 profile，这意味着你可以根据不同的环境或配置动态地调整日志行为。
+- Spring Boot 在应用启动时会特别查找 logback-spring.xml，并在 Spring 环境准备好之后加载它，这样就能确保所有 Spring Boot 的特性在日志配置中都可用。
+- 这个配置文件不会被 Logback 直接加载，而是由 Spring Boot 控制，这样可以防止在 Spring Boot 环境变量准备好之前就加载日志配置，避免了一些潜在的问题，比如不能解析 Spring Boot 的属性值。
+
+
+
+## 7.2、Log4j2
+
+Apache Log4j2 是对 Log4j 的升级，它比其前身 Log4j 1.x 提供了重大改进，并参考了 Logback 中优秀的设计，同时修复了 Logback 架构中的一些问题。被誉为是目前最优秀的 Java 日志框架；企业中通常使用 SLF4j 门面 + Log4j2 来记录日志。
+
 Spirngboot 整合的 log4j2 默认有内置的 xml 配置文件 log4j2.xml：
 
 ```yaml
