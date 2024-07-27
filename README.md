@@ -65,6 +65,7 @@
 - [**Linux**](https://github.com/0richalcos/Note/blob/main/Markdown/Linux.md)
 - [**Nginx**](https://github.com/0richalcos/Note/blob/main/Markdown/Nginx.md)
 - [**WebLogic**](https://github.com/0richalcos/Note/blob/main/Markdown/WebLogic.md)
+- [**frp**](https://github.com/0richalcos/Note/blob/main/Markdown/frp.md)
 
 
 
