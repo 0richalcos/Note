@@ -423,29 +423,27 @@ public class ConfigByValueAnnotation {
 
 优点：
 
-- 使用配置只需确定 key 的前缀即能使用，有利于批量获取场景的使用
-- 因采用前缀匹配，所以在使用新的相同前缀 key 的配置时无需改动代码
-- 支持 JSR303 数据校验
-- 支持复杂类型封装
-- 松散绑定：比如 yaml 中写的是 `last-name`，那么这个和 `lastName` 是一样的，`-` 后面跟着的字母默认是大写的
+- 使用配置只需确定 key 的前缀即能使用，有利于批量获取场景的使用。
+- 因采用前缀匹配，所以在使用新的相同前缀 key 的配置时无需改动代码。
+- 支持 JSR303 数据校验。
+- 支持复杂类型封装。
+- 松散绑定：比如 yaml 中写的是 last-name，那么这个和 lastName 是一样的，`-` 后面跟着的字母默认是大写的。
 
 缺点：
 
-- 使用复杂，需定义配置类或者手动创建 Bean 后引入使用
-- 增加新的前缀相同 key 时可能会引入不稳定因素
+- 使用复杂，需定义配置类或者手动创建 Bean 后引入使用。
+- 增加新的前缀相同 key 时可能会引入不稳定因素。
 
 使用场景：
 
-- 需要同时使用多前缀相同 key 的配置
-- 期望增加新配置但不修改代码的 properties 注入
+- 需要同时使用多前缀相同 key 的配置。
+- 期望增加新配置但不修改代码的 properties 注入。
 
 
-
-#### 简单使用
 
 **自定义的 Bean 使用 `@ConfigurationProperties`**
 
-1. 编写 Dog 类：
+1. 编写 `Dog` 类：
 
    ```java
    public class Dog {
@@ -454,7 +452,7 @@ public class ConfigByValueAnnotation {
    }
    ```
 
-     Person 类使用 `@ConfigurationProperties` 注解将配置中的属性值关联到实体类上：
+     `Person` 类使用 `@ConfigurationProperties` 注解将配置中的属性值关联到实体类上：
 
    ```java
    @Component
@@ -503,22 +501,22 @@ public class ConfigByValueAnnotation {
 
 3. 测试：
 
-  ```java
-  @SpringBootTest
-  class Springboot02ConfigApplicationTests {
-      @Autowired
-      private Person person;
-  
-      @Test
-      void contextLoads() {
-          System.out.println(person);
-      }
-  }
-  ```
+   ```java
+   @SpringBootTest
+   class Springboot02ConfigApplicationTests {
+       @Autowired
+       private Person person;
+   
+       @Test
+       void contextLoads() {
+           System.out.println(person);
+       }
+   }
+   ```
 
 
 
-**第三方 Bean 使用 `@ConfigurationProperties`**
+**第三方 Bean 使用  `@ConfigurationProperties`**
 
 自定义 Bean 的 `@ConfigurationProperties` 注解是写在类定义的上方，而第三方开发的 Bean 源代码不是我们自己写的，我们也不可能到源代码中去添加 `@ConfigurationProperties` 注解，所以这里需要换种方法处理。
 
@@ -532,14 +530,14 @@ public class ConfigByValueAnnotation {
    }
    ```
 
-2. 然后在 yml中 定义要绑定的属性，注意 `datasource` 此时全小写：
+2. 然后在 yml 中定义要绑定的属性，注意 `datasource` 此时全小写：
 
    ```yaml
    datasource:
      driverClassName: com.mysql.cj.jdbc.Driver
    ```
 
-3. 最后使用 `@ConfigurationProperties` 注解为第三方 Bean 进行属性绑定，注意前缀是全小写的 `datasource`：
+3. 最后使用 `@ConfigurationProperties` 注解为第三方 Bean 进行属性绑定，注意前缀是全小写的 datasource：
 
    ```java
    @Bean
@@ -620,19 +618,19 @@ public class ConfigByValueAnnotation {
 
 `@PropertySource` 是 Spring 的注解，用于加载指定的属性文件的配置到 Spring 的 Environment 中，可以配合 `@Value` 和 `@ConfigurationProperties` 使用。
 
-1. 创建一个 `application.properties`
+1. 创建一个 application.properties：
 
 	```properties
 	name=orichalcos
 	```
 
-2. 在Person中引用
+2. 在 `Person` 中引用：
 
 	```java
 	@PropertySource(value = "classpath:application.properties")
 	```
 
-3. 给属性赋值（在属性上添加注解）
+3. 给属性赋值（在属性上添加注解）：
 
 	```java
 	@Value("${name}");

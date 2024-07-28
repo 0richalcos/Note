@@ -2087,9 +2087,14 @@ if(!window.localStorage){
 
 ### 4.1.2、sessionStorage 
 
-localStorage 和 sessionStorage 属性允许在浏览器中存储 key/value 对的数据。sessionStorage 用于临时保存同一窗口(或标签页)的数据，在关闭窗口或标签页之后将会删除这些数据。
+localStorage 和 sessionStorage 属性允许在浏览器中存储 key/value 对的数据。sessionStorage 用于临时保存同一窗口（或标签页）的数据，在关闭窗口或标签页之后将会删除这些数据。
 
-其余和 localStorage  相似。
+1. 页面会话在浏览器打开期间一直保持，并且重新加载或恢复页面仍会保持原来的页面会话。
+2. 在新标签或窗口打开一个页面时会复制顶级浏览会话的上下文作为新会话的上下文， 这点和 session cookies 的运行方式不同。
+3. 打开多个相同的 URL 的 Tabs 页面，会创建各自的 sessionStorage。
+4. 关闭对应浏览器标签或窗口，会清除对应的 sessionStorage。
+
+其余和 localStorage 相似。
 
 
 
@@ -2191,9 +2196,9 @@ open(url, target, windowFeatures)
 
     如果未启用 `popup`，也没有声明窗口特性，则新的浏览上下文将是一个标签页。
 
-    要启用该特性，可以不指定 `popup` 值，或将其设置为 `yes`, `1` 或 `true`。
+    要启用该特性，可以不指定 `popup` 值，或将其设置为 yes、1 或 true。
 
-    例如：`popup=yes`、`popup=1`、`popup=true` 和`popup` 的结果完全相同。
+    例如：`popup=yes`、`popup=1`、`popup=true` 和 `popup` 的结果完全相同。
 
   - `width` 或 `innerWidth`：
 
@@ -2213,7 +2218,7 @@ open(url, target, windowFeatures)
 
   - `noopener`：
 
-    如果设置了此特性，新窗口将无法通过 `Window.opener` 访问原窗口，并返回 `null`。
+    如果设置了此特性，新窗口将无法通过 `Window.opener` 访问原窗口，并返回 null。
 
     使用 `noopener` 时，在决定是否打开新的浏览上下文时，除 `_top`、`_self` 和 `_parent` 以外的非空目标名称会像 `_blank` 一样处理。
 
