@@ -74,6 +74,8 @@ MinIO 服务安装后，可以直接通过浏览器登录系统，完成文件�
 
 ## 1.3、MinIO 安装
 
+### 1.3.1、Linux
+
 **MinIO 安装**
 
 1. 进入 `/opt` 目录，创建 `minio` 文件夹并进入：
@@ -154,5 +156,29 @@ netstat -nlp | grep 9000
 
 ```shell
 kill -9 2524
+```
+
+
+
+### 1.3.2、Windows
+
+Windows 环境下和 Linux 大致相同，主要是启动的环境配置有些差异，下方展示如何在 Windows Powershell 中设置环境变量并启动。
+
+设置用户名：
+
+```shell
+$env:MINIO_ROOT_USER="minioadmin"
+```
+
+设置密码：
+
+```shell
+$env:MINIO_ROOT_PASSWORD="minioadmin"
+```
+
+启动：
+
+```shell
+./minio.exe server D:\MinIO --address :9000 --console-address :61748
 ```
 
