@@ -1,5 +1,6 @@
 ---
 typora-copy-images-to: upload
+
 ---
 
 # 1、SQL简介
@@ -104,84 +105,84 @@ MySQL 为关系型数据库（Relational Database Management System），这种�
 
 1. 先下载 [MySQL](https://dev.mysql.com/downloads/mysql/)，现在的版本是 8.0.27：
 
-	![image-20211115115209195](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115115209195.png)
+   ![image-20211115115209195](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115115209195.png)
 
-	这里下载的是 Zip 安装包版，可以点击 【Go to Download Page】，去载 MSI 安装版（这里下载的是安装版）：
+   这里下载的是 Zip 安装包版，可以点击 【Go to Download Page】，去载 MSI 安装版（这里下载的是安装版）：
 
-	![image-20211115115812248](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115115812248.png)
+   ![image-20211115115812248](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115115812248.png)
 
 2. 下载后打开文件开始安装，这里选择自定义安装：
 
-	![image-20211115141345534](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115141345534.png)
+   ![image-20211115141345534](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115141345534.png)
 
 3. 这里选择只安装基础的 MySQL 服务和 JDBC，并且勾选下面的选项：
 
-	![image-20211115141638695](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115141638695.png)
+   ![image-20211115141638695](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115141638695.png)
 
-3. 点击 MySQL Server，下方会出现 Advanced Options（高级选项），点击高级选项，盘它！（这里是第二次装发现的，所以版本不一样）：
+4. 点击 MySQL Server，下方会出现 Advanced Options（高级选项），点击高级选项，盘它！（这里是第二次装发现的，所以版本不一样）：
 
-	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220320164455188.png" alt="image-20220320164455188" style="zoom: 67%;" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220320164455188.png" alt="image-20220320164455188" style="zoom: 67%;" />
 
-3. 这里可以更改安装地址，我建议改一下数据存储地址，防止数据太多占用 C 盘空间，然后点 OK 和 Next：
+5. 这里可以更改安装地址，我建议改一下数据存储地址，防止数据太多占用 C 盘空间，然后点 OK 和 Next：
 
-	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220320164751257.png" alt="image-20220320164751257" style="zoom:67%;" />
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220320164751257.png" alt="image-20220320164751257" style="zoom:67%;" />
 
-4. 取消了文档：
+6. 取消了文档：
 
-	![image-20211115141735403](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115141735403.png)
+   ![image-20211115141735403](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115141735403.png)
 
-5. 开始安装：
+7. 开始安装：
 
-	![image-20211115141804300](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115141804300.png)
+   ![image-20211115141804300](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115141804300.png)
 
-6. 开始配置：
+8. 开始配置：
 
-	![image-20211115141841846](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115141841846.png)
+   ![image-20211115141841846](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115141841846.png)
 
-7. 选择开发电脑：
+9. 选择开发电脑：
 
-	![image-20211115142116388](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142116388.png)
+   ![image-20211115142116388](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142116388.png)
 
-8. 这里使用默认的加密加密方法：
+10. 这里使用默认的加密加密方法：
 
-	![image-20211115142310317](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142310317.png)
+    ![image-20211115142310317](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142310317.png)
 
-9. 填写数据库密码：
+11. 填写数据库密码：
 
-	![image-20211115142333702](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142333702.png)
+    ![image-20211115142333702](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142333702.png)
 
-10. 取消开机自启：
+12. 取消开机自启：
 
-	![image-20211115142440712](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142440712.png)
+    ![image-20211115142440712](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142440712.png)
 
-11. 应用配置：
+13. 应用配置：
 
-	![image-20211115142501957](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142501957.png)
+    ![image-20211115142501957](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142501957.png)
 
-12. 配置环境变量：
+14. 配置环境变量：
 
-	![image-20211115142610319](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142610319.png)
-	![image-20211115142647651](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142647651.png)
+    ![image-20211115142610319](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142610319.png)
+    ![image-20211115142647651](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142647651.png)
 
-13. 访问：
+15. 访问：
 
-	```shell
-	PS C:\Users\Orichalcos> mysql -u root -p
-	Enter password: ****
-	Welcome to the MySQL monitor.  Commands end with ; or \g.
-	Your MySQL connection id is 11
-	Server version: 8.0.27 MySQL Community Server - GPL
-	
-	Copyright (c) 2000, 2021, Oracle and/or its affiliates.
-	
-	Oracle is a registered trademark of Oracle Corporation and/or its
-	affiliates. Other names may be trademarks of their respective
-	owners.
-	
-	Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-	
-	mysql>
-	```
+    ```shell
+    PS C:\Users\Orichalcos> mysql -u root -p
+    Enter password: ****
+    Welcome to the MySQL monitor.  Commands end with ; or \g.
+    Your MySQL connection id is 11
+    Server version: 8.0.27 MySQL Community Server - GPL
+    
+    Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+    
+    Oracle is a registered trademark of Oracle Corporation and/or its
+    affiliates. Other names may be trademarks of their respective
+    owners.
+    
+    Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+    
+    mysql>
+    ```
 
 
 
@@ -949,33 +950,33 @@ VALUES
 
 - 复制表结构：
 
-	```mysql
-	CREATE TABLE targetTable LIKE sourceTable;
-	```
+  ```mysql
+  CREATE TABLE targetTable LIKE sourceTable;
+  ```
 
-	或者
+  或者
 
-	```mysql
-	CREATE TABLE targetTable AS SELECT * FROM sourceTable WHERE 1=2;
-	```
+  ```mysql
+  CREATE TABLE targetTable AS SELECT * FROM sourceTable WHERE 1=2;
+  ```
 
 - 复制表数据：
 
-	```mysql
-	INSERT INTO targetTable SELECT * FROM sourceTable;
-	```
+  ```mysql
+  INSERT INTO targetTable SELECT * FROM sourceTable;
+  ```
 
-	或者：
+  或者：
 
-	```mysql
-	SELECT * INTO targetTable [IN externaldatabase] FROM sourceTable
-	```
+  ```mysql
+  SELECT * INTO targetTable [IN externaldatabase] FROM sourceTable
+  ```
 
 - 复制表结构及数据到新表：
 
-	```mysql
-	CREATE TABLE newTable AS SELECT * FROM oldTable;
-	```
+  ```mysql
+  CREATE TABLE newTable AS SELECT * FROM oldTable;
+  ```
 
 
 
@@ -1010,13 +1011,13 @@ TRUNCATE TABLE <表名>
 
 1. `DELETE` 语句执行删除的过程是每次从表中删除一行，并且同时将该行的删除操作作为事务记录在日志中保存以便进行进行回滚操作。
 
-	`TRUNCATE TABLE` 则一次性地从表中删除所有的数据并不把单独的删除操作记录记入日志保存，删除行是不能恢复的。并且在删除的过程中不会激活与表有关的删除触发器。执行速度快。
+   `TRUNCATE TABLE` 则一次性地从表中删除所有的数据并不把单独的删除操作记录记入日志保存，删除行是不能恢复的。并且在删除的过程中不会激活与表有关的删除触发器。执行速度快。
 
 2. 当表被 `TRUNCATE` 后，这个表和索引所占用的空间会恢复到初始大小，`DELETE` 操作不会减少表或索引所占用的空间。`DROP` 语句将表所占用的空间全释放掉。
 
 3. `DELETE` 语句为 DML（data maintain Language)，这个操作会被放到 rollback segment 中，事务提交后才生效。如果有相应的 tigger，执行的时候将被触发。
 
-	由于 `TRUNCATE TABLE` 不记录在日志中，所以它不能激活触发器。
+   由于 `TRUNCATE TABLE` 不记录在日志中，所以它不能激活触发器。
 
 
 
@@ -1777,29 +1778,29 @@ WITH [RECURSIVE]
 
 - 如果 CTE 名称后面有一个带括号的名称列表，这些名称就是列名：
 
-	```mysql
-	WITH cte (col1, col2) AS
-	(
-	  SELECT 1, 2
-	  UNION ALL
-	  SELECT 3, 4
-	)
-	SELECT col1, col2 FROM cte;
-	```
+  ```mysql
+  WITH cte (col1, col2) AS
+  (
+    SELECT 1, 2
+    UNION ALL
+    SELECT 3, 4
+  )
+  SELECT col1, col2 FROM cte;
+  ```
 
-	列表中的列名数量必须与结果集中的列数量相同。
+  列表中的列名数量必须与结果集中的列数量相同。
 
 - 否则，列名来选择列表中第一个 ` AS (subquery)` 部分中第一个 `SELECT` 的选择列表：
 
-	```mysql
-	WITH cte AS
-	(
-	  SELECT 1 AS col1, 2 AS col2
-	  UNION ALL
-	  SELECT 3, 4
-	)
-	SELECT col1, col2 FROM cte;
-	```
+  ```mysql
+  WITH cte AS
+  (
+    SELECT 1 AS col1, 2 AS col2
+    UNION ALL
+    SELECT 3, 4
+  )
+  SELECT col1, col2 FROM cte;
+  ```
 
 
 
@@ -1807,29 +1808,29 @@ WITH [RECURSIVE]
 
 - 在 `SELECT`、`UPDATE` 和 `DELETE` 语句的开头。
 
-	```mysql
-	WITH ... SELECT ...
-	WITH ... UPDATE ...
-	WITH ... DELETE ...
-	```
+  ```mysql
+  WITH ... SELECT ...
+  WITH ... UPDATE ...
+  WITH ... DELETE ...
+  ```
 
 - 在子查询（包括派生表子查询）的开头：
 
-	```mysql
-	SELECT ... WHERE id IN (WITH ... SELECT ...) ...
-	SELECT * FROM (WITH ... SELECT ...) AS dt ...
-	```
+  ```mysql
+  SELECT ... WHERE id IN (WITH ... SELECT ...) ...
+  SELECT * FROM (WITH ... SELECT ...) AS dt ...
+  ```
 
 - 对于包含 `SELECT` 语句的语句，紧接在 `SELECT` 之前：
 
-	```mysql
-	INSERT ... WITH ... SELECT ...
-	REPLACE ... WITH ... SELECT ...
-	CREATE TABLE ... WITH ... SELECT ...
-	CREATE VIEW ... WITH ... SELECT ...
-	DECLARE CURSOR ... WITH ... SELECT ...
-	EXPLAIN ... WITH ... SELECT ...
-	```
+  ```mysql
+  INSERT ... WITH ... SELECT ...
+  REPLACE ... WITH ... SELECT ...
+  CREATE TABLE ... WITH ... SELECT ...
+  CREATE VIEW ... WITH ... SELECT ...
+  DECLARE CURSOR ... WITH ... SELECT ...
+  EXPLAIN ... WITH ... SELECT ...
+  ```
 
 
 
@@ -1908,23 +1909,23 @@ SELECT * FROM cte;
 
 - 如果 `WITH` 子句中的任何 CTE 指代自己，`WITH` 子句必须以 `WITH RECURSIVE` 开始。（如果没有 CTE 指代自己，`RECURSIVE` 是允许的，但不是必须的。）
 
-	如果你忘记了递归 CTE 的 `RECURSIVE`，则可能会出现以下错误：
+  如果你忘记了递归 CTE 的 `RECURSIVE`，则可能会出现以下错误：
 
-	```mysql
-	ERROR 1146 (42S02): Table 'cte_name' doesn't exist
-	```
+  ```mysql
+  ERROR 1146 (42S02): Table 'cte_name' doesn't exist
+  ```
 
 - 递归 CTE 子查询有两个部分，用 `UNION [ALL]` 或 `UNION DISTINCT` 分开：
 
-	```mysql
-	SELECT ...      -- return initial row set
-	UNION ALL
-	SELECT ...      -- return additional row sets
-	```
+  ```mysql
+  SELECT ...      -- return initial row set
+  UNION ALL
+  SELECT ...      -- return additional row sets
+  ```
 
-	第一个 `SELECT` 生成 CTE 的初始行或初始行，但不引用 CTE 名称。第二个 `SELECT` 生成额外的行，并通过在其 `FROM` 子句中引用 CTE 名称来递归。当此部分不产生新行时，递归结束。因此，递归 CTE 由一个非递归 `SELECT` 部分和一个递归 `SELECT` 部分组成。
+  第一个 `SELECT` 生成 CTE 的初始行或初始行，但不引用 CTE 名称。第二个 `SELECT` 生成额外的行，并通过在其 `FROM` 子句中引用 CTE 名称来递归。当此部分不产生新行时，递归结束。因此，递归 CTE 由一个非递归 `SELECT` 部分和一个递归 `SELECT` 部分组成。
 
-	每个 `SELECT` 部件本身可以是多个 `SELECT` 语句的并集。
+  每个 `SELECT` 部件本身可以是多个 `SELECT` 语句的并集。
 
 - CTE 结果列的类型仅从非递归 `SELECT` 部分的列类型推断出来，并且所有列都是可为空的。对于类型确定，忽略递归 `SELECT` 部分。
 
@@ -2040,15 +2041,15 @@ SELECT * FROM cte;
 
 - 递归 `SELECT`部分不能包含这些结构：
 
-	- 聚合函数，如 `SUM()`
-	- 窗口函数
-	- `GROUP BY`
-	- `ORDER BY`
-	- `DISTINCT`
+  - 聚合函数，如 `SUM()`
+  - 窗口函数
+  - `GROUP BY`
+  - `ORDER BY`
+  - `DISTINCT`
 
-	在 MySQL 8.0.19 之前，递归 CTE 的递归 `SELECT` 部分也不能使用 `LIMIT` 子句。在 MySQL 8.0.19 中取消了这一限制，现在在这种情况下支持 `LIMIT`，还有一个可选的 `OFFSET` 子句。对结果集的影响与在最外层的 `SELECT` 中使用 `LIMIT` 时相同，但也更有效，因为与递归`SELECT` 一起使用，一旦产生了所要求的行数，就停止生成行。
+  在 MySQL 8.0.19 之前，递归 CTE 的递归 `SELECT` 部分也不能使用 `LIMIT` 子句。在 MySQL 8.0.19 中取消了这一限制，现在在这种情况下支持 `LIMIT`，还有一个可选的 `OFFSET` 子句。对结果集的影响与在最外层的 `SELECT` 中使用 `LIMIT` 时相同，但也更有效，因为与递归`SELECT` 一起使用，一旦产生了所要求的行数，就停止生成行。
 
-	这些约束并不适用于递归 CTE 的非递归 `SELECT` 部分。对 `DISTINCT` 的禁止只适用于 `UNION` 成员；`UNION DISTINCT` 是允许的。
+  这些约束并不适用于递归 CTE 的非递归 `SELECT` 部分。对 `DISTINCT` 的禁止只适用于 `UNION` 成员；`UNION DISTINCT` 是允许的。
 
 - 递归 `SELECT` 部分必须只引用一次 CTE，并且只在它的 `FROM` 子句中，而不是在任何子查询中。它可以引用除 CTE 以外的表，并且用 CTE 连接它们。如果在这样的连接中使用，CTE 不能在 `LEFT JOIN` 的右边。
 
@@ -2407,7 +2408,7 @@ CTE 的工作原理：
 
 - 非递归 `SELECT`生成 CEO 的行（具有 `NULL` 的 `manager_id`行）。
 
-	`path` 列被扩展为 `CHAR(200)`，以确保有空间容纳递归 `SELECT` 产生的更长的 `path` 值。
+  `path` 列被扩展为 `CHAR(200)`，以确保有空间容纳递归 `SELECT` 产生的更长的 `path` 值。
 
 - 由递归 `SELECT` 生成的每一行都会找到所有直接向前一行生成的员工报告的员工。对于每个这样的员工，该行包括员工 ID 和姓名，以及雇员管理链。该链是经理的链，末尾添加了员工 ID。
 
@@ -2689,11 +2690,11 @@ CREATEPROCEDURE 存储过程名([IN,OUT,INOUT] 参数名 数据类形...)
 注意：
 
 - 如果过程没有参数，也必须在过程名后面写上小括号
-	例：
+  例：
 
-	```mysql
-	CREATE PROCEDURE sp_name ([proc_parameter[,...]]) ……
-	```
+  ```mysql
+  CREATE PROCEDURE sp_name ([proc_parameter[,...]]) ……
+  ```
 
 - 确保参数的名字不等于列的名字，否则在过程体中，参数名被当做列名来处理。
 
@@ -2732,12 +2733,12 @@ DECLARE variable_name datatype [DEFAULT VALUE];
 赋值方式：
 
 - ```mysql
-	set age=18;
-	```
+  set age=18;
+  ```
 
 - ```mysql
-	select StuAge into age from demo.student where StuNo='A001';
-	```
+  select StuAge into age from demo.student where StuNo='A001';
+  ```
 
 
 
@@ -2751,19 +2752,19 @@ MySQL 用户变量，MySQL 中用户变量不用提前申明，在用的时候�
 
 - 使用 `set` 时可以用 `=` 或 `:=` 两种赋值符号赋值：
 
-	```mysql
-	set @age=19;
-	
-	set @age:=20;
-	```
+  ```mysql
+  set @age=19;
+  
+  set @age:=20;
+  ```
 
 - 使用 `SELECT` 时必须用 `:=` 赋值符号赋值：
 
-	```mysql
-	select @age:=22;
-	
-	select @age:=StuAge from demo.student where StuNo='A001';
-	```
+  ```mysql
+  select @age:=22;
+  
+  select @age:=StuAge from demo.student where StuNo='A001';
+  ```
 
 在存储过程中使用用户变量：
 
@@ -2795,34 +2796,34 @@ show session variables;
 设置会话变量的值的三种方式：
 
 - ```mysql
-	set session auto_increment_increment=1;
-	```
+  set session auto_increment_increment=1;
+  ```
 
 - ```mysql
-	set @@session.auto_increment_increment=2;
-	```
+  set @@session.auto_increment_increment=2;
+  ```
 
 - ```mysql
-	set auto_increment_increment=3;
-	```
+  set auto_increment_increment=3;
+  ```
 
-	当省略 `session` 关键字时，默认缺省为 `session`，即设置会话变量的值。
+  当省略 `session` 关键字时，默认缺省为 `session`，即设置会话变量的值。
 
 查询会话变量的值的三种方式：
 
 - ```mysql
-	select @@auto_increment_increment;
-	```
+  select @@auto_increment_increment;
+  ```
 
 - ```mysql
-	select @@session.auto_increment_increment;
-	```
+  select @@session.auto_increment_increment;
+  ```
 
 - ```mysql
-	show session variables like '%auto_increment_increment%';
-	```
+  show session variables like '%auto_increment_increment%';
+  ```
 
-	`session` 关键字可省略。
+  `session` 关键字可省略。
 
 关键字 `session` 也可用关键字 `local` 替代：
 
@@ -2848,24 +2849,24 @@ show global variables;
 设置全局变量的值的两种方式：
 
 - ```mysql
-	set global sql_warnings=ON;
-	```
+  set global sql_warnings=ON;
+  ```
 
-	`global` 不能省略
+  `global` 不能省略
 
 - ```mysql
-	set @@global.sql_warnings=OFF;
-	```
+  set @@global.sql_warnings=OFF;
+  ```
 
 查询全局变量的值的两种方式：
 
 - ```mysql
-	select @@global.sql_warnings;
-	```
+  select @@global.sql_warnings;
+  ```
 
 - ```mysql
-	show global variables like '%sql_warnings%';
-	```
+  show global variables like '%sql_warnings%';
+  ```
 
 
 
@@ -3090,31 +3091,31 @@ ON <表名> FOR EACH ROW<触发器主体>
 语法说明如下。
 
 - 触发器名
-	触发器的名称，触发器在当前数据库中必须具有唯一的名称。如果要在某个特定数据库中创建，名称前面应该加上数据库的名称。
+  触发器的名称，触发器在当前数据库中必须具有唯一的名称。如果要在某个特定数据库中创建，名称前面应该加上数据库的名称。
 
 - INSERT | UPDATE | DELETE
-	触发事件，用于指定激活触发器的语句的种类。
+  触发事件，用于指定激活触发器的语句的种类。
 
-	注意：三种触发器的执行时间如下。
+  注意：三种触发器的执行时间如下。
 
-	- INSERT：将新行插入表时激活触发器。例如，INSERT 的 BEFORE 触发器不仅能被 MySQL 的 INSERT 语句激活，也能被 LOAD DATA 语句激活。
+  - INSERT：将新行插入表时激活触发器。例如，INSERT 的 BEFORE 触发器不仅能被 MySQL 的 INSERT 语句激活，也能被 LOAD DATA 语句激活。
 
-	- DELETE： 从表中删除某一行数据时激活触发器，例如 DELETE 和 REPLACE 语句。
+  - DELETE： 从表中删除某一行数据时激活触发器，例如 DELETE 和 REPLACE 语句。
 
-	- UPDATE：更改表中某一行数据时激活触发器，例如 UPDATE 语句。
+  - UPDATE：更改表中某一行数据时激活触发器，例如 UPDATE 语句。
 
 - BEFORE | AFTER
-	BEFORE 和 AFTER，触发器被触发的时刻，表示触发器是在激活它的语句之前或之后触发。若希望验证新数据是否满足条件，则使用 BEFORE 选项；若希望在激活触发器的语句执行之后完成几个或更多的改变，则通常使用 AFTER 选项。
+  BEFORE 和 AFTER，触发器被触发的时刻，表示触发器是在激活它的语句之前或之后触发。若希望验证新数据是否满足条件，则使用 BEFORE 选项；若希望在激活触发器的语句执行之后完成几个或更多的改变，则通常使用 AFTER 选项。
 
 - 表名
 
-	与触发器相关联的表名，此表必须是永久性表，不能将触发器与临时表或视图关联起来。在该表上触发事件发生时才会激活触发器。同一个表不能拥有两个具有相同触发时刻和事件的触发器。例如，对于一张数据表，不能同时有两个 BEFORE UPDATE 触发器，但可以有一个 BEFORE UPDATE 触发器和一个 BEFORE INSERT 触发器，或一个 BEFORE UPDATE 触发器和一个 AFTER UPDATE 触发器。
+  与触发器相关联的表名，此表必须是永久性表，不能将触发器与临时表或视图关联起来。在该表上触发事件发生时才会激活触发器。同一个表不能拥有两个具有相同触发时刻和事件的触发器。例如，对于一张数据表，不能同时有两个 BEFORE UPDATE 触发器，但可以有一个 BEFORE UPDATE 触发器和一个 BEFORE INSERT 触发器，或一个 BEFORE UPDATE 触发器和一个 AFTER UPDATE 触发器。
 
 - 触发器主体
-	触发器动作主体，包含触发器激活时将要执行的 MySQL 语句。如果要执行多个语句，可使用 BEGIN…END 复合语句结构。
+  触发器动作主体，包含触发器激活时将要执行的 MySQL 语句。如果要执行多个语句，可使用 BEGIN…END 复合语句结构。
 
 - FOR EACH ROW
-	一般是指行级触发，对于受触发事件影响的每一行都要激活触发器的动作。例如，使用 INSERT 语句向某个表中插入多行数据时，触发器会对每一行数据的插入都执行相应的触发器动作。
+  一般是指行级触发，对于受触发事件影响的每一行都要激活触发器的动作。例如，使用 INSERT 语句向某个表中插入多行数据时，触发器会对每一行数据的插入都执行相应的触发器动作。
 
 注意：每个表都支持 INSERT、UPDATE 和 DELETE 的 BEFORE 与 AFTER，因此每个表最多支持 6 个触发器。每个表的每个事件每次只允许有一个触发器。单一触发器不能与多个事件或多个表关联。
 
@@ -3135,13 +3136,13 @@ DROP TRIGGER [ IF EXISTS ] [数据库名] <触发器名>
 语法说明如下：
 
 - 触发器名
-	要删除的触发器名称。
+  要删除的触发器名称。
 - 数据库名
-	可选项。指定触发器所在的数据库的名称。若没有指定，则为当前默认的数据库。
+  可选项。指定触发器所在的数据库的名称。若没有指定，则为当前默认的数据库。
 - 权限
-	执行 DROP TRIGGER 语句需要 SUPER 权限。
+  执行 DROP TRIGGER 语句需要 SUPER 权限。
 - IF EXISTS
-	可选项。避免在没有触发器的情况下删除触发器。
+  可选项。避免在没有触发器的情况下删除触发器。
 
 注意：删除一个表的同时，也会自动删除该表上的触发器。另外，触发器不能更新或覆盖，为了修改一个触发器，必须先删除它，再重新创建。
 
@@ -4605,12 +4606,12 @@ MySQL事务主要用于处理操作量大，复杂度高的数据。比如说，
 MYSQL事务处理主要有两种方法：
 
 1. 用BEGIN，ROLLBACK，COMMIT来实现
-	- BEGIN开始一个事务
-	- ROLLBACK事务回滚
-	- COMMIT事务确认
+   - BEGIN开始一个事务
+   - ROLLBACK事务回滚
+   - COMMIT事务确认
 2. 直接用SET来改变MySQL的自动提交模式
-	- SET AUTOCOMMIT=0禁止自动提交
-	- SET AUTOCOMMIT=1开始自动提交
+   - SET AUTOCOMMIT=0禁止自动提交
+   - SET AUTOCOMMIT=1开始自动提交
 
 实例：
 
@@ -4701,34 +4702,34 @@ select @@transaction_isolation;  #查询当前事务隔离级别
 
 3. 设置A窗口的隔离级别为：read uncommitted （有脏读发生的可能）
 
-	```mysql
-	set session transaction isolation level read uncommitted;
-	```
+   ```mysql
+   set session transaction isolation level read uncommitted;
+   ```
 
 4. 在A和B窗口中都开启事物。
 
-	```mysql
-	start transaction;
-	```
+   ```mysql
+   start transaction;
+   ```
 
 5. 在B窗口中完成转账的操作，但是没有提交事物。
 
-	```mysql
-	update user set money = money - 1000 where name = '张三';
-	update user set money = money + 1000 where name = '赵四';
-	```
+   ```mysql
+   update user set money = money - 1000 where name = '张三';
+   update user set money = money + 1000 where name = '赵四';
+   ```
 
 6. 在A窗口中查询账户的余额。
 
-	```mysql
-	select * from user;
-	```
+   ```mysql
+   select * from user;
+   ```
 
 7. 在B窗口中回滚数据
 
-	```mysql
-	rollback;
-	```
+   ```mysql
+   rollback;
+   ```
 
 
 
@@ -4736,34 +4737,34 @@ select @@transaction_isolation;  #查询当前事务隔离级别
 
 1. 设置A窗口的隔离级别为：read committed （避免脏读，不可重复读会发生）
 
-	```mysql
-	set session transaction isolation level read committed;
-	```
+   ```mysql
+   set session transaction isolation level read committed;
+   ```
 
 2. 在A和B窗口中都开启事物。
 
-	```mysql
-	start transaction;
-	```
+   ```mysql
+   start transaction;
+   ```
 
 3. 在B窗口中完成转账的操作，但是没有提交事物。
 
-	```mysql
-	update user set money = money - 1000 where name = '张三';
-	update user set money = money + 1000 where name = '赵四';
-	```
+   ```mysql
+   update user set money = money - 1000 where name = '张三';
+   update user set money = money + 1000 where name = '赵四';
+   ```
 
 4. 在A窗口中查询账户的余额，查询的结果没有变化，说明已经避免了脏读。
 
-	```mysql
-	select * from user;
-	```
+   ```mysql
+   select * from user;
+   ```
 
 5. 在B窗口中提交数据数据
 
-	```mysql
-	commit;
-	```
+   ```mysql
+   commit;
+   ```
 
 6. B窗口的数据已经提交了，在A窗口中查询数据，发现两次查询的结果发生了变化，这就导致了不可重复读的发生。
 
@@ -4773,34 +4774,34 @@ select @@transaction_isolation;  #查询当前事务隔离级别
 
 1. 设置A窗口的隔离级别为： repeatable read   （避免脏读和不可重复读，但是虚读有可能发生）
 
-	```mysql
-	set session transaction isolation level repeatable read ;
-	```
+   ```mysql
+   set session transaction isolation level repeatable read ;
+   ```
 
 2. 在A和B窗口中都开启事物。
 
-	```mysql
-	start transaction;
-	```
+   ```mysql
+   start transaction;
+   ```
 
 3. 在B窗口中完成转账的操作，但是没有提交事物。
 
-	```mysql
-	update user set money = money - 1000 where name = '张三';
-	update user set money = money + 1000 where name = '赵四';
-	```
+   ```mysql
+   update user set money = money - 1000 where name = '张三';
+   update user set money = money + 1000 where name = '赵四';
+   ```
 
 4. 在A窗口中查询账户的余额，查询的结果没有变化，说明已经避免了脏读。
 
-	```mysql
-	select * from user;
-	```
+   ```mysql
+   select * from user;
+   ```
 
 5. 在B窗口中提交数据数据
 
-	```mysql
-	commit;
-	```
+   ```mysql
+   commit;
+   ```
 
 6. B窗口的数据已经提交了，在A窗口中查询数据，发现两次查询的结果一致，说明已经避免了不可重复读的发生。
 
@@ -4810,27 +4811,27 @@ select @@transaction_isolation;  #查询当前事务隔离级别
 
 1. 设置A窗口的隔离级别serializable 
 
-	```mysql
-	set session transaction isolation level serializable ;
-	```
+   ```mysql
+   set session transaction isolation level serializable ;
+   ```
 
 2. 在A和B窗口中都开启事物。
 
-	```mysql
-	start transaction;
-	```
+   ```mysql
+   start transaction;
+   ```
 
 3. 在B窗口中插入一条数据（没有提交）
 
-	```mysql
-	insert into user values (null,'小凤',10000);
-	```
+   ```mysql
+   insert into user values (null,'小凤',10000);
+   ```
 
 4. 在A窗口查询数据，如果B窗口没有提交或者回滚，在A窗口是 不能查询到结果的。
 
-	```mysql
-	select * from user;
-	```
+   ```mysql
+   select * from user;
+   ```
 
 
 
@@ -4845,11 +4846,11 @@ select @@transaction_isolation;  #查询当前事务隔离级别
 在 MySQL 中，通常有以下两种方式访问数据库表的行数据：
 
 - 顺序访问
-	顺序访问是在表中实行全表扫描，从头到尾逐行遍历，直到在无序的行数据中找到符合条件的目标数据。这种方式实现比较简单，但是当表中有大量数据的时候，效率非常低下。例如，在几千万条数据中查找少量的数据时，使用顺序访问方式将会遍历所有的数据，花费大量的时间，显然会影响数据库的处理性能。
+  顺序访问是在表中实行全表扫描，从头到尾逐行遍历，直到在无序的行数据中找到符合条件的目标数据。这种方式实现比较简单，但是当表中有大量数据的时候，效率非常低下。例如，在几千万条数据中查找少量的数据时，使用顺序访问方式将会遍历所有的数据，花费大量的时间，显然会影响数据库的处理性能。
 
 - 索引访问
 
-	索引访问是通过遍历索引来直接访问表中记录行的方式。使用这种方式的前提是对表建立一个索引，在列上创建了索引之后，查找数据时可以直接根据该列上的索引找到对应记录行的位置，从而快捷地查找到数据。索引存储了指定列数据值的指针，根据指定的排序顺序对这些指针排序。
+  索引访问是通过遍历索引来直接访问表中记录行的方式。使用这种方式的前提是对表建立一个索引，在列上创建了索引之后，查找数据时可以直接根据该列上的索引找到对应记录行的位置，从而快捷地查找到数据。索引存储了指定列数据值的指针，根据指定的排序顺序对这些指针排序。
 
 例如，在学生基本信息表 students 中，如果基于 student_id 建立了索引，系统就建立了一张索引列到实际记录的映射表，当用户需要查找 student_id 为 12022 的数据的时候，系统先在 student_id 索引上找到该记录，然后通过映射表直接找到数据行，并且返回该行数据。因为扫描索引的速度一般远远大于扫描实际数据行的速度，所以采用索引的方式可以大大提高数据库的工作效率。
 
@@ -4957,7 +4958,7 @@ MySQL 中提供了两种备份方式，即 `mysqldump` 命令以及 mysqlhotcopy
 
 **备份指定的数据库**
 
-mysqldump 基本语法：
+`mysqldump` 基本语法：
 
 ```mysql
 mysqldump -u username -p dbname [tbname ...] > filename.sql
@@ -4968,7 +4969,7 @@ mysqldump -u username -p dbname [tbname ...] > filename.sql
 - *username*：表示用户名称；
 - *dbname*：表示需要备份的数据库名称；
 - *tbname*：表示数据库中需要备份的数据表，可以指定多个数据表。省略该参数时，会备份整个数据库；
-- 右箭头 `>`：用来告诉 mysqldump 将备份数据表的定义和数据写入备份文件；
+- 右箭头 `>`：用来告诉 `mysqldump` 将备份数据表的定义和数据写入备份文件；
 - *filename.sql*：表示备份文件的名称，文件名前面可以加绝对路径。通常将数据库备份成一个后缀名为 `.sql` 的文件。
 
 > 注意：`mysqldump` 命令备份的文件并非一定要求后缀名为 `.sql`，备份成其他格式的文件也是可以的。例如，后缀名为 `.txt` 的文件。通常情况下，建议备份成后缀名为 `.sql` 的文件。因为，后缀名为 `.sql` 的文件给人第一感觉就是与数据库有关的文件。
@@ -5026,9 +5027,9 @@ UNLOCK TABLES;
 
 student.sql 文件开头记录了 MySQL 的版本、备份的主机名和数据库名。
 
-文件中，以 -- 开头的都是 SQL 语言的注释。以 `/*!40101` 等形式开头的是与 MySQL 有关的注释。`40101` 是 MySQL 数据库的版本号，这里就表示 MySQL 4.1.1。如果恢复数据时，MySQL 的版本比 4.1.1 高，`/*!40101` 和 `*/` 之间的内容被当作 SQL 命令来执行。如果比 4.1.1 低，`/*!40101` 和 `*/` 之间的内容被当作注释。`/*!` 和 `*/` 中的内容在其它数据库中将被作为注释忽略，这可以提高数据库的可移植性。
+文件中，以 `--` 开头的都是 SQL 语言的注释。以 `/*!40101` 等形式开头的是与 MySQL 有关的注释。`40101` 是 MySQL 数据库的版本号，这里就表示 MySQL 4.1.1。如果恢复数据时，MySQL 的版本比 4.1.1 高，`/*!40101` 和 `*/` 之间的内容被当作 SQL 命令来执行。如果比 4.1.1 低，`/*!40101` 和 `*/` 之间的内容被当作注释。`/*!` 和 `*/` 中的内容在其它数据库中将被作为注释忽略，这可以提高数据库的可移植性。
 
-> 注意：上面 student.sql 文件中没有创建数据库的语句，因此，student.sql 文件中的所有表和记录必须恢复到一个已经存在的数据库中。恢复数据时，CREATE TABLE 语句会在数据库中创建表，然后执行 INSERT 语句向表中插入记录。
+> 注意：上面 student.sql 文件中没有创建数据库的语句，因此，student.sql 文件中的所有表和记录必须恢复到一个已经存在的数据库中。恢复数据时，`CREATE TABLE` 语句会在数据库中创建表，然后执行 `INSERT` 语句向表中插入记录。
 
 
 
@@ -5056,7 +5057,81 @@ mysqldump -u username -P --all-databases > filename.sql
 
 
 
+## 15.2、自动备份
 
+
+
+
+
+## 15.3、数据恢复
+
+### 15.3.1、.ibd 文件恢复
+
+不小心删除了 MySQL 数据目录，但还剩个 `.ibd` 文件在，没得备份，没得 binlog，要恢复这个 ibd 文件里面的数据。
+
+MySQL 8.0 的 ibd 文件也包含元数据信息，所以可以先恢复表结构，再恢复数据。
+
+
+
+**恢复表结构**
+
+如果开发有相关的 DDL 更好，没得的话就需要自己解析。
+
+MySQL 8.0 的 ibd 文件存在 sdi page 记录元数据信息的，压缩的 JSON 格式。我们可以使用官方自带的 ibd2sdi 解析出来这个 json 信息：
+
+```shell
+ibd2sdi /data/mysql_3314/mysqldata/ibd2sql/ddcw_alltype_table.ibd
+```
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/6fa8ab849cd67b4f748116b8ce5ac36c.png" alt="img" />
+
+但还要自己去拼接 DDL，太麻烦了，可以使用其他工具来提取 DDL，比如 [ibd2sql](https://cloud.tencent.com/developer/tools/blog-entry?target=https%3A%2F%2Fgithub.com%2Fddcw%2Fibd2sql&source=article&objectId=2407144)：
+
+```shell
+python3 main.py /tmp/ddcw_alltype_table.ibd --ddl
+```
+
+![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/23677b4c2fc40b54f4e139d3ccc77cc8.png)
+
+现在 DDL 已经提取出来了，先创建个测试环境，创建相同的库，再使用上面的 DDL 去恢复相关的表结构。
+
+
+
+**恢复数据**
+
+MySQL 可以使用 `discard table` 来删除表空间，然后使用 `import tablespace` 来导入表空间。
+
+```mysql
+-- 移除表空间
+alter table ddcw_alltype_table discard tablespace;
+
+-- 拷贝要恢复的表空间
+system cp -ra /tmp/ddcw_alltype_table.ibd /data/mysql_3314/mysqldata/ibd2sql
+
+-- 导入要恢复的表空间
+alter table ddcw_alltype_table import tablespace;
+
+-- 验证数据
+select count(*) from ddcw_alltype_table;
+```
+
+这种方法非常简单方便，推荐使用。
+
+如果无法导入表空间的话,  还可以解析这个 ibd 文件得到相关的数据，这里还是使用 [ibd2sql](https://cloud.tencent.com/developer/tools/blog-entry?target=https%3A%2F%2Fgithub.com%2Fddcw%2Fibd2sql&source=article&objectId=2407144)：
+
+```mysql
+python3 main.py /tmp/ddcw_alltype_table.ibd --sql > /tmp/ddcw_alltype_table.sql
+```
+
+![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/c3a1b8d6e500c855572725723c067148.png)
+
+然后就可以把解析出来的sql导入数据库了，当然也可以解析的时候直接通过管道写入数据库：
+
+```mysql
+mysql -h127.0.0.1 -P3314 -p123456 < /tmp/ddcw_alltype_table.sql
+```
+
+![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/52252cd6745895d4fe42664c897c767e.png)
 
 
 
@@ -5076,27 +5151,27 @@ SUN 公司为了简化、统一对数据库的操作，定义了一套 Java 操�
 
 1. 搭建实验环境 ：
 
-	- 在mysql中创建一个库，并创建user表和插入表的数据。
-	- 新建一个Java工程，并导入数据驱动。
+   - 在mysql中创建一个库，并创建user表和插入表的数据。
+   - 新建一个Java工程，并导入数据驱动。
 
 2. 编写程序，在程序中加载数据库驱动
 
-	```java
-	DriverManager.registerDriver(Driver driver);
-	```
+   ```java
+   DriverManager.registerDriver(Driver driver);
+   ```
 
 3. 建立连接(Connection)
 
-	```java
-	Connection conn = DriverManager.getConnection(url,user,pass); 
-	```
+   ```java
+   Connection conn = DriverManager.getConnection(url,user,pass); 
+   ```
 
 4. 创建用于向数据库发送SQL的Statement对象，并发送
 
-	```java
-	Statement st = conn.createStatement();
-	ResultSet rs = st.executeQuery(sql);
-	```
+   ```java
+   Statement st = conn.createStatement();
+   ResultSet rs = st.executeQuery(sql);
+   ```
 
 5. 从代表结果集的ResultSet中取出数据，打印到命令行窗口
 
@@ -5116,16 +5191,16 @@ DriverManager类的是管理一组 JDBC 驱动程序的基本服务。作用有�
 
 1. 注册驱动
 
-	static void registerDriver(Driver driver)方法进行注册驱动
-	但是这种方式不是很好，原因如下：
+   static void registerDriver(Driver driver)方法进行注册驱动
+   但是这种方式不是很好，原因如下：
 
-	让应用程序依赖具体的驱动包，如果是切换数据库还需要修改源代码才能完成。调用该方法导致驱动被注册两次，通过查看驱动的源代码能发现次问题。所以在实际开发中不会这么做。
+   让应用程序依赖具体的驱动包，如果是切换数据库还需要修改源代码才能完成。调用该方法导致驱动被注册两次，通过查看驱动的源代码能发现次问题。所以在实际开发中不会这么做。
 
-	具体做法如下：
+   具体做法如下：
 
-	```java
-	Class.forName("com.mysql.jdbc.Driver");
-	```
+   ```java
+   Class.forName("com.mysql.jdbc.Driver");
+   ```
 
 2. 获取链接对象
 
@@ -5144,13 +5219,13 @@ Jdbc程序中的Connection，它用于代表数据库的链接，Collection是�
 有两个作用：
 
 1. 创建执行SQL语句的对象：
-	- createStatement()：创建向数据库发送sql的statement对象
-	- prepareStatement(sql) ：创建向数据库发送预编译sql的PreparedSatement对象
-	- prepareCall(sql)：创建执行存储过程的CallableStatement对象。
+   - createStatement()：创建向数据库发送sql的statement对象
+   - prepareStatement(sql) ：创建向数据库发送预编译sql的PreparedSatement对象
+   - prepareCall(sql)：创建执行存储过程的CallableStatement对象。
 2. 管理事物：
-	- setAutoCommit(boolean autoCommit)：设置事务是否自动提交。
-	- commit() ：在链接上提交事务。 ---与事务相关！！
-	- rollback() ：在此链接上回滚事务。
+   - setAutoCommit(boolean autoCommit)：设置事务是否自动提交。
+   - commit() ：在链接上提交事务。 ---与事务相关！！
+   - rollback() ：在此链接上回滚事务。
 
 
 
@@ -5159,12 +5234,12 @@ Jdbc程序中的Connection，它用于代表数据库的链接，Collection是�
 Jdbc程序中的Statement对象用于向数据库发送SQL语句， Statement对象常用方法：
 
 1. 执行SQL语句
-	- executeQuery(String sql) ：用于向数据发送查询语句。
-	- executeUpdate(String sql)：用于向数据库发送insert、update或delete语句
-	- execute(String sql)：用于向数据库发送任意sql语句
+   - executeQuery(String sql) ：用于向数据发送查询语句。
+   - executeUpdate(String sql)：用于向数据库发送insert、update或delete语句
+   - execute(String sql)：用于向数据库发送任意sql语句
 2. 执行批处理
-	- addBatch(String sql) ：把多条sql语句放到一个批处理中。
-	- executeBatch()：向数据库发送一批sql语句执行。
+   - addBatch(String sql) ：把多条sql语句放到一个批处理中。
+   - executeBatch()：向数据库发送一批sql语句执行。
 
 
 
@@ -5185,11 +5260,11 @@ Jdbc程序中的ResultSet用于代表Sql语句的执行结果。Resultset封装�
 ResultSet既然用于封装执行结果的，所以该对象提供的大部分方法都是用于获取数据的get方法：
 
 1. 获取任意类型的数据
-	- getObject(int index)
-	- getObject(string columnName)
+   - getObject(int index)
+   - getObject(string columnName)
 2. 获取指定类型的数据
-	- getString(int index)
-	- getString(String columnName)
+   - getString(int index)
+   - getString(String columnName)
 
 
 
@@ -5388,17 +5463,17 @@ Connection.commit();  			//	commit
 Connection接口中定义事务隔离级别四个常量：
 
 - static int TRANSACTION_READ_COMMITTED 
-	指示不可以发生脏读的常量；不可重复读和虚读可以发生。 
+  指示不可以发生脏读的常量；不可重复读和虚读可以发生。 
 
 - static int TRANSACTION_READ_UNCOMMITTED 
-	指示可以发生脏读 (dirty read)、不可重复读和虚读 (phantom read) 的常量。 
+  指示可以发生脏读 (dirty read)、不可重复读和虚读 (phantom read) 的常量。 
 
 - static int TRANSACTION_REPEATABLE_READ 
-	指示不可以发生脏读和不可重复读的常量；虚读可以发生。 
+  指示不可以发生脏读和不可重复读的常量；虚读可以发生。 
 
 - static int TRANSACTION_SERIALIZABLE 
 
-	指示不可以发生脏读、不可重复读和虚读的常量。
+  指示不可以发生脏读、不可重复读和虚读的常量。
 
 通过 void setTransactionIsolation(int level) 设置数据库隔离级别
 
@@ -5414,33 +5489,33 @@ Connection接口中定义事务隔离级别四个常量：
 
 **安装数据库**
 
-1.  查看有没有安装 MySQL：
+1. 查看有没有安装 MySQL：
 
-	```shell
-	dpkg -l | grep mysql
-	```
+   ```shell
+   dpkg -l | grep mysql
+   ```
 
 2. 安装MySQL：
 
-	```shell
-	apt install mysql-server
-	```
+   ```shell
+   apt install mysql-server
+   ```
 
 3. 安装完成之后可以使用如下命令来检查是否安装成功：
 
-	```shell
-	netstat -tap | grep mysql
-	```
+   ```shell
+   netstat -tap | grep mysql
+   ```
 
-	通过上述命令检查之后，如果看到有 mysql 的 socket 处于 LISTEN 状态则表示安装成功
+   通过上述命令检查之后，如果看到有 mysql 的 socket 处于 LISTEN 状态则表示安装成功
 
 4. 登录 mysql 数据库可以通过如下命令：
 
-	```shell
-	mysql -u root -p
-	```
+   ```shell
+   mysql -u root -p
+   ```
 
-	现在是 mysql 数据库是没有密码的，Enter password: 处直接回车，就能够进入 mysql 数据库。
+   现在是 mysql 数据库是没有密码的，Enter password: 处直接回车，就能够进入 mysql 数据库。
 
 
 
@@ -5571,43 +5646,43 @@ service mysql restart
 
 1. 首先停止 MySQL 服务
 
-	```shell
-	service mysql stop;
-	service mysql status;
-	```
+   ```shell
+   service mysql stop;
+   service mysql status;
+   ```
 
 2. 在终端中查看MySQL的依赖项：
 
-	```shell
-	dpkg --list|grep mysql
-	```
+   ```shell
+   dpkg --list|grep mysql
+   ```
 
 3. 卸载：
 
-	```shell
-	sudo apt-get remove mysql-common
-	udo apt-get autoremove --purge mysql-server-8.0
-	```
+   ```shell
+   sudo apt-get remove mysql-common
+   udo apt-get autoremove --purge mysql-server-8.0
+   ```
 
 4. 如果看到没有删除的文件记得手动删除：
 
-	![image-20210420112319964](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210420112319964.png)
+   ![image-20210420112319964](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210420112319964.png)
 
 5. 清除残留数据：
 
-	```shell
-	dpkg -l|grep ^rc|awk '{print$2}'|sudo xargs dpkg -P
-	```
+   ```shell
+   dpkg -l|grep ^rc|awk '{print$2}'|sudo xargs dpkg -P
+   ```
 
 6. 再次查看MySQL的剩余依赖项：
 
-	```shell
-	dpkg --list|grep mysql
-	```
+   ```shell
+   dpkg --list|grep mysql
+   ```
 
 7. 删除 MySQL 的数据库信息，位置：`/var/lib/mysql/`：
 
-	![image-20210420112705768](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210420112705768.png)
+   ![image-20210420112705768](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210420112705768.png)
 
 
 
