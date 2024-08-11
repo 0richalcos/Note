@@ -4,7 +4,7 @@ typora-copy-images-to: upload
 
 # Windows
 
-## 【1】Windows默认管理员权限
+## 【1】默认管理员权限
 
 1. 按下 Win+R 快捷键唤出【运行】窗口，输入 `gpedit.msc` 打开【组策略编辑器】。
 
@@ -172,21 +172,6 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 
 
-## 【9】Windows Terminal SSH 保持连接
-
-Windows 10 全新的 Powershell 内置了 ssh.exe 因此可以直接连接远程服务器，在 Windows Terminal 中连接 SSH 中若一段时间没有操作会导致连接断开，终端卡死。
-
-常见的终端工具（比如：Xshell）等都会内置 keepalive 功能，自动会发送心跳包来保持连接，但是 Windows Terminal 没有自带此功能。
-
-解决办法：在当前用户目录下创建 .ssh 文件夹，或者可以尝试连接 SSH 随意连接一个服务器即可自动创建此文件夹。在其中创建配置文件 config ，写入以下两行：
-
-```
-Host *
-    ServerAliveInterval 40
-```
-
-
-
 ## 【10】删除 Win11 右键菜单项
 
 此方法通过修改注册表来完成。
@@ -240,21 +225,6 @@ winget install 9MSSGKG348SP
 ## 【12】环境变量值只能一行显示，不是换行显示问题
 
 这是因为变量值的第一个是相对地址，只需要将一个绝对地址（带盘符）的放首位，然后逗号分隔，确定之后，再双击打开就是换行显示了！
-
-
-
-## 【13】浏览器主页被篡改
-
-浏览器主页被篡改，直接去浏览器的设置里找首页设置一般没用，可以看一下是不是快捷方式出了问题，找到浏览器的快捷方式，右键查看【属性】，通常目标栏显示的都是浏览器的安装目录：
-
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220418233829422.png" alt="image-20220418233829422" style="zoom:50%;" />
-
-
-如果发现安装目录之后还跟着一串网址链接，那就是被强制锁定了对应的网址，只要删掉这串网址就可以了。当然，有些浏览器的快捷方式不允许修改，我们可以把界面切换到【常规】，然后把【只读】取消掉，就可以进行修改了：
-
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220418233922934.png" alt="image-20220418233922934" style="zoom:50%;" />
-
-当然也可以直接删除快捷方式，然后重新生成；或者在目标栏输入一个自己需要的网址（输入网址之前要加一个空格键，否则无法保存），然后将属性改为只读。
 
 
 
@@ -387,6 +357,16 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
    - 变量名：`https_proxy`
    
      变量值：`http://127.0.0.1:7890`
+
+
+
+**代理绕过**
+
+可以通过设置 `no_proxy` 环境变量来配置代理绕过规则（输入需要绕过代理的地址或域名，多个地址使用逗号或分号分隔）：
+
+```shell
+localhost,127.0.0.1,Orichalcos.com
+```
 
 
 
@@ -546,6 +526,21 @@ Chrome 默认的数据文件地址是：C:\Users\Orichalcos\AppData\Local\Google
 
 
 
+## 【2】主页被篡改
+
+浏览器主页被篡改，直接去浏览器的设置里找首页设置一般没用，可以看一下是不是快捷方式出了问题，找到浏览器的快捷方式，右键查看【属性】，通常目标栏显示的都是浏览器的安装目录：
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220418233829422.png" alt="image-20220418233829422" style="zoom:50%;" />
+
+
+如果发现安装目录之后还跟着一串网址链接，那就是被强制锁定了对应的网址，只要删掉这串网址就可以了。当然，有些浏览器的快捷方式不允许修改，我们可以把界面切换到【常规】，然后把【只读】取消掉，就可以进行修改了：
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220418233922934.png" alt="image-20220418233922934" style="zoom:50%;" />
+
+当然也可以直接删除快捷方式，然后重新生成；或者在目标栏输入一个自己需要的网址（输入网址之前要加一个空格键，否则无法保存），然后将属性改为只读。
+
+
+
 # IDEA
 
 ## 【1】Maven 部分文件无法导出
@@ -579,7 +574,7 @@ Maven 由于它的约定大于配置，之后可能遇到写的配置文件，�
 
 ## 【2】Maven 框架 web-app 中 web.xml 版本过低
 
-1. 找到 maven-archetype-webapp 的 jar 包位置：`Maven位置\repository\org\apache\maven\archetypes\maven-archetype-webapp\1.4`。
+1. 找到 maven-archetype-webapp 的 jar 包位置：`<Maven位置>\repository\org\apache\maven\archetypes\maven-archetype-webapp\1.4`。
 2. 用压缩包形式打开，不要解压！
 3. 然后依次点：`archetype-resources\src\main\webapp\WEB-INF\web.xml`，打开，将其修改成最新的模板。
 
@@ -968,9 +963,9 @@ Clash 共有三种工作模式：
 
 可以通过 Merge 配置实现：在 Clash Verge Rev 【订阅】页面中，点击右上角的【新建】按钮，类型选择【Merge】，点击【保存】即可创建配置。
 
-> - 如果创建了多个 Merge 配置，按照启用顺序先后，链式执行。
->
-> - 配置修改后需要重新启用，生效时卡片有颜色标识（右键配置 【禁用】 再 【启用】 ，也可以点击右上角的 🔥 按钮）。
+- 如果创建了多个 Merge 配置，按照启用顺序先后，链式执行。
+
+- 配置修改后需要重新启用，生效时卡片有颜色标识（右键配置 【禁用】 再 【启用】 ，也可以点击右上角的 🔥 按钮）。
 
 
 
@@ -995,13 +990,13 @@ append-proxy-groups: []
 
 **配置用法**
 
-> - 规则的匹配顺序是从上到下依次进行匹配，匹配成功会提前结束匹配。
->
-> - `MATCH` 规则一定会匹配成功 ，因此配置文件的规则一般均以 `MATCH` 规则结尾。
->
-> - 基于上述，配置自定义规则一般使用的是 `prepend-rules` 而非 `append-rules`（使用 `append-rules` 会插入规则到原配置中的 `MATCH` 规则后，会导致插入的规则无效）。
->
-> - 基于上述，使用 `prepend-rules` 一般不会插入 `MATCH` 规则（使用 `prepend-rules` 插入 `MATCH` 规则到原配置规则前，会导致原配置的规则无效）。
+- 规则的匹配顺序是从上到下依次进行匹配，匹配成功会提前结束匹配。
+
+- `MATCH` 规则一定会匹配成功 ，因此配置文件的规则一般均以 `MATCH` 规则结尾。
+
+- 基于上述，配置自定义规则一般使用的是 `prepend-rules` 而非 `append-rules`（使用 `append-rules` 会插入规则到原配置中的 `MATCH` 规则后，会导致插入的规则无效）。
+
+- 基于上述，使用 `prepend-rules` 一般不会插入 `MATCH` 规则（使用 `prepend-rules` 插入 `MATCH` 规则到原配置规则前，会导致原配置的规则无效）。
 
 例如:
 
@@ -1303,3 +1298,7 @@ RemoteSigned
 2. 每次 IDM 启动的时候，都会修改 hosts 文件，将以上内容注释，可以将 hosts 文件设置为【只读】，也可以使用火绒的自定义防护禁止 IDMan.exe 修改 hosts：
 
    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240416144317613.png" alt="image-20240416144317613" style="zoom:67%;" />
+
+
+
+# WSL

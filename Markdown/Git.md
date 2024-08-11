@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: upload
+---
+
 # 1、简介
 
 Git 是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。
@@ -16,45 +20,339 @@ Git 是一种版本控制系统，是一个命令，是一种工具。
 
 我们用 SVN 和 Git 对比着来说，SVN 是集中式版本控制系统，而 Git 是分布式版本控制系统。
 
-1. 集中式版本控制系统是指版本库集中存放在一个中央服务器中，我们需要在自己电脑上通过连接中央服务器，从而把代码 clone 到本地，或者把自己电脑上的代码提交到中央服务器，如果中央服务器被炸毁了，那么所有的版本库都没了。在工作中，公司一般都有一个 SVN 服务器，也就是版本控制系统，大家在自己电脑上通过 TortoiseSVN 客户端连接 SVN 服务器，从而进行相应的版本库的操作。
-2. 分布式版本控制系统没有所谓的 “中央服务器”，每个人的电脑上都可以安装一个版本控制系统，自己写的代码提交到自己电脑上的版本库中。
-   1. 
+集中式版本控制系统是指版本库集中存放在一个中央服务器中，我们需要在自己电脑上通过连接中央服务器，从而把代码 clone 到本地，或者把自己电脑上的代码提交到中央服务器，如果中央服务器被炸毁了，那么所有的版本库都没了。在工作中，公司一般都有一个 SVN 服务器，也就是版本控制系统，大家在自己电脑上通过 TortoiseSVN 客户端连接 SVN 服务器，从而进行相应的版本库的操作。
+
+分布式版本控制系统没有所谓的 “中央服务器”，每个人的电脑上都可以安装一个版本控制系统，自己写的代码提交到自己电脑上的版本库中。
+
+- 如果不进行多人协作，自己电脑上的版本库就足够用了。我们在自己电脑上下载并安装 Git，这个 Git 就是版本控制系统；我们可以通过 TortoiseGit 客户端连接安装的 Git 版本控制系统，从而进行相应的版本库的操作。
+
+- 如果进行多人协作，每个人都需要将自己电脑上版本库中的新修改同步到其他人的版本库中，可以有两种方式；
+
+  第一：将自己的修改直接推送到其他人的版本库中，我不会弄。
+
+  第二：建立一台充当 “中央服务器” 的电脑，每个人把自己电脑上版本库和中央服务器建立通信，但这个中央服务器的作用仅仅是用来方便 “交换” 大家的修改，在大家不相互协作的情况下，没有它大家也一样干活，如果中央服务器有一天被人炸了也没关系，因为我们每个人的电脑上都有一个完整的版本库。现在流行的 GitHub、Gitee 都是开放的中央服务器，公司内部还可以使用 GitLab 来自己搭建中央服务器。
 
 
 
-（1）如果不进行多人协作，自己电脑上的版本库就足够用了。我们在自己电脑上下载并安装git，这个git就是版本控制系统；我们可以通过TortoiseGit客户端连接安装的git版本控制系统，从而进行相应的版本库的操作。
+**GitHub**
 
-（2）如果进行多人协作，每个人都需要将自己电脑上版本库中的新修改同步到其他人的版本库中，可以有两种方式；第一：将自己的修改直接推送到其他人的版本库中，我不会弄。第二：建立一台充当“中央服务器”的电脑，每个人把自己电脑上版本库和中央服务器建立通信，但这个中央服务器的作用仅仅是用来方便“交换”大家的修改，在大家不相互协作的情况下，没有它大家也一样干活，如果中央服务器有一天被人炸了也没关系，因为我们每个人的电脑上都有一个完整的版本库。现在流行的github(外国的)、gitee(中国的码云)都是开放的中央服务器，公司内部还可以使用gitlab来自己搭建中央服务器。
+GitHub 是一个基于 Git 实现在线代码托管的仓库，向互联网开放，共有仓库免费，建立私有仓库要收费，因为 Github 的初衷就是为了大家共享自己的劳动成果。
 
+
+
+**GitLab**
+
+GitHub 和 GitLab 都是基于 Git 仓库的 Web 开发流程代码托管平台。两者的区别是 GitHub 有私有仓库和共有仓库，私有仓库一般收费，GitLab 打破这种限制，可以免费搭建私有仓库，并且可以部署在自己的服务器上。GitLab 不仅有 GitLab 的功能，还有更多的优秀特性，比如权限设置。一般企业内部软件产品用 GitLab 是更好的选择，如果是开源产品，一般放在 GitLab 上。
+
+
+
+# 2、搭建 GitLab
+
+## 2.1、安装 GitLab
+
+1. 安装 GitLab 所需的依赖包：
+   ```shell
+   sudo apt update
+   sudo apt install -y curl openssh-server ca-certificates tzdata perl
+   ```
+
+2. 启动 SSH 服务并设置 SSH 服务为开机自启动：
+
+   ```shell
+   sudo systemctl start ssh
+   sudo systemctl enable ssh
+   ```
+
+3. （可选）安装并配置Postfix。
+
+   Postfix用于GitLab发送电子邮件通知。如果您想使用其他解决方案发送电子邮件，请跳过此步骤并在安装GitLab后配置外部SMTP服务器。具体操作，请参见 [配置外部 SMTP 服务器](https://docs.gitlab.cn/omnibus/settings/smtp.html)。
+
+   安装 Postfix：
+
+   ```shell
+   sudo apt install -y postfix
+   ```
+
+   > [!TIP]
+   >
+   > 安装的时候会要求配置 Postfix 信息：
+   >
+   > 1. 邮件服务器配置的类型，我这里选择 Internet Site 选项。
+   > 2. 系统邮件名称或完全限定域名（FQDN），我这里输入 `Orichalcos.com` ，一般这里会填 `<主机名>.com`。
+
+   启动Postfix并设置Postfix为开机自启动：
+
+   ```shell
+   sudo systemctl start postfix
+   sudo systemctl enable postfix
+   ```
+
+4. 添加 GitLab 软件包仓库：
+
+   ```shell
+   sudo curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash
+   ```
+
+   > [!NOTE]
+   >
+   > 由于网络原因，可能会出现无法添加 GitLab 软件源镜像的问题，建议多尝试几次。
+
+   当出现类似如下回显信息，表示 GitLab 软件包仓库已安装：
+
+   ![image-20240810163038904](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240810163038904.png)
+
+5. 刷新软件包列表：
+
+   ```shell
+   sudo apt update
+   ```
+
+6. 安装 GitLab：
+
+   ```shell
+   sudo EXTERNAL_URL=<GitLab服务器的公网IP地址> apt install -y gitlab-ce
+   ```
+
+   > [!IMPORTANT]
+   >
+   > GitLab 会因为实例规格较低而导致长时间处于 Installing 状态时，请耐心等待安装完成。
+
+   当出现类似如下回显信息，表示 GitLab 已经安装成功：
+
+   ![image-20240810170021865](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240810170021865.png)
+
+
+
+## 2.2、GitLab 常用命令
+
+GitLab 由主要由以下服务构成，他们共同承担了 Gitlab 的运作需要：
+
+- nginx：静态 Web 服务器。
+- gitlab-shell：用于处理 Git 命令和修改 authorized keys 列表。
+- gitlab-workhorse：轻量级的反向代理服务器。
+- logrotate：日志文件管理工具。
+- postgresql：数据库。
+- redis：缓存数据库。
+- sidekiq：用于在后台执行队列任务（异步执行）。
+- unicorn：HTTP 服务，GitLab Rails 应用是托管在这个服务器上面的。
+
+
+
+### 2.2.1、服务控制命令
+
+启动/停止/重启所有 GitLab 组件：
+
+```shell
+gitlab-ctl <start|stop|restart>
+```
+
+启动指定模块组件：
+
+```shell
+ gitlab-ctl start <redis|postgresql|gitlab-workhorse|logrotate|nginx|sidekiq|unicorn>
+```
+
+停止指定模块组件：
+
+```shell
+gitlab-ctl stop <模块名>
+```
+
+查看服务状态：
+
+```shell
+gitlab-ctl status
+```
+
+生成配置并启动服务：
+
+```shell
+gitlab-ctl reconfigure
+```
 
 > [!NOTE]
 >
-> 
-
-> [!TIP]
->
-> 
+> 如果更改了主配置文件（`/etc/gitlab/gitlab.rb`），需要用这个命令使配置文件生效，但是会初始化除 gitlab.rb 以外的所有文件。
 
 > [!IMPORTANT]
 >
-> 
+> 如果更改了主配置文件，执行完此命令需要再执行 `gitlab-ctl restart` 重启所有 GitLab 组件！ 
+
+
+
+### 2.2.2、运维管理
+
+查看版本：
+
+```shell
+cat /opt/gitlab/embedded/service/gitlab-rails/VERSION
+```
+
+实时查看日志：
+
+```shell
+ gitlab-ctl tail
+```
+
+实时各个模块日志：
+
+```shell
+gitlab-ctl tail <redis|postgresql|gitlab-workhorse|logrotate|nginx|sidekiq|unicorn>
+```
+
+数据库关系升级：
+
+```shell
+gitlab-rake db:migrate
+```
+
+清理 Redis 缓存：
+
+```shell
+gitlab-rake cache:clear
+```
+
+升级 GitLab-ce 版本：
+
+```shell
+yum update gitlab-ce
+```
+
+升级 PostgreSQL 最新版本：
+
+```shell
+gitlab-ctl pg-upgrade
+```
+
+
+
+## 2.3、配置 GitLab
+
+GitLab 主要配置文件目录：
+
+- 主配置文件：`/etc/gitlab/gitlab.rb`。
+- 文档根目录：`/opt/gitlab`。
+- 默认存储库位置：`/var/opt/gitlab/git-data/repositories`。
+- Nginx 配置文件：`/var/opt/gitlab/nginx/conf/gitlab-http.conf`。
+- Postgresql 数据目录：`/var/opt/gitlab/postgresql/data`。
+
+
+
+### 2.3.1、降低使用内存
+
+在启用所有功能的情况下运行时，GitLab 需要大量内存。有一些用例，例如在不需要所有功能的较小安装上运行 GitLab。例子包括：
+
+- 运行 GitLab 供个人使用或非常小的团队使用。
+- 使用云提供商上的小实例来节省成本。
+- 使用资源受限的设备，如 Raspberry PI。
+
+
+
+**配置 Swap**
+
+在安装 GitLab 之前需要配置 Swap。Swap 是磁盘上的专用空间，在物理 RAM 已满时使用。当 Linux 系统耗尽 RAM 时，非活动页面将从 RAM 移动到交换空间。
+
+交换使用通常被认为是一个问题，因为它会增加延迟。但是，由于 GitLab 的运作方式，分配的大部分内存不会被频繁访问。使用 Swap 允许应用程序正常运行和运行，并且只偶尔使用 Swap 。
+
+一般准则是将交换配置为可用内存的 50% 左右。对于内存受限的环境，建议为系统配置至少 1GB 的交换空间。
+
+
+
+**优化 Puma**
 
 > [!WARNING]
 >
-> 
+> 这是一项实验性 Alpha 功能，该功能尚未准备好用于生产用途。如果想使用此功能，建议先使用非生产数据进行测试。
 
-> [!CAUTION]
->
-> 
+默认情况下，GitLab 使用旨在处理许多并发连接的配置运行。
 
+对于不需要高吞吐量的小型安装，考虑禁用 Puma 集群模式或者减少 worker 数量。 使其只有一个 Puma 进程可以为应用程序提供服务。
 
+在 `/etc/gitlab/gitlab.rb` 中，大约 1245 行：
 
-
-
-安装 GitLab 所需的依赖包：
-
-```shell
-sudo apt update
-sudo apt install -y curl openssh-server ca-certificates tzdata perl
 ```
+puma['worker_processes'] = 2
+```
+
+以这种方式配置 Puma 可以使内存使用量减少 100-400MB。
+
+
+
+**优化 Sidekiq**
+
+Sidekiq 是一个后台处理守护进程。默认情况下使用 GitLab 配置时，它以 50 的高并发模式运行。这确实会影响它在给定时间可以分配多少内存。建议将其配置为使用显着较小的 5 或 10（首选）值。
+
+在 `/etc/gitlab/gitlab.rb` 中，大约 1305 行：
+
+```
+sidekiq['concurrency'] = 20
+```
+
+
+
+## 2.4、使用 GitLab
+
+### 2.4.1、登录 GitLab
+
+1. 获取 GitLab 的登录密码：
+
+   ```shell
+   sudo cat /etc/gitlab/initial_root_password
+   ```
+
+   回显信息类似如下所示，可以在 Password 后获取 GitLab 的初始登录密码：
+
+   ![image-20240810170359737](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240810170359737.png)
+
+   > [!IMPORTANT]
+   >
+   > 出于安全原因，24小时后，该文件会被自动删除，建议安装成功，首次登录之后，立即修改初始密码。
+
+2. 登录 GitLab。
+
+   在浏览器的地址栏中，输入 `http://ECS实例的公网IP` 即可进入 GitLab 的登录界面：
+
+   ![image-20240810171208179](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240810171208179.png)
+
+   首次登录使用用户名 root，密码为步骤 1 获取的密码。
+
+3. 进去后将语言设置成中文：
+
+   ![image-20240810171806780](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240810171806780.png)
+
+
+
+### 2.4.2、创建项目
+
+1. 在 GitLab 的主页中，单击【创建项目】：
+
+   ![image-20240810172758823](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240810172758823.png)
+
+2. 单击【创建空白项目】，设置项目名称和项目 URL，然后单击【新建项目】：
+
+   ![image-20240811224306100](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240811224306100.png)
+
+3. 复制 Clone 链接，该链接在进行克隆操作时需要使用：
+
+   ![image-20240812000643716](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240812000643716.png)
+
+
+
+### 2.4.3、Clone 项目
+
+1. 在 GitLab 的【偏好设置】里，找到【访问令牌】，在页面中创建一个令牌：
+
+   ![image-20240811235925254](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240811235925254.png)
+
+   > [!IMPORTANT]
+   >
+   > 必须为访问令牌授予以下范围：api、read_user，否则无法在 IDEA 使用可能会有问题。
+
+2. 在 IDEA 的 GitLab 设置里，使用自己搭建的 GitLab 访问地址和步骤 1 获取的令牌登录：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240812000432360.png" alt="image-20240812000432360" style="zoom: 50%;" />
+
+3. 最后直接 Clone 就行：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240812000735712.png" alt="image-20240812000735712" style="zoom:50%;" />
 
