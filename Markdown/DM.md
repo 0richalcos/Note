@@ -540,6 +540,28 @@ systemctl status DmServiceDMSERVER.service
 
 
 
+## 3.2、物理备份
+
+1. 右键数据库连接，选择【管理服务器】，切换到【系统管理】，将状态转换为【配置】：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240812180155686.png" alt="image-20240812180155686" style="zoom: 67%;" />
+
+2. 切换到【归档配置】，将归档模式设置为【归档】，并添加一个本地的归档目标：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240812180342701.png" alt="image-20240812180342701" style="zoom:67%;" />
+
+3. 点击确定后，再打开【管理服务器】回到【系统管理】，将状态切换为【打开】：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240812180502625.png" alt="image-20240812180502625" style="zoom:67%;" />
+
+4. 最后在连接里找到【备份】，右键【库备份】选择【新增备份】，点击确定就好：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240812180633492.png" alt="image-20240812180633492" style="zoom:67%;" />
+
+5. 备份文件在：`<数据目录>/bak/` 文件夹里。
+
+
+
 # 4、数据库状态和模式
 
 DM 数据库包含以下几种状态：
