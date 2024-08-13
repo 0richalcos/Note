@@ -314,6 +314,25 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 
 
+**修改远程桌面的侦听端口**
+
+> [!NOTE]
+>
+> 适用于：Windows Server 2022、Windows 11、Windows 10、Windows Server 2019、Windows Server 2016
+
+通过远程桌面客户端连接到计算机（Windows 客户端或 Windows Server）时，计算机上的远程桌面功能会通过定义的侦听端口（默认情况下为 3389）“侦听” 连接请求。 可以通过修改注册表来更改 Windows 计算机上的侦听端口：
+
+1. 启动注册表编辑器（Win + R 打开运行，搜索框中键入 `regedit`）。 
+2. 导航到以下注册表子项：`HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp`。
+3. 查找端口号。
+4. 单击【编辑】=>【修改】，然后单击【十进制】。
+5. 键入新端口号，然后单击【确定】 。
+6. 关闭注册表编辑器，然后重新启动计算机。
+
+下次使用远程桌面连接连接到此计算机时，必须键入新端口。 如果正在使用防火墙，请确保将防火墙配置为允许连接到新端口号。
+
+
+
 ## 【16】控制台设置代理
 
 **临时设置**
@@ -1135,6 +1154,26 @@ append-proxy-groups: []
 完成这些步骤后，终端将安装在 Windows Server 上。
 
 也可以使用相同的说明升级到命令控制台的新版本。但是需要使用旧版 PowerShell 控制台来完成该过程，因为在应用程序运行时无法升级终端。
+
+
+
+## 【3】关闭系统自动更新
+
+1. 在终端中输入命令 `sconfig` 回车：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240814000959424.png" alt="image-20240814000959424" style="zoom:67%;" />
+
+2. 输入数字 5 回车：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240814000605863.png" alt="image-20240814000605863" style="zoom:67%;" />
+
+3. 选择 “手动更新”，即输入数字 3 回车即可：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240814000627522.png" alt="image-20240814000627522" style="zoom:67%;" />
+
+4. 最后会回到这个页面，可以看到更新已改为手动：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240814001105085.png" alt="image-20240814001105085" style="zoom:67%;" />
 
 
 
