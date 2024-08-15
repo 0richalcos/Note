@@ -271,10 +271,16 @@ GitLab 主要配置文件目录：
 在 `/etc/gitlab/gitlab.rb` 中，大约 1245 行：
 
 ```
-puma['worker_processes'] = 2
+puma['worker_processes'] = 0
 ```
 
 以这种方式配置 Puma 可以使内存使用量减少 100-400MB。
+
+当然也可以选择减少 Puma worker 内容使用，gitlab.rb 大约 1277 行 ：
+
+```
+puma['per_worker_max_memory_mb'] = 700 # 1GB
+```
 
 
 
@@ -285,7 +291,7 @@ Sidekiq 是一个后台处理守护进程。默认情况下使用 GitLab 配置�
 在 `/etc/gitlab/gitlab.rb` 中，大约 1305 行：
 
 ```
-sidekiq['concurrency'] = 20
+sidekiq['concurrency'] = 10
 ```
 
 
