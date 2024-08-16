@@ -71,7 +71,7 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nL.png" alt="img" />
 
-7. 更改【Oracle基目录】，取消勾选【创建为容器数据库】，填写【全局数据库名】及口令，点击下一步：
+7. 更改【Oracle 基目录】，取消勾选【创建为容器数据库】，填写【全局数据库名】及口令，点击下一步：
 
 	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0c.png" alt="在这里插入图片描述" />
 
@@ -275,7 +275,7 @@ listener.ora、tnsnames.ora 和 sqlnet.ora 这 3 个文件是关系 Oracle 网�
 
 <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523183048714.png" alt="image-20230523183048714" />
 
-同时上面说到的三个文件都可以通过这个图形的配置工具来完成配置，这些都是Oracle自带的配置工具：
+同时上面说到的三个文件都可以通过这个图形的配置工具来完成配置，这些都是 Oracle 自带的配置工具：
 
 - Net Manager：管理已经新建好的实例和监听器。
 - Database Configuration Assistant：数据库实例管理。
@@ -330,9 +330,11 @@ LISTENER =
   )
 ```
 
-这样配置好后，监听器就会监听本机的局域网 ip，任何对这个 ip 的1 521 端口的请求都会被其捕获，并尝试进行数据库连接。
+这样配置好后，监听器就会监听本机的局域网 ip，任何对这个 ip 的 1521 端口的请求都会被其捕获，并尝试进行数据库连接。
 
-> 将 `HOST` 设置为 `0.0.0.0` 表示不限制任何 ip 访问，配置完一定要记得重启 Listener 服务
+> [!IMPORTANT]
+>
+> 将 `HOST` 设置为 `0.0.0.0` 表示不限制任何 IP 访问，配置完一定要记得重启 Listener 服务！
 
 
 
@@ -371,7 +373,7 @@ Oracle 默认监听端口 1521，一众扫描器通常通过探测 1521 端口�
      )
    ```
 
-   将 `PORT` 值从 `1521` 更改为您希望使用的新端口号。例如，如果您想将端口更改为 `2521`，则应将其更改为：
+   将 `PORT` 值从 1521 更改为你希望使用的新端口号。例如，如果你想将端口更改为 2521，则应将其更改为：
 
    ```
    (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 2521))
@@ -421,6 +423,10 @@ Oracle 默认监听端口 1521，一众扫描器通常通过探测 1521 端口�
    ```shell
    lsnrctl start
    ```
+
+> [!NOTE]
+>
+> Windows 下监听服务为 Oracle 开头 TNSListener 结尾的服务，比如安装的 Oracle19C，服务名为：OracleOraDB19Home1TNSListener。
 
 
 
