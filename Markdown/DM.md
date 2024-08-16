@@ -550,6 +550,10 @@ systemctl status DmServiceDMSERVER.service
 
    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240812180342701.png" alt="image-20240812180342701" style="zoom:67%;" />
 
+   > [!WARNING]
+   >
+   > 此处为归档日志目录，并且添加了之后无法删除！！！
+
 3. 点击确定后，再打开【管理服务器】回到【系统管理】，将状态切换为【打开】：
 
    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240812180502625.png" alt="image-20240812180502625" style="zoom:67%;" />
