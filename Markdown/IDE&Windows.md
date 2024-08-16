@@ -1083,6 +1083,28 @@ append-proxy-groups: []
 
 ## 【1】激活
 
+**评估版本改变为正式版本**
+
+首先 Windows Server 2022 Retail（零售）或 Evaluation（评估）版本转 VOL，根据版本选择：
+
+- Standard 版本
+
+  ```shell
+  DISM /online /Set-Edition:ServerStandard /ProductKey:VDYBN-27WPP-V4HQT-9VMD4-VMK7H /AcceptEula
+  ```
+
+- Datacenter 版本
+
+  ```shell
+  DISM /online /Set-Edition:ServerDatacenter /ProductKey:WX4NM-KYWYW-QJJR4-XV3QB-6VM33 /AcceptEula
+  ```
+
+然后进行 KMS 激活。
+
+
+
+**KMS 激活**
+
 1. 首先输入下面的命令，更改 Windows server 2022 操作系统序列号：
 
    ```shell
