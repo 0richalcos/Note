@@ -48,7 +48,7 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
    进入 `C:\Program Files\OpenVPN\easy-rsa` 目录，将 vars.example 文件复制一份，改为 vars，然后编辑内容：
 
-   ```
+   ```ini
    # 生成证书使用完整DN结构
    set_var EASYRSA_DN	"org"
    # 设置请求国家字段为中国
@@ -125,7 +125,7 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
    复制 server.ovpn 文件至 `C:\Program Files\OpenVPN\config` 目录，修改如下选项：
 
-   ```
+   ```ini
    # 客户端连接端口
    port 1194
    # 指定OpenVPN创建的通信隧道类型，tun创建一个路由的IP隧道，tap创建一个以太网隧道
@@ -191,7 +191,7 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
    客户端配置文件 client.ovpn，模板在 `C:\Program Files\OpenVPN\sample-config`，复制该文件到 `C:\Program Files\OpenVPN\config` 目录下，修改客户端配置如下：
 
-   ```
+   ```ini
    # 服务端IP地址和端口号
    remote <公网服务器IP> 1194
    # TCP还是UDP协议方式连接服务器
@@ -245,7 +245,7 @@ OpenVPN 启动之后会在 `C:\Program Files\OpenVPN\config` 位置生成 ipp.tx
 
 2. 编辑 VPN 服务器配置文件，添加以下内容：
 
-   ```
+   ```ini
    client-config-dir ccd
    ```
 
@@ -255,7 +255,7 @@ OpenVPN 启动之后会在 `C:\Program Files\OpenVPN\config` 位置生成 ipp.tx
 
    例如，如果有一个名为 client 的客户端，可以创建一个名为 client 的文件，并在其中写入以下内容：
 
-   ```
+   ```ini
    ifconfig-push 10.8.0.2 255.255.255.0
    ```
 
