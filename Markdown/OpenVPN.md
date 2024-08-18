@@ -67,7 +67,7 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
 2. **进入 EasyRSA shell 环境 DOS 窗口**
 
-   双击 `EasyRSA-Start.bat` 进入 EasyRSA shell 环境 DOS 窗口中：
+   双击 EasyRSA-Start.bat 进入 EasyRSA shell 环境 DOS 窗口中：
 
    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240817111452752.png" alt="image-20240817111452752" style="zoom:67%;" />
 
@@ -208,7 +208,7 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240817232449865.png" alt="image-20240817232449865" style="zoom:67%;" />
 
-   可以看到服务器端 IP 地址为 `10.8.0.1`，所以此时我们在本机访问 `10.8.0.1` 地址就可以访问到服务器：
+   可以看到服务器端 IP 地址为 10.8.0.1，所以此时我们在本机访问 10.8.0.1 地址就可以访问到服务器：
 
    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240817232615756.png" alt="image-20240817232615756" style="zoom:67%;" />
 
@@ -225,4 +225,41 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
    > 后续可以根据自己需要开通被访问方防火墙 TCP 1194 端口。
 
    
+
+# 3、使用 OpenVPN
+
+## 3.1、查看在线用户
+
+OpenVPN 启动之后会在 `C:\Program Files\OpenVPN\config` 位置生成 ipp.txt 和 openvpn-status.log 文件：
+
+- ipp.txt：记录了每个客户端的 IP 信息。
+- openvpn-status.log：记录了 OpenVPN 的客户端、路由等一些信息。
+
+
+
+## 3.2、客户端设置静态 IP
+
+有多个内网及公网的机器需要打通然后部署了 OpenVPN 服务，但是一旦有机器重启就好导致 IP 发生变化，因此需要想办法固定 IP：
+
+1. 在 OpenVPN 的配置文件夹中创建一个 ccd 文件夹，完整路径为：`C:\Program Files\OpenVPN\config`。
+
+2. 编辑 VPN 服务器配置文件，添加以下内容：
+
+   ```
+   client-config-dir ccd
+   ```
+
+   这样配置将告诉 OpenVPN 使用 `./ccd` 目录中的配置文件为每个客户端分配固定的 IP 地址。
+
+3. 对于每个客户端，在 ccd 文件夹下创建一个与其名称对应的配置文件，并指定需要分配给该客户端的固定 IP 地址。
+
+   例如，如果有一个名为 client 的客户端，可以创建一个名为 client 的文件，并在其中写入以下内容：
+
+   ```
+   ifconfig-push 10.8.0.2 255.255.255.0
+   ```
+
+   这将分配 IP 地址 10.8.0.2 给 client。你可以为每个客户端创建类似的配置文件，只需更改 IP 地址即可。
+
+4. 重启 OpenVPN 服务，使配置生效。
 
