@@ -140,12 +140,14 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
    key server.key
    # 证书配置，因证书生成已经复制到本目录
    dh dh.pem
-   # 开启TLS-auth，使用ta.key防御攻击，服务端的第二个参数为0，客户端的为1
-   tls-auth ta.key 0
+   # OpenVPN将根据客户端和服务端之间支持的算法选择最安全的算法进行加密
+   data-ciphers CHACHA20-POLY1305:AES-128-GCM:AES-256-GCM:AES-256-CBC
    # VPN所用网段，不能和内网冲突，推荐默认
    server 10.8.0.0 255.255.255.0
    # 默认是禁止客户端之间互联的，将其开启
    client-to-client
+   # 开启TLS-auth，使用ta.key防御攻击，服务端的第二个参数为0，客户端的为1
+   tls-auth ta.key 0
    ```
 
 2. **证书复制配置**
@@ -196,6 +198,8 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
    remote <公网服务器IP> 1194
    # TCP还是UDP协议方式连接服务器
    proto tcp
+   # OpenVPN将根据客户端和服务端之间支持的算法选择最安全的算法进行加密
+   data-ciphers CHACHA20-POLY1305:AES-128-GCM:AES-256-GCM:AES-256-CBC
    # 开启TLS-auth，使用ta.key防御攻击，服务端的第二个参数为0，客户端的为1
    tls-auth ta.key 1
    ```
