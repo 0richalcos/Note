@@ -179,6 +179,12 @@ $env:MINIO_ROOT_PASSWORD="minioadmin"
 启动：
 
 ```shell
-./minio.exe server D:\MinIO --address :9000 --console-address :61748
+.\minio.exe server D:\MinIO --address ":9000" --console-address ":9001"
 ```
+
+> [!NOTE]
+>
+> 查看设置的环境变量可以用 `$env:<变量名>`
+
+
 

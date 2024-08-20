@@ -2430,10 +2430,10 @@ service network restart
 
 systemd 核心概念 unit（单元）类型：unit 表示不同类型的 systemd 对象，通过配置文件进行标识和配置。文件中主要包含了系统服务、监听 socket、保存的系统快照以及其它与 init 相关的信息。
 
-下面为unit类型 ：
+下面为 unit 类型 ：
 
-- service：文件扩展名为`.service`，用于定义系统服务。
-- target：文件扩展名为`.target`，用于模拟实现运行级别。
+- service：文件扩展名为 `.service`，用于定义系统服务。
+- target：文件扩展名为 `.target`，用于模拟实现运行级别。
 - device ：用于定义内核识别的设备。
 - mount：定义文件系统挂载点。
 - socket：用于标识进程间通信用的 socket 文件，也可在系统启动时，延迟启动服务，实现按需启动。
@@ -2454,9 +2454,9 @@ ststemctl -t service
 
 ### 9.4.1、systemd 配置文件
 
-- `/usr/lib/systemd/system/`：每个服务最主要的启动脚本的配置放在这，有点类似以前的`/etc/init.d`。
-- `/run/systemd/system/`：系统执行过程中所产生的服务脚本所在目录，这些脚本的优先级要比`/usr/lib/systemd/system/`高。
-- `/etc/systemd/system/`：管理员根据主机系统的需求所创建的执行脚本所在目录，执行优先级比`/run/systemd/system/`高。
+- `/usr/lib/systemd/system/`：每个服务最主要的启动脚本的配置放在这，有点类似以前的 `/etc/init.d`。
+- `/run/systemd/system/`：系统执行过程中所产生的服务脚本所在目录，这些脚本的优先级要比 `/usr/lib/systemd/system/`高。
+- `/etc/systemd/system/`：管理员根据主机系统的需求所创建的执行脚本所在目录，执行优先级比 `/run/systemd/system/`高。
 
 从上面的功能及优先级次序，我们可以知道 `/etc/systemd/system/` 目录下的相关配置，决定系统了会不会执行某些服务，所以该目录下面一般放着一大堆链接文件。而 `/usr/lib/systemd/system/` 下，则放着实际执行的 systemd 启动脚本配置文件。因此如果你想要修改某个服务启动的设置，应该去 `/usr/lib/systemd/system/` 下面修改。`/etc/systemd/system/` 仅是链接到正确的执行脚本配置文件而已。所以想要看执行脚本设置，应该就得要到 `/usr/lib/systemd/system/` 去查阅。
 
