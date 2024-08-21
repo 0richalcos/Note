@@ -122,11 +122,81 @@ Linux 二进制文件使用系统调用来执行访问文件、请求内存、�
 
 
 
-## 1.3、基本 WSL 命令
+# 2、安装
+
+开发人员可以在 Windows 计算机上同时访问 Windows 和 Linux 的强大功能。 通过适用于 Linux 的 Windows 子系统 (WSL)，开发人员可以安装 Linux 发行版（例如 Ubuntu、OpenSUSE、Kali、Debian、Arch Linux 等），并直接在 Windows 上使用 Linux 应用程序、实用程序和 Bash 命令行工具，不用进行任何修改，也无需承担传统虚拟机或双启动设置的费用。
+
+
+
+## 2.1、Windows
+
+必须运行 Windows 10 版本 2004 及更高版本（内部版本 19041 及更高版本）或 Windows 11 才能使用以下命令。
+
+
+
+**安装 WSL 命令**
+
+在管理员模式下打开 PowerShell 或 Windows 命令提示符，输入 `wsl --install` 命令，然后重启计算机。
+
+```powershell
+wsl --install
+```
+
+此命令将启用运行 WSL 并安装 Linux 的 Ubuntu 发行版所需的功能。 
+
+首次启动新安装的 Linux 发行版时，将打开一个控制台窗口，要求你等待将文件解压缩并存储到计算机上。 未来的所有启动时间应不到一秒。
+
+> [!NOTE]
+>
+> 仅当根本没有安装 WSL 时，上述命令才有效。
+
+
+
+**更改默认安装的 Linux 发行版**
+
+默认情况下，安装的 Linux 分发版为 Ubuntu。 可以使用 `-d` 标志进行更改。
+
+- 若要更改安装的发行版，请输入：`wsl --install -d <Distribution Name>`。 将 `<Distribution Name>` 替换为要安装的发行版的名称。
+- 若要查看可通过在线商店下载的可用 Linux 发行版列表，请输入：`wsl --list --online` 或 `wsl -l -o`。
+- 若要在初始安装后安装其他 Linux 发行版，还可使用命令：`wsl --install -d <Distribution Name>`。
+
+
+
+## 2.2、Windows Server
+
+Windows Server 2022 现在使用命令支持简单的 WSL 安装：
+
+```bash
+wsl --install
+```
+
+现在，可以在管理员 PowerShell 或 Windows 命令提示符中输入此命令，然后重启计算机来安装在 Windows Server 2022 上运行 WSL 所需的全部内容。
+
+此命令将启用所需的可选组件，下载最新的 Linux 内核，将 WSL 2 设置为默认值，并安装 Linux 发行版（默认安装 Ubuntu）。
+
+
+
+# 3、概念
+
+## 3.1、基本 WSL 命令
 
 以下 WSL 命令以 PowerShell 或 Windows 命令提示符支持的格式列出。 若要通过 Bash/Linux 发行版命令行运行这些命令，必须将 `wsl` 替换为 `wsl.exe`。
 
+若要获取发行版名称的有效列表，可以使用 `help` 命令。
 
+
+
+**Help 命令**
+
+```powershell
+wsl --help
+```
+
+查看 WSL 中可用的选项和命令列表。
+
+
+
+### 3.1.1、安装、更新、卸载
 
 **安装**
 
@@ -148,11 +218,143 @@ wsl --install
 - `--enable-wsl1`：在安装 Microsoft Store 版本的 WSL 的过程中也启用 “适用于 Linux 的 Windows 子系统” 可选组件，从而启用 WSL 1。
 - `--no-distribution`：安装 WSL 时不安装发行版。
 
-> [!TIP]
+> [!TIP] 
 >
 > 如果在 Windows 10 或更低版本上运行 WSL，可能需要在 `--install` 命令中包含 `-d` 标志以指定发行版：`wsl --install -d <distribution name>`。
 
 
+
+**更新 WSL**
+
+```powershell
+wsl --update
+```
+
+将 WSL 版本更新到最新版本。
+
+ 选项包括：
+
+- `--web-download`：从 GitHub 而不是 Microsoft Store 下载最新更新。
+
+
+
+**注销或卸载 Linux 发行版**
+
+```powershell
+wsl --unregister <DistributionName>
+```
+
+如果将 `<DistributionName>` 替换为目标 Linux 发行版的名称，则将从 WSL 取消注册该发行版，以便可以重新安装或清理它。
+
+> [!CAUTION] 
+>
+> 取消注册后，与该分发版关联的所有数据、设置和软件将永久丢失。 从 Store 重新安装会安装分发版的干净副本。 例如：`wsl --unregister Ubuntu` 将从可用于 WSL 的发行版中删除 Ubuntu。 运行 `wsl --list` 将会显示它不再列出。
+
+还可以像卸载任何其他应用商店应用程序一样卸载 Windows 计算机上的 Linux 发行版应用。 若要重新安装，请在 Microsoft Store 中找到该发行版，然后选择【启动】。
+
+
+
+### 3.1.2、启动、关闭
+
+**将目录更改为主页**
+
+```powershell
+wsl ~
+```
+
+`~` 可与 wsl 一起使用，以在用户的主目录中启动。 若要在 WSL 命令提示符中从任何目录跳回到主目录，可使用命令 `cd ~`。
+
+
+
+**通过 PowerShell 或 CMD 运行特定的 Linux 发行版**
+
+```powershell
+wsl --distribution <Distribution Name> --user <User Name>
+```
+
+若要通过特定用户运行特定 Linux 发行版，请将 `<Distribution Name>` 替换为你首选的 Linux 发行版的名称（例如 Debian），将 `<User Name>` 替换为现有用户的名称（例如 root）。 如果 WSL 发行版中不存在该用户，你将会收到一个错误。 若要输出当前用户名，请使用 `whoami` 命令。
+
+
+
+**以特定用户的身份运行**
+
+```powershell
+wsl --user <Username>
+```
+
+若要以指定用户身份运行 WSL，请将 `<Username>` 替换为 WSL 发行版中存在的用户名。
+
+
+
+**关闭**
+
+```powershell
+wsl --shutdown
+```
+
+立即终止所有正在运行的发行版和 WSL 2 轻量级实用工具虚拟机。 
+
+
+
+**Terminate**
+
+```powershell
+wsl --terminate <Distribution Name>
+```
+
+若要终止指定的发行版或阻止其运行，请将 `<Distribution Name>` 替换为目标发行版的名称。
+
+
+
+### 3.1.3、设置
+
+**将 WSL 版本设置为 1 或 2**
+
+```powershell
+wsl --set-version <distribution name> <versionNumber>
+```
+
+若要指定运行 Linux 发行版的 WSL 版本（1 或 2），请将 `<distribution name>` 替换为发行版的名称，并将 `<versionNumber>` 替换为 1 或 2。
+
+> [!WARNING] 
+>
+> 在 WSL 1 和 WSL 2 之间切换可能非常耗时，并且可能会由于两种体系结构之间的差异而导致失败。 对于包含大型项目的分发，建议在尝试转换之前备份文件。
+
+
+
+**设置默认 WSL 版本**
+
+```powershell
+wsl --set-default-version <Version>
+```
+
+若要设置 WSL 1 或 WSL 2 的默认版本，请将 `<Version>` 替换为数字 1 或 2。 该数字表示新 Linux 发行版安装默认使用的 WSL 版本。
+
+
+
+**设置默认 Linux 发行版**
+
+```powershell
+wsl --set-default <Distribution Name>
+```
+
+若要设置 WSL 命令将用于运行的默认 Linux 发行版，请将 `<Distribution Name>` 替换为你首选的 Linux 发行版的名称。
+
+
+
+**更改发行版的默认用户**
+
+```powershell
+<DistributionName> config --default-user <Username>
+```
+
+更改用于发行版登录的默认用户。 用户必须已经存在于发行版中才能成为默认用户。
+
+例如：`ubuntu config --default-user johndoe` 会将 Ubuntu 发行版的默认用户更改为 johndoe 用户。
+
+
+
+### 3.1.4、查询
 
 **列出可用的 Linux 发行版**
 
@@ -180,74 +382,6 @@ wsl --list --verbose
 
 
 
-**将 WSL 版本设置为 1 或 2**
-
-```powershell
-wsl --set-version <distribution name> <versionNumber>
-```
-
-若要指定运行 Linux 发行版的 WSL 版本（1 或 2），请将 `<distribution name>` 替换为发行版的名称，并将 `<versionNumber>` 替换为 1 或 2。
-
-> [!WARNING]
->
-> 在 WSL 1 和 WSL 2 之间切换可能非常耗时，并且可能会由于两种体系结构之间的差异而导致失败。 对于包含大型项目的分发，建议在尝试转换之前备份文件。
-
-
-
-**设置默认 WSL 版本**
-
-```powershell
-wsl --set-default-version <Version>
-```
-
-若要设置 WSL 1 或 WSL 2 的默认版本，请将 `<Version>` 替换为数字 1 或 2。 该数字表示新 Linux 发行版安装默认使用的 WSL 版本。
-
-
-
-**设置默认 Linux 发行版**
-
-```powershell
-wsl --set-default <Distribution Name>
-```
-
-若要设置 WSL 命令将用于运行的默认 Linux 发行版，请将 `<Distribution Name>` 替换为你首选的 Linux 发行版的名称。
-
-
-
-**将目录更改为主页**
-
-```powershell
-wsl ~
-```
-
-`~` 可与 wsl 一起使用，以在用户的主目录中启动。 若要在 WSL 命令提示符中从任何目录跳回到主目录，可使用命令 `cd ~`。
-
-
-
-**通过 PowerShell 或 CMD 运行特定的 Linux 发行版**
-
-```powershell
-wsl --distribution <Distribution Name> --user <User Name>
-```
-
-若要通过特定用户运行特定 Linux 发行版，请将 `<Distribution Name>` 替换为你首选的 Linux 发行版的名称（例如 Debian），将 `<User Name>` 替换为现有用户的名称（例如 root）。 如果 WSL 发行版中不存在该用户，你将会收到一个错误。 若要输出当前用户名，请使用 `whoami` 命令。
-
-
-
-**更新 WSL**
-
-```powershell
-wsl --update
-```
-
-将 WSL 版本更新到最新版本。
-
- 选项包括：
-
-- `--web-download`：从 GitHub 而不是 Microsoft Store 下载最新更新。
-
-
-
 **检查 WSL 状态**
 
 ```powershell
@@ -268,64 +402,14 @@ wsl --version
 
 
 
-**Help 命令**
-
-```powershell
-wsl --help
-```
-
-查看 WSL 中可用的选项和命令列表。
-
-
-
-**以特定用户的身份运行**
-
-```powershell
-wsl --user <Username>
-```
-
-若要以指定用户身份运行 WSL，请将 `<Username>` 替换为 WSL 发行版中存在的用户名。
-
-
-
-**更改发行版的默认用户**
-
-```powershell
-<DistributionName> config --default-user <Username>
-```
-
-更改用于发行版登录的默认用户。 用户必须已经存在于发行版中才能成为默认用户。
-
-例如：`ubuntu config --default-user johndoe` 会将 Ubuntu 发行版的默认用户更改为 johndoe 用户。
-
-
-
-**关闭**
-
-```powershell
-wsl --shutdown
-```
-
-立即终止所有正在运行的发行版和 WSL 2 轻量级实用工具虚拟机。 
-
-
-
-**Terminate**
-
-```powershell
-wsl --terminate <Distribution Name>
-```
-
-若要终止指定的发行版或阻止其运行，请将 `<Distribution Name>` 替换为目标发行版的名称。
-
-
-
 **标识 IP 地址**
 
 - `wsl hostname -I`：返回通过 WSL 2 安装的 Linux 发行版 IP 地址（WSL 2 VM 地址）
 - `ip route show | grep -i default | awk '{ print $3}'`：返回从 WSL 2（WSL 2 VM）看到的 Windows 计算机的 IP 地址
 
 
+
+### 3.1.5、导入、导出
 
 **导出分发版**
 
@@ -364,18 +448,3 @@ wsl --import-in-place <Distribution Name> <FileName>
 
 将指定的 .vhdx 文件导入为新的发行版。 虚拟硬盘必须采用 ext4 文件系统类型格式。
 
-
-
-**注销或卸载 Linux 发行版**
-
-```powershell
-wsl --unregister <DistributionName>
-```
-
-如果将 `<DistributionName>` 替换为目标 Linux 发行版的名称，则将从 WSL 取消注册该发行版，以便可以重新安装或清理它。
-
-> [!CAUTION]
->
-> 取消注册后，与该分发版关联的所有数据、设置和软件将永久丢失。 从 Store 重新安装会安装分发版的干净副本。 例如：`wsl --unregister Ubuntu` 将从可用于 WSL 的发行版中删除 Ubuntu。 运行 `wsl --list` 将会显示它不再列出。
-
-还可以像卸载任何其他应用商店应用程序一样卸载 Windows 计算机上的 Linux 发行版应用。 若要重新安装，请在 Microsoft Store 中找到该发行版，然后选择【启动】。
