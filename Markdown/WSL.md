@@ -316,7 +316,7 @@ wsl --set-version <distribution name> <versionNumber>
 
 若要指定运行 Linux 发行版的 WSL 版本（1 或 2），请将 `<distribution name>` 替换为发行版的名称，并将 `<versionNumber>` 替换为 1 或 2。
 
-> [!WARNING] 
+> [!TIP]
 >
 > 在 WSL 1 和 WSL 2 之间切换可能非常耗时，并且可能会由于两种体系结构之间的差异而导致失败。 对于包含大型项目的分发，建议在尝试转换之前备份文件。
 
@@ -447,4 +447,124 @@ wsl --import-in-place <Distribution Name> <FileName>
 ```
 
 将指定的 .vhdx 文件导入为新的发行版。 虚拟硬盘必须采用 ext4 文件系统类型格式。
+
+
+
+## 3.2、跨文件系统工作
+
+**跨文件系统的文件存储和性能**
+
+建议不要跨操作系统使用文件，除非有这么做的特定原因。 在 Linux 命令行（Ubuntu、OpenSUSE 等）工作中想获得最快的性能速度，请将文件存储在 WSL 文件系统中。 如果使用 Windows 命令行（PowerShell、命令提示符）工作，请将文件存储在 Windows 文件系统中。
+
+例如，在存储 WSL 项目文件时：
+
+- 使用 Linux 文件系统根目录：`/home/<user name>/Project`。
+- 而不使用 Windows 文件系统根目录：`/mnt/c/Users/<user name>/Project$` 或 `C:\Users\<user name>\Project`。
+
+在 WSL 命令行的文件路径中看到 `/mnt/` 时，表示你正在使用已装载的驱动器。 因此，Windows 文件系统 `C:\Users\<user name>\Project` 在 WSL 命令行中装载时将如下所示：`/mnt/c/Users/<user name>/Project$`。
+
+可以将项目文件存储在装载的驱动器上，但如果将其直接存储在 `\\wsl$` 驱动器上，性能速度会提高。
+
+> [!TIP]
+>
+> 若要在 Windows 文件资源管理器中查看所有可用的 Linux 发行版及其根文件系统，请在地址栏中输入：`\\wsl$`。
+
+
+
+**从 Windows 命令行运行 Linux 工具**
+
+使用 `wsl <command>`（或 `wsl.exe <command>`）从 Windows 命令提示符（CMD）或 PowerShell 运行 Linux 二进制文件。
+
+例如：
+
+```powershell
+wsl ls -la
+```
+
+以这种方式调用二进制文件：
+
+- 使用当前 CMD 或 PowerShell 提示符中提到的同一工作目录。
+- 以 WSL 默认用户的身份运行。
+- 拥有与调用方进程和终端相同的 Windows 管理权限。
+
+`wsl`（或 `wsl.exe`）后面的 Linux 命令的处理方式与 WSL 中运行的任何命令的处理方式类似。 可以执行 `sudo`、管道处理和文件重定向等操作。
+
+使用 `sudo` 更新默认 Linux 分发版的示例：
+
+```powershell
+wsl sudo apt-get update
+```
+
+运行此命令后，将会列出默认的 Linux 分发版用户名，并将要求你输入密码。 正确输入密码后，分发版将下载更新。
+
+
+
+**混合 Linux 和 Windows 命令**
+
+下面是几个使用 PowerShell 混合 Linux 和 Windows 命令的示例。
+
+若要使用 Linux 命令 `ls -la` 列出文件，并使用 PowerShell 命令 `findstr` 来筛选包含 git 的单词的结果，请组合这些命令：
+
+```powershell
+wsl ls -la | findstr "git"
+```
+
+若要使用 PowerShell 命令 `dir` 列出文件，并使用 Linux 命令 `grep` 来筛选包含 git 的单词的结果，请组合这些命令：
+
+```powershell
+dir | wsl grep git
+```
+
+若要使用 Linux 命令 `ls -la` 列出文件，并使用 PowerShell 命令 `> out.txt` 将该列表输出到名为 out.txt 的文本文件，请组合这些命令：
+
+```powershell
+wsl ls -la > out.txt
+```
+
+若要使用 Linux 命令 `ls -la` 列出 `/proc/cpuinfo` Linux 文件系统路径中的文件，请使用 PowerShell：
+
+```powershell
+wsl ls -la /proc/cpuinfo
+```
+
+若要使用 Linux 命令 `ls -la` 列出 `C:\Program Files` Windows 文件系统路径中的文件，请使用 PowerShell：
+
+```powershell
+wsl ls -la "/mnt/c/Program Files"
+```
+
+
+
+## 3.3、高级设置配置
+
+
+
+## 3.4、网络注意事项
+
+
+
+## 3.5、使用 SystemD 管理服务
+
+
+
+# 4、其他
+
+## 4.1、设置中文
+
+1. 安装中文语言包：
+
+   ```shell
+   sudo apt install language-pack-zh-hans
+   ```
+
+2. 设置中文为默认语言：
+
+   ```shell
+   sudo dpkg-reconfigure locales
+   ```
+
+   选择 `en_US.UTF-8` 和 `zh_CN.UTF-8`，选择 `zh_CN.UTF-8` 为默认语言。
+
+2. 重启 WSL Ubuntu 终端即可显示中文。
+
 
