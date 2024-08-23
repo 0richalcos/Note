@@ -537,13 +537,265 @@ wsl ls -la "/mnt/c/Program Files"
 
 ## 3.3、高级设置配置
 
+wsl.conf 和 .wslconfig 文件用于针对每个发行版（`wsl.conf`）和全局跨所有 WSL 2 发行版 (`.wslconfig`) 配置高级设置选项。 
+
+
+
+**wsl.conf 和 .wslconfig 之间有什么差别？**
+
+可以为已安装的 Linux 发行版配置设置，使它们在你每次启动 WSL 时自动应用，有两种方法：
+
+- .wslconfig 用于在 WSL 2 上运行的所有已安装发行版中配置全局设置。
+- wsl.conf 用于为在 WSL 1 或 WSL 2 上运行的每个 Linux 发行版按各个发行版配置本地设置。
+
+这两种文件类型都用于配置 WSL 设置，但存储文件的位置、配置的范围、可配置的选项类型以及运行发行版的 WSL 版本都会影响应选择的文件类型。
+
+
+
+**配置更改的 8 秒规则**
+
+必须等到运行你的 Linux 发行版的子系统完全停止运行并重启，配置设置更新才会显示。 这通常需要关闭发行版 shell 的所有实例后大约 8 秒。
+
+例如需要修改分发版 Ubuntu 配置，请修改配置文件，关闭分发版，然后重启它。你可能会假设配置更改已立即生效，但当前情况并非如此，因为子系统可能仍在运行。 在重启之前，必须等子系统停止，给它足够的时间来获取你的更改。 可以通过使用 PowerShell 和以下命令来检查关闭 Linux 发行版（shell）后其是否仍在运行：`wsl --list --running`。 如果分发版未运行，则会收到响应：“没有正在运行的分发版” 。现在可以重启分发版，以查看应用的配置更新。
+
+
+
+### 3.3.1、wsl.conf
+
+使用 wsl.conf 为 WSL 1 或 WSL 2 上运行的每个 Linux 发行版按各个发行版配置本地设置。
+
+- 作为 unix 文件存储在发行版的 `/etc` 目录中。
+- 用于针对每个发行版配置设置。 在此文件中配置的设置将仅应用于包含存储此文件的目录的特定 Linux 发行版。
+- 可用于由 WSL 1 或 WSL 2 版本运行的发行版。
+
+> [!NOTE]
+>
+> 使用 wsl.conf 文件调整每个发行版设置的功能仅适用于 Windows 版本 17093 及更高版本。
+
+
+
+**网络设置**
+
+wsl.conf 节标签：`[network]`
+
+| 设置名称           | 值      | 默认值         | 说明                                                         |
+| :----------------- | :------ | :------------- | :----------------------------------------------------------- |
+| generateHosts      | boolean | true           | true 将 WSL 设置为生成 `/etc/hosts`。 hosts 文件包含主机名对应的 IP 地址的静态映射。 |
+| generateResolvConf | boolean | true           | true 将 WSL 设置为生成 `/etc/resolv.conf`。 resolv.conf 包含能够将给定主机名解析为其 IP 地址的 DNS 列表。 |
+| hostname           | string  | Windows 主机名 | 设置要用于 WSL 发行版的主机名。                              |
+
+
+
+**互操作设置**
+
+wsl.conf 节标签：`[interop]`
+
+| 设置名称          | 值      | 默认值 | 说明                                                         |
+| :---------------- | :------ | :----- | :----------------------------------------------------------- |
+| enabled           | boolean | true   | 设置此键可确定 WSL 是否支持启动 Windows 进程。               |
+| appendWindowsPath | boolean | true   | 设置此键可确定 WSL 是否会将 Windows 路径元素添加到 $PATH 环境变量。 |
+
+
+
+**用户设置**
+
+wsl.conf 节标签：`[user]`
+
+| 设置名称 | 值     | 默认值                     | 说明                                                  |
+| :------- | :----- | :------------------------- | :---------------------------------------------------- |
+| default  | string | 首次运行时创建的初始用户名 | 设置此键指定在首次启动 WSL 会话时以哪个用户身份运行。 |
+
+
+
+**启动设置**
+
+wsl.conf 节标签：`[boot]`
+
+| 设置名称 | 值      | 默认值 | 说明                                                         |
+| :------- | :------ | :----- | :----------------------------------------------------------- |
+| systemd  | boolean | false  | true 将启用 systemd。                                        |
+| command  | string  | ""     | 你希望在 WSL 实例启动时运行的命令字符串。 <br />此命令以根用户身份运行。 例如 `service docker start`。 |
+
+> [!NOTE]
+>
+> 启动设置仅在 Windows 11 和 Server 2022 上可用。
+
+
+
+**wsl.conf 文件示例**
+
+```bash
+# 当启动该发行版时自动挂载Windows驱动器
+[automount]
+# 设置为true时，将在上面设置的根目录下自动挂载固定驱动器（如C:/或D:/）到DrvFs。
+# 设置为false时，驱动器将不会自动挂载，需要手动挂载或使用fstab文件挂载。
+enabled = true
+# 设置固定驱动器自动挂载的目录。这个例子更改了挂载位置，因此你的C盘会挂载为/c，而不是默认的/mnt/c。
+root = /
+# 可以指定DrvFs的特定选项。
+options = "metadata,uid=1003,gid=1003,umask=077,fmask=11,case=off"
+# 设置WSL发行版启动时是否处理`/etc/fstab`文件。
+mountFsTab = true
+
+# 网络主机设置，用于启用WSL2使用的DNS服务器。
+# 这个例子更改了主机名，设置generateHosts为false，防止WSL自动生成/etc/hosts，
+# 并设置generateResolvConf为false，防止WSL自动生成/etc/resolv.conf，以便你可以创建自己的配置（例如：nameserver 1.1.1.1）。
+[network]
+hostname = DemoHost
+generateHosts = false
+generateResolvConf = false
+
+# 设置WSL是否支持启动Windows应用程序和添加路径变量。将这些设置为false将阻止启动Windows进程，并阻止添加$PATH环境变量。
+[interop]
+enabled = false
+appendWindowsPath = false
+
+# 设置使用WSL启动发行版时的默认用户。
+[user]
+default = DemoUser
+
+# 设置启动新的WSL实例时要运行的命令。这个例子启动了Docker容器服务。
+[boot]
+# 启用 systemd
+systemd = true
+command = service docker start
+```
+
+
+
+### 3.3.2、.wslconfig
+
+使用 .wslconfig 为 WSL 上运行的所有已安装的发行版配置全局设置。
+
+- 默认情况下，.wslconfig 文件不存在。 它必须创建并存储在 `C:\Users\<UserName>` 目录中才能应用这些配置设置。
+- 用于在作为 WSL 2 版本运行的所有已安装的 Linux 发行版中全局配置设置。
+- 只能用于 WSL 2 运行的发行版。 作为 WSL 1 运行的发行版不受此配置的影响，因为它们不作为虚拟机运行。
+
+WSL 将检测这些文件是否存在，读取内容，并在每次启动 WSL 时自动应用配置设置。 如果文件缺失或格式错误（标记格式不正确），则 WSL 将继续正常启动，而不应用配置设置。
+
+
+
+**主要 WSL 设置**
+
+.wslconfig 节标签：`[wsl2]`
+
+| 设置名称              | 值      | 默认值                                         | 说明                                                         |
+| :-------------------- | :------ | :--------------------------------------------- | :----------------------------------------------------------- |
+| kernel                | path    | Microsoft 内置内核提供的收件箱                 | 自定义 Linux 内核的绝对 Windows 路径。                       |
+| memory                | size    | Windows 上总内存的 50%                         | 要分配给 WSL 2 VM 的内存量。                                 |
+| processors            | number  | Windows 上相同数量的逻辑处理器                 | 要分配给 WSL 2 VM 的逻辑处理器数量。                         |
+| localhostForwarding   | boolean | true                                           | 一个布尔值，用于指定绑定到 WSL 2 VM 中的通配符或 localhost 的端口是否应可通过 `localhost:port` 从主机连接。 |
+| kernelCommandLine     | string  | 空白                                           | 其他内核命令行参数。                                         |
+| safeMode              | boolean | false                                          | 在 “安全模式” 中运行 WSL，这会禁用许多功能，应用于恢复处于错误状态的发行版。 仅适用于 Windows 11 和 WSL 版本 0.66.2+。 |
+| swap                  | size    | Windows 上 25% 的内存大小四舍五入到最接近的 GB | 要向 WSL 2 VM 添加的交换空间量，0 表示无交换文件。 交换存储是当内存需求超过硬件设备上的限制时使用的基于磁盘的 RAM。 |
+| pageReporting         | boolean | true                                           | 默认的 true 设置使 Windows 能够回收分配给 WSL 2 虚拟机的未使用内存。 |
+| guiApplications       | boolean | true                                           | 一个布尔值，用于在 WSL 中打开或关闭对 GUI 应用程序（WSLg）的支持。 |
+| debugConsole*         | boolean | false                                          | 一个布尔值，用于在 WSL 2 发行版实例启动时打开显示 `dmesg` 内容的输出控制台窗口。 仅适用于 Windows 11。 |
+| nestedVirtualization* | boolean | true                                           | 用于打开或关闭嵌套虚拟化的布尔值，使其他嵌套 VM 能够在 WSL 2 中运行。 仅适用于 Windows 11。 |
+| vmIdleTimeout*        | number  | 60000                                          | VM 在关闭之前处于空闲状态的毫秒数。 仅适用于 Windows 11。    |
+| dnsProxy              | boolean | true                                           | 仅适用于 networkingMode = NAT。 布尔值，通知 WSL 将 Linux 中的 DNS 服务器配置为主机上的 NAT。 设置为 false 会将 DNS 服务器从 Windows 镜像到 Linux。 |
+| networkingMode**      | string  | NAT                                            | 如果值为 mirrored，则会启用镜像网络模式。 默认或无法识别的字符串会生成 NAT 网络。 |
+| firewall**            | boolean | true                                           | 如果设置为 true，则 Windows 防火墙规则以及特定于 Hyper-V 流量的规则可以筛选 WSL 网络流量。 |
+| dnsTunneling**        | boolean | true                                           | 更改将 DNS 请求从 WSL 代理到 Windows 的方式                  |
+| autoProxy*            | boolean | true                                           | 强制 WSL 使用 Windows 的 HTTP 代理信息                       |
+| defaultVhdSize        | siize   | 1TB                                            | 设置存储 Linux 发行版（例如 Ubuntu）文件系统的虚拟硬盘（VHD）大小。 可用于限制分发文件系统允许占用的最大大小。 |
+
+- 具有 `path` 值的条目必须是带有转义反斜杠的 Windows 路径，例如：`C:\\Temp\\myCustomKernel`。
+- 具有 `size` 值的条目后面必须跟上大小的单位，例如 `8GB` 或 `512MB`。
+- 值类型后带有 `*` 的条目仅在 Windows 11 中可用。
+- 值类型后带有 `**` 的条目需要 Windows 11 版本 22H2 或更高版本。
+
+
+
+**实验性设置**
+
+.wslconfig 节标签：`[experimental]`
+
+| 设置名称                 | 值      | 默认值         | 说明                                                         |
+| :----------------------- | :------ | :------------- | :----------------------------------------------------------- |
+| autoMemoryReclaim        | string  | disabled       | 检测空闲 CPU 使用率后，自动释放缓存的内存。 设置为 gradual 以慢速释放，设置为 dropcache 以立即释放缓存的内存。 |
+| sparseVhd                | boolean | false          | 如果设置为 true，则任何新创建的 VHD 将自动设置为稀疏。       |
+| useWindowsDnsCache**     | boolean | false          | 仅当 `wsl2.dnsTunneling` 设置为 true 时才适用。 如果此选项设置为 false，则从 Linux 隧道传输的 DNS 请求将绕过 Windows 中的缓存名称，以始终将请求放在网络上。 |
+| bestEffortDnsParsing**   | boolean | false          | 仅当 `wsl2.dnsTunneling` 设置为 true 时才适用。 如果设置为 true，Windows 将从 DNS 请求中提取问题并尝试解决该问题，从而忽略未知记录。 |
+| dnsTunnelingIpAddress**  | string  | 10.255.255.254 | 仅当 `wsl2.dnsTunneling` 设置为 true 时才适用。 指定启用 DNS 隧道的情况下将在 Linux resolv.conf 文件中配置的 nameserver。 |
+| initialAutoProxyTimeout* | string  | 1000           | 仅当 `wsl2.autoProxy` 设置为 true 时才适用。 配置启动 WSL 容器时，WSL 等待检索 HTTP 代理信息的时长（以毫秒为单位）。 如果代理设置在此时间之后解析，则必须重启 WSL 实例才能使用检索到的代理设置。 |
+| ignoredPorts**           | string  | Null           | 仅当 `wsl2.networkingMode` 设置为 mirrored 时才适用。 指定 Linux 应用程序可以绑定到哪些端口（即使该端口已在 Windows 中使用）。 通过此设置，应用程序能够仅侦听 Linux 中的流量端口，因此即使该端口在 Windows 上用于其他用途，这些应用程序也不会被阻止。 例如，WSL 将允许绑定到 Linux for Docker Desktop 中的端口 53，因为它只侦听来自 Linux 容器中的请求。 应在逗号分隔列表中设置格式，例如：`3000,9000,9090`。 |
+| hostAddressLoopback**    | boolean | false          | 仅当 `wsl2.networkingMode` 设置为 mirrored 时才适用。 如果设置为 true，将会允许容器通过分配给主机的 IP 地址连接到主机，或允许主机通过此方式连接到容器。 始终可以使用 127.0.0.1 环回地址，此选项也允许使用所有额外分配的本地 IP 地址。 仅支持分配给主机的 IPv4 地址。 |
+
+- 值类型后带有 `*` 的条目仅在 Windows 11 中可用。
+- 值类型后带有 `**` 的条目需要 Windows 11 版本 22H2 或更高版本。
+
+
+
+**.wslconfig 文件示例**
+
+```bash
+# 设置适用于在WSL2上运行的所有Linux发行版
+[wsl2]
+# 限制虚拟机内存使用不超过4GB，这个值可以设置为整数，使用GB或MB作为单位
+memory=4GB 
+# 设置虚拟机使用两个虚拟处理器
+processors=2
+# 指定一个自定义的Linux内核供已安装的发行版使用。默认使用的内核可以在 https://github.com/microsoft/WSL2-Linux-Kernel 找到
+kernel=C:\\temp\\myCustomKernel
+# 设置额外的内核参数，在这个例子中启用了对较旧的Linux基础镜像（如CentOS 6）的支持
+kernelCommandLine = vsyscall=emulate
+# 设置交换空间大小为8GB，默认值为可用内存的25%
+swap=8GB
+# 设置交换文件路径位置，默认路径为 %USERPROFILE%\AppData\Local\Temp\swap.vhdx
+swapfile=C:\\temp\\wsl-swap.vhdx
+# 禁用页面报告，使WSL保留从Windows中分配的所有内存，不在空闲时释放回去
+pageReporting=false
+# 启用默认连接，将WSL2的localhost绑定到Windows的localhost。此设置在networkingMode=mirrored时被忽略
+localhostforwarding=true
+# 禁用嵌套虚拟化
+nestedVirtualization=false
+# 打开输出控制台，在打开WSL2发行版时显示dmesg的内容以进行调试
+debugConsole=true
+
+# 启用实验性功能
+[experimental]
+sparseVhd=true
+```
+
 
 
 ## 3.4、网络注意事项
 
+### 3.4.1、默认网络模式：NAT
+
+默认情况下，WSL 使用基于 NAT（网络地址转换）的网络体系结构。 
 
 
-## 3.5、使用 SystemD 管理服务
+
+**从 Windows (localhost) 访问 Linux 网络应用**
+
+如果要在 Linux 分发版中构建网络应用（例如，在 NodeJS 或 SQL server 上运行的应用），可以使用 `localhost` 从 Windows 应用（如 Microsoft Edge 或 Chrome Internet 浏览器）访问它（就像往常一样）。
+
+
+
+**从 Linux（主机 IP）访问 Windows 网络应用**
+
+如果要从 Linux 分发版（即 Ubuntu）访问 Windows 上运行的网络应用（例如在 NodeJS 或 SQL 服务器上运行的应用），则需要使用主机的 IP 地址。 虽然这不是一种常见方案，但你可以执行以下步骤来使其可行。
+
+1. 通过在 Linux 分发版中运行以下命令来获取主机的 IP 地址：`ip route show | grep -i default | awk '{ print $3}'`。
+2. 使用复制的 IP 地址连接到任何 Windows 服务器。
+
+
+
+### 3.4.2、镜像模式网络
+
+在运行 Windows 11 22H2 及更高版本的计算机上，可以在 .wslconfig 文件中的 `[wsl2]` 下设置 `networkingMode=mirrored` 以启用镜像模式网络。 启用此功能会将 WSL 更改为全新的网络体系结构，其目标是将 Windows 上的网络接口 “镜像” 到 Linux 中，以添加新的网络功能并提高兼容性。
+
+以下是启用此模式的当前优势：
+
+- IPv6 支持。
+- 使用 localhost 地址 127.0.0.1 从 Linux 内部连接到 Windows 服务器。 不支持 IPv6 localhost 地址 `::1`。
+- 改进了 VPN 的网络兼容性。
+- 多播支持。
+- 直接从局域网（LAN）连接到 WSL。
+
+这种新模式解决了使用基于 NAT（网络地址转换）的体系结构时出现的网络问题。 
 
 
 
@@ -566,5 +818,4 @@ wsl ls -la "/mnt/c/Program Files"
    选择 `en_US.UTF-8` 和 `zh_CN.UTF-8`，选择 `zh_CN.UTF-8` 为默认语言。
 
 2. 重启 WSL Ubuntu 终端即可显示中文。
-
 
