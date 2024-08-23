@@ -1963,6 +1963,10 @@ Logback 是 Java 社区中使用最广泛的日志框架之一。 它是其前�
      path: /home/xlaims/logs
    ```
 
+   > [!NOTE]
+   >
+   > `logging.path` 在新版已改为 `logging.file.path`。
+
 3. 在 logback-spring.xml 加入 Spring 属性读取 yml 配置：
 
    ```xml
