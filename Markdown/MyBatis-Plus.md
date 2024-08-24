@@ -38,7 +38,7 @@ MyBatis-Plus (opens new window)（简称 MP）是一个 MyBatis（opens new wind
 
 **框架结构**
 
-![framework](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/mybatis-plus-framework.jpg)
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/mybatis-plus-framework.jpg" alt="framework" style="zoom: 50%;" />
 
 
 
@@ -51,7 +51,7 @@ MyBatis-Plus (opens new window)（简称 MP）是一个 MyBatis（opens new wind
 
 
 
-**Spring Boot**
+**Spring Boot2**
 
 Maven：
 
@@ -63,7 +63,11 @@ Maven：
 </dependency>
 ```
 
+> [!TIP]
+>
 > 引入 MyBatis-Plus 之后请不要再次引入 MyBatis 以及 `mybatis-spring-boot-starter` 和 `MyBatis-Spring`，以避免因版本差异导致的问题。
+>
+> 自 3.5.4 开始，在没有使用 `mybatis-plus-boot-starter` 或 `mybatis-plus-spring-boot3-starter` 情况下，请自行根据项目情况引入 `mybatis-spring`。
 
 
 
@@ -91,7 +95,17 @@ public class Application {
 
 
 
-**配置选项**
+# 2、指南
+
+
+
+# 3、插件
+
+
+
+# 4、参考
+
+## 4.1、使用配置
 
 通常来说，一般的简单工程，通过以上配置即可正常使用 MyBatis-Plus，同时 MyBatis-Plus 提供了大量的个性化配置来满足不同复杂度的工程：
 
@@ -196,12 +210,11 @@ mybatis-plus:
 
 
 
-## 1.4、注解
+## 4.2、注解配置
 
-### 1.4.1、@TableName
+### 4.2.1、@TableName
 
-- 描述：表名注解，标识实体类对应的表。
-- 使用位置：实体类。
+该注解用于指定实体类对应的数据库表名。当实体类名与数据库表名不一致，或者实体类名不是数据库表名的驼峰写法时，您需要使用这个注解来明确指定表名。
 
 ```java
 @TableName("sys_user")
@@ -213,26 +226,145 @@ public class User {
 }
 ```
 
-| 属性             | 类型     | 必须指定 | 默认值  | 描述                                                         |
-| ---------------- | -------- | -------- | ------- | ------------------------------------------------------------ |
-| value            | String   | 否       | `""`    | 表名                                                         |
-| schema           | String   | 否       | `""`    | schema                                                       |
-| keepGlobalPrefix | boolean  | 否       | `false` | 是否保持使用全局的 tablePrefix 的值（当全局 tablePrefix 生效时） |
-| resultMap        | String   | 否       | `""`    | XML 中 resultMap 的 id（用于满足特定类型的实体类对象绑定）   |
-| autoResultMap    | boolean  | 否       | `false` | 是否自动构建 resultMap 并使用（如果设置 resultMap 则不会进行 resultMap 的自动构建与注入） |
-| excludeProperty  | String[] | 否       | `{}`    | 需要排除的属性名（3.3.1 起支持）                             |
+| 属性             | 类型     | 默认值 | 描述                                                         |
+| ---------------- | -------- | ------ | ------------------------------------------------------------ |
+| value            | String   | ""     | 指定实体类对应的数据库表名。如果实体类名与表名不一致，使用这个属性来指定正确的表名。 |
+| schema           | String   | ""     | 指定数据库的 Schema 名称。通常情况下，如果你的数据库没有使用 Schema 来组织表，这个属性可以不填写。 |
+| keepGlobalPrefix | boolean  | false  | 当全局配置了 `tablePrefix` 时，这个属性决定是否保持使用全局的表前缀。如果设置为 true，即使注解中指定了表名，也会自动加上全局的表前缀。 |
+| resultMap        | String   | ""     | 指定在 XML 中定义的 ResultMap 的 ID，用于将查询结果映射到特定类型的实体类对象。 |
+| autoResultMap    | boolean  | false  | 是否自动构建 `resultMap`。如果已经设置了 `resultMap`，这个属性不会生效。 |
+| excludeProperty  | String[] | {}     | 指定在映射时需要排除的属性名。这些属性将不会被包含在生成的 SQL 语句中。（3.3.1 起支持） |
 
 
 
-**关于  `autoResultMap`  的说明：**
+**autoResultMap  的注意事项**
 
-MP 会自动构建一个 `resultMap` 并注入到 MyBatis 里（一般用不上）。
+MyBatis-Plus 会自动构建一个 `resultMap` 并注入到 MyBatis 中。但是，一旦注入完成，生成的内容就是静态的，类似于 XML 配置中的内容。在使用与 `resultMap` 相关的操作时，请注意 `typeHandler` 的处理。
 
-因为 MP 底层是 MyBatis，所以 MP 只是注入了常用 CRUD 到 MyBatis 里，注入之前是动态的（根据 Entity 字段以及注解变化而变化），但是注入之后是静态的（等于 XML 配置中的内容）。
+MyBatis 只支持将 `typeHandler` 写在两个地方：
 
-而对于 `typeHandler` 属性，MyBatis 只支持写在 2 个地方：
-
-1. 定义在 resultMap 里，作用于查询结果的封装。
+1. 定义在 `resultMap` 里，作用于查询结果的封装。
 2. 定义在 `insert` 和 `update` 语句的 `#{property}` 中的 `property` 后面（例：`#{property,typehandler=xxx.xxx.xxx}`），并且只作用于当前设置值。
 
-除了以上两种直接指定 `typeHandler` 的形式，MyBatis 有一个全局扫描自定义 `typeHandler` 包的配置，原理是根据 `property` 类型去找其对应的 `typeHandler` 并使用。
+除了以上两种直接指定 `typeHandler` 的形式，MyBatis 还有一个全局扫描自定义 `typeHandler` 包的配置，原理是根据您的属性类型去找其对应的 `typeHandler` 并使用。
+
+
+
+### 4.2.2、@TableId
+
+该注解用于标记实体类中的主键字段。如果你的主键字段名为 id，你可以省略这个注解。
+
+```java
+@TableName("sys_user")
+public class User {
+    @TableId
+    private Long id;
+    private String name;
+    private Integer age;
+    private String email;
+}
+```
+
+| 属性  | 类型   | 默认值      | 描述                                                         |
+| ----- | ------ | ----------- | ------------------------------------------------------------ |
+| value | String | ""          | 指定数据库表的主键字段名。如果不设置，MyBatis-Plus 将使用实体类中的字段名作为数据库表的主键字段名。 |
+| type  | Enum   | IdType.NONE | 指定主键的生成策略。                                         |
+
+
+
+**IdType 枚举类型定义**
+
+- `IdType.AUTO`：使用数据库自增 ID 作为主键。
+- `IdType.NONE`：无特定生成策略，如果全局配置中有 `IdType` 相关的配置，则会跟随全局配置。
+- `IdType.INPUT`：在插入数据前，由用户自行设置主键值。
+- `IdType.ASSIGN_ID`：自动分配 ID，适用于 `Long`、`Integer`、`String` 类型的主键。默认使用雪花算法通过 `IdentifierGenerator` 的 `nextId` 实现。（3.3.0 起支持）
+- `IdType.ASSIGN_UUID`：自动分配 UUID，适用于 `String` 类型的主键。默认实现为 `IdentifierGenerator` 的 `nextUUID` 方法。（3.3.0 起支持）
+
+> [!TIP]
+>
+> 应避免使用已弃用的ID类型，如 `ID_WORKER`、`UUID`、`ID_WORKER_STR`，并使用 `ASSIGN_ID` 或 `ASSIGN_UUID` 代替。这些新的策略提供了更好的灵活性和兼容性。
+
+
+
+### 4.2.3、@TableField
+
+该注解用于标记实体类中的非主键字段，它告诉 MyBatis-Plus 如何映射实体类字段到数据库表字段。如果你的实体类字段名遵循驼峰命名规则，并且与数据库表字段名一致，你可以省略这个注解。
+
+```java
+@TableName("sys_user")
+public class User {
+    @TableId
+    private Long id;
+    @TableField("nickname") // 映射到数据库字段 "nickname"
+    private String name;
+    private Integer age;
+    private String email;
+}
+```
+
+| 属性      | 类型    | 默认值 | 描述                                                         |
+| --------- | ------- | ------ | ------------------------------------------------------------ |
+| value     | String  | ""     | 指定数据库中的字段名。如果你的实体类字段名与数据库字段名不同，使用这个属性来指定正确的数据库字段名。 |
+| exist     | boolean | true   | 指示这个字段是否存在于数据库表中。如果设置为 false，MyBatis-Plus 在生成 SQL 时会忽略这个字段。 |
+| condition | String  | ""     | 在执行实体查询（EntityQuery）时，指定字段的条件表达式。这允许你自定义字段在 `WHERE` 子句中的比较方式。如果该项有值则按设置的值为准，无值则默认为全局的 `%s=#{%s}` 为准。 |
+
+
+
+**value 避免数据库关键字错误**
+
+虽然在实际开发过程中，肯定是会避免数据库关键字作为表字段的，既然该问题发生了，那肯定得想办法解决！
+
+```java
+@TableField(value="`group`")
+private String group;
+```
+
+按MySQL数据库规范加上反引号，告知 SQL 这是一个需要处理的字段。
+
+
+
+**condition 示例**
+
+> [!NOTE]
+>
+> `EntityQuery` 是指在构建查询条件时，直接使用实体类的字段来设置查询条件，而不是手动编写 SQL 片段。
+
+假设我们有一个实体类 `User`，它有 id、name 和 age 三个字段。我们想要查询所有年龄大于 18 岁的用户，我们可以使用 `QueryWrapper` 来构建这个查询，直接传递 `User` 实体类实例：
+
+```java
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.SqlCondition;
+
+// 实体类定义
+@TableName("sys_user")
+public class User {
+    @TableId
+    private Long id;
+    private String name;
+    @TableField(condition = "%s > #{%s}") // 自定义 age 字段的条件表达式
+    private Integer age;
+    private String email;
+}
+
+// 使用 EntityQuery 构建查询
+public List<User> findUserAgeOver18() {
+    // 创建 User 实例，用于设置查询条件
+    User queryEntity = new User();
+    queryEntity.setAge(18); // 设置 age 字段的值
+    // 创建 QueryWrapper 实例，并传递 User 实例
+    QueryWrapper<User> queryWrapper = new QueryWrapper<>(queryEntity);
+    // 执行查询
+    List<User> userList = userMapper.selectList(queryWrapper);
+    return userList;
+}
+```
+
+在这个例子中，通过 `@TableField(condition = "%s > #{%s}")` 注解为 age 字段设置了自定义的条件表达式。当构建查询时，我们创建了一个 `User` 实例，并设置了 age 字段的值为 18。然后，我们使用这个实例来创建 `QueryWrapper`，MyBatis-Plus 会根据实体类上的注解自动生成相应的 SQL 查询条件。
+
+执行 `findUserAgeOver18` 方法时，MyBatis-Plus 会生成类似以下的 SQL 语句：
+
+```mysql
+SELECT * FROM sys_user WHERE age > 18;
+```
+

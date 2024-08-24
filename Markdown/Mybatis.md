@@ -34,7 +34,7 @@ MyBatis 是一款优秀的持久层框架，它支持自定义 SQL、存储过�
 
 **从 XML 中构建 SqlSessionFactory**
 
-从 XML 文件中构建 SqlSessionFactory 的实例非常简单，建议使用类路径下的资源文件进行配置。 但也可以使用任意的输入流（InputStream）实例，比如用文件路径字符串或 file:// URL 构造的输入流。MyBatis 包含一个名叫 Resources 的工具类，它包含一些实用方法，使得从类路径或其它位置加载资源文件更加容易。
+从 XML 文件中构建 SqlSessionFactory 的实例非常简单，建议使用类路径下的资源文件进行配置。 但也可以使用任意的输入流（InputStream）实例，比如用文件路径字符串或 `file:// URL` 构造的输入流。MyBatis 包含一个名叫 Resources 的工具类，它包含一些实用方法，使得从类路径或其它位置加载资源文件更加容易。
 
 ```java
 String resource = "org/mybatis/example/mybatis-config.xml";
@@ -703,7 +703,7 @@ select 元素允许你配置很多属性来配置每条语句的行为细节。
 
 
 
-## 3.2、insert, update 和 delete
+## 3.2、insert、update、delete
 
 数据变更语句 insert，update 和 delete 的实现非常接近：
 
@@ -735,7 +735,7 @@ select 元素允许你配置很多属性来配置每条语句的行为细节。
 
 ![image-20200614172730202](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200614172730202.png)
 
-下面是 insert，update 和 delete 语句的示例：
+下面是 insert、update、delete 语句的示例：
 
 ```xml
 <insert id="insertAuthor">
@@ -3009,7 +3009,7 @@ org.apache.ibatis.logging.LogFactory.useStdOutLogging();
    </dependency>
    ```
 
-3. **全局配置文件：**
+3. **全局配置文件**
 
    ```yaml
    #页面日期传入后台时，指定格式化
@@ -3052,10 +3052,6 @@ org.apache.ibatis.logging.LogFactory.useStdOutLogging();
    }
    ```
 
-   <div align="center">
-       <img src="../Images/Mybatis/image-20221012163433833.png" alt="image-20221012163433833" style="width:67%;" />
-   </div>
-
 5. **新建 POJO**
 
    创建 Person Java Bean 实体来封装数据，到此环境准备完毕，之后就使用 MyBatis 操作数据库即可：
@@ -3074,7 +3070,7 @@ org.apache.ibatis.logging.LogFactory.useStdOutLogging();
        private Float salary;
        private String summary;
     
-      //省略 getter、settter 方法未粘贴
+       //省略 getter、settter 方法未粘贴
        
    }
    ```
@@ -3255,7 +3251,7 @@ public class HippoApplication {
 
 ## 8.2、XML 配置版
 
-除了使用 `@Mapper` 注解的方式，也可以使用 MyBatis xml 文件配置的方式。实际开发中可以同时存在 MyBatis 的注解方式与配置方式，如 User 实体可以使用注解方式进行 CRUD，Party 实体可以使用 配置方式进行 CRUD。
+除了使用 `@Mapper` 注解的方式，也可以使用 MyBatis xml 文件配置的方式。实际开发中可以同时存在 MyBatis 的注解方式与配置方式，如 User 实体可以使用注解方式进行 CRUD，Party 实体可以使用配置方式进行 CRUD。
 
 虽然直接在接口上使用注解方式写 SQL 看起来很高级，但实际生产中却推荐使用 xml 文件配置的方式，因为对于维护起来更加方便，只需要直接修改一下 xml 文件即可，而如果是写死在源码中，则还需要重新打包或者替换 `.class` 文件才行。
 
@@ -3361,7 +3357,7 @@ public class HippoApplication {
      mapper-locations: classpath:mybatis/mapper/*.xml
    ```
 
-4. 使用 注解版 写的控制层测试。
+4. 使用注解版写的控制层测试。
 
 
 
