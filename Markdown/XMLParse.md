@@ -32,13 +32,13 @@ DOM 树所提供的随机访问方式给应用程序的开发带来了很大的�
 
 优点：
 
-- 形成了树结构，有助于更好的理解、掌握，且代码容易编写
-- 解析过程中，树结构保存在内存中，方便修改
-- 可通过节点名来获取节点
+- 形成了树结构，有助于更好的理解、掌握，且代码容易编写。
+- 解析过程中，树结构保存在内存中，方便修改。
+- 可通过节点名来获取节点。
 
 缺点：
 
-- 由于文件是一次性读取，所以对内存的耗费比较大，容易引发内存溢出等问题
+- 由于文件是一次性读取，所以对内存的耗费比较大，容易引发内存溢出等问题。
 
 
 
@@ -70,7 +70,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
  
 public class DOMTest {
- 
 	public static void main(String[] args) {
 		Date string = new Date();
 		long str1 = string.getTime();
@@ -203,21 +202,21 @@ SAX 的全称是 Simple APIs for XML，即简单应用程序接口。与 DOM 不
 
 优点：
 
-- 采用事件驱动模式，对内存耗费比较小，解析速度快
-- 适用于只处理 XML 文件中的数据时
+- 采用事件驱动模式，对内存耗费比较小，解析速度快。
+- 适用于只处理 XML 文件中的数据时。
 
 缺点：
 
-- 编码比较麻烦
-- 很难同时访问 XML 文件中的多处不同数据
-- 无法知道当前解析标签（节点）的上层标签，及其嵌套结构，仅仅知道当前解析的标签的名字和属性，要知道其他信息需要程序猿自己编码
-- 只能读取 XML，无法修改 XML
-- 无法随机访问某个标签（节点）
+- 编码比较麻烦。
+- 很难同时访问 XML 文件中的多处不同数据。
+- 无法知道当前解析标签（节点）的上层标签，及其嵌套结构，仅仅知道当前解析的标签的名字和属性，要知道其他信息需要程序猿自己编码。
+- 只能读取 XML，无法修改 XML。
+- 无法随机访问某个标签（节点）。
 
 适用场合：
 
-- 对于 CPU 资源宝贵的设备，如 Android 等移动设备
-- 对于只需从 XML 读取信息而无需修改 XML
+- 对于 CPU 资源宝贵的设备，如 Android 等移动设备。
+- 对于只需从 XML 读取信息而无需修改 XML。
 
 
 
@@ -374,7 +373,6 @@ SAX 解析 XML 步骤：
 	import javax.xml.transform.stream.StreamResult;
 	 
 	import org.xml.sax.SAXException;
-	 
 	import com.sun.xml.internal.bind.util.AttributesImpl;
 	 
 	public class SAXTest {
@@ -484,19 +482,19 @@ SAX 解析 XML 步骤：
 
 特征：
 
-- 可直接通过节点名获取节点
-- 仅使用具体类，而不使用接口
-- API 大量使用了 Collections类
-- Jdom 专用于 Java 技术，比 Dom 应用占用更少内存，但内存消耗仍然较大
-- Jdom 提供更加简单和逻辑性访问 XML 信息的基础方法
+- 可直接通过节点名获取节点。
+- 仅使用具体类，而不使用接口。
+- API 大量使用了 Collections类。
+- Jdom 专用于 Java 技术，比 Dom 应用占用更少内存，但内存消耗仍然较大。
+- Jdom 提供更加简单和逻辑性访问 XML 信息的基础方法。
 
-JDOM 解析 XML 步骤
+JDOM 解析 XML 步骤：
 
-1. 导入 jdom.jar 包。jar 包下载地址 http://www.jdom.org/downloads/
-2. 创建一个 SAXBuilder 的对象
-3. 创建一个输入流，将 XML 文件加载到输入流中
-4. 通过 `saxBuilder` 的 `build()` 方法，将输入流加载到 `saxBuilder` 中
-5. 获取节点信息
+1. 导入 jdom.jar 包，jar 包下载地址 http://www.jdom.org/downloads/。
+2. 创建一个 SAXBuilder 的对象。
+3. 创建一个输入流，将 XML 文件加载到输入流中。
+4. 通过 `saxBuilder` 的 `build()` 方法，将输入流加载到 `saxBuilder` 中。
+5. 获取节点信息。
 
 
 
@@ -610,7 +608,7 @@ public class JDomTest {
 
 # 4、DOM4J 解析
 
-DOM4J 是一个 Java 的 XML API，是 JDOM 的升级品，用来读写 XML 文件的
+DOM4J 是一个 Java 的 XML API，是 JDOM 的升级品，用来读写 XML 文件的。
 
 DOM4J 是 JDOM 的一种智能分支，它合并了许多超出基本 XML 文档表示的功能。它使用接口和抽象基本类方法。具有性能优异、灵活性好、功能强大和极端易用的特点。是一个开放源码的文件。
 
@@ -638,7 +636,6 @@ import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
 public class Dom4jTest {
- 
 	public static void main(String[] args) {
 		Date string = new Date();
 		long str1 = string.getTime();
@@ -740,72 +737,70 @@ XPath 是一门在 XML 文档中查找信息的语言。在 DOM4J 解析中使�
 
 **案例：**
 
-book.xml 文件：
+1. book.xml 文件：
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- DTD -->
-<!-- <!DOCTYPE books [
-	<!ELEMENT books (book*)>
-	<!ELEMENT book (name,author,price)>
-	<!ELEMENT name (#PCDATA)>
-	<!ELEMENT author (#PCDATA)>
-	<!ELEMENT price (#PCDATA)>
-	<!ATTLIST book id CDATA #REQUIRED>
-]>
- -->
-<books xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:noNamespaceSchemaLocation="{book.xsd}">
-	<book id="1001">
-		<name>java开发实战</name>
-		<author>张小三</author>
-		<price>98.5</price>
-	</book>
-	
-	<book id="1002">
-		<name>mysql从删库到跑路</name>
-		<author>飞毛腿</author>
-		<price>1000</price>
-	</book>
-</books>
-```
+   ```xml
+   <?xml version="1.0" encoding="UTF-8"?>
+   <!-- DTD -->
+   <!-- <!DOCTYPE books [
+   	<!ELEMENT books (book*)>
+   	<!ELEMENT book (name,author,price)>
+   	<!ELEMENT name (#PCDATA)>
+   	<!ELEMENT author (#PCDATA)>
+   	<!ELEMENT price (#PCDATA)>
+   	<!ATTLIST book id CDATA #REQUIRED>
+   ]>
+    -->
+   <books xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="{book.xsd}">
+   	<book id="1001">
+   		<name>java开发实战</name>
+   		<author>张小三</author>
+   		<price>98.5</price>
+   	</book>
+   	
+   	<book id="1002">
+   		<name>mysql从删库到跑路</name>
+   		<author>飞毛腿</author>
+   		<price>1000</price>
+   	</book>
+   </books>
+   ```
 
-TestXPath.java：
+2. TestXPath.java：
 
-```java
-import java.util.List;
- 
-import org.dom4j.Attribute;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Node;
-import org.dom4j.io.SAXReader;
- 
-public class TestXPath {
- 
-	public static void main(String[] args) throws DocumentException {
-		//1、SAXReader对象
-		SAXReader reader=new SAXReader();
-		//2、读取XML文件
-		Document doc=reader.read("book.xml");
-		//得到第一个author节点
-		Node node=doc.selectSingleNode("//author");
-		System.out.println("节点的名称："+node.getName()+"t"+node.getText());
-		//获取所有的author
-		System.out.println("n-------------------------");
-		List<Node> list=doc.selectNodes("//author");
-		for(Node n:list){
-			System.out.println("节点名称："+n.getName()+"t"+n.getText());
-		}
-		//选择id属性的book元素
-		List<Attribute> attList=doc.selectNodes("//book/@id");
-		for(Attribute att:attList){
-			System.out.println("属性的名称："+att.getName()+"t"+att.getText());
-		}
-	}
- 
-}
-```
+   ```java
+   import java.util.List;
+    
+   import org.dom4j.Attribute;
+   import org.dom4j.Document;
+   import org.dom4j.DocumentException;
+   import org.dom4j.Node;
+   import org.dom4j.io.SAXReader;
+    
+   public class TestXPath {
+   	public static void main(String[] args) throws DocumentException {
+   		//1、SAXReader对象
+   		SAXReader reader=new SAXReader();
+   		//2、读取XML文件
+   		Document doc=reader.read("book.xml");
+   		//得到第一个author节点
+   		Node node=doc.selectSingleNode("//author");
+   		System.out.println("节点的名称："+node.getName()+"t"+node.getText());
+   		//获取所有的author
+   		System.out.println("n-------------------------");
+   		List<Node> list=doc.selectNodes("//author");
+   		for(Node n:list){
+   			System.out.println("节点名称："+n.getName()+"t"+n.getText());
+   		}
+   		//选择id属性的book元素
+   		List<Attribute> attList=doc.selectNodes("//book/@id");
+   		for(Attribute att:attList){
+   			System.out.println("属性的名称："+att.getName()+"t"+att.getText());
+   		}
+   	}
+   }
+   ```
 
 
 
@@ -888,8 +883,79 @@ XPath 通配符可用来选取未知的 XML 元素。
 
 | 路径表达式                       | 结果                                                         |
 | :-------------------------------- | :------------------------------------------------------------ |
-| `//book/title [斜杆]//book/price` | 选取 book 元素的所有 title 和 price 元素。                   |
-| `//title [斜杆]//price`       | 选取文档中的所有 title 和 price 元素。                       |
-| `/bookstore/book/title [斜杆]//price` | 选取属于 bookstore 元素的 book 元素的所有 title 元素，以及文档中所有的 price 元素。 |
+| `//book/title | //book/price` | 选取 book 元素的所有 title 和 price 元素。       |
+| `//title | //price`      | 选取文档中的所有 title 和 price 元素。                       |
+| `/bookstore/book/title | //price` | 选取属于 bookstore 元素的 book 元素的所有 title 元素，以及文档中所有的 price 元素。 |
 
-> 由于 MarkDown 转义问题，上面三个路径表达式的 `|` 被 `[斜杆]` 替换，使用时需替换回来
+
+
+## 4.3、命名空间
+
+XML 命名空间是用来避免 XML 文档中元素或属性名称冲突的一种机制。命名空间通过使用 URI（通常是 URL）来唯一标识元素或属性的来源。虽然URI 可能看起来像一个 URL，但它只是一个字符串，用来唯一标识一个命名空间，不必实际指向任何资源。
+
+
+
+**命名空间声明**
+
+命名空间通常通过 `xmlns` 属性在 XML 文档的元素中声明，例如：
+
+```xml
+<root xmlns="http://example.com/ns">
+    <child>Value</child>
+</root>
+```
+
+在这个例子中，`http://example.com/ns` 是默认命名空间。
+
+
+
+**前缀**
+
+命名空间可以使用前缀来缩短引用，例如：
+
+```xml
+<root xmlns:ex="http://example.com/ns">
+    <ex:child>Value</ex:child>
+</root>
+```
+
+在这个例子中，`ex` 是命名空间的前缀，用于元素 `child`。
+
+
+
+**使用 Dom4j 设置 XML 命名空间**
+
+如果不设置命名空间，直接通过 XPath 检索节点是可能的，但是如果 XML 文档中包含了命名空间，那么在 XPath 表达式中就需要显式地处理这些命名空间，否则可能无法正确匹配到目标节点。
+
+1. 定义命名空间：
+
+   ```java
+   Namespace ns = new Namespace("ns", "http://www.saac.gov.cn/standards/ERM/encapsulation");
+   ```
+
+   这里我们定义了一个命名空间 `ns`，其 URI 为 `http://www.saac.gov.cn/standards/ERM/encapsulation`。这个命名空间将被用作 XPath 查询的前缀。
+
+2. 添加命名空间到根元素：
+
+   ```java
+   // 获取Resource对象
+   Resource resource = new ClassPathResource("archive/eep.xml");
+   // 使用 DOM4J 的 SAXReader 加载 XML 文件
+   SAXReader reader = new SAXReader();
+   Document doc = reader.read(resource.getInputStream());
+   // 添加命名空间
+   doc.getRootElement().add(ns);
+   ```
+
+   将命名空间添加到 XML 文档的根元素，这样在 XPath 查询时可以使用这个命名空间。
+
+3. XPath 查询：
+
+   ```java
+   Element element = (Element) doc.selectSingleNode("//ns:文件数据");
+   // 清空内容
+   element.clearContent();
+   ```
+
+   使用带命名空间的 XPath 表达式 `//ns:文件数据` 来查找 `文件数据` 元素。查找到的元素将被清空，即删除其所有子节点和文本内容。
+

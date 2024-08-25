@@ -234,3 +234,38 @@ npm 全局下载依赖时，会默认下载到当前使用的 Nodejs 版本的�
 比如 1.15.2，则代表 1 是 marjor version，15 是 minor version，2 是 patch version。
 
 因为 major version 变化表示可能会影响之前版本的兼容性，所以无论是波浪符号还是插入符号都不会自动去修改 major version，因为这可能导致程序 crush，可能需要手动修改代码。
+
+
+
+## 3.2、process.env.NODE_ENV
+
+`process.env.NODE_ENV` 应该是我们最熟悉的环境变量了，它经常出现在使用框架或者类库的时候，被用来区分不同的环境（开发，测试，生产等），以便我们进行相对应的项目配置，比如是否开启 sourceMap，api 地址切换等。
+
+
+
+**process**
+
+`process` 对象是一个 全局变量 （global），提供有关信息，控制当前 Node.js 进程。作为一个对象，它对于 Node.js 应用程序始终是可用的，故无需使用 `require()`。
+
+
+
+**process.env**
+
+`process.env` 属性返回一个包含用户环境信息的对象。
+
+
+
+**process.env.NODE_ENV**
+
+在 node  环境中，当我们打印 `process.env` 时，发现它并没有 `NODE_ENV` 这一个属性。实际上，`process.env.NODE_ENV` 是在package.json 的 `scripts` 命令中注入的，也就是 `NODE_ENV` 并不是 node 自带的，而是由用户定义的，至于为什么叫 `NODE_ENV`，应该是约定成俗的吧。
+
+```json
+{
+  "scripts": {
+    "dev": "NODE_ENV=development webpack --config webpack.dev.config.js"
+  }
+}
+```
+
+可以看到 `NODE_ENV` 被赋值为 `development`，当执行 `npm run dev` 时，我们就可以在 `webpack.dev.config.js` 脚本中以及它所引入的脚本中访问到 `process.env.NODE_ENV`，而无法在其它脚本中访问。
+
