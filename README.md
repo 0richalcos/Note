@@ -86,7 +86,7 @@
 
 
 
-**库**
+**组件库**
 
 - [**Axios**](https://github.com/0richalcos/Note/blob/main/Markdown/Axios.md)
 - 表格：[**Bootstrap Table**](https://github.com/0richalcos/Note/blob/main/Markdown/BootstrapTable.md)
@@ -95,6 +95,7 @@
 - 甘特图：[**DHTMLX Gantt**](https://github.com/0richalcos/Note/blob/main/Markdown/DHTMLXGantt.md)
 - 日历：[**FullCalendar**](https://github.com/0richalcos/Note/blob/main/Markdown/FullCalendar.md)
 - 图表：[**Apache ECharts**](https://github.com/0richalcos/Note/blob/main/Markdown/ApacheECharts.md)
+- [**Element**](https://github.com/0richalcos/Note/blob/main/Markdown/Element.md)
 
 
 
