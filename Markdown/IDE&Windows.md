@@ -126,13 +126,17 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 1. 按下 Win+R，运行 `regedit`
 2. 展开 `HKEY_CLASSES_ROOT`，找到需要删除的文件后缀名，然后展开文件夹找到 `ShellNew` 选项，直接删除即可
 
-> 如果角色这个快捷方式以后可能会用到，需要重新打开，可以将 `ShellNew` 选项的名字改掉，比如改为 `ShellNew-`。
+> 如果觉得这个快捷方式以后可能会用到，需要重新打开，可以将 `ShellNew` 选项的名字改掉，比如改为 `ShellNew-`。
 
 
 
 ## 【7】取消开机密码
 
-使用微软账户登录：
+这里分两种情况，一种是微软账号登录，一种是本地帐号登录。
+
+
+
+**微软账户登录**
 
 1. 确保【账户】=>【登录选项】=>【其他设置】中 “为了提高安全性，仅允许...” 是关闭的：
 	
@@ -142,6 +146,12 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 4. 会弹出一个窗口，在窗口中输入微软账户的用户名和密码，点【确定】
 
    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210513005900008.png" alt="image-20210513005900008" style="zoom:50%;" />
+
+
+
+**本地账号登录**
+
+直接修改本地登录账号的密码就行，密码留空，点击确认保存即可。
 
 
 
@@ -172,11 +182,43 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 
 
+## 【9】通过网络共享文件
+
+在局域网中，可以通过 Windows 资源管理器的【网络】快速和其他机器共享文件，具体操作步骤如下：
+
+1. **打开网络共享**
+
+   打开计算机设置，然后依次点开【网络和 Internet】=>【高级网络设置】=>【高级共享设置】，打开专用网络里的网络发现和文件和打印机共享：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240905000816740.png" alt="image-20240905000816740" style="zoom:50%;" />
+
+   > [!TIP]
+   >
+   > 为了安全建议只打开专用网络的网络共享，可以把家里网络设置成专用网络。
+
+2. **设置文件的访问权限**
+
+   右键需要共享的文件，在【授予访问权限】这里选择【特定用户】：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240905001209450.png" alt="image-20240905001209450" style="zoom: 50%;" />
+
+   共享的用户选择 Everyone（所有人），然后点击【添加】：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240905001336093.png" alt="image-20240905001336093" style="zoom:50%;" />
+
+3. **其他局域网机器访问**
+
+   其他局域网内的机器可以通过文件资源管理器的【网络】这里找到你的电脑设备，点击进去就可以访问到前面设置过共享权限的文件了：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240905001707231.png" alt="image-20240905001707231" style="zoom:50%;" />
+
+
+
 ## 【10】删除 Win11 右键菜单项
 
 此方法通过修改注册表来完成。
 
-按 win 键 + R 键，打开【运行】窗口，输入  `regedit`，按回车键，弹出注册表编辑器。在注册表 `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\` 处右键创建名为 `Blocked` 的**项**。在其中创建不同的**字符串值**达到屏蔽对应右键菜单项的效果。
+按 win 键 + R 键，打开【运行】窗口，输入  `regedit`，按回车键，弹出注册表编辑器。在注册表 `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\` 处右键创建名为 `Blocked` 的项。在其中创建不同的字符串值达到屏蔽对应右键菜单项的效果。
 
 
 
@@ -194,7 +236,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 **AMD Software : Adrenalin Edition**
 
-**名称**为 `{FDADFEE3-02D1-4E7C-A511-380F4C98D73B}`，**数值**为 `AMD Software : Adrenalin Edition`。
+名称为 `{FDADFEE3-02D1-4E7C-A511-380F4C98D73B}`，**数值**为 `AMD Software : Adrenalin Edition`。
 
 <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221117151017598.png" alt="image-20221117151017598" style="zoom: 50%;" />
 
@@ -1359,5 +1401,4 @@ RemoteSigned
 2. 每次 IDM 启动的时候，都会修改 hosts 文件，将以上内容注释，可以将 hosts 文件设置为【只读】，也可以使用火绒的自定义防护禁止 IDMan.exe 修改 hosts：
 
    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240416144317613.png" alt="image-20240416144317613" style="zoom:67%;" />
-
 
