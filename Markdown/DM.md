@@ -623,3 +623,131 @@ alter database open;
    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230922004422477.png" alt="image-20230922004422477" style="zoom:67%;" />
 
    左侧目录刷新，即可看到数据库对象信息。
+
+
+
+# 5、SQL 交互式查询工具
+
+disql 是一款命令行客户端工具，用于进行 SQL 交互式查询，disql 工具一般用于没有图形界面时的操作，或者使用的连接工具为命令行形式，如 Xshell、SCRT 等工具。
+
+
+
+## 5.1、disql 登录数据库
+
+### 5.1.1、Linux 登录 disql
+
+Linux 登录，进入数据库软件安装目录的 bin 目录下。登录方式主要有两种，分别如下：
+
+
+
+**方式一**
+
+```shell
+./disql username/password@IP:PORT
+```
+
+以 `/home/dmdba/dmdbms/bin` 为例，如下所示：
+
+```shell
+./disql SYSDBA/SYSDBA@LOCALHOST:5236
+```
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/202407231508331967I025JMXMVX2VQK.png" alt="202407231508331967I025JMXMVX2VQK" style="zoom:80%;" />
+
+如果密码含有特殊字符的情况下，需要使用双引号将密码包含进来，同时外层再使用单引号进行转义。以用户名 TEST，密码 `TEST@111#2024` 为例，如下所示：
+
+```shell
+./disql TEST/'"TEST@111#2024"'@127.0.0.1:5236
+```
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20240723150931L5ZOIWO60GJRIMAXKS.png" alt="20240723150931L5ZOIWO60GJRIMAXKS" style="zoom:80%;" />
+
+如果用户名、密码、端口号均为默认的情况下（用户名：SYSDBA ，密码：SYSDBA ，端口：5236 ），可直接输入 `./disql`，敲击回车按键，即可登录数据库。如下所示：
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726074490724.png" alt="QQ_1726074490724" style="zoom: 25%;" />
+
+
+
+**方式二**
+
+```shell
+# 进入disql操作终端界面，然后执行下面的操作
+./disql /nolog
+
+# 使用conn命令连接
+conn 用户名/密码@IP:PORT
+# 或者使用connet
+connect 用户名/密码@IP:PORT
+# 或者输入LOGIN命令
+login
+```
+
+以 `/home/dmdba/dmdbms/bin` 为例，disql 中通过 `conn` 或者 `connect` 命令连接数据库，操作如下所示：
+
+```shell
+./disql /nolog
+
+CONNECT TEST/'"TEST@111#2024"'@127.0.0.1:5236
+```
+
+
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726074907877.png" alt="QQ_1726074907877" style="zoom: 25%;" />
+
+`login` 命令操作如下：
+
+- 服务名：`IP:PORT` 或者 dm_svc.conf 文件中配置的服务名。
+- 用户名：输入登录的数据库用户名。
+- 密码：输入用户密码（密码无需加转义符）。
+
+其余回车即可：
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726074954932.png" alt="QQ_1726074954932" style="zoom: 25%;" />
+
+
+
+## 5.2、disql 登出数据库
+
+登出命令在 Windows、Linux 均相同，主要分为两类，一类是 `logout`、`disconnect`；另一类是 `exit`、`quit`。
+
+其中 `logout`、`disconnect` 只退出或者断开当前登录的会话连接，不退出 disql；`exit`、`quit` 表示退出当前登录会话连接并且退出 disql 操作界面。如下所示：
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726075327422.png" alt="QQ_1726075327422" style="zoom:25%;" />
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726075343639.png" alt="QQ_1726075343639" style="zoom:25%;" />
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726075360897.png" alt="QQ_1726075360897" style="zoom:25%;" />
+
+
+
+## 5.3、disql 的使用
+
+### 5.3.1、脚本使用
+
+disql 登录成功后，通过反引号 `` ` 和 `start` 命令加上脚本位置执行脚本，以 Linux 上脚本位置 `/home/dmdba/test.sql`、Windows 上脚本位置 `C:\dm8_326_p6\sel.sql` 为例，如下所示：
+
+```shell
+./disql TEST/'"TEST@111#2024"'@127.0.0.1:5236
+
+start /home/dmdba/test.sql
+`/home/dmdba/test.sql
+```
+
+
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/202407231529233K13R37GG5RDKDV4G0.png" alt="202407231529233K13R37GG5RDKDV4G0" style="zoom:80%;" />
+
+也可在登录时直接同时进行脚本的执行，如下所示：
+
+```shell
+./disql TEST/'"TEST@111#2024"'@127.0.0.1:5236 \`/home/dmdba/test.sql
+```
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20240723152653MTEBSP0Z1BUXKW2KVL.png" alt="20240723152653MTEBSP0Z1BUXKW2KVL" style="zoom:80%;" />
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20240723152719ICBB8YK83P07CQY2OU.png" alt="20240723152719ICBB8YK83P07CQY2OU" style="zoom:80%;" />
+
+> [!IMPORTANT]
+>
+> Windows 环境下不需要对反引号 `` ` 进行转义，而 Linux 环境下需要对其进行转义。
+
