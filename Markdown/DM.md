@@ -502,9 +502,13 @@ systemctl status DmServiceDMSERVER.service
 
 
 
-# 3、备份和迁移
+# 3、基本操作
 
-## 3.1、DTS 工具迁移
+
+
+# 4、备份和迁移
+
+## 4.1、DTS 工具迁移
 
 1. 新建工程：
 
@@ -540,7 +544,7 @@ systemctl status DmServiceDMSERVER.service
 
 
 
-## 3.2、物理备份
+## 4.2、物理备份
 
 1. 右键数据库连接，选择【管理服务器】，切换到【系统管理】，将状态转换为【配置】：
 
@@ -566,7 +570,7 @@ systemctl status DmServiceDMSERVER.service
 
 
 
-# 4、数据库状态和模式
+# 5、数据库状态和模式
 
 DM 数据库包含以下几种状态：
 
@@ -592,7 +596,7 @@ DM 数据库包含以下几种模式：
 
 
 
-## 4.1、状态切换
+## 5.1、状态切换
 
 **命令行方式**
 
@@ -626,15 +630,15 @@ alter database open;
 
 
 
-# 5、SQL 交互式查询工具
+# 6、SQL 交互式查询工具
 
 disql 是一款命令行客户端工具，用于进行 SQL 交互式查询，disql 工具一般用于没有图形界面时的操作，或者使用的连接工具为命令行形式，如 Xshell、SCRT 等工具。
 
 
 
-## 5.1、disql 登录数据库
+## 6.1、disql 登录数据库
 
-### 5.1.1、Linux 登录 disql
+### 6.1.1、Linux 登录 disql
 
 Linux 登录，进入数据库软件安装目录的 bin 目录下。登录方式主要有两种，分别如下：
 
@@ -706,7 +710,7 @@ CONNECT TEST/'"TEST@111#2024"'@127.0.0.1:5236
 
 
 
-## 5.2、disql 登出数据库
+## 6.2、disql 登出数据库
 
 登出命令在 Windows、Linux 均相同，主要分为两类，一类是 `logout`、`disconnect`；另一类是 `exit`、`quit`。
 
@@ -720,9 +724,9 @@ CONNECT TEST/'"TEST@111#2024"'@127.0.0.1:5236
 
 
 
-## 5.3、disql 的使用
+## 6.3、disql 的使用
 
-### 5.3.1、脚本使用
+### 6.3.1、脚本使用
 
 disql 登录成功后，通过反引号 `` ` 和 `start` 命令加上脚本位置执行脚本，以 Linux 上脚本位置 `/home/dmdba/test.sql`、Windows 上脚本位置 `C:\dm8_326_p6\sel.sql` 为例，如下所示：
 
@@ -751,3 +755,54 @@ start /home/dmdba/test.sql
 >
 > Windows 环境下不需要对反引号 `` ` 进行转义，而 Linux 环境下需要对其进行转义。
 
+
+
+### 6.3.2、环境变量参数设置
+
+可通过设置 disql 的参数，来调整交互界面的显示效果，以达成输出的显示结果更加直观。
+
+通过 `SET` 命令语法进行使用，off 表示该参数关闭，on 表示该参数开启。
+
+可以同时 SET 多个环境变量，如：`set heading on timing on` 。需要注意的是，SET 之后某个环境变量出错，那么该变量之后的环境变量参数将不再起作用。
+
+disql 常用部分参数如下所示：
+
+```SQL
+# 设置一页有多少行数
+SET PAGESIZE 1000
+
+# 显示每个 SQL 语句花费的执行时间
+SET TIMING ON
+
+# 显示系统的当前时间
+SET TIME ON
+
+# 设置屏幕上一行显示宽度
+SET LINESIZE 1000
+
+# 关闭显示行号
+SET LINESHOW OFF
+
+# 设置查看执行计划
+SET AUTOTRACE <OFF(缺省值) | NL | INDEX | ON | TRACE | TRACEONLY>
+
+# 在块中有打印信息时，是否打印，以及打印的格式
+SET SERVEROUTPUT ON
+
+# 设置 SQL 语句的编码方式 GBK | GB18030 | UTF8 | DEFAULT
+SET CHAR_CODE DEFAULT
+
+# 设置兼容 MySQL 的打印格式
+SET ISQL_MODE 3
+
+# DISQL 中使用 INSERT 语句且当插入的值包含 & 符号时，需要将 DEFINE 环境变量关闭或者设置成其他值。
+# DEFINE 环境变量默认为 & 前缀，即 SQL 语句中包含 & 符号时，& 符号后面的字符会识别为 SQL 语句中变量名，
+# 如后面字符中包含 $ 符号，则从 & 符号与 $ 符号中间的字符识别为 SQL 语句中的变量名。
+# 关闭 DEFINE 功能
+SET DEFINE OFF
+
+--输出到文件
+SPOOL /home/dmdba/dbchk20200609.txt 
+--结束输出文件
+SPOOL OFF; 
+```

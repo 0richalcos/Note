@@ -270,6 +270,44 @@ winget install 9MSSGKG348SP
 
 
 
+## 【13】你的 PIN 不可用
+
+开机遇到一系列问题：
+
+- 无法使用人脸/PIN 码登录。
+- 重置 PIN 码功能无用，会重新回到锁屏界面。
+- 无法使用密码登录。
+- SHIFT + 重启按钮无法使用。
+- 登录账号为微软账号，无法使用 PE 修改密码。
+
+只能通过 PE 启动管理员账号，使用管理员账号登录后关闭 Windws 无密码策略，再使用密码登录原账号：
+
+1. 很多 PE 系统都可以修改账号，这里使用 WinPE，启动PE后，进入桌面打开运行 Dism++ 程序：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240912181936886.png" alt="image-20240912181936886" style="zoom:50%;" />
+
+2. 选择带有系统的盘符（默认选的是 PE 盘），然后打开会话：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240912182008073.png" alt="image-20240912182008073" style="zoom: 50%;" />
+
+3. 选择左侧工具箱，然后右侧找到账户管理：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240912182035732.png" alt="image-20240912182035732" style="zoom:50%;" />
+
+   然后就可以对已有账号进行管理了。
+
+4. 使用管理员账号登录之后，打开注册表 `计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\PasswordLess\Device`，将 DevicePasswordLessBuildVersion 项的值改为 0：
+
+   ![image-20240912182353584](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240912182353584.png)
+
+5. 重启电脑，这个时候就可以用密码登录原帐号了，登上去之后将 PIN 码删除再重新添加，在组策略编辑器里重新将管理员账号禁用：
+
+   ![image-20240912182721056](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240912182721056.png)
+
+6. 最后重启电脑，如果一切正常，可以将注册表 DevicePasswordLessBuildVersion 项的值重新改为 2。
+
+
+
 ## 【14】使用 sc 命令控制服务
 
 `sc` 命令的语法格式：
