@@ -173,13 +173,13 @@ Redis 是单线程的（6.0 是多线程），因为 Redis 是基于内存操作
 
    ```shell
    cd /usr/local/redis
-   sudo make
+   make
    ```
 
 5. 安装：
 
    ```shell
-   sudo install
+   sudo make install
    ```
 
 6. 启动 Redis：
@@ -192,13 +192,20 @@ Redis 是单线程的（6.0 是多线程），因为 Redis 是基于内存操作
 
 **编写开机自启系统服务文件**
 
-1. 新建一个系统服务文件：
+1. Redis 安装后，默认配置文件位于源码目录中的 redis.conf 文件。可以将其复制到 `/etc/redis/` 目录，并进行自定义配置：
+
+   ```shell
+   sudo mkdir /etc/redis
+   sudo cp redis.conf /etc/redis
+   ```
+
+2. 新建一个系统服务文件：
 
    ```shell
    vim /etc/systemd/system/redis.service
    ```
 
-2. 文件内容如下：
+3. 文件内容如下：
 
    ```shell
    [Unit]
@@ -206,7 +213,7 @@ Redis 是单线程的（6.0 是多线程），因为 Redis 是基于内存操作
    After=network.target
    
    [Service]
-   ExecStart=/usr/local/redis/src/redis-server /usr/local/redis/redis.conf
+   ExecStart=/usr/local/redis/src/redis-server /etc/redis/redis.conf
    ExecStop=/usr/local/redis/src/redis-cli shutdown
    Restart=always
    
@@ -214,13 +221,13 @@ Redis 是单线程的（6.0 是多线程），因为 Redis 是基于内存操作
    WantedBy=multi-user.target
    ```
 
-3. 重载系统服务：
+4. 重载系统服务：
 
    ```shell
    sudo systemctl daemon-reload
    ```
 
-4. 接下来可以使用以下命令来启动、停止、重启和检查 Redis 服务的状态：
+5. 接下来可以使用以下命令来启动、停止、重启和检查 Redis 服务的状态：
 
    ```shell
    sudo systemctl start redis
@@ -229,7 +236,7 @@ Redis 是单线程的（6.0 是多线程），因为 Redis 是基于内存操作
    sudo systemctl status redis
    ```
 
-5. 如果想要在系统启动时自动启动 Redis 服务，可以运行以下命令：
+6. 如果想要在系统启动时自动启动 Redis 服务，可以运行以下命令：
 
    ```shell
    sudo systemctl enable redis
