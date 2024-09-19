@@ -274,15 +274,15 @@ Yarn 是由 Facebook、Google、Exponent 和 Tilde 联合推出了一个新的 J
 
 ### 3.2.2、安装
 
-#### 通过  Corepack 安装
+#### 使用  Corepack 安装
+
+管理 Yarn 的首选方法是通过 Corepack，这是一个从 16.10 开始的所有 Node.js 版本附带的新二进制文件。它充当您和 Yarn 之间的中介，并允许您在多个项目中使用不同的包管理器版本，而无需再签入 Yarn 二进制文件。
 
 1. **安装 Corepack**
 
-   管理 Yarn 的首选方法是通过 Corepack，这是一个从 16.10 开始的所有 Node.js 版本附带的新二进制文件。它充当您和 Yarn 之间的中介，并允许您在多个项目中使用不同的包管理器版本，而无需再签入 Yarn 二进制文件。
-
    用户根据自己的 Node.js 版本执行以下命令：
 
-   - Node.js >=16.10
+   - Node.js >= 16.10
 
      默认情况下，Corepack 包含在所有 Node.js 安装中，但目前可以选择加入。若要启用它，请运行以下命令：
 
@@ -290,7 +290,7 @@ Yarn 是由 Facebook、Google、Exponent 和 Tilde 联合推出了一个新的 J
      corepack enable
      ```
 
-   - Node.js <16.10
+   - Node.js < 16.10
 
      在 16.10 之前的版本中，Node.js 不包含 Corepack；要解决此问题，请运行：
 
@@ -298,17 +298,17 @@ Yarn 是由 Facebook、Google、Exponent 和 Tilde 联合推出了一个新的 J
      npm i -g corepack
      ```
 
-2. **安装/更新全局 Yarn 版本**
+2. **安装全局 Yarn 版本**
 
-   用户根据自己的 Node.js 版本执行以下 corepack 命令：
+   用户根据自己的 Node.js 版本执行以下 Corepack 命令：
 
-   - Node.js ^16.17 or >=18.6
+   - Node.js ^16.17 or >= 18.6
 
      ```shell
      corepack prepare yarn@stable --activate
      ```
 
-   - Node.js <16.17 or <18.6
+   - Node.js < 16.17 or < 18.6
 
      查看[最新的 Yarn](https://github.com/yarnpkg/berry/releases/latest) 版本，记下版本号，然后运行：
 
@@ -327,33 +327,34 @@ Yarn 是由 Facebook、Google、Exponent 和 Tilde 联合推出了一个新的 J
 
 #### 直接安装
 
-也可以直接通过 npm 安装：
+1. **通过 npm 安装**
 
-```shell
-npm i -g yarn
-```
+   ```shell
+   npm i -g yarn
+   ```
 
-查看版本：
+2. **验证安装**
 
-```shell
-yarn -v
-```
+   安装完成后，可以使用以下命令检查 yarn 是否已正确安装：
 
+   ```shell
+   yarn -v
+   ```
 
+3. **更新 Yarn 版本**
 
-**更新到最新版本**
+   如果以后要将 Yarn 更新到最新版本，请运行：
 
-如果以后要将 Yarn 更新到最新版本，请运行：
+   ```shell
+   yarn set version stable
+   ```
 
-```shell
-yarn set version stable
-```
+   也可以指定版本：
 
-也可以指定版本：
+   ```shell
+   yarn set version 3.4.1
+   ```
 
-```shell
-yarn set version 3.4.1
-```
 
 
 
@@ -472,11 +473,147 @@ rimraf node_modules
 
 
 
-
-
-
-
 ## 3.3、pnpm
+
+### 3.3.1、简介
+
+**节省磁盘空间**
+
+使用 npm 时，依赖每次被不同的项目使用，都会重复安装一次。  而在使用 pnpm 时，依赖会被存储在内容可寻址的存储中，所以：
+
+1. 如果你用到了某个依赖项的不同版本，只需将不同版本间存在差异的文件添加到仓库。
+
+   例如，如果有 100 个文件，而新版本仅更改了其中一个文件， `pnpm update` 只会向存储添加 1 个新文件，而不是仅仅为了单个更改而克隆整个依赖项。
+
+2. 所有文件都会存储在硬盘上的某一位置。 
+
+   当软件包被被安装时，包里的文件会硬链接到这一位置，而不会占用额外的磁盘空间。 这允许你跨项目地共享同一版本的依赖。
+
+因此，您在磁盘上节省了大量空间，这与项目和依赖项的数量成正比，并且安装速度要快得多！
+
+
+
+**提高安装速度**
+
+pnpm 分三个阶段执行安装：
+
+1. 依赖解析：仓库中没有的依赖都被识别并获取到仓库。
+2. 目录结构计算：node_modules 目录结构是基于依赖关系计算的。
+3. 链接依赖项：所有剩余的依赖项都会从存储中获取并硬链接到 node_modules，这种方法比传统的三阶段安装过程（解析、获取和将所有依赖项写入 node_modules）快得多。
+
+
+
+**创建一个非扁平的 node_modules 目录**
+
+使用 npm 或 Yarn Classic 安装依赖项时，所有的包都被提升到模块目录的根目录。 这样就导致了一个问题，源码可以直接访问和修改依赖，而不是作为只读的项目依赖。
+
+默认情况下，pnpm 使用符号链接将项目的直接依赖项添加到模块目录的根目录中：
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726745555326.png" alt="QQ_1726745555326" style="zoom:50%;" />
+
+> [!TIP]
+>
+> 如果您的工具不适用于符号链接，您仍然可以使用 pnpm 并将 `node-linker` 设置设置为 hoisted。 这样 pnpm 就会创建一个类似于 npm 和 Yarn Classic 创建的 node_modules 目录。
+
+
+
+### 3.3.2、安装
+
+#### 使用 Corepack 安装
+
+Corepack 是 Node.js 16.10.0 引入的一种工具，用于管理 Node.js 包管理工具（如 pnpm、Yarn）的版本，并简化它们的安装过程。通过 Corepack，你可以无需手动安装 pnpm，而是让 Corepack 来自动管理。
+
+1. **启用 Corepack**
+
+   从 v16.10 开始，Node.js 发布了 [Corepack](https://nodejs.org/api/corepack.html) 来管理包管理器。 这是一项实验性功能，因此您需要通过运行如下脚本来启用它：
+
+   ```shell
+   corepack enable
+   ```
+
+2. **安装并激活**
+
+   然后使用以下 Corepack 命令会安装最新版本的 pnpm 并将其激活，使其在全局可用：
+
+   ```shell
+   corepack prepare pnpm@latest --activate
+   ```
+
+   如果需要使用特定版本的 pnpm，可以指定版本号，例如：
+
+   ```shell
+   corepack prepare pnpm@7.0.0 --activate
+   ```
+
+3. **验证安装**
+
+   安装完成后，可以使用以下命令检查 pnpm 是否已正确安装：
+
+   ```shell
+   pnpm --version
+   ```
+
+你可以通过下列命令固定项目所用的 pnpm 版本：
+
+```shell
+corepack use pnpm@latest
+```
+
+这会添加一个 `packageManager` 字段到您本地的 package.json，指示 Corepack 始终在该项目上使用特定的版本。 如果您想要可复现性，这可能很有用，因为所有使用 Corepack 的开发人员都将使用与您相同的版本。 当一个新版本的 pnpm 发布时，您可以重新运行上述命令。
+
+
+
+#### 直接安装
+
+1. **通过 npm 安装**
+
+   ```shell
+   npm i -g pnpm
+   ```
+
+2. **验证安装**
+
+   安装完成后，可以使用以下命令检查 pnpm 是否已正确安装：
+
+   ```shell
+   pnpm -v
+   ```
+
+
+
+### 3.3.3、环境配置
+
+1. 首先查看 pnpm 全局存储路径、缓存存储路径、状态存储路径：
+
+   ```shell
+   # 全局存储路径
+   pnpm config get store-dir
+   
+   # 缓存存储路径
+   pnpm config get cache-dir
+   
+   # 状态存储路径
+   pnpm config get state-dir
+   ```
+
+   附：可以通过以下命令查看 pnpm 配置列表：
+
+   ```shell
+   pnpm config list
+   ```
+
+2. 修改 pnpm 全局存储路径、缓存存储路径、状态存储路径：
+
+   ```shell
+   # 全局存储路径
+   pnpm config set store-dir "D:\Nodejs\pnpm_global"
+   
+   # 缓存存储路径
+   pnpm config set cache-dir "D:\Nodejs\pnpm_cache"
+   
+   # 状态存储路径
+   pnpm config set state-dir "D:\Nodejs\pnpm_state"
+   ```
 
 
 

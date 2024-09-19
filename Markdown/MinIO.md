@@ -188,3 +188,10 @@ $env:MINIO_ROOT_PASSWORD="minioadmin"
 
 
 
+# 2、使用问题
+
+**上传图片后返回的 url 无法在线预览**
+
+增加桶策略：
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726741009145.png" alt="QQ_1726741009145" />

@@ -12,13 +12,13 @@ Elasticsearch 为各种数据类型提供接近实时的搜索和分析。不论
 
 虽然不是每个问题都是搜索问题，但 Elasticsearch 在大量实例中提供了处理数据的速度和灵活性：
 
-- 为应用或者网站添加搜索框
-- 存储和分析日志、度量和安全事件数据
-- 使用机器学习，实时自动建模你的数据行为
-- 使用 Elasticsearch 作为存储引擎来自动化业务工作流
-- 使用 Elasticsearch 作为地理信息系统（GIS）管理、集成和分析空间信息，以及使用 Elasticsearch 作为生物学信息研究工具处理基因数据
+- 为应用或者网站添加搜索框。
+- 存储和分析日志、度量和安全事件数据。
+- 使用机器学习，实时自动建模你的数据行为。
+- 使用 Elasticsearch 作为存储引擎来自动化业务工作流。
+- 使用 Elasticsearch 作为地理信息系统（GIS）管理、集成和分析空间信息，以及使用 Elasticsearch 作为生物学信息研究工具处理基因数据。
 
-我们一直对人们使用搜索的新奇方式感觉惊奇。但是不论你的实例与其中一个相似，还是你正使用 Elasticsearch 来解决一个新的问题，你在 Elasticsearch处理数据、文档和索引的方式是相同的。
+我们一直对人们使用搜索的新奇方式感觉惊奇。但是不论你的实例与其中一个相似，还是你正使用 Elasticsearch 来解决一个新的问题，你在 Elasticsearch 处理数据、文档和索引的方式是相同的。
 
 
 
@@ -28,7 +28,7 @@ Elasticsearch 是一种分布式文档存储。Elasticsearch 不用列数据行�
 
 当一个文档被存储时，它会被索引并且在接近实时的 1 秒钟内被完全可搜索。Elasticsearch 使用一种称之为倒排索引的数据结构，支持非常快的全文搜索。倒排索引列出任何文档中出现的唯一单词，并标识每个单词出现的所有文档。
 
-索引可被认作一种文档的优化集合，且每个文档都是字段的集合，字段是包含你数据的键值对。默认情况下，Elasticsearch 索引每个字段中的所有数据，且每个被索引的字段有一个专用的优化数据结构。例如，文本字段被存储在倒排索引中，数字和地理字段存储在 `BKD 树` 中。使用每个字段的数据结构来聚集和返回搜索结果是让 Elasticsearch 如此快的原因。
+索引可被认作一种文档的优化集合，且每个文档都是字段的集合，字段是包含你数据的键值对。默认情况下，Elasticsearch 索引每个字段中的所有数据，且每个被索引的字段有一个专用的优化数据结构。例如，文本字段被存储在倒排索引中，数字和地理字段存储在 BKD 树 中。使用每个字段的数据结构来聚集和返回搜索结果是让 Elasticsearch 如此快的原因。
 
 Elasticsearch 也具有无模式能力，这意味着文档无需明确地指定如何处理可能出现中文档中的每个不同的字段，就可以被索引。当启用动态映射后，Elasticsearch 自动检测和向索引中添加新的字段。这个默认行为使索引和浏览你的数据更容易——只需开始索引文档，Elasticsearch 会自动检测和映射布尔值、浮点值和整数值、日期以及字符串到合适的 Elasticsearch 数据类型。
 
@@ -36,11 +36,11 @@ Elasticsearch 也具有无模式能力，这意味着文档无需明确地指定
 
 定义你自己的映射使用你能够：
 
-- 区分全文字符串字段和精确值字符串字段
-- 执行特定语言的文本分析
-- 为部分匹配优化字段
-- 使用自定义的日期格式
-- 使用无法自动检测的数据类型，如 `geo_point` 和 `geo_shape`
+- 区分全文字符串字段和精确值字符串字段。
+- 执行特定语言的文本分析。
+- 为部分匹配优化字段。
+- 使用自定义的日期格式。
+- 使用无法自动检测的数据类型，如 `geo_point` 和 `geo_shape`。
 
 为不同的目的以不同的方式索引相同的字段，通常是有用的。例如，你可能想索引一个字符串字段，既作为全文搜索的文本字段，也作为用于排序和聚合你的数据的关键字段。或者，你可以选择使用多个语言分析器，用来处理包含用户输入的字符串字段的内容。
 
@@ -92,9 +92,9 @@ Elasticsearch 聚合使你能够构建数据的复杂摘要，并深入了解关
 
 想自动分析时序数据吗？你可以使用机器学习特性去创建在你数据中的正常行为的准确基线，并识别异常模式。通过机器学习，你能发现：
 
-- 与值、计数或者频率有关的时间偏差异常
-- 统计稀有性
-- 群体成员的异常行为
+- 与值、计数或者频率有关的时间偏差异常。
+- 统计稀有性。
+- 群体成员的异常行为。
 
 最好的部分呢？你可以这样做，而不必指定算法、模型或其他与科学相关的配置。
 
@@ -328,7 +328,51 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 
 
-## 2.3、使用 cURL 命令交互
+## 2.3、Windows
+
+1. 进入[官方页面](https://www.elastic.co/cn/downloads/past-releases#elasticsearch)，点击 Download 进入下载页面：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726769418773.png" alt="QQ_1726769418773" style="zoom: 50%;" />
+
+2. 选择 Windows 版本的下载：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726769681272.png" alt="QQ_1726769681272" style="zoom: 50%;" />
+
+3. 下载完成后解压到非中文目录下即可：
+
+   > [!WARNING]
+   >
+   > 注意路径不要包含空格！
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726773540436.png" alt="QQ_1726773540436" style="zoom:50%;" />
+
+4. 在 Elasticsearch 的 config 目录下，打开 elasticsearch.yml 配置文件：
+
+   ```yaml
+   # Elasticsearch数据存放目录
+   path.data: D:/50-ProgramData/ElasticSearch/ElasticSearch7.8/data
+   
+   # Elasticsearch数据存放目录
+   path.logs: D:/50-ProgramData/ElasticSearch/ElasticSearch7.8/logs
+   
+   # Elasticsearch节点监听IP
+   network.host: localhost
+   
+   # Elasticsearch节点监听Port
+   http.port: 9200
+   ```
+
+5. 在 Elasticsearch 安装目录的 bin 目录中，双击 elasticsearch.bat 即可启动：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726774051409.png" alt="QQ_1726774051409" />
+
+6. 接下来访问 Elasticsearch，在浏览器输入http://localhost:9200，看到以下界面即可证明 ES 启动成功：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726774166786.png" alt="QQ_1726774166786" style="zoom: 67%;" />
+
+
+
+# 3、使用 cURL 命令交互
 
 本指南中的大部分示例，允许你复制合适的 cURL 命令，并从命令行中向本地 Elasticsearch 实例提交请求。
 
@@ -354,13 +398,13 @@ Elasticsearch 对每个 API 请求响应 HTTP 状态码，如 `200 ok`。除了 
 
 
 
-# 3、安装 Kibana
+# 4、安装 Kibana
 
 Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化平台，使用 Kibana 可以查询、查看并与存储在 ES 索引的数据进行交互操作，使用 Kibana 能执行高级的数据分析，并能以图表、表格和地图的形式查看数据。
 
 
 
-## 3.1、Linux（Ubuntu）
+## 4.1、Linux（Ubuntu）
 
 1. 先切换到 esuser 用户下：
 
@@ -400,7 +444,7 @@ Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化�
 
 
 
-## 3.2、Docker
+## 4.2、Docker
 
 1. 获取镜像：
 
@@ -427,7 +471,7 @@ Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化�
 
 
 
-## 3.3、compose
+## 4.3、compose
 
 > 由于我服务器内存不够，启动服务太慢，这里使用 Docker Desktop for Windows 和 Docker-compose 在自己本地电脑上操作
 
@@ -485,9 +529,9 @@ Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化�
 
 
 
-# 4、核心概念
+# 5、核心概念
 
-## 4.1、Index（索引）
+## 5.1、Index（索引）
 
 一个索引就是一个拥有几分相似特征的文档的集合。比如说，你可以有一个商品数据的索引，一个订单数据的索引，还有一个用户数据的索引。一个索引由一个名字来标识（必须全部是小写字母的），并且当我们要对这个索引中的文档进行索引、搜索、更新和删除的时候，都要使用到这个名字。
 
@@ -555,7 +599,7 @@ DELETE /products
 
 
 
-## 4.2、Mapping（映射）
+## 5.2、Mapping（映射）
 
 映射是定义一个文档和它所包含的字段如何被存储和索引的过程。在默认配置下，ES 可以根据插入的数据自动地创建 Mapping，也可以手动创建 Mapping。 Mapping 中主要包括字段名、字段类型等。
 
@@ -619,7 +663,7 @@ GET /products/_mapping
 
 
 
-## 4.3、Document（文档）
+## 5.3、Document（文档）
 
 文档是索引中存储的一条条数据。一条文档是一个可被索引的最小单元。ES 中的文档采用了轻量级的 JSON 格式数据来表示。
 
@@ -767,15 +811,15 @@ POST /products/_doc/_bulk
 
 
 
-# 5、索引原理
+# 6、索引原理
 
-## 5.1、倒排索引
+## 6.1、倒排索引
 
 倒排索引（Inverted Index）也叫反向索引，有反向索引必有正向索引。通俗地来讲，正向索引是通过 key 找 value，反向索引则是通过 value 找 key。ES 底层在检索时底层使用的就是倒排索引。
 
 
 
-## 5.2、索引模型
+## 6.2、索引模型
 
 现有索引和映射如下：
 
@@ -842,7 +886,7 @@ POST /products/_doc/_bulk
 
 
 
-# 6、分词器
+# 7、分词器
 
 Analysis： 文本分析是把全文本转换一系列单词（term/token）的过程，也叫分词（Analyzer）。Analysis 是通过 Analyzer 来实现的。分词就是将文档通过 Analyzer 分成一个一个的 term（关键词查询），每一个 term 都指向包含这个 term 的文档。
 
@@ -889,7 +933,7 @@ PUT /索引名
 
 
 
-## 6.1、内置分词器
+## 7.1、内置分词器
 
 - Standard Analyzer - 默认分词器，英文按单词词切分，并小写处理
 - Simple Analyzer - 按照单词切分（符号被过滤），小写处理
@@ -948,18 +992,19 @@ POST /_analyze
 
 
 
-## 6.2、中文分词器
+## 7.2、中文分词器
 
 在 ES 中支持中文分词器非常多，如 smartCN、IK 等，推荐的就是 IK 分词器。
 
 
 
-### 6.2.1、安装 IK
+### 7.2.1、安装 IK
 
-**Linux 环境安装**
+**Linux 环境**
 
-> - IK分词器的版本要你安装 ES 的版本一致
-> - Docker 容器运行 ES 安装插件目录为 `/usr/share/elasticsearch/plugins`
+> [!WARNING]
+>
+> IK分词器的版本要你安装 ES 的版本一致！
 
 开源分词器 Ik 的 Github：https://github.com/medcl/elasticsearch-analysis-ik
 
@@ -972,7 +1017,8 @@ POST /_analyze
 2. 解压：
 
    ```shell
-   unzip elasticsearch-analysis-ik-7.14.0.zip #先使用yum install -y unzip
+   # 先使用yum install -y unzip
+   unzip elasticsearch-analysis-ik-7.14.0.zip 
    ```
 
 3. 移动到 ES 安装目录的 plugins 目录中：
@@ -986,6 +1032,10 @@ POST /_analyze
 
 
 **Docker 环境**
+
+> [!NOTE]
+>
+> Docker 容器运行 ES 安装插件目录为 `/usr/share/elasticsearch/plugins`。
 
 如果使用 Docker 则修改 compose.yml 文件为：
 
@@ -1024,7 +1074,13 @@ services:
 
 
 
-### 6.2.2、IK 使用
+**Windows 环境**
+
+下载好之后，在 Elasticsearch 目录的 plugins 目录中创建名为 ik 的文件夹，将下载好的 IK 分词器解压在创建的 ik 文件夹中，重启 ES 生效。
+
+
+
+### 7.2.2、IK 使用
 
 IK有两种颗粒度的拆分：
 
@@ -1062,7 +1118,7 @@ POST /_analyze
 
 
 
-### 6.2.3、扩展词、停用词
+### 7.2.3、扩展词、停用词
 
 IK支持自定义扩展词典和停用词典
 
@@ -1163,7 +1219,7 @@ IK 自带许多常用的扩展字典：
 
 
 
-# 7、高级查询
+# 8、高级查询
 
 ES 中提供了一种强大的检索数据方式,这种检索方式称之为 Query DSL（Domain Specified Language>），Query DSL 是利用 Rest API 传递 JSON 格式的请求体（Request Body）数据与 ES 进行交互，这种方式的丰富查询语法让 ES 检索变得更强大，更简洁。
 
@@ -1221,7 +1277,7 @@ GET /索引名/_search {json格式请求体数据}
 
 
 
-## 7.1、查询所有
+## 8.1、查询所有
 
 `match_all` 关键字：返回索引中的全部文档。
 
@@ -1239,7 +1295,7 @@ GET /products/_search
 
 
 
-## 7.2、关键字查询
+## 8.2、关键字查询
 
 `term` 关键字：用来使用关键词查询。
 
@@ -1264,7 +1320,7 @@ GET /products/_search
 
 
 
-## 7.3、范围查询
+## 8.3、范围查询
 
 `range` 关键字：用来指定查询指定范围内的文档。
 
@@ -1287,7 +1343,7 @@ GET /products/_search
 
 
 
-## 7.4、前缀查询
+## 8.4、前缀查询
 
 `prefix` 关键字：用来检索含有指定前缀的关键词的相关文档。
 
@@ -1309,7 +1365,7 @@ GET /products/_search
 
 
 
-## 7.5、通配符查询
+## 8.5、通配符查询
 
 `wildcard` 关键字：通配符查询，`?` 用来匹配一个任意字符，`*` 用来匹配多个任意字符。
 
@@ -1331,7 +1387,7 @@ GET /products/_search
 
 
 
-## 7.6、多 id 查询
+## 8.6、多 id 查询
 
 `ids` 关键字：值为数组类型，用来根据一组 id 获取多个对应的文档。
 
@@ -1351,7 +1407,7 @@ GET /products/_search
 
 
 
-## 7.7、模糊查询
+## 8.7、模糊查询
 
 `fuzzy` 关键字：用来模糊查询含有指定关键字的文档。
 
@@ -1379,7 +1435,7 @@ GET /products/_search
 
 
 
-## 7.8、布尔查询
+## 8.8、布尔查询
 
 `bool` 关键字：用来组合多个条件实现复杂查询：
 
@@ -1410,7 +1466,7 @@ GET /products/_search
 
 
 
-## 7.9、多字段查询
+## 8.9、多字段查询
 
 `multi_match` 关键字：用于多字段查询。
 
@@ -1433,7 +1489,7 @@ GET /products/_search
 
 
 
-## 7.10、默认字段分词查询
+## 8.10、默认字段分词查询
 
 `query_string` 关键字：用于默认字段查询
 
@@ -1456,7 +1512,7 @@ GET /products/_search
 
 
 
-## 7.11、高亮查询
+## 8.11、高亮查询
 
 `highlight` 关键字：可以让符合条件的文档中的关键词高亮。
 
@@ -1485,7 +1541,7 @@ GET /products/_search
 
 
 
-## 7.12、返回指定条数
+## 8.12、返回指定条数
 
 `size` 关键字：指定查询结果中返回指定条数。默认返回 10 条。
 
@@ -1504,7 +1560,7 @@ GET /products/_search
 
 
 
-## 7.13、分页查询
+## 8.13、分页查询
 
 `form` 关键字：用来指定起始返回位置，和 `size` 关键字连用可实现分页效果。
 
@@ -1524,7 +1580,7 @@ GET /products/_search
 
 
 
-## 7.14、指定字段排序
+## 8.14、指定字段排序
 
 `sort` 关键字：用来指定排序字段和排序方式。
 
@@ -1551,7 +1607,7 @@ GET /products/_search
 
 
 
-## 7.15、返回指定字段
+## 8.15、返回指定字段
 
 `_source` 关键字：是一个数组，在数组中用来指定展示那些字段。
 
@@ -1569,7 +1625,7 @@ GET /products/_search
 
 
 
-# 8、过滤查询
+# 9、过滤查询
 
 过滤查询 `<filter query>`，其实准确来说，ES 中的查询操作分为 2 种：查询（query）和过滤（filter）。查询即是之前提到的 query 查询，它（查询）默认会计算每个返回文档的得分，然后根据得分排序。而过滤（filter）只会筛选出符合的文档，并不计算得分，而且它可以缓存文档 。所以，单从性能考虑，过滤比查询更快。 
 
@@ -1600,7 +1656,7 @@ GET /索引名/_search
 
 
 
-## 8.1、term
+## 9.1、term
 
 ```http
 GET /products/_search
@@ -1627,7 +1683,7 @@ GET /products/_search
 
 
 
-## 8.2、terms
+## 9.2、terms
 
 ```http
 GET /products/_search
@@ -1659,7 +1715,7 @@ GET /products/_search
 
 
 
-## 8.3、range
+## 9.3、range
 
 ```http
 GET /products/_search
@@ -1688,7 +1744,7 @@ GET /products/_search
 
 
 
-## 8.4、exists
+## 9.4、exists
 
 存在指定字段，获取字段不为空的索引记录。
 
@@ -1716,7 +1772,7 @@ GET /products/_search
 
 
 
-## 8.5、ids
+## 9.5、ids
 
 含有指定字段的索引记录。
 
@@ -1745,7 +1801,7 @@ GET /products/_search
 
 
 
-# 9、整合应用
+# 10、整合应用
 
 新建一个 Spring Boot 对象，引入 ES 依赖：
 
@@ -1799,9 +1855,9 @@ public class ElasticSearchClientConfig extends AbstractElasticsearchConfiguratio
 
 
 
-## 9.1、ElasticSearchOperations
+## 10.1、ElasticSearchOperations
 
-### 9.1.1、相关注解
+### 10.1.1、相关注解
 
 - `@Document` ：用在类上，代表一个对象为一个文档
 
@@ -1843,7 +1899,7 @@ public class Product {
 
 
 
-### 9.1.2、索引文档
+### 10.1.2、索引文档
 
 新建一个测试类：
 
