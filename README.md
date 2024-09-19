@@ -163,7 +163,6 @@
 - [**Git**](https://github.com/0richalcos/Note/blob/main/Markdown/Git.md)
 - [**Maven**](https://github.com/0richalcos/Note/blob/main/Markdown/Maven.md)
 - [**Node.js**](https://github.com/0richalcos/Note/blob/main/Markdown/Node.js.md)
-  - [**Yarn**](https://github.com/0richalcos/Note/blob/main/Markdown/Yarn.md)
 
 
 

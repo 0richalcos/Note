@@ -192,9 +192,297 @@ npm 全局下载依赖时，会默认下载到当前使用的 Nodejs 版本的�
 
 
 
-# 3、package.json
+# 3、包管理工具
 
-## 3.1、版本号
+在 Node.js 生态系统中，包管理工具（Package Manager）是专门用于管理项目中的第三方依赖库和模块的工具。它帮助开发者在项目中自动化管理库的下载、更新、安装、移除，并解决不同库之间的依赖关系。
+
+包管理工具通常依赖一个远程包仓库（例如 npm Registry）来存储和分发库。开发者通过命令行工具从远程仓库下载和安装库，并且包管理工具会自动更新项目的依赖文件，如 package.json 和 lock 文件，确保项目的一致性
+
+
+
+**包管理工具的功能**
+
+1. 依赖管理：在 Node.js 项目中，经常会使用第三方库来简化开发工作。包管理工具自动处理这些库之间的依赖，确保所需的依赖被正确安装。
+2. 安装包：通过包管理工具，开发者只需通过命令行指定库的名称，工具会自动从远程仓库下载并安装库，减少了手动查找和安装的步骤。例如：
+   - `npm install express`
+   - `yarn add lodash`
+   - `pnpm add axios`
+3. 版本控制：包管理工具确保项目中的库的版本保持一致，避免因为库版本不一致而导致的项目问题。例如，`package-lock.json` 或 `yarn.lock` 文件会记录依赖的具体版本，以确保在不同的环境下安装相同版本的包。
+4. 依赖更新：包管理工具可以自动检查项目中的依赖是否有新版本，并提供更新机制。例如，`npm update` 或 `yarn upgrade`。
+5. 发布和共享：开发者可以将自己的代码库打包发布到公共仓库中，供其他开发者使用。npm、Yarn、pnpm 都允许发布自己的包到 npm Registry。
+
+
+
+**常见的包管理工具**
+
+1. npm（Node Package Manager）
+
+   默认工具：随着 Node.js 一起安装，几乎所有 Node.js 项目都默认使用 npm 进行包管理。
+
+   npm 的特点：简单、成熟、支持大量第三方库，生态系统非常庞大。
+
+2. Yarn
+
+   替代工具：由 Facebook 开发，旨在改进 npm 在早期版本中的性能和稳定性问题。
+
+   Yarn 的特点：速度快、并行下载、离线安装、稳定的依赖管理。
+
+3. pnpm
+
+   高效工具：通过符号链接机制提高磁盘使用效率，并加速包安装速度。
+
+   pnpm 的特点：节省磁盘空间、速度快、适合大型项目和 monorepo 环境。
+
+
+
+## 3.1、npm
+
+
+
+## 3.2、Yarn
+
+### 3.2.1、简介
+
+Yarn 是由 Facebook、Google、Exponent 和 Tilde 联合推出了一个新的 JS 包管理工具 ， 你可以通过它使用全世界开发者的代码，或者分享自己的代码给全世界的开发者。
+
+代码通过 **软件包（package）** 的方式被共享。一个软件包里包含了所有需要共享的代码，以及一个描述软件包信息的文件 `package.json` （叫做 **清单**）。
+
+正如官方文档中写的，Yarn 是为了弥补 npm 的一些缺陷而出现的。
+
+
+
+**Yarn的优点？**
+
+- **速度快** 。速度快主要来自以下两个方面：
+
+  1. 并行安装：无论 npm 还是 Yarn 在执行包的安装时，都会执行一系列任务。npm 是按照队列执行每个 package，也就是说必须要等到当前 package 安装完成之后，才能继续后面的安装。而 Yarn 是同步执行所有任务，提高了性能。
+  2. 离线模式：如果之前已经安装过一个软件包，用 Yarn再次安装时之间从缓存中获取，就不用像npm那样再从网络下载了。
+
+- 安装 **版本统一**：为了防止拉取到不同的版本，Yarn 有一个锁定文件（lock file）记录了被确切安装上的模块的版本号。每次只要新增了一个模块，Yarn 就会创建（或更新）yarn.lock 这个文件。这么做就保证了，每一次拉取同一个项目依赖时，使用的都是一样的模块版本。
+
+  npm 其实也有办法实现处处使用相同版本的 packages，但需要开发者执行 `npm shrinkwrap` 命令。这个命令将会生成一个锁定文件，在执行 `npm install` 的时候，该锁定文件会先被读取，和 Yarn 读取 yarn.lock 文件一个道理。
+
+  npm 和 Yarn 两者的不同之处在于，Yarn 默认会生成这样的锁定文件，而 npm 要通过 `shrinkwrap` 命令生成 npm-shrinkwrap.json 文件，只有当这个文件存在的时候，packages 版本信息才会被记录和更新。
+
+- **更简洁的输出**：npm 的输出信息比较冗长。在执行 `npm install` 的时候，命令行里会不断地打印出所有被安装上的依赖。相比之下，Yarn 简洁太多：默认情况下，结合了 emoji 直观且直接地打印出必要的信息，也提供了一些命令供开发者查询额外的安装信息。
+
+- **多注册来源处理：**所有的依赖包，不管他被不同的库间接关联引用多少次，安装这个包时，只会从一个注册来源去装，要么是 npm 要么是 bower，防止出现混乱不一致。
+
+- **更好的语义化**： Yarn 改变了一些 npm 命令的名称，比如 `yarn add/remove`，感觉上比 npm 原本的 `install/uninstall` 要更清晰。
+
+
+
+### 3.2.2、安装
+
+#### 通过  Corepack 安装
+
+1. **安装 Corepack**
+
+   管理 Yarn 的首选方法是通过 Corepack，这是一个从 16.10 开始的所有 Node.js 版本附带的新二进制文件。它充当您和 Yarn 之间的中介，并允许您在多个项目中使用不同的包管理器版本，而无需再签入 Yarn 二进制文件。
+
+   用户根据自己的 Node.js 版本执行以下命令：
+
+   - Node.js >=16.10
+
+     默认情况下，Corepack 包含在所有 Node.js 安装中，但目前可以选择加入。若要启用它，请运行以下命令：
+
+     ```shell
+     corepack enable
+     ```
+
+   - Node.js <16.10
+
+     在 16.10 之前的版本中，Node.js 不包含 Corepack；要解决此问题，请运行：
+
+     ```shell
+     npm i -g corepack
+     ```
+
+2. **安装/更新全局 Yarn 版本**
+
+   用户根据自己的 Node.js 版本执行以下 corepack 命令：
+
+   - Node.js ^16.17 or >=18.6
+
+     ```shell
+     corepack prepare yarn@stable --activate
+     ```
+
+   - Node.js <16.17 or <18.6
+
+     查看[最新的 Yarn](https://github.com/yarnpkg/berry/releases/latest) 版本，记下版本号，然后运行：
+
+     ```shell
+     corepack prepare yarn@<version> --activate
+     ```
+
+     示例：
+
+     ```shell
+     corepack prepare yarn@3.4.1 --activate
+     ```
+
+
+
+
+#### 直接安装
+
+也可以直接通过 npm 安装：
+
+```shell
+npm i -g yarn
+```
+
+查看版本：
+
+```shell
+yarn -v
+```
+
+
+
+**更新到最新版本**
+
+如果以后要将 Yarn 更新到最新版本，请运行：
+
+```shell
+yarn set version stable
+```
+
+也可以指定版本：
+
+```shell
+yarn set version 3.4.1
+```
+
+
+
+### 3.2.3、环境配置
+
+和安装 Node.js 一样，这里也要统一修改 Yarn 的全局模块所在路径和缓存路径：
+
+1. 首先查看 Yarn 全局模块所在路径和缓存路径：
+
+   ```shell
+   # 全局模块所在路径
+   yarn config get globalFolder
+   
+   # 缓存路径
+   yarn config get cacheFolder
+   ```
+
+   附：可以通过以下命令查看 Yarn 配置列表：
+
+   ```shell
+   yarn config
+   ```
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231213225852215.png" alt="image-20231213225852215" />
+
+2. 首先清除以上文件数据，然后创建新的全局模块所在路径和缓存路径：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231213231639081.png" alt="image-20231213231639081" />
+
+3. 修改 Yarn 的全局模块所在路径和缓存路径：
+
+   ```shell
+   yarn config set globalFolder "D:\Nodejs\yarn_global"
+   
+   yarn config set cacheFolder "D:\Nodejs\yarn_cache"
+   ```
+
+   
+
+**设置代理**
+
+```shell
+yarn config set httpProxy "http://127.0.0.1:7890"
+
+yarn config set httpsProxy "http://127.0.0.1:7890"
+```
+
+
+
+### 3.2.4、使用问题
+
+#### Yarn3 安装依赖没生成 node_modules
+
+将 Yarn 从 v1 升级到 v3 后，使用 Yarn 3 执行 `yarn install` 安装项目依赖后提示成功，也没有报错，但是没有 node_modules 文件夹，是因为 `nodeLinker` 这个配置，下面是这个配置详细的说明：
+
+```
+Defines what linker should be used for installing Node packages (useful to enable the node-modules plugin), one of: pnp, pnpm and node-modules.
+
+nodeLinker: "pnp"
+```
+
+这个配置目前的默认值是 `pnp`，取值范围是：`[ pnp | pnpm | node-modules ]`
+
+pnp 是类似 pnpm 的方式，内置在 Yarn v3 中，但当前报错的项目不支持，所以需要降级。
+
+
+
+**解决方案**
+
+将 `nodeLinker ` 降级为 `node-modules`：
+
+```shell
+yarn config set nodeLinker node-modules
+```
+
+然后重新安装依赖：
+
+```shell
+yarn install
+```
+
+
+
+**关于 pnp**
+
+在我们执行 `npm install` 时，npm 会做出如下操作：
+
+1. 向 registry 查询获取模块的地址
+2. 根据 package.json 中的配置确定需要安装的模块版本
+3. 下载对应的压缩包，存放在 `~/.npm` 目录
+4. 解压压缩包到当前项目的 `node_modules` 目录
+
+而在 Node.js 中，我们提供给 require 方法的参数如果不是一个路径，也不是 node 的核心模块， node 将试图去当前目录的 node_modules 文件夹里搜索。如果当前目录的 node_modules 里没有找到， node 会继续试图在父目录的 node_modules 里搜索，这样递归下去直到根目录。
+
+这些过程都需要进行大量的文件 I/O 操作，这无疑是非常低效的。为了解决这些问题，Facebook 提出了 Plug’n’Play(PnP) 方案。
+
+在 Yarn 中，当我们开启 PnP 后，Yarn 会生成一个 `.png.js` 文件来描述项目的依赖信息和所需模块的查找路径。同时，项目目录下不再需要一个 node_modules 目录，取而代之的是一个全局的缓存目录，项目所需依赖都可以从这个目录中获取。
+
+
+
+#### 快速删除 node_modules
+
+当安装了较多模块后，node_modules 目录下的文件会很多，直接删除整个目录会很慢。可以全局安装 rimraf  模块，然后通过其命令来快速删除 node_modules 目录。
+
+全局安装 rimraf：
+
+```shell
+npm install rimraf -g
+```
+
+删除 node_modules：
+
+```shell
+rimraf node_modules
+```
+
+
+
+
+
+
+
+## 3.3、pnpm
+
+
+
+# 4、package.json
+
+## 4.1、版本号
 
 当我们查看 package.json 中已安装的库的时候，会发现他们的版本号之前都会加一个符号，有的是插入符号（`^`），有的是波浪符号（`~`）：
 
@@ -237,7 +525,7 @@ npm 全局下载依赖时，会默认下载到当前使用的 Nodejs 版本的�
 
 
 
-## 3.2、process.env.NODE_ENV
+## 4.2、process.env.NODE_ENV
 
 `process.env.NODE_ENV` 应该是我们最熟悉的环境变量了，它经常出现在使用框架或者类库的时候，被用来区分不同的环境（开发，测试，生产等），以便我们进行相对应的项目配置，比如是否开启 sourceMap，api 地址切换等。
 
