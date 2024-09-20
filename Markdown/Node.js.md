@@ -561,6 +561,12 @@ corepack use pnpm@latest
 
 这会添加一个 `packageManager` 字段到您本地的 package.json，指示 Corepack 始终在该项目上使用特定的版本。 如果您想要可复现性，这可能很有用，因为所有使用 Corepack 的开发人员都将使用与您相同的版本。 当一个新版本的 pnpm 发布时，您可以重新运行上述命令。
 
+> [!IMPORTANT]
+>
+> `corepack use pnpm@latest` 命令需要 Corepack 在高版本时才可用，可以使用 `corepack -h` 查看是否支持此命令。
+>
+> Corepack 在后面的版本中，`corepack prepare pnpm@latest --activate` 被替换为 `corepack install --global pnpm@latest`。
+
 
 
 #### 直接安装
@@ -568,7 +574,7 @@ corepack use pnpm@latest
 1. **通过 npm 安装**
 
    ```shell
-   npm i -g pnpm
+   npm i -g pnpm@latest
    ```
 
 2. **验证安装**
