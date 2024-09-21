@@ -114,84 +114,6 @@ nvm use vA.B.C
 
 
 
-## 2.3、环境配置
-
-这里的环境配置主要配置的是 npm 安装的全局模块所在的路径，以及缓存 cache 的路径。
-
-
-
-**node_global**
-
-npm 全局下载依赖时，会默认下载到当前使用的 Nodejs 版本的路径文件夹。这就导致了如果我切换另外一个 Nodejs 时，之前全局安装的依赖都无法使用。为了解决这个问题，我们需要把全局默认下载依赖的统一放到一个文件夹中，我们一般会命名这个文件夹名为 node_global。
-
-
-
-**node_cache**
-
-在运行 npm 命令执行操作的时候，会默认在 `C:\Users\{用户}\AppData\Local\npm-cache` 中生成一些缓存数据，如果不想增加到 C 盘，通常会会把缓存数据统一放置，命名 npm 的缓存文件为 node_cache 或者 npm_cache。我们一般会把 npm 的缓存与 npm 全局安装的依赖这两个文件夹放到同级目录下。
-
-
-
-例如：我希望将全局模块所在路径和缓存路径放在 `D:\Nodejs` 文件夹下。
-
-1. 在文件夹 `D:\Nodejs` 下创建两个文件夹 node_global 及 node_cache：
-
-   ![image-20231214002338556](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231214002338556.png)
-
-2. 创建完两个空文件夹之后，打开命令行窗口，输入：
-
-   ```shell
-   # 修改npm全局预设
-   npm config set prefix "D:\Nodejs\node_global"
-   
-   # 修改npm缓存
-   npm config set cache "D:\Nodejs\node_cache"
-   ```
-
-3. 查看确认全局预设与缓存配置：
-
-   ```shell
-   # 查看npm全局预设
-   npm prefix -g
-   
-   # 查看npm缓存
-   npm config get cache
-   ```
-
-4. 前面配置 prefix 预设只是告诉了 npm 安装依赖到全局预设路径下，我们也需要告诉电脑，当我们输入cli 命令时，去到全局预设路径下查找。
-
-   进入环境变量对话框，新建系统变量：
-
-   - 变量名：`NODE_GLOBAL`，变量值：`D:\Nodejs\node_global`
-   - 变量名：`NODE_PATH`，变量值：`%NODE_GLOBAL%\node_modules`
-
-   将新建的两个环境变量配置到 Path 中，请注意顺序（未装 NVM 请忽视 NVM 相关环境变量）：
-
-   ![image-20231214004741293](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231214004741293.png)
-
-   以上涉及的变量：
-
-   - `NVM_HOME`：NVM 安装路径
-   - `NVM_SYMLINK`：NVM 切换使用 Node 版本后，生成快捷方式指向的，快捷方式路径
-   - `NODE_GLOBAL`：Node 全局安装依赖的路径
-   - `NODE_PATH`：Node 全局安装的依赖包路径
-
-5. 配置完后，安装个 module 测试下，我们就安装最常用的 vue-cli 模块。
-
-   在命令行输入如下命令进行模块的全局安装：
-
-   ```shell
-   npm install -g @vue/cli
-   ```
-
-   查看 vue 版本：
-
-   ```shell
-   vue --version
-   ```
-
-
-
 # 3、包管理工具
 
 在 Node.js 生态系统中，包管理工具（Package Manager）是专门用于管理项目中的第三方依赖库和模块的工具。它帮助开发者在项目中自动化管理库的下载、更新、安装、移除，并解决不同库之间的依赖关系。
@@ -236,6 +158,102 @@ npm 全局下载依赖时，会默认下载到当前使用的 Nodejs 版本的�
 
 
 ## 3.1、npm
+
+### 2.3.1、环境配置
+
+这里的环境配置主要配置的是 npm 安装的全局模块所在的路径，以及缓存 cache 的路径。
+
+
+
+**node_global**
+
+npm 全局下载依赖时，会默认下载到当前使用的 Nodejs 版本的路径文件夹。这就导致了如果我切换另外一个 Nodejs 时，之前全局安装的依赖都无法使用。为了解决这个问题，我们需要把全局默认下载依赖的统一放到一个文件夹中，我们一般会命名这个文件夹名为 node_global。
+
+
+
+**node_cache**
+
+在运行 npm 命令执行操作的时候，会默认在 `C:\Users\{用户}\AppData\Local\npm-cache` 中生成一些缓存数据，如果不想增加到 C 盘，通常会会把缓存数据统一放置，命名 npm 的缓存文件为 node_cache 或者 npm_cache。我们一般会把 npm 的缓存与 npm 全局安装的依赖这两个文件夹放到同级目录下。
+
+
+
+例如：我希望将全局模块所在路径和缓存路径放在 `D:\Nodejs` 文件夹下。
+
+1. 在文件夹 `D:\Nodejs` 下创建两个文件夹 node_global 及 node_cache：
+
+   ![image-20231214002338556](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231214002338556.png)
+
+2. 创建完两个空文件夹之后，打开命令行窗口，输入：
+
+   ```shell
+   # 修改npm全局预设
+   npm config set prefix "D:\Nodejs\node_global"
+   
+   # 修改npm缓存
+   npm config set cache "D:\Nodejs\node_cache"
+   ```
+
+3. 查看确认全局预设与缓存配置：
+
+   ```shell
+   # 查看npm全局预设
+   npm prefix -g
+   
+   # 查看npm缓存
+   npm config get cache
+   ```
+
+4. 前面配置 prefix 预设只是告诉了 npm 安装依赖到全局预设路径下，我们也需要告诉电脑，当我们输入 cli 命令时，去到全局预设路径下查找。
+
+   进入环境变量对话框，新建系统变量：
+
+   - 变量名：`NODE_GLOBAL`，变量值：`D:\Nodejs\node_global`
+   - 变量名：`NODE_PATH`，变量值：`%NODE_GLOBAL%\node_modules`
+
+   将新建的两个环境变量配置到 Path 中，请注意顺序（未装 NVM 请忽视 NVM 相关环境变量）：
+
+   ![image-20231214004741293](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231214004741293.png)
+
+   以上涉及的变量：
+
+   - `NVM_HOME`：NVM 安装路径
+   - `NVM_SYMLINK`：NVM 切换使用 Node 版本后，生成快捷方式指向的，快捷方式路径
+   - `NODE_GLOBAL`：Node 全局安装依赖的路径
+   - `NODE_PATH`：Node 全局安装的依赖包路径
+
+5. 配置完后，安装个 module 测试下，我们就安装最常用的 vue-cli 模块。
+
+   在命令行输入如下命令进行模块的全局安装：
+
+   ```shell
+   npm install -g @vue/cli
+   ```
+
+   查看 vue 版本：
+
+   ```shell
+   vue --version
+   ```
+
+
+
+### 2.3.2、使用问题
+
+#### 快速删除 node_modules
+
+当安装了较多模块后，node_modules 目录下的文件会很多，直接删除整个目录会很慢。可以全局安装 rimraf  模块，然后通过其命令来快速删除 node_modules 目录。
+
+全局安装 rimraf：
+
+```shell
+npm install rimraf -g
+```
+
+删除 node_modules：
+
+```shell
+rimraf node_modules
+```
 
 
 
@@ -392,7 +410,12 @@ Yarn 是由 Facebook、Google、Exponent 和 Tilde 联合推出了一个新的 J
    yarn config set cacheFolder "D:\Nodejs\yarn_cache"
    ```
 
-   
+
+> [!TIP]
+>
+> 如果执行 `yarn config set` 命令提示说需要在项目目录中才能执行此命令，可以先在用户根目录执行 `npm i yarn`，这样会在用户根目录生成 package.json 文件，再执行 `yarn config set` 就不会报错了。
+
+
 
 **设置代理**
 
@@ -452,24 +475,6 @@ yarn install
 这些过程都需要进行大量的文件 I/O 操作，这无疑是非常低效的。为了解决这些问题，Facebook 提出了 Plug’n’Play(PnP) 方案。
 
 在 Yarn 中，当我们开启 PnP 后，Yarn 会生成一个 `.png.js` 文件来描述项目的依赖信息和所需模块的查找路径。同时，项目目录下不再需要一个 node_modules 目录，取而代之的是一个全局的缓存目录，项目所需依赖都可以从这个目录中获取。
-
-
-
-#### 快速删除 node_modules
-
-当安装了较多模块后，node_modules 目录下的文件会很多，直接删除整个目录会很慢。可以全局安装 rimraf  模块，然后通过其命令来快速删除 node_modules 目录。
-
-全局安装 rimraf：
-
-```shell
-npm install rimraf -g
-```
-
-删除 node_modules：
-
-```shell
-rimraf node_modules
-```
 
 
 
