@@ -317,10 +317,21 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 2. 运行 ES：
 
    ```shell
-   docker run -d -p 9200:9200 -p 9300:9300  -e "discovery.type=single-node"  elasticsearch:7.14.0
+   docker run -d -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:7.14.0
    ```
 
-   可以通过 `docker logs -f [容器ID]` 查看相关容器日志
+   输入 `docker logs -f [容器ID]` 可以查看相关容器日志。
+
+   可以输入其他环境变量修改端口、数据存储路径等配置信息：
+
+   ```shell
+   docker run -e discovery.type="single-node" `
+   		   -e path.data="/usr/share/elasticsearch/data" `
+     		   -e path.logs="/usr/share/elasticsearch/logs" `
+     		   -e network.host="0.0.0.0" `
+     		   -e http.port="9292" `
+              -itd -p 9292:9292 -p 9300:9300 --platform linux/arm64 --name elasticsearch elasticsearch:7.14.0
+   ```
 
 3. 访问 ES：
 
