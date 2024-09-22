@@ -1011,7 +1011,9 @@ Maven 对于多环境的支持在功能方面更加强大，支持 JDK 版本、
 spring.profiles.active=@profile.active@
 ```
 
-> `profile.active` 实际上就是一个变量，在 Maven 打包的时候指定的 `-P test` 传入的就是值
+> [!NOTE]
+>
+> `profile.active` 实际上就是一个变量，在 Maven 打包的时候指定的 `-P test` 传入的就是值。
 
 为啥 SpringBoot 中的占位符就变成 `@@` 了呢？可以从 pom 文件中看到：
 
@@ -1025,7 +1027,7 @@ spring.profiles.active=@profile.active@
    </parent>
    ```
 
-2. 点击 `<version>` 标签中的 “2.0.3.RELEASE” 后，进入 spring-boot-starter-parent-2.0.3.RELEASE.pom 文件。在该 pom 文件中，`<properties>` 定义了占位符为 `@`，如下：
+2. 点击 `<version>` 标签中的 2.0.3.RELEASE 后，进入 `spring-boot-starter-parent-2.0.3.RELEASE.pom` 文件。在该 pom 文件中，`<properties>` 定义了占位符为 `@`，如下：
 
    ```xml
    <properties>
@@ -1135,7 +1137,7 @@ spring.profiles.active=@profile.active@
 
 <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1.png" alt="1" />
 
-可以选择打包的环境，然后点击 `package` 即可。
+可以选择打包的环境，然后点击 package 即可。
 
 或者在项目的根目录下用命令打包，不过需要使用 `-P` 指定环境，如下：
 
@@ -1173,7 +1175,7 @@ Maven 中的 `profile` 的激活条件还可以根据 JDK、操作系统、文�
 
 如果你不配置这一步，将会在任何环境下打包都会带上全部的配置文件，但是我们可以配置只保留对应环境下的配置文件，这样安全性更高。
 
-这一步配置很简单，只需要在 `pom.xml` 文件中指定 `<resource>` 过滤的条件即可，如下：
+这一步配置很简单，只需要在 pom.xml 文件中指定 `<resource>` 过滤的条件即可，如下：
 
 ```xml
 <build>

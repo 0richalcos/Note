@@ -548,7 +548,7 @@ Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化�
 
 
 
-**创建索引**
+### 5.1.1、创建索引
 
 ```http
 PUT /索引名
@@ -575,7 +575,7 @@ PUT /products
 
 
 
-**查询索引**
+### 5.1.2、查询索引
 
 ```http
 GET /_cat/indices?v
@@ -586,8 +586,7 @@ GET /_cat/indices?v
 </div>
 
 
-
-**删除索引**
+### 5.1.3、删除索引
 
 ```http
 DELETE /索引名
@@ -624,7 +623,7 @@ DELETE /products
 
 
 
-**创建映射**
+### 5.2.1、创建映射
 
 ```http
 PUT /products
@@ -656,8 +655,7 @@ PUT /products
 
 
 
-
-**查询映射**
+### 5.2.2、查询映射
 
 ```http
 GET /索引名/_mapping
@@ -680,7 +678,7 @@ GET /products/_mapping
 
 
 
-**添加文档**
+### 5.3.1、添加文档
 
 ```http
 POST /索引名/_doc/文档ID
@@ -723,7 +721,7 @@ POST /products/_doc/
 
 
 
-**查询文档**
+### 5.3.2、查询文档
 
 ```http
 GET /索引名/_doc/文档ID
@@ -739,8 +737,7 @@ GET /products/_doc/1
 
 
 
-
-**删除文档**
+### 5.3.3、删除文档
 
 ```http
 DELETE /索引名/_doc/文档ID
@@ -756,8 +753,7 @@ DELETE /products/_doc/1
 
 
 
-
-**更新文档**
+### 5.3.4、更新文档
 
 ```http
 PUT /索引名/_doc/文档ID
@@ -794,8 +790,7 @@ POST /products/_doc/wZbA6IEB0wOojxAnBiDQ/_update
 
 
 
-
-**批量操作**
+### 5.3.5、批量操作
 
  批量索引两条文档：
 
