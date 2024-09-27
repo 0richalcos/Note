@@ -372,6 +372,10 @@ Yarn 是由 Facebook、Google、Exponent 和 Tilde 联合推出了一个新的 J
    ```shell
    yarn set version 3.4.1
    ```
+   
+   > [!NOTE]
+   >
+   > 如果遇到说 Node 版本不合适，可以选择升级 Node 版本，或者输入 `$env:YARN_IGNORE_NODE="1"` 修改环境变量解决。
 
 
 
