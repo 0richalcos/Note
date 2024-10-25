@@ -735,6 +735,36 @@ STARTUP;
 
 
 
+## 3.2、表空间
+
+**删除表空间**
+
+删除空的表空间，但是不包含物理文件：
+
+```sql
+DROP TABLESPACE tablespace_name;
+```
+
+如果表空间非空，就要加上 `INCLUDING CONTENTS` 选项：
+
+```sql
+DROP TABLESPACE tablespace_name INCLUDING CONTENTS;
+```
+
+如果还希望删除该表空间的相关数据文件，可以使用 `INCLUDING CONTENTS AND DATAFILES` 选项：
+
+```sql
+DROP TABLESPACE tablespace_name INCLUDING CONTENTS AND DATAFILES;
+```
+
+如果其他表空间中的表有外键等约束关联到了本表空间中的表的字段，就要加上 `CASCADE CONSTRAINTS`：
+
+```sql
+DROP TABLESPACE tablespace_name INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRAINTS;
+```
+
+
+
 # 4、数据结构
 
 ## 4.1、varchar 和 varchar2
