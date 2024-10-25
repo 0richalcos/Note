@@ -598,6 +598,8 @@ grant "PUBLIC","SOI" to "TEST";
 
 ## 4.2、物理备份
 
+### 4.2.1、联机备份
+
 1. 右键数据库连接，选择【管理服务器】，切换到【系统管理】，将状态转换为【配置】：
 
    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240812180155686.png" alt="image-20240812180155686" style="zoom: 67%;" />
