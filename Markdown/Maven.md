@@ -106,3 +106,28 @@ mvn clean package –P pro_env
 </plugin>
 ```
 
+
+
+# 4、使用问题
+
+## 4.1、导入依赖失效，刷新没反应
+
+可能出现的问题：
+
+1. 依赖版本号没指定，需要指定。
+2. 依赖重复添加了。
+3. 依赖版本被弃用了（依赖版本过低）。
+4. 依赖冲突（你加入了一样的依赖，版本号却不相同）。
+
+如果不知道自己是什么问题，可以执行 `mvn clear` 清除字节码命令，如果没有报错，说明没问题，如果报错，会有相应提示：
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/680d2044a713029d1548c0d7471947aa.png" alt="img" style="zoom:80%;" />
+
+如图所示，我执行命令后就失败了：
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/9f98f110c48dcb1a0034125225e68c41.png" alt="img" style="zoom:80%;" />
+
+根据提示，说我的 pom 文件有问题：
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1924d1afac095a0ec43cf0f97022c5c6.png" alt="img" style="zoom:80%;" />
+
