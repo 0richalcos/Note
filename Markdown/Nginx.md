@@ -125,6 +125,40 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 
 
 
+**配置服务**
+
+1. 到 `/usr/lib/systemd/system` 文件夹里新建 nginx.service 文件或修改现有的：
+
+   ```shell
+   vim /etc/systemd/system/nginx.service
+   ```
+
+2. 文件内容如下：
+
+   ```shell
+   [Unit]
+   Description=nginx service
+   After=network.target
+    
+   [Service]
+   Type=forking
+   ExecStart=/usr/local/nginx/sbin/nginx
+   ExecReload=/usr/local/nginx/sbin/nginx -s reload
+   ExecStop=/usr/local/nginx/sbin/nginx -s stop
+   PrivateTmp=true
+    
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+3. 在终端以下命令，刷新服务配置：
+
+   ```shell
+   sudo systemctl daemon-reload
+   ```
+
+
+
 **卸载**
 
 1. 停止 Nginx 软件：
