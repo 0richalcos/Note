@@ -89,7 +89,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 ## 【4】解决端口占用
 
-1. cmd 命令窗口输入 `netstat –ano` 回车，会显示所有已经在运行的端口情况，其中 PID 为进程号。
+1. cmd 命令窗口输入 `netstat –ano` 回车，会显示所有已经在运行的端口情况，其中 PID（最后一列数字就是 PID）为进程号。
 
    如果想要具体查询正在占用的端口号，可以使用 ：
 
@@ -97,7 +97,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
    netstat -ano | findstr <端口号>
    ```
 
-2. 找到占用端口的进程号后，可以通过 PID 查询进程：
+2. 找到占用端口的 PID 后，可以通过 PID 查询进程：
 
    ```shell
    tasklist | findstr <PID>
@@ -106,7 +106,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 3. 输入以下命令终止进程：
 
    ```shell
-   taskkill /f /t /im <PID>
+   taskkill /T /F /PID <PID>
    ```
 
 
