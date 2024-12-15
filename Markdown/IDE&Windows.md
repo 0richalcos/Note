@@ -695,20 +695,17 @@ Maven 由于它的约定大于配置，之后可能遇到写的配置文件，�
 
 ## 【3】修改内存大小
 
-首先在 IDEA 中显示内存：在窗口下方右键，选中【Memory Indicator】：
+**在 IDEA 中显示内存**
+
+在窗口下方右键，选中【Memory Indicator】：
 
 <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200428211739758.png" alt="image-20200428211739758" style="zoom: 67%;" />
 
+**修改内存大小**
 
-【帮助】=>【编辑自定义 VM 选项】。
+依次点击导航栏【帮助】=>【更改内存设置】：
 
-在弹出来的文件中修改 Xms 和 Xmx：
-
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200428212406493.png" alt="image-20200428212406493" style="zoom:67%;" />
-
-如果在这里设置无效，可能是环境变量设置指向了其他文件：
-
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221125133936880.png" alt="image-20221125133936880" style="zoom: 50%;" />
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1734269047966.png" alt="QQ_1734269047966" style="zoom:67%;" />
 
 
 
