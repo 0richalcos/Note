@@ -214,7 +214,9 @@ WebLogic 是美国 Oracle 公司出品的一个 application server，确切的�
 
 
 
-## 2.3、自定义 WebLogic JVM 堆大小
+# 3、WebLogic 配置
+
+## 3.1、修改 JVM 堆大小
 
 您可以更改默认的 JVM 堆大小以适应部署的需要。
 
@@ -258,7 +260,7 @@ WebLogic 的默认 JVM 堆大小为 3GB。该大小是在 Linux 的 `setDomainEn
 
 
 
-## 2.4、修改 WebLogic 的端口 
+## 3.2、修改的端口 
 
 两种方法可以修改，第一种方法是后台管理界面修改，第二种是配置文件修改。
 
@@ -288,8 +290,25 @@ WebLogic 的默认 JVM 堆大小为 3GB。该大小是在 Linux 的 `setDomainEn
 
 **配置文件修改方式**
 
-修改 `%weblogic%\user_projects\domains\base_domain\config\config.xml`，大概在 55 行：
+修改 `%weblogic%\user_projects\domains\base_domain\config\config.xml` 的 `listen-port` 节点，大概在 55 行：
 
 <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230829173614635.png" alt="image-20230829173614635" style="zoom: 67%;" />
 
 此种方式需要重启。
+
+
+
+## 3.3、修改控制台路径
+
+**配置文件修改方式**
+
+修改 `%weblogic%\user_projects\domains\base_domain\config\config.xml` 的 `console-context-path` 节点 ，大概在 46 行：
+
+<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1734293261850.png" alt="QQ_1734293261850" style="zoom:80%;" />
+
+此种方式需要重启。
+
+> [!WARNING]
+>
+> 如果是多级目录，不要使用 `/` 开头，不然会无法登录控制台！！！
+

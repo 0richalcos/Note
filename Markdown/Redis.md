@@ -190,7 +190,7 @@ Redis 是单线程的（6.0 是多线程），因为 Redis 是基于内存操作
 
 
 
-**编写开机自启系统服务文件**
+**配置 systemd 服务**
 
 1. Redis 安装后，默认配置文件位于源码目录中的 redis.conf 文件。可以将其复制到 `/etc/redis/` 目录，并进行自定义配置：
 
@@ -205,7 +205,7 @@ Redis 是单线程的（6.0 是多线程），因为 Redis 是基于内存操作
    vim /etc/systemd/system/redis.service
    ```
 
-3. 文件内容如下：
+   文件内容如下：
 
    ```shell
    [Unit]

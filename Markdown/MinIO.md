@@ -78,14 +78,13 @@ MinIO 服务安装后，可以直接通过浏览器登录系统，完成文件�
 
 **MinIO 安装**
 
-1. 进入 `/opt` 目录，创建 `minio` 文件夹并进入：
+1. 创建 `/opt/minio` 文件夹并进入：
 
    ```shell 
-   cd /opt
-   mkdir minio
-   cd minio
+   mkdir /opt/minio
+   cd /opt/minio
    ```
-
+   
 2. 下载安装包：
 
    这里需要根据自己系统的 Architecture 去下载对应的版本，可以通过 `hostnamectl` 命令查看 Architecture 。
@@ -160,6 +159,74 @@ kill -9 2524
 
 
 
+**配置 systemd 服务**
+
+1. 新建一个 MinIO 配置文件：
+
+   ```bash
+   sudo vim /opt/minio/minio.conf 
+   ```
+
+   文件内容如下：
+
+   ```
+   #MINIO_VOLUMES="/opt/minio/data"
+   #MINIO_OPTS="--address :9000 --console-address :9001"
+   MINIO_ROOT_USER="minioadmin"
+   MINIO_ROOT_PASSWORD="Orichalcos123"
+   ```
+
+2. 新建一个系统服务文件：
+
+   ```bash
+   vim /etc/systemd/system/minio.service
+   ```
+
+   文件内容如下：
+
+   ```
+   Description=MinIO
+   Documentation=https://docs.min.io
+   Wants=network-online.target
+   After=network-online.target
+    
+   [Service]
+   User=root
+   Group=root
+   EnvironmentFile=/opt/minio/minio.conf
+   ExecStart=/opt/minio/minio server --address=:9000 --console-address=:9001 /opt/minio/data
+   WorkingDirectory=/opt/minio/data
+   StandardOutput=syslog
+   StandardError=syslog
+   SyslogIdentifier=minio
+    
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+3. 重载系统服务：
+
+   ```bash
+   sudo systemctl daemon-reload
+   ```
+
+4. 接下来可以使用以下命令来启动、停止、重启和检查 MinIO 服务的状态：
+
+   ```shell
+   sudo systemctl start minio
+   sudo systemctl stop minio
+   sudo systemctl restart minio
+   sudo systemctl status minio
+   ```
+
+5. 如果想要在系统启动时自动启动 MinIO 服务，可以运行以下命令：
+
+   ```shell
+   sudo systemctl enable minio
+   ```
+
+
+
 ### 1.3.2、Windows
 
 Windows 环境下和 Linux 大致相同，主要是启动的环境配置有些差异，下方展示如何在 Windows Powershell 中设置环境变量并启动。
@@ -185,6 +252,29 @@ $env:MINIO_ROOT_PASSWORD="minioadmin"
 > [!NOTE]
 >
 > 查看设置的环境变量可以用 `$env:<变量名>`
+
+
+
+### 1.3.3、麒麟V10
+
+1. 查看系统版本：
+
+   ```
+   [root@lightest minio]# uname -a
+   Linux lightest 4.19.90-25.2.v2101.gfb01.ky10.x86_64 #1 SMP Fri Jun 18 12:31:35 CST 2021 x86_64 x86_64 x86_64 GNU/Linux
+   ```
+
+2. 下载二进制文件并给予执行权限：
+
+   ```bash
+   wget https://dl.minio.org.cn/server/minio/release/linux-amd64/minio
+   
+   chmod +x minio
+   ```
+
+3. 安装操作参考 Linux 安装，这里主要是注意下载的 minio 文件版本。
+
+
 
 
 
