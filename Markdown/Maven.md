@@ -131,3 +131,36 @@ mvn clean package –P pro_env
 
 <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1924d1afac095a0ec43cf0f97022c5c6.png" alt="img" style="zoom:80%;" />
 
+
+
+## 4.2、Maven 上传本地文件到私库
+
+**上传 jar 和 pom 文件**
+
+```bash
+mvn deploy:deploy-file `
+  -Dfile="D:\Maven\repository-fjsg\com\smartbi\smartbi-DESUtil\1.0\smartbi-DESUtil-1.0.jar" `
+  -DpomFile="D:\Maven\repository-fjsg\com\smartbi\smartbi-DESUtil\1.0\smartbi-DESUtil-1.0.pom" `
+  -DgroupId="com.smartbi" `
+  -DartifactId="smartbi-DESUtil" `
+  -Dversion="1.0" `
+  -Dpackaging="jar" `
+  -Durl="http://172.16.100.81:8081/nexus/repository/maven-releases/" `
+  -DrepositoryId="fjsg-maven-releases"
+```
+
+
+
+**只上传 pom**
+
+```bash
+mvn deploy:deploy-file `
+  -Dfile="D:\Maven\repository-fjsg\com\baosight\iplat4j\iplat4j-boot\6.2.1231.2\iplat4j-boot-6.2.1231.2.pom" `
+  -DgroupId="com.baosight.iplat4j" `
+  -DartifactId="iplat4j-boot" `
+  -Dversion="6.2.1231.2" `
+  -Dpackaging="pom" `
+  -Durl="http://172.16.100.81:8081/nexus/repository/maven-releases/" `
+  -DrepositoryId="fjsg-maven-releases"
+```
+
