@@ -50,17 +50,17 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
    ```ini
    # 生成证书使用完整DN结构
-   set_var EASYRSA_DN	"org"
+   set_var EASYRSA_DN "org"
    # 设置请求国家字段为中国
    set_var EASYRSA_REQ_COUNTRY	"CN"
    # 设置请求省份字段为上海
-   set_var EASYRSA_REQ_PROVINCE	"Shanghai"
+   set_var EASYRSA_REQ_PROVINCE "Shanghai"
    # 设置请求城市字段为上海
-   set_var EASYRSA_REQ_CITY	"Shanghai"
+   set_var EASYRSA_REQ_CITY "Shanghai"
    # 设置请求组织字段为Orichalcos_ORG
-   set_var EASYRSA_REQ_ORG	"Orichalcos_ORG"
+   set_var EASYRSA_REQ_ORG "Orichalcos_ORG"
    # 设置CA证书有效期为10年
-   set_var EASYRSA_CA_EXPIRE	36500
+   set_var EASYRSA_CA_EXPIRE 36500
    # 设置服务器证书为10年
    set_var EASYRSA_CERT_EXPIRE	3650
    ```
@@ -117,7 +117,7 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
 
 
-## 2.4、服务器配置
+## 2.4、服务端配置
 
 服务端配置文件模板为 server.ovpn ，在 `C:\Program Files\OpenVPN\sample-config` 目录下：
 
@@ -268,3 +268,61 @@ OpenVPN 启动之后会在 `C:\Program Files\OpenVPN\config` 位置生成 ipp.tx
 
 4. 重启 OpenVPN 服务，使配置生效。
 
+
+
+## 3.3、吊销指定用户
+
+吊销证书意味着使以前签名的证书失效，使其不能再用于身份验证目的。
+
+1. 进入 `C:\Program Files\OpenVPN\easy-rsa` 目录，双击 EasyRSA-Start.bat 进入 EasyRSA shell 环境 DOS 窗口中：
+
+2. 吊销指定用户（以 zhouyulan 为例）的证书：
+
+   ```bash
+   ./easyrsa revoke zhouyulan
+   ```
+
+   提示会删除以下文件，输入 yes 确定：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1734906587915.png" alt="QQ_1734906587915" style="zoom:67%;" />
+
+   输入 CA 证书密码：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1734906809738.png" alt="QQ_1734906809738" style="zoom:67%;" />
+
+3. 每次吊销证书后，需要更新 CRL 文件：
+
+   ```bash
+   ./easyrsa gen-crl
+   ```
+
+   输入 CA 证书密码确认：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1734907050622.png" alt="QQ_1734907050622" style="zoom:67%;" />
+
+4. 将更新的 crl.pem 文件复制到 OpenVPN 的配置目录：
+
+   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1734907269332.png" alt="QQ_1734907269332" style="zoom:67%;" />
+
+5. 在 OpenVPN 配置中启用 CRL 并确保 server.ovpn 文件中包含以下配置：
+
+   ```
+   crl-verify crl.pem
+   ```
+
+   启用后，所有连接的客户端都会根据 CRL 验证其客户端证书。如果匹配到吊销的证书，连接将被立即中断。
+
+6. 每次更新 CRL 文件后，都需要重启 OpenVPN 服务。
+
+
+
+**注意事项**
+
+使用 `crl-verify` 选项时，OpenVPN 会在每次新客户端连接或现有客户端重新协商 SSL/TLS 连接（默认每小时一次）时重新读取 CRL 文件。这意味着，即使 OpenVPN 服务器正在运行，你也可以更新 CRL 文件，并让新的 CRL 对后续连接立即生效。如果需要吊销的客户端已连接，可以通过信号（SIGUSR1 或 SIGHUP）重新启动服务器并刷新所有客户端，也可以 telnet 到管理接口]并显式终止服务器上的特定客户端实例对象，而不会干扰其他客户端。
+
+尽管 `crl-verify` 选项可用于 OpenVPN 服务器和客户端，但一般无需将 CRL 文件分发给客户端，除非服务器证书已被吊销。客户端无需知道其他客户端的吊销情况，因为客户端之间不应直接接受连接。
+
+
+CRL 文件不是机密文件，应该设置为所有用户可读取（world-readable），以确保 OpenVPN 守护进程在放弃 root 权限后仍然可以读取该文件。
+
+如果使用了 `chroot` 指令，请确保将 CRL 文件的副本放置在 chroot 目录中。因为与 OpenVPN 读取的大多数其他文件不同，CRL 文件是在执行 chroot 调用后读取的，而不是之前。
