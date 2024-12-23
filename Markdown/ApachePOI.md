@@ -1043,8 +1043,6 @@ public void testFormula() throws IOException {
 
 > 关于 Apache POI 的依赖版本注意保持统一，否则可能会报 `java.lang.NoSuchMethodError`
 
-
-
 <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180914173007117.png" alt="img" style="width:70%;" />
 
 
