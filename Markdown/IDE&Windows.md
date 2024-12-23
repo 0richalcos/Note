@@ -897,10 +897,8 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 添加自己需要的模板后（展开方式选 `Enter`，表示回车触发），点击【更改】，添加使用环境，然后【编辑变量】：
 
-<div align="center">
-    <img src="../Images/Mixed/image-20211214151502559.png" alt="image-20211214151502559" style="width:25%;" />
-    <img src="../Images/Mixed/image-20211214151601153.png" alt="image-20211214151601153" style="width:60%;" />
-</div>
+<img src="../Images/Mixed/image-20211214151502559.png" alt="image-20211214151502559" style="zoom: 80%;" /><img src="../Images/Mixed/image-20211214151601153.png" alt="image-20211214151601153" style="zoom: 80%;" />
+
 
 最后应用就行，在类的方法上方输入 `com` 按回车就可自动生成方法注释。
 
