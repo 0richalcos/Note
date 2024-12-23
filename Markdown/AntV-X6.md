@@ -139,7 +139,7 @@ import { Graph } from '@antv/x6';
 
    到此，我们就得到一个最简单的 `Hello --> World` 示例：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220505005938460.png" alt="image-20220505005938460" style="width:70%;" />
+   <img src="!assets/AntV-X6/image-20220505005938460.png" alt="image-20220505005938460" style="width:70%;" />
 
 
 
@@ -166,7 +166,7 @@ const graph = new Graph({
 });
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220505010235847.png" alt="image-20220505010235847" style="width:75%;" />
+<img src="!assets/AntV-X6/image-20220505010235847.png" alt="image-20220505010235847" style="width:75%;" />
 
 
 
@@ -180,7 +180,7 @@ graph.zoom(-0.5)
 graph.translate(80, 40)
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220505010314434.png" alt="image-20220505010314434" style="width:100%;" />
+<img src="!assets/AntV-X6/image-20220505010314434.png" alt="image-20220505010314434" style="width:100%;" />
 
 
 
@@ -222,8 +222,7 @@ const data = {
 };
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220505010457515.png" alt="image-20220505010457515" style="width:70%;" />
-
+<img src="!assets/AntV-X6/image-20220505010457515.png" alt="image-20220505010457515" style="width:70%;" />
 
 
 
@@ -287,7 +286,7 @@ const data = {
 };
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220505010914905.png" alt="image-20220505010914905" style="width:80%;" />
+<img src="!assets/AntV-X6/image-20220505010914905.png" alt="image-20220505010914905" style="width:80%;" />
 
 
 
@@ -330,8 +329,7 @@ const data = {
 }
 ```
 
- <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220505011011412.png" alt="image-20220505011011412" style="width:80%;" />
-
+<img src="!assets/AntV-X6/image-20220505011011412.png" alt="image-20220505011011412" style="zoom: 50%;" />
 
 
 
@@ -375,7 +373,7 @@ const data = {
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220505011203840.png" alt="image-20220505011203840" style="width:80%;" />
+<img src="!assets/AntV-X6/image-20220505011203840.png" alt="image-20220505011203840" style="width:80%;" />
 
 
 
