@@ -16,7 +16,9 @@ import java.util.regex.Pattern;
 import static com.orichalcos.markdownUtils.LoadOptions.loadIgnoreList;
 
 /**
- * 用于检查md文件中是否有未存在的图片
+ * ********************************
+ * 用于检查md文件中是否有未存在的图片 ***
+ * ********************************
  */
 public class MarkdownImageChecker {
 

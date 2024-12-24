@@ -11,6 +11,11 @@ import java.util.regex.Pattern;
 
 import static com.orichalcos.markdownUtils.LoadOptions.loadIgnoreList;
 
+/**
+ * ***********************************************
+ * 用于将md文件的图片复制到 !assets/<md文件名> 文件下 **
+ * ***********************************************
+ */
 public class MarkdownImageCopier {
 
     public static void main(String[] args) {
