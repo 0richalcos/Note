@@ -157,9 +157,9 @@ public class MarkdownImageCopier {
             if (!Files.exists(targetFile)) {
                 Files.createDirectories(targetFile.getParent());
                 Files.copy(sourceFile, targetFile);
-                System.out.println("复制文件: " + sourceFile + " -> " + targetFile);
+                // System.out.println("复制文件: " + sourceFile + " -> " + targetFile);
             } else {
-                System.out.println("文件已存在，跳过复制: " + targetFile);
+                // System.out.println("文件已存在，跳过复制: " + targetFile);
             }
         } catch (IOException e) {
             System.err.println("复制文件时出错: " + sourceFile + " -> " + targetFile + ", " + e.getMessage());
