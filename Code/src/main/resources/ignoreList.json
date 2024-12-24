@@ -1,0 +1,5 @@
+[
+  "<img src=\"logo.png\" th:alt-title=\"LOGO图片\">",
+  "<img src=\"logo.png\" th:alt=\"LOGO图片\" th:title=\"LOGO图片\">",
+  "<img src=\"{{path}}\" width=\"{{width}}\" height=\"{{height}}\">"
+]

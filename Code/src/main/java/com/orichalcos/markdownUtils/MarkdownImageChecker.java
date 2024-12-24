@@ -7,12 +7,13 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.orichalcos.markdownUtils.LoadOptions.loadIgnoreList;
 
 /**
  * 用于检查md文件中是否有未存在的图片
@@ -23,16 +24,13 @@ public class MarkdownImageChecker {
         // 设置文件路径
         String markdownDirPath = "E:\\Users\\Orichalcos\\Documents\\Note\\Markdown";
         String assetsDirPath = "E:\\Users\\Orichalcos\\Documents\\Note\\Markdown\\!assets";
+        String ignoreListPath = "src/main/resources/ignoreList.json";
 
         // 获取资源文件目录中所有图片文件
         Set<String> assetFiles = getAssetFiles(Paths.get(assetsDirPath));
 
-        // 定义忽略清单
-        List<String> ignoreList = Arrays.asList(
-                "<img src=\"logo.png\" th:alt-title=\"LOGO图片\">",
-                "<img src=\"logo.png\" th:alt=\"LOGO图片\" th:title=\"LOGO图片\">",
-                "<img src=\"{{path}}\" width=\"{{width}}\" height=\"{{height}}\">"
-        );
+        // 加载忽略清单
+        List<String> ignoreList = loadIgnoreList(ignoreListPath);
 
         // 遍历 Markdown 文件并检查图片引用
         processMarkdownFiles(Paths.get(markdownDirPath), assetFiles, ignoreList);

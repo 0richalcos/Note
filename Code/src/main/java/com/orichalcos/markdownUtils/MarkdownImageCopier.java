@@ -5,17 +5,25 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.orichalcos.markdownUtils.LoadOptions.loadIgnoreList;
+
 public class MarkdownImageCopier {
+
     public static void main(String[] args) {
         // 设置文件路径
         String markdownDirPath = "E:\\Users\\Orichalcos\\Documents\\Note\\Markdown";
         String assetsDirPath = "E:\\Users\\Orichalcos\\Documents\\Note\\Markdown\\!assets";
+        String ignoreListPath = "src/main/resources/ignoreList.json";
+
+        // 加载忽略清单
+        List<String> ignoreList = loadIgnoreList(ignoreListPath);
 
         // 遍历 Markdown 文件并复制图片引用
-        copyImagesFromMarkdown(Paths.get(markdownDirPath), Paths.get(assetsDirPath));
+        copyImagesFromMarkdown(Paths.get(markdownDirPath), Paths.get(assetsDirPath), ignoreList);
     }
 
     /**
@@ -23,11 +31,12 @@ public class MarkdownImageCopier {
      *
      * @param markdownDir   Markdown 文件目录路径
      * @param assetsBaseDir 资源基础目录
+     * @param ignoreList    忽略清单
      */
-    private static void copyImagesFromMarkdown(Path markdownDir, Path assetsBaseDir) {
+    private static void copyImagesFromMarkdown(Path markdownDir, Path assetsBaseDir, List<String> ignoreList) {
         try {
             Files.walk(markdownDir).filter(file -> file.toString().endsWith(".md")).forEach(markdownFile -> {
-                copyImagesForMarkdownFile(markdownFile, assetsBaseDir);
+                copyImagesForMarkdownFile(markdownFile, assetsBaseDir, ignoreList);
             });
         } catch (IOException e) {
             System.err.println("读取 Markdown 文件目录时出错: " + e.getMessage());
@@ -39,8 +48,9 @@ public class MarkdownImageCopier {
      *
      * @param markdownFile  Markdown 文件路径
      * @param assetsBaseDir 资源基础目录
+     * @param ignoreList    忽略清单
      */
-    private static void copyImagesForMarkdownFile(Path markdownFile, Path assetsBaseDir) {
+    private static void copyImagesForMarkdownFile(Path markdownFile, Path assetsBaseDir, List<String> ignoreList) {
         Pattern imgPattern = Pattern.compile("!\\[(.*?)\\]\\((.*?)\\)|<img\\s+src=\\\"(.*?)\\\".*?>");
         Path targetDir = assetsBaseDir.resolve(markdownFile.getFileName().toString().replace(".md", ""));
 
@@ -56,6 +66,12 @@ public class MarkdownImageCopier {
                 while (matcher.find()) {
                     String alt = matcher.group(1) != null ? matcher.group(1) : "";
                     String imgPath = matcher.group(2) != null ? matcher.group(2) : matcher.group(3);
+
+                    // 跳过忽略清单中的引用
+                    if (ignoreList.contains(matcher.group(0))) {
+                        continue;
+                    }
+
                     String fileName = extractFileName(imgPath);
 
                     if (fileName != null) {
