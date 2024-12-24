@@ -3402,7 +3402,7 @@ public class ReadWriteLockDemo {
 
 执行结果
 
-<img src="Interview.assets/885859-20190428144431395-1738884484.png" alt="img" style="zoom:80%;float:left" />
+![QQ_1735059649635](!assets/Java/QQ_1735059649635.png)
 
 
 

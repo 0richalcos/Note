@@ -1,4 +1,4 @@
-package com.orichalcos.checker;
+package com.orichalcos.markdownUtils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -7,11 +7,16 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 用于检查md文件中是否有未存在的图片
+ */
 public class MarkdownImageChecker {
 
     public static void main(String[] args) {
@@ -22,8 +27,19 @@ public class MarkdownImageChecker {
         // 获取资源文件目录中所有图片文件
         Set<String> assetFiles = getAssetFiles(Paths.get(assetsDirPath));
 
+        // 定义忽略清单
+        List<String> ignoreList = Arrays.asList(
+                "<img src=\"logo.png\" th:alt-title=\"LOGO图片\">",
+                "<img src=\"logo.png\" th:alt=\"LOGO图片\" th:title=\"LOGO图片\">",
+                "<img src=\"{{path}}\" width=\"{{width}}\" height=\"{{height}}\">"
+        );
+
         // 遍历 Markdown 文件并检查图片引用
-        processMarkdownFiles(Paths.get(markdownDirPath), assetFiles);
+        processMarkdownFiles(Paths.get(markdownDirPath), assetFiles, ignoreList);
+
+        System.out.println("==========================");
+        System.out.println("===========完成============");
+        System.out.println("==========================");
     }
 
     /**
@@ -49,11 +65,12 @@ public class MarkdownImageChecker {
      *
      * @param markdownDir Markdown 文件目录路径
      * @param assetFiles  资源文件集合
+     * @param ignoreList  忽略的图片引用清单
      */
-    private static void processMarkdownFiles(Path markdownDir, Set<String> assetFiles) {
+    private static void processMarkdownFiles(Path markdownDir, Set<String> assetFiles, List<String> ignoreList) {
         try {
             Files.walk(markdownDir).filter(file -> file.toString().endsWith(".md")).forEach(file -> {
-                checkMarkdownFile(file, assetFiles);
+                checkMarkdownFile(file, assetFiles, ignoreList);
             });
         } catch (IOException e) {
             System.err.println("读取 Markdown 文件目录时出错: " + e.getMessage());
@@ -65,8 +82,9 @@ public class MarkdownImageChecker {
      *
      * @param markdownFile Markdown 文件路径
      * @param assetFiles   资源文件集合
+     * @param ignoreList   忽略的图片引用清单
      */
-    private static void checkMarkdownFile(Path markdownFile, Set<String> assetFiles) {
+    private static void checkMarkdownFile(Path markdownFile, Set<String> assetFiles, List<String> ignoreList) {
         Pattern imgPattern = Pattern.compile("!\\[.*?\\]\\((.*?)\\)|<img\\s+src=\\\"(.*?)\\\".*?>");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(markdownFile.toFile()))) {
@@ -75,8 +93,11 @@ public class MarkdownImageChecker {
 
             while ((line = reader.readLine()) != null) {
                 lineNumber++;
-                Matcher matcher = imgPattern.matcher(line);
+                if (ignoreList.stream().anyMatch(line::contains)) {
+                    continue;
+                }
 
+                Matcher matcher = imgPattern.matcher(line);
                 while (matcher.find()) {
                     String imgPath = matcher.group(1) != null ? matcher.group(1) : matcher.group(2);
                     String fileName = extractFileName(imgPath);
