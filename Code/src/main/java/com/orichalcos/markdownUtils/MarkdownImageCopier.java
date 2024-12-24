@@ -1,8 +1,6 @@
 package com.orichalcos.markdownUtils;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -37,32 +35,49 @@ public class MarkdownImageCopier {
     }
 
     /**
-     * 为单个 Markdown 文件复制图片引用
+     * 为单个 Markdown 文件复制图片引用并更新路径
      *
      * @param markdownFile  Markdown 文件路径
      * @param assetsBaseDir 资源基础目录
      */
     private static void copyImagesForMarkdownFile(Path markdownFile, Path assetsBaseDir) {
-        Pattern imgPattern = Pattern.compile("!\\[.*?\\]\\((.*?)\\)|<img\\s+src=\\\"(.*?)\\\".*?>");
+        Pattern imgPattern = Pattern.compile("!\\[(.*?)\\]\\((.*?)\\)|<img\\s+src=\\\"(.*?)\\\".*?>");
         Path targetDir = assetsBaseDir.resolve(markdownFile.getFileName().toString().replace(".md", ""));
+
+        StringBuilder updatedContent = new StringBuilder();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(markdownFile.toFile()))) {
             String line;
 
             while ((line = reader.readLine()) != null) {
                 Matcher matcher = imgPattern.matcher(line);
+                StringBuilder updatedLine = new StringBuilder(line);
+
                 while (matcher.find()) {
-                    String imgPath = matcher.group(1) != null ? matcher.group(1) : matcher.group(2);
+                    String alt = matcher.group(1) != null ? matcher.group(1) : "";
+                    String imgPath = matcher.group(2) != null ? matcher.group(2) : matcher.group(3);
                     String fileName = extractFileName(imgPath);
 
                     if (fileName != null) {
                         Path sourceFile = assetsBaseDir.resolve(fileName);
                         Path targetFile = targetDir.resolve(fileName);
+                        String relativePath = "!assets/" + targetDir.getFileName() + "/" + fileName;
 
                         copyFileIfNotExists(sourceFile, targetFile);
+
+                        String updatedImgTag = String.format("<img src=\"%s\" alt=\"%s\" style=\"\" />", relativePath, alt);
+                        updatedLine = new StringBuilder(updatedLine.toString().replaceFirst(Pattern.quote(matcher.group(0)), updatedImgTag));
                     }
                 }
+
+                updatedContent.append(updatedLine).append(System.lineSeparator());
             }
+
+            // 写入更新后的内容
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(markdownFile.toFile()))) {
+                writer.write(updatedContent.toString());
+            }
+
         } catch (IOException e) {
             System.err.println("处理 Markdown 文件时出错: " + markdownFile + ", " + e.getMessage());
         }
