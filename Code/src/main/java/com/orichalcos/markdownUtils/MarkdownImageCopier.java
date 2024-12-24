@@ -59,7 +59,12 @@ public class MarkdownImageCopier {
                     String fileName = extractFileName(imgPath);
 
                     if (fileName != null) {
-                        Path sourceFile = assetsBaseDir.resolve(fileName);
+                        Path sourceFile = findFileInDirectory(assetsBaseDir, fileName);
+                        if (sourceFile == null) {
+                            System.err.println("未找到图片文件: " + imgPath);
+                            continue;
+                        }
+
                         Path targetFile = targetDir.resolve(fileName);
                         String relativePath = "!assets/" + targetDir.getFileName() + "/" + fileName;
 
@@ -80,6 +85,25 @@ public class MarkdownImageCopier {
 
         } catch (IOException e) {
             System.err.println("处理 Markdown 文件时出错: " + markdownFile + ", " + e.getMessage());
+        }
+    }
+
+    /**
+     * 在目录及其子目录中查找文件
+     *
+     * @param directory 目录路径
+     * @param fileName  文件名
+     * @return 文件路径，如果未找到则返回 null
+     */
+    private static Path findFileInDirectory(Path directory, String fileName) {
+        try {
+            return Files.walk(directory)
+                    .filter(path -> path.getFileName().toString().equals(fileName))
+                    .findFirst()
+                    .orElse(null);
+        } catch (IOException e) {
+            System.err.println("搜索文件时出错: " + e.getMessage());
+            return null;
         }
     }
 
