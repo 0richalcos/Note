@@ -2599,7 +2599,7 @@ List<Runnable> notExecutedTasks = executorService.shutdownNow();
 
 线程池有5种状态：Running、ShutDown、Stop、Tidying、Terminated。
 
-![线程池各个状态切换框架图：](https://img-blog.csdnimg.cn/20200629150312492.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyMDEzNTkw,size_16,color_FFFFFF,t_70)
+![2024-12-25 004515](!assets/Java/2024-12-25 004515.png)
 
 - RUNNING：线程池一旦被创建，就处于 RUNNING 状态，任务数为 0，能够接收新任务，对已排队的任务进行处理。
 
@@ -3304,7 +3304,7 @@ public class LockThread {
 }
 ```
 
-![img](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvODg1ODU5LzIwMTkwNC84ODU4NTktMjAxOTA0MjgxNDQxMDY5MDQtMjIzNDAyODMxLnBuZw?x-oss-process=image/format,png)
+![2024-12-25 004648](!assets/Java/2024-12-25 004648.png)
 
 从执行结果可以看出，A 线程和 B 线程同时对资源加锁，A 线程获取锁之后，B 线程只好等待，直到 A 线程释放锁 B 线程才获得锁。
 
