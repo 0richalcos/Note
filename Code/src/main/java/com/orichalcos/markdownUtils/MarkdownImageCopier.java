@@ -29,6 +29,10 @@ public class MarkdownImageCopier {
 
         // 遍历 Markdown 文件并复制图片引用
         copyImagesFromMarkdown(Paths.get(markdownDirPath), Paths.get(assetsDirPath), ignoreList);
+
+        System.out.println("==========================");
+        System.out.println("===========完成============");
+        System.out.println("==========================");
     }
 
     /**
