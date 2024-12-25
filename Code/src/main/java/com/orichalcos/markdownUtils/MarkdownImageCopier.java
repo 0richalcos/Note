@@ -60,7 +60,9 @@ public class MarkdownImageCopier {
      * @param ignoreList    忽略清单
      */
     private static void copyImagesForMarkdownFile(Path markdownFile, Path assetsBaseDir, List<String> ignoreList) {
-        Pattern imgPattern = Pattern.compile("!\\[(.*?)\\]\\((.*?)\\)|<img\\s+src=\\\"(.*?)\\\".*?>");
+        Pattern imgPattern = Pattern.compile(
+                "!\\[(.*?)\\]\\((.*?)\\)|<img\\s+(.*?)src=\\\"(.*?)\\\"(.*?)>"
+        );
         Path targetDir = assetsBaseDir.resolve(markdownFile.getFileName().toString().replace(".md", ""));
 
         StringBuilder updatedContent = new StringBuilder();
@@ -73,8 +75,28 @@ public class MarkdownImageCopier {
                 StringBuilder updatedLine = new StringBuilder(line);
 
                 while (matcher.find()) {
-                    String alt = matcher.group(1) != null ? matcher.group(1) : "";
-                    String imgPath = matcher.group(2) != null ? matcher.group(2) : matcher.group(3);
+                    String alt = "";
+                    String style = "";
+                    String imgPath;
+
+                    if (matcher.group(1) != null && matcher.group(2) != null) {
+                        // Markdown 格式 ![alt](src)
+                        alt = matcher.group(1);
+                        imgPath = matcher.group(2);
+                    } else {
+                        // HTML 格式 <img src="src" alt="alt" style="style">
+                        imgPath = matcher.group(4);
+                        String attributes = matcher.group(3) + matcher.group(5);
+                        Matcher altMatcher = Pattern.compile("alt=\\\"(.*?)\\\"").matcher(attributes);
+                        Matcher styleMatcher = Pattern.compile("style=\\\"(.*?)\\\"").matcher(attributes);
+
+                        if (altMatcher.find()) {
+                            alt = altMatcher.group(1);
+                        }
+                        if (styleMatcher.find()) {
+                            style = styleMatcher.group(1);
+                        }
+                    }
 
                     // 跳过忽略清单中的引用
                     if (ignoreList.contains(matcher.group(0))) {
@@ -95,7 +117,12 @@ public class MarkdownImageCopier {
 
                         copyFileIfNotExists(sourceFile, targetFile);
 
-                        String updatedImgTag = String.format("<img src=\"%s\" alt=\"%s\" style=\"\" />", relativePath, alt);
+                        String updatedImgTag = String.format(
+                                "<img src=\"%s\" alt=\"%s\" style=\"%s\" />",
+                                relativePath,
+                                alt,
+                                style
+                        );
                         updatedLine = new StringBuilder(updatedLine.toString().replaceFirst(Pattern.quote(matcher.group(0)), updatedImgTag));
                     }
                 }
@@ -161,9 +188,9 @@ public class MarkdownImageCopier {
             if (!Files.exists(targetFile)) {
                 Files.createDirectories(targetFile.getParent());
                 Files.copy(sourceFile, targetFile);
-                // System.out.println("复制文件: " + sourceFile + " -> " + targetFile);
+                System.out.println("复制文件: " + sourceFile + " -> " + targetFile);
             } else {
-                // System.out.println("文件已存在，跳过复制: " + targetFile);
+                System.out.println("文件已存在，跳过复制: " + targetFile);
             }
         } catch (IOException e) {
             System.err.println("复制文件时出错: " + sourceFile + " -> " + targetFile + ", " + e.getMessage());
