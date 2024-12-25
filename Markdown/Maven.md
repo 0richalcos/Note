@@ -12,7 +12,7 @@ Apache Maven 是一个软件项目管理和理解工具。基于项目对象模�
 
 Maven 提供配置多种环境的设定，帮助开发者使用过程中快速切换环境。
 
-![image-20230721203143302](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230721203143302.png)
+<img src="!assets/Maven/image-20230721203143302.png" alt="image-20230721203143302" style="" />
 
 
 
@@ -121,15 +121,15 @@ mvn clean package –P pro_env
 
 如果不知道自己是什么问题，可以执行 `mvn clear` 清除字节码命令，如果没有报错，说明没问题，如果报错，会有相应提示：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/680d2044a713029d1548c0d7471947aa.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Maven/680d2044a713029d1548c0d7471947aa.png" alt="img" style="zoom:80%;" />
 
 如图所示，我执行命令后就失败了：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/9f98f110c48dcb1a0034125225e68c41.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Maven/9f98f110c48dcb1a0034125225e68c41.png" alt="img" style="zoom:80%;" />
 
 根据提示，说我的 pom 文件有问题：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1924d1afac095a0ec43cf0f97022c5c6.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Maven/1924d1afac095a0ec43cf0f97022c5c6.png" alt="img" style="zoom:80%;" />
 
 
 

@@ -753,7 +753,7 @@ $('#table').bootstrapTable({
 
 **效果对比**
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210624182508220.png" alt="image-20210624182508220" style="width:60%;" />
+<img src="!assets/BootstrapTable/image-20210624182508220.png" alt="image-20210624182508220" style="width:60%;" />
 
 
 

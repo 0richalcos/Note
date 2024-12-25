@@ -24,19 +24,19 @@ npm 是随同 Node.js 一起安装的包管理工具，能解决 Node.js 代码�
 
 1. 打开官网[下载链接](https://nodejs.org/en/download/): 
 
-   ![image-20221118103127016](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221118103127016.png)
+   <img src="!assets/Node.js/image-20221118103127016.png" alt="image-20221118103127016" style="" />
 
 2. 下载完成后直接安装，可以不用修改，直接默认选项安装，如有需要可以修改安装目录。
 
 3. 安装完成后打开命令行查看版本：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221118103806893.png" alt="image-20221118103806893" style="zoom:50%;" />
+   <img src="!assets/Node.js/image-20221118103806893.png" alt="image-20221118103806893" style="zoom:50%;" />
 
    `node -v` 显示 Node.js 的版本说明已安装成功，`npm -v` 显示 npm 的版本说明自带的 npm 也已经安装成功。
 
 4. 安装完成后的目录如下所示：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221118104255998.png" alt="image-20221118104255998" style="zoom: 50%;" />
+   <img src="!assets/Node.js/image-20221118104255998.png" alt="image-20221118104255998" style="zoom: 50%;" />
 
 
 
@@ -66,7 +66,7 @@ NVM 主要在 Linux 和 Mac 上得到支持。它不支持 Windows。但是 core
 
    在 nvm-windows 仓库的 Readme 文件中，单击 “立即下载”：
 
-   ![image-338](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-338.png)
+   <img src="!assets/Node.js/image-338.png" alt="image-338" style="" />
 
    这将打开一个显示不同 NVM 版本的页面。
 
@@ -74,7 +74,7 @@ NVM 主要在 Linux 和 Mac 上得到支持。它不支持 Windows。但是 core
 
    在最新版本中，单击 nvm-setup.exe 资源：
 
-   ![](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231214000940061.png)
+   <img src="!assets/Node.js/image-20231214000940061.png" alt="" style="" />
 
 3. 完成安装向导：
 
@@ -181,7 +181,7 @@ npm 全局下载依赖时，会默认下载到当前使用的 Nodejs 版本的�
 
 1. 在文件夹 `D:\Nodejs` 下创建两个文件夹 node_global 及 node_cache：
 
-   ![image-20231214002338556](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231214002338556.png)
+   <img src="!assets/Node.js/image-20231214002338556.png" alt="image-20231214002338556" style="" />
 
 2. 创建完两个空文件夹之后，打开命令行窗口，输入：
 
@@ -212,7 +212,7 @@ npm 全局下载依赖时，会默认下载到当前使用的 Nodejs 版本的�
 
    将新建的两个环境变量配置到 Path 中，请注意顺序（未装 NVM 请忽视 NVM 相关环境变量）：
 
-   ![image-20231214004741293](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231214004741293.png)
+   <img src="!assets/Node.js/image-20231214004741293.png" alt="image-20231214004741293" style="" />
 
    以上涉及的变量：
 
@@ -400,11 +400,11 @@ Yarn 是由 Facebook、Google、Exponent 和 Tilde 联合推出了一个新的 J
    yarn config
    ```
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231213225852215.png" alt="image-20231213225852215" />
+   <img src="!assets/Node.js/image-20231213225852215.png" alt="image-20231213225852215" style="" />
 
 2. 首先清除以上文件数据，然后创建新的全局模块所在路径和缓存路径：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231213231639081.png" alt="image-20231213231639081" />
+   <img src="!assets/Node.js/image-20231213231639081.png" alt="image-20231213231639081" style="" />
 
 3. 修改 Yarn 的全局模块所在路径和缓存路径：
 
@@ -518,7 +518,7 @@ pnpm 分三个阶段执行安装：
 
 默认情况下，pnpm 使用符号链接将项目的直接依赖项添加到模块目录的根目录中：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726745555326.png" alt="QQ_1726745555326" style="zoom:50%;" />
+<img src="!assets/Node.js/QQ_1726745555326.png" alt="QQ_1726745555326" style="zoom:50%;" />
 
 > [!TIP]
 >

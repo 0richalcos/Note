@@ -326,7 +326,7 @@ SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader, environ
 
 这是 MyBatis 中极为重要的调整设置，它们会改变 MyBatis 的运行时行为。 下表描述了设置中各项设置的含义、默认值等。
 
-![20200605012013](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20200605012013.png)
+<img src="!assets/Mybatis/20200605012013.png" alt="20200605012013" style="" />
 
 一个配置完整的 settings 元素的示例如下：
 
@@ -699,7 +699,7 @@ select 元素允许你配置很多属性来配置每条语句的行为细节。
   resultSetType="FORWARD_ONLY">
 ```
 
-![image-20200614172418322](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200614172418322.png)
+<img src="!assets/Mybatis/image-20200614172418322.png" alt="image-20200614172418322" style="" />
 
 
 
@@ -733,7 +733,7 @@ select 元素允许你配置很多属性来配置每条语句的行为细节。
   timeout="20">
 ```
 
-![image-20200614172730202](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200614172730202.png)
+<img src="!assets/Mybatis/image-20200614172730202.png" alt="image-20200614172730202" style="" />
 
 下面是 insert、update、delete 语句的示例：
 
@@ -807,7 +807,7 @@ selectKey 元素描述如下：
   statementType="PREPARED">
 ```
 
-![image-20200614175334779](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200614175334779.png)
+<img src="!assets/Mybatis/image-20200614175334779.png" alt="image-20200614175334779" style="" />
 
 
 
@@ -1173,7 +1173,7 @@ MyBatis 创建时的一个思想是：数据库不可能永远是你所想或所
 	- `case` – 基于某些值的结果映射
 		- 嵌套结果映射 – `case` 也是一个结果映射，因此具有相同的结构和元素；或者引用其它的结果映射
 
-![image-20200615023107680](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200615023107680.png)
+<img src="!assets/Mybatis/image-20200615023107680.png" alt="image-20200615023107680" style="" />
 
 **最佳实践** 最好逐步建立结果映射。单元测试可以在这个过程中起到很大帮助。 如果你尝试一次性创建像上面示例那么巨大的结果映射，不仅容易出错，难度也会直线上升。 所以，从最简单的形态开始，逐步迭代。而且别忘了单元测试！ 有时候，框架的行为像是一个黑盒子（无论是否开源）。因此，为了确保实现的行为与你的期望相一致，最好编写单元测试。 并且单元测试在提交 bug 时也能起到很大的作用。
 
@@ -1192,7 +1192,7 @@ MyBatis 创建时的一个思想是：数据库不可能永远是你所想或所
 
 两个元素都有一些属性：
 
-![image-20200615114721944](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200615114721944.png)
+<img src="!assets/Mybatis/image-20200615114721944.png" alt="image-20200615114721944" style="" />
 
 
 
@@ -1200,7 +1200,7 @@ MyBatis 创建时的一个思想是：数据库不可能永远是你所想或所
 
 为了以后可能的使用场景，MyBatis 通过内置的 jdbcType 枚举类型支持下面的 JDBC 类型。
 
-![image-20200615115026968](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200615115026968.png)
+<img src="!assets/Mybatis/image-20200615115026968.png" alt="image-20200615115026968" style="" />
 
 
 
@@ -1244,7 +1244,7 @@ public class User {
 
 剩余的属性和规则和普通的 id 和 result 元素是一样的。
 
-![image-20200615172640856](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200615172640856.png)
+<img src="!assets/Mybatis/image-20200615172640856.png" alt="image-20200615172640856" style="" />
 
 
 
@@ -1266,7 +1266,7 @@ public class User {
 
 首先，先让我们来看看这个元素的属性。你将会发现，和普通的结果映射相比，它只在 select 和 resultMap 属性上有所不同。
 
-![image-20200615173120271](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200615173120271.png)
+<img src="!assets/Mybatis/image-20200615173120271.png" alt="image-20200615173120271" style="" />
 
 示例：
 
@@ -1303,7 +1303,7 @@ public class User {
 
 **关联的嵌套结果映射**
 
-![image-20200615173531499](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200615173531499.png)
+<img src="!assets/Mybatis/image-20200615173531499.png" alt="image-20200615173531499" style="" />
 
 之前，你已经看到了一个非常复杂的嵌套关联的例子。 下面的例子则是一个非常简单的例子，用于演示嵌套结果映射如何工作。 现在我们将博客表和作者表连接在一起，而不是执行一个独立的查询语句，就像这样：
 
@@ -1415,7 +1415,7 @@ public class User {
 
 **关联的多结果集（ResultSet）**
 
-![image-20200615180130738](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200615180130738.png)
+<img src="!assets/Mybatis/image-20200615180130738.png" alt="image-20200615180130738" style="" />
 
 从版本 3.2.3 开始，MyBatis 提供了另一种解决 N+1 查询问题的方法。
 
@@ -2522,7 +2522,7 @@ public interface AuthorMapper {
 
 注解如下表所示：
 
-![image-20200616093839656](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200616093839656.png)
+<img src="!assets/Mybatis/image-20200616093839656.png" alt="image-20200616093839656" style="" />
 
 
 
@@ -2761,7 +2761,7 @@ public String updatePersonSql() {
 }
 ```
 
-![](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ%E6%88%AA%E5%9B%BE20200616101536.png)
+<img src="!assets/Mybatis/QQ截图20200616101536.png" alt="" style="" />
 
 **提示** 注意，SQL 类将原样插入 `LIMIT`、`OFFSET`、`OFFSET n ROWS` 以及 `FETCH FIRST n ROWS ONLY` 子句。换句话说，类库不会为不支持这些子句的数据库执行任何转换。 因此，用户应该要了解目标数据库是否支持这些子句。如果目标数据库不支持这些子句，产生的 SQL 可能会引起运行错误。
 

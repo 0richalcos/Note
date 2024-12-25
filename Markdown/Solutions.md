@@ -666,7 +666,7 @@ console.log(812782555915911412);
 
 原来，JavaScript 中数字的精度是有限的，Java 的 `Long` 类型的数字超出了 JavaScript 的处理范围。JavaScript 内部只有一种数字类型 `Number`，所有数字都是采用 [IEEE 754](https://links.jianshu.com/go?to=https%3A%2F%2Fzh.wikipedia.org%2Fwiki%2FIEEE_754) 标准定义的双精度 64 位格式存储，即使整数也是如此。这就是说，JavaScript 语言的底层根本没有整数，所有数字都是小数（64位浮点数）。其结构如图：
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/webp.webp)
+<img src="!assets/Solutions/webp.webp" alt="img" style="" />
 
 各位的含义如下：
 

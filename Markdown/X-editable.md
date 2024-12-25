@@ -71,7 +71,7 @@ typora-copy-images-to: upload
 
 6. 前端准备好了！
 
-   ![image-20220516195314317](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220516195314317.png)
+   <img src="!assets/X-editable/image-20220516195314317.png" alt="image-20220516195314317" style="" />
 
    打开页面并单击元素。输入新值并提交表单。它将发送带有新值的 AJAX 请求 `/post`，下面为请求的数据：
 

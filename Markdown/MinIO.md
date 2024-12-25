@@ -28,7 +28,7 @@ MinIO 号称是目前速度最快的对象存储服务器。在标准硬件上�
 
 MinIO 用作云原生应用程序的主要存储，和传统对象存储相比，云原生应用程序需要更高的吞吐量和更低的延迟。而这些都是 MinIO 能够达成的性能指标。
 
-![aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy82T3hxU3FXQnFzSWhZYTFReDR5WUozbklOdEZkVVI1T2xpYUJLeGhHRzRsZDBVaWJFZVl4aDJKOTVJU1JJYnM1T0d4Y1NzdllORTYwNW9xN3BqMHN2bGlidy82NDA](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy82T3hxU3FXQnFzSWhZYTFReDR5WUozbklOdEZkVVI1T2xpYUJLeGhHRzRsZDBVaWJFZVl4aDJKOTVJU1JJYnM1T0d4Y1NzdllORTYwNW9xN3BqMHN2bGlidy82NDA.png)
+<img src="!assets/MinIO/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy82T3hxU3FXQnFzSWhZYTFReDR5WUozbklOdEZkVVI1T2xpYUJLeGhHRzRsZDBVaWJFZVl4aDJKOTVJU1JJYnM1T0d4Y1NzdllORTYwNW9xN3BqMHN2bGlidy82NDA.png" alt="aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy82T3hxU3FXQnFzSWhZYTFReDR5WUozbklOdEZkVVI1T2xpYUJLeGhHRzRsZDBVaWJFZVl4aDJKOTVJU1JJYnM1T0d4Y1NzdllORTYwNW9xN3BqMHN2bGlidy82NDA" style="" />
 
 
 
@@ -36,7 +36,7 @@ MinIO 用作云原生应用程序的主要存储，和传统对象存储相比�
 
 目前 MinIO 支持市面主流的开发语言并且可以通过 SDK 快速集成快速集成使用。
 
-![image-20230613214138567](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613214138567.png)
+<img src="!assets/MinIO/image-20230613214138567.png" alt="image-20230613214138567" style="" />
 
 
 
@@ -44,7 +44,7 @@ MinIO 用作云原生应用程序的主要存储，和传统对象存储相比�
 
 亚马逊云的 S3 API（接口协议） 是在全球范围内达到共识的对象存储的协议，是全世界内大家都认可的标准。MinIO 在很早的时候就采用了 S3 兼容协议，并且 MinIO 是第一个支持 S3 Select 的产品。MinIO 对其兼容性的全面性感到自豪， 并且得到了 750 多个组织的认同，包括 Microsoft Azure 使用 MinIO 的 S3 网关 - 这一指标超过其他同类产品的总和。
 
-![aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy82T3hxU3FXQnFzSWhZYTFReDR5WUozbklOdEZkVVI1T0k2N0t6aWI3clVlbTA4VzFWOGdMckN3VjdHSXY2bW42NjhtVmd5cTlGWFdDaWM2T0RLUWVzSU53LzY0MA](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy82T3hxU3FXQnFzSWhZYTFReDR5WUozbklOdEZkVVI1T0k2N0t6aWI3clVlbTA4VzFWOGdMckN3VjdHSXY2bW42NjhtVmd5cTlGWFdDaWM2T0RLUWVzSU53LzY0MA.png)
+<img src="!assets/MinIO/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy82T3hxU3FXQnFzSWhZYTFReDR5WUozbklOdEZkVVI1T0k2N0t6aWI3clVlbTA4VzFWOGdMckN3VjdHSXY2bW42NjhtVmd5cTlGWFdDaWM2T0RLUWVzSU53LzY0MA.png" alt="aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy82T3hxU3FXQnFzSWhZYTFReDR5WUozbklOdEZkVVI1T0k2N0t6aWI3clVlbTA4VzFWOGdMckN3VjdHSXY2bW42NjhtVmd5cTlGWFdDaWM2T0RLUWVzSU53LzY0MA" style="" />
 
 
 
@@ -89,7 +89,7 @@ MinIO 服务安装后，可以直接通过浏览器登录系统，完成文件�
 
    这里需要根据自己系统的 Architecture 去下载对应的版本，可以通过 `hostnamectl` 命令查看 Architecture 。
 
-   ![image-20230613214942697](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613214942697.png)
+   <img src="!assets/MinIO/image-20230613214942697.png" alt="image-20230613214942697" style="" />
 
    [点击进入下载地址](https://min.io/download#/linux) 或者直接通过 wget 下载：
 
@@ -151,7 +151,7 @@ MinIO 服务安装后，可以直接通过浏览器登录系统，完成文件�
 netstat -nlp | grep 9000
 ```
 
-![image-20230613221015197](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230613221015197.png)
+<img src="!assets/MinIO/image-20230613221015197.png" alt="image-20230613221015197" style="" />
 
 ```shell
 kill -9 2524
@@ -284,4 +284,4 @@ $env:MINIO_ROOT_PASSWORD="minioadmin"
 
 增加桶策略：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726741009145.png" alt="QQ_1726741009145" />
+<img src="!assets/MinIO/QQ_1726741009145.png" alt="QQ_1726741009145" style="" />

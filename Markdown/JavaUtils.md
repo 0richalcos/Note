@@ -30,7 +30,7 @@ typora-copy-images-to: upload
 
 `StringUtils` 全称为 `org.apache.commons.lang3.StringUtils`，`join()` 方法如下图：
 
-![image-20230801122834011](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230801122834011.png)
+<img src="!assets/JavaUtils/image-20230801122834011.png" alt="image-20230801122834011" style="" />
 
 基本上此方法需传入 2 个参数，第一个参数是传入一个任意类型数组或集合，第二个参数是拼接符。
 
@@ -60,7 +60,7 @@ Yuan-Mxy
 
 `String.join()` 是 JDK8 新增方法（无需引包）
 
-![image-20230801123153856](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230801123153856.png)
+<img src="!assets/JavaUtils/image-20230801123153856.png" alt="image-20230801123153856" style="" />
 
 参数为 2 个，第一个参数为拼接符号，第二个参数为数组和集合。
 

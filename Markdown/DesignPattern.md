@@ -109,7 +109,7 @@ UML 类图中具体类、抽象类、接口和包有不同的表示方法。
 - `#` 表示 `protected`；
 - 不带符号表示 `default`。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/v2-71b22158f5b09dffa57a123d72ec4653_1440w.png" alt="img" style="zoom: 50%;" />
+<img src="!assets/DesignPattern/v2-71b22158f5b09dffa57a123d72ec4653_1440w.png" alt="img" style="zoom: 50%;" />
 
 
 
@@ -117,7 +117,7 @@ UML 类图中具体类、抽象类、接口和包有不同的表示方法。
 
 抽象类在 UML 类图中同样用矩形框表示，但是抽象类的类名以及抽象方法的名字都用斜体字表示。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/v2-5c69cd9ff703377f7bbf37cee8199451_1440w.png" alt="img" style="zoom: 50%;" />
+<img src="!assets/DesignPattern/v2-5c69cd9ff703377f7bbf37cee8199451_1440w.png" alt="img" style="zoom: 50%;" />
 
 
 
@@ -125,7 +125,7 @@ UML 类图中具体类、抽象类、接口和包有不同的表示方法。
 
 接口在类图中也是用矩形框表示，但是与类的表示法不同的是，接口在类图中的第一层顶端用构造型 `<<interface>>` 表示，下面是接口的名字，第二层是方法。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/v2-e39bdff5514c38e7797848372ac51365_1440w.png" alt="img" style="zoom: 50%;" />
+<img src="!assets/DesignPattern/v2-e39bdff5514c38e7797848372ac51365_1440w.png" alt="img" style="zoom: 50%;" />
 
 此外，接口还有另一种表示法，俗称棒棒糖表示法，就是类上面的一根棒棒糖（圆圈+实线）。圆圈旁为接口名称，接口方法在实现类中出现。
 
@@ -135,7 +135,7 @@ UML 类图中具体类、抽象类、接口和包有不同的表示方法。
 
 类和接口一般都出现在包中，UML类图中包的表示形式如下所示：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/v2-b421c9c15219feba7dd9cf7681070682_1440w.png" alt="img" style="zoom:50%;" />
+<img src="!assets/DesignPattern/v2-b421c9c15219feba7dd9cf7681070682_1440w.png" alt="img" style="zoom:50%;" />
 
 
 
@@ -143,7 +143,7 @@ UML 类图中具体类、抽象类、接口和包有不同的表示方法。
 
 类和类、类和接口、接口和接口之间存在一定关系，UML 类图中一般会有连线指明它们之间的关系。关系共有六种类型，分别是实现关系、泛化关系、关联关系、依赖关系、聚合关系、组合关系，如下图所示。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/v2-e6a48521352fff8270e753ea4a79d9fb_1440w.png" alt="img" style="zoom:50%;" />
+<img src="!assets/DesignPattern/v2-e6a48521352fff8270e753ea4a79d9fb_1440w.png" alt="img" style="zoom:50%;" />
 
 
 
@@ -153,7 +153,7 @@ UML 类图中具体类、抽象类、接口和包有不同的表示方法。
 
 在 UML 类图中，实现关系用空心三角和虚线组成的箭头来表示，从实现类指向接口，如下图所示。在 Java 代码中，实现关系可以直接翻译为关键字 `implements`。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/v2-616c153ec74d496a811ac50c83c3653c_1440w.png" alt="img" style="zoom:50%;" />
+<img src="!assets/DesignPattern/v2-616c153ec74d496a811ac50c83c3653c_1440w.png" alt="img" style="zoom:50%;" />
 
 
 
@@ -165,7 +165,7 @@ UML 类图中具体类、抽象类、接口和包有不同的表示方法。
 
 在 UML 类图中，泛化关系用空心三角和实线组成的箭头表示，从子类指向父类，如下图所示。在 Java 代码中，对象之间的泛化关系可以直接翻译为关键字 `extends`。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/v2-04064db11797cf36229d67407fea1b83_1440w.png" alt="img" style="zoom:50%;" />
+<img src="!assets/DesignPattern/v2-04064db11797cf36229d67407fea1b83_1440w.png" alt="img" style="zoom:50%;" />
 
 
 
@@ -179,7 +179,7 @@ UML 类图中具体类、抽象类、接口和包有不同的表示方法。
 
 在 UML 图中，双向关联关系用带双箭头的实线或者无箭头的实线双线表示。单向关联用一个带箭头的实线表示，箭头指向被关联的对象，如下图所示。这就是导航性（Navigatity）。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/v2-3f331f3dc075abb4215413014688638f_1440w.png" alt="img" style="zoom:50%;" />
+<img src="!assets/DesignPattern/v2-3f331f3dc075abb4215413014688638f_1440w.png" alt="img" style="zoom:50%;" />
 
 一个对象可以持有其它对象的数组或者集合。在 UML 中，通过放置多重性（multipicity）表达式在关联线的末端来表示。多重性表达式可以是一个数字、一段范围或者是它们的组合。多重性允许的表达式示例如下：
 
@@ -200,7 +200,7 @@ UML 类图中具体类、抽象类、接口和包有不同的表示方法。
 
 在 UML 类图中，依赖关系用一个带虚线的箭头表示，由使用方指向被使用方，表示使用方对象持有被使用方对象的引用，如下图所示。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/v2-431e044bbf26778a20dd788968e22aac_1440w.png" alt="img" style="zoom:50%;" />
+<img src="!assets/DesignPattern/v2-431e044bbf26778a20dd788968e22aac_1440w.png" alt="img" style="zoom:50%;" />
 
 依赖关系在 Java 中的具体代码表现形式为 **B 为 A 的构造器或方法中的局部变量**、**方法或构造器的参数**、**方法的返回值**，或者 **A 调用 B 的静态方法**。
 
@@ -280,7 +280,7 @@ public class A {
 
 在 UML 图中，聚合关系用空心菱形加实线箭头表示，空心菱形在整体一方，箭头指向部分一方，如下图所示。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/v2-82cb160ed1566d1d04ea320575b54d5f_1440w.png" alt="img" style="zoom:50%;" />
+<img src="!assets/DesignPattern/v2-82cb160ed1566d1d04ea320575b54d5f_1440w.png" alt="img" style="zoom:50%;" />
 
 组合（Composition）也是关联关系的一种特例，它同样体现整体与部分间的包含关系，即 “contains a” 的关系。
 
@@ -290,7 +290,7 @@ public class A {
 
 在 UML 图中，组合关系用实心菱形加实线箭头表示，实心菱形在整体一方，箭头指向部分一方，如下图所示。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/v2-e651244eeca9c0881cbdd2add429e850_1440w.png" alt="img" style="zoom:50%;" />
+<img src="!assets/DesignPattern/v2-e651244eeca9c0881cbdd2add429e850_1440w.png" alt="img" style="zoom:50%;" />
 
 在 Java 代码形式上，聚合和组合关系中的部分对象是整体对象的一个成员变量。但是，在实际应用开发时，两个对象之间的关系到底是聚合还是组合，有时候很难区别。在 Java 中，仅从类代码本身是区分不了聚合和组合的。如果一定要区分，那么如果在删除整体对象的时候，必须删掉部分对象，那么就是组合关系，否则可能就是聚合关系。从业务角度上来看，如果作为整体的对象必须要部分对象的参与，才能完成自己的职责，那么二者之间就是组合关系，否则就是聚合关系。
 
@@ -361,7 +361,7 @@ public class A {
 
 分析：Windows 的主题是桌面背景图片、窗口颜色和声音等元素的组合。用户可以根据自己的喜爱更换自己的桌面主题，也可以从网上下载新的主题。这些主题有共同的特点，可以为其定义一个抽象类（Abstract Subject），而每个具体的主题（Specific Subject）是其子类。用户窗体可以根据需要选择或者增加新的主题，而不需要修改原代码，所以它是满足开闭原则的，其类图如下图所示：
 
-![3-1Q113100151L5.gif](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/3-1Q113100151L5.png)
+<img src="!assets/DesignPattern/3-1Q113100151L5.png" alt="3-1Q113100151L5.gif" style="" />
 
 
 
@@ -407,7 +407,7 @@ public class A {
 
 分析：鸟一般都会飞行，如燕子的飞行速度大概是每小时 120 千米。但是新西兰的几维鸟由于翅膀退化无法飞行。假如要设计一个实例，计算这两种鸟飞行 300 千米要花费的时间。显然，拿燕子来测试这段代码，结果正确，能计算出所需要的时间；但拿几维鸟来测试，结果会发生 “除零异常” 或是 “无穷大”，明显不符合预期，其类图如下图所示：
 
-![3-1Q11311094H32.gif](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/3-1Q11311094H32.png)
+<img src="!assets/DesignPattern/3-1Q11311094H32.png" alt="3-1Q11311094H32.gif" style="" />
 
 程序代码如下：
 
@@ -458,7 +458,7 @@ class BrownKiwi extends Bird {
 
 程序运行错误的原因是：几维鸟类重写了鸟类的 `setSpeed(double speed)` 方法，这违背了里氏替换原则。正确的做法是：取消几维鸟原来的继承关系，定义鸟和几维鸟的更一般的父类，如动物类，它们都有奔跑的能力。几维鸟的飞行速度虽然为 0，但奔跑速度不为 0，可以计算出其奔跑 300 千米所要花费的时间。其类图如下图所示：
 
-![3-1Q11311101SN.gif](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/3-1Q11311101SN.png)
+<img src="!assets/DesignPattern/3-1Q11311101SN.png" alt="3-1Q11311101SN.gif" style="" />
 
 
 
@@ -493,11 +493,11 @@ class BrownKiwi extends Bird {
 
 分析：汽车按 “动力源” 划分可分为汽油汽车、电动汽车等；按 “颜色” 划分可分为白色汽车、黑色汽车和红色汽车等。如果同时考虑这两种分类，其组合就很多。下图所示是用继承关系实现的汽车分类的类图：
 
-![3-1Q113160133151.gif](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/3-1Q113160133151.png)
+<img src="!assets/DesignPattern/3-1Q113160133151.png" alt="3-1Q113160133151.gif" style="" />
 
 从上图图可以看出用继承关系实现会产生很多子类，而且增加新的 “动力源” 或者增加新的 “颜色” 都要修改源代码，这违背了开闭原则，显然不可取。但如果改用组合关系实现就能很好地解决以上问题，其类图如下图所示。
 
-![3-1Q11316034X57.gif](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/3-1Q11316034X57.png)
+<img src="!assets/DesignPattern/3-1Q11316034X57.png" alt="3-1Q11316034X57.gif" style="" />
 
 
 
@@ -574,7 +574,7 @@ class Customer {
 
 这样，不管顾客类 Customer 访问什么商店，或者增加新的商店，都不需要修改原有代码了，其类图如下图所示：
 
-![3-1Q113131610L7.gif](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/3-1Q113131610L7.png)
+<img src="!assets/DesignPattern/3-1Q113131610L7.png" alt="3-1Q113131610L7.gif" style="" />
 
 程序代码如下：
 
@@ -654,7 +654,7 @@ class Customer {
 
 分析：大学学生工作主要包括学生生活辅导和学生学业指导两个方面的工作，其中生活辅导主要包括班委建设、出勤统计、心理辅导、费用催缴、班级管理等工作，学业指导主要包括专业引导、学习辅导、科研指导、学习总结等工作。如果将这些工作交给一位老师负责显然不合理，正确的做法是生活辅导由辅导员负责，学业指导由学业导师负责，其类图如下图所示：
 
-![3-1Q113133F4161.gif](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/3-1Q113133F4161.png)
+<img src="!assets/DesignPattern/3-1Q113133F4161.png" alt="3-1Q113133F4161.gif" style="" />
 
 注意：单一职责同样也适用于方法。一个方法应该尽可能做好一件事情。如果一个方法处理的事情太多，其颗粒度会变得很粗，不利于重用。
 
@@ -700,7 +700,7 @@ class Customer {
 
 分析：学生成绩管理程序一般包含插入成绩、删除成绩、修改成绩、计算总分、计算均分、打印成绩信息、査询成绩信息等功能，如果将这些功能全部放到一个接口中显然不太合理，正确的做法是将它们分别放在输入模块、统计模块和打印模块等 3 个模块中，其类图如下图所示：
 
-![3-1Q113141Q0X3.gif](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/3-1Q113141Q0X3.png)
+<img src="!assets/DesignPattern/3-1Q113141Q0X3.png" alt="3-1Q113141Q0X3.gif" style="" />
 
 程序代码如下：
 
@@ -822,7 +822,7 @@ class StuScoreList implements InputModule, CountModule, PrintModule {
 
 分析：明星由于全身心投入艺术，所以许多日常事务由经纪人负责处理，如与粉丝的见面会，与媒体公司的业务洽淡等。这里的经纪人是明星的朋友，而粉丝和媒体公司是陌生人，所以适合使用迪米特法则，其类图如下图所示：
 
-![3-1Q113152Q5W1.gif](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/3-1Q113152Q5W1.png)
+<img src="!assets/DesignPattern/3-1Q113152Q5W1.png" alt="3-1Q113152Q5W1.gif" style="" />
 
 程序代码如下：
 
@@ -1016,7 +1016,7 @@ class Company {
 
 其结构如下图所示：
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/562f2844-d77c-40e0-887a-28a7128abd42.png)
+<img src="!assets/DesignPattern/562f2844-d77c-40e0-887a-28a7128abd42.png" alt="img" style="" />
 
 
 
@@ -1228,7 +1228,7 @@ public class Singleton implements Serializable {
 
 其结构如下图所示：
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/a40661e4-1a71-46d2-a158-ff36f7fc3331.png)
+<img src="!assets/DesignPattern/a40661e4-1a71-46d2-a158-ff36f7fc3331.png" alt="img" style="" />
 
 
 
@@ -1330,7 +1330,7 @@ public class Client {
 
 这样做能把客户类和具体子类的实现解耦，客户类不再需要知道有哪些子类以及应当实例化哪个子类。因为客户类往往有多个，如果不使用简单工厂，所有的客户类都要知道所有子类的细节。而且一旦子类发生改变，例如增加子类，那么所有的客户类都要进行修改。
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/c79da808-0f28-4a36-bc04-33ccc5b83c13.png)
+<img src="!assets/DesignPattern/c79da808-0f28-4a36-bc04-33ccc5b83c13.png" alt="img" style="" />
 
 
 

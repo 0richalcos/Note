@@ -235,7 +235,7 @@ SAX 解析 XML 步骤：
 
 2. 新建一个类 XmlParseHandler.java，该类需要继承 `DefaultHandler` 或者实现 `ContentHandler` 接口，这里通过继承 `DefaultHandler`（实现了 `ContentHandler` 接口）的方式，该类是 SAX 解析的核心所在，生命周期如下：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20181101171449337.jpeg" alt="XmlParseHandler生命周期" style="width:16%;" />
+   <img src="!assets/XMLParse/20181101171449337.jpeg" alt="XmlParseHandler生命周期" style="width:16%;" />
 
    代码：
 

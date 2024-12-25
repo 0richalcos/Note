@@ -91,7 +91,7 @@ RDBMS 即关系数据库管理系统（Relational Database Management System）�
 
 MySQL 为关系型数据库（Relational Database Management System），这种所谓的 “关系型” 可以理解为 “表格” 的概念，一个关系型数据库由一个或数个表格组成，如下图所示的一个表格：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200528004923567.png" alt="image-20200528004923567" style="zoom:80%;" />
+<img src="!assets/MySQL/image-20200528004923567.png" alt="image-20200528004923567" style="zoom:80%;" />
 
 - 表头（header）：每一列的名称
 - 列（col）：具有相同数据类型的数据的集合
@@ -105,64 +105,64 @@ MySQL 为关系型数据库（Relational Database Management System），这种�
 
 1. 先下载 [MySQL](https://dev.mysql.com/downloads/mysql/)，现在的版本是 8.0.27：
 
-   ![image-20211115115209195](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115115209195.png)
+   <img src="!assets/MySQL/image-20211115115209195.png" alt="image-20211115115209195" style="" />
 
    这里下载的是 Zip 安装包版，可以点击 【Go to Download Page】，去载 MSI 安装版（这里下载的是安装版）：
 
-   ![image-20211115115812248](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115115812248.png)
+   <img src="!assets/MySQL/image-20211115115812248.png" alt="image-20211115115812248" style="" />
 
 2. 下载后打开文件开始安装，这里选择自定义安装：
 
-   ![image-20211115141345534](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115141345534.png)
+   <img src="!assets/MySQL/image-20211115141345534.png" alt="image-20211115141345534" style="" />
 
 3. 这里选择只安装基础的 MySQL 服务和 JDBC，并且勾选下面的选项：
 
-   ![image-20211115141638695](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115141638695.png)
+   <img src="!assets/MySQL/image-20211115141638695.png" alt="image-20211115141638695" style="" />
 
 4. 点击 MySQL Server，下方会出现 Advanced Options（高级选项），点击高级选项，盘它！（这里是第二次装发现的，所以版本不一样）：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220320164455188.png" alt="image-20220320164455188" style="zoom: 67%;" />
+   <img src="!assets/MySQL/image-20220320164455188.png" alt="image-20220320164455188" style="zoom: 67%;" />
 
 5. 这里可以更改安装地址，我建议改一下数据存储地址，防止数据太多占用 C 盘空间，然后点 OK 和 Next：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220320164751257.png" alt="image-20220320164751257" style="zoom:67%;" />
+   <img src="!assets/MySQL/image-20220320164751257.png" alt="image-20220320164751257" style="zoom:67%;" />
 
 6. 取消了文档：
 
-   ![image-20211115141735403](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115141735403.png)
+   <img src="!assets/MySQL/image-20211115141735403.png" alt="image-20211115141735403" style="" />
 
 7. 开始安装：
 
-   ![image-20211115141804300](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115141804300.png)
+   <img src="!assets/MySQL/image-20211115141804300.png" alt="image-20211115141804300" style="" />
 
 8. 开始配置：
 
-   ![image-20211115141841846](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115141841846.png)
+   <img src="!assets/MySQL/image-20211115141841846.png" alt="image-20211115141841846" style="" />
 
 9. 选择开发电脑：
 
-   ![image-20211115142116388](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142116388.png)
+   <img src="!assets/MySQL/image-20211115142116388.png" alt="image-20211115142116388" style="" />
 
 10. 这里使用默认的加密加密方法：
 
-    ![image-20211115142310317](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142310317.png)
+    <img src="!assets/MySQL/image-20211115142310317.png" alt="image-20211115142310317" style="" />
 
 11. 填写数据库密码：
 
-    ![image-20211115142333702](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142333702.png)
+    <img src="!assets/MySQL/image-20211115142333702.png" alt="image-20211115142333702" style="" />
 
 12. 取消开机自启：
 
-    ![image-20211115142440712](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142440712.png)
+    <img src="!assets/MySQL/image-20211115142440712.png" alt="image-20211115142440712" style="" />
 
 13. 应用配置：
 
-    ![image-20211115142501957](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142501957.png)
+    <img src="!assets/MySQL/image-20211115142501957.png" alt="image-20211115142501957" style="" />
 
 14. 配置环境变量：
 
-    ![image-20211115142610319](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142610319.png)
-    ![image-20211115142647651](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211115142647651.png)
+    <img src="!assets/MySQL/image-20211115142610319.png" alt="image-20211115142610319" style="" />
+    <img src="!assets/MySQL/image-20211115142647651.png" alt="image-20211115142647651" style="" />
 
 15. 访问：
 
@@ -294,7 +294,7 @@ MySQL 提供了多个不同的存储引擎，包括处理事务安全表的引�
 
 支持的存储引擎有 InnoDB、MyISAM、Memory、Merge、Archive、Federated、CSV、BLACKHOLE 等。可以使用 `SHOW ENGINES` 语句查看系统所支持的引擎类型，结果如图所示：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200528235456064.png" alt="image-20200528235456064" style="zoom: 67%;" />
+<img src="!assets/MySQL/image-20200528235456064.png" alt="image-20200528235456064" style="zoom: 67%;" />
 
 Support 列的值表示某种引擎是否能使用，YES 表示可以使用，NO 表示不能使用，DEFAULT 表示该引擎为当前默认的存储引擎。
 
@@ -1225,7 +1225,7 @@ SELECT * FROM A WHERE EXISTS (SELECT 1 FROM B WHERE A.id = B.id);
 
 建两张表，第一张表命名为 kemu，第二张表命名为 score：
 
-![clipboard.png](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/bVbk2or.png)![clipboard.png](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/bVbk2oz.png)
+<img src="!assets/MySQL/bVbk2or.png" alt="clipboard.png" style="" /><img src="!assets/MySQL/bVbk2oz.png" alt="clipboard.png" style="" />
 
 
 
@@ -1241,7 +1241,7 @@ select * from kemu left join score on kemu.id = score.id
 
 结果集：
 
-![clipboard.png](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/bVbk2uE.png)![clipboard.png](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/bVbk2qQ.png)
+<img src="!assets/MySQL/bVbk2uE.png" alt="clipboard.png" style="" /><img src="!assets/MySQL/bVbk2qQ.png" alt="clipboard.png" style="" />
 
 
 
@@ -1255,7 +1255,7 @@ select * from kemu right join score on kemu.id = score.id
 
 结果集：
 
-![clipboard.png](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/bVbk2uI.png)![clipboard.png](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/bVbk2uP.png)
+<img src="!assets/MySQL/bVbk2uI.png" alt="clipboard.png" style="" /><img src="!assets/MySQL/bVbk2uP.png" alt="clipboard.png" style="" />
 
 
 
@@ -1269,7 +1269,7 @@ select * from kemu join score on kemu.id = score.id
 
 结果集：
 
-![clipboard.png](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/bVbk2v1.png)![clipboard.png](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/bVbk2MW.png)
+<img src="!assets/MySQL/bVbk2v1.png" alt="clipboard.png" style="" /><img src="!assets/MySQL/bVbk2MW.png" alt="clipboard.png" style="" />
 
 
 
@@ -1284,7 +1284,7 @@ select * from kemu join score on kemu.id = score.id
 
 假设有两张表：
 
-![image-20211129161954956](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211129161954956.png)![image-20211129162050479](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211129162050479.png)
+<img src="!assets/MySQL/image-20211129161954956.png" alt="image-20211129161954956" style="" /><img src="!assets/MySQL/image-20211129162050479.png" alt="image-20211129162050479" style="" />
 
 两条 SQL：
 
@@ -1293,7 +1293,7 @@ select * form tab1 left join tab2 on (tab1.size = tab2.size) where tab2.name='AA
 select * form tab1 left join tab2 on (tab1.size = tab2.size and tab2.name='AAA’)
 ```
 
-![image-20211129162254328](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211129162254328.png)![image-20211129162304566](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211129162304566.png)
+<img src="!assets/MySQL/image-20211129162254328.png" alt="image-20211129162254328" style="" /><img src="!assets/MySQL/image-20211129162304566.png" alt="image-20211129162304566" style="" />
 
 
 
@@ -1724,7 +1724,7 @@ MySQL使用SELECT命令及WHERE子句来读取数据表中的数据，但是当�
 
 实例：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531163220282.png" alt="image-20200531163220282" style="zoom:80%;" />
+<img src="!assets/MySQL/image-20200531163220282.png" alt="image-20200531163220282" style="zoom:80%;" />
 
 当输出列中有NULL值时可以使用函数IFNULL()或COALESCE()
 
@@ -2488,7 +2488,7 @@ CREATE VIEW <视图名> AS <SELECT语句>
 
 默认情况下，创建的视图和基本表的字段是一样的，也可以通过指定视图字段的名称来创建视图。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531164924587.png" alt="image-20200531164924587" style="zoom:80%;" />
+<img src="!assets/MySQL/image-20200531164924587.png" alt="image-20200531164924587" style="zoom:80%;" />
 
 
 
@@ -2768,11 +2768,11 @@ MySQL 用户变量，MySQL 中用户变量不用提前申明，在用的时候�
 
 在存储过程中使用用户变量：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531171451044.png" alt="image-20200531171451044" style="zoom:80%;" />
+<img src="!assets/MySQL/image-20200531171451044.png" alt="image-20200531171451044" style="zoom:80%;" />
 
 在存储过程间传递全局范围的用户变量：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531171500385.png" alt="image-20200531171500385" style="zoom:80%;" />
+<img src="!assets/MySQL/image-20200531171500385.png" alt="image-20200531171500385" style="zoom:80%;" />
 
 注意:
 
@@ -2958,7 +2958,7 @@ SHOWCREATE PROCEDURE 数据库.存储过程名;
 
 内部的变量在其作用域范围内享有更高的优先权，当执行到 end。变量时，内部变量消失，此时已经在其作用域外，变量不再可见了，应为在存储过程外再也不能找到这个申明的变量，但是你可以通过 out 参数或者将其值指派给会话变量来保存其值。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531195043445.png" alt="image-20200531195043445" style="zoom:80%;" />
+<img src="!assets/MySQL/image-20200531195043445.png" alt="image-20200531195043445" style="zoom:80%;" />
 
 
 
@@ -2966,13 +2966,13 @@ SHOWCREATE PROCEDURE 数据库.存储过程名;
 
 **if-then-else**
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531195130654.png" alt="image-20200531195130654" style="zoom:80%;" />
+<img src="!assets/MySQL/image-20200531195130654.png" alt="image-20200531195130654" style="zoom:80%;" />
 
 
 
 **case语句**
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531195143678.png" alt="image-20200531195143678" style="zoom:80%;" />
+<img src="!assets/MySQL/image-20200531195143678.png" alt="image-20200531195143678" style="zoom:80%;" />
 
 
 
@@ -2980,7 +2980,7 @@ SHOWCREATE PROCEDURE 数据库.存储过程名;
 
 **while ···· end while**
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531195208679.png" alt="image-20200531195208679" style="zoom:80%;" />
+<img src="!assets/MySQL/image-20200531195208679.png" alt="image-20200531195208679" style="zoom:80%;" />
 
 
 
@@ -2988,7 +2988,7 @@ SHOWCREATE PROCEDURE 数据库.存储过程名;
 
 它在执行操作后检查结果，而 while 则是执行前进行检查。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531195231262.png" alt="image-20200531195231262" style="zoom:80%;" />
+<img src="!assets/MySQL/image-20200531195231262.png" alt="image-20200531195231262" style="zoom:80%;" />
 
 
 
@@ -2996,7 +2996,7 @@ SHOWCREATE PROCEDURE 数据库.存储过程名;
 
 loop 循环不需要初始条件，这点和 while 循环相似，同时和 repeat 循环一样不需要结束条件, leave 语句的意义是离开循环。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531195245319.png" alt="image-20200531195245319" style="zoom:80%;" />
+<img src="!assets/MySQL/image-20200531195245319.png" alt="image-20200531195245319" style="zoom:80%;" />
 
 
 
@@ -3010,7 +3010,7 @@ loop 循环不需要初始条件，这点和 while 循环相似，同时和 repe
 
 ITERATE 通过引用复合语句的标号,来从新开始复合语句:
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531195350919.png" alt="image-20200531195350919" style="zoom:80%;" />
+<img src="!assets/MySQL/image-20200531195350919.png" alt="image-20200531195350919" style="zoom:80%;" />
 
 # 10、触发器
 
@@ -3175,7 +3175,7 @@ RETURNS <类型>
 
 若要查看数据库中存在哪些自定义函数，可以使用 SHOW FUNCTION STATUS 语句；若要查看数据库中某个具体的自定义函数，可以使用 SHOW CREATE FUNCTION<函数名> 语句，其中<函数名>用于指定该自定义函数的名称。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531205053160.png" alt="image-20200531205053160" style="zoom:80%;" />
+<img src="!assets/MySQL/image-20200531205053160.png" alt="image-20200531205053160" style="zoom:80%;" />
 
 成功创建自定义函数后，就可以如同调用系统内置函数一样，使用关键字 SELECT 调用用户自定义的函数，语法格式为：
 
@@ -4160,7 +4160,7 @@ PERIOD_DIFF(startDate,endDate)
 SELECT PERIOD_DIFF(201710, 201703);
 ```
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/12312312.png)
+<img src="!assets/MySQL/12312312.png" alt="img" style="" />
 
 如果小月份放前面，那么返回负数 -1。
 
@@ -4186,7 +4186,7 @@ SELECT DATEDIFF(DATE_FORMAT(NOW(), '%Y-%m-%d'),DATE_FORMAT('2018-09-10','%Y-%m-%
 
 结果：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180917110456408370.png" alt="技术分享图片" />
+<img src="!assets/MySQL/20180917110456408370.png" alt="技术分享图片" style="" />
 
 
 
@@ -4220,7 +4220,7 @@ unit 参数是确定 (*end*-*begin*) 的结果的单位，表示为整数。 以
 SELECT TIMESTAMPDIFF(DAY,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180917110456532385.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
+<img src="!assets/MySQL/20180917110456532385.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
 
 2017-05-01 距现在多少年：
 
@@ -4228,7 +4228,7 @@ SELECT TIMESTAMPDIFF(DAY,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
 SELECT TIMESTAMPDIFF(YEAR,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/99f5964ea791f1ca0521e3fb4bc1ab96.png" alt="img" style="zoom:80%;FLOAT:LEFT"  />
+<img src="!assets/MySQL/99f5964ea791f1ca0521e3fb4bc1ab96.png" alt="img" style="zoom:80%;FLOAT:LEFT" />
 
 2017-05-01 距现在多少月：
 
@@ -4236,7 +4236,7 @@ SELECT TIMESTAMPDIFF(YEAR,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
 SELECT TIMESTAMPDIFF(MONTH,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180917110456254083.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
+<img src="!assets/MySQL/20180917110456254083.png" alt="技术分享图片" style="zoom:80%;FLOAT:LEFT" />
 
 
 
@@ -4248,7 +4248,7 @@ SELECT NOW(),CURDATE(),CURTIME();
 
 结果类似：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/755765-20190227093739650-528895218.png" alt="img" style="zoom:80%;float:left" />
+<img src="!assets/MySQL/755765-20190227093739650-528895218.png" alt="img" style="zoom:80%;float:left" />
 
 
 
@@ -4286,7 +4286,7 @@ SELECT DATE_SUB(CURDATE(),INTERVAL 1 DAY);
 
 当前日期 2018-09-17，结果：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180917110455670136.png" alt="技术分享图片" style="zoom:80%;float:left" />
+<img src="!assets/MySQL/20180917110455670136.png" alt="技术分享图片" style="zoom:80%;float:left" />
 
 获取后一天
 
@@ -4296,7 +4296,7 @@ SELECT DATE_SUB(CURDATE(),INTERVAL -1 DAY);
 
 当前日期 2018-09-17，结果：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180917110455998240.png" alt="技术分享图片" style="zoom:80%;float:left" />
+<img src="!assets/MySQL/20180917110455998240.png" alt="技术分享图片" style="zoom:80%;float:left" />
 
 
 
@@ -4615,7 +4615,7 @@ MYSQL事务处理主要有两种方法：
 
 实例：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531205816289.png" alt="image-20200531205816289" style="zoom:80%;" />
+<img src="!assets/MySQL/image-20200531205816289.png" alt="image-20200531205816289" style="zoom:80%;" />
 
 
 
@@ -4920,7 +4920,7 @@ MySQL临时表在需要保存一些临时数据时是非常有用的。临时表
 
 实例：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531210628430.png" alt="image-20200531210628430" style="zoom:80%;" />
+<img src="!assets/MySQL/image-20200531210628430.png" alt="image-20200531210628430" style="zoom:80%;" />
 
 当使用SHOW TABLES命令显示数据表列表时，将无法看到SalesSummary表。
 
@@ -4932,7 +4932,7 @@ MySQL临时表在需要保存一些临时数据时是非常有用的。临时表
 
 默认情况下，在断开与数据库的连接后，临时表就会自动销毁，当然也可以在当前MySQL会话使用DROP TABLE命令来手动删除临时表。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200531210706162.png" alt="image-20200531210706162" style="zoom:80%;" />
+<img src="!assets/MySQL/image-20200531210706162.png" alt="image-20200531210706162" style="zoom:80%;" />
 
 
 
@@ -5083,7 +5083,7 @@ MySQL 8.0 的 ibd 文件存在 sdi page 记录元数据信息的，压缩的 JSO
 ibd2sdi /data/mysql_3314/mysqldata/ibd2sql/ddcw_alltype_table.ibd
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/6fa8ab849cd67b4f748116b8ce5ac36c.png" alt="img" />
+<img src="!assets/MySQL/6fa8ab849cd67b4f748116b8ce5ac36c.png" alt="img" style="" />
 
 但还要自己去拼接 DDL，太麻烦了，可以使用其他工具来提取 DDL，比如 [ibd2sql](https://cloud.tencent.com/developer/tools/blog-entry?target=https%3A%2F%2Fgithub.com%2Fddcw%2Fibd2sql&source=article&objectId=2407144)：
 
@@ -5091,7 +5091,7 @@ ibd2sdi /data/mysql_3314/mysqldata/ibd2sql/ddcw_alltype_table.ibd
 python3 main.py /tmp/ddcw_alltype_table.ibd --ddl
 ```
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/23677b4c2fc40b54f4e139d3ccc77cc8.png)
+<img src="!assets/MySQL/23677b4c2fc40b54f4e139d3ccc77cc8.png" alt="img" style="" />
 
 现在 DDL 已经提取出来了，先创建个测试环境，创建相同的库，再使用上面的 DDL 去恢复相关的表结构。
 
@@ -5123,7 +5123,7 @@ select count(*) from ddcw_alltype_table;
 python3 main.py /tmp/ddcw_alltype_table.ibd --sql > /tmp/ddcw_alltype_table.sql
 ```
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/c3a1b8d6e500c855572725723c067148.png)
+<img src="!assets/MySQL/c3a1b8d6e500c855572725723c067148.png" alt="img" style="" />
 
 然后就可以把解析出来的sql导入数据库了，当然也可以解析的时候直接通过管道写入数据库：
 
@@ -5131,7 +5131,7 @@ python3 main.py /tmp/ddcw_alltype_table.ibd --sql > /tmp/ddcw_alltype_table.sql
 mysql -h127.0.0.1 -P3314 -p123456 < /tmp/ddcw_alltype_table.sql
 ```
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/52252cd6745895d4fe42664c897c767e.png)
+<img src="!assets/MySQL/52252cd6745895d4fe42664c897c767e.png" alt="img" style="" />
 
 
 
@@ -5208,7 +5208,7 @@ DriverManager类的是管理一组 JDBC 驱动程序的基本服务。作用有�
 
 URL用于标识数据库的位置，程序员通过URL地址告诉JDBC程序连接哪个数据库，URL的写法为：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200603120231842.png" alt="image-20200603120231842" style="zoom:80%;" />
+<img src="!assets/MySQL/image-20200603120231842.png" alt="image-20200603120231842" style="zoom:80%;" />
 
 
 
@@ -5630,7 +5630,7 @@ vim /etc/mysql/mysql.conf.d/mysqld.cnf
 
 注释掉 `bind-address`：
 
-![image-20210420120254515](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210420120254515.png)
+<img src="!assets/MySQL/image-20210420120254515.png" alt="image-20210420120254515" style="" />
 
 重启服务：
 
@@ -5666,7 +5666,7 @@ service mysql restart
 
 4. 如果看到没有删除的文件记得手动删除：
 
-   ![image-20210420112319964](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210420112319964.png)
+   <img src="!assets/MySQL/image-20210420112319964.png" alt="image-20210420112319964" style="" />
 
 5. 清除残留数据：
 
@@ -5682,7 +5682,7 @@ service mysql restart
 
 7. 删除 MySQL 的数据库信息，位置：`/var/lib/mysql/`：
 
-   ![image-20210420112705768](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210420112705768.png)
+   <img src="!assets/MySQL/image-20210420112705768.png" alt="image-20210420112705768" style="" />
 
 
 

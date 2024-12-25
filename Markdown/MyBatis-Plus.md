@@ -38,7 +38,7 @@ MyBatis-Plus (opens new window)（简称 MP）是一个 MyBatis（opens new wind
 
 **框架结构**
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/mybatis-plus-framework.jpg" alt="framework" style="zoom: 50%;" />
+<img src="!assets/MyBatis-Plus/mybatis-plus-framework.jpg" alt="framework" style="zoom: 50%;" />
 
 
 

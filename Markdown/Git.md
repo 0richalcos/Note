@@ -99,7 +99,7 @@ GitHub 和 GitLab 都是基于 Git 仓库的 Web 开发流程代码托管平台�
 
    当出现类似如下回显信息，表示 GitLab 软件包仓库已安装：
 
-   ![image-20240810163038904](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240810163038904.png)
+   <img src="!assets/Git/image-20240810163038904.png" alt="image-20240810163038904" style="" />
 
 5. 刷新软件包列表：
 
@@ -119,7 +119,7 @@ GitHub 和 GitLab 都是基于 Git 仓库的 Web 开发流程代码托管平台�
 
    当出现类似如下回显信息，表示 GitLab 已经安装成功：
 
-   ![image-20240810170021865](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240810170021865.png)
+   <img src="!assets/Git/image-20240810170021865.png" alt="image-20240810170021865" style="" />
 
 
 
@@ -342,7 +342,7 @@ gitaly['env'] = {
 
    回显信息类似如下所示，可以在 Password 后获取 GitLab 的初始登录密码：
 
-   ![image-20240810170359737](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240810170359737.png)
+   <img src="!assets/Git/image-20240810170359737.png" alt="image-20240810170359737" style="" />
 
    > [!IMPORTANT]
    >
@@ -352,13 +352,13 @@ gitaly['env'] = {
 
    在浏览器的地址栏中，输入 `http://ECS实例的公网IP` 即可进入 GitLab 的登录界面：
 
-   ![image-20240810171208179](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240810171208179.png)
+   <img src="!assets/Git/image-20240810171208179.png" alt="image-20240810171208179" style="" />
 
    首次登录使用用户名 root，密码为步骤 1 获取的密码。
 
 3. 进去后将语言设置成中文：
 
-   ![image-20240810171806780](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240810171806780.png)
+   <img src="!assets/Git/image-20240810171806780.png" alt="image-20240810171806780" style="" />
 
 
 
@@ -366,15 +366,15 @@ gitaly['env'] = {
 
 1. 在 GitLab 的主页中，单击【创建项目】：
 
-   ![image-20240810172758823](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240810172758823.png)
+   <img src="!assets/Git/image-20240810172758823.png" alt="image-20240810172758823" style="" />
 
 2. 单击【创建空白项目】，设置项目名称和项目 URL，然后单击【新建项目】：
 
-   ![image-20240811224306100](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240811224306100.png)
+   <img src="!assets/Git/image-20240811224306100.png" alt="image-20240811224306100" style="" />
 
 3. 复制 Clone 链接，该链接在进行克隆操作时需要使用：
 
-   ![image-20240812000643716](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240812000643716.png)
+   <img src="!assets/Git/image-20240812000643716.png" alt="image-20240812000643716" style="" />
 
 
 
@@ -382,7 +382,7 @@ gitaly['env'] = {
 
 1. 在 GitLab 的【偏好设置】里，找到【访问令牌】，在页面中创建一个令牌：
 
-   ![image-20240811235925254](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240811235925254.png)
+   <img src="!assets/Git/image-20240811235925254.png" alt="image-20240811235925254" style="" />
 
    > [!IMPORTANT]
    >
@@ -390,9 +390,9 @@ gitaly['env'] = {
 
 2. 在 IDEA 的 GitLab 设置里，使用自己搭建的 GitLab 访问地址和步骤 1 获取的令牌登录：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240812000432360.png" alt="image-20240812000432360" style="zoom: 50%;" />
+   <img src="!assets/Git/image-20240812000432360.png" alt="image-20240812000432360" style="zoom: 50%;" />
 
 3. 最后直接 Clone 就行：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240812000735712.png" alt="image-20240812000735712" style="zoom:50%;" />
+   <img src="!assets/Git/image-20240812000735712.png" alt="image-20240812000735712" style="zoom:50%;" />
 

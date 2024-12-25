@@ -23,7 +23,7 @@ typora-copy-images-to: upload
 
 最典型的 MVC 就是 JSP + Servlet + JavaBean 的模式。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200324220816875.png" alt="image-20200324220816875" style="zoom:67%;" />
+<img src="!assets/SpringMVC/image-20200324220816875.png" alt="image-20200324220816875" style="zoom:67%;" />
 
 
 
@@ -32,7 +32,7 @@ typora-copy-images-to: upload
 - 在早期的开发中，通常采用的都是 Model1。
 - Model1 中，主要分为两层，视图层和模型层。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200324221307068.png" alt="image-20200324221307068" style="zoom:67%;" />
+<img src="!assets/SpringMVC/image-20200324221307068.png" alt="image-20200324221307068" style="zoom:67%;" />
 
 Model1 优点：架构简单，比较适合小型项目开发；
 
@@ -44,7 +44,7 @@ Model1 缺点：JSP 职责不单一，职责较重，不便于维护；
 
 Model2 把一个项目分成三部分，包括视图、控制、模型。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200324231255654.png" alt="image-20200324231255654" style="zoom:67%;" />
+<img src="!assets/SpringMVC/image-20200324231255654.png" alt="image-20200324231255654" style="zoom:67%;" />
 
 1. 用户发送请求
 2. Servlet 接受请求数据，并调用对应的业务逻辑方法
@@ -229,7 +229,7 @@ Spring MVC 框架像许多其他 MVC 框架一样，以请求为驱动，围绕�
 
 Spring MVC 的工作原理图：
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/249993-20161212142542042-2117679195.jpg)
+<img src="!assets/SpringMVC/249993-20161212142542042-2117679195.jpg" alt="img" style="" />
 
 1. 用户发送请求至前端控制器 DispatcherServlet
 2. DispatcherServlet 收到请求调用 HandlerMapping（处理器映射器）
@@ -402,7 +402,7 @@ Spring MVC 的工作原理图：
 1. 查看控制台输出，看一下是不是缺少了什么 jar 包
 2. 如果 jar 包存在，显示无法输出，就在 IDEA 的项目发布中，添加 lib 依赖：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200326005840940.png" alt="image-20200326005840940" style="zoom: 67%;" />
+<img src="!assets/SpringMVC/image-20200326005840940.png" alt="image-20200326005840940" style="zoom: 67%;" />
 
 3. 重启 Tomcat 即可解决！
 

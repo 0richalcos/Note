@@ -164,7 +164,7 @@ new Vue({
 
 **生命周期图示**
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/lifecycle.png" alt="Vue 实例生命周期" style="zoom:50%;" />
+<img src="!assets/Vue/lifecycle.png" alt="Vue 实例生命周期" style="zoom:50%;" />
 
 
 
@@ -205,7 +205,7 @@ Mustache 标签将会被替代为对应数据对象上 `msg` property 的值。�
 <p>Using v-html directive: <span v-html="rawHtml"></span></p>
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221118165537850.png" alt="image-20221118165537850" style="zoom: 67%;" />
+<img src="!assets/Vue/image-20221118165537850.png" alt="image-20221118165537850" style="zoom: 67%;" />
 
 这个 `span` 的内容将会被替换成为 property 值 `rawHtml`，直接作为 HTML——会忽略解析 property 值中的数据绑定。
 
@@ -419,7 +419,7 @@ var vm = new Vue({
 })
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221121101428588.png" alt="image-20221121101428588" style="zoom:50%;" />
+<img src="!assets/Vue/image-20221121101428588.png" alt="image-20221121101428588" style="zoom:50%;" />
 
 这里声明了一个计算属性 `reversedMessage`。我们提供的函数将用作 property `vm.reversedMessage` 的 getter 函数：
 
@@ -879,7 +879,7 @@ Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从�
 
 那么在上面的代码中切换 `loginType` 将不会清除用户已经输入的内容。因为两个模板使用了相同的元素，`<input>` 不会被替换掉——仅仅是替换了它的 `placeholder`。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221121175859049.png" alt="image-20221121175859049" style="zoom:50%;" /><img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221121175841808.png" alt="image-20221121175841808" style="zoom:50%;" />
+<img src="!assets/Vue/image-20221121175859049.png" alt="image-20221121175859049" style="zoom:50%;" /><img src="!assets/Vue/image-20221121175841808.png" alt="image-20221121175841808" style="zoom:50%;" />
 
 这样也不总是符合实际需求，所以 Vue 提供了一种方式来表达“这两个元素是完全独立的，不要复用它们”。只需添加一个具有唯一值的 `key` attribute 即可：
 
@@ -952,7 +952,7 @@ var example1 = new Vue({
 
 结果：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221122134434846.png" alt="image-20221122134434846" style="zoom:50%;" />
+<img src="!assets/Vue/image-20221122134434846.png" alt="image-20221122134434846" style="zoom:50%;" />
 
 在 `v-for` 块中，我们可以访问所有父作用域的 property。`v-for` 还支持一个可选的第二个参数，即当前项的索引。
 
@@ -993,7 +993,7 @@ new Vue({
 
 结果：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221122141244028.png" alt="image-20221122141244028" style="zoom:50%;" />
+<img src="!assets/Vue/image-20221122141244028.png" alt="image-20221122141244028" style="zoom:50%;" />
 
 可以提供第二个的参数为 property 名称 (也就是键名)：
 
@@ -1079,7 +1079,7 @@ Vue 为了使得 DOM 元素得到最大范围的重用而实现了一些智能�
 
 结果：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221122150631688.png" alt="image-20221122150631688" style="zoom:50%;" />
+<img src="!assets/Vue/image-20221122150631688.png" alt="image-20221122150631688" style="zoom:50%;" />
 
 
 
@@ -1136,7 +1136,7 @@ var example1 = new Vue({
 })
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221122161810159.png" alt="image-20221122161810159" style="zoom:50%;" />
+<img src="!assets/Vue/image-20221122161810159.png" alt="image-20221122161810159" style="zoom:50%;" />
 
 然而许多事件处理逻辑会更为复杂，所以直接把 JavaScript 代码写在 `v-on` 指令中是不可行的。因此 `v-on` 还可以接收一个需要调用的方法名称。
 
@@ -1170,7 +1170,7 @@ var example2 = new Vue({
 example2.greet() // => 'Hello Vue.js!'
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221122162406591.png" alt="image-20221122162406591" style="zoom:50%;" /><img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221122162414936.png" alt="image-20221122162414936" style="zoom:50%;" />
+<img src="!assets/Vue/image-20221122162406591.png" alt="image-20221122162406591" style="zoom:50%;" /><img src="!assets/Vue/image-20221122162414936.png" alt="image-20221122162414936" style="zoom:50%;" />
 
 除了直接绑定到一个方法，也可以在内联 JavaScript 语句中调用方法：
 
@@ -1393,7 +1393,7 @@ Vue.config.keyCodes.f1 = 112
 <textarea v-model="message" placeholder="add multiple lines"></textarea>
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221122174128163.png" alt="image-20221122174128163" style="zoom: 50%;" />
+<img src="!assets/Vue/image-20221122174128163.png" alt="image-20221122174128163" style="zoom: 50%;" />
 
 > 在文本区域插值 (`<textarea>{{text}}</textarea>`) 并不会生效，应用 `v-model` 来代替。
 
@@ -1408,7 +1408,7 @@ Vue.config.keyCodes.f1 = 112
 <label for="checkbox">{{ checked }}</label>
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221122174955652.png" alt="image-20221122174955652" style="zoom:50%;" />
+<img src="!assets/Vue/image-20221122174955652.png" alt="image-20221122174955652" style="zoom:50%;" />
 
 多个复选框，绑定到同一个数组：
 
@@ -1432,7 +1432,7 @@ new Vue({
 })
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221122175009292.png" alt="image-20221122175009292" style="zoom:50%;" />
+<img src="!assets/Vue/image-20221122175009292.png" alt="image-20221122175009292" style="zoom:50%;" />
 
 
 
@@ -1459,7 +1459,7 @@ new Vue({
 })
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221122175240916.png" alt="image-20221122175240916" style="zoom:50%;" />
+<img src="!assets/Vue/image-20221122175240916.png" alt="image-20221122175240916" style="zoom:50%;" />
 
 
 
@@ -1657,7 +1657,7 @@ Vue.component('button-counter', {
 new Vue({ el: '#components-demo' })
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221123155101574.png" alt="image-20221123155101574" style="zoom:50%;" />
+<img src="!assets/Vue/image-20221123155101574.png" alt="image-20221123155101574" style="zoom:50%;" />
 
 因为组件是可复用的 Vue 实例，所以它们与 `new Vue` 接收相同的选项，例如 `data`、`computed`、`watch`、`methods` 以及生命周期钩子等。仅有的例外是像 `el` 这样根实例特有的选项。
 
@@ -1697,7 +1697,7 @@ new Vue({ el: '#components-demo' })
 </div>
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221123155123374.png" alt="image-20221123155123374" style="zoom:50%;" />
+<img src="!assets/Vue/image-20221123155123374.png" alt="image-20221123155123374" style="zoom:50%;" />
 
 注意当点击按钮时，每个组件都会各自独立维护它的 `count`。因为你每用一次组件，就会有一个它的新**实例**被创建。
 
@@ -1785,7 +1785,7 @@ data: function () {
 
 通常一个应用会以一棵嵌套的组件树的形式来组织：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/components.png" alt="Component Tree" style="zoom:50%;" />
+<img src="!assets/Vue/components.png" alt="Component Tree" style="zoom:50%;" />
 
 例如，你可能会有页头、侧边栏、内容区等组件，每个组件又包含了其它的像导航链接、博文之类的组件。
 
@@ -1905,7 +1905,7 @@ Vue.component('blog-post', {
 <blog-post title="Why Vue is so fun"></blog-post>
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221123173930165.png" alt="image-20221123173930165" style="zoom:50%;" />
+<img src="!assets/Vue/image-20221123173930165.png" alt="image-20221123173930165" style="zoom:50%;" />
 
 
 
@@ -2496,7 +2496,7 @@ Vue.component('base-input', {
 
 可能会渲染出这样的东西：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221125144316242.png" alt="image-20221125144316242" style="zoom:50%;" />
+<img src="!assets/Vue/image-20221125144316242.png" alt="image-20221125144316242" style="zoom:50%;" />
 
 幸好，Vue 自定义的 `<slot>` 元素让这变得非常简单：
 

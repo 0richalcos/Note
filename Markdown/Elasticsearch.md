@@ -188,13 +188,13 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
    curl http://localhost:9200
    ```
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220630111509343.png" alt="image-20220630111509343" style="width:70%;" />
+   <img src="!assets/Elasticsearch/image-20220630111509343.png" alt="image-20220630111509343" style="width:70%;" />
 
 
 
 **ES 目录结构：**
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220630105257034.png" alt="image-20220630105257034" style="width:70%;" />
+<img src="!assets/Elasticsearch/image-20220630105257034.png" alt="image-20220630105257034" style="width:70%;" />
 
 
 ```shell
@@ -220,7 +220,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
    vim /home/esuser/elasticsearch-7.14.0/config/elasticsearch.yml
    ```
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220703192151746.png" alt="image-20220703192151746" style="width:70%;" />
+   <img src="!assets/Elasticsearch/image-20220703192151746.png" alt="image-20220703192151746" style="width:70%;" />
    
 2. 重新启动 ES 服务：
 
@@ -302,7 +302,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 4. 使用自己的浏览器远程访问 ES 服务：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202022-07-04%20002254.png" alt="屏幕截图 2022-07-04 002254" style="width:70%;" />
+   <img src="!assets/Elasticsearch/屏幕截图 2022-07-04 002254.png" alt="屏幕截图 2022-07-04 002254" style="width:70%;" />
 
 
 
@@ -335,7 +335,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 3. 访问 ES：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220705222221335.png" alt="image-20220705222221335" style="width:80%;" />
+   <img src="!assets/Elasticsearch/image-20220705222221335.png" alt="image-20220705222221335" style="width:80%;" />
 
 
 
@@ -343,11 +343,11 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 1. 进入[官方页面](https://www.elastic.co/cn/downloads/past-releases#elasticsearch)，点击 Download 进入下载页面：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726769418773.png" alt="QQ_1726769418773" style="zoom: 50%;" />
+   <img src="!assets/Elasticsearch/QQ_1726769418773.png" alt="QQ_1726769418773" style="zoom: 50%;" />
 
 2. 选择 Windows 版本的下载：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726769681272.png" alt="QQ_1726769681272" style="zoom: 50%;" />
+   <img src="!assets/Elasticsearch/QQ_1726769681272.png" alt="QQ_1726769681272" style="zoom: 50%;" />
 
 3. 下载完成后解压到非中文目录下即可：
 
@@ -355,7 +355,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
    >
    > 注意路径不要包含空格！
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726773540436.png" alt="QQ_1726773540436" style="zoom:50%;" />
+   <img src="!assets/Elasticsearch/QQ_1726773540436.png" alt="QQ_1726773540436" style="zoom:50%;" />
 
 4. 在 Elasticsearch 的 config 目录下，打开 elasticsearch.yml 配置文件：
 
@@ -375,11 +375,11 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 5. 在 Elasticsearch 安装目录的 bin 目录中，双击 elasticsearch.bat 即可启动：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726774051409.png" alt="QQ_1726774051409" />
+   <img src="!assets/Elasticsearch/QQ_1726774051409.png" alt="QQ_1726774051409" style="" />
 
 6. 接下来访问 Elasticsearch，在浏览器输入http://localhost:9200，看到以下界面即可证明 ES 启动成功：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726774166786.png" alt="QQ_1726774166786" style="zoom: 67%;" />
+   <img src="!assets/Elasticsearch/QQ_1726774166786.png" alt="QQ_1726774166786" style="zoom: 67%;" />
 
 
 
@@ -443,7 +443,7 @@ Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化�
 
    修改如下配置：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220705225554258.png" alt="image-20220705225554258" style="width:80%;" />
+   <img src="!assets/Elasticsearch/image-20220705225554258.png" alt="image-20220705225554258" style="width:80%;" />
    
 5. 启动 kibana（记得启动 ES）：
 
@@ -571,7 +571,7 @@ PUT /products
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220710231252432.png" alt="image-20220710231252432" style="width:90%;" />
+<img src="!assets/Elasticsearch/image-20220710231252432.png" alt="image-20220710231252432" style="width:90%;" />
 
 
 
@@ -582,7 +582,7 @@ GET /_cat/indices?v
 ```
 
 <div align="center">
-    <img src="../Images/Elasticsearch/image-20220710231614286.png" alt="image-20220710231614286" style="width:90%" />
+    <img src="!assets/Elasticsearch/image-20220710231614286.png" alt="image-20220710231614286" style="width:90%" />
 </div>
 
 
@@ -604,7 +604,7 @@ DELETE /*
 DELETE /products
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220710231843156.png" alt="image-20220710231843156" style="width:90%;" />
+<img src="!assets/Elasticsearch/image-20220710231843156.png" alt="image-20220710231843156" style="width:90%;" />
 
 
 
@@ -651,7 +651,7 @@ PUT /products
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220710232622290.png" alt="image-20220710232622290" style="width:85%;" />
+<img src="!assets/Elasticsearch/image-20220710232622290.png" alt="image-20220710232622290" style="width:85%;" />
 
 
 
@@ -667,7 +667,7 @@ GET /索引名/_mapping
 GET /products/_mapping
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220710232831896.png" alt="image-20220710232831896" style="width:85%;" />
+<img src="!assets/Elasticsearch/image-20220710232831896.png" alt="image-20220710232831896" style="width:85%;" />
 
 
 
@@ -701,7 +701,7 @@ POST /products/_doc/1
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220710233404098.png" alt="image-20220710233404098" style="width:85%;" />
+<img src="!assets/Elasticsearch/image-20220710233404098.png" alt="image-20220710233404098" style="width:85%;" />
 
 
 
@@ -717,7 +717,7 @@ POST /products/_doc/
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220710233519074.png" alt="image-20220710233519074" style="width:85%;" />
+<img src="!assets/Elasticsearch/image-20220710233519074.png" alt="image-20220710233519074" style="width:85%;" />
 
 
 
@@ -733,7 +733,7 @@ GET /索引名/_doc/文档ID
 GET /products/_doc/1
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220710233616786.png" alt="image-20220710233616786" style="width:85%;" />
+<img src="!assets/Elasticsearch/image-20220710233616786.png" alt="image-20220710233616786" style="width:85%;" />
 
 
 
@@ -749,7 +749,7 @@ DELETE /索引名/_doc/文档ID
 DELETE /products/_doc/1
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220710234406179.png" alt="image-20220710234406179" style="width:85%;" />
+<img src="!assets/Elasticsearch/image-20220710234406179.png" alt="image-20220710234406179" style="width:85%;" />
 
 
 
@@ -786,7 +786,7 @@ POST /products/_doc/wZbA6IEB0wOojxAnBiDQ/_update
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220710235419580.png" alt="image-20220710235419580" style="width:85%;" />
+<img src="!assets/Elasticsearch/image-20220710235419580.png" alt="image-20220710235419580" style="width:85%;" />
 
 
 
@@ -961,7 +961,7 @@ POST /_analyze
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220821223953829.png" alt="image-20220821223953829" style="width:90%;" />
+<img src="!assets/Elasticsearch/image-20220821223953829.png" alt="image-20220821223953829" style="width:90%;" />
 
 
 
@@ -977,7 +977,7 @@ POST /_analyze
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220821224216488.png" alt="image-20220821224216488" style="width:95%;" />
+<img src="!assets/Elasticsearch/image-20220821224216488.png" alt="image-20220821224216488" style="width:95%;" />
 
 
 
@@ -993,7 +993,7 @@ POST /_analyze
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220821224422903.png" alt="image-20220821224422903" style="width:95%;" />
+<img src="!assets/Elasticsearch/image-20220821224422903.png" alt="image-20220821224422903" style="width:95%;" />
 
 
 
@@ -1106,7 +1106,7 @@ POST /_analyze
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220823235507682.png" alt="image-20220823235507682" style="width:95%;" />
+<img src="!assets/Elasticsearch/image-20220823235507682.png" alt="image-20220823235507682" style="width:95%;" />
 
 
 
@@ -1120,7 +1120,7 @@ POST /_analyze
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220823235617310.png" alt="image-20220823235617310" style="width:95%;" />
+<img src="!assets/Elasticsearch/image-20220823235617310.png" alt="image-20220823235617310" style="width:95%;" />
 
 
 
@@ -1191,7 +1191,7 @@ IK支持自定义扩展词典和停用词典
    }
    ```
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220824002925386.png" alt="image-20220824002925386" style="width:100%;" />
+   <img src="!assets/Elasticsearch/image-20220824002925386.png" alt="image-20220824002925386" style="width:100%;" />
 
 > 词典的编码必须为 UTF-8，否则无法生效！
 
@@ -1201,7 +1201,7 @@ IK支持自定义扩展词典和停用词典
 
 IK 自带许多常用的扩展字典：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220824000833198.png" alt="image-20220824000833198" style="width:70%;" />
+<img src="!assets/Elasticsearch/image-20220824000833198.png" alt="image-20220824000833198" style="width:70%;" />
 
 
 
@@ -1296,7 +1296,7 @@ GET /products/_search
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220719234152189.png" alt="image-20220719234152189" style="width:100%;" />
+<img src="!assets/Elasticsearch/image-20220719234152189.png" alt="image-20220719234152189" style="width:100%;" />
 
 
 
@@ -1322,7 +1322,7 @@ GET /products/_search
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220719234648719.png" alt="image-20220719234648719" style="width:100%;" />
+<img src="!assets/Elasticsearch/image-20220719234648719.png" alt="image-20220719234648719" style="width:100%;" />
 
 
 
@@ -1344,7 +1344,7 @@ GET /products/_search
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220722000537945.png" alt="image-20220722000537945" style="width:100%;" />
+<img src="!assets/Elasticsearch/image-20220722000537945.png" alt="image-20220722000537945" style="width:100%;" />
 
 
 
@@ -1366,7 +1366,7 @@ GET /products/_search
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220722000733191.png" alt="image-20220722000733191" style="width:100%;" />
+<img src="!assets/Elasticsearch/image-20220722000733191.png" alt="image-20220722000733191" style="width:100%;" />
 
 
 
@@ -1388,7 +1388,7 @@ GET /products/_search
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220722002035498.png" alt="image-20220722001822243" style="width:100%;" />
+<img src="!assets/Elasticsearch/image-20220722002035498.png" alt="image-20220722001822243" style="width:100%;" />
 
 
 
@@ -1408,7 +1408,7 @@ GET /products/_search
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220722002239852.png" alt="image-20220722002239852" style="width:100%;" />
+<img src="!assets/Elasticsearch/image-20220722002239852.png" alt="image-20220722002239852" style="width:100%;" />
 
 
 
@@ -1436,7 +1436,7 @@ GET /products/_search
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220722002527292.png" alt="image-20220722002527292" style="width:100%;" />
+<img src="!assets/Elasticsearch/image-20220722002527292.png" alt="image-20220722002527292" style="width:100%;" />
 
 
 
@@ -1468,7 +1468,7 @@ GET /products/_search
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220722003124196.png" alt="image-20220722003124196" style="width:100%;" />
+<img src="!assets/Elasticsearch/image-20220722003124196.png" alt="image-20220722003124196" style="width:100%;" />
 
 
 
@@ -1490,7 +1490,7 @@ GET /products/_search
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220726235523448.png" alt="image-20220726235523448" style="width:100%;" />
+<img src="!assets/Elasticsearch/image-20220726235523448.png" alt="image-20220726235523448" style="width:100%;" />
 
 
 
@@ -1513,7 +1513,7 @@ GET /products/_search
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220727000009782.png" alt="image-20220727000009782" style="width:100%;" />
+<img src="!assets/Elasticsearch/image-20220727000009782.png" alt="image-20220727000009782" style="width:100%;" />
 
 
 
@@ -1542,7 +1542,7 @@ GET /products/_search
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220727000535410.png" alt="image-20220727000535410" style="width:100%;" />
+<img src="!assets/Elasticsearch/image-20220727000535410.png" alt="image-20220727000535410" style="width:100%;" />
 
 
 
@@ -1561,7 +1561,7 @@ GET /products/_search
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220727001019788.png" alt="image-20220727001019788" style="width:100%;" />
+<img src="!assets/Elasticsearch/image-20220727001019788.png" alt="image-20220727001019788" style="width:100%;" />
 
 
 
@@ -1581,7 +1581,7 @@ GET /products/_search
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220727000655300.png" alt="image-20220727000655300" style="width:100%;" />
+<img src="!assets/Elasticsearch/image-20220727000655300.png" alt="image-20220727000655300" style="width:100%;" />
 
 
 
@@ -1608,7 +1608,7 @@ GET /products/_search
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220727001224927.png" alt="image-20220727001224927" style="width:100%;" />
+<img src="!assets/Elasticsearch/image-20220727001224927.png" alt="image-20220727001224927" style="width:100%;" />
 
 
 
@@ -1627,7 +1627,7 @@ GET /products/_search
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220727001356990.png" alt="image-20220727001356990" style="width:100%;" />
+<img src="!assets/Elasticsearch/image-20220727001356990.png" alt="image-20220727001356990" style="width:100%;" />
 
 
 
@@ -1635,7 +1635,7 @@ GET /products/_search
 
 过滤查询 `<filter query>`，其实准确来说，ES 中的查询操作分为 2 种：查询（query）和过滤（filter）。查询即是之前提到的 query 查询，它（查询）默认会计算每个返回文档的得分，然后根据得分排序。而过滤（filter）只会筛选出符合的文档，并不计算得分，而且它可以缓存文档 。所以，单从性能考虑，过滤比查询更快。 
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221007160753752.png" alt="image-20221007160753752" style="width:80%;" />
+<img src="!assets/Elasticsearch/image-20221007160753752.png" alt="image-20221007160753752" style="width:80%;" />
 
 
 语法：
@@ -1684,7 +1684,7 @@ GET /products/_search
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221007164412521.png" alt="image-20221007164412521" style="width:100%;" />
+<img src="!assets/Elasticsearch/image-20221007164412521.png" alt="image-20221007164412521" style="width:100%;" />
 
 
 
@@ -1716,7 +1716,7 @@ GET /products/_search
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221007165512993.png" alt="image-20221007165512993" style="width:100%;" />
+<img src="!assets/Elasticsearch/image-20221007165512993.png" alt="image-20221007165512993" style="width:100%;" />
 
 
 
@@ -1746,7 +1746,7 @@ GET /products/_search
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221007165638098.png" alt="image-20221007165638098" style="width:100%;" />
+<img src="!assets/Elasticsearch/image-20221007165638098.png" alt="image-20221007165638098" style="width:100%;" />
 
 
 
@@ -1774,7 +1774,7 @@ GET /products/_search
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221007170254465.png" alt="image-20221007170254465" style="width:100%;" />
+<img src="!assets/Elasticsearch/image-20221007170254465.png" alt="image-20221007170254465" style="width:100%;" />
 
 
 
@@ -1802,7 +1802,7 @@ GET /products/_search
 }
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221007171001143.png" alt="image-20221007171001143" style="width:100%;" />
+<img src="!assets/Elasticsearch/image-20221007171001143.png" alt="image-20221007171001143" style="width:100%;" />
 
 
 
@@ -1945,7 +1945,7 @@ public void testIndex() {
 GET /products/_mapping
 ```
 
-![image-20221030192913106](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221030192913106.png)
+<img src="!assets/Elasticsearch/image-20221030192913106.png" alt="image-20221030192913106" style="" />
 
 ```http
 GET /products/_search
@@ -1956,4 +1956,4 @@ GET /products/_search
 }
 ```
 
-![image-20221030224750875](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221030224750875.png)
+<img src="!assets/Elasticsearch/image-20221030224750875.png" alt="image-20221030224750875" style="" />

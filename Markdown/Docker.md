@@ -14,7 +14,7 @@ Docker 自开源后受到广泛的关注和讨论，至今其 GitHub 项目 已�
 
 Docker 使用 Google 公司推出的 Go 语言进行开发实现，基于 Linux 内核的 cgroup、namespace 以及 OverlayFS 类的 Union FS 等技术，对进程进行封装隔离，属于 操作系统层面的虚拟化技术。由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器。最初实现是基于 LXC，从 0.7 版本以后开始去除 LXC，转而使用自行开发的 libcontainer，从 1.11 版本开始，则进一步演进为使用 runc 和 containerd。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726405952388.png" alt="QQ_1726405952388" style="zoom: 33%;" />
+<img src="!assets/Docker/QQ_1726405952388.png" alt="QQ_1726405952388" style="zoom: 33%;" />
 
 > [!NOTE]
 >
@@ -209,7 +209,7 @@ Docker 分为 stable、test 和 nightly 三个更新频道。
 
 Docker 启动之后会在 Windows 任务栏出现鲸鱼图标：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726423569359.png" alt="QQ_1726423569359" style="zoom: 25%;" />
+<img src="!assets/Docker/QQ_1726423569359.png" alt="QQ_1726423569359" style="zoom: 25%;" />
 
 等待片刻，当鲸鱼图标静止时，说明 Docker 启动成功，之后你可以打开 PowerShell 使用 Docker。
 

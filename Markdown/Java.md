@@ -34,7 +34,7 @@ Java 通过面向对象的方法来处理异常。在一个方法的运行过程
 
 为了能够及时有效地处理程序中的运行错误，Java 专门引入了异常类。==在 Java 中所有异常类型都是内置类 java.lang.Throwable 类的子类，即 Throwable 位于异常类层次结构的顶层。==Throwable 类下有两个异常分支 Exception 和 Error，如下图所示。
 
-<img src="../Images/Java/3-1Q0231H424V1.jpg" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/3-1Q0231H424V1.jpg" alt="img" style="zoom:80%;" />
 
 ==Throwable 类是所有异常和错误的超类，下面有 Error 和 Exception 两个子类分别表示错误和异常。==其中异常类 Exception 又分为==运行时异常==和==非运行时异常，==这两种异常有很大的区别，也称为==不检查异常（Unchecked Exception）==和==检查异常（Checked Exception）。==
 
@@ -365,7 +365,7 @@ try {
 
 ==一般情况下，无论是否有异常拋出，都会执行 finally 语句块中的语句，==执行流程如下图所示。
 
-<img src="../Images/Java/3-1Q024110159364.jpg" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/3-1Q024110159364.jpg" alt="img" style="zoom:80%;" />
 
 try catch finally 语句块的执行情况可以细分为以下 3 种情况：
 
@@ -1124,7 +1124,7 @@ CPU+RAM+各种资源（比如显卡，光驱，键盘，GPS, 等等外设）构�
 
 线程是一个动态执行的过程，它也有一个从产生到死亡的过程。下图显示了一个线程完整的生命周期。
 
-<img src="../Images/Java/java-thread.jpg" alt="img" style="zoom: 50%;" />
+<img src="!assets/Java/java-thread.jpg" alt="img" style="zoom: 50%;" />
 
 - 新建状态:
 
@@ -1564,7 +1564,7 @@ main finish
 
 流程图
 
-<img src="../Images/Java/20190816110104907.png" alt="在这里插入图片描述" style="zoom:80%;" />
+<img src="!assets/Java/20190816110104907.png" alt="在这里插入图片描述" style="zoom:80%;" />
 
 
 
@@ -1841,7 +1841,7 @@ Java 虚拟机中的同步(Synchronization)基于进入和退出管程(Monitor)�
 
 在JVM中，对象在内存中的布局分为三块区域：对象头、实例数据和对齐填充。如下：
 
-<img src="../Images/Java/20170603163237166.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/20170603163237166.png" alt="img" style="zoom:80%;" />
 
 - 实例变量：存放类的属性数据信息，包括父类的属性信息，如果是数组的实例部分还包括数组的长度，这部分内存按4字节对齐。
 - 填充数据：由于虚拟机要求对象起始地址必须是8字节的整数倍。填充数据不是必须存在的，仅仅是为了字节对齐。不知道大家有没有被问过一个空对象占多少个字节？就是8个字节，是因为对齐填充的关系哈，不到8个字节对其填充会帮我们自动补齐。如果是`Object o=new Object();`，那么空对象占8字节，对象的引用占4字节，加上填充数据即总共占用16字节，这点了解即可。
@@ -1861,7 +1861,7 @@ Java 虚拟机中的同步(Synchronization)基于进入和退出管程(Monitor)�
 
 由于对象头的信息是与对象自身定义的数据没有关系的额外存储成本，因此考虑到JVM的空间效率，Mark Word 被设计成为一个非固定的数据结构，以便存储更多有效的数据，它会根据对象本身的状态复用自己的存储空间，如32位JVM下，除了上述列出的Mark Word默认存储结构外，还有如下可能变化的结构：
 
-<img src="../Images/Java/20170603172215966.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/20170603172215966.png" alt="img" style="zoom:80%;" />
 
 其中轻量级锁和偏向锁是Java 6 对 synchronized 锁进行优化后新增加的，这里主要分析一下重量级锁也就是通常说synchronized的对象锁，锁标识位为10，其中指针指向的是monitor对象（也称为管程或监视器锁）的起始地址。
 
@@ -1892,7 +1892,7 @@ ObjectMonitor() {
 
 ObjectMonitor中有两个队列，_ WaitSet 和 _ EntryList，用来保存ObjectWaiter对象列表( 每个等待锁的线程都会被封装成ObjectWaiter对象)，_owner指向持有ObjectMonitor对象的线程，当多个线程同时访问一段同步代码时，首先会进入 _EntryList 集合，当线程获取到对象的monitor 后进入 _Owner 区域并把monitor中的owner变量设置为当前线程同时monitor中的计数器count加1，若线程调用 wait() 方法，将释放当前持有的monitor，owner变量恢复为null，count自减1，同时该线程进入 WaitSe t集合中等待被唤醒。若当前线程执行完毕也将释放monitor(锁)并复位变量的值，以便其他线程进入获取monitor(锁)。如下图所示
 
-![img](../Images/Java/20170604114223462.png)
+<img src="!assets/Java/20170604114223462.png" alt="img" style="" />
 
 由此看来，monitor对象存在于每个Java对象的对象头中(存储的指针的指向)，synchronized锁便是通过这种方式获取锁的，也是为什么Java中任意对象可以作为锁的原因，同时也是notify/notifyAll/wait等方法存在于顶级对象Object中的原因。
 
@@ -2254,7 +2254,7 @@ public class Test {
 
 同步阻塞 I/O 模式，数据的读取写入必须阻塞在一个线程内等待其完成。
 
-![img](../Images/Java/2163864-20201022174532077-2087464332-16282184549795.png)
+<img src="!assets/Java/2163864-20201022174532077-2087464332-16282184549795.png" alt="img" style="" />
 
 采用 **BIO 通信模型** 的服务端，通常由一个独立的 Acceptor 线程负责监听客户端的连接。我们一般通过在 `while(true)` 循环中服务端会调用 `accept()` 方法等待接收客户端的连接的方式监听请求，请求一旦接收到一个连接请求，就可以建立通信套接字在这个通信套接字上进行读写操作，此时不能再接收其他客户端连接请求，只能等待同当前连接的客户端的操作执行完成， 不过可以通过多线程来支持多个客户端的连接，如上图所示。
 
@@ -2262,7 +2262,7 @@ public class Test {
 
 在 Java 虚拟机中，线程是宝贵的资源，线程的创建和销毁成本很高，除此之外，线程的切换成本也是很高的。尤其在 Linux 这样的操作系统中，线程本质上就是一个进程，创建和销毁线程都是重量级的系统函数。如果并发访问量增加会导致线程数急剧膨胀可能会导致线程堆栈溢出、创建新线程失败等问题，最终导致进程宕机或者僵死，不能对外提供服务。同时如果这个连接不做任何事情的话会造成不必要的线程开销，不过可以通过 **线程池机制** 改善，线程池还可以让线程的创建和回收成本相对较低。使用`FixedThreadPool` 可以有效的控制了线程的最大数量，保证了系统有限的资源的控制，实现了N(客户端请求数量):M(处理客户端请求的线程数量)的伪异步I/O模型（N 可以远远大于 M）。
 
-![img](../Images/Java/2163864-20201022175636286-539148404.png)
+<img src="!assets/Java/2163864-20201022175636286-539148404.png" alt="img" style="" />
 
 采用线程池和任务队列可以实现一种叫做伪异步的 I/O 通信框架，它的模型图如上图所示。当有新的客户端接入时，将客户端的 Socket 封装成一个Task（该任务实现java.lang.Runnable接口）投递到后端的线程池中进行处理，JDK 的线程池维护一个消息队列和 N 个活跃线程，对消息队列中的任务进行处理。由于线程池可以设置消息队列的大小和最大线程数，因此，它的资源占用是可控的，无论多少个客户端并发访问，都不会导致资源的耗尽和宕机。
 
@@ -2599,7 +2599,7 @@ List<Runnable> notExecutedTasks = executorService.shutdownNow();
 
 线程池有5种状态：Running、ShutDown、Stop、Tidying、Terminated。
 
-![2024-12-25 004515](!assets/Java/2024-12-25 004515.png)
+<img src="!assets/Java/2024-12-25 004515.png" alt="2024-12-25 004515" style="" />
 
 - RUNNING：线程池一旦被创建，就处于 RUNNING 状态，任务数为 0，能够接收新任务，对已排队的任务进行处理。
 
@@ -2878,11 +2878,11 @@ Thread-1 : ThreadLocal num=5
 
 按照我们第一直觉，感觉 ThreadLocal 内部肯定是有个 Map 结构，key 存了 Thread，value 存了 本地变量 V 的值。每次通过 ThreadLocal 对象的 get() 和 set(T value) 方法获取当前线程里存的本地变量、设置当前线程里的本地变量。
 
-![img](../Images/Java/20190523105529871-162821864050610.png)
+<img src="!assets/Java/20190523105529871-162821864050610.png" alt="img" style="" />
 
 而 JDK 的实现里面这个 Map 是属于 Thread，而非属于 ThreadLocal。ThreadLocal 仅是一个代理工具类，内部并不持有任何与线程相关的数据，所有和线程相关的数据都存储在 Thread 里面。ThreadLocalMap 属于 Thread 也更加合理。
 
-![img](../Images/Java/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L21laXNtNQ==,size_16,color_FFFFFF,t_70)
+<img src="!assets/Java/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L21laXNtNQ==,size_16,color_FFFFFF,t_70" alt="img" style="" />
 
 还有一个更加深层次的原因，这样设计不容易产生内存泄露。
 
@@ -3304,7 +3304,7 @@ public class LockThread {
 }
 ```
 
-![2024-12-25 004648](!assets/Java/2024-12-25 004648.png)
+<img src="!assets/Java/2024-12-25 004648.png" alt="2024-12-25 004648" style="" />
 
 从执行结果可以看出，A 线程和 B 线程同时对资源加锁，A 线程获取锁之后，B 线程只好等待，直到 A 线程释放锁 B 线程才获得锁。
 
@@ -3402,7 +3402,7 @@ public class ReadWriteLockDemo {
 
 执行结果
 
-![QQ_1735059649635](!assets/Java/QQ_1735059649635.png)
+<img src="!assets/Java/QQ_1735059649635.png" alt="QQ_1735059649635" style="" />
 
 
 
@@ -3471,7 +3471,7 @@ public class NonLockDemo implements Runnable {
 ```
 
 同一个线程先调用set方法并获取到锁后继续调用get方法，此时set方法还未执行所得释放，在get方法中尝试获取锁时返回false。
-![在这里插入图片描述](../Images/Java/20200708112550464-162821912389915.png)
+<img src="!assets/Java/20200708112550464-162821912389915.png" alt="在这里插入图片描述" style="" />
 
 ---
 
@@ -3531,7 +3531,7 @@ CAS的英文单词是 Compare and Swap，即比较并替换，是乐观锁的一
 
 CAS 有三个操作数，内存值 V，旧的预期值 E，要修改的新值 U。当且仅当预期值 E 和内存值 V 相等时，将内存值V修改为U，否则什么都不做。操作的流程如下图所示，线程在读取数据时不进行加锁，在准备写回数据时，比较原值是否修改，若未被其他线程修改则写回，若已被修改，则重新执行读取流程。这是一种乐观策略，认为并发操作并不总会发生。
 
-<img src="../Images/Java/640" alt="img" style="zoom: 67%;" />
+<img src="!assets/Java/640" alt="img" style="zoom: 67%;" />
 
 看一个例子，解释CAS的实现过程（并非真实的CAS实现）：
 
@@ -3584,7 +3584,7 @@ public class CasCounter {
 
 在 JDK5.0 之前，想要实现无锁无等待的算法是不可能的，除非用本地库，自从有了 Atomic 变量类后，这成为可能。下面这张图是java.util.concurrent.atomic 包下的类结构。
 
-![img](../Images/Java/Center-162821933664920)
+<img src="!assets/Java/Center-162821933664920" alt="img" style="" />
 
 - 标量类：AtomicBoolean，AtomicInteger，AtomicLong，AtomicReference
 - 数组类：AtomicIntegerArray，AtomicLongArray，AtomicReferenceArray
@@ -3745,7 +3745,7 @@ Java 反射机制是在运行状态中，对于任意一个类，都能够知道
 
 Java 反射机制在服务器程序和中间件程序中得到了广泛运用。在服务器端，往往需要根据客户的请求，动态调用某一个对象的特定方法。此外，==在 ORM 中间件的实现中，运用 Java 反射机制可以读取任意一个 JavaBean 的所有属性，或者给这些属性赋值。==
 
-<img src="../Images/Java/5-19121314235A02.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/5-19121314235A02.png" alt="img" style="zoom:80%;" />
 
 Java 反射机制主要提供了以下功能，这些功能都位于`java.lang.reflect`包。
 
@@ -4246,9 +4246,9 @@ Java 程序通过流来完成输入/输出，所有的输入/输出以流的形�
 
 数据流的处理只能按照数据序列的顺序来进行，即前一个数据处理完之后才能处理后一个数据。数据流以输入流的形式被程序获取，再以输出流的形式将数据输出到其它设备。
 
-<img src="../Images/Java/5-200115142HWK.png" alt="输入流模式" style="zoom:80%;" />
+<img src="!assets/Java/5-200115142HWK.png" alt="输入流模式" style="zoom:80%;" />
 
-<img src="../Images/Java/5-200115142K1644.png" alt="输出流模式" style="zoom:80%;" />
+<img src="!assets/Java/5-200115142K1644.png" alt="输出流模式" style="zoom:80%;" />
 
 
 
@@ -4256,7 +4256,7 @@ Java 程序通过流来完成输入/输出，所有的输入/输出以流的形�
 
 Java 流相关的类都封装在 java.io 包中，而且每个数据流都是一个对象。所有输入流类都是 InputStream 抽象类（字节输入流）和 Reader 抽象类（字符输入流）的子类。其中 InputStream 类是字节输入流的抽象类，是所有字节输入流的父类，其层次结构如下图所示。
 
-<img src="../Images/Java/5-200115145253550.png" alt="InputStream类的层次结构图" style="zoom:80%;" />
+<img src="!assets/Java/5-200115145253550.png" alt="InputStream类的层次结构图" style="zoom:80%;" />
 
 InputStream 类中所有方法遇到错误时都会引发 IOException 异常。如下是该类中包含的常用方法。
 
@@ -4282,7 +4282,7 @@ Java 中的字符是 Unicode 编码，即双字节的，而 InputerStream 是用
 
 在 Java 中所有输出流类都是 OutputStream 抽象类（字节输出流）和 Writer 抽象类（字符输出流）的子类。其中 OutputStream 类是字节输出流的抽象类，是所有字节输出流的父类，其层次结构如下图所示。
 
-<img src="../Images/Java/5-200115151G3J0.png" alt="OutputStream类的层次结构图" style="zoom:80%;" />
+<img src="!assets/Java/5-200115151G3J0.png" alt="OutputStream类的层次结构图" style="zoom:80%;" />
 
 OutputStream 类是所有字节输出流的超类，用于以二进制的形式将数据写入目标设备，该类是抽象类，不能被实例化。OutputStream 类提供了一系列跟数据输出有关的方法，如下所示。
 
@@ -4413,7 +4413,7 @@ public class Test {
 
 运行结果如下：
 
-<img src="../Images/Java/5-191223141433509.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/5-191223141433509.png" alt="img" style="zoom:80%;" />
 
 可以发现，因为编码不一致，所以在保存时出现了乱码。在 Java 的开发中，乱码是一个比较常见的问题，乱码的产生就有一个原因，即输出内容的编码与接收内容的编码不一致。
 
@@ -4705,7 +4705,7 @@ public class HelloJava {
 }
 ```
 
-<img src="../Images/Java/5-19121Q25Z21J.png" alt="HelloJava.java文件内容" style="zoom:80%;" />
+<img src="!assets/Java/5-19121Q25Z21J.png" alt="HelloJava.java文件内容" style="zoom:80%;" />
 
 ==注意：FileInputStream 类重写了父类 InputStream 中的 read() 方法、skip() 方法、available() 方法和 close() 方法，不支持 mark() 方法和 reset() 方法。==
 
@@ -4768,7 +4768,7 @@ public class Test11 {
 
 运行程序，成功后会在控制台输出“写入结束！”。此时，打开 D:\myJava\HelloJava.txt 文件会发现，其内容与 HelloJava.java 文件的内容相同，如下图所示。
 
-<img src="../Images/Java/5-1912191A322507.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/5-1912191A322507.png" alt="img" style="zoom:80%;" />
 
 ==技巧：在创建 FileOutputStream 对象时，如果将 append 参数设置为 true，则可以在目标文件的内容末尾添加数据，此时目标文件仍然可以暂不存在。==
 
@@ -4931,7 +4931,7 @@ public class Test13 {
 录入完成！
 ```
 
-<img src="../Images/Java/5-1912191H959510.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/5-1912191H959510.png" alt="img" style="zoom:80%;" />
 
 
 
@@ -5540,7 +5540,7 @@ public class Test {
 
 计算机网络层次模型：
 
-<img src="../Images/Java/1217276-20190503122042374-56172361.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/1217276-20190503122042374-56172361.png" alt="img" style="zoom:80%;" />
 
 世界上第一个网络体系结构由IBM公司提出（1974年，SNA），以后其他公司也相继提出自己的网络体系结构。为了促进计算机网络的发展，国际标准化组织ISO在现有网络的基础上，提出了不基于具体机型、操作系统或公司的网络体系结构，称为开放系统互连参考模型，即OSI/RM（Open System Interconnection Reference Model）。
 
@@ -5552,7 +5552,7 @@ ISO制定的OSI参考模型过于庞大、复杂招致了许多批评。与此�
 
 OSI 模型把网络通信的工作分为 7 层，分别是物理层、数据链路层、网络层、传输层、会话层、表示层和应用层。
 
-<img src="../Images/Java/1217276-20190503140552307-1306184849.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/1217276-20190503140552307-1306184849.png" alt="img" style="zoom:80%;" />
 
 - 物理层
 	
@@ -5582,7 +5582,7 @@ TCP/IP，即Transmission Control Protocol/Internet Protocol的简写，中译名
 
 TCP/IP协议是一个开放的网络协议簇，它的名字主要取自最重要的网络层IP协议和传输层TCP协议。TCP/IP协议定义了电子设备如何连入因特网，以及数据如何在它们之间传输的标准。TCP/IP参考模型采用4层的层级结构，每一层都呼叫它的下一层所提供的协议来完成自己的需求，这4个层次分别是：网络接口层、网络层（IP层）、传输层（TCP层）、应用层。
 
-<img src="../Images/Java/1217276-20190503162526581-1315509304.gif" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/1217276-20190503162526581-1315509304.gif" alt="img" style="zoom:80%;" />
 
 - 网络接口层
 	TCP/IP协议对网络接口层没有给出具体的描述，网络接口层对应着OSI参考模型的物理层和数据链路层。
@@ -5601,11 +5601,11 @@ TCP/IP协议是一个开放的网络协议簇，它的名字主要取自最重�
 
 OSI参考模型和TCP/IP模型在不同的层次中有许多不同的网络协议，如图所示：
 
-<img src="../Images/Java/1217276-20190503164338008-348345936.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/1217276-20190503164338008-348345936.png" alt="img" style="zoom:80%;" />
 
 网络协议之间的关系图如下：
 
-<img src="../Images/Java/1217276-20190503165942538-1220277464.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/1217276-20190503165942538-1220277464.png" alt="img" style="zoom:80%;" />
 
 ### 13.2.1、IP协议
 
@@ -5623,7 +5623,7 @@ TCP（Transmission Control Protocol）（传输控制协议）是面向连接的
 
 TCP 报文段包括协议首部和数据两部分，协议首部的固定部分是 20 个字节，首部的固定部分后面是选项部分。
 
-<img src="../Images/Java/1217276-20190504001611594-373661106.jpg" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/1217276-20190504001611594-373661106.jpg" alt="img" style="zoom:80%;" />
 
 下面是报文段首部各个字段的含义：
 
@@ -5651,7 +5651,7 @@ TCP 报文段包括协议首部和数据两部分，协议首部的固定部分�
 
 TCP三次握手过程如下：
 
-<img src="../Images/Java/1217276-20190503210424740-1764008697.jpg" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/1217276-20190503210424740-1764008697.jpg" alt="img" style="zoom:80%;" />
 
 1. 第一次握手（客户端发送请求）
 	客户机发送连接请求报文段到服务器，并进入SYN_SENT状态，等待服务器确认。发送连接请求报文段内容：SYN=1，seq=x；SYN=1意思是一个TCP的SYN标志位置为1的包，指明客户端打算连接的服务器的端口；seq=x表示客户端初始序号x，保存在包头的序列号（Sequence Number）字段里。
@@ -5666,7 +5666,7 @@ TCP三次握手过程如下：
 
 TCP四次挥手过程如下：
 
-<img src="../Images/Java/1217276-20190503231436105-1355677452.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/1217276-20190503231436105-1355677452.png" alt="img" style="zoom:80%;" />
 
 由于TCP连接是全双工的，因此每个方向都必须单独进行关闭。这原则是当一方完成它的数据发送任务后就能发送一个FIN来终止这个方向的连接。收到一个FIN只意味着这一方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭。
 
@@ -5691,7 +5691,7 @@ TCP协议是网络通信协议中十分重要的协议，相比于UDP协议来�
 
 粘包发生在发送或接收缓冲区中；应用程序从缓冲区中取数据是整个缓冲区中有多少取多少；那么就有可能第一个数据的尾部和第二个数据的头部同时存在缓冲区，而TCP是流式的，数据无边界，这时发生粘包。
 
-<img src="../Images/Java/SouthEast" alt="这里写图片描述" style="zoom: 67%;" />
+<img src="!assets/Java/SouthEast" alt="这里写图片描述" style="zoom: 67%;" />
 
 
 
@@ -5699,7 +5699,7 @@ TCP协议是网络通信协议中十分重要的协议，相比于UDP协议来�
 
 采用TCP协议传输数据的客户端与服务器经常是保持一个长连接的状态（一次连接发一次数据不存在粘包），双方在连接不断开的情况下，可以一直传输数据；但当发送的数据包过于的小时，那么TCP协议默认的会启用Nagle算法，将这些较小的数据包进行合并发送（缓冲区数据发送是一个堆压的过程）；这个合并过程就是在发送缓冲区中进行的，也就是说数据发送出来它已经是粘包的状态了。
 
-<img src="../Images/Java/640-162821934986822" alt="img" style="zoom: 67%;" />
+<img src="!assets/Java/640-162821934986822" alt="img" style="zoom: 67%;" />
 
 
 
@@ -5707,7 +5707,7 @@ TCP协议是网络通信协议中十分重要的协议，相比于UDP协议来�
 
 接收方采用TCP协议接收数据时的过程是这样的：从网络模型的下方传递至传输层，传输层的TCP协议处理是将其放置接收缓冲区，然后由应用层来主动获取（C语言用recv、read等函数）；这时会出现一个问题，就是我们在程序中调用的读取数据函数不能及时的把缓冲区中的数据拿出来，而下一个数据又到来并有一部分放入的缓冲区末尾，等我们读取数据时就是一个粘包；（放数据的速度 > 应用层拿数据速度）
 
-<img src="../Images/Java/SouthEast-162821939066325" alt="这里写图片描述" style="zoom: 50%;" />
+<img src="!assets/Java/SouthEast-162821939066325" alt="这里写图片描述" style="zoom: 50%;" />
 
 ---
 
@@ -5748,7 +5748,7 @@ UDP（User Datagram Protocol），用户数据报协议，它是 TCP/IP 协议�
 
 **UDP协议格式**
 
-<img src="../Images/Java/1217276-20190504154900038-1234898266.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/1217276-20190504154900038-1234898266.png" alt="img" style="zoom:80%;" />
 
 UDP协议由两部分组成：首部和数据。其中，首部仅有8个字节，包括源端口和目的端口、长度（UDP用于数据报的长度）、校验和。
 
@@ -5787,19 +5787,19 @@ HTTP协议是基于TCP协议之上的请求/响应式协议，下面主要介绍
 
 HTTP请求报文的格式：
 
-<img src="../Images/Java/1217276-20190504230113716-231823746.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/1217276-20190504230113716-231823746.png" alt="img" style="zoom:80%;" />
 
 HTTP请求报文由**请求行、首部行和实体主体**组成，由浏览器发送给服务器。上面这张图中SP表示空格，cr lf表示回车和换行。下图是谷歌浏览器内访问服务器查看的HTTP请求例子：
 
-<img src="../Images/Java/1217276-20190505002716130-1447539444.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/1217276-20190505002716130-1447539444.png" alt="img" style="zoom:80%;" />
 
 HTTP响应报文格式：
 
-<img src="../Images/Java/1217276-20190505001517048-1489396333.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/1217276-20190505001517048-1489396333.png" alt="img" style="zoom:80%;" />
 
 上面这张图是HTTP响应报文，它由**状态行、首部行和实体主体**组成。下图为HTTP响应报文例子：
 
-<img src="../Images/Java/1217276-20190505003116790-1900233646.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/1217276-20190505003116790-1900233646.png" alt="img" style="zoom:80%;" />
 
 ---
 
@@ -5807,11 +5807,11 @@ HTTP响应报文格式：
 
 在上面的HTTP请求报文例子中，可以看到请求方法是GET，这表示请求读取由URL所标志的信息，除了GET，还有其他几种常用的方法。
 
-<img src="../Images/Java/1217276-20190505003337425-1910585386.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/1217276-20190505003337425-1910585386.png" alt="img" style="zoom:80%;" />
 
 在HTTP响应报文的例子中，可以看到状态码是200，表示响应成功。下表是其他状态码，总共5大类，33种。
 
-<img src="../Images/Java/1217276-20190505004242552-665354194.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Java/1217276-20190505004242552-665354194.png" alt="img" style="zoom:80%;" />
 
 ---
 
@@ -5878,7 +5878,7 @@ SOCK_STREAM 有以下几个特征：
 
 可以将 SOCK_STREAM 比喻成一条传送带，只要传送带本身没有问题（不会断网），就能保证数据不丢失；同时，较晚传送的数据不会先到达，较早传送的数据不会晚到达，这就保证了数据是按照顺序传递的。
 
-<img src="../Images/Java/1-1Z1232154153L.gif" alt="将面向连接的套接字比喻成传送带" style="zoom:80%;" />
+<img src="!assets/Java/1-1Z1232154153L.gif" alt="将面向连接的套接字比喻成传送带" style="zoom:80%;" />
 
 为什么流格式套接字可以达到高质量的数据传输呢？这是因为它使用了 TCP 协议（The Transmission Control Protocol，传输控制协议），TCP 协议会控制你的数据按照顺序到达并且没有错误。
 
@@ -5911,7 +5911,7 @@ SOCK_STREAM 有以下几个特征：
 
 众所周知，速度是快递行业的生命。用摩托车发往同一地点的两件包裹无需保证顺序，只要以最快的速度交给客户就行。这种方式存在损坏或丢失的风险，而且包裹大小有一定限制。因此，想要传递大量包裹，就得分配发送。
 
-<img src="../Images/Java/1-1Z123222015527.gif" alt="将无连接套接字比喻成摩托车快递" style="zoom:80%;" />
+<img src="!assets/Java/1-1Z123222015527.gif" alt="将无连接套接字比喻成摩托车快递" style="zoom:80%;" />
 
 另外，用两辆摩托车分别发送两件包裹，那么接收者也需要分两次接收，所以“数据的发送和接收是同步的”；换句话说，接收次数应该和发送次数相同。
 
@@ -6427,7 +6427,7 @@ public class UDP {
 
 http（Hypertext transfer protocol）超文本传输协议，通过浏览器和服务器进行数据交互，进行超文本（文本、图片、视频等）传输的规定。也就是说，http 协议规定了超文本传输所要遵守的规则。那么网页在输入 URL 到加载，http 究竟做了哪些工作呢？（见下图）
 
-<img src="../Images/Java/17230018-9fe0c3c244864b36b22ce0eb7ec74842.png" alt="img" style="zoom:80%;float:left" />
+<img src="!assets/Java/17230018-9fe0c3c244864b36b22ce0eb7ec74842.png" alt="img" style="zoom:80%;float:left" />
 
 浏览器负责发起请求和最后的响应请求，服务器接收请求后，处理请求。我们一步一步来看这个过程，http是如何设定步骤，设置规范的。
 
@@ -6439,7 +6439,7 @@ http（Hypertext transfer protocol）超文本传输协议，通过浏览器和�
 
 	请求头包括本机信息、浏览器信息等等，当然，也包括URL中 ？后面的参数。如图：
 
-	<img src="../Images/Java/17231440-44a1e2aa088b40e9b444361c4a5548ae.png" alt="img" style="zoom: 80%;" />
+	<img src="!assets/Java/17231440-44a1e2aa088b40e9b444361c4a5548ae.png" alt="img" style="zoom: 80%;" />
 	请求体包括 POST 传递数据的相关信息，Get 方式传值时，请求体为空。
 
 3. 请求信息发送至服务器以后，服务器会获取传递过来的相关信息进行后端程序的处理。一般通过 request.querystring 获取URL传递过来的值、通过 request.form 获取 POST 传递过来的值，当然，也是可以获取到所有的其他请求过来的信息，如浏览器信息、cookie信息、操作系统信息等。获取相关的数据以后，服务器就会根据程序进行处理。
@@ -6449,7 +6449,7 @@ http（Hypertext transfer protocol）超文本传输协议，通过浏览器和�
 
 	响应头记录服务器相关信息如服务器是否启用压缩、服务器为 IIS 或 Ngnix、程序所用服务端语言等等。当然，缓存也是在这里设置的，通过修改响应头可以修改 html 在本地缓存的情况，如设置浏览器缓存过期的时间。
 
-	<img src="../Images/Java/17233401-2eb186f25c0d4780b0d31111b6ce941f.png" alt="img" style="zoom:80%;" />
+	<img src="!assets/Java/17233401-2eb186f25c0d4780b0d31111b6ce941f.png" alt="img" style="zoom:80%;" />
 	响应体主要是看到的html的相关内容了。
 
  完成以上四部操作以后，浏览器就断开了与服务器的数据连接，不能再进行数据传输，如果需要再次进行数据传输，那么一切就要从输入URL开始。
@@ -6738,7 +6738,7 @@ public class Hero {
 
 定义了一个 Hero 类，它有两个方法 say() 和 speak() ，其中 say() 被 @Deprecated 注解。然后我们在 IDE 中分别调用它们。
 
-<img src="JavaWeb.assets/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNjI3MjE0MDA4NTg4" alt="这里写图片描述" style="zoom:80%;float:left" />
+<img src="!assets/Java/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNjI3MjE0MDA4NTg4" alt="这里写图片描述" style="zoom:80%;float:left" />
 
 可以看到，say() 方法上面被一条直线划了一条，这其实就是编译器识别后的提醒效果。
 

@@ -69,7 +69,7 @@ all in one 的架构方式，我们把所有的功能单元放在一个应用里
 1. 节省了调用资源。
 2. 每个功能元素的服务都是一个可替换的、可独立升级的软件代码。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200402163100834.png" alt="image-20200402163100834" style="zoom: 50%;" />
+<img src="!assets/SpringBoot/image-20200402163100834.png" alt="image-20200402163100834" style="zoom: 50%;" />
 
 
 
@@ -77,11 +77,11 @@ all in one 的架构方式，我们把所有的功能单元放在一个应用里
 
 1. 打开 IDEA，点击【新建项目】，选择 【Spring Initializr】，点确认：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200402181821619.png" alt="image-20200402181821619" />
+   <img src="!assets/SpringBoot/image-20200402181821619.png" alt="image-20200402181821619" style="" />
 
 2. Spring Web 依赖的主要作用是提供 Web 开发场景所需的底层所有依赖，引入后就可以实现 Web 场景开发，而不需要额外导入Tomcat 服务器以及其他 Web 依赖文件等：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200402181913472.png" alt="image-20200402181913472" />
+   <img src="!assets/SpringBoot/image-20200402181913472.png" alt="image-20200402181913472" style="" />
 
 3. 在 Application.java 同级目录下创建 controller 包，编写 UserController.java：
 
@@ -1135,7 +1135,7 @@ spring.profiles.active=@profile.active@
 
 以上配置完成后，将会在 IDEA 的右侧 Maven 选项卡中出现以下内容：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1.png" alt="1" />
+<img src="!assets/SpringBoot/1.png" alt="1" style="" />
 
 可以选择打包的环境，然后点击 package 即可。
 
@@ -1245,11 +1245,11 @@ Hibernate Validator 官网介绍：
 
 验证数据是一项常见任务，它发生在从表示层到持久层的所有应用程序层中。通常在每一层都实现相同的验证逻辑，这既耗时又容易出错。为了避免重复这些验证，开发人员经常将验证逻辑直接捆绑到域模型中，将域类与验证代码混在一起，而验证代码实际上是关于类本身的元数据。
 
-![application layers](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/application-layers.png)
+<img src="!assets/SpringBoot/application-layers.png" alt="application layers" style="" />
 
 Jakarta Bean Validation 2.0 - 为实体和方法验证定义了元数据模型和 API。默认元数据源是注释，能够通过使用 XML 覆盖和扩展元数据。API 不依赖于特定的应用程序层或编程模型。它特别不依赖于 Web 或持久层，并且可用于服务器端应用程序编程以及富客户端 Swing 应用程序开发人员。
 
-![application layers2](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/application-layers2.png)
+<img src="!assets/SpringBoot/application-layers2.png" alt="application layers2" style="" />
 
 
 
@@ -1861,7 +1861,7 @@ Spring Boot 提供了内置的 Tomcat、Undertow、Jetty 三种 Servlet Web 容�
 
    - 在 Idea 中可以这样设置打包：
 
-     ![image-20230626153638578](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230626153638578.png)
+     <img src="!assets/SpringBoot/image-20230626153638578.png" alt="image-20230626153638578" style="" />
 
 
 
@@ -1920,7 +1920,7 @@ java -jar your-project-name.jar
 
 **在 IDE 中设置项目的编码格式（这里使用的IDEA）**
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/QQ_1720978751626.png" alt="QQ_1720978751626" style="zoom: 67%;" />
+<img src="!assets/SpringBoot/QQ_1720978751626.png" alt="QQ_1720978751626" style="zoom: 67%;" />
 
 
 
@@ -2151,7 +2151,7 @@ SpringBoot 内设置静态资源，或者说静态资源文件夹，主要有两
 
 以上两种方法，均可实现用户访问网址，不走 Controller 层的拦截，直接进行静态文件访问：
 
-![简单解释一下](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/f1630117a2b8420a90a8a46dcfa68f2atplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp)
+<img src="!assets/SpringBoot/f1630117a2b8420a90a8a46dcfa68f2atplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp" alt="简单解释一下" style="" />
 
 
 
@@ -2164,7 +2164,7 @@ SpringBoot 内设置静态资源，或者说静态资源文件夹，主要有两
 
 如何运作的？，这里画个简单的图：
 
-![简单演示](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/f3d35e5cc4ca417b80f12680de0ad194tplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp)
+<img src="!assets/SpringBoot/f3d35e5cc4ca417b80f12680de0ad194tplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp" alt="简单演示" style="" />
 
 需要注意：
 
@@ -2177,7 +2177,7 @@ SpringBoot 内设置静态资源，或者说静态资源文件夹，主要有两
 
 现在来写一个示例，最终效果为浏览器输入：`http://localhost:8088/SystemData/UserData/Avatar/Mintimate.jpeg` 可以直接访问项目文件下的：`/SystemData/UserData/Avatar/Mintimate.jpeg`
 
-![就是这个文件了嗷](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/502059a0bef4412a8b184ff1a2c9c989tplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp)
+<img src="!assets/SpringBoot/502059a0bef4412a8b184ff1a2c9c989tplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp" alt="就是这个文件了嗷" style="" />
 
 配置文件为：
 
@@ -2196,7 +2196,7 @@ spring:
 
 这样运行项目就可以直接访问静态资源了：
 
-![直接访问静态资源成功](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/d952a35ea07f42be900efcb0af474c70tplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp)
+<img src="!assets/SpringBoot/d952a35ea07f42be900efcb0af474c70tplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp" alt="直接访问静态资源成功" style="" />
 
 这样的配置，可以说最简单且粗暴，但是灵活性差一点点：URL 响应地址只能为一项，也就是 `spring.mvc.static-path-pattern` 配置只能写一项。
 
@@ -2234,7 +2234,7 @@ protected void addResourceHandlers(ResourceHandlerRegistry registry) {
 - 浏览器输入：`http://localhost:8088/SystemData/UserData/Avatar/Mintimate.jpeg` 可以直接访问项目文件下的：`/SystemData/UserData/Avatar/Mintimate.jpeg`
 - 浏览器输入：`http://localhost:8088/SystemDataTest/UserData/Avatar/Mintimate.jpeg` 可以直接访问项目文件下的：`/Test/UserData/Avatar/Demo.jpeg`
 
-![本地资源目录文件夹](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/651815b7ad4346fda348bfdaf0b866dctplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp)
+<img src="!assets/SpringBoot/651815b7ad4346fda348bfdaf0b866dctplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp" alt="本地资源目录文件夹" style="" />
 
 添加一个配置类，并继承 `WebMvcConfigurationSupport`，实现 `addResourceHandlers` 方法，并打上 `@Configuration` 注解，使其成为配置类：
 
@@ -2271,9 +2271,9 @@ public class WebConfig extends WebMvcConfigurationSupport {
 
 之后，浏览器就可以访问了：
 
-![静态资源一](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/776d165ad82d4247b201ab7f29ff06eetplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp)
+<img src="!assets/SpringBoot/776d165ad82d4247b201ab7f29ff06eetplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp" alt="静态资源一" style="" />
 
-![静态资源二](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/dba2e1b5b0bb4a7289f39e7d15f91e73tplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp)
+<img src="!assets/SpringBoot/dba2e1b5b0bb4a7289f39e7d15f91e73tplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp" alt="静态资源二" style="" />
 
 
 
@@ -2330,7 +2330,7 @@ devtools 可以
 
 1. 引入 spring-boot-devtools 依赖：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1676221-20200430155320785-521416484.png" alt="img" style="zoom: 80%;" />
+   <img src="!assets/SpringBoot/1676221-20200430155320785-521416484.png" alt="img" style="zoom: 80%;" />
 
 2. 在 application.yml 中配置一下 devtools：
 

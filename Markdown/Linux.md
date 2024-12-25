@@ -18,11 +18,11 @@ Linux 能运行主要的 UNIX 工具软件、应用程序和网络协议。它�
 
 Linux 的发行版说简单点就是将 Linux 内核与应用软件做一个打包。
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1511849829609658.jpg)
+<img src="!assets/Linux/1511849829609658.jpg" alt="img" style="" />
 
 目前市面上较知名的发行版有：Ubuntu、RedHat、CentOS、Debian、Fedora、SuSE、OpenSUSE、Arch Linux、SolusOS 等。
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/wKioL1bvVPWAu7hqAAEyirVUn3c446.jpg-wh_651x-s_3197843091.jpg)
+<img src="!assets/Linux/wKioL1bvVPWAu7hqAAEyirVUn3c446.jpg-wh_651x-s_3197843091.jpg" alt="img" style="" />
 
 这里用的 Linux 版本是 Ubuntu 20.04 64位。
 
@@ -32,7 +32,7 @@ Linux 的发行版说简单点就是将 Linux 内核与应用软件做一个打�
 
 使用 Linux 时，通过命令行输入 `ls -l /` 可以看到，在 Linux 根目录（`/`）下包含很多的子目录（称为一级目录），例如 `bin`、`boot`、`dev` 等。同时，各一级目录下还含有很多子目录（称为二级目录），比如 `/bin/bash/`、`/bin/ed/` 等。Linux 文件系统目录总体呈现树形结构，`/` 根目录就相当于树根。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230920085630781.png" alt="image-20230920085630781" style="zoom: 25%;" />
+<img src="!assets/Linux/image-20230920085630781.png" alt="image-20230920085630781" style="zoom: 25%;" />
 
 由于 Linux 系统免费开源，使得 Linux 发行版本有很多，利用 Linux 开发产品的团队也有很多，如果任由每个人都按照自己的想法来配置 Linux 系统文件目录，后期可能会产生诸多的管理问题。
 
@@ -291,7 +291,7 @@ shutdown -r +30 '系统将在30分钟内重新启动'
 
 该命令会从 `/proc/cpuinfo` 文件中收集有关本机 CPU 架构的信息，并整理成易读的格式输出到 Shell 终端，运维人员可以很方便地了解到本机 CPU 数量、架构、线程、核心、套接字等重要指标信息：
 
-![image-20231219110051082](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20231219110051082.png)
+<img src="!assets/Linux/image-20231219110051082.png" alt="image-20231219110051082" style="" />
 
 
 
@@ -428,11 +428,11 @@ drwxr-xr-x   3 root root      4096 Nov 12 09:27 boot
 
 接下来的字符中，以三个为一组，且均为 `rwx` 的三个参数的组合。其中， `r` 代表可（read）、 `w` 代表可写（write）、 `x` 代表可执行（execute）。 要注意的是，这三个权限的位置不会改变，如果没有权限，就会出现减号 `-` 而已。
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/file-llls22.jpg)
+<img src="!assets/Linux/file-llls22.jpg" alt="img" style="" />
 
 每个文件的属性由左边第一部分的 10 个字符来确定（如下图）。
 
-![363003_1227493859FdXT](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/363003_1227493859FdXT.png)
+<img src="!assets/Linux/363003_1227493859FdXT.png" alt="363003_1227493859FdXT" style="" />
 
 从左至右用 0-9 这些数字来表示。
 
@@ -545,7 +545,7 @@ chmod [-R] xyz 文件或目录
 
 那么就可以使用 `u`、`g`、`o` 来代表三种身份的权限。此外， `a` 则代表 all，即全部的身份。读写的权限可以写成 `r,w,x`，也就是可以使用下表的方式来看：
 
-![image-20211114155622930](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211114155622930.png)
+<img src="!assets/Linux/image-20211114155622930.png" alt="image-20211114155622930" style="" />
 
 如果需要将文件权限设置为 `-rwxr-xr--` ，可以使用 `chmod u=rwx,g=rx,o=r 文件名` 来设定:
 
@@ -2085,7 +2085,7 @@ Vim 是从 vi 发展出来的一个文本编辑器。代码补全、编译及错
 
 Vim 键盘图：
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/vi-vim-cheat-sheet-sch.gif)
+<img src="!assets/Linux/vi-vim-cheat-sheet-sch.gif" alt="img" style="" />
 
 
 
@@ -2142,7 +2142,7 @@ Vim 键盘图：
 
 简单的说，可以将这三个模式想成底下的图标来表示：
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/vim-vi-workmodel.png)
+<img src="!assets/Linux/vim-vi-workmodel.png" alt="img" style="" />
 
 
 
@@ -2372,7 +2372,7 @@ checking for xxxxxxxx... yes
 
 在Debian、Ubuntu 等 Linux 发行版中，通常使用 deb（debian）形式的软件包，如下图是 Vim 软件的 deb 安装包。
 
-![未找到图片02|](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/softwa002.jpg)
+<img src="!assets/Linux/softwa002.jpg" alt="未找到图片02|" style="" />
 
 若下载了deb软件包，可使用如下命令进行安装，其中 `xxxx.deb` 为要安装的软件包的名字：
 
@@ -2614,7 +2614,7 @@ systemctl status httpd
 - `static`：这个 daemon 不可以自己启动，不过可能会被其他的 `enabled` 的服务来唤醒（关联属性的服务）
 - `mask`：这个 daemon 无论如何都无法被启动，因为已经被强制注销（非删除），可通过 `systemctl unmask` 方式改回原本状态
 
-![image-20211129133826757](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211129133826757.png)
+<img src="!assets/Linux/image-20211129133826757.png" alt="image-20211129133826757" style="" />
 
 
 
@@ -2719,7 +2719,7 @@ systemctl emergency # 强制进入紧急救援模式
 
 任务是一个逻辑概念，指由一个软件完成的活动，或者是为实现某个目的的一系列操作。通常一个任务是一个程序的一次运行，一个任务包含一个或多个完成独立功能的子任务，**这个独立的子任务是进程或者是线程。**例如，一个杀毒软件的一次运行是一个任务，目的是从各种病毒的侵害中保护计算机系统，这个任务包含多个独立功能的子任务（进程或线程）：包括实时监控功能、定时查杀功能、防火墙功能以及用户交互功能等。任务、进程和线程之间的关系如下图所示：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20140509165409250.jpeg" alt="img" />
+<img src="!assets/Linux/20140509165409250.jpeg" alt="img" style="" />
 
 
 
@@ -2756,7 +2756,7 @@ Linux 系统中主要包括下面几种类型的进程：
 
 `top` 命令是 Linux 下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于 Windows 的任务管理器。`top` 是一个动态显示过程，即可以通过用户按键来不断刷新当前状态。如果在前台执行该命令，它将独占前台，直到用户终止该程序为止。比较准确的说，`top` 命令提供了实时的对系统处理器的状态监视。它将显示系统中 CPU 最 “敏感” 的任务列表。该命令可以按 CPU 使用、内存使用和执行时间对任务进行排序；而且该命令的很多特性都可以通过交互式命令或者在个人定制文件中进行设定。
 
-![image-20220628161259586](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20220628161259586.png)
+<img src="!assets/Linux/image-20220628161259586.png" alt="image-20220628161259586" style="" />
 
 - **第一行**
   - 16:12:28：系统当前时间
@@ -2943,7 +2943,7 @@ jobs [选项]
 
 如果程序正在前台运行，可以使用 Ctrl + z 选项把程序放到后台，并且处于暂停状态，然后用 `bg %[number]` 命令把这个程序放到后台运行（摁Ctrl+z，然后在最后一行加上 `bg %number`）：
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1392964-20180926172955963-1572189618.png)
+<img src="!assets/Linux/1392964-20180926172955963-1572189618.png" alt="img" style="" />
 
 
 对于所有运行的程序，我们可以用 `jobs –l` 指令查看：
@@ -2952,7 +2952,7 @@ jobs [选项]
 jobs -l
 ```
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1392964-20180926173213203-320447770.png)
+<img src="!assets/Linux/1392964-20180926173213203-320447770.png" alt="img" style="" />
 
 
 也可以用 `fg %[number]` 指令把一个程序调到前台：

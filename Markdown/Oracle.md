@@ -26,13 +26,13 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 **数据结构逻辑关系如下图：**
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/viewImages.png" alt="数据结构逻辑关系" />
+<img src="!assets/Oracle/viewImages.png" alt="数据结构逻辑关系" style="" />
 
 
 
 **Oracle体系概要图如下：**
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/viewImages-16358235683753.png" alt="Oracle体系概要图" style="zoom: 67%;" />
+<img src="!assets/Oracle/viewImages-16358235683753.png" alt="Oracle体系概要图" style="zoom: 67%;" />
 
 
 
@@ -42,7 +42,7 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 1. 去官网下载 [Oracle 19c](https://www.oracle.com/database/technologies/oracle-database-software-downloads.html#19c)：
 
-	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211102113310795.png" alt="image-20211102113310795" />
+	<img src="!assets/Oracle/image-20211102113310795.png" alt="image-20211102113310795" style="" />
 
 2. 安装前需要把文件包解压，解压的位置为需要安装的位置，所以要提前确定好解压路径，解压后的文件大概需要 6G 的空间，确保空间足够大。
 
@@ -50,15 +50,15 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 3. 以管理员身份运行 `setup.exe`：
 
-	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/123.png" alt="img" />
+	<img src="!assets/Oracle/123.png" alt="img" style="" />
 
 4. 打开安装程序后，跟着安装向导，初学者建议选默认选择 “创建并配置单实例数据库”：
 
-	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/12dlaXhp20.png" alt="img" />
+	<img src="!assets/Oracle/12dlaXhp20.png" alt="img" style="" />
 	
 5. 选中【桌面类】，点击下一步：
 
-	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/watermark,type_ZmFuZ3poZW5.png" alt="img" />
+	<img src="!assets/Oracle/watermark,type_ZmFuZ3poZW5.png" alt="img" style="" />
 
 6. Oracle主目录用户，如下图所示：
 
@@ -69,27 +69,27 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 	此处本人选择虚拟账户，也是 Oracle 的官方建议之一。
 
-	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nL.png" alt="img" />
+	<img src="!assets/Oracle/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nL.png" alt="img" style="" />
 
 7. 更改【Oracle 基目录】，取消勾选【创建为容器数据库】，填写【全局数据库名】及口令，点击下一步：
 
-	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0c.png" alt="在这里插入图片描述" />
+	<img src="!assets/Oracle/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0c.png" alt="在这里插入图片描述" style="" />
 
 8. 先决条件检查：
 
-	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/watermark,type_ZmFuZ3poZW5na4ubmV0L3FxXzE3MDU4OTkz,size_16,color_FFFFFF,t_70.png" alt="img" />
+	<img src="!assets/Oracle/watermark,type_ZmFuZ3poZW5na4ubmV0L3FxXzE3MDU4OTkz,size_16,color_FFFFFF,t_70.png" alt="img" style="" />
 
 9. 概要：
 
-	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/watermark,type_ZmFuZ3poZW5nNzZG4ubmV0L3dlaXhpbl80Mzc5MjQwMQ==,size_16,color_FFFFFF,t_70.png" alt="在这里插入图片描述" />
+	<img src="!assets/Oracle/watermark,type_ZmFuZ3poZW5nNzZG4ubmV0L3dlaXhpbl80Mzc5MjQwMQ==,size_16,color_FFFFFF,t_70.png" alt="在这里插入图片描述" style="" />
 
 10. 安装等待，这里会等待得比较久一点：
 
-	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/watermark,type_ZmFuZ3poZW5naGVpdGk,2zZG4ubmV0L3dlaXhpbl80Mzc5MjQwMQ==,size_16,color_FFFFFF,t_70.png" alt="在这里插入图片描述" />
+	<img src="!assets/Oracle/watermark,type_ZmFuZ3poZW5naGVpdGk,2zZG4ubmV0L3dlaXhpbl80Mzc5MjQwMQ==,size_16,color_FFFFFF,t_70.png" alt="在这里插入图片描述" style="" />
 
 11. 几十分钟后，显示成功的窗口，点击关闭：
 
-	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly92LmNzZG4ubmV0L3dlaXhpbl80Mzc5MjQwMQ==,size_16,color_FFFFFF,t_70.png" alt="在这里插入图片描述" />
+	<img src="!assets/Oracle/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly92LmNzZG4ubmV0L3dlaXhpbl80Mzc5MjQwMQ==,size_16,color_FFFFFF,t_70.png" alt="在这里插入图片描述" style="" />
 
 
 
@@ -107,7 +107,7 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 1. 停止Oracle *服务：
 	
-	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230419152744833.png" alt="image-20230419152744833" style="zoom:50%;" />
+	<img src="!assets/Oracle/image-20230419152744833.png" alt="image-20230419152744833" style="zoom:50%;" />
 	
 2. 删除 Oracle *注册表项：
 
@@ -137,7 +137,7 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 ### 2.1.1、Navicat 
 
-![image-20230523200124483](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523200124483.png)
+<img src="!assets/Oracle/image-20230523200124483.png" alt="image-20230523200124483" style="" />
 
 基本上直接连就行，这里主要记录下遇到的问题：
 
@@ -149,7 +149,7 @@ ORA-12514:TNS:监听程序当前无法识别连接述符中请求的服务
 
 1. 【工具】 ==> 【选项】 ==> 【环境】：
 
-	<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20211102124021098.png" alt="image-20211102124021098" />
+	<img src="!assets/Oracle/image-20211102124021098.png" alt="image-20211102124021098" style="" />
 
 2. 在 Oracle 安装目录下找到 `oci.dll`， 这是我的路径：`E:\Database\Oracle\Oracle_WINDOWS.X64_193000_db_home\bin\oci.dll`，完成之后重新启动 Navicat。
 
@@ -217,17 +217,17 @@ OCI 下载地址：https://www.oracle.com/database/technologies/instant-client/d
 
 1. 选择自己的运行环境：
 
-   ![image-20230803121856769](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230803121856769.png)
+   <img src="!assets/Oracle/image-20230803121856769.png" alt="image-20230803121856769" style="" />
 
 2. 选择自己的 Oracle 版本：
 
-   ![image-20230803122123579](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230803122123579.png)
+   <img src="!assets/Oracle/image-20230803122123579.png" alt="image-20230803122123579" style="" />
 
    > 还有一点要注意，Oracle9i 或以上版本的，要安装 Install Client11 或以下；Oracle8 或 8i 服务器，需要安装 Install Client10 或以下。这个问题不大，因为我们现在的 Oracle 都是 10 或 11 了，注意一下就好。
 
 3.  然后在 Navicat 中配置一下，选择【工具】 ==> 【选项】 ==> 【环境】：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230803122833129.png" alt="image-20230803122833129" style="zoom: 67%;" />
+   <img src="!assets/Oracle/image-20230803122833129.png" alt="image-20230803122833129" style="zoom: 67%;" />
 
    在 OCI library 中找到刚刚下载的文件夹中的 oci.dll。
 
@@ -249,23 +249,23 @@ SQL Developer 还将接口集成到一些相关技术中，包括 Oracle Data Mi
 
 1. 连接到 Oracle 数据库后，选中 Oracle 连接然后点击【新建】：
 
-   ![image-20230523201401549](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523201401549.png)
+   <img src="!assets/Oracle/image-20230523201401549.png" alt="image-20230523201401549" style="" />
 
    在如下界面中可以看到新建表空间的选项：
 
-   ![image-20230523201523278](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523201523278.png)
+   <img src="!assets/Oracle/image-20230523201523278.png" alt="image-20230523201523278" style="" />
 
 2. 在【其他用户】里，可以右键添加用户：
 
-   ![image-20230523202652586](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523202652586.png)
+   <img src="!assets/Oracle/image-20230523202652586.png" alt="image-20230523202652586" style="" />
 
 3. 填写用户名和密码，并分配表空间：
 
-   ![image-20230523204127324](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523204127324.png)
+   <img src="!assets/Oracle/image-20230523204127324.png" alt="image-20230523204127324" style="" />
 
 4. 授权里面选中 CONNECT、DBA、RESOURE 三个权限，保存即可：
 
-   ![image-20230523203347868](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523203347868.png)
+   <img src="!assets/Oracle/image-20230523203347868.png" alt="image-20230523203347868" style="" />
 
 
 
@@ -275,7 +275,7 @@ listener.ora、tnsnames.ora 和 sqlnet.ora 这 3 个文件是关系 Oracle 网�
 
 如果不知道 `$ORACLE_HOME` 在哪可以打开图形工具 Oracle Net Manager 查看：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230523183048714.png" alt="image-20230523183048714" />
+<img src="!assets/Oracle/image-20230523183048714.png" alt="image-20230523183048714" style="" />
 
 同时上面说到的三个文件都可以通过这个图形的配置工具来完成配置，这些都是 Oracle 自带的配置工具：
 
@@ -1051,7 +1051,7 @@ FROM dual;
 
 如果有一个字符串 aabcd，并指定了一个 `a(b|c)d` 搜索，则将搜索后跟 b 或 c，接着是 d 的 a。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221108142342799.png" alt="image-20221108142342799" style="zoom: 50%;" />
+<img src="!assets/Oracle/image-20221108142342799.png" alt="image-20221108142342799" style="zoom: 50%;" />
 
 `a(b|c)d` 不匹配给定的字符串 aabcd。
 

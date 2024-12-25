@@ -12,7 +12,7 @@ WebLogic 是美国 Oracle 公司出品的一个 application server，确切的�
 
 访问：https://www.oracle.com/cn/middleware/technologies/weblogic-server-downloads.html，在页面中找到 `Oracle WebLogic Server 12.2.1.4`，点击 `Generic` 下载。
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095506916-1584814676.png)
+<img src="!assets/WebLogic/1119097-20210805095506916-1584814676.png" alt="img" style="" />
 
 
 
@@ -24,81 +24,81 @@ WebLogic 是美国 Oracle 公司出品的一个 application server，确切的�
 
    解压后为安装包和 readme，readme 中有版本说明、安装手册等
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095517481-334808979.png)
+   <img src="!assets/WebLogic/1119097-20210805095517481-334808979.png" alt="img" style="" />
 
 3. 解压安装包（jar 包）
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095539807-1391224409.png)
+   <img src="!assets/WebLogic/1119097-20210805095539807-1391224409.png" alt="img" style="" />
 
 4. 进入 `Disk1\install`
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095552529-1487676700.png)
+   <img src="!assets/WebLogic/1119097-20210805095552529-1487676700.png" alt="img" style="" />
 
 5. 找到文件 `ng.cmd`，鼠标右键，点击以管理员身份运行，弹出控制台，稍后则会出现安装界面
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095620711-406017220.png)
+   <img src="!assets/WebLogic/1119097-20210805095620711-406017220.png" alt="img" style="" />
 
 6. 安装
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095629573-1539117900.png)
+   <img src="!assets/WebLogic/1119097-20210805095629573-1539117900.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095634576-659549188.png)
+   <img src="!assets/WebLogic/1119097-20210805095634576-659549188.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095640776-1308382125.png)
+   <img src="!assets/WebLogic/1119097-20210805095640776-1308382125.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095645436-1147065726.png)
+   <img src="!assets/WebLogic/1119097-20210805095645436-1147065726.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095650819-1257919969.png)
+   <img src="!assets/WebLogic/1119097-20210805095650819-1257919969.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095658330-1520671133.png)
+   <img src="!assets/WebLogic/1119097-20210805095658330-1520671133.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095705310-537446202.png)
+   <img src="!assets/WebLogic/1119097-20210805095705310-537446202.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095710158-1886335348.png)
+   <img src="!assets/WebLogic/1119097-20210805095710158-1886335348.png" alt="img" style="" />
 
 7. 配置
 
    如果在安装最后一步，没有勾选自动启动配置项向导，则需要在安装目录一次找到 `Oracle\Middleware\Oracle_Home\oracle_common\common\bin\config.cmd`，双击即可打开配置向导。
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095825359-1267580425.png)
+   <img src="!assets/WebLogic/1119097-20210805095825359-1267580425.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095832141-1098880837.png)
+   <img src="!assets/WebLogic/1119097-20210805095832141-1098880837.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095841393-940125565.png)
+   <img src="!assets/WebLogic/1119097-20210805095841393-940125565.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095847137-302705788.png)
+   <img src="!assets/WebLogic/1119097-20210805095847137-302705788.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095915953-260996187.png)
+   <img src="!assets/WebLogic/1119097-20210805095915953-260996187.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095920519-1131564734.png)
+   <img src="!assets/WebLogic/1119097-20210805095920519-1131564734.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095925940-723661005.png)
+   <img src="!assets/WebLogic/1119097-20210805095925940-723661005.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095944242-114285994.png)
+   <img src="!assets/WebLogic/1119097-20210805095944242-114285994.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095952319-1556892709.png)
+   <img src="!assets/WebLogic/1119097-20210805095952319-1556892709.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805095957959-1388745340.png)
+   <img src="!assets/WebLogic/1119097-20210805095957959-1388745340.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805100002564-1551700284.png)
+   <img src="!assets/WebLogic/1119097-20210805100002564-1551700284.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805100006944-1873116894.png)
+   <img src="!assets/WebLogic/1119097-20210805100006944-1873116894.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805100014428-465651627.png)
+   <img src="!assets/WebLogic/1119097-20210805100014428-465651627.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805100020165-667155737.png)
+   <img src="!assets/WebLogic/1119097-20210805100020165-667155737.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805100026565-460038184.png)
+   <img src="!assets/WebLogic/1119097-20210805100026565-460038184.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805100031798-2001912021.png)
+   <img src="!assets/WebLogic/1119097-20210805100031798-2001912021.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805100037444-2012661630.png)
+   <img src="!assets/WebLogic/1119097-20210805100037444-2012661630.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805100042679-575953920.png)
+   <img src="!assets/WebLogic/1119097-20210805100042679-575953920.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805100050624-1448488874.png)
+   <img src="!assets/WebLogic/1119097-20210805100050624-1448488874.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805100056454-697515979.png)
+   <img src="!assets/WebLogic/1119097-20210805100056454-697515979.png" alt="img" style="" />
 
 
 
@@ -106,13 +106,13 @@ WebLogic 是美国 Oracle 公司出品的一个 application server，确切的�
 
 在安装目录依次找到 `Oracle\Middleware\Oracle_Home\user_projects\domains\base_domain\bin\startWebLogic.cmd`，双击启动。
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805100137637-723411073.png)
+<img src="!assets/WebLogic/1119097-20210805100137637-723411073.png" alt="img" style="" />
 
 浏览器输入：http://127.0.0.1:7001/console
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805100224073-1606451984.png)
+<img src="!assets/WebLogic/1119097-20210805100224073-1606451984.png" alt="img" style="" />
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805100148244-952036088.png)
+<img src="!assets/WebLogic/1119097-20210805100148244-952036088.png" alt="img" style="" />
 
 
 
@@ -120,9 +120,9 @@ WebLogic 是美国 Oracle 公司出品的一个 application server，确切的�
 
 在开始中找到 `Uninstall OracleHome1` 快捷方式，或者在 C 盘搜索到 `Uninstall OracleHome1` 快捷方式位置，点击即可卸载。
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805101038077-310325990.png)
+<img src="!assets/WebLogic/1119097-20210805101038077-310325990.png" alt="img" style="" />
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1119097-20210805101045461-1913711451.png)
+<img src="!assets/WebLogic/1119097-20210805101045461-1913711451.png" alt="img" style="" />
 
 
 
@@ -132,67 +132,67 @@ WebLogic 是美国 Oracle 公司出品的一个 application server，确切的�
 
 1. 启动并访问 Weblogic，进入登录页面：
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306162126594-39703724.png)
+   <img src="!assets/WebLogic/1303698-20180306162126594-39703724.png" alt="img" style="" />
 
 2. 进入主页面，开始部署项目：
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306162231545-698664955.png)
+   <img src="!assets/WebLogic/1303698-20180306162231545-698664955.png" alt="img" style="" />
 
 3. 上载项目 war 包：
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306162337244-1709328388.png)
+   <img src="!assets/WebLogic/1303698-20180306162337244-1709328388.png" alt="img" style="" />
 
    选择需要上载的本地 war 包：
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306162450722-952168594.png)
+   <img src="!assets/WebLogic/1303698-20180306162450722-952168594.png" alt="img" style="" />
 
 4. 开始项目配置：
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306162650116-1150502665.png)
+   <img src="!assets/WebLogic/1303698-20180306162650116-1150502665.png" alt="img" style="" />
 
    继续【下一步】：
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306162750298-2077098431.png)
+   <img src="!assets/WebLogic/1303698-20180306162750298-2077098431.png" alt="img" style="" />
 
    选择红色标记的配置：
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306162929219-210649233.png)
+   <img src="!assets/WebLogic/1303698-20180306162929219-210649233.png" alt="img" style="" />
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306163010472-1944122109.png)
+   <img src="!assets/WebLogic/1303698-20180306163010472-1944122109.png" alt="img" style="" />
 
 5. 完成配置：
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306163130861-286537828.png)
+   <img src="!assets/WebLogic/1303698-20180306163130861-286537828.png" alt="img" style="" />
 
 6. 激活配置：
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306163220376-548157725.png)
+   <img src="!assets/WebLogic/1303698-20180306163220376-548157725.png" alt="img" style="" />
 
 7. 开始配置系统环境：
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306163343368-2147326009.png)
+   <img src="!assets/WebLogic/1303698-20180306163343368-2147326009.png" alt="img" style="" />
 
 8. 进入【AdminServer（管理）】：
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306163505382-510409227.png)
+   <img src="!assets/WebLogic/1303698-20180306163505382-510409227.png" alt="img" style="" />
 
 9. 选择【协议】，然后选择【HTTP】：
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306163613423-725849867.png)
+   <img src="!assets/WebLogic/1303698-20180306163613423-725849867.png" alt="img" style="" />
 
 10. 配置 HTTP 协议中的信息，没用红框标记的保持默认就行了，配置完成后再次点击左上角的【激活更改】：
 
-    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306163720539-688081214.png)
+    <img src="!assets/WebLogic/1303698-20180306163720539-688081214.png" alt="img" style="" />
 
 11. 最后，再次点击【部署】：
 
-    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306163834622-1380453145.png)
+    <img src="!assets/WebLogic/1303698-20180306163834622-1380453145.png" alt="img" style="" />
 
-    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306163949387-1806740500.png)
+    <img src="!assets/WebLogic/1303698-20180306163949387-1806740500.png" alt="img" style="" />
 
 12. 启动部署项目：
 
-    ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1303698-20180306164039223-1396985426.png)
+    <img src="!assets/WebLogic/1303698-20180306164039223-1396985426.png" alt="img" style="" />
 
 13. 然后就可以访问项目了，链接格式为：http://IP:PORT/ProjectName
 
@@ -270,19 +270,19 @@ WebLogic 的默认 JVM 堆大小为 3GB。该大小是在 Linux 的 `setDomainEn
 
 1. 进入 WebLogic 登陆界面：
 
-   ![image-20230829172847335](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230829172847335.png)
+   <img src="!assets/WebLogic/image-20230829172847335.png" alt="image-20230829172847335" style="" />
 
 2. 登录之后找到【环境】=>【服务器】：
 
-   ![image-20230829173017666](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230829173017666.png)
+   <img src="!assets/WebLogic/image-20230829173017666.png" alt="image-20230829173017666" style="" />
 
 3. 点击管理项目的服务器超链接：
 
-   ![image-20230829173137105](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230829173137105.png)
+   <img src="!assets/WebLogic/image-20230829173137105.png" alt="image-20230829173137105" style="" />
 
 4. 点击【锁定并编辑】，修改监听端口后保存即可：
 
-   ![image-20230829173236833](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230829173236833.png)
+   <img src="!assets/WebLogic/image-20230829173236833.png" alt="image-20230829173236833" style="" />
 
    此种方式不需要重启。
 
@@ -292,7 +292,7 @@ WebLogic 的默认 JVM 堆大小为 3GB。该大小是在 Linux 的 `setDomainEn
 
 修改 `%weblogic%\user_projects\domains\base_domain\config\config.xml` 的 `listen-port` 节点，大概在 55 行：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230829173614635.png" alt="image-20230829173614635" style="zoom: 67%;" />
+<img src="!assets/WebLogic/image-20230829173614635.png" alt="image-20230829173614635" style="zoom: 67%;" />
 
 此种方式需要重启。
 
@@ -304,7 +304,7 @@ WebLogic 的默认 JVM 堆大小为 3GB。该大小是在 Linux 的 `setDomainEn
 
 修改 `%weblogic%\user_projects\domains\base_domain\config\config.xml` 的 `console-context-path` 节点 ，大概在 46 行：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1734293261850.png" alt="QQ_1734293261850" style="zoom:80%;" />
+<img src="!assets/WebLogic/QQ_1734293261850.png" alt="QQ_1734293261850" style="zoom:80%;" />
 
 此种方式需要重启。
 

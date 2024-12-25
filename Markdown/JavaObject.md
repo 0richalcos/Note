@@ -1062,7 +1062,7 @@ class Student extends Person,extends Person1,extends Person2{…}
 
 很多地方在介绍 Java 的单继承时，可能会说 Java 类只能有一个父类，严格来讲，这种说法是错误的，应该是一个类只能有一个直接父类，但是它可以有多个间接的父类。例如，Student 类继承 Person 类，Person 类继承 Person1 类，Person1 类继承 Person2 类，那么 Person1 和 Person2 类是 Student 类的间接父类。下图展示了单继承的关系。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/3-1Q0191F143928.jpg" alt="img" style="width:50%;" />
+<img src="!assets/JavaObject/3-1Q0191F143928.jpg" alt="img" style="width:50%;" />
 
 
 从图 1 中可以看出，三角形、四边形和五边形的直接父类是多边形类，它们的间接父类是图形类。图形类、多边形类和三角形、四边形、五边形类形成了一个继承的分支。在这个分支上，位于下层的子类会继承上层所有直接或间接父类的属性和方法。如果两个类不在同一个继承树分支上，就不会存在继承关系，例如多边形类和直线。
@@ -1697,7 +1697,7 @@ public  class Model {
 
 将元素放入集合的流程，如下图
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/70.png" alt="img" style="width:40%;" />
+<img src="!assets/JavaObject/70.png" alt="img" style="width:40%;" />
 
 
 将对象放入到集合中时，首先判断要放入对象的 hashcode 值与集合中的任意一个元素的 hashcode 值是否相等，如果不相等直接将该对象放入集合中。如果 hashcode 值相等，然后再通过 `equals()` 方法判断要放入对象与集合中的任意一个对象是否相等，如果 `equals()` 判断不相等，直接将该元素放入到集合中，否则不放入。回过来说，在 `get()` 的时候，集合类也先调 `key.hashCode()` 算出数组下标，然后看 `equals()` 的结果，如果是 `true` 就是找到了，否则就是没找到。
@@ -2029,7 +2029,7 @@ PhantomReference pr = new PhantomReference(str, queue);
 
 内部类也可以分为多种形式，与变量非常类似，如下图所示。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/3-1Q02311045J93.jpg" alt="img" style="width:30%;" />
+<img src="!assets/JavaObject/3-1Q02311045J93.jpg" alt="img" style="width:30%;" />
 
 
 内部类的特点如下：

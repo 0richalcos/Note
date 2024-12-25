@@ -78,7 +78,7 @@ typora-copy-images-to: upload
 
 5. 访问 http://localhost:8080/swagger-ui/index.html
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210706010548564.png" alt="image-20210706010548564" style="width:90%;" />
+   <img src="!assets/Swagger/image-20210706010548564.png" alt="image-20210706010548564" style="width:90%;" />
 
 
 
@@ -101,12 +101,12 @@ public Docket docket(){
 
 这个时候发现构造函数需要一个参数，先别急，点进 Docket 构造函数源码看看：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210707003434330.png" alt="image-20210707003434330" style="width:80%;" />
+<img src="!assets/Swagger/image-20210707003434330.png" alt="image-20210707003434330" style="width:80%;" />
 
 
 可以看到这里需要一个 `DocumentationType`，那么点进去看看是啥：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210707003643061.png" alt="image-20210707003643061" style="width:80%;" />
+<img src="!assets/Swagger/image-20210707003643061.png" alt="image-20210707003643061" style="width:80%;" />
 
 
 可以看到，它提供了三个构造好的 DocumentationType 常量，设置了使用 Swagger 哪个版本。这里使用的是 Swagger 3.0，所以给出的参数是 `DocumentationType.OAS_30`：
@@ -124,19 +124,19 @@ public Docket docket() {
 
 再回去反观 Docket 的其他源码：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210707004919074.png" alt="image-20210707004919074" style="width:80%;" />
+<img src="!assets/Swagger/image-20210707004919074.png" alt="image-20210707004919074" style="width:80%;" />
 
 
 可以看见 Docket 提供了很多可以配置的属性，并且提供了相应的 setter（注：方法与属性名同名，返回值是 this (链式编程)）
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210707005052596.png" alt="image-20210707005052596" style="width:100%;" />
+<img src="!assets/Swagger/image-20210707005052596.png" alt="image-20210707005052596" style="width:100%;" />
 
 
 它设置默认的分组 `DEFAULT_GROUP_NAME` 是 `default`，没错，这就和右上角的 spec 对应上了：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210707005503455.png" alt="image-20210707005503455" style="width:80%;" />
+<img src="!assets/Swagger/image-20210707005503455.png" alt="image-20210707005503455" style="width:80%;" />
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210707005438852.png" alt="image-20210707005438852" style="width:90%;" />
+<img src="!assets/Swagger/image-20210707005438852.png" alt="image-20210707005438852" style="width:90%;" />
 
 
 另外，还有很多可以自行配置的属性，前面的 DocumentationType 就是其中之一。
@@ -147,7 +147,7 @@ public Docket docket() {
 
 ApiInfo 见名知意，提供了一些基本信息的配置，这些配置信息可以显示 UI 界面上。同样的，点进它的源码看看：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210707005814602.png" alt="image-20210707005814602" style="width:80%;" />
+<img src="!assets/Swagger/image-20210707005814602.png" alt="image-20210707005814602" style="width:80%;" />
 
 
 可以看到，它提供了 8 个可以配置属性，根据名字也能猜出其中的意思：
@@ -163,12 +163,12 @@ ApiInfo 见名知意，提供了一些基本信息的配置，这些配置信息
 
 而在 ApiInfo 中还有一个默认配置 DEFAULT，它的详细信息在类的最下方：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210707010126204.png" alt="image-20210707010126204" style="width:100%;" />
+<img src="!assets/Swagger/image-20210707010126204.png" alt="image-20210707010126204" style="width:100%;" />
 
 
 它看起来是不是很熟悉？没错，它就是在不做任何配置下启动 Swagger 显示的基本信息：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210707010158399.png" alt="image-20210707010158399" style="width:90%;" />
+<img src="!assets/Swagger/image-20210707010158399.png" alt="image-20210707010158399" style="width:90%;" />
 
 
 那么现在可以配置自己的 ApiInfo：
@@ -194,7 +194,7 @@ public ApiInfo getApiInfo() {
 
 然后重启 Spring Boot 项目：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210707012405981.png" alt="image-20210707012405981" style="width:100%;" />
+<img src="!assets/Swagger/image-20210707012405981.png" alt="image-20210707012405981" style="width:100%;" />
 
 
 
@@ -203,12 +203,12 @@ public ApiInfo getApiInfo() {
 
 构建 Docket 时通过 select() 方法配置怎么扫描接口，它会返回一个 ApiSelectorBuilder 对象
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210708001218399.png" alt="image-20210708001218399" style="width:80%;" />
+<img src="!assets/Swagger/image-20210708001218399.png" alt="image-20210708001218399" style="width:80%;" />
 
 
 点开 ApiSelectorBuilder 源码：
 
- <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210708001526009.png" alt="image-20210708001526009" style="width:100%;" />
+ <img src="!assets/Swagger/image-20210708001526009.png" alt="image-20210708001526009" style="width:100%;" />
 
 
 可以看到需要配置的是 requestHandlerSelector 和 pathSelector。
@@ -219,7 +219,7 @@ public ApiInfo getApiInfo() {
 
 接口扫描方案。通过 ApiSelectorBuilder 下的 apis() 方法配置（也是链式编程），在 RequestHandlerSelectors.java 中提供了配置方案：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210708001714146.png" alt="image-20210708001714146" style="width:70%;" />
+<img src="!assets/Swagger/image-20210708001714146.png" alt="image-20210708001714146" style="width:70%;" />
 
 
 - any()：扫描所有，项目中的所有接口都会被扫描到
@@ -238,7 +238,7 @@ public ApiInfo getApiInfo() {
 
 Docket 配置规则这种方式通过 ApiSelectorBuilder 的 paths() 方法配置，在 PathSelectors 提供了配置方案：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210708002213946.png" alt="image-20210708002213946" style="width:70%;" />
+<img src="!assets/Swagger/image-20210708002213946.png" alt="image-20210708002213946" style="width:70%;" />
 
 
 - any()：任何路径都满足条件
@@ -252,12 +252,12 @@ Docket 配置规则这种方式通过 ApiSelectorBuilder 的 paths() 方法配�
 
 在 ApiSelectorBuilder 中提供了默认配置方案 DEFAULT，即不扫描所有标有 @ApiIgnore 注解的类和方法，允许所有的请求路径：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210708002436064.png" alt="image-20210708002436064" style="width:100%;" />
+<img src="!assets/Swagger/image-20210708002436064.png" alt="image-20210708002436064" style="width:100%;" />
 
 
 所以，在一开始，我们才会看到列表中除了一开始自己写的 hello-contoller，还有 basic-error-controller 这些我们自己没配置过的接口：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210708002545318.png" alt="image-20210708002545318" style="width:90%;" />
+<img src="!assets/Swagger/image-20210708002545318.png" alt="image-20210708002545318" style="width:90%;" />
 
 
 那么在 docket() 中增加配置：
@@ -277,7 +277,7 @@ public Docket docket() {
 
 重启项目后发现只有 hello-controller 了：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210708003351356.png" alt="image-20210708003351356" style="width:100%;" />
+<img src="!assets/Swagger/image-20210708003351356.png" alt="image-20210708003351356" style="width:100%;" />
 
 
 
@@ -314,7 +314,7 @@ public Docket docket1(){
 }
 ```
 
- <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210708003601775.png" alt="image-20210708003601775" style="width:90%;" />
+ <img src="!assets/Swagger/image-20210708003601775.png" alt="image-20210708003601775" style="width:90%;" />
 
 
 
@@ -323,7 +323,7 @@ public Docket docket1(){
 
 点开接口文档中的接口，可以看见，在 Response 中 Swagger 默认提供了 200,401,403,404 这几个状态码
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210708003810034.png" alt="image-20210708003810034" style="width:100%;" />
+<img src="!assets/Swagger/image-20210708003810034.png" alt="image-20210708003810034" style="width:100%;" />
 
 
 但是，在实际开发中，大多数都是自定义状态码的；所以，就可以通过 useDefaultResponseMessages(false) 关闭默认状态码：
@@ -343,7 +343,7 @@ public Docket docket() {
 
 重启项目后，可以看到，原先的 401,403,404 没有了：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210708003924497.png" alt="image-20210708003924497" style="width:100%;" />
+<img src="!assets/Swagger/image-20210708003924497.png" alt="image-20210708003924497" style="width:100%;" />
 
 
 
@@ -356,7 +356,7 @@ public Docket docket() {
 
 1. 创建两个新的配置文件，application-dev.properties 和 application-por.properties，分别代表正式环境和开发环境的配置。在这两个配置文件中，分别把启动端口设为 8081 和 8080：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210708005409853.png" alt="image-20210708005409853" style="width:70%;" />
+   <img src="!assets/Swagger/image-20210708005409853.png" alt="image-20210708005409853" style="width:70%;" />
    
 2. 修改 application.properties，将当前的环境设为 dev：
 
@@ -389,7 +389,7 @@ public Docket docket() {
 
    然后重启项目，就可以发现，8080 端口已经无法访问了，但8081 可以：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210708005813542.png" alt="image-20210708005813542" style="width:100%;" />
+   <img src="!assets/Swagger/image-20210708005813542.png" alt="image-20210708005813542" style="width:100%;" />
 
 
 

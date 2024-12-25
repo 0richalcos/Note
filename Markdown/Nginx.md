@@ -33,7 +33,7 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 
 1. 去 [官网](http://nginx.org/en/download.html) 下载压缩包：
 
-   ![image-20230614234051811](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230614234051811.png)
+   <img src="!assets/Nginx/image-20230614234051811.png" alt="image-20230614234051811" style="" />
 
 2. 将下载好的包上传至服务器，解压至 `/usr/local`：
 
@@ -59,7 +59,7 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 
    如无问题，则直接进入第 5 步，如像以下一样缺少库，则先安装库再继续。
 
-   ![image-20230615001606389](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230615001606389.png)
+   <img src="!assets/Nginx/image-20230615001606389.png" alt="image-20230615001606389" style="" />
 
    这里显示缺少 PCRE 库，可以从 [官网](http://www.pcre.org/) 下载，然后上传至服务器、解压、执行配置文件、安装：
 
@@ -79,7 +79,7 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 
    安装完成后再前往 `/usr/local/nginx` 目录执行 `./configure`：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230615003550134.png" alt="image-20230615003550134" style="zoom: 33%;" />
+   <img src="!assets/Nginx/image-20230615003550134.png" alt="image-20230615003550134" style="zoom: 33%;" />
 
    这里显示缺少 zlib 库，可以从 [官网](http://www.zlib.net) 下载，然后上传至服务器、解压、执行配置文件、安装：
 
@@ -206,7 +206,7 @@ vim nginx.conf                //编辑配置文件
 
 去 [官网](http://nginx.org/en/download.html) 下载压缩包：
 
-![image-20230810003412376](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230810003412376.png)
+<img src="!assets/Nginx/image-20230810003412376.png" alt="image-20230810003412376" style="" />
 
 下载好，找个目录解压缩一下，其中最主要的配置文件 `nginx.conf` 在 conf 文件夹中。
 

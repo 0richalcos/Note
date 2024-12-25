@@ -76,7 +76,7 @@ DM8 采用全新的体系架构，在保证大型通用的基础上，针对可�
   ulimit -a
   ```
 
-  ![查看设置是否生效](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/check-openfiles.png)
+  <img src="!assets/DM/check-openfiles.png" alt="查看设置是否生效" style="" />
 
 - 设置参数临时生效
 
@@ -146,15 +146,15 @@ DM 数据库在 Linux 环境下支持命令行安装和图形化安装。
 
 2. 按需求选择安装语言，默认为中文。本地安装选择【不输入 Key 文件】，选择【默认时区 21】：
 
-   ![选项1](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/choose-lang-time.png)
+   <img src="!assets/DM/choose-lang-time.png" alt="选项1" style="" />
 
 3. 选择【1-典型安装】，按已规划的安装目录 `/dm8` 完成数据库软件安装，不建议使用默认安装目录：
 
-   ![选项2](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/choose-type-path.png)
+   <img src="!assets/DM/choose-type-path.png" alt="选项2" style="" />
 
 4. 数据库安装大概 1~2 分钟，数据库安装完成后，显示如下界面：
 
-   ![安装完成](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/install-success.png)
+   <img src="!assets/DM/install-success.png" alt="安装完成" style="" />
 
 5. 数据库安装完成后，需要切换至 root 用户执行上图中的命令 `/dm8/script/root/root_installer.sh` 创建 DmAPService，否则会影响数据库备份。
 
@@ -179,43 +179,43 @@ DM 数据库在 Linux 环境下支持命令行安装和图形化安装。
 
 2. 图形化界面启动成功后，将弹出【选择语言与时区】页面，默认为简体中文和中国标准时间：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-lang-time.png" alt="选择语言与时区" style="zoom:67%;" />
+   <img src="!assets/DM/ui-lang-time.png" alt="选择语言与时区" style="zoom:67%;" />
 
 3. 点击【确定】后，弹出 DM 数据库安装程序：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-install-xd.png" alt="安装向导" style="zoom:67%;" />
+   <img src="!assets/DM/ui-install-xd.png" alt="安装向导" style="zoom:67%;" />
 
 4. 点击【下一步】后，为许可证协议页面，选择【接受】：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-install-xkxy.png" alt="许可证协议" style="zoom:67%;" />
+   <img src="!assets/DM/ui-install-xkxy.png" alt="许可证协议" style="zoom:67%;" />
 
 5. 点击【下一步】后，弹出 key 文件页面，点击【浏览】选择【key 文件】，若没有 key 文件可以直接点击【下一步】，跳过该步骤：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-install-key.png" alt="key文件" style="zoom:67%;" />
+   <img src="!assets/DM/ui-install-key.png" alt="key文件" style="zoom:67%;" />
 
 6. 点击【下一步】后，弹出选择组件页面，建议选择典型安装，也可根据需要，选择服务器安装、客户端安装和自定义安装：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-install-chosezj.png" alt="选择组件" style="zoom:67%;" />
+   <img src="!assets/DM/ui-install-chosezj.png" alt="选择组件" style="zoom:67%;" />
 
 7. 点击【下一步】后，弹出选择安装位置页面，可点击【浏览】选择安装位置，也可安装在默认路径下：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-install-path.png" alt="选择安装位置" style="zoom: 33%;" />
+   <img src="!assets/DM/ui-install-path.png" alt="选择安装位置" style="zoom: 33%;" />
 
 8. 点击【下一步】后，弹出确认安装信息页面，检查安装信息是否准确，确认无误后点击【安装】：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-install-message.png" alt="确认安装信息" style="zoom:67%;" />
+   <img src="!assets/DM/ui-install-message.png" alt="确认安装信息" style="zoom:67%;" />
 
 9. 点击【安装】后，等待 1~2 分钟即可安装完成，安装完成后弹出执行配置脚本页面，按照页面要求执行该脚本即可：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-install-runshell.png" alt="执行配置脚本" style="zoom: 67%;" />
+   <img src="!assets/DM/ui-install-runshell.png" alt="执行配置脚本" style="zoom: 67%;" />
 
 10. 重新打开一个终端，切换到 root 用户，执行弹出页面中的脚本：
 
-    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-install-zxjb.png" alt="执行脚本" style="zoom:67%;" />
+    <img src="!assets/DM/ui-install-zxjb.png" alt="执行脚本" style="zoom:67%;" />
 
 11. 脚本执行完成后，点击执行配置脚本页面中的【完成】，弹出提示框，提示是否关闭窗口，选择是，提示数据库安装完成，再点击【完成】按钮，完成数据库安装：
 
-    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-install-success.png" alt="完成安装" style="zoom:67%;" />
+    <img src="!assets/DM/ui-install-success.png" alt="完成安装" style="zoom:67%;" />
 
 
 
@@ -235,7 +235,7 @@ DM 数据库在 Linux 环境下支持命令行安装和图形化安装。
    vim .bash_profile
    ```
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/dm-home-path.png" alt="环境变量" style="zoom: 80%;" />
+   <img src="!assets/DM/dm-home-path.png" alt="环境变量" style="zoom: 80%;" />
 
 3. 切换至 dmdba 用户下，执行以下命令，使环境变量生效：
 
@@ -264,7 +264,7 @@ DM 数据库在 Linux 环境支持命令行配置实例以及图形化配置实�
 ./dminit help
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ml-licence-dminithelp.png" alt="dminit 帮助" style="zoom:67%;" />
+<img src="!assets/DM/ml-licence-dminithelp.png" alt="dminit 帮助" style="zoom:67%;" />
 
 需要注意的是页大小 (*page_size*)、簇大小 (*extent_size*)、大小写敏感 (*case_sensitive*)、字符集 (*charset*) 这四个参数，一旦确定无法修改，需谨慎设置。
 
@@ -279,7 +279,7 @@ DM 数据库在 Linux 环境支持命令行配置实例以及图形化配置实�
 ./dminit path=/dm/data
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ml-licence-mrcs.png" alt="dminit 默认参数" style="zoom:67%;" />
+<img src="!assets/DM/ml-licence-mrcs.png" alt="dminit 默认参数" style="zoom:67%;" />
 
 也可以自定义初始化实例的参数，参考如下示例：
 
@@ -290,7 +290,7 @@ DM 数据库在 Linux 环境支持命令行配置实例以及图形化配置实�
 CHARSET=1 DB_NAME=DMDB INSTANCE_NAME=DBSERVER PORT_NUM=5237
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ml-licence-szcs.png" alt="dminit 设置参数" style="zoom:67%;" />
+<img src="!assets/DM/ml-licence-szcs.png" alt="dminit 设置参数" style="zoom:67%;" />
 
 > 如果此处自定义了初始化参数，在后面的注册服务和启动数据库等步骤中，请按实际的自定义参数进行操作。
 
@@ -300,53 +300,53 @@ CHARSET=1 DB_NAME=DMDB INSTANCE_NAME=DBSERVER PORT_NUM=5237
 
 1. 使用图形化界面安装数据库安装完成后，会弹出选择是否初始化数据库页面，选择【初始化】：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-licence-csh.png" alt="初始化实例" style="zoom:67%;" />
+   <img src="!assets/DM/ui-licence-csh.png" alt="初始化实例" style="zoom:67%;" />
 
 2. 点击初始化后会弹出数据库配置助手，通过数据库配置助手便可以配置数据库：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-licence-ipzzs.png" alt="初始化实例" style="zoom:67%;" />
+   <img src="!assets/DM/ui-licence-ipzzs.png" alt="初始化实例" style="zoom:67%;" />
 
 3. 若需要主动打开配置助手，可使用 dmdba 用户配置实例，进入到 DM 数据库安装目录下的 tool 目录中，使用 `./dbca.sh` 命令打开数据库配置助手：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-licence-stdbca.png" alt="启动配置助手" style="zoom:67%;" />
+   <img src="!assets/DM/ui-licence-stdbca.png" alt="启动配置助手" style="zoom:67%;" />
 
 4. 选择创建数据库实例，点击【开始】，进入创建数据库页面的创建数据库模版页签，选择【一般用途】，如下图所示：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-instance-cremod.png" alt="创建数据库模版" style="zoom:67%;" />
+   <img src="!assets/DM/ui-instance-cremod.png" alt="创建数据库模版" style="zoom:67%;" />
 
 5. 点击【下一步】，选择数据库实例安装目录，如下图所示：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-instance-cpath.png" alt="指定数据库目录" style="zoom:67%;" />
+   <img src="!assets/DM/ui-instance-cpath.png" alt="指定数据库目录" style="zoom:67%;" />
 
 6. 确定好数据库安装目录后，点击【下一步】，用户可根据需要设置对应的数据库参数，如下图所示：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-instance-settag.png" alt="指定数据库目录" style="zoom:67%;" />
+   <img src="!assets/DM/ui-instance-settag.png" alt="指定数据库目录" style="zoom:67%;" />
 
 7. 点击【下一步】，配置数据库文件路径，选择【默认路径】即可，如下图所示：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-licence-datafilepath.png" alt="指定数据库文件目录" style="zoom:67%;" />
+   <img src="!assets/DM/ui-licence-datafilepath.png" alt="指定数据库文件目录" style="zoom:67%;" />
 
 8. 点击【下一步】，配置初始化参数，注意簇大小、页大小、字符集以及大小写敏感确定后不可修改，默认配置即可，如下图所示：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-licence-setcs.png" alt="指定数据库文件目录" style="zoom:67%;" />
+   <img src="!assets/DM/ui-licence-setcs.png" alt="指定数据库文件目录" style="zoom:67%;" />
 
 9. 点击【下一步】，配置数据库口令，默认配置即可，如下图所示：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-licence-pswm.png" alt="口令管理" style="zoom:67%;" />
+   <img src="!assets/DM/ui-licence-pswm.png" alt="口令管理" style="zoom:67%;" />
 
 10. 点击【下一步】，配置示例库，建议勾选  `BOOKSHOP` 或 `DMHR`，作为演示环境，如下图所示：
 
-    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-licence-exdatabase.png" alt="创建示例库" style="zoom:67%;" />
+    <img src="!assets/DM/ui-licence-exdatabase.png" alt="创建示例库" style="zoom:67%;" />
 
 11. 点击【下一步】，用户可检查创建参数，若有需要修改之处可点击【上一步】回到需要修改的位置进行修改，如下图所示：
 
-    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-licence-crezy.png" alt="创建摘要" style="zoom:67%;" />
+    <img src="!assets/DM/ui-licence-crezy.png" alt="创建摘要" style="zoom:67%;" />
 
 12. 点击【完成】，创建完成数据库实例后，按下图按提示执行脚本即可完成实例配置：
 
-    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-licence-cresuee.png" alt="创建完成" style="zoom:67%;" />
+    <img src="!assets/DM/ui-licence-cresuee.png" alt="创建完成" style="zoom:67%;" />
 
-    <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/zxml.png" alt="执行命令" style="zoom:67%;" />
+    <img src="!assets/DM/zxml.png" alt="执行命令" style="zoom:67%;" />
 
 
 
@@ -386,19 +386,19 @@ cd /dm8/tool
 
 1. 打开运行 dbca 工具，选择【注册数据库服务】，如下图所示：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-service-dbca.png" alt="打开dbca" style="zoom:67%;" />
+   <img src="!assets/DM/ui-service-dbca.png" alt="打开dbca" style="zoom:67%;" />
 
 2. 单击【开始】，弹出注册数据库服务页面，如下图所示：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-service-zccs.png" alt="注册参数" style="zoom:67%;" />
+   <img src="!assets/DM/ui-service-zccs.png" alt="注册参数" style="zoom:67%;" />
 
 3. 点击【完成】后，弹出执行配置脚本页面，按页面要求执行脚本即可，如下图所示：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-service-shell.png" alt="执行配置脚本" style="zoom:67%;" />
+   <img src="!assets/DM/ui-service-shell.png" alt="执行配置脚本" style="zoom:67%;" />
 
 4. 执行脚本成功后，该实例已启动，如下图所示：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-service-zd.png" alt="终端" style="zoom:67%;" />
+   <img src="!assets/DM/ui-service-zd.png" alt="终端" style="zoom:67%;" />
 
 
 
@@ -460,9 +460,9 @@ systemctl status DmServiceDMSERVER.service
 ./dmservice.sh
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-service-fwck.png" alt="安装完成" style="zoom:67%;" />
+<img src="!assets/DM/ui-service-fwck.png" alt="安装完成" style="zoom:67%;" />
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/ui-service-czfw.png" alt="安装完成" style="zoom:67%;" />
+<img src="!assets/DM/ui-service-czfw.png" alt="安装完成" style="zoom:67%;" />
 
 
 
@@ -472,7 +472,7 @@ systemctl status DmServiceDMSERVER.service
 
 下图展示为 DM8 数据库目录。
 
-![目录](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/dm-dictionary.png)
+<img src="!assets/DM/dm-dictionary.png" alt="目录" style="" />
 
 - `/dm8/bin` 目录存放 DM 数据库的可执行文件，例如 `disql` 命令、`dminit` 命令、`dmrman` 工具等。
 - `/dm8/desktop` 存放 DM 数据库各个工具的桌面图标。
@@ -491,11 +491,11 @@ systemctl status DmServiceDMSERVER.service
 
 `/dm8/data` 为数据库实例目录，该目录存放各个实例的文件。
 
-![目录](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/dictionary-instance.png)
+<img src="!assets/DM/dictionary-instance.png" alt="目录" style="" />
 
 以实例 DAMENG 为例，该目录下存放 DAMENG 实例的配置文件（`*.ini`）、控制文件（`dm.ctl`）、数据文件（`*.DBF`）、日志文件（`*.log`） 等。
 
-![目录](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/dictionary-instance-DAMENG1.png)
+<img src="!assets/DM/dictionary-instance-DAMENG1.png" alt="目录" style="" />
 
 
 
@@ -564,35 +564,35 @@ grant "PUBLIC","SOI" to "TEST";
 
 1. 新建工程：
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20210202164357901.png)
+   <img src="!assets/DM/20210202164357901.png" alt="img" style="" />
 
 2. 新建迁移：
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20210202164528157.png)
+   <img src="!assets/DM/20210202164528157.png" alt="img" style="" />
 
 3. 双击打开 dm-dm 进行迁移配置：
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20210202164622570.png)
+   <img src="!assets/DM/20210202164622570.png" alt="img" style="" />
 
 4. 选择相应的迁移模式（此处选【dm ==> dm】迁移）：
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20210202164743774.png)
+   <img src="!assets/DM/20210202164743774.png" alt="img" style="" />
 
 5. 填写相应的源数据库和目标数据库的连接信息：
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/2021020216493840.png)
+   <img src="!assets/DM/2021020216493840.png" alt="img" style="" />
 
 6. 选择要迁移的源模式，并指定目的模式，其中 "目录"、"公共同义词"、"上下文" 取消勾选：
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20210202165336811.png)
+   <img src="!assets/DM/20210202165336811.png" alt="img" style="" />
 
 7. 勾选相应的对象，点击【转换】选择迁移策略，可以根据实际情况选择只迁移表结构、数据、约束，或删除原有数据再迁移等具体情况，大字段表选项改小 256 即可
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20210202165939365.png)
+   <img src="!assets/DM/20210202165939365.png" alt="img" style="" />
 
 8. 确认无误后完成即可：
 
-   ![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20210202170509591.png)
+   <img src="!assets/DM/20210202170509591.png" alt="img" style="" />
 
 
 
@@ -602,11 +602,11 @@ grant "PUBLIC","SOI" to "TEST";
 
 1. 右键数据库连接，选择【管理服务器】，切换到【系统管理】，将状态转换为【配置】：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240812180155686.png" alt="image-20240812180155686" style="zoom: 67%;" />
+   <img src="!assets/DM/image-20240812180155686.png" alt="image-20240812180155686" style="zoom: 67%;" />
 
 2. 切换到【归档配置】，将归档模式设置为【归档】，并添加一个本地的归档目标：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240812180342701.png" alt="image-20240812180342701" style="zoom:67%;" />
+   <img src="!assets/DM/image-20240812180342701.png" alt="image-20240812180342701" style="zoom:67%;" />
 
    > [!WARNING]
    >
@@ -614,11 +614,11 @@ grant "PUBLIC","SOI" to "TEST";
 
 3. 点击确定后，再打开【管理服务器】回到【系统管理】，将状态切换为【打开】：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240812180502625.png" alt="image-20240812180502625" style="zoom:67%;" />
+   <img src="!assets/DM/image-20240812180502625.png" alt="image-20240812180502625" style="zoom:67%;" />
 
 4. 最后在连接里找到【备份】，右键【库备份】选择【新增备份】，点击确定就好：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240812180633492.png" alt="image-20240812180633492" style="zoom:67%;" />
+   <img src="!assets/DM/image-20240812180633492.png" alt="image-20240812180633492" style="zoom:67%;" />
 
 5. 备份文件在：`<数据目录>/bak/` 文件夹里。
 
@@ -674,11 +674,11 @@ alter database open;
 
 1. 打开 DM管理工具 => 连接数据库 => 右键选择【管理服务器】：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230922004306995.png" alt="image-20230922004306995" style="zoom: 67%;" />
+   <img src="!assets/DM/image-20230922004306995.png" alt="image-20230922004306995" style="zoom: 67%;" />
 
 2. 切换到【系统管理】页面，选择需要切换的状态，最后点击【转换】：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20230922004422477.png" alt="image-20230922004422477" style="zoom:67%;" />
+   <img src="!assets/DM/image-20230922004422477.png" alt="image-20230922004422477" style="zoom:67%;" />
 
    左侧目录刷新，即可看到数据库对象信息。
 
@@ -710,7 +710,7 @@ Linux 登录，进入数据库软件安装目录的 bin 目录下。登录方式
 ./disql SYSDBA/SYSDBA@LOCALHOST:5236
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/202407231508331967I025JMXMVX2VQK.png" alt="202407231508331967I025JMXMVX2VQK" style="zoom:80%;" />
+<img src="!assets/DM/202407231508331967I025JMXMVX2VQK.png" alt="202407231508331967I025JMXMVX2VQK" style="zoom:80%;" />
 
 如果密码含有特殊字符的情况下，需要使用双引号将密码包含进来，同时外层再使用单引号进行转义。以用户名 TEST，密码 `TEST@111#2024` 为例，如下所示：
 
@@ -718,11 +718,11 @@ Linux 登录，进入数据库软件安装目录的 bin 目录下。登录方式
 ./disql TEST/'"TEST@111#2024"'@127.0.0.1:5236
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20240723150931L5ZOIWO60GJRIMAXKS.png" alt="20240723150931L5ZOIWO60GJRIMAXKS" style="zoom:80%;" />
+<img src="!assets/DM/20240723150931L5ZOIWO60GJRIMAXKS.png" alt="20240723150931L5ZOIWO60GJRIMAXKS" style="zoom:80%;" />
 
 如果用户名、密码、端口号均为默认的情况下（用户名：SYSDBA ，密码：SYSDBA ，端口：5236 ），可直接输入 `./disql`，敲击回车按键，即可登录数据库。如下所示：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726074490724.png" alt="QQ_1726074490724" style="zoom: 25%;" />
+<img src="!assets/DM/QQ_1726074490724.png" alt="QQ_1726074490724" style="zoom: 25%;" />
 
 
 
@@ -750,7 +750,7 @@ CONNECT TEST/'"TEST@111#2024"'@127.0.0.1:5236
 
 
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726074907877.png" alt="QQ_1726074907877" style="zoom: 25%;" />
+<img src="!assets/DM/QQ_1726074907877.png" alt="QQ_1726074907877" style="zoom: 25%;" />
 
 `login` 命令操作如下：
 
@@ -760,7 +760,7 @@ CONNECT TEST/'"TEST@111#2024"'@127.0.0.1:5236
 
 其余回车即可：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726074954932.png" alt="QQ_1726074954932" style="zoom: 25%;" />
+<img src="!assets/DM/QQ_1726074954932.png" alt="QQ_1726074954932" style="zoom: 25%;" />
 
 
 
@@ -770,11 +770,11 @@ CONNECT TEST/'"TEST@111#2024"'@127.0.0.1:5236
 
 其中 `logout`、`disconnect` 只退出或者断开当前登录的会话连接，不退出 disql；`exit`、`quit` 表示退出当前登录会话连接并且退出 disql 操作界面。如下所示：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726075327422.png" alt="QQ_1726075327422" style="zoom:25%;" />
+<img src="!assets/DM/QQ_1726075327422.png" alt="QQ_1726075327422" style="zoom:25%;" />
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726075343639.png" alt="QQ_1726075343639" style="zoom:25%;" />
+<img src="!assets/DM/QQ_1726075343639.png" alt="QQ_1726075343639" style="zoom:25%;" />
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1726075360897.png" alt="QQ_1726075360897" style="zoom:25%;" />
+<img src="!assets/DM/QQ_1726075360897.png" alt="QQ_1726075360897" style="zoom:25%;" />
 
 
 
@@ -793,7 +793,7 @@ start /home/dmdba/test.sql
 
 
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/202407231529233K13R37GG5RDKDV4G0.png" alt="202407231529233K13R37GG5RDKDV4G0" style="zoom:80%;" />
+<img src="!assets/DM/202407231529233K13R37GG5RDKDV4G0.png" alt="202407231529233K13R37GG5RDKDV4G0" style="zoom:80%;" />
 
 也可在登录时直接同时进行脚本的执行，如下所示：
 
@@ -801,9 +801,9 @@ start /home/dmdba/test.sql
 ./disql TEST/'"TEST@111#2024"'@127.0.0.1:5236 \`/home/dmdba/test.sql
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20240723152653MTEBSP0Z1BUXKW2KVL.png" alt="20240723152653MTEBSP0Z1BUXKW2KVL" style="zoom:80%;" />
+<img src="!assets/DM/20240723152653MTEBSP0Z1BUXKW2KVL.png" alt="20240723152653MTEBSP0Z1BUXKW2KVL" style="zoom:80%;" />
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20240723152719ICBB8YK83P07CQY2OU.png" alt="20240723152719ICBB8YK83P07CQY2OU" style="zoom:80%;" />
+<img src="!assets/DM/20240723152719ICBB8YK83P07CQY2OU.png" alt="20240723152719ICBB8YK83P07CQY2OU" style="zoom:80%;" />
 
 > [!IMPORTANT]
 >

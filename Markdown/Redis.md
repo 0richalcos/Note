@@ -8,7 +8,7 @@ typora-copy-images-to: upload
 
 **单机 MySQL 年代**
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200815224858013.png" alt="image-20200815224858013" style="zoom: 67%;float:left" />
+<img src="!assets/Redis/image-20200815224858013.png" alt="image-20200815224858013" style="zoom: 67%;float:left" />
 
 DAL 是数据访问层的英文缩写，即为数据访问层（Data Access Layer）。其功能主要是负责数据库的访问。简单地说就是实现对数据表的 Select（查询）、Insert（插入）、Update（更新）、Delete（删除）等操作。
 
@@ -26,7 +26,7 @@ DAL 是数据访问层的英文缩写，即为数据访问层（Data Access Laye
 
 网站 80% 的情况都是在读，每次都要去查询数据就十分麻烦，为了减轻数据库的压力，可以使用缓存来保证效率。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200815225617475.png" alt="image-20200815225617475" style="zoom:67%;float:left" />
+<img src="!assets/Redis/image-20200815225617475.png" alt="image-20200815225617475" style="zoom:67%;float:left" />
 
 
 
@@ -36,13 +36,13 @@ DAL 是数据访问层的英文缩写，即为数据访问层（Data Access Laye
 
 转战 InnoDB：行锁（如果使用针对 InnoDB 的表使用行锁，被锁定字段不是主键，也没有针对它建立索引的话，行锁锁定的也是整张表）
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200815230653794.png" alt="image-20200815230653794" style="zoom:80%;float:left" />
+<img src="!assets/Redis/image-20200815230653794.png" alt="image-20200815230653794" style="zoom:80%;float:left" />
 
 
 
 **现今（大数据时代）**
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200815235909929.png" alt="image-20200815235909929" style="zoom: 80%;float:left" />
+<img src="!assets/Redis/image-20200815235909929.png" alt="image-20200815235909929" style="zoom: 80%;float:left" />
 
 现今如果涉及大数据量的需求，比如一些商品抢购的情景，或者是主页访问量瞬间较大的时候，单一使用数据库来保存数据的系统会因为面向磁盘，磁盘读/写速度比较慢的问题而存在严重的性能弊端，一瞬间成千上万的请求到来，需要系统在极短的时间内完成成千上万次的读/写操作，这个时候往往不是数据库能够承受的，极其容易造成数据库系统瘫痪，最终出现服务宕机这种严重的问题。为了克服上述的问题，项目通常会引入 NoSQL 技术。
 
@@ -296,11 +296,11 @@ apt purge --auto-remove redis-server
 
 前往[地址]([https://github.com/MSOpenTech/redis/releases](https://github.com/MSOpenTech/redis/releases))下载安装包：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221128134433247.png" alt="image-20221128134433247" style="zoom:50%;" />
+<img src="!assets/Redis/image-20221128134433247.png" alt="image-20221128134433247" style="zoom:50%;" />
 
 先完成后直接安装，使用 `.msi` 版本的在安装完成后会直接配置 Redis 服务，可以在【服务】界面看到：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20221128134544993.png" alt="image-20221128134544993" style="zoom:50%;" />
+<img src="!assets/Redis/image-20221128134544993.png" alt="image-20221128134544993" style="zoom:50%;" />
 
 服务默认为自动启动状态（开机自启），如果不希望自动启动可以改为手动启动，通过服务页面或者以下命令控制 Redis 服务：
 
@@ -1208,7 +1208,7 @@ OK
 
 这个命令唯一做的就是， 将客户端的 REDIS_MULTI 选项打开， 让客户端从非事务状态切换到事务状态。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/graphviz-0ff9f2e58803dbb8c1c400e1f8191f77d4c2917e.svg"/>
+<img src="!assets/Redis/graphviz-0ff9f2e58803dbb8c1c400e1f8191f77d4c2917e.svg" alt="" style="" />
 
 事务状态下的命令以单个命令为单位执行，前一个命令和后一个命令的客户端不一定是同一个；而事务状态则是以一个事务为单位，执行事务队列中的所有命令：除非当前事务执行完毕，否则服务器不会中断事务，也不会执行其他客户端的其他命令。
 
@@ -1241,7 +1241,7 @@ QUEUED
 
 以下流程图展示了这一行为：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/graphviz-8a0f8eae0bb8180e877b799921dd690267c2d3b4.svg"/>
+<img src="!assets/Redis/graphviz-8a0f8eae0bb8180e877b799921dd690267c2d3b4.svg" alt="" style="" />
 
 事务队列是一个数组， 每个数组项是都包含三个属性：
 
@@ -1285,7 +1285,7 @@ QUEUED
 
 当客户端进入事务状态之后， 客户端发送的命令就会被放进事务队列里，但其实并不是所有的命令都会被放进事务队列， 其中的例外就是 `exec`、 `discard`、 `multi` 和 `watch` 这四个命令；当这四个命令从客户端发送到服务器时， 它们会像客户端处于非事务状态一样， 直接被服务器执行：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/graphviz-836c8a3dc33526a649d9ecf5b7b959d72b38cc7d.svg"/>
+<img src="!assets/Redis/graphviz-836c8a3dc33526a649d9ecf5b7b959d72b38cc7d.svg" alt="" style="" />
 
 如果客户端正处于事务状态， 那么当 `exec` 命令执行时， 服务器根据客户端所保存的事务队列， 以先进先出（FIFO）的方式执行事务队列中的命令： 最先入队的命令最先执行， 而最后入队的命令最后执行。
 
@@ -1353,7 +1353,7 @@ redis> exec
 
 比如说，以下字典就展示了一个 watched_keys 字典的例子：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/graphviz-9aea81f33da1373550c590eb0b7ca0c2b3d38366.svg"  />
+<img src="!assets/Redis/graphviz-9aea81f33da1373550c590eb0b7ca0c2b3d38366.svg" alt="" style="" />
 
 其中， 键 key1 正在被 client2 、 client5 和 client1 三个客户端监视， 其他一些键也分别被其他别的客户端监视着。
 
@@ -1361,7 +1361,7 @@ redis> exec
 
 如果当前客户端为 client10086 ， 那么当客户端执行 `watch key1 key2` 时， 前面展示的 watched_keys 将被修改成这个样子：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/graphviz-fe5e31054c282a3cdd86656994fe1678a3d4f201.svg" />
+<img src="!assets/Redis/graphviz-fe5e31054c282a3cdd86656994fe1678a3d4f201.svg" alt="" style="" />
 
 通过 watched_keys 字典， 如果程序想检查某个键是否被监视， 那么它只要检查字典中是否存在这个键即可； 如果程序要获取监视某个键的所有客户端， 那么只要取出键的值（一个链表）， 然后对链表进行遍历即可。
 
@@ -1371,7 +1371,7 @@ redis> exec
 
 在任何对数据库键空间（key space）进行修改的命令成功执行之后 （比如 `flushdb`、 `set`、 `del`、 `lpush`、 `sadd`、 `zrem`，诸如此类）， multi.c/touchWatchedKey 函数都会被调用；它检查数据库的 watched_keys 字典， 看是否有客户端在监视已经被命令修改的键， 如果有的话， 程序将所有监视 这个/这些 被修改键的客户端的 REDIS_DIRTY_CAS 选项打开：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/graphviz-e5c66122242aa10939b696dfeeb905343c5202bd.svg" />
+<img src="!assets/Redis/graphviz-e5c66122242aa10939b696dfeeb905343c5202bd.svg" alt="" style="" />
 
 当客户端发送 `exec` 命令、触发事务执行时， 服务器会对客户端的状态进行检查：
 
@@ -1380,7 +1380,7 @@ redis> exec
 
 举个例子，假设数据库的 watched_keys 字典如下图所示：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/graphviz-9aea81f33da1373550c590eb0b7ca0c2b3d38366.svg"/>
+<img src="!assets/Redis/graphviz-9aea81f33da1373550c590eb0b7ca0c2b3d38366.svg" alt="" style="" />
 
 如果某个客户端对 key1 进行了修改（比如执行 DEL key1 ）， 那么所有监视 key1 的客户端， 包括 client2 、 client5 和 client1 的 REDIS_DIRTY_CAS 选项都会被打开， 当客户端 client2 、 client5 和 client1 执行 `exec` 的时候， 它们的事务都会以失败告终。
 
@@ -1610,7 +1610,7 @@ Jedis 是一个基于同步、非线程安全的 Redis 客户端，如果想要�
 
 RedisSerializer 接口 是 Redis 序列化接口，用于 Redis KEY 和 VALUE 的序列化，实现类如下：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210527235233341.png" alt="image-20210527235233341" style="zoom:50%;" />
+<img src="!assets/Redis/image-20210527235233341.png" alt="image-20210527235233341" style="zoom:50%;" />
 
 
 
@@ -1624,10 +1624,10 @@ RedisSerializer 接口 是 Redis 序列化接口，用于 Redis KEY 和 VALUE �
 
 	> RedisTemplate 使用的是 JdkSerializationRedisSerializer（如果存入对象，对象要实现 Serializable 接口），存入数据会将数据先序列化成字节数组然后在存入 Redis 数据库。这个时候打开 Redis 查看的时候，你会看到你的数据不是以可读的形式展现的，而是以字节数组显示，类似下面：
 	>
-	> <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180311192010923.png" alt="img" style="zoom:80%;" /> 
+	> <img src="!assets/Redis/20180311192010923.png" alt="img" style="zoom:80%;" /> 
 	>
 	> 当然从 Redis 获取数据的时候也会默认将数据当做字节数组转化，这样就会导致一个问题，当需要获取的数据不是以字节数组存在 Redis 当中而是正常的可读的字符串的时候，比如说下面这种形式的数据：
-	> <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180311192129306.png" alt="img" style="zoom:80%;" />
+	> <img src="!assets/Redis/20180311192129306.png" alt="img" style="zoom:80%;" />
 	>
 	> RedisTemplate 就无法获取导数据，这个时候获取到的值就是 NULL。此时 StringRedisTempate 就派上了用场， StringRedisTemplate 使用的是 StringRedisSerializer，当 Redis 当中的数据值是以可读的形式显示出来的时候，只能使用 StringRedisTemplate 才能获取到里面的数据。
 
@@ -1788,7 +1788,7 @@ public void testJacksonSerializer() {
 User(name=Orichalcos, age=18)
 ```
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210528012258213.png" alt="image-20210528012258213" style="zoom: 50%;" />
+<img src="!assets/Redis/image-20210528012258213.png" alt="image-20210528012258213" style="zoom: 50%;" />
 
 
 
@@ -1877,7 +1877,7 @@ int port = redisUri.getPort();
 
 **单位**
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210531165111502.png" alt="image-20210531165111502"  />
+<img src="!assets/Redis/image-20210531165111502.png" alt="image-20210531165111502" style="" />
 
 单位大小写不敏感，`1GB`、`1Gb`、`1gB`都是一样的
 
@@ -1885,7 +1885,7 @@ int port = redisUri.getPort();
 
 **包含 INCLOUDES**
 
-![image-20210531171044748](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210531171044748.png)
+<img src="!assets/Redis/image-20210531171044748.png" alt="image-20210531171044748" style="" />
 
 可以把多个配置文件包含进来，如果将此配置写在 redis.conf 文件的开头，那么后面的配置会覆盖引入文件的配置，如果想以引入文件的配置为主，那么需要将 include 配置写在 redis.conf 文件的末尾
 
@@ -2376,7 +2376,7 @@ sentinel deny-scripts-reconfig yes
 
 Redis 作为一个键值对内存数据库（NoSQL），数据都存储在内存当中，在处理客户端请求时，所有操作都在内存当中进行，如下所示：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/16b91484c4f516d5.webp" alt="img" style="zoom:67%;" />
+<img src="!assets/Redis/16b91484c4f516d5.webp" alt="img" style="zoom:67%;" />
 
 但是， 存储在内存当中的数据，只要服务器关机(各种原因引起的)，内存中的数据就会消失了，不仅服务器关机会造成数据消失，Redis 服务器守护进程退出，内存中的数据也一样会消失。
 
@@ -2384,7 +2384,7 @@ Redis 作为一个键值对内存数据库（NoSQL），数据都存储在内存
 
 为了避免内存中数据丢失，Redis 提供了 RDB 和 AOF 两种不同的数据持久化方式，我们可以选择不同的方式将数据从内存中保存到硬盘当中，使数据可以持久化保存。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/16b9148bc2eb53a5.webp" alt="img" style="zoom:67%;" />
+<img src="!assets/Redis/16b9148bc2eb53a5.webp" alt="img" style="zoom:67%;" />
 
 
 
@@ -2398,7 +2398,7 @@ RDB（Redis DataBase） 是一种快照存储持久化方式，具体就是将 R
 
 `save`命令可以同步数据到磁盘上。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/16b914a74a0c8ef5.webp" alt="img" style="zoom:67%;" />
+<img src="!assets/Redis/16b914a74a0c8ef5.webp" alt="img" style="zoom:67%;" />
 
 当客户端向服务器发送`save`命令请求进行持久化时，服务器会阻塞`save`命令之后的其他客户端的请求，直到数据同步完成。如果数据量太大，同步数据会执行很久，而这期间 Redis 服务器也无法接收其他请求，所以，最好不要在生产环境使用`save`命令。
 
@@ -2408,7 +2408,7 @@ RDB（Redis DataBase） 是一种快照存储持久化方式，具体就是将 R
 
 与`save`命令不同，`bgsave`命令是一个异步操作。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/16b914b543343855.webp" alt="img" style="zoom:67%;" />
+<img src="!assets/Redis/16b914b543343855.webp" alt="img" style="zoom:67%;" />
 
 当客户端发服务发出`bgsave`命令时，Redis 服务器主进程会 forks 一个子进程来数据同步问题，在将数据保存到 rdb 文件之后，子进程会退出。
 
@@ -2482,7 +2482,7 @@ dir ~/redis/
 
 与 RDB 存储某个时刻的快照不同，AOF （Append-only file）持久化方式会记录客户端对服务器的每一次写操作命令，并将这些写操作以 Redis 协议追加保存到以后缀为 aof 文件末尾，在 Redis 服务器重启时，会加载并运行 aof 文件的命令，以达到恢复数据的目的。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/16b916ccf4224ec3.webp" alt="img" style="zoom: 80%;" />
+<img src="!assets/Redis/16b916ccf4224ec3.webp" alt="img" style="zoom: 80%;" />
 
 
 
@@ -2585,11 +2585,11 @@ Redis 的`subscribe`命令可以让客户端订阅任意数量的频道， 每�
 
 下图展示了频道 channel1 ， 以及订阅这个频道的三个客户端 —— client2 、 client5 和 client1 之间的关系：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/graphviz-58f7b1f1f52b28f59291d194555fc9f4b1462a4c.svg"  />
+<img src="!assets/Redis/graphviz-58f7b1f1f52b28f59291d194555fc9f4b1462a4c.svg" alt="" style="" />
 
 当有新消息通过 `publish` 命令发送给频道 channel1 时， 这个消息就会被发送给订阅它的三个客户端：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/graphviz-84c95abf88d6c0ac55b007da08805a4b9a582fdf.svg"  />
+<img src="!assets/Redis/graphviz-84c95abf88d6c0ac55b007da08805a4b9a582fdf.svg" alt="" style="" />
 
 
 
@@ -2611,13 +2611,13 @@ struct redisServer {
 
 在下图展示的这个 pubsub_channels 示例中， client2 、 client5 和 client1 就订阅了 channel1 ， 而其他频道也分别被别的客户端所订阅：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/graphviz-241c988b86bb9bed6bf26537e654baaab4eef77b.svg" />
+<img src="!assets/Redis/graphviz-241c988b86bb9bed6bf26537e654baaab4eef77b.svg" alt="" style="" />
 
 当客户端调用 `subscribe` 命令时， 程序就将客户端和要订阅的频道在 pubsub_channels 字典中关联起来。
 
 如果客户端 client10086 执行命令 `subscribe channel1 channel2 channel3` ，那么前面展示的 pubsub_channels 将变成下面这个样子：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/graphviz-cb250b1be4aaaedc9d5ddde113a80998d7f9c480.svg" />
+<img src="!assets/Redis/graphviz-cb250b1be4aaaedc9d5ddde113a80998d7f9c480.svg" alt="" style="" />
 
 `subscribe` 命令的行为可以用伪代码表示如下：
 
@@ -2647,7 +2647,7 @@ def SUBSCRIBE(client, channels):
 
 对于以下这个 pubsub_channels 实例， 如果某个客户端执行命令 `publish channel1 "hello moto"` ，那么 client2 、 client5 和 client1 三个客户端都将接收到 "hello moto" 信息：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/graphviz-241c988b86bb9bed6bf26537e654baaab4eef77b.svg"  />
+<img src="!assets/Redis/graphviz-241c988b86bb9bed6bf26537e654baaab4eef77b.svg" alt="" style="" />
 
 `publish`命令的实现可以用以下伪代码来描述：
 
@@ -2669,15 +2669,15 @@ def PUBLISH(channel, message):
 
 下图展示了一个带有频道和模式的例子， 其中 tweet.shop.* 模式匹配了 tweet.shop.kindle 频道和 tweet.shop.ipad 频道， 并且有不同的客户端分别订阅它们三个：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/graphviz-49c2b60cc3c2b52ec1623fbd8a9002eb6f335a54.svg"  />
+<img src="!assets/Redis/graphviz-49c2b60cc3c2b52ec1623fbd8a9002eb6f335a54.svg" alt="" style="" />
 
 当有信息发送到 tweet.shop.kindle 频道时， 除了发送给 clientX 和 clientY 之外， 还会发送给订阅 tweet.shop.* 模式的 client123 和 client256 ：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/graphviz-3d1f513ee0718a326d53152b2b97f82977e38ad6.svg"  />
+<img src="!assets/Redis/graphviz-3d1f513ee0718a326d53152b2b97f82977e38ad6.svg" alt="" style="" />
 
 另一方面， 如果接收到信息的是频道 tweet.shop.ipad ， 那么 client123 和 client256 同样会收到信息：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/graphviz-ba8c4d4dd538464659aeb52d6c366f23ad3d0dc1.svg"  />
+<img src="!assets/Redis/graphviz-ba8c4d4dd538464659aeb52d6c366f23ad3d0dc1.svg" alt="" style="" />
 
 
 
@@ -2710,11 +2710,11 @@ client 属性保存着订阅模式的客户端，而 pattern 属性则保存着�
 
 下图展示了一个包含两个模式的 pubsub_patterns 链表， 其中 client123 和 client256 都正在订阅 tweet.shop.* 模式：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/graphviz-b8d101c1b582531bce2b0daef87adbaf30ebc195.svg"  />
+<img src="!assets/Redis/graphviz-b8d101c1b582531bce2b0daef87adbaf30ebc195.svg" alt="" style="" />
 
 如果这时客户端 client10086 执行 `psubscribe broadcast.list.*` ， 那么 pubsub_patterns 链表将被更新成这样：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/graphviz-a84f3abf466ca19297faaa4e11d37f9257355c60.svg"  />
+<img src="!assets/Redis/graphviz-a84f3abf466ca19297faaa4e11d37f9257355c60.svg" alt="" style="" />
 
 通过遍历整个 pubsub_patterns 链表，程序可以检查所有正在被订阅的模式，以及订阅这些模式的客户端。
 
@@ -2765,7 +2765,7 @@ def PUBLISH(channel, message):
 
 如果 Redis 服务器的 pubsub_patterns 状态如下：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/graphviz-a84f3abf466ca19297faaa4e11d37f9257355c60.svg" />
+<img src="!assets/Redis/graphviz-a84f3abf466ca19297faaa4e11d37f9257355c60.svg" alt="" style="" />
 
 那么当某个客户端发送信息 "Amazon Kindle, $69." 到 tweet.shop.kindle 频道时， 除了所有订阅了 tweet.shop.kindle 频道的客户端会收到信息之外， 客户端 client123 和 client256 也同样会收到信息， 因为这两个客户端订阅的 tweet.shop.* 模式和 tweet.shop.kindle 频道匹配。
 
@@ -2795,13 +2795,13 @@ Redis 有三种集群模式，分别是：
 
 slave 挂了不影响其他 slave 的读和 master 的读和写，重新启动后会将数据从 master 同步过来， master 挂了以后，不影响 slave 的读，但 Redis 不再提供写服务，master 重启后 Redis 将重新对外提供写服务。
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1460000022808581.png)
+<img src="!assets/Redis/1460000022808581.png" alt="img" style="" />
 
 
 
 **主从复制原理**
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1460000022808583.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Redis/1460000022808583.png" alt="img" style="zoom:80%;" />
 
 1. slave 启动成功后，连接 master，发送 `sync` 命令
 2. master 接收到 `sync` 命令后，开始执行 `bgsave` 命令生成 RDB 文件并使用缓冲区记录此后执行的所有写命令
@@ -2897,7 +2897,7 @@ redis-cli -p 6379
 
 可以使用`info replication`看到有两个 slave 连接到 master
 
-![image-20210604171651251](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210604171651251.png)
+<img src="!assets/Redis/image-20210604171651251.png" alt="image-20210604171651251" style="" />
 
 
 
@@ -2944,7 +2944,7 @@ sentinel 中文含义为哨兵，顾名思义，它的作用就是监控 Redis �
 
 sentinel 因为也是一个进程有挂掉的可能，所以 sentinel 也会启动多个形成一个 sentinel 集群，多 sentinel 配置的时候，sentinel 之间也会自动监控，当主从模式配置密码时，sentinel 也会同步将配置信息修改到配置文件中，不需要担心。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/16f7a31673b35dbf.webp" alt="img" style="zoom:80%;" />
+<img src="!assets/Redis/16f7a31673b35dbf.webp" alt="img" style="zoom:80%;" />
 
 
 
@@ -3010,15 +3010,15 @@ redis-sentinel sentinel_26381.conf
 
 使用`ps -ef | grep redis`查看进程
 
-![image-20210606181835383](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210606181835383.png)
+<img src="!assets/Redis/image-20210606181835383.png" alt="image-20210606181835383" style="" />
 
 可以使用 `info replication` 命令查看 Redis 集群的状态，此时输出如下。可以看到 6379 节点为 master 节点，并且有两个从节点，分别为 slave0 和 slave1，对应的端口为 6380 和 6381：
 
-![image-20210606184707240](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210606184707240.png)
+<img src="!assets/Redis/image-20210606184707240.png" alt="image-20210606184707240" style="" />
 
 可以使用 `info Sentinel` 命令查看任意 sentinel 节点的状态，从最后一句输出可以看到 sentinel 节点已经感知到 6379 的 master 节点，并且也知道它有两个 slaves 节点；同时 sentinel 节点彼此之间也感知到，共有 3 个 sentinel 节点：
 
-![image-20210606184818585](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210606184818585.png)
+<img src="!assets/Redis/image-20210606184818585.png" alt="image-20210606184818585" style="" />
 
 
 
@@ -3033,15 +3033,15 @@ root@Orichalcos:~/data# redis-cli -p 6380 get k1
 
 先查看集群状态，这时 6379 为 master，有两个 slave：
 
-![image-20210606190000723](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210606190000723.png)
+<img src="!assets/Redis/image-20210606190000723.png" alt="image-20210606190000723" style="" />
 
 然后在 6379 终端按`Ctrl+C`关闭 Redis，等待一段时候后，再来查看集群状态：
 
-![image-20210606190306176](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210606190306176.png)
+<img src="!assets/Redis/image-20210606190306176.png" alt="image-20210606190306176" style="" />
 
 这个时候 6381 成为了 master，并且只有一个 slave。然后控制 6379 上线，再来查看集群状态：
 
-![image-20210606190522114](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210606190522114.png)
+<img src="!assets/Redis/image-20210606190522114.png" alt="image-20210606190522114" style="" />
 
 此时 6379 变为了 slave， 6381 已然翻身做主。
 
@@ -3070,7 +3070,7 @@ Redis Cluster是一种服务器 Sharding（分片） 技术，3.0版本开始正
 
 Redis 的哨兵模式基本已经可以实现高可用，读写分离 ，但是在这种模式下每台 Redis 服务器都存储相同的数据，很浪费内存，所以在 Redis3.0上加入了 Cluster 集群模式，实现了 Redis 的分布式存储，也就是说每台 Redis 节点上存储不同的内容。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1460000022808584.png" alt="image-20200531184321294" style="zoom:80%;" />
+<img src="!assets/Redis/1460000022808584.png" alt="image-20200531184321294" style="zoom:80%;" />
 
 在这个图中，每一个蓝色的圈都代表着一个 Redis 的服务器节点。它们任何两个节点之间都是相互连通的。客户端可以与任何一个节点相连接，然后就可以访问集群中的任何一个节点。对其进行存取和其他操作。
 
@@ -3132,7 +3132,7 @@ sed 's/6379/6384/g' redis_6379.conf > redis_6384.conf
 
 使用`ps -ef | grep redis`查看状态：
 
-![image-20210607151158183](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210607151158183.png)
+<img src="!assets/Redis/image-20210607151158183.png" alt="image-20210607151158183" style="" />
 
 创建集群，`--cluster-replicas 1`的意思是创建 master 的时候同时创建一个 slave：
 
@@ -3142,15 +3142,15 @@ redis-cli --cluster create 127.0.0.1:6379 127.0.0.1:6380 127.0.0.1:6381 127.0.0.
 
 这里我们选择的是一主一从，一共六个服务器，所以先输入的 6379、6380、6381 会成为 mater，其余的为 slave。下面显示 master0 的槽为 0-5460、master1 的槽为 5461-10922、master2 的槽为 10923-16383。同时 6383 作为 slave 指向 6379、6384 作为 slave 指向 6380、6382 作为 slave 指向 6381：
 
-![image-20210607151442056](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210607151442056.png)
+<img src="!assets/Redis/image-20210607151442056.png" alt="image-20210607151442056" style="" />
 
 如果使用以下配置，就输入 yes 同意，这时会开始创建：
 
-![image-20210607152207273](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210607152207273.png)
+<img src="!assets/Redis/image-20210607152207273.png" alt="image-20210607152207273" style="" />
 
 可以通过`cluster nodes`命令查看节点状态：
 
-![image-20210607154756105](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210607154756105.png)
+<img src="!assets/Redis/image-20210607154756105.png" alt="image-20210607154756105" style="" />
 
 
 
@@ -3266,7 +3266,7 @@ redis-cli -p 6379 --cluster add-node 127.0.0.1:6385 127.0.0.1:6379
 redis-cli cluster nodes
 ```
 
-![image-20210607170233889](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210607170233889.png)
+<img src="!assets/Redis/image-20210607170233889.png" alt="image-20210607170233889" style="" />
 
 将 6386 添加为 6385 的从节点
 
@@ -3276,15 +3276,15 @@ redis-cli --cluster add-node 127.0.0.1:6386 127.0.0.1:6379 --cluster-slave --clu
 
 这个时候是没有虽然新节点加入了进来，但是没有分配槽：
 
-![image-20210607172522783](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210607172522783.png)
+<img src="!assets/Redis/image-20210607172522783.png" alt="image-20210607172522783" style="" />
 
 所以执行 `redis-cli --cluster reshard 127.0.0.1:6385 `分配槽：
 
-![image-20210607174634002](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210607174634002.png)
+<img src="!assets/Redis/image-20210607174634002.png" alt="image-20210607174634002" style="" />
 
 中间输入 `yes` 继续，这样就分配完毕：
 
-![image-20210607173729567](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210607173729567.png)
+<img src="!assets/Redis/image-20210607173729567.png" alt="image-20210607173729567" style="" />
 
 
 
@@ -3298,7 +3298,7 @@ redis-cli --cluster del-node 127.0.0.1:6386 8b5494c818bd21c2eae793451c05ebe1eb62
 
 先转移槽，中间输入 `yes` 继续：
 
-![image-20210607175118825](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210607175118825.png)
+<img src="!assets/Redis/image-20210607175118825.png" alt="image-20210607175118825" style="" />
 
 删除节点
 
@@ -3316,7 +3316,7 @@ redis-cli --cluster del-node 127.0.0.1:6385 57547cced0901aec48897bd97c9a6e9a40c8
 
 如果缓在某一个时刻出现大规模的 key 失效，那么就会导致大量的请求打在了数据库上面，导致数据库压力巨大，如果在高并发的情况下，可能瞬间就会导致数据库宕机。这时候如果运维马上又重启数据库，马上又会有新的流量把数据库打死。这就是缓存雪崩。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/16e30d2c5e17899c.png" alt="img" style="zoom:80%;" />
+<img src="!assets/Redis/16e30d2c5e17899c.png" alt="img" style="zoom:80%;" />
 
 
 
@@ -3378,7 +3378,7 @@ redis-cli --cluster del-node 127.0.0.1:6385 57547cced0901aec48897bd97c9a6e9a40c8
 
 缓存穿透是指用户请求的数据在缓存中不存在，即没有命中，同时在数据库中也不存在，导致用户每次请求该数据都要去数据库中查询一遍。如果有恶意攻击者不断请求系统中不存在的数据，会导致短时间大量请求落在数据库上，造成数据库压力过大，甚至导致数据库承受不住而宕机崩溃。
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/16e30d1847df0faf.png)
+<img src="!assets/Redis/16e30d1847df0faf.png" alt="img" style="" />
 
 缓存穿透的关键在于 在Redis 中查不到key值，它和缓存击穿的根本区别在于传进来的 key 在 Redis 中是不存在的。假如有黑客传进大量的不存在的key，那么大量的请求打在数据库上是很致命的问题，所以在日常开发中要对参数做好校验，一些非法的参数，不可能存在的 key 就直接返回错误提示。
 
@@ -3452,7 +3452,7 @@ SET key value [EX seconds|PX milliseconds] [NX|XX] [KEEPTTL]
 setnx key value
 ```
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/00831rSTly1gdmpj4rnixj307802w0ss.jpg)
+<img src="!assets/Redis/00831rSTly1gdmpj4rnixj307802w0ss.jpg" alt="img" style="" />
 
 用法如图，如果不存在 set 成功返回 int 的 1，这个 key 存在了返回0。
 
@@ -3466,7 +3466,7 @@ setex key seconds value
 
 而且`setex` 是一个原子性（atomic）操作，关联值和设置生存时间两个动作会在同一时间内完成。
 
-![img](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/00831rSTly1gdmpohppykj308703w3yn.jpg)
+<img src="!assets/Redis/00831rSTly1gdmpohppykj308703w3yn.jpg" alt="img" style="" />
 
 我设置了 10 秒的失效时间，`ttl` 命令可以查看倒计时，负的说明已经到期了。
 
@@ -3738,7 +3738,7 @@ public void test() {
 
 查看打印出来的日志：
 
-![image-20210616162153913](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210616162153913.png)
+<img src="!assets/Redis/image-20210616162153913.png" alt="image-20210616162153913" style="" />
 
 可以看到，程序去数据库查询了两次。
 
@@ -3750,13 +3750,13 @@ public void test() {
 
 再次启动 `test()` 方法，查看打印的日志：
 
-![image-20210616162704356](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210616162704356.png)
+<img src="!assets/Redis/image-20210616162704356.png" alt="image-20210616162704356" style="" />
 
 可以看到这里程序只查询了一次数据可，第二次因为击中了缓存，所以直接给到了数据。
 
 开启缓存需要实体类实现序列化，不然会报序列化的错误：
 
-![image-20210616163022937](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210616163022937.png)
+<img src="!assets/Redis/image-20210616163022937.png" alt="image-20210616163022937" style="" />
 
 
 
@@ -3764,7 +3764,7 @@ public void test() {
 
 首先，看看 Mybatis 的 Cache 接口的实现类：
 
-![image-20210616163547625](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210616163547625.png)
+<img src="!assets/Redis/image-20210616163547625.png" alt="image-20210616163547625" style="" />
 
 Mybatis 中默认使用的就是 PerpretualCache，可以看一下源码：
 
@@ -3866,7 +3866,7 @@ public class RedisCache implements Cache {
 
 先直接跑一下看看：
 
-![image-20210616184214849](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210616184214849.png)
+<img src="!assets/Redis/image-20210616184214849.png" alt="image-20210616184214849" style="" />
 
 这里报错提示：基本缓存必须要有一个字符串 ID 为参数的构造函数，参考下 PerpetualCache.java 的实现，这次在 RedisCache.java 中添加对应的构造函数，并且将其打印出来看看是啥：
 
@@ -3881,11 +3881,11 @@ public RedisCache(String id) {
 
 再次执行 `test()`：
 
-![image-20210616184824753](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210616184824753.png)
+<img src="!assets/Redis/image-20210616184824753.png" alt="image-20210616184824753" style="" />
 
 打印出了 ID，原来是 Mapper 文件的 namespace，并且在控制台最后提示报错：name 参数不能为空
 
-![image-20210616184928611](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210616184928611.png)
+<img src="!assets/Redis/image-20210616184928611.png" alt="image-20210616184928611" style="" />
 
 那么，根据 PerpetualCache.java 中的 `getId()` 方法，将 namespace 返回出去：
 
@@ -3898,7 +3898,7 @@ public String getId() {
 
 再次运行 `test()`：
 
-![image-20210616185512068](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210616185512068.png)
+<img src="!assets/Redis/image-20210616185512068.png" alt="image-20210616185512068" style="" />
 
 已经没有问题了，但是还是查询了数据库两次，先别急，先看看 `putObject()` 和 `getObject()` 的参数是啥：
 
@@ -3918,7 +3918,7 @@ public Object getObject(Object key) {
 
 再跑一下 `test()`：
 
-![image-20210616190044791](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210616190044791.png)
+<img src="!assets/Redis/image-20210616190044791.png" alt="image-20210616190044791" style="" />
 
 可以看到，每次查询的时候都会通过 `getObject()` 方法去拿缓存，但是因为没有拿到，所以去数据库查询，然后通过 `putObject()` 将数据存入缓存。
 
@@ -4000,11 +4000,11 @@ public class RedisCache implements Cache {
 
 运行 `test()` ：
 
-![image-20210617113243767](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210617113243767.png)
+<img src="!assets/Redis/image-20210617113243767.png" alt="image-20210617113243767" style="" />
 
 已经第一次存，第二次直接从缓存获取，看看 Redis 里：
 
-![image-20210617113334200](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210617113334200.png)
+<img src="!assets/Redis/image-20210617113334200.png" alt="image-20210617113334200" style="" />
 
 
 
@@ -4014,7 +4014,7 @@ public class RedisCache implements Cache {
 
 添加一个 Role 表，与 User 关联：
 
-![image-20210617124427089](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210617124427089.png)
+<img src="!assets/Redis/image-20210617124427089.png" alt="image-20210617124427089" style="" />
 
 在 UserMapper.xml 增加 ResultMap 映射并修改 `findAll()`（这里还修改了 User 的主键，id->user_id）：
 
@@ -4070,7 +4070,7 @@ public void test() {
 
 运行后发现：
 
-![image-20210617124840634](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210617124840634.png)
+<img src="!assets/Redis/image-20210617124840634.png" alt="image-20210617124840634" style="" />
 
 `updateRole()` 执行后，会刷新掉 com.orichalcos.mapper.RoleMapper 下的缓存，再次查询 User，由于缓存命中且 com.orichalcos.mapper.UserMapper 的缓存并未更新，所以出现了这种情况，解决方法：
 
@@ -4081,7 +4081,7 @@ public void test() {
 
 改为引用 User 的缓存，再次测试：
 
-![image-20210617125449501](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20210617125449501.png)
+<img src="!assets/Redis/image-20210617125449501.png" alt="image-20210617125449501" style="" />
 
 第一次命中缓存，执行 `updateRole()` 后删除了 com.orichalcos.mapper.UserMapper 下的缓存，所以第二次查询了数据库，数据正确！
 
@@ -4102,7 +4102,7 @@ RedisCache.java 只是简单实现！
 
 Redis 的 session 管理是利用 Spring 提供的 session 管理解决方案，将一个应用 session 交给 Redis 存储，整个应用中所有 session 的请求都会去 redis 中获取对应的 session 数据。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200628201643358-1623919932602.png" alt="image-20200628201643358"  />
+<img src="!assets/Redis/image-20200628201643358-1623919932602.png" alt="image-20200628201643358" style="" />
 
 
 

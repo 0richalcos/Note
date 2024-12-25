@@ -30,13 +30,13 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
 1. 安装的时候要选择 Customize，勾选 OpenVPN Service 和 EasyRSA3 安装，用于服务端配置和证书生成使用：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240817110655401.png" alt="image-20240817110655401" style="zoom: 67%;" />
+   <img src="!assets/OpenVPN/image-20240817110655401.png" alt="image-20240817110655401" style="zoom: 67%;" />
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240817110817655.png" alt="image-20240817110817655" style="zoom:67%;" />
+   <img src="!assets/OpenVPN/image-20240817110817655.png" alt="image-20240817110817655" style="zoom:67%;" />
 
 2. 安装完成后软件默认位置 `C:\Program Files\OpenVPN` 目录：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240817111105533.png" alt="image-20240817111105533" style="zoom:67%;" />
+   <img src="!assets/OpenVPN/image-20240817111105533.png" alt="image-20240817111105533" style="zoom:67%;" />
 
 
 
@@ -69,19 +69,19 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
    双击 EasyRSA-Start.bat 进入 EasyRSA shell 环境 DOS 窗口中：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240817111452752.png" alt="image-20240817111452752" style="zoom:67%;" />
+   <img src="!assets/OpenVPN/image-20240817111452752.png" alt="image-20240817111452752" style="zoom:67%;" />
 
 3. **清理原有证书和私钥并初始化**
 
    弹出的 DOS 窗口中输入 `./easyrsa clean-all` 清理原有证书和私钥并初始化，初始化成功后会在 `C:\Program Files\OpenVPN\easy-rsa` 目录下新建文件夹 pki：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240817175141535.png" alt="image-20240817175141535" style="zoom:67%;" />
+   <img src="!assets/OpenVPN/image-20240817175141535.png" alt="image-20240817175141535" style="zoom:67%;" />
 
 4. **生成 CA 根证书**
 
    在 DOS 窗口中输入 `./easyrsa build-ca` 生成 CA 证书，生成过程中会要求输入名称、密码等信息，比如我这里名称（Common Name）写的 Orichalcos：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240817211225042.png" alt="image-20240817211225042" style="zoom:67%;" />
+   <img src="!assets/OpenVPN/image-20240817211225042.png" alt="image-20240817211225042" style="zoom:67%;" />
 
    CA 根证书位置： `C:\Program Files\OpenVPN\easy-rsa\pki\ca.crt`。
 
@@ -91,7 +91,7 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
    输入 `./easyrsa build-server-full server nopass` 生成无密码服务端证书：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240817212039908.png" alt="image-20240817212039908" style="zoom:67%;" />
+   <img src="!assets/OpenVPN/image-20240817212039908.png" alt="image-20240817212039908" style="zoom:67%;" />
 
    服务端证书路径：`C:\Program Files\OpenVPN\easy-rsa\pki\issued\server.crt` 。
 
@@ -105,13 +105,13 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
    输入 `./easyrsa gen-dh` 生成 DH 密钥交换协议文件，生成文件在 `C:\Program Files\OpenVPN\easy-rsa\pki` 目录下：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240817113407298.png" alt="image-20240817113407298" style="zoom:67%;" />
+   <img src="!assets/OpenVPN/image-20240817113407298.png" alt="image-20240817113407298" style="zoom:67%;" />
 
 7. **生成 tls-auth Key 用于防止 DDOS 和 TLS 攻击**
 
    输入 `openvpn --genkey --secret ta.key`：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240817213609767.png" alt="image-20240817213609767" style="zoom:67%;" />
+   <img src="!assets/OpenVPN/image-20240817213609767.png" alt="image-20240817213609767" style="zoom:67%;" />
 
    ta.key 路径：`C:\Program Files\OpenVPN\easy-rsa\ta.key`。
 
@@ -154,7 +154,7 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
    将服务证书、服务 Key、CA 证书、DH 文件复制到文件夹 `C:\Program Files\OpenVPN\config` 下：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240817220414043.png" alt="image-20240817220414043" style="zoom:67%;" />
+   <img src="!assets/OpenVPN/image-20240817220414043.png" alt="image-20240817220414043" style="zoom:67%;" />
 
    > [!IMPORTANT]
    >
@@ -164,7 +164,7 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
    右键点击任务栏带锁小电脑图标，点击连接，连接成功后会变绿，系统提示分配 IP：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240817115630422.png" alt="image-20240817115630422" style="zoom: 33%;" /><img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240817115605785.png" alt="image-20240817115605785" style="zoom: 67%;" />
+   <img src="!assets/OpenVPN/image-20240817115630422.png" alt="image-20240817115630422" style="zoom: 33%;" /><img src="!assets/OpenVPN/image-20240817115605785.png" alt="image-20240817115605785" style="zoom: 67%;" />
 
 
 
@@ -178,7 +178,7 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
    在服务端 DOS 窗口输入 `./easyrsa build-client-full client nopass` 生成客户端的证书和私钥，每多一个客户端就要多生成一份：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240817222424285.png" alt="image-20240817222424285" style="zoom:67%;" />
+   <img src="!assets/OpenVPN/image-20240817222424285.png" alt="image-20240817222424285" style="zoom:67%;" />
 
    > [!NOTE]
    >
@@ -210,11 +210,11 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
    服务器端终端中输入 `ipconfig -all`，查看服务器端地址：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240817232449865.png" alt="image-20240817232449865" style="zoom:67%;" />
+   <img src="!assets/OpenVPN/image-20240817232449865.png" alt="image-20240817232449865" style="zoom:67%;" />
 
    可以看到服务器端 IP 地址为 10.8.0.1，所以此时我们在本机访问 10.8.0.1 地址就可以访问到服务器：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240817232615756.png" alt="image-20240817232615756" style="zoom:67%;" />
+   <img src="!assets/OpenVPN/image-20240817232615756.png" alt="image-20240817232615756" style="zoom:67%;" />
 
 5. **另外一台客户端执行同样的操作**
 
@@ -222,7 +222,7 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
    一台服务端和两台客户端启动 OpenVPN 服务后，被访问的客户端防火墙开通 ICMPv4 协议，互相 ping 测试能否互连：
 
-   ![image-20240818022548260](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/image-20240818022548260.png)
+   <img src="!assets/OpenVPN/image-20240818022548260.png" alt="image-20240818022548260" style="" />
 
    > [!NOTE]
    >
@@ -284,11 +284,11 @@ OpenVPN 启动之后会在 `C:\Program Files\OpenVPN\config` 位置生成 ipp.tx
 
    提示会删除以下文件，输入 yes 确定：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1734906587915.png" alt="QQ_1734906587915" style="zoom:67%;" />
+   <img src="!assets/OpenVPN/QQ_1734906587915.png" alt="QQ_1734906587915" style="zoom:67%;" />
 
    输入 CA 证书密码：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1734906809738.png" alt="QQ_1734906809738" style="zoom:67%;" />
+   <img src="!assets/OpenVPN/QQ_1734906809738.png" alt="QQ_1734906809738" style="zoom:67%;" />
 
 3. 每次吊销证书后，需要更新 CRL 文件：
 
@@ -298,11 +298,11 @@ OpenVPN 启动之后会在 `C:\Program Files\OpenVPN\config` 位置生成 ipp.tx
 
    输入 CA 证书密码确认：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1734907050622.png" alt="QQ_1734907050622" style="zoom:67%;" />
+   <img src="!assets/OpenVPN/QQ_1734907050622.png" alt="QQ_1734907050622" style="zoom:67%;" />
 
 4. 将更新的 crl.pem 文件复制到 OpenVPN 的配置目录：
 
-   <img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/QQ_1734907269332.png" alt="QQ_1734907269332" style="zoom:67%;" />
+   <img src="!assets/OpenVPN/QQ_1734907269332.png" alt="QQ_1734907269332" style="zoom:67%;" />
 
 5. 在 OpenVPN 配置中启用 CRL 并确保 server.ovpn 文件中包含以下配置：
 

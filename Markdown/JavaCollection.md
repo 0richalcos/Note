@@ -9,11 +9,11 @@
 Java 集合类型分为 Collection 和 Map，它们是 Java 集合的根接口，这两个接口又包含了一些子接口或实现类。
 
 <div align="center">
-    <img src="../Images/JavaCollection/5-1912051036333V.png" alt="Collection接口结构" style="width:75%" />
+    <img src="!assets/JavaCollection/5-1912051036333V.png" alt="Collection接口结构" style="width:75%" />
 </div>
 
 <div align="center">
-    <img src="../Images/JavaCollection/5-191205103G5960.png" alt="Map接口结构" style="width:45%;" />
+    <img src="!assets/JavaCollection/5-191205103G5960.png" alt="Map接口结构" style="width:45%;" />
 </div>
 
 黄色块为集合的接口，蓝色块为集合的实现类。
@@ -193,7 +193,7 @@ ArrayList的主要底层实现是数组Object[] elementData，可以通过构造
 
 如下是ArrayList的无参构造器和有参构造器，无参是默认大小，有参会判断参数：
 
-<img src="../Images/JavaCollection/image-20200527112128261.png" alt="image-20200527112128261" style="zoom:80%;" />
+<img src="!assets/JavaCollection/image-20200527112128261.png" alt="image-20200527112128261" style="zoom:80%;" />
 
 
 
@@ -202,16 +202,16 @@ ArrayList的主要底层实现是数组Object[] elementData，可以通过构造
 就比如现在有一个长度为10的数组，现在我们要新增一个元素，发现已经满了：
 
 <div align="center">
-    <img src="../Images/JavaCollection/275634327b031b1584201358e274914925d37e94.jpg@736w_134h.webp" alt="img" style="width:25%;" />
+    <img src="!assets/JavaCollection/275634327b031b1584201358e274914925d37e94.jpg@736w_134h.webp" alt="img" style="width:25%;" />
 </div>
 
 ArrayList首先会重新定义一个长度为10+10/2的数组也就是新增一个长度为15的数组（扩容为原容量的1.5倍）。
 
-<img src="../Images/JavaCollection/a80143a0d12474cf996899d2c6276464987e0893.jpg@1100w_148h.webp" alt="img" style="zoom:80%;" />
+<img src="!assets/JavaCollection/a80143a0d12474cf996899d2c6276464987e0893.jpg@1100w_148h.webp" alt="img" style="zoom:80%;" />
 
 然后把原数组的数据，原封不动的复制到新数组中，这个时候再把指向原数的地址换到新数组，ArrayList就这样完成了一次改头换面。
 
-<img src="../Images/JavaCollection/d7ce4038e5f058d3ac423f329f74c7d27b2488b9.jpg@1320w_316h.webp" alt="img" style="zoom:80%;" />
+<img src="!assets/JavaCollection/d7ce4038e5f058d3ac423f329f74c7d27b2488b9.jpg@1320w_316h.webp" alt="img" style="zoom:80%;" />
 
 ArrayList1.7和1.8版本初始化的时候的区别：arrayList1.7开始变化有点大，初始化的时候，1.7以前会调用this(10)才是真正的容量为10，1.7即本身以后是默认走了空数组，只有第一次add的时候容量会变成10。
 
@@ -223,27 +223,27 @@ ArrayList1.7和1.8版本初始化的时候的区别：arrayList1.7开始变化�
 
 ArrayList 有指定 index 新增，也有直接新增的，在这之前他会有一步校验长度的判断 **ensureCapacityInternal**，就是说如果长度不够，是需要扩容的。
 
-<img src="../Images/JavaCollection/9179f122016d2d3b76c8ee703944d13a624f7c51.jpg@1320w_448h.webp" alt="img" style="zoom: 50%;" />
+<img src="!assets/JavaCollection/9179f122016d2d3b76c8ee703944d13a624f7c51.jpg@1320w_448h.webp" alt="img" style="zoom: 50%;" />
 
 在扩容的时候，老版本的jdk和8以后的版本是有区别的，8之后的效率更高了，采用了位运算，**右移**一位，其实就是除以2这个操作。1.7的时候3/2+1 ，1.8直接就是3/2。
 
-<img src="../Images/JavaCollection/339bb81136b5ac2424d1bf475c291a5bd3b0fcb3.jpg@1320w_734h.webp" alt="img" style="zoom: 50%;" />
+<img src="!assets/JavaCollection/339bb81136b5ac2424d1bf475c291a5bd3b0fcb3.jpg@1320w_734h.webp" alt="img" style="zoom: 50%;" />
 
 指定位置新增的时候，在校验之后的操作很简单，就是数组的copy。
 
-<img src="../Images/Java/49334f7c56b0ceaf5afaac14c606efc4ed9b57d2.jpg@1320w_718h.webp" alt="img" style="zoom:50%;" />
+<img src="!assets/JavaCollection/49334f7c56b0ceaf5afaac14c606efc4ed9b57d2.jpg@1320w_718h.webp" alt="img" style="zoom:50%;" />
 
 比如有下面这样一个数组需要在index 5的位置去新增一个元素A。
 
-<img src="../Images/JavaCollection/b7977e1108aed0662432ec5beb125a4418f1c316.jpg@750w_132h.webp" alt="img" style="zoom:67%;" />
+<img src="!assets/JavaCollection/b7977e1108aed0662432ec5beb125a4418f1c316.jpg@750w_132h.webp" alt="img" style="zoom:67%;" />
 
 从代码里面可以看到，他复制了一个数组，是从index 5的位置开始的，然后把它放在了index 5+1的位置。
 
-<img src="../Images/JavaCollection/78f720c8f8c9e39997b2b16258f48e4781b747b8.jpg@746w_292h.webp" alt="img" style="zoom:67%;" />
+<img src="!assets/JavaCollection/78f720c8f8c9e39997b2b16258f48e4781b747b8.jpg@746w_292h.webp" alt="img" style="zoom:67%;" />
 
 给要新增的元素腾出了位置，然后在index的位置放入元素A就完成了新增的操作了。
 
-<img src="../Images/Java/fdae2991e37e9199b3d50d51b388cca9bde53fe8.jpg@746w_294h.webp" alt="img" style="zoom:67%;" />
+<img src="!assets/JavaCollection/fdae2991e37e9199b3d50d51b388cca9bde53fe8.jpg@746w_294h.webp" alt="img" style="zoom:67%;" />
 
 为啥效率低，这只是在一个这么小的List里面操作，要是我去一个几百几千几万大小的List新增一个元素，那就需要后面所有的元素都复制，然后如果再涉及到扩容啥的就更慢了。
 
@@ -251,7 +251,7 @@ ArrayList 有指定 index 新增，也有直接新增的，在这之前他会有
 
 删除其实跟新增是一样的，不过叫是叫删除，但是在代码里面发现，他还是在copy一个数组。
 
-<img src="../Images/Java/3fcf7803d359d9e99afbcc287da5b42873b91499.jpg@1320w_914h.webp" alt="img" style="zoom: 50%;" />
+<img src="!assets/JavaCollection/3fcf7803d359d9e99afbcc287da5b42873b91499.jpg@1320w_914h.webp" alt="img" style="zoom: 50%;" />
 
 继续打个比方，现在要删除下面这个数组中的index5这个位置，那代码他就复制一个index5+1开始到最后的数组，然后把它放到index开始的位置，index5的位置就成功被”删除“了其实就是被覆盖了，给了你被删除的感觉。同理他的效率也低，因为数组如果很大的话，一样需要复制和移动的位置就大了。
 
@@ -275,7 +275,7 @@ ArrayList 有指定 index 新增，也有直接新增的，在这之前他会有
 
 ==ArrayList（int initialCapacity）会初始化数组大小！==但是List的大小没有变，因为list的大小是返回size的！而且将构造函数与initialCapacity结合使用，然后使用set()会抛出异常，尽管该数组已创建，但是大小设置不正确。使用sureCapacity()也不起作用，因为它基于elementData数组而不是大小。
 
-<img src="../Images/JavaCollection/9d32e6537eee46f40481885675c54efcdaf5be29.jpg@1320w_844h.webp" alt="img" style="zoom:50%;" />
+<img src="!assets/JavaCollection/9d32e6537eee46f40481885675c54efcdaf5be29.jpg@1320w_844h.webp" alt="img" style="zoom:50%;" />
 
 
 
@@ -425,19 +425,19 @@ Map接口的常用方法
 
 HashMap 由**数组和链表组合构成**的数据结构。大概如下，数组里面每个地方都存了 Key-Value 这样的实例，在 Java7 叫 Entry 在 Java8 中叫 Node。
 
-<img src="../Images/Java/ad3570011e37cb8d2466f3300ad39237fc9bbfcc.jpg@1078w_190h.webp" alt="img" style="zoom:80%;" />
+<img src="!assets/JavaCollection/ad3570011e37cb8d2466f3300ad39237fc9bbfcc.jpg@1078w_190h.webp" alt="img" style="zoom:80%;" />
 
 因为他本身所有的位置都为 null，在 put 插入的时候会根据 key 的 hash 去计算一个 index 值。就比如 put("帅丙"，520)，插入了为 "帅丙" 的元素，这个时候会通过哈希函数计算出插入的位置，计算出来 index 是 2 那结果如下。
 
-<img src="../Images/Java/bebfb6f690765a6d76980417dbe1c6c45a2a8f26.jpg@1066w_242h.webp" alt="img" style="zoom:80%;" />
+<img src="!assets/JavaCollection/bebfb6f690765a6d76980417dbe1c6c45a2a8f26.jpg@1066w_242h.webp" alt="img" style="zoom:80%;" />
 
 但是由于哈希本身就存在概率性，比如 ”帅丙“ 和 ”丙帅“ 去 hash 有一定的概率会一样，就像上面的情况再次哈希 ”丙帅“ 极端情况也会 hash 到一个值上，那就形成了链表。
 
-<img src="../Images/Java/36785a9a74392e955bfc18ca2cff2b21fbbcc101.jpg@1060w_476h.webp" alt="img" style="zoom:80%;" />
+<img src="!assets/JavaCollection/36785a9a74392e955bfc18ca2cff2b21fbbcc101.jpg@1060w_476h.webp" alt="img" style="zoom:80%;" />
 
 每一个节点都会保存自身的 hash、key、value 以及下个节点，Node 的源码。
 
-<img src="../Images/Java/54dc28466296491cac1c2aeba928a48a4b95ef05.jpg@1142w_662h.webp" alt="img" style="zoom:80%;" />
+<img src="!assets/JavaCollection/54dc28466296491cac1c2aeba928a48a4b95ef05.jpg@1142w_662h.webp" alt="img" style="zoom:80%;" />
 
 
 
@@ -471,23 +471,23 @@ resize 有两个因素：
 
 扩容前：
 
-<img src="../Images/Java/c244cb079efdb2fc4d74a87fdd14bc44273da375.jpg@1054w_398h.webp" alt="img" style="zoom:80%;" />
+<img src="!assets/JavaCollection/c244cb079efdb2fc4d74a87fdd14bc44273da375.jpg@1054w_398h.webp" alt="img" style="zoom:80%;" />
 
 扩容后：
 
-<img src="../Images/Java/318f7f8d68a94fe1b8d8157556fb8605d3a8124a.jpg@1320w_212h.webp" alt="img" style="zoom:80%;" />
+<img src="!assets/JavaCollection/318f7f8d68a94fe1b8d8157556fb8605d3a8124a.jpg@1320w_212h.webp" alt="img" style="zoom:80%;" />
 
 现在要在容量为 2 的容器里面**用不同线程**插入 A，B，C，假如在 resize 之前打个短点，那意味着数据都插入了但是还没 resize，那扩容前可能是这样的：我们可以看到链表的指向 A => B => C（A 的下一个指针是指向 B 的）
 
-<img src="../Images/Java/8de44dd0cf0d938d5d3313bfeb7cf37d0e8a1cda.jpg@360w_552h.webp" alt="img" style="zoom:80%;" />
+<img src="!assets/JavaCollection/8de44dd0cf0d938d5d3313bfeb7cf37d0e8a1cda.jpg@360w_552h.webp" alt="img" style="zoom:80%;" />
 
 因为 resize 的赋值方式，也就是使用了单链表的头插入方式，同一位置上新元素总会被放在链表的头部位置，在旧数组中同一条 Entry 链上的元素，通过重新计算索引位置后，有可能被放到了新数组的不同位置上。就可能出现下面的情况：B 的下一个指针指向了 A
 
-<img src="../Images/Java/88e1df0cebe360cb17ee9393553d0e560119a2ba.jpg@686w_368h.webp" alt="img" style="zoom:80%;" />
+<img src="!assets/JavaCollection/88e1df0cebe360cb17ee9393553d0e560119a2ba.jpg@686w_368h.webp" alt="img" style="zoom:80%;" />
 
 一旦几个线程都调整完成，就可能出现环形链表
 
-<img src="../Images/Java/65fddfd00eebfaa1fbbdd0d82d3c82cfc5ddb8d2.jpg@762w_482h.webp" alt="img" style="zoom:80%;" />
+<img src="!assets/JavaCollection/65fddfd00eebfaa1fbbdd0d82d3c82cfc5ddb8d2.jpg@762w_482h.webp" alt="img" style="zoom:80%;" />
 
 如果这个时候去取值，悲剧就出现了——Infinite Loop（无限循环）。
 
@@ -497,7 +497,7 @@ resize 有两个因素：
 
 **使用头插**会改变链表的上的顺序，但是如果使用尾插，在扩容时会保持链表元素原本的顺序，就不会出现链表成环的问题了。就是说原本是 A => B，在扩容后那个链表还是 A => B：
 
-<img src="../Images/Java/aec263f93b937223e902d67dd1e8072a6a3e9796.jpg@678w_356h.webp" alt="img" style="zoom:80%;" />
+<img src="!assets/JavaCollection/aec263f93b937223e902d67dd1e8072a6a3e9796.jpg@678w_356h.webp" alt="img" style="zoom:80%;" />
 
 Java 7 在多线程操作 HashMap 时可能引起死循环，原因是扩容转移后前后链表顺序倒置，在转移过程中修改了原来链表中节点的引用关系。
 

@@ -52,7 +52,7 @@ Sun 公司在其 API 中提供了一个 Servlet 接口，用户若想要开发�
 
 访问顺序：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200602000053667.png" alt="image-20200602000053667" style="width:40%;" />
+<img src="!assets/JavaWeb/image-20200602000053667.png" alt="image-20200602000053667" style="width:40%;" />
 
 
 
@@ -734,7 +734,7 @@ HTML 注释：`<!-- … -->`, 不会消失，在页面中也能看到
 
 JSP 其实是一种特殊的 Servlet，当 JSP 页面第一次被访问时，服务器会把 JSP 编译成 Java 文件（这个 Java 其实是一个 Servlet 类），然后再把 Java 编译成 `.class`，然后创建该类对象，最后调用它的 `service()` 方法，第二次请求同一 JSP 时，直接调用 `service()` 方法。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20200603004751826.png" alt="image-20200603004751826" style="width:50%;" />
+<img src="!assets/JavaWeb/image-20200603004751826.png" alt="image-20200603004751826" style="width:50%;" />
 
 
 
@@ -950,7 +950,7 @@ Cookie 类的方法：
 
 **案例-显示用户上次访问时间**
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180319145720896.png" alt="img" style="width:80%;" />
+<img src="!assets/JavaWeb/20180319145720896.png" alt="img" style="width:80%;" />
 
 
 
@@ -1007,12 +1007,12 @@ Session 对象由服务器创建，开发人员可以调用 Request 对象的 `g
 
 创建 session 
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180319164035404.png" alt="img" style="width:80%;" />
+<img src="!assets/JavaWeb/20180319164035404.png" alt="img" style="width:80%;" />
 
 
 获取 session
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/2018031916405859.png" alt="img.png" style="width:80%;" />
+<img src="!assets/JavaWeb/2018031916405859.png" alt="img.png" style="width:80%;" />
 
 
 
@@ -1025,11 +1025,11 @@ Session 对象由服务器创建，开发人员可以调用 Request 对象的 `g
 
 在服务器端生成一个唯一的随机标识号，专业术语称为 Token（令牌），同时在当前用户的 Session 域中保存这个 Token。然后将 Token 发送到客户端的 Form 表单中，在 Form 表单中使用隐藏域来存储这个 Token，表单提交的时候连同这个 Token 一起提交到服务器端，然后在服务器端判断客户端提交上来的 Token 与服务器端生成的 Token 是否一致，如果不一致，那就是重复提交了，此时服务器端就可以不处理重复提交的表单。如果相同则处理表单提交，处理完后清除当前用户的 Session 域中存储的标识号。
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180320104403671.png" alt="img" style="width:80%;" />
+<img src="!assets/JavaWeb/20180320104403671.png" alt="img" style="width:80%;" />
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180320111511238.png" alt="img" style="width:60%;" />
+<img src="!assets/JavaWeb/20180320111511238.png" alt="img" style="width:60%;" />
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20180320111547811.png" alt="img" style="width:80%;" />
+<img src="!assets/JavaWeb/20180320111547811.png" alt="img" style="width:80%;" />
 
 
 
@@ -1040,7 +1040,7 @@ Session 对象由服务器创建，开发人员可以调用 Request 对象的 `g
 
 当然，过滤器既可以拦截 Request，也可以拦截返回的 Response
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/1693413-20190910104134290-43589150.png" alt="img" style="width:60%;" />
+<img src="!assets/JavaWeb/1693413-20190910104134290-43589150.png" alt="img" style="width:60%;" />
 
 **过滤器的本质就是一个实现了 Filter 接口的 Java 类**
 
@@ -1173,7 +1173,7 @@ JSP 中有两种包含：
 
 项目文件树：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20181212200247237.png" alt="img" style="style:60%;" />
+<img src="!assets/JavaWeb/20181212200247237.png" alt="img" style="style:60%;" />
 
 
 header.jsp 文件中内容：
@@ -1230,12 +1230,12 @@ index.jsp 文件中内容：
 
 页面显示结果：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20181212200718992.png" alt="img" style="width:30%;" />
+<img src="!assets/JavaWeb/20181212200718992.png" alt="img" style="width:30%;" />
 
 
 被编译成的 Java 文件：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20181212200734757.png" alt="img" style="width:35%;" />
+<img src="!assets/JavaWeb/20181212200734757.png" alt="img" style="width:35%;" />
 
 
 
@@ -1254,12 +1254,12 @@ index.jsp 文件中内容：
 
 页面显示结果：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20181212200848170.png" alt="img" style="width:30%;" />
+<img src="!assets/JavaWeb/20181212200848170.png" alt="img" style="width:30%;" />
 
 
 被编译成的 Java 文件：
 
-<img src="https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/20181212200858508.png" alt="img" style="width:35%;" />
+<img src="!assets/JavaWeb/20181212200858508.png" alt="img" style="width:35%;" />
 
 
 说明：使用静态包含和动态包含最终的执行结果相同，但是实现过程不同，很明显编译成的 Java 文件数目不同。

@@ -133,7 +133,7 @@ xxl.job.logretentiondays=30
 
 默认登录账号密码：admin/123456，登录后运行界面如下图所示：
 
-![image-20240621154025166](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240621154025166.png)
+<img src="!assets/XXL-JOB/image-20240621154025166.png" alt="image-20240621154025166" style="" />
 
 
 
@@ -143,7 +143,7 @@ xxl.job.logretentiondays=30
 
 以图形化来展示了整体的任务执行情况：
 
-![image-20240621155943274](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240621155943274.png)
+<img src="!assets/XXL-JOB/image-20240621155943274.png" alt="image-20240621155943274" style="" />
 
 - 任务数量：能够看到调度中心运行的任务数量。
 - 调度次数：调度中心所触发的调度次数。
@@ -155,11 +155,11 @@ xxl.job.logretentiondays=30
 
 显示执行器下的所有执行任务：
 
-![image-20240621160005625](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240621160005625.png)
+<img src="!assets/XXL-JOB/image-20240621160005625.png" alt="image-20240621160005625" style="" />
 
 点击 “新增” 即可开始配置执行任务：
 
-![image-20240621160422064](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240621160422064.png)
+<img src="!assets/XXL-JOB/image-20240621160422064.png" alt="image-20240621160422064" style="" />
 
 - 示例执行器：所用到的执行器。
 - 任务描述：概述该任务是做什么的。
@@ -193,7 +193,7 @@ xxl.job.logretentiondays=30
 
 这里是查看调度的日志，根据日志来查看任务具体的执行情况是怎样的：
 
-![image-20240621160611361](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240621160611361.png)
+<img src="!assets/XXL-JOB/image-20240621160611361.png" alt="image-20240621160611361" style="" />
 
 
 
@@ -201,7 +201,7 @@ xxl.job.logretentiondays=30
 
 这里是配置执行器，等待执行器启动的时候都会被调度中心监听加入到地址列表：
 
-![image-20240621161257121](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240621161257121.png)
+<img src="!assets/XXL-JOB/image-20240621161257121.png" alt="image-20240621161257121" style="" />
 
 
 
@@ -209,7 +209,7 @@ xxl.job.logretentiondays=30
 
 可以对用户的一些操作：
 
-![image-20240621160844422](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240621160844422.png)
+<img src="!assets/XXL-JOB/image-20240621160844422.png" alt="image-20240621160844422" style="" />
 
 
 
@@ -320,7 +320,7 @@ public class MyXxlJobHandler {
 
 在 “执行器管理” 界面新增一个执行器：
 
-![image-20240621173423002](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240621173423002.png)
+<img src="!assets/XXL-JOB/image-20240621173423002.png" alt="image-20240621173423002" style="" />
 
 
 
@@ -328,7 +328,7 @@ public class MyXxlJobHandler {
 
 在 “任务管理” 界面新增一个任务：
 
-![image-20240621174414866](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240621174414866.png)
+<img src="!assets/XXL-JOB/image-20240621174414866.png" alt="image-20240621174414866" style="" />
 
 
 
@@ -336,4 +336,4 @@ public class MyXxlJobHandler {
 
 重新启动项目，等待执行器上线后，在 “任务管理” 界面选择执行一次任务：
 
-![image-20240621175803016](https://orichalcos-typora-img.oss-cn-shanghai.aliyuncs.com/typora-img/image-20240621175803016.png)
+<img src="!assets/XXL-JOB/image-20240621175803016.png" alt="image-20240621175803016" style="" />
