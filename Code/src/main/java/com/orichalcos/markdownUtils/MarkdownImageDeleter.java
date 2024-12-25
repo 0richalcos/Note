@@ -4,13 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -76,9 +73,38 @@ public class MarkdownImageDeleter {
     private static void deleteUnusedImagesForMarkdownFile(Path markdownFile, Path targetDir, List<String> ignoreList) {
         Pattern imgPattern = Pattern.compile("!\\[(.*?)\\]\\((.*?)\\)|<img\\s+.*?src=\\\"(.*?)\\\".*?>");
 
-        // 记录 Markdown 文件中引用的所有图片
-        Set<String> referencedImages = new HashSet<>();
+        try {
+            // 检查目标文件夹下的所有图片是否被引用
+            if (Files.exists(targetDir) && Files.isDirectory(targetDir)) {
+                Files.list(targetDir).forEach(file -> {
+                    if (Files.isRegularFile(file)) {
+                        boolean isReferenced = isImageReferencedInMarkdown(file.getFileName().toString(), markdownFile, ignoreList, imgPattern);
+                        if (!isReferenced) {
+                            try {
+                                Files.delete(file);
+                                System.out.println("删除未引用的图片: " + file);
+                            } catch (IOException e) {
+                                System.err.println("删除图片时出错: " + file + ", " + e.getMessage());
+                            }
+                        }
+                    }
+                });
+            }
+        } catch (IOException e) {
+            System.err.println("处理图片文件时出错: " + targetDir + ", " + e.getMessage());
+        }
+    }
 
+    /**
+     * 检查图片是否被 Markdown 文件引用
+     *
+     * @param imageName    图片名称
+     * @param markdownFile Markdown 文件路径
+     * @param ignoreList   忽略清单
+     * @param imgPattern   图片匹配正则表达式
+     * @return 如果图片被引用则返回 true，否则返回 false
+     */
+    private static boolean isImageReferencedInMarkdown(String imageName, Path markdownFile, List<String> ignoreList, Pattern imgPattern) {
         try (BufferedReader reader = new BufferedReader(new FileReader(markdownFile.toFile()))) {
             String line;
 
@@ -89,40 +115,17 @@ public class MarkdownImageDeleter {
                 }
 
                 Matcher matcher = imgPattern.matcher(line);
-
                 while (matcher.find()) {
                     String imgPath = matcher.group(2) != null ? matcher.group(2) : matcher.group(3);
-
-                    if (imgPath != null) {
-                        try {
-                            Path imgFile = Paths.get(imgPath).getFileName();
-                            if (imgFile != null) {
-                                referencedImages.add(imgFile.toString());
-                            }
-                        } catch (InvalidPathException ex) {
-                            System.err.println("无效的图片路径: " + imgPath + " 在文件 " + markdownFile + " 中, 错误: " + ex.getMessage());
-                        }
+                    if (imgPath != null && imgPath.endsWith(imageName)) {
+                        return true;
                     }
                 }
             }
-
-            // 检查目标文件夹下的图片是否未被引用
-            if (Files.exists(targetDir) && Files.isDirectory(targetDir)) {
-                Files.list(targetDir).forEach(file -> {
-                    if (!referencedImages.contains(file.getFileName().toString())) {
-                        try {
-                            Files.delete(file);
-                            System.out.println("删除未引用的图片: " + file);
-                        } catch (IOException e) {
-                            System.err.println("删除图片时出错: " + file + ", " + e.getMessage());
-                        }
-                    }
-                });
-            }
-
         } catch (IOException e) {
             System.err.println("处理 Markdown 文件时出错: " + markdownFile + ", " + e.getMessage());
         }
+        return false;
     }
 
     /**
