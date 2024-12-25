@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
@@ -76,9 +77,13 @@ public class MarkdownImageDeleter {
                     String imgPath = matcher.group(2) != null ? matcher.group(2) : matcher.group(3);
 
                     if (imgPath != null && !ignoreList.contains(imgPath)) {
-                        Path imgFile = Paths.get(imgPath).getFileName();
-                        if (imgFile != null) {
-                            referencedImages.add(imgFile.toString());
+                        try {
+                            Path imgFile = Paths.get(imgPath).getFileName();
+                            if (imgFile != null) {
+                                referencedImages.add(imgFile.toString());
+                            }
+                        } catch (InvalidPathException ex) {
+                            System.err.println("无效的图片路径: " + imgPath + " 在文件 " + markdownFile + " 中, 错误: " + ex.getMessage());
                         }
                     }
                 }
