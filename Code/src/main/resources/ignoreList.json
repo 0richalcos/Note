@@ -1,5 +1,8 @@
 [
   "<img src=\"logo.png\" th:alt-title=\"LOGO图片\">",
   "<img src=\"logo.png\" th:alt=\"LOGO图片\" th:title=\"LOGO图片\">",
-  "<img src=\"{{path}}\" width=\"{{width}}\" height=\"{{height}}\">"
+  "<img src=\"{{path}}\" width=\"{{width}}\" height=\"{{height}}\">",
+  "<img height=\"100\" width=\"100\" src=\"https://cdn.pixabay.com/photo/2018/08/14/13/23/ocean-3605547_960_720.jpg\" class=\"pic\"/>",
+  "<img height=\"100\" width=\"100\" src=\"https://cdn.pixabay.com/photo/2011/12/14/12/21/orion-nebula-11107_960_720.jpg\" class=\"pic\"/>",
+  "<img height=\"100\" width=\"100\" src=\"https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_960_720.jpg\" class=\"pic\"/>"
 ]
