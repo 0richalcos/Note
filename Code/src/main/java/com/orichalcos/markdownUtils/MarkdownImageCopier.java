@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.orichalcos.markdownUtils.LoadOptions.loadIgnoreList;
-
 /**
  * ***********************************************
  * 用于将md文件的图片复制到 !assets/<md文件名> 文件下 **
@@ -25,7 +23,7 @@ public class MarkdownImageCopier {
         String ignoreListPath = "src/main/resources/ignoreList.json";
 
         // 加载忽略清单
-        List<String> ignoreList = loadIgnoreList(ignoreListPath);
+        List<String> ignoreList = LoadOptions.loadIgnoreList(ignoreListPath);
 
         // 遍历 Markdown 文件并复制图片引用
         copyImagesFromMarkdown(Paths.get(markdownDirPath), Paths.get(assetsDirPath), ignoreList);

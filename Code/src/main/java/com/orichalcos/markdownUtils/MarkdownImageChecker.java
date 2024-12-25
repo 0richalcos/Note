@@ -13,8 +13,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.orichalcos.markdownUtils.LoadOptions.loadIgnoreList;
-
 /**
  * ********************************
  * 用于检查md文件中是否有未存在的图片 ***
@@ -32,7 +30,7 @@ public class MarkdownImageChecker {
         Set<String> assetFiles = getAssetFiles(Paths.get(assetsDirPath));
 
         // 加载忽略清单
-        List<String> ignoreList = loadIgnoreList(ignoreListPath);
+        List<String> ignoreList = LoadOptions.loadIgnoreList(ignoreListPath);
 
         // 遍历 Markdown 文件并检查图片引用
         processMarkdownFiles(Paths.get(markdownDirPath), assetFiles, ignoreList);
