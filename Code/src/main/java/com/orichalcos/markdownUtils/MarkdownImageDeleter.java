@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  * *********************************************
  */
 public class MarkdownImageDeleter {
-    
+
     public static void main(String[] args) {
         // 设置文件路径
         String markdownDirPath = "E:\\Users\\Orichalcos\\Documents\\Note\\Markdown";
