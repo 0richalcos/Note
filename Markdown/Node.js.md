@@ -1,7 +1,3 @@
----
-typora-copy-images-to: upload
----
-
 # 1、Node.js
 
 Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。Node.js 使用了一个事件驱动、非阻塞式 I/O 的模型，使其轻量又高效。Node.js 的包管理器 npm，是全球最大的开源库生态系统。
@@ -177,20 +173,20 @@ npm 全局下载依赖时，会默认下载到当前使用的 Nodejs 版本的�
 
 
 
-例如：我希望将全局模块所在路径和缓存路径放在 `D:\Nodejs` 文件夹下。
+例如：我希望将全局模块所在路径和缓存路径放在 `Z:\Nodejs` 文件夹下。
 
-1. 在文件夹 `D:\Nodejs` 下创建两个文件夹 node_global 及 node_cache：
+1. 在文件夹 `Z:\Nodejs` 下创建两个文件夹 node_global 及 node_cache：
 
-   <img src="!assets/Node.js/image-20231214002338556.png" alt="image-20231214002338556" style="" />
+   <img src="!assets/Node.js/QQ_1735383284339.png" alt="QQ_1735383284339" />
 
 2. 创建完两个空文件夹之后，打开命令行窗口，输入：
 
    ```shell
    # 修改npm全局预设
-   npm config set prefix "D:\Nodejs\node_global"
+   npm config set prefix "Z:\Nodejs\node_global"
    
    # 修改npm缓存
-   npm config set cache "D:\Nodejs\node_cache"
+   npm config set cache "Z:\Nodejs\node_cache"
    ```
 
 3. 查看确认全局预设与缓存配置：
@@ -207,7 +203,7 @@ npm 全局下载依赖时，会默认下载到当前使用的 Nodejs 版本的�
 
    进入环境变量对话框，新建系统变量：
 
-   - 变量名：`NODE_GLOBAL`，变量值：`D:\Nodejs\node_global`
+   - 变量名：`NODE_GLOBAL`，变量值：`Z:\Nodejs\node_global`
    - 变量名：`NODE_PATH`，变量值：`%NODE_GLOBAL%\node_modules`
 
    将新建的两个环境变量配置到 Path 中，请注意顺序（未装 NVM 请忽视 NVM 相关环境变量）：
@@ -404,14 +400,14 @@ Yarn 是由 Facebook、Google、Exponent 和 Tilde 联合推出了一个新的 J
 
 2. 首先清除以上文件数据，然后创建新的全局模块所在路径和缓存路径：
 
-   <img src="!assets/Node.js/image-20231213231639081.png" alt="image-20231213231639081" style="" />
+   <img src="!assets/Node.js/QQ_1735383345722.png" alt="QQ_1735383345722" />
 
 3. 修改 Yarn 的全局模块所在路径和缓存路径：
 
    ```shell
-   yarn config set globalFolder "D:\Nodejs\yarn_global"
+   yarn config set globalFolder "Z:\Nodejs\yarn_global"
    
-   yarn config set cacheFolder "D:\Nodejs\yarn_cache"
+   yarn config set cacheFolder "Z:\Nodejs\yarn_cache"
    ```
 
 
@@ -621,13 +617,13 @@ corepack use pnpm@latest
 
    ```shell
    # 全局存储路径
-   pnpm config set store-dir "D:\Nodejs\pnpm_global"
+   pnpm config set store-dir "Z:\Nodejs\pnpm_global"
    
    # 缓存存储路径
-   pnpm config set cache-dir "D:\Nodejs\pnpm_cache"
+   pnpm config set cache-dir "Z:\Nodejs\pnpm_cache"
    
    # 状态存储路径
-   pnpm config set state-dir "D:\Nodejs\pnpm_state"
+   pnpm config set state-dir "Z:\Nodejs\pnpm_state"
    ```
 
 

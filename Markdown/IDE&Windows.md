@@ -1,7 +1,3 @@
----
-typora-copy-images-to: upload
----
-
 # Windows
 
 ## 【1】默认管理员权限
@@ -599,22 +595,6 @@ localhost,127.0.0.1,Orichalcos.com
 
 
 
-## 【21】修改 CMD 窗口标题
-
-在命令行中输入：
-
-```bash
-title 名字
-```
-
-如果在启动 Tomcat 时候，无法输入命令，可右键文本形式打开批处理，输入命令：
-
-```bat
-set "title=名字"
-```
-
-
-
 # Chrome
 
 ## 【1】移动 Chrome 的数据文件
@@ -820,9 +800,46 @@ IDEA 通过快捷键 Ctrl + / 进行注释的代码不会进行首行缩进：
 
 
 
-## 【5】Maven 项目没有被识别
+## 【5】Lombok 报错
 
-在 pom.xml 上右键，点击【Add as Maven Project】 
+IDEA 因为 Lombok 的报错：
+
+```
+java: You aren't using a compiler supported by lombok, so lombok will not work and has been disabled.
+Your processor is: com.sun.proxy.$Proxy8
+Lombok supports: sun/apple javac 1.6, ECJ
+```
+
+这是由于 Lombok 的版本过低的原因。
+
+
+
+**版本提升**
+
+将 Lombok 版本提升至 1.18.24 后问题就可以解决：
+
+```xml
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.24</version>
+    <scope>provided</scope>
+</dependency>
+```
+
+<img src="!assets/IDE&Windows/QQ_1735503460171.png" alt="QQ_1735503460171" style="zoom: 67%;" />
+
+
+
+**添加参数**
+
+如果无法变动项目依赖版本，可以在【编译器】中增加如下参数配置即可：
+
+```
+-Djps.track.ap.dependencies=false 
+```
+
+<img src="!assets/IDE&Windows/QQ_1735503436346.png" alt="QQ_1735503436346" />
 
 
 
@@ -1003,6 +1020,10 @@ IntelliJ IDEA 可以在菜单中的【File】=>【Settings】=>【Editor】=>【
 - Convert 表示使用新编码进行转换，新编码会保存到文件中。
 
 > 含有中文的代码文件，Convert 之后可能会使中文变成乱码，所以在转换成请做好备份，不然可能出现转换过程变成乱码，无法还原。
+
+
+
+
 
 
 
@@ -1377,6 +1398,40 @@ append-proxy-groups: []
 4. 最后会回到这个页面，可以看到更新已改为手动：
 
    <img src="!assets/IDE&Windows/image-20240814001105085.png" alt="image-20240814001105085" style="zoom:67%;" />
+
+
+
+## 【4】修改 CMD 窗口标题
+
+在命令行中输入：
+
+```bash
+title 名字
+```
+
+如果在启动 Tomcat 时候，无法输入命令，可右键文本形式打开批处理，输入命令：
+
+```bat
+set "title=名字"
+```
+
+
+
+## 【5】服务器与本地电脑无法远程复制粘贴
+
+通过重启 rdpclip.exe 进程解决：
+
+1. 登录服务器后，打开任务管理器，在任务管理器中查找是否有进程 rdpclip.exe，有的系统不一样，名字也是不同的，也有系统叫 RDP剪贴板监视程序：
+
+   <img src="!assets/IDE&Windows/QQ_1735503873741.png" alt="QQ_1735503873741" style="zoom:67%;" />
+
+2. 如果找到有进程，选中该进程，鼠标右键，选择结束该进程，结束该进程；如果没有该进程，直接进行第 3 步。
+
+3. 按 Win + R 打开【运行】，在运行中输入进程 rdpclip.exe，并点击确定：
+
+   <img src="!assets/IDE&Windows/QQ_1735504009366.png" alt="QQ_1735504009366" style="zoom:50%;" />
+
+4. 再次在任务管理其中查看进程 rdpclip.exe 是否已经启动，如果已经启动，就测试是否可以复制粘贴，如果还是没有启动，则再次操作第 4 步。
 
 
 
