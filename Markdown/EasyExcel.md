@@ -1,7 +1,3 @@
----
-typora-copy-images-to: upload
----
-
 # 1、EasyExcel
 
 Java 解析、生成 Excel 比较有名的框架有 Apache POI、jxl。但他们都存在一个严重的问题就是非常的耗内存，POI 有一套 SAX 模式的 API 可以一定程度的解决一些内存溢出的问题，但 POI 还是有一些缺陷，比如 07 版 Excel 解压缩以及解压后存储都是在内存中完成的，内存消耗依然很大。EasyExcel 重写了 POI 对 07 版 Excel 的解析，能够原本一个 3M 的 Excel 用 POI SAX 依然需要100M 左右内存降低到几 M，并且再大的 Excel 不会出现内存溢出，03 版依赖 POI 的 SAX 模式。在上层做了模型转换的封装，让使用者更加简单方便
@@ -299,7 +295,6 @@ public void repeatedWrite() {
    }
    ```
 
-   
 
 
 
@@ -567,13 +562,13 @@ public void invokeHeadMap(Map<Integer, String> headMap, AnalysisContext context)
 
 **模板**
 
-<img src="!assets/EasyExcel/image-20231214232714486.png" alt="image-20231214232714486" style="zoom:80%;" />
+<img src="!assets/EasyExcel/image-20231214232714486.png" alt="image-20231214232714486" style="zoom: 50%;" />
 
 
 
 **最终效果**
 
-<img src="!assets/EasyExcel/image-20231214232949483.png" alt="image-20231214232949483" style="zoom:80%;" />
+<img src="!assets/EasyExcel/image-20231214232949483.png" alt="image-20231214232949483" style="zoom: 50%;" />
 
 
 
@@ -624,3 +619,67 @@ public void invokeHeadMap(Map<Integer, String> headMap, AnalysisContext context)
    }
    ```
 
+
+
+## 4.2、复杂的填充
+
+**模板**
+
+![2025-01-01 052633](!assets/EasyExcel/2025-01-01 052633.png)
+
+
+
+**最终效果**
+
+![2025-01-01 052654](!assets/EasyExcel/2025-01-01 052654.png)
+
+
+
+**代码**
+
+1. 实体类：
+
+   ```java
+   @Getter
+   @Setter
+   @EqualsAndHashCode
+   public class FillData {
+       private String name;
+       private double number;
+       private Date date;
+   }
+   ```
+
+2. 测试：
+
+   ```java
+   /**
+     * 数据量大的复杂填充
+     * <p>
+     * 这里的解决方案是 确保模板list为最后一行，然后再拼接table.还有03版没救，只能刚正面加内存。
+     *
+     * @since 2.1.1
+     */
+   @Test
+   public void complexFillWithTable() {
+       // 模板注意用 {} 来表示你要用的变量 如果本来就有 "{" "}" 特殊字符 用 "\{" "\}" 代替
+       // {} 代表普通变量 
+       // {.} 代表是 list 的变量
+       String templateFileName = TestFileUtil.getPath() + "demo" + File.separator + "fill" + File.separator + "complexFillWithTable.xlsx";
+   
+       String fileName = TestFileUtil.getPath() + "complexFillWithTable" + System.currentTimeMillis() + ".xlsx";
+   
+       try (ExcelWriter excelWriter = EasyExcel.write(fileName).withTemplate(templateFileName).build()) {
+           WriteSheet writeSheet = EasyExcel.writerSheet().build();
+           // 直接写入数据
+           excelWriter.fill(data(), writeSheet);
+   
+           // 写入list之前的数据
+           Map<String, Object> map = new HashMap<String, Object>();
+           map.put("date", "2019年10月9日13:28:28");
+           excelWriter.fill(map, writeSheet);
+       }
+   }
+   ```
+   
+   

@@ -76,10 +76,67 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 
 
-## 【3】修改系统引导
+## 【3】系统迁移
 
-1. win+R
-2. 输入 `msconfig`
+使用 DiskGenius 软件，可以方便地将系统从一个硬盘迁移到另外一个硬盘上，或者更常见的是将系统从 HDD 硬盘迁移到 SSD 固态硬盘、U 盘等。
+
+首先， 需要将第二块硬盘、SSD 固态硬盘或 U 盘等，在电脑上安装好，然后启动系统，运行 DiskGenius 软件。在 DiskGenius 软件中，应该可以看到这第二块硬盘（或 SSD 固态硬盘、U 盘等）。
+
+1. 在 DiskGenius 主菜单，点击【工具】=>【系统迁移】菜单项，如下图：
+
+   <img src="!assets/IDE&Windows/system-migration-01.png" alt="系统迁移" style="zoom: 80%;" />
+
+2. 选择迁移系统的目标盘，然后点击【确定】按钮。目标磁盘可以小于源磁盘，但是目标磁盘容量需大于源磁盘的已用数据总量：
+
+   <img src="!assets/IDE&Windows/system-migration-02.png" alt="系统迁移" style="zoom: 67%;" />
+
+3. 对于支持 UEFI 的电脑，还可以直接指定系统迁移完成后，要不要更改系统的启动项。 点击【开始】按钮，准备进行迁移：
+
+   <img src="!assets/IDE&Windows/system-migration-03.png" alt="系统迁移" style="zoom:67%;" />
+
+4. 程序显示如下警告：目标磁盘上的所有数据将会被覆盖。确认没问题后，点击【确定】按钮：
+
+   <img src="!assets/IDE&Windows/system-migration-04.png" alt="系统迁移" style="zoom: 80%;" />
+
+5. DiskGenius 软件将让用户选择系统迁移的模式，如下图：
+
+   <img src="!assets/IDE&Windows/system-migration-05.png" alt="系统迁移" style="zoom: 80%;" />
+
+   热迁移，就是在不关机的情况下，迁移系统到第二块硬盘，在迁移过程中，用户仍然可以对电脑做各种操作，不影响用户对电脑的使用。
+
+   重启到 WinPE，DiskGenius 软件将重启电脑，自动进入 WinPE 系统，自动在 WinPE 下启动 DiskGenius 并自动执行系统迁移。
+
+   > [!TIP]
+   >
+   > 大多数情况下，使用热迁移的方式，更为方便、安全，建议使用这种系统迁移模式。
+
+6. 点击【热迁移】按钮，DiskGenius 将开始热迁移操作，如下图：
+
+   <img src="!assets/IDE&Windows/system-migration-06.png" alt="系统迁移" style="zoom:80%;" />
+
+   系统迁移窗口中，将显示一个进度条，进度条显示系统迁移大致的进度，进度条下面显示已经复制，和还没有复制的数据大小，及已经用时与估计的完成系统迁移所需的剩余时间。
+
+7. 完成系统迁移后，DiskGenius 软件会给出系统迁移完成的提示，如下图：
+
+   <img src="!assets/IDE&Windows/system-migration-07.png" alt="系统迁移" style="zoom:80%;" />
+
+系统迁移到第二块硬盘（或 SSD 固态硬盘、U盘等）上之后，如果是支持 UEFI 的电脑，并且在迁移系统之前设置了完成后从目标盘启动。重启电脑后，会自动用迁移后的新系统启动。否则，需手动进入 BIOS 设置，将启动硬盘设置为新的硬盘，之后，就可以用这块硬盘启动电脑，进入系统了。
+
+
+
+**系统引导未修改**
+
+重启后有可能电脑还是默认使用旧硬盘的系统启动（我还没自动切换成功过），可以在 DiskGenius 软件中修改：
+
+1. 可以在 DiskGenius 主菜单，点击【工具】=>【设置 UEFI BIOS 启动项】菜单项，如下图：
+
+   <img src="!assets/IDE&Windows/{9693E1D6-E98C-4BA9-A2F4-1A474C20A1AF}" alt="img" style="zoom: 50%;" />
+
+2. 在打开的弹窗中，将旧硬盘的启动项备份后直接删除，设置新硬盘启动项【下一次从该项启动（仅一次有效）】后，立即重启：
+
+   <img src="!assets/IDE&Windows/QQ_1735680018651.png" alt="QQ_1735680018651" style="zoom: 50%;" />
+
+3. 重启之后电脑已经使用新硬盘的系统启动，这时可以将旧硬盘直接格式化，并再来软件这里查看是否有多余的启动项，如果有就直接删除。
 
 
 
@@ -567,7 +624,7 @@ localhost,127.0.0.1,Orichalcos.com
 
 1. 打开 Windows 设置并导航到【系统】=>【存储】=>【高级存储设置】=>【磁盘和卷】，选择【创建 Dev Drive】：
 
-   <img src="!assets/IDE&Windows/image-20231218005553385.png" alt="image-20231218005553385" style="" />
+   <img src="!assets/IDE&Windows/image-20231218005553385.png" alt="image-20231218005553385" style="zoom: 50%;" />
 
 2. 系统会提供三个选项：
 
@@ -577,19 +634,19 @@ localhost,127.0.0.1,Orichalcos.com
 
    这里推荐选择【重设现有卷大小】
 
-   <img src="!assets/IDE&Windows/image-20231218010059396.png" alt="image-20231218010059396" style="" />
+   <img src="!assets/IDE&Windows/image-20231218010059396.png" alt="image-20231218010059396" style="zoom: 50%;" />
 
 3. 选择要调整大小的卷：
 
-   <img src="!assets/IDE&Windows/image-20231218010220051.png" alt="image-20231218010220051" style="" />
+   <img src="!assets/IDE&Windows/image-20231218010220051.png" alt="image-20231218010220051" style="zoom: 67%;" />
 
 4. 为卷选择新大小，需要至少有 50GB 的未分配的可用空间，这是开发驱动器所需的最小大小。 设置大小后，选择【下一步】：
 
-   <img src="!assets/IDE&Windows/image-20231218010331196.png" alt="image-20231218010331196" style="" />
+   <img src="!assets/IDE&Windows/image-20231218010331196.png" alt="image-20231218010331196" style="zoom: 67%;" />
 
 5. 若要在新的可用空间上设置开发驱动器的格式，请指定标签（驱动器名称）、驱动器号和大小分配。 最大大小是在上一步中分配的可用空间量，开发驱动器的最小大小为 50GB：
 
-   <img src="!assets/IDE&Windows/image-20231218010448788.png" alt="image-20231218010448788" style="" />
+   <img src="!assets/IDE&Windows/image-20231218010448788.png" alt="image-20231218010448788" style="zoom: 67%;" />
 
 6. 到这里就已经创建并调整了开发驱动器的大小！
 
@@ -601,7 +658,11 @@ localhost,127.0.0.1,Orichalcos.com
 
 Chrome 默认的数据文件地址是：C:\Users\Orichalcos\AppData\Local\Google
 
-移动前需要关闭 Google，将文件移动到想要移动的地方，然后在 Cmd（需要管理员权限）输入：`mklink 旧地址 新地址`，回车。
+移动前需要关闭 Google，将文件移动到想要移动的地方，然后在 Cmd（需要管理员权限）输入：
+
+```bash
+mklink <旧地址> <新地址>
+```
 
 
 
@@ -1070,17 +1131,17 @@ SpringBoot 是使用内置的 Tomcat 的，所以不用打包成 war 文件，�
 	```xml
 	<plugins>
 	    <!-- 要使生成的jar可运行，需要加入此插件 -->
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-surefire-plugin</artifactId>
-			<configuration>
-			<skip>true</skip>
-			</configuration>
-		</plugin>
-		<plugin>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-maven-plugin</artifactId>
-		</plugin>
+	    <plugin>
+	        <groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-surefire-plugin</artifactId>
+	        <configuration>
+	            <skip>true</skip>
+	        </configuration>
+	    </plugin>
+	    <plugin>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-maven-plugin</artifactId>
+	    </plugin>
 	</plugins>
 	```
 
