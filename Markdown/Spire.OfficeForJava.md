@@ -1,7 +1,3 @@
----
-typora-copy-images-to: upload
----
-
 Spire.Office for Java 是一套企业级的涵盖 E-iceblue 所有 Java组件的集合，它包括以下产品的最新版本：Spire.Doc for Java、Spire.XLS for Java、Spire.Presentation for Java、Spire.PDF for Java 和 Spire.Barcode for Java。
 
 使用Spire.Office for Java，开发人员可以创建多种多样的用于处理办公文档的 Java 应用程序。对文档的处理包括打开、创建、修改、转换、打印 MS Word、Excel、PowerPoint ®、PDF 和一维、二维条码。
@@ -50,11 +46,11 @@ Spire.Doc for Java 能执行多种 Word 文档处理任务，包括生成、读�
 
 ## 1.1、比较两个 Word 文档的内容
 
-自版本 3.8.8 开始，Spire.Doc for Java 支持比较两个Word文档的内容，并以修订模式生成结果文档。
+自版本 3.8.8 开始，Spire.Doc for Java 支持比较两个 Word 文档的内容，并以修订模式生成结果文档。
 
 以下为两个示例文档，标注内容是它们的内容差异：
 
-<img src="!assets/Spire.OfficeForJava/Compare-two-Word-documents-in-Java-1-16504706498001.png" alt="Java 比较两个 Word 文档的内容" style="" />
+<img src="!assets/Spire.OfficeForJava/Compare-two-Word-documents-in-Java-1-16504706498001.png" alt="Java 比较两个 Word 文档的内容"  />
 
 代码示例：
 
@@ -81,7 +77,7 @@ public class Comparison {
 
 比较结果：
 
-<img src="!assets/Spire.OfficeForJava/Compare-two-Word-documents-in-Java-2.png" alt="Java 比较两个 Word 文档的内容" style="" />
+<img src="!assets/Spire.OfficeForJava/Compare-two-Word-documents-in-Java-2.png" alt="Java 比较两个 Word 文档的内容" style="zoom: 80%;" />
 
 
 
@@ -117,5 +113,59 @@ Spire.XLS for Java 支持多种 Excel 文件格式，包括 Excel 97-2003 格式
         <version>14.11.0</version>
     </dependency>
 </dependencies>
+```
+
+
+
+## 2.1、Excel 转 PDF
+
+使用 Spire.XLS 来实现 Excel 转换 PDF 的方法虽然简单，但是不适合于较大的 Excel 文件转化，只适合有小于 3 个 sheet 页的文件使用。
+
+
+
+**将整个 Excel 文件转为 PDF**
+
+使用 `Workbook` 导出整个 Excel 文件的代码只需要两步，代码示例如下：
+
+```java
+/**
+  * 使用spire简单整个Excel转换为pdf
+  *
+  * @param inputFilePath Excel文件路径
+  * @param outputFilePath 导出的PDF文件路径
+  */
+public static void totalExcelToPDF(String inputFilePath, String outputFilePath) {
+    Workbook wb = new Workbook();
+    // 引入Excel文件
+    wb.loadFromFile(inputFilePath);
+    // 导出PDF文件
+    wb.saveToFile(outputFilePath, FileFormat.PDF);
+}
+
+```
+
+
+
+**指定单个的sheet页转为PDF**
+
+指定单个 sheet 页面转为 PDF 格式输出，只需要输入指定的 sheet 页的下标，代码示例如下：
+
+```java
+/**
+  * 使用spire将单个sheet转成pdf
+  *
+  * @param inputFilePath Excel文件路径
+  * @param outputFilePath 导出的PDF文件路径
+  * @param sheetNum 导出的sheet页下标
+  */
+public static void partExcelToPDF(String inputFilePath, String outputFilePath, int sheetNum) {
+    //加载Excel文档
+    Workbook wb = new Workbook();
+    wb.loadFromFile(inputFilePath);
+    //获取到哪一个sheet页
+    Worksheet sheet = wb.getWorksheets().get(sheetNum);
+    //调用方法保存为PDF格式
+    sheet.saveToPdf(outputFilePath);
+}
 ```
 
