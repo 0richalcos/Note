@@ -540,7 +540,7 @@ create tablespace "TEST" datafile '/data/dmdata/DAMENG/TEST.DBF' size 128 autoex
 使用命令行方式创建用户 TEST ，密码 Dameng@123，使用散列算法 SHA512 ，使用存储加密密钥为 123456，指定表空间为 TEST，索引表空间为 TEST，示例参考如下：
 
 ```SQL
-Copycreate user "TEST" identified by "Dameng@123" hash with SHA512 salt
+create user "TEST" identified by "Dameng@123" hash with SHA512 salt
 encrypt by "123456"
 default tablespace "TEST"
 default index tablespace "TEST";
@@ -599,6 +599,42 @@ grant "PUBLIC","SOI" to "TEST";
 ## 4.2、物理备份
 
 ### 4.2.1、联机备份
+
+**命令行备份**
+
+1. 修改数据库为 Mount 状态：
+
+   ```sql
+   ALTER DATABASE MOUNT;
+   ```
+
+2. 开启归档模式：
+
+   ```sql
+   ALTER DATABASE ARCHIVELOG;
+   ```
+
+3. 配置本地归档：
+
+   ```sql
+   ALTER DATABASE ADD ARCHIVELOG 'DEST = /data/dm_arch/arch, TYPE = local, FILE_SIZE = 1024, SPACE_LIMIT = 2048';
+   ```
+
+4. 修改数据库为Open状态：
+
+   ```sql
+   ALTER DATABASE OPEN;
+   ```
+
+5. 全库备份：
+
+   ```shell
+   BACKUP DATABASE FULL BACKUPSET '/data/dm_bak/bak_name';
+   ```
+
+
+
+**图形化备份**
 
 1. 右键数据库连接，选择【管理服务器】，切换到【系统管理】，将状态转换为【配置】：
 
@@ -747,8 +783,6 @@ login
 
 CONNECT TEST/'"TEST@111#2024"'@127.0.0.1:5236
 ```
-
-
 
 <img src="!assets/DM/QQ_1726074907877.png" alt="QQ_1726074907877" style="zoom: 25%;" />
 

@@ -1,7 +1,3 @@
----
-typora-copy-images-to: upload
----
-
 # 1、Linux 简介
 
 Linux 英文解释为 Linux is not Unix。
@@ -14,7 +10,7 @@ Linux 能运行主要的 UNIX 工具软件、应用程序和网络协议。它�
 
 
 
-**Linux 的发行版**
+## 1.1、Linux 的发行版
 
 Linux 的发行版说简单点就是将 Linux 内核与应用软件做一个打包。
 
@@ -25,6 +21,46 @@ Linux 的发行版说简单点就是将 Linux 内核与应用软件做一个打�
 <img src="!assets/Linux/wKioL1bvVPWAu7hqAAEyirVUn3c446.jpg-wh_651x-s_3197843091.jpg" alt="img" style="" />
 
 这里用的 Linux 版本是 Ubuntu 20.04 64位。
+
+
+
+## 1.2、查看 Linux 系统版本
+
+有三种方法可以验证：
+
+
+
+**通过 `/etc/os-release` 文件查看**
+
+运行以下命令检查 Linux 操作系统版本：
+
+```shell
+cat /etc/os-release
+```
+
+<img src="!assets/Linux/image-20250305005551431.png" alt="image-20250305005551431" style="zoom:50%;" />
+
+**通过 `lsb_release` 命令查看**
+
+直接看命令：
+
+```shell
+lsb_release -a
+```
+
+<img src="!assets/Linux/image-20250305005941399.png" alt="image-20250305005941399" style="zoom:50%;" />
+
+
+
+**通过 `proc` 目录中可用版本文件查看**
+
+命令如下：
+
+```shell
+cat /proc/version
+```
+
+<img src="!assets/Linux/image-20250305010043052.png" alt="image-20250305010043052" style="zoom:50%;" />
 
 
 
