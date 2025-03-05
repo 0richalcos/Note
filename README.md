@@ -51,6 +51,7 @@
 ### :closed_lock_with_key:权限管理
 
 - [**Shiro**](https://github.com/0richalcos/Note/blob/main/Markdown/Shiro.md)
+- [**Sa-Token**](https://github.com/0richalcos/Note/blob/main/Markdown/Sa-Token.md)
 
 
 

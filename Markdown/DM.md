@@ -1,7 +1,3 @@
----
-typora-copy-images-to: upload
----
-
 # 1、简介
 
 达梦数据库管理系统是达梦公司推出的具有完全自主知识产权的高性能数据库管理系统，简称 DM。达梦数据库管理系统的最新版本是 8.0 版本，简称 DM8。
@@ -27,6 +23,8 @@ DM8 采用全新的体系架构，在保证大型通用的基础上，针对可�
 
 **新建 dmdba 用户**
 
+> [!CAUTION]
+>
 > 安装前必须创建 dmdba 用户，禁止使用 root 用户安装数据库。
 
 1. 创建用户所在的组，命令如下：
@@ -596,11 +594,29 @@ grant "PUBLIC","SOI" to "TEST";
 
 
 
-## 4.2、物理备份
+## 4.2、物理备份还原
 
-### 4.2.1、联机备份
+物理备份是找出那些已经分配、使用的数据页，拷贝并保存到备份集中。物理还原是物理备份的逆过程，物理还原一般通过 DMRMAN 工具（或者 SQL 语句），把备份集中的数据内容（数据文件、数据页、归档文件）重新拷贝、写入目标文件。
 
-**命令行备份**
+- 联机备份还原：联机备份还原指数据库处于运行状态时，并正常提供数据库服务情况下进行的备份还原操作，称为联机备份还原。
+- 脱机备份还原：脱机还原指数据库处于关闭状态时执行的还原操作。库备份、表空间备份和归档备份，可以执行脱机还原。脱机还原操作的目标库必须处于关闭状态。
+- 备份集：备份集用来存放备份过程中产生的备份数据及备份信息。一个备份集对应了一次完整的备份。一般情况下，一个备份集就是一个目录，备份集包含一个或多个备份片文件，以及一个备份元数据文件。
+
+
+
+### 4.2.1、准备工作
+
+联机备份数据库必须要配置归档。联机备份时，大量的事务处于活动状态，为确保备份数据的一致性，需要同时备份一段日志（备份期间产生的 REDO 日志），因此要求数据库必须配置本地归档且归档处于开启状态。
+
+脱机备份数据库可配置归档也可以不配置。正常退出的库的备份不需要考虑本地归档日志的完整性，可以不配置归档；但对于故障退出的库的备份要求因故障未刷盘的日志也必须存在于本地归档中，因此必须配置归档。
+
+归档配置有两种方式：一是联机归档配置，数据库实例启动情况下，使用 SQL 语句完成 dmarch.ini 和 ARCH_INI 配置；二是手动配置归档，数据库实例未启动的情况下，手动编写 dmarch.ini 文件和设置参数 ARCH_INI。
+
+
+
+#### 联机归档配置
+
+**命令行配置**
 
 1. 修改数据库为 Mount 状态：
 
@@ -626,15 +642,9 @@ grant "PUBLIC","SOI" to "TEST";
    ALTER DATABASE OPEN;
    ```
 
-5. 全库备份：
-
-   ```shell
-   BACKUP DATABASE FULL BACKUPSET '/data/dm_bak/bak_name';
-   ```
 
 
-
-**图形化备份**
+**图形化配置**
 
 1. 右键数据库连接，选择【管理服务器】，切换到【系统管理】，将状态转换为【配置】：
 
@@ -644,6 +654,8 @@ grant "PUBLIC","SOI" to "TEST";
 
    <img src="!assets/DM/image-20240812180342701.png" alt="image-20240812180342701" style="zoom:67%;" />
 
+   
+
    > [!WARNING]
    >
    > 此处为归档日志目录，并且添加了之后无法删除！！！
@@ -652,11 +664,172 @@ grant "PUBLIC","SOI" to "TEST";
 
    <img src="!assets/DM/image-20240812180502625.png" alt="image-20240812180502625" style="zoom:67%;" />
 
-4. 最后在连接里找到【备份】，右键【库备份】选择【新增备份】，点击确定就好：
 
-   <img src="!assets/DM/image-20240812180633492.png" alt="image-20240812180633492" style="zoom:67%;" />
 
-5. 备份文件在：`<数据目录>/bak/` 文件夹里。
+### 4.2.2、联机备份还原
+
+联机方式支持数据库、用户表空间、用户表和归档的备份以及用户表的还原。在进行联机库级备份、归档备份和表空间备份时，必须保证系统处于归档模式，否则联机备份不能进行。
+
+
+
+#### 数据备份
+
+这里仅讲述数据库备份使用场景。
+
+
+
+**命令行备份**
+
+在 disql 工具或图形化管理工具 SQL 编辑区中使用 `BACKUP` 语句可以备份整个数据库，执行以下命令：
+
+```sql
+BACKUP DATABASE FULL BACKUPSET '/data/dm_bak/bak_name';
+```
+
+设置数据库备份选项：
+
+- 设置联机数据库备份集路径：
+
+  ```sql
+  # 指定备份集路径为 /home/dm_bak/db_bak_3_01
+  BACKUP DATABASE BACKUPSET '/home/dm_bak/db_bak_3_01';
+  ```
+
+- 设置备份名：
+
+  ```sql
+  # 创建备份集，备份名设置为“WEEKLY_FULL_BAK”
+  BACKUP DATABASE TO WEEKLY_FULL_BAK BACKUPSET '/home/dm_bak/db_bak_3_02';
+  ```
+
+  > [!CAUTION]
+  >
+  > 备份名的设置不可以使用特殊格式，例如 `%NAME`。
+
+- 添加备份描述：
+  ```sql
+  # 创建备份为备份集添加描述信息为“完全备份”。
+  BACKUP DATABASE BACKUPSET '/home/dm_bak/db_bak_3_04' BACKUPINFO  '完全备份';
+  ```
+
+- 限制备份片大小：
+
+  ```sql
+  # 创建备份限制备份片大小为300M
+  BACKUP DATABASE BACKUPSET '/home/dm_bak/db_bak_3_05' MAXPIECESIZE 300;
+  ```
+
+  > [!CAUTION]
+  >
+  > `MAXPIECESIZE` 不能大于磁盘剩余空间大小，否则报错磁盘空间不足。
+
+- 备份压缩：
+
+  压缩选项有不同的压缩级别可以选择，取值范围为 0~9，应根据存储空间、数据文件大小等确定合适地压缩级别。
+
+  ```sql
+  # 执行备份压缩，压缩级别设置为5。
+  BACKUP DATABASE BACKUPSET '/home/dm_bak/db_bak_3_06' COMPRESSED LEVEL 5;
+  ```
+
+- 设置并行备份：
+
+  ```sql
+  # 创建并行备份，指定并行数为8
+  BACKUP DATABASE BACKUPSET '/home/dm_bak/db_bak_3_07' PARALLEL 8;
+  ```
+
+
+
+**图形化备份**
+
+在连接里找到【备份】，右键【库备份】选择【新增备份】，点击确定就好：
+
+<img src="!assets/DM/image-20240812180633492.png" alt="image-20240812180633492" style="zoom:67%;" />
+
+备份文件在：`<数据目录>/bak/` 文件夹里。
+
+
+
+#### 数据还原
+
+达梦数据库仅支持表的联机还原，数据库、表空间和归档日志的还原必须通过脱机工具 DMRMAN 执行，详细内容见[脱机备份还原](###4.2.3、脱机备份还原)。
+
+
+
+### 4.2.3、脱机备份还原
+
+DMRMAN（DM RECOVERY MANAGER）是脱机备份还原命令行工具，无需额外安装，由它来统一负责库级脱机备份、脱机还原、脱机恢复等相关操作，该工具支持命令行指定参数方式和控制台交互方式执行，降低用户的操作难度。
+
+启动和退出 DMRMAN：
+
+```shell
+# 进入数据库安装目录的 bin 目录下，例如 /dm8/bin
+cd /dm8/bin
+# 启动DMRMAN
+./dmrman
+
+# 启动后控制台中输入 exit 命令即可退出
+exit;
+```
+
+
+
+#### 数据备份
+
+
+
+#### 数据还原
+
+这里仅讲述数据库备份使用场景。
+
+> [!CAUTION]
+>
+> 在数据还原时，要使用 dmdba 账号进行操作，并且确保 dmdba 账户拥有备份目录的操作权限！！！
+
+1. 数据库还原：
+
+   使用 `RESTORE` 命令完成脱机还原操作，在还原语句中指定库级备份集，可以是脱机库级备份集，也可以是联机库级备份集。
+
+   > [!CAUTION]
+   >
+   > 通过 `RESTORE` 命令还原后的数据库不可用，需进一步执行 `RECOVER` 命令，将数据库恢复到备份结束时的状态。
+
+   以联机数据库备份说明使用 DMRMAN 如何执行数据库还原操作：
+
+   ```sql
+   # 校验备份，校验待还原备份集的合法性。校验备份有两种方式，联机和脱机，此处使用脱机校验。
+   CHECK BACKUPSET '/home/dm_bak/db_full_bak_for_restore';
+   
+   #还原数据库。
+   RESTORE DATABASE '/opt/dmdbms/data/DAMENG_FOR_RESTORE/dm.ini' FROM BACKUPSET '/home/dm_bak/db_full_bak_for_restore';
+   ```
+
+2. 数据库恢复：
+
+   使用 `RECOVER` 命令完成数据库恢复工作，可以是基于备份集的恢复工作，也可以是使用本地归档日志的恢复工作。
+
+   从备份集恢复，即重做备份集中的 REDO 日志：
+
+   ```sql
+   # 执行还原数据库的命令之后，可以直接执行恢复数据库的命令从备份集恢复。
+   RECOVER DATABASE '/opt/dmdbms/data/DAMENG_FOR_RESTORE/dm.ini' FROM  BACKUPSET '/home/dm_bak/db_full_bak_for_recover_backupset';
+   ```
+
+   或从归档恢复，即重做归档中的 REDO 日志：
+
+   ```sql
+   # 通过使用 WITH ARCHIVEDIR 关键字进行归档恢复，如下：
+   RECOVER DATABASE '/opt/dmdbms/data/DAMENG_FOR_RESTORE/dm.ini' WITH ARCHIVEDIR'/home/dm_arch/arch' 
+   ```
+
+3. 数据库更新：
+
+   数据库更新是指更新数据库的 DB_MAGIC，并将数据库调整为可正常工作状态，与数据库恢复一样使用 `RECOVER` 命令完成。数据库更新发生在重做 REDO 日志恢复数据库后。
+
+   ```sql
+   RECOVER DATABASE '/opt/dmdbms/data/DAMENG_FOR_RESTORE/dm.ini' UPDATE DB_MAGIC;
+   ```
 
 
 
@@ -889,8 +1062,8 @@ SET ISQL_MODE 3
 # 关闭 DEFINE 功能
 SET DEFINE OFF
 
---输出到文件
+# 输出到文件
 SPOOL /home/dmdba/dbchk20200609.txt 
---结束输出文件
+# 结束输出文件
 SPOOL OFF; 
 ```
