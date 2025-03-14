@@ -239,7 +239,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 在局域网中，可以通过 Windows 资源管理器的【网络】快速和其他机器共享文件，具体操作步骤如下：
 
-1. **打开网络共享**
+1. 打开网络共享
 
    打开计算机设置，然后依次点开【网络和 Internet】=>【高级网络设置】=>【高级共享设置】，打开专用网络里的网络发现和文件和打印机共享：
 
@@ -249,7 +249,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
    >
    > 为了安全建议只打开专用网络的网络共享，可以把家里网络设置成专用网络。
 
-2. **设置文件的访问权限**
+2. 设置文件的访问权限
 
    右键需要共享的文件，在【授予访问权限】这里选择【特定用户】：
 
@@ -259,7 +259,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
    <img src="!assets/IDE&Windows/image-20240905001336093.png" alt="image-20240905001336093" style="zoom:50%;" />
 
-3. **其他局域网机器访问**
+3. 其他局域网机器访问
 
    其他局域网内的机器可以通过文件资源管理器的【网络】这里找到你的电脑设备，点击进去就可以访问到前面设置过共享权限的文件了：
 
@@ -411,7 +411,7 @@ sc <server> [command] [service name] <option1> <option2>...
 
 
 
-**Windows11 远程桌面提示 Windows Defender Credential Guard 不允许使用已保存的凭据**
+### 【15.1】提示 Windows Defender Credential Guard 不允许使用已保存的凭据
 
 <img src="!assets/IDE&Windows/image-20231216141553114.png" alt="image-20231216141553114" style="" />
 
@@ -433,7 +433,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 
 
-**删除远程连接记录**
+### 【15.2】删除远程连接记录
 
 1. Win + R 打开【运行】，输入 `regedit` 命令打开注册表；
 
@@ -447,7 +447,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 
 
-**修改远程桌面的侦听端口**
+### 【15.3】修改远程桌面的侦听端口
 
 > [!NOTE]
 >
@@ -463,6 +463,85 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 6. 关闭注册表编辑器，然后重新启动计算机。
 
 下次使用远程桌面连接连接到此计算机时，必须键入新端口。 如果正在使用防火墙，请确保将防火墙配置为允许连接到新端口号。
+
+
+
+### 【15.4】远程本地多用户桌面
+
+使用远程桌面连接本地电脑的其他账户，可以避免电脑跟你抢键鼠，主要步骤：
+
+1. 创建新用户（如果有其他账户可用，这一步可跳过）。
+2. 配置本地组策略。
+3. 安装 RDP Wrap 补丁。
+4. 连接本地桌面。
+
+
+
+**创建新用户**
+
+1. 右键 Windows 图标点击【计算机管理】：
+
+   <img src="!assets/IDE&Windows/image-20250311144103532.png" alt="image-20250311144103532" style="zoom:50%;" />
+
+2. 打开【本地用户和组】，右键【用户】，在右键菜单中选择【新用户】：
+
+   <img src="!assets/IDE&Windows/image-20250311144225363.png" alt="image-20250311144225363" style="zoom: 67%;" />
+
+3. 创建新用户：
+
+   <img src="!assets/IDE&Windows/image-20250311144300065.png" alt="image-20250311144300065" style="zoom:50%;" />
+
+4. 右键新增的用户，在右键菜单中点击【属性】，切换到【隶属于】，将其添加到管理员组：
+
+   <img src="!assets/IDE&Windows/image-20250311144408921.png" alt="image-20250311144408921" style="zoom:50%;" />
+
+5. 打开系统设置，依次点开【系统】=>【远程桌面】=>【远程桌面用户】，点击【添加】，将刚才新建的用户添加进去：
+
+   <img src="!assets/IDE&Windows/image-20250311144810934.png" alt="image-20250311144810934" style="zoom: 67%;" />
+
+
+
+**配置本地组策略**
+
+1. Win+R 打开运行窗口，输入 `gpedit.msc`，打开本地组策略编辑器，依次选择【计算机配置】=>【管理模板】=>【Windows组件】=>【远程桌面会话主机】=>【连接】：
+
+   ![image-20250311145043149](!assets/IDE&Windows/image-20250311145043149.png)
+
+2. 选择以下三项配置进行修改：
+
+   - 配置【允许用户通过使用远程桌面服务进行远程连接】，选择：【已启用】。
+   - 配置【限制连接的数量】，点击【已启用】，其中【允许的RD最大连接数】可以自己视情况而定。
+   - 配置【将远程桌面服务用户限制到单独的远程桌面服务会话】，选择：【已启用】。
+
+
+
+**安装 RDP Wrap 补丁**
+
+1. [下载地址](https://github.com/sebaxakerhtc/rdpwrap)，下载 RDPW_Installer.exe 文件。
+
+2. 右键以管理员身份运行，此时便会自动安装补丁，出现全绿点击【OK】：
+
+   <img src="!assets/IDE&Windows/image-20250311145558771.png" alt="image-20250311145558771" style="zoom:67%;" />
+
+
+
+**连接本地桌面**
+
+1. Win+R 打开运行窗口，输入 `mstsc`，输入本地回环地址，注意不要输入 `127.0.0.1` 否则会报错：
+
+   <img src="!assets/IDE&Windows/image-20250311145752871.png" alt="image-20250311145752871" style="zoom:67%;" />
+
+2. 输入密码，这里不要勾选【记住我的凭证】：
+
+   <img src="!assets/IDE&Windows/image-20250311145921041.png" alt="image-20250311145921041" style="zoom:67%;" />
+
+3. 密码没问题就启动了，可以启动游戏啥的：
+
+   ![image-20250311150128468](!assets/IDE&Windows/image-20250311150128468.png)
+
+4. 注意最后关闭远程桌面连接之后，需要注销用户，不然虽然远程关闭了，但是用户和资源并没有释放：
+
+   <img src="!assets/IDE&Windows/image-20250311150329217.png" alt="image-20250311150329217" style="zoom:67%;" />
 
 
 
@@ -1674,4 +1753,29 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 2. 每次 IDM 启动的时候，都会修改 hosts 文件，将以上内容注释，可以将 hosts 文件设置为【只读】，也可以使用火绒的自定义防护禁止 IDMan.exe 修改 hosts：
 
    <img src="!assets/IDE&Windows/image-20240416144317613.png" alt="image-20240416144317613" style="zoom:67%;" />
+
+
+
+# Unity
+
+## 【1】改变 Unity 游戏启动窗口大小
+
+可以从命令行启动 Unity 播放器并传入参数来更改播放器的执行方式：
+
+- `-popupwindow`：将窗口创建为弹出窗口，没有框架。
+- `-screen-fullscreen`：覆盖默认的全屏状态。此值必须是 0 或 1。
+- `-screen-height`：覆盖默认屏幕高度。此值必须是受支持分辨率中的整数。
+- `-screen-width`：覆盖默认屏幕宽度。此宽度值必须是受支持分辨率的整数。
+
+比如我要独占全屏运行原神，就可以：
+
+```shell
+"yuanshen.exe" -screen-fullscreen 1 -screen-width 3840 -screen-height 2160
+```
+
+比如我要1080P窗口运行原神，就可以：
+
+```shell
+"yuanshen.exe" -popupwindow -screen-fullscreen 0 -screen-width 1920 -screen-height 1080
+```
 
