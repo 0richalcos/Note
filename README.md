@@ -1,14 +1,14 @@
-| Java | 数据库 | 持久层框架 | Spring | 权限管理 | 搜索引擎 | Linux & 运维 | 前端 | 数据结构及算法 |
-| :--: | :----: | :--------: | :----: | :------: | :------: | :------: | :------: | :------: |
-| [♨️](#♨️java) | [📊](#📊 数据库) | [💾](#💾 持久层框架) | [🍃](#🍃 Spring) | [🔐](#🔐 权限管理) | [🔍](#🔍 搜索引擎) | [🧑‍🔧](#🧑‍🔧 运维) | [:globe_with_meridians:](#globe_with_meridians前端) | [:stars:](#stars数据结构及算法) |
+| Java | 数据库 | 持久层框架 | Spring | 权限管理 | 搜索引擎 | 运维 | 前端 |
+| :--: | :----: | :--------: | :----: | :------: | :------: | :------: | :------: |
+| [♨️](#♨️java) | [📊](#📊数据库) | [💾](#💾持久层框架) | [🍃](#🍃Spring) | [🔐](#🔐权限管理) | [🔍](#🔍搜索引擎) | [🧑‍🔧](#🧑‍🔧运维) | [🌐](#🌐前端) |
 
-|    协议     | 文件处理                    | 对象存储 | 定时任务                            | 开发工具        | 其他                    |
-| :---------: | --------------------------- | -------- | ----------------------------------- | --------------- | ----------------------- |
-| [📡](#📡协议) | [:scroll:](#scroll文件处理) |          | [⏳](#⏳定时任务) | [🛠️](#🛠️开发工具) | [:wrench:](#wrench其他) |
+| 数据结构及算法 |    协议     | 文件处理                    | 对象存储 | 定时任务                            | 开发工具        | 其他                    |
+| :-------------------------: | :------: | :---------------------------------: | :-------------: | :---------------------: | :---------------------: | :---------------------: |
+| [🧮](#🧮数据结构及算法) | [🛰️](#🛰️协议) | [🗃️](#🗃️文件处理) |    [📇](#📇对象存储)      | [⌛](#⌛定时任务) | [🛠️](#🛠️开发工具) | [👻](#👻其他) |
 
 
 
-# ♨️Java
+## ♨️Java
 
 - [**Java 基础**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaBasics.md)
 - [**Java 类和对象**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaObject.md)
@@ -19,7 +19,7 @@
 
 
 
-## 📊 数据库
+## 📊数据库
 
 - [**MySQL**](https://github.com/0richalcos/Note/blob/main/Markdown/MySQL.md)
 	- [**查询题**](https://github.com/0richalcos/Note/blob/main/Markdown/MySQLQuery.md)
@@ -30,14 +30,14 @@
 
 
 
-### 💾 持久层框架
+## 💾持久层框架
 
 - [**MyBatis**](https://github.com/0richalcos/Note/blob/main/Markdown/MyBatis.md)
   - [**MyBatis-Plus**](https://github.com/0richalcos/Note/blob/main/Markdown/MyBatis-Plus.md)
 
 
 
-### 🍃 Spring
+## 🍃Spring
 
 - [**Spring**](https://github.com/0richalcos/Note/blob/main/Markdown/Spring.md)
 - [**Spring MVC**](https://github.com/0richalcos/Note/blob/main/Markdown/SpringMVC.md)
@@ -46,20 +46,20 @@
 
 
 
-### 🔐 权限管理
+## 🔐权限管理
 
 - [**Shiro**](https://github.com/0richalcos/Note/blob/main/Markdown/Shiro.md)
 - [**Sa-Token**](https://github.com/0richalcos/Note/blob/main/Markdown/Sa-Token.md)
 
 
 
-### 🔍 搜索引擎
+## 🔍搜索引擎
 
 - [**Elasticsearch**](https://github.com/0richalcos/Note/blob/main/Markdown/Elasticsearch.md)
 
 
 
-# 🧑‍🔧 运维
+## 🧑‍🔧运维
 
 - [**Linux**](https://github.com/0richalcos/Note/blob/main/Markdown/Linux.md)
 - [**Nginx**](https://github.com/0richalcos/Note/blob/main/Markdown/Nginx.md)
@@ -71,7 +71,7 @@
 
 
 
-### :globe_with_meridians:前端
+## 🌐前端
 
 - [**CSS**](https://github.com/0richalcos/Note/blob/main/Markdown/CSS.md)
 - [**JavaScript**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaScript.md)
@@ -99,14 +99,14 @@
 
 
 
-### :stars:数据结构及算法
+## 🧮数据结构及算法
 
 - [**算法**](https://github.com/0richalcos/Note/blob/main/Markdown/Algorithm.md)
 - [**设计模式**](https://github.com/0richalcos/Note/blob/main/Markdown/DesignPattern.md)
 
 
 
-### 📡协议
+## 🛰️协议
 
 - [**HTTP**](https://github.com/0richalcos/Note/blob/main/Markdown/HTTP.md)
 - [**WebSocket**](https://github.com/0richalcos/Note/blob/main/Markdown/WebSocket.md)
@@ -114,7 +114,7 @@
 
 
 
-### :scroll:文件处理
+## 🗃️文件处理
 
 **Office**
 
@@ -144,19 +144,19 @@
 
 
 
-### 🛖对象存储
+## 📇对象存储
 
 - [**MinIO**](https://github.com/0richalcos/Note/blob/main/Markdown/MinIO.md)
 
 
 
-### ⏳定时任务
+## ⌛定时任务
 
 - [**XXL-JOB**](https://github.com/0richalcos/Note/blob/main/Markdown/XXL-JOB.md)
 
 
 
-### 🛠️开发工具
+## 🛠️开发工具
 
 - [**Swagger**](https://github.com/0richalcos/Note/blob/main/Markdown/Swagger.md)
 - [**Git**](https://github.com/0richalcos/Note/blob/main/Markdown/Git.md)
@@ -165,7 +165,7 @@
 
 
 
-### :wrench:其他
+## 👻其他
 
 - [**IDE 及 Windows 设置**](https://github.com/0richalcos/Note/blob/main/Markdown/IDE&Windows.md)
 - [**解决方案**](https://github.com/0richalcos/Note/blob/main/Markdown/Solutions.md)
