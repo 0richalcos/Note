@@ -28,14 +28,14 @@
 - [**Redis**](https://github.com/0richalcos/Note/blob/main/Markdown/Redis.md)
 - [**DM**](https://github.com/0richalcos/Note/blob/main/Markdown/DM.md)
 
-
+<br/>
 
 ## 💾持久层框架
 
 - [**MyBatis**](https://github.com/0richalcos/Note/blob/main/Markdown/MyBatis.md)
   - [**MyBatis-Plus**](https://github.com/0richalcos/Note/blob/main/Markdown/MyBatis-Plus.md)
 
-
+<br/>
 
 ## 🍃Spring
 
@@ -44,20 +44,20 @@
 - [**Spring Boot**](https://github.com/0richalcos/Note/blob/main/Markdown/SpringBoot.md)
 - [**Spring Cloud**](https://github.com/0richalcos/Note/blob/main/Markdown/SpringCloud.md)
 
-
+<br/>
 
 ## 🔐权限管理
 
 - [**Shiro**](https://github.com/0richalcos/Note/blob/main/Markdown/Shiro.md)
 - [**Sa-Token**](https://github.com/0richalcos/Note/blob/main/Markdown/Sa-Token.md)
 
-
+<br/>
 
 ## 🔍搜索引擎
 
 - [**Elasticsearch**](https://github.com/0richalcos/Note/blob/main/Markdown/Elasticsearch.md)
 
-
+<br/>
 
 ## 🧑‍🔧运维
 
@@ -69,7 +69,7 @@
 - [**WSL**](https://github.com/0richalcos/Note/blob/main/Markdown/WSL.md)
 - [**Docker**](https://github.com/0richalcos/Note/blob/main/Markdown/Docker.md)
 
-
+<br/>
 
 ## 🌐前端
 
@@ -97,14 +97,14 @@
 - 图表：[**Apache ECharts**](https://github.com/0richalcos/Note/blob/main/Markdown/ApacheECharts.md)
 - [**Element**](https://github.com/0richalcos/Note/blob/main/Markdown/Element.md)
 
-
+<br/>
 
 ## 🧮数据结构及算法
 
 - [**算法**](https://github.com/0richalcos/Note/blob/main/Markdown/Algorithm.md)
 - [**设计模式**](https://github.com/0richalcos/Note/blob/main/Markdown/DesignPattern.md)
 
-
+<br/>
 
 ## 🛰️协议
 
@@ -112,7 +112,7 @@
 - [**WebSocket**](https://github.com/0richalcos/Note/blob/main/Markdown/WebSocket.md)
 - [**FTP**](https://github.com/0richalcos/Note/blob/main/Markdown/FTP.md)
 
-
+<br/>
 
 ## 🗃️文件处理
 
@@ -142,19 +142,19 @@
 
 - [**ZIP 压缩解压**](https://github.com/0richalcos/Note/blob/main/Markdown/Zip4j.md)
 
-
+<br/>
 
 ## 📇对象存储
 
 - [**MinIO**](https://github.com/0richalcos/Note/blob/main/Markdown/MinIO.md)
 
-
+<br/>
 
 ## ⌛定时任务
 
 - [**XXL-JOB**](https://github.com/0richalcos/Note/blob/main/Markdown/XXL-JOB.md)
 
-
+<br/>
 
 ## 🛠️开发工具
 
@@ -163,7 +163,7 @@
 - [**Maven**](https://github.com/0richalcos/Note/blob/main/Markdown/Maven.md)
 - [**Node.js**](https://github.com/0richalcos/Note/blob/main/Markdown/Node.js.md)
 
-
+<br/>
 
 ## 👻其他
 
