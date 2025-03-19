@@ -521,7 +521,7 @@ chgrp [-R] 属组名 文件名
 
 参数选项：
 
-- `-R`：递归更改文件属组，就是在更改某个目录文件的属组时，如果加上 `-R` 的参数，那么该目录下的所有文件的属组都会更改。
+- `-R` : 进行递归（recursive）的持续变更，亦即连同次目录下的所有文件都会变更。
 
 
 
@@ -535,6 +535,10 @@ chgrp [-R] 属组名 文件名
 chown [–R] 属主名 文件名
 chown [-R] 属主名:属组名 文件名
 ```
+
+参数选项：
+
+- `-R` : 进行递归（recursive）的持续变更，亦即连同次目录下的所有文件都会变更。
 
 
 
@@ -751,9 +755,9 @@ root@Orichalcos:~#
 
 语法:
 
-```
-[root@www ~]# cp [-adfilprsu] 来源档(source) 目标档(destination)
-[root@www ~]# cp [options] source1 source2 source3 .... directory
+```shell
+cp [-adfilprsu] 来源档(source) 目标档(destination)
+cp [options] source1 source2 source3 .... directory
 ```
 
 选项与参数：

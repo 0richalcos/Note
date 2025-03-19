@@ -1,16 +1,14 @@
-## :pen::pen::pen::pen::pen::pen::pen::pen::pen:
-
 | Java | 数据库 | 持久层框架 | Spring | 权限管理 | 搜索引擎 | Linux & 运维 | 前端 | 数据结构及算法 |
 | :--: | :----: | :--------: | :----: | :------: | :------: | :------: | :------: | :------: |
-| [:coffee:](#coffeejava) | [:chart_with_upwards_trend:](#chart_with_upwards_trend数据库) | [:moyai:](#moyai持久层框架) | [:leaves:](#leavesSpring) | [:closed_lock_with_key:](#closed_lock_with_key权限管理) | [:mag:](#mag搜索引擎) | [:computer:](#computerLinux--运维) | [:globe_with_meridians:](#globe_with_meridians前端) | [:stars:](#stars数据结构及算法) |
+| [♨️](#♨️ java) | [📊](#📊 数据库) | [💾](#💾 持久层框架) | [🍃](#🍃 Spring) | [🔐](#🔐 权限管理) | [🔍](#🔍 搜索引擎) | [🧑‍🔧](#🧑‍🔧 运维) | [:globe_with_meridians:](#globe_with_meridians前端) | [:stars:](#stars数据结构及算法) |
 
-|    协议     | 文件相关                    | 开发工具        | 其他                    |
-| :---------: | --------------------------- | --------------- | ----------------------- |
-| [📡](#📡协议) | [:scroll:](#scroll文件相关) | [🛠️](#🛠️开发工具) | [:wrench:](#wrench其他) |
+|    协议     | 文件处理                    | 对象存储 | 定时任务                            | 开发工具        | 其他                    |
+| :---------: | --------------------------- | -------- | ----------------------------------- | --------------- | ----------------------- |
+| [📡](#📡协议) | [:scroll:](#scroll文件处理) |          | [⏳](#⏳定时任务) | [🛠️](#🛠️开发工具) | [:wrench:](#wrench其他) |
 
 
 
-### :coffee:Java
+# ♨️ Java
 
 - [**Java 基础**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaBasics.md)
 - [**Java 类和对象**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaObject.md)
@@ -21,7 +19,7 @@
 
 
 
-### :chart_with_upwards_trend:数据库
+# 📊 数据库
 
 - [**MySQL**](https://github.com/0richalcos/Note/blob/main/Markdown/MySQL.md)
 	- [**查询题**](https://github.com/0richalcos/Note/blob/main/Markdown/MySQLQuery.md)
@@ -32,14 +30,14 @@
 
 
 
-### :moyai:持久层框架
+### 💾 持久层框架
 
 - [**MyBatis**](https://github.com/0richalcos/Note/blob/main/Markdown/MyBatis.md)
   - [**MyBatis-Plus**](https://github.com/0richalcos/Note/blob/main/Markdown/MyBatis-Plus.md)
 
 
 
-### :leaves:Spring
+### 🍃 Spring
 
 - [**Spring**](https://github.com/0richalcos/Note/blob/main/Markdown/Spring.md)
 - [**Spring MVC**](https://github.com/0richalcos/Note/blob/main/Markdown/SpringMVC.md)
@@ -48,20 +46,20 @@
 
 
 
-### :closed_lock_with_key:权限管理
+### 🔐 权限管理
 
 - [**Shiro**](https://github.com/0richalcos/Note/blob/main/Markdown/Shiro.md)
 - [**Sa-Token**](https://github.com/0richalcos/Note/blob/main/Markdown/Sa-Token.md)
 
 
 
-### :mag:搜索引擎
+### 🔍 搜索引擎
 
 - [**Elasticsearch**](https://github.com/0richalcos/Note/blob/main/Markdown/Elasticsearch.md)
 
 
 
-### :computer:Linux & 运维
+# 🧑‍🔧 运维
 
 - [**Linux**](https://github.com/0richalcos/Note/blob/main/Markdown/Linux.md)
 - [**Nginx**](https://github.com/0richalcos/Note/blob/main/Markdown/Nginx.md)
@@ -116,7 +114,7 @@
 
 
 
-### :scroll:文件相关
+### :scroll:文件处理
 
 **Office**
 
@@ -152,7 +150,7 @@
 
 
 
-### :hourglass:定时任务
+### ⏳定时任务
 
 - [**XXL-JOB**](https://github.com/0richalcos/Note/blob/main/Markdown/XXL-JOB.md)
 

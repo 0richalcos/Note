@@ -135,7 +135,50 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 ## 2.1、连接 Oracle
 
-### 2.1.1、Navicat 
+### 2.1.1、SQL*Plus
+
+SQL*Plus 是 Oracle 提供的命令行工具，用于与 Oracle 数据库交互。它支持：
+
+- 运行 SQL 语句（如 `SELECT`、`INSERT`、`UPDATE`、`DELETE`）。
+- 运行 PL/SQL 代码块（如 `BEGIN ... END;`）。
+- 进行数据库管理（如 `ALTER DATABASE`、`SHUTDOWN`、`STARTUP`）。
+- 执行 SQL 脚本（如 `.sql` 文件）。
+
+SQL*Plus 可以用于本地或远程连接 Oracle 数据库。
+
+
+
+**以 `SYSDBA` 权限连接**
+
+如果你的操作系统用户属于 `dba` 组（Linux）或 `ORA_DBA` 组（Windows），可以使用：
+
+```shell
+sqlplus / as sysdba
+```
+
+这将以 `SYSDBA` 权限连接到 Oracle 数据库。
+
+
+
+**使用普通用户连接**
+
+如果你要使用普通用户连接，可以提供用户名和密码：
+
+```shell
+sqlplus <用户名>/<密码>@[<主机IP>:<端口>/]<数据库服务名>
+```
+
+如果不想在命令行直接输入密码，可以只输入：
+
+```shell
+sqlplus <用户名>@[<主机IP>:<端口>/]<数据库服务名>
+```
+
+然后 SQL*Plus 会提示输入密码。
+
+
+
+### 2.1.2、Navicat 
 
 <img src="!assets/Oracle/image-20230523200124483.png" alt="image-20230523200124483" style="" />
 
@@ -159,9 +202,9 @@ ORA-12514:TNS:监听程序当前无法识别连接述符中请求的服务
 
 ORA-12516:TNS:监听程序找不到符合协议堆栈要求的可用处理程序
 
-出现这个问题是连接数过大导致的，也正是因为这个连接数过大，即使使用 as sysdba 也是登录不上。所以要解决这个问题，首先就要先断开当前连着的 process，然后使用 `sqlplus` 进行登录修改 process 和 session 的最大值：
+出现这个问题是连接数过大导致的，也正是因为这个连接数过大，即使使用 `sqlplus / as sysdba` 也是登录不上。所以要解决这个问题，首先就要先断开当前连着的 process，然后使用 `sqlplus` 进行登录修改 process 和 session 的最大值：
 
-1. 启动 SQL*Plus 并直接以 SYS 用户的身份连接到数据库：
+1. 运行以下命令启动 SQL*Plus 并直接以 `SYSDBA` 权限连接到数据库：
 
    ```shell
    sqlplus / as sysdba
@@ -175,7 +218,7 @@ ORA-12516:TNS:监听程序找不到符合协议堆栈要求的可用处理程序
    select count(*) from v$process;
    ```
 
-   会发现 processes 的参数值不太大，一般默认是 150 或者 300。
+   会发现 `processes` 的参数值不太大，一般默认是 150 或者 300。
 
 3. 修改 process 和 session 的最大值：
 
@@ -185,7 +228,7 @@ ORA-12516:TNS:监听程序找不到符合协议堆栈要求的可用处理程序
    alter system set sessions=3005 scope=spfile;
    ```
 
-   > processes 的值和 sessions 的值 Oracle 官方文档中要求 sessions = processes * 1.5 + 5
+   > `processes` 的值和 `sessions` 的值 Oracle 官方文档中要求 sessions = processes * 1.5 + 5
 
 4. 重启服务：
 
@@ -235,7 +278,7 @@ OCI 下载地址：https://www.oracle.com/database/technologies/instant-client/d
 
 
 
-### 2.1.2、SQL Developer
+### 2.1.3、SQL Developer
 
 Oracle SQL Developer 是一个免费的图形化工具，可以提高生产力并简化数据库开发任务。使用 SQL Developer 可以浏览数据库对象、运行 SQL 语句和 SQL 脚本、编辑和调试 PL/SQL 语句、操作和导出数据以及查看和创建报告。您可以连接到 Oracle 数据库，也可以连接到选定的第三方（非 Oracle）数据库，查看元数据和数据，并将这些数据库迁移到 Oracle。
 
@@ -295,7 +338,7 @@ Listener 即监听器，原则上，一个监听器对应一个数据库实例�
 
 一个典型的文件如下，由数据库自己生成：
 
-```
+```shell
 # 这个的后缀对应着listener，它是listener监听器对应的实例列表
 SID_LIST_LISTENER =
   (SID_LIST =
@@ -322,7 +365,7 @@ ADR_BASE_LISTENER = C:\Oracle\Oracle_19c\Oracle_193000_db_home\log
 
 接下来我们可以在 `LISTENER` 这个监听器的 `DESCRIPTION` 中添加一个局域网的地址，来监听在这个局域网地址上的访问。例如：
 
-```
+```shell
 LISTENER =
   (DESCRIPTION_LIST =
     (DESCRIPTION =
@@ -403,16 +446,21 @@ Oracle 默认监听端口 1521，一众扫描器通常通过探测 1521 端口�
      )
    ```
 
-5. 登录数据库查看 `local_listener` 参数：
+5. 运行以下命令启动 SQL*Plus 并直接以 `SYSDBA` 权限连接到数据库：
+
+   ```shell
+   sqlplus / as sysdba
+   ```
+
+6. 查看 `local_listener` 参数：
 
    ```sql
-   sqlplus / as sysdba
    show parameter local_listener
    ```
 
    如果之前没修改端口使用的是默认配置，则此时参数 `VALUE` 应为空值。
 
-6. 修改 `local_listener` 参数：
+7. 修改 `local_listener` 参数：
 
    如果 `LOCAL_LISTENER` 参数已设置，请确保其值与在 `listener.ora` 文件中设置的新端口号一致。
 
@@ -420,7 +468,13 @@ Oracle 默认监听端口 1521，一众扫描器通常通过探测 1521 端口�
    alter system set local_listener="(address = (PROTOCOL = TCP)(HOST = localhost) (PORT = 2521))";
    ```
 
-7. 重新启动监听：
+8. 退出 SQL*Plus：
+
+   ```sql
+   exit
+   ```
+
+9. 重新启动监听：
 
    ```shell
    lsnrctl start
@@ -457,16 +511,10 @@ NAMES.DIRECTORY_PATH= (TNSNAMES, HOSTNAME, ONAMES，EZCONNECT)
 
 ### 2.2.4、修改字符集
 
-1. 进入 SQL*Plus 命令行工具：
+1. 运行以下命令启动 SQL*Plus 并直接以 `SYSDBA` 权限连接到数据库：
 
    ```sql
-   sqlplus /nolog
-   ```
-
-2. 以 SYSDBA 特权连接到数据库实例：
-
-   ```sql
-   conn /as sysdba
+   sqlplus / as sysdba
    ```
 
 3. 立即关闭数据库，以确保数据库不处于运行状态，从而允许后续的数据库修改操作：
@@ -555,6 +603,12 @@ NAMES.DIRECTORY_PATH= (TNSNAMES, HOSTNAME, ONAMES，EZCONNECT)
 ### 2.2.5、修改占用内存
 
 Oracle 安装好之后，也可以调整内存的分配。
+
+首先需要运行以下命令启动 SQL*Plus 并直接以 `SYSDBA` 权限连接到数据库（后续的操作需要借助此工具完成）：
+
+```shell
+sqlplus / as sysdba
+```
 
 查看相关配置：
 
@@ -670,7 +724,7 @@ STARTUP;
    STARTUP PFILE='C:\Oracle\Oracle19C\WINDOWS.X64_193000_db_home\INIT.ORA';
    ```
 
-4. 启动成功后再改回从 spfile 启动：
+4. 启动成功后将文件改回 spfile：
 
    ```sql
    create spfile from pfile = 'C:\Oracle\Oracle19C\WINDOWS.X64_193000_db_home\INIT.ORA';
@@ -689,48 +743,48 @@ STARTUP;
 
 ## 3.1、用户管理
 
+运行以下命令启动 SQL*Plus 并直接以 `SYSDBA` 权限连接到数据库：
+
+```shell
+sqlplus / as sysdba
+```
+
+
+
 **账户解锁**
 
-1. Win + R，输入 `cmd` 进入控制台并运行 `sqlplus` 命令进入 sqlplus 环境：
-
-   ```shell
-   sqlplus /nolog
-   ```
-
-   其中 `/nolog` 是不登陆到数据库服务器的意思，如果没有 `/nolog` 参数，sqlplus 会提示你输入用户名和密码。
-
-2. 以系统管理员（sysdba）身份连接数据库：
-
-   ```sql
-   conn / as sysdba
-   ```
-
-3. 输入解锁语句：
-
-   ```sql
-   alter user <用户名> account unlock;
-   ```
+```sql
+alter user <用户名> account unlock;
+```
 
 
 
 **修改密码**
 
-1. 进入 sqlplus 环境：
+```sql
+alter user <用户名> identified by <密码>;
+```
 
-   ```shell
-   sqlplus /nolog
-   ```
 
-2. 以系统管理员（sysdba）身份连接数据库：
 
-   ```sql
-   conn / as sysdba
-   ```
+**取消密码180 天限制**
 
-3. 输入修改密码语句：
+1. 查看用户的 `proifle` 是哪个，一般是 DEFAULT：
 
    ```sql
-   alter user <用户名> identified by <密码>;
+   SELECT username,PROFILE FROM dba_users;
+   ```
+
+2. 查看指定概要文件（如 DEFAULT）的密码有效期设置：
+
+   ```sql
+   SELECT * FROM dba_profiles WHERE profile='DEFAULT' AND resource_name='PASSWORD_LIFE_TIME';
+   ```
+
+3. 将密码有效期由默认的 180 天修改成无限制：
+
+   ```sql
+   ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;
    ```
 
 
@@ -788,7 +842,7 @@ DROP TABLESPACE tablespace_name INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRA
 在 Oracle 中大文本数据我们没有办法使用 `LIKE` 进行查询，所以只能使用 Oracle 中的函数：
 
 ```sql
-SELECT * FROM TABLE表 WHERE dbms_lob.instr(字段名（clod类型）,'查询条件',1,1) > 0
+SELECT * FROM <表名> WHERE dbms_lob.instr(<字段名（clod类型）>, '查询条件', 1, 1) > 0
 ```
 
 在 Oracle 中，可以使用 `instr()` 函数对某个字符串进行判断，判断其是否含有指定的字符。其语法为：
@@ -815,8 +869,8 @@ instr(sourceString, destString, start, appearPosition)
 `START WITH...CONNECT BY PRIOR` 的语法为：
 
 ```sql
-SELECT 字段
-FROM 表名
+SELECT <字段>
+FROM <表名>
 WHERE condition1
 START WITH condition2
 CONNECT BY PRIOR condition3
@@ -933,13 +987,13 @@ SELECT 1 FROM DUAL WHERE '' IS NOT NULL;
 而 Oracle 对空和空字符串的识别是等同的，即 `''` 等同于 `NULL`，这样以前写的：
 
 ```sql
-SELECT 1 FROM 表名 WHERE 字段名A <> '';
+SELECT 1 FROM <表名> WHERE <字段名A> <> '';
 ```
 
 就相当于
 
 ```sql
-SELECT 1 FROM 表名 WHERE 字段名A <> NULL;
+SELECT 1 FROM <表名> WHERE <字段名A> <> NULL;
 ```
 
 而 Oracle 的 `NULL` 只能用 `IS` 或 `IS NOT` 进行比较，而不能用 `=` 、`!=` 、`<>` 进行比较。
@@ -1182,32 +1236,17 @@ REGEXP_INSTR(STRING, REGEX[, START_POSITION[, OCCURRENCE[, RETURN_OPTION[, MODIF
 
 ```sql
 SELECT REGEXP_INSTR('11a22A33a', 'a') AS STR FROM DUAL;
-```
-
-结果：
-
-```
-3
+-- 结果：3
 ```
 
 ```sql
 SELECT REGEXP_INSTR('11a22A33a11a22A33a', '2A', 1, 1, 0, 'c') AS STR FROM DUAL;
-```
-
-结果：
-
-```
-5
+-- 结果：5
 ```
 
 ```sql
 SELECT REGEXP_INSTR('11a22A33a11a22A33a', '2A', 1, 1, 1, 'c') AS STR FROM DUAL;
-```
-
-结果：
-
-```
-7
+-- 结果：7
 ```
 
 
@@ -1237,12 +1276,7 @@ REGEXP_COUNT(STRING, REGEX[, START_POSITION[, MODIFIER]])
 
 ```sql
 SELECT REGEXP_COUNT('11a22A33a11a22A33a', '2A', 1, 'c') AS STR FROM DUAL;
-```
-
-结果：
-
-```
-2
+-- 结果：2
 ```
 
 
@@ -1272,48 +1306,28 @@ REGEXP_SUBSTR(STRING, REGEX[, START_POSITION[, OCCURRENCE[, MODIFIER]]])
 
 ```sql
 SELECT REGEXP_SUBSTR('11a22A33a', '[^A]+', 1, 1, 'i') AS STR FROM DUAL;
-```
-
-结果：
-
-```
-11
+-- 结果：11
 ```
 
 分析：正则表达式是以 A 为标识进行分割，而 `i` 标识不区分大小写，从第一个字符开始，取第一组截取结果，所以结果是 11，而不是 11a22。
 
 ```sql
 SELECT REGEXP_SUBSTR('11a22A33a', '[^A]+', 1, 1, 'c') AS STR FROM DUAL;
-```
-
-结果：
-
-```
-11a22
+-- 结果：11a22
 ```
 
 分析：正则表达式是以 A 为标识进行分割，而 `c` 标识区分大小写，从第一个字符开始，取第一组截取结果，所以结果是 11a22，而不是 11。
 
 ```sql
 SELECT REGEXP_SUBSTR('11a22A33a', '[^A]+', 4, 1, 'i') AS STR FROM DUAL;
-```
-
-结果：
-
-```
-22
+-- 结果：22
 ```
 
 分析：正则表达式是以 A 为标识进行分割，而 `i` 标识不区分大小写，从第 4 个字符开始，取第一组截取结果，所以结果是 22，而不是 11。
 
 ```sql
 SELECT REGEXP_SUBSTR('11a22A33a', '[^A]+', 4, 1, 'c') AS STR FROM DUAL;
-```
-
-结果：
-
-```
-22
+-- 结果：22
 ```
 
 分析：正则表达式是以 A 为标识进行分割，而 `c` 标识区分大小写，从第 4 个字符开始，取第一组截取结果，所以结果是 22，而不是 11a22。
@@ -1338,22 +1352,12 @@ REGEXP_REPLACE(STRING, REGEX, REPLACE_STRING)
 
 ```sql
 SELECT REGEXP_REPLACE('11a22A33a', 'a', '') AS STR FROM DUAL;
-```
-
-结果：
-
-```
-1122A33
+-- 结果：1122A33
 ```
 
 ```sql
 SELECT REGEXP_REPLACE('11a22A33a11a22A33a', '[^A]+', '#') AS STR FROM DUAL;
-```
-
-结果：
-
-```
-#A#A#
+-- 结果：#A#A#
 ```
 
 
