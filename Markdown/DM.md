@@ -497,9 +497,186 @@ systemctl status DmServiceDMSERVER.service
 
 
 
-# 3、基本操作
+# 3、SQL 交互式查询工具
 
-## 3.1、创建表空间
+disql 是一款命令行客户端工具，用于进行 SQL 交互式查询，disql 工具一般用于没有图形界面时的操作，或者使用的连接工具为命令行形式，如 Xshell、SCRT 等工具。
+
+
+
+## 3.1、disql 登录数据库
+
+### 3.1.1、Linux 登录 disql
+
+Linux 登录，进入数据库软件安装目录的 bin 目录下。登录方式主要有两种，分别如下：
+
+
+
+**方式一**
+
+```shell
+./disql username/password@IP:PORT
+```
+
+以 `/home/dmdba/dmdbms/bin` 为例，如下所示：
+
+```shell
+./disql SYSDBA/SYSDBA@LOCALHOST:5236
+```
+
+<img src="!assets/DM/202407231508331967I025JMXMVX2VQK.png" alt="202407231508331967I025JMXMVX2VQK" style="zoom:80%;" />
+
+如果密码含有特殊字符的情况下，需要使用双引号将密码包含进来，同时外层再使用单引号进行转义。以用户名 TEST，密码 `TEST@111#2024` 为例，如下所示：
+
+```shell
+./disql TEST/'"TEST@111#2024"'@127.0.0.1:5236
+```
+
+<img src="!assets/DM/20240723150931L5ZOIWO60GJRIMAXKS.png" alt="20240723150931L5ZOIWO60GJRIMAXKS" style="zoom:80%;" />
+
+如果用户名、密码、端口号均为默认的情况下（用户名：SYSDBA ，密码：SYSDBA ，端口：5236 ），可直接输入 `./disql`，敲击回车按键，即可登录数据库。如下所示：
+
+<img src="!assets/DM/QQ_1726074490724.png" alt="QQ_1726074490724" style="zoom: 25%;" />
+
+
+
+**方式二**
+
+```shell
+# 进入disql操作终端界面，然后执行下面的操作
+./disql /nolog
+
+# 使用conn命令连接
+conn 用户名/密码@IP:PORT
+# 或者使用connet
+connect 用户名/密码@IP:PORT
+# 或者输入LOGIN命令
+login
+```
+
+以 `/home/dmdba/dmdbms/bin` 为例，disql 中通过 `conn` 或者 `connect` 命令连接数据库，操作如下所示：
+
+```shell
+./disql /nolog
+
+CONNECT TEST/'"TEST@111#2024"'@127.0.0.1:5236
+```
+
+<img src="!assets/DM/QQ_1726074907877.png" alt="QQ_1726074907877" style="zoom: 25%;" />
+
+`login` 命令操作如下：
+
+- 服务名：`IP:PORT` 或者 dm_svc.conf 文件中配置的服务名。
+- 用户名：输入登录的数据库用户名。
+- 密码：输入用户密码（密码无需加转义符）。
+
+其余回车即可：
+
+<img src="!assets/DM/QQ_1726074954932.png" alt="QQ_1726074954932" style="zoom: 25%;" />
+
+
+
+## 3.2、disql 登出数据库
+
+登出命令在 Windows、Linux 均相同，主要分为两类，一类是 `logout`、`disconnect`；另一类是 `exit`、`quit`。
+
+其中 `logout`、`disconnect` 只退出或者断开当前登录的会话连接，不退出 disql；`exit`、`quit` 表示退出当前登录会话连接并且退出 disql 操作界面。如下所示：
+
+<img src="!assets/DM/QQ_1726075327422.png" alt="QQ_1726075327422" style="zoom:25%;" />
+
+<img src="!assets/DM/QQ_1726075343639.png" alt="QQ_1726075343639" style="zoom:25%;" />
+
+<img src="!assets/DM/QQ_1726075360897.png" alt="QQ_1726075360897" style="zoom:25%;" />
+
+
+
+## 3.3、disql 的使用
+
+### 3.3.1、脚本使用
+
+disql 登录成功后，通过反引号 `` ` 和 `start` 命令加上脚本位置执行脚本，以 Linux 上脚本位置 `/home/dmdba/test.sql`、Windows 上脚本位置 `C:\dm8_326_p6\sel.sql` 为例，如下所示：
+
+```shell
+./disql TEST/'"TEST@111#2024"'@127.0.0.1:5236
+
+start /home/dmdba/test.sql
+`/home/dmdba/test.sql
+```
+
+
+
+<img src="!assets/DM/202407231529233K13R37GG5RDKDV4G0.png" alt="202407231529233K13R37GG5RDKDV4G0" style="zoom:80%;" />
+
+也可在登录时直接同时进行脚本的执行，如下所示：
+
+```shell
+./disql TEST/'"TEST@111#2024"'@127.0.0.1:5236 \`/home/dmdba/test.sql
+```
+
+<img src="!assets/DM/20240723152653MTEBSP0Z1BUXKW2KVL.png" alt="20240723152653MTEBSP0Z1BUXKW2KVL" style="zoom:80%;" />
+
+<img src="!assets/DM/20240723152719ICBB8YK83P07CQY2OU.png" alt="20240723152719ICBB8YK83P07CQY2OU" style="zoom:80%;" />
+
+> [!IMPORTANT]
+>
+> Windows 环境下不需要对反引号 `` ` 进行转义，而 Linux 环境下需要对其进行转义。
+
+
+
+### 3.3.2、环境变量参数设置
+
+可通过设置 disql 的参数，来调整交互界面的显示效果，以达成输出的显示结果更加直观。
+
+通过 `SET` 命令语法进行使用，off 表示该参数关闭，on 表示该参数开启。
+
+可以同时 SET 多个环境变量，如：`set heading on timing on` 。需要注意的是，SET 之后某个环境变量出错，那么该变量之后的环境变量参数将不再起作用。
+
+disql 常用部分参数如下所示：
+
+```SQL
+# 设置一页有多少行数
+SET PAGESIZE 1000
+
+# 显示每个 SQL 语句花费的执行时间
+SET TIMING ON
+
+# 显示系统的当前时间
+SET TIME ON
+
+# 设置屏幕上一行显示宽度
+SET LINESIZE 1000
+
+# 关闭显示行号
+SET LINESHOW OFF
+
+# 设置查看执行计划
+SET AUTOTRACE <OFF(缺省值) | NL | INDEX | ON | TRACE | TRACEONLY>
+
+# 在块中有打印信息时，是否打印，以及打印的格式
+SET SERVEROUTPUT ON
+
+# 设置 SQL 语句的编码方式 GBK | GB18030 | UTF8 | DEFAULT
+SET CHAR_CODE DEFAULT
+
+# 设置兼容 MySQL 的打印格式
+SET ISQL_MODE 3
+
+# DISQL 中使用 INSERT 语句且当插入的值包含 & 符号时，需要将 DEFINE 环境变量关闭或者设置成其他值。
+# DEFINE 环境变量默认为 & 前缀，即 SQL 语句中包含 & 符号时，& 符号后面的字符会识别为 SQL 语句中变量名，
+# 如后面字符中包含 $ 符号，则从 & 符号与 $ 符号中间的字符识别为 SQL 语句中的变量名。
+# 关闭 DEFINE 功能
+SET DEFINE OFF
+
+# 输出到文件
+SPOOL /home/dmdba/dbchk20200609.txt 
+# 结束输出文件
+SPOOL OFF; 
+```
+
+
+
+# 4、基本操作
+
+## 4.1、创建表空间
 
 **新建表空间**
 
@@ -531,7 +708,7 @@ create tablespace "TEST" datafile '/data/dmdata/DAMENG/TEST.DBF' size 128 autoex
 
 
 
-## 3.2、创建用户
+## 4.2、创建用户
 
 **新建用户**
 
@@ -556,9 +733,123 @@ grant "PUBLIC","SOI" to "TEST";
 
 
 
-# 4、备份和迁移
+# 5、数据库配置
 
-## 4.1、DTS 工具迁移
+## 5.1、数据库状态和模式
+
+DM 数据库包含以下几种状态：
+
+1. 配置状态（MOUNT）：不允许访问数据库对象，只能进行控制文件维护、归档配置、数据库模式修改等操作。
+2. 打开状态（OPEN）：不能进行控制文件维护、归档配置等操作，可以访问数据库对象，对外提供正常的数据库服务。
+3. 挂起状态（SUSPEND）：与 OPEN 状态的唯一区别就是，限制磁盘写入功能；一旦修改了数据页，触发 REDO 日志、数据页刷盘，当前用户将被挂起。
+
+OPEN 状态与 MOUNT 和 SUSPEND 能相互转换，但是 MOUNT 和 SUSPEND 之间不能相互转换。
+
+DM 数据库包含以下几种模式：
+
+1. 普通模式（NORMAL）：用户可以正常访问数据库，操作没有限制。
+2. 主库模式（PRIMARY）：用户可以正常访问数据库，所有对数据库对象的修改强制生成 REDO 日志，在归档有效时，发送 REDO 日志到备库。
+3. 备库模式（STANDBY）：接收主库发送过来的 REDO 日志并重做。数据对用户只读。
+
+三种模式只能在 MOUNT 状态下设置，模式之间可以相互转换。
+
+对于新初始化的库，首次启动不允许使用 MOUNT 方式，需要先正常启动并正常退出，然后才允许 MOUNT 方式启动。
+
+一般情况下，数据库为 NORMAL 模式，如果不指定 MOUNT 状态启动，则自动启动到 OPEN 状态。
+
+在需要对数据库配置时（如配置数据守护、数据复制），服务器需要指定 MOUNT 状态启动。当数据库模式为非 NORMAL 模式（PRIMARY、STANDBY 模式），无论是否指定启动状态，服务器启动时自动启动到 MOUNT 状态。
+
+
+
+### 5.1.1、状态切换
+
+**命令行方式**
+
+以 SYSDBA 角色连接数据库后，可执行命令切换数据库状态。
+
+将数据库转为 MOUNT 配置状态，可读取数据库配置文件，不可对数据文件读写：
+
+```sql
+alter database mount;
+```
+
+将数据库转为 OPEN 打开状态，可读取数据库配置文件，可对数据文件读写：
+
+```sql
+alter database open;
+```
+
+
+
+**图形化界面配置**
+
+1. 打开 DM管理工具 => 连接数据库 => 右键选择【管理服务器】：
+
+   <img src="!assets/DM/image-20230922004306995.png" alt="image-20230922004306995" style="zoom: 67%;" />
+
+2. 切换到【系统管理】页面，选择需要切换的状态，最后点击【转换】：
+
+   <img src="!assets/DM/image-20230922004422477.png" alt="image-20230922004422477" style="zoom:67%;" />
+
+   左侧目录刷新，即可看到数据库对象信息。
+
+
+
+## 5.2、启动和关闭
+
+
+
+
+
+## 5.3、数据库的兼容性
+
+达梦数据库可以通过修改实例的配置文件 dm.ini 中的参数 `COMPATIBLE_MODE` 用来兼容不同的数据库，此参数为静态参数，修改后只有重启数据库服务才能生效。
+
+`COMPATIBLE_MODE` 有以下值：
+
+- 0：不兼容。
+- 1：兼容 SQL92 标准。
+- 2：部分兼容 ORACLE。
+- 3：部分兼容 MS SQL SERVER。
+- 4：部分兼容 MYSQL。
+- 5：兼容 DM6。
+- 6：部分兼容 TERADATA。
+
+可通过以下 SQL 查询 `COMPATIBLE_MODE` 值：
+
+```sql
+SELECT para_name, para_type, para_value FROM V$DM_INI WHERE PARA_NAME ='COMPATIBLE_MODE';
+```
+
+
+
+**通过 disql 修改此参数**
+
+修改此参数为 2，兼容 Oracle 数据库：
+
+```sql
+sp_set_para_value(2,'compatible_mode',2);
+```
+
+重启数据库服务，查看此参数已修改。
+
+
+
+**通过 dm.ini 配置文件修改此参数**
+
+通过 `sed` 命令直接修改 dm.ini 配置文件中的 `COMPATIBLE_MODE` 参数为 0，不兼容：
+
+```shell
+sed -i 's/^COMPATIBLE_MODE *= *.*/COMPATIBLE_MODE = 0/' dm.ini
+```
+
+重启数据库服务，查看此参数已修改。
+
+
+
+# 6、备份和迁移
+
+## 6.1、DTS 工具迁移
 
 DM 数据迁移工具 DM DTS 提供了主流大型数据库迁移到 DM、DM 到 DM、文件迁移到 DM 以及 DM 迁移到文件等功能。
 
@@ -598,7 +889,7 @@ DM 数据迁移工具 DM DTS 提供了主流大型数据库迁移到 DM、DM 到
 
 
 
-## 4.2、物理备份还原
+## 6.2、物理备份还原
 
 物理备份是找出那些已经分配、使用的数据页，拷贝并保存到备份集中。物理还原是物理备份的逆过程，物理还原一般通过 DMRMAN 工具（或者 SQL 语句），把备份集中的数据内容（数据文件、数据页、归档文件）重新拷贝、写入目标文件。
 
@@ -608,7 +899,7 @@ DM 数据迁移工具 DM DTS 提供了主流大型数据库迁移到 DM、DM 到
 
 
 
-### 4.2.1、准备工作
+### 6.2.1、准备工作
 
 联机备份数据库必须要配置归档。联机备份时，大量的事务处于活动状态，为确保备份数据的一致性，需要同时备份一段日志（备份期间产生的 REDO 日志），因此要求数据库必须配置本地归档且归档处于开启状态。
 
@@ -670,7 +961,7 @@ DM 数据迁移工具 DM DTS 提供了主流大型数据库迁移到 DM、DM 到
 
 
 
-### 4.2.2、联机备份还原
+### 6.2.2、联机备份还原
 
 联机方式支持数据库、用户表空间、用户表和归档的备份以及用户表的还原。在进行联机库级备份、归档备份和表空间备份时，必须保证系统处于归档模式，否则联机备份不能进行。
 
@@ -761,7 +1052,7 @@ BACKUP DATABASE FULL BACKUPSET '/data/dm_bak/bak_name';
 
 
 
-### 4.2.3、脱机备份还原
+### 6.2.3、脱机备份还原
 
 DMRMAN（DM RECOVERY MANAGER）是脱机备份还原命令行工具，无需额外安装，由它来统一负责库级脱机备份、脱机还原、脱机恢复等相关操作，该工具支持命令行指定参数方式和控制台交互方式执行，降低用户的操作难度。
 
@@ -837,237 +1128,3 @@ exit;
 
 
 
-# 5、数据库状态和模式
-
-DM 数据库包含以下几种状态：
-
-1. 配置状态（MOUNT）：不允许访问数据库对象，只能进行控制文件维护、归档配置、数据库模式修改等操作。
-2. 打开状态（OPEN）：不能进行控制文件维护、归档配置等操作，可以访问数据库对象，对外提供正常的数据库服务。
-3. 挂起状态（SUSPEND）：与 OPEN 状态的唯一区别就是，限制磁盘写入功能；一旦修改了数据页，触发 REDO 日志、数据页刷盘，当前用户将被挂起。
-
-OPEN 状态与 MOUNT 和 SUSPEND 能相互转换，但是 MOUNT 和 SUSPEND 之间不能相互转换。
-
-DM 数据库包含以下几种模式：
-
-1. 普通模式（NORMAL）：用户可以正常访问数据库，操作没有限制。
-2. 主库模式（PRIMARY）：用户可以正常访问数据库，所有对数据库对象的修改强制生成 REDO 日志，在归档有效时，发送 REDO 日志到备库。
-3. 备库模式（STANDBY）：接收主库发送过来的 REDO 日志并重做。数据对用户只读。
-
-三种模式只能在 MOUNT 状态下设置，模式之间可以相互转换。
-
-对于新初始化的库，首次启动不允许使用 MOUNT 方式，需要先正常启动并正常退出，然后才允许 MOUNT 方式启动。
-
-一般情况下，数据库为 NORMAL 模式，如果不指定 MOUNT 状态启动，则自动启动到 OPEN 状态。
-
-在需要对数据库配置时（如配置数据守护、数据复制），服务器需要指定 MOUNT 状态启动。当数据库模式为非 NORMAL 模式（PRIMARY、STANDBY 模式），无论是否指定启动状态，服务器启动时自动启动到 MOUNT 状态。
-
-
-
-## 5.1、状态切换
-
-**命令行方式**
-
-以 SYSDBA 角色连接数据库后，可执行命令切换数据库状态。
-
-将数据库转为 MOUNT 配置状态，可读取数据库配置文件，不可对数据文件读写：
-
-```sql
-alter database mount;
-```
-
-将数据库转为 OPEN 打开状态，可读取数据库配置文件，可对数据文件读写：
-
-```sql
-alter database open;
-```
-
-
-
-**图形化界面配置**
-
-1. 打开 DM管理工具 => 连接数据库 => 右键选择【管理服务器】：
-
-   <img src="!assets/DM/image-20230922004306995.png" alt="image-20230922004306995" style="zoom: 67%;" />
-
-2. 切换到【系统管理】页面，选择需要切换的状态，最后点击【转换】：
-
-   <img src="!assets/DM/image-20230922004422477.png" alt="image-20230922004422477" style="zoom:67%;" />
-
-   左侧目录刷新，即可看到数据库对象信息。
-
-
-
-# 6、SQL 交互式查询工具
-
-disql 是一款命令行客户端工具，用于进行 SQL 交互式查询，disql 工具一般用于没有图形界面时的操作，或者使用的连接工具为命令行形式，如 Xshell、SCRT 等工具。
-
-
-
-## 6.1、disql 登录数据库
-
-### 6.1.1、Linux 登录 disql
-
-Linux 登录，进入数据库软件安装目录的 bin 目录下。登录方式主要有两种，分别如下：
-
-
-
-**方式一**
-
-```shell
-./disql username/password@IP:PORT
-```
-
-以 `/home/dmdba/dmdbms/bin` 为例，如下所示：
-
-```shell
-./disql SYSDBA/SYSDBA@LOCALHOST:5236
-```
-
-<img src="!assets/DM/202407231508331967I025JMXMVX2VQK.png" alt="202407231508331967I025JMXMVX2VQK" style="zoom:80%;" />
-
-如果密码含有特殊字符的情况下，需要使用双引号将密码包含进来，同时外层再使用单引号进行转义。以用户名 TEST，密码 `TEST@111#2024` 为例，如下所示：
-
-```shell
-./disql TEST/'"TEST@111#2024"'@127.0.0.1:5236
-```
-
-<img src="!assets/DM/20240723150931L5ZOIWO60GJRIMAXKS.png" alt="20240723150931L5ZOIWO60GJRIMAXKS" style="zoom:80%;" />
-
-如果用户名、密码、端口号均为默认的情况下（用户名：SYSDBA ，密码：SYSDBA ，端口：5236 ），可直接输入 `./disql`，敲击回车按键，即可登录数据库。如下所示：
-
-<img src="!assets/DM/QQ_1726074490724.png" alt="QQ_1726074490724" style="zoom: 25%;" />
-
-
-
-**方式二**
-
-```shell
-# 进入disql操作终端界面，然后执行下面的操作
-./disql /nolog
-
-# 使用conn命令连接
-conn 用户名/密码@IP:PORT
-# 或者使用connet
-connect 用户名/密码@IP:PORT
-# 或者输入LOGIN命令
-login
-```
-
-以 `/home/dmdba/dmdbms/bin` 为例，disql 中通过 `conn` 或者 `connect` 命令连接数据库，操作如下所示：
-
-```shell
-./disql /nolog
-
-CONNECT TEST/'"TEST@111#2024"'@127.0.0.1:5236
-```
-
-<img src="!assets/DM/QQ_1726074907877.png" alt="QQ_1726074907877" style="zoom: 25%;" />
-
-`login` 命令操作如下：
-
-- 服务名：`IP:PORT` 或者 dm_svc.conf 文件中配置的服务名。
-- 用户名：输入登录的数据库用户名。
-- 密码：输入用户密码（密码无需加转义符）。
-
-其余回车即可：
-
-<img src="!assets/DM/QQ_1726074954932.png" alt="QQ_1726074954932" style="zoom: 25%;" />
-
-
-
-## 6.2、disql 登出数据库
-
-登出命令在 Windows、Linux 均相同，主要分为两类，一类是 `logout`、`disconnect`；另一类是 `exit`、`quit`。
-
-其中 `logout`、`disconnect` 只退出或者断开当前登录的会话连接，不退出 disql；`exit`、`quit` 表示退出当前登录会话连接并且退出 disql 操作界面。如下所示：
-
-<img src="!assets/DM/QQ_1726075327422.png" alt="QQ_1726075327422" style="zoom:25%;" />
-
-<img src="!assets/DM/QQ_1726075343639.png" alt="QQ_1726075343639" style="zoom:25%;" />
-
-<img src="!assets/DM/QQ_1726075360897.png" alt="QQ_1726075360897" style="zoom:25%;" />
-
-
-
-## 6.3、disql 的使用
-
-### 6.3.1、脚本使用
-
-disql 登录成功后，通过反引号 `` ` 和 `start` 命令加上脚本位置执行脚本，以 Linux 上脚本位置 `/home/dmdba/test.sql`、Windows 上脚本位置 `C:\dm8_326_p6\sel.sql` 为例，如下所示：
-
-```shell
-./disql TEST/'"TEST@111#2024"'@127.0.0.1:5236
-
-start /home/dmdba/test.sql
-`/home/dmdba/test.sql
-```
-
-
-
-<img src="!assets/DM/202407231529233K13R37GG5RDKDV4G0.png" alt="202407231529233K13R37GG5RDKDV4G0" style="zoom:80%;" />
-
-也可在登录时直接同时进行脚本的执行，如下所示：
-
-```shell
-./disql TEST/'"TEST@111#2024"'@127.0.0.1:5236 \`/home/dmdba/test.sql
-```
-
-<img src="!assets/DM/20240723152653MTEBSP0Z1BUXKW2KVL.png" alt="20240723152653MTEBSP0Z1BUXKW2KVL" style="zoom:80%;" />
-
-<img src="!assets/DM/20240723152719ICBB8YK83P07CQY2OU.png" alt="20240723152719ICBB8YK83P07CQY2OU" style="zoom:80%;" />
-
-> [!IMPORTANT]
->
-> Windows 环境下不需要对反引号 `` ` 进行转义，而 Linux 环境下需要对其进行转义。
-
-
-
-### 6.3.2、环境变量参数设置
-
-可通过设置 disql 的参数，来调整交互界面的显示效果，以达成输出的显示结果更加直观。
-
-通过 `SET` 命令语法进行使用，off 表示该参数关闭，on 表示该参数开启。
-
-可以同时 SET 多个环境变量，如：`set heading on timing on` 。需要注意的是，SET 之后某个环境变量出错，那么该变量之后的环境变量参数将不再起作用。
-
-disql 常用部分参数如下所示：
-
-```SQL
-# 设置一页有多少行数
-SET PAGESIZE 1000
-
-# 显示每个 SQL 语句花费的执行时间
-SET TIMING ON
-
-# 显示系统的当前时间
-SET TIME ON
-
-# 设置屏幕上一行显示宽度
-SET LINESIZE 1000
-
-# 关闭显示行号
-SET LINESHOW OFF
-
-# 设置查看执行计划
-SET AUTOTRACE <OFF(缺省值) | NL | INDEX | ON | TRACE | TRACEONLY>
-
-# 在块中有打印信息时，是否打印，以及打印的格式
-SET SERVEROUTPUT ON
-
-# 设置 SQL 语句的编码方式 GBK | GB18030 | UTF8 | DEFAULT
-SET CHAR_CODE DEFAULT
-
-# 设置兼容 MySQL 的打印格式
-SET ISQL_MODE 3
-
-# DISQL 中使用 INSERT 语句且当插入的值包含 & 符号时，需要将 DEFINE 环境变量关闭或者设置成其他值。
-# DEFINE 环境变量默认为 & 前缀，即 SQL 语句中包含 & 符号时，& 符号后面的字符会识别为 SQL 语句中变量名，
-# 如后面字符中包含 $ 符号，则从 & 符号与 $ 符号中间的字符识别为 SQL 语句中的变量名。
-# 关闭 DEFINE 功能
-SET DEFINE OFF
-
-# 输出到文件
-SPOOL /home/dmdba/dbchk20200609.txt 
-# 结束输出文件
-SPOOL OFF; 
-```

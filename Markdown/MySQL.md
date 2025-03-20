@@ -1708,7 +1708,7 @@ FROM <表名>
 
 
 
-## 7.8、NULL值处理
+## 7.8、NULL 值处理
 
 MySQL使用SELECT命令及WHERE子句来读取数据表中的数据，但是当提供的查询条件字段为NULL时，该命令就无法正常工作
 
@@ -3306,6 +3306,10 @@ mysql> SELECT
 
 窗口函数只允许在选择列表和 `ORDER BY` 子句中使用。查询结果行由 `FORM` 子句确定，在 `WHERE`、`GROUP BY` 和 `HAVING` 处理之后，窗口执行发生在 `ORDER BY`、`LIMIT` 和 `SELECT DISTINCT` 之前。
 
+> [!IMPORTANT]
+>
+> 如果在使用 `GROUP BY` 之后使用窗口函数，窗口函数只能处理分组后的结果，而不是原始的表数据。
+
 `OVER` 子句被允许用于许多聚合函数，因此可以作为窗口函数或非窗口函数使用，这取决于 `OVER` 子句是存在还是不存在：
 
 ```
@@ -3749,7 +3753,7 @@ WINDOW w AS (PARTITION BY country);
 | `RANK()`         | 当前行在其分区中的排名，有空隙   |
 | `ROW_NUMBER()`   | 当前行在其分区中的编号           |
 
-在下面的函数描述中，*over_clause* 代表 `OVER` 子句，在下一节会介绍到。一些窗口函数允许使用 *null_treatment* 子句来指定在计算结果时如何处理 NULL 值。这个子句是可选的。它是 SQL 标准的一部分，但 MySQL 的实现只允许 `RESPECT NULLS`（这也是默认的）。这意味着在计算结果时会考虑空值。会解析 `IGNORE NULLS`，但会产生错误。
+在下面的函数描述中，*over_clause* 代表 `OVER` 子句。一些窗口函数允许使用 *null_treatment* 子句来指定在计算结果时如何处理 NULL 值。这个子句是可选的。它是 SQL 标准的一部分，但 MySQL 的实现只允许 `RESPECT NULLS`（这也是默认的）。这意味着在计算结果时会考虑空值。会解析 `IGNORE NULLS`，但会产生错误。
 
 
 

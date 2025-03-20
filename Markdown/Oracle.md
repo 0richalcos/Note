@@ -821,7 +821,7 @@ DROP TABLESPACE tablespace_name INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRA
 
 # 4、数据结构
 
-## 4.1、varchar 和 varchar2
+## 4.1、VARCHAR 和 VARCHAR2
 
 1. varchar 是标准 SQL 里面的； varchar2 是 Oracle 提供的独有的数据类型。
 2. varchar 对于汉字占两个字节，对于英文是一个字节，占的内存小；varchar2 都是占两个字节。
@@ -974,35 +974,31 @@ WHERE rnum >= 11 AND rnum <= 20;
 
 ## 5.5、不等于空字符串
 
-之前的应用一直是连接 MySQL 数据库，MySQL 对空和空字符串的识别是不相等的，如：
+之前的应用一直是连接 MySQL 数据库，在 MySQL 中 `''` 和 `NULL` 是不相等的，如：
 
 ```sql
--- FALSE
-SELECT 1 FROM DUAL WHERE '' IS NULL; 
--- TRUE
-SELECT 1 FROM DUAL WHERE '' IS NOT NULL; 
--- 注意：NULL 不能用 =、!=、<> 进行比较，只能用 IS、IS NOT 进行比较
+SELECT CASE WHEN '' IS NULL THEN 'Yes' ELSE 'No' END AS result FROM dual;
+-- 结果：NO
 ```
 
-而 Oracle 对空和空字符串的识别是等同的，即 `''` 等同于 `NULL`，这样以前写的：
+在 Oracle 中，`''` 在存储时会自动转换为 `NULL`，因此它们是等价的，即 `''` 等同于 `NULL`：
 
 ```sql
-SELECT 1 FROM <表名> WHERE <字段名A> <> '';
+SELECT CASE WHEN '' IS NULL THEN 'Yes' ELSE 'No' END AS result FROM dual;
+-- 结果：YES
 ```
 
-就相当于
+所以在 Oracle 中要小心使用 `''`，因为它实际上是 `NULL`，而在 MySQL 中它们是不同的！
 
-```sql
-SELECT 1 FROM <表名> WHERE <字段名A> <> NULL;
-```
-
-而 Oracle 的 `NULL` 只能用 `IS` 或 `IS NOT` 进行比较，而不能用 `=` 、`!=` 、`<>` 进行比较。
+> [!IMPORTANT]
+>
+> 不管是 MySQL 还是 Oracle，判断 `NULL` 都应该使用 `IS` 和 `IS NOT` 而不是 `=` 和 `!=`！
 
 
 
 ## 5.6、字段名与 SQL 关键字重名
 
-ORACLE中，如果表中的字段名正好跟 SQL 中关键字重名，写 SQL 语句时要注意：
+Oracle 中，如果表中的字段名正好跟 SQL 中关键字重名，写 SQL 语句时要注意：
 
 1. 要将该字段名大写
 
