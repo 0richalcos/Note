@@ -795,9 +795,57 @@ alter database open;
 
 
 
-## 5.2、启动和关闭
+## 5.2、启动和停止
+
+### 5.2.1、Windows 系统
+
+**菜单方式**
+
+安装 DM 数据库后默认情况下 DM 服务会自动启动，在 Windows 的开始菜单中选择【DM 服务查看器】可以启动或停止 DM 数据库：
+
+<img src="!assets/DM/image-20250326004256779.png" alt="image-20250326004256779" style="zoom: 67%;" />
 
 
+
+**Windows 服务**
+
+安装 DM 数据库并且新建一个 DM 实例后，Windows 的服务中会自动增加一项和该实例名对应的服务。例如新建一个实例名为 DMSERVER 的 DM 数据库， Windows 的服务中会增加一项名称为【DmServiceDMSERVER】 的服务。
+
+打开 Windows 服务，右键选择【DmServiceDMSERVER】启动或者停止 DM 数据库：
+
+<img src="!assets/DM/image-20250326004644792.png" alt="image-20250326004644792" style="zoom: 50%;" />
+
+
+
+### 5.2.2、Linux 系统
+
+**菜单方式**
+
+安装 DM 数据库后默认情况下 DM 服务会自动启动，在 Linux 的开始菜单选项中选择【DM 服务查看器】可以启动或停止 DM 数据库。启动方式类似 Windows。
+
+
+
+**Linux 服务**
+
+安装 DM 数据库后，在 `/etc/rc.d/init.d` 中有名称为 DmService 开头的文件，文件全名为 `DmService+实例名`。
+
+在数据库的安装目录 bin 下输入命令可以启动或停止 DM 数据库：
+
+```shell
+# 启动
+./DmServiceDMSERVER start 
+# 停止
+./DmServiceDMSERVER stop
+```
+
+或者直接使用 `service` 命令：
+
+```shell
+# 启动
+service DmServiceDMSERVER start
+# 停止
+service DmServiceDMSERVER stop
+```
 
 
 
