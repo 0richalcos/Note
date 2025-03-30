@@ -503,9 +503,9 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 **配置本地组策略**
 
-1. Win+R 打开运行窗口，输入 `gpedit.msc`，打开本地组策略编辑器，依次选择【计算机配置】=>【管理模板】=>【Windows组件】=>【远程桌面会话主机】=>【连接】：
+1. Win+R 打开运行窗口，输入 `gpedit.msc`，打开本地组策略编辑器，依次选择【计算机配置】=>【管理模板】=>【Windows组件】=>【远程桌面服务】=>【远程桌面会话主机】=>【连接】：
 
-   ![image-20250311145043149](!assets/IDE&Windows/image-20250311145043149.png)
+   <img src="!assets/IDE&Windows/image-20250311145043149.png" alt="image-20250311145043149" style="zoom:50%;" />
 
 2. 选择以下三项配置进行修改：
 
@@ -515,13 +515,37 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 
 
-**安装 RDP Wrap 补丁**
+**安装 RDP Wrapper 补丁**
 
 1. [下载地址](https://github.com/sebaxakerhtc/rdpwrap)，下载 RDPW_Installer.exe 文件。
 
 2. 右键以管理员身份运行，此时便会自动安装补丁，出现全绿点击【OK】：
 
-   <img src="!assets/IDE&Windows/image-20250311145558771.png" alt="image-20250311145558771" style="zoom:67%;" />
+   <img src="!assets/IDE&Windows/image-20250311145558771.png" alt="image-20250311145558771" style="zoom: 50%;" />
+   
+3. 如果出现【not supported】：
+
+   <img src="E:\Users\Orichalcos\Documents\Note\Markdown\!assets\IDE&Windows\image-20250330234424760.png" alt="image-20250330234424760" style="zoom: 50%;" />
+
+   先记下 termsrv ver，比如这里为 10.0.26100.3624。
+
+4. 前往该 [Issues]([Issues · stascorp/rdpwrap](https://github.com/stascorp/rdpwrap/issues)) 去搜索对应的版本号：
+
+   <img src="E:\Users\Orichalcos\Documents\Note\Markdown\!assets\IDE&Windows\image-20250330235037493.png" alt="image-20250330235037493" style="zoom: 50%;" />
+
+   在里面找到对应的配置并将其复制：
+
+   <img src="E:\Users\Orichalcos\Documents\Note\Markdown\!assets\IDE&Windows\image-20250330235146384.png" alt="image-20250330235146384" style="zoom: 50%;" />
+
+5. 找到 RDP Wrapper 安装目录的 rdpwrap.ini 文件，将上一步复制的内容粘贴到 rdpwrap.ini 里：
+
+   <img src="E:\Users\Orichalcos\Documents\Note\Markdown\!assets\IDE&Windows\image-20250330235348484.png" alt="image-20250330235348484" style="zoom: 50%;" />
+
+6. 最后点击 RDP Wrapper 的 【Update INI】按钮：
+
+   <img src="E:\Users\Orichalcos\Documents\Note\Markdown\!assets\IDE&Windows\image-20250330235604110.png" alt="image-20250330235604110" style="zoom:50%;" />
+
+   可以看到状态已经变成【fully supported】。
 
 
 
@@ -529,19 +553,19 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 1. Win+R 打开运行窗口，输入 `mstsc`，输入本地回环地址，注意不要输入 `127.0.0.1` 否则会报错：
 
-   <img src="!assets/IDE&Windows/image-20250311145752871.png" alt="image-20250311145752871" style="zoom:67%;" />
+   <img src="!assets/IDE&Windows/image-20250311145752871.png" alt="image-20250311145752871" style="zoom: 50%;" />
 
 2. 输入密码，这里不要勾选【记住我的凭证】：
 
-   <img src="!assets/IDE&Windows/image-20250311145921041.png" alt="image-20250311145921041" style="zoom:67%;" />
+   <img src="!assets/IDE&Windows/image-20250311145921041.png" alt="image-20250311145921041" style="zoom: 50%;" />
 
 3. 密码没问题就启动了，可以启动游戏啥的：
 
-   ![image-20250311150128468](!assets/IDE&Windows/image-20250311150128468.png)
+   <img src="!assets/IDE&Windows/image-20250311150128468.png" alt="image-20250311150128468" style="zoom: 33%;" />
 
 4. 注意最后关闭远程桌面连接之后，需要注销用户，不然虽然远程关闭了，但是用户和资源并没有释放：
 
-   <img src="!assets/IDE&Windows/image-20250311150329217.png" alt="image-20250311150329217" style="zoom:67%;" />
+   <img src="!assets/IDE&Windows/image-20250311150329217.png" alt="image-20250311150329217" style="zoom: 50%;" />
 
 
 

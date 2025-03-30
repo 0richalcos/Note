@@ -1,7 +1,3 @@
----
-typora-copy-images-to: upload
----
-
 # 1、Oracle 简介
 
 ## 1.1、Oracle 简介
@@ -1032,7 +1028,7 @@ SYSDATE()
 
 ### 6.1.2、ADD_MONTHS
 
-日期/时间增减
+日期/时间增减。
 
 增减一小时：
 ```sql
@@ -1709,3 +1705,175 @@ jdbc:oracle:thin:@//localhost:1521/ORCL?oracle.net.disableOob=true
 
 
 
+### 8.1.1、expdp
+
+用于将数据库数据导出到 `.dmp` 文件中，可用于数据备份或迁移。
+
+```sql
+expdp <用户名>/<密码>@<数据库连接标识> [参数1=值1] [参数2=值2] ...
+```
+
+- *FULL*：是否导出整个数据库（Y、N）。
+- *SCHEMAS*：指定导出的 `schema`（用户）。
+- *TABLES*：指定导出的表，多个用逗号分隔。
+- *TABLESPACES*：指定导出的表空间。
+- *QUERY*：使用 SQL 过滤数据。
+- *DUMPFILE*：导出文件名（可使用 `%U` 进行多文件）。
+- *LOGFILE*：日志文件名。
+- *DIRECTORY*：指定导出存放 `.dmp` 文件的目录对象（必须先创建）。
+- *PARALLEL*：并行导出数量。
+- *COMPRESSION*：压缩数据（`ALL`、`DATA_ONLY`、`METADATA_ONLY`、`NONE`）。
+- *EXCLUDE*/INCLUDE：指定排除或包含哪些对象。
+- *REUSE_DUMPFILES*：是否覆盖已有 `.dmp` 文件。
+
+
+
+**示例**
+
+创建 `DIRECTORY` 对象：
+
+```sql
+CREATE OR REPLACE DIRECTORY datapump_dir AS '/opt/oracle/dump';
+GRANT READ, WRITE ON DIRECTORY datapump_dir TO system;
+```
+
+导出整个数据库：
+
+```sql
+expdp system/密码@ORCL FULL=Y DUMPFILE=full_%U.dmp LOGFILE=full.log DIRECTORY=datapump_dir PARALLEL=4 FILESIZE=2G
+```
+
+- `FULL=Y`：导出整个数据库。
+- `DUMPFILE=full_%U.dmp`：使用 `%U` 生成多个文件（如 `full_01.dmp`、`full_02.dmp`）。
+- `FILESIZE=2G`：单个 `.dmp` 文件最大 2 GB，超出后新建文件。
+- `PARALLEL=4`：4 个进程并行导出，提高速度。
+
+导出特定 `Schema`：
+
+```sql
+expdp system/密码@ORCL SCHEMAS=HR,SALES DUMPFILE=schemas.dmp LOGFILE=schemas.log DIRECTORY=datapump_dir
+```
+
+- `SCHEMAS=HR,SALES`：仅导出 `HR` 和 `SALES` 用户的数据。
+
+导出特定表：
+
+```sql
+expdp 用户名/密码@ORCL TABLES=EMP,DEPT DUMPFILE=tables.dmp LOGFILE=tables.log DIRECTORY=datapump_dir
+```
+
+- `TABLES=EMP,DEPT`：仅导出 `EMP` 和 `DEPT` 两张表。
+
+导出特定表空间：
+
+```sql
+expdp 用户名/密码@ORCL TABLESPACES=USERS DUMPFILE=users_tbs.dmp LOGFILE=users_tbs.log DIRECTORY=datapump_dir
+```
+
+- `TABLESPACES=USERS`：导出 `USERS` 表空间的数据。
+
+使用 SQL 过滤数据：
+
+```sql
+expdp 用户名/密码@ORCL TABLES=EMP QUERY="WHERE deptno=10" DUMPFILE=emp_10.dmp LOGFILE=emp_10.log DIRECTORY=datapump_dir
+```
+
+- `QUERY="WHERE deptno=10"`：只导出 `deptno=10` 的数据。
+
+排除特定对象：
+
+```sql
+expdp 用户名/密码@ORCL SCHEMAS=HR EXCLUDE=TABLE:"IN ('EMP', 'DEPT')" DUMPFILE=hr.dmp LOGFILE=hr.log DIRECTORY=datapump_dir
+```
+
+- `EXCLUDE=TABLE:"IN ('EMP', 'DEPT')"`：导出时排除 `EMP` 和 `DEPT` 表。
+
+压缩导出：
+
+```sql
+expdp 用户名/密码@ORCL SCHEMAS=HR DUMPFILE=hr_comp.dmp LOGFILE=hr_comp.log DIRECTORY=datapump_dir COMPRESSION=ALL
+```
+
+- `COMPRESSION=ALL`：压缩数据和元数据，减少 `.dmp` 文件大小。
+
+
+
+### 8.1.2、impdp
+
+用于将 `.dmp` 备份文件导入数据库。
+
+```sql
+impdp <用户名>/<密码>@<数据库连接标识> [参数1=值1] [参数2=值2] ...
+```
+
+- *FULL*：是否导入整个数据库（Y、N）。
+- *SCHEMAS*：指定导入的 `schema`（用户）。
+- *TABLES*：指定导入的表。
+- *TABLESPACES*：指定导入的表空间。
+- *DUMPFILE*：要导入的 `.dmp` 文件。
+- *LOGFILE*：日志文件名。
+- *DIRECTORY*：指定存放 `.dmp` 文件的目录对象（必须先创建）。
+- *PARALLEL*：并行导入。
+- *REMAP_SCHEMA*：将数据从一个 `schema` 迁移到另一个 `schema`。
+- *REMAP_TABLESPACE*：将表迁移到新的表空间。
+- *TABLE_EXISTS_ACTION*：表已存在时的处理方式（`SKIP`、`APPEND`、`TRUNCATE`、`REPLACE`）。
+- *TRANSFORM*：在导入时调整存储参数。
+
+
+
+**示例**
+
+创建 `DIRECTORY` 对象：
+
+```sql
+CREATE OR REPLACE DIRECTORY datapump_dir AS '/opt/oracle/dump';
+GRANT READ, WRITE ON DIRECTORY datapump_dir TO system;
+```
+
+导入整个数据库：
+
+```sql
+impdp system/密码@ORCL FULL=Y DUMPFILE=full_%U.dmp LOGFILE=full_import.log DIRECTORY=datapump_dir PARALLEL=4
+```
+
+- `FULL=Y`：导入整个数据库。
+
+导入特定 `Schema`：
+
+```sql
+impdp system/密码@ORCL SCHEMAS=HR DUMPFILE=hr.dmp LOGFILE=hr_import.log DIRECTORY=datapump_dir
+```
+
+- `SCHEMAS=HR`：导入 `HR` 用户的数据。
+
+导入特定表：
+
+```sql
+impdp 用户名/密码@ORCL TABLES=EMP,DEPT DUMPFILE=tables.dmp LOGFILE=tables_import.log DIRECTORY=datapump_dir
+```
+
+- `TABLES=EMP,DEPT`：仅导入 `EMP` 和 `DEPT` 表。
+
+重映射表空间：
+
+```sql
+impdp 用户名/密码@ORCL TABLES=EMP REMAP_TABLESPACE=OLD_TBS:NEW_TBS DUMPFILE=emp.dmp LOGFILE=emp_import.log DIRECTORY=datapump_dir
+```
+
+- `REMAP_TABLESPACE=OLD_TBS:NEW_TBS`：将 `EMP` 表的数据从 `OLD_TBS` 迁移到 `NEW_TBS`。
+
+重映射 `Schema`：
+
+```sql
+impdp system/密码@ORCL SCHEMAS=HR REMAP_SCHEMA=HR:NEW_HR DUMPFILE=hr.dmp LOGFILE=hr_import.log DIRECTORY=datapump_dir
+```
+
+- `REMAP_SCHEMA=HR:NEW_HR`：将 `HR` 用户的数据导入到 `NEW_HR`。
+
+遇到表已存在时的处理：
+
+```sql
+impdp 用户名/密码@ORCL TABLES=EMP DUMPFILE=emp.dmp LOGFILE=emp_import.log DIRECTORY=datapump_dir TABLE_EXISTS_ACTION=REPLACE
+```
+
+- `TABLE_EXISTS_ACTION=REPLACE`：删除旧表，重新创建并导入数据。
