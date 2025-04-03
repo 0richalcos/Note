@@ -819,11 +819,11 @@ DROP TABLESPACE tablespace_name INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRA
 
 ## 4.1、VARCHAR 和 VARCHAR2
 
-1. varchar 是标准 SQL 里面的； varchar2 是 Oracle 提供的独有的数据类型。
-2. varchar 对于汉字占两个字节，对于英文是一个字节，占的内存小；varchar2 都是占两个字节。
-3. varchar 对空串不处理；varchar2 将空串当做 `null` 来处理。
-4. varchar 存放固定长度的字符串，最大长度是2000；varchar2 是存放可变长度的字符串，最大长度是4000。
-5. 如果是要跟换不同的数据库，例如 MySQL，那么就用 varchar，如果就用 Oracle，那么用 varchar2 比较好一点。
+1. `VARCHAR` 是标准 SQL 里面的； `VARCHAR2` 是 Oracle 提供的独有的数据类型。
+2. `VARCHAR` 对于汉字占两个字节，对于英文是一个字节，占的内存小；`VARCHAR2` 都是占两个字节。
+3. `VARCHAR` 对空串不处理；`VARCHAR2`  将空串当做 `null` 来处理。
+4. `VARCHAR` 存放固定长度的字符串，最大长度是 2000；`VARCHAR2` 是存放可变长度的字符串，最大长度是 4000。
+5. 如果是要更换不同的数据库，例如 MySQL，那么就用 `VARCHAR` ，如果就用 Oracle，那么用 `VARCHAR2` 比较好一点。
 
 
 
@@ -862,8 +862,6 @@ instr(sourceString, destString, start, appearPosition)
 
 通常，在查询树形结构的数据时，需要使用 `START WITH...CONNECT BY PRIOR` 的方式查询。
 
-`START WITH...CONNECT BY PRIOR` 的语法为：
-
 ```sql
 SELECT <字段>
 FROM <表名>
@@ -874,17 +872,21 @@ CONNECT BY PRIOR condition3
 
 参数：
 
-- *condition1*：过滤条件
-- *condition2*：起始的查询条件，指定根节点，当然可以放宽限定条件，以取得多个根结点，实际就是多棵树
-- *condition3*：指定父节点和子节点直接的关系，`PRIOR` 指定父节点
+- *condition1*：过滤条件。
+- *condition2*：起始的查询条件，指定根节点，当然可以放宽限定条件，以取得多个根结点，实际就是多棵树。
+- *condition3*：指定父节点和子节点直接的关系，`PRIOR` 指定父节点。
+
+> [!NOTE]
+>
+> 在层次查询中，如果想让 “亲兄弟” 按规矩进行升序排序，就不得不借助 `ORDERSIBLINGS BY` 这个特定的排序语句而非 `ORDER BY` 子句，若要降序输出可以在其后添加 `DESC` 关键字。
 
 
 
 **示例**
 
-假设现有部门表 `DEPARTMENT`，部门表中字段包括 `DEPID`（部门 ID），`PARENTDEPID`（父部门 ID），`DEPNAME`（部门名称）
+假设现有部门表 `DEPARTMENT`，部门表中字段包括 `DEPID`（部门 ID），`PARENTDEPID`（父部门 ID），`DEPNAME`（部门名称）。
 
-1、我们要查询部门 `ID="1110"` 的部门的所有父部门的 ID 和名称（包含部门 `ID="1110"` 的部门，不包含可通过 `WHERE` 条件过滤）
+1、我们要查询部门 `ID="1110"` 的部门的所有父部门的 ID 和名称（包含部门 `ID="1110"` 的部门，不包含可通过 `WHERE` 条件过滤）：
 
 ```sql
 SELECT DEPID, DEPNAME
@@ -894,7 +896,7 @@ START WITH DEPID = '1110'
 CONNECT BY PRIOR PARENTDEPID = DEPID 
 ```
 
-2、我们要查询部门 `ID="1110"` 的部门的所有子部门的 ID 和名称（包含部门 `ID="1110"` 的部门，不包含可通过 `WHERE` 条件过滤）
+2、我们要查询部门 `ID="1110"` 的部门的所有子部门的 ID 和名称（包含部门 `ID="1110"` 的部门，不包含可通过 `WHERE` 条件过滤）：
 
 ```sql
 SELECT DEPID, DEPNAME
@@ -906,14 +908,8 @@ CONNECT BY PRIOR DEPID = PARENTDEPID
 
 从上面 2 个 SQL 可以发现：
 
-- 查询当前节点的所有父节点时，需要将 `PRIOR` 放在父节点左侧
-- 查询当前节点的所有子节点时，需要将 `PRIOR` 放在子节点左侧
-
-
-
-**排序**
-
-在层次查询中，如果想让 “亲兄弟” 按规矩进行升序排序就不得不借助 `ORDERSIBLINGS BY` 这个特定的排序语句而非 `ORDER BY` 子句，若要降序输出可以在其后添加 `DESC` 关键字。
+- 查询当前节点的所有父节点时，需要将 `PRIOR` 放在父节点左侧。
+- 查询当前节点的所有子节点时，需要将 `PRIOR` 放在子节点左侧。
 
 
 
@@ -1012,6 +1008,29 @@ CREATE TABLE address(
 
 
 
+
+
+## 5.7、取排名最靠前或最靠后的值
+
+在 Oracle SQL 语句中，`KEEP` 子句主要用于聚合函数（如 `SUM`、`MAX`、`MIN`）中，配合 `DENSE_RANK` 计算来保留特定排名的数据。
+
+常见用于 `FIRST` 或 `LAST`，指定在某个排序条件下只取排名最靠前或最靠后的值。
+
+从这个前提出发，我们可以看到其实这个目标通过一般的 `ROW_NUMBER` 分析函数也可以实现，即指定 `rn = 1`。但是，该函数无法实现同时获取最大和最小值。或者说用 `FIRST_VALUE` 和 `LAST_VALUE`，结合 `ROW_NUMBER` 实现，但是该种方式需要多次使用分析函数，而且还需要套一层 SQL。于是出现了 `KEEP`。
+
+```sql
+AGGREGATE_FUNCTION(<列名>) KEEP (DENSE_RANK FIRST | LAST ORDER BY <列名>)
+```
+
+- `ORDER BY <列名>`：用于排序的列，决定 `FIRST` 或 `LAST` 的基准。
+- `DENSE_RANK`：计算数据的排名。
+- `FIRST` 或 `LAST`：
+  - `FIRST`：取排名最靠前的一组数据（当排在前面的数据有重复值时，多条被 HOLD）。
+  - `LAST`：取排名最靠后的一组数据（当排在后面的数据有重复值时，多条被 HOLD）。
+- *AGGREGATE_FUNCTION*：在这组记录中需要执行的聚合函数，如 `SUM`、`MAX`、`MIN` 等。
+
+
+
 # 6、函数
 
 ## 6.1、时间日期
@@ -1076,11 +1095,13 @@ MONTHS_BETWEEN(date1, date2)
 
 *date1* 和 *date2* 是要比较的两个日期。函数返回一个浮点数，表示从 *date1* 到 *date2* 的月份差。
 
+> [!WARNING]
+>
 > `MONTHS_BETWEEN` 函数需要的是实际的日期值，而不是字符串。需要使用 `TO_DATE` 函数将字符串转换为日期，然后再计算月份差。
 
 
 
-`MONTHS_BETWEEN` 函数的返回值包括了小数部分，表示不足一个月的部分。如果要得到整数的月份差，可以使用取整函数（如 `ROUND`、`FLOOR`、`CEIL` 等）对结果进行处理：
+**示例**
 
 ```sql
 SELECT ROUND(MONTHS_BETWEEN(TO_DATE('2023-08-31', 'YYYY-MM-DD'),
@@ -1088,6 +1109,10 @@ SELECT ROUND(MONTHS_BETWEEN(TO_DATE('2023-08-31', 'YYYY-MM-DD'),
 FROM dual;
 -- 输出：20
 ```
+
+> [!TIP]
+>
+> `MONTHS_BETWEEN` 函数的返回值包括了小数部分，表示不足一个月的部分。如果要得到整数的月份差，可以使用取整函数（如 `ROUND`、`FLOOR`、`CEIL` 等）对结果进行处理。
 
 
 
@@ -1100,6 +1125,14 @@ FROM dual;
 <img src="!assets/Oracle/image-20221108142342799.png" alt="image-20221108142342799" style="zoom: 50%;" />
 
 `a(b|c)d` 不匹配给定的字符串 aabcd。
+
+要在 SQL 或 PL/SQL 中实现正则表达式支持，需要使用一组新函数。这些函数是：
+
+- `REGEXP_LIKE` ：与 `LIKE` 的功能相似，可以支持按正则表达式与文本进行匹配。
+- `REGEXP_INSTR` ：返回指定字符串中与正则表达式匹配部分第一次出现的位置。
+- `REGEXP_COUNT` ：返回指定字符串中与正则表达式匹配部分出现的次数。
+- `REGEXP_SUBSTR` ：截取指定字符串中与正则表达式匹配的部分。
+- `REGEXP_REPLACE` ：替换指定字符串中与正则表达式匹配的部分。
 
 
 
@@ -1151,16 +1184,6 @@ FROM dual;
 | `{n} `     | 精确匹配 n 次（非贪婪）              |
 | `{n,} `    | 至少匹配 n 次（非贪婪）              |
 | `{n,m} `   | 至少匹配 n 次，但不超过 m 次（贪婪） |
-
-
-
-Oracle 中的支持正则表达式的函数主要有以下五个：
-
-- `REGEXP_LIKE` ：与 `LIKE` 的功能相似，可以支持按正则表达式与文本进行匹配。
-- `REGEXP_INSTR` ：返回指定字符串中与正则表达式匹配部分第一次出现的位置。
-- `REGEXP_COUNT` ：返回指定字符串中与正则表达式匹配部分出现的次数。
-- `REGEXP_SUBSTR` ：截取指定字符串中与正则表达式匹配的部分。
-- `REGEXP_REPLACE` ：替换指定字符串中与正则表达式匹配的部分。
 
 
 
@@ -1381,7 +1404,9 @@ WM_CONCAT(separator, colname)
 
 
 
-示例 1：对所有职工的姓名（ename）进行合并。命令示例如下：
+**示例 1**
+
+对所有职工的姓名（ename）进行合并。命令示例如下：
 
 ```sql
 SELECT WM_CONCAT(',', ename) FROM emp;
@@ -1397,7 +1422,11 @@ SELECT WM_CONCAT(',', ename) FROM emp;
 +------------+
 ```
 
-示例 2：与 `GROUP BY` 配合使用，对所有职工按照部门（deptno）进行分组，并将同组的职工姓名（ename）进行合并。命令示例如下：
+
+
+**示例 2**
+
+与 `GROUP BY` 配合使用，对所有职工按照部门（deptno）进行分组，并将同组的职工姓名（ename）进行合并。命令示例如下：
 
 ```sql
 SELECT deptno, WM_CONCAT(',', ename) FROM emp GROUP BY deptno ORDER BY deptno;
@@ -1415,7 +1444,11 @@ SELECT deptno, WM_CONCAT(',', ename) FROM emp GROUP BY deptno ORDER BY deptno;
 +------------+------------+
 ```
 
-示例 3：与 `GROUP BY` 配合使用，对所有职工按照部门（deptno）进行分组，并将同组的薪资（sal）去重后进行合并。命令示例如下：
+
+
+**示例 3**
+
+与 `GROUP BY` 配合使用，对所有职工按照部门（deptno）进行分组，并将同组的薪资（sal）去重后进行合并。命令示例如下：
 
 ```sql
 SELECT deptno, WM_CONCAT(DISTINCT ',', sal) FROM emp GROUP BY deptno ORDER BY deptno;
@@ -1448,6 +1481,8 @@ LISTAGG(column_name, delimiter) WITHIN GROUP (ORDER BY order_column)
 - *ORDER BY order_column*：用于指定连接值的顺序。
 
 
+
+**示例**
 
 假设我们有一个名为 `employees` 的表，其中包含员工的姓名和部门：
 
@@ -1490,6 +1525,8 @@ TO_CHAR(value, format)
 
 
 
+**示例**
+
 日期/时间转字符串：
 
 ```sql
@@ -1526,6 +1563,8 @@ TO_DATE(string, format)
 
 
 
+**示例**
+
 将字符串日期转换为日期类型：
 
 ```sql
@@ -1558,7 +1597,9 @@ CAST({expr AS type_name [ DEFAULT return_value ON CONVERSION ERROR ] [, fmt [, '
 
 
 
-字符串日期转为 TIMESTAMP 类型：
+**示例**
+
+字符串日期转为 `TIMESTAMP` 类型：
 
 ```sql
 ALTER SESSION SET NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SSXFF';

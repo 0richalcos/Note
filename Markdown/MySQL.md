@@ -1,8 +1,3 @@
----
-typora-copy-images-to: upload
-
----
-
 # 1、SQL简介
 
 SQL 是用于访问和处理数据库的标准计算机语言。
@@ -1217,63 +1212,207 @@ SELECT * FROM A WHERE EXISTS (SELECT 1 FROM B WHERE A.id = B.id);
 
 可以在 `SELECT`、`UPDATE` 和 `DELETE` 语句中使用 MySQL 的 `JOIN` 来联合多表查询。
 
-`JOIN` 按照功能大致分为如下三类：
+下文将使用两个数据库表 Table_A 和 Table_B 来进行示例讲解，其结构与数据分别如下：
 
-- `LEFT JOIN`（左连接）
-- `RIGHT JOIN`（右连接）
-- `INNER JOIN`（内连接，或等值连接）
+```sql
+mysql> SELECT * FROM Table_A ORDER BY PK ASC;
++----+---------+
+| PK | Value   |
++----+---------+
+|  1 | both ab |
+|  2 | only a  |
++----+---------+
+2 rows in set (0.00 sec)
 
-建两张表，第一张表命名为 kemu，第二张表命名为 score：
-
-<img src="!assets/MySQL/bVbk2or.png" alt="clipboard.png" style="" /><img src="!assets/MySQL/bVbk2oz.png" alt="clipboard.png" style="" />
-
-
-
-### 7.3.1、LEFT/RIGHT/INNER
-
-**LEFT JOIN**
-
- “左连接”，表 1 左连接表 2，以左为主，表示以表 1 为主，关联上表 2 的数据，查出来的结果显示左边的所有数据，然后右边显示的是和左边有交集部分的数据。如下：
-
-```mysql
-select * from kemu left join score on kemu.id = score.id
+mysql> SELECT * from Table_B ORDER BY PK ASC;
++----+---------+
+| PK | Value   |
++----+---------+
+|  1 | both ab |
+|  3 | only b  |
++----+---------+
+2 rows in set (0.00 sec)
 ```
 
-结果集：
-
-<img src="!assets/MySQL/bVbk2uE.png" alt="clipboard.png" style="" /><img src="!assets/MySQL/bVbk2qQ.png" alt="clipboard.png" style="" />
+其中 PK 为 1 的记录在 Table_A 和 Table_B 中都有，2 为 Table_A 特有，3 为 Table_B 特有。
 
 
 
-**RIGHT JOIN**
+### 7.3.1、INNER JOIN
 
-“右连接”，表 1 右连接表 2，以右为主，表示以表 2 为主，关联查询表 1 的数据，查出表 2 所有数据以及表 1 和表 2 有交集的数据，如下：
+`INNER JOIN` 一般被译作内连接。内连接查询能将左表（表 A）和右表（表 B）中能关联起来的数据连接后返回。
 
-```mysql
-select * from kemu right join score on kemu.id = score.id
+![INNER JOIN](E:\Users\Orichalcos\Documents\Note\Markdown\!assets\MySQL\inner-join.png)
+
+示例查询：
+
+```sql
+SELECT A.PK AS A_PK, B.PK AS B_PK,
+       A.Value AS A_Value, B.Value AS B_Value
+FROM Table_A A
+INNER JOIN Table_B B
+ON A.PK = B.PK;
 ```
 
-结果集：
+查询结果：
 
-<img src="!assets/MySQL/bVbk2uI.png" alt="clipboard.png" style="" /><img src="!assets/MySQL/bVbk2uP.png" alt="clipboard.png" style="" />
-
-
-
-**INNER JOIN**
-
-“内连接”，可以简写成 `JOIN`，表示以两个表的交集为主，查出来是两个表有交集的部分，其余没有关联就不额外显示出来，如下：
-
-```mysql
-select * from kemu join score on kemu.id = score.id
+```sql
++------+------+---------+---------+
+| A_PK | B_PK | A_Value | B_Value |
++------+------+---------+---------+
+|    1 |    1 | both ab | both ab |
++------+------+---------+---------+
+1 row in set (0.00 sec)
 ```
 
-结果集：
-
-<img src="!assets/MySQL/bVbk2v1.png" alt="clipboard.png" style="" /><img src="!assets/MySQL/bVbk2MW.png" alt="clipboard.png" style="" />
 
 
+### 7.3.2、LEFT JOIN
 
-### 7.3.2、ON、WHERE 的区别
+`LEFT JOIN` 一般被译作左连接，也写作 `LEFT OUTER JOIN`。左连接查询会返回左表（表 A）中所有记录，不管右表（表 B）中有没有关联的数据。在右表中找到的关联数据列也会被一起返回。
+
+![LEFT JOIN](./!assets/MySQL/left-join.png)
+
+示例查询：
+
+```sql
+SELECT A.PK AS A_PK, B.PK AS B_PK,
+       A.Value AS A_Value, B.Value AS B_Value
+FROM Table_A A
+LEFT JOIN Table_B B
+ON A.PK = B.PK;
+```
+
+查询结果：
+
+```sql
++------+------+---------+---------+
+| A_PK | B_PK | A_Value | B_Value |
++------+------+---------+---------+
+|    1 |    1 | both ab | both ba |
+|    2 | NULL | only a  | NULL    |
++------+------+---------+---------+
+2 rows in set (0.00 sec)
+```
+
+
+
+### 7.3.3、RIGHT JOIN
+
+`RIGHT JOIN` 一般被译作右连接，也写作 `RIGHT OUTER JOIN`。右连接查询会返回右表（表 B）中所有记录，不管左表（表 A）中有没有关联的数据。在左表中找到的关联数据列也会被一起返回。
+
+![RIGHT JOIN](./!assets/MySQL/right-join.png)
+
+示例查询：
+
+```sql
+SELECT A.PK AS A_PK, B.PK AS B_PK,
+       A.Value AS A_Value, B.Value AS B_Value
+FROM Table_A A
+RIGHT JOIN Table_B B
+ON A.PK = B.PK;
+```
+
+查询结果：
+
+```sql
++------+------+---------+---------+
+| A_PK | B_PK | A_Value | B_Value |
++------+------+---------+---------+
+|    1 |    1 | both ab | both ba |
+| NULL |    3 | NULL    | only b  |
++------+------+---------+---------+
+2 rows in set (0.00 sec)
+```
+
+
+
+### 7.3.4、FULL JOIN
+
+`FULL JOIN` 一般被译作外连接、全连接，实际查询语句中可以写作 `FULL OUTER JOIN`。外连接查询能返回左右表里的所有记录，其中左右表里能关联起来的记录被连接后返回。
+
+![FULL OUTER JOIN](./!assets/MySQL/full-outer-join.png)
+
+示例查询：
+
+```sql
+SELECT A.PK AS A_PK, B.PK AS B_PK,
+       A.Value AS A_Value, B.Value AS B_Value
+FROM Table_A A
+FULL JOIN Table_B B
+ON A.PK = B.PK;
+```
+
+查询结果：
+
+```sql
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FULL JOIN Table_B B
+ON A.PK = B.PK' at line 4
+```
+
+> [!NOTE]
+>
+>  MySQL 不支持 `FULL JOIN`。
+
+应当返回的结果（使用 `UNION` 模拟）：
+
+```sql
+mysql> SELECT * 
+    -> FROM Table_A
+    -> LEFT JOIN Table_B 
+    -> ON Table_A.PK = Table_B.PK
+    -> UNION ALL
+    -> SELECT *
+    -> FROM Table_A
+    -> RIGHT JOIN Table_B 
+    -> ON Table_A.PK = Table_B.PK
+    -> WHERE Table_A.PK IS NULL;
++------+---------+------+---------+
+| PK   | Value   | PK   | Value   |
++------+---------+------+---------+
+|    1 | both ab |    1 | both ba |
+|    2 | only a  | NULL | NULL    |
+| NULL | NULL    |    3 | only b  |
++------+---------+------+---------+
+3 rows in set (0.00 sec)
+```
+
+
+
+### 7.3.5、CROSS JOIN
+
+返回左表与右表之间符合条件的记录的迪卡尔集。
+
+![CORSS JOIN](./!assets/MySQL/cross-join.png)
+
+示例查询：
+
+```sql
+SELECT A.PK AS A_PK, B.PK AS B_PK,
+       A.Value AS A_Value, B.Value AS B_Value
+FROM Table_A A
+CROSS JOIN Table_B B;
+```
+
+查询结果：
+
+```sql
++------+------+---------+---------+
+| A_PK | B_PK | A_Value | B_Value |
++------+------+---------+---------+
+|    1 |    1 | both ab | both ba |
+|    2 |    1 | only a  | both ba |
+|    1 |    3 | both ab | only b  |
+|    2 |    3 | only a  | only b  |
++------+------+---------+---------+
+4 rows in set (0.00 sec)
+```
+
+上面讲过的几种 `JOIN` 查询的结果都可以用 `CROSS JOIN` 加条件模拟出来，比如 `INNER JOIN` 对应 `CROSS JOIN ... WHERE A.PK = B.PK`。
+
+
+
+### 7.3.6、ON、WHERE 的区别
 
 数据库在通过连接两张或多张表来返回记录时，都会生成一张中间的临时表，然后再将这张临时表返回给用户。
 
@@ -1284,16 +1423,22 @@ select * from kemu join score on kemu.id = score.id
 
 假设有两张表：
 
-<img src="!assets/MySQL/image-20211129161954956.png" alt="image-20211129161954956" style="" /><img src="!assets/MySQL/image-20211129162050479.png" alt="image-20211129162050479" style="" />
+<img src="!assets/MySQL/image-20211129161954956.png" alt="image-20211129161954956" style="" />
+
+<img src="!assets/MySQL/image-20211129162050479.png" alt="image-20211129162050479" style="" />
 
 两条 SQL：
 
-```mysql
-select * form tab1 left join tab2 on (tab1.size = tab2.size) where tab2.name='AAA'
-select * form tab1 left join tab2 on (tab1.size = tab2.size and tab2.name='AAA’)
+```sql
+SELECT * FROM tab1 LEFT JOIN tab2 ON (tab1.size = tab2.size) WHERE tab2.name='AAA'
+SELECT * FROM tab1 LEFT JOIN tab2 ON (tab1.size = tab2.size AND tab2.name='AAA’)
 ```
 
-<img src="!assets/MySQL/image-20211129162254328.png" alt="image-20211129162254328" style="" /><img src="!assets/MySQL/image-20211129162304566.png" alt="image-20211129162304566" style="" />
+两条 SQL 的执行过程：
+
+<img src="!assets/MySQL/image-20211129162254328.png" alt="image-20211129162254328" style="" />
+
+<img src="!assets/MySQL/image-20211129162304566.png" alt="image-20211129162304566" style="" />
 
 
 
