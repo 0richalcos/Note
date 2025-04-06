@@ -64,6 +64,256 @@ cat /proc/version
 
 
 
+## 1.3、命令行界面描述语言
+
+`docopt` 可用于为命令行应用定义接口，并且自动生成解析器。
+
+`docopt` 基于已使用数十年的惯例，用于描述程序接口的帮助信息（help messages）和手册页（man pages）。`docopt` 中正式的接口描述如下例所示：
+
+![接口描述帮助信息](./!assets/Linux/20210412接口描述.png)
+
+上图中的例子描述了可执行程序 `naval_fate`（海军命运）的调用接口，可由命令（commands）、选项（options）和位置参数（positional arguments）三者的不同组合来使用：
+
+- 命令（commands）：`ship`、`new`、`move` 等。
+- 选项（options）：`-h`、`--help`、`--speed=<kn>` 等。
+- 位置参数（positional arguments）：`<name>`、`<x>`、`<y>` 等。
+
+该示例使用方括号（`[]`）、圆括号（`()`）、管道符（`|`）和省略号（`...`）分别描述可选、必需、互斥和重复的元素。这些元素组成了有效的使用模式（usage patterns），每个使用模式都以程序的名称 `naval_fate` 开始。
+
+使用模式下方为带有描述的选项列表，它们描述了一个选项是否有短格式（例如 `-h`）或长格式（例如 `-–help`） 、是否有一个参数（例如 `–speed=<kn>`），以及该参数是否有默认值（例如 `[default: 10]`）。
+
+一个「`docopt` 实现」将提取所有上述信息并生成命令行参数解析器，当使用 `-h` 或 `-–help` 选项调用程序时，界面描述的文本将作为帮助消息显示。
+
+
+
+### 1.3.1、使用模式
+
+位于关键字 `usage:`（不分大小写）和明显空行 之间的文本将被解释为使用模式列表，关键字 `usage:` 后的第一个单词将被解释为程序名称。下面是一个无需命令行参数程序的最小示例：
+
+```shell
+Usage: my_program
+```
+
+程序可以有多个使用模式，以各种元素列出来描述该使用模式：
+
+```
+Usage:
+    my_program command --option <argument>
+    my_program [<optional-argument>]
+    my_program --another-option=<with-argument>
+    my_program (--either-that-option | <--or-this-argument>)
+    my_program <repeating-argument> <repeating-argument> ...
+```
+
+
+
+**参数 `<argument>`**
+
+以 `<` 开头且 `>` 结尾的单词和大写单词将被解释为位置参数（positional arguments）：
+
+```shell
+Usage: my_program <host> <port>
+```
+
+
+
+**选项 `-o` `--option`**
+
+以单连字符（`-`）或双连字符（`--`）开头的单词将被分别解释为短格式选项（一个字母的「单词」）和长格式选项：
+
+- 短格式选项可以堆叠，这意味着 `-abc` 和 `-a -b -c` 是等价的。
+- 长格式选项可以有位于 ` ` 或 `＝` 之后的指定的参数，即 `--input ARG` 与 `--input=ARG` 等价。
+- 短格式选项可以有位于可选的 ` ` 之后的指定的参数，即 `-fFILE` 与 `-f FILE` 等价。
+
+> [!NOTE]
+>
+> `--input ARG`（而非 `--input=ARG`）这种写法语义模棱两可，因为不知道 `ARG` 到底是选项的参数还是位置参数。在使用模式中，只有提供了选项描述时才会被解释为带参数的选项，否则将会被解释为一个选项和独立的位置参数。
+>
+> 同样会引起歧义的是 `-fFILE`和 `-f FILE`，因为前者不知道是多个堆叠的短格式选项（`-f -F -I -L -E`）还是带参数的单个选项（`-f` 为选项，`FILE` 为对应参数）。只有提供了选项描述时，前者这种写法才会被解释为带参数的单个选项。
+
+
+
+**选项简写 `[options]`**
+
+`[options]` 是一种选项的简写方式，该方式可以避免在使用模式中列出所有的选项（从带有描述的选项列表中）。例如以下两种写法是等价的：
+
+```
+# 简写
+Usage: my_program [options] <path>
+
+--all             List everything.
+--long            Long output.
+--human-readable  Display in human-readable format.
+
+# 非简写
+Usage: my_program [--all --long --human-readable] <path>
+
+--all             List everything.
+--long            Long output.
+--human-readable  Display in human-readable format.
+```
+
+如果有很多选项，并且它们都适用于其中一种使用模式，那么这种简写将很有用。或者，如果同时具有短格式和长格式两种版本的选项，则可以在一个使用模式中列出其中之一：
+
+```
+Usage: my_program [-alh] <path>
+
+-a, --all             List everything.
+-l, --long            Long output.
+-h, --human-readable  Display in human-readable format.
+
+```
+
+
+
+**命令 `command`**
+
+所有不遵循上述约定（即参数 `<argument>` 和选项 `--option`）的单词，都将被解释为命令或子命令。
+
+
+
+**可选元素 `[optional elements]`**
+
+包含在方括号（`[]`）中的元素（选项、参数、命令）被标为可选。元素是否包含在相同或不同的括号内并不重要，例如下面两种写法是等价的：
+
+```
+Usage: my_program [command --option <argument>]
+
+Usage: my_program [command] [--option] [<argument>]
+```
+
+
+
+**必选元素 `(required elements)`**
+
+如果不在方括号（`[]`）里，那么默认情况下所有元素都是必选的。但是有时候需要用圆括号（`()`）将必选元素显式地标出，例如需要对互斥元素分组的时候：
+
+```shell
+Usage: my_program (--either-this <and-that> | <or-this>)
+```
+
+另一种用法是，当你需要制定如果有一个元素存在，那么就需要另一个元素，则可以这样实现：
+
+```shell
+Usage: my_program [(<one-argument> <another-argument>)]
+```
+
+
+
+**互斥元素 `element | another`**
+
+互斥元素以管道符（`|`）进行分隔：
+
+```
+Usage: my_program go (--up | --down | --left | --right)
+```
+
+在各个互斥情况下，当有一个为必选时使用圆括号（`()`）对元素进行分组，当没有必选时使用方括号（`[]`）对元素进行分组：
+
+```
+Usage: my_program go [--up | --down | --left | --right]
+```
+
+
+
+**重复元素 `element...`**
+
+ 使用省略号（`...`）表示左边的一个或一组参数可被重复一次或多次：
+
+```shell
+Usage: my_program open <file>...
+       my_program move (<from> <to>)...
+```
+
+可以灵活地指定必需参数的数量，例如：
+
+```shell
+# 零个或多个必选参数（3种冗余的方法）：
+Usage: my_program [<file>...]
+       my_program [<file>]...
+       my_program [<file> [<file> ...]]
+
+# 一个或多个必选参数：
+Usage: my_program <file>...
+
+# 两个或多个必选参数：
+Usage: my_program <file> <file>...
+
+# 诸如此类...
+```
+
+
+
+**选项参数分隔符 `[--]`**
+
+双连字符（`--`）在不属于选项的一部分时，按照惯例通常用于分隔选项和位置参数，以便处理诸如将文件名误认为是选项的情况。为了支持该约定，只需在使用模式的位置参数前加上 `[--]` 即可：
+
+```shell
+Usage: my_program [options] [--] <file>...
+```
+
+除此之外，`--` 只是一个普通的命令，因此可应用于任何前述操作，譬如去掉方括号（`[]`）使其成为必选。
+
+
+
+**处理标准输入 `[-]`**
+
+单连字符（`-`）在不属于选项的一部分时，按照惯例通常表示程序用于处理标准输入 `stdin` 而非文件。如果要遵循该约定，只需将 `[-]` 添加到使用模式中。`-` 自身仅仅是一个普通命令，可赋予任何意义。
+
+
+
+### 1.3.2、选项描述
+
+选项描述是位于使用模式下面的一系列选项。如果使用模式不存在歧义，则可以选择指定它们。
+
+一个选项描述允许指定：
+
+- 某些短格式和长格式选项为同义词。
+- 一个选项有一个参数。
+- 选项的参数提供默认值。
+
+这些规则遵循：以不计空格的以 `-` 或 `--` 开头的每一行都将视为选项描述。例如：
+
+```
+Options:
+  --verbose   # GOOD，以「--」开头
+  -o FILE     # GOOD，以「-」开头
+Other: --bad  # BAD，不以「-」开头
+```
+
+若要明确指定一个选项带有一个参数，则需：
+
+1. 在空格或等号（`=`）后放一个描述该参数的词，如下所示。
+2. 选项参数遵循尖括号（`<argument>`）或全大写（`ARGUMENT`）的约定。
+3. 如果有必要，可以使用逗号（`,`）分隔选项。
+
+尽管下例中的两行都是有效的，但是建议坚持使用单一风格而不要混着用：
+
+```
+-o FILE --output=FILE       # 有等号、全大写、无逗号（推荐）
+-i <file>, --input <file>   # 无等号、尖括号、有逗号（不推荐）
+```
+
+用（至少）两个空格来分隔选项和它们的非正式描述（如果只用一个空格，可能会将描述的首个词当做选项的参数）：
+
+```
+--verbose MORE text.    # BAD，将被视为选项verbose有一个参数MORE，
+                        # 故需使用两个空格
+-q        Quit.         # GOOD，8空格
+-o FILE   Output file.  # GOOD，3空格
+--stdout  Use stdout.   # GOOD，2空格
+```
+
+如果要为带有参数的选项设置默认值，则使用 `[default: the-default-value]` 的形式将其放到选项描述中：
+
+```
+--coefficient=K  The K coefficient [default: 2.95]
+--output=FILE    Output file [default: test.txt]
+--directory=DIR  Some directory [default: ./]
+```
+
+
+
 # 2、系统目录结构
 
 使用 Linux 时，通过命令行输入 `ls -l /` 可以看到，在 Linux 根目录（`/`）下包含很多的子目录（称为一级目录），例如 `bin`、`boot`、`dev` 等。同时，各一级目录下还含有很多子目录（称为二级目录），比如 `/bin/bash/`、`/bin/ed/` 等。Linux 文件系统目录总体呈现树形结构，`/` 根目录就相当于树根。
