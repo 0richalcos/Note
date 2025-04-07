@@ -2734,7 +2734,7 @@ apt 命令提供了查找、安装、升级、删除某一个、一组甚至全�
 **apt 语法**
 
 ```shell
-  apt [options] [command] [package ...]
+apt [options] [command] [package ...]
 ```
 
 - `options`：可选，选项包括 `-h`（帮助），`-y`（当安装过程提示选择全部为 "yes"），`-q`（不显示安装的过程）等等
@@ -3643,7 +3643,7 @@ exec 1 > &6
 
 
 
-## 11.2、管道符（'|'）
+## 11.2、管道符
 
 利用 Linux 所提供的管道符 `|` 将两个命令隔开，管道符左边命令的输出就会作为管道符右边命令的输入。连续使用管道意味着第一个命令的输出会作为第二个命令的输入，第二个命令的输出又会作为第三个命令的输入，依此类推。
 
@@ -4054,4 +4054,143 @@ export PATH=/home/cjavapy/python:/home/cjavapy/java:$PATH
 
 - 周期性任务调度：任务按照设定的时间间隔自动执行，如 `crontab`、`systemd timer`、`watch`。
 - 一次性任务调度：任务仅执行一次，如 `at` 命令、`sleep` 延迟执行。
+
+
+
+## 14.1、crontab
+
+通过 `crontab` 命令，我们可以在固定的间隔时间执行指定的系统指令或 shell script 脚本。时间间隔的单位可以是分钟、小时、日、月、周及以上的任意组合。这个命令非常适合周期性的日志分析或数据备份等工作。
+
+```
+crontab [-u <user>] [-l | -r | -e]
+```
+
+- `-u <user>`：仅 root 用户可用，指定某个用户的 `crontab` 任务。
+- `-l`：显示某个用户的 `crontab` 文件内容，如果不指定用户，则表示显示当前用户的 `crontab` 文件内容。
+- `-r`：从 `/var/spool/cron` 目录中删除某个用户的 crontab 文件，如果不指定用户，则默认删除当前用户的 `crontab` 文件。
+- `-e`：编辑某个用户的 `crontab` 文件内容。如果不指定用户，则表示编辑当前用户的 `crontab` 文件。
+
+
+
+**`crontab` 的文件格式**
+
+```
+f1 f2 f3 f4 f5 program
+```
+
+- 其中 *f1* 是表示分钟，*f2* 表示小时，*f3* 表示一个月份中的第几日，*f4* 表示月份，*f5* 表示一个星期中的第几天，*program* 表示要执行的程序。
+- 当 *f1* 为 `*` 时表示每分钟都要执行 *program*，*f2* 为 `*` 时表示每小时都要执行程序，其余类推。
+- 当 *f1* 为 `a-b` 时表示从第 a 分钟到第 b 分钟这段时间内要执行，*f2* 为 `a-b` 时表示从第 a 到第 b 小时都要执行，其余类推。
+- 当 *f1* 为 `*/n` 时表示每 n 分钟个时间间隔执行一次，*f2* 为 `*/n` 表示每 n 小时个时间间隔执行一次，其余类推。
+- 当 *f1* 为 `a, b, c,...` 时表示第 a, b, c,... 分钟要执行，*f2* 为 `a, b, c,...` 时表示第 a, b, c...个小时要执行，其余类推。
+
+```
+*    *    *    *    *
+-    -    -    -    -
+|    |    |    |    |
+|    |    |    |    +----- 星期中星期几 (0 - 6) (星期天为0)
+|    |    |    +---------- 月份 (1 - 12) 
+|    |    +--------------- 一个月中的第几天 (1 - 31)
+|    +-------------------- 小时 (0 - 23)
++------------------------- 分钟 (0 - 59)
+```
+
+除了标准时间格式外，`crontab` 还支持一些特殊关键字：
+
+```
+@reboot   # 系统启动时运行
+@yearly   # 每年执行一次，相当于 0 0 1 1 *
+@annually # 和 @yearly 相同
+@monthly  # 每月执行一次，相当于 0 0 1 * *
+@weekly   # 每周执行一次，相当于 0 0 * * 0
+@daily    # 每天执行一次，相当于 0 0 * * *
+@midnight # 和 @daily 相同
+@hourly   # 每小时执行一次，相当于 0 * * * *
+```
+
+<img src="./!assets/Linux/EfG2i-BUMAAp_C1.jpeg" alt="img" style="zoom: 33%;" />
+
+
+
+**示例**
+
+1. 检查 `crontab` 服务是否运行
+
+   在 Linux 系统中，`crond` 是负责调度定时任务的守护进程。 先检查它是否在运行：
+
+   ```shell
+   systemctl status crond
+   ```
+
+   如果 `crond` 没有运行，可以用下面的命令启动它：
+
+   ```shell
+   sudo systemctl start crond
+   sudo systemctl enable crond   # 设置开机自启
+   ```
+
+2. 打开 `crontab` 编辑器
+
+   运行以下命令：
+
+   ```shell
+   crontab -e
+   ```
+
+   > [!NOTE]
+   >
+   > 这会打开默认的 `crontab` 编辑器（通常是 `vim` 或 `nano`）。
+
+   如果是第一次运行，可能会提示选择编辑器，如：
+
+   ```
+   no crontab for user - using an empty one
+   Select an editor.  To change later, run 'select-editor'.
+     1. /bin/nano        <---- 选择 nano 比较简单
+     2. /usr/bin/vim.basic
+     3. /usr/bin/vim.tiny
+   Choose 1-3 [1]: 
+   ```
+
+3. 添加定时任务
+
+   假设我们要每天凌晨 3:00 运行 `/home/user/backup.sh`，在 `crontab` 编辑器中添加：
+
+   ```
+   0 3 * * * /home/user/backup.sh >> /home/user/backup.log 2>&1
+   ```
+
+   - `0 3 * * *`：每天凌晨 3:00 运行一次。
+   - `/home/user/backup.sh`：需要执行的脚本路径。
+   - `>> /home/user/backup.log 2>&1`：将日志保存到 `/home/user/backup.log`。
+
+4. 保存并退出
+
+   在 `nano` 中，按 **`Ctrl + X`**，然后按 **`Y`**，再按 **`Enter`** 保存。
+
+   在 `vim` 中，按 **`ESC`**，输入 `:wq` 然后回车。
+
+5. 检查任务是否生效
+
+   运行：
+
+   ```shell
+   crontab -l
+   ```
+
+   如果能看到刚刚添加的任务，说明任务已经成功生效！
+
+6. 查看任务执行日志
+
+   有时候 `crontab` 任务可能没有按预期执行，可以检查 `crontab` 日志：
+
+   ```shell
+   cat /var/log/cron
+   ```
+
+   如果任务输出到文件，也可以直接查看：
+
+   ```shell
+   cat /home/user/backup.log
+   ```
 
