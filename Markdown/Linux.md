@@ -2122,6 +2122,8 @@ Linux 磁盘管理常用三个命令为 `df`、`du` 和 `fdisk`。
 
 Linux `df`（英文全拼：disk free） 命令用于显示目前在 Linux 系统上的文件系统磁盘使用情况统计。
 
+语法：
+
 ```
 df [-ahikHTm] [目录或文件名]
 ```
@@ -2214,6 +2216,8 @@ Filesystem            Size  Used Avail Use% Mounted on
 ## 6.2、du
 
 Linux du （英文全拼：disk usage）命令用于显示目录或文件的大小。
+
+语法：
 
 ```shell
 du [-ahskm] [目录或文件名称]
@@ -3415,9 +3419,7 @@ nohup /root/myScript.sh > myScript.log 2>&1 &
 
 也就是说，`kill` 命令的执行原理是这样的，`kill` 命令会向操作系统内核发送一个信号（多是终止信号）和目标进程的 PID，然后系统内核根据收到的信号类型，对指定进程进行相应的操作。
 
-
-
-**语法：**
+语法：
 
 ```shell
 kill [-l <信息编号>]
@@ -4063,6 +4065,8 @@ export PATH=/home/cjavapy/python:/home/cjavapy/java:$PATH
 ## 14.1、crontab
 
 通过 `crontab` 命令，我们可以在固定的间隔时间执行指定的系统指令或 shell script 脚本。时间间隔的单位可以是分钟、小时、日、月、周及以上的任意组合。这个命令非常适合周期性的日志分析或数据备份等工作。
+
+语法：
 
 ```
 crontab [-u <user>] [-l | -r | -e]
