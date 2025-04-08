@@ -441,7 +441,7 @@ public class ConfigByValueAnnotation {
 
 
 
-**自定义的 Bean 使用 `@ConfigurationProperties`**
+**自定义的 Bean 使用**
 
 1. 编写 `Dog` 类：
 
@@ -452,11 +452,11 @@ public class ConfigByValueAnnotation {
    }
    ```
 
-     `Person` 类使用 `@ConfigurationProperties` 注解将配置中的属性值关联到实体类上：
+   编写  `Person` 类使用 `@ConfigurationProperties` 注解将配置中的属性值关联到实体类上：
 
    ```java
-   @Component
    @Data
+   @Component
    @ConfigurationProperties(prefix = "person")
    public class Person {
        private String name;
@@ -469,7 +469,9 @@ public class ConfigByValueAnnotation {
    }
    ```
 
-   > 实体类注意要提供属性对应的 setter 方法
+   > [!NOTE]
+   >
+   > 实体类注意要提供属性对应的 setter 方法。
 
    如果加入 `@ConfigurationProperties` 后爆红可以在 pom.xml 中加入下面的依赖解决：
 
@@ -516,7 +518,7 @@ public class ConfigByValueAnnotation {
 
 
 
-**第三方 Bean 使用  `@ConfigurationProperties`**
+**第三方 Bean 使用**
 
 自定义 Bean 的 `@ConfigurationProperties` 注解是写在类定义的上方，而第三方开发的 Bean 源代码不是我们自己写的，我们也不可能到源代码中去添加 `@ConfigurationProperties` 注解，所以这里需要换种方法处理。
 
@@ -552,11 +554,11 @@ public class ConfigByValueAnnotation {
 
 
 
-**`@EnableConfigurationProperties`**
+**@EnableConfigurationProperties**
 
 `@EnableConfigurationProperties` 将标注了 `@ConfigurationProperties` 注解的类注入到 Spring 容器中。
 
-该注解是用来开启对 `@ConfigurationProperties` 注解的支持，也就是 `@EnableConfigurationProperties` 注解告诉 Spring 容器能支持 `@ConfigurationProperties` 注解。
+该注解是用来开启对 `@ConfigurationProperties` 注解的支持，也就是说， `@EnableConfigurationProperties` 注解告诉 Spring 容器能支持 `@ConfigurationProperties` 注解。
 
 一般情况下会定义两个文件，一个用于绑定 application.yml 中的配置信息，一个用于定义配置类：
 
@@ -611,6 +613,10 @@ public class ConfigByValueAnnotation {
        }
    }
    ```
+
+> [!NOTE]
+>
+> 如果你已经使用了 `@EnableConfigurationProperties`，就不需要在 Properties 类上加 `@Component`。
 
 
 
@@ -2234,7 +2240,7 @@ protected void addResourceHandlers(ResourceHandlerRegistry registry) {
 - 浏览器输入：`http://localhost:8088/SystemData/UserData/Avatar/Mintimate.jpeg` 可以直接访问项目文件下的：`/SystemData/UserData/Avatar/Mintimate.jpeg`
 - 浏览器输入：`http://localhost:8088/SystemDataTest/UserData/Avatar/Mintimate.jpeg` 可以直接访问项目文件下的：`/Test/UserData/Avatar/Demo.jpeg`
 
-<img src="!assets/SpringBoot/651815b7ad4346fda348bfdaf0b866dctplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp" alt="本地资源目录文件夹" style="" />
+<img src="!assets/SpringBoot/651815b7ad4346fda348bfdaf0b866dctplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp" alt="本地资源目录文件夹" style="zoom: 50%;" />
 
 添加一个配置类，并继承 `WebMvcConfigurationSupport`，实现 `addResourceHandlers` 方法，并打上 `@Configuration` 注解，使其成为配置类：
 
