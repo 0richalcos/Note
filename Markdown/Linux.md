@@ -2120,11 +2120,7 @@ Linux 磁盘管理常用三个命令为 `df`、`du` 和 `fdisk`。
 
 ## 6.1、df
 
-`df` 命令功能：检查文件系统的磁盘空间占用情况。
-
-可以利用该命令来获取硬盘被占用了多少空间，目前还剩下多少空间等信息。
-
-语法：
+Linux `df`（英文全拼：disk free） 命令用于显示目前在 Linux 系统上的文件系统磁盘使用情况统计。
 
 ```
 df [-ahikHTm] [目录或文件名]
@@ -2155,7 +2151,16 @@ Filesystem      1K-blocks      Used Available Use% Mounted on
 tmpfs              371332         0    371332   0% /dev/shm
 ```
 
-在 Linux 底下如果 `df` 没有加任何选项，那么默认会将系统内所有的（不含特殊内存内的文件系统与 swap）都以 1 Kbytes 的容量来列出来！
+- Filesystem：文件系统的名称或标识符。
+- 1K-blocks：文件系统的总容量，以 1KB 块为单位。即文件系统总大小。
+- Used：文件系统已经使用的容量，以 1KB 块为单位。
+- Available：文件系统中仍然可用的容量，以 1KB 块为单位。
+- Use%：文件系统已使用容量占总容量的百分比。
+- Mounted on：文件系统被挂载到的目录或位置
+
+> [!NOTE]
+>
+> 在 Linux 底下如果 `df` 没有加任何选项，那么默认会将系统内所有的（不含特殊内存内的文件系统与 swap）都以 1 Kbytes 的容量来列出来！
 
 
 
@@ -2208,22 +2213,20 @@ Filesystem            Size  Used Avail Use% Mounted on
 
 ## 6.2、du
 
-Linux `du` 命令也是查看使用空间的，但是与 `df` 命令不同的是 Linux `du` 命令是对文件和目录磁盘使用的空间的查看，还是和 `df` 命令有一些区别的，这里介绍 Linux `du` 命令。
-
-语法：
+Linux du （英文全拼：disk usage）命令用于显示目录或文件的大小。
 
 ```shell
-du [-ahskm] 文件或目录名称
+du [-ahskm] [目录或文件名称]
 ```
 
 选项与参数：
 
 - `-a` ：列出所有的文件与目录容量，因为默认仅统计目录底下的文件量而已。
-- `-h` ：以人们较易读的容量格式（G/M）显示；
-- `-s ` ：列出总量而已，而不列出每个各别的目录占用容量；
+- `-h` ：以人们较易读的容量格式（G/M）显示。
+- `-s` ：列出总量而已，而不列出每个各别的目录占用容量。
 - `-S` ：不包括子目录下的总计，与 `-s` 有点差别。
-- `-k` ：以 KBytes 列出容量显示；
-- `-m` ：以 MBytes 列出容量显示；
+- `-k` ：以 KBytes 列出容量显示。
+- `-m` ：以 MBytes 列出容量显示。
 
 
 
@@ -4064,6 +4067,8 @@ export PATH=/home/cjavapy/python:/home/cjavapy/java:$PATH
 ```
 crontab [-u <user>] [-l | -r | -e]
 ```
+
+选项与参数：
 
 - `-u <user>`：仅 root 用户可用，指定某个用户的 `crontab` 任务。
 - `-l`：显示某个用户的 `crontab` 文件内容，如果不指定用户，则表示显示当前用户的 `crontab` 文件内容。
