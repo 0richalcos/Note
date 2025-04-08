@@ -98,86 +98,302 @@ MySQL 为关系型数据库（Relational Database Management System），这种�
 
 ## 2.3、安装 MySQL 数据库
 
+### 2.3.1、Windows 安装
+
+**安装数据库**
+
 1. 先下载 [MySQL](https://dev.mysql.com/downloads/mysql/)，现在的版本是 8.0.27：
 
-   <img src="!assets/MySQL/image-20211115115209195.png" alt="image-20211115115209195" style="" />
+   <img src="!assets/MySQL/image-20211115115209195.png" alt="image-20211115115209195" style="zoom: 67%;" />
 
    这里下载的是 Zip 安装包版，可以点击 【Go to Download Page】，去载 MSI 安装版（这里下载的是安装版）：
 
-   <img src="!assets/MySQL/image-20211115115812248.png" alt="image-20211115115812248" style="" />
+   <img src="!assets/MySQL/image-20211115115812248.png" alt="image-20211115115812248" style="zoom: 67%;" />
 
 2. 下载后打开文件开始安装，这里选择自定义安装：
 
-   <img src="!assets/MySQL/image-20211115141345534.png" alt="image-20211115141345534" style="" />
+   <img src="!assets/MySQL/image-20211115141345534.png" alt="image-20211115141345534" style="zoom: 80%;" />
 
 3. 这里选择只安装基础的 MySQL 服务和 JDBC，并且勾选下面的选项：
 
-   <img src="!assets/MySQL/image-20211115141638695.png" alt="image-20211115141638695" style="" />
+   <img src="!assets/MySQL/image-20211115141638695.png" alt="image-20211115141638695" style="zoom: 80%;" />
 
 4. 点击 MySQL Server，下方会出现 Advanced Options（高级选项），点击高级选项，盘它！（这里是第二次装发现的，所以版本不一样）：
 
-   <img src="!assets/MySQL/image-20220320164455188.png" alt="image-20220320164455188" style="zoom: 67%;" />
+   <img src="!assets/MySQL/image-20220320164455188.png" alt="image-20220320164455188" style="zoom: 50%;" />
 
 5. 这里可以更改安装地址，我建议改一下数据存储地址，防止数据太多占用 C 盘空间，然后点 OK 和 Next：
 
-   <img src="!assets/MySQL/image-20220320164751257.png" alt="image-20220320164751257" style="zoom:67%;" />
+   <img src="!assets/MySQL/image-20220320164751257.png" alt="image-20220320164751257" style="zoom: 50%;" />
 
 6. 取消了文档：
 
-   <img src="!assets/MySQL/image-20211115141735403.png" alt="image-20211115141735403" style="" />
+   <img src="!assets/MySQL/image-20211115141735403.png" alt="image-20211115141735403" style="zoom: 80%;" />
 
 7. 开始安装：
 
-   <img src="!assets/MySQL/image-20211115141804300.png" alt="image-20211115141804300" style="" />
+   <img src="!assets/MySQL/image-20211115141804300.png" alt="image-20211115141804300" style="zoom: 80%;" />
 
-8. 开始配置：
 
-   <img src="!assets/MySQL/image-20211115141841846.png" alt="image-20211115141841846" style="" />
 
-9. 选择开发电脑：
+**初始化数据库**
 
-   <img src="!assets/MySQL/image-20211115142116388.png" alt="image-20211115142116388" style="" />
+1. 开始配置：
 
-10. 这里使用默认的加密加密方法：
+   <img src="!assets/MySQL/image-20211115141841846.png" alt="image-20211115141841846" style="zoom: 80%;" />
 
-    <img src="!assets/MySQL/image-20211115142310317.png" alt="image-20211115142310317" style="" />
+2. 选择开发电脑：
 
-11. 填写数据库密码：
+   <img src="!assets/MySQL/image-20211115142116388.png" alt="image-20211115142116388" style="zoom: 80%;" />
 
-    <img src="!assets/MySQL/image-20211115142333702.png" alt="image-20211115142333702" style="" />
+3. 这里使用默认的加密加密方法：
 
-12. 取消开机自启：
+   <img src="!assets/MySQL/image-20211115142310317.png" alt="image-20211115142310317" style="zoom: 80%;" />
 
-    <img src="!assets/MySQL/image-20211115142440712.png" alt="image-20211115142440712" style="" />
+4. 填写数据库密码：
 
-13. 应用配置：
+   <img src="!assets/MySQL/image-20211115142333702.png" alt="image-20211115142333702" style="zoom: 80%;" />
 
-    <img src="!assets/MySQL/image-20211115142501957.png" alt="image-20211115142501957" style="" />
+5. 取消开机自启：
 
-14. 配置环境变量：
+   <img src="!assets/MySQL/image-20211115142440712.png" alt="image-20211115142440712" style="zoom: 80%;" />
 
-    <img src="!assets/MySQL/image-20211115142610319.png" alt="image-20211115142610319" style="" />
-    <img src="!assets/MySQL/image-20211115142647651.png" alt="image-20211115142647651" style="" />
+6. 应用配置：
 
-15. 访问：
+   <img src="!assets/MySQL/image-20211115142501957.png" alt="image-20211115142501957" style="zoom: 80%;" />
 
-    ```shell
-    PS C:\Users\Orichalcos> mysql -u root -p
-    Enter password: ****
-    Welcome to the MySQL monitor.  Commands end with ; or \g.
-    Your MySQL connection id is 11
-    Server version: 8.0.27 MySQL Community Server - GPL
-    
-    Copyright (c) 2000, 2021, Oracle and/or its affiliates.
-    
-    Oracle is a registered trademark of Oracle Corporation and/or its
-    affiliates. Other names may be trademarks of their respective
-    owners.
-    
-    Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-    
-    mysql>
-    ```
+7. 配置环境变量：
+
+   <img src="!assets/MySQL/image-20211115142610319.png" alt="image-20211115142610319" style="zoom: 67%;" />
+
+   <img src="!assets/MySQL/image-20211115142647651.png" alt="image-20211115142647651" style="zoom: 80%;" />
+
+8. 访问：
+
+   ```shell
+   PS C:\Users\Orichalcos> mysql -u root -p
+   Enter password: ****
+   Welcome to the MySQL monitor.  Commands end with ; or \g.
+   Your MySQL connection id is 11
+   Server version: 8.0.27 MySQL Community Server - GPL
+   
+   Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+   
+   Oracle is a registered trademark of Oracle Corporation and/or its
+   affiliates. Other names may be trademarks of their respective
+   owners.
+   
+   Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+   
+   mysql>
+   ```
+
+
+
+### 2.3.2、Ubuntu 安装
+
+**安装数据库**
+
+1. 查看有没有安装 MySQL：
+
+   ```shell
+   dpkg -l | grep mysql
+   ```
+
+2. 安装MySQL：
+
+   ```shell
+   apt install mysql-server
+   ```
+
+3. 安装完成之后可以使用如下命令来检查是否安装成功：
+
+   ```shell
+   netstat -tap | grep mysql
+   ```
+
+   通过上述命令检查之后，如果看到有 mysql 的 socket 处于 LISTEN 状态则表示安装成功
+
+4. 登录 mysql 数据库可以通过如下命令：
+
+   ```shell
+   mysql -u root -p
+   ```
+
+   现在是 mysql 数据库是没有密码的，Enter password: 处直接回车，就能够进入 mysql 数据库。
+
+
+
+**初始化数据库**
+
+接下来，为了确保数据库的安全性和正常运转，对数据库进行初始化操作。这个初始化操作涉及下面5个步骤
+
+1. 安装验证密码插件。
+2. 设置 root 管理员在数据库中的专有密码。
+3. 随后删除匿名账户，并使用 root 管理员从远程登录数据库，以确保数据库上运行的业务的安全性。
+4. 删除默认的测试数据库，取消测试数据库的一系列访问权限。
+5. 刷新授权列表，让初始化的设定立即生效。
+
+输入`mysql_secure_installation`开始
+
+```shell
+Securing the MySQL server deployment.
+
+Connecting to MySQL using a blank password.
+
+VALIDATE PASSWORD COMPONENT can be used to test passwords
+and improve security. It checks the strength of password
+and allows the users to set only those passwords which are
+secure enough. Would you like to setup VALIDATE PASSWORD component? #要安装验证密码插件吗？
+
+Press y|Y for Yes, any other key for No: N #我选了N
+Please set the password for root here.
+
+New password: #输入root密码
+
+Re-enter new password: #再次输入
+By default, a MySQL installation has an anonymous user,
+allowing anyone to log into MySQL without having to have
+a user account created for them. This is intended only for
+testing, and to make the installation go a bit smoother.
+You should remove them before moving into a production
+environment.
+
+Remove anonymous users? (Press y|Y for Yes, any other key for No) : y #是否删除匿名用户
+Success.
+
+
+Normally, root should only be allowed to connect from
+'localhost'. This ensures that someone cannot guess at
+the root password from the network.
+
+Disallow root login remotely? (Press y|Y for Yes, any other key for No) : n # 是否禁止root管理员从远程登录
+
+ ... skipping.
+By default, MySQL comes with a database named 'test' that
+anyone can access. This is also intended only for testing,
+and should be removed before moving into a production
+environment.
+
+
+Remove test database and access to it? (Press y|Y for Yes, any other key for No) : y #是否删除test数据库并取消它的访问权限
+ - Dropping test database...
+Success.
+
+ - Removing privileges on test database...
+Success.
+
+Reloading the privilege tables will ensure that all changes
+made so far will take effect immediately.
+
+Reload privilege tables now? (Press y|Y for Yes, any other key for No) : y # 是否刷新授权表，让初始化后的设定立即生效
+Success.
+
+All done!
+```
+
+
+
+**卸载**
+
+1. 首先停止 MySQL 服务
+
+   ```shell
+   service mysql stop;
+   service mysql status;
+   ```
+
+2. 在终端中查看MySQL的依赖项：
+
+   ```shell
+   dpkg --list | grep mysql
+   ```
+
+3. 卸载：
+
+   ```shell
+   sudo apt-get remove mysql-common
+   udo apt-get autoremove --purge mysql-server-8.0
+   ```
+
+4. 如果看到没有删除的文件记得手动删除：
+
+   <img src="!assets/MySQL/image-20210420112319964.png" alt="image-20210420112319964" style="" />
+
+5. 清除残留数据：
+
+   ```shell
+   dpkg -l|grep ^rc|awk '{print$2}'|sudo xargs dpkg -P
+   ```
+
+6. 再次查看MySQL的剩余依赖项：
+
+   ```shell
+   dpkg --list|grep mysql
+   ```
+
+7. 删除 MySQL 的数据库信息，位置：`/var/lib/mysql/`：
+
+   <img src="!assets/MySQL/image-20210420112705768.png" alt="image-20210420112705768" style="" />
+
+
+
+### 2.3.3、银河麒麟 V10 安装
+
+
+
+
+
+## 2.4、远程访问
+
+控制台连接 MySQL
+
+```shell
+mysql> use mysql;
+
+mysql> select user,host,plugin from user;
++------------------+-----------+-----------------------+
+| user             | host      | plugin                |
++------------------+-----------+-----------------------+
+| debian-sys-maint | localhost | caching_sha2_password |
+| mysql.infoschema | localhost | caching_sha2_password |
+| mysql.session    | localhost | caching_sha2_password |
+| mysql.sys        | localhost | caching_sha2_password |
+| root             | localhost | auth_socket           |
++------------------+-----------+-----------------------+
+
+mysql> update user set host='%',plugin='mysql_native_password' where user='root';
+
+mysql> flush privileges;
+
+# 重新设置密码
+mysql> alter user'root'@'%' IDENTIFIED BY 'root';
+```
+
+> auth_socket：首先，这种验证方式不要求输入密码，即使输入了密码也不验证。这个特点让很多人觉得很不安全，实际仔细研究一下这种方式，发现还是相当安全的，因为它有另外两个限制；
+>
+> - 只能用 UNIX 的 socket 方式登陆，这就保证了只能本地登陆，用户在使用这种登陆方式时已经通过了操作系统的安全验证；
+> - 操作系统的用户和 MySQL 数据库的用户名必须一致，例如你要登陆 MySQL 的 root 用户，必须用操作系统的 root 用户登陆。
+>
+> mysql8.0 引入了新特性 caching_sha2_password；这种密码加密方式客户端不支持；客户端支持的是 mysql_native_password 这种加密方式；
+
+编辑 /etc/mysql/mysql.conf.d/mysqld.cnf 配置文件：
+
+```shell
+vim /etc/mysql/mysql.conf.d/mysqld.cnf
+```
+
+注释掉 `bind-address`：
+
+<img src="!assets/MySQL/image-20210420120254515.png" alt="image-20210420120254515" style="" />
+
+重启服务：
+
+```bash
+service mysql restart
+```
+
+测试远程访问
 
 
 
@@ -3328,6 +3544,21 @@ RETURNS <类型>
 SELECT <自定义函数名> ([<参数> [,...]])
 ```
 
+> [!TIP]
+>
+> 在 MySQL 中创建自定义函数报错信息如下：
+>
+> ```
+> ERROR 1418 (HY000): This function has none of DETERMINISTIC, NO SQL, or READS SQL DATA in its declaration and binary logging is enabled (you *might* want to use the less safe log_bin_trust_function_creators variable)
+> ```
+>
+> 解决方法：
+>
+> ```mysql
+> mysql>set global log_bin_trust_function_creators=1;
+> ```
+>
+
 
 
 **修改自定义函数**
@@ -5286,9 +5517,7 @@ mysql -h127.0.0.1 -P3314 -p123456 < /tmp/ddcw_alltype_table.sql
 
 # 17、JDBC
 
-## 17.1、第一个JDBC程序
-
-**JDBC 简介**
+## 17.1、JDBC 简介
 
 JDBC 全称为：Java DataBase Connectivity（java数据库连接）。
 
@@ -5296,7 +5525,9 @@ SUN 公司为了简化、统一对数据库的操作，定义了一套 Java 操�
 
 
 
-实例：从 user 表中读取数据，并打印在命令行窗口中。
+**实例**
+
+从 user 表中读取数据，并打印在命令行窗口中。
 
 1. 搭建实验环境 ：
 
@@ -5446,7 +5677,7 @@ ResultSet 滚动结果集方法
 
 
 
-## 17.2、JDBC进行CRUD
+## 17.2、JDBC 进行 CRUD
 
 Jdbc中的statement对象用于向数据库发送SQL语句，想完成对数据库的增删改查，只需要通过这个对象向数据库发送增删改查语句即可。
 
@@ -5521,7 +5752,7 @@ while (rs.next()) {
 
 
 
-## 17.3、JDBC处理大数据
+## 17.3、JDBC 处理大数据
 
 在实际开发中，程序需要把大文本 TEXT 或二进制数据 BLOB保存到数据库。TEXT是mysql叫法，Oracle中叫CLOB
 
@@ -5595,7 +5826,7 @@ st.executeBatch();
 
 
 
-## 17.4、JDBC事务控制管理
+## 17.4、JDBC 事务控制管理
 
 当Jdbc程序向数据库获得一个Connection对象时，默认情况下这个Connection对象会自动向数据库提交在它上面发送的SQL语句。若想关闭这种默认提交方式，让多条SQL在一个事务中执行，可使用下列语句：
 
@@ -5628,214 +5859,55 @@ Connection接口中定义事务隔离级别四个常量：
 
 
 
+## 17.5、JDBC 连接报错
+
+在使用 JDBC 连接 MySQL 8.0 时，可能会出现 “Public Key Retrieval is not allowed” 的错误：
+
+````
+com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: Public Key Retrieval is not allowed
+````
+
+首先需要了解 MySQL 配置的密码认证插件为如下两种：
+
+- sha256_password
+- caching_sha2_password
+
+值得注意的是，如果使用 “mysql_native_password” 密码认证插件，不会出现 “Public Key Retrieval is not allowed”。MySQL 配置的密码认证方式可以通过如下命令进行查看：
+
+```mysql
+show variables like '%authentication%';
+```
+
+接着来详细分析 “Public Key Retrieval is not allowed” 错误产生的原因：MySQL 8.0 默认推荐使用 “sha256_password” 和 “caching_sha2_password” 这两种认证插件。只有较老的 MySQL 版本仍然会使用 “mysql_native_password”。
+
+根据 MySQL 提供的[官方文档](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html)，这两种插件都是使用 SHA256 算法来对密码进行保护。这些插件的具体执行流程如下：
+
+1. 检查客户端是否禁用 SSL/TLS 加密传输；
+2. 如果客户端未禁用 SSL/TLS 加密传输，则客户端在进行认证时的认证报文（传输用户名和密码的报文）是使用 TLS 进行传输的，两种插件认为认证报文传输安全，不进行任何其他操作；
+3. 如果客户端禁用 SSL/TLS 加密传输，则客户端在进行认证时的认证报文（传输用户名和密码的报文）是使用明文进行传输的，两种插件认为认证报文传输不安全，会单独对明文报文中的密码使用 RSA 加密方式进行加密。
+
+根据前面的分析，导致 “Public Key Retrieval is not allowed” 主要是由于当禁用 SSL/TLS 协议传输后，客户端会使用服务器的公钥进行传输，默认情况下客户端不会主动去找服务器拿公钥，此时就会出现上述错误。
+
+经过查阅官方文档，出现 Public Key Retrieval 的场景可以概括为在禁用 SSL/TLS 协议传输切当前用户在服务器端没有登录缓存的情况下，客户端没有办法拿到服务器的公钥。具体的场景如下：
+
+1. 新建数据库用户，首次登录；
+2. 数据库的用户名、密码发生改变后登录；
+3. 服务器端调用 `FLUSH PRIVELEGES` 指令刷新服务器缓存。
+
+针对上述错误，有如下的解决方案：
+
+1. 在条件允许的情况下，不要禁用 SSL/TLS 协议，即不要在 CLI 客户端使用 `--ssl-mode=disabled`，或在 JDBC 连接串中加入 `useSSL=false`
+2. 如果必须禁用 SSL/TLS 协议，则可以尝试使用 CLI 客户端登录一次 MySQL 数据库制造登录缓存
+3. 如果必须禁用 SSL/TLS 协议，则可以通过增加如下参数允许客户端获得服务器的公钥：
+   - 在 JDBC 连接串中加入 `allowPublicKeyRetrieval=true` 参数
+   - 在 CLI 客户端连接时加入 `--get-server-public-key` 参数
+   - 在 CLI 客户端连接时加入 `--server-public-key-path=file_name` 参数，指定存放在本地的公钥文件
+
+
+
 # 18、服务管理
 
-## 18.1、访问远程 MySQL 服务
-
-### 18.1.1、安装MySQL 8.0
-
-**系统 Ubuntu  20.04 64位**
-
-**安装数据库**
-
-1. 查看有没有安装 MySQL：
-
-   ```shell
-   dpkg -l | grep mysql
-   ```
-
-2. 安装MySQL：
-
-   ```shell
-   apt install mysql-server
-   ```
-
-3. 安装完成之后可以使用如下命令来检查是否安装成功：
-
-   ```shell
-   netstat -tap | grep mysql
-   ```
-
-   通过上述命令检查之后，如果看到有 mysql 的 socket 处于 LISTEN 状态则表示安装成功
-
-4. 登录 mysql 数据库可以通过如下命令：
-
-   ```shell
-   mysql -u root -p
-   ```
-
-   现在是 mysql 数据库是没有密码的，Enter password: 处直接回车，就能够进入 mysql 数据库。
-
-
-
-**初始化数据库**
-
-接下来，为了确保数据库的安全性和正常运转，对数据库进行初始化操作。这个初始化操作涉及下面5个步骤
-
-1. 安装验证密码插件。
-2. 设置 root 管理员在数据库中的专有密码。
-3. 随后删除匿名账户，并使用 root 管理员从远程登录数据库，以确保数据库上运行的业务的安全性。
-4. 删除默认的测试数据库，取消测试数据库的一系列访问权限。
-5. 刷新授权列表，让初始化的设定立即生效。
-
-输入`mysql_secure_installation`开始
-
-```shell
-Securing the MySQL server deployment.
-
-Connecting to MySQL using a blank password.
-
-VALIDATE PASSWORD COMPONENT can be used to test passwords
-and improve security. It checks the strength of password
-and allows the users to set only those passwords which are
-secure enough. Would you like to setup VALIDATE PASSWORD component? #要安装验证密码插件吗？
-
-Press y|Y for Yes, any other key for No: N #我选了N
-Please set the password for root here.
-
-New password: #输入root密码
-
-Re-enter new password: #再次输入
-By default, a MySQL installation has an anonymous user,
-allowing anyone to log into MySQL without having to have
-a user account created for them. This is intended only for
-testing, and to make the installation go a bit smoother.
-You should remove them before moving into a production
-environment.
-
-Remove anonymous users? (Press y|Y for Yes, any other key for No) : y #是否删除匿名用户
-Success.
-
-
-Normally, root should only be allowed to connect from
-'localhost'. This ensures that someone cannot guess at
-the root password from the network.
-
-Disallow root login remotely? (Press y|Y for Yes, any other key for No) : n # 是否禁止root管理员从远程登录
-
- ... skipping.
-By default, MySQL comes with a database named 'test' that
-anyone can access. This is also intended only for testing,
-and should be removed before moving into a production
-environment.
-
-
-Remove test database and access to it? (Press y|Y for Yes, any other key for No) : y #是否删除test数据库并取消它的访问权限
- - Dropping test database...
-Success.
-
- - Removing privileges on test database...
-Success.
-
-Reloading the privilege tables will ensure that all changes
-made so far will take effect immediately.
-
-Reload privilege tables now? (Press y|Y for Yes, any other key for No) : y # 是否刷新授权表，让初始化后的设定立即生效
-Success.
-
-All done!
-```
-
-
-
-### 18.1.2、远程访问
-
-在阿里云控制台连接 MySQL
-
-```shell
-mysql> use mysql;
-
-mysql> select user,host,plugin from user;
-+------------------+-----------+-----------------------+
-| user             | host      | plugin                |
-+------------------+-----------+-----------------------+
-| debian-sys-maint | localhost | caching_sha2_password |
-| mysql.infoschema | localhost | caching_sha2_password |
-| mysql.session    | localhost | caching_sha2_password |
-| mysql.sys        | localhost | caching_sha2_password |
-| root             | localhost | auth_socket           |
-+------------------+-----------+-----------------------+
-
-mysql> update user set host='%',plugin='mysql_native_password' where user='root';
-
-mysql> flush privileges;
-
-# 重新设置密码
-mysql> alter user'root'@'%' IDENTIFIED BY 'root';
-```
-
-> auth_socket：首先，这种验证方式不要求输入密码，即使输入了密码也不验证。这个特点让很多人觉得很不安全，实际仔细研究一下这种方式，发现还是相当安全的，因为它有另外两个限制；
->
-> - 只能用 UNIX 的 socket 方式登陆，这就保证了只能本地登陆，用户在使用这种登陆方式时已经通过了操作系统的安全验证；
-> - 操作系统的用户和 MySQL 数据库的用户名必须一致，例如你要登陆 MySQL 的 root 用户，必须用操作系统的 root 用户登陆。
->
-> mysql8.0 引入了新特性 caching_sha2_password；这种密码加密方式客户端不支持；客户端支持的是 mysql_native_password 这种加密方式；
-
-编辑 /etc/mysql/mysql.conf.d/mysqld.cnf 配置文件：
-
-```shell
-vim /etc/mysql/mysql.conf.d/mysqld.cnf
-```
-
-注释掉 `bind-address`：
-
-<img src="!assets/MySQL/image-20210420120254515.png" alt="image-20210420120254515" style="" />
-
-重启服务：
-
-```bash
-service mysql restart
-```
-
-测试远程访问
-
-
-
-### 18.1.3、卸载
-
-1. 首先停止 MySQL 服务
-
-   ```shell
-   service mysql stop;
-   service mysql status;
-   ```
-
-2. 在终端中查看MySQL的依赖项：
-
-   ```shell
-   dpkg --list|grep mysql
-   ```
-
-3. 卸载：
-
-   ```shell
-   sudo apt-get remove mysql-common
-   udo apt-get autoremove --purge mysql-server-8.0
-   ```
-
-4. 如果看到没有删除的文件记得手动删除：
-
-   <img src="!assets/MySQL/image-20210420112319964.png" alt="image-20210420112319964" style="" />
-
-5. 清除残留数据：
-
-   ```shell
-   dpkg -l|grep ^rc|awk '{print$2}'|sudo xargs dpkg -P
-   ```
-
-6. 再次查看MySQL的剩余依赖项：
-
-   ```shell
-   dpkg --list|grep mysql
-   ```
-
-7. 删除 MySQL 的数据库信息，位置：`/var/lib/mysql/`：
-
-   <img src="!assets/MySQL/image-20210420112705768.png" alt="image-20210420112705768" style="" />
-
-
-
-## 18.2、服务 SQL 模式
+## 18.1、服务 SQL 模式
 
 MySQL 服务可以在不同的 SQL 模式下运行，并且可以根据 `sql_mode` 系统变量的值将这些模式应用于不同的客户端。DBA 可以设置全局 SQL 模式以匹配站点服务器的操作要求，并且每个应用程序可以根据自己的要求设置其会话 SQL 模式。
 
@@ -5845,7 +5917,7 @@ MySQL 服务可以在不同的 SQL 模式下运行，并且可以根据 `sql_mod
 
 
 
-### 18.2.1、设置 SQL 模式
+### 18.1.1、设置 SQL 模式
 
 SQL 模式在不同的版本有不同的默认值：
 
@@ -5875,7 +5947,7 @@ SELECT @@SESSION.sql_mode;
 
 
 
-### 18.2.2、SQL模式的完整列表
+### 18.1.2、SQL 模式列表
 
 以下列表介绍了所有支持的 SQL 模式：
 
@@ -6149,7 +6221,7 @@ mysql> select * from t_time_fractional;
 
 
 
-### 18.2.3、组合SQL模式
+### 18.1.3、组合 SQL 模式
 
 以下特殊模式是前面列表中模式值组合的简写：
 
@@ -6168,93 +6240,3 @@ mysql> select * from t_time_fractional;
   > 启用 TRADITIONAL 模式后，一旦出现错误，`INSERT` 或 `UPDATE` 就会中止。如果您使用的是非事务存储引擎，这可能不是您想要的，因为在发生错误之前所做的数据更改可能不会回滚，从而导致 “部分完成” 更新。
 
 
-
-# 20、其他
-
-## 1、MySQL 一个汉字占多少字节
-
-`varchar(N)`，这里的 *Ｎ* 是指字符数，并不是字节数。占用的字节数与编码有关
-
-在 mysql 5.1.5-alpha 下测试得出如下结论：
-
-- **latin1（ISO-8859-1的别名）:**
-
-  1 character = 1byte，1 汉字 = 2 character,
-
-  也就是说一个字段定义成 `varchar(200)`，则它可以存储 100 个汉字或者 200 个字母。
-
-  这一点要注意，尤其是当字段内容是字母和汉字组成时，尽量假设字段内容都是由汉字组成，据此来设置字段长度。
-
-- **utf8:**
-
-  1 character = 3 bytes，1 汉字 = 1 character
-
-  也就是说一个字段定义成 `varchar(200)`，则它可以存储 200 个汉字或者 200 个字母。
-
-- **gbk:**
-
-  1 character = 2 bytes，1 汉字 = 1 character
-
-  也就是说一个字段定义成 `varchar(200)`，则它可以存储 200 个汉字或者 200 个字母。
-
-
-
-## 2、MySQL 自定义函数报错
-
-在 MySQL 中创建自定义函数报错信息如下：
-
-```
-ERROR 1418 (HY000): This function has none of DETERMINISTIC, NO SQL, or READS SQL DATA in its declaration and binary logging is enabled (you *might* want to use the less safe log_bin_trust_function_creators variable)
-```
-
-解决方法：
-
-```mysql
-mysql>set global log_bin_trust_function_creators=1;
-```
-
-
-
-## 3、MySQL 8.0 Public Key Retrieval is not allowed
-
-在使用 JDBC 连接 MySQL 8.0 时，可能会出现 “Public Key Retrieval is not allowed” 的错误：
-
-````
-com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: Public Key Retrieval is not allowed
-````
-
-首先需要了解 MySQL 配置的密码认证插件为如下两种：
-
-- sha256_password
-- caching_sha2_password
-
-值得注意的是，如果使用 “mysql_native_password” 密码认证插件，不会出现 “Public Key Retrieval is not allowed”。MySQL 配置的密码认证方式可以通过如下命令进行查看：
-
-```mysql
-show variables like '%authentication%';
-```
-
-接着来详细分析 “Public Key Retrieval is not allowed” 错误产生的原因：MySQL 8.0 默认推荐使用 “sha256_password” 和 “caching_sha2_password” 这两种认证插件。只有较老的 MySQL 版本仍然会使用 “mysql_native_password”。
-
-根据 MySQL 提供的[官方文档](https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html)，这两种插件都是使用 SHA256 算法来对密码进行保护。这些插件的具体执行流程如下：
-
-1. 检查客户端是否禁用 SSL/TLS 加密传输；
-2. 如果客户端未禁用 SSL/TLS 加密传输，则客户端在进行认证时的认证报文（传输用户名和密码的报文）是使用 TLS 进行传输的，两种插件认为认证报文传输安全，不进行任何其他操作；
-3. 如果客户端禁用 SSL/TLS 加密传输，则客户端在进行认证时的认证报文（传输用户名和密码的报文）是使用明文进行传输的，两种插件认为认证报文传输不安全，会单独对明文报文中的密码使用 RSA 加密方式进行加密。
-
-根据前面的分析，导致 “Public Key Retrieval is not allowed” 主要是由于当禁用 SSL/TLS 协议传输后，客户端会使用服务器的公钥进行传输，默认情况下客户端不会主动去找服务器拿公钥，此时就会出现上述错误。
-
-经过查阅官方文档，出现 Public Key Retrieval 的场景可以概括为在禁用 SSL/TLS 协议传输切当前用户在服务器端没有登录缓存的情况下，客户端没有办法拿到服务器的公钥。具体的场景如下：
-
-1. 新建数据库用户，首次登录；
-2. 数据库的用户名、密码发生改变后登录；
-3. 服务器端调用 `FLUSH PRIVELEGES` 指令刷新服务器缓存。
-
-针对上述错误，有如下的解决方案：
-
-1. 在条件允许的情况下，不要禁用 SSL/TLS 协议，即不要在 CLI 客户端使用 `--ssl-mode=disabled`，或在 JDBC 连接串中加入 `useSSL=false`
-2. 如果必须禁用 SSL/TLS 协议，则可以尝试使用 CLI 客户端登录一次 MySQL 数据库制造登录缓存
-3. 如果必须禁用 SSL/TLS 协议，则可以通过增加如下参数允许客户端获得服务器的公钥：
-   - 在 JDBC 连接串中加入 `allowPublicKeyRetrieval=true` 参数
-   - 在 CLI 客户端连接时加入 `--get-server-public-key` 参数
-   - 在 CLI 客户端连接时加入 `--server-public-key-path=file_name` 参数，指定存放在本地的公钥文件
