@@ -4123,7 +4123,7 @@ f1 f2 f3 f4 f5 program
 
 **示例**
 
-1. 检查 `crontab` 服务是否运行
+1. 检查 `crontab` 服务是否运行。
 
    在 Linux 系统中，`crond` 是负责调度定时任务的守护进程。 先检查它是否在运行：
 
@@ -4138,7 +4138,7 @@ f1 f2 f3 f4 f5 program
    sudo systemctl enable crond   # 设置开机自启
    ```
 
-2. 打开 `crontab` 编辑器
+2. 打开 `crontab` 编辑器。
 
    运行以下命令：
 
@@ -4161,7 +4161,7 @@ f1 f2 f3 f4 f5 program
    Choose 1-3 [1]: 
    ```
 
-3. 添加定时任务
+3. 添加定时任务。
 
    假设我们要每天凌晨 3:00 运行 `/home/user/backup.sh`，在 `crontab` 编辑器中添加：
 
@@ -4173,13 +4173,13 @@ f1 f2 f3 f4 f5 program
    - `/home/user/backup.sh`：需要执行的脚本路径。
    - `>> /home/user/backup.log 2>&1`：将日志保存到 `/home/user/backup.log`。
 
-4. 保存并退出
+4. 保存并退出。
 
    在 `nano` 中，按 **`Ctrl + X`**，然后按 **`Y`**，再按 **`Enter`** 保存。
 
    在 `vim` 中，按 **`ESC`**，输入 `:wq` 然后回车。
 
-5. 检查任务是否生效
+5. 检查任务是否生效。
 
    运行：
 
@@ -4189,7 +4189,7 @@ f1 f2 f3 f4 f5 program
 
    如果能看到刚刚添加的任务，说明任务已经成功生效！
 
-6. 查看任务执行日志
+6. 查看任务执行日志。
 
    有时候 `crontab` 任务可能没有按预期执行，可以检查 `crontab` 日志：
 

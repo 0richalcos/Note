@@ -100,7 +100,7 @@ MySQL 为关系型数据库（Relational Database Management System），这种�
 
 ### 2.3.1、Windows 安装
 
-**安装数据库**
+#### 安装数据库
 
 1. 先下载 [MySQL](https://dev.mysql.com/downloads/mysql/)，现在的版本是 8.0.27：
 
@@ -136,7 +136,7 @@ MySQL 为关系型数据库（Relational Database Management System），这种�
 
 
 
-**初始化数据库**
+#### 初始化数据库
 
 1. 开始配置：
 
@@ -192,7 +192,7 @@ MySQL 为关系型数据库（Relational Database Management System），这种�
 
 ### 2.3.2、Ubuntu 安装
 
-**安装数据库**
+#### 安装数据库
 
 1. 查看有没有安装 MySQL：
 
@@ -224,9 +224,9 @@ MySQL 为关系型数据库（Relational Database Management System），这种�
 
 
 
-**初始化数据库**
+#### 初始化数据库
 
-接下来，为了确保数据库的安全性和正常运转，对数据库进行初始化操作。这个初始化操作涉及下面5个步骤
+接下来，为了确保数据库的安全性和正常运转，对数据库进行初始化操作。这个初始化操作涉及下面5个步骤：
 
 1. 安装验证密码插件。
 2. 设置 root 管理员在数据库中的专有密码。
@@ -294,7 +294,60 @@ All done!
 
 
 
-**卸载**
+#### 远程访问
+
+控制台连接 MySQL：
+
+```shell
+mysql> use mysql;
+
+mysql> select user,host,plugin from user;
++------------------+-----------+-----------------------+
+| user             | host      | plugin                |
++------------------+-----------+-----------------------+
+| debian-sys-maint | localhost | caching_sha2_password |
+| mysql.infoschema | localhost | caching_sha2_password |
+| mysql.session    | localhost | caching_sha2_password |
+| mysql.sys        | localhost | caching_sha2_password |
+| root             | localhost | auth_socket           |
++------------------+-----------+-----------------------+
+
+mysql> update user set host='%',plugin='mysql_native_password' where user='root';
+
+mysql> flush privileges;
+
+# 重新设置密码
+mysql> alter user'root'@'%' IDENTIFIED BY 'root';
+```
+
+> auth_socket：首先，这种验证方式不要求输入密码，即使输入了密码也不验证。这个特点让很多人觉得很不安全，实际仔细研究一下这种方式，发现还是相当安全的，因为它有另外两个限制；
+>
+> - 只能用 UNIX 的 socket 方式登陆，这就保证了只能本地登陆，用户在使用这种登陆方式时已经通过了操作系统的安全验证；
+> - 操作系统的用户和 MySQL 数据库的用户名必须一致，例如你要登陆 MySQL 的 root 用户，必须用操作系统的 root 用户登陆。
+>
+> mysql8.0 引入了新特性 caching_sha2_password；这种密码加密方式客户端不支持；客户端支持的是 mysql_native_password 这种加密方式；
+
+编辑 `/etc/mysql/mysql.conf.d/mysqld.cnf` 配置文件：
+
+```shell
+vim /etc/mysql/mysql.conf.d/mysqld.cnf
+```
+
+注释掉 `bind-address`：
+
+<img src="!assets/MySQL/image-20210420120254515.png" alt="image-20210420120254515" style="" />
+
+重启服务：
+
+```bash
+service mysql restart
+```
+
+测试远程访问。
+
+
+
+#### 卸载
 
 1. 首先停止 MySQL 服务
 
@@ -340,60 +393,126 @@ All done!
 
 ### 2.3.3、银河麒麟 V10 安装
 
+#### 删除系统捆绑依赖包
+
+1. 删除原有的 MariaDB，因为会跟 MySQL 包安装有冲突。
+
+   查找：
+
+   ```shell
+   rpm -qa | grep mariadb
+   ```
+
+   删除 MariaDB：
+
+   ```shell
+   rpm -e --nodeps <已经安装的MariaDB包>
+   ```
+
+2. 倘若之前系统已经安装过 MySQL 包也一起删除。
+
+   查找：
+
+   ```shell
+   rpm -qa | grep mysql
+   ```
+
+   删除 MySQL：
+
+   ```shell
+   rpm -e --nodeps <已经安装的MySQL包>
+   ```
 
 
 
+#### 安装数据库
 
-## 2.4、远程访问
+1. 官网下载 MySQL 安装包。
 
-控制台连接 MySQL
+   因为 Kylinos Server V10 就是基于 CentOS 8 开发而来，所以选择 Red Hat Enterprise Linux 8 / Oracle Linux 8 (x86, 64-bit), RPM Bundle：
 
-```shell
-mysql> use mysql;
+   ![image-20250409233857708](./!assets/MySQL/image-20250409233857708.png)
 
-mysql> select user,host,plugin from user;
-+------------------+-----------+-----------------------+
-| user             | host      | plugin                |
-+------------------+-----------+-----------------------+
-| debian-sys-maint | localhost | caching_sha2_password |
-| mysql.infoschema | localhost | caching_sha2_password |
-| mysql.session    | localhost | caching_sha2_password |
-| mysql.sys        | localhost | caching_sha2_password |
-| root             | localhost | auth_socket           |
-+------------------+-----------+-----------------------+
+   > [!NOTE]
+   >
+   > 如果是别的麒麟系统也可以按照此逻辑进行安装，只需要事先查询系统基于哪个 Linux 版本，然后下载对应的安装包即可。
 
-mysql> update user set host='%',plugin='mysql_native_password' where user='root';
+2. 将其上传到服务器后，解压：
 
-mysql> flush privileges;
+   ```shell
+   tar xvf mysql-8.0.33-1.el8.x86_64.rpm-bundle.tar
+   ```
 
-# 重新设置密码
-mysql> alter user'root'@'%' IDENTIFIED BY 'root';
-```
+3. 按照如下顺序逐个安装：
 
-> auth_socket：首先，这种验证方式不要求输入密码，即使输入了密码也不验证。这个特点让很多人觉得很不安全，实际仔细研究一下这种方式，发现还是相当安全的，因为它有另外两个限制；
->
-> - 只能用 UNIX 的 socket 方式登陆，这就保证了只能本地登陆，用户在使用这种登陆方式时已经通过了操作系统的安全验证；
-> - 操作系统的用户和 MySQL 数据库的用户名必须一致，例如你要登陆 MySQL 的 root 用户，必须用操作系统的 root 用户登陆。
->
-> mysql8.0 引入了新特性 caching_sha2_password；这种密码加密方式客户端不支持；客户端支持的是 mysql_native_password 这种加密方式；
+   ```shell
+   rpm -ivh mysql-community-common-8.0.33-1.el8.x86_64.rpm
+   rpm -ivh mysql-community-client-plugins-8.0.33-1.el8.x86_64.rpm
+   rpm -ivh mysql-community-libs-8.0.33-1.el8.x86_64.rpm
+   rpm -ivh mysql-community-client-8.0.33-1.el8.x86_64.rpm
+   rpm -ivh mysql-community-icu-data-files-8.0.33-1.el8.x86_64.rpm
+   rpm -ivh mysql-community-server-8.0.33-1.el8.x86_64.rpm
+   rpm -ivh mysql-community-devel-8.0.33-1.el8.x86_64.rpm
+   ```
 
-编辑 /etc/mysql/mysql.conf.d/mysqld.cnf 配置文件：
+   > [!TIP]
+   >
+   > 如果遇到问题如下：
+   >
+   > ```
+   > error: Failed dependencies:
+   > 		net-tools is needed by mysql-community-server-8.0.33-1.el8.x86_64
+   > ```
+   >
+   > 可以先安装 net-tools。
 
-```shell
-vim /etc/mysql/mysql.conf.d/mysqld.cnf
-```
+4. 启动服务：
 
-注释掉 `bind-address`：
+   ```shell
+   systemctl start mysqld
+   ```
 
-<img src="!assets/MySQL/image-20210420120254515.png" alt="image-20210420120254515" style="" />
 
-重启服务：
 
-```bash
-service mysql restart
-```
+#### 初始化数据库
 
-测试远程访问
+1. 获取初始密码并登录。
+
+   获取初始化临时密码：
+
+   ```shell
+   cat /var/log/mysqld.log | grep password
+   ```
+
+   用临时密码登录数据库：
+
+   ```shell
+   mysql -u root -p
+   ```
+
+2. 设置自己的密码：
+
+   ```shell
+   alter user root@localhost identified by 'xxxxxxxx';
+   ```
+
+3. 修改 MySQL 链接地址：
+
+   ```sql
+   use mysql;
+   
+   update user set host='%' where user = 'root';
+   
+   commit;
+   
+   exit;
+   ```
+
+4. 重启 MySQL 服务：
+
+   ```shell
+   systemctl restart mysqld
+   ```
 
 
 
@@ -6238,5 +6357,4 @@ mysql> select * from t_time_fractional;
   TRADITIONA L等效于 STRICT_TRANS_TABLES、STRICT_ALL_TABLES，NO_ZERO_IN_DATE、NO_ZERO_DATE、ERROR_FOR_DIVISION_BY_ZERO 和 NO_ENGINE_SUBSTITION。
 
   > 启用 TRADITIONAL 模式后，一旦出现错误，`INSERT` 或 `UPDATE` 就会中止。如果您使用的是非事务存储引擎，这可能不是您想要的，因为在发生错误之前所做的数据更改可能不会回滚，从而导致 “部分完成” 更新。
-
 
