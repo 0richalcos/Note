@@ -879,11 +879,7 @@ trusting_newton
 
 **清理所有处于终止状态的容器**
 
-用 `docker ps -a` 命令可以查看所有已经创建的包括终止状态的容器，如果数量太多要一个个删除可能会很麻烦，用下面的命令可以清理掉所有处于终止状态的容器：
-
-```shell
-docker container prune
-```
+用 `docker ps -a` 命令可以查看所有已经创建的包括终止状态的容器，如果数量太多要一个个删除可能会很麻烦，用 `docker container prune` 命令可以清理掉所有处于终止状态的容器。
 
 
 
@@ -917,13 +913,11 @@ docker container prune
 
 
 
-## 拉取镜像
+**拉取镜像**
 
 你可以通过 `docker search` 命令来查找官方仓库中的镜像，并利用 `docker pull` 命令来将它下载到本地。
 
-例如以 `centos` 为关键词进行搜索：
-
-复制
+例如以 centos 为关键词进行搜索：
 
 ```
 $ docker search centos
@@ -945,9 +939,7 @@ centos/systemd                     systemd enabled base container.              
 
 另外，在查找的时候通过 `--filter=stars=N` 参数可以指定仅显示收藏数量为 `N` 以上的镜像。
 
-下载官方 `centos` 镜像到本地。
-
-复制
+下载官方 `centos` 镜像到本地：
 
 ```
 $ docker pull centos
@@ -959,18 +951,18 @@ Status: Downloaded newer image for centos:latest
 docker.io/library/centos:latest
 ```
 
-## 推送镜像
 
-用户也可以在登录后通过 `docker push` 命令来将自己的镜像推送到 Docker Hub。
 
-以下命令中的 `username` 请替换为你的 Docker 账号用户名。
+**推送镜像**
 
-复制
+用户也可以在登录后通过 `docker image push` 命令（常用别名为 `docker push`）来将自己的镜像推送到 Docker Hub。
+
+以下命令中的 `username` 请替换为你的 Docker 账号用户名：
 
 ```
 $ docker tag ubuntu:18.04 username/ubuntu:18.04
 
-$ docker image ls
+$ docker images
 
 REPOSITORY                                               TAG                    IMAGE ID            CREATED             SIZE
 ubuntu                                                   18.04                  275d79972a86        6 days ago          94.6MB
@@ -984,3 +976,157 @@ NAME                      DESCRIPTION                                     STARS 
 username/ubuntu
 ```
 
+
+
+## 4.2、私有仓库
+
+有时候使用 Docker Hub 这样的公共仓库可能不方便，用户可以创建一个本地仓库供私人使用。
+
+[`docker-registry`](https://docs.docker.com/registry/) 是官方提供的工具，可以用于构建私有的镜像仓库。本文内容基于 docker-registry v2.x 版本。
+
+> [!NOTE]
+>
+> Docker Registry 是容器镜像仓库的开源实现。它于 2019 年捐赠给云原生计算基金会 (CNCF)，并以 “Distribution” 的名义进行维护。它仍然是管理和分发容器镜像的基石。
+>
+> [CNCF Distribution CNCF 分发](https://github.com/distribution/distribution)
+
+
+
+### 4.2.1、安装 docker-registry
+
+你可以使用官方 `registry` 镜像来运行：
+
+```shell
+docker run -d -p 5000:5000 --restart=always --name registry registry
+```
+
+这将使用官方的 `registry` 镜像来启动私有仓库。默认情况下，仓库会被创建在容器的 `/var/lib/registry` 目录下。你可以通过 `-v` 参数来将镜像文件存放在本地的指定路径。例如下面的例子将上传的镜像放到本地的 `/opt/data/registry` 目录：
+
+```shell
+docker run -d -p 5000:5000 -v /opt/data/registry:/var/lib/registry registry
+```
+
+
+
+### 4.2.2、使用私有仓库
+
+创建好私有仓库之后，就可以使用 `docker image tag` 命令（常用别名为 `docker tag`）来标记一个镜像，然后推送到仓库。`docker tag` 格式为：
+
+```shell
+docker tag IMAGE[:TAG] [REGISTRY_HOST[:REGISTRY_PORT]/]REPOSITORY[:TAG]
+```
+
+
+
+**示例**
+
+例如私有仓库地址为 `127.0.0.1:5000`。
+
+1. 先在本机查看已有的镜像：
+
+   ```
+   $ docker images
+   REPOSITORY                        TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+   ubuntu                            latest              ba5877dc9bec        6 weeks ago         192.7 MB
+   ```
+
+2. 使用 `docker tag` 将 `ubuntu:latest` 这个镜像标记为 `127.0.0.1:5000/ubuntu:latest`：
+
+   ```
+   $ docker tag ubuntu:latest 127.0.0.1:5000/ubuntu:latest
+   $ docker images
+   REPOSITORY                        TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+   ubuntu                            latest              ba5877dc9bec        6 weeks ago         192.7 MB
+   127.0.0.1:5000/ubuntu:latest      latest              ba5877dc9bec        6 weeks ago         192.7 MB
+   ```
+
+3. 使用 `docker push` 上传标记的镜像：
+
+   ```
+   $ docker push 127.0.0.1:5000/ubuntu:latest
+   The push refers to repository [127.0.0.1:5000/ubuntu]
+   373a30c24545: Pushed
+   a9148f5200b0: Pushed
+   cdd3de0940ab: Pushed
+   fc56279bbb33: Pushed
+   b38367233d37: Pushed
+   2aebd096e0e2: Pushed
+   latest: digest: sha256:fe4277621f10b5026266932ddf760f5a756d2facd505a94d2da12f4f52f71f5a size: 1568
+   ```
+
+4. 用 `curl` 查看仓库中的镜像：
+
+   ```
+   $ curl 127.0.0.1:5000/v2/_catalog
+   {"repositories":["ubuntu"]}
+   ```
+
+   这里可以看到 `{"repositories":["ubuntu"]}`，表明镜像已经被成功上传了。
+
+5. 先删除已有镜像，再尝试从私有仓库中下载这个镜像：
+
+   ```
+   $ docker rmi 127.0.0.1:5000/ubuntu:latest
+   
+   $ docker pull 127.0.0.1:5000/ubuntu:latest
+   Pulling repository 127.0.0.1:5000/ubuntu:latest
+   ba5877dc9bec: Download complete
+   511136ea3c5a: Download complete
+   9bad880da3d2: Download complete
+   25f11f5fb0cb: Download complete
+   ebc34468f71d: Download complete
+   2318d26665ef: Download complete
+   
+   $ docker images
+   REPOSITORY                         TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+   127.0.0.1:5000/ubuntu:latest       latest              ba5877dc9bec        6 weeks ago         192.7 MB
+   ```
+
+
+
+### 4.2.3、配置非 https 仓库地址
+
+如果你不想使用 `127.0.0.1:5000` 作为仓库地址，比如想让本网段的其他主机也能把镜像推送到私有仓库。你就得把例如 `192.168.199.100:5000` 这样的内网地址作为私有仓库地址，这时你会发现无法成功推送镜像。
+
+这是因为 Docker 默认不允许非 `HTTPS` 方式推送镜像。我们可以通过 Docker 的配置选项来取消这个限制。
+
+
+
+**Ubuntu 16.04+、Debian 8+、centos 7**
+
+对于使用 `systemd` 的系统，请在 `/etc/docker/daemon.json` 中写入如下内容（如果文件不存在请新建该文件）：
+
+```json
+{
+  "registry-mirrors": [
+    "https://hub-mirror.c.163.com",
+    "https://mirror.baidubce.com"
+  ],
+  "insecure-registries": [
+    "192.168.199.100:5000"
+  ]
+}
+```
+
+> [!CAUTION]
+>
+> 该文件必须符合 `json` 规范，否则 Docker 将不能启动。
+
+
+
+**其他**
+
+对于 Docker Desktop for Windows 、 Docker Desktop for Mac 在设置中的 `Docker Engine` 中进行编辑 ，增加和上边一样的字符串即可。
+
+
+
+# 5、数据管理
+
+在容器中管理数据主要有两种方式：
+
+- 数据卷（Volumes）
+- 挂载主机目录 (Bind mounts)
+
+
+
+## 5.1、数据卷
