@@ -1,7 +1,3 @@
----
-typora-copy-images-to: upload
----
-
 # 1、SpringBoot
 
 ## 1.1、简介
