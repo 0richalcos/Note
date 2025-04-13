@@ -366,7 +366,7 @@ service mysql restart
 
    ```shell
    sudo apt-get remove mysql-common
-   udo apt-get autoremove --purge mysql-server-8.0
+   sudo apt-get autoremove --purge mysql-server-8.0
    ```
 
 4. 如果看到没有删除的文件记得手动删除：
