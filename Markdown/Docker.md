@@ -628,7 +628,7 @@ docker rmi $(docker images -q -f before=mongo:3.2)
 
 
 
-**新建并启动**
+### 3.1.1、新建并启动容器
 
 所需要的命令主要为 `docker container run`（常用别名为 `docker run`）。
 
@@ -671,7 +671,7 @@ bin boot dev etc home lib lib64 media mnt opt proc root run sbin srv sys tmp usr
 
 
 
-**启动已终止容器**
+### 3.1.2、启动已终止容器
 
 可以利用 `docker container start` 命令（常用别名为 `docker start`），直接将一个已经终止（`exited`）的容器启动运行。
 
@@ -688,7 +688,7 @@ root@ba267838cc1b:/# ps
 
 
 
-## 3.2、守护态运行容器
+### 3.1.2、守护态启动容器
 
 更多的时候，需要让 Docker 在后台运行而不是直接把执行命令的结果输出在当前宿主机下。此时，可以通过添加 `-d` 参数来实现。
 
@@ -737,7 +737,7 @@ hello world
 
 
 
-## 3.3、终止容器
+## 3.2、终止容器
 
 可以使用 `docker container stop` 命令（常用别名为 `docker stop`）来终止一个运行中的容器。
 
@@ -759,7 +759,7 @@ ba267838cc1b        ubuntu:18.04             "/bin/bash"            30 minutes a
 
 
 
-## 3.4、进入容器
+## 3.3、进入容器
 
 在使用 `-d` 参数时，容器启动后会进入后台。
 
@@ -822,7 +822,7 @@ root@69d137adef7a:/#
 
 
 
-## 3.5、导出和导入
+## 3.4、导出和导入
 
 **导出容器**
 
@@ -862,7 +862,7 @@ docker import http://example.com/exampleimage.tgz example/imagerepo
 
 
 
-## 3.6、删除容器
+## 3.5、删除容器
 
 **删除容器**
 
@@ -1124,9 +1124,129 @@ docker tag IMAGE[:TAG] [REGISTRY_HOST[:REGISTRY_PORT]/]REPOSITORY[:TAG]
 
 在容器中管理数据主要有两种方式：
 
-- 数据卷（Volumes）
-- 挂载主机目录 (Bind mounts)
+- 数据卷（Volumes）。
+- 绑定挂载 (Bind mounts)。
+
+管理数据卷的命令为 `docker volume`，其下有以下子命令：
+
+| 命令                    | 描述                         |
+| :---------------------- | :--------------------------- |
+| `docker volume create`  | 创建卷。                     |
+| `docker volume inspect` | 显示一个或多个卷的详细信息。 |
+| `docker volume ls`      | 列出卷。                     |
+| `docker volume prune`   | 删除未使用的本地卷。         |
+| `docker volume rm`      | 删除一个或多个卷。           |
+| `docker volume update`  | 更新卷（仅限集群卷）。       |
 
 
 
 ## 5.1、数据卷
+
+数据卷是一个可供一个或多个容器使用的特殊目录，它绕过 UnionFS，可以提供很多有用的特性：
+
+- 数据卷可以在容器之间共享和重用。
+- 对数据卷的修改会立马生效。
+- 对数据卷的更新，不会影响镜像。
+- 数据卷默认会一直存在，即使容器被删除。
+
+> [!NOTE]
+>
+> 数据卷的使用，类似于 Linux 下对目录或文件进行 `mount`，镜像中的被指定为挂载点的目录中的文件会复制到数据卷中（仅数据卷为空时会复制）。
+
+
+
+**创建数据卷**
+
+创建数据卷 `my-vol`：
+
+```shell
+docker volume create my-vol
+```
+
+> [!NOTE]
+>
+> 如果未指定名称，Docker 将生成一个随机名称，这种数据卷被称为匿名卷。
+
+使用 `docker volume ls` 查看所有的数据卷：
+
+```
+$ docker volume ls
+
+DRIVER              VOLUME NAME
+local               my-vol
+```
+
+使用 `docker volume inspect` 命令可以查看指定数据卷的信息：
+
+```
+$ docker volume inspect my-vol
+[
+    {
+        "Driver": "local",
+        "Labels": {},
+        "Mountpoint": "/var/lib/docker/volumes/my-vol/_data",
+        "Name": "my-vol",
+        "Options": {},
+        "Scope": "local"
+    }
+]
+```
+
+
+
+**使用数据卷启动容器**
+
+在用 `docker run` 命令的时候，使用 `--mount` 标记来将数据卷挂载到容器里，在一次 `docker run` 中可以挂载多个数据卷。
+
+下面创建一个名为 `web` 的容器，并加载一个数据卷到容器的 `/usr/share/nginx/html` 目录：
+
+```shell
+docker run -d --name web --mount source=my-vol,target=/usr/share/nginx/html nginx:alpine
+```
+
+使用 `docker inspect` 命令验证 `web` 容器是否已正确挂载数据卷：
+
+```shell
+docker inspect web
+```
+
+查找 `Mounts` 部分：
+
+```json
+"Mounts": [
+    {
+        "Type": "volume",
+        "Name": "my-vol",
+        "Source": "/var/lib/docker/volumes/my-vol/_data",
+        "Destination": "/usr/share/nginx/html",
+        "Driver": "local",
+        "Mode": "",
+        "RW": true,
+        "Propagation": ""
+    }
+],
+```
+
+这表明数据卷挂载成功，它显示了正确的源和目标，并且挂载是读写的。
+
+
+
+**删除数据卷**
+
+删除数据卷 `my-vol`：
+
+```shell
+docker volume rm my-vol
+```
+
+数据卷是被设计用来持久化数据的，它的生命周期独立于容器，Docker 不会在容器被删除后自动删除数据卷，并且也不存在垃圾回收这样的机制来处理没有任何容器引用的数据卷。
+
+无主的数据卷可能会占据很多空间，要清理可以使用 `docker volume prune` 命令。
+
+> [!TIP]
+>
+>  `docker volume prune` 只会删除所有未被容器使用的匿名卷，如果想删除所有未使用的卷，需要加上参数 `-a`。
+
+
+
+## 5.2、绑定挂载
