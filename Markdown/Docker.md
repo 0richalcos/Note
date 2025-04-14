@@ -1250,3 +1250,4 @@ docker volume rm my-vol
 
 
 ## 5.2、绑定挂载
+
