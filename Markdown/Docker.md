@@ -1155,7 +1155,7 @@ docker tag IMAGE[:TAG] [REGISTRY_HOST[:REGISTRY_PORT]/]REPOSITORY[:TAG]
 
 
 
-**创建数据卷**
+### 5.1.1、创建数据卷
 
 创建数据卷 `my-vol`：
 
@@ -1194,7 +1194,7 @@ $ docker volume inspect my-vol
 
 
 
-**使用数据卷启动容器**
+### 5.1.2、使用数据卷启动容器
 
 在用 `docker run` 命令的时候，使用 `--mount` 标记来将数据卷挂载到容器里，在一次 `docker run` 中可以挂载多个数据卷。
 
@@ -1231,7 +1231,7 @@ docker inspect web
 
 
 
-**删除数据卷**
+### 5.1.3、删除数据卷
 
 删除数据卷 `my-vol`：
 
@@ -1250,4 +1250,78 @@ docker volume rm my-vol
 
 
 ## 5.2、绑定挂载
+
+**挂载主机目录作为数据卷**
+
+使用 `--mount` 参数可以指定挂载一个本地主机的目录到容器中去：
+
+```shell
+docker run -d --name web --mount type=bind,source=/src/webapp,target=/usr/share/nginx/html nginx:alpine
+```
+
+上面的命令加载主机的 `/src/webapp` 目录到容器的 `/usr/share/nginx/html`目录。这个功能在进行测试的时候十分方便，比如用户可以放置一些程序到本地目录中，来查看容器是否正常工作。
+
+> [!CAUTION]
+>
+> 使用 `--mount` 参数时如果本地目录不存在，Docker 会报错。
+
+使用 `docker inspect` 命令验证 `web` 容器是否已正确挂载数据卷：
+
+```shell
+docker inspect web
+```
+
+查找 `Mounts` 部分：
+
+```json
+"Mounts": [
+    {
+        "Type": "bind",
+        "Source": "/src/webapp",
+        "Destination": "/usr/share/nginx/html",
+        "Mode": "",
+        "RW": true,
+        "Propagation": "rprivate"
+    }
+],
+```
+
+这表明 `bind` 挂载成功，显示挂载是读写的，，用户也可以通过增加 `readonly` 指定为只读：
+
+```shell
+docker run -d --name web --mount type=bind,source=/src/webapp,target=/usr/share/nginx/html,readonly nginx:alpine
+```
+
+加了 `readonly` 之后，就挂载为只读 了。如果你在容器内 `/usr/share/nginx/html` 目录新建文件，会显示如下错误：
+
+```
+/usr/share/nginx/html # touch new.txt
+touch: new.txt: Read-only file system
+```
+
+
+
+**挂载主机文件作为数据卷**
+
+`--mount` 参数也可以从主机挂载单个文件到容器中：
+
+```
+$ docker run --rm -it --mount type=bind,source=$HOME/.bash_history,target=/root/.bash_history ubuntu:18.04 bash
+
+root@2affd44b4667:/# history
+1  ls
+2  diskutil list
+```
+
+这样就可以记录在容器输入过的命令了。
+
+
+
+# 6、使用网络
+
+Docker 允许通过外部访问容器或容器互联的方式来提供网络服务。
+
+
+
+## 6.1、外部访问容器
 
