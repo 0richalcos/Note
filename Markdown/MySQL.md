@@ -98,7 +98,25 @@ MySQL 为关系型数据库（Relational Database Management System），这种�
 
 ## 2.3、安装 MySQL 数据库
 
+Windows 系统选择 msi 文件直接安装比较方便；Linux 系统如果使用 tar 文件离线解压安装，解压后会出现很多 rpm 安装包，以下为常用安装包：
+
+| 文件名                             | 说明                                                         | 是否需要               |
+| ---------------------------------- | ------------------------------------------------------------ | ---------------------- |
+| mysql-community-common.rpm         | 提供 MySQL 所有组件通用的配置文件和数据文件<br/>（比如字符集、帮助文件等）。 | ✅ 必须                 |
+| mysql-community-libs.rpm           | MySQL 客户端程序依赖的共享库（libmysqlclient）。             | ✅ 必须                 |
+| mysql-community-client.rpm         | 提供 `mysql` 命令行客户端工具。                              | ✅ 必须                 |
+| mysql-community-server.rpm         | MySQL 服务器端程序，含 `mysqld`。                            | ✅ 必须（要运行服务）   |
+| mysql-community-client-plugins.rpm | 提供客户端插件，比如 caching_sha2_password 等。              | ⚠️ 可选，推荐装         |
+| mysql-community-icu-data-files.rpm | ICU 数据，支持排序/字符集等国际化功能。                      | ⚠️ 可选                 |
+| mysql-community-devel.rpm          | 包含头文件、开发库，给编译程序用<br/>（比如编译 PHP 的 MySQL 扩展）。 | ❌ 非必须（除非你开发） |
+
+
+
 ### 2.3.1、Windows 安装
+
+系统版本为 Windows 11，架构为 X86_64，使用 msi 安装包离线安装。
+
+
 
 #### 安装数据库
 
@@ -192,6 +210,10 @@ MySQL 为关系型数据库（Relational Database Management System），这种�
 
 ### 2.3.2、Ubuntu 安装
 
+系统版本为 Ubuntu 20.04，架构为 X86_64，使用 `apt` 在线安装。
+
+
+
 #### 安装数据库
 
 1. 查看有没有安装 MySQL：
@@ -234,7 +256,7 @@ MySQL 为关系型数据库（Relational Database Management System），这种�
 4. 删除默认的测试数据库，取消测试数据库的一系列访问权限。
 5. 刷新授权列表，让初始化的设定立即生效。
 
-输入`mysql_secure_installation`开始
+输入`mysql_secure_installation`开始：
 
 ```shell
 Securing the MySQL server deployment.
@@ -391,7 +413,11 @@ service mysql restart
 
 
 
-### 2.3.3、银河麒麟 V10 安装
+### 2.3.3、银河麒麟安装
+
+系统版本为银河麒麟 V10，架构为 X86，使用 tar 压缩包离线安装。
+
+
 
 #### 删除系统捆绑依赖包
 
@@ -429,7 +455,7 @@ service mysql restart
 
 1. 官网下载 MySQL 安装包。
 
-   因为 Kylinos Server V10 就是基于 CentOS 8 开发而来，所以选择 Red Hat Enterprise Linux 8 / Oracle Linux 8 (x86, 64-bit), RPM Bundle：
+   因为 Kylinos Server V10 就是基于 CentOS 8 开发而来，所以 OS Version 选择 Red Hat Enterprise Linux 8 / Oracle Linux 8 (x86, 64-bit)，选择下载 RPM Bundle：
 
    ![image-20250409233857708](./!assets/MySQL/image-20250409233857708.png)
 
@@ -440,7 +466,7 @@ service mysql restart
 2. 将其上传到服务器后，解压：
 
    ```shell
-   tar xvf mysql-8.0.33-1.el8.x86_64.rpm-bundle.tar
+   tar -xvf mysql-8.0.33-1.el8.x86_64.rpm-bundle.tar
    ```
 
 3. 按照如下顺序逐个安装：
@@ -492,7 +518,89 @@ service mysql restart
 
 2. 设置自己的密码：
 
+   ```sql
+   alter user root@localhost identified by 'xxxxxxxx';
+   ```
+
+3. 修改 MySQL 链接地址：
+
+   ```sql
+   use mysql;
+   
+   update user set host='%' where user = 'root';
+   
+   commit;
+   
+   exit;
+   ```
+
+4. 重启 MySQL 服务：
+
    ```shell
+   systemctl restart mysqld
+   ```
+
+
+
+### 2.3.4、openEuler 安装
+
+系统版本为 openEuler 22.03（LTS-SP3），架构为 aarch64，使用 tar 压缩包离线安装。
+
+
+
+#### 安装数据库
+
+1. 官网下载 MySQL 安装包。
+
+   因为 openEuler 基于 Red Hat Enterprise Linux 开发而来，所以 OS Version 选择 Red Hat Enterprise Linux 8 / Oracle Linux 8 (ARM, 64-bit)，选择下载 RPM Bundle：
+
+   ![image-20250416114705259](./!assets/MySQL/image-20250416114705259.png)
+
+2. 将其上传到服务器后，解压：
+
+   ```shell
+   tar -xvf mysql-8.0.42-1.el8.aarch64.rpm-bundle.tar
+   ```
+
+3. 按照如下顺序逐个安装：
+
+   ```shell
+   rpm -ivh mysql-community-common-8.0.42-1.el8.aarch64.rpm
+   rpm -ivh mysql-community-client-plugins-8.0.42-1.el8.aarch64.rpm
+   rpm -ivh mysql-community-libs-8.0.42-1.el8.aarch64.rpm
+   rpm -ivh mysql-community-client-8.0.42-1.el8.aarch64.rpm
+   rpm -ivh mysql-community-icu-data-files-8.0.42-1.el8.aarch64.rpm
+   rpm -ivh mysql-community-server-8.0.42-1.el8.aarch64.rpm
+   rpm -ivh mysql-community-devel-8.0.42-1.el8.aarch64.rpm
+   ```
+
+4. 启动服务：
+
+   ```shell
+   systemctl start mysqld
+   ```
+
+
+
+#### 初始化数据库
+
+1. 获取初始密码并登录。
+
+   获取初始化临时密码：
+
+   ```shell
+   cat /var/log/mysqld.log | grep password
+   ```
+
+   用临时密码登录数据库：
+
+   ```shell
+   mysql -u root -p
+   ```
+
+2. 设置自己的密码：
+
+   ```sql
    alter user root@localhost identified by 'xxxxxxxx';
    ```
 
@@ -6026,7 +6134,7 @@ show variables like '%authentication%';
 
 # 18、服务管理
 
-## 18.1、服务 SQL 模式
+## 18.1、SQL 模式
 
 MySQL 服务可以在不同的 SQL 模式下运行，并且可以根据 `sql_mode` 系统变量的值将这些模式应用于不同的客户端。DBA 可以设置全局 SQL 模式以匹配站点服务器的操作要求，并且每个应用程序可以根据自己的要求设置其会话 SQL 模式。
 
@@ -6357,4 +6465,49 @@ mysql> select * from t_time_fractional;
   TRADITIONA L等效于 STRICT_TRANS_TABLES、STRICT_ALL_TABLES，NO_ZERO_IN_DATE、NO_ZERO_DATE、ERROR_FOR_DIVISION_BY_ZERO 和 NO_ENGINE_SUBSTITION。
 
   > 启用 TRADITIONAL 模式后，一旦出现错误，`INSERT` 或 `UPDATE` 就会中止。如果您使用的是非事务存储引擎，这可能不是您想要的，因为在发生错误之前所做的数据更改可能不会回滚，从而导致 “部分完成” 更新。
+
+
+
+## 18.2、集群
+
+所谓集群，就是多台服务器之间共享数据，从而实现系统的高可用。节点之间的数据是实时同步的，采用的是同步复制机制。除了有多个主节点外，这些主节点还有多个从节点，当在主节点上进行写操作时，这些写操作会立即被复制到其他节点。因此，所有节点上的数据都是同步的，可以保持一致性。
+
+其特点是高可伸缩性和高可用性，但其缺点也不言而喻，可能会出现数据不一致情况，也会耗费大量的资源。
+
+
+
+### 18.2.1、主从复制
+
+有一个主数据库（Master）和一个或多个从数据库（Slave）。主数据库负责处理事务操作（INSERT、UPDATE、DELETE），并将这些操作的日志（binlog）传送给从数据库。从数据库通过解析主数据库的日志并执行相同的操作，在从库上实现数据的同步。其作用是可以实现读写分离（主节点负责读和写，从节点只负责读），也可以在发生故障时进行数据的恢复（从数据库相当于是主数据库的备份）。
+
+其形式有以下几种：
+
+<img src="./!assets/MySQL/1746338-20231126174307485-252845782.png" alt="img" style="zoom: 33%;" />
+
+
+
+**主从复制的原理**
+
+在主库中，如果有数据更新，则主库会将数据的事务操作 DML 记录到 binlog（二进制日志）中（在配置文件中 log-bin 指定的文件就是日志文件），binlog 是主从同步的源头，记录的是SQL语句或行级变化。这就是为什么主库的 binlog 日志一定要开启的原因。
+
+MySQL 的主从复制中主要有三个线程：master（binlog dump thread）、slave（I/O thread 、SQL thread），Master 一条线程和 Slave 中的两条线程：
+
+- I/O thread 线程在 Slave 中创建，该线程用于请求 Master，Master 会返回 binlog 的名称以及当前数据更新的位置、binlog 文件位置的副本。
+
+  然后，将 binlog 保存在 relay log（中继日志）中，relay log 也是记录数据更新的信息。
+
+- Master 的 binlog dump 线程负责把 binlog 的内容发送给从库，拥有多个从库的主库会为每一个连接到主库的从库创建一个 binlog dump 线程。
+
+- SQL thread 也是在 Slave 中创建的，当 Slave 检测到中继日志有更新，就会将更新的内容同步到 Slave 数据库中，这样就保证了主从的数据的同步。
+
+
+
+**搭建主从复制**
+
+这里搭建最简单的一主一从形式，服务器信息如下：
+
+| IP           | 端口 | 说明   |
+| ------------ | ---- | ------ |
+| 10.13.18.187 | 3306 | 主节点 |
+| 10.13.18.199 | 3306 | 从节点 |
 
