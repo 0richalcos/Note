@@ -1,4 +1,4 @@
-# 1、SQL简介
+# 1、SQL 简介
 
 SQL 是用于访问和处理数据库的标准计算机语言。
 
@@ -369,7 +369,7 @@ service mysql restart
 
 
 
-#### 卸载
+#### 卸载数据库
 
 1. 首先停止 MySQL 服务
 
@@ -404,7 +404,7 @@ service mysql restart
 6. 再次查看MySQL的剩余依赖项：
 
    ```shell
-   dpkg --list|grep mysql
+   dpkg --list | grep mysql
    ```
 
 7. 删除 MySQL 的数据库信息，位置：`/var/lib/mysql/`：
@@ -494,6 +494,10 @@ service mysql restart
 
 4. 启动服务：
 
+   > [!TIP]
+   >
+   > 如果想要修改 MySQL `lower_case_table_names`（大小写敏感）参数，请在执行启动命令前修改 my.cnf 文件配置。
+   
    ```shell
    systemctl start mysqld
    ```
@@ -530,14 +534,12 @@ service mysql restart
    update user set host='%' where user = 'root';
    
    commit;
-   
-   exit;
    ```
+   
+4. 刷新授权信息：
 
-4. 重启 MySQL 服务：
-
-   ```shell
-   systemctl restart mysqld
+   ```sql
+   flush privileges;
    ```
 
 
@@ -576,6 +578,10 @@ service mysql restart
 
 4. 启动服务：
 
+   > [!TIP]
+   >
+   > 如果想要修改 MySQL `lower_case_table_names`（大小写敏感）参数，请在执行启动命令前修改 my.cnf 文件配置。
+   
    ```shell
    systemctl start mysqld
    ```
@@ -612,14 +618,41 @@ service mysql restart
    update user set host='%' where user = 'root';
    
    commit;
-   
-   exit;
    ```
 
-4. 重启 MySQL 服务：
+4. 刷新授权信息：
+
+   ```sql
+   flush privileges;
+   ```
+
+
+
+
+#### 卸载数据库
+
+1. 查找 MySQL 包：
 
    ```shell
-   systemctl restart mysqld
+   rpm -qa | grep mysql
+   ```
+
+2. 删除刚刚查询到的 MySQL 包 ：
+
+   ```shell
+   rpm -e --nodeps $(rpm -qa | grep mysql)
+   ```
+
+3. 使用 `find` 命令查找 MySQL 的相关文件夹：
+
+   ```shell
+   find / -name mysql
+   ```
+
+4. 使用 `rm` 命令删除所有的文件夹：
+
+   ```shell
+   rm -rf $(find / -name mysql)
    ```
 
 
@@ -6502,7 +6535,7 @@ MySQL 的主从复制中主要有三个线程：master（binlog dump thread）�
 
 
 
-**搭建主从复制**
+#### 搭建主从复制
 
 这里搭建最简单的一主一从形式，服务器信息如下：
 
@@ -6510,4 +6543,267 @@ MySQL 的主从复制中主要有三个线程：master（binlog dump thread）�
 | ------------ | ---- | ------ |
 | 10.13.18.187 | 3306 | 主节点 |
 | 10.13.18.199 | 3306 | 从节点 |
+
+
+
+**10.13.18.187 主机配置 Master**
+
+1. 修改配置文件`my.cnf`：
+
+   ```shell
+   vim /etc/my.cnf
+   ```
+
+   在最后添加以下内容：
+
+   ```
+   # 指定server_id
+   server_id=1
+   # 定义日志名
+   log-bin=master.bin
+   ```
+
+2. 重启服务生效配置：
+
+   ```shell
+   systemctl restart mysqld
+   ```
+
+3. 连接数据库，创建一个用户用于数据的同步：
+
+   ```sql
+   CREATE USER 'replica_user'@'%' IDENTIFIED WITH mysql_native_password BY 'Replica#user1';
+   ```
+
+   用户授权：
+
+   ```sql
+   GRANT REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'replica_user'@'%';
+   ```
+
+   刷新授权信息：
+
+   ```sql
+   FLUSH PRIVILEGES;
+   ```
+
+   查看用户信息：
+
+   ```sql
+   SELECT host, user FROM mysql.user WHERE user = 'replica_user';
+   ```
+
+4. 使用 `SHOW MASTER STATUS;` 查看 Master 信息，目的是查看 `File` 和 `Position` 的值：
+
+   ```
+   mysql> SHOW MASTER STATUS;
+   +---------------+----------+--------------+------------------+-------------------+
+   | File          | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |
+   +---------------+----------+--------------+------------------+-------------------+
+   | master.000001 |      719 |              |                  |                   |
+   +---------------+----------+--------------+------------------+-------------------+
+   1 row in set (0.00 sec)
+   ```
+
+
+
+**10.13.18.199 主机配置 Slave**
+
+1. 修改配置文件`my.cnf`：
+
+   ```shell
+   vim /etc/my.cnf
+   ```
+
+   在最后添加以下内容：
+
+   ```
+   # 执行server_id
+   server-id=2
+   ```
+
+2. 重启服务生效配置：
+
+   ```shell
+   systemctl restart mysqld
+   ```
+
+3. 连接数据库，指定主服务器信息：
+
+   ```sql
+   CHANGE MASTER TO master_host="10.13.18.187", master_user="replica_user", master_password="Replica#user1", master_log_file="master.000001", master_log_pos=719;
+   ```
+
+   - *master_host*：主服务器 IP 地址
+   - *master_user*：主服务器添加用户名。
+   - *master_password*：用户密码。
+   - *master_log_file*：主服务器 binlog 日志名。
+   - *master_log_pos*：偏移量。
+
+4. 启动 Slave进程：
+
+   ```sql
+   START SLAVE;
+
+5. 查看状态信息（`Slave_IO_Running` 和 `Slave_SQL_Running` 必须同时是 YES 状态）：
+
+   ```sql
+   SHOW SLAVE STATUS \G
+   ```
+
+
+
+#### 测试主从复制
+
+Master 中新建一个数据库，去 Slave 上查看数据库，看到数据库已同步。
+
+
+
+#### 可能出现的问题
+
+出现问题先确定 `Slave_IO_Running` 和 `Slave_SQL_Running` 的状态（必须同时是 YES 状态），如果不为 YES 可以使用 `SHOW SLAVE STATUS \G` 查看 `Last_IO_Errno`、`Last_IO_Error` 和 `Last_SQL_Errno`、`Last_SQL_Error` 的信息定位问题。
+
+
+
+**Last_IO_Errno: 2003**
+
+```
+Last_IO_Errno: 2003
+Last_IO_Error: Error connecting to source 'replica_user@10.13.18.187:3306'. This was attempt 10/86400, with a delay of 60 seconds between attempts. Message: Can't connect to MySQL server on '10.13.18.187:3306' (113)
+```
+
+这种情况是连接不上主库，可以排查下两个主机之间是否能 `ping` 通，不通则可能是两个主机之间的网络问题，如果可以通则 `telnet` 看看端口是否有反应，如果不通可能是防火墙问题：
+
+```shell
+# 查看防火墙状态
+firewall-cmd --state
+
+# 查看防火墙开放端口
+firewall-cmd --list-ports
+
+# 防火墙开放3306端口
+firewall-cmd --permanent --add-port=3306/tcp
+
+# 重新加载防火墙
+firewall-cmd --reload
+```
+
+
+
+**Last_IO_Errno: 2061**
+
+```
+Last_IO_Errno: 2061
+Last_IO_Error: Error connecting to source 'replica_user@10.13.18.187:3306'. This was attempt 1/86400, with a delay of 60 seconds between attempts. Message: Authentication plugin 'caching_sha2_password' reported error: Authentication requires secure connection.
+```
+
+因为当前使用的身份验证插件是：caching_sha2_password（MySQL 8.0 的默认插件），而 MySQL 主从复制默认是走非加密连接，这就触发了："Authentication requires secure connection" 错误。
+
+重新创建复制用户，指定使用 mysql_native_password 插件：
+
+```sql
+DROP USER 'replica_user'@'%';
+
+CREATE USER 'replica_user'@'%' IDENTIFIED WITH mysql_native_password BY 'xxxxxxxx';
+
+GRANT REPLICATION SLAVE ON *.* TO 'replica_user'@'%';
+
+FLUSH PRIVILEGES;
+```
+
+执行完成之后，从库重新配置 Slave：
+
+```sql
+STOP SLAVE;
+
+CHANGE MASTER TO master_host="10.13.18.187", master_user="replica_user", master_password="Replica#user1", master_log_file="master.000001", master_log_pos=719;
+
+START SLAVE;
+```
+
+
+
+**Last_IO_Errno: 13117**
+
+```
+Last_IO_Errno: 13117
+Last_IO_Error: Fatal error: The replica I/O thread stops because source and replica have equal MySQL server ids; these ids must be different for replication to work (or the --replicate-same-server-id option must be used on replica but this does not always make sense; please check the manual before using it).
+```
+
+可能是不注意将 `CHANGE MASTER` 命令执行到 Master 机器上了。
+
+1. 先停止 Slave：
+
+   ```sql
+   STOP SLAVE;
+   ```
+
+2. 重置 Slave：
+
+   ```sql
+   RESET SLAVE ALL;
+   ```
+
+3. 之后可以再执行：
+
+   ```sql
+   SHOW SLAVE STATUS\G
+   ```
+
+   确认是空的状态即可。
+
+
+
+## 18.3、配置不区分大小写 
+
+在默认情况下，Linux 系统上 MySQL 是大小写敏感的。这意味着在查询表名、列名或关键字时，必须精确匹配大小写。然而，在某些情况下，我们可能希望数据库忽略大小写，以便更方便地进行操作。
+
+
+
+**查看当前设置**
+
+```sql
+show variables like 'lower_case_table_names';
+```
+
+`lower_case_table_names` 参数说明：
+
+- `0`：表名和列名是大小写敏感的。
+- `1`：表名和列名是大小写不敏感的。
+- `2`：表名和列名是大小写敏感的，但 MySQL 会自动将大写字母转换为小写字母存储。
+
+
+
+**临时修改设置**
+
+```sql
+SET GLOBAL lower_case_table_names=1 
+```
+
+> [!NOTE]
+>
+> 这种配置方式，只对当前会话有效。当 MySQL 重启时，配置将修改为默认值。 
+
+
+
+**永久修改设置**
+
+这种方式是，修改 MySQL 的配置文件。一般在 `/etc/my.cnf` 文件中，在后面追加如下内容：
+
+```
+lower_case_table_names=1
+```
+
+修改后，保存。然后重启 MySQL 服务器。
+
+> [!CAUTION]
+>
+> MySQL 8.0 要求我们不能在 initialize 之后再更改 `lower_case_table_names` 的值，也就是说，已经初始化后的数据库再通过更改 my.cnf 文件是不管用的，只能重装数据库。
+>
+> 强行修改重启服务会：
+> ```
+> Job for mysqld.service failed because the control process exited with
+> error code. See "systemctl status mysqld.service" and "journalctl -xe" 
+> for details.
+> ```
 

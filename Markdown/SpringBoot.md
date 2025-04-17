@@ -999,13 +999,17 @@ Maven 本身也提供了对多环境的支持，不仅仅支持 Spring Boot 项�
 
 Maven 对于多环境的支持在功能方面更加强大，支持 JDK 版本、资源文件、操作系统等等因素来选择环境。
 
+
+
+#### 创建多环境配置文件
+
 创建不同环境的配置文件，分别是 `application-dev.properties`、`application-test.properties`、`application-prod.properties`。
 
-加上默认的配置文件 `application.properties` 同样是四个配置文件。
+加上默认的配置文件 `application.properties`，同样是四个配置文件。
 
 
 
-**创建多环境配置文件**
+#### 定义激活的变量
 
 需要将 Maven 激活的环境作用于 Spring Boot，实际还是利用了 `spring.profiles.active` 这个属性，只是现在这个属性的取值将是取值于 Maven。配置如下：
 
@@ -1057,43 +1061,43 @@ spring.profiles.active=@profile.active@
        </configuration>
    </plugin>
    ```
+   
+   但是这个只有继承了 spring-boot-starter-parent 的 SpringBoot 项目才会默认使用 `@@` 占位符，否则 SpringBoot 配置文件中的默认占位符 `${}` 可能会与 Maven 的默认占位符 `${}` 冲突，可以使用以下插件将 SpringBoot 配置文件中的 Maven 占位符改为 `@@`：
+   
+   ```xml
+   <build>
+       <plugins>
+           <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-resources-plugin</artifactId>
+               <configuration>
+                   <delimiters>
+                       <!--将maven占位符替换为 @ @ -->
+                       <delimiter>@</delimiter>
+                   </delimiters>
+                   <!--不使用默认的变量分割符即${}-->
+                   <useDefaultDelimiters>false</useDefaultDelimiters>
+               </configuration>
+           </plugin>
+       </plugins>
+       <resources>
+           <resource>
+               <directory>src/main/resources</directory>
+                <!--maven会自动读取includes配置文件，然后解析其中的占位符（占位符是${变量名称}这样的形式）-->
+               <filtering>true</filtering>
+               <includes>
+                   <include>**/application*.yml</include>
+                   <include>**/application*.yaml</include>
+                   <include>**/application*.properties</include>
+               </includes>
+           </resource>
+       </resources>
+   </build>
+   ```
 
-但是这个只有继承了 spring-boot-starter-parent 的 SpringBoot 项目才会默认使用 `@@` 占位符，否则 SpringBoot 配置文件中的默认占位符 `${}` 可能会与 Maven 的默认占位符 `${}` 冲突，可以使用以下插件将 SpringBoot 配置文件中的 Maven 占位符改为 `@@`：
-
-```xml
-<build>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-resources-plugin</artifactId>
-            <configuration>
-                <delimiters>
-                    <!--将maven占位符替换为 @ @ -->
-                    <delimiter>@</delimiter>
-                </delimiters>
-                <!--不使用默认的变量分割符即${}-->
-                <useDefaultDelimiters>false</useDefaultDelimiters>
-            </configuration>
-        </plugin>
-    </plugins>
-    <resources>
-        <resource>
-            <directory>src/main/resources</directory>
-             <!--maven会自动读取includes配置文件，然后解析其中的占位符（占位符是${变量名称}这样的形式）-->
-            <filtering>true</filtering>
-            <includes>
-                <include>**/application*.yml</include>
-                <include>**/application*.yaml</include>
-                <include>**/application*.properties</include>
-            </includes>
-        </resource>
-    </resources>
-</build>
-```
 
 
-
-**定义激活的变量**
+#### pom 文件中定义 profiles
 
 需要在 Maven 的 `pom.xml` 文件中定义不同环境的 `profile`，如下：
 
@@ -1173,7 +1177,7 @@ Maven 中的 `profile` 的激活条件还可以根据 JDK、操作系统、文�
 
 
 
-**资源过滤**
+#### 资源过滤
 
 如果你不配置这一步，将会在任何环境下打包都会带上全部的配置文件，但是我们可以配置只保留对应环境下的配置文件，这样安全性更高。
 
