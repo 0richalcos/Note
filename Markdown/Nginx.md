@@ -274,6 +274,45 @@ http      #http块
 
 
 
+**关于 `location` 是否带斜杠的区别**
+
+不带斜杠的配置：
+
+```nginx
+location /txffc {
+    proxy_pass http://localhost:8082;
+}
+```
+
+可以匹配：
+
+- http://192.168.231.128/txffc/common
+- http://192.168.231.128/txffcddd
+- http://192.168.231.128/txffcddd/aabc
+
+带斜杠的配置：
+
+```nginx
+location /txffc/ {
+    proxy_pass http://localhost:8082;
+}
+```
+
+可以匹配：
+
+- http://192.168.231.128/txffc/common
+- http://192.168.231.128/txffc/aabb
+
+不能匹配：
+
+- http://192.168.231.128/txffcddd
+
+> [!TIP]
+>
+> 大部分情况推荐带斜杠的 `location` 写法（匹配会更准确些）。
+
+
+
 ## 3.2、内置变量
 
 Nginx 提供了许多内置变量，这些变量在配置文件中可以用来动态地获取请求、响应、连接等相关信息。以下是 Nginx 中常见的一些内置变量及其简要说明：
@@ -500,6 +539,34 @@ proxy_ssl_ciphers HIGH:!aNULL:!MD5;						# 设置Nginx与上游服务器通信�
 proxy_ssl_verify on;									# 启用或禁用对上游服务器证书的验证
 proxy_ssl_verify_depth 2;								# 设置验证上游服务器证书时的最大链深度
 ```
+
+
+
+**关于 `proxy_pass` 是否带斜杠的区别**
+
+如果 `proxy_pass` 不带斜杠：
+
+```nginx
+location /txffc {
+    proxy_pass http://localhost:8082;
+}
+```
+
+访问 URL 是 http://192.168.231.128/txffc/common，指向的地址实际是：http://localhost:8082/txffc/common，即 Nginx 会把包括匹配到的内容都追加到 `proxy_pass` 地址后面。
+
+如果 `proxy_pass` 带上斜杠：
+
+```nginx
+location /txffc {
+    proxy_pass http://localhost:8082/;
+}
+```
+
+访问 URL 是 http://192.168.231.128/txffc/common，指向的地址实际是：http://localhost:8082/common，即 Nginx 不会把匹配到的内容追加到 `proxy_pass` 地址后面。
+
+> [!TIP]
+>
+> 大部分情况推荐带斜杠的 `proxy_pass` 写法（控制更清晰）。
 
 
 

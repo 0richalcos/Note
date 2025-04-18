@@ -174,12 +174,56 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 
 
-## 【6】删除右键菜单新建中的选项
+## 【6】右键菜单设置
+
+### 删除右键菜单新建中的选项
 
 1. 按下 Win+R，运行 `regedit`。
 2. 展开 `HKEY_CLASSES_ROOT`，找到需要删除的文件后缀名，然后展开文件夹找到 `ShellNew` 选项，直接删除即可。
 
 > 如果觉得这个快捷方式以后可能会用到，需要重新打开，可以将 `ShellNew` 选项的名字改掉，比如改为 `ShellNew-`。
+
+
+
+### 解决腾讯文档替换 Windows 右键快捷方式
+
+在使用一段腾讯文档之后，发现腾讯文档替换掉了我 Windows 上原来 Office 三件套的右键新建文件快捷方式：
+
+<img src="!assets/IDE&Windows/3eca1cfd0665441f9ddc6464b153c57a.png" alt="3eca1cfd0665441f9ddc6464b153c57a" style="zoom:50%;" />
+
+解决办法：
+
+1. 首先按照[【6】删除右键菜单新建中的选项](#【6】删除右键菜单新建中的选项) 这里的步骤将 `.tdoc`、`.tsheet`、`.tslide` 三个选项取消掉。
+
+2. 然后找到 `.xlsx` 选项并单击选中，双击打开右侧里面的默认项，将数值改为 `Excel.Sheet.12`，其他的同理：
+
+   <img src="!assets/IDE&Windows/image-20240411184726892.png" alt="image-20240411184726892" style="" />
+
+3. 全部修改完成后，打开任务管理器，将文件资源管理器重启即可：
+
+   <img src="!assets/IDE&Windows/image-20240411185129951.png" alt="image-20240411185129951" style="zoom:50%;" />
+
+> [!NOTE]
+>
+> 新版腾讯文档支持在设置里关闭了。
+
+
+
+### 删除右键菜单的 AMD Software
+
+1. Win+R 运行 `regedit` 打开注册表编辑器，先定位到 `计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Classes\PackagedCom\Package`。
+
+2. 找到 `AdvancedMicroDevicesInc-2.AMDRadeonSoftware_`开头的项, 并展开。
+
+   找到 `server` 项,并展开。
+
+   找到 `0`项, 也可能时 `1`：
+
+   <img src="./!assets/IDE&Windows/image-20250418150036951.png" alt="image-20250418150036951" style="zoom:67%;" />
+
+3. 删除 `ApplicationId` , 或修改 `ApplicationId` 的值（比如在值后加 “备份” 二字）：
+
+   <img src="./!assets/IDE&Windows/image-20250418150017030.png" alt="image-20250418150017030" style="zoom:67%;" />
 
 
 
@@ -210,21 +254,15 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 ## 【8】微软输入法快速输入时间
 
-1. 按下快捷键 Win + I，打开【设置】。
+1. 右键托盘的输入法，选择【用户自定义短语】：
 
-2. 依次进入：【时间和语言】=>【语言 】。
+   <img src="./!assets/IDE&Windows/image-20250418145148419.png" alt="image-20250418145148419" style="zoom: 50%;" />
 
-3. 找到【首选语言】，点击首选语言（中文简体，中国）的【选项】。
-
-4. 找到【键盘】，点击首选键盘（微软输入法）的【选项】。
-
-5. 选择【词库和自学习】，打开【用户定义的短语】，点击【添加用户定义的短语】。
-
-6. 添加：
+2. 点击【添加】用户定义的短语：
 
    <img src="!assets/IDE&Windows/image-20210624233318170.png" alt="image-20210624233318170" style="zoom: 43%;" />
-   
-   
+
+
    ```
    # 2020-11-29 16:21:29
    %yyyy%-%MM%-%dd% %HH%:%mm%:%ss%
@@ -622,26 +660,6 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 ```shell
 localhost,127.0.0.1,Orichalcos.com
 ```
-
-
-
-## 【17】解决腾讯文档替换 Windows 右键快捷方式
-
-在使用一段腾讯文档之后，发现腾讯文档替换掉了我 Windows 上原来 Office 三件套的右键新建文件快捷方式：
-
-<img src="!assets/IDE&Windows/3eca1cfd0665441f9ddc6464b153c57a.png" alt="3eca1cfd0665441f9ddc6464b153c57a" style="zoom:50%;" />
-
-解决办法：
-
-1. 首先按照[【6】删除右键菜单新建中的选项](#【6】删除右键菜单新建中的选项) 这里的步骤将 `.tdoc`、`.tsheet`、`.tslide` 三个选项取消掉。
-
-2. 然后找到 `.xlsx` 选项并单击选中，双击打开右侧里面的默认项，将数值改为 `Excel.Sheet.12`，其他的同理：
-
-   <img src="!assets/IDE&Windows/image-20240411184726892.png" alt="image-20240411184726892" style="" />
-
-3. 全部修改完成后，打开任务管理器，将文件资源管理器重启即可：
-
-   <img src="!assets/IDE&Windows/image-20240411185129951.png" alt="image-20240411185129951" style="zoom:50%;" />
 
 
 
