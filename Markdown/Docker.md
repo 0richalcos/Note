@@ -261,7 +261,7 @@ Registry Mirrors:
 
 Docker 运行容器前需要本地存在对应的镜像，如果本地不存在该镜像，Docker 会从镜像仓库下载该镜像。
 
-管理镜像的主要命令为 `docker image`，其下包含以下子命令：
+Docker 管理镜像的主要命令为 `docker image`，其下包含以下子命令：
 
 | 命令                   | 描述                                                         |
 | :--------------------- | :----------------------------------------------------------- |
@@ -588,7 +588,7 @@ docker rmi $(docker images -q -f before=mongo:3.2)
 
 简单的说，容器是独立运行的一个或一组应用，以及它们的运行态环境。对应的，虚拟机可以理解为模拟运行的一整套操作系统（提供了运行态环境和其他系统环境）和跑在上面的应用。
 
-管理容器的命令为 `docker container`，其下有以下子命令：
+Docker 管理容器的命令为 `docker container`，其下有以下子命令：
 
 | 命令                       | 描述                                                 |
 | :------------------------- | :--------------------------------------------------- |
@@ -891,6 +891,14 @@ trusting_newton
 
 大部分时候，并不需要严格区分这两者的概念。
 
+Docker 访问仓库涉及以下常用命令：
+
+| 命令            | 描述                                                         |
+| :-------------- | :----------------------------------------------------------- |
+| `docker login`  | 验证注册表身份。                                             |
+| `docker logout` | 从注册表注销。如果未指定服务器，则默认服务器由守护进程定义。 |
+| `docker search` | 搜索 Docker Hub中 的镜像。                                   |
+
 
 
 ## 4.1、Docker Hub
@@ -1127,7 +1135,7 @@ docker tag IMAGE[:TAG] [REGISTRY_HOST[:REGISTRY_PORT]/]REPOSITORY[:TAG]
 - 数据卷（Volumes）。
 - 绑定挂载 (Bind mounts)。
 
-管理数据卷的命令为 `docker volume`，其下有以下子命令：
+Docker 管理数据卷的命令为 `docker volume`，其下有以下子命令：
 
 | 命令                    | 描述                         |
 | :---------------------- | :--------------------------- |
@@ -1321,7 +1329,232 @@ root@2affd44b4667:/# history
 
 Docker 允许通过外部访问容器或容器互联的方式来提供网络服务。
 
+Docker 管理网络的命令为 `docker network`，您可以使用子命令来创建、检查、列出、删除、清理、连接和断开网络。其下有以下子命令：
+
+| 命令                        | 描述                           |
+| :-------------------------- | :----------------------------- |
+| `docker network connect`    | 将容器连接到网络。             |
+| `docker network create`     | 创建网络。                     |
+| `docker network disconnect` | 将容器从网络断开连接。         |
+| `docker network inspect`    | 显示一个或多个网络的详细信息。 |
+| `docker network ls`         | 列出网络。                     |
+| `docker network prune`      | 删除所有未使用的网络。         |
+| `docker network rm`         | 删除一个或多个网络。           |
+
 
 
 ## 6.1、外部访问容器
+
+容器中可以运行一些网络应用，要让外部也可以访问这些应用，可以通过 `-P` 或 `-p` 参数来指定端口映射。
+
+当使用 `-P` 标记时，Docker 会随机映射一个端口到内部容器开放的网络端口。
+
+使用 `docker ps` 可以看到，本地主机的 32768 被映射到了容器的 80 端口。此时访问本机的 32768 端口即可访问容器内 Nginx 默认页面：
+
+```
+$ docker run -d -P nginx:alpine
+
+$ docker ps -l
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                   NAMES
+fae320d08268        nginx:alpine        "/docker-entrypoint.…"   24 seconds ago      Up 20 seconds       0.0.0.0:32768->80/tcp   bold_mcnulty
+```
+
+同样的，可以通过 `docker logs` 命令来查看访问记录：
+
+```
+$ docker logs fae3
+172.17.0.1 - - [25/Aug/2020:08:34:04 +0000] "GET / HTTP/1.1" 200 612 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0" "-"
+```
+
+`-p` 则可以指定要映射的端口，并且，在一个指定端口上只可以绑定一个容器。支持的格式有：
+
+- `hostPort:containerPort`
+- `ip:hostPort:containerPort`
+- `ip::containerPort`
+
+
+
+**映射所有接口地址**
+
+使用 `hostPort:containerPort` 格式本地的 80 端口映射到容器的 80 端口，可以执行：
+
+```shell
+docker run -d -p 80:80 nginx:alpine
+```
+
+此时默认会绑定本地所有接口上的所有地址。
+
+`-p` 标记可以多次使用来绑定多个端口，例如：
+
+```shell
+docker run -d -p 80:80 -p 443:443 nginx:alpine
+```
+
+
+
+**映射到指定地址的指定端口**
+
+可以使用 `ip:hostPort:containerPort` 格式指定映射使用一个特定地址，比如 `localhost` 地址 `127.0.0.1`：
+
+```shell
+docker run -d -p 127.0.0.1:80:80 nginx:alpine
+```
+
+
+
+**映射到指定地址的任意端口**
+
+使用 `ip::containerPort` 绑定 `localhost` 的任意端口到容器的 80 端口，本地主机会自动分配一个端口：
+
+```shell
+docker run -d -p 127.0.0.1::80 nginx:alpine
+```
+
+还可以使用 `udp` 标记来指定 `udp` 端口：
+
+```shell
+docker run -d -p 127.0.0.1:80:80/udp nginx:alpine
+```
+
+
+
+### 6.1.1、查看映射端口配置
+
+使用 `docker container port`（常用别名为 `docker port`）来查看当前映射的端口配置，也可以查看到绑定的地址：
+
+```
+$ docker port fa 80
+0.0.0.0:32768
+```
+
+> [!NOTE]
+>
+> 容器有自己的内部网络和 IP 地址（使用 `docker inspect` 查看，Docker 还可以有一个可变的网络配置）。
+
+
+
+## 6.2、容器互联
+
+如果你之前有 `Docker` 使用经验，你可能已经习惯了使用 `--link` 参数来使容器互联。
+
+随着 Docker 网络的完善，强烈建议大家将容器加入自定义的 Docker 网络来连接多个容器，而不是使用 `--link` 参数。
+
+> [!TIP]
+>
+> 如果你有多个容器之间需要互相连接，推荐使用 Docker Compose。
+
+
+
+### 6.2.1、新建网络
+
+下面先创建一个新的 Docker 网络：
+
+```shell
+docker network create -d bridge my-net
+```
+
+`-d` 参数指定 Docker 网络类型，有 `bridge`、`overlay`。
+
+
+
+### 6.2.2、连接容器
+
+运行一个容器并连接到新建的 `my-net` 网络：
+
+```shell
+docker run -it --rm --name busybox1 --network my-net busybox sh
+```
+
+打开新的终端，再运行一个容器并加入到 `my-net` 网络：
+
+```shell
+docker run -it --rm --name busybox2 --network my-net busybox sh
+```
+
+再打开一个新的终端查看容器信息：
+
+```
+$ docker ps
+
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+b47060aca56b        busybox             "sh"                11 minutes ago      Up 11 minutes                           busybox2
+8720575823ec        busybox             "sh"                16 minutes ago      Up 16 minutes                           busybox1
+```
+
+
+
+### 6.2.3、测试互联
+
+下面通过 `ping` 来证明 `busybox1` 容器和 `busybox2` 容器建立了互联关系。
+
+在 `busybox1` 容器用 `ping busybox2` 来测试连接 `busybox2` 容器：
+
+```
+/ # ping busybox2
+PING busybox2 (172.19.0.3): 56 data bytes
+64 bytes from 172.19.0.3: seq=0 ttl=64 time=0.072 ms
+64 bytes from 172.19.0.3: seq=1 ttl=64 time=0.118 ms
+```
+
+可以看到它会解析成 `172.19.0.3`，同理在 `busybox2` 容器执行 `ping busybox1`，也会成功连接到：
+
+```
+/ # ping busybox1
+PING busybox1 (172.19.0.2): 56 data bytes
+64 bytes from 172.19.0.2: seq=0 ttl=64 time=0.064 ms
+64 bytes from 172.19.0.2: seq=1 ttl=64 time=0.143 ms
+```
+
+这样，`busybox1` 容器和 `busybox2` 容器建立了互联关系。
+
+
+
+## 6.3、配置 DNS
+
+如何自定义配置容器的主机名和 DNS 呢？秘诀就是 Docker 利用虚拟文件来挂载容器的 3 个相关配置文件。
+
+在容器中使用 `mount` 命令可以看到挂载信息：
+
+```
+$ mount
+/dev/disk/by-uuid/1fec...ebdf on /etc/hostname type ext4 ...
+/dev/disk/by-uuid/1fec...ebdf on /etc/hosts type ext4 ...
+tmpfs on /etc/resolv.conf type tmpfs ...
+```
+
+这种机制可以让宿主主机 DNS 信息发生更新后，所有 Docker 容器的 DNS 配置通过 `/etc/resolv.conf` 文件立刻得到更新。
+
+配置全部容器的 DNS ，也可以在 `/etc/docker/daemon.json` 文件中增加以下内容来设置：
+
+```json
+{
+  "dns" : [
+    "114.114.114.114",
+    "8.8.8.8"
+  ]
+}
+```
+
+这样每次启动的容器 DNS 自动配置为 `114.114.114.114` 和 `8.8.8.8`。使用以下命令来证明其已经生效：
+
+```
+$ docker run -it --rm ubuntu:18.04 cat /etc/resolv.conf
+
+nameserver 114.114.114.114
+nameserver 8.8.8.8
+```
+
+如果用户想要手动指定容器的配置，可以在使用 `docker run` 命令启动容器时加入如下参数：
+
+- `-h HOSTNAME` 或者 `--hostname=HOSTNAME` 设定容器的主机名，它会被写到容器内的 `/etc/hostname` 和 `/etc/hosts`。但它在容器外部看不到，既不会在 `docker ps` 中显示，也不会在其他的容器的 `/etc/hosts` 看到。
+- `--dns=IP_ADDRESS` 添加 DNS 服务器到容器的 `/etc/resolv.conf` 中，让容器用这个服务器来解析所有不在 `/etc/hosts` 中的主机名。
+- `--dns-search=DOMAIN` 设定容器的搜索域，当设定搜索域为 `.example.com` 时，在搜索一个名为 host 的主机时，DNS 不仅搜索 host，还会搜索 `host.example.com`。
+
+> [!IMPORTANT]
+>
+> 如果在容器启动时没有指定最后两个参数，Docker 会默认用主机上的 `/etc/resolv.conf` 来配置容器。
+
+
+
+# 7、构建镜像
 
