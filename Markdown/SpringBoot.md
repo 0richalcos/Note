@@ -1033,7 +1033,7 @@ spring.profiles.active=@profile.active@
    </parent>
    ```
 
-2. 点击 `<version>` 标签中的 2.0.3.RELEASE 后，进入 `spring-boot-starter-parent-2.0.3.RELEASE.pom` 文件。在该 pom 文件中，`<properties>` 定义了占位符为 `@`，如下：
+2. 点击 `<version>` 标签中的 `2.0.3.RELEASE` 后，进入 `spring-boot-starter-parent-2.0.3.RELEASE.pom` 文件。在该 pom 文件中，`<properties>` 定义了占位符为 `@`，如下：
 
    ```xml
    <properties>
@@ -1046,7 +1046,7 @@ spring.profiles.active=@profile.active@
    </properties>
    ```
 
-   同时，还配置了 maven-resources-plugin 插件，该插件禁用了默认的占位符，替换为 `@`。如下：
+   同时，`<plugin>` 还配置了 `maven-resources-plugin` 插件，该插件禁用了默认的占位符，替换为前面定义的 `@`。如下：
 
    ```xml
    <plugin>
@@ -1061,9 +1061,11 @@ spring.profiles.active=@profile.active@
        </configuration>
    </plugin>
    ```
-   
-   但是这个只有继承了 spring-boot-starter-parent 的 SpringBoot 项目才会默认使用 `@@` 占位符，否则 SpringBoot 配置文件中的默认占位符 `${}` 可能会与 Maven 的默认占位符 `${}` 冲突，可以使用以下插件将 SpringBoot 配置文件中的 Maven 占位符改为 `@@`：
-   
+
+   但是这个只有继承了 `spring-boot-starter-parent` 的 SpringBoot 项目才会使用 `@@` 占位符，否则 SpringBoot 配置文件中的默认占位符 `${}` 可能会与 Maven 的默认占位符 `${}` 冲突。
+
+   我们可以自己使用 `maven-resources-plugin` 插件将 SpringBoot 配置文件中的 Maven 占位符改为 `@@`（相当于手动加上 `spring-boot-starter-parent` 的相关配置）：
+
    ```xml
    <build>
        <plugins>
@@ -1080,19 +1082,26 @@ spring.profiles.active=@profile.active@
                </configuration>
            </plugin>
        </plugins>
-       <resources>
-           <resource>
-               <directory>src/main/resources</directory>
-                <!--maven会自动读取includes配置文件，然后解析其中的占位符（占位符是${变量名称}这样的形式）-->
-               <filtering>true</filtering>
-               <includes>
-                   <include>**/application*.yml</include>
-                   <include>**/application*.yaml</include>
-                   <include>**/application*.properties</include>
-               </includes>
-           </resource>
-       </resources>
    </build>
+   ```
+
+3. 最后，`resource` 配置启用资源文件的变量替换：
+
+   ```xml
+    <resources>
+        <resource>
+            <!-- 资源根目录 -->
+            <directory>src/main/resources</directory>
+            <!-- maven会解析并替换其中的占位符 -->
+            <filtering>true</filtering>
+            <!-- 只处理哪些文件（包含） -->
+            <includes>
+                <include>**/application*.yml</include>
+                <include>**/application*.yaml</include>
+                <include>**/application*.properties</include>
+            </includes>
+        </resource>
+   </resources>
    ```
 
 
