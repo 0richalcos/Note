@@ -126,7 +126,7 @@ YAML 是 "YAML Ain't a Markup Language"（YAML 不是一种标记语言）的递
 
 YAML 的语法和其他高级语言类似，并且可以简单表达清单、散列表，标量等数据形态。它使用空白符号缩进和大量依赖外观的特色，特别适合用来表达或编辑数据结构、各种配置文件、倾印调试内容、文件大纲（例如：许多电子邮件标题格式和YAML非常接近）。
 
-YAML 的配置文件后缀为 **.yml**，如：**application.yml** 。
+YAML 的配置文件后缀为 `.yml`，如：`application.yml` 。
 
 
 
@@ -655,7 +655,7 @@ public class HelloWorldConfig {
 
 ## 3.3、多环境配置
 
-很多时候，我们项目在开发环境和生成环境的环境配置是不一样的，例如，数据库配置，在开发的时候，我们一般用测试数据库，而在生产环境的时候，我们是用正式的数据，这时候，我们可以利用 profile 在不同的环境下配置用不同的配置文件或者不同的配置。
+很多时候，我们项目在开发环境和生成环境的环境配置是不一样的，例如数据库配置，在开发的时候，我们一般用测试数据库，而在生产环境的时候，我们是用正式的数据，这时候，我们可以配置 `profile` 在不同的环境下用不同的配置文件或者不同的配置。
 
 配置文件可以放于以下四个位置，多个配置文件存在时，不同位置的文件优先级不同：
 
@@ -664,7 +664,7 @@ public class HelloWorldConfig {
 3. `classpath:/config`
 4. `classpath:/`
 
-如果多个配置文件含有相同的变量名，并且在使用 `${}` 进行引用时没有指定文件名，那么 Spring Boot 会按照特定的顺序查找配置文件，并使用第一个找到的变量值。这个查找顺序为： `application-{suffix}.properties` 或 `application-{suffix}.yml > application.properties` 或 `application.yml` > 其他自定义的配置文件。其中 `，{suffix}` 指的是 Spring Profiles 中的激活配置 `profile`。
+如果多个配置文件含有相同的变量名，并且在使用 `${}` 进行引用时没有指定文件名，那么 Spring Boot 会按照特定的顺序查找配置文件，并使用第一个找到的变量值。这个查找顺序为： `application-{suffix}.properties` 或 `application-{suffix}.yml` > `application.properties` 或 `application.yml` > 其他自定义的配置文件。其中 `{suffix}` 指的是 Spring Profiles 中的激活配置 `profile`。
 
 
 
@@ -672,11 +672,11 @@ public class HelloWorldConfig {
 
 SpringBoot 允许你按照命名约定的格式（`application-{profile}.properties`）来定义多个配置文件，然后在`application.properties` 中通过 `spring.profiles.active` 来具体激活一个或者多个配置文件，如果没有没有指定任何 profile 的配置文件的话，SpringBoot 默认会启动`application.properties`。
 
-日常开发中一般有三个环境，分别是开发环境（dev），测试环境（test），生产环境（prod）。
+日常开发中一般有三个环境，分别是开发环境（`dev`），测试环境（`test`），生产环境（`prod`）。
 
 
 
-**properties**
+#### properties
 
 `application.properties`：
 
@@ -698,7 +698,7 @@ server.port=8083
 
 
 
-**yml 多文件配置**
+#### yml 多文件配置
 
 `application.yml`：
 
@@ -725,7 +725,7 @@ server:
 
 
 
-**yml 单文件配置**
+#### yml 单文件配置
 
 yml 可以不需要创建多个文件来区分，可以直接以 `---` 来当做一个配置文件环境。
 
@@ -787,7 +787,7 @@ server:
 
 
 
-**yml 多文件配置**
+#### yml 多文件配置
 
 `application.yml`：
 
@@ -819,7 +819,7 @@ feign:
 
 
 
-**yml 单文件配置**
+#### yml 单文件配置
 
 `application.yml`：
 
@@ -885,9 +885,9 @@ feign:
 
 
 
-**active 和 include 的区别**
+#### active 和 include 的区别
 
-我认为主要是语意上的区别，实际使用效果基本相同。假设，项目有 2 种环境：dev、prod，我们选择激活其中一种；其中涉及到 3 种组件：https、mysql、log，我们根据环境选择包含一个或多个。active 的构件被认为是与环境有关的，include 的构件被认为是与环境无关的。
+我认为主要是语意上的区别，实际使用效果基本相同。假设，项目有 2 种环境：`dev`、`prod`，我们选择激活其中一种；其中涉及到 3 种组件：`https`、`mysql`、`log`，我们根据环境选择包含一个或多个。`active` 的构件被认为是与环境有关的，`include` 的构件被认为是与环境无关的。
 
 实际使用，只有下边这一处区别：
 
@@ -989,7 +989,7 @@ spring:
     password: "secret"
 ```
 
-可以看到，在 2.4 版本的配置中，不同环境的配置定义都在第一段默认配置中了，所有的环境定义都转移到了 `spring.profiles.group` 的 key 字段（上面配置了 `dev` 和 `prod`），value 字段则代表了每个环境需要加载的不同配置分组。
+可以看到，在 2.4 版本的配置中，不同环境的配置定义都在第一段默认配置中了，所有的环境定义都转移到了 `spring.profiles.group` 的 `key` 字段（上面配置了 `dev` 和 `prod`），`value` 字段则代表了每个环境需要加载的不同配置分组。
 
 
 
@@ -999,13 +999,7 @@ Maven 本身也提供了对多环境的支持，不仅仅支持 Spring Boot 项�
 
 Maven 对于多环境的支持在功能方面更加强大，支持 JDK 版本、资源文件、操作系统等等因素来选择环境。
 
-
-
-#### 创建多环境配置文件
-
-创建不同环境的配置文件，分别是 `application-dev.properties`、`application-test.properties`、`application-prod.properties`。
-
-加上默认的配置文件 `application.properties`，同样是四个配置文件。
+创建不同环境的配置文件，分别是 `application-dev.properties`、`application-test.properties`、`application-prod.properties`，加上默认的配置文件 `application.properties`，同样是四个配置文件。
 
 
 
@@ -1220,6 +1214,101 @@ Maven 中的 `profile` 的激活条件还可以根据 JDK、操作系统、文�
 ```
 
 上述配置主要分为两个方面，第一是先排除所有配置文件，第二是根据 `profile.active` 动态的引入配置文件。
+
+
+
+### 3.3.5、-jar
+
+在 Spring Boot 中，使用 `-jar` 运行应用时管理多环境配置（如 `dev`、`test`、`prod`）也是一个常见需求。
+
+
+
+#### 直接定义激活配置
+
+打包好后运行 jar 包时可以通过 `--spring.profiles.active` 指令定义激活配置：
+
+1. 创建环境专属配置：
+
+   ```
+   /resources/
+     ├── application.yml          # 公共配置
+     ├── application-dev.yml      # 开发环境
+     ├── application-test.yml     # 测试环境
+     └── application-prod.yml     # 生产环境
+   ```
+
+2. 在 `application.yml` 中设置默认 Profile：
+
+   ```yaml
+   spring:
+     profiles:
+       active: dev  # 默认开发环境
+   ```
+
+3. 打包后通过命令行或环境变量覆盖：
+
+   ```shell
+   java -jar app.jar --spring.profiles.active=prod
+   ```
+
+4. 优先级规则：
+
+   - 后加载的配置会覆盖先加载的（`prod` > `default`）。
+   - 同名属性以激活的 Profile 文件为准。
+
+
+
+#### 外部化配置目录
+
+打包好后运行 jar 包时可以通过 `--spring.config.location` 指令指定外部配置文件路径， 完全控制配置来源：
+
+1. 将配置文件放在容器或服务器的固定目录：
+
+   ```
+   /etc/app/
+     ├── application.yml
+     └── application-prod.yml
+   ```
+
+2. 启动时指定路径：
+
+   ```shell
+   java -jar app.jar --spring.config.location=file:/etc/app/
+   ```
+
+   支持多个路径（用逗号分隔）：
+
+   ```shell
+   java -jar app.jar --spring.config.location=file:/etc/app/,file:/home/config/
+   ```
+
+   也可以直接指定配置文件：
+   ```shell
+   java -jar app.jar --spring.config.location=file:/app/application.properties,file:/app/application-prod.properties
+   ```
+
+
+
+#### 属性优先级规则
+
+Spring Boot 的属性源（包括 Profile 激活配置）按以下顺序加载（从低优先级 → 高优先级），后加载的会覆盖先加载的：
+
+| 属性源                  | 示例                            | 覆盖能力         |
+| :---------------------- | :------------------------------ | :--------------- |
+| 打包在 jar 内的配置文件 | `application.yml`               | 最低             |
+| 外部配置文件            | `file:/config/application.yml`  | 中等             |
+| JVM 系统参数 (`-D`)     | `-Dspring.profiles.active=prod` | 高               |
+| 命令行参数 (`--`)       | `--spring.profiles.active=prod` | 最高（覆盖所有） |
+| 环境变量                | `SPRING_PROFILES_ACTIVE=prod`   | 与命令行同级     |
+
+为什么这样设计？
+
+Spring Boot 的优先级规则遵循一个核心原则：“离应用越近的配置，优先级越高”。
+
+- 命令行参数和环境变量是运行时动态注入的，优先级最高。
+- 文件配置是静态预定义的，优先级较低。
+
+这种设计提供了灵活性，允许在部署时动态切换环境，而无需修改打包好的文件。
 
 
 
