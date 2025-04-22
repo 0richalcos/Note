@@ -359,49 +359,105 @@ ignore-warnings ARM64-COW-BUG
 
 ## 2.3、基础知识
 
-```bash
-# 启动redis服务器
+### 2.3.1、快速上手
+
+#### 启动
+
+启动 Redis 服务器：
+
+```shell
 redis-server
-# 带配置文件启动（/etc/redis/redis.conf 为配置文件地址，为了方便管理，将配置文件复制到了 /etc/redis 下）
+```
+
+带配置文件启动（`/etc/redis/redis.conf` 为配置文件地址，为了方便管理，将配置文件复制到了 `/etc/redis` 下）：
+
+```shell
 redis-server /etc/redis/redis.conf
-# 带配置文件启动，且指定某几个配置，配置名称前加 --，会覆盖配置文件里值
+```
+
+带配置文件启动，且指定某几个配置，配置名称前加 `--`，会覆盖配置文件里值：
+
+```shell
 redis-server /etc/redis/redis.conf --daemonize yes --port 1123
+```
 
-# 启动redis客户端
+查看版本号：
+
+```shell
+redis-server -v
+```
+
+
+
+#### 连接
+
+启动 Redis 客户端：
+
+```shell
 redis-cli
-# 交互模式
+```
+
+交互模式：
+
+```shell
 redis-cli -h 127.0.0.1 -p 6379
+```
 
-# 关闭redis
+
+
+#### 关闭
+
+关闭 Redis：
+
+```shell
 redis-cli shutdown
-# 如果redis设置密码，需要登录redis后先认证再 shutdown 命令关闭
+```
+
+如果 Redis 设置密码，需要登录 Redis 后先认证再 `shutdown` 命令关闭：
+
+```shell
 auth <密码>
+```
 
-# redis性能测试工具
+
+
+#### Redis 工具
+
+Redis 性能测试工具：
+
+```shell
 redis-benchmark
+```
 
-# aof文件修复工具
+aof 文件修复工具：
+
+```shell
 redis-check-aof
+```
 
-# rdb文件检查工具
+rdb 文件检查工具：
+
+```shell
 redis-check-dump
 ```
 
 
 
-| 命令                  | 描述                                                         |
-| --------------------- | ------------------------------------------------------------ |
-| select [db_index]     | 切换到 db_index 号数据库，Redis 默认 16 个数据库，默认是使用第 0 个 |
-| dbsize                | 查看数据库大小                                               |
-| keys *                | 查看所有的键                                                 |
-| flushdb               | 清空当前数据库                                               |
-| flushall              | 清空所有数据库                                               |
-| move [key] [db_index] | 当前数据库的 key 移动到给定的数据库 db_index 当中            |
-| expire [key] [second] | 设置该 key 在 second 秒后过期                                |
-| ttl [key]             | 显示 key 的剩余有效时间（time to live 存活时间）             |
-| type [key]            | 显示 key 的类型                                              |
-| exists [key]          | 查看 key 是否存在，1 表示存在，0 表示不存在                  |
-| del [key]             | 删除该 key                                                   |
+### 2.3.2、常用命令
+
+| 命令                    | 描述                                                         |
+| ----------------------- | ------------------------------------------------------------ |
+| `select [db_index]`     | 切换到 db_index 号数据库，Redis 默认 16 个数据库，默认是使用第 0 个 |
+| `dbsize`                | 查看数据库大小                                               |
+| `keys *`                | 查看所有的键                                                 |
+| `flushdb`               | 清空当前数据库                                               |
+| `flushall`              | 清空所有数据库                                               |
+| `move [key] [db_index]` | 当前数据库的 key 移动到给定的数据库 db_index 当中            |
+| `expire [key] [second]` | 设置该 key 在 second 秒后过期                                |
+| `ttl [key]`             | 显示 key 的剩余有效时间（time to live 存活时间）             |
+| `type [key]`            | 显示 key 的类型                                              |
+| `exists [key]`          | 查看 key 是否存在，1 表示存在，0 表示不存在                  |
+| `del [key]`             | 删除该 key                                                   |
 
 
 
