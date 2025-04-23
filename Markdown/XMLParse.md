@@ -45,8 +45,6 @@ DOM 树所提供的随机访问方式给应用程序的开发带来了很大的�
 下面是 DOM 解析与创建 XML 文件的完整代码：
 
 ```java
-package com.xiaobaizhiqian;
- 
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -240,8 +238,6 @@ SAX 解析 XML 步骤：
    代码：
 
    ```java
-   package com.xiaobaizhiqian;
-    
    import java.util.ArrayList;
     
    import org.xml.sax.Attributes;
@@ -349,12 +345,10 @@ SAX 解析 XML 步骤：
        }
    }
    ```
-
+   
 3. 使用 `XmlParseHandler` 通过 `getLanguages()` 直接获得数据，代码：
 
 	```java
-	package com.xiaobaizhiqian;
-	 
 	import java.io.File;
 	import java.io.FileNotFoundException;
 	import java.io.FileOutputStream;
@@ -501,8 +495,6 @@ JDOM 解析 XML 步骤：
 下面是完整代码
 
 ```java
-package com.xiaobaizhiqian;
- 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -617,8 +609,6 @@ DOM4J 是 JDOM 的一种智能分支，它合并了许多超出基本 XML 文档
 以下是完整测试代码：
 
 ```java
-package com.xiaobaizhiqian;
- 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;

@@ -1,8 +1,8 @@
-| Java | 数据库 | 持久层框架 | Spring | 权限管理 | 搜索引擎 | 运维 | 前端 |
+| Java | Spring | 持久层框架 | 数据库 | 权限管理 | 搜索引擎 | 运维 | 前端 |
 | :--: | :----: | :--------: | :----: | :------: | :------: | :------: | :------: |
-| [♨️](#♨️java) | [📊](#📊数据库) | [💾](#💾持久层框架) | [🍃](#🍃Spring) | [🔐](#🔐权限管理) | [🔍](#🔍搜索引擎) | [🧑‍🔧](#🧑‍🔧运维) | [🌐](#🌐前端) |
+| [♨️](#♨️java) | [🍃](#🍃Spring) | [💾](#💾持久层框架) | [📊](#📊数据库) | [🔐](#🔐权限管理) | [🔍](#🔍搜索引擎) | [🧑‍🔧](#🧑‍🔧运维) | [🌐](#🌐前端) |
 
-| 数据结构及算法 |    协议     | 文件处理                    | 对象存储 | 定时任务                            | 开发工具        | 其他                    |
+| 数据结构及算法 | 网络通信  | 文件处理                    | 对象存储 | 定时任务                            | 开发工具        | 其他                    |
 | :-------------------------: | :------: | :---------------------------------: | :-------------: | :---------------------: | :---------------------: | :---------------------: |
 | [🧮](#🧮数据结构及算法) | [🛰️](#🛰️协议) | [🗃️](#🗃️文件处理) |    [📇](#📇对象存储)      | [⌛](#⌛定时任务) | [🛠️](#🛠️开发工具) | [👻](#👻其他) |
 
@@ -19,14 +19,12 @@
 
 <br/>
 
-## 📊数据库
+## 🍃Spring
 
-- [**MySQL**](https://github.com/0richalcos/Note/blob/main/Markdown/MySQL.md)
-	- [**查询题**](https://github.com/0richalcos/Note/blob/main/Markdown/MySQLQuery.md)
-
-- [**Oracle**](https://github.com/0richalcos/Note/blob/main/Markdown/Oracle.md)
-- [**Redis**](https://github.com/0richalcos/Note/blob/main/Markdown/Redis.md)
-- [**DM**](https://github.com/0richalcos/Note/blob/main/Markdown/DM.md)
+- [**Spring**](https://github.com/0richalcos/Note/blob/main/Markdown/Spring.md)
+- [**Spring MVC**](https://github.com/0richalcos/Note/blob/main/Markdown/SpringMVC.md)
+- [**Spring Boot**](https://github.com/0richalcos/Note/blob/main/Markdown/SpringBoot.md)
+- [**Spring Cloud**](https://github.com/0richalcos/Note/blob/main/Markdown/SpringCloud.md)
 
 <br/>
 
@@ -37,12 +35,14 @@
 
 <br/>
 
-## 🍃Spring
+## 📊数据库
 
-- [**Spring**](https://github.com/0richalcos/Note/blob/main/Markdown/Spring.md)
-- [**Spring MVC**](https://github.com/0richalcos/Note/blob/main/Markdown/SpringMVC.md)
-- [**Spring Boot**](https://github.com/0richalcos/Note/blob/main/Markdown/SpringBoot.md)
-- [**Spring Cloud**](https://github.com/0richalcos/Note/blob/main/Markdown/SpringCloud.md)
+- [**MySQL**](https://github.com/0richalcos/Note/blob/main/Markdown/MySQL.md)
+	- [**查询题**](https://github.com/0richalcos/Note/blob/main/Markdown/MySQLQuery.md)
+
+- [**Oracle**](https://github.com/0richalcos/Note/blob/main/Markdown/Oracle.md)
+- [**Redis**](https://github.com/0richalcos/Note/blob/main/Markdown/Redis.md)
+- [**DM**](https://github.com/0richalcos/Note/blob/main/Markdown/DM.md)
 
 <br/>
 
@@ -64,8 +64,6 @@
 - [**Linux**](https://github.com/0richalcos/Note/blob/main/Markdown/Linux.md)
 - [**Nginx**](https://github.com/0richalcos/Note/blob/main/Markdown/Nginx.md)
 - [**WebLogic**](https://github.com/0richalcos/Note/blob/main/Markdown/WebLogic.md)
-- [**frp**](https://github.com/0richalcos/Note/blob/main/Markdown/frp.md)
-- [**OpenVPN**](https://github.com/0richalcos/Note/blob/main/Markdown/OpenVPN.md)
 - [**WSL**](https://github.com/0richalcos/Note/blob/main/Markdown/WSL.md)
 - [**Docker**](https://github.com/0richalcos/Note/blob/main/Markdown/Docker.md)
 
@@ -106,11 +104,12 @@
 
 <br/>
 
-## 🛰️协议
+## 🛰️网络通信
 
 - [**HTTP**](https://github.com/0richalcos/Note/blob/main/Markdown/HTTP.md)
 - [**WebSocket**](https://github.com/0richalcos/Note/blob/main/Markdown/WebSocket.md)
-- [**FTP**](https://github.com/0richalcos/Note/blob/main/Markdown/FTP.md)
+- [**frp**](https://github.com/0richalcos/Note/blob/main/Markdown/frp.md)
+- [**OpenVPN**](https://github.com/0richalcos/Note/blob/main/Markdown/OpenVPN.md)
 
 <br/>
 

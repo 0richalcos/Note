@@ -1,7 +1,3 @@
----
-typora-copy-images-to: upload
----
-
 # 1、软件设计模式概述
 
 **设计模式的产生背景**

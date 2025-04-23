@@ -1,7 +1,3 @@
----
-typora-copy-images-to: upload
----
-
 # 1、简介
 
 OpenVPN 是一个用于创建虚拟私人网络加密通道的软件包，最早由 James Yonan 编写。OpenVPN 允许建立的 VPN 使用公开密钥、电子证书、或者用户名/密码来进行身份验证。
