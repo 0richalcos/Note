@@ -1,7 +1,3 @@
----
-typora-copy-images-to: upload
----
-
 # 1、简介
 
 ## 1.1、MinIO 是什么？
