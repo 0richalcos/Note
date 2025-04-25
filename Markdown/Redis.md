@@ -1,14 +1,10 @@
----
-typora-copy-images-to: upload
----
-
 # 1、NoSQL概述
 
 ## 1.1、为什么要用 NoSQL？
 
 **单机 MySQL 年代**
 
-<img src="!assets/Redis/image-20200815224858013.png" alt="image-20200815224858013" style="zoom: 67%;float:left" />
+<img src="!assets/Redis/image-20200815224858013.png" alt="image-20200815224858013" style="zoom: 67%;" />
 
 DAL 是数据访问层的英文缩写，即为数据访问层（Data Access Layer）。其功能主要是负责数据库的访问。简单地说就是实现对数据表的 Select（查询）、Insert（插入）、Update（更新）、Delete（删除）等操作。
 
@@ -26,7 +22,7 @@ DAL 是数据访问层的英文缩写，即为数据访问层（Data Access Laye
 
 网站 80% 的情况都是在读，每次都要去查询数据就十分麻烦，为了减轻数据库的压力，可以使用缓存来保证效率。
 
-<img src="!assets/Redis/image-20200815225617475.png" alt="image-20200815225617475" style="zoom:67%;float:left" />
+<img src="!assets/Redis/image-20200815225617475.png" alt="image-20200815225617475" style="zoom:67%;" />
 
 
 
@@ -36,13 +32,13 @@ DAL 是数据访问层的英文缩写，即为数据访问层（Data Access Laye
 
 转战 InnoDB：行锁（如果使用针对 InnoDB 的表使用行锁，被锁定字段不是主键，也没有针对它建立索引的话，行锁锁定的也是整张表）
 
-<img src="!assets/Redis/image-20200815230653794.png" alt="image-20200815230653794" style="zoom:80%;float:left" />
+<img src="!assets/Redis/image-20200815230653794.png" alt="image-20200815230653794" style="zoom:80%;" />
 
 
 
 **现今（大数据时代）**
 
-<img src="!assets/Redis/image-20200815235909929.png" alt="image-20200815235909929" style="zoom: 80%;float:left" />
+<img src="!assets/Redis/image-20200815235909929.png" alt="image-20200815235909929" style="zoom: 80%;" />
 
 现今如果涉及大数据量的需求，比如一些商品抢购的情景，或者是主页访问量瞬间较大的时候，单一使用数据库来保存数据的系统会因为面向磁盘，磁盘读/写速度比较慢的问题而存在严重的性能弊端，一瞬间成千上万的请求到来，需要系统在极短的时间内完成成千上万次的读/写操作，这个时候往往不是数据库能够承受的，极其容易造成数据库系统瘫痪，最终出现服务宕机这种严重的问题。为了克服上述的问题，项目通常会引入 NoSQL 技术。
 
@@ -64,20 +60,20 @@ NoSQL = Not Only SQL（不仅仅是 SQL）
 
 - 传统的 RDBMS
 
-	> - 结构化组织
-	> - SQL
-	> - 数据和关系都存在单独的表中
-	> - 严格的一致性
-	> - 基础的事务
+  - 结构化组织
+  - SQL
+  - 数据和关系都存在单独的表中
+  - 严格的一致性
+  - 基础的事务
 
 - NoSQL
 
-	> - 不仅仅是数据
-	> - 没有固定的查询语言
-	> - 键值对存储、列存储、文档存储，图形数据库（社交关系）
-	> - 最终一致性
-	> - CPA 定理和 BASE
-	> - 高性能、高可用、高可扩
+  - 不仅仅是数据
+  - 没有固定的查询语言
+  - 键值对存储、列存储、文档存储，图形数据库（社交关系）
+  - 最终一致性
+  - CPA 定理和 BASE
+  - 高性能、高可用、高可扩
 
 
 
@@ -99,12 +95,12 @@ NoSQL = Not Only SQL（不仅仅是 SQL）
 
 **NoSQL 数据库的四大分类的分析**
 
-| 分类                  | Example 举例                                       | 典型应用场景                                                 | 数据模型                                          | 优点                                                         | 缺点                                                         |
-| --------------------- | -------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| **键值（key-value）** | Tokyo Cabinet/Tyrant, Redis, Voldemort, Oracle BDB | 内容缓存，主要用于处理大量数据的高访问负载，也用于一些日志系统等等。 | Key 指向 Value 的键值对，通常用 hash table 来实现 | 查找速度快                                                   | 数据无结构化，通常只被当作字符串或者二进制数据               |
-| **列存储数据库**      | Cassandra, HBase, Riak                             | 分布式的文件系统                                             | 以列簇式存储，将同一列数据存在一起                | 查找速度快，可扩展性强，更容易进行分布式扩展                 | 功能相对局限                                                 |
-| **文档型数据库**      | CouchDB, MongoDb                                   | Web应用（与Key-Value类似，Value是结构化的，不同的是数据库能够了解Value的内容） | Key-Value 对应的键值对，Value 为结构化数据        | 数据结构要求不严格，表结构可变，不需要像关系型数据库一样需要预先定义表结构 | 查询性能不高，而且缺乏统一的查询语法。                       |
-| **图形(Graph)数据库** | Neo4J, InfoGrid, Infinite Graph                    | 社交网络，推荐系统等。专注于构建关系图谱                     | 图结构                                            | 利用图结构相关算法。比如最短路径寻址，N 度关系查找等         | 很多时候需要对整个图做计算才能得出需要的信息，而且这种结构不太好做分布式的集群 |
+| 分类              | Example 举例                                       | 典型应用场景                                                 | 数据模型                                          | 优点                                                         | 缺点                                                         |
+| ----------------- | -------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 键值（key-value） | Tokyo Cabinet/Tyrant, Redis, Voldemort, Oracle BDB | 内容缓存，主要用于处理大量数据的高访问负载，也用于一些日志系统等等。 | Key 指向 Value 的键值对，通常用 hash table 来实现 | 查找速度快                                                   | 数据无结构化，通常只被当作字符串或者二进制数据               |
+| 列存储数据库      | Cassandra, HBase, Riak                             | 分布式的文件系统                                             | 以列簇式存储，将同一列数据存在一起                | 查找速度快，可扩展性强，更容易进行分布式扩展                 | 功能相对局限                                                 |
+| 文档型数据库      | CouchDB, MongoDb                                   | Web应用（与Key-Value类似，Value是结构化的，不同的是数据库能够了解Value的内容） | Key-Value 对应的键值对，Value 为结构化数据        | 数据结构要求不严格，表结构可变，不需要像关系型数据库一样需要预先定义表结构 | 查询性能不高，而且缺乏统一的查询语法。                       |
+| 图形(Graph)数据库 | Neo4J, InfoGrid, Infinite Graph                    | 社交网络，推荐系统等。专注于构建关系图谱                     | 图结构                                            | 利用图结构相关算法。比如最短路径寻址，N 度关系查找等         | 很多时候需要对整个图做计算才能得出需要的信息，而且这种结构不太好做分布式的集群 |
 
 
 
@@ -294,11 +290,59 @@ apt purge --auto-remove redis-server
 
 ### 2.2.2、Windows 环境安装
 
-前往[地址]([https://github.com/MSOpenTech/redis/releases](https://github.com/MSOpenTech/redis/releases))下载安装包：
+前往 [地址]([Releases · redis-windows/redis-windows](https://github.com/redis-windows/redis-windows/releases)) 下载安装包：
 
-<img src="!assets/Redis/image-20221128134433247.png" alt="image-20221128134433247" style="zoom:50%;" />
+<img src="./!assets/Redis/image-20250426033944475.png" alt="image-20250426033944475" style="zoom: 50%;" />
 
-先完成后直接安装，使用 `.msi` 版本的在安装完成后会直接配置 Redis 服务，可以在【服务】界面看到：
+各个版本差异：
+
+| 特性         | Cygwin 版本                               | MSYS2 版本                                |
+| ------------ | ----------------------------------------- | ----------------------------------------- |
+| 构建环境     | 使用 Cygwin 编译，兼容 POSIX 特性更多。   | 使用 MSYS2 编译，速度更快、更轻量。       |
+| 性能表现     | 相对较慢一些。                            | 相对更快、更接近原生。                    |
+| 兼容性       | 与 Linux 程序接口更相似。                 | 更适合 Windows 原生开发场景。             |
+| 底层依赖     | 依赖 `cygwin1.dll`。                      | 依赖 `msys-2.0.dll`。                     |
+| with-Service | 可通过 Windows 服务方式安装和启动 Redis。 | 可通过 Windows 服务方式安装和启动 Redis。 |
+
+下载完成后解压，提供三种运行模式：
+
+- 运行项目中的 start.bat 脚本，一键启动。
+- 使用命令行。
+- 以系统服务运行。
+
+
+
+**命令行启动**
+
+先将安装目录配置环境变量。
+
+`cmd` 启动：
+
+```shell
+redis-server.exe redis.conf
+```
+
+`powershell` 启动：
+
+```shell
+./redis-server.exe redis.conf
+```
+
+
+
+**安装服务**
+
+可实现开机自启动 请以管理员身份运行，并将 RedisService.exe 改为实际存放的路径：
+
+```shell
+sc create Redis binpath= "C:\Software\Redis\RedisService.exe" start= auto
+```
+
+> [!TIP]
+>
+> 选项与其值之间需要空格（例如 `start= auto`）， 如果省略空格，操作将失败新版 Windows 可忽略。
+
+完成后可以在【服务】界面看到：
 
 <img src="!assets/Redis/image-20221128134544993.png" alt="image-20221128134544993" style="zoom:50%;" />
 
@@ -306,10 +350,13 @@ apt purge --auto-remove redis-server
 
 ```shell
 # 启动 Redis 服务
-sc start redis
+sc start Redis
 
 # 停止 Redis 服务
-sc stop redis
+sc stop Redis
+
+# 卸载 Redis 服务
+sc delete Redis
 ```
 
 
@@ -1604,7 +1651,7 @@ Jedis 是一个基于同步、非线程安全的 Redis 客户端，如果想要�
 
 
 
-整合测试
+**整合测试**
 
 1. 导入依赖
 
@@ -1931,15 +1978,17 @@ int port = redisUri.getPort();
 
 ## 8.1、redis.conf 详解
 
-**单位**
+### 8.1.1、单位
 
 <img src="!assets/Redis/image-20210531165111502.png" alt="image-20210531165111502" style="" />
 
-单位大小写不敏感，`1GB`、`1Gb`、`1gB`都是一样的
+单位大小写不敏感，`1GB`、`1Gb`、`1gB`都是一样的。
 
 
 
-**包含 INCLOUDES**
+### 8.1.2、包含
+
+INCLOUDES：
 
 <img src="!assets/Redis/image-20210531171044748.png" alt="image-20210531171044748" style="" />
 
@@ -1947,7 +1996,9 @@ int port = redisUri.getPort();
 
 
 
-**网络 NETWORK**
+### 8.1.3、网络
+
+NETWORK：
 
 ```bash
 # 绑定的IP，默认为本机地址，如果不限制可以在前面加 # 注释掉
@@ -1966,7 +2017,9 @@ timeout 0
 
 
 
-**通用 GENERAL**
+### 8.1.4、通用
+
+GENERAL：
 
 ```bash
 # 以守护线程的方式运行
@@ -1996,7 +2049,9 @@ always-show-logo yes
 
 
 
-**快照 SNAPSHOTTING**
+### 8.1.5、快照
+
+SNAPSHOTTING：
 
 ```bash
 # 指出在多长时间内，有多少次更新操作，就将数据同步到数据文件rdb。
@@ -2038,7 +2093,9 @@ dir ./
 
 
 
-**复制 REPLICATION**
+### 8.1.6、复制
+
+REPLICATION：
 
 ```bash
 # 主从复制. 设置该数据库为其他数据库的从数据库.
@@ -2073,7 +2130,9 @@ replica-serve-stale-data yes
 
 
 
-**安全 SECURITY**
+### 8.1.7、安全
+
+SECURITY：
 
 ```bash
 # 设置客户端连接后进行任何其他指定前需要使用的密码。
@@ -2082,21 +2141,29 @@ replica-serve-stale-data yes
 # 
 # 取消以下注释并修改 foobared 来永久设置密码
 # requirepass foobared
+```
 
-# 也可以通过命令来设置这个密码
+也可以通过命令来设置这个密码：
+
+```shell
+config set requirepass "123456"
+```
+
+获取密码：
+
+```shell
+# 获取前需要验证
+auth 123456
+
 # 获取密码
 config get requirepass
-
-# 设置密码
-config set requirepass "123456"
-
-# 验证
-auth 123456
 ```
 
 
 
-**客户端 CLIENTS**
+### 8.1.8、客户端
+
+CLIENTS：
 
 ```bash
 # 设置同一时间最大客户端连接数，默认无限制，Redis可以同时打开的客户端连接数为Redis进程可以打开的最大文件描述符数，
@@ -2108,7 +2175,9 @@ auth 123456
 
 
 
-**内存管理 MEMORY MANAGEMENT**
+### 8.1.9、内存管理
+
+MEMORY MANAGEMENT：
 
 ```bash
 # 指定Redis最大内存限制，Redis在启动时会把数据加载到内存中，达到最大内存后，Redis会先尝试清除已到期或即将到期的Key
@@ -2148,7 +2217,9 @@ auth 123456
 
 
 
-**AOF APPEND ONLY MODE**
+### 8.1.10、AOF 模式
+
+AOF APPEND ONLY MODE：
 
 ```bash
 # 默认情况下，redis会在后台异步的把数据库镜像备份到磁盘，但是该备份是非常耗时的，而且备份也不能很频繁，
@@ -2210,7 +2281,9 @@ auto-aof-rewrite-min-size 64mb
 
 
 
-**集群 REDIS CLUSTER**
+### 8.1.11、集群
+
+REDIS CLUSTER：
 
 ```bash
 # 只有开启了以下选项，redis才能成为集群服务的一部分
@@ -2248,7 +2321,9 @@ auto-aof-rewrite-min-size 64mb
 
 
 
-**慢日志 SLOW LOG**
+### 8.1.12、慢日志
+
+SLOW LOG：
 
 ```bash
 # Redis Slow Log 记录超过特定执行时间的命令。执行时间不包括I/O计算比如连接客户端，返回结果等，只是命令执行时间
@@ -2418,11 +2493,7 @@ sentinel deny-scripts-reconfig yes
 # 为了将命令设置回其原始名称（撤消重命名），可以将命令重命名为它自身：
 #
 # SENTINEL rename-command mymaster CONFIG CONFIG
-
-
 ```
-
-
 
 
 
@@ -2447,6 +2518,8 @@ Redis 作为一个键值对内存数据库（NoSQL），数据都存储在内存
 ## 9.1、RDB
 
 RDB（Redis DataBase） 是一种快照存储持久化方式，具体就是将 Redis 某一时刻的内存数据保存到硬盘的文件当中，默认保存的文件名为 dump.rdb，而在 Redis 服务器启动时，会重新加载 dump.rdb 文件的数据到内存当中恢复数据。
+
+
 
 ### 9.1.1、开启 RDB 持久化方式
 

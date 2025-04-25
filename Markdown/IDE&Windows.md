@@ -1,4 +1,4 @@
-# Windows
+# Windows 11
 
 ## 【1】默认管理员权限
 
@@ -176,7 +176,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 ## 【6】右键菜单设置
 
-### 删除右键菜单新建中的选项
+### 【6.1】删除右键菜单新建中的选项
 
 1. 按下 Win+R，运行 `regedit`。
 2. 展开 `HKEY_CLASSES_ROOT`，找到需要删除的文件后缀名，然后展开文件夹找到 `ShellNew` 选项，直接删除即可。
@@ -185,7 +185,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 
 
-### 解决腾讯文档替换 Windows 右键快捷方式
+### 【6.2】解决腾讯文档替换 Windows 右键快捷方式
 
 在使用一段腾讯文档之后，发现腾讯文档替换掉了我 Windows 上原来 Office 三件套的右键新建文件快捷方式：
 
@@ -209,7 +209,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 
 
-### 删除右键菜单的 AMD Software
+### 【6.3】删除右键菜单的 AMD Software
 
 1. Win+R 运行 `regedit` 打开注册表编辑器，先定位到 `计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Classes\PackagedCom\Package`。
 
@@ -305,36 +305,6 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 
 
-## 【10】删除 Win11 右键菜单项
-
-此方法通过修改注册表来完成。
-
-按 win 键 + R 键，打开【运行】窗口，输入  `regedit`，按回车键，弹出注册表编辑器。在注册表 `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\` 处右键创建名为 `Blocked` 的项。在其中创建不同的字符串值达到屏蔽对应右键菜单项的效果。
-
-
-
-**Open in Terminal**
-
-**名称**为 `{9F156763-7844-4DC4-B2B1-901F640F5155}`，**数值**为 `WindowsTerminal`。
-
-<img src="!assets/IDE&Windows/image-20210806112305321.png" alt="image-20210806112305321" style="zoom:77%;" />
-
-> 可以直接通过卸载 Windows Terminal（Windows 终端）这个软件来解决这个问题，删除注册表是为了解决 需要使用 Windows 终端但是又觉得右键菜单【Open in Terminal...】太长而影响美观的问题。
->
-> 在新版的 Win11 中，该内容已被汉化为 “在终端中打开”。
-
-
-
-**AMD Software : Adrenalin Edition**
-
-名称为 `{FDADFEE3-02D1-4E7C-A511-380F4C98D73B}`，**数值**为 `AMD Software : Adrenalin Edition`。
-
-<img src="!assets/IDE&Windows/image-20221117151017598.png" alt="image-20221117151017598" style="zoom: 50%;" />
-
-> 可以直接通过卸载 AMD Software 这个驱动软件来解决这个问题，但是一般不建议卸载驱动软件。
-
-
-
 ## 【11】关闭系统小组件
 
 隐藏只需要在任务栏设置中设置就好了。
@@ -425,6 +395,8 @@ sc <server> [command] [service name] <option1> <option2>...
 
   *start* 参数的值可以是 `demand`（手动）、`disabled`（禁用），`auto`（自动）。注意：`start=`后面有一个空格
 
+
+
 **使用提示**
 
 1. 如果服务名称中包含有空格，记得在服务名称上加引号。例如 `sc stop "my service"`。
@@ -437,7 +409,7 @@ sc <server> [command] [service name] <option1> <option2>...
 
 4. `sc delete` 命令的实质都是删除 `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services` 下的 `ServiceName` 分支。所以也可以用 `reg` 命令删除名为 `ServiceName` 的服务：`reg delete HKLM\SYSTEM\CurrentControlSet\Services\ServiceName`。
 
-> 如果提示 “拒绝访问” 可能是没有管理员权限，或者电脑安装有 火绒 之类的安全工具。
+> 如果提示 “拒绝访问” 可能是没有管理员权限，或者电脑安装有火绒之类的安全工具。
 
 
 

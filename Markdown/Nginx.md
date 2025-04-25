@@ -1,7 +1,3 @@
----
-  typora-copy-images-to: upload
----
-
 # 1、简介
 
 Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载均衡、内容缓存等功能，用于客户端访问流量到后台应用服务器负载均衡和请求转发。其基于模块化的代码架构及可与其它有效集成的可编程特性，使其具有强大的扩展能力。Nginx 以资源消耗低、高稳定、高性能的并发处理能力著称。
@@ -29,7 +25,7 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 
 ### 2.1.1、离线安装
 
-**安装**
+#### 安装运行
 
 1. 去 [官网](http://nginx.org/en/download.html) 下载压缩包：
 
@@ -125,7 +121,7 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 
 
 
-**配置服务**
+#### 配置服务
 
 1. 到 `/usr/lib/systemd/system` 文件夹里新建 nginx.service 文件或修改现有的：
 
@@ -159,7 +155,7 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 
 
 
-**卸载**
+#### 卸载
 
 1. 停止 Nginx 软件：
    ```shell
@@ -183,48 +179,84 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 
 
 
-**常用命令**
+#### 常用命令
 
 ```shell
-cd /usr/local/nginx/sbin/     //进入目录
+cd /usr/local/nginx/sbin/     # 进入目录
 
-./nginx                       //启动
-./nginx -s stop               //停止
-./nginx -s quit               //安全退出
-./nginx -s reload             //重载配置文件（修改了配置文件需要执行此命令 比较常用）
-ps aux | grep nginx           //查看ngnix进程
+./nginx                       # 启动
+./nginx -s stop               # 停止
+./nginx -s quit               # 安全退出
+./nginx -s reload             # 重载配置文件（修改了配置文件需要执行此命令 比较常用）
+ps aux | grep nginx           # 查看ngnix进程
 
-cd /usr/local/nginx/conf      //进入配置目录
-vim nginx.conf                //编辑配置文件
+cd /usr/local/nginx/conf      # 进入配置目录
+vim nginx.conf                # 编辑配置文件
 ```
 
 
 
 ## 2.2、Windows 安装
 
-**安装**
+#### 安装运行
 
-去 [官网](http://nginx.org/en/download.html) 下载压缩包：
+1. 去 [官网](http://nginx.org/en/download.html) 下载压缩包：
 
-<img src="!assets/Nginx/image-20230810003412376.png" alt="image-20230810003412376" style="" />
+   <img src="!assets/Nginx/image-20230810003412376.png" alt="image-20230810003412376" style="" />
 
-下载好，找个目录解压缩一下，其中最主要的配置文件 `nginx.conf` 在 conf 文件夹中。
+2. 下载完成后找个目录解压缩一下，其中最主要的配置文件 `nginx.conf` 在 conf 文件夹中。
+
+3. 执行以下命令运行（默认运行在服务 80 端口）：
+
+   ```shell
+   start .\nginx
+   ```
+
+   或者直接双击 nginx.exe。
 
 
 
-**常用命令**
+#### 配置服务
+
+使用 `sc` 命令注册 Nginx 服务：
+
+1. 首先，以管理员身份打开命令提示符（CMD）或 PowerShell。
+
+2. 执行以下命令创建 Nginx 服务：
+
+   ```shell
+   sc create Nginx binPath= "C:\Program Files\Nginx\nginx.exe" start= auto DisplayName= "Nginx Server"
+   ```
+
+   - `binPath=` 后面是 Nginx 可执行文件的完整路径。
+   - `start=` 指定启动类型（`auto`表示自动启动）。
+   - 等号后最好有一个空格，在早期的 Windows 版本中，这个空格是必需的。
+   - 可以根据需要添加其他参数，如 `DisplayName=` 设置显示名称。
+
+3. 通过服务页面或者以下命令控制 Nginx 服务：
+
+   ```shell
+   sc start Nginx    # 启动服务
+   sc stop Nginx     # 停止服务
+   sc delete Nginx   # 删除服务
+   sc query Nginx    # 查询服务状态
+   ```
+
+
+
+#### 常用命令
 
 ```shell
-cd C:\Nginx					//进入目录
+cd C:\Nginx					# 进入目录
 
-start .\nginx				//启动nginx，或者直接双击nginx.exe
+start .\nginx				# 启动nginx，或者直接双击nginx.exe
 
-.\nginx.exe -s stop			//快速停止nginx
-.\nginx.exe -s quit			//完整有序的停止nginx，并保存相关信息
+.\nginx.exe -s stop			# 快速停止nginx
+.\nginx.exe -s quit			# 完整有序的停止nginx，并保存相关信息
 
-.\nginx.exe -s reload		//重新载入nginx配置信息
-.\nginx.exe -s reopen		//重新打开nginx的日志文件
-.\nginx.exe -v				//查看nginx版本信息
+.\nginx.exe -s reload		# 重新载入nginx配置信息
+.\nginx.exe -s reopen		# 重新打开nginx的日志文件
+.\nginx.exe -v				# 查看nginx版本信息
 ```
 
 

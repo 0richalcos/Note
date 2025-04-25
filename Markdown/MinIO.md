@@ -72,7 +72,7 @@ MinIO 服务安装后，可以直接通过浏览器登录系统，完成文件�
 
 ### 1.3.1、Linux
 
-**MinIO 安装**
+#### MinIO 安装启动
 
 1. 创建 `/opt/minio` 文件夹并进入：
 
@@ -139,7 +139,7 @@ MinIO 服务安装后，可以直接通过浏览器登录系统，完成文件�
 
 
 
-**关闭 MinIO**
+#### 关闭 MinIO
 
 查看端口占用，9000 为 MinIO 占用端口号，`kill` 杀死进程。
 
@@ -147,7 +147,7 @@ MinIO 服务安装后，可以直接通过浏览器登录系统，完成文件�
 netstat -nlp | grep 9000
 ```
 
-<img src="!assets/MinIO/image-20230613221015197.png" alt="image-20230613221015197" style="" />
+<img src="!assets/MinIO/image-20230613221015197.png" alt="image-20230613221015197" style="zoom: 80%;" />
 
 ```shell
 kill -9 2524
@@ -155,7 +155,7 @@ kill -9 2524
 
 
 
-**配置 systemd 服务**
+#### 配置 systemd 服务
 
 1. 新建一个 MinIO 配置文件：
 
@@ -225,6 +225,8 @@ kill -9 2524
 
 ### 1.3.2、Windows
 
+#### MinIO 安装启动
+
 Windows 环境下和 Linux 大致相同，主要是启动的环境配置有些差异，下方展示如何在 Windows Powershell 中设置环境变量并启动。
 
 设置用户名：
@@ -251,6 +253,121 @@ $env:MINIO_ROOT_PASSWORD="minioadmin"
 
 
 
+#### 配置服务
+
+推荐使用 NSSM 注册 MinIO 为 Windows 服务：
+
+1. 首先，下载 NSSM：
+
+   - 从 [官方网站](http://nssm.cc/download) 下载最新版。
+   - 解压到一个方便的位置，如 `C:\Program Files\NSSM`。
+
+   以管理员身份打开命令提示符（CMD）或PowerShell。
+
+2. 导航到 NSSM 所在目录：
+
+   ```shell
+   cd "C:\Program Files\NSSM"
+   ```
+
+3. 使用 NSSM 创建 MinIO 服务：
+
+   ```shell
+   .\nssm.exe install MinIO
+   ```
+
+4. NSSM会打开一个图形界面，填写以下信息：
+
+   - Application 选项卡：
+
+     - Path：`C:\Program Files\MinIO\minio.exe`
+
+       MinIO 可执行文件的完整路径，注意路径包含空格时无需特别处理，NSSM 会正确处理。
+
+     - Startup directory：`C:\Program Files\MinIO`
+
+       MinIO 运行的工作目录，程序会在此目录下查找相关文件。
+
+     - Arguments：`server --console-address :9001 --address :9000 "C:\Program Files\MinIO\data"`
+
+       传递给 MinIO 的命令行参数，注意路径包含空格，需要用引号括起来。
+
+   - Details 选项卡：
+
+     - Display name：`MinIO Object Storage`
+
+       在 Windows 服务管理器中显示的友好名称。
+
+     - Description：`MinIO高性能对象存储服务`
+
+       服务的描述信息，显示在服务属性中。
+
+     - Startup type：`Automatic`
+
+       设置为系统启动时自动启动服务。
+
+   - Environment 选项卡：
+
+     - 在 Environment variables 中添加:
+
+       ```
+       MINIO_ROOT_USER=你的管理员用户名
+       MINIO_ROOT_PASSWORD=你的管理员密码
+       ```
+
+       设置 MinIO 的管理员账号和密码，这些是 MinIO 启动后用于登录 Web 控制台的凭证。
+
+   - I/O选项卡：
+
+     - Output (stdout)：`C:\Program Files\MinIO\logs\minio.log`
+
+       MinIO 的标准输出将被记录到此文件。
+
+     - Error (stderr)：`C:\Program Files\MinIO\logs\minio-error.log`
+
+       MinIO 的错误输出将被记录到此文件。
+
+   - File rotation 选项卡：
+
+     - Rotate files：`勾选`
+
+       启用日志文件轮转功能。
+
+     - Rotate while service is running：`勾选`
+
+       允许在服务运行时执行日志轮转。
+
+     - Restrict rotation to files bigger than`10485760` kB
+
+       日志文件达到 10 MB 时触发轮转。
+
+5. 点击 "Install service" 按钮保存设置。
+
+6. 接下来可以使用以下命令来启动、停止和检查 MinIO 服务的状态：
+
+   ```shell
+   # 启动服务
+   sc start MinIO
+   
+   # 停止服务
+   sc stop MinIO
+   
+   # 查询状态
+   sc query MinIO
+   ```
+
+> [!NOTE]
+>
+> 如果想要查看或者修改配置：
+>
+> ```shell
+> "C:\Program Files\NSSM\nssm.exe" edit MinIO
+> ```
+>
+> 这将打开与安装时相同的GUI界面，显示所有已配置的选项。
+
+
+
 ### 1.3.3、麒麟V10
 
 1. 查看系统版本：
@@ -269,8 +386,6 @@ $env:MINIO_ROOT_PASSWORD="minioadmin"
    ```
 
 3. 安装操作参考 Linux 安装，这里主要是注意下载的 minio 文件版本。
-
-
 
 
 
