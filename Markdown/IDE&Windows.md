@@ -164,7 +164,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 
 
-## 【5】compact 压缩功能命令
+## 【5】compact 压缩
 
 它可以对所有的系统文件进行压缩，实现磁盘压缩，节约硬盘空间。
 
@@ -369,7 +369,7 @@ winget install 9MSSGKG348SP
 
 
 
-## 【14】使用 sc 命令控制服务
+## 【14】sc 控制服务
 
 `sc` 命令的语法格式：
 
@@ -413,7 +413,7 @@ sc <server> [command] [service name] <option1> <option2>...
 
 
 
-## 【15】mstsc 远程连接计算机
+## 【15】mstsc 远程连接
 
 远程桌面的命令行指令 `mstsc`，它的意思是 Microsoft Terminal Server Connection（微软终端服务器连接）的缩写。
 
@@ -487,7 +487,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 
 
-**创建新用户**
+#### 创建新用户
 
 1. 右键 Windows 图标点击【计算机管理】：
 
@@ -511,7 +511,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 
 
-**配置本地组策略**
+#### 配置本地组策略
 
 1. Win+R 打开运行窗口，输入 `gpedit.msc`，打开本地组策略编辑器，依次选择【计算机配置】=>【管理模板】=>【Windows组件】=>【远程桌面服务】=>【远程桌面会话主机】=>【连接】：
 
@@ -525,7 +525,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 
 
-**安装 RDP Wrapper 补丁**
+#### 安装 RDP Wrapper 补丁
 
 1. [下载地址](https://github.com/sebaxakerhtc/rdpwrap)，下载 RDPW_Installer.exe 文件。
 
@@ -555,11 +555,11 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
    <img src="E:\Users\Orichalcos\Documents\Note\Markdown\!assets\IDE&Windows\image-20250330235604110.png" alt="image-20250330235604110" style="zoom:50%;" />
 
-   可以看到状态已经变成【fully supported】。
+   可以看到状态已经变成【fully supported】，最后点击一下【Resetart TermService】。
 
 
 
-**连接本地桌面**
+#### 连接本地桌面
 
 1. Win+R 打开运行窗口，输入 `mstsc`，输入本地回环地址，注意不要输入 `127.0.0.1` 否则会报错：
 
