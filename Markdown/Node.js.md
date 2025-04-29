@@ -20,7 +20,7 @@ npm 是随同 Node.js 一起安装的包管理工具，能解决 Node.js 代码�
 
 1. 打开官网[下载链接](https://nodejs.org/en/download/): 
 
-   <img src="!assets/Node.js/image-20221118103127016.png" alt="image-20221118103127016" style="" />
+   <img src="!assets/Node.js/image-20221118103127016.png" alt="image-20221118103127016" style="zoom: 50%;" />
 
 2. 下载完成后直接安装，可以不用修改，直接默认选项安装，如有需要可以修改安装目录。
 
@@ -125,7 +125,7 @@ nvm use vA.B.C
    - `npm install express`
    - `yarn add lodash`
    - `pnpm add axios`
-3. 版本控制：包管理工具确保项目中的库的版本保持一致，避免因为库版本不一致而导致的项目问题。例如，`package-lock.json` 或 `yarn.lock` 文件会记录依赖的具体版本，以确保在不同的环境下安装相同版本的包。
+3. 版本控制：包管理工具确保项目中的库的版本保持一致，避免因为库版本不一致而导致的项目问题。例如 `package-lock.json` 或 `yarn.lock` 文件会记录依赖的具体版本，以确保在不同的环境下安装相同版本的包。
 4. 依赖更新：包管理工具可以自动检查项目中的依赖是否有新版本，并提供更新机制。例如，`npm update` 或 `yarn upgrade`。
 5. 发布和共享：开发者可以将自己的代码库打包发布到公共仓库中，供其他开发者使用。npm、Yarn、pnpm 都允许发布自己的包到 npm Registry。
 
@@ -155,7 +155,492 @@ nvm use vA.B.C
 
 ## 3.1、npm
 
-### 2.3.1、环境配置
+npm 是 Node.js 社区最庞大、最常用、也是默认的包管理工具。它不仅是一个命令行工具，更是一个由注册表（Registry）、网站和命令行工具组成的生态系统。当你安装 Node.js 时，npm 通常也会一起安装。
+
+
+
+**npm 的作用和地位**
+
+*   默认工具： 随着 Node.js 一起安装，几乎所有 Node.js 项目都默认使用 npm 进行包管理。
+*   庞大生态： npm Registry 是目前世界上最大的软件包注册表之一，托管着数百万计的开源软件包，覆盖了从后端服务到前端框架，从实用工具到命令行应用等各种领域。
+*   核心功能： 像其他包管理器一样，npm 的核心功能在于自动化处理项目依赖的安装、更新、卸载，并管理版本。
+
+
+
+### 3.1.1、核心组成部分
+
+理解 npm，需要了解其几个关键部分：
+
+1.  **npm Registry（注册表）**
+    *   这是一个巨大的数据库，存储了所有公开可用的 npm 包及其版本信息、元数据等。
+    *   当你使用 `npm install <package>` 命令时，npm CLI 会从这个注册表下载指定的包。
+    *   官方的 npm Registry 地址是 `https://registry.npmjs.org/`。你也可以配置使用其他的 Registry（例如淘宝 NPM 镜像）。
+2.  **npm CLI（命令行工具）**
+    *   这是安装 Node.js 时附带的命令行接口工具。
+    *   你在终端中执行的所有 `npm` 命令（如 `npm install`, `npm run` 等）都通过这个工具与 Registry 和你的项目文件进行交互。
+3.  **`package.json` 文件**
+    *   项目的清单文件： 这是每个 npm 项目（或模块）的根目录下的一个重要文件。
+    *   记录项目信息： 包括项目的名称、版本、描述、作者、许可证等元数据。
+    *   定义依赖： 最核心的功能之一是列出项目所需的所有第三方包（依赖）及其版本范围。
+    *   定义脚本： 允许定义一些自定义的命令脚本，方便运行项目任务（如启动、构建、测试）。
+    *   如何创建： 在项目根目录运行 `npm init` (交互式) 或 `npm init -y`（快速生成默认）。
+    *   重要性： 这个文件是项目的 “身份证明”，必须被提交到版本控制（如 Git）。
+4.  **`node_modules` 目录**
+    *   依赖存放地： 当你在项目目录中运行 `npm install` 安装本地依赖时，npm 会创建一个 `node_modules` 文件夹，并将所有安装的包及其依赖项都放在这里。
+    *   体积庞大： 由于依赖的嵌套关系，这个目录通常会变得非常大。
+    *   不应提交到版本控制： `node_modules` 目录不应该被提交到 Git 仓库。因为它可以通过 `package.json` 和 `package-lock.json` 文件由 npm 自动重建。提交它会使仓库过于庞大，且可能导致跨平台兼容性问题。需要在 `.gitignore` 文件中忽略 `node_modules/`。
+5.  **`package-lock.json` 文件**
+    *   锁定依赖版本： 自 npm v5 起引入。它记录了 `node_modules` 目录下所有包的精确安装版本、依赖关系、下载来源和文件校验值。
+    *   确保一致性： 它的主要目的是保证在任何时间、任何环境下，只要使用相同的 `package-lock.json` 文件运行 `npm install`，都能安装出完全相同的依赖树结构和精确版本。这解决了 `package.json` 中版本范围可能导致安装版本不一致的问题。
+    *   自动生成/更新： 大多数 npm 命令（如 `install`, `update`, `uninstall`）都会自动生成或更新 `package-lock.json` 文件。
+    *   必须提交到版本控制： 和 `package.json` 一样，`package-lock.json` 是项目状态的重要记录，**必须**提交到版本控制，以确保团队成员或部署环境依赖的一致性。
+
+简单来说： `package.json` 定义了项目需要哪些包以及它们的版本范围；`package-lock.json` 记录了 npm 实际安装的每个包的精确版本；`node_modules` 则是这些包实际存放的位置。
+
+
+
+### 3.1.2、语义化版本号
+
+在 `package.json` 中，依赖的版本通常不是固定的，而是使用语义化版本（SemVer）和版本范围来表示。
+
+
+
+**语义化版本**
+
+版本号由三部分组成，用点号分隔：`MAJOR.MINOR.PATCH`
+
+*   主版本号（MAJOR）： 不兼容的 API 修改。
+*   次版本号（MINOR）：添加了向下兼容的新功能。
+*   修订版本号（PATCH）： 向下兼容的 bug 修复。
+
+
+
+**版本范围符号**
+
+* `^`：最常用，允许在不改变主版本号的情况下进行次版本和修订版本更新。
+
+  例如 `^1.2.3` 会匹配 `1.2.3` 到 `1.x.x` 的最新版本（不包括 `2.0.0`）。
+
+  对于 `1.0.0` 以下的版本（`0.x.x` 版本），行为有所不同：
+
+  - `^0.0.z` 匹配 `0.0.z` 的最新修订版本。
+  - `^0.y.z` 匹配 `0.y.z` 的最新修订版本。
+
+* `~`：允许在不改变主版本号和次版本号的情况下进行修订版本更新。
+
+  例如 `~1.2.3` 会匹配 `1.2.3` 到 `1.2.x` 的最新版本（不包括 `1.3.0`）。
+
+* 精确版本：直接写版本号，如 `1.2.3`，只会安装这个特定版本。
+
+* 其他符号：
+
+  *   `>`：大于。
+  *   `<`：小于。
+  *   `>=`：大于等于。
+  *   `<=`：小于等于。
+  *   `-`：范围。
+  *   `||`：或。
+  *   `*`：任意版本，不推荐。
+
+
+
+### 3.1.3、常用的命令
+
+#### 初始化项目
+
+命令：`npm init`
+
+作用：在当前目录创建一个 `package.json` 文件。
+
+用法：
+*   `npm init`：交互式过程，会询问项目名称、版本、描述、入口文件、作者等信息，你可以按 Enter 接受默认值或自行输入。
+*   `npm init -y` 或 `npm init --yes`：快速生成一个带有默认值的 `package.json` 文件，跳过所有询问。
+
+示例：
+```shell
+mkdir my-node-app
+cd my-node-app
+npm init -y
+```
+
+
+
+#### 安装依赖包
+
+命令：`npm install`
+
+作用：安装项目依赖的第三方包。这是最常用、最核心的命令。
+
+
+
+**安装所有依赖**
+
+用法：在包含 `package.json` 的项目根目录运行 `npm install` 或 `npm i`。
+
+说明：npm 会读取 `package.json` 文件中的 `dependencies` 和 `devDependencies` 字段，安装所有列出的包到 `node_modules` 目录，并根据需要更新 `package-lock.json`。
+
+示例：
+```shell
+# 安装当前项目的所有依赖
+npm install 
+```
+
+
+
+**本地安装特定包**
+
+用法：`npm install <package-name>` 或 `npm i <package-name>`
+
+说明：下载 `<package-name>` 包并安装到当前项目的 `node_modules` 目录。默认情况下（npm v5+），它会将该包及其版本记录到 `package.json` 的 `dependencies` 字段中。
+
+示例：
+```shell
+# 安装 express 包并保存到 dependencies
+npm install express
+
+# 安装 lodash 包并保存到 dependencies (使用简写)
+npm i lodash
+```
+
+
+
+**安装开发依赖**
+
+用法：`npm install <package-name> --save-dev` 或 `npm i -D <package-name>`
+
+说明：下载并安装包，但将其记录到 `package.json` 的 `devDependencies` 字段中。这类依赖只在开发、构建、测试阶段需要，项目运行时不需要（例如：打包工具 Webpack、测试框架 Jest、代码检查工具 ESLint）。
+
+示例：
+```shell
+# 安装 webpack 并保存到 devDependencies
+npm install webpack --save-dev
+
+# 安装 jest 并保存到 devDependencies
+npm i -D jest                
+```
+
+
+
+**全局安装**
+
+用法：`npm install -g <package-name>` 或 `npm i -g <package-name>`
+
+说明：将包安装到系统的全局目录下，通常用于安装命令行工具（CLI），这样你就可以在系统的任何位置直接调用这个工具提供的命令（例如：`create-react-app`、`vue-cli`、`nodemon`）。
+
+示例：
+```shell
+# 全局安装 nodemon，可以在任何地方使用 nodemon 命令
+npm install -g nodemon
+```
+
+> [!IMPORTANT]
+>
+> 全局安装的包不会出现在项目的 `package.json` 中。
+
+
+
+**安装指定版本**
+
+用法：`npm install <package-name>@<version>` 或 `npm i <package-name>@<version>`
+
+说明：安装特定版本的包。版本可以是精确版本号（如 `1.2.3`）、版本范围（如 `^1.2.0`）、标签（如 `latest`, `beta`），甚至是 Git 仓库地址。
+
+示例：
+
+```shell
+# 安装精确的 react 18.0.0 版本
+npm install react@18.0.0
+# 安装 jquery 的最新稳定版本
+npm install jquery@latest
+```
+
+
+
+#### 升级依赖包
+
+命令：`npm update` 和 `npm install <package>@latest`
+
+作用： 用于更新项目中的依赖包到更新的版本。
+
+
+
+**检查可更新的包**
+
+`npm outdated` 命令会列出当前依赖中版本低于 `package.json` 允许的最新版本或 Registry 中最新版本的包：
+
+```shell
+# 查看哪些包可以更新
+npm outdated
+```
+
+
+
+**`npm update`**
+
+用法：
+*   `npm update`：更新 `package.json` 中列出的所有包到符合其版本范围（`^`、`~` 等）的最新版本，并更新 `package-lock.json`。
+*   `npm update <package-name>`：只更新指定的包到符合其版本范围的最新版本。
+
+说明：这是最常用的升级方式，它会获取补丁和次版本更新，但默认不会升级到不兼容的主要版本（例如：如果 `package.json` 写的是 `^1.2.0`，`npm update` 会更新到 `1.x.x` 的最新版，但不会更新到 `2.0.0`）。
+
+示例：
+```shell
+# 更新所有依赖到符合版本范围的最新版本
+npm update
+
+# 更新 lodash 到符合版本范围的最新版本
+npm update lodash
+```
+
+
+
+**`npm install <package-name>@latest`**
+
+用法：`npm install <package-name>@latest`
+
+说明：如果你明确想要将某个特定的包升级到 Registry 上的最新版本，即使这会跨越主要版本号（Major Version），你可以使用这个命令。它会直接安装最新版本，并相应地更新 `package.json` 和 `package-lock.json` 中的版本记录。
+
+示例：
+```shell
+# 将 express 升级到最新版本，并更新 package.json
+npm install express@latest
+```
+
+> [!CAUTION]
+>
+> 升级主要版本通常意味着可能存在不兼容的 API 变更 (Breaking Changes)。在执行此操作前，强烈建议查阅该包的发行说明（Release Notes）或 更新日志（Changelog），了解变更内容，并做好相应的代码调整和测试。
+
+
+
+#### 卸载依赖包
+
+命令：`npm uninstall`
+
+作用：从项目中移除指定的包。
+
+用法：
+
+- `npm uninstall <package-name>` 或 `npm un <package-name>` 或 `npm rm <package-name>`：删除 `node_modules` 中的包，并自动从 `package.json` 中的 `dependencies` 或 `devDependencies` 移除该记录，同时更新 `package-lock.json`。
+- `npm uninstall -g <package-name>`：删除全局安装的包。
+
+示例：
+
+```shell
+# 卸载 express
+npm uninstall express
+
+# 卸载 webpack (使用简写)
+npm un webpack
+
+# 卸载全局安装的 nodemon
+npm uninstall -g nodemon
+```
+
+
+
+#### 运行脚本
+
+命令：`npm run`
+
+作用：执行在 `package.json` 的 `scripts` 字段中定义的自定义命令。
+
+用法：`npm run <script-name>`
+
+说明：这允许你将复杂的任务（如构建、测试、启动服务器）定义为简单的别名。`npm run` 会在执行脚本时自动将 `node_modules/.bin` 目录添加到 `PATH` 中，所以你可以直接在脚本中调用本地安装的命令行工具。
+
+特殊脚本：`start`、`test`、`install`、`publish` 等脚本可以直接使用 `npm <script-name>` 运行（例如 `npm start` 等同于 `npm run start`）。
+
+示例（假设 `package.json` 中有 `"scripts": { "dev": "nodemon index.js", "build": "webpack" }`）：
+```shell
+# 运行 nodemon index.js
+npm run dev
+
+# 运行 webpack
+npm run build
+
+# 如果 package.json 有 "start" 脚本，直接运行
+npm start
+```
+
+
+
+#### 搜索包
+
+命令：`npm search`
+
+作用：在 npm Registry 中搜索包含指定关键字的包。
+
+用法：`npm search <keyword>`
+
+示例：
+```shell
+# 搜索与日期格式化相关的包
+npm search date format 
+```
+
+
+
+#### 安全审计
+
+命令：`npm audit`
+
+作用：检查项目依赖中是否存在已知的安全漏洞。
+
+用法：
+*   `npm audit`：扫描 `package-lock.json` 并报告发现的漏洞及建议。
+*   `npm audit fix`：尝试自动升级受影响的包到没有漏洞的兼容版本来修复漏洞。
+
+
+
+#### 列出依赖树
+
+命令：`npm list`
+
+作用： 以树状结构列出当前项目或全局安装的所有依赖包及其它们之间的依赖关系。这是理解项目实际安装了哪些包、版本是什么以及它们的来源（即哪个顶级依赖引入了它）的强大工具。
+
+
+
+**基本用法** 
+
+用法：在项目根目录运行 `npm list` 或 `npm ls`。
+
+说明：默认会显示整个依赖树，这对于大型项目可能会非常长且难以阅读，可以使用 `--depth` 参数控制显示深度。`--depth=0` 只显示顶级依赖（即直接列在 `package.json` 中的 `dependencies` 和 `devDependencies` 中的包）。
+
+示例：
+```shell
+# 列出完整的本地依赖树
+npm list
+
+# 只列出顶级依赖
+npm list --depth=0
+```
+
+
+
+**列出全局依赖**
+
+用法：`npm list -g` 或 `npm ls -g`
+
+说明：显示所有全局安装的包及其依赖树。
+
+示例：
+```shell
+# 只列出顶级全局安装的包
+npm list -g --depth=0
+```
+
+
+
+**查找特定包**
+
+用法：`npm list <package-name>` 或 `npm ls <package-name>`
+
+说明：列出项目中指定包的安装位置和版本，如果该包作为子依赖被多个地方引入，会显示所有路径。这对于调试 “幻影依赖”（Phantom Dependencies，即项目中使用了未直接声明在 `package.json` 中的包）或理解某个包为什么被安装（即使你没有直接安装它）非常有用。
+
+示例：
+```shell
+# 查看项目中安装的 lodash 版本和路径
+npm list lodash
+```
+
+
+
+**为什么在代码审计和版本升级中很有用？**
+
+当安全审计工具（如 `npm audit` 或其他平台）报告某个包的特定版本存在漏洞时，`npm list` 可以帮助你确认你的项目是否**真的**安装了那个版本，以及这个包是作为哪个顶级依赖的子依赖被引入的。
+
+例如，如果审计报告说 `lowdash@4.17.20` 有漏洞，但你的 `package.json` 里只有 `express` 和 `react`，你就可以运行 `npm list lowdash` 来查看 `lowdash` 是不是作为 `express` 或 `react` 的某个子依赖被拉进来的，以及实际安装的版本是多少。这有助于定位问题根源，决定是升级顶级依赖还是采取其他措施。
+
+
+
+#### 查看包信息
+
+命令：`npm view`
+
+作用： 从 npm Registry 获取某个包的详细元数据信息，包括可用的版本列表、依赖项、仓库地址、作者、描述等。
+
+> [!IMPORTANT]
+>
+> 这个命令查询的是 npm Registry 上的信息，不是你本地安装的版本信息。
+
+
+
+**基本用法**
+
+用法：`npm view <package-name>`
+
+说明：默认显示该包的最新稳定版本的信息。
+
+示例：
+```shell
+# 查看 react 包的最新信息
+npm view react
+```
+
+
+
+**查看所有可用版本**
+
+用法：`npm view <package-name> versions`
+
+说明：列出该包在 npm Registry 上发布过的所有版本号，通常以数组形式输出。
+
+示例：
+```shell
+# 列出 lodash 的所有历史版本
+npm view lodash versions
+```
+
+
+
+**查看特定版本信息**
+
+用法：`npm view <package-name>@<version>`
+
+说明：查看指定版本号的包的详细信息。
+
+示例：
+```shell
+# 查看 express 4.17.1 版本的信息
+npm view express@4.17.1
+```
+
+
+
+**查看特定字段信息**
+
+用法：`npm view <package-name> <field>`
+
+说明：只显示包信息的某个特定字段，比较常用的有：
+
+- `dependencies`：依赖。
+- `devDependencies`：开发依赖。
+- `homepage`：主页。
+- `repository`：仓库地址
+- `license`：许可证。
+
+示例：
+```bash
+# 查看 axios 包依赖了哪些其他包
+npm view axios dependencies
+
+# 查看 webpack 包的主页地址
+npm view webpack homepage
+```
+
+
+
+**为什么在代码审计和版本升级中很有用？**
+
+当你通过 `npm audit` 发现某个包存在漏洞（比如 `packageA` 的 `< 1.5.0` 版本有漏洞）时，`npm view packageA versions` 可以立即让你看到该包的所有版本列表，从而快速找到第一个安全版本（例如 `1.5.0` 或更高版本）。
+
+结合 `npm audit` 的报告，`npm view` 帮你确定了 “要升级到哪个版本”，而 `npm list` 帮你确定了“当前安装的是哪个版本”以及“它是怎么来的”。
+
+你还可以使用 `npm view <package> repository` 或 `npm view <package> homepage` 来找到该包的官方仓库或主页，以便查看更新日志（Changelog）或发行说明（Release Notes），了解新版本可能带来的不兼容变更，从而更好地规划升级过程。
+
+
+
+### 3.1.4、环境配置
 
 这里的环境配置主要配置的是 npm 安装的全局模块所在的路径，以及缓存 cache 的路径。
 
@@ -233,7 +718,7 @@ npm 全局下载依赖时，会默认下载到当前使用的 Nodejs 版本的�
 
 
 
-### 2.3.2、使用问题
+### 3.1.5、使用问题
 
 #### 快速删除 node_modules
 
@@ -625,83 +1110,3 @@ corepack use pnpm@latest
    # 状态存储路径
    pnpm config set state-dir "Z:\Nodejs\pnpm_state"
    ```
-
-
-
-# 4、package.json
-
-## 4.1、版本号
-
-当我们查看 package.json 中已安装的库的时候，会发现他们的版本号之前都会加一个符号，有的是插入符号（`^`），有的是波浪符号（`~`）：
-
-```json
-"dependencies": {
-    "bluebird": "^3.3.4",
-    "body-parser": "~1.15.2"
-}
-```
-
-
-
-**波浪符号（~）**
-
-他会更新到当前 minor version（也就是中间的那位数字）中最新的版本。
-
-放到我们的例子中就是：`body-parser:~1.15.2`，这个库会去匹配更新到 1.15.x 的最新版本，如果出了一个新的版本为 1.16.0，则不会自动升级。波浪符号是曾经 npm 安装时候的默认符号，现在已经变为了插入符号。
-
-
-
-**插入符号（^）**
-
-这个符号就显得非常的灵活了，他将会把当前库的版本更新到当前 major version（也就是第一位数字）中最新的版本。
-
-放到我们的例子中就是：`bluebird:^3.3.4`，这个库会去匹配 3.x.x 中最新的版本，但是他不会自动更新到 4.0.0。
-
-
-
-**minor verision 和 major version**
-
-版本号对应就是 `MAJOR.MINOR.PATCH`：
-
-- MAJOR：这个版本号变化了表示有了一个不可以和上个版本兼容的大更改。
-- MINOR：这个版本号变化了表示有了增加了新的功能，并且可以向后兼容。
-- PATCH：这个版本号变化了表示修复了 bug，并且可以向后兼容。
-
-比如 1.15.2，则代表 1 是 marjor version，15 是 minor version，2 是 patch version。
-
-因为 major version 变化表示可能会影响之前版本的兼容性，所以无论是波浪符号还是插入符号都不会自动去修改 major version，因为这可能导致程序 crush，可能需要手动修改代码。
-
-
-
-## 4.2、process.env.NODE_ENV
-
-`process.env.NODE_ENV` 应该是我们最熟悉的环境变量了，它经常出现在使用框架或者类库的时候，被用来区分不同的环境（开发，测试，生产等），以便我们进行相对应的项目配置，比如是否开启 sourceMap，api 地址切换等。
-
-
-
-**process**
-
-`process` 对象是一个 全局变量 （global），提供有关信息，控制当前 Node.js 进程。作为一个对象，它对于 Node.js 应用程序始终是可用的，故无需使用 `require()`。
-
-
-
-**process.env**
-
-`process.env` 属性返回一个包含用户环境信息的对象。
-
-
-
-**process.env.NODE_ENV**
-
-在 node  环境中，当我们打印 `process.env` 时，发现它并没有 `NODE_ENV` 这一个属性。实际上，`process.env.NODE_ENV` 是在package.json 的 `scripts` 命令中注入的，也就是 `NODE_ENV` 并不是 node 自带的，而是由用户定义的，至于为什么叫 `NODE_ENV`，应该是约定成俗的吧。
-
-```json
-{
-  "scripts": {
-    "dev": "NODE_ENV=development webpack --config webpack.dev.config.js"
-  }
-}
-```
-
-可以看到 `NODE_ENV` 被赋值为 `development`，当执行 `npm run dev` 时，我们就可以在 `webpack.dev.config.js` 脚本中以及它所引入的脚本中访问到 `process.env.NODE_ENV`，而无法在其它脚本中访问。
-
