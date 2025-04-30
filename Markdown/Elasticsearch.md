@@ -1,7 +1,3 @@
----
-typora-copy-images-to: upload
----
-
 # 1、什么是 Elastisearch？
 
 > 你懂的，用来搜索（也用来分析）
