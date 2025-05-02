@@ -1825,17 +1825,29 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 
 ## 【2】浏览器拓展错误
 
-使用破解版的 IDM 下载时浏览器提示拓展错误。
+使用破解版的 IDM 下载时浏览器提示扩展错误：
+
+<img src="./!assets/Settings/image-20250503043825942.png" alt="image-20250503043825942" style="zoom: 50%;" />
+
+是因为软件版本和扩展版本不一致，只需要下载回旧版本的插件就可以啦（需要禁止浏览器更新扩展版本），或者更新软件的版本。
 
 
 
 解决方案：
 
-1. 打开浏览器的拓展设置，将 IDM 的拓展删除。
+1. 打开浏览器的扩展设置，将 IDM 的扩展删除。
 
-2. 打开 IDM 的安装目录，找到 IDMGCExt.crx 文件，将其拖入浏览器中，浏览器会重新安装拓展：
+2. 打开 IDM 的安装目录，找到 IDMGCExt.crx 文件，将其拖入浏览器中，浏览器会重新安装扩展：
 
    <img src="./!assets/IDE&Windows/image-20250503032759698.png" alt="image-20250503032759698" style="zoom: 50%;" />
+   
+3. 安装完成后，在扩展管理中找到扩展 ID：
+
+   <img src="./!assets/Settings/image-20250503050512140.png" alt="image-20250503050512140" style="zoom:50%;" />
+
+4. 前往 `C:\Users\<用户名>\AppData\Local\Microsoft\Edge\User Data\Default\Extensions` 目录下找到与扩展 ID 同名的文件夹，右键打开【属性】，在【安全】页签中设置拒绝所有用户写入：
+
+   <img src="./!assets/Settings/image-20250503050831462.png" alt="image-20250503050831462" style="zoom:50%;" />
 
 
 
