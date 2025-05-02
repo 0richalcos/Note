@@ -17,8 +17,6 @@
 
 此操作虽然以后会比较方便，但是由于所有软件都能获取到管理员权限，所以电脑安全性会有所降低。
 
-> 最近更换了 Thinkbook 16P，下载了一个联想电脑管家，这个软件会自动打开【用户账户控制：以管理员批准模式运行所有管理员】，可以下载[这个文件](https://github.com/0richalcos/Note/blob/main/Annex/lsconfig)（如果下载后有 .txt 后缀需要删除后缀使用）并将其放到 C 盘根目录解决这个问题，不然只能通过卸载联想电脑管家解决。
-
 
 
 ## 【2】diskpart 操作硬盘
@@ -35,18 +33,15 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 **如何在 Windows 11 当中打开 DiskPart？**
 
-您需要以管理员权限启动 Windows 11 DiskPart 实用程序。一种方法是在 “搜索” 框中键入 `diskpart`，然后在搜索结果中出现【diskpart 】时，右击它并选择【以管理员身份运行】。另一种方法是按 Windows + R 键并在框中键入 `diskpart`，然后单击【确定】。
+您需要以管理员权限启动 Windows 11 DiskPart 实用程序。一种方法是在 “搜索” 框中键入 `diskpart`，然后在搜索结果中出现【diskpart】时，右击它并选择【以管理员身份运行】。另一种方法是按 Windows + R 键并在框中键入 `diskpart`，然后单击【确定】。
 
 <img src="!assets/IDE&Windows/image-20220812105905290.png" alt="image-20220812105905290" style="zoom: 50%;" />
-
-
-> 在使用微软官方工具制作的启动盘安装系统时，如果遇到硬盘格式问题无法安装，可以按 Shift + F10 打开 cmd 使用 diskpart 的 `convert` 命令转换硬盘格式解决问题。
 
 
 
 **DiskPart Windows 11 命令和示例**
 
-在使用 DiskPart 命令之前，必须首先列出所有对象，然后选择一个对象使其获得焦点。当对象具有焦点时，您键入的任何DiskPart 命令都将作用于该对象。
+在使用 DiskPart 命令之前，必须首先列出所有对象，然后选择一个对象使其获得焦点。当对象具有焦点时，您键入的任何 DiskPart 命令都将作用于该对象。
 
 在 `DISKPART >` 提示符下：
 
@@ -60,19 +55,73 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 
 
+### 【2.1】转换磁盘格式
 
-**清理磁盘/将磁盘转换为 GPT /将磁盘转换为 MBR**
+当使用微软官方工具（如「媒体创建工具」或「Windows 安装镜像」）制作启动盘并安装系统时，如果目标磁盘的分区格式不是 GPT（GUID 分区表），可能会出现错误提示，例如：
 
-要删除磁盘上的所有分区或卷并在 MBR 和 GPT 之间转换磁盘，请参阅以下命令：
+> “Windows 无法安装到此磁盘。所选磁盘具有 MBR 分区表。在 EFI 系统上，Windows 必须安装到 GPT 磁盘。”
 
-- 键入 `list disk`。
-- 键入 `select disk 1`。
-- 键入 `clean`。
-- 键入 `convert gpt` 或 `convert mbr`。
+这时，可以使用 `diskpart` 命令清除磁盘并转换分区格式，解决该问题：
 
-> 使用微软官方工具制作启动盘安装系统时，如果系统盘的格式不是 GPT，就会报错，此时可以通过 `convert` 命令转换磁盘格式解决问题。
->
-> `clean` 命令可以解决在【磁盘管理】中无法删除系统分区（比如 EFI 分区）的问题。
+1. 列出所有磁盘：
+
+   ```shell
+   list disk
+   ```
+
+2. 选择要操作的目标磁盘（假设为 Disk 1）：
+
+   ```shell
+   select disk 1
+   ```
+
+3. 清空所选磁盘上的所有分区信息：
+
+   ```shell
+   clean
+   ```
+
+4. 将磁盘转换为 GPT 格式：
+
+   ```shell
+   convert gpt
+   ```
+
+   > 如果你的电脑是 UEFI 模式，通常要求使用 GPT 分区格式。
+
+   或者，如果你希望转换为传统 BIOS 支持的格式：
+
+   ```shell
+   convert mbr
+   ```
+
+
+
+### 【2.2】解除磁盘写保护
+
+写保护，也称为只读模式，它可以是虚拟的或实体的。当硬盘或其他存储设备如 U 盘启用了写保护时，将无法对其进行任何写操作。
+
+例如，无法删除硬盘上的文件或在硬盘上存储新文件，只能读取存储在里面的数据。也就是说，如果你的磁盘被写保护，则可以避免由于错误操作而导致的数据丢失。
+
+在需要对硬盘数据有所操作时，可以通过 Diskpart 命令解除只读模式：
+
+1. 列出系统中所有磁盘：
+
+   ```shell
+   list disk
+   ```
+
+2. 选择目标磁盘（以 Disk 1 为例）：
+
+   ```shell
+   select disk 1
+   ```
+
+3. 清除磁盘的只读属性：
+
+   ```shell
+   attributes disk clear readonly
+   ```
 
 
 
@@ -325,7 +374,7 @@ winget install 9MSSGKG348SP
 
 
 
-## 【12】环境变量值只能一行显示，不是换行显示问题
+## 【12】环境变量不换行显示
 
 这是因为变量值的第一个是相对地址，只需要将一个绝对地址（带盘符）的放首位，然后逗号分隔，确定之后，再双击打开就是换行显示了！
 
@@ -649,9 +698,11 @@ localhost,127.0.0.1,Orichalcos.com
 
 
 
-## 【19】需要使用新应用以打开此 ms-gamingoverlay 链接
+## 【19】Xbox 卸载
 
-一般在打开游戏或者部分应用出现 “需要使用新应用一打开此 ms-gamingoverlay 链接”，是因为 xbox 搞事儿，没有 xbox 或者 xbox 没有卸载干净。
+直接将 Xbox 和 Game Bar 相关的程序都卸载。
+
+但是在打开游戏或者部分应用会出现 “需要使用新应用一打开此 ms-gamingoverlay 链接”，是因为在启动时会调用这个协议（ms-gamingoverlay://），以便启用截图、录制、社交或快捷键，如果你已经卸载了 Microsoft.XboxGamingOverlay 应用（也就是 Xbox Game Bar），那么这个链接就会找不到处理程序，系统就会提示你选择一个应用来打开它。
 
 解决办法：
 
@@ -664,6 +715,8 @@ localhost,127.0.0.1,Orichalcos.com
 3. 双击【启用或禁用 Windows 游戏录制和广播】，选择【已禁用】，点击【应用】：
 
    <img src="!assets/IDE&Windows/image-20231215000956699.png" alt="image-20231215000956699" style="" />
+   
+4. 最后重启电脑即可。
 
 
 
@@ -1766,7 +1819,23 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 
 2. 每次 IDM 启动的时候，都会修改 hosts 文件，将以上内容注释，可以将 hosts 文件设置为【只读】，也可以使用火绒的自定义防护禁止 IDMan.exe 修改 hosts：
 
-   <img src="!assets/IDE&Windows/image-20240416144317613.png" alt="image-20240416144317613" style="zoom:67%;" />
+   <img src="!assets/IDE&Windows/image-20240416144317613.png" alt="image-20240416144317613" style="zoom: 50%;" />
+
+
+
+## 【2】浏览器拓展错误
+
+使用破解版的 IDM 下载时浏览器提示拓展错误。
+
+
+
+解决方案：
+
+1. 打开浏览器的拓展设置，将 IDM 的拓展删除。
+
+2. 打开 IDM 的安装目录，找到 IDMGCExt.crx 文件，将其拖入浏览器中，浏览器会重新安装拓展：
+
+   <img src="./!assets/IDE&Windows/image-20250503032759698.png" alt="image-20250503032759698" style="zoom: 50%;" />
 
 
 
