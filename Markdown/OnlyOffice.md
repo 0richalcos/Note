@@ -1,12 +1,8 @@
----
-typora-copy-images-to: upload
----
-
 # 1、OnlyOffice
 
 ## 1.1、基本概念和安装
 
-ONLYOFFICE Document Server API 用于使开发人员将 ONLYOFFICE 文档/电子表格/演示文稿 编辑器集成到他们自己的网站中，并设置和管理编辑器。
+[ONLYOFFICE Document Server API](https://api.onlyoffice.com/zh-CN/docs/docs-api/get-started/basic-concepts/) 用于使开发人员将 ONLYOFFICE 文档/电子表格/演示文稿 编辑器集成到他们自己的网站中，并设置和管理编辑器。
 
 这里使用 [Docker](https://www.docker.com/) 进行集成，避免了出现服务器系统的不同而重新适配的问题。Docker的思想来自于集装箱，集装箱解决了什么问题？在一艘大船上，可以把货物规整的摆放起来。并且各种各样的货物被集装箱标准化了，集装箱和集装箱之间不会互相影响。那么我就不需要专门运送水果的船和专门运送化学品的船了。只要这些货物在集装箱里封装的好好的，那我就可以用一艘大船把他们都运走。
 
@@ -201,42 +197,42 @@ config = {
 	<div id="placeholder"></div>
 	```
 
-3. 使用将用于您的网站的 JavaScript API指定的 ONLYOFFICE Document Server 链接。 
+3. 使用将用于您的网站的 JavaScript API指定的 ONLYOFFICE Document Server 链接。
 
-  ```html
-<script type="text/javascript" src="https://documentserver/web-apps/apps/api/documents/api.js"></script>
-  ```
+   ```html 
+   <script type="text/javascript" src="https://documentserver/web-apps/apps/api/documents/api.js"></script>
+   ```
 
-  > 其中 documentserver 是安装了 ONLYOFFICE Document Server 的服务器的名称。
+   其中 documentserver 是安装了 ONLYOFFICE Document Server 的服务器的名称。
 
-4. 添加初始化 div 元素的文档编辑器的脚本，该脚本带有要打开的文档的配置。
+4. 添加初始化 div 元素的文档编辑器的脚本，该脚本带有要打开的文档的配置：
 
-  ```javascript
-new DocsAPI.DocEditor("placeholder", {
-    "document": {
-        "fileType": "docx",
-        "key": "Khirz6zTPdfd7",
-        "title": "Example Document Title.docx",
-        "url": "https://example.com/url-to-example-document.docx"
-    },
-    "documentType": "word",
-    "height": "100%",
-    "width": "100%"
-});
-  ```
+   ```javascript
+   new DocsAPI.DocEditor("placeholder", {
+       "document": {
+           "fileType": "docx",
+           "key": "Khirz6zTPdfd7",
+           "title": "Example Document Title.docx",
+           "url": "https://example.com/url-to-example-document.docx"
+       },
+       "documentType": "word",
+       "height": "100%",
+       "width": "100%"
+   });
+   ```
 
-  > 其中 example.com 是安装了文档管理器和文档存储服务的服务器的名称（说白了就是访问文档的 URL）。
+   其中 `example.com` 是安装了文档管理器和文档存储服务的服务器的名称（说白了就是访问文档的 URL）。
 
 5. 在浏览器中打开html文件。
 
-> 如果出现只有工具栏、看不到文章主体的问题。原因是没有给 <body></body> 设置高度，试着加上
->
-> ```css
-> html, body {
->  margin: 0;
->  height: 100%
-> }
-> ```
+   如果出现只有工具栏、看不到文章主体的问题。原因是没有给 `<body></body>` 设置高度，试着加上：
+
+   ```css
+   html, body {
+       margin: 0;
+       height: 100%
+   }
+   ```
 
 
 
