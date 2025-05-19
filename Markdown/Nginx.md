@@ -225,7 +225,7 @@ vim nginx.conf                # 编辑配置文件
 2. 执行以下命令创建 Nginx 服务：
 
    ```shell
-   sc create Nginx binPath= "C:\Program Files\Nginx\nginx.exe" start= auto DisplayName= "Nginx Server"
+   sc create Nginx binPath= "C:\Program Files\Nginx\nginx.exe" start= auto
    ```
 
    - `binPath=` 后面是 Nginx 可执行文件的完整路径。

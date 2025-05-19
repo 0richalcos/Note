@@ -290,7 +290,7 @@ apt purge --auto-remove redis-server
 
 ### 2.2.2、Windows 环境安装
 
-前往 [地址]([Releases · redis-windows/redis-windows](https://github.com/redis-windows/redis-windows/releases)) 下载安装包：
+前往 [地址](https://github.com/redis-windows/redis-windows/releases) 下载安装包：
 
 <img src="./!assets/Redis/image-20250426033944475.png" alt="image-20250426033944475" style="zoom: 50%;" />
 
