@@ -16,39 +16,89 @@ ONLYOFFICE 文档提供以下功能：
 
 推荐使用 [Docker](https://www.docker.com/) 进行集成，避免了出现服务器系统的不同而重新适配的问题。Docker的思想来自于集装箱，集装箱解决了什么问题？在一艘大船上，可以把货物规整的摆放起来。并且各种各样的货物被集装箱标准化了，集装箱和集装箱之间不会互相影响。那么我就不需要专门运送水果的船和专门运送化学品的船了。只要这些货物在集装箱里封装的好好的，那我就可以用一艘大船把他们都运走。
 
-拉取 Onlyoffice 镜像，创建容器：
+1. 拉取 OnlyOffice 镜像：
+
+   ```shell
+   docker pull onlyoffice/documentserver
+   ```
+
+   查看镜像：
+
+   ```shell
+   docker images
+   ```
+
+2. 运行镜像（创建容器），并绑定端口（这里绑定 9000）：
+
+   ```shell
+   docker run -itd --name onlyoffice -p 9000:80 -e JWT_ENABLED=false onlyoffice/documentserver
+   ```
+
+   > [!NOTE]
+   >
+   > `JWT_ENABLED=false` 代表不走 JWT 验证，避免访问 onlyoffice 造成指令错误问题。
+
+   查看正在运行的容器，后面加上 `-a` 查看所有容器：
+
+   ```shell
+   docker ps
+   ```
+
+3. 进入容器：
+
+   ```shell
+   docker exec -it onlyoffice bash
+   ```
+
+4. 修改配置文件：
+
+   ```shell
+   nano /etc/onlyoffice/documentserver/local.json
+   ```
+
+   在 `"CoAuthoring": {}` 里最后面增加一段配置，使其允许私有 IP 通过：
+
+   ```
+   "request-filtering-agent" : {
+   	"allowPrivateIPAddress": true,
+   	"allowMetaIPAddress": true
+   }
+   ```
+
+   <img src="!assets/OnlyOffice/image-20250520152241682.png" alt="image-20250520152241682" style="zoom: 50%;" />
+
+   > [!IMPORTANT]
+   >
+   > 默认值存储在 `default.json` 配置文件中，该文件位于上述文件夹中（适用于 Linux 和 Windows）。请不要直接编辑 `default.json` 文件的内容。每次重启 Docker 容器或将 ONLYOFFICE 文档升级到新版本时，默认值将被恢复，所做的所有更改将会丢失。
+
+5. 重新启动服务以使配置更改生效：
+
+   ```shell
+   supervisorctl restart all
+   ```
+
+6. 查看服务是否已经启动（需要等待一分钟左右）：
+   ```shell
+   http://电脑ip:绑定端口
+   ```
+
+   <img src="!assets/OnlyOffice/image-20210303003314432.png" alt="image-20210303003314432" style="width:100%;" />
+
+
+
+**其他常用命令**
 
 ```shell
-#拉取onlyoffice镜像
-docker pull onlyoffice/documentserver
-
-#查看镜像
-docker images
-
-#运行镜像（创建容器），并绑定端口，这里绑定 9000
-docker run -itd --name onlyoffice -p 9000:80 onlyoffice/documentserver
-
-#查看正在运行的容器，后面加上 -a 查看所有容器
-docker ps
-
-#停止运行
+# 停止运行
 docker stop onlyoffice
 
-#开始运行
+# 开始运行
 docker start onlyoffice
 
-#删除镜像（如果有镜像创建的容器需要先删除容器，删除容器需要先停止运行才可以删除）
+# 删除镜像（如果有镜像创建的容器需要先删除容器，删除容器需要先停止运行才可以删除）
 docker rm onlyoffice
 docker rmi onlyoffice/documentserver
 ```
-
-查看服务是否已经启动（需要等待一分钟左右）：
-
-```
-http://电脑ip:绑定端口
-```
-
-<img src="!assets/OnlyOffice/image-20210303003314432.png" alt="image-20210303003314432" style="width:100%;" />
 
 
 
