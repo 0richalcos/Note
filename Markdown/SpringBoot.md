@@ -10,9 +10,9 @@ SpringBoot 以约定大于配置的核心思想，默认帮我们进行了很多
 
 Spring Boot 解决的问题：
 
-- 使编码变得简单；
-- 使配置变得简单；
-- 使部署变得简单；
+- 使编码变得简单。
+- 使配置变得简单。
+- 使部署变得简单。
 - 使监控变得简单。
 
 SpringBoot 的核心功能：
@@ -2006,47 +2006,111 @@ java -jar your-project-name.jar
 
 ### 6.2.1、打 jar 包后乱码
 
-**在 pom 文件中指定编码**
+1. 在 pom.xml 文件中指定编码：
 
-```xml
-<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-compiler-plugin</artifactId>
-    <configuration>
-        <source>1.8</source>
-        <target>1.8</target>
-        <encoding>UTF-8</encoding>
-    </configuration>
-</plugin>
-```
+   ```xml
+   <plugin>
+       <groupId>org.apache.maven.plugins</groupId>
+       <artifactId>maven-compiler-plugin</artifactId>
+       <configuration>
+           <source>1.8</source>
+           <target>1.8</target>
+           <encoding>UTF-8</encoding>
+       </configuration>
+   </plugin>
+   ```
+
+2. 在 IDE 中设置项目的编码格式（这里使用的IDEA）：
+
+   <img src="!assets/SpringBoot/QQ_1720978751626.png" alt="QQ_1720978751626" style="zoom: 50%;" />
+
+3. 运行 jar 时指定文件编码：
+
+   ```shell
+   java -Dfile.encoding=utf-8 -jar your-project-name.jar
+   ```
+
+4. Windows cmd 中默认显示的编码是 GBK，此时控制台打印的中文会乱码，切换下就好了：
+
+   - 切换 UTF-8：`chcp 65001`。
+   - 切换 GBK：`chcp 936`。
+
+   如果使用的是 Powershell，则执行以下命令可切换到 UTF-8：
+
+   ```shell
+   $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding
+   ```
 
 
 
-**在 IDE 中设置项目的编码格式（这里使用的IDEA）**
+### 6.2.3、使用 TongWeb
 
-<img src="!assets/SpringBoot/QQ_1720978751626.png" alt="QQ_1720978751626" style="zoom: 67%;" />
+1. 在东方通官网申请嵌入版试用，我这里拿到的是 TongWeb8.0.E.3_P2，解压后打开 “安装工程介质” 文件夹：
 
+   <img src="!assets/SpringBoot/image-20250521170928704.png" alt="image-20250521170928704" style="zoom:50%;" />
 
+   > [!WARNING]
+   >
+   > 运行批处理文件之前，先确保本地已配置好 Maven 环境变量。
 
-**运行 jar 时指定文件编码**
+   直接双击运行 installAll-8.0.E.3_P2.bat  批处理文件，开始在本地 Maven 仓库安装相关依赖。
 
-```shell
-java -Dfile.encoding=utf-8 -jar your-project-name.jar
-```
+2. 修改 pom.xml：
 
-Windows 控制台中默认显示的编码是 GBK，此时控制台打印的中文会乱码，切换下就好了。
+   ```xml
+   <!--  添加tongweb-spring-boot-starter依赖 -->
+   <dependency>
+       <groupId>com.tongweb.springboot</groupId>
+       <artifactId>tongweb-spring-boot-starter-2.x</artifactId>
+       <version>8.0.E.3_P2</version>
+   </dependency>
+   <!--  排除springboot自带的tomcat依赖 -->
+   <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-web</artifactId>
+       <exclusions>
+           <exclusion>
+               <groupId>org.springframework.boot</groupId>
+               <artifactId>spring-boot-starter-tomcat</artifactId>
+           </exclusion>
+       </exclusions>
+   </dependency>
+   ```
 
-切换 UTF-8：
+   > [!NOTE]
+   >
+   > `-2.x` 是和 SpringBoot 的大版本对应：
+   >
+   > - SpringBoot 版本为 1.x 那么使用 `tongweb-spring-boot-starter-1.x`。
+   > - SpringBoot 版本为 2.x 那么使用 `tongweb-spring-boot-starter-2.x`。
+   > - SpringBoot 版本为 3.x 那么使用 `tongweb-spring-boot-starter-3.x`。
 
-```shell
-chcp 65001
-```
+   如果需要  TongWeb 容器集成其他的功能，需要添加额外的依赖如：
 
-切换回 GBK：
+   | 功能                          | 依赖                                  |
+   | ----------------------------- | ------------------------------------- |
+   | 集成 JDBC                     | tongweb-spring-boot-data-jdbc-starter |
+   | 集成 Websocket                | tongweb-spring-boot-websocket         |
+   | 集成 gmssl 安全通信库（国密） | tongweb-gmssl                         |
+   | JSP 支持                      | tongweb-jsp                           |
 
-```shell
-chcp 936
-```
+3. 配置 application.yml：
+
+   ```yaml
+   server:
+     tongweb:
+       license:
+         type: file
+         path: classpath:tongweb/license.dat
+   ```
+
+   配置了授权码的类型和路径，路径推荐放到项目的 tongweb 文件夹里面：
+
+   <img src="!assets/SpringBoot/{FC0B529F-E671-401F-9E54-1D168A52D722}" alt="img" style="zoom:50%;" />
+
+4. 启动验证：
+
+   <img src="!assets/SpringBoot/image-20250521173239848.png" alt="image-20250521173239848" style="zoom:50%;" />
 
 
 
