@@ -354,6 +354,38 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 
 
+## 【10】手动增加开机启动项
+
+**“启动” 文件夹**
+
+1. 按 Win + R 打开 “运行” 对话框，输入 `shell:startup`，然后按回车。这将打开 “启动” 文件夹。
+2. 找到你想设置为开机启动的程序，右键单击它，然后选择【创建快捷方式】。
+3. 将新创建的快捷方式拖动到 “启动” 文件夹中，这样程序就会在系统启动时自动运行。
+
+
+
+**注册表**
+
+启动项对应着注册表中的键值，添加或删除键值即可删除启动项。
+
+1. 按 Win + R 打开 “运行” 对话框，输入 `regedit`，然后按回车。这将打开 “注册表编辑器”。
+
+2. 常见的注册表键值有如下几项：
+
+   - HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
+
+   - HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce（只运行一次）
+
+   - HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+
+   - HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce（只运行一次）
+
+3. 新建键值，从而实现添加启动项。
+
+   鼠标右键依次选择【新建】=>【字符串值】，填写名称后右键点击新建的键值选择【修改】，在 “数值数据” 中添加要自启的 exe 文件（最好用英文双引号扩上），在数值数据的最后加上 `/background` 可以实现后台自启（当然也可以加上别的 exe 支持的参数）。
+
+
+
 ## 【11】关闭系统小组件
 
 隐藏只需要在任务栏设置中设置就好了。

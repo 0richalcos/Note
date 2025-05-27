@@ -201,13 +201,98 @@ Docker 分为 stable、test 和 nightly 三个更新频道。
 
 **运行**
 
-在 Windows 搜索栏输入 Docker 点击 Docker Desktop 开始运行。
+在 Windows 搜索栏输入 Docker，点击 Docker Desktop 开始运行。
 
 Docker 启动之后会在 Windows 任务栏出现鲸鱼图标：
 
 <img src="!assets/Docker/QQ_1726423569359.png" alt="QQ_1726423569359" style="zoom: 25%;" />
 
 等待片刻，当鲸鱼图标静止时，说明 Docker 启动成功，之后你可以打开 PowerShell 使用 Docker。
+
+
+
+### 1.3.2、麒麟
+
+麒麟-Kylin 作为中国国产操作系统，基于 Linux 开发的商业操作系统。针对中国国企央企开发的系统，麒麟、统信大体都会接触过。既然是基于 Linux  开发的，软件按照就可以先尝试 Linux 对应架构的版本，如果运行有问题，再在对应的操作系统上进行编译操作。
+
+通过 `arch` 命令可以查看当前系统架构，一般会输出 `x86_64`、`armel` 、`aarch64` 等，在选择对应软件版本时也要选择对应的架构。
+
+1. 在 [Docker 下载地址](https://download.docker.com/linux/static/stable/) 选择对应的架构，然后下载对应的版本即可；如果服务器可以联网，也可以直接复制命令下载：
+
+   ```shell
+   wget https://download.docker.com/linux/static/stable/x86_64/docker-20.10.19.tgz
+   ```
+
+2. 将安装包上传到服务器之后，执行命令完成解压：
+
+   ```shell
+   tar -xzf docker-20.10.19.tgz
+   ```
+
+   移动解压后的全部内容到 `/usr/bin` 下：
+
+   ```shell
+   mv docker/* /usr/bin/
+   ```
+
+3. 编辑 `docker.service` 文件：
+
+   ```shell
+   vi /usr/lib/systemd/system/docker.service
+   ```
+
+   复制如下内容：
+
+   ```shell
+   [Unit]
+   Description=Docker Application Container Engine
+   Documentation=https://docs.docker.com
+   After=network-online.target firewalld.service
+   Wants=network-online.target
+   
+   [Service]
+   Type=notify
+   ExecStart=/usr/bin/dockerd
+   ExecReload=/bin/kill -s HUP $MAINPID
+   LimitNOFILE=infinity
+   LimitNPROC=infinity
+   TimeoutStartSec=0
+   Delegate=yes
+   KillMode=process
+   Restart=on-failure
+   StartLimitBurst=3
+   StartLimitInterval=60s
+   
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+4. 添加 docker.service 文件的权限：
+
+   ```shell
+   chmod +x /usr/lib/systemd/system/docker.service
+   ```
+
+   通知 systemd 守护进程重新读取配置文件：
+
+   ```shell
+   systemctl daemon-reload
+   ```
+
+5. 启动 Docker，设置开机启动：
+
+   ```shell
+   systemctl start docker
+   systemctl enable docker
+   ```
+
+6. 验证 Docker 安装是否成功：
+
+   ```shell
+   docker -v
+   ```
+
+   输出对应版本，即是成功！
 
 
 
