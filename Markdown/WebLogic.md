@@ -1,7 +1,3 @@
----
-typora-copy-images-to: upload
----
-
 # 1、简介
 
 WebLogic 是美国 Oracle 公司出品的一个 application server，确切的说是一个基于 JAVAEE 架构的中间件，WebLogic 是用于开发、集成、部署和管理大型分布式 Web 应用、网络应用和数据库应用的 Java 应用服务器。将 Java 的动态功能和 Java Enterprise 标准的安全性引入大型网络应用的开发、集成、部署和管理之中。
@@ -214,7 +210,7 @@ WebLogic 是美国 Oracle 公司出品的一个 application server，确切的�
 
 
 
-# 3、WebLogic 配置
+# 3、配置
 
 ## 3.1、修改 JVM 堆大小
 
