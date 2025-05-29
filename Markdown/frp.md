@@ -67,8 +67,8 @@ frp 支持多种代理类型，以适应不同的使用场景。以下是一些�
 **开始使用**
 
 1. 编写配置文件，目前支持的文件格式包括 TOML/YAML/JSON，旧的 INI 格式仍然支持，但已经不再推荐。
-2. 使用以下命令启动服务器：`./frps -c ./frps.toml`。
-3. 使用以下命令启动客户端：`./frpc -c ./frpc.toml`。
+2. 使用以下命令启动服务器：`./frps -c ./frps.yaml`。
+3. 使用以下命令启动客户端：`./frpc -c ./frpc.yaml`。
 4. 如果需要在后台长期运行，建议结合其他工具，如 systemd 和 supervisor。
 
 
@@ -324,3 +324,76 @@ frpc: the configuration file ./frpc.toml syntax is ok
 
    frp 将请求发送到 `x.x.x.x:6000` 的流量转发到内网机器的 22 端口。
 
+
+
+## 4.2、访问内网的 Web 服务
+
+通过简单配置 HTTP 类型的代理可以让用户访问内网的 Web 服务。
+
+HTTP 类型的代理非常适合将内网的 Web 服务通过自定义域名提供给外部用户。相比于 TCP 类型代理，HTTP 代理不仅可以复用端口，还提供了基于 HTTP 协议的许多功能。
+
+HTTPS 与此类似，但是需要注意，frp 的 https 代理需要本地服务是 HTTPS 服务，frps 端不会做 TLS 终止。也可以结合 https2http 插件来实现将本地的 HTTP 服务以 HTTPS 协议暴露出去。
+
+1. **配置 frps.yaml**
+
+   在 frps.yaml 文件中添加以下内容，以指定 HTTP 请求的监听端口为 9090：
+
+   ```yaml
+   bindPort: 7000
+   vhostHTTPPort: 9090
+   
+   auth:
+     method: token
+     token: Orichalcos
+   
+   webServer:
+     addr: 0.0.0.0
+     port: 8080
+     user: root
+     password: root
+   
+   log:
+     to: console
+     level: info
+     maxDays: 3
+   ```
+
+   如果需要配置 HTTPS 代理，还需要设置 `vhostHTTPSPort`。
+
+2. **配置 frpc.yaml**
+
+   在 frpc.yaml 文件中添加以下内容，确保设置了正确的服务器 IP 地址、本地 Web 服务监听端口：
+
+   ```yaml
+   serverAddr: x.x.x.x
+   serverPort: 7000
+   
+   auth:
+     method: token
+     token: Orichalcos
+   
+   log:
+     to: console
+     level: info
+     maxDays: 3
+   
+   proxies:
+     - name: http-proxy
+     	# 选择穿透协议
+       type: http
+       localIP: 127.0.0.1
+       # 本地服务的端口，http模式下不允许使用remotePort
+       localPort: 80
+       annotations:
+         http-proxy: HTTP访问
+       # 注意此处是必填项，后面访问服务也必须使用这个域名，用ip等别的方式是不能访问服务的；如果此处填的是ip，则也只能通过ip来访问。
+       customDomains:
+         - x.x.x.x
+         - orichalcos.com
+   ```
+
+3. **启动 frps 和 frpc**
+
+4. **通过浏览器访问**
+
+   使用浏览器访问 `http://x.x.x.x:9090` 即可访问内网机器上的 80 端口 Web 服务。
