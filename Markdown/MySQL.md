@@ -4786,7 +4786,7 @@ ROW_NUMBER() over_clause
 
 `PERIOD_DIFF()` 函数返回两个日期之间的月份差。
 
-**语法：**
+语法：
 
 ```sql
 PERIOD_DIFF(startDate,endDate)
@@ -4794,7 +4794,9 @@ PERIOD_DIFF(startDate,endDate)
 
 *startDate* 和 *endDate* 参数是合法的日期或日期/时间表达式。
 
-**示例：**
+
+
+**示例**
 
 ```sql
 SELECT PERIOD_DIFF(201710, 201703);
@@ -4810,7 +4812,7 @@ SELECT PERIOD_DIFF(201710, 201703);
 
 `DATEDIFF()` 函数返回两个日期之间的天数。
 
-**语法：**
+语法：
 
 ```mysql
 DATEDIFF(date1,date2)
@@ -4818,7 +4820,9 @@ DATEDIFF(date1,date2)
 
 *date1* 和 *date2* 参数是合法的日期或日期/时间表达式。
 
-**实例：**
+
+
+**示例**
 
 ```MYSQL
 SELECT DATEDIFF(DATE_FORMAT(NOW(), '%Y-%m-%d'),DATE_FORMAT('2018-09-10','%Y-%m-%d'))
@@ -4834,13 +4838,13 @@ SELECT DATEDIFF(DATE_FORMAT(NOW(), '%Y-%m-%d'),DATE_FORMAT('2018-09-10','%Y-%m-%
 
 根据单位返回时间差，对于传入的 *begin* 和 *end* 不需要相同的数据结构，可以存在一个为 Date 一个 DateTime。
 
-**语法：**
+语法：
 
 ```mysql
 TIMESTAMPDIFF(unit, begin, end);
 ```
 
-unit 参数是确定 (*end*-*begin*) 的结果的单位，表示为整数。 以下是有效单位：
+*unit* 参数是确定 (*end*-*begin*) 的结果的单位，表示为整数。 以下是有效单位：
 
 - MICROSECOND  微秒
 - SECOND  秒 
@@ -4852,7 +4856,9 @@ unit 参数是确定 (*end*-*begin*) 的结果的单位，表示为整数。 以
 - QUARTER  
 - YEAR  年份
 
-**实例：**
+
+
+**示例**
 
 2017-05-01 距现在多少天：
 
@@ -4898,7 +4904,7 @@ SELECT NOW(),CURDATE(),CURTIME();
 
 > `DATE_ADD()` 函数向日期添加指定的时间间隔。两种方法使用方式相同。
 
-**语法：**
+语法：
 
 ```mysql
 DATE_SUB(date,INTERVAL expr type)
@@ -4916,7 +4922,9 @@ DATE_SUB(date,INTERVAL expr type)
 - QUARTER
 - YEAR
 
-**实例：**
+
+
+**实例**
 
 获取前一天
 
@@ -5029,13 +5037,17 @@ DATE_FORMAT(date,format)
 | `%Y` | 年，4 位                                       |
 | `%y` | 年，2 位                                       |
 
-**示例：**使用 `DATE_FORMAT()` 函数实现日期格式的转换。
+
+
+**示例**
+
+使用 `DATE_FORMAT()` 函数实现日期格式的转换。
 
 ```mysql
 SELECT DATE_FORMAT(NOW(),'%Y年%m月%d日 %H时%i分%s秒');
 ```
 
-**执行结果：**
+执行结果：
 
 ```
 2019年01月17日 19时05分05秒
@@ -5047,13 +5059,17 @@ SELECT DATE_FORMAT(NOW(),'%Y年%m月%d日 %H时%i分%s秒');
 
 使用 `STR_TO_DATE()` 函数实现字符串转换日期类型，`STR_TO_DATE(str,format)` 函数是将时间格式的字符串 *str*，按照所提供的显示格式 *format* 转换为 DATETIME 类型的值。
 
-**示例：**使用 `STR_TO_DATE()` 函数，将上面示例的结果（字符串类型）转换回日期类型。
+
+
+**示例**
+
+使用 `STR_TO_DATE()` 函数，将上面示例的结果（字符串类型）转换回日期类型。
 
 ```mysql
 SELECT STR_TO_DATE('2019年01月17日 19时05分05秒','%Y年%m月%d日 %H时%i分%s秒');
 ```
 
-**执行结果：**
+执行结果：
 
 ```
 2019-01-17 19:05:05
@@ -5063,9 +5079,9 @@ SELECT STR_TO_DATE('2019年01月17日 19时05分05秒','%Y年%m月%d日 %H时%i�
 
 ## 11.4、字符串相关
 
-### 11.4.1、拆分与拼接
+### 11.4.1、拆分
 
-**SUBSTRING(string, position, length)**
+#### SUBSTRING()
 
 `SUBSTRING()` 函数从特定位置开始的字符串返回一个给定长度的子字符串。 MySQL 提供了各种形式的子串功能。
 
@@ -5086,57 +5102,41 @@ SUBSTRING(string FROM position FOR length);
 
 
 
-**CONCAT(str1, str2, …)**
+### 11.4.2、拼接
+
+#### CONCAT()
 
 返回连接参数产生的字符串，一个或多个待拼接的内容，任意一个为 `NULL` 则返回值为 `NULL`。
 
+语法：
+
+```mysql
+CONCAT(str1, str2, …)
+```
 
 
-**CONCAT_WS(separator, str1, str2, …)**
-
-`CONCAT_WS()` 代表 CONCAT With Separator ，是 `CONCAT()` 的特殊形式。 第一个参数 *separator* 是其它参数的分隔符。分隔符的位置放在要连接的两个字符串之间。分隔符可以是一个字符串，也可以是其它参数。如果分隔符为 `NULL`，则结果为 `NULL`。函数会忽略任何分隔符参数后的 `NULL` 值。
 
 
 
-### 11.4.2、字符串转数字
+#### CONCAT_WS()
 
-**CAST()**
-
-`CAST()` 函数将任何类型的值转换为具有指定类型的值。
+`CONCAT_WS()` 代表 CONCAT With Separator ，是 `CONCAT()` 的特殊形式。
 
 语法：
 
 ```mysql
-CAST(expression AS type)
+CONCAT_WS(separator, str1, str2, …)
 ```
 
 参数：
 
-- *expression*：要转换的字符串
-- *type*：目标类型，可以是以下类型之一：`BINARY`、`CHAR`、`DATE`、`DATETIME`、`TIME`、`DECIMAL`、`SIGNED`、`UNSIGNED`。
+- *separator*：其它参数的分隔符。分隔符的位置放在要连接的两个字符串之间。分隔符可以是一个字符串，也可以是其它参数。如果分隔符为 `NULL`，则结果为 `NULL`。
+
+函数会忽略任何分隔符参数后的 `NULL` 值。
 
 
 
-**CONVERT()**
-
-`CONVERT()` 函数将值转换为指定的数据类型或字符集。
-
-语法：
-
-```mysql
-CONVERT(value, type);
-CONVERT(value USING charset);
-```
-
-参数：
-
-- *value*：要转换的值
-- *type*：目标类型，可以是以下类型之一：`BINARY`、`CHAR`、`DATE`、`DATETIME`、`TIME`、`SIGNED`、`UNSIGNED`。
-- *charset*：要转换为的字符集
-
-
-
-### 11.4.3、GROUP_CONCAT()
+#### GROUP_CONCAT()
 
 MySQL `GROUP_CONCAT()` 函数将组中的字符串连接成为具有各种选项的单个字符串。
 
@@ -5191,6 +5191,91 @@ FROM
 ```
 
 > 注：上面语句类似于把 `SELECT v FROM t GROUP BY v;` 语句的结果串接起来。
+
+
+
+### 11.4.3、字符串转数字
+
+#### CAST()
+
+`CAST()` 函数将任何类型的值转换为具有指定类型的值。
+
+语法：
+
+```mysql
+CAST(expression AS type)
+```
+
+参数：
+
+- *expression*：要转换的字符串
+- *type*：目标类型，可以是以下类型之一：`BINARY`、`CHAR`、`DATE`、`DATETIME`、`TIME`、`DECIMAL`、`SIGNED`、`UNSIGNED`。
+
+
+
+#### CONVERT()
+
+`CONVERT()` 函数将值转换为指定的数据类型或字符集。
+
+语法：
+
+```mysql
+CONVERT(value, type);
+CONVERT(value USING charset);
+```
+
+参数：
+
+- *value*：要转换的值
+- *type*：目标类型，可以是以下类型之一：`BINARY`、`CHAR`、`DATE`、`DATETIME`、`TIME`、`SIGNED`、`UNSIGNED`。
+- *charset*：要转换为的字符集
+
+
+
+### 11.4.4、填充
+
+填充某个字段的查询结果，`lpad()` 在左侧填充，`rpad()` 填充在右侧。
+
+语法：
+
+```mysql
+lpad(srouce_string, padded_length, [pad_string])
+rpad(srouce_string, padded_length, [pad_string])
+```
+
+参数： 
+
+- *srouce_string*：源字符串。
+- *padding_length*：最后字符串的长度，如果 *padding_length* 小于原始字符串长度，会被截断。
+- *pad_string*：填充的内容。
+
+> [!TIP]
+>
+> 截断行为是对原始字符串进行的，始终是从右边截断，即右边多余的字符串都将丢弃。
+
+
+
+**示例**
+
+```mysql
+select lpad('123456',2) from dual
+-- 结果为 12
+```
+
+```mysql
+select lpad('123456',7,'0') from dual
+-- 结果为 0123456
+```
+
+```mysql
+select rpad('123456',2,'0') from dual
+-- 结果为 12
+```
+
+```mysql
+select rpad('123456',7,'0') from dual
+-- 结果为 1234560
+```
 
 
 
