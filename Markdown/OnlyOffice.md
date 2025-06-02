@@ -2,7 +2,7 @@
 
 ## 1.1、基本概念和安装
 
-ONLYOFFICE 文档是一个开源办公套件，包括文本文档、电子表格、演示文稿和可填写表单的编辑器。
+OnlyOffice（前身为TeamLab ），亦被称为 ONLYOFFICE， 是一个开源办公套件，包括文本文档、电子表格、演示文稿和可填写表单的编辑器。
 ONLYOFFICE 文档提供以下功能：
 
 - 创建、编辑和查看文本文档、电子表格、演示文稿和可填写表单。
@@ -15,6 +15,10 @@ ONLYOFFICE 文档提供以下功能：
 ### 1.1.1、 Docker 安装
 
 推荐使用 [Docker](https://www.docker.com/) 进行集成，避免了出现服务器系统的不同而重新适配的问题。Docker的思想来自于集装箱，集装箱解决了什么问题？在一艘大船上，可以把货物规整的摆放起来。并且各种各样的货物被集装箱标准化了，集装箱和集装箱之间不会互相影响。那么我就不需要专门运送水果的船和专门运送化学品的船了。只要这些货物在集装箱里封装的好好的，那我就可以用一艘大船把他们都运走。
+
+
+
+#### 安装
 
 1. 拉取 OnlyOffice 镜像：
 
@@ -86,19 +90,68 @@ ONLYOFFICE 文档提供以下功能：
 
 
 
-**其他常用命令**
+#### 常用命令
 
 ```shell
-# 停止运行
-docker stop onlyoffice
-
 # 开始运行
 docker start onlyoffice
+
+# 停止运行
+docker stop onlyoffice
 
 # 删除镜像（如果有镜像创建的容器需要先删除容器，删除容器需要先停止运行才可以删除）
 docker rm onlyoffice
 docker rmi onlyoffice/documentserver
 ```
+
+
+
+#### Nginx 代理
+
+使用 Nginx 将客户端请求转发到后端的 ONLYOFFICE Document Server，同时处理好 WebSocket 和反向代理相关的头部信息，确保 ONLYOFFICE 正常工作：
+
+```nginx
+upstream docservice {
+  server backendserver-address;
+}
+
+map $http_x_forwarded_proto $the_scheme {
+     default $http_x_forwarded_proto;
+     "" $scheme;
+}
+
+map $http_x_forwarded_host $the_host {
+    default $http_x_forwarded_host;
+    "" $host;
+}
+
+map $http_upgrade $proxy_connection {
+  default upgrade;
+  "" close;
+}
+
+proxy_set_header Upgrade $http_upgrade;
+proxy_set_header Connection $proxy_connection;
+proxy_set_header X-Forwarded-Host $the_host/documentserver-virtual-path;
+proxy_set_header X-Forwarded-Proto $the_scheme;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+server {
+  listen 0.0.0.0:80;
+  listen [::]:80 default_server;
+  server_tokens off;
+
+  location /documentserver-virtual-path/ {
+    proxy_pass http://docservice/;
+    proxy_http_version 1.1;
+  }
+}
+```
+
+需要修改的参数：
+
+- *backendserver-address*：部署的 ONLYOFFICE Document Server 的后端地址。
+- *documentserver-virtual-path*：外部访问 ONLYOFFICE 时使用的 URL 路径前缀。
 
 
 
@@ -784,29 +837,41 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 # 4、故障排除
 
-**下载失败**
+## 4.1.1、下载失败
 
 <img src="!assets/OnlyOffice/e-download.png" alt="Download failed" style="width:33%;" />
 
 
-编辑器加载过程中将显示“下载失败”消息。
+编辑器加载过程中将显示 “下载失败” 消息。
 
-文档编辑服务无法上传文件进行编辑。
+文档编辑服务无法获取文件进行编辑。
 
 检查到 `document.url` 中指定的文件的链接是否正确。 必须可以从文档编辑服务访问该链接。
 
 
 
-**文件版本变更**
+## 4.1.2、文件版本变更
 
 <img src="!assets/OnlyOffice/e-key.png" alt="The file version has been changed" style="width:50%;" />
 
 
-编辑器加载“The file version has been changed. The page will be reloaded（文件版本已被更改”。页面将被重新加载）”的消息。
+编辑器加载 “The file version has been changed. The page will be reloaded.”（文件版本已被更改。页面将被重新加载）的消息。
 
 文档编辑服务无法打开以前编辑和保存的文件进行编辑。
 
 每次编辑和保存文档时，必须重新生成 `document.key`。
+
+
+
+## 4.1.3、403 Editor.bin
+
+编辑器加载失败，F12 看到获取 Editor.bin 的链接出现 403。
+
+最简单的解决办法是在容器内部执行以下命令：
+
+```shell
+bash documentserver-update-securelink.sh
+```
 
 
 
@@ -826,5 +891,769 @@ ONLYOFFICE 文档可以使用组件与一些现有的前端框架集成。这些
 
 目前官方提供的组件都是基于 Vue 3.x 的，Vue 2.x 不能直接使用。
 
+下面的的为 Vue 2.x 中只使用预览的示例：
 
+- utils.js：工具方法。
+- DocEditor.vue：封装的 OnlyOffice 编辑器组件。
+- DocDialog.vue：使用编辑器组件的 Dialog 示例。
+
+
+
+### 5.1.1、utils.js
+
+```javascript
+/**
+ * 动态加载指定 JavaScript 脚本到页面中（按需加载 OnlyOffice 的 DocsAPI）
+ * @param {string} url - 要加载的脚本 URL
+ * @param {string} id - 脚本在 DOM 中的唯一 ID，避免重复加载
+ * @returns {Promise<void>} - 脚本加载成功或失败的 Promise
+ */
+export const loadScript = async (url, id) => new Promise((resolve, reject) => {
+  try {
+    const existingScript = document.getElementById(id);
+    if (existingScript) {
+      // 如果脚本已存在于 DOM 中
+      if (window.DocsAPI) {
+        // DocsAPI 已可用，立即解析
+        return resolve(null);
+      }
+
+      // 脚本存在但 DocsAPI 尚未初始化，进行轮询
+      let attempts = 0;
+      const maxAttempts = 20; // 最多轮询 20 次（约 10 秒）
+      const intervalHandler = setInterval(() => {
+        attempts++;
+        if (window.DocsAPI) {
+          clearInterval(intervalHandler);
+          return resolve(null);
+        }
+        if (attempts >= maxAttempts) {
+          clearInterval(intervalHandler);
+          console.error(`[脚本加载器] 轮询 DocsAPI 超时，脚本 '${id}' 可能加载失败。`);
+          return reject(new Error(`轮询 DocsAPI 超时以加载脚本 ${id}`));
+        }
+      }, 500);
+      return;
+    }
+
+    // 创建新的 script 元素并加载
+    const script = document.createElement('script');
+    script.setAttribute('type', 'text/javascript');
+    script.setAttribute('id', id);
+    script.async = true;
+    script.src = url;
+
+    script.onload = () => {
+      // 脚本加载成功
+      resolve(null);
+    };
+    script.onerror = (event) => {
+      // 脚本加载失败
+      console.error(`[脚本加载器] 加载脚本 '${id}' 失败:`, event);
+      reject(new Error(`加载脚本 ${id} 失败`));
+    };
+
+    document.body.appendChild(script);
+  } catch (e) {
+    console.error('[脚本加载器] loadScript 函数内部错误:', e);
+    reject(e);
+  }
+});
+
+/**
+ * 深度合并多个对象（支持嵌套对象）
+ * @param {object} target - 目标对象（被修改）
+ * @param  {...object} sources - 需要合并的源对象
+ * @returns {object} - 合并后的目标对象
+ */
+export const mergeDeep = (target, ...sources) => {
+  const isObject = (item) => (item && typeof item === 'object' && !Array.isArray(item));
+  if (!sources.length) return target;
+  const source = sources.shift();
+
+  if (isObject(target) && isObject(source)) {
+    for (const key in source) {
+      if (isObject(source[key])) {
+        if (!target[key] || !isObject(target[key])) {
+          Object.assign(target, {[key]: {}});
+        }
+        mergeDeep(target[key], source[key]);
+      } else {
+        Object.assign(target, {[key]: source[key]});
+      }
+    }
+  }
+
+  return mergeDeep(target, ...sources);
+};
+
+import SHA256 from 'crypto-js/sha256';
+
+/**
+ * 生成用于文档会话的唯一 key（避免缓存冲突）
+ *
+ * @param {string} filename - 文件名（或唯一标识）
+ * @param {number|string} lastModifiedTime - 文件最后修改时间戳（Unix 时间戳 / 毫秒时间戳）
+ * @returns {string} - 长度不超过 20 字符的唯一 key
+ */
+export const generateKey = (filename, lastModifiedTime) => {
+  // 生成 UUID（浏览器环境兼容性处理）
+  const uuid = window.crypto?.randomUUID?.() || generateFallbackUUID();
+  // 构造基础字符串：包含文件名 + 最后修改时间 + 随机值
+  const base = `${filename}_${lastModifiedTime}_${uuid}`;
+  // 使用 SHA256 对 base 字符串进行哈希（浏览器端使用 crypto-js 实现）
+  const hash = SHA256(base).toString(); // 返回 hex 字符串
+  // 截取前 20 字符（符合 OnlyOffice 推荐长度限制）
+  return hash.slice(0, 20);
+};
+
+
+/**
+ * Fallback UUID 生成器
+ * 用于兼容旧版浏览器不支持 window.crypto.randomUUID 的场景
+ * 模拟标准 UUID v4 格式：xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx
+ *
+ * @returns {string} - 伪随机 UUID 字符串
+ */
+function generateFallbackUUID() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+    const r = Math.random() * 16 | 0; // 随机数 [0, 15]
+    const v = c === 'x' ? r : (r & 0x3 | 0x8); // 符合 UUID v4 规范
+    return v.toString(16);
+  });
+}
+```
+
+
+
+### 5.1.2、DocEditor.vue
+
+```vue
+<template>
+  <!-- 组件根视图容器 -->
+  <div class="view">
+    <!-- OnlyOffice 编辑器将在此 div 元素中渲染 -->
+    <div :id="editorId"/>
+  </div>
+</template>
+
+<script lang="js">
+import {loadScript, mergeDeep} from "@/plugins/DocEditor/utils";
+
+// OnlyOffice Document Server API 脚本的默认 URL 模板
+const DEFAULT_DOC_API_URL_TEMPLATE = "{server}/web-apps/apps/api/documents/api.js";
+
+export default {
+  name: 'DocEditor',
+  props: {
+    /**
+     * 编辑器占位符 DOM 元素的 ID。
+     * 如果页面上存在多个编辑器实例，此 ID 必须是唯一的。
+     * @type {String}
+     * @default '' - 如果不提供，组件内部会自动生成一个
+     */
+    id: {type: String, default: ''},
+    /**
+     * OnlyOffice 编辑器的主要配置对象。
+     * 此对象的属性具有最高优先级，将覆盖通过单独 props 设置的默认值。
+     * @type {Object}
+     * @default () => ({}) - 默认为一个空对象
+     */
+    config: {type: Object, default: () => ({})},
+    /**
+     * 文档的文件类型 (例如: "docx", "xlsx", "pptx")。
+     * 作为默认值，会被 `config.document.fileType` 覆盖。
+     * @type {String}
+     * @default ''
+     */
+    documentFileType: {type: String, default: ''},
+    /**
+     * 文档的标题，将显示在编辑器顶部。
+     * 作为默认值，会被 `config.document.title` 覆盖。
+     * @type {String}
+     * @default ''
+     */
+    documentTitle: {type: String, default: ''},
+    /**
+     * 编辑器的文档类型 ("word", "cell", "slide")。
+     * 作为默认值，会被 `config.documentType` 覆盖。
+     * 如果未提供且 `config.document.fileType` 已知，组件会尝试推断此值。
+     * @type {String}
+     * @default ''
+     */
+    documentType: {type: String, default: ''},
+    /**
+     * 编辑器的界面语言 (例如: "zh-CN", "en")。
+     * 作为默认值，会被 `config.editorConfig.lang` 覆盖。
+     * @type {String}
+     * @default 'zh-CN' - 默认为简体中文
+     */
+    editorConfigLang: {type: String, default: 'zh-CN'},
+    /**
+     * 编辑器的宽度 (CSS 值，例如: "100%", "800px")。
+     * 作为默认值，会被 `config.width` 覆盖。
+     * @type {String}
+     * @default '100%'
+     */
+    width: {type: String, default: '100%'},
+    /**
+     * 编辑器的高度 (CSS 值，例如: "100%", "800px")。
+     * 作为默认值，会被 `config.height` 覆盖。
+     * @type {String}
+     * @default '800px'
+     */
+    height: {type: String, default: '800px'},
+    /**
+     * 编辑器界面类型 ("desktop" 或 "mobile")。
+     * 作为默认值，会被 `config.type` 覆盖。
+     * @type {String}
+     * @default 'desktop'
+     */
+    type: {type: String, default: 'desktop'},
+    /**
+     * 传递给 OnlyOffice 编辑器的事件回调函数对象。
+     * 作为事件处理的默认配置，会被 `config.events` 中的同名事件覆盖。
+     * 例如: `{ onAppReady: () => { console.log('应用准备就绪'); } }`
+     * @type {Object}
+     * @default () => ({})
+     */
+    events: {type: Object, default: () => ({})},
+    /**
+     * OnlyOffice Document Server 的基础 URL (例如: "http://localhost:8081")。
+     * 如果未提供，组件会尝试从环境变量 `VUE_APP_ONLY_OFFICE_SERVER` 中读取。
+     * @type {String}
+     * @default ''
+     */
+    documentServerUrl: {type: String, default: ''}
+  },
+  data() {
+    return {
+      /**
+       * 保存已初始化的 OnlyOffice 编辑器实例。
+       * @type {DocsAPI.DocEditor | null}
+       */
+      editorInstance: null,
+      /**
+       * 内部使用的编辑器占位符 ID。
+       * 如果 props.id 未提供，则自动生成一个唯一的 ID。
+       * @type {String}
+       */
+      editorIdInternal: this.id || `onlyoffice-editor-${Date.now()}${Math.random().toString(36).substring(2, 7)}`,
+      /**
+       * 标记 OnlyOffice API 脚本是否已成功加载并可用。
+       * @type {Boolean}
+       */
+      apiScriptLoaded: false,
+      /**
+       * 标记组件是否已挂载 (mounted)。用于 watcher 避免在挂载前执行。
+       * @type {Boolean}
+       */
+      isMounted: false,
+    };
+  },
+  computed: {
+    /**
+     * 计算编辑器占位符最终使用的 ID。
+     * 优先使用 props.id，如果未提供，则使用内部生成的 editorIdInternal。
+     * @returns {String} 编辑器 DOM 元素的 ID。
+     */
+    editorId() {
+      return this.id || this.editorIdInternal;
+    },
+    /**
+     * 计算 OnlyOffice Document Server API 脚本的完整 URL。
+     * 优先使用 props.documentServerUrl，如果未提供，则尝试读取环境变量。
+     * @returns {String} API 脚本的 URL。如果无法确定服务器地址，则返回空字符串。
+     */
+    docApiUrl() {
+      const serverUrl = this.documentServerUrl || process.env.VUE_APP_ONLY_OFFICE_SERVER;
+      if (!serverUrl) {
+        console.error('[文档编辑器] 错误：必须设置 documentServerUrl prop 或 VUE_APP_ONLY_OFFICE_SERVER 环境变量。');
+        return '';
+      }
+      // 替换模板中的 {server} 并确保 URL 末尾没有多余的斜杠
+      return DEFAULT_DOC_API_URL_TEMPLATE.replace('{server}', serverUrl.replace(/\/$/, ''));
+    }
+  },
+  watch: {
+    /**
+     * 深度侦听 `config` prop 的变化。
+     * 当 `config` 对象内部任何属性改变时，调用 `handleConfigChange` 方法。
+     */
+    config: {handler: 'handleConfigChange', deep: true},
+    /**
+     * 侦听 `documentFileType` prop 的变化。
+     * 调用 `reloadEditor` 方法。最终配置由 `createEditor` 方法中的合并逻辑决定。
+     */
+    documentFileType: 'reloadEditor',
+    /**
+     * 侦听 `documentTitle` prop 的变化。
+     * 调用 `reloadEditor` 方法。
+     */
+    documentTitle: 'reloadEditor',
+    /**
+     * 侦听 `documentType` prop 的变化。
+     * 调用 `reloadEditor` 方法。
+     */
+    documentType: 'reloadEditor',
+    /**
+     * 侦听 `editorConfigLang` prop 的变化。
+     * 调用 `reloadEditor` 方法。
+     */
+    editorConfigLang: 'reloadEditor',
+    /**
+     * 侦听 `height` prop 的变化。
+     * 调用 `reloadEditor` 方法。
+     */
+    height: 'reloadEditor',
+    /**
+     * 侦听 `type` prop 的变化。
+     * 调用 `reloadEditor` 方法。
+     */
+    type: 'reloadEditor',
+    /**
+     * 侦听 `width` prop 的变化。
+     * 调用 `reloadEditor` 方法。
+     */
+    width: 'reloadEditor',
+    /**
+     * 侦听 `documentServerUrl` prop 的变化。
+     * 当 Document Server URL 改变时，调用 `reloadApiAndEditor` 方法重新加载 API 和编辑器。
+     */
+    documentServerUrl: 'reloadApiAndEditor',
+    /**
+     * 深度侦听 `events` prop 的变化。
+     * 当 `events` 对象内部任何属性改变时，调用 `reloadEditor` 方法。
+     */
+    events: {handler: 'reloadEditor', deep: true},
+  },
+  /**
+   * Vue 组件生命周期钩子：实例被挂载后调用。
+   * 设置 `isMounted` 标志，并开始加载 OnlyOffice API 及初始化编辑器。
+   * @returns {void}
+   */
+  mounted() {
+    this.isMounted = true;
+    this.loadApiAndInitEditor();
+  },
+  /**
+   * Vue 组件生命周期钩子：实例销毁之前调用。
+   * 确保销毁 OnlyOffice 编辑器实例，释放资源。
+   * @returns {void}
+   */
+  beforeDestroy() {
+    this.destroyEditorInstance();
+  },
+  methods: {
+    /**
+     * 处理 `config` prop 变化的回调函数。
+     * 确保组件已挂载，然后调用 `reloadEditor`。
+     * @returns {void}
+     */
+    handleConfigChange() {
+      if (!this.isMounted) return; // 如果组件尚未挂载，则不执行任何操作
+      this.reloadEditor(); // 重新加载编辑器以应用新的 config
+    },
+    /**
+     * 异步加载 OnlyOffice Document Server API 脚本，并在成功后初始化编辑器。
+     * @async
+     * @returns {Promise<void>} 一个在 API 加载和编辑器初始化尝试完成后解析的 Promise。
+     */
+    async loadApiAndInitEditor() {
+      // 检查 Document Server API URL 是否已配置
+      if (!this.docApiUrl) {
+        this.$emit('error', new Error('OnlyOffice API URL 未配置。'));
+        return;
+      }
+
+      console.log('[文档编辑器] 准备加载/验证 OnlyOffice API 脚本...');
+      this.apiScriptLoaded = false; // 重置 API 加载状态
+
+      try {
+        // 调用外部的 loadScript 函数加载 API
+        await loadScript(this.docApiUrl, 'onlyoffice-api-script'); // 'onlyoffice-api-script' 是 script 标签的 ID
+
+        // 当 loadScript 解析 (resolve) 时，理论上 DocsAPI 应该可用了
+        if (window.DocsAPI) {
+          console.log('[文档编辑器] OnlyOffice API 脚本已确认可用。');
+          this.apiScriptLoaded = true; // 标记 API 脚本加载流程完成
+          this.initEditor(); // 初始化编辑器
+        } else {
+          // 这是一个异常情况，loadScript 应该确保 DocsAPI 可用才解析
+          console.error('[文档编辑器] loadScript 解析完成，但 window.DocsAPI 仍不可用！');
+          this.$emit('error', new Error('API 脚本加载后 DocsAPI 仍不可用。'));
+        }
+      } catch (error) {
+        console.error('[文档编辑器] 调用 loadScript 加载 OnlyOffice API 脚本时发生错误:', error);
+        this.apiScriptLoaded = false; // 确保状态在出错时也是正确的
+        this.$emit('error', error); // 将错误事件传递给父组件
+      }
+    },
+    /**
+     * 当 Document Server URL 发生变化时，重新加载 API 脚本和编辑器。
+     * @returns {void}
+     */
+    reloadApiAndEditor() {
+      if (!this.isMounted) return; // 如果组件尚未挂载，则不执行任何操作
+      console.log('[文档编辑器] Document Server URL 发生变化，重新加载 API 和编辑器。');
+      this.destroyEditorInstance(); // 销毁当前编辑器实例
+      this.apiScriptLoaded = false; // 重置 API 加载状态，因为 URL 已改变
+      this.loadApiAndInitEditor(); // 重新加载 API 并初始化编辑器
+    },
+    /**
+     * 初始化编辑器的前置检查。
+     * 确保 API 已加载且 DOM 占位符元素存在，然后调用 `createEditor`。
+     * @returns {void}
+     */
+    initEditor() {
+      // 检查 API 脚本是否已加载
+      if (!this.apiScriptLoaded) {
+        console.warn('[文档编辑器] API 脚本未加载。正在尝试重新加载。');
+        this.loadApiAndInitEditor(); // 尝试再次加载 API
+        return;
+      }
+      // 检查编辑器占位符 DOM 元素是否存在
+      if (!document.getElementById(this.editorId)) {
+        // 如果 DOM 元素尚不存在，则等待下一个 Tick (DOM 更新周期)
+        this.$nextTick(() => {
+          if (!document.getElementById(this.editorId)) {
+            console.error(`[文档编辑器] 未找到 ID 为 '${this.editorId}' 的编辑器占位符元素。`);
+            this.$emit('error', new Error(`未找到占位符 ID '${this.editorId}'。`));
+            return;
+          }
+          // 确保 DocsAPI 仍然可用 (以防万一)
+          if (window.DocsAPI) this.createEditor();
+        });
+        return;
+      }
+      // 如果一切就绪，创建编辑器
+      this.createEditor();
+    },
+    /**
+     * 创建并初始化 OnlyOffice 编辑器实例。
+     * 此方法负责合并配置、校验关键参数，并最终调用 `DocsAPI.DocEditor`。
+     * @returns {void}
+     */
+    createEditor() {
+      this.destroyEditorInstance(); // 先销毁任何已存在的编辑器实例
+      // 确保 DocsAPI 全局对象存在
+      if (!window.DocsAPI) {
+        console.error('[文档编辑器] DocsAPI 不可用。');
+        this.$emit('error', new Error('DocsAPI 不可用。'));
+        return;
+      }
+
+      try {
+        // 1. 从单独的 props 构建默认配置对象
+        let defaultConfigFromProps = {
+          width: this.width,
+          height: this.height,
+          type: this.type,
+          documentType: this.documentType,
+          document: {
+            title: this.documentTitle,
+            fileType: this.documentFileType,
+          },
+          editorConfig: {
+            lang: this.editorConfigLang,
+          },
+          // 将 props.events 作为默认事件配置，深拷贝以避免意外修改原始 prop
+          events: this.events ? JSON.parse(JSON.stringify(this.events)) : {},
+        };
+
+        // 2. 从 props.config 深拷贝高优先级配置
+        const highPriorityConfig = this.config ? JSON.parse(JSON.stringify(this.config)) : {};
+
+        // 3. 合并配置：highPriorityConfig 会覆盖 defaultConfigFromProps 中的同名属性
+        const finalConfig = mergeDeep({}, defaultConfigFromProps, highPriorityConfig);
+
+        // 4. 单独构建事件处理器，确保正确的优先级和 $emit 行为
+        finalConfig.events = this.buildEventHandlers();
+
+        // 5. 校验关键配置字段：document.url 和 document.key
+        if (!finalConfig.document?.url || !finalConfig.document?.key) {
+          const errMsg = "[文档编辑器] 关键错误：必须提供 'config.document.url' 和 'config.document.key'。";
+          console.error(errMsg, finalConfig.document);
+          this.$emit('error', new Error(errMsg));
+          return;
+        }
+        // 校验 editorConfig.callbackUrl (可选，但建议提供)
+        if (!finalConfig.editorConfig?.callbackUrl) {
+          console.warn("[文档编辑器] 警告：未提供 'config.editorConfig.callbackUrl'。", finalConfig.editorConfig);
+        }
+        // 如果 documentType 未提供，尝试从 fileType 推断
+        if (!finalConfig.documentType && finalConfig.document?.fileType) {
+          const fileType = finalConfig.document.fileType.toLowerCase();
+          if (['doc', 'docx', 'odt', 'rtf', 'txt', 'html', 'mht', 'pdf', 'djvu', 'xps', 'fodt'].includes(fileType)) {
+            finalConfig.documentType = 'word';
+          } else if (['xls', 'xlsx', 'ods', 'csv', 'fods'].includes(fileType)) {
+            finalConfig.documentType = 'cell';
+          } else if (['ppt', 'pptx', 'odp', 'fodp'].includes(fileType)) {
+            finalConfig.documentType = 'slide';
+          } else {
+            console.warn(`[文档编辑器] 未知的 fileType '${fileType}'，无法推断 documentType。`);
+          }
+        }
+        // 最终校验 documentType 是否存在
+        if (!finalConfig.documentType) {
+          const errMsg = "[文档编辑器] 关键错误：'documentType' 缺失或无法推断。";
+          console.error(errMsg);
+          this.$emit('error', new Error(errMsg));
+          return;
+        }
+
+        console.log('[文档编辑器] 使用最终配置初始化编辑器:', JSON.parse(JSON.stringify(finalConfig)));
+        // 创建 OnlyOffice 编辑器实例
+        this.editorInstance = new window.DocsAPI.DocEditor(this.editorId, finalConfig);
+        // 触发 'ready' 事件，并传递编辑器实例
+        this.$emit('ready', this.editorInstance);
+
+      } catch (error) {
+        console.error('[文档编辑器] 初始化 OnlyOffice 编辑器时出错:', error);
+        this.$emit('error', error);
+      }
+    },
+    /**
+     * 构建传递给 OnlyOffice 编辑器的事件处理器对象。
+     * 此方法确保 `config.events` 中的事件优先于 `props.events` 中的事件，
+     * 并且所有被代理的事件都会通过 `$emit` 触发为 Vue 组件事件。
+     * @returns {Object} 事件处理器对象。
+     */
+    buildEventHandlers() {
+      const handlers = {}; // 存储最终的事件处理器
+      const self = this; // 保存 Vue 组件实例的引用
+      // 需要代理的 OnlyOffice 事件列表
+      const eventsToProxy = [
+        'onAppReady', 'onDocumentStateChange', 'onMetaChange', 'onDocumentReady', 'onError',
+        'onInfo', 'onWarning', 'onRequestEditRights', 'onRequestClose', 'onRequestSave',
+        'onRequestUsers', 'onRequestMailMergeRecipients', 'onRequestCompareFile',
+        'onRequestSharingSettings', 'onRequestInsertImage', 'onRequestSaveAs', 'onDownloadAs',
+        'onMakeActionLink',
+      ];
+
+      eventsToProxy.forEach(eventName => {
+        // 将 OnlyOffice 事件名 (如 onAppReady) 转换为 Vue 事件名 (如 app-ready)
+        const vueEventName = eventName.substring(2).replace(/([A-Z])/g, '-$1').toLowerCase();
+
+        // 为每个 OnlyOffice 事件创建一个包装函数
+        handlers[eventName] = function (...eventArgs) { // 使用普通函数以保留 OnlyOffice 可能的 `this` 上下文
+          let userHandlerReturnValue; // 存储用户事件处理器的返回值
+          let userHandlerCalled = false; // 标记用户事件处理器是否被调用
+
+          // 优先级 1: 检查 props.config.events 中是否有此事件的处理器
+          if (self.config && self.config.events && typeof self.config.events[eventName] === 'function') {
+            userHandlerReturnValue = self.config.events[eventName].apply(this, eventArgs); // 调用并传入参数
+            userHandlerCalled = true;
+          }
+          // 优先级 2: 如果 props.config.events 中没有，则检查 props.events 中是否有
+          else if (self.events && typeof self.events[eventName] === 'function') {
+            userHandlerReturnValue = self.events[eventName].apply(this, eventArgs);
+            userHandlerCalled = true;
+          }
+
+          // 始终通过 $emit 触发 Vue 组件事件
+          self.$emit(vueEventName, ...eventArgs);
+
+          // 如果用户事件处理器被调用且有返回值，则返回该值
+          // (某些 OnlyOffice 事件可能依赖处理器的返回值)
+          if (userHandlerCalled && userHandlerReturnValue !== undefined) {
+            return userHandlerReturnValue;
+          }
+        };
+      });
+      return handlers; // 返回构建好的事件处理器对象
+    },
+    /**
+     * 销毁当前的 OnlyOffice 编辑器实例。
+     * @returns {void}
+     */
+    destroyEditorInstance() {
+      if (this.editorInstance) {
+        try {
+          this.editorInstance.destroyEditor(); // 调用 OnlyOffice API 的销毁方法
+          console.log('[文档编辑器] 编辑器实例已销毁。');
+        } catch (error) {
+          console.error('[文档编辑器] 销毁编辑器实例时出错:', error);
+        }
+        this.editorInstance = null; // 清除实例引用
+      }
+    },
+    /**
+     * 当任一相关 prop (非 config 或 documentServerUrl) 发生变化时，重新加载编辑器。
+     * @returns {void}
+     */
+    reloadEditor() {
+      if (!this.isMounted) return; // 如果组件尚未挂载，则不执行任何操作
+      // 确保 API 脚本已加载且 DocsAPI 可用
+      if (this.apiScriptLoaded && window.DocsAPI) {
+        console.log('[文档编辑器] Prop 发生变化，重新加载编辑器。');
+        this.initEditor(); // 重新初始化编辑器
+      } else if (!this.apiScriptLoaded) {
+        // 如果 API 尚未加载，则发出警告，编辑器将在 API 加载后自动初始化
+        console.warn('[文档编辑器] Prop 发生变化，但 API 未加载。编辑器将在 API 加载后初始化。');
+      }
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.view {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+
+  & > div {
+    width: 100%;
+    height: 100%;
+  }
+}
+</style>
+```
+
+
+
+### 5.1.3、DocDialog.vue
+
+```vue
+<template>
+  <el-dialog
+    :close-on-click-modal="false"
+    :visible.sync="dialogVisible"
+    append-to-body
+    class="doc-dialog"
+    width="60%">
+    <DocEditor
+      v-if="dialogVisible"
+      :id="id"
+      :config="config"
+      :document-file-type="config.document.documentFileType"
+      :document-title="config.document.title"
+      :events="config.events"
+      class="document-editor"
+    />
+  </el-dialog>
+</template>
+
+<script>
+import DocEditor from "@/components/DocEditor/index.vue"
+import {generateKey} from "@/plugins/DocEditor/utils";
+
+const DOCUMENT_URL_TEMPLATE = `${window.location.origin}${process.env.VUE_APP_BASE_API}/upload/upAnnex/download/{fileId}`
+
+export default {
+  name: "DocDialog",
+  components: {
+    DocEditor
+  },
+  data() {
+    return {
+      // 给当前文档编辑器分配一个唯一的 ID，用于初始化和管理多个实例时进行区分
+      id: 'DocDialog',
+      config: {
+        // 编辑器高度的设置
+        height: "100%",
+        // 文档相关配置
+        document: {
+          // 文档的标题，在编辑器中显示
+          title: '编辑测试',
+          // 文件类型，例如 docx、xlsx、pptx、pdf
+          documentFileType: 'docx',
+          // onlyoffice用key做文件缓存索引，推荐每次都随机生成一下，不然总是读取缓存，另外key中建议携带唯一识别文件名相关信息，在回调接口中用得到
+          key: 'e932e7bb1e4d44xxxxxx1xx8sxx18',
+          // 文档URL
+          url: 'http://host.docker.internal:8087/template/测试.docx',
+          info: {},
+          // 文档权限
+          permissions: {
+            // 聊天
+            chat: false,
+            // 是否可以编辑
+            edit: false
+          }
+        },
+        editorConfig: {
+          // 预览模式
+          mode: "view",
+          // 用户信息
+          user: {
+            id: "78e1e841",
+            name: "John Smith",
+          },
+          customization: {
+            // 紧凑布局
+            compactToolbar: true,
+            // 帮助
+            help: false,
+            // 插件
+            plugins: false,
+          }
+        }
+      },
+      // 对话框是否显示
+      dialogVisible: false,
+      // 文件元数据
+      fileMetadata: {},
+      // 用户数据
+      user: {},
+    }
+  },
+  methods: {
+    openDialog(file) {
+      // 填充用户数据
+      this.user = this.$store.state.user
+      this.config.editorConfig.user.id = this.user.name
+      this.config.editorConfig.user.name = this.user.nickName
+      this.config.editorConfig.user.image = `${window.location.origin}/${this.user.avatar}`
+
+      // 填充文件元数据
+      this.fileMetadata = file
+      this.config.document.title = this.fileMetadata.name
+      this.config.document.documentFileType = this.fileMetadata.fileSuffix
+      this.config.document.url = DOCUMENT_URL_TEMPLATE.replace('{fileId}', this.fileMetadata.id)
+      this.config.document.key = generateKey(this.fileMetadata.id, Date.now())
+      this.dialogVisible = true
+    },
+  }
+}
+</script>
+
+<style lang="css" scoped>
+div /deep/ .el-dialog {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0 !important;
+}
+
+.doc-dialog /deep/ .el-dialog__header {
+  padding: 0;
+}
+
+.doc-dialog /deep/ .el-dialog__body {
+  padding: 10px;
+}
+
+.doc-dialog /deep/ .el-dialog__headerbtn {
+  top: -8px;
+  right: -8px;
+}
+
+.doc-dialog /deep/ .el-icon-close {
+  color: #d61616;
+  font-weight: bold;
+  background-color: white;
+  border-radius: 50%;
+  padding: 2px;
+
+  &::before {
+    content: "\e78d";
+  }
+}
+
+.document-editor {
+  height: 90vh;
+}
+</style>
+```
 
