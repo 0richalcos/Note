@@ -2024,3 +2024,247 @@ CMD service nginx start
 ```dockerfile
 CMD ["nginx", "-g", "daemon off;"]
 ```
+
+
+
+### 7.2.4、ENTRYPOINT 入口点
+
+`ENTRYPOINT` 的格式和 `RUN` 指令格式一样，分为 exec 格式和 shell 格式。
+
+`ENTRYPOINT` 的目的和 `CMD` 一样，都是在指定容器启动程序及参数。`ENTRYPOINT` 在运行时也可以替代，不过比 `CMD` 要略显繁琐，需要通过 `docker run` 的参数 `--entrypoint` 来指定。
+
+当指定了 `ENTRYPOINT` 后，`CMD` 的含义就发生了改变，不再是直接的运行其命令，而是将 `CMD` 的内容作为参数传给 `ENTRYPOINT` 指令，换句话说实际执行时，将变为：
+
+```dockerfile
+<ENTRYPOINT> "<CMD>"
+```
+
+那么有了 `CMD` 后，为什么还要有 `ENTRYPOINT` 呢？这种 `<ENTRYPOINT> "<CMD>"` 有什么好处么？
+
+
+
+#### 场景一：让镜像变成像命令一样使用
+
+假设需要一个得知自己当前公网 IP 的镜像，那么可以先用 `CMD` 来实现：
+
+```dockerfile
+FROM ubuntu:18.04
+RUN apt-get update \
+    && apt-get install -y curl \
+    && rm -rf /var/lib/apt/lists/*
+CMD [ "curl", "-s", "http://myip.ipip.net" ]
+```
+
+假如我们使用 `docker build -t myip .` 来构建镜像的话，如果我们需要查询当前公网 IP，只需要执行：
+
+```
+$ docker run myip
+当前 IP：61.148.226.66 来自：北京市 联通
+```
+
+嗯，这么看起来好像可以直接把镜像当做命令使用了，不过命令总有参数，如果我们希望加参数呢？比如从上面的 `CMD` 中可以看到实质的命令是 `curl`，那么如果我们希望显示 HTTP 头信息，就需要加上 `-i` 参数。那么我们可以直接加 `-i` 参数给 `docker run myip` 么？
+
+```
+$ docker run myip -i
+docker: Error response from daemon: invalid header field value "oci runtime error: container_linux.go:247: starting container process caused \"exec: \\\"-i\\\": executable file not found in $PATH\"\n".
+```
+
+我们可以看到可执行文件找不到的报错：executable file not found。之前我们说过，跟在镜像名后面的是 `command`，运行时会替换 `CMD` 的默认值。因此这里的 `-i` 替换了原来的 `CMD`，而不是添加在原来的 `curl -s http://myip.ipip.net` 后面。而 `-i` 根本不是命令，所以自然找不到。
+
+那么如果我们希望加入 `-i` 这参数，我们就必须重新完整的输入这个命令：
+
+```shell
+docker run myip curl -s http://myip.ipip.net -i
+```
+
+这显然不是很好的解决方案，而使用 `ENTRYPOINT` 就可以解决这个问题。现在我们重新用 `ENTRYPOINT` 来实现这个镜像：
+
+```dockerfile
+FROM ubuntu:18.04
+RUN apt-get update \
+    && apt-get install -y curl \
+    && rm -rf /var/lib/apt/lists/*
+ENTRYPOINT [ "curl", "-s", "http://myip.ipip.net" ]
+```
+
+这次我们再来尝试直接使用 `docker run myip -i`：
+
+```
+$ docker run myip
+当前 IP：61.148.226.66 来自：北京市 联通
+
+$ docker run myip -i
+HTTP/1.1 200 OK
+Server: nginx/1.8.0
+Date: Tue, 22 Nov 2016 05:12:40 GMT
+Content-Type: text/html; charset=UTF-8
+Vary: Accept-Encoding
+X-Powered-By: PHP/5.6.24-1~dotdeb+7.1
+X-Cache: MISS from cache-2
+X-Cache-Lookup: MISS from cache-2:80
+X-Cache: MISS from proxy-2_6
+Transfer-Encoding: chunked
+Via: 1.1 cache-2:80, 1.1 proxy-2_6:8006
+Connection: keep-alive
+
+当前 IP：61.148.226.66 来自：北京市 联通
+```
+
+可以看到，这次成功了。这是因为当存在 `ENTRYPOINT` 后，`CMD` 的内容将会作为参数传给 `ENTRYPOINT`，而这里 `-i` 就是新的 `CMD`，因此会作为参数传给 `curl`，从而达到了我们预期的效果。
+
+
+
+#### 场景二：应用运行前的准备工作
+
+启动容器就是启动主进程，但有些时候，启动主进程前，需要一些准备工作。
+
+比如 mysql 类的数据库，可能需要一些数据库配置、初始化的工作，这些工作要在最终的 mysql 服务器运行之前解决。
+
+此外，可能希望避免使用 `root` 用户去启动服务，从而提高安全性，而在启动服务前还需要以 `root` 身份执行一些必要的准备工作，最后切换到服务用户身份启动服务。或者除了服务外，其它命令依旧可以使用 `root` 身份执行，方便调试等。
+
+这些准备工作是和容器 `CMD` 无关的，无论 `CMD` 为什么，都需要事先进行一个预处理的工作。这种情况下，可以写一个脚本，然后放入 `ENTRYPOINT` 中去执行，而这个脚本会将接收到的参数（也就是 `<CMD>`）作为命令，在脚本最后执行。比如官方镜像 `redis` 中就是这么做的：
+
+```dockerfile
+FROM alpine:3.4
+...
+RUN addgroup -S redis && adduser -S -G redis redis
+...
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+EXPOSE 6379
+CMD [ "redis-server" ]
+```
+
+可以看到其中为了 redis 服务创建了 redis 用户，并在最后指定了 `ENTRYPOINT` 为 `docker-entrypoint.sh` 脚本：
+
+```
+#!/bin/sh
+...
+# allow the container to be started with `--user`
+if [ "$1" = 'redis-server' -a "$(id -u)" = '0' ]; then
+	find . \! -user redis -exec chown redis '{}' +
+	exec gosu redis "$0" "$@"
+fi
+
+exec "$@"
+```
+
+该脚本的内容就是根据 `CMD` 的内容来判断，如果是 `redis-server` 的话，则切换到 `redis` 用户身份启动服务器，否则依旧使用 `root` 身份执行。比如：
+
+```
+$ docker run -it redis id
+uid=0(root) gid=0(root) groups=0(root)
+```
+
+
+
+### 7.2.5、ENV 设置环境变量
+
+格式有两种：
+
+- `ENV <key> <value>`
+- `ENV <key1>=<value1> <key2>=<value2>...`
+
+这个指令很简单，就是设置环境变量而已，无论是后面的其它指令，如 `RUN`，还是运行时的应用，都可以直接使用这里定义的环境变量。
+
+```dockerfile
+ENV VERSION=1.0 DEBUG=on \
+    NAME="Happy Feet"
+```
+
+这个例子中演示了如何换行，以及对含有空格的值用双引号括起来的办法，这和 Shell 中的行为是一致的。
+
+定义了环境变量，那么在后续的指令中，就可以使用这个环境变量。比如在官方 `node` 镜像 Dockerfile 中，就有类似这样的代码：
+
+```dockerfile
+ENV NODE_VERSION 7.2.0
+
+RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
+  && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
+  && gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \
+  && grep " node-v$NODE_VERSION-linux-x64.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
+  && tar -xJf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
+  && rm "node-v$NODE_VERSION-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
+  && ln -s /usr/local/bin/node /usr/local/bin/nodejs
+```
+
+在这里先定义了环境变量 `NODE_VERSION`，其后的 `RUN` 这层里，多次使用 `$NODE_VERSION` 来进行操作定制。可以看到，将来升级镜像构建版本的时候，只需要更新 `7.2.0` 即可，Dockerfile 构建维护变得更轻松了。
+
+下列指令可以支持环境变量展开： `ADD`、`COPY`、`ENV`、`EXPOSE`、`FROM`、`LABEL`、`USER`、`WORKDIR`、`VOLUME`、`STOPSIGNAL`、`ONBUILD`、`RUN`。
+
+可以从这个指令列表里感觉到，环境变量可以使用的地方很多，很强大。通过环境变量，我们可以让一份 Dockerfile 制作更多的镜像，只需使用不同的环境变量即可。
+
+
+
+### 7.2.6、ARG 构建参数
+
+格式：
+
+```dockerfile
+ARG <参数名>[=<默认值>]
+```
+
+构建参数和 `ENV` 的效果一样，都是设置环境变量。所不同的是，`ARG` 所设置的构建环境的环境变量，在将来容器运行时是不会存在这些环境变量的。但是不要因此就使用 `ARG` 保存密码之类的信息，因为 `docker history` 还是可以看到所有值的。
+
+Dockerfile 中的 `ARG` 指令是定义参数名称，以及定义其默认值。该默认值可以在构建命令 `docker build` 中用 `--build-arg <参数名>=<值>` 来覆盖。
+
+灵活的使用 `ARG` 指令，能够在不修改 Dockerfile 的情况下，构建出不同的镜像。
+
+ARG 指令有生效范围，如果在 `FROM` 指令之前指定，那么只能用于 `FROM` 指令中。
+
+```dockerfile
+ARG DOCKER_USERNAME=library
+
+FROM ${DOCKER_USERNAME}/alpine
+
+RUN set -x ; echo ${DOCKER_USERNAME}
+```
+
+使用上述 Dockerfile 会发现无法输出 `${DOCKER_USERNAME}` 变量的值，要想正常输出，你必须在 `FROM` 之后再次指定 `ARG`
+
+```dockerfile
+# 只在 FROM 中生效
+ARG DOCKER_USERNAME=library
+
+FROM ${DOCKER_USERNAME}/alpine
+
+# 要想在 FROM 之后使用，必须再次指定
+ARG DOCKER_USERNAME=library
+
+RUN set -x ; echo ${DOCKER_USERNAME}
+```
+
+对于多阶段构建，尤其要注意这个问题：
+
+```dockerfile
+# 这个变量在每个 FROM 中都生效
+ARG DOCKER_USERNAME=library
+
+FROM ${DOCKER_USERNAME}/alpine
+
+RUN set -x ; echo 1
+
+FROM ${DOCKER_USERNAME}/alpine
+
+RUN set -x ; echo 2
+```
+
+对于上述 Dockerfile 两个 `FROM` 指令都可以使用 `${DOCKER_USERNAME}`，对于在各个阶段中使用的变量都必须在每个阶段分别指定：
+
+```dockerfile
+ARG DOCKER_USERNAME=library
+
+FROM ${DOCKER_USERNAME}/alpine
+
+# 在FROM 之后使用变量，必须在每个阶段分别指定
+ARG DOCKER_USERNAME=library
+
+RUN set -x ; echo ${DOCKER_USERNAME}
+
+FROM ${DOCKER_USERNAME}/alpine
+
+# 在FROM 之后使用变量，必须在每个阶段分别指定
+ARG DOCKER_USERNAME=library
+
+RUN set -x ; echo ${DOCKER_USERNAME}
+```
