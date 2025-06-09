@@ -1668,7 +1668,7 @@ RUN echo '<h1>Hello, Docker!</h1>' > /usr/share/nginx/html/index.html
 
 
 
-### 7.1.1、FROM 指定基础镜像
+### 7.1.1、FROM
 
 所谓定制镜像，那一定是以一个镜像为基础，在其上进行定制。而 `FROM` 就是指定基础镜像，因此一个 Dockerfile 中 `FROM` 是必备的指令，并且必须是第一条指令。
 
@@ -1689,9 +1689,11 @@ FROM scratch
 
 
 
-### 7.1.2、RUN 执行命令
+### 7.1.2、RUN
 
-`RUN` 指令是用来执行命令行命令的。由于命令行的强大能力，`RUN` 指令在定制镜像时是最常用的指令之一。其格式有两种：
+`RUN` 指令是用来执行命令行命令的。由于命令行的强大能力，`RUN` 指令在定制镜像时是最常用的指令之一。
+
+其格式有两种：
 
 - shell 格式：`RUN <命令>`，就像直接在命令行中输入的命令一样。刚才写的 Dockerfile 中的 `RUN` 指令就是这种格式。
 
@@ -1887,22 +1889,24 @@ docker build - < context.tar.gz
 
 ## 7.2、Dockerfile 指令详解
 
-其实 Dockerfile 功能很强大，它提供了十多个指令。
+其实 Dockerfile 功能很强大，除了 `FROM` 和 `RUN`,它提供了十多个指令。
 
 
 
-### 7.2.1、COPY 复制文件
+### 7.2.1、COPY
 
-格式：
+`COPY` 指令将从构建上下文目录中 `<源路径>` 的文件/目录复制到新的一层的镜像内的 `<目标路径>` 位置。
+
+格式为：
 
 ```dockerfile
 COPY [--chown=<user>:<group>] <源路径>... <目标路径>
 COPY [--chown=<user>:<group>] ["<源路径1>",... "<目标路径>"]
 ```
 
-和 `RUN` 指令一样，也有两种格式，一种类似于命令行，一种类似于函数调用。
+和 `RUN` 指令一样，`COPY` 也有两种格式，一种类似于命令行，一种类似于函数调用。
 
-`COPY` 指令将从构建上下文目录中 `<源路径>` 的文件/目录复制到新的一层的镜像内的 `<目标路径>` 位置。比如：
+下面是个简单的示例：
 
 ```dockerfile
 COPY package.json /usr/src/app/
@@ -1932,7 +1936,7 @@ COPY --chown=10:11 files* /mydir/
 
 
 
-### 7.2.2、ADD 高级的复制文件
+### 7.2.2、ADD
 
 `ADD` 指令和 `COPY` 的格式和性质基本一致。但是在 `COPY` 基础上增加了一些功能。
 
@@ -1967,7 +1971,9 @@ ADD --chown=10:11 files* /mydir/
 
 
 
-### 7.2.3、CMD 容器启动命令
+### 7.2.3、CMD
+
+Docker 不是虚拟机，容器就是进程。既然是进程，那么在启动容器的时候，需要指定所运行的程序及参数。`CMD` 指令就是用于指定默认的容器主进程的启动命令的。
 
 `CMD` 指令的格式和 `RUN` 相似，也是两种格式：
 
@@ -1983,11 +1989,12 @@ ADD --chown=10:11 files* /mydir/
   CMD ["可执行文件", "参数1", "参数2"...]
   ```
 
-在指定了 `ENTRYPOINT` 指令后，可以用 `CMD` 指定具体的参数：`CMD ["参数1", "参数2"...]`。
+> [!NOTE]
+>
+> 在指定了 `ENTRYPOINT` 指令后，可以用 `CMD` 指定具体的参数：`CMD ["参数1", "参数2"...]`。
+>
 
-之前介绍容器的时候曾经说过，Docker 不是虚拟机，容器就是进程。既然是进程，那么在启动容器的时候，需要指定所运行的程序及参数。`CMD` 指令就是用于指定默认的容器主进程的启动命令的。
-
-在运行时可以指定新的命令来替代镜像设置中的这个默认命令，比如，`ubuntu` 镜像默认的 `CMD` 是 `/bin/bash`，如果我们直接 `docker run -it ubuntu` 的话，会直接进入 `bash`。我们也可以在运行时指定运行别的命令，如 `docker run -it ubuntu cat /etc/os-release`。这就是用 `cat /etc/os-release` 命令替换了默认的 `/bin/bash` 命令了，输出了系统版本信息。
+ `CMD` 设置的默认命令可以在容器运行时指定新的命令来替代，比如 `ubuntu` 镜像默认的 `CMD` 是 `/bin/bash`，如果我们直接 `docker run -it ubuntu` 的话，会直接进入 `bash`。我们也可以在运行时指定运行别的命令，如 `docker run -it ubuntu cat /etc/os-release`。这就是用 `cat /etc/os-release` 命令替换了默认的 `/bin/bash` 命令了，输出了系统版本信息。
 
 在指令格式上，一般推荐使用 exec 格式，这类格式在解析时会被解析为 JSON 数组，因此一定要使用双引号 `"`，而不要使用单引号。
 
@@ -2027,11 +2034,11 @@ CMD ["nginx", "-g", "daemon off;"]
 
 
 
-### 7.2.4、ENTRYPOINT 入口点
-
-`ENTRYPOINT` 的格式和 `RUN` 指令格式一样，分为 exec 格式和 shell 格式。
+### 7.2.4、ENTRYPOINT
 
 `ENTRYPOINT` 的目的和 `CMD` 一样，都是在指定容器启动程序及参数。`ENTRYPOINT` 在运行时也可以替代，不过比 `CMD` 要略显繁琐，需要通过 `docker run` 的参数 `--entrypoint` 来指定。
+
+`ENTRYPOINT` 的格式和 `RUN` 指令格式一样，分为 exec 格式和 shell 格式。
 
 当指定了 `ENTRYPOINT` 后，`CMD` 的含义就发生了改变，不再是直接的运行其命令，而是将 `CMD` 的内容作为参数传给 `ENTRYPOINT` 指令，换句话说实际执行时，将变为：
 
@@ -2158,14 +2165,18 @@ uid=0(root) gid=0(root) groups=0(root)
 
 
 
-### 7.2.5、ENV 设置环境变量
+### 7.2.5、ENV
+
+这个指令很简单，就是设置环境变量而已，无论是后面的其它指令，如 `RUN`，还是运行时的应用，都可以直接使用这里定义的环境变量。
 
 格式有两种：
 
-- `ENV <key> <value>`
-- `ENV <key1>=<value1> <key2>=<value2>...`
+```dockerfile
+ENV <key> <value>
+ENV <key1>=<value1> <key2>=<value2>...
+```
 
-这个指令很简单，就是设置环境变量而已，无论是后面的其它指令，如 `RUN`，还是运行时的应用，都可以直接使用这里定义的环境变量。
+下面是个简单的示例：
 
 ```dockerfile
 ENV VERSION=1.0 DEBUG=on \
@@ -2196,15 +2207,15 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
 
 
 
-### 7.2.6、ARG 构建参数
+### 7.2.6、ARG
 
-格式：
+`ARG` 构建参数和 `ENV` 的效果一样，都是设置环境变量。所不同的是，`ARG` 所设置的构建环境的环境变量，在将来容器运行时是不会存在这些环境变量的。但是不要因此就使用 `ARG` 保存密码之类的信息，因为 `docker history` 还是可以看到所有值的。
+
+格式为：
 
 ```dockerfile
 ARG <参数名>[=<默认值>]
 ```
-
-构建参数和 `ENV` 的效果一样，都是设置环境变量。所不同的是，`ARG` 所设置的构建环境的环境变量，在将来容器运行时是不会存在这些环境变量的。但是不要因此就使用 `ARG` 保存密码之类的信息，因为 `docker history` 还是可以看到所有值的。
 
 Dockerfile 中的 `ARG` 指令是定义参数名称，以及定义其默认值。该默认值可以在构建命令 `docker build` 中用 `--build-arg <参数名>=<值>` 来覆盖。
 
@@ -2268,3 +2279,291 @@ ARG DOCKER_USERNAME=library
 
 RUN set -x ; echo ${DOCKER_USERNAME}
 ```
+
+
+
+### 7.2.7、VOLUME
+
+容器运行时应该尽量保持容器存储层不发生写操作，对于数据库类需要保存动态数据的应用，其数据库文件应该保存于卷（volume）中。为了防止运行时用户忘记将动态文件所保存目录挂载为卷，在 Dockerfile 中可以使用 `VOLUME` 指令事先指定某些目录挂载为匿名卷，这样在运行时如果用户不指定挂载，其应用也可以正常运行，不会向容器存储层写入大量数据。
+
+格式有两种：
+
+```dockerfile
+VOLUME ["<路径1>", "<路径2>"...]
+VOLUME <路径>
+```
+
+下面是个简单的示例：
+
+```dockerfile
+VOLUME /data
+```
+
+这里的 `/data` 目录就会在容器运行时自动挂载为匿名卷，任何向 `/data` 中写入的信息都不会记录进容器存储层，从而保证了容器存储层的无状态化。当然，运行容器时可以覆盖这个挂载设置。比如：
+
+```shell
+docker run -d -v mydata:/data xxxx
+```
+
+在这行命令中，就使用了 `mydata` 这个命名卷挂载到了 `/data` 这个位置，替代了 Dockerfile 中定义的匿名卷的挂载配置。
+
+ 
+
+### 7.2.8、EXPOSE
+
+`EXPOSE` 指令是声明容器运行时提供服务的端口，这只是一个声明，在容器运行时并不会因为这个声明应用就会开启这个端口的服务。在 Dockerfile 中写入这样的声明有两个好处，一个是帮助镜像使用者理解这个镜像服务的守护端口，以方便配置映射；另一个用处则是在运行时使用随机端口映射时，也就是 `docker run -P` 时，会自动随机映射 `EXPOSE` 的端口。
+
+格式为： 
+
+```dockerfile
+EXPOSE <端口1> [<端口2>...]
+```
+
+要将 `EXPOSE` 和在运行时使用 `-p <宿主端口>:<容器端口>` 区分开来。`-p` 是映射宿主端口和容器端口，换句话说，就是将容器的对应端口服务公开给外界访问，而 `EXPOSE` 仅仅是声明容器打算使用什么端口而已，并不会自动在宿主进行端口映射。
+
+
+
+### 7.2.9、WORKDIR
+
+使用 `WORKDIR` 指令可以来指定工作目录（或者称为当前目录），以后各层的当前目录就被改为指定的目录，如该目录不存在，`WORKDIR` 会帮你建立目录。
+
+格式为：
+
+```dockerfile
+WORKDIR <工作目录路径>
+```
+
+之前提到一些初学者常犯的错误是把 Dockerfile 等同于 Shell 脚本来书写，这种错误的理解还可能会导致出现下面这样的错误：
+
+```dockerfile
+RUN cd /app
+RUN echo "hello" > world.txt
+```
+
+如果将这个 Dockerfile 进行构建镜像运行后，会发现找不到 `/app/world.txt` 文件，或者其内容不是 `hello`。原因其实很简单，在 Shell 中，连续两行是同一个进程执行环境，因此前一个命令修改的内存状态，会直接影响后一个命令；而在 Dockerfile 中，这两行 `RUN` 命令的执行环境根本不同，是两个完全不同的容器。这就是对 Dockerfile 构建分层存储的概念不了解所导致的错误。
+
+每一个 `RUN` 都是启动一个容器、执行命令、然后提交存储层文件变更。第一层 `RUN cd /app` 的执行仅仅是当前进程的工作目录变更，一个内存上的变化而已，其结果不会造成任何文件变更。而到第二层的时候，启动的是一个全新的容器，跟第一层的容器更完全没关系，自然不可能继承前一层构建过程中的内存变化。
+
+因此如果需要改变以后各层的工作目录的位置，那么应该使用 `WORKDIR` 指令：
+
+```dockerfile
+WORKDIR /app
+
+RUN echo "hello" > world.txt
+```
+
+如果你的 `WORKDIR` 指令使用的相对路径，那么所切换的路径与之前的 `WORKDIR` 有关：
+
+```dockerfile
+WORKDIR /a
+WORKDIR b
+WORKDIR c
+
+RUN pwd
+```
+
+`RUN pwd` 的工作目录为 `/a/b/c`。
+
+
+
+### 7.2.10、USER
+
+`USER` 指令和 `WORKDIR` 相似，都是改变环境状态并影响以后的层。`WORKDIR` 是改变工作目录，`USER` 则是改变之后层的执行 `RUN`、`CMD` 以及 `ENTRYPOINT` 这类命令的身份。
+
+格式为：
+
+```dockerfile
+USER <用户名>[:<用户组>]
+```
+
+注意，`USER` 只是帮助你切换到指定用户而已，这个用户必须是事先建立好的，否则无法切换：
+
+```dockerfile
+RUN groupadd -r redis && useradd -r -g redis redis
+USER redis
+RUN [ "redis-server" ]
+```
+
+如果以 `root` 执行的脚本，在执行期间希望改变身份，比如希望以某个已经建立好的用户来运行某个服务进程，不要使用 `su` 或者 `sudo`，这些都需要比较麻烦的配置，而且在 TTY 缺失的环境下经常出错。建议使用 [`gosu`](https://github.com/tianon/gosu)：
+
+```dockerfile
+# 建立 redis 用户，并使用 gosu 换另一个用户执行命令
+RUN groupadd -r redis && useradd -r -g redis redis
+# 下载 gosu
+RUN wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/1.12/gosu-amd64" \
+    && chmod +x /usr/local/bin/gosu \
+    && gosu nobody true
+# 设置 CMD，并以另外的用户执行
+CMD [ "exec", "gosu", "redis", "redis-server" ]
+```
+
+
+
+### 7.2.11、HEALTHCHECK
+
+`HEALTHCHECK` 指令是告诉 Docker 应该如何进行判断容器的状态是否正常，这是 Docker 1.12 引入的新指令。
+
+格式有两种：
+
+- 设置检查容器健康状况的命令：
+
+  ```dockerfile
+  HEALTHCHECK [选项] CMD <命令>
+  ```
+
+- 如果基础镜像有健康检查指令，使用这行可以屏蔽掉其健康检查指令：
+
+  ```dockerfile
+  HEALTHCHECK NONE
+  ```
+
+在没有 `HEALTHCHECK` 指令前，Docker 引擎只可以通过容器内主进程是否退出来判断容器是否状态异常。很多情况下这没问题，但是如果程序进入死锁状态，或者死循环状态，应用进程并不退出，但是该容器已经无法提供服务了。在 1.12 以前，Docker 不会检测到容器的这种状态，从而不会重新调度，导致可能会有部分容器已经无法提供服务了却还在接受用户请求。
+
+而自 1.12 之后，Docker 提供了 `HEALTHCHECK` 指令，通过该指令指定一行命令，用这行命令来判断容器主进程的服务状态是否还正常，从而比较真实的反应容器实际状态。
+
+当在一个镜像指定了 `HEALTHCHECK` 指令后，用其启动容器，初始状态会为 `starting`，在 `HEALTHCHECK` 指令检查成功后变为 `healthy`，如果连续一定次数失败，则会变为 `unhealthy`。
+
+`HEALTHCHECK` 支持下列选项：
+
+- `--interval=<间隔>`：两次健康检查的间隔，默认为 30 秒。
+- `--timeout=<时长>`：健康检查命令运行超时时间，如果超过这个时间，本次健康检查就被视为失败，默认 30 秒。
+- `--retries=<次数>`：当连续失败指定次数后，则将容器状态视为 `unhealthy`，默认 3 次。
+
+和 `CMD`、`ENTRYPOINT` 一样，`HEALTHCHECK` 只可以出现一次，如果写了多个，只有最后一个生效。
+
+在 `HEALTHCHECK [选项] CMD` 后面的命令，格式和 `ENTRYPOINT` 一样，分为 shell 格式，和 exec 格式。命令的返回值决定了该次健康检查的成功与否：
+
+- `0`：成功。
+- `1`：失败。
+- `2`：保留，不要使用这个值。
+
+假设我们有个镜像是个最简单的 Web 服务，我们希望增加健康检查来判断其 Web 服务是否在正常工作，我们可以用 `curl` 来帮助判断，其 Dockerfile 的 `HEALTHCHECK` 可以这么写：
+
+```dockerfile
+FROM nginx
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+HEALTHCHECK --interval=5s --timeout=3s \
+  CMD curl -fs http://localhost/ || exit 1
+```
+
+这里我们设置了每 5 秒检查一次（这里为了试验所以间隔非常短，实际应该相对较长），如果健康检查命令超过 3 秒没响应就视为失败，并且使用 `curl -fs http://localhost/ || exit 1` 作为健康检查命令。
+
+使用 `docker build` 来构建这个镜像：
+
+```shell
+docker build -t myweb:v1 .
+```
+
+构建好了后，我们启动一个容器：
+
+```shell
+docker run -d --name web -p 80:80 myweb:v1
+```
+
+当运行该镜像后，可以通过 `docker ps` 看到最初的状态为 `(health: starting)`：
+
+```
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                            PORTS               NAMES
+03e28eb00bd0        myweb:v1            "nginx -g 'daemon off"   3 seconds ago       Up 2 seconds (health: starting)   80/tcp, 443/tcp     web
+```
+
+在等待几秒钟后，再次 `docker ps`，就会看到健康状态变化为了 `(healthy)`：
+
+```
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                    PORTS               NAMES
+03e28eb00bd0        myweb:v1            "nginx -g 'daemon off"   18 seconds ago      Up 16 seconds (healthy)   80/tcp, 443/tcp     web
+```
+
+如果健康检查连续失败超过了重试次数，状态就会变为 `(unhealthy)`。
+
+为了帮助排障，健康检查命令的输出（包括 `stdout` 以及 `stderr`）都会被存储于健康状态里，可以用 `docker inspect` 来查看：
+
+```
+$ docker inspect --format '{{json .State.Health}}' web | python -m json.tool
+{
+    "FailingStreak": 0,
+    "Log": [
+        {
+            "End": "2016-11-25T14:35:37.940957051Z",
+            "ExitCode": 0,
+            "Output": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\n    body {\n        width: 35em;\n        margin: 0 auto;\n        font-family: Tahoma, Verdana, Arial, sans-serif;\n    }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is successfully installed and\nworking. Further configuration is required.</p>\n\n<p>For online documentation and support please refer to\n<a href=\"http://nginx.org/\">nginx.org</a>.<br/>\nCommercial support is available at\n<a href=\"http://nginx.com/\">nginx.com</a>.</p>\n\n<p><em>Thank you for using nginx.</em></p>\n</body>\n</html>\n",
+            "Start": "2016-11-25T14:35:37.780192565Z"
+        }
+    ],
+    "Status": "healthy"
+}
+```
+
+
+
+### 7.2.12、ONBUILD
+
+`ONBUILD` 是一个特殊的指令，它后面跟的是其它指令，比如 `RUN`、`COPY` 等，而这些指令在当前镜像构建时并不会被执行。只有当以当前镜像为基础镜像，去构建下一级镜像的时候才会被执行。
+
+格式为：
+
+```dockerfile
+ONBUILD <其它指令>
+```
+
+Dockerfile 中的其它指令都是为了定制当前镜像而准备的，唯有 `ONBUILD` 是为了帮助别人定制自己而准备的。
+
+假设我们要制作 Node.js 所写的应用的镜像。我们都知道 Node.js 使用 `npm` 进行包管理，所有依赖、配置、启动信息等会放到 `package.json` 文件里。在拿到程序代码后，需要先进行 `npm install` 才可以获得所有需要的依赖。然后就可以通过 `npm start` 来启动应用。因此，一般来说会这样写 Dockerfile：
+
+```dockerfile
+FROM node:slim
+RUN mkdir /app
+WORKDIR /app
+COPY ./package.json /app
+RUN [ "npm", "install" ]
+COPY . /app/
+CMD [ "npm", "start" ]
+```
+
+把这个 Dockerfile 放到 Node.js 项目的根目录，构建好镜像后，就可以直接拿来启动容器运行。但是如果我们还有第二个 Node.js 项目也差不多呢？好吧，那就再把这个 `Dockerfile` 复制到第二个项目里。那如果有第三个项目呢？再复制么？文件的副本越多，版本控制就越困难，让我们继续看这样的场景维护的问题。
+
+如果第一个 Node.js 项目在开发过程中，发现这个 `Dockerfile` 里存在问题，比如敲错字了、或者需要安装额外的包，然后开发人员修复了这个 Dockerfile，再次构建，问题解决。第一个项目没问题了，但是第二个项目呢？虽然最初 Dockerfile 是复制、粘贴自第一个项目的，但是并不会因为第一个项目修复了他们的 Dockerfile，而第二个项目的 Dockerfile 就会被自动修复。
+
+那么我们可不可以做一个基础镜像，然后各个项目使用这个基础镜像呢？这样基础镜像更新，各个项目不用同步 Dockerfile 的变化，重新构建后就继承了基础镜像的更新？好吧，可以，让我们看看这样的结果。那么上面的这个 Dockerfile 就会变为：
+
+```dockerfile
+FROM node:slim
+RUN mkdir /app
+WORKDIR /app
+CMD [ "npm", "start" ]
+```
+
+这里我们把项目相关的构建指令拿出来，放到子项目里去。假设这个基础镜像的名字为 `my-node` 的话，各个项目内的自己的 `Dockerfile` 就变为：
+
+```dockerfile
+FROM my-node
+COPY ./package.json /app
+RUN [ "npm", "install" ]
+COPY . /app/
+```
+
+基础镜像变化后，各个项目都用这个 `Dockerfile` 重新构建镜像，会继承基础镜像的更新。
+
+那么，问题解决了么？没有。准确说，只解决了一半。如果这个 `Dockerfile` 里面有些东西需要调整呢？比如 `npm install` 都需要加一些参数，那怎么办？这一行 `RUN` 是不可能放入基础镜像的，因为涉及到了当前项目的 `./package.json`，难道又要一个个修改么？所以说，这样制作基础镜像，只解决了原来的 `Dockerfile` 的前4条指令的变化问题，而后面三条指令的变化则完全没办法处理。
+
+`ONBUILD` 可以解决这个问题。让我们用 `ONBUILD` 重新写一下基础镜像的 `Dockerfile`：
+
+```dockerfile
+FROM node:slim
+RUN mkdir /app
+WORKDIR /app
+ONBUILD COPY ./package.json /app
+ONBUILD RUN [ "npm", "install" ]
+ONBUILD COPY . /app/
+CMD [ "npm", "start" ]
+```
+
+这次我们回到原始的 `Dockerfile`，但是这次将项目相关的指令加上 `ONBUILD`，这样在构建基础镜像的时候，这三行并不会被执行。然后各个项目的 `Dockerfile` 就变成了简单地：
+
+```dockerfile
+FROM my-node
+```
+
+是的，只有这么一行。当在各个项目目录中，用这个只有一行的 `Dockerfile` 构建镜像时，之前基础镜像的那三行 `ONBUILD` 就会开始执行，成功的将当前项目的代码复制进镜像、并且针对本项目执行 `npm install`，生成应用镜像。
