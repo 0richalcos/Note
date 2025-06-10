@@ -773,7 +773,7 @@ root@ba267838cc1b:/# ps
 
 
 
-### 3.1.2、守护态启动容器
+### 3.1.3、守护态启动容器
 
 更多的时候，需要让 Docker 在后台运行而不是直接把执行命令的结果输出在当前宿主机下。此时，可以通过添加 `-d` 参数来实现。
 
@@ -1177,7 +1177,7 @@ docker tag IMAGE[:TAG] [REGISTRY_HOST[:REGISTRY_PORT]/]REPOSITORY[:TAG]
 
 
 
-### 4.2.3、配置非 https 仓库地址
+### 4.2.3、配置非 https 地址
 
 如果你不想使用 `127.0.0.1:5000` 作为仓库地址，比如想让本网段的其他主机也能把镜像推送到私有仓库。你就得把例如 `192.168.199.100:5000` 这样的内网地址作为私有仓库地址，这时你会发现无法成功推送镜像。
 
@@ -1703,7 +1703,7 @@ FROM scratch
 
 - exec 格式：`RUN ["可执行文件", "参数1", "参数2"]`，这更像是函数调用中的格式。
 
-既然 `RUN` 就像 Shell 脚本一样可以执行命令，那么我们是否就可以像 Shell 脚本一样把每个命令对应一个 RUN 呢？比如这样：
+既然 `RUN` 就像 Shell 脚本一样可以执行命令，那么我们是否就可以像 Shell 脚本一样把每个命令对应一个 `RUN` 呢？比如这样：
 
 ```dockerfile
 FROM debian:stretch
@@ -1897,7 +1897,7 @@ docker build - < context.tar.gz
 
 `COPY` 指令将从构建上下文目录中 `<源路径>` 的文件/目录复制到新的一层的镜像内的 `<目标路径>` 位置。
 
-格式为：
+格式有两种：
 
 ```dockerfile
 COPY [--chown=<user>:<group>] <源路径>... <目标路径>
@@ -1973,7 +1973,11 @@ ADD --chown=10:11 files* /mydir/
 
 ### 7.2.3、CMD
 
-Docker 不是虚拟机，容器就是进程。既然是进程，那么在启动容器的时候，需要指定所运行的程序及参数。`CMD` 指令就是用于指定默认的容器主进程的启动命令的。
+Docker 不是虚拟机，容器就是进程。既然是进程，那么在启动容器的时候，需要指定所运行的程序及参数。`CMD` 指令就是用于指定默认的容器主进程的启动命令。
+
+> [!NOTE]
+>
+>  `CMD` 设置的默认命令可以在容器运行时指定新的命令来替代，比如 `ubuntu` 镜像默认的 `CMD` 是 `/bin/bash`，如果我们直接 `docker run -it ubuntu` 的话，会直接进入 `bash`。我们也可以在运行时指定运行别的命令，如 `docker run -it ubuntu cat /etc/os-release`。这就是用 `cat /etc/os-release` 命令替换了默认的 `/bin/bash` 命令了，输出了系统版本信息。
 
 `CMD` 指令的格式和 `RUN` 相似，也是两种格式：
 
@@ -1991,10 +1995,8 @@ Docker 不是虚拟机，容器就是进程。既然是进程，那么在启动�
 
 > [!NOTE]
 >
-> 在指定了 `ENTRYPOINT` 指令后，可以用 `CMD` 指定具体的参数：`CMD ["参数1", "参数2"...]`。
+> 在指定了 `ENTRYPOINT` 指令后，可以用 `CMD` 指定默认参数：`CMD ["参数1", "参数2"...]`。
 >
-
- `CMD` 设置的默认命令可以在容器运行时指定新的命令来替代，比如 `ubuntu` 镜像默认的 `CMD` 是 `/bin/bash`，如果我们直接 `docker run -it ubuntu` 的话，会直接进入 `bash`。我们也可以在运行时指定运行别的命令，如 `docker run -it ubuntu cat /etc/os-release`。这就是用 `cat /etc/os-release` 命令替换了默认的 `/bin/bash` 命令了，输出了系统版本信息。
 
 在指令格式上，一般推荐使用 exec 格式，这类格式在解析时会被解析为 JSON 数组，因此一定要使用双引号 `"`，而不要使用单引号。
 
@@ -2012,7 +2014,11 @@ CMD [ "sh", "-c", "echo $HOME" ]
 
 这就是为什么我们可以使用环境变量的原因，因为这些环境变量会被 shell 进行解析处理。
 
-提到 `CMD` 就不得不提容器中应用在前台执行和后台执行的问题。Docker 不是虚拟机，容器中的应用都应该以前台执行，而不是像虚拟机、物理机里面那样，用 `systemd` 去启动后台服务，容器内没有后台服务的概念。
+
+
+**容器中应用在前台执行和后台执行的问题**
+
+Docker 不是虚拟机，容器中的应用都应该以前台执行，而不是像虚拟机、物理机里面那样，用 `systemd` 去启动后台服务，容器内没有后台服务的概念。
 
 一些初学者将 `CMD` 写为：
 
@@ -2036,7 +2042,7 @@ CMD ["nginx", "-g", "daemon off;"]
 
 ### 7.2.4、ENTRYPOINT
 
-`ENTRYPOINT` 的目的和 `CMD` 一样，都是在指定容器启动程序及参数。`ENTRYPOINT` 在运行时也可以替代，不过比 `CMD` 要略显繁琐，需要通过 `docker run` 的参数 `--entrypoint` 来指定。
+`ENTRYPOINT` 的主要目的是将容器配置为像一个可执行文件。当你设置了 `ENTRYPOINT`，容器启动时执行的就是这个命令，并且 `docker run` 命令行中跟在镜像名后面的所有内容都会被当作参数传递给 `ENTRYPOINT`。
 
 `ENTRYPOINT` 的格式和 `RUN` 指令格式一样，分为 exec 格式和 shell 格式。
 
@@ -2046,122 +2052,83 @@ CMD ["nginx", "-g", "daemon off;"]
 <ENTRYPOINT> "<CMD>"
 ```
 
-那么有了 `CMD` 后，为什么还要有 `ENTRYPOINT` 呢？这种 `<ENTRYPOINT> "<CMD>"` 有什么好处么？
+
+
+**有了 `CMD` 后，为什么还要有 `ENTRYPOINT`？**
+
+答案在于它们不同的设计哲学和使用场景：
+
+| 特性/目的 | CMD                                  | ENTRYPOINT                               |
+| --------- | ------------------------------------ | ---------------------------------------- |
+| 核心角色  | 提供默认行为，易于被覆盖             | 定义容器的固定入口，不易被覆盖           |
+| 如何覆盖  | 在 `docker run` 后面直接加新命令即可 | 需要使用 `--entrypoint` 标志，操作更繁琐 |
+| 使用场景  | 为开发或调试提供一个默认命令         | 创建一个行为像单一应用程序的镜像         |
+| 组合使用  | 作为 `ENTRYPOINT` 的默认参数         | 作为主命令，接收 `CMD` 或命令行参数      |
+
+根本区别在于 “是否容易被覆盖” 以及 “设计意图”：
+
+- `CMD` 的设计意图是：“这是容器启动时默认要做的事，但你可以轻松地让它做别的。”
+
+  例如：一个 ubuntu 镜像，`CMD ["bash"]` 让你默认进入一个 shell，但你也可以用 `docker run ubuntu python my_script.py` 来运行一个 Python 脚本。
+
+- `ENTRYPOINT` 的设计意图是：“这个容器就是一个 X 程序，你只能给它传递参数，而不是替换它。”
+
+  例如：一个 redis 镜像，它的 `ENTRYPOINT` 就是 `redis-server`。你启动它就是为了运行 Redis，你可能会传递一个自定义配置文件的路径作为参数，但你不会想把 `redis-server` 换成 `ls -l`。
 
 
 
-#### 场景一：让镜像变成像命令一样使用
+**这种 `<ENTRYPOINT> "<CMD>"` 有什么好处？**
 
-假设需要一个得知自己当前公网 IP 的镜像，那么可以先用 `CMD` 来实现：
-
-```dockerfile
-FROM ubuntu:18.04
-RUN apt-get update \
-    && apt-get install -y curl \
-    && rm -rf /var/lib/apt/lists/*
-CMD [ "curl", "-s", "http://myip.ipip.net" ]
-```
-
-假如我们使用 `docker build -t myip .` 来构建镜像的话，如果我们需要查询当前公网 IP，只需要执行：
-
-```
-$ docker run myip
-当前 IP：61.148.226.66 来自：北京市 联通
-```
-
-嗯，这么看起来好像可以直接把镜像当做命令使用了，不过命令总有参数，如果我们希望加参数呢？比如从上面的 `CMD` 中可以看到实质的命令是 `curl`，那么如果我们希望显示 HTTP 头信息，就需要加上 `-i` 参数。那么我们可以直接加 `-i` 参数给 `docker run myip` 么？
-
-```
-$ docker run myip -i
-docker: Error response from daemon: invalid header field value "oci runtime error: container_linux.go:247: starting container process caused \"exec: \\\"-i\\\": executable file not found in $PATH\"\n".
-```
-
-我们可以看到可执行文件找不到的报错：executable file not found。之前我们说过，跟在镜像名后面的是 `command`，运行时会替换 `CMD` 的默认值。因此这里的 `-i` 替换了原来的 `CMD`，而不是添加在原来的 `curl -s http://myip.ipip.net` 后面。而 `-i` 根本不是命令，所以自然找不到。
-
-那么如果我们希望加入 `-i` 这参数，我们就必须重新完整的输入这个命令：
-
-```shell
-docker run myip curl -s http://myip.ipip.net -i
-```
-
-这显然不是很好的解决方案，而使用 `ENTRYPOINT` 就可以解决这个问题。现在我们重新用 `ENTRYPOINT` 来实现这个镜像：
+假设我们要创建一个可以 `ping` 任何主机的容器，但默认 `ping` 本地主机 `localhost`。
 
 ```dockerfile
-FROM ubuntu:18.04
-RUN apt-get update \
-    && apt-get install -y curl \
-    && rm -rf /var/lib/apt/lists/*
-ENTRYPOINT [ "curl", "-s", "http://myip.ipip.net" ]
+FROM ubuntu
+RUN apt-get update && apt-get install -y iputils-ping
+
+# 1. 定义固定的主命令
+ENTRYPOINT ["ping", "-c", "4"]
+
+# 2. 提供默认参数
+CMD ["localhost"]
 ```
 
-这次我们再来尝试直接使用 `docker run myip -i`：
+现在我们来构建并运行这个镜像（my-pro-ping）：
 
-```
-$ docker run myip
-当前 IP：61.148.226.66 来自：北京市 联通
+- 场景一：不提供任何参数
 
-$ docker run myip -i
-HTTP/1.1 200 OK
-Server: nginx/1.8.0
-Date: Tue, 22 Nov 2016 05:12:40 GMT
-Content-Type: text/html; charset=UTF-8
-Vary: Accept-Encoding
-X-Powered-By: PHP/5.6.24-1~dotdeb+7.1
-X-Cache: MISS from cache-2
-X-Cache-Lookup: MISS from cache-2:80
-X-Cache: MISS from proxy-2_6
-Transfer-Encoding: chunked
-Via: 1.1 cache-2:80, 1.1 proxy-2_6:8006
-Connection: keep-alive
+  ```shell
+  docker run my-pro-ping
+  ```
 
-当前 IP：61.148.226.66 来自：北京市 联通
-```
+  `CMD` 的值 `["localhost"]` 会被追加到 `ENTRYPOINT` 后面。实际执行：`ping -c 4 localhost`。
 
-可以看到，这次成功了。这是因为当存在 `ENTRYPOINT` 后，`CMD` 的内容将会作为参数传给 `ENTRYPOINT`，而这里 `-i` 就是新的 `CMD`，因此会作为参数传给 `curl`，从而达到了我们预期的效果。
+- 场景二：提供一个新的参数
 
+  ```shell
+  docker run my-pro-ping google.com
+  ```
 
+  `docker run` 后面的 `google.com` 会覆盖掉 `CMD` 的内容。实际执行：`ping -c 4 google.com`。
 
-#### 场景二：应用运行前的准备工作
+- 场景三：提供多个新参数
 
-启动容器就是启动主进程，但有些时候，启动主进程前，需要一些准备工作。
+  ```shell
+  docker run my-pro-ping -W 5 baidu.com
+  ```
 
-比如 mysql 类的数据库，可能需要一些数据库配置、初始化的工作，这些工作要在最终的 mysql 服务器运行之前解决。
+  `-W 5 baidu.com` 会覆盖 `CMD`。实际执行：`ping -c 4 -W 5 baidu.com`。
 
-此外，可能希望避免使用 `root` 用户去启动服务，从而提高安全性，而在启动服务前还需要以 `root` 身份执行一些必要的准备工作，最后切换到服务用户身份启动服务。或者除了服务外，其它命令依旧可以使用 `root` 身份执行，方便调试等。
+通过这种组合，我们创建了一个非常强大且灵活的镜像：
 
-这些准备工作是和容器 `CMD` 无关的，无论 `CMD` 为什么，都需要事先进行一个预处理的工作。这种情况下，可以写一个脚本，然后放入 `ENTRYPOINT` 中去执行，而这个脚本会将接收到的参数（也就是 `<CMD>`）作为命令，在脚本最后执行。比如官方镜像 `redis` 中就是这么做的：
+- 它明确地表示自己是一个 `ping` 工具（`ENTRYPOINT`）。
+- 它有合理的默认行为（`ping localhost`），可以直接运行（`CMD`）。
+- 它又可以非常方便地接受用户自定义的参数，来改变其行为（覆盖 `CMD`）。
 
-```dockerfile
-FROM alpine:3.4
-...
-RUN addgroup -S redis && adduser -S -G redis redis
-...
-ENTRYPOINT ["docker-entrypoint.sh"]
+总结：
 
-EXPOSE 6379
-CMD [ "redis-server" ]
-```
-
-可以看到其中为了 redis 服务创建了 redis 用户，并在最后指定了 `ENTRYPOINT` 为 `docker-entrypoint.sh` 脚本：
-
-```
-#!/bin/sh
-...
-# allow the container to be started with `--user`
-if [ "$1" = 'redis-server' -a "$(id -u)" = '0' ]; then
-	find . \! -user redis -exec chown redis '{}' +
-	exec gosu redis "$0" "$@"
-fi
-
-exec "$@"
-```
-
-该脚本的内容就是根据 `CMD` 的内容来判断，如果是 `redis-server` 的话，则切换到 `redis` 用户身份启动服务器，否则依旧使用 `root` 身份执行。比如：
-
-```
-$ docker run -it redis id
-uid=0(root) gid=0(root) groups=0(root)
-```
+- 单独使用 `CMD`：适用于通用镜像，希望用户可以轻松运行任何命令的场景（如基础操作系统镜像）。
+- 单独使用 `ENTRYPOINT`：适用于创建一个功能非常固定的 "工具型" 容器，但需要用户总是提供参数。
+- `ENTRYPOINT`+`CMD` 组合：适用于创建应用程序镜像。`ENTRYPOINT` 定义了应用本身，`CMD` 定义了应用的默认参数，这使得镜像既稳定又灵活。
 
 
 
@@ -2217,7 +2184,10 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
 ARG <参数名>[=<默认值>]
 ```
 
-Dockerfile 中的 `ARG` 指令是定义参数名称，以及定义其默认值。该默认值可以在构建命令 `docker build` 中用 `--build-arg <参数名>=<值>` 来覆盖。
+> [!NOTE]
+>
+> Dockerfile 中的 `ARG` 指令是定义参数名称以及其默认值。该默认值可以在构建命令 `docker build` 中用 `--build-arg <参数名>=<值>` 来覆盖。
+>
 
 灵活的使用 `ARG` 指令，能够在不修改 Dockerfile 的情况下，构建出不同的镜像。
 
@@ -2500,7 +2470,7 @@ $ docker inspect --format '{{json .State.Health}}' web | python -m json.tool
 
 ### 7.2.12、ONBUILD
 
-`ONBUILD` 是一个特殊的指令，它后面跟的是其它指令，比如 `RUN`、`COPY` 等，而这些指令在当前镜像构建时并不会被执行。只有当以当前镜像为基础镜像，去构建下一级镜像的时候才会被执行。
+`ONBUILD` 是 Dockerfile 中的一个特殊指令，它后面跟的是其它指令，比如 `RUN`、`COPY` 等，用于为子镜像设置触发器（trigger），即：当以当前镜像为基础构建另一个镜像时，`ONBUILD` 中的指令才会执行。
 
 格式为：
 
@@ -2510,60 +2480,118 @@ ONBUILD <其它指令>
 
 Dockerfile 中的其它指令都是为了定制当前镜像而准备的，唯有 `ONBUILD` 是为了帮助别人定制自己而准备的。
 
-假设我们要制作 Node.js 所写的应用的镜像。我们都知道 Node.js 使用 `npm` 进行包管理，所有依赖、配置、启动信息等会放到 `package.json` 文件里。在拿到程序代码后，需要先进行 `npm install` 才可以获得所有需要的依赖。然后就可以通过 `npm start` 来启动应用。因此，一般来说会这样写 Dockerfile：
+
+
+**为多项目创建统一的构建模板**
+
+假设你有多个项目，它们的构建步骤类似，比如：
+
+- 把源码复制进去
+- 安装依赖
+- 编译或打包
+
+你可以做一个统一的基础镜像，比如 Java 项目打包镜像：
 
 ```dockerfile
-FROM node:slim
-RUN mkdir /app
-WORKDIR /app
-COPY ./package.json /app
-RUN [ "npm", "install" ]
-COPY . /app/
-CMD [ "npm", "start" ]
+# Dockerfile for base image
+FROM maven:3.8.6-openjdk-17
+
+# 设置触发器：当别人 FROM 这个镜像时会执行下面指令
+ONBUILD COPY . /app
+ONBUILD WORKDIR /app
+ONBUILD RUN mvn clean package
 ```
 
-把这个 Dockerfile 放到 Node.js 项目的根目录，构建好镜像后，就可以直接拿来启动容器运行。但是如果我们还有第二个 Node.js 项目也差不多呢？好吧，那就再把这个 `Dockerfile` 复制到第二个项目里。那如果有第三个项目呢？再复制么？文件的副本越多，版本控制就越困难，让我们继续看这样的场景维护的问题。
-
-如果第一个 Node.js 项目在开发过程中，发现这个 `Dockerfile` 里存在问题，比如敲错字了、或者需要安装额外的包，然后开发人员修复了这个 Dockerfile，再次构建，问题解决。第一个项目没问题了，但是第二个项目呢？虽然最初 Dockerfile 是复制、粘贴自第一个项目的，但是并不会因为第一个项目修复了他们的 Dockerfile，而第二个项目的 Dockerfile 就会被自动修复。
-
-那么我们可不可以做一个基础镜像，然后各个项目使用这个基础镜像呢？这样基础镜像更新，各个项目不用同步 Dockerfile 的变化，重新构建后就继承了基础镜像的更新？好吧，可以，让我们看看这样的结果。那么上面的这个 Dockerfile 就会变为：
+然后你在项目中用这个镜像：
 
 ```dockerfile
-FROM node:slim
-RUN mkdir /app
-WORKDIR /app
-CMD [ "npm", "start" ]
+# Project-specific Dockerfile
+FROM yourcompany/maven-base:latest
+# 不需要再写 COPY 和 RUN，ONBUILD 会自动执行
 ```
 
-这里我们把项目相关的构建指令拿出来，放到子项目里去。假设这个基础镜像的名字为 `my-node` 的话，各个项目内的自己的 `Dockerfile` 就变为：
+
+
+**公司统一构建规范**
+
+当公司有统一构建策略，例如 Node.js 应用都需要运行 ESLint 和测试，你可以创建这样的基础镜像：
 
 ```dockerfile
-FROM my-node
-COPY ./package.json /app
-RUN [ "npm", "install" ]
-COPY . /app/
+FROM node:20
+
+ONBUILD COPY . /app
+ONBUILD WORKDIR /app
+ONBUILD RUN npm install
+ONBUILD RUN npm run lint
+ONBUILD RUN npm test
 ```
 
-基础镜像变化后，各个项目都用这个 `Dockerfile` 重新构建镜像，会继承基础镜像的更新。
 
-那么，问题解决了么？没有。准确说，只解决了一半。如果这个 `Dockerfile` 里面有些东西需要调整呢？比如 `npm install` 都需要加一些参数，那怎么办？这一行 `RUN` 是不可能放入基础镜像的，因为涉及到了当前项目的 `./package.json`，难道又要一个个修改么？所以说，这样制作基础镜像，只解决了原来的 `Dockerfile` 的前4条指令的变化问题，而后面三条指令的变化则完全没办法处理。
 
-`ONBUILD` 可以解决这个问题。让我们用 `ONBUILD` 重新写一下基础镜像的 `Dockerfile`：
+### 7.2.13、LABEL
+
+`LABEL` 指令用来给镜像以键值对的形式添加一些元数据（metadata）。
 
 ```dockerfile
-FROM node:slim
-RUN mkdir /app
-WORKDIR /app
-ONBUILD COPY ./package.json /app
-ONBUILD RUN [ "npm", "install" ]
-ONBUILD COPY . /app/
-CMD [ "npm", "start" ]
+LABEL <key>=<value> <key>=<value> <key>=<value> ...
 ```
 
-这次我们回到原始的 `Dockerfile`，但是这次将项目相关的指令加上 `ONBUILD`，这样在构建基础镜像的时候，这三行并不会被执行。然后各个项目的 `Dockerfile` 就变成了简单地：
+我们还可以用一些标签来申明镜像的作者、文档地址等：
 
 ```dockerfile
-FROM my-node
+LABEL org.opencontainers.image.authors="yeasy"
+
+LABEL org.opencontainers.image.documentation="https://yeasy.gitbooks.io"
 ```
 
-是的，只有这么一行。当在各个项目目录中，用这个只有一行的 `Dockerfile` 构建镜像时，之前基础镜像的那三行 `ONBUILD` 就会开始执行，成功的将当前项目的代码复制进镜像、并且针对本项目执行 `npm install`，生成应用镜像。
+具体可以参考 https://github.com/opencontainers/image-spec/blob/master/annotations.md
+
+
+
+### 7.2.14、SHELL
+
+`SHELL` 指令可以指定 `RUN`、`ENTRYPOINT` 和 `CMD` 指令的 shell，Linux 中默认为 `["/bin/sh", "-c"]`。
+
+格式为：
+
+```dockerfile
+SHELL ["executable", "parameters"]
+```
+
+两个 `RUN` 运行同一命令，第二个 `RUN` 运行的命令会打印出每条命令并当遇到错误时退出：
+
+```dockerfile
+SHELL ["/bin/sh", "-c"]
+
+RUN lll ; ls
+
+SHELL ["/bin/sh", "-cex"]
+
+RUN lll ; ls
+```
+
+当 `ENTRYPOINT`、`CMD` 以 shell 格式指定时，`SHELL` 指令所指定的 shell 也会成为这两个指令的 shell：
+
+```dockerfile
+SHELL ["/bin/sh", "-cex"]
+
+# /bin/sh -cex "nginx"
+ENTRYPOINT nginx
+```
+
+```dockerfile
+SHELL ["/bin/sh", "-cex"]
+
+# /bin/sh -cex "nginx"
+CMD nginx
+```
+
+
+
+## 7.3、Docker Buildx
+
+Docker Buildx 是一个 Docker CLI 插件，其扩展了 Docker 命令，支持 [Moby BuildKit](https://yeasy.gitbook.io/docker_practice/buildx/buildkit) 提供的功能。提供了与 `docker build` 相同的用户体验，并增加了许多新功能。
+
+> [!IMPORTANT]
+>
+> 该功能仅适用于 Docker v19.03+ 版本。
