@@ -638,6 +638,10 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
    可以看到状态已经变成【fully supported】，最后点击一下【Resetart TermService】。
 
+> [!TIP]
+>
+> 安装完成后，会在系统自动创建一个名为 “RDPWUpdater” 定时任务程序，用来更新 rdpwrap.ini 文件，但是更新的内容没有包含最新的系统信息，建议将此任务禁用。
+
 
 
 #### 连接本地桌面
