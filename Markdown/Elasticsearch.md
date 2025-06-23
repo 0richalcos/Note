@@ -141,9 +141,11 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 
 
-# 2、安装 Elastisearch
+# 2、安装和配置 Elastisearch
 
-## 2.1、Linux（Ubuntu）
+## 2.1、安装
+
+### 2.1.1、Linux（Ubuntu）
 
 1. 安装 ES 不用使用 root 用户，创建普通用户：
 
@@ -180,6 +182,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
    现在你就运行起了一个单节点 Elasticsearch 集群！
 
 5. ES 启动默认监听 9200 端口，访问 9200：
+
    ```shell
    curl http://localhost:9200
    ```
@@ -188,121 +191,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 
 
-**ES 目录结构：**
-
-<img src="!assets/Elasticsearch/image-20220630105257034.png" alt="image-20220630105257034" style="width:70%;" />
-
-
-```shell
-- bin	  启动ES服务脚本目录
-- config  ES配置文件的目录
-- data    ES的数据存放目录
-- jdk     ES提供需要指定的jdk目录
-- lib     ES依赖第三方库的目录
-- logs    ES的日志目录
-- modules 模块的目录
-- plugins 插件目录
-```
-
-
-
-**开启远程访问**
-
-默认 ES 无法使用主机 ip 进行远程连接，需要开启远程连接权限。
-
-1. 修改 ES 安装包中 config/elasticsearch.yml 配置文件：
-
-   ```shell
-   vim /home/esuser/elasticsearch-7.14.0/config/elasticsearch.yml
-   ```
-
-   <img src="!assets/Elasticsearch/image-20220703192151746.png" alt="image-20220703192151746" style="width:70%;" />
-   
-2. 重新启动 ES 服务：
-
-   ```shell
-   su - esuser
-   elasticsearch-7.14.0/bin/elasticsearch
-   ```
-
-3. 启动错误（如果没有遇到则跳过）
-
-   ```
-   -- 引导检查失败。你必须在启动Elasticsearch之前解决以下[4]行中描述的问题。
-   ERROR: [4] bootstrap checks failed. You must address the points described in the following [4] lines before starting Elasticsearch.
-   
-   -- 引导检查失败[4]中的[1]：弹性搜索进程的最大文件描述符[4096]太低，至少增加到[65535]。
-   bootstrap check failure [1] of [4]: max file descriptors [4096] for elasticsearch process is too low, increase to at least [65535]
-   
-   -- 引导检查失败[4]中的[2]：用户[esuser]的最大线程数[3802]太少，至少增加到[4096]。
-   bootstrap check failure [2] of [4]: max number of threads [3802] for user [esuser] is too low, increase to at least [4096]
-   
-   -- 引导检查失败[4]中的[3]：最大虚拟内存区域vm.max_map_count [65530]太低，至少增加到[262144]。
-   bootstrap check failure [3] of [4]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
-   
-   -- bootstrap 检查失败[4]的[4]：默认的发现设置不适合生产使用；至少要配置[discovery.seed_hosts, discovery.seed_providers, cluster.initial_master_nodes]中的一个。
-   bootstrap check failure [4] of [4]: the default discovery settings are unsuitable for production use; at least one of [discovery.seed_hosts, discovery.seed_providers, cluster.initial_master_nodes] must be configured
-   ```
-
-   解决错误 [1]：
-
-   ```shell
-   vim /etc/security/limits.conf
-   
-   # 在最后面追加下面内容
-   *               soft    nofile          65536
-   *               hard    nofile          65536
-   *               soft    nproc           4096
-   *               hard    nproc           4096
-   
-   # 退出重新登录检测配置是否生效:
-   ulimit -Hn
-   ulimit -Sn
-   ulimit -Hu
-   ulimit -Su
-   ```
-
-   解决错误 [2]：
-
-   ```shell
-   # 进入limits.d目录下修改配置文件。
-   vim /etc/security/limits.d/20-nproc.conf
-   
-   # 修改为 
-   启动ES用户名 soft nproc 4096
-   ```
-
-   解决错误 [3]：
-
-   ```shell
-   # 编辑sysctl.conf文件
-   vim /etc/sysctl.conf
-   
-   # 在最后面追加下下面内容
-   vm.max_map_count=655360 #centos7 系统
-   vm.max_map_count=262144 #ubuntu 系统
-   
-   # 执行以下命令生效：
-   sysctl -p
-   ```
-
-   解决错误 [4]：
-
-   ```shell
-   # 编辑elasticsearch.yml配置文件
-   vim config/elasticsearch.yml
-   
-   # 找到 Discovery 部分，修改
-   cluster.initial_master_nodes: ["node-1"]
-   ```
-
-4. 使用自己的浏览器远程访问 ES 服务：
-
-   <img src="!assets/Elasticsearch/屏幕截图 2022-07-04 002254.png" alt="屏幕截图 2022-07-04 002254" style="width:70%;" />
-
-
-
-## 2.2、Docker
+### 2.1.2、Docker
 
 1. 获取镜像：
 
@@ -325,8 +214,8 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
    		   -e path.data="/usr/share/elasticsearch/data" `
      		   -e path.logs="/usr/share/elasticsearch/logs" `
      		   -e network.host="0.0.0.0" `
-     		   -e http.port="9292" `
-              -itd -p 9292:9292 -p 9300:9300 --platform linux/arm64 --name elasticsearch elasticsearch:7.14.0
+     		   -e http.port="9200" `
+              -itd -p 9200:9200 -p 9300:9300 --platform linux/arm64 --name elasticsearch elasticsearch:7.14.0
    ```
 
 3. 访问 ES：
@@ -335,7 +224,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 
 
-## 2.3、Windows
+### 2.1.3、Windows
 
 1. 进入[官方页面](https://www.elastic.co/cn/downloads/past-releases#elasticsearch)，点击 Download 进入下载页面：
 
@@ -376,6 +265,287 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 6. 接下来访问 Elasticsearch，在浏览器输入http://localhost:9200，看到以下界面即可证明 ES 启动成功：
 
    <img src="!assets/Elasticsearch/QQ_1726774166786.png" alt="QQ_1726774166786" style="zoom: 67%;" />
+
+
+
+
+
+## 2.2、目录结构
+
+ES 目录结构：
+
+<img src="!assets/Elasticsearch/image-20220630105257034.png" alt="image-20220630105257034" style="width:70%;" />
+
+
+```shell
+- bin	  启动ES服务脚本目录
+- config  ES配置文件的目录
+- data    ES的数据存放目录
+- jdk     ES提供需要指定的jdk目录
+- lib     ES依赖第三方库的目录
+- logs    ES的日志目录
+- modules 模块的目录
+- plugins 插件目录
+```
+
+
+
+## 2.3、开启远程访问
+
+默认 ES 无法使用主机 ip 进行远程连接，需要开启远程连接权限。
+
+1. 修改 ES 安装包中 config/elasticsearch.yml 配置文件：
+
+   ```shell
+   vim /home/esuser/elasticsearch-7.14.0/config/elasticsearch.yml
+   ```
+
+   <img src="!assets/Elasticsearch/image-20220703192151746.png" alt="image-20220703192151746" style="width:70%;" />
+
+2. 重新启动 ES 服务：
+
+   ```shell
+   su - esuser
+   elasticsearch-7.14.0/bin/elasticsearch
+   ```
+
+3. 使用自己的浏览器远程访问 ES 服务：
+
+   <img src="!assets/Elasticsearch/屏幕截图 2022-07-04 002254.png" alt="屏幕截图 2022-07-04 002254" style="width:70%;" />
+
+
+
+## 2.4、启动错误
+
+如果没有遇到则跳过：
+
+```
+-- 引导检查失败。你必须在启动Elasticsearch之前解决以下[4]行中描述的问题。
+ERROR: [4] bootstrap checks failed. You must address the points described in the following [4] lines before starting Elasticsearch.
+
+-- 引导检查失败[4]中的[1]：弹性搜索进程的最大文件描述符[4096]太低，至少增加到[65535]。
+bootstrap check failure [1] of [4]: max file descriptors [4096] for elasticsearch process is too low, increase to at least [65535]
+
+-- 引导检查失败[4]中的[2]：用户[esuser]的最大线程数[3802]太少，至少增加到[4096]。
+bootstrap check failure [2] of [4]: max number of threads [3802] for user [esuser] is too low, increase to at least [4096]
+
+-- 引导检查失败[4]中的[3]：最大虚拟内存区域vm.max_map_count [65530]太低，至少增加到[262144]。
+bootstrap check failure [3] of [4]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
+
+-- bootstrap 检查失败[4]的[4]：默认的发现设置不适合生产使用；至少要配置[discovery.seed_hosts, discovery.seed_providers, cluster.initial_master_nodes]中的一个。
+bootstrap check failure [4] of [4]: the default discovery settings are unsuitable for production use; at least one of [discovery.seed_hosts, discovery.seed_providers, cluster.initial_master_nodes] must be configured
+```
+
+解决错误 [1]：
+
+```shell
+vim /etc/security/limits.conf
+
+# 在最后面追加下面内容
+*               soft    nofile          65536
+*               hard    nofile          65536
+*               soft    nproc           4096
+*               hard    nproc           4096
+
+# 退出重新登录检测配置是否生效:
+ulimit -Hn
+ulimit -Sn
+ulimit -Hu
+ulimit -Su
+```
+
+解决错误 [2]：
+
+```shell
+# 进入limits.d目录下修改配置文件。
+vim /etc/security/limits.d/20-nproc.conf
+
+# 修改为 
+启动ES用户名 soft nproc 4096
+```
+
+解决错误 [3]：
+
+```shell
+# 编辑sysctl.conf文件
+vim /etc/sysctl.conf
+
+# 在最后面追加下下面内容
+vm.max_map_count=655360 #centos7 系统
+vm.max_map_count=262144 #ubuntu 系统
+
+# 执行以下命令生效：
+sysctl -p
+```
+
+解决错误 [4]：
+
+```shell
+# 编辑elasticsearch.yml配置文件
+vim config/elasticsearch.yml
+
+# 找到 Discovery 部分，修改
+cluster.initial_master_nodes: ["node-1"]
+```
+
+
+
+## 2.5、安全设置
+
+X-Pack 是 Elasticsearch 的一个核心扩展包，它为 Elastic Stack（Elasticsearch, Kibana, Beats, Logstash）提供了一系列强大的增强功能。在早期版本中，X-Pack 是一个需要单独安装的商业插件，但从 6.8 和 7.1 版本开始，它的许多基础功能被免费开放，并直接内置到了 Elasticsearch 的默认发行版中。
+
+对于大多数用户来说，X-Pack 最重要、最常用的免费功能就是安全（Security）。它主要包括：
+
+- 密码认证（Authentication）：要求用户必须提供有效的用户名和密码才能访问 Elasticsearch 集群。
+- 基于角色的访问控制（RBAC - Role-Based Access Control）：可以创建不同的用户角色，并为每个角色分配精细的权限（例如，某个用户只能读取特定索引，而不能写入或删除）。
+- 通信加密（Encryption）：使用 TLS/SSL 对节点之间（内部通信）以及客户端与节点之间（HTTP 通信）的数据进行加密，防止数据在传输过程中被窃听。
+
+启用 X-Pack 的基础安全功能是保护你的数据、防止未经授权访问和潜在攻击的第一道也是最重要的一道防线。
+
+
+
+### 2.5.1、启用 X-Pack 安全
+
+在 Linux 系统上部署 Elasticsearch 并开启安全功能，前提条件：
+
+- 一台安装了 Linux 的服务器。
+- 已安装 Java Development Kit（JDK），推荐版本为 JDK 11。Elasticsearch 7.x 兼容 JDK 8，但官方推荐更新的版本。
+- Elasticsearch 已下载并解压（例如，解压到 `/opt/elasticsearch-7.8.0`）。
+
+> [!NOTE]
+>
+> 不要使用 root 用户运行 Elasticsearch。请创建一个专用的普通用户，例如 elastic。
+
+
+
+1. 进入 Elasticsearch 的 config 目录：
+
+   ```shell
+   cd /opt/elasticsearch-7.8.0/config
+   ```
+
+2. 编辑 elasticsearch.yml 文件：
+
+   ```shell
+   vim elasticsearch.yml
+   ```
+
+3. 在文件的末尾，添加以下内容。这些配置将启用安全功能，并为单机部署做好准备：
+
+   ```shell
+   # ======================== My Security Settings =========================
+   
+   # 1. 开启 X-Pack 安全功能。这是核心开关。
+   xpack.security.enabled: true
+   
+   # 2. 开启传输层(节点间)的 TLS 加密。这是生产环境的最佳实践。
+   xpack.security.transport.ssl.enabled: true
+   
+   # 3. (可选，但推荐) 为单节点部署设置，避免引导检查错误。
+   discovery.type: single-node
+   ```
+
+4. 保存并退出编辑器。
+
+
+
+### 2.5.2、初始化内置用户密码
+
+在首次启动开启了安全功能的 Elasticsearch 之前，必须为内置的系统用户（如 elastic、kibana_system 等）设置密码：
+
+1. 先启动 Elasticsearch 服务。
+
+2. 新开一个终端，导航到 bin 目录：
+
+   ```shell
+   cd /opt/elasticsearch-7.8.0/bin
+   ```
+
+3. 运行密码设置工具。有两种选择：
+
+   - 自动生成强密码（推荐）
+
+     这是最简单、最安全的方法。工具会自动为所有内置用户生成随机的强密码。
+
+     ```shell
+     ./elasticsearch-setup-passwords auto
+     ```
+
+     执行后，终端会输出所有用户的用户名和对应的密码：
+
+     ```
+     Changed password for user apm_system
+     PASSWORD apm_system = HklmN9sOpq7gE9oW0bFh
+     
+     Changed password for user kibana_system
+     PASSWORD kibana_system = ...
+     
+     Changed password for user elastic
+     PASSWORD elastic = PxL9sOpq7gE9oW0bFhKm
+     
+     ...
+     ```
+
+   - 交互式地手动设置密码
+
+     如果想为每个用户手动指定密码，可以使用此模式：
+
+     ```shell
+     ./elasticsearch-setup-passwords interactive
+     ```
+
+     程序会依次提示你为 elastic、kibana_system 等用户输入并确认密码。
+
+4. 后续可以使用 `elasticsearch-reset-password` 修改密码：
+
+   ```shell
+   # 将 'elastic' 用户的密码重置为想要的值
+   echo "MySecretPassword123!" | ./elasticsearch-reset-password -u elastic -b
+   ```
+
+
+
+### 2.5.3、 验证安全配置
+
+现在，你的 Elasticsearch 集群已经受到密码保护，现在进行验证是否启用成功：
+
+1. 在任何一个终端中，使用 `curl` 命令尝试访问 Elasticsearch。
+2. 由于开启了安全，通信协议变为 HTTPS，并且 Elasticsearch 使用的是自签名证书，所以需要添加 `-k` 选项来忽略证书验证。
+3. 使用 `-u` 参数提供用户名和密码。
+
+
+
+**测试成功的访问：**
+
+将 `YOUR_PASSWORD` 替换为你刚才为 elastic 用户设置或生成的密码。
+
+```shell
+curl -k -u elastic:YOUR_PASSWORD "https://localhost:9200"
+```
+
+如果成功，你将看到一个包含集群信息的 JSON 响应，如下所示：
+
+```json
+{
+  "name" : "your-node-name",
+  "cluster_name" : "elasticsearch",
+  "cluster_uuid" : "...",
+  "version" : { ... },
+  "tagline" : "You Know, for Search"
+}
+```
+
+
+
+**测试失败的访问：**
+
+尝试不带凭证访问，验证保护是否生效。
+
+```shell
+curl -k "https://localhost:9200"
+```
+
+你会收到一个 401 Unauthorized 错误，提示需要认证，这证明你的安全配置已成功激活。
 
 
 
