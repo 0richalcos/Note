@@ -77,7 +77,39 @@ public class Comparison {
 
 比较结果：
 
-<img src="!assets/Spire.OfficeForJava/Compare-two-Word-documents-in-Java-2.png" alt="Java 比较两个 Word 文档的内容" style="zoom: 80%;" />
+<img src="!assets/Spire.OfficeForJava/Compare-two-Word-documents-in-Java-2.png" alt="Java 比较两个 Word 文档的内容" style="zoom: 67%;" />
+
+
+
+## 1.2、将 Word 转为 PDF
+
+Spire.Doc for Java 拥有强大的文件转换功能，其提供了 `Document.saveToFile(String fileName, FileFormat fileFormat)` 方法可将 Word 文档转为多种格式的目标文件，下面是转为 PDF 的方法步骤：
+
+- 实例化 `Document` 类的对象。
+- 调用 `Document.loadFromFile()` 方法加载 Word 文档。
+- 调用 `Document.saveToFile()` 方法将 Word 保存为 PDF 格式，并指定保存路径。
+
+代码示例：
+```java
+import com.spire.doc.*;
+
+public class WordToPDF {
+    public static void main(String[] args) {
+        //实例化Document类的对象
+        Document doc = new Document();
+
+        //加载Word
+        doc.loadFromFile("测试.docx");
+
+        //保存为PDF格式
+        doc.saveToFile("WordToPDF.pdf",FileFormat.PDF);
+    }
+}
+```
+
+转换结果：
+
+<img src="./!assets/Spire.OfficeForJava/Java-convert-word-to-PDF-1.png" alt="Java 将 Word 转为 PDF" style="zoom:67%;" />
 
 
 
@@ -125,47 +157,78 @@ Spire.XLS for Java 支持多种 Excel 文件格式，包括 Excel 97-2003 格式
 
 **将整个 Excel 文件转为 PDF**
 
-使用 `Workbook` 导出整个 Excel 文件的代码只需要两步，代码示例如下：
+以下是将整个 Excel 文档转换为 PDF 的步骤。
+
+1. 创建一个 `Workbook` 对象。
+2. 使用 `Workbook.loadFromFile()` 方法加载示例 Excel 文档。
+3. 通过 `Workbook.getConverterSetting()` 方法返回的 `ConverterSetting` 对象下的方法设置 Excel 到 PDF 的转换选项。
+4. 使用 `Workbook.saveToFile()` 方法将整个 Excel 文档转换为 PDF。
+
+代码示例：
 
 ```java
-/**
-  * 使用spire简单整个Excel转换为pdf
-  *
-  * @param inputFilePath Excel文件路径
-  * @param outputFilePath 导出的PDF文件路径
-  */
-public static void totalExcelToPDF(String inputFilePath, String outputFilePath) {
-    Workbook wb = new Workbook();
-    // 引入Excel文件
-    wb.loadFromFile(inputFilePath);
-    // 导出PDF文件
-    wb.saveToFile(outputFilePath, FileFormat.PDF);
-}
+import com.spire.xls.FileFormat;
+import com.spire.xls.Workbook;
 
+public class ConvertExcelToPdf {
+
+    public static void main(String[] args) {
+
+        //创建一个Workbook实例并加载Excel文件
+        Workbook workbook = new Workbook();
+        workbook.loadFromFile("C:\\Users\\Administrator\\Desktop\\Sample.xlsx");
+
+        //设置转换后的PDF页面高宽适应工作表的内容大小
+        workbook.getConverterSetting().setSheetFitToPage(true);
+
+        //将生成的文档保存到指定路径
+        workbook.saveToFile("output/ExcelToPdf", FileFormat.PDF);
+    }
+}
 ```
+
+转换结果：
+
+<img src="./!assets/Spire.OfficeForJava/Java-convert-Excel-to-PDF-1.png" alt="Java 将 Excel 转为 PDF" style="zoom:67%;" />
 
 
 
 **指定单个的sheet页转为PDF**
 
-指定单个 sheet 页面转为 PDF 格式输出，只需要输入指定的 sheet 页的下标，代码示例如下：
+以下是将特定工作表转换为 PDF 的步骤。
+
+1. 创建一个 `Workbook` 对象。
+2. 使用 `Workbook.loadFromFile()` 方法加载示例 Excel 文档。
+3. 通过 `Workbook.getConverterSetting()` 方法返回的 `ConverterSetting` 对象下的方法设置 Excel 到 PDF 的转换选项。
+4. 使用 `Workbook.getWorksheets().get()` 方法获取特定的工作表。
+5. 使用 `Worksheet.saveToPdf()` 方法将工作表转换为 PDF。
+
+代码示例：
 
 ```java
-/**
-  * 使用spire将单个sheet转成pdf
-  *
-  * @param inputFilePath Excel文件路径
-  * @param outputFilePath 导出的PDF文件路径
-  * @param sheetNum 导出的sheet页下标
-  */
-public static void partExcelToPDF(String inputFilePath, String outputFilePath, int sheetNum) {
-    //加载Excel文档
-    Workbook wb = new Workbook();
-    wb.loadFromFile(inputFilePath);
-    //获取到哪一个sheet页
-    Worksheet sheet = wb.getWorksheets().get(sheetNum);
-    //调用方法保存为PDF格式
-    sheet.saveToPdf(outputFilePath);
+import com.spire.xls.Workbook;
+import com.spire.xls.Worksheet;
+
+public class ConvertWorksheetToPdf {
+
+    public static void main(String[] args) {
+
+        //创建一个Workbook实例并加载Excel文件
+        Workbook workbook = new Workbook();
+        workbook.loadFromFile("C:\\Users\\Administrator\\Desktop\\Sample.xlsx");
+
+        //设置转换后PDF的页面宽度适应工作表的内容宽度
+        workbook.getConverterSetting().setSheetFitToWidth(true);
+
+        //获取第一个工作表
+        Worksheet worksheet = workbook.getWorksheets().get(0);
+
+        //转换为PDF并将生成的文档保存到指定路径
+        worksheet.saveToPdf("output/WorksheetToPdf.pdf");
+    }
 }
 ```
 
+转换结果：
+
+<img src="./!assets/Spire.OfficeForJava/Java-convert-Excel-to-PDF-2.png" alt="Java 将 Excel 转为 PDF" style="zoom:67%;" />

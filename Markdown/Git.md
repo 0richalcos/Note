@@ -392,3 +392,97 @@ gitaly['env'] = {
 
    <img src="!assets/Git/image-20240812000735712.png" alt="image-20240812000735712" style="zoom:50%;" />
 
+
+
+## 2.5、备份与还原
+
+### 2.5.1、备份
+
+1. 创建备份目录：
+
+   ```shell
+   sudo mkdir -p /data/GitLabBackup/
+   ```
+
+2. 备份 GitLab 主数据：
+
+   ```shell
+   sudo gitlab-backup create
+   ```
+
+   生成文件路径：`/var/opt/gitlab/backups/<时间戳>_gitlab_backup.tar`。
+
+   > [!NOTE]
+   >
+   > 包含所有 Git 仓库、用户数据、项目数据、CI/CD 记录、issues 等。
+
+3. 拷贝备份文件：
+
+   ```shell
+   sudo cp /var/opt/gitlab/backups/*.tar /mnt/d/GitLabBackup/
+   ```
+
+4. 备份配置文件和密钥：
+
+   ```shell
+   sudo cp /etc/gitlab/gitlab.rb /data/GitLabBackup/
+   sudo cp /etc/gitlab/gitlab-secrets.json /data/GitLabBackup/
+   ```
+
+
+
+### 2.5.2、还原
+
+> [!CAUTION]
+>
+> 要求目标机器的 GitLab 版本必须与备份时一致！
+
+1. 安装 GitLab（与原版本一致）。
+
+2. 还原配置和密钥：
+
+   ```shell
+   sudo cp /data/GitLabBackup/gitlab.rb /etc/gitlab/
+   sudo cp /data/GitLabBackup/gitlab-secrets.json /etc/gitlab/
+   ```
+
+   若首次启动 GitLab，可执行：
+
+   ```shell
+   sudo gitlab-ctl reconfigure
+   ```
+
+3. 拷贝备份数据文件：
+
+   ```shell
+   sudo cp /data/GitLabBackup/*.tar /var/opt/gitlab/backups/
+   sudo chown git:git /var/opt/gitlab/backups/*.tar
+   ```
+
+4. 停止 GitLab 关键服务（准备还原）：
+
+   ```shell
+   sudo gitlab-ctl stop unicorn
+   sudo gitlab-ctl stop sidekiq
+   ```
+
+5. 还原数据：
+
+   ```shell
+   sudo gitlab-backup restore BACKUP=<时间戳>
+   ```
+
+   例如：
+
+   ```shell
+   sudo gitlab-backup restore BACKUP=1718531400
+   ```
+
+6. 重启并检查 GitLab：
+
+   ```shell
+   sudo gitlab-ctl reconfigure
+   sudo gitlab-ctl restart
+   sudo gitlab-ctl status
+   ```
+
