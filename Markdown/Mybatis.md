@@ -1,7 +1,3 @@
----
-typora-copy-images-to: upload
----
-
 # 1、入门
 
 ## 1.1、什么是 MyBatis？
@@ -974,9 +970,9 @@ User userOfEmail = userMapper.findByColumn("email", "noone@nowhere.com");
 
 ## 3.4、结果映射
 
-`resultMap` 元素是 MyBatis 中最重要最强大的元素。在为一些比如连接的复杂语句编写映射代码的时候，一份 `resultMap` 能够代替实现同等功能的数千行代码。ResultMap 的设计思想是，对简单的语句做到零配置，对于复杂一点的语句，只需要描述语句之间的关系就行了。
+`resultMap` 元素是 MyBatis 中最重要最强大的元素。ResultMap 的设计思想是，对简单的语句做到零配置，对于复杂一点的语句，只需要描述语句之间的关系就行了。
 
-之前你已经见过简单映射语句的示例，它们没有显式指定 `resultMap`。比如：
+之前已经见过简单映射语句的示例，它们没有显式指定 `resultMap`。比如：
 
 ```xml
 <select id="selectUsers" resultType="map">
@@ -986,7 +982,7 @@ User userOfEmail = userMapper.findByColumn("email", "noone@nowhere.com");
 </select>
 ```
 
-上述语句只是简单地将所有的列映射到 `HashMap` 的键上，这由 `resultType` 属性指定。虽然在大部分情况下都够用，但是 HashMap 并不是一个很好的领域模型。你的程序更可能会使用 JavaBean 或 POJO（Plain Old Java Objects，普通老式 Java 对象）作为领域模型。MyBatis 对两者都提供了支持。看看下面这个 JavaBean：
+上述语句只是简单地将所有的列映射到 `HashMap` 的键上，这由 `resultType` 属性指定。虽然在大部分情况下都够用，但是程序更可能会使用 JavaBean 或 POJO（Plain Old Java Objects，普通老式 Java 对象）作为领域模型。MyBatis 对两者都提供了支持。看看下面这个 JavaBean：
 
 ```java
 package com.someapp.model;
@@ -994,31 +990,13 @@ public class User {
   private int id;
   private String username;
   private String hashedPassword;
-
-  public int getId() {
-    return id;
-  }
-  public void setId(int id) {
-    this.id = id;
-  }
-  public String getUsername() {
-    return username;
-  }
-  public void setUsername(String username) {
-    this.username = username;
-  }
-  public String getHashedPassword() {
-    return hashedPassword;
-  }
-  public void setHashedPassword(String hashedPassword) {
-    this.hashedPassword = hashedPassword;
-  }
+  // get,set...
 }
 ```
 
-基于 JavaBean 的规范，上面这个类有 3 个属性：id，username 和 hashedPassword。这些属性会对应到 select 语句中的列名。
+基于 JavaBean 的规范，上面这个类有 3 个属性：`id`、`username` 和 `hashedPassword`。这些属性会对应到 `SELECT` 语句中的列名。
 
-这样的一个 JavaBean 可以被映射到 `ResultSet`，就像映射到 `HashMap` 一样简单。
+这样的一个 JavaBean 可以被映射到 ResultSet，就像映射到 `HashMap` 一样简单：
 
 ```xml
 <select id="selectUsers" resultType="com.someapp.model.User">
@@ -1028,7 +1006,7 @@ public class User {
 </select>
 ```
 
-类型别名是你的好帮手。使用它们，你就可以不用输入类的全限定名了。比如：
+使用类型别名就可以不用输入类的全限定名了。比如：
 
 ```xml
 <!-- mybatis-config.xml 中 -->
@@ -1042,7 +1020,7 @@ public class User {
 </select>
 ```
 
-在这些情况下，MyBatis 会在幕后自动创建一个 `ResultMap`，再根据属性名来映射列到 JavaBean 的属性上。如果列名和属性名不能匹配上，可以在 SELECT 语句中设置列别名（这是一个基本的 SQL 特性）来完成匹配。比如：
+在这些情况下，MyBatis 会在幕后自动创建一个 ResultMap，再根据属性名来映射列到 JavaBean 的属性上。如果列名和属性名不能匹配上，可以在 `SELECT` 语句中设置列别名（这是一个基本的 SQL 特性）来完成匹配。比如：
 
 ```xml
 <select id="selectUsers" resultType="User">
@@ -1055,7 +1033,7 @@ public class User {
 </select>
 ```
 
-在学习了上面的知识后，你会发现上面的例子没有一个需要显式配置 `ResultMap`，这就是 `ResultMap` 的优秀之处——你完全可以不用显式地配置它们。 虽然上面的例子不用显式配置 `ResultMap`。 但为了讲解，我们来看看如果在刚刚的示例中，显式使用外部的 `resultMap` 会怎样，这也是解决列名不匹配的另外一种方式。
+上面的例子没有一个需要显式配置 `ResultMap`，这就是 `ResultMap` 的优秀之处——完全可以不用显式地配置它们。 在刚刚的示例中，解决列名不匹配的另外一种方式，就是显式使用外部的 `resultMap`：
 
 ```xml
 <resultMap id="userResultMap" type="User">
@@ -1065,7 +1043,7 @@ public class User {
 </resultMap>
 ```
 
-然后在引用它的语句中设置 `resultMap` 属性就行了（注意我们去掉了 `resultType` 属性）。比如:
+然后在引用它的语句中设置 `resultMap` 属性就行了（注意去掉了 `resultType` 属性）。比如:
 
 ```xml
 <select id="selectUsers" resultMap="userResultMap">
@@ -1077,11 +1055,9 @@ public class User {
 
 
 
-**高级结果映射**
+### 3.4.1、高级结果映射
 
-MyBatis 创建时的一个思想是：数据库不可能永远是你所想或所需的那个样子。 我们希望每个数据库都具备良好的第三范式或 BCNF 范式，可惜它们并不都是那样。 如果能有一种数据库映射模式，完美适配所有的应用程序，那就太好了，但可惜也没有。 而 ResultMap 就是 MyBatis 对这个问题的答案。
-
-比如，我们如何映射下面这个语句？
+那么如何映射下面这个非常复杂的语句？
 
 ```xml
 <!-- 非常复杂的语句 -->
@@ -1120,7 +1096,7 @@ MyBatis 创建时的一个思想是：数据库不可能永远是你所想或所
 </select>
 ```
 
-你可能想把它映射到一个智能的对象模型，这个对象表示了一篇博客，它由某位作者所写，有很多的博文，每篇博文有零或多条的评论和标签。 我们先来看看下面这个完整的例子，它是一个非常复杂的结果映射（假设作者，博客，博文，评论和标签都是类型别名）。 不用紧张，我们会一步一步地来说明。虽然它看起来令人望而生畏，但其实非常简单。
+可以把它映射到一个智能的对象模型，这个对象表示了一篇博客，它由某位作者所写，有很多的博文，每篇博文有零或多条的评论和标签：
 
 ```xml
 <!-- 非常复杂的结果映射 -->

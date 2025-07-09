@@ -270,7 +270,7 @@ OpenVPN 启动之后会在 `C:\Program Files\OpenVPN\config` 位置生成 ipp.tx
 
 吊销证书意味着使以前签名的证书失效，使其不能再用于身份验证目的。
 
-1. 进入 `C:\Program Files\OpenVPN\easy-rsa` 目录，双击 EasyRSA-Start.bat 进入 EasyRSA shell 环境 DOS 窗口中：
+1. 进入 `C:\Program Files\OpenVPN\easy-rsa` 目录，双击 EasyRSA-Start.bat 进入 EasyRSA shell 环境 DOS 窗口中。
 
 2. 吊销指定用户（以 zhouyulan 为例）的证书：
 
