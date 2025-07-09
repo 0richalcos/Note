@@ -30,13 +30,13 @@ DM8 采用全新的体系架构，在保证大型通用的基础上，针对可�
 1. 创建用户所在的组，命令如下：
 
    ```shell
-   groupadd dinstall
+   groupadd dinstall -g 2001
    ```
 
 2. 创建用户，命令如下：
 
    ```shell
-   useradd -g dinstall -m -d /home/dmdba -s /bin/bash dmdba
+   useradd -G dinstall -m -d /home/dmdba -s /bin/bash -u 2001 dmdba
    ```
 
 3. 修改用户密码，命令如下：
@@ -49,21 +49,33 @@ DM8 采用全新的体系架构，在保证大型通用的基础上，针对可�
 
 **修改文件打开最大数**
 
+在 Linux、Solaris、AIX 和 HP-UNIX 等系统中，操作系统默认会对程序使用资源进行限制。如果不取消对应的限制，则数据库的性能将会受到影响。
+
 - 重启服务器后永久生效
 
-  使用 vi 编辑器打开 `/etc/security/limits.conf` 文件，命令如下：
+  使用 root 用户打开 `/etc/security/limits.conf` 文件进行修改，命令如下：
 
   ```shell
   vi /etc/security/limits.conf
   ```
 
-  在最后添加四条语句，需添加的语句如下：
+  在最后需要添加如下配置：
 
   ```
-  dmdba hard nofile 65536
-  dmdba soft nofile 65536
-  dmdba hard stack 32768
-  dmdba soft stack 16384
+  dmdba  soft      nice       0
+  dmdba  hard      nice       0
+  dmdba  soft      as         unlimited
+  dmdba  hard      as         unlimited
+  dmdba  soft      fsize      unlimited
+  dmdba  hard      fsize      unlimited
+  dmdba  soft      nproc      65536
+  dmdba  hard      nproc      65536
+  dmdba  soft      nofile     65536
+  dmdba  hard      nofile     65536
+  dmdba  soft      core       unlimited
+  dmdba  hard      core       unlimited
+  dmdba  soft      data       unlimited
+  dmdba  hard      data       unlimited
   ```
 
   切换到 dmdba 用户，查看是否生效，命令如下：
@@ -74,7 +86,9 @@ DM8 采用全新的体系架构，在保证大型通用的基础上，针对可�
   ulimit -a
   ```
 
-  <img src="!assets/DM/check-openfiles.png" alt="查看设置是否生效" style="" />
+  可以看到参数配置已生效：
+
+  <img src="./!assets/DM/202401240959260UW7J0C11OXTBOXWK9.png" alt="image.png" style="zoom:67%;" />
 
 - 设置参数临时生效
 
@@ -82,7 +96,43 @@ DM8 采用全新的体系架构，在保证大型通用的基础上，针对可�
 
   ```shell
   ulimit -n 65536
+  ulimit -u 65536
   ```
+
+
+
+**创建数据目录**
+
+创建实例保存目录、归档保存目录、备份保存目录：
+
+```shell
+##实例保存目录
+mkdir -p /dmdata/data 
+##归档保存目录
+mkdir -p /dmdata/arch
+##备份保存目录
+mkdir -p /dmdata/dmbak
+```
+
+> [!CAUTION]
+>
+> 使用 root 用户建立文件夹，待 dmdba 用户建立完成后需将文件所有者更改为 dmdba 用户，否则无法安装到该目录下。
+
+
+
+**修改目录权限**
+
+将新建的路径目录权限的用户修改为 dmdba，用户组修改为 dinstall。命令如下：
+
+```shel
+chown -R dmdba:dinstall /dmdata
+```
+
+给路径下的文件设置 755 权限。命令如下：
+
+```shell
+chmod -R 755 /dmdata
+```
 
 
 
@@ -90,36 +140,9 @@ DM8 采用全新的体系架构，在保证大型通用的基础上，针对可�
 
 切换到 root 用户，将 DM 数据库的 iso 安装包保存在任意位置，例如 `/opt` 目录下，执行如下命令挂载镜像：
 
-```shel
-mount -o loop /opt/dm8_setup_rh7_64_ent_8.1.1.45_20191121.iso /mnt
-```
-
-
-
-**新建安装目录**
-
-在根目录下创建 `/dm8` 文件夹，用来安装 DM 数据库。命令如下：
-
 ```shell
-mkdir /dm8
-```
-
-> 使用 root 用户建立文件夹，待 dmdba 用户建立完成后需将文件所有者更改为 dmdba 用户，否则无法安装到该目录下
-
-
-
-**修改安装目录权限**
-
-将新建的安装路径目录权限的用户修改为 dmdba，用户组修改为 dinstall。命令如下：
-
-```shel
-chown dmdba:dinstall -R /dm8/
-```
-
-给安装路径下的文件设置 755 权限。命令如下：
-
-```shell
-chmod -R 755 /dm8
+cd  /opt
+mount -o loop dm8_20240116_x86_rh7_64.iso /mnt
 ```
 
 
@@ -142,19 +165,17 @@ DM 数据库在 Linux 环境下支持命令行安装和图形化安装。
    ./DMInstall.bin -i
    ```
 
-2. 按需求选择安装语言，默认为中文。本地安装选择【不输入 Key 文件】，选择【默认时区 21】：
+2. 按需求选择安装语言，没有 key 文件选择 "n"，时区按需求选择一般选择 “21”，安装类型选择“1”，安装目录按实际情况配置，这里示例使用默认安装位置：
 
-   <img src="!assets/DM/choose-lang-time.png" alt="选项1" style="" />
-
-3. 选择【1-典型安装】，按已规划的安装目录 `/dm8` 完成数据库软件安装，不建议使用默认安装目录：
-
-   <img src="!assets/DM/choose-type-path.png" alt="选项2" style="" />
+   <img src="./!assets/DM/20240124112650T19KGAG7IFVF7RE1JH.png" alt="image.png" style="zoom:67%;" />
 
 4. 数据库安装大概 1~2 分钟，数据库安装完成后，显示如下界面：
 
-   <img src="!assets/DM/install-success.png" alt="安装完成" style="" />
+   <img src="./!assets/DM/2024012411300992W9AYDO7OL5LIEXUO.png" alt="image.png" style="zoom:67%;" />
 
-5. 数据库安装完成后，需要切换至 root 用户执行上图中的命令 `/dm8/script/root/root_installer.sh` 创建 DmAPService，否则会影响数据库备份。
+4. 数据库安装完成后，需要切换至 root 用户执行上图中的命令 `/home/dmdba/dmdbms/script/root/root_installer.sh` 创建 DmAPService，否则会影响数据库备份。
+
+   数据库安装完成后还需注册实例才能使用数据库，注册实例后面会讲到。
 
 
 
@@ -219,7 +240,7 @@ DM 数据库在 Linux 环境下支持命令行安装和图形化安装。
 
 ### 2.1.3、配置环境变量
 
-1. 切换到 root 用户进入 dmdba 用户的根目录下，配置对应的环境变量。DM_HOME 变量和动态链接库文件的加载路径在程序安装成功后会自动导入。命令如下：
+1. 切换到 root 用户进入 dmdba 用户的根目录下，配置对应的环境变量。`DM_HOME` 变量和动态链接库文件的加载路径在程序安装成功后会自动导入。命令如下：
 
    ```shell
    export PATH=$PATH:$DM_HOME/bin:$DM_HOME/tool
@@ -254,43 +275,66 @@ DM 数据库在 Linux 环境支持命令行配置实例以及图形化配置实�
 
 **命令行配置实例**
 
-使用 dmdba 用户配置实例，进入到 DM 数据库安装目录下的 bin 目录中，使用 `dminit` 命令初始化实例。
+1. 使用 dmdba 用户配置实例，进入到 DM 数据库安装目录下的 bin 目录中：
 
-`dminit` 命令可设置多种参数，可执行如下命令查看可配置参数：
+   ```shell
+   su - dmdba
+   cd /home/dmdba/dmdbms/bin
+   ```
 
-```help
-./dminit help
-```
+2. 使用 `dminit` 命令初始化实例，`dminit` 命令可设置多种参数，可执行如下命令查看可配置参数：
 
-<img src="!assets/DM/ml-licence-dminithelp.png" alt="dminit 帮助" style="zoom:67%;" />
+   ```shell
+   ./dminit help
+   ```
 
-需要注意的是页大小 (*page_size*)、簇大小 (*extent_size*)、大小写敏感 (*case_sensitive*)、字符集 (*charset*) 这四个参数，一旦确定无法修改，需谨慎设置。
+   <img src="./!assets/DM/20250508101244TDXKI0J2TY6HFMXE15.png" alt="image.png" style="zoom:67%;" />
 
-- *extent_size*：指数据文件使用的簇大小，即每次分配新的段空间时连续的页数。只能是 16 页或 32 页或 64 页之一，缺省使用 16 页。
-- *page_size*：数据文件使用的页大小，可以为 4 KB、8 KB、16 KB 或 32 KB 之一，选择的页大小越大，则 DM 支持的元组长度也越大，但同时空间利用率可能下降，缺省使用 8 KB。
-- *case_sensitive*：标识符大小写敏感，默认值为 Y 。当大小写敏感时，小写的标识符应用双引号括起，否则被转换为大写；当大小写不敏感时，系统不自动转换标识符的大小写，在标识符比较时也不区分大小写，只能是 Y、y、N、n、1、0 之一。
-- *charset*：字符集选项。0 代表 GB18030；1 代表 UTF-8；2 代表韩文字符集 EUC-KR；取值 0、1 或 2 之一。默认值为 0。
+   需要注意的是页大小（*PAGE_SIZE*）、簇大小（*EXTENT_SIZE*）、大小写敏感（*CASE_SENSITIVE*）、字符集（*CHARSET*）、空格填充模式（*BLANK_PAD_MODE*）、页检查模式（*PAGE_CHECK*）等部分参数，一旦确定无法修改，在初始化实例时确认需求后谨慎设置。
 
-可以使用默认参数初始化实例，需要附加实例存放路径。此处以初始化实例到 `/dm/data` 目录下为例（执行初始化命令前，需要使用 root 用户授予 `/dm/data` 目录相应权限，可以参考修改目录权限），初始化命令如下：
+   部分参数解释如下：
 
-```shell
-./dminit path=/dm/data
-```
+   - *PAGE_SIZE*：数据文件使用的页大小。取值范围 4、8、16、32，单位：KB。缺省值为 8。选择的页大小越大，则 DM 支持的元组长度也越大，但同时空间利用率可能下降。
 
-<img src="!assets/DM/ml-licence-mrcs.png" alt="dminit 默认参数" style="zoom:67%;" />
+     可选参数。数据库创建成功后无法再修改页大小，可通过系统函数 `SF_GET_PAGE_SIZE()` 获取系统的页大小。
 
-也可以自定义初始化实例的参数，参考如下示例：
+   - *EXTENT_SIZE*：数据文件使用的簇大小，即每次分配新的段空间时连续的页数。取值范围 16、32、64。单位：页数。缺省值为 16。
 
-以下命令设置页大小为 32 KB，簇大小为 32 KB，大小写敏感，字符集为 utf_8，数据库名为 DMDB，实例名为 DBSERVER，端口为 5237。
+     可选参数。数据库创建成功后无法再修改簇大小，可通过系统函数 `SF_GET_EXTENT_SIZE()` 获取系统的簇大小。
 
-```shell
-./dminit path=/dm/data PAGE_SIZE=32 EXTENT_SIZE=32 CASE_SENSITIVE=y
-CHARSET=1 DB_NAME=DMDB INSTANCE_NAME=DBSERVER PORT_NUM=5237
-```
+   - *CASE_SENSITIVE*：标识符大小写敏感。当大小写敏感时，小写的标识符应用 `""` 括起，否则被系统自动转换为大写；当大小写不敏感时，系统不会转换标识符的大小写，系统比较函数会将大写字母全部转为小写字母再进行比较。取值：Y、y、1 表示敏感；N、n、0 表示不敏感。缺省值为 Y。
 
-<img src="!assets/DM/ml-licence-szcs.png" alt="dminit 设置参数" style="zoom:67%;" />
+     可选参数。此参数在数据库创建成功后无法修改，可通过系统函数 `SF_GET_CASE_SENSITIVE_FLAG()` 或 `CASE_SENSITIVE()` 查询设置的参数值。
 
-> 如果此处自定义了初始化参数，在后面的注册服务和启动数据库等步骤中，请按实际的自定义参数进行操作。
+   - *CHARSET*：字符集选项。取值范围 0、1、2。0 代表 GB18030，1 代表 UTF-8，2 代表韩文字符集 EUC-KR。缺省值为 0。
+
+     可选参数。此参数在数据库创建成功后无法修改，可通过系统函数 `SF_GET_UNICODE_FLAG()` 或 `UNICODE()` 查询设置的参数值。
+
+   - *BLANK_PAD_MODE*：设置字符串比较时，结尾空格填充模式是否兼容 ORACLE。1：兼容；0：不兼容。缺省值为 0。
+
+     可选参数。此参数在数据库创建成功后无法修改，可通过查询 `V$PARAMETER` 中的 `BLANK_PAD_MODE` 参数名查看此参数的设置值。
+
+   - *PAGE_CHECK*：*PAGE_CHECK* 为页检查模式。取值范围 0、1、2、3。0：禁用页校验；1：开启页校验并使用 CRC 校验；2：开启页校验并使用指定的 HASH 算法进行校验；3：开启页校验并使用快速 CRC 校验。缺省值为 3。
+
+     可选参数。在数据库创建成功后无法修改。
+
+3. 如果需要附加实例存放路径。此处以初始化实例到 `/dmdata/data` 目录下为例（执行初始化命令前，需要使用 root 用户授予 `/dmdata/data` 目录相应权限），初始化命令如下：
+
+   ```shell
+   ./dminit path=/dmdata/data SYSDBA_PWD=****** SYSAUDITOR_PWD=******
+   ```
+
+   也可以自定义初始化实例的参数，参考如下示例：
+
+   ```shell
+   ./dminit path=/dmdata/data PAGE_SIZE=32 EXTENT_SIZE=32 CASE_SENSITIVE=y CHARSET=1 DB_NAME=DAMENG INSTANCE_NAME=DMSERVER PORT_NUM=5236 SYSDBA_PWD=123  SYSAUDITOR_PWD=321
+   ```
+
+   上面命令设置页大小为 32 KB，簇大小为 32 KB，大小写敏感，字符集为 utf_8，数据库名为 DAMENG，实例名为 DMSERVER，端口为 5236，SYSDBA 用户密码为 123，SYSAUDITOR 用户密码为 321。
+
+   > [!NOTE]
+   >
+   > 如果此处自定义了初始化参数，在后面的注册服务和启动数据库等步骤中，请按实际的自定义参数进行操作。
 
 
 
@@ -324,7 +368,7 @@ CHARSET=1 DB_NAME=DMDB INSTANCE_NAME=DBSERVER PORT_NUM=5237
 
    <img src="!assets/DM/ui-licence-datafilepath.png" alt="指定数据库文件目录" style="zoom:67%;" />
 
-8. 点击【下一步】，配置初始化参数，注意簇大小、页大小、字符集以及大小写敏感确定后不可修改，默认配置即可，如下图所示：
+8. 点击【下一步】，配置初始化参数，注意簇大小、页大小、字符集以及大小写敏感确定后不可修改，如下图所示：
 
    <img src="!assets/DM/ui-licence-setcs.png" alt="指定数据库文件目录" style="zoom:67%;" />
 
@@ -352,31 +396,32 @@ CHARSET=1 DB_NAME=DMDB INSTANCE_NAME=DBSERVER PORT_NUM=5237
 
 **命令行注册服务**
 
-注册服务需使用 root 用户进行注册。使用 root 用户进入数据库安装目录的 `/script/root` 下，如下所示：
+1. 注册服务需使用 root 用户进行注册。使用 root 用户进入数据库安装目录的 `/script/root` 下，如下所示：
 
-```shell
-cd /dm8/script/root
-```
+   ```shell
+   cd /home/dmdba/dmdbms/script/root/
+   ```
 
-注册服务，如下所示：
+2. 注册服务，如下所示：
 
-```shell
-./dm_service_installer.sh -t dmserver -dm_ini /dm8/data/DAMENG/dm.ini -p DMSERVER
-```
+   ```shell
+   ./dm_service_installer.sh -t dmserver -dm_ini /dmdata/data/DAMENG/dm.ini -p DMSERVER
+   ```
 
-用户可根据自己的环境更改 dm.ini 文件的路径以及服务名，如下所示：
+   部分参数说明：
 
-```shell
-./dm_service_installer.sh -h
-```
+   | 标志      | 参数         | 说明                                                         |
+   | :-------- | :----------- | :----------------------------------------------------------- |
+   | `-t`      | 服务类型     | 注册服务类型，支持以下服务类型：dmap、dmamon、dmserver、<br />dmwatcher、dmmonitor、dmasmsvr、dmasmsvrm、dmcss、dmcssm。 |
+   | `-dm_ini` | INI 文件路径 | 指定服务所需要的 dm.ini 文件路径。                           |
+   | `-p`      | 服务名后缀   | 指定服务名后缀，生成的操作系统服务名为 “服务脚本模板名称 + 服务名后缀”。<br />此参数只针对 dmserver、dmwatcher、dmmonitor、dmasmsvr、dmasmsvrm、<br />dmcss、dmcssm 服务脚本生效。 |
 
-如需为其他实例注册服务，需打开 dbca 工具，进行注册服务，如下所示：
+3. 进入数据安装目录下 bin 目录中可以看到已经注册好的服务 DmServiceDMSERVER：
 
-```shell
-cd /dm8/tool
-
-./dbca.sh
-```
+   ```shell
+   cd /home/dmdba/dmdbms/bin
+   ls | grep DmServiceDMSERVER
+   ```
 
 
 
