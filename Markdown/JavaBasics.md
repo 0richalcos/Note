@@ -1,7 +1,3 @@
----
-typora-copy-images-to: upload
----
-
 # 1、入门基础及环境搭建
 
 ## 1.1、Java 是什么
@@ -34,7 +30,7 @@ Java 平台已经嵌入了几乎所有的操作系统。这样的 Java 程序只
 
 
 
-### 1.1.2、Java语言的特点
+### 1.1.2、Java 语言的特点
 
 Java 语言的风格很像 C 语言和 C++ 语言，是一种纯粹的面向对象语言，它继承 了C++ 语言面向对象的技术核心，但是抛弃了 C++ 的一些缺点，比如说容易引起错误的指针以及多继承等，同时也增加了垃圾回收机制，释放掉不被使用的内存空间，解决了管理内存空间的烦恼。
 
@@ -77,11 +73,13 @@ Java 语言是一种分布式的面向对象语言，具有面向对象、平台
 
 
 
-##  1.2、JDK的下载与安装
+##  1.2、JDK 的下载与安装
 
 JDK（Java Development Kit，Java 开发工具包）是一种用于构建在 Java 平台上发布的应用程序、Applet 和组件的开发环境，即编写 Java 程序必须使用 JDK，它提供了编译和运行 Java 程序的环境。
 
-下载安装步骤：
+
+
+### 1.2.1、Windows
 
 1. 在浏览器输入www.oracle.com，打开 Oracle 公司的官方网站：
 
@@ -128,11 +126,45 @@ JDK（Java Development Kit，Java 开发工具包）是一种用于构建在 Jav
 
 
 
+### 1.2.2、Linux
+
+1. 进入 [下载页面](https://www.oracle.com/cn/java/technologies/downloads/) 后首先看到的是 Java 最新版本的下载界面，在这我需要下载 Java 8 的版本，所以得划到下面的界面，即界面如下：
+
+   <img src="./!assets/JavaBasics/1670015-20230801223950250-1670016853.png" alt="img" style="zoom: 50%;" />
+
+2. 在这里将下载：jdk-8u381-linux-x64.tar.gz（压缩包方式安装）、jdk-8u381-linux-x64.rpm（rpm 方式安装），下载完成之后将其上传到 Linux 系统。
+
+3. 接下来进行安装 JDK，可以下面方式二选一：
+
+   - 使用 `rpm` 命令直接安装 JDK：
+
+     ```shell
+     rpm -ivh jdk-8u381-linux-x64.rpm
+     ```
+
+   - 解压 tar.gz 压缩包手动安装：
+
+     ```shell
+     tar -zxvf jdk-8u381-linux-x64.tar.gz
+     ```
+
+     剪贴到 `/usr/local` 目录下：
+
+     ```shell
+     mv jdk1.8.0_381/ /usr/local/
+     ```
+
+
+
 ## 1.3、JDK 环境变量配置
 
 环境变量（environment variables）一般是指在操作系统中用来指定操作系统运行环境的一些参数，如：临时文件夹位置和系统文件夹位置等。
 
-环境变量是在操作系统中一个具有特定名字的对象，它包含了一个或者多个应用程序所将使用到的信息。例如 Windows 和 DOS 操作系统中的 path 环境变量，当要求系统运行一个程序而没有告诉它程序所在的完整路径时，系统除了在当前目录下面寻找此程序外，还应到 path 中指定的路径去找。用户通过设置环境变量，来更好的运行进程。
+环境变量是在操作系统中一个具有特定名字的对象，它包含了一个或者多个应用程序所将使用到的信息。例如 Windows 和 DOS 操作系统中的 `path` 环境变量，当要求系统运行一个程序而没有告诉它程序所在的完整路径时，系统除了在当前目录下面寻找此程序外，还应到 path 中指定的路径去找。用户通过设置环境变量，来更好的运行进程。
+
+
+
+### 1.3.1、Windows
 
 1. 按 `Win+Pause` 打开系统属性，点击左边导航栏的高级系统设置，选择环境变量。
 
@@ -148,6 +180,44 @@ JDK（Java Development Kit，Java 开发工具包）是一种用于构建在 Jav
 	
 	
 	出现 Java 版本即表示环境配置成功！
+
+
+
+### 1.3.2、Linux
+
+> [!NOTE]
+>
+> 一般 `rpm`、`yum` 方式安装的不需要配置环境变量，但是若识别不到还是老老实实配置环境变量。
+
+1. 修改配置环境：
+
+   ```shell
+   vim /etc/profile
+   ```
+
+2. 把下面的配置放到文件的最后一行：
+
+   ```
+   export JAVA_HOME=/usr/local/jdk1.8.0_381    # 这里设置解压的Java目录文件
+   export PATH=$JAVA_HOME/bin:$PATH
+   export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
+   ```
+
+3. 让配置立即生效：
+
+   ```shell
+   source /etc/profile
+   ```
+
+4. 检查 Java 环境是否成功安装：
+
+   ```shell
+   # 获取 Java 版本号
+   java -version
+   
+   # 查看 JDK 的安装路径（安装后才有）
+   which java
+   ```
 
 
 
