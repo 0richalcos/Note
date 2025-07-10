@@ -396,11 +396,13 @@ sc delete Redis
 
 **解决办法**
 
-在 redis.conf 内添加：
+在 redis.conf 最后一行取消以下配置注释：
 
 ```
 ignore-warnings ARM64-COW-BUG
 ```
+
+如果没有的话就手动新增配置。
 
 
 
@@ -2023,6 +2025,7 @@ GENERAL：
 
 ```bash
 # 以守护线程的方式运行
+# 如果你 systemctl 来管理 Redis 服务（即通过 systemd 启动 Redis），就必须把这里改为 no
 deamonize yes
 
 # 如果以后台的方式运行，那么就需要指定一个 pid 文件
