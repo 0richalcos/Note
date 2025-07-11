@@ -5,9 +5,9 @@ DM8 采用全新的体系架构，在保证大型通用的基础上，针对可�
 
 
 
-# 2、安装
+# 2、安装及卸载
 
-## 2.1、Linux 安装
+## 2.1、Linux
 
 ### 2.1.1、安装前准备
 
@@ -509,7 +509,53 @@ systemctl status DmServiceDMSERVER.service
 
 
 
-## 2.2、数据库目录结构
+### 2.1.7、卸载数据库
+
+**命令行卸载**
+
+用户在 DM 安装目录下，找到卸载程序 `uninstall.sh` 来卸载数据库：
+
+1. 进入 DM 安装目录：
+
+   ```shell
+   cd /DM_INSTALL_PATH
+   ```
+
+2. 执行卸载脚本，命令行卸载需要添加参数 `-i`：
+
+   ```shell
+   ./uninstall.sh -i
+   ```
+
+3. 终端窗口将提示确认是否卸载程序，输入 “y/Y” 开始卸载 DM，输入 “n/N” 退出卸载程序：
+
+   <img src="!assets/DM/图2.53-运行卸载程序.png" alt="删除目录" style="zoom:67%;" />
+
+4. 在 Linux（Unix）系统下，使用非 root 用户卸载完成时，终端提示 “请以 root 系统用户执行命令”。用户需要手动执行相关命令：
+
+   ```shell
+   /home/dmdba/dmdbms/root_all_service_uninstaller.sh
+   
+   rm -rf /etc/dm_svc.conf
+   ```
+
+
+
+**图形化卸载**
+
+用户在 DM 安装目录下，找到卸载程序 `uninstall.sh` 来执行卸载数据库，启动图形化卸载程序将会弹出提示框确认是否卸载程序。点击 “确定” 进入卸载小结页面，点击 “取消” 退出卸载程序。
+
+卸载流程和命令行卸载一样。
+
+
+
+## 2.2、Windows
+
+Windows 安装和 Linux 环境图形化安装操作基本一致。
+
+
+
+## 2.3、数据库目录结构
 
 **数据库安装目录**
 
