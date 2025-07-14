@@ -3041,6 +3041,209 @@ set nonumber
 
 ## 7.2、nano
 
+Nano 是一个简单易用的文本编辑器，它在 Linux 系统中非常受欢迎，尤其是在那些需要快速编辑文件的场景。Nano 提供了基本的文本编辑功能，并且有一个用户友好的界面，这对于不熟悉 Vi 或 Vim 这类复杂文本编辑器的用户来说是一个很好的选择。
+
+
+
+### 7.2.1、安装 Nano
+
+在大多数 Linux 发行版中，可以使用包管理器来安装 Nano。以下是在不同发行版中安装 Nano 的命令。
+
+
+
+**Debian/Ubuntu**
+
+```shell
+sudo apt-get update
+sudo apt-get install nano
+```
+
+
+
+**CentOS/RHEL**
+
+```shell
+sudo yum install nano
+```
+
+
+
+**Fedora**
+
+```shell
+sudo dnf install nano
+```
+
+
+
+安装完成后，可以通过在终端中输入 `nano` 命令来启动 Nano 文本编辑器。
+
+
+
+### 7.2.2、Nano 的基本操作
+
+一旦启动了 Nano，你将会看到文本编辑界面，在这里可以开始编辑文本。以下是一些基本操作的介绍：
+
+
+
+**打开文件**
+
+启动 Nano 时，你可以直接指定文件名来打开一个已存在的文件，或者创建一个新文件。例如：
+
+```shell
+nano filename.txt
+```
+
+
+
+**插入文本**
+
+在 Nano 中，你处于默认的插入模式，可以直接开始键入文本。如果你想移动光标，可以使用箭头键。
+
+
+
+**保存文件**
+
+要保存文件，你可以按下 `Ctrl + O`。这时，Nano 会提示你输入文件名，如果你已经打开了文件，它会显示当前的文件名。
+
+
+
+**退出 Nano**
+
+如果你想退出 Nano 并保存更改，可以按下 `Ctrl + X`。如果你没有保存更改，Nano 会提示你是否要保存。
+
+
+
+**搜索文本**
+
+在 Nano 中搜索文本，可以按下 `Ctrl + W`，然后输入你想搜索的文本。
+
+
+
+**替换文本**
+
+Nano 不支持直接在编辑器中替换文本，但你可以使用 `Ctrl + W` 搜索文本，然后手动替换。
+
+
+
+**删除文本**
+
+要删除文本，可以使用 `Ctrl + K` 来剪切（删除）光标所在行，或者使用 `Backspace` 键来逐字符删除文本。
+
+
+
+**撤销更改**
+
+如果你犯了一个错误，可以使用 `Ctrl + _` 来撤销最近的更改。请注意，Nano 的撤销功能可能不如其他文本编辑器强大，它可能只能撤销最后一次保存之前的更改。
+
+
+
+### 7.2.3、高级配置
+
+Nano 文本编辑器支持一些高级配置选项和插件，这些可以帮助用户定制编辑器的行为，以适应个人的工作流程和偏好。
+
+
+
+**配置文件**
+
+Nano 的行为可以通过配置文件来修改。主配置文件通常位于 `~/.nanorc`。在这个文件中，你可以设置各种选项，比如语法高亮、键盘快捷键、自动缩进等。
+
+以下是一个简单的配置文件示例：
+
+```shell
+# 设置语法高亮（需要额外配置）
+syntax on
+
+# 启用自动缩进
+set autoindent
+
+# 启用光标闪烁
+set cursorblink
+
+# 设置制表符宽度为 4 个空格
+set tabsize 4
+
+# 启用鼠标支持
+set mouse
+```
+
+将上述内容保存到 `~/.nanorc` 文件中，然后重新启动 Nano，这些设置就会生效。
+
+
+
+**语法高亮**
+
+Nano 支持多种编程语言的语法高亮。要启用语法高亮，你需要在 `~/.nanorc` 配置文件中包含相应的语法高亮定义文件。Nano 安装时会提供一系列的语法高亮文件，通常位于 `/usr/share/nano` 目录。
+
+例如，要启用 Python 语法高亮，你可以添加以下行到你的 `~/.nanorc` 文件：
+
+```shell
+include "/usr/share/nano/python.nanorc"
+```
+
+
+
+### 7.2.4、快捷键列表
+
+Nano 文本编辑器提供了一系列的快捷键，这些快捷键可以帮助用户快速执行各种操作。
+
+
+
+**基本快捷键**
+
+- `Ctrl + O`：打开文件（Open）。
+- `Ctrl + X`：退出编辑器（Exit），如果文件被修改会提示保存。
+- `Ctrl + S`：保存文件（Save）。
+- `Ctrl + C`：取消当前操作（Cancel）。
+- `Ctrl + G`：跳转到指定行（Go To Line）。
+- `Ctrl + T`：新建一个标签页（New Tab），如果支持标签页的话。
+- `Ctrl + W`：搜索文本（Search）。
+
+
+
+**文本编辑快捷键**
+
+- `Ctrl + K`：剪切当前行到剪贴板（Cut Current Line）。
+- `Ctrl + U`：粘贴剪贴板内容（Paste）。
+- `Ctrl + _`：撤销更改（Undo）。
+- `Alt + O`：开启 / 关闭覆盖模式（Overwrite Mode）。
+- `Ctrl + J`：加入新行（Join Lines）。
+- `Ctrl + M`：自动缩进（Auto-indent）。
+
+
+
+**移动快捷键**
+
+- `Ctrl + A`：移动到行首（Beginning of Line）。
+- `Ctrl + E`：移动到行尾（End of Line）。
+- `Ctrl + P`：向上滚动一页（Previous Page）。
+- `Ctrl + N`：向下滚动一页（Next Page）。
+- `Ctrl + Y`：向上滚动一行（Scroll Up）。
+- `Ctrl + V`：向下滚动一行（Scroll Down）。
+
+
+
+**搜索和替换快捷键**
+
+- `Ctrl + W`：搜索文本（Search）。
+- `Alt + W`：搜索上一个匹配项（Search Previous）。
+- `Ctrl + S`：搜索下一个匹配项（Search Next）。
+
+
+
+**其他快捷键**
+
+- `Ctrl + L`：刷新屏幕（Refresh Screen）。
+- `Ctrl + Z`：暂停编辑器（Suspend Editor）。
+- `Ctrl + R`：从剪贴板读取（Read from Clipboard）。
+- `Ctrl + D`：删除字符（Delete Character）。
+- `Ctrl + H`：删除到行首（Delete to Beginning of Line）。
+- `Ctrl + K`：删除到行尾（Delete to End of Line）。
+
+
+
+这些快捷键是 Nano 文本编辑器中最为常用的，但并不是全部。你可以通过阅读 Nano 的手册页（`man nano`）来获取完整的快捷键列表。
+
 
 
 # 8、软件安装
