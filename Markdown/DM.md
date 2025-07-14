@@ -1267,6 +1267,199 @@ exit;
 
 
 
+## 6.3、逻辑备份还原
+
+逻辑导出（dexp）和逻辑导入（dimp）是 DM 数据库的两个命令行工具，分别用来实现对 DM 数据库的逻辑备份和逻辑还原。逻辑备份和逻辑还原都是在联机方式下完成，联机方式是指数据库服务器正常运行过程中进行的备份和还原 dexp 和 dimp 是 DM 数据库自带的工具，只要安装了 DM 数据库，就可以在安装目录 `/dmdbms/bin` 中找到。
+
+逻辑导出和逻辑导入数据库对象分为四种级别：数据库级、用户级、模式级和表级。四种级别独立互斥，不能同时存在。四种级别所提供的功能：
+
+- 数据库级（FULL）：导出或导入整个数据库中的所有对象。
+- 用户级（OWNER）：导出或导入一个或多个用户所拥有的所有对象。
+- 模式级（SCHEMAS）：导出或导入一个或多个模式下的所有对象。
+- 表级（TABLES）：导出或导入一个或多个指定的表或表分区。
+
+
+
+### 6.3.1、逻辑导出
+
+dexp 工具可以对本地或者远程数据库进行数据库级、用户级、模式级和表级的逻辑备份。备份的内容非常灵活，可以选择是否备份索引、数据行和权限，是否忽略除主键和非空约束外的其他约束，在备份前还可以选择生成日志文件，记录备份的过程以供查看。
+
+dexp 工具名称有两种写法 dexp 和 dexpdp，两者区别在于：dexp 导出的文件必须存放在客户端，dexpdp 导出的文件必须存放在服务器端。另外由于 dexpdp 是将客户端命令发给服务器启动 dexp 执行，如果客户端连接使用 dm_svc.conf 配置，服务器端也应该跟客户端配置一致。
+
+
+
+**使用 dexp 工具**
+
+dexp 工具需要从命令行启动。在 cmd 命令行工具中找到 dexp 所在安装目录 `/dmdbms/bin`，输入 dexp 和参数后回车。
+
+语法如下：
+
+```shell
+dexp PARAMETER=value { PARAMETER=value }
+
+dexpdp PARAMETER=value { PARAMETER=value }
+```
+
+- *PARAMETER*：dexp 参数。参数 USERID 必须置于首位，此外的多个参数之间排列顺序无影响，参数之间使用空格间隔。
+- *`<value>`*：参数取值。
+
+以用户名为 SYSDBA、密码 “Dmsys_123” 为例，IP 地址为 192.168.0.248，端口号为 8888 的数据库采用 FULL 方式完全导出，导出文件名为 db_str.dmp，导出的日志文件名为 db_str.log，导出文件的路径为 `/mnt/dexp/data`：
+
+```shell
+./dexp USERID=SYSDBA/Dmsys_123@192.168.0.248:8888 FILE=db_str.dmp DIRECTORY=/mnt/dexp/data LOG=db_str.log FULL=Y
+```
+
+> [!NOTE]
+>
+> 如果密码含有特殊字符的情况下，需要使用双引号将密码包含进来，同时外层再使用单引号进行转义。
+
+
+
+**dexp 参数一览表**
+
+> [!NOTE]
+>
+> 每个参数含义后面的括号内为（N）则表示该参数缺省为否，为（Y）表示缺省为是；`()` 内的值表示的是参数的缺省值。
+
+| 参数                         | 含义                                                         | 备注                                                         |
+| ---------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| USERID                       | 数据库的连接信息                                             | 必选                                                         |
+| FILE                         | 明确指定导出文件名称                                         | 可选                                                         |
+| LOG                          | 明确指定日志文件名称                                         | 可选                                                         |
+| DIRECTORY                    | 导出文件所在目录                                             | 可选                                                         |
+| FULL、OWNER、SCHEMAS、TABLES | FULL：导出整个数据库（N）<br />OWNER：用户名列表，导出一个或多个用户所拥有的所有对象<br />SCHEMAS：模式列表，导出一个或多个模式下的所有对象<br />TABLES：表名列表，导出一个或多个指定的表或表分区 | 可选，四者中选其一。<br />缺省为 SCHEMAS                     |
+| FUZZY_MATCH                  | TABLES选项是否启用模糊匹配（N）                              | 可选                                                         |
+| QUERY                        | 用于指定对导出表的数据进行过滤的条件                         | 可选                                                         |
+| PARALLEL                     | 用于指定导出的过程中所使用的线程数目（16）                   | 可选                                                         |
+| TABLE_PARALLEL               | 用于指定导出每张表所使用的线程数（8）；在 MPP 模式下会转换成单线程 | 可选                                                         |
+| TABLE_POOL                   | 用于设置导出过程中存储表的缓冲区个数（8）                    | 可选                                                         |
+| EXCLUDE                      | 批量设置导出内容中忽略的对象。<br /> 1. `EXCLUDE=[(]<对象种类名>{,<对象种类名>}[)]` <br />对象种类可为：CONSTRAINTS、INDEXES、ROWS、TRIGGERS、GRANTS、VIEWS、PROCEDURE、PACKAGE、SEQUENCE、TABLES。<br />2. `EXCLUDE=TYPE:name1,name2` <br />TYPE 可为：SCHEMAS、TABLES、VIEWS、PROCEDURE、PACKAGE、SEQUENCE。<br />3. `EXCLUDE=TYPE:cond{,TYPE:cond}` <br />TYPE 可取值同上，cond 为 IN 或 LIKE 过滤条件 | 可选                                                         |
+| INCLUDE                      | 批量设置导出时只导出指定的对象种类或某个具体对象。 <br />1. `INCLUDE=[(]<对象种类名>{,<对象种类名>}[)]` <br />对象种类可为：CONSTRAINTS、INDEXES、ROWS、TRIGGERS、GRANTS、VIEWS、PROCEDURE、PACKAGE、SEQUENCE、TABLES。<br />2. `INCLUDE=TYPE:name1,name2` <br />TYPE 可为： SCHEMAS、TABLES、VIEWS、PROCEDURE、PACKAGE、SEQUENCE。 <br />3. `INCLUDE=TYPE:cond{,TYPE:cond}` <br />TYPE 可取值同上，cond 为 IN 或 LIKE 过滤条件 | 可选                                                         |
+| TABLESPACE                   | 导出表空间/表空间组和表空间/表空间组存储选项（N）            | 可选                                                         |
+| CONSTRAINTS                  | 导出约束（Y）                                                | 可选                                                         |
+| GRANTS                       | 导出权限（Y）                                                |                                                              |
+| INDEXES                      | 导出索引（Y）                                                |                                                              |
+| TRIGGERS                     | 导出触发器（Y）                                              |                                                              |
+| ROWS                         | 导出数据行（Y）                                              |                                                              |
+| NOLOGFILE                    | 不使用日志文件（N）                                          | 可选                                                         |
+| NOLOG                        | 屏幕上不显示日志信息（N）                                    | 可选                                                         |
+| LOG_WRITE                    | 日志信息实时写入文件 （N）                                   | 可选                                                         |
+| DUMMY                        | 设置交互信息处理方式（P：打印）                              | 可选                                                         |
+| PARFILE                      | 参数文件名，如果 dexp 的参数很多，可以存成参数文件           | 可选                                                         |
+| FEEDBACK                     | 每 x 行显示进度 （0）                                        | 可选                                                         |
+| COMPRESS                     | 是否压缩导出数据文件（N）                                    | 可选                                                         |
+| COMPRESS_LEVEL               | 导出数据压缩等级（1）。取值范围 0~9                          | 可选                                                         |
+| ENCRYPT                      | 导出数据是否加密 （N）                                       | 可选，                                                       |
+| ENCRYPT_PASSWORD             | 导出数据的加密密钥                                           | 和 ENCRYPT 同时使用                                          |
+| ENCRYPT_NAME                 | 导出数据的加密算法                                           | 可选。和 ENCRYPT、ENCRYPT_PASSWORD<br />同时使用。缺省为 RC4 |
+| FILESIZE                     | 用于指定单个导出文件大小的上限。可以按字节[B]、K[B]、M[B]、G[B] 的方式指定大小 | 可选                                                         |
+| FILENUM                      | 多文件导出时，一个模板可以生成的文件数（99）。取值范围 1~99  | 可选                                                         |
+| DROP                         | 导出后删除原表，但不级联删除 （N）                           | 可选                                                         |
+| DESCRIBE                     | 导出数据文件的描述信息，记录在数据文件中                     | 可选                                                         |
+| FLASHBACK_SCN                | 用于指定导出表数据的闪回 LSN，和 FLASHBACK_TIME 一起使用时只有一个能生效，参数位置靠后的生效 | 可选                                                         |
+| FLASHBACK_TIME               | 用于指定导出表数据的闪回时间，和 FLASHBACK_SCN 一起使用时只有一个能生效，参数位置靠后的生效 | 可选                                                         |
+| COL_DEFAULT_SEPARATE         | 是否单独导出列（Y）                                          | 可选                                                         |
+| WITH_UR                      | 导出表数据是否允许脏读（N）                                  | 可选                                                         |
+| SIMPLE_LOG                   | 导出日志是否使用简要日志（N）                                | 可选                                                         |
+| CTRL_INFO                    | 控制信息用来控制一些特殊情况导出（0）                        | 可选                                                         |
+| CONFIG_FILE                  | 配置文件路径，配置默认连接串和密码信息                       | 可选                                                         |
+| FILE_VERSION                 | 用于指定导出的 dmp 文件的逻辑版本，有效范围 9~28             | 可选                                                         |
+| HELP                         | 显示帮助信息                                                 | 可选                                                         |
+
+
+
+### 6.3.2、逻辑导入
+
+dimp 逻辑导入工具利用 dexp 工具生成的备份文件对本地或远程的数据库进行联机逻辑还原。dimp 导入是 dexp 导出的相反过程。还原的方式可以灵活选择，如是否忽略对象存在而导致的创建错误、是否导入约束、是否导入索引、导入时是否需要编译、是否生成日志等。
+
+dimp 工具名称有两种写法 dimp 和 dimpdp，两者区别在于：dimp 导入的文件必须存放在客户端，dimpdp 导入的文件必须存放在服务器端。另外由于 dimpdp 是将客户端命令发给服务器启动 dimp 执行，如果客户端连接使用 dm_svc.conf 配置，服务器端也应该跟客户端配置一致。
+
+
+
+**使用 dimp 工具**
+
+dimp 工具需要从命令行启动。在 cmd 命令行工具中找到 dimp 所在安装目录/dmdbms/bin，输入 dimp 和参数后回车。参数在下一节详细介绍。
+
+**语法如下：**
+
+```shell
+dimp PARAMETER=value { PARAMETER=value }
+
+dimpdp PARAMETER=value { PARAMETER=value }
+```
+
+- *PARAMETER*：dimp 参数。其中 USERID 必须为第一个参数，其余参数之间排列顺序无影响，参数之间使用空格间隔。
+- *value*：参数取值。
+
+以逻辑备份采用 FULL 方式完全导入到用户名为 SYSDBA、密码 “Dmsys_123” 为例，实际运行中需要用户自行替换为数据库初始化时设定的密码。IP 地址为 192.168.0.248，端口号为 8888 的数据库。导入文件名为 db_str.dmp，导入的日志文件名为 db_str.log，路径为 `/mnt/data/dexp`：
+
+```shell
+./dimp USERID=SYSDBA/Dmsys_123@192.168.0.248:8888 FILE=db_str.dmp DIRECTORY=/mnt/data/dexp LOG=db_str.log FULL=Y
+```
+
+
+
+**dimp 参数一览表**
+
+> [!NOTE]
+>
+> 每个参数含义后面的括号内为（N）则表示该参数缺省为否，为（Y）表示缺省为是；`()` 内的值表示的是参数的缺省值。
+
+| 参数                         | 含义                                                         | 备注                                                 |
+| ---------------------------- | ------------------------------------------------------------ | ---------------------------------------------------- |
+| USERID                       | 数据库的连接信息                                             | 必选                                                 |
+| FILE                         | 输入文件，即 dexp 或 dexpdp 导出的文件                       | 可选                                                 |
+| LOG                          | 日志文件                                                     | 可选                                                 |
+| DIRECTORY                    | 导入文件所在目录                                             | 可选                                                 |
+| FULL、OWNER、SCHEMAS、TABLES | FULL：整库导入（N）<br />OWNER：以用户方式导入<br />SCHEMAS：以模式方式导入<br />TABLES：以表名方式导入，指定导入的tables名称。不支持对外部表进行导入 | 可选，四者中选其一。缺省为导入的文件导出时所用的方式 |
+| PARALLEL                     | 用于指定导入的过程中所使用的线程数目（16）                   | 可选                                                 |
+| TABLE_PARALLEL               | 用于指定导入的过程中每个表所使用的子线程数目（8）            | 可选。在FAST_LOAD为Y时有效                           |
+| IGNORE                       | 忽略创建错误 （N）。如果表已经存在则向表中插入数据，否则报错表已经存在。 | 可选                                                 |
+| TABLE_EXISTS_ACTION          | 需要的导入表在目标库中存在时采取的操作<br />[SKIP \| APPEND \| TRUNCATE \| REPLACE \| TRUNCATE_CASCADE] | 可选                                                 |
+| FAST_LOAD                    | 是否使用dmfldr进行数据导入（N）                              | 可选                                                 |
+| FLDR_ORDER                   | 使用dmfldr是否需要严格按顺序来导数据（Y）                    | 可选                                                 |
+| COMMIT_ROWS                  | 批量提交的行数（5000）                                       | 可选                                                 |
+| EXCLUDE                      | 批量设置导入时忽略的对象种类。 <br />1. `EXCLUDE=[(]<对象种类名>{,<对象种类名>}[)]` <br />对象种类可为：CONSTRAINTS、INDEXES、ROWS、TRIGGERS、GRANTS、VIEWS、PROCEDURE、PACKAGE、SEQUENCE、TABLES 、JOB。<br />2. `EXCLUDE=TYPE:name1,name2` <br />TYPE 可为： SCHEMAS、TABLES、VIEWS、PROCEDURE、PACKAGE、SEQUENCE。 | 可选                                                 |
+| INCLUDE                      | 批量设置导入时只导入指定的对象种类或某个具体对象。 <br />1. `INCLUDE=[(]<对象种类名>{,<对象种类名>}[)]` <br />对象种类可为：CONSTRAINTS、INDEXES、ROWS、TRIGGERS、GRANTS、VIEWS、PROCEDURE、PACKAGE、SEQUENCE、TABLES 、JOB。<br />2. `INCLUDE=TYPE:name1,name2` <br />TYPE 可为：SCHEMAS、TABLES、VIEWS、PROCEDURE、PACKAGE、SEQUENCE。 | 可选                                                 |
+| GRANTS                       | 导入权限 （Y）                                               | 可选                                                 |
+| CONSTRAINTS                  | 导入约束 （Y）                                               | 可选                                                 |
+| INDEXES                      | 导入索引 （Y）                                               | 可选                                                 |
+| TRIGGERS                     | 导入触发器（Y）                                              | 可选                                                 |
+| ROWS                         | 导入数据行 （Y）                                             | 可选                                                 |
+| NOLOGFILE                    | 不使用日志文件（N）                                          | 可选                                                 |
+| NOLOG                        | 屏幕上不显示日志信息（N）                                    | 可选                                                 |
+| DUMMY                        | 设置交互信息处理（P：打印）                                  | 可选                                                 |
+| LOG_WRITE                    | 日志信息实时写入文件（N）                                    | 可选                                                 |
+| PARFILE                      | 参数文件名，如果 dimp 的参数很多，可以存成参数文件           | 可选                                                 |
+| FEEDBACK                     | 显示每 x 行（0）的进度                                       | 可选                                                 |
+| COMPILE                      | 编译过程, 程序包和函数 （Y）                                 | 可选                                                 |
+| INDEXFILE                    | 将表的索引/约束信息写入指定的文件                            | 可选                                                 |
+| INDEXFIRST                   | 导入时先建索引（N）                                          | 可选                                                 |
+| REMAP_SCHEMA                 | 格式：`SOURCE_SCHEMA:TARGET_SCHEMA` <br />将 SOURCE_SCHEMA 中的数据导入到 TARGET_SCHEMA 中 | 可选                                                 |
+| ENCRYPT_PASSWORD             | 数据的加密密钥                                               | 可选。和 dexp 中的ENCRYPT_PASSWORD 设置的密钥一样    |
+| ENCRYPT_NAME                 | 数据的加密算法的名称                                         | 可选。和 dexp 中的ENCRYPT_NAME 设置的加密算法一样    |
+| SHOW/ DESCRIBE               | 打印出指定文件的信息 （N）                                   | 可选                                                 |
+| TASK_THREAD_NUMBER           | 用于设置 dmfldr 处理用户数据的线程数目                       | 可选                                                 |
+| BUFFER_NODE_SIZE             | 用于设置 dmfldr 读入文件缓冲区大小                           | 可选                                                 |
+| TASK_SEND_NODE_NUMBER        | 用于设置 dmfldr 发送节点个数，取值范围 16~65535              | 可选                                                 |
+| LOB_NOT_FAST_LOAD            | 如果一个表含有大字段，则不使用 dmfldr（N）                   | 可选                                                 |
+| PRIMARY_CONFLICT             | 主键冲突的处理方式，默认报错                                 | 可选                                                 |
+| TABLE_FIRST                  | 是否强制先导入表（N）。Y表示先导入表，N正常导入              | 可选                                                 |
+| SHOW_SERVER_INFO             | 是否显示服务器信息 （N）<br />Y 表示显示导出文件对应服务器信息，实际不导入<br />N 表示不显示导出文件对应服务器信息，正常导入 | 可选                                                 |
+| IGNORE_INIT_PARA             | 指定源库和目标库之间忽略差异的建库参数（0）。<br />0：不忽略建库参数差异<br />1：忽略CASE_SENSITIVE<br />2：忽略LENGTH_IN_CHAR<br />3：忽略 CASE_SENSITIVE 和 LENGTH_IN_CHAR | 可选                                                 |
+| AUTO_FREE_KEY                | 导入数据完成后, 是否释放密钥（N）。Y：是，N：否              | 可选                                                 |
+| REMAP_TABLE                  | 格式：`SOURCE_TABLE:TARGET_TABLE`<br />将 SOURCE_TABLE 中的数据导入到 TARGET_TABLE 中 | 可选                                                 |
+| REMAP_TABLESPACE             | 格式：`SOURCE_TABLESPACE:TARGET_TABLESPACE` <br />将 SOURCE_TABLESPACE 表空间映射到 TARGET_TABLESPACE 表空间中 | 可选                                                 |
+| SIMPLE_LOG                   | 导入日志是否使用简要日志（N）                                | 可选                                                 |
+| DATA_ONLY                    | 是否只导入表数据（N）                                        | 可选                                                 |
+| INDEX_OPTION                 | 使用快速装载时索引的设置选项（2）。<br />1：不刷新二级索引，数据按照索引先排序，装载完后再将排序的数据插入索引<br />2：不刷新二级索引，数据装载完成重建后所有二级索引；刷新二级索引，数据装载的同时将数据插入二级索引 | 可选                                                 |
+| CTRL_INFO                    | 控制信息用来控制一些特殊情况导入（0）。<br />0：不导入表空间定义<br />1：导入表空间定义<br />2：校验导入文件的 MD5 值，并执行导入<br />4：校验导入文件的 MD5 值，但不执行导入<br />8：导入对象时忽略 OR REPLACE 条件 | 可选                                                 |
+| CONFIG_FILE                  | 配置文件路径，配置默认连接串和密码信息                       | 可选                                                 |
+| FILE_VERSION                 | 用于指定将 dmp 文件降级后生成的新 dmp 文件的逻辑版本，有效范围 9~27 | 可选                                                 |
+| HELP                         | 显示帮助信息                                                 | 可选                                                 |
+
+
+
 # 7、升级
 
 ## 7.1、数据库升级
