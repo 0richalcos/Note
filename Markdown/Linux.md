@@ -1200,7 +1200,7 @@ mkdir [-p] dirName
 mkdir orichalcos
 ```
 
-在当前目录下的 orichalcos2 目录中，建立一个名为 test 的子目录了，若 orichalcos2 目录原本不存在，则建立一个：
+在当前目录下的 orichalcos2 目录中，建立一个名为 test 的子目录，若 orichalcos2 目录原本不存在，则建立一个：
 
 ```
 mkdir -p orichalcos2/test
