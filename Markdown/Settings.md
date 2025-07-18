@@ -1,4 +1,4 @@
-# Windows 11
+# Windows
 
 ## 【1】默认管理员权限
 
@@ -662,7 +662,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
    <img src="!assets/IDE&Windows/image-20250311145752871.png" alt="image-20250311145752871" style="zoom: 50%;" />
 
-2. 输入密码，这里不要勾选【记住我的凭证】：
+2. 输入密码：
 
    <img src="!assets/IDE&Windows/image-20250311145921041.png" alt="image-20250311145921041" style="zoom: 50%;" />
 
@@ -1536,7 +1536,7 @@ append-proxy-groups: []
 
 
 
-# Windows Server 2022
+# Windows Server
 
 ## 【1】激活
 
