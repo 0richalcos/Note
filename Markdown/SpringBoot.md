@@ -372,7 +372,7 @@ test:
 
 ## 3.2、获取配置文件属性
 
-### 3.2.1、@Value
+### 3.2.1、Value
 
 `@Value` 可修饰到任一变量获取，使用较灵活。
 
@@ -413,7 +413,7 @@ public class ConfigByValueAnnotation {
 
 
 
-### 3.2.2、@ConfigurationProperties
+### 3.2.2、ConfigurationProperties
 
 `@ConfigurationProperties` 告诉 SpringBoot 将本类中的所有属性和配置文件中相关的配置进行绑定，参数 `prefix = "xxx"`：将配置文件中 `xxx` 下面的属性一一对应。
 
@@ -437,7 +437,7 @@ public class ConfigByValueAnnotation {
 
 
 
-**自定义的 Bean 使用**
+#### 自定义的 Bean 使用
 
 1. 编写 `Dog` 类：
 
@@ -514,7 +514,7 @@ public class ConfigByValueAnnotation {
 
 
 
-**第三方 Bean 使用**
+#### 第三方 Bean 使用
 
 自定义 Bean 的 `@ConfigurationProperties` 注解是写在类定义的上方，而第三方开发的 Bean 源代码不是我们自己写的，我们也不可能到源代码中去添加 `@ConfigurationProperties` 注解，所以这里需要换种方法处理。
 
@@ -550,11 +550,14 @@ public class ConfigByValueAnnotation {
 
 
 
-**@EnableConfigurationProperties**
+#### EnableConfigurationProperties
 
-`@EnableConfigurationProperties` 将标注了 `@ConfigurationProperties` 注解的类注入到 Spring 容器中。
+`@EnableConfigurationProperties` 注解是 Spring Boot 中用于启用 `@ConfigurationProperties` 注解配置绑定的一种机制，主要作用是让标注了 `@ConfigurationProperties` 的类生效，并将配置文件中的属性绑定到该类的字段上。
 
-该注解是用来开启对 `@ConfigurationProperties` 注解的支持，也就是说， `@EnableConfigurationProperties` 注解告诉 Spring 容器能支持 `@ConfigurationProperties` 注解。
+举个例子：你定义了一个配置类并用 `@ConfigurationProperties(prefix = "xxx")` 注解它，Spring 并不会自动将它注册为一个 Bean，除非：
+
+- 手动加上 `@Component`。
+- 或者在某个 `@Configuration` 类上加 `@EnableConfigurationProperties(YourProperties.class)`。
 
 一般情况下会定义两个文件，一个用于绑定 application.yml 中的配置信息，一个用于定义配置类：
 
@@ -589,6 +592,7 @@ public class ConfigByValueAnnotation {
    // 开启属性文件绑定功能
    @EnableConfigurationProperties(DroolsProperties.class)
    public class DroolsConfig {
+       
        @Bean
        @ConditionalOnMissingBean(name = "kieTemplate")
        public KieTemplate kieTemplate(DroolsProperties droolsProperties) {
@@ -610,13 +614,16 @@ public class ConfigByValueAnnotation {
    }
    ```
 
-> [!NOTE]
->
-> 如果你已经使用了 `@EnableConfigurationProperties`，就不需要在 Properties 类上加 `@Component`。
+推荐使用 `@EnableConfigurationProperties` 配合 `@ConfigurationProperties`，因为它可以把配置类从 Spring 管理中解耦，避免把纯粹的配置类变成组件：
+
+- 如果配置类是 “纯数据承载”，不包含业务逻辑，用 `@EnableConfigurationProperties` 更清晰。
+- 如果配置类中还要注入其他 Bean，可以直接用 `@Component`。
 
 
 
-### 3.2.3、@PropertySource
+
+
+### 3.2.3、PropertySource
 
 `@PropertySource` 是 Spring 的注解，用于加载指定的属性文件的配置到 Spring 的 Environment 中，可以配合 `@Value` 和 `@ConfigurationProperties` 使用。
 
