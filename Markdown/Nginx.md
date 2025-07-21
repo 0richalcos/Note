@@ -152,6 +152,12 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
    ```shell
    sudo systemctl daemon-reload
    ```
+   
+4. 设置开机自启：
+
+   ```shell
+   sudo systemctl enable nginx
+   ```
 
 
 
@@ -188,10 +194,10 @@ cd /usr/local/nginx/sbin/     # 进入目录
 ./nginx -s stop               # 停止
 ./nginx -s quit               # 安全退出
 ./nginx -s reload             # 重载配置文件（修改了配置文件需要执行此命令 比较常用）
+
 ps aux | grep nginx           # 查看ngnix进程
 
-cd /usr/local/nginx/conf      # 进入配置目录
-vim nginx.conf                # 编辑配置文件
+vim /usr/local/nginx/conf/nginx.conf         # 编辑配置文件
 ```
 
 

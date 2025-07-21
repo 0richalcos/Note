@@ -18,15 +18,16 @@ TongWeb 是一款国产、高性能、高可用、安全并兼容 Java EE 标准
 
    假设下载的文件名为 `tongweb-8.1.0-enterprise-linux-x64.tar.gz`。
 
-2. 创建安装目录：
+2. 解压下载的文件：
 
    ```shell
-   mkdir -p /usr/local/tongweb
+   tar -zxvf tongweb-8.1.0-enterprise-linux-x64.tar.gz -C /usr/local/
    ```
 
-3. 解压下载的文件：
+3. 修改安装目录名称：
+
    ```shell
-   tar -zxvf tongweb-8.1.0-enterprise-linux-x64.tar.gz -C /usr/local/tongweb
+   mv /usr/local/tongweb-8.1.0-enterprise-linux-x64 /usr/local/tongweb
    ```
 
 4. 编辑 `/etc/profile` 文件：
@@ -37,7 +38,7 @@ TongWeb 是一款国产、高性能、高可用、安全并兼容 Java EE 标准
    添加以下内容：
 
    ```
-   export TONGWEB_HOME=/opt/tongweb-8.1.0
+   export TONGWEB_HOME=/usr/local/tongweb
    export PATH=$PATH:$TONGWEB_HOME/bin
    ```
 
@@ -50,8 +51,10 @@ TongWeb 是一款国产、高性能、高可用、安全并兼容 Java EE 标准
 6. 安装 TongWeb 服务：
 
    ```shell
-   /usr/local/tongweb/tongweb-8.1.0-enterprise-linux-x64/bin/installservice.sh
+   /usr/local/tongweb/bin/installservice.sh
    ```
+
+   安装完成后会在 `/etc/systemd/system` 目录生成 tongweb.service。
 
 7. 设置开机自启并启动 TongWeb：
 

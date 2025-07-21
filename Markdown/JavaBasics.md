@@ -145,13 +145,13 @@ JDK（Java Development Kit，Java 开发工具包）是一种用于构建在 Jav
    - 解压 tar.gz 压缩包手动安装：
 
      ```shell
-     tar -zxvf jdk-8u381-linux-x64.tar.gz
+     tar -zxvf jdk-8u381-linux-x64.tar.gz -C /usr/local/
      ```
 
-     剪贴到 `/usr/local` 目录下：
+     修改安装目录名称：
 
      ```shell
-     mv jdk1.8.0_381/ /usr/local/
+     mv /usr/local/jdk-8u381-linux-x64 /usr/local/jdk
      ```
 
 
@@ -198,7 +198,7 @@ JDK（Java Development Kit，Java 开发工具包）是一种用于构建在 Jav
 2. 把下面的配置放到文件的最后一行：
 
    ```
-   export JAVA_HOME=/usr/local/jdk1.8.0_381    # 这里设置解压的Java目录文件
+   export JAVA_HOME=/usr/local/jdk    # 这里设置解压的Java目录文件
    export PATH=$JAVA_HOME/bin:$PATH
    export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
    ```
