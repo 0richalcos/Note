@@ -1976,6 +1976,66 @@ Spring Boot 提供了内置的 Tomcat、Undertow、Jetty 三种 Servlet Web 容�
 
 
 
+### 6.1.1、替换 war 包文件
+
+`jar` 命令可以替换 `.jar` 包或 `.war` 包中的文件，`jar` 是 Java 提供的归档工具，用于创建、更新、查看和解压 `.jar`、`.war`、`.ear` 等归档文件。它本质上是对 ZIP 格式的封装。`jar` 的用法：
+
+```shell
+jar <options> <jar-file> [input-files]
+```
+
+- `<options>`：操作选项，必须放在最前。
+  - `c`：创建新的归档文件（create）。
+  - `u`：更新已有的归档文件（update）。
+  - `x`：解压文件（extract）。
+  - `t`：列出归档文件的内容（list）。
+  - `f`：后面跟归档文件名（file）。
+  - `v`：显示详细信息（verbose）。
+  - `m`：指定 manifest 文件（仅用于创建）。
+  - `-C`：先切换到指定目录，再执行后续操作（这个选项不影响命令运行的当前目录，而是用于操作文件的相对路径）。
+- `<jar-file>`：目标 jar/war 文件名。
+- `[input-files]`：要操作的文件或目录。
+
+
+
+**简单示例**
+
+1. 列出 war 中的内容：
+
+   ```shell
+   jar -tvf jenkins.war
+   ```
+
+   如果需要过滤的话：
+
+   ```shell
+   jar -tvf jenkins.war | grep combobox-readme
+   ```
+
+   会得到类似这样的输出：
+
+   ```
+   1392 Wed Jul 28 14:13:10 CST 2021 scripts/combobox-readme.txt
+   ```
+
+2. 提取某个 war 包中的文件：
+
+   ```shell
+   jar -xvf jenkins.war scripts/combobox-readme.txt
+   ```
+
+3. 更新 war 中的某个文件：
+
+   ```shell
+   jar -uvf jenkins.war scripts/combobox-readme.txt
+   ```
+
+   > [!NOTE]
+   >
+   > 往 war 包中新增文件也是使用这个参数。
+
+
+
 ## 6.2、jar
 
 在项目根目录下找到 pom.xml 文件，确保其中包含了 spring-boot-maven-plugin 插件，如果没有的话需要添加：
@@ -2050,7 +2110,7 @@ java -jar your-project-name.jar
 
 
 
-### 6.2.3、使用 TongWeb
+### 6.2.2、使用 TongWeb
 
 1. 在东方通官网申请嵌入版试用，我这里拿到的是 TongWeb8.0.E.3_P2，解压后打开 “安装工程介质” 文件夹：
 
