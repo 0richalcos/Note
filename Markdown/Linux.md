@@ -531,6 +531,16 @@ IP地址 主机名或域名 [主机的别名] [主机的别名]....
 
 
 
+### 2.4.2、/etc/systemd/system
+
+在一般的使用场景下，每一个 Unit（服务等） 都有一个配置文件，告诉 Systemd 怎么启动这个 Unit 。
+
+Systemd 默认从目录 `/etc/systemd/system/` 读取配置文件。但是，里面存放的大部分文件都是符号链接，指向目录 `/usr/lib/systemd/system/`，真正的配置文件存放在这个目录。
+
+虽然在 `/etc/systemd/system/` 目录下放置的是系统管理员安装的单元，但是实际使用过程中，用户可以自定义服务配置文件，并且放置在该目录，将该服务的配置文件的优先级提高。
+
+
+
 # 3、系统远程操作
 
 Linux 一般作为服务器使用，而服务器一般放在机房，你不可能在机房操作你的 Linux 服务器。这时我们就需要远程登录到 Linux 服务器来管理维护系统。Linux 系统中是通过 SSH 服务实现的远程登录功能，默认 SSH 服务端口号为 22。
@@ -3532,18 +3542,57 @@ systemd 核心概念 unit（单元）类型：unit 表示不同类型的 systemd
 可以使用 `-t` 加上类型去查看，以 `service` 为例
 
 ```shell
-ststemctl -t service
+systemctl -t service
 ```
 
 
 
 ### 9.3.1、systemd 配置文件
 
-- `/usr/lib/systemd/system/`：每个服务最主要的启动脚本的配置放在这，有点类似以前的 `/etc/init.d`。
-- `/run/systemd/system/`：系统执行过程中所产生的服务脚本所在目录，这些脚本的优先级要比 `/usr/lib/systemd/system/`高。
-- `/etc/systemd/system/`：管理员根据主机系统的需求所创建的执行脚本所在目录，执行优先级比 `/run/systemd/system/`高。
+systemd 的使用大幅提高了系统服务的运行效率，而 unit 的文件位置一般主要有三个目录：
 
-从上面的功能及优先级次序，我们可以知道 `/etc/systemd/system/` 目录下的相关配置，决定系统了会不会执行某些服务，所以该目录下面一般放着一大堆链接文件。而 `/usr/lib/systemd/system/` 下，则放着实际执行的 systemd 启动脚本配置文件。因此如果你想要修改某个服务启动的设置，应该去 `/usr/lib/systemd/system/` 下面修改。`/etc/systemd/system/` 仅是链接到正确的执行脚本配置文件而已。所以想要看执行脚本设置，应该就得要到 `/usr/lib/systemd/system/` 去查阅。
+- `/usr/lib/systemd/system/`：每个服务最主要的启动脚本的配置放在这，有点类似以前的 `/etc/init.d`。
+- `/run/systemd/system/`：系统执行过程中所产生的服务脚本所在目录。
+- `/etc/systemd/system/`：管理员根据主机系统的需求所创建的执行脚本所在目录。
+
+这三个目录的配置文件优先级依次从高到低，如果同一选项三个地方都配置了，优先级高的会覆盖优先级低的。
+
+
+
+**/usr/lib/systemd/system/**
+
+系统安装时，默认会将 unit 文件放在 `/usr/lib/systemd/system`目录。如果我们想要修改系统默认的配置，比如 `nginx.service`，一般有两种方法：
+
+- 在 `/etc/systemd/system` 目录下创建 `nginx.service` 文件，里面写上我们自己的配置。
+- 在 `/etc/systemd/system` 下面创建 `nginx.service.d` 目录，在这个目录里面新建任何以 `.conf` 结尾的文件，然后写入我们自己的配置。（推荐这种做法）
+
+
+
+**/run/systemd/system/**
+
+`/run/systemd/system` 这个目录一般是进程在运行时动态创建 unit 文件的目录，一般很少修改，除非是修改程序运行时的一些参数时，即 Session 级别的，才在这里做修改。
+
+
+
+**/etc/systemd/system/**
+
+Systemd 默认从目录 `/etc/systemd/system/` 读取配置文件，里面存放的大部分文件都是符号链接，指向目录 `/usr/lib/systemd/system/`。
+
+`systemctl enable` 命令用于在上面两个目录之间，建立符号链接关系：
+
+```shell
+systemctl enable clamd@scan.service
+# 等同于
+ln -s '/usr/lib/systemd/system/clamd@scan.service' '/etc/systemd/system/multi-user.target.wants/clamd@scan.service'
+```
+
+如果配置文件里面设置了开机启动，`systemctl enable` 命令相当于激活开机启动。
+
+与之对应的，`systemctl disable` 命令用于在两个目录之间撤销符号链接关系，相当于撤销开机启动：
+
+```shell
+systemctl disable clamd@scan.service
+```
 
 
 
