@@ -1500,7 +1500,7 @@ tar [OPERATION_AND_OPTIONS] [ARCHIVE_NAME] [FILE_NAME(s)]
   - `-Z`：有 compress 属性的。
   - `-v`/`--verbose`：打印 `tar` 命令正在处理的文件的信息。
   - `-O`：将文件解开到标准输出。
-  - `-C`/`--directory`：指定解压目录。
+  - `-C`/`--directory`：先切换到指定目录，再执行后续操作（这个选项不影响命令运行的当前目录，而是用于操作文件的相对路径）。
 
 - 下面的参数 `-f` 是必须的：
 
