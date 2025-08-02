@@ -1319,73 +1319,63 @@ Spring Boot 的优先级规则遵循一个核心原则：“离应用越近的�
 
 
 
-# 4、JSR303 数据校验
+# 4、数据校验
 
-数据的校验的重要性就不用说了，即使在前端对数据进行校验的情况下，我们还是要对传入后端的数据再进行一遍校验，避免用户绕过浏览器直接通过一些 HTTP 工具直接向后端请求一些违法数据。
+数据校验是构建健壮后端服务的基石。即便前端已实施校验，后端校验依然是不可或缺的最后一道防线，它可以有效防止恶意用户通过 API 工具直接提交非法或脏数据。
 
-最普通的做法就像下面这样。我们通过 `if/else` 语句对请求的每一个参数一一校验。
+传统的 if/else 手动校验方式，虽然直观，但存在明显的弊端：
 
 ```java
-@RestController
-@RequestMapping("/api/person")
-public class PersonController {
-
-    @PostMapping
-    public ResponseEntity<PersonRequest> save(@RequestBody PersonRequest personRequest) {
-        if (personRequest.getClassId() == null
-                || personRequest.getName() == null
-                || !Pattern.matches("(^Man$|^Woman$|^UGM$)", personRequest.getSex())) {
-
-        }
-        return ResponseEntity.ok().body(personRequest);
-    }
+// 不推荐的写法
+if (personRequest.getName() == null || personRequest.getName().isEmpty()) {
+    // 错误处理...
+}
+if (personRequest.getAge() <= 0) {
+    // 错误处理...
 }
 ```
 
-但是，不太建议这样来写，这样的代码明显违背了单一职责原则。大量的非业务代码混杂在业务代码中，非常难以维护，还会导致业务层代码冗杂！
-
-实际上，我们是可以通过一些简单的手段对上面的代码进行改进的，比如使用 JSR303~
+这种代码严重违反了单一职责原则，将校验逻辑与业务逻辑紧密耦合，导致业务代码臃肿、可读性差、难以维护。JSR-380 为我们提供了一套声明式、可扩展且与业务逻辑解耦的优雅解决方案。
 
 
 
 ## 4.1、简介
 
-JSR-303 是 JAVA EE 6 中的一项子规范，叫做 Bean Validation，官方参考实现是 Hibernate Validator。
+JSR-380，即 Bean Validation 2.0，是作为 Java EE 8 规范的一部分发布的，它是广受欢迎的 JSR-303 的正式继任者。其官方参考实现依然是强大的 Hibernate Validator。
 
-Hibernate Validator 官网介绍：
+该规范的核心思想是将数据校验规则作为元数据（通过注解）附加到模型对象上，从而将校验逻辑从业务代码中分离出来。
 
-验证数据是一项常见任务，它发生在从表示层到持久层的所有应用程序层中。通常在每一层都实现相同的验证逻辑，这既耗时又容易出错。为了避免重复这些验证，开发人员经常将验证逻辑直接捆绑到域模型中，将域类与验证代码混在一起，而验证代码实际上是关于类本身的元数据。
+相较于 JSR-303，JSR-380 带来了多项重要的增强和新特性：
 
-<img src="!assets/SpringBoot/application-layers.png" alt="application layers" style="" />
-
-Jakarta Bean Validation 2.0 - 为实体和方法验证定义了元数据模型和 API。默认元数据源是注释，能够通过使用 XML 覆盖和扩展元数据。API 不依赖于特定的应用程序层或编程模型。它特别不依赖于 Web 或持久层，并且可用于服务器端应用程序编程以及富客户端 Swing 应用程序开发人员。
-
-<img src="!assets/SpringBoot/application-layers2.png" alt="application layers2" style="" />
+- 全面支持 Java 8 类型：可以直接在 `Optional`、`LocalDate`、`LocalDateTime` 等 Java 8 新类型上进行校验。
+- 新增内置约束注解：引入了 `@Email`、`@NotEmpty`、`@NotBlank`、`@Positive`、`@PositiveOrZero`、`@Negative`、`@NegativeOrZero`、`@PastOrPresent` 和 `@FutureOrPresent` 等实用注解，覆盖了更多通用校验场景。
+- 容器元素校验：这是 JSR-380 的一大亮点，允许直接对集合、Map 或数组中的元素进行校验，例如 `List<@NotBlank String> names`。
+- 更强大的 API：提供了更灵活的 API 用于动态配置约束和自定义校验。
 
 
 
 ## 4.2、快速开始
 
+在 Spring Boot 项目中启用 JSR-380 非常简单。
+
 导入依赖：
 
 ```xml
 <dependency>
-   <groupId>org.springframework.boot</groupId>
+    <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-validation</artifactId>
 </dependency>
 ```
 
-在Spring Boot 2.3 1 之前，`spring-boot-starter-validation` 包括在了 `spring-boot-starter-web` 中，但如果使用的 Spring Boot 版本大于2.3.1，比如我当前使用的是 2.7.1，那么就必须手动添加依赖 `spring-boot-starter-validation`。
+在 Spring Boot 2.3 之前的版本中，`spring-boot-starter-validation` 默认包含在 `spring-boot-starter-web` 中。从 Spring Boot 2.3 开始，需要显式地手动添加此依赖。
 
 
 
 ### 4.2.1、验证 Controller 的输入
 
-**验证请求体**
+#### 验证请求体
 
-验证请求体即是验证被 `@RequestBody` 注解标记的方法参数。
-
-我们在需要验证的参数上加上 `@Valid` 注解，如果验证失败，它将抛出 `MethodArgumentNotValidException`。默认情况下，Spring 会将此异常转换为 HTTP Status 400（错误请求）：
+验证被 `@RequestBody` 注解标记的请求体是最常见的场景。只需在参数上添加 `@Valid` 注解，如果验证失败，Spring 将抛出 `MethodArgumentNotValidException` 异常，并默认返回 HTTP 400（Bad Request）状态码。
 
 ```java
 @RestController
@@ -1394,94 +1384,65 @@ public class PersonController {
 
     @PostMapping
     public ResponseEntity<PersonRequest> save(@RequestBody @Valid PersonRequest personRequest) {
+        // 业务逻辑
         return ResponseEntity.ok().body(personRequest);
     }
 }
 ```
 
-> 注意：这里开启 Spring 数据校验使用 `@Validated` 也可以。
+> [!NOTE]
+>
+> 此处使用 Spring 的 `@Validated` 注解也可以达到同样的效果。
 
-使用校验注解对请求的参数进行校验：
+在 `PersonRequest` DTO 中，我们可以使用 JSR-380 提供的标准注解来声明校验规则：
 
 ```java
 @Data
 public class PersonRequest {
 
-    @NotNull(message = "classId 不能为空")
+    @NotBlank(message = "classId 不能为空")
     private String classId;
 
-    @Size(max = 33)
-    @NotNull(message = "name 不能为空")
+    @NotBlank(message = "name 不能为空")
+    @Size(max = 33, message = "name 长度不能超过33")
     private String name;
 
-    @Pattern(regexp = "(^Man$|^Woman$|^UGM$)", message = "sex 值不在可选范围")
+    @Pattern(regexp = "^(Man|Woman|UGM)$", message = "sex 值不在可选范围")
     @NotNull(message = "sex 不能为空")
     private String sex;
 
-}
-```
-
-自定义异常处理器可以帮助我们捕获异常，并进行一些简单的处理：
-
-```java
-@Slf4j
-@RestControllerAdvice
-public class GlobalExceptionHandler {
-    /**
-     * 处理参数校验失败异常
-     * @param exception 异常类
-     * @return 响应
-     */
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResultBean exceptionHandler(MethodArgumentNotValidException exception){
-      //我们主要获取这个接口BindingResult的数据，它就包含了我们使用@RequestBody绑定的参数的所有信息，无论是校验异常错误信息还是JavaBean参数的属性信息
-      BindingResult bindingResult = exception.getBindingResult();
-      
-      Map<String, String> errorMap = new HashMap<>();
-      StringBuffer buffer = new StringBuffer();
-      if(bindingResult.getFieldErrors() != null){
-        for (FieldError fieldError : bindingResult.getFieldErrors()) {
-          String field = fieldError.getField();
-          Object rejectedValue = fieldError.getRejectedValue();
-          String defaultMessage = fieldError.getDefaultMessage();
-          errorMap.put(field, defaultMessage);
-          String msg = String.format("错误字段：%s, 错误值：%s, 原因：%s", field, rejectedValue, defaultMessage);
-          buffer.append(msg);
-          log.warn("错误字段：[{}], 错误值：[{}], 原因：[{}]", field, rejectedValue, defaultMessage);
-        }
-      }
-      return ResultBean.error(buffer.toString(), errorMap, 400);
-    }
+    @Email(message = "必须为有效的电子邮件地址")
+    private String email;
 }
 ```
 
 
 
-**验证请求参数**
+#### 验证请求参数
 
-这些参数通常被 `@PathVariable` 以及 `@RequestParam` 标记，并且相对于 JavaBean 的参数，我们往往将其称为平铺参数。
-
-我们在需要验证的控制器上加上 `@Validated` 注解，如果验证失败，那么会抛出 `ConstraintViolationException` 异常：
+对于通过 `@PathVariable` 或 `@RequestParam` 传入的 “平铺” 参数，需要在 Controller 类上添加 `@Validated` 注解来启用校验。如果验证失败，将抛出 `ConstraintViolationException` 异常。
 
 ```java
 @RestController
 @RequestMapping("/api/person")
-@Validated
+@Validated // 必须在类上添加此注解
 public class PersonController {
+
     @GetMapping("/{id}")
-    public ResponseEntity<Integer> getPersonByID(@PathVariable("id") @Max(value = 5, message = "超过 id 的范围了") Integer id) {
+    public ResponseEntity<Integer> getPersonByID(@PathVariable("id") @Max(value = 1000, message = "ID 不能超过1000") Integer id) {
         return ResponseEntity.ok().body(id);
     }
 
-    @PutMapping("/{name}")
-    public ResponseEntity<String> getPersonByName(@RequestParam("name") @Size(max = 6, message = "超过 name 的范围了") String name) {
+    @GetMapping
+    public ResponseEntity<String> getPersonByName(@RequestParam("name") @Size(max = 10, message = "name 长度不能超过10") String name) {
         return ResponseEntity.ok().body(name);
     }
 }
 ```
 
-> 注意：这里用 `@Valid` 注解是不行的，因为它要求待校验的入参是 JavaBean，所以如果需要校验平铺参数，请使用 `@Validated` 开启 Spring 自动参数校验。
+> [!WARNING]
+>
+> 在这种场景下，`@Valid` 注解是无效的，因为它主要用于触发对复杂对象（JavaBean）的校验。
 
 处理平铺参数校验失败：
 
@@ -1502,30 +1463,34 @@ public ResultBean exceptionHandler(ConstraintViolationException exception){
 
 ### 4.2.2、验证 Service 中的方法
 
-我们不仅可以使用 `@Validated` 和 `@Valid` 验证 Controller 组件，也可以验证其他 Spring 管理的组件，比如 Service，不过 Controller 一般不提供接口，而 Service 一般是面向接口编程，所以需要额外注意一些情况。
+我们也可以在 Service 层或其他 Spring Bean 中进行方法级别的校验。当使用接口编程时，推荐将校验注解定义在接口上。
 
-在实现类中重定义接口方法的参数校验配置会失败且会报错：`javax.validation.ConstraintDeclarationException: HV000151: A method overriding another method must not redefine the parameter constraint configuration`，这个异常信息也告诉我们：参数的校验配置应该写在接口方法中，并且实现类不能修改配置，要么保持一样，要么可以不用写参数校验配置。
+在实现类的方法中重定义参数约束会引发 `ConstraintDeclarationException` 异常。因此，约束应在接口中声明，实现类必须遵循该约束。
 
-在非 Controller 组件中，像 Service，必须组合使用 `@Validated` 和 `@Valid`，其中 `@Validated` 作为类注解、`@Valid` 作为方法参数注解 JavaBean，这样参数校验才会生效，并且它产生的异常是 `ConstraintViolationException`，这个跟之前 Controller 中的平铺参数校验产生的异常是相同的，这个异常没有继承 `BindException` 接口，相对而言它的错误不好像 `BindException` 和 `MethodArgumentNotValidException` 那样处理：
+在非 Controller 组件中，通常需要组合使用 `@Validated` 和 `@Valid`。`@Validated` 作用于类上，`@Valid` 作用于需要校验的 JavaBean 参数上。抛出的异常同样是 `ConstraintViolationException`：
 
 ```java
-@Validated
+@Validated // 推荐放在接口上
 public interface PersonService {
-    PersonRequest insertPerson(@Valid PersonRequest person);
+    PersonRequest createPerson(@Valid PersonRequest person);
 }
 ```
 
-> 注意：`@Validated` 可以放在接口中，也可以放在实现类中，不过我一般放在接口中
-
-如果方法参数是平铺参数，那么只要加 `@Validated` 就行了：
+如果方法参数是平铺参数，则只需在接口或实现类上添加 `@Validated` 注解即可：
 
 ```java 
 @Service
+@Validated
 public class PersonServiceImpl implements PersonService {
     @Override 
-    public PersonRequest insertPerson(@NotNull @Min(10) Integer id, @NotNull String name) { 
-        return null; 
-    } 
+    public PersonRequest createPerson(@Valid PersonRequest person) {
+        // ...
+        return person;
+    }
+
+    public void updatePersonAge(@NotNull @Positive Integer id, @NotNull @Positive Integer age) {
+        // ...
+    }
 }
 ```
 
@@ -1541,189 +1506,296 @@ public ResultBean exceptionHandler(ConstraintViolationException exception){
 
 
 
-## 4.3、级联校验和手动校验
+### 4.2.3、全局异常处理器
 
-**级联校验**
+通过全局异常处理器，我们可以捕获校验异常，并返回统一格式的错误信息：
 
-级联校验关键点在于 `@Valid`，级联校验的意思是 JavaBean 内部有其他 JavaBean 需要验证，那么这个 JavaBean 就需要加`@Valid` 注解，并且只能用 `@Valid`，因为它可以标记字段，`@Validatd` 不行：
+```java
+@Slf4j
+@RestControllerAdvice // 这个注解足以处理所有在Web请求处理过程中抛出的异常
+public class GlobalExceptionHandler {
+
+    /**
+     * 处理 @RequestBody 参数校验失败 (POST, PUT请求等)
+     * 当校验失败时，抛出 MethodArgumentNotValidException
+     * @param exception 异常类
+     * @return 响应
+     */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResultBean handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
+        BindingResult bindingResult = exception.getBindingResult();
+        
+        Map<String, String> errorMap = new HashMap<>();
+        StringBuilder buffer = new StringBuilder();
+
+        for (FieldError fieldError : bindingResult.getFieldErrors()) {
+            String field = fieldError.getField();
+            Object rejectedValue = fieldError.getRejectedValue();
+            String defaultMessage = fieldError.getDefaultMessage();
+            errorMap.put(field, defaultMessage);
+            String msg = String.format("错误字段：%s, 错误值：%s, 原因：%s; ", field, rejectedValue, defaultMessage);
+            buffer.append(msg);
+            log.warn("请求体校验失败 -> 错误字段：[{}], 错误值：[{}], 原因：[{}]", field, rejectedValue, defaultMessage);
+        }
+        
+        return ResultBean.error(buffer.toString(), errorMap, 400);
+    }
+
+    /**
+     * 处理 "平铺" 参数校验失败 (@RequestParam, @PathVariable)
+     * 也处理在 Service 层中因 @Validated 触发的校验失败
+     * 当这些校验失败时，抛出 ConstraintViolationException
+     * @param exception 异常类
+     * @return 响应
+     */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResultBean handleConstraintViolation(ConstraintViolationException exception) {
+        // ConstraintViolationException 的错误信息格式通常是 "方法名.参数名: 错误信息"
+        // 我们可以直接使用它的 message
+        log.warn("参数校验失败: {}", exception.getMessage());
+        return ResultBean.error(exception.getMessage(), 400);
+    }
+}
+```
+
+> [!NOTE]
+>
+> Service 层抛出了 `ConstraintViolationException` 异常，但由于它是在处理一个 Web 请求的生命周期中被抛出并传播到了 Controller 层之外，因此，为 Controller "服务"的 `@RestControllerAdvice` 完全有能力捕获并处理它。
+
+
+
+## 4.3、进阶校验场景
+
+### 4.3.1、级联校验
+
+级联校验允许我们校验一个对象中嵌套的另一个对象。其关键在于对嵌套对象的字段使用 `@Valid` 注解。`@Validated` 注解不能用于字段级别，因此此处必须使用 `@Valid`：
 
 ```java
 @Data
 public class PersonRequest {
 
-  @NotNull(message = "classId 不能为空")
-  private String classId;
+    @NotBlank(message = "classId 不能为空")
+    private String classId;
 
-  @Pattern(regexp = "(^Man$|^Woman$|^UGM$)", message = "sex 值不在可选范围")
-  @NotNull(message = "sex 不能为空")
-  private String sex;
+    // ... 其他字段
 
-  @Valid //让InnerChild的属性也参与校验
-  @NotNull
-  private InnerChild child;     //内部的JavaBean
+    @Valid // 标记此字段，使其内部的校验规则生效
+    @NotNull
+    private InnerChild child;
 
-  @Getter
-  @Setter
-  @ToString
-  public static class InnerChild {
-    @Size(max = 33)
-    @NotNull(message = "name 不能为空")
-    private String name;
+    @Data
+    public static class InnerChild {
+        @NotBlank(message = "name 不能为空")
+        @Size(max = 33)
+        private String name;
 
-    @NotNull(message = "年龄不能为空")
-    @Positive(message = "年龄只能为正数")
-    private Integer age;
-  }
+        @NotNull(message = "年龄不能为空")
+        @Positive(message = "年龄必须为正数")
+        private Integer age;
+    }
 }
 ```
 
 
 
-**手动校验**
+### 4.3.2、手动校验
 
-某些场景下可能会需要我们手动校验并获得校验结果。
-
-可以通过 `Validator` 工厂类可以获得的 `Validator` 示例，如果是在 Spring Bean 中的话，还可以通过 `@Autowired` 直接注入的方式：
+在某些非 Spring 管理的环境或特殊场景下，我们需要手动触发校验。可以通过 `Validation` 工厂获取一个 `Validator` 实例。如果在 Spring 环境中，可以直接注入 `Validator`：
 
 ```java
 @Autowired
 private Validator validate;
 ```
 
-具体使用情况如下：
+手动校验的使用示例如下：
 
 ```java
-/**
- * 手动校验对象
- */
-@Test
-public void check_person_manually() {
-    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-    Validator validator = factory.getValidator();
-    PersonRequest personRequest = PersonRequest.builder().sex("Man22")
-            .classId("82938390").build();
+public void checkPersonManually() {
+    // 非 Spring 环境下获取 Validator
+    // ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+    // Validator validator = factory.getValidator();
+    
+    PersonRequest personRequest = new PersonRequest();
+    personRequest.setClassId(""); // 故意设置非法值
+    personRequest.setName("John Doe");
+
     Set<ConstraintViolation<PersonRequest>> violations = validator.validate(personRequest);
-    violations.forEach(constraintViolation -> System.out.println(constraintViolation.getMessage()));
-}
-```
 
-输出结果如下：
-
-```
-sex 值不在可选范围
-name 不能为空
-```
-
-
-
-## 4.4、自定义 Validator
-
-虽然在 Spring Boot 中已经提供了非常多的预置注解，用以解决在日常开发工作中的各类内容，但是在特定情况仍然存在某些场景，无法满足需求，需要自行定义相关的 Validator。
-
-比如我们现在多了这样一个需求：`PersonRequest` 类多了一个 `Region` 字段，`Region` 字段只能是 China、China-Taiwan、China-HongKong 这三个中的一个。
-
-首先需要创建一个注解 `Region`：
-
-```java
-@Target({FIELD})
-@Retention(RUNTIME)
-@Constraint(validatedBy = RegionValidator.class)
-@Documented
-public @interface Region {
-
-    String message() default "Region 值不在可选范围内";
-
-    Class<?>[] groups() default {};
-
-    Class<? extends Payload>[] payload() default {};
-}
-```
-
-自定义约束注解需要 `@Constraint` 修饰，必须包含 `message`、`groups`、`payload` 三个属性：
-
-- `@Constraint`：设置自定义验证器
-- `message`：定制化的提示信息，主要是从 `ValidationMessages.properties` 里提取，也可以依据实际情况进行定制
-- `groups`：这里主要进行将 Validator 进行分类，不同的类 group 中会执行不同的 Validator 操作
-- `payload`：主要是针对 Bean 的，使用不多。
-
-编写自定义验证器 `RegionValidator` 实现 `ConstraintValidator` 接口，并重写 `isValid` 方法：
-
-```java
-public class RegionValidator implements ConstraintValidator<Region, String> {
-
-    @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
-        HashSet<Object> regions = new HashSet<>();
-        regions.add("China");
-        regions.add("China-Taiwan");
-        regions.add("China-HongKong");
-        return regions.contains(value);
+    if (!violations.isEmpty()) {
+        for (ConstraintViolation<PersonRequest> violation : violations) {
+            System.out.println(violation.getPropertyPath() + ": " + violation.getMessage());
+        }
     }
 }
 ```
 
-现在你就可以使用这个注解：
-
-```java
-@Region
-private String region;
-```
 
 
+## 4.4、自定义校验器
 
-## 4.5、常用注解总结
+虽然内置注解功能丰富，但在真实业务场景中，我们经常需要根据数据库中的数据来动态决定校验结果。例如，在创建订单时，我们需要确保指定的 username 是系统中已注册的有效用户。
 
-**常用校验注解**
+一个常见的问题是，`ConstraintValidator` 的实例默认是由 JPA/Hibernate 的 `ValidatorFactory` 创建的，它并不知道 Spring 的应用上下文，因此直接在校验器中使用 `@Autowired` 注入 UserRepository 或 UserService 会导致 `NullPointerException`。
 
-JSR303 定义了 Bean Validation（校验）的标准 validation-api，并没有提供实现。Hibernate Validation 是对这个规范的实现，并且增加了 `@Email`、`@Length`、`@Range` 等注解。Spring Validation 底层依赖的就是 Hibernate Validation。
+幸运的是，Spring Boot 已经为我们解决了这个问题。 它会自动配置一个 `SpringConstraintValidatorFactory`，该工厂在创建校验器实例时会利用 Spring 的依赖注入功能。这使得我们可以在自定义校验器中像在其他任何 Spring Bean 中一样，无缝地注入所需的依赖。
 
-JSR 提供的校验注解:
+1. 实现校验器 `UserExistsValidator`，实现 `ConstraintValidator` 接口，并直接通过构造函数或字段注入 UserRepository：
 
-- `@Null`：被注释的元素必须为 `null`
-- `@NotNull`：被注释的元素必须不为 `null`
-- `@AssertTrue`：被注释的元素必须为 `true`
-- `@AssertFalse`：被注释的元素必须为 `false`
-- `@Min(value)`：被注释的元素必须是一个数字，其值必须大于等于指定的最小值
-- `@Max(value)`：被注释的元素必须是一个数字，其值必须小于等于指定的最大值
-- `@DecimalMin(value)`：被注释的元素必须是一个数字，其值必须大于等于指定的最小值
-- `@DecimalMax(value)`：被注释的元素必须是一个数字，其值必须小于等于指定的最大值
-- `@Size(max=, min=)`：被注释的元素的大小必须在指定的范围内
-- `@Digits (integer, fraction)`：被注释的元素必须是一个数字，其值必须在可接受的范围内
-- `@Past`：被注释的元素必须是一个过去的日期
-- `@Future`：被注释的元素必须是一个将来的日期
-- `@Pattern(regex=,flag=)`：被注释的元素必须符合指定的正则表达式
+   ```java
+   import org.springframework.beans.factory.annotation.Autowired;
+   import javax.validation.ConstraintValidator;
+   import javax.validation.ConstraintValidatorContext;
+   
+   // 注意：这个类本身不需要 @Component 注解，Spring 会自动管理它
+   public class UserExistsValidator implements ConstraintValidator<UserExists, String> {
+   
+       private final UserRepository userRepository;
+   
+       // 推荐使用构造函数注入，更清晰地表达了依赖关系
+       @Autowired
+       public UserExistsValidator(UserRepository userRepository) {
+           this.userRepository = userRepository;
+       }
+   
+       /**
+        * 校验逻辑
+        * @param username DTO 中需要被校验的字段值
+        * @param context 校验上下文
+        * @return 如果校验通过则返回 true，否则返回 false
+        */
+       @Override
+       public boolean isValid(String username, ConstraintValidatorContext context) {
+           // 	如果传入的 username 为 null 或为空，不在这里处理。对于非空检查，应该组合使用 @NotNull 或 @NotBlank 注解。
+           if (username == null || username.trim().isEmpty()) {
+               return true;
+           }
+   
+           // 查询数据库，判断用户是否存在
+           return userRepository.existsByUsername(username);
+       }
+   }
+   ```
 
-Hibernate Validator 提供的校验注解：
+2. 创建自定义注解 `@UserExists`，这个注解将用于标记一个字段，表示该字段的值（用户名）必须在用户表中存在。自定义注解需要使用 `@Constraint` 来指定其验证器：
 
-- `@NotBlank(message =)`：验证字符串非 `null`，且长度必须大于 0
-- `@Email`：被注释的元素必须是电子邮箱地址
-- `@Length(min=,max=)`：被注释的字符串的大小必须在指定的范围内
-- `@NotEmpty`：被注释的字符串的必须非空
-- `@Range(min=,max=,message=)`：被注释的元素必须在合适的范围内
+   ```java
+   @Target({FIELD, METHOD, PARAMETER}) // 可用于字段、方法、参数
+   @Retention(RUNTIME)
+   @Documented
+   @Constraint(validatedBy = UserExistsValidator.class) // 指定处理该注解的校验器
+   public @interface UserExists {
+   
+       String message() default "指定的用户不存在";
+   
+       Class<?>[] groups() default {};
+   
+       Class<? extends Payload>[] payload() default {};
+   }
+   ```
+
+3. 在 DTO 中使用注解：
+
+   ```java
+   @Data
+   public class CreateOrderRequest {
+   
+       @NotBlank(message = "订单号不能为空")
+       private String orderId;
+   
+       @NotBlank(message = "必须指定用户名")
+       @UserExists // 使用我们的自定义注解
+       private String username;
+   
+       // ... 其他订单相关字段
+   }
+   ```
+
+   当 `CreateOrderRequest` 在 Controller 中作为 `@RequestBody` 被校验时，如果传入的 username 在数据库中不存在，`UserExistsValidator` 的 `isValid()` 方法会返回 `false`，从而触发一个 `MethodArgumentNotValidException`，并附带我们在注解中定义的错误消息：“指定的用户不存在”。
 
 
 
-**`@Validated` 和 `@Valid` 的区别**
+## 4.5、核心概念总结
 
-1. `@Valid`：标准 JSR-303 规范的标记型注解，用来标记验证属性和方法返回值，进行级联和递归校验
+### 4.5.1、常用注解
 
-   `@Validated`：Spring 的注解，是标准 JSR-303 的一个变种（补充），提供了一个分组功能，可以在入参验证时，根据不同的分组采用不同的验证机制
+JSR-380 (Bean Validation 2.0) 标准化了许多常用的校验注解。
 
-2. 在 Controller 中校验方法参数时，使用 `@Valid` 和 `@Validated` 并无特殊差异（若不需要分组校验的话）
+**空值检查**
 
-   在非 Controller 组件中校验方法参数时，`@Valid` 和 `@Validated` 必须配合使用，其中 `@Validated` 标记组件类，`@Valid` 标记方法参数，如果方法参数是平铺参数，那么只需要用 `@Validated` 标记类组件就行了
-
-3. 相比于 `@Validated`，`@Valid` 可以用在字段级别约束，用来表示级联校验
-
-   相比与 `@Valid`，`@Validated` 可以用于提供分组功能
-
-4. `@Valid` 和 `@Validated` 作为类注解都有一个共同作用：开启 Spring 自动参数校验；但 `@Valid` 作为类注解只能标记 Controller 组件，而 `@Validated` 可以标记除 Controller 组件的其他组件比如 Service
-
+| 注解        | 描述                                               |
+| ----------- | -------------------------------------------------- |
+| `@Null`     | 元素必须为 `null`。                                |
+| `@NotNull`  | 元素不能为 `null`。                                |
+| `@NotBlank` | 字符串不能为 `null` 且必须包含至少一个非空白字符。 |
+| `@NotEmpty` | 集合、Map 或字符串不能为空（`null` 或大小为 0）。  |
 
 
-**特别注意**
 
-`@NotNull(message = “您还未上传任何图像”) MultipartFile multipartFile`：校验 MultipartFile 是否为空，因为 `@NotNull` 直接对它进行标记，某种意义上它应该算平铺参数，所以最终的异常信息是 `ConstraintViolationException`，所以应该使用 `@Validated`。
+**布尔值检查**
+
+| 注解           | 描述                 |
+| -------------- | -------------------- |
+| `@AssertTrue`  | 元素必须为 `true`。  |
+| `@AssertFalse` | 元素必须为 `false`。 |
+
+
+
+**数值检查**
+
+| 注解              | 描述                     |
+| ----------------- | ------------------------ |
+| `@Min(v)`         | 数值必须大于或等于 *v*。 |
+| `@Max(v)`         | 数值必须小于或等于 *v*。 |
+| `@Positive`       | 数值必须为正数。         |
+| `@PositiveOrZero` | 数值必须为正数或零。     |
+| `@Negative`       | 数值必须为负数。         |
+| `@NegativeOrZero` | 数值必须为负数或零。     |
+
+
+
+**日期时间检查**
+
+| 注解               | 描述                   |
+| ------------------ | ---------------------- |
+| `@Past`            | 日期必须在当前之前。   |
+| `@Future`          | 日期必须在当前之后。   |
+| `@PastOrPresent`   | 日期必须在当前或之前。 |
+| `@FutureOrPresent` | 日期必须在当前或之后。 |
+
+
+
+**其他**
+
+| 注解               | 描述                                           |
+| ------------------ | ---------------------------------------------- |
+| `@Size(min, max)`  | 元素（集合、字符串等）的大小必须在指定范围内。 |
+| `@Pattern(regexp)` | 字符串必须匹配指定的正则表达式。               |
+| `@Email`           | 字符串必须是有效的电子邮件格式。               |
+
+
+
+### 4.5.2、@Validated vs @Valid
+
+尽管这两个注解都可以触发校验，但它们之间存在关键区别：
+
+来源与功能：
+
+- `@Valid` 是 JSR-380 的标准注解，只具备基础的校验功能。
+- `@Validated` 是 Spring 提供的注解，是对 `@Valid` 的扩展，最主要的功能是提供了分组校验的能力，允许根据不同场景应用不同的校验规则。
+
+应用位置：
+
+- `@Valid` 可以用在方法参数、构造函数参数、以及字段上。用在字段上时，它起到了级联校验的作用。
+- `@Validated` 主要用在类、方法和方法参数上，但不能用于字段，因此它不具备级联校验的功能。
+
+使用场景：
+
+- 校验请求体（`@RequestBody`）：两者通用（在不使用分组校验时）。
+- 校验平铺参数（`@RequestParam`、`@PathVariable`）：必须在 Controller 类上使用 `@Validated`。
+- 级联校验（校验对象内的嵌套对象）：必须在嵌套对象的字段上使用 `@Valid`。
+- 分组校验：必须使用 `@Validated`。
 
 
 
