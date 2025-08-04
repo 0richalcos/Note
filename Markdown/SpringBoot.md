@@ -685,12 +685,7 @@ public class ConfigByValueAnnotation {
    }
    ```
 
-推荐使用 `@EnableConfigurationProperties` 配合 `@ConfigurationProperties`，因为它可以把配置类从 Spring 管理中解耦，避免把纯粹的配置类变成组件：
-
-- 如果配置类是 “纯数据承载”，不包含业务逻辑，用 `@EnableConfigurationProperties` 更清晰。
-- 如果配置类中还要注入其他 Bean，可以直接用 `@Component`。
-
-
+推荐使用 `@EnableConfigurationProperties` 配合 `@ConfigurationProperties`，因为它可以把配置类从 Spring 管理中解耦，避免把纯粹的配置类变成组件（配置类是 “纯数据承载”，不包含业务逻辑）。
 
 
 
