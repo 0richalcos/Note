@@ -370,9 +370,80 @@ test:
 
 
 
-## 3.2、获取配置文件属性
+## 3.2、配置类
 
-### 3.2.1、Value
+在 Spring Boot 项目中，配置文件（如 `application.yml` 或 `application.properties`）的根本目的，并不仅仅是 “写配置”，而是为了将这些配置项注入到配置类中，从而供系统使用。
+
+换句话说，配置文件只是 “原材料”，真正让它们 “活起来” 的，是通过配置类的属性绑定机制，将配置项映射为 Java 对象字段。
+
+通过配置类，开发者可以实现配置与代码的解耦：配置可以交给运维人员管理，而开发者只需要关注如何使用它们。
+
+
+
+### 3.2.1、Configuration
+
+在 Spring Boot 中，我们通常会使用`@Configuration` 注解表示当前类是一个配置类，Spring 会将其中定义的 Bean 注册到容器中。它不仅用于替代传统 XML 配置，还可以配合属性绑定功能，实现配置项到 Java 对象的映射。
+
+在配置类中，每一个使用 `@Bean` 注解的方法，其返回值都会被注册到 Spring 容器中作为一个 Bean：
+
+```java
+@Configuration
+public class MyConfig {
+
+    @Bean
+    public UserService userService() {
+        return new UserServiceImpl();
+    }
+}
+```
+
+这段代码的效果等同于在 XML 中声明一个 `<bean>`。
+
+> [!NOTE]
+>
+> `@Configuration` 类默认是被 CGLIB 代理的，保证每个 `@Bean` 方法只会执行一次，从而确保返回的是单例 Bean。
+
+
+
+### 3.2.2、ConditionalOnProperty
+
+Spring Boot 提供了 `@ConditionalOnProperty` 注解，用于按条件控制配置类或 Bean 的是否加载。
+
+通常用于控制是否启用某些功能模块：
+
+```java
+@Bean
+@ConditionalOnProperty(name = "feature.xxx.enabled", havingValue = "true")
+public FeatureXService featureXService() {
+    return new FeatureXServiceImpl();
+}
+```
+
+当配置文件中设置了：
+
+```yaml
+feature:
+  xxx:
+    enabled: true
+```
+
+时，`featureXService()` 才会被加载为 Bean，否则不加载。
+
+这种方式非常适合做功能开关、模块级控制、动态启用等场景。
+
+
+
+## 3.3、获取配置文件属性
+
+Spring Boot 常见的属性注入方式有：
+
+- `@Value`
+- `@ConfigurationProperties` 
+- `@PropertySource`
+
+
+
+### 3.3.1、Value
 
 `@Value` 可修饰到任一变量获取，使用较灵活。
 
@@ -413,7 +484,7 @@ public class ConfigByValueAnnotation {
 
 
 
-### 3.2.2、ConfigurationProperties
+### 3.3.2、ConfigurationProperties
 
 `@ConfigurationProperties` 告诉 SpringBoot 将本类中的所有属性和配置文件中相关的配置进行绑定，参数 `prefix = "xxx"`：将配置文件中 `xxx` 下面的属性一一对应。
 
@@ -623,7 +694,7 @@ public class ConfigByValueAnnotation {
 
 
 
-### 3.2.3、PropertySource
+### 3.3.3、PropertySource
 
 `@PropertySource` 是 Spring 的注解，用于加载指定的属性文件的配置到 Spring 的 Environment 中，可以配合 `@Value` 和 `@ConfigurationProperties` 使用。
 
@@ -660,7 +731,7 @@ public class HelloWorldConfig {
 
 
 
-## 3.3、多环境配置
+## 3.4、多环境配置
 
 很多时候，我们项目在开发环境和生成环境的环境配置是不一样的，例如数据库配置，在开发的时候，我们一般用测试数据库，而在生产环境的时候，我们是用正式的数据，这时候，我们可以配置 `profile` 在不同的环境下用不同的配置文件或者不同的配置。
 
@@ -675,7 +746,7 @@ public class HelloWorldConfig {
 
 
 
-### 3.3.1、active
+### 3.4.1、active
 
 SpringBoot 允许你按照命名约定的格式（`application-{profile}.properties`）来定义多个配置文件，然后在`application.properties` 中通过 `spring.profiles.active` 来具体激活一个或者多个配置文件，如果没有没有指定任何 profile 的配置文件的话，SpringBoot 默认会启动`application.properties`。
 
@@ -788,7 +859,7 @@ server:
 
 
 
-### 3.3.2、include
+### 3.4.2、include
 
 我们可以将一些公共的配置单独拿出来，然后其他文件都把这个配置给包含进去。
 
@@ -904,7 +975,7 @@ The properties from spring.profile.include override default properties. The prop
 
 
 
-### 3.3.3、group
+### 3.4.3、group
 
 Spring Boot 2.4 之后增加了 Profile 不能同时使用 `spring.profiles.active` 和 `spring.profiles.include` 的限制，但有个常用的场景，就是可能需要同时使用两个 Profile 配置， 比如线上配置了 MySQL 以及 RabbitMQ：
 
@@ -1000,7 +1071,7 @@ spring:
 
 
 
-### 3.3.4、Maven
+### 3.4.4、Maven
 
 Maven 本身也提供了对多环境的支持，不仅仅支持 Spring Boot 项目，只要是基于 Maven 的项目都可以配置。
 
@@ -1224,7 +1295,7 @@ Maven 中的 `profile` 的激活条件还可以根据 JDK、操作系统、文�
 
 
 
-### 3.3.5、-jar
+### 3.4.5、-jar
 
 在 Spring Boot 中，使用 `-jar` 运行应用时管理多环境配置（如 `dev`、`test`、`prod`）也是一个常见需求。
 
