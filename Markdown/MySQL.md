@@ -552,7 +552,7 @@ service mysql restart
 
 #### 安装数据库
 
-1. 官网下载 MySQL 安装包。
+1. [官网](https://dev.mysql.com/downloads/mysql/) 下载 MySQL 安装包。
 
    因为 openEuler 基于 Red Hat Enterprise Linux 开发而来，所以 OS Version 选择 Red Hat Enterprise Linux 8 / Oracle Linux 8 (ARM, 64-bit)，选择下载 RPM Bundle：
 
@@ -561,7 +561,7 @@ service mysql restart
 2. 将其上传到服务器后，解压：
 
    ```shell
-   tar -xvf mysql-8.0.42-1.el8.aarch64.rpm-bundle.tar
+   tar -xvf ./mysql-8.0.42-1.el8.aarch64.rpm-bundle.tar
    ```
 
 3. 按照如下顺序逐个安装：
@@ -576,12 +576,21 @@ service mysql restart
    rpm -ivh mysql-community-devel-8.0.42-1.el8.aarch64.rpm
    ```
 
-4. 启动服务：
+   > [!TIP]
+   >
+   > 如何安装的时候提示缺少依赖，可以去 [openEuler 软件中心](https://easysoftware.openeuler.org/zh/) 下载系统对应版本的相关依赖。
+
+4. 设置开机自启：
+   ```shell
+   systemctl enable mysqld
+   ```
+
+5. 启动服务：
 
    > [!TIP]
    >
-   > 如果想要修改 MySQL `lower_case_table_names`（大小写敏感）参数，请在执行启动命令前修改 my.cnf 文件配置。
-   
+   > 如果想要修改 MySQL `lower_case_table_names`（大小写敏感）参数，请在执行启动命令前修改 `` 文件配置。
+
    ```shell
    systemctl start mysqld
    ```
@@ -590,20 +599,18 @@ service mysql restart
 
 #### 初始化数据库
 
-1. 获取初始密码并登录。
-
-   获取初始化临时密码：
+1. 获取初始化临时密码：
 
    ```shell
    cat /var/log/mysqld.log | grep password
    ```
-
+   
    用临时密码登录数据库：
 
    ```shell
    mysql -u root -p
    ```
-
+   
 2. 设置自己的密码：
 
    ```sql

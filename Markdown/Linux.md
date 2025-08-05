@@ -666,7 +666,7 @@ firewall-cmd --state
 为了保证安全起见，如果未开启防火墙，请先开启防火墙，命令如下：
 
 ```shell
-systemctl start firewalld.service
+systemctl start firewalld
 ```
 
 
@@ -674,7 +674,7 @@ systemctl start firewalld.service
 **重启防火墙**
 
 ```shell
-systemctl restart firewalld.service
+systemctl restart firewalld
 ```
 
 系统没有任何提示表示成功！
@@ -684,7 +684,7 @@ systemctl restart firewalld.service
 **临时关闭防火墙**
 
 ```shell
-systemctl stop firewalld.service
+systemctl stop firewalld
 ```
 
 
@@ -694,7 +694,7 @@ systemctl stop firewalld.service
 必须先临时关闭防火墙，再执行该命令，进行永久关闭。
 
 ```shell
-systemctl disable firewalld.service
+systemctl disable firewalld
 ```
 
 
@@ -712,8 +712,11 @@ firewall-cmd --list-ports
 例如：开启 8848 端口
 
 ```shell
-firewall-cmd --zone=public --add-port=8848/tcp --permanent
+firewall-cmd --zone=public --permanent --add-port=8848/tcp
 ```
+
+- `--zone=public`：操作 `public` 区域（默认区域，可不加）。
+- `--permanent`：永久保存。
 
 显示 success 表示成功！
 
@@ -722,7 +725,7 @@ firewall-cmd --zone=public --add-port=8848/tcp --permanent
 **关闭指定端口**
 
 ```shell
-firewall-cmd --zone=public --remove-port=8080/tcp --permanent
+firewall-cmd --zone=public --permanent --remove-port=8080/tcp
 ```
 
 显示 success 表示成功！
