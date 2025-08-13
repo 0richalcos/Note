@@ -141,11 +141,29 @@ Redis 是单线程的（6.0 是多线程），因为 Redis 是基于内存操作
 
 ## 2.2、Reids 安装
 
-### 2.2.1、Linxu 环境安装
+### 2.2.1、Linxu
 
-#### 离线安装
+如果嫌麻烦并且服务器可以连接互联网，可以使用在线安装的方式：
 
-**安装**
+```shell
+# 安装redis，安装后redis默认为启动状态
+apt install redis
+
+# 启动redis服务
+redis-server &
+
+# 启动客户端
+redis-cli
+
+# 卸载
+apt purge --auto-remove redis-server
+```
+
+一般服务器主要还是使用离线安装并且手动配置环境。
+
+
+
+#### 安装 Reids
 
 1. 下载源码（服务离线可以使用 SFTP 等工具上传过去）：
 
@@ -156,13 +174,13 @@ Redis 是单线程的（6.0 是多线程），因为 Redis 是基于内存操作
 2. 解压到 `/usr/local` ：
 
    ```shell
-   tar -xzf redis-6.0.5.tar.gz -C /usr/local
+   tar -xzf ./redis-6.0.5.tar.gz -C /usr/local/
    ```
 
 3. 更改文件夹名称为 `redis`：
 
    ```shell
-   mv /usr/local/redis-6.0.5 /usr/local/redis
+   mv /usr/local/redis-6.0.5/ /usr/local/redis/
    ```
 
 4. 进入目录，C/C++ 构建，类似 mvn install，npm build：
@@ -186,13 +204,13 @@ Redis 是单线程的（6.0 是多线程），因为 Redis 是基于内存操作
 
 
 
-**配置 systemd 服务**
+#### 配置 systemd 服务
 
 1. Redis 安装后，默认配置文件位于源码目录中的 redis.conf 文件。可以将其复制到 `/etc/redis/` 目录，并进行自定义配置：
 
    ```shell
-   sudo mkdir /etc/redis
-   sudo cp redis.conf /etc/redis
+   mkdir /etc/redis/
+   cp /usr/local/redis/redis.conf /etc/redis/
    ```
 
 2. 新建一个系统服务文件：
@@ -209,8 +227,8 @@ Redis 是单线程的（6.0 是多线程），因为 Redis 是基于内存操作
    After=network.target
    
    [Service]
-   ExecStart=/usr/local/redis/src/redis-server /etc/redis/redis.conf
-   ExecStop=/usr/local/redis/src/redis-cli shutdown
+   ExecStart=/usr/local/bin/redis-server /etc/redis/redis.conf
+   ExecStop=/usr/local/bin/redis-cli shutdown
    Restart=always
    
    [Install]
@@ -220,27 +238,27 @@ Redis 是单线程的（6.0 是多线程），因为 Redis 是基于内存操作
 4. 重载系统服务：
 
    ```shell
-   sudo systemctl daemon-reload
+   systemctl daemon-reload
    ```
 
 5. 接下来可以使用以下命令来启动、停止、重启和检查 Redis 服务的状态：
 
    ```shell
-   sudo systemctl start redis
-   sudo systemctl stop redis
-   sudo systemctl restart redis
-   sudo systemctl status redis
+   systemctl start redis
+   systemctl stop redis
+   systemctl restart redis
+   systemctl status redis
    ```
 
 6. 如果想要在系统启动时自动启动 Redis 服务，可以运行以下命令：
 
    ```shell
-   sudo systemctl enable redis
+   systemctl enable redis
    ```
 
 
 
-**卸载**
+#### 卸载并删除
 
 ```shell
 # 先停下redis，然后删除安装目录
@@ -252,43 +270,35 @@ rm -rf /usr/bin/redis-*
 
 
 
-#### 使用 Docker
+### 2.2.2、Docker
 
-```shell
-# 下载 redis 镜像
-docker pull redis
+1. 下载 redis 镜像：
 
-# 创建 reids 容器
-docker run --name redis -td -p 6379:6379 redis
+   ```shell
+   docker pull redis
+   ```
 
-# 进入 reids 容器
-docker exec -it redis bash
+2. 创建 reids 容器：
 
-# 启动客户端
-redis-cli
-```
+   ```shell
+   docker run --name redis -td -p 6379:6379 redis
+   ```
 
+3. 进入 reids 容器：
 
+   ```shell
+   docker exec -it redis bash
+   ```
 
-#### Ubuntu 使用 `apt` 安装
+4. 启动客户端：
 
-```bash
-# 安装redis，安装后redis默认为启动状态
-apt install redis
-
-# 启动redis服务
-redis-server &
-
-# 启动客户端
-redis-cli
-
-# 卸载
-apt purge --auto-remove redis-server
-```
+   ```shell
+   redis-cli
+   ```
 
 
 
-### 2.2.2、Windows 环境安装
+### 2.2.2、Windows
 
 前往 [地址](https://github.com/redis-windows/redis-windows/releases) 下载安装包：
 
@@ -1976,7 +1986,7 @@ int port = redisUri.getPort();
 
 
 
-# 8、Redis 相关配置详解
+# 8、Redis 配置详解
 
 ## 8.1、redis.conf 详解
 

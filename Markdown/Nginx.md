@@ -50,7 +50,7 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 4. 执行配置文件：
 
    ```shell
-   ./configure
+   sudo ./configure
    ```
 
    如无问题，则直接进入第 5 步，如像以下一样缺少库，则先安装库再继续。
@@ -62,13 +62,13 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
    ```shell
    tar -xzf pcre2-10.42.tar.gz -C /usr/local
    
-   mv /usr/local/pcre2-10.42.tar.gz/ /usr/local/pcre2
+   mv /usr/local/pcre2-10.42/ /usr/local/pcre2/
    
    cd /usr/local/pcre2
    
-   ./configure
+   sudo ./configure
    
-   make
+   sudo make
    
    sudo make install
    ```
@@ -82,13 +82,13 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
    ```shell
    tar -xzf zlib-1.2.13.tar.gz -C /usr/local
    
-   mv /usr/local/zlib-1.2.13.tar.gz/ /usr/local/zlib
+   mv /usr/local/zlib-1.2.13/ /usr/local/zlib/
    
    cd /usr/local/zlib
    
-   ./configure
+   sudo ./configure
    
-   make
+   sudo make
    
    sudo make install
    ```
@@ -98,13 +98,13 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
    > Nginx 对 OpenSSL 不做硬性要求，在不使用 SSL 模块的情况下没有 OpenSSL 也可以安装通过，如果需要此功能，请先安装 OpenSSL 然后执行以下配置命令：
    >
    > ```shell
-   > ./configure --with-http_stub_status_module --with-http_ssl_module --with-openssl=/usr/local/openssl
+   > sudo ./configure --with-http_stub_status_module --with-http_ssl_module --with-openssl=/usr/local/openssl
    > ```
 
 5. 编译并安装：
 
    ```shell
-   make
+   sudo make
    
    sudo make install
    ```
@@ -150,13 +150,13 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 3. 在终端以下命令，刷新服务配置：
 
    ```shell
-   sudo systemctl daemon-reload
+   systemctl daemon-reload
    ```
    
 4. 设置开机自启：
 
    ```shell
-   sudo systemctl enable nginx
+   systemctl enable nginx
    ```
 
 
@@ -190,11 +190,11 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 **管理 Nginx 服务**
 
 ```shell
-cd /usr/local/nginx/sbin/     # 进入目录
-./nginx                       # 启动
-./nginx -s stop               # 停止
-./nginx -s quit               # 安全退出
-./nginx -s reload             # 重载配置文件（修改了配置文件需要执行此命令 比较常用）
+cd /usr/local/nginx/sbin/     	# 进入目录
+./nginx                  	# 启动
+./nginx -s stop          	# 停止
+./nginx -s quit          	# 安全退出
+./nginx -s reload        	# 重载配置文件（修改了配置文件需要执行此命令 比较常用）
 ```
 
 如果已经配置服务：

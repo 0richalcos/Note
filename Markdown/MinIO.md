@@ -74,50 +74,49 @@ MinIO 服务安装后，可以直接通过浏览器登录系统，完成文件�
 
 #### MinIO 安装启动
 
-1. 创建 `/opt/minio` 文件夹并进入：
+1. 创建所需要的文件夹：
 
    ```shell 
-   mkdir /opt/minio
-   cd /opt/minio
+   mkdir -p /usr/local/minio /var/lib/minio /var/log/minio
    ```
-   
-2. 下载安装包：
+
+2. 进入安装目录：
+
+   ```shell
+   cd /usr/local/minio
+   ```
+
+3. 下载安装包：
 
    这里需要根据自己系统的 Architecture 去下载对应的版本，可以通过 `hostnamectl` 命令查看 Architecture 。
 
    <img src="!assets/MinIO/image-20230613214942697.png" alt="image-20230613214942697" style="" />
 
-   [点击进入下载地址](https://min.io/download#/linux) 或者直接通过 wget 下载：
+   [点击进入下载地址](https://www.min.io/open-source/download) 或者直接通过 wget 下载：
 
    ```shell
-   wget https://dl.minio.org.cn/server/minio/release/linux-amd64/minio
-   ```
-
-3. 创建 `data` 文件夹用于存放静态文件：
-
-   ```shell
-   mkdir data
+    wget https://dl.minio.org.cn/server/minio/release/linux-amd64/minio -O /usr/local/minio/minio
    ```
 
 4. 赋予 `minio` 文件执行权限，最高权限：
 
    ```shell
-   chmod 777 minio
+   chmod +x /usr/local/minio/minio
    ```
 
-5. 启动 MinIO：
+5. 直接在前台启动，可以方便地查看日志输出：
 
    ```shell
-   MINIO_ROOT_USER=admin MINIO_ROOT_PASSWORD=password ./minio server /opt/minio/data --console-address ":9001"
+   MINIO_ROOT_USER=admin MINIO_ROOT_PASSWORD=password /usr/local/minio/minio server /var/lib/minio --console-address ":9001"
    ```
 
-   - *MINIO_ROOT_USER*：设置用户名；
-   - *MINIO_ROOT_PASSWORD*：设置密码；
-   - */opt/minio/data*：存放静态文件的目录；
-   - *--console-address*：设置 console 的端口（设置的话每次启动该端口都会变动）；
+   - *MINIO_ROOT_USER*：设置用户名。
+   - *MINIO_ROOT_PASSWORD*：设置密码。
+   - */var/lib/minio*：存放静态文件的目录。
+   - *--console-address*：设置 console 的端口（不设置的话每次启动该端口都会变动）。
    - *--address*：设置 API 端口，该端口重新启动是不变的，但是可以通过 `--address ":9000"` 手动改变。
 
-   上面的启动方式，当我们关闭 shell 连接时，MinIO 也就关闭了，可以通过 `nohup` 命令进行后台启动。
+6. 上面的启动方式，当我们关闭 shell 连接时，MinIO 也就关闭了，可以通过 `nohup` 命令进行后台启动。
 
    由于 `nohup` 命令后无法使用 `MINIO_ROOT_USER/MINIO_ROOT_PASSWORD` 参数设置 root 用户名和密码，所以需要提前在环境变量设置（如果没有自定义密码的需求可以跳过这一步，默认用户名和密码都是 `minioadmin`）：
 
@@ -134,7 +133,7 @@ MinIO 服务安装后，可以直接通过浏览器登录系统，完成文件�
    后台启动 MinIO：
 
    ```shell
-   nohup ./minio server /opt/minio/data --console-address ":9001" --address ":9000" &
+   nohup /usr/local/minio/minio server /var/lib/minio --console-address ":9001" > /var/log/minio/minio.log 2>&1 &
    ```
 
 
@@ -160,16 +159,24 @@ kill -9 2524
 1. 新建一个 MinIO 配置文件：
 
    ```bash
-   sudo vim /opt/minio/minio.conf 
+   mkdir /etc/minio
+   vim /etc/minio/minio.conf
    ```
 
    文件内容如下：
 
    ```
-   #MINIO_VOLUMES="/opt/minio/data"
-   #MINIO_OPTS="--address :9000 --console-address :9001"
+   # MinIO 服务的基本配置
+   
+   # 设置管理员账户和密码 (请务必修改为强密码)
    MINIO_ROOT_USER="minioadmin"
-   MINIO_ROOT_PASSWORD="Orichalcos123"
+   MINIO_ROOT_PASSWORD="YourStrongPassword123"
+   
+   # 设置数据卷（存储目录）
+   MINIO_VOLUMES="/var/lib/minio"
+   
+   # 设置服务的启动参数, 包括 API 端口和控制台端口
+   MINIO_OPTS="--address :9000 --console-address :9001"
    ```
 
 2. 新建一个系统服务文件：
@@ -181,21 +188,32 @@ kill -9 2524
    文件内容如下：
 
    ```
+   [Unit]
    Description=MinIO
    Documentation=https://docs.min.io
    Wants=network-online.target
    After=network-online.target
-    
+   AssertFileIsExecutable=/usr/local/minio/minio
+   
    [Service]
+   # 指定以 root 用户和 root 组运行
    User=root
    Group=root
-   EnvironmentFile=/opt/minio/minio.conf
-   ExecStart=/opt/minio/minio server --address=:9000 --console-address=:9001 /opt/minio/data
-   WorkingDirectory=/opt/minio/data
-   StandardOutput=syslog
-   StandardError=syslog
-   SyslogIdentifier=minio
-    
+   
+   # 指定工作目录
+   WorkingDirectory=/usr/local/minio
+   
+   # 加载配置文件中的环境变量
+   EnvironmentFile=/etc/minio/minio.conf
+   
+   # 启动命令。这里使用配置文件中定义的环境变量
+   # 服务启动时，systemd 会将日志输出到 systemd journal
+   ExecStart=/usr/local/minio/minio server $MINIO_OPTS $MINIO_VOLUMES
+   
+   # 配置服务在失败时自动重启
+   Restart=on-failure
+   RestartSec=5s
+   
    [Install]
    WantedBy=multi-user.target
    ```
@@ -203,22 +221,22 @@ kill -9 2524
 3. 重载系统服务：
 
    ```bash
-   sudo systemctl daemon-reload
+   systemctl daemon-reload
    ```
 
 4. 接下来可以使用以下命令来启动、停止、重启和检查 MinIO 服务的状态：
 
    ```shell
-   sudo systemctl start minio
-   sudo systemctl stop minio
-   sudo systemctl restart minio
-   sudo systemctl status minio
+   systemctl start minio
+   systemctl stop minio
+   systemctl restart minio
+   systemctl status minio
    ```
 
 5. 如果想要在系统启动时自动启动 MinIO 服务，可以运行以下命令：
 
    ```shell
-   sudo systemctl enable minio
+   systemctl enable minio
    ```
 
 

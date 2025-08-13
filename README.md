@@ -49,6 +49,7 @@
 
 - [**Shiro**](https://github.com/0richalcos/Note/blob/main/Markdown/Shiro.md)
 - [**Sa-Token**](https://github.com/0richalcos/Note/blob/main/Markdown/Sa-Token.md)
+- [**SSO**](https://github.com/0richalcos/Note/blob/main/Markdown/SSO.md)
 
 <br/>
 

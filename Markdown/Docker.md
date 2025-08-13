@@ -2595,3 +2595,4 @@ Docker Buildx 是一个 Docker CLI 插件，其扩展了 Docker 命令，支持 
 > [!IMPORTANT]
 >
 > 该功能仅适用于 Docker v19.03+ 版本。
+

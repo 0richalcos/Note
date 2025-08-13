@@ -709,7 +709,7 @@ firewall-cmd --list-ports
 
 **开启指定端口**
 
-例如：开启 8848 端口
+例如开启 8848 端口：
 
 ```shell
 firewall-cmd --zone=public --permanent --add-port=8848/tcp
@@ -720,9 +720,15 @@ firewall-cmd --zone=public --permanent --add-port=8848/tcp
 
 显示 success 表示成功！
 
+> [!IMPORTANT]
+>
+> 改动之后需要执行命令重新加载防火墙。
+
 
 
 **关闭指定端口**
+
+例如关闭 8080端口：
 
 ```shell
 firewall-cmd --zone=public --permanent --remove-port=8080/tcp
@@ -739,6 +745,10 @@ firewall-cmd --reload
 ```
 
 显示 success 表示成功！
+
+> [!IMPORTANT]
+>
+> 改动之后需要执行命令重新加载防火墙。
 
 
 

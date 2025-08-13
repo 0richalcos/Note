@@ -141,53 +141,175 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 
 
-# 2、安装和配置 Elastisearch
+# 2、安装和配置
 
 ## 2.1、安装
 
-### 2.1.1、Ubuntu
+### 2.1.1、Linux
 
-1. 安装 ES 不用使用 root 用户，创建普通用户：
+#### 创建用户和所需目录
+
+1. 创建 elasticsearch 用户并设置密码：
 
    ```shell
-   # 添加用户 esuser，并指定 /home/esuser 为用户目录
-   useradd -c es用户 –d /home/esuser -m esuser
+   groupadd elasticsearch
+   useradd -r -g elasticsearch -s /bin/false elasticsearch
+   # 设置密码，可选
+   passwd elasticsearch
+   ```
+
+2. 创建目录结构：
+
+   ```shell
+   # 安装目录
+   mkdir -p /usr/local/elasticsearch
+   # 配置文件目录
+   mkdir -p /etc/elasticsearch
+   # 数据目录
+   mkdir -p /var/lib/elasticsearch
+   # 日志目录
+   mkdir -p /var/log/elasticsearch
+   ```
+
+3. 设置权限：
+
+   ```shell
+   chown -R elasticsearch:elasticsearch /usr/local/elasticsearch /etc/elasticsearch /var/lib/elasticsearch /var/log/elasticsearch
+   ```
+
+
+
+#### 安装 Elastisearch
+
+1. 官网下载对应版本的压缩包之后，将其上传到服务器。
+
+2. 解压到安装目录：
+
+   ```shell
+   tar -zxf elasticsearch-7.14.0-linux-x86_64.tar.gz -C /usr/local/elasticsearch --strip-components=1
+   ```
+
+3. 迁移配置文件：
+
+   ```shell
+   cp -r /usr/local/elasticsearch/config/* /etc/elasticsearch
+   ```
+
+4. 编辑 `/etc/elasticsearch/elasticsearch.yml`：
+
+   ```shell
+   cluster.name: my-es-cluster
+   node.name: node-1
    
-   # 修改 esuser 用户密码
-   passwd esuser
+   # 自定义路径
+   path.data: /var/lib/elasticsearch
+   path.logs: /var/log/elasticsearch
    
-   # 切换 es 用户登录（并使用 es 用户的工作目录）
-   su - esuser
+   # 网络配置
+   network.host: 0.0.0.0
+   http.port: 9200
+   
+   # 单节点模式（非集群）
+   discovery.type: single-node
    ```
 
-2. 为你的操作系统下载 Elasticsearch 压缩包：
+
+
+#### 配置 systemd 服务
+
+1. 创建文件：
 
    ```shell
-   curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.14.0-linux-x86_64.tar.gz
+   vi /etc/systemd/system/elasticsearch.service
    ```
 
-3. 解压文件：
+   内容如下：
+
+   ```
+   [Unit]
+   Description=Elasticsearch
+   Wants=network-online.target
+   After=network-online.target
+   
+   [Service]
+   Type=simple
+   User=elasticsearch
+   Group=elasticsearch
+   PrivateTmp=true
+   
+   # 指定配置文件目录的环境变量
+   Environment=ES_PATH_CONF=/etc/elasticsearch
+   # 强制 Elasticsearch 使用其自带的 JDK
+   Environment=JAVA_HOME=/usr/local/elasticsearch/jdk
+   
+   # 增加文件句柄数和进程数限制
+   LimitNOFILE=65535
+   LimitNPROC=4096
+   
+   # Elasticsearch 的可执行文件路径
+   ExecStart=/usr/local/elasticsearch/bin/elasticsearch
+   
+   # JVM 堆内存设置 (可选)
+   # 默认是 1GB，可以根据服务器内存调整。例如设置为 2GB：
+   # Environment="ES_JAVA_OPTS=-Xms2g -Xmx2g"
+   
+   StandardOutput=journal
+   StandardError=inherit
+   
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+2. 加载配置：
 
    ```shell
-   tar -xvf elasticsearch-7.14.0-linux-x86_64.tar.gz
+   systemctl daemon-reload
    ```
 
-4. 从 `bin` 目录中启动 Elasticsearch：
+3. 设置开机自启：
 
    ```shell
-   cd elasticsearch-7.14.0/bin
-   ./elasticsearch
+   systemctl enable elasticsearch
    ```
 
-   现在你就运行起了一个单节点 Elasticsearch 集群！
 
-5. ES 启动默认监听 9200 端口，访问 9200：
+
+#### 启动并设置密码
+
+1. 启动 Elasticsearch：
+
+   ```shell
+   systemctl start elasticsearch
+   ```
+
+2. 检查服务状态：
+
+   ```shell
+   systemctl status elasticsearch.service
+   ```
+
+3. 查看日志（用于排错）：
+
+   ```shell
+   journalctl -u elasticsearch -f
+   ```
+
+4. ES 启动默认监听 9200 端口，访问 9200：
 
    ```shell
    curl http://localhost:9200
    ```
 
    <img src="!assets/Elasticsearch/image-20220630111509343.png" alt="image-20220630111509343" style="width:70%;" />
+
+   > [!NOTE]
+   >
+   > 如有防火墙需要开放 9200 端口：
+   >
+   > ```shell
+   > firewall-cmd --permanent --add-port=9200/tcp
+   > firewall-cmd --reload
+   > ```
 
 
 
@@ -290,107 +412,7 @@ ES 目录结构：
 
 
 
-## 2.3、开启远程访问
-
-默认 ES 无法使用主机 ip 进行远程连接，需要开启远程连接权限。
-
-1. 修改 ES 安装包中 config/elasticsearch.yml 配置文件：
-
-   ```shell
-   vim /home/esuser/elasticsearch-7.14.0/config/elasticsearch.yml
-   ```
-
-   <img src="!assets/Elasticsearch/image-20220703192151746.png" alt="image-20220703192151746" style="width:70%;" />
-
-2. 重新启动 ES 服务：
-
-   ```shell
-   su - esuser
-   elasticsearch-7.14.0/bin/elasticsearch
-   ```
-
-3. 使用自己的浏览器远程访问 ES 服务：
-
-   <img src="!assets/Elasticsearch/屏幕截图 2022-07-04 002254.png" alt="屏幕截图 2022-07-04 002254" style="width:70%;" />
-
-
-
-## 2.4、启动错误
-
-如果没有遇到则跳过：
-
-```
--- 引导检查失败。你必须在启动Elasticsearch之前解决以下[4]行中描述的问题。
-ERROR: [4] bootstrap checks failed. You must address the points described in the following [4] lines before starting Elasticsearch.
-
--- 引导检查失败[4]中的[1]：弹性搜索进程的最大文件描述符[4096]太低，至少增加到[65535]。
-bootstrap check failure [1] of [4]: max file descriptors [4096] for elasticsearch process is too low, increase to at least [65535]
-
--- 引导检查失败[4]中的[2]：用户[esuser]的最大线程数[3802]太少，至少增加到[4096]。
-bootstrap check failure [2] of [4]: max number of threads [3802] for user [esuser] is too low, increase to at least [4096]
-
--- 引导检查失败[4]中的[3]：最大虚拟内存区域vm.max_map_count [65530]太低，至少增加到[262144]。
-bootstrap check failure [3] of [4]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
-
--- bootstrap 检查失败[4]的[4]：默认的发现设置不适合生产使用；至少要配置[discovery.seed_hosts, discovery.seed_providers, cluster.initial_master_nodes]中的一个。
-bootstrap check failure [4] of [4]: the default discovery settings are unsuitable for production use; at least one of [discovery.seed_hosts, discovery.seed_providers, cluster.initial_master_nodes] must be configured
-```
-
-解决错误 [1]：
-
-```shell
-vim /etc/security/limits.conf
-
-# 在最后面追加下面内容
-*               soft    nofile          65536
-*               hard    nofile          65536
-*               soft    nproc           4096
-*               hard    nproc           4096
-
-# 退出重新登录检测配置是否生效:
-ulimit -Hn
-ulimit -Sn
-ulimit -Hu
-ulimit -Su
-```
-
-解决错误 [2]：
-
-```shell
-# 进入limits.d目录下修改配置文件。
-vim /etc/security/limits.d/20-nproc.conf
-
-# 修改为 
-启动ES用户名 soft nproc 4096
-```
-
-解决错误 [3]：
-
-```shell
-# 编辑sysctl.conf文件
-vim /etc/sysctl.conf
-
-# 在最后面追加下下面内容
-vm.max_map_count=655360 #centos7 系统
-vm.max_map_count=262144 #ubuntu 系统
-
-# 执行以下命令生效：
-sysctl -p
-```
-
-解决错误 [4]：
-
-```shell
-# 编辑elasticsearch.yml配置文件
-vim config/elasticsearch.yml
-
-# 找到 Discovery 部分，修改
-cluster.initial_master_nodes: ["node-1"]
-```
-
-
-
-## 2.5、安全设置
+## 2.3、安全设置
 
 X-Pack 是 Elasticsearch 的一个核心扩展包，它为 Elastic Stack（Elasticsearch, Kibana, Beats, Logstash）提供了一系列强大的增强功能。在早期版本中，X-Pack 是一个需要单独安装的商业插件，但从 6.8 和 7.1 版本开始，它的许多基础功能被免费开放，并直接内置到了 Elasticsearch 的默认发行版中。
 
@@ -404,7 +426,7 @@ X-Pack 是 Elasticsearch 的一个核心扩展包，它为 Elastic Stack（Elast
 
 
 
-### 2.5.1、启用 X-Pack 安全
+### 2.3.1、启用 X-Pack 安全
 
 在 Linux 系统上部署 Elasticsearch 并开启安全功能，前提条件：
 
@@ -414,9 +436,9 @@ X-Pack 是 Elasticsearch 的一个核心扩展包，它为 Elastic Stack（Elast
 
 > [!NOTE]
 >
-> 不要使用 root 用户运行 Elasticsearch。请创建一个专用的普通用户，例如 elastic。
+> 不要使用 root 用户运行 Elasticsearch。请创建一个专用的普通用户，例如 elasticsearch。
 
-
+开启步骤：
 
 1. 进入 Elasticsearch 的 config 目录：
 
@@ -449,7 +471,7 @@ X-Pack 是 Elasticsearch 的一个核心扩展包，它为 Elastic Stack（Elast
 
 
 
-### 2.5.2、初始化内置用户密码
+### 2.3.2、初始化内置用户密码
 
 在首次启动开启了安全功能的 Elasticsearch 之前，必须为内置的系统用户（如 elastic、kibana_system 等）设置密码：
 
@@ -468,7 +490,7 @@ X-Pack 是 Elasticsearch 的一个核心扩展包，它为 Elastic Stack（Elast
      这是最简单、最安全的方法。工具会自动为所有内置用户生成随机的强密码。
 
      ```shell
-     ./elasticsearch-setup-passwords auto
+     sudo -u elasticsearch ./elasticsearch-setup-passwords auto
      ```
 
      执行后，终端会输出所有用户的用户名和对应的密码：
@@ -491,7 +513,7 @@ X-Pack 是 Elasticsearch 的一个核心扩展包，它为 Elastic Stack（Elast
      如果想为每个用户手动指定密码，可以使用此模式：
 
      ```shell
-     ./elasticsearch-setup-passwords interactive
+     sudo -u elasticsearch ./elasticsearch-setup-passwords interactive
      ```
 
      程序会依次提示你为 elastic、kibana_system 等用户输入并确认密码。
@@ -505,7 +527,7 @@ X-Pack 是 Elasticsearch 的一个核心扩展包，它为 Elastic Stack（Elast
 
 
 
-### 2.5.3、 验证安全配置
+### 2.3.3、验证安全配置
 
 现在，你的 Elasticsearch 集群已经受到密码保护，现在进行验证是否启用成功：
 
