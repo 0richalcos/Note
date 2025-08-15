@@ -6,7 +6,7 @@
 
 2. 依次选择【计算机配置】=>【Windows设置】=>【安全设置】=>【本地策略】=>【安全选项】，双击【安全选项】：
 
-   <img src="!assets/IDE&Windows/image-20231215001054470.png" alt="image-20231215001054470" style="zoom:80%;" />
+   <img src="!assets/Settings/image-20231215001054470.png" alt="image-20231215001054470" style="zoom:80%;" />
 
 3. 向下滑，找到
 
@@ -35,7 +35,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 您需要以管理员权限启动 Windows 11 DiskPart 实用程序。一种方法是在 “搜索” 框中键入 `diskpart`，然后在搜索结果中出现【diskpart】时，右击它并选择【以管理员身份运行】。另一种方法是按 Windows + R 键并在框中键入 `diskpart`，然后单击【确定】。
 
-<img src="!assets/IDE&Windows/image-20220812105905290.png" alt="image-20220812105905290" style="zoom: 50%;" />
+<img src="!assets/Settings/image-20220812105905290.png" alt="image-20220812105905290" style="zoom: 50%;" />
 
 
 
@@ -51,7 +51,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 如果要查看 DiskPart 可以为您提供的服务，只需输入 `help` 以查看命令列表：
 
-<img src="!assets/IDE&Windows/image-20220812112727192.png" alt="image-20220812112727192" style="zoom: 50%;" />
+<img src="!assets/Settings/image-20220812112727192.png" alt="image-20220812112727192" style="zoom: 50%;" />
 
 
 
@@ -133,23 +133,23 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 1. 在 DiskGenius 主菜单，点击【工具】=>【系统迁移】菜单项，如下图：
 
-   <img src="!assets/IDE&Windows/system-migration-01.png" alt="系统迁移" style="zoom: 80%;" />
+   <img src="!assets/Settings/system-migration-01.png" alt="系统迁移" style="zoom: 80%;" />
 
 2. 选择迁移系统的目标盘，然后点击【确定】按钮。目标磁盘可以小于源磁盘，但是目标磁盘容量需大于源磁盘的已用数据总量：
 
-   <img src="!assets/IDE&Windows/system-migration-02.png" alt="系统迁移" style="zoom: 67%;" />
+   <img src="!assets/Settings/system-migration-02.png" alt="系统迁移" style="zoom: 67%;" />
 
 3. 对于支持 UEFI 的电脑，还可以直接指定系统迁移完成后，要不要更改系统的启动项。 点击【开始】按钮，准备进行迁移：
 
-   <img src="!assets/IDE&Windows/system-migration-03.png" alt="系统迁移" style="zoom:67%;" />
+   <img src="!assets/Settings/system-migration-03.png" alt="系统迁移" style="zoom:67%;" />
 
 4. 程序显示如下警告：目标磁盘上的所有数据将会被覆盖。确认没问题后，点击【确定】按钮：
 
-   <img src="!assets/IDE&Windows/system-migration-04.png" alt="系统迁移" style="zoom: 80%;" />
+   <img src="!assets/Settings/system-migration-04.png" alt="系统迁移" style="zoom: 80%;" />
 
 5. DiskGenius 软件将让用户选择系统迁移的模式，如下图：
 
-   <img src="!assets/IDE&Windows/system-migration-05.png" alt="系统迁移" style="zoom: 80%;" />
+   <img src="!assets/Settings/system-migration-05.png" alt="系统迁移" style="zoom: 80%;" />
 
    热迁移，就是在不关机的情况下，迁移系统到第二块硬盘，在迁移过程中，用户仍然可以对电脑做各种操作，不影响用户对电脑的使用。
 
@@ -161,13 +161,13 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 6. 点击【热迁移】按钮，DiskGenius 将开始热迁移操作，如下图：
 
-   <img src="!assets/IDE&Windows/system-migration-06.png" alt="系统迁移" style="zoom:80%;" />
+   <img src="!assets/Settings/system-migration-06.png" alt="系统迁移" style="zoom:80%;" />
 
    系统迁移窗口中，将显示一个进度条，进度条显示系统迁移大致的进度，进度条下面显示已经复制，和还没有复制的数据大小，及已经用时与估计的完成系统迁移所需的剩余时间。
 
 7. 完成系统迁移后，DiskGenius 软件会给出系统迁移完成的提示，如下图：
 
-   <img src="!assets/IDE&Windows/system-migration-07.png" alt="系统迁移" style="zoom:80%;" />
+   <img src="!assets/Settings/system-migration-07.png" alt="系统迁移" style="zoom:80%;" />
 
 系统迁移到第二块硬盘（或 SSD 固态硬盘、U盘等）上之后，如果是支持 UEFI 的电脑，并且在迁移系统之前设置了完成后从目标盘启动。重启电脑后，会自动用迁移后的新系统启动。否则，需手动进入 BIOS 设置，将启动硬盘设置为新的硬盘，之后，就可以用这块硬盘启动电脑，进入系统了。
 
@@ -179,11 +179,11 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 1. 可以在 DiskGenius 主菜单，点击【工具】=>【设置 UEFI BIOS 启动项】菜单项，如下图：
 
-   <img src="!assets/IDE&Windows/{9693E1D6-E98C-4BA9-A2F4-1A474C20A1AF}" alt="img" style="zoom: 50%;" />
+   <img src="!assets/Settings/{9693E1D6-E98C-4BA9-A2F4-1A474C20A1AF}" alt="img" style="zoom: 50%;" />
 
 2. 在打开的弹窗中，将旧硬盘的启动项备份后直接删除，设置新硬盘启动项【下一次从该项启动（仅一次有效）】后，立即重启：
 
-   <img src="!assets/IDE&Windows/QQ_1735680018651.png" alt="QQ_1735680018651" style="zoom: 50%;" />
+   <img src="!assets/Settings/QQ_1735680018651.png" alt="QQ_1735680018651" style="zoom: 50%;" />
 
 3. 重启之后电脑已经使用新硬盘的系统启动，这时可以将旧硬盘直接格式化，并再来软件这里查看是否有多余的启动项，如果有就直接删除。
 
@@ -240,7 +240,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 在使用一段腾讯文档之后，发现腾讯文档替换掉了我 Windows 上原来 Office 三件套的右键新建文件快捷方式：
 
-<img src="!assets/IDE&Windows/3eca1cfd0665441f9ddc6464b153c57a.png" alt="3eca1cfd0665441f9ddc6464b153c57a" style="zoom:50%;" />
+<img src="!assets/Settings/3eca1cfd0665441f9ddc6464b153c57a.png" alt="3eca1cfd0665441f9ddc6464b153c57a" style="zoom:50%;" />
 
 解决办法：
 
@@ -262,11 +262,11 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
    - `.xlsx` 选项并单击选中，双击打开右侧里面的默认项，将数值改为 `Excel.Sheet.12`。
    - `.pptx` 选项并单击选中，双击打开右侧里面的默认项，将数值改为 `PowerPoint.Show.12`。
 
-   <img src="!assets/IDE&Windows/image-20240411184726892.png" alt="image-20240411184726892" style="" />
+   <img src="!assets/Settings/image-20240411184726892.png" alt="image-20240411184726892" style="" />
 
    全部修改完成后，打开任务管理器，将文件资源管理器重启即可：
 
-   <img src="!assets/IDE&Windows/image-20240411185129951.png" alt="image-20240411185129951" style="zoom:50%;" />
+   <img src="!assets/Settings/image-20240411185129951.png" alt="image-20240411185129951" style="zoom:50%;" />
 
 
 
@@ -280,11 +280,11 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
    找到 `0`项, 也可能时 `1`：
 
-   <img src="./!assets/IDE&Windows/image-20250418150036951.png" alt="image-20250418150036951" style="zoom:67%;" />
+   <img src="./!assets/Settings/image-20250418150036951.png" alt="image-20250418150036951" style="zoom:67%;" />
 
 3. 删除 `ApplicationId` , 或修改 `ApplicationId` 的值（比如在值后加 “备份” 二字）：
 
-   <img src="./!assets/IDE&Windows/image-20250418150017030.png" alt="image-20250418150017030" style="zoom:67%;" />
+   <img src="./!assets/Settings/image-20250418150017030.png" alt="image-20250418150017030" style="zoom:67%;" />
 
 
 
@@ -298,12 +298,12 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 1. 确保【账户】=>【登录选项】=>【其他设置】中 “为了提高安全性，仅允许...” 是关闭的：
 	
-	<img src="!assets/IDE&Windows/image-20210813000252683.png" alt="image-20210813000252683" style="zoom:50%;" />
+	<img src="!assets/Settings/image-20210813000252683.png" alt="image-20210813000252683" style="zoom:50%;" />
 2. 按 Win + R，弹出【运行】，输入 `netplwiz`，点【确定】。
 3. 取消 “要使用本计算机，用户必须输入用户名和密码”，点【确定 】。
 4. 会弹出一个窗口，在窗口中输入微软账户的用户名和密码，点【确定】：
 
-   <img src="!assets/IDE&Windows/image-20210513005900008.png" alt="image-20210513005900008" style="zoom:50%;" />
+   <img src="!assets/Settings/image-20210513005900008.png" alt="image-20210513005900008" style="zoom:50%;" />
 
 
 
@@ -317,11 +317,11 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 1. 右键托盘的输入法，选择【用户自定义短语】：
 
-   <img src="./!assets/IDE&Windows/image-20250418145148419.png" alt="image-20250418145148419" style="zoom: 50%;" />
+   <img src="./!assets/Settings/image-20250418145148419.png" alt="image-20250418145148419" style="zoom: 50%;" />
 
 2. 点击【添加】用户定义的短语：
 
-   <img src="!assets/IDE&Windows/image-20210624233318170.png" alt="image-20210624233318170" style="zoom: 43%;" />
+   <img src="!assets/Settings/image-20210624233318170.png" alt="image-20210624233318170" style="zoom: 43%;" />
 
 
    ```
@@ -342,7 +342,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
    打开计算机设置，然后依次点开【网络和 Internet】=>【高级网络设置】=>【高级共享设置】，打开专用网络里的网络发现和文件和打印机共享：
 
-   <img src="!assets/IDE&Windows/image-20240905000816740.png" alt="image-20240905000816740" style="zoom:50%;" />
+   <img src="!assets/Settings/image-20240905000816740.png" alt="image-20240905000816740" style="zoom:50%;" />
 
    > [!TIP]
    >
@@ -352,17 +352,17 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
    右键需要共享的文件，在【授予访问权限】这里选择【特定用户】：
 
-   <img src="!assets/IDE&Windows/image-20240905001209450.png" alt="image-20240905001209450" style="zoom: 50%;" />
+   <img src="!assets/Settings/image-20240905001209450.png" alt="image-20240905001209450" style="zoom: 50%;" />
 
    共享的用户选择 Everyone（所有人），然后点击【添加】：
 
-   <img src="!assets/IDE&Windows/image-20240905001336093.png" alt="image-20240905001336093" style="zoom:50%;" />
+   <img src="!assets/Settings/image-20240905001336093.png" alt="image-20240905001336093" style="zoom:50%;" />
 
 3. 其他局域网机器访问。
 
    其他局域网内的机器可以通过文件资源管理器的【网络】这里找到你的电脑设备，点击进去就可以访问到前面设置过共享权限的文件了：
 
-   <img src="!assets/IDE&Windows/image-20240905001707231.png" alt="image-20240905001707231" style="zoom:50%;" />
+   <img src="!assets/Settings/image-20240905001707231.png" alt="image-20240905001707231" style="zoom:50%;" />
 
 
 
@@ -438,25 +438,25 @@ winget install 9MSSGKG348SP
 
 1. 很多 PE 系统都可以修改账号，这里使用 WinPE，启动PE后，进入桌面打开运行 Dism++ 程序：
 
-   <img src="!assets/IDE&Windows/image-20240912181936886.png" alt="image-20240912181936886" style="zoom:50%;" />
+   <img src="!assets/Settings/image-20240912181936886.png" alt="image-20240912181936886" style="zoom:50%;" />
 
 2. 选择带有系统的盘符（默认选的是 PE 盘），然后打开会话：
 
-   <img src="!assets/IDE&Windows/image-20240912182008073.png" alt="image-20240912182008073" style="zoom: 50%;" />
+   <img src="!assets/Settings/image-20240912182008073.png" alt="image-20240912182008073" style="zoom: 50%;" />
 
 3. 选择左侧工具箱，然后右侧找到账户管理：
 
-   <img src="!assets/IDE&Windows/image-20240912182035732.png" alt="image-20240912182035732" style="zoom:50%;" />
+   <img src="!assets/Settings/image-20240912182035732.png" alt="image-20240912182035732" style="zoom:50%;" />
 
    然后就可以对已有账号进行管理了。
 
 4. 使用管理员账号登录之后，打开注册表 `计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\PasswordLess\Device`，将 DevicePasswordLessBuildVersion 项的值改为 0：
 
-   <img src="!assets/IDE&Windows/image-20240912182353584.png" alt="image-20240912182353584" style="" />
+   <img src="!assets/Settings/image-20240912182353584.png" alt="image-20240912182353584" style="" />
 
 5. 重启电脑，这个时候就可以用密码登录原帐号了，登上去之后将 PIN 码删除再重新添加，在组策略编辑器里重新将管理员账号禁用：
 
-   <img src="!assets/IDE&Windows/image-20240912182721056.png" alt="image-20240912182721056" style="" />
+   <img src="!assets/Settings/image-20240912182721056.png" alt="image-20240912182721056" style="" />
 
 6. 最后重启电脑，如果一切正常，可以将注册表 DevicePasswordLessBuildVersion 项的值重新改为 2。
 
@@ -496,7 +496,7 @@ sc <server> [command] [service name] <option1> <option2>...
 
 2. “服务名称” 和 “服务显示名称”  是不一样的。`sc` 指令使用的是 “服务名称”。我们在【服务】里看到是服务的显示名称，双击打开某个服务可以看到真正的服务名字。
 
-   <img src="!assets/IDE&Windows/image-20220728002211513.png" alt="image-20220728002211513" style="zoom: 50%;" />
+   <img src="!assets/Settings/image-20220728002211513.png" alt="image-20220728002211513" style="zoom: 50%;" />
    
 3. `sc start` 和 `sc stop` 功能上类似于 `net start` 和 `net stop`，但速度更快且能停止的服务更多。
 
@@ -516,21 +516,21 @@ sc <server> [command] [service name] <option1> <option2>...
 
 ### 【15.1】提示 Windows Defender Credential Guard 不允许使用已保存的凭据
 
-<img src="!assets/IDE&Windows/image-20231216141553114.png" alt="image-20231216141553114" style="" />
+<img src="!assets/Settings/image-20231216141553114.png" alt="image-20231216141553114" style="" />
 
 Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不能使用已经保存的密码来连接远程桌面。我也很绝望啊，所以我决定关闭他了。
 
 1. 按 Win + R 呼出【运行】，输入 gpedit.msc 按回车，打开组策略编辑器：
 
-   <img src="!assets/IDE&Windows/image-20221104154634735.png" alt="image-20221104154634735" style="zoom: 50%;" />
+   <img src="!assets/Settings/image-20221104154634735.png" alt="image-20221104154634735" style="zoom: 50%;" />
 
 2. 在组策略管理控制台上，转到【计算机配置】=>【管理模板】=>【系统】=>【Device Guard】，双击【Device Guard】：
 
-   <img src="!assets/IDE&Windows/image-20221104154738722.png" alt="image-20221104154738722" style="zoom:50%;" />
+   <img src="!assets/Settings/image-20221104154738722.png" alt="image-20221104154738722" style="zoom:50%;" />
 
 3. 双击打开【基于虚拟化的安全】，然后单击禁用选项：
 
-   <img src="!assets/IDE&Windows/image-20221104154813968.png" alt="image-20221104154813968" style="zoom:50%;" />
+   <img src="!assets/Settings/image-20221104154813968.png" alt="image-20221104154813968" style="zoom:50%;" />
 
    确定配置并重启电脑即可解决。
 
@@ -542,11 +542,11 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 2. 找到注册表里面的 `计算机\HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client\Default` 其中右边的就是连接过的记录了,删除需要清除的文件即可：
 
-   <img src="!assets/IDE&Windows/image-20230613190839331.png" alt="image-20230613190839331" style="" />
+   <img src="!assets/Settings/image-20230613190839331.png" alt="image-20230613190839331" style="" />
 
 3. 如果有保存凭据，需要在【凭据管理器】里删除对应的凭据：
 
-   <img src="!assets/IDE&Windows/image-20230613190733588.png" alt="image-20230613190733588" style="" />
+   <img src="!assets/Settings/image-20230613190733588.png" alt="image-20230613190733588" style="" />
 
 
 
@@ -584,23 +584,23 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 1. 右键 Windows 图标点击【计算机管理】：
 
-   <img src="!assets/IDE&Windows/image-20250311144103532.png" alt="image-20250311144103532" style="zoom:50%;" />
+   <img src="!assets/Settings/image-20250311144103532.png" alt="image-20250311144103532" style="zoom:50%;" />
 
 2. 打开【本地用户和组】，右键【用户】，在右键菜单中选择【新用户】：
 
-   <img src="!assets/IDE&Windows/image-20250311144225363.png" alt="image-20250311144225363" style="zoom: 67%;" />
+   <img src="!assets/Settings/image-20250311144225363.png" alt="image-20250311144225363" style="zoom: 67%;" />
 
 3. 创建新用户：
 
-   <img src="!assets/IDE&Windows/image-20250311144300065.png" alt="image-20250311144300065" style="zoom:50%;" />
+   <img src="!assets/Settings/image-20250311144300065.png" alt="image-20250311144300065" style="zoom:50%;" />
 
 4. 右键新增的用户，在右键菜单中点击【属性】，切换到【隶属于】，将其添加到管理员组：
 
-   <img src="!assets/IDE&Windows/image-20250311144408921.png" alt="image-20250311144408921" style="zoom:50%;" />
+   <img src="!assets/Settings/image-20250311144408921.png" alt="image-20250311144408921" style="zoom:50%;" />
 
 5. 打开系统设置，依次点开【系统】=>【远程桌面】=>【远程桌面用户】，点击【添加】，将刚才新建的用户添加进去：
 
-   <img src="!assets/IDE&Windows/image-20250311144810934.png" alt="image-20250311144810934" style="zoom: 67%;" />
+   <img src="!assets/Settings/image-20250311144810934.png" alt="image-20250311144810934" style="zoom: 67%;" />
 
 
 
@@ -608,7 +608,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 1. Win+R 打开运行窗口，输入 `gpedit.msc`，打开本地组策略编辑器，依次选择【计算机配置】=>【管理模板】=>【Windows组件】=>【远程桌面服务】=>【远程桌面会话主机】=>【连接】：
 
-   <img src="!assets/IDE&Windows/image-20250311145043149.png" alt="image-20250311145043149" style="zoom:50%;" />
+   <img src="!assets/Settings/image-20250311145043149.png" alt="image-20250311145043149" style="zoom:50%;" />
 
 2. 选择以下三项配置进行修改：
 
@@ -624,7 +624,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 2. 右键以管理员身份运行，此时便会自动安装补丁，出现全绿点击【OK】：
 
-   <img src="!assets/IDE&Windows/image-20250311145558771.png" alt="image-20250311145558771" style="zoom: 50%;" />
+   <img src="!assets/Settings/image-20250311145558771.png" alt="image-20250311145558771" style="zoom: 50%;" />
    
 3. 如果出现【not supported】：
 
@@ -660,19 +660,19 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 1. Win+R 打开运行窗口，输入 `mstsc`，输入本地回环地址，注意不要输入 `127.0.0.1` 否则会报错：
 
-   <img src="!assets/IDE&Windows/image-20250311145752871.png" alt="image-20250311145752871" style="zoom: 50%;" />
+   <img src="!assets/Settings/image-20250311145752871.png" alt="image-20250311145752871" style="zoom: 50%;" />
 
 2. 输入密码：
 
-   <img src="!assets/IDE&Windows/image-20250311145921041.png" alt="image-20250311145921041" style="zoom: 50%;" />
+   <img src="!assets/Settings/image-20250311145921041.png" alt="image-20250311145921041" style="zoom: 50%;" />
 
 3. 密码没问题就启动了，可以启动游戏啥的：
 
-   <img src="!assets/IDE&Windows/image-20250311150128468.png" alt="image-20250311150128468" style="zoom: 33%;" />
+   <img src="!assets/Settings/image-20250311150128468.png" alt="image-20250311150128468" style="zoom: 33%;" />
 
 4. 注意最后关闭远程桌面连接之后，需要注销用户，不然虽然远程关闭了，但是用户和资源并没有释放：
 
-   <img src="!assets/IDE&Windows/image-20250311150329217.png" alt="image-20250311150329217" style="zoom: 50%;" />
+   <img src="!assets/Settings/image-20250311150329217.png" alt="image-20250311150329217" style="zoom: 50%;" />
 
 
 
@@ -738,11 +738,11 @@ localhost,127.0.0.1,Orichalcos.com
 
 2. 依次选择【计算机配置】=>【管理模板】=>【Windows 组件】=>【Microsoft Defender防病毒】=>【实时保护】，双击【实时保护】：
 
-   <img src="!assets/IDE&Windows/image-20231214235310490.png" alt="image-20231214235310490" style="" />
+   <img src="!assets/Settings/image-20231214235310490.png" alt="image-20231214235310490" style="" />
 
 3. 双击【关闭实时保护】，选择【已启用】，点击【应用】：
 
-   <img src="!assets/IDE&Windows/image-20231214235546195.png" alt="image-20231214235546195" style="" />
+   <img src="!assets/Settings/image-20231214235546195.png" alt="image-20231214235546195" style="" />
 
 
 
@@ -758,11 +758,11 @@ localhost,127.0.0.1,Orichalcos.com
 
 2. 依次选择【计算机配置】=>【管理模板】=>【Windows组件】=>【Windows 游戏录制与广播】，双击【Windows 游戏录制与广播】：
 
-   <img src="!assets/IDE&Windows/image-20231215000604307.png" alt="image-20231215000604307" style="zoom:80%;" />
+   <img src="!assets/Settings/image-20231215000604307.png" alt="image-20231215000604307" style="zoom:80%;" />
 
 3. 双击【启用或禁用 Windows 游戏录制和广播】，选择【已禁用】，点击【应用】：
 
-   <img src="!assets/IDE&Windows/image-20231215000956699.png" alt="image-20231215000956699" style="" />
+   <img src="!assets/Settings/image-20231215000956699.png" alt="image-20231215000956699" style="" />
    
 4. 最后重启电脑即可。
 
@@ -774,7 +774,7 @@ localhost,127.0.0.1,Orichalcos.com
 
 开发驱动器在 ReFS 技术基础上构建，采用有针对性的文件系统优化，并且可以更好地控制存储卷设置和安全性，包括信任指定、防病毒配置和对附加筛选器的管理控制。
 
-<img src="!assets/IDE&Windows/DevDrivePerfChart.png" alt="Visual Studio Dev Drive" style="" />
+<img src="!assets/Settings/DevDrivePerfChart.png" alt="Visual Studio Dev Drive" style="" />
 
 
 
@@ -818,7 +818,7 @@ localhost,127.0.0.1,Orichalcos.com
 
 1. 打开 Windows 设置并导航到【系统】=>【存储】=>【高级存储设置】=>【磁盘和卷】，选择【创建 Dev Drive】：
 
-   <img src="!assets/IDE&Windows/image-20231218005553385.png" alt="image-20231218005553385" style="zoom: 50%;" />
+   <img src="!assets/Settings/image-20231218005553385.png" alt="image-20231218005553385" style="zoom: 50%;" />
 
 2. 系统会提供三个选项：
 
@@ -828,19 +828,19 @@ localhost,127.0.0.1,Orichalcos.com
 
    这里推荐选择【重设现有卷大小】
 
-   <img src="!assets/IDE&Windows/image-20231218010059396.png" alt="image-20231218010059396" style="zoom: 50%;" />
+   <img src="!assets/Settings/image-20231218010059396.png" alt="image-20231218010059396" style="zoom: 50%;" />
 
 3. 选择要调整大小的卷：
 
-   <img src="!assets/IDE&Windows/image-20231218010220051.png" alt="image-20231218010220051" style="zoom: 67%;" />
+   <img src="!assets/Settings/image-20231218010220051.png" alt="image-20231218010220051" style="zoom: 67%;" />
 
 4. 为卷选择新大小，需要至少有 50GB 的未分配的可用空间，这是开发驱动器所需的最小大小。 设置大小后，选择【下一步】：
 
-   <img src="!assets/IDE&Windows/image-20231218010331196.png" alt="image-20231218010331196" style="zoom: 67%;" />
+   <img src="!assets/Settings/image-20231218010331196.png" alt="image-20231218010331196" style="zoom: 67%;" />
 
 5. 若要在新的可用空间上设置开发驱动器的格式，请指定标签（驱动器名称）、驱动器号和大小分配。 最大大小是在上一步中分配的可用空间量，开发驱动器的最小大小为 50GB：
 
-   <img src="!assets/IDE&Windows/image-20231218010448788.png" alt="image-20231218010448788" style="zoom: 67%;" />
+   <img src="!assets/Settings/image-20231218010448788.png" alt="image-20231218010448788" style="zoom: 67%;" />
 
 6. 到这里就已经创建并调整了开发驱动器的大小！
 
@@ -864,12 +864,12 @@ mklink <旧地址> <新地址>
 
 浏览器主页被篡改，直接去浏览器的设置里找首页设置一般没用，可以看一下是不是快捷方式出了问题，找到浏览器的快捷方式，右键查看【属性】，通常目标栏显示的都是浏览器的安装目录：
 
-<img src="!assets/IDE&Windows/image-20220418233829422.png" alt="image-20220418233829422" style="zoom:50%;" />
+<img src="!assets/Settings/image-20220418233829422.png" alt="image-20220418233829422" style="zoom:50%;" />
 
 
 如果发现安装目录之后还跟着一串网址链接，那就是被强制锁定了对应的网址，只要删掉这串网址就可以了。当然，有些浏览器的快捷方式不允许修改，我们可以把界面切换到【常规】，然后把【只读】取消掉，就可以进行修改了：
 
-<img src="!assets/IDE&Windows/image-20220418233922934.png" alt="image-20220418233922934" style="zoom:50%;" />
+<img src="!assets/Settings/image-20220418233922934.png" alt="image-20220418233922934" style="zoom:50%;" />
 
 当然也可以直接删除快捷方式，然后重新生成；或者在目标栏输入一个自己需要的网址（输入网址之前要加一个空格键，否则无法保存），然后将属性改为只读。
 
@@ -1003,12 +1003,12 @@ Maven 由于它的约定大于配置，之后可能遇到写的配置文件，�
 
 > 上边的 web-app 标签中有一个 `metadata-complete="true"`，这是个大坑，因为 web-app 标签 3.0 以上版本是可以使用 Servlet 的注解的，如下图：
 
-<img src="!assets/IDE&Windows/1247983-20190604213809759-1772243544.png" alt="img" style="zoom:50%;" />
+<img src="!assets/Settings/1247983-20190604213809759-1772243544.png" alt="img" style="zoom:50%;" />
 
 
 再也不用去 web.xml 写那 Servlet 的那一堆映射了（下图就是那一堆映射）：
 
-<img src="!assets/IDE&Windows/1247983-20190604214818782-1161183865.png" alt="img" style="zoom:50%;" />
+<img src="!assets/Settings/1247983-20190604214818782-1161183865.png" alt="img" style="zoom:50%;" />
 
 
 如果忘记了改这个 web-app 标签里的 `metadata-complete` 的这个属性，所写的注解都将失效！！！
@@ -1023,13 +1023,13 @@ Maven 由于它的约定大于配置，之后可能遇到写的配置文件，�
 
 在窗口下方右键，选中【Memory Indicator】：
 
-<img src="!assets/IDE&Windows/image-20200428211739758.png" alt="image-20200428211739758" style="zoom: 67%;" />
+<img src="!assets/Settings/image-20200428211739758.png" alt="image-20200428211739758" style="zoom: 67%;" />
 
 **修改内存大小**
 
 依次点击导航栏【帮助】=>【更改内存设置】：
 
-<img src="!assets/IDE&Windows/QQ_1734269047966.png" alt="QQ_1734269047966" style="zoom:67%;" />
+<img src="!assets/Settings/QQ_1734269047966.png" alt="QQ_1734269047966" style="zoom:67%;" />
 
 
 
@@ -1037,7 +1037,7 @@ Maven 由于它的约定大于配置，之后可能遇到写的配置文件，�
 
 IDEA 通过快捷键 Ctrl + / 进行注释的代码不会进行首行缩进：
 
-<img src="!assets/IDE&Windows/QQ_1734291118508.png" alt="QQ_1734291118508" style="zoom: 67%;" />
+<img src="!assets/Settings/QQ_1734291118508.png" alt="QQ_1734291118508" style="zoom: 67%;" />
 
 
 
@@ -1045,7 +1045,7 @@ IDEA 通过快捷键 Ctrl + / 进行注释的代码不会进行首行缩进：
 
 依次点击菜单 File => Settings => Editor => Code Style => Java => Code Generation， 去除勾选的 Line comment at first column 并勾选 Add a space at line comment start，然后点击 Apply 按钮应用设置：
 
-<img src="!assets/IDE&Windows/QQ_1734291301243.png" alt="QQ_1734291301243" style="zoom:67%;" />
+<img src="!assets/Settings/QQ_1734291301243.png" alt="QQ_1734291301243" style="zoom:67%;" />
 
 
 
@@ -1082,7 +1082,7 @@ Lombok supports: sun/apple javac 1.6, ECJ
 </dependency>
 ```
 
-<img src="!assets/IDE&Windows/QQ_1735503460171.png" alt="QQ_1735503460171" style="zoom: 67%;" />
+<img src="!assets/Settings/QQ_1735503460171.png" alt="QQ_1735503460171" style="zoom: 67%;" />
 
 
 
@@ -1094,7 +1094,7 @@ Lombok supports: sun/apple javac 1.6, ECJ
 -Djps.track.ap.dependencies=false 
 ```
 
-<img src="!assets/IDE&Windows/QQ_1735503436346.png" alt="QQ_1735503436346" />
+<img src="!assets/Settings/QQ_1735503436346.png" alt="QQ_1735503436346" />
 
 
 
@@ -1108,7 +1108,7 @@ Camel Case 可以用 一个快捷键 就搞定，去 IDEA 的插件库中搜索 
 
 Camel Case 包含 6 种格式的切换，可能某些格式是平时不用的，可以把不用的格式取消，这样在格式切换时，就不会包含已取消的格式了：
 
-<img src="!assets/IDE&Windows/5e7827dc0001c7ea11720724.png" alt="图片描述" style="zoom: 80%;" />
+<img src="!assets/Settings/5e7827dc0001c7ea11720724.png" alt="图片描述" style="zoom: 80%;" />
 
 
 
@@ -1117,7 +1117,7 @@ Camel Case 包含 6 种格式的切换，可能某些格式是平时不用的，
 
 加快开发效率，除去没用的包，洁癖者必用!   这样设置，就可以自动导入包以及除去没有用到的包！
 
-<img src="!assets/IDE&Windows/1100499-20180530104314466-1984750519.png" alt="img" style="zoom: 80%;" />
+<img src="!assets/Settings/1100499-20180530104314466-1984750519.png" alt="img" style="zoom: 80%;" />
 
 
 第一个是 自动导入需要的 jar 包，若有多个同名 jar 包，需要开发者自己选择导入
@@ -1130,7 +1130,7 @@ Camel Case 包含 6 种格式的切换，可能某些格式是平时不用的，
 
 IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化，优化 Java 包导入。我们可以在【Settings】=>【Tools】=>【Actions on Save】进行设置：
 
-<img src="!assets/IDE&Windows/image-20211025163148621.png" alt="image-20211025163148621" style="zoom: 80%;" />
+<img src="!assets/Settings/image-20211025163148621.png" alt="image-20211025163148621" style="zoom: 80%;" />
 
 
 比如上图这个 ”重新格式化代码“，保存时将会格式化你当前改动代码，这就不用担心写完代码忘记格式化了。
@@ -1143,7 +1143,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 在开发时遇到需要大量替换代码时，不需要一个一个的去改，可以使用**正则替换**：
 
-<img src="!assets/IDE&Windows/image-20211025163611055.png" alt="image-20211025163611055" style="zoom:80%;" />
+<img src="!assets/Settings/image-20211025163611055.png" alt="image-20211025163611055" style="zoom:80%;" />
 
 
 比如上图将所有这个文件中的 `name=""` 替换为 `th:field=""` ，`()` 内填写正则表达式，`$1` 为正则匹配到的第一个内容的占位符。
@@ -1156,7 +1156,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 找到这里，可以添加自己所需要的注释：
 
-<img src="!assets/IDE&Windows/image-20211214150741576.png" alt="image-20211214150741576" style="zoom:80%;" />
+<img src="!assets/Settings/image-20211214150741576.png" alt="image-20211214150741576" style="zoom:80%;" />
 
 
 
@@ -1165,11 +1165,11 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 找到如下地方：
 
-<img src="!assets/IDE&Windows/image-20211214151314708.png" alt="image-20211214151314708" style="zoom:80%;" />
+<img src="!assets/Settings/image-20211214151314708.png" alt="image-20211214151314708" style="zoom:80%;" />
 
 添加自己需要的模板后（展开方式选 `Enter`，表示回车触发），点击【更改】，添加使用环境，然后【编辑变量】：
 
-<img src="!assets/IDE&Windows/image-20211214151502559.png" alt="image-20211214151502559" style="zoom: 80%;" /><img src="!assets/IDE&Windows/image-20211214151601153.png" alt="image-20211214151601153" style="zoom: 80%;" />
+<img src="!assets/Settings/image-20211214151502559.png" alt="image-20211214151502559" style="zoom: 80%;" /><img src="!assets/Settings/image-20211214151601153.png" alt="image-20211214151601153" style="zoom: 80%;" />
 
 
 最后应用就行，在类的方法上方输入 `com` 按回车就可自动生成方法注释。
@@ -1180,7 +1180,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 可以在 IDEA 使用翻译功能，效果：
 
-<img src="!assets/IDE&Windows/image-20200615171745094.png" alt="image-20200615171745094" style="zoom:67%;" />
+<img src="!assets/Settings/image-20200615171745094.png" alt="image-20200615171745094" style="zoom:67%;" />
 
 
 默认引擎使用 Google 翻译，但是如果请求次数过多提示 “翻译失败，请求过多，请稍后再试！”，这里我建议使用阿里翻译引擎。
@@ -1191,22 +1191,22 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 1. 登录阿里云官网，点击右上角的控制台，在控制台的搜索框搜索 “机器翻译”：
 
-   <img src="!assets/IDE&Windows/image-20220328155154582.png" alt="image-20220328155154582" style="zoom: 50%;" />
+   <img src="!assets/Settings/image-20220328155154582.png" alt="image-20220328155154582" style="zoom: 50%;" />
 
 2. 点击【通用版翻译引擎】下方的【立即开通】按钮：
 
-   <img src="!assets/IDE&Windows/image-20220328160104687.png" alt="image-20220328160104687" style="zoom: 50%;" />
+   <img src="!assets/Settings/image-20220328160104687.png" alt="image-20220328160104687" style="zoom: 50%;" />
 
 
    点击之后会让你勾选一个【机器翻译服务协议】，勾选之后点【立即开通】就能开通成功了。
 
 3. 开通后，回到 阿里云机器翻译控制台，把鼠标悬停在右上角用户头像上，然后点击【AccessKey 管理】，会跳转到 AccessKey 管理页面：
 
-   <img src="!assets/IDE&Windows/image-20220328160302854.png" alt="image-20220328160302854" style="zoom:67%;" />
+   <img src="!assets/Settings/image-20220328160302854.png" alt="image-20220328160302854" style="zoom:67%;" />
 
 4. 进入后会弹出一个安全提示：
 
-   <img src="!assets/IDE&Windows/image-20220328160748769.png" alt="image-20220328160748769" style="zoom: 60%;" />
+   <img src="!assets/Settings/image-20220328160748769.png" alt="image-20220328160748769" style="zoom: 60%;" />
 
 
    简而言之，在这里创建的 AccessKey 能调用你账号下的所有资源，权限范围太大了，一旦泄露的话影响面很大，所以阿里云建议你创建一个子用户，然后给这个子用户只分配机器翻译的权限，这样的话即使泄露了也只会影响到机器翻译。
@@ -1217,39 +1217,39 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
    - 填写显示名称：划词翻译
    - 访问方式：勾选【Open API 调用访问】
 
-   <img src="!assets/IDE&Windows/image-20220328161056344.png" alt="image-20220328161056344" style="zoom:80%;" />
+   <img src="!assets/Settings/image-20220328161056344.png" alt="image-20220328161056344" style="zoom:80%;" />
 
 6. 点击【确定】之后会让你输入手机短信验证码，输入之后会看到创建成功的 【AccessKey ID】 和 【AccessKey Secret】，如下图：
 
-   <img src="!assets/IDE&Windows/image-20220328161159317.png" alt="image-20220328161159317" style="" />
+   <img src="!assets/Settings/image-20220328161159317.png" alt="image-20220328161159317" style="" />
 
 7. 然后勾选刚刚创建的用户，点击【添加权限】：
 
-   <img src="!assets/IDE&Windows/image-20220328161321740.png" alt="image-20220328161321740" style="zoom:80%;" />
+   <img src="!assets/Settings/image-20220328161321740.png" alt="image-20220328161321740" style="zoom:80%;" />
 
 8. 搜索 “机器翻译”，单击选中【AliyunMTFullAccess】和【AliyunMTReadOnlyAccess】这两项即可，然后点击【确定】：
 
-   <img src="!assets/IDE&Windows/image-20220328161442913.png" alt="image-20220328161442913" style="zoom:67%;" />
+   <img src="!assets/Settings/image-20220328161442913.png" alt="image-20220328161442913" style="zoom:67%;" />
 
 9. 最后在 IDEA 的 Translation 中，选择 阿里翻译并配置：
 
-   <img src="!assets/IDE&Windows/image-20220328161610458.png" alt="image-20220328161610458" style="zoom:67%;" />
+   <img src="!assets/Settings/image-20220328161610458.png" alt="image-20220328161610458" style="zoom:67%;" />
 
 
 
 ## 【12】Defender 排除项目目录
 
-<img src="!assets/IDE&Windows/image-20221122104415995.png" alt="image-20221122104415995" style="zoom: 67%;" />
+<img src="!assets/Settings/image-20221122104415995.png" alt="image-20221122104415995" style="zoom: 67%;" />
 
 1. 打开设置，然后依次打开【隐私和安全性】=>【Windows 安全中心】=>【打开 Windows 安全中心】
 
 2. 在 Windows 安全中心中选择【病毒和威胁防护】，在【病毒和威胁防护设置】下，选择【管理设置】
 
-   <img src="!assets/IDE&Windows/image-20221122105328603.png" alt="image-20221122105328603" style="zoom: 50%;" />
+   <img src="!assets/Settings/image-20221122105328603.png" alt="image-20221122105328603" style="zoom: 50%;" />
 
 3. 最后在 ”排除项“ 下，点击【添加或删除排除项】
 
-   <img src="!assets/IDE&Windows/image-20221122105441981.png" alt="image-20221122105441981" style="zoom:50%;" />
+   <img src="!assets/Settings/image-20221122105441981.png" alt="image-20221122105441981" style="zoom:50%;" />
 
 
 
@@ -1257,7 +1257,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 IntelliJ IDEA 可以在菜单中的【File】=>【Settings】=>【Editor】=>【File Encoding】下修改项目文件的编码：
 
-<img src="!assets/IDE&Windows/image-20230803120704470.png" alt="image-20230803120704470" style="zoom: 50%;" />
+<img src="!assets/Settings/image-20230803120704470.png" alt="image-20230803120704470" style="zoom: 50%;" />
 
 - IDE 的默认的全局编码是 UTF-8，Project Encoding 默认会是操作系统的 GBK，一般会修改为 UTF-8。
 - IntelliJ IDEA 可以对 Properties 文件进行专门的编码设置，也建议改为 UTF-8，其中有一个重点就是属性 **Transparent native-to-ascii conversion** ，一般都要勾选，不然 Properties 文件中的注释显示的都不会是中文。
@@ -1265,11 +1265,11 @@ IntelliJ IDEA 可以在菜单中的【File】=>【Settings】=>【Editor】=>【
 
 另外，单独文件的编码也可以这样设置：
 
-<img src="!assets/IDE&Windows/image-20230803120845477.png" alt="image-20230803120845477" style="zoom:50%;" />
+<img src="!assets/Settings/image-20230803120845477.png" alt="image-20230803120845477" style="zoom:50%;" />
 
 可能会弹出这样一个弹框：
 
-<img src="!assets/IDE&Windows/image-20230803120926821.png" alt="image-20230803120926821" style="zoom:50%;" />
+<img src="!assets/Settings/image-20230803120926821.png" alt="image-20230803120926821" style="zoom:50%;" />
 
 - Reload 表示使用新编码重新加载，新编码不会保存到文件中。
 - Convert 表示使用新编码进行转换，新编码会保存到文件中。
@@ -1292,24 +1292,24 @@ IntelliJ IDEA 可以在菜单中的【File】=>【Settings】=>【Editor】=>【
 
 然后在【Java】=>【已安装的 JRE】中，修改缺省 VM 参数，添加 Xms 和 Xmx，中间用空格隔开：
 
-<img src="!assets/IDE&Windows/image-20200428213849950.png" alt="image-20200428213849950" style="zoom: 50%;" />
+<img src="!assets/Settings/image-20200428213849950.png" alt="image-20200428213849950" style="zoom: 50%;" />
 
 
 
 
 ## 【2】汉化
 
-<img src="!assets/IDE&Windows/image-20200622113126300.png" alt="image-20200622113126300" style="zoom:67%;" />
+<img src="!assets/Settings/image-20200622113126300.png" alt="image-20200622113126300" style="zoom:67%;" />
 
 
 打开 https://www.eclipse.org/babel/downloads.php 
 
-<img src="!assets/IDE&Windows/image-20200622113248801.png" alt="image-20200622113248801" style="zoom:50%;" />
+<img src="!assets/Settings/image-20200622113248801.png" alt="image-20200622113248801" style="zoom:50%;" />
 
 
 选择一个复制，在弹出的窗口中点击添加
 
-<img src="!assets/IDE&Windows/image-20200622113354699.png" alt="image-20200622113354699" style="" />
+<img src="!assets/Settings/image-20200622113354699.png" alt="image-20200622113354699" style="" />
 
 
 找到中文简体安装就行了。
@@ -1341,7 +1341,7 @@ SpringBoot 是使用内置的 Tomcat 的，所以不用打包成 war 文件，�
 
 2. 项目运行环境选择 Java JDK：
 	
-	<img src="!assets/IDE&Windows/20191105110853305.png" alt="img" style="zoom: 80%;" />
+	<img src="!assets/Settings/20191105110853305.png" alt="img" style="zoom: 80%;" />
 	
 3. 执行 `maven clean`：
 	
@@ -1568,7 +1568,7 @@ append-proxy-groups: []
    slmgr -ipk WX4NM-KYWYW-QJJR4-XV3QB-6VM33
    ```
 
-   <img src="!assets/IDE&Windows/image-20230721145853625.png" alt="image-20230721145853625" style="" />
+   <img src="!assets/Settings/image-20230721145853625.png" alt="image-20230721145853625" style="" />
 
 2. 接下来更改 KMS 激活服务器，使用下面的命令进行更改：
 
@@ -1576,7 +1576,7 @@ append-proxy-groups: []
    slmgr /skms kms.03k.org
    ```
 
-   <img src="!assets/IDE&Windows/image-20230721145909063.png" alt="image-20230721145909063" style="" />
+   <img src="!assets/Settings/image-20230721145909063.png" alt="image-20230721145909063" style="" />
 
 3. 完成KMS服务器的设置以后，就可以使用下面的命令来激活 Windows server 2022 操作系统：
 
@@ -1584,11 +1584,11 @@ append-proxy-groups: []
    slmgr /skms kms.03k.org
    ```
 
-   <img src="!assets/IDE&Windows/image-20230721145919926.png" alt="image-20230721145919926" style="" />
+   <img src="!assets/Settings/image-20230721145919926.png" alt="image-20230721145919926" style="" />
 
 4. 通过 `slmgr.vbs -dlv` 命令可以看到激活后的使用期限为 180 天，可以重置的计数 1000 次以上，应该可以让你完成测试使用。
 
-   <img src="!assets/IDE&Windows/image-20230721145929877.png" alt="image-20230721145929877" style="" />
+   <img src="!assets/Settings/image-20230721145929877.png" alt="image-20230721145929877" style="" />
 
 >  以上的方法供学习使用。 
 
@@ -1606,7 +1606,7 @@ append-proxy-groups: []
    Invoke-WebRequest -Uri https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -outfile Microsoft.VCLibs.x86.14.00.Desktop.appx
    ```
 
-   <img src="!assets/IDE&Windows/powershell-download-vclibs-windows-server.webp" alt="PowerShell download VClibs" style="" />
+   <img src="!assets/Settings/powershell-download-vclibs-windows-server.webp" alt="PowerShell download VClibs" style="" />
 
 4. 键入以下命令然后按 Enter 键以安装 “.appx” 程序包：
 
@@ -1620,7 +1620,7 @@ append-proxy-groups: []
    Invoke-WebRequest -Uri https://github.com/microsoft/terminal/releases/download/v1.16.10261.0/Microsoft.WindowsTerminal_Win10_1.16.10261.0_8wekyb3d8bbwe.msixbundle -outfile Microsoft.WindowsTerminal_Win10_1.16.10261.0_8wekyb3d8bbwe.msixbundle
    ```
 
-   <img src="!assets/IDE&Windows/download-terminal-powershell.webp" alt="PowerShell download Terminal" style="" />
+   <img src="!assets/Settings/download-terminal-powershell.webp" alt="PowerShell download Terminal" style="" />
 
    > 如果服务器无法下载可以直接去 [GItHub](https://github.com/microsoft/terminal/releases) 下载后传输到服务器，然后执行安装命令。建议下载的版本和上面命令行保持一致，其他版本由于缺少其他包无法进行安装。
 
@@ -1640,19 +1640,19 @@ append-proxy-groups: []
 
 1. 在终端中输入命令 `sconfig` 回车：
 
-   <img src="!assets/IDE&Windows/image-20240814000959424.png" alt="image-20240814000959424" style="zoom:67%;" />
+   <img src="!assets/Settings/image-20240814000959424.png" alt="image-20240814000959424" style="zoom:67%;" />
 
 2. 输入数字 5 回车：
 
-   <img src="!assets/IDE&Windows/image-20240814000605863.png" alt="image-20240814000605863" style="zoom:67%;" />
+   <img src="!assets/Settings/image-20240814000605863.png" alt="image-20240814000605863" style="zoom:67%;" />
 
 3. 选择 “手动更新”，即输入数字 3 回车即可：
 
-   <img src="!assets/IDE&Windows/image-20240814000627522.png" alt="image-20240814000627522" style="zoom:67%;" />
+   <img src="!assets/Settings/image-20240814000627522.png" alt="image-20240814000627522" style="zoom:67%;" />
 
 4. 最后会回到这个页面，可以看到更新已改为手动：
 
-   <img src="!assets/IDE&Windows/image-20240814001105085.png" alt="image-20240814001105085" style="zoom:67%;" />
+   <img src="!assets/Settings/image-20240814001105085.png" alt="image-20240814001105085" style="zoom:67%;" />
 
 
 
@@ -1678,13 +1678,13 @@ set "title=名字"
 
 1. 登录服务器后，打开任务管理器，在任务管理器中查找是否有进程 rdpclip.exe，有的系统不一样，名字也是不同的，也有系统叫 RDP剪贴板监视程序：
 
-   <img src="!assets/IDE&Windows/QQ_1735503873741.png" alt="QQ_1735503873741" style="zoom:67%;" />
+   <img src="!assets/Settings/QQ_1735503873741.png" alt="QQ_1735503873741" style="zoom:67%;" />
 
 2. 如果找到有进程，选中该进程，鼠标右键，选择结束该进程，结束该进程；如果没有该进程，直接进行第 3 步。
 
 3. 按 Win + R 打开【运行】，在运行中输入进程 rdpclip.exe，并点击确定：
 
-   <img src="!assets/IDE&Windows/QQ_1735504009366.png" alt="QQ_1735504009366" style="zoom:50%;" />
+   <img src="!assets/Settings/QQ_1735504009366.png" alt="QQ_1735504009366" style="zoom:50%;" />
 
 4. 再次在任务管理其中查看进程 rdpclip.exe 是否已经启动，如果已经启动，就测试是否可以复制粘贴，如果还是没有启动，则再次操作第 4 步。
 
@@ -1738,7 +1738,7 @@ ask the administrator to create a pre-revprop-change hook
 
 3. 将 .exe 的文件拷到上面第一步的目录中去，启动该工具就可以看见对应的用户名密码了：
 
-   <img src="!assets/IDE&Windows/image-20231214235920682.png" alt="image-20231214235920682" style="zoom:67%;" />
+   <img src="!assets/Settings/image-20231214235920682.png" alt="image-20231214235920682" style="zoom:67%;" />
 
 
 
@@ -1835,7 +1835,7 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 
 需要注意的是，PowerShell7 仅修改 `chcp 65001` 无法实现对程序输出中文的支持。另外，修改【控制面板】=>【区域】=>【管理】=>【更改系统区域设置】里面的设置，启用 【Beta版：使用Unicode UTF-8提供全球语言支持】，也可以达到同样的效果，但是很多中文应用程序，包括操作系统自带的应用程序，将会出现中文显示异常。不推荐此方案！
 
-<img src="!assets/IDE&Windows/QQ_1734291616071.png" alt="QQ_1734291616071" style="zoom:50%;" />
+<img src="!assets/Settings/QQ_1734291616071.png" alt="QQ_1734291616071" style="zoom:50%;" />
 
 
 
@@ -1845,7 +1845,7 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 
 使用破解版的 IDM 会时不时出现假序列号弹窗：
 
-<img src="!assets/IDE&Windows/image-20240416143932381.png" alt="image-20240416143932381" style="zoom:67%;" />
+<img src="!assets/Settings/image-20240416143932381.png" alt="image-20240416143932381" style="zoom:67%;" />
 
 解决方案：
 
@@ -1867,7 +1867,7 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 
 2. 每次 IDM 启动的时候，都会修改 hosts 文件，将以上内容注释，可以将 hosts 文件设置为【只读】，也可以使用火绒的自定义防护禁止 IDMan.exe 修改 hosts：
 
-   <img src="!assets/IDE&Windows/image-20240416144317613.png" alt="image-20240416144317613" style="zoom: 50%;" />
+   <img src="!assets/Settings/image-20240416144317613.png" alt="image-20240416144317613" style="zoom: 50%;" />
 
 
 
@@ -1887,7 +1887,7 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 
 2. 打开 IDM 的安装目录，找到 IDMGCExt.crx 文件，将其拖入浏览器中，浏览器会重新安装扩展：
 
-   <img src="./!assets/IDE&Windows/image-20250503032759698.png" alt="image-20250503032759698" style="zoom: 50%;" />
+   <img src="./!assets/Settings/image-20250503032759698.png" alt="image-20250503032759698" style="zoom: 50%;" />
    
 3. 安装完成后，在扩展管理中找到扩展 ID：
 

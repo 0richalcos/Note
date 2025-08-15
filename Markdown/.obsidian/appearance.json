@@ -1,0 +1,7 @@
+{
+  "cssTheme": "Prism",
+  "theme": "moonstone",
+  "enabledCssSnippets": [
+    "Prism"
+  ]
+}

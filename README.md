@@ -1,12 +1,12 @@
-| Java | Spring | 持久层框架 | 数据库 | 认证与授权 | 搜索引擎 | 运维 | 前端 |
-| :--: | :----: | :--------: | :----: | :------: | :------: | :------: | :------: |
+|    Java     |    Spring     |    持久层框架     |    数据库     |   认证与授权    |    搜索引擎     |     运维      |    前端     |
+| :---------: | :-----------: | :---------------: | :-----------: | :-------------: | :-------------: | :-----------: | :---------: |
 | [♨️](#♨️java) | [🍃](#🍃Spring) | [💾](#💾持久层框架) | [📊](#📊数据库) | [🔐](#🔐权限管理) | [🔍](#🔍搜索引擎) | [🧑‍🔧](#🧑‍🔧运维) | [🌐](#🌐前端) |
 
 | 数据结构及算法 | 网络通信  | 文件处理                    | 分布式存储 | 定时任务                            | 开发工具        | 其他                    |
 | :-------------------------: | :------: | :---------------------------------: | :-------------: | :---------------------: | :---------------------: | :---------------------: |
 | [🧮](#🧮数据结构及算法) | [🛰️](#🛰️协议) | [🗃️](#🗃️文件处理) |    [📇](#📇对象存储)      | [⌛](#⌛定时任务) | [🛠️](#🛠️开发工具) | [👻](#👻其他) |
 
-<br/>
+<br>
 
 ## ♨️Java
 
@@ -16,7 +16,7 @@
 - [**Java 8 新特性**](https://github.com/0richalcos/Note/blob/main/Markdown/Java8.md)
 - [**Java Web**](https://github.com/0richalcos/Note/blob/main/Markdown/JavaWeb.md)
 
-<br/>
+<br>
 
 ## 🍃Spring
 
@@ -25,14 +25,14 @@
 - [**Spring Boot**](https://github.com/0richalcos/Note/blob/main/Markdown/SpringBoot.md)
 - [**Spring Cloud**](https://github.com/0richalcos/Note/blob/main/Markdown/SpringCloud.md)
 
-<br/>
+<br>
 
 ## 💾持久层框架
 
 - [**MyBatis**](https://github.com/0richalcos/Note/blob/main/Markdown/MyBatis.md)
   - [**MyBatis-Plus**](https://github.com/0richalcos/Note/blob/main/Markdown/MyBatis-Plus.md)
 
-<br/>
+<br>
 
 ## 📊数据库
 
@@ -43,7 +43,7 @@
 - [**Redis**](https://github.com/0richalcos/Note/blob/main/Markdown/Redis.md)
 - [**DM**](https://github.com/0richalcos/Note/blob/main/Markdown/DM.md)
 
-<br/>
+<br>
 
 ## 🔐认证与授权
 
@@ -51,13 +51,13 @@
 - [**Sa-Token**](https://github.com/0richalcos/Note/blob/main/Markdown/Sa-Token.md)
 - [**SSO**](https://github.com/0richalcos/Note/blob/main/Markdown/SSO.md)
 
-<br/>
+<br>
 
 ## 🔍搜索引擎
 
 - [**Elasticsearch**](https://github.com/0richalcos/Note/blob/main/Markdown/Elasticsearch.md)
 
-<br/>
+<br>
 
 ## 🧑‍🔧运维
 
@@ -70,7 +70,7 @@
 - [**Docker**](https://github.com/0richalcos/Note/blob/main/Markdown/Docker.md)
 - [**NSSM**](https://github.com/0richalcos/Note/blob/main/Markdown/NSSM.md)
 
-<br/>
+<br>
 
 ## 🌐前端
 
@@ -79,13 +79,13 @@
 - [**jQuery**](https://github.com/0richalcos/Note/blob/main/Markdown/jQuery.md)
 - [**Vue**](https://github.com/0richalcos/Note/blob/main/Markdown/Vue.md)
 
-
+<br>
 
 **模板引擎**
 
 - [**Thymeleaf**](https://github.com/0richalcos/Note/blob/main/Markdown/Thymeleaf.md)
 
-
+<br>
 
 **组件库**
 
@@ -98,14 +98,14 @@
 - 图表：[**Apache ECharts**](https://github.com/0richalcos/Note/blob/main/Markdown/ApacheECharts.md)
 - [**Element**](https://github.com/0richalcos/Note/blob/main/Markdown/Element.md)
 
-<br/>
+<br>
 
 ## 🧮数据结构及算法
 
 - [**算法**](https://github.com/0richalcos/Note/blob/main/Markdown/Algorithm.md)
 - [**设计模式**](https://github.com/0richalcos/Note/blob/main/Markdown/DesignPattern.md)
 
-<br/>
+<br>
 
 ## 🛰️网络通信
 
@@ -116,7 +116,7 @@
 - [**OpenVPN**](https://github.com/0richalcos/Note/blob/main/Markdown/OpenVPN.md)
 - [**加密**](https://github.com/0richalcos/Note/blob/main/Markdown/Encryption.md)
 
-<br/>
+<br>
 
 ## 🗃️文件处理
 
@@ -128,38 +128,38 @@
 - **在线编辑：**[**OnlyOffice**](https://github.com/0richalcos/Note/blob/main/Markdown/OnlyOffice.md)
 - **Word模板引擎：**[**Poi-tl**](https://github.com/0richalcos/Note/blob/main/Markdown/Poi-tl.md)
 
-
+<br>
 
 **PDF**
 
 - [**Apache PDFBox**](https://github.com/0richalcos/Note/blob/main/Markdown/ApachePDFBox.md)
 
-
+<br>
 
 **XML**
 
 - [**XML 解析**](https://github.com/0richalcos/Note/blob/main/Markdown/XMLParse.md)
 
-
+<br>
 
 **ZIP**
 
 - [**ZIP 压缩解压**](https://github.com/0richalcos/Note/blob/main/Markdown/Zip4j.md)
 
-<br/>
+<br>
 
 ## 📇分布式存储
 
 - [**MinIO**](https://github.com/0richalcos/Note/blob/main/Markdown/MinIO.md)
 - [**FastDFS**](https://github.com/0richalcos/Note/blob/main/Markdown/FastDFS.md)
 
-<br/>
+<br>
 
 ## ⌛定时任务
 
 - [**XXL-JOB**](https://github.com/0richalcos/Note/blob/main/Markdown/XXL-JOB.md)
 
-<br/>
+<br>
 
 ## 🛠️开发工具
 
@@ -168,7 +168,7 @@
 - [**Maven**](https://github.com/0richalcos/Note/blob/main/Markdown/Maven.md)
 - [**Node.js**](https://github.com/0richalcos/Note/blob/main/Markdown/Node.js.md)
 
-<br/>
+<br>
 
 ## 👻其他
 

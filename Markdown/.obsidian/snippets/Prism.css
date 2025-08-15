@@ -1,0 +1,5 @@
+.cm-s-obsidian span.cm-inline-code:not(.cm-formatting):not(.cm-hmd-indented-code):not(.obsidian-search-match-highlight) {
+  padding: 0 var(--size-4-1);
+  border: 1px solid var(--window-border-color);
+  border-radius: var(--radius-s);
+}

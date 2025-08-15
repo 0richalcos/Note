@@ -1,0 +1,11 @@
+{
+  "promptDelete": false,
+  "spellcheck": false,
+  "showLineNumber": false,
+  "strictLineBreaks": true,
+  "readableLineLength": false,
+  "foldIndent": true,
+  "defaultViewMode": "preview",
+  "attachmentFolderPath": "assets/Poi-tl",
+  "autoConvertHtml": true
+}
