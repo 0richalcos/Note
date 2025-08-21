@@ -8,7 +8,7 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 >
 > 默认 VNC 协议不加密传输内容，使用 SSH 隧道或搭配 VPN 使用。
 
-
+<br>
 
 **VNC 使用场景**
 
@@ -17,7 +17,7 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 - 实验室/课堂多机控制。
 - 异地远程协助操作。
 
-
+<br>
 
 **VNC 的特点**
 
@@ -26,7 +26,7 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 - 不依赖登录用户：可设置为服务进程，在登录前就能远程连接
 - 可搭配加密通道：通常结合 SSH、OpenVPN 使用来提升安全性
 
-
+<br>
 
 # 2、VNC 的工作原理
 
@@ -43,7 +43,7 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 - VNC Server（服务端）：采集屏幕图像并传输给 Viewer，同时接收并执行 Viewer 发来的输入操作。
 - 通常监听 TCP 5900 + display number（如 :1 则监听 5901）
 
-
+<br>
 
 **通信流程（RFB协议流程）**
 
@@ -56,7 +56,7 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 5. 事件传输：
    - Client 发送鼠标移动、点击、键盘按键等事件。
 
-
+<br>
 
 # 3、VNC 与其他远程协议对比
 
@@ -68,7 +68,7 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 | TeamViewer  | ✅        | ✅           | ✅               | 远程协助、远程办公     | 高                 |
 | AnyDesk     | ✅        | ✅           | ✅               | 高性能远程连接         | 非常高             |
 
-
+<br>
 
 # 4、环境搭建
 
@@ -88,15 +88,15 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
    - Debian 系系统：
 
      ```shell
-     sudo apt update
-     sudo apt install -y xfce4 xfce4-goodies tigervnc-standalone-server
+     apt update
+     apt install -y xfce4 xfce4-goodies tigervnc-standalone-server
      ```
 
    - RedHat 系系统：
 
      ```shell
-     sudo yum groupinstall -y "Xfce"
-     sudo yum install -y tigervnc-server
+     yum groupinstall -y "Xfce"
+     yum install -y tigervnc-server
      ```
 
    > [!NOTE]
@@ -124,7 +124,7 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 4. 配置 xstartup 启动桌面环境，编辑 `~/.vnc/xstartup` 文件：
 
    ```shell
-   sudo vim ~/.vnc/xstartup
+   vim ~/.vnc/xstartup
    ```
 
    内容示例：
@@ -143,13 +143,13 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
    保存并赋予执行权限：
 
    ```shell
-   sudo chmod +x ~/.vnc/xstartup
+   chmod +x ~/.vnc/xstartup
    ```
 
 5. 以 `:1` 显示号为例，创建 systemd 服务文件：
 
    ```shell
-   sudo vim /etc/systemd/system/vncserver@:1.service
+   vim /etc/systemd/system/vncserver@:1.service
    ```
 
    内容示例：
@@ -177,18 +177,18 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 6. 启用并启动服务：
 
    ```shell
-   sudo systemctl daemon-reload
-   sudo systemctl enable vncserver@:1.service
-   sudo systemctl start vncserver@:1.service
+   systemctl daemon-reload
+   systemctl enable vncserver@:1.service
+   systemctl start vncserver@:1.service
    ```
 
 7. 查看服务状态：
 
    ```shell
-   sudo systemctl status vncserver@:1.service
+   systemctl status vncserver@:1.service
    ```
 
-
+<br>
 
 ## 4.2、统信 UOS
 

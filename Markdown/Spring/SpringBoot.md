@@ -2250,6 +2250,8 @@ java -jar your-project-name.jar
 
 ### 6.2.2、使用 TongWeb
 
+默认情况下，SpringBoot 使用 Tomcat 作为中间件，在某些信创环境下，我们需要将 Tomcat 换成 TongWeb：
+
 1. 在东方通官网申请嵌入版试用，我这里拿到的是 TongWeb8.0.E.3_P2，解压后打开 “安装工程介质” 文件夹：
 
    <img src="!assets/SpringBoot/image-20250521170928704.png" alt="image-20250521170928704" style="zoom:50%;" />
@@ -2316,6 +2318,88 @@ java -jar your-project-name.jar
 4. 启动验证：
 
    <img src="!assets/SpringBoot/image-20250521173239848.png" alt="image-20250521173239848" style="zoom:50%;" />
+
+
+
+### 6.2.3、注册为服务
+
+在生产环境中，通常需要让 Spring Boot 的 jar 包像系统服务一样管理，这样可以通过 `systemctl start|stop|restart` 来控制应用，同时支持开机自启、日志查看和自动重启。
+
+下面以 YiPlat 包（`yiplat-admin-x.x.x.jar`，其中 `x.x.x` 为版本号）为例，演示如何将 `/opt/yiplat/` 下的 Spring Boot jar 注册为服务，并自动选择最新版本的 jar 进行启动：
+
+1. 编写 `yiplat.service` 服务配置文件：
+
+   ```shell
+   vim /etc/systemd/system/yiplat.service
+   ```
+
+   添加以下内容：
+
+   ```
+   [Unit]
+   Description=YiPlat Admin Service
+   After=network.target
+   
+   [Service]
+   # 服务运行目录
+   WorkingDirectory=/opt/yiplat
+   
+   # JVM 参数
+   Environment="JAVA_OPTS=-Duser.timezone=Asia/Shanghai -Xms1g -Xmx2g -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=1g -XX:+HeapDumpOnOutOfMemoryError -XX:+PrintGCDateStamps -XX:+PrintGCDetails -XX:NewRatio=1 -XX:SurvivorRatio=30 -XX:+UseParallelGC -XX:+UseParallelOldGC"
+   
+   # 启动命令：选最新版本的 JAR
+   ExecStart=/bin/bash -c '\
+     LATEST_JAR=$(ls -v /opt/yiplat/yiplat-admin-*.jar | tail -n 1); \
+     echo ">>> Starting YiPlat with $LATEST_JAR"; \
+     exec java $JAVA_OPTS -jar "$LATEST_JAR" \
+   '
+   
+   # 停止时，优雅退出 Java
+   ExecStop=/bin/kill -TERM $MAINPID
+   
+   # 自动重启策略
+   Restart=on-failure
+   RestartSec=5
+   
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+2. 重新加载 systemd：
+
+   ```shell
+   systemctl daemon-reload
+   ```
+
+3. 设置服务开机自启：
+
+   ```shell
+   systemctl enable yiplat
+   ```
+
+4. 启动服务：
+
+   ```shell
+   systemctl start yiplat
+   ```
+
+5. 查看服务状态：
+
+   ```shell
+   systemctl restart yiplat
+   ```
+
+6. 实时查看日志：
+
+   ```shell
+   journalctl -u yiplat -f
+   ```
+
+7. 关闭服务：
+
+   ```shell
+   systemctl stop yiplat
+   ```
 
 
 

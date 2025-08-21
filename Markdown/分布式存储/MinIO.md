@@ -6,7 +6,7 @@
 
 MinIO 是一个非常轻量的服务，可以很简单的和其他应用的结合，类似 NodeJS、Redis 或者 MySQL。
 
-
+<br>
 
 ## 1.2、MinIO 有哪些优势？
 
@@ -16,7 +16,7 @@ MinIO 作为一款基于 Golang 编程语言开发的一款高性能的分布式
 
 官网文档地址：https://docs.min.io/cn/
 
-
+<br>
 
 **高性能**
 
@@ -26,7 +26,7 @@ MinIO 用作云原生应用程序的主要存储，和传统对象存储相比�
 
 <img src="!assets/MinIO/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy82T3hxU3FXQnFzSWhZYTFReDR5WUozbklOdEZkVVI1T2xpYUJLeGhHRzRsZDBVaWJFZVl4aDJKOTVJU1JJYnM1T0d4Y1NzdllORTYwNW9xN3BqMHN2bGlidy82NDA.png" alt="aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy82T3hxU3FXQnFzSWhZYTFReDR5WUozbklOdEZkVVI1T2xpYUJLeGhHRzRsZDBVaWJFZVl4aDJKOTVJU1JJYnM1T0d4Y1NzdllORTYwNW9xN3BqMHN2bGlidy82NDA" style="" />
 
-
+<br>
 
 **支持全面**
 
@@ -34,7 +34,7 @@ MinIO 用作云原生应用程序的主要存储，和传统对象存储相比�
 
 <img src="!assets/MinIO/image-20230613214138567.png" alt="image-20230613214138567" style="" />
 
-
+<br>
 
 **AWS S3标准兼容**
 
@@ -42,37 +42,37 @@ MinIO 用作云原生应用程序的主要存储，和传统对象存储相比�
 
 <img src="!assets/MinIO/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy82T3hxU3FXQnFzSWhZYTFReDR5WUozbklOdEZkVVI1T0k2N0t6aWI3clVlbTA4VzFWOGdMckN3VjdHSXY2bW42NjhtVmd5cTlGWFdDaWM2T0RLUWVzSU53LzY0MA.png" alt="aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy82T3hxU3FXQnFzSWhZYTFReDR5WUozbklOdEZkVVI1T0k2N0t6aWI3clVlbTA4VzFWOGdMckN3VjdHSXY2bW42NjhtVmd5cTlGWFdDaWM2T0RLUWVzSU53LzY0MA" style="" />
 
-
+<br>
 
 **安装部署非常简单**
 
 MinIO 安装部署非常简单。MinIO 简单特性减少了出错的机会，节约了安装部署的时间，提供了可靠性，同时简单性又是性能的基础。Linux 环境下只需下载一个二进制文件然后执行，即可在几分钟内完成安装和配置 MinIO。配置选项和变体的数量保持在最低限度，这样让失败的配置概率降低到几乎接近于 0 的水平。MinIO 升级是通过一个简单命令完成的，这个命令可以无中断的完成 MinIO 的升级工作，并且不需要停机即可完成升级操作，大大降低总使用和运维成本。
 
-
+<br>
 
 **开放全部源代码 + 企业级支持**
 
 MinIO 基于 Apache V2 license 100% 开放源代码 。这就意味着 MinIO 的用户能够自动的、无限制、自由免费使用和集成 MinIO、自由的创新和创造、 自由的去修改、自由的再次发行新的版本和软件。确实，MinIO 强有力的支持和驱动了很多世界 500 强的企业。此外，其部署的多样性和专业性提供了其他软件无法比拟的优势。
 
-
+<br>
 
 **容器化集成方便**
 
 MinIO 提供了与 k8s、etcd、Docker 等主流容器化技术深度集成方案。
 
-
+<br>
 
 **管理界面的支持**
 
 MinIO 服务安装后，可以直接通过浏览器登录系统，完成文件夹、文件的管理。非常方便使用。
 
+<br>
 
+# 2、安装和配置
 
-## 1.3、MinIO 安装
+## 2.1、Linux
 
-### 1.3.1、Linux
-
-#### MinIO 安装启动
+### 2.1.1、MinIO 安装启动
 
 1. 创建所需要的文件夹：
 
@@ -136,9 +136,9 @@ MinIO 服务安装后，可以直接通过浏览器登录系统，完成文件�
    nohup /usr/local/minio/minio server /var/lib/minio --console-address ":9001" > /var/log/minio/minio.log 2>&1 &
    ```
 
+<br>
 
-
-#### 关闭 MinIO
+### 2.1.2、关闭 MinIO
 
 查看端口占用，9000 为 MinIO 占用端口号，`kill` 杀死进程。
 
@@ -152,9 +152,9 @@ netstat -nlp | grep 9000
 kill -9 2524
 ```
 
+<br>
 
-
-#### 配置 systemd 服务
+### 2.1.3、配置 systemd 服务
 
 1. 新建一个 MinIO 配置文件：
 
@@ -239,11 +239,11 @@ kill -9 2524
    systemctl enable minio
    ```
 
+<br>
 
+## 2.2、Windows
 
-### 1.3.2、Windows
-
-#### MinIO 安装启动
+### 2.2.1、MinIO 安装启动
 
 Windows 环境下和 Linux 大致相同，主要是启动的环境配置有些差异，下方展示如何在 Windows Powershell 中设置环境变量并启动。
 
@@ -269,9 +269,9 @@ $env:MINIO_ROOT_PASSWORD="minioadmin"
 >
 > 查看设置的环境变量可以用 `$env:<变量名>`
 
+<br>
 
-
-#### 配置服务
+### 2.2.2、配置服务
 
 推荐使用 NSSM 注册 MinIO 为 Windows 服务：
 
@@ -384,9 +384,9 @@ $env:MINIO_ROOT_PASSWORD="minioadmin"
 >
 > 这将打开与安装时相同的GUI界面，显示所有已配置的选项。
 
+<br>
 
-
-### 1.3.3、麒麟V10
+## 2.3、麒麟V10
 
 1. 查看系统版本：
 
@@ -405,9 +405,9 @@ $env:MINIO_ROOT_PASSWORD="minioadmin"
 
 3. 安装操作参考 Linux 安装，这里主要是注意下载的 minio 文件版本。
 
+<br>
 
-
-# 2、使用问题
+# 3、使用问题
 
 **上传图片后返回的 url 无法在线预览**
 

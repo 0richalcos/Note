@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "前端/组件库/Axios.md",
+                "file": "网络通信/WebSocket.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Axios"
+              "title": "WebSocket"
             }
           }
         ]
@@ -84,13 +84,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "前端/组件库/Axios.md",
+                "file": "网络通信/WebSocket.md",
                 "followCursor": true,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Axios 的大纲"
+              "title": "WebSocket 的大纲"
             }
           },
           {
@@ -149,6 +149,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:创建新数据库": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
@@ -157,32 +158,32 @@
   },
   "active": "4d9078eadde73666",
   "lastOpenFiles": [
-    "前端/组件库/ApacheECharts.md",
-    "前端/Vue.md",
-    "前端/jQuery.md",
-    "前端/JavaScript.md",
-    "前端/CSS.md",
-    "前端/组件库/Element.md",
-    "前端/组件库/DHTMLXGantt.md",
-    "前端/组件库/Axios.md",
-    "前端/组件库/AntV-X6.md",
+    "网络通信/VNC.md",
+    "网络通信/OpenVPN.md",
+    "网络通信/Encryption.md",
+    "网络通信/HTTP.md",
+    "网络通信/frp.md",
+    "数据库/Redis.md",
+    "数据库/Oracle.md",
+    "数据库/MySQL.md",
+    "数据库/MySQLQuery.md",
+    "数据库/DM.md",
+    "认证与授权/Shiro.md",
     "认证与授权/Sa-Token.md",
-    "开发工具/Node.js.md",
-    "开发工具/Git.md",
-    "运维/Linux.md",
-    "运维/TongWeb.md",
-    "运维/Nginx.md",
-    "运维/Docker.md",
+    "分布式存储/FastDFS.md",
+    "分布式存储/MinIO.md",
+    "持久层框架/MyBatis-Plus.md",
     "持久层框架/Mybatis.md",
-    "Docker.md",
-    "DM.md",
-    "Elasticsearch.md",
-    "EasyExcel.md",
-    "Element.md",
-    "FastDFS.md",
-    "Spring.md",
-    "Solutions.md",
-    "frp.md",
+    "定时任务/XXL-JOB.md",
+    "文件处理/Office/ApachePOI.md",
+    "文件处理/Office/OnlyOffice.md",
+    "文件处理/Office/Spire.OfficeForJava.md",
+    "文件处理/Office/EasyExcel.md",
+    "Spring/SpringBoot.md",
+    "Java/JavaCollection.md",
+    "Java/JavaBasics.md",
+    "Java/Java8.md",
+    "运维/Nginx.md",
     "!assets/AntV-X6/image-20220505010914905.png",
     "!assets/AntV-X6/image-20220505010314434.png",
     "!assets/AntV-X6/image-20220505005938460.png",

@@ -923,7 +923,7 @@ Connection to 192.168.1.10 80 port [tcp/http] succeeded!
 
 Linux 系统是一种典型的多用户系统，不同的用户处于不同的地位，拥有不同的权限。为了保护系统的安全性，Linux 系统对不同的用户访问同一文件（包括目录文件）的权限做了不同的规定。
 
-
+<br>
 
 ## 4.1、文件基本属性
 
@@ -961,7 +961,7 @@ drwxr-xr-x   3 root root      4096 Nov 12 09:27 boot
 
 其中，第 1、4、7 位表示读权限，如果用 `r` 字符表示，则有读权限，如果用 `-` 字符表示，则没有读权限；第 2、5、8 位表示写权限，如果用 `w` 字符表示，则有写权限，如果用 `-` 字符表示没有写权限；第 3、6、9 位表示可执行权限，如果用 `x` 字符表示，则有执行权限，如果用 `-` 字符表示，则没有执行权限。
 
-
+<br>
 
 **Linux 文件属主和属组**
 
@@ -982,7 +982,7 @@ drwxr-xr-x 3 mysql mysql 4096 Apr 21  2014 mysql
 
 对于 root 用户来说，一般情况下，文件的权限对其不起作用。
 
-
+<br>
 
 ## 4.2、更改文件属性
 
@@ -992,7 +992,7 @@ drwxr-xr-x 3 mysql mysql 4096 Apr 21  2014 mysql
 - chown（change owner）：修改所属用户与组。
 - chmod（change mode）：修改用户的权限。
 
-
+<br>
 
 ### 4.2.1、chgrp
 
@@ -1004,11 +1004,11 @@ drwxr-xr-x 3 mysql mysql 4096 Apr 21  2014 mysql
 chgrp [-R] 属组名 文件名
 ```
 
-参数选项：
+选项与参数：
 
 - `-R` : 进行递归（recursive）的持续变更，亦即连同次目录下的所有文件都会变更。
 
-
+<br>
 
 ### 4.2.2、chown
 
@@ -1021,11 +1021,11 @@ chown [–R] 属主名 文件名
 chown [-R] 属主名:属组名 文件名
 ```
 
-参数选项：
+选项与参数：
 
 - `-R` : 进行递归（recursive）的持续变更，亦即连同次目录下的所有文件都会变更。
 
-
+<br>
 
 ### 4.2.3、chmod
 
@@ -1058,7 +1058,7 @@ chmod [-R] xyz 文件或目录
 - `xyz` : 就是刚刚提到的数字类型的权限属性，为 rwx 属性数值的相加。
 - `-R` : 进行递归（recursive）的持续变更，亦即连同次目录下的所有文件都会变更。
 
-
+<br>
 
 **符号类型改变文件权限**
 
@@ -1083,7 +1083,7 @@ chmod [-R] xyz 文件或目录
 -rwxr-xr-- 1 root root 0 Nov 15 10:32 test1
 ```
 
-
+<br>
 
 ## 4.3、目录
 
@@ -1111,7 +1111,7 @@ Linux 的目录结构为树状结构，最顶级的目录为根目录 `/`。其�
 
 可以使用 `man [命令]` 来查看各个命令的使用文档，如 ：`man cp`。
 
-
+<br>
 
 ### 4.3.1、ls
 
@@ -1137,7 +1137,7 @@ ls [--full-time] 目录名称
 ls -al ~
 ```
 
-
+<br>
 
 ### 4.3.2、cd
 
@@ -1166,7 +1166,7 @@ cd ~
 cd ..
 ```
 
-
+<br>
 
 ### 4.3.3、pwd
 
@@ -1203,7 +1203,7 @@ lrwxrwxrwx 1 root root 10 Sep  4 17:54 /var/mail -> spool/mail
 # 所以，加上 pwd -P 的选项后，会不以连结档的数据显示，而是显示正确的完整路径啊！
 ```
 
-
+<br>
 
 ### 4.3.4、mkdir
 
@@ -1235,7 +1235,7 @@ mkdir -p orichalcos2/test
 >
 > 本例若不加 `-p` 参数，且原本 orichalcos2 目录不存在，则产生错误。
 
-
+<br>
 
 ### 4.3.5、rmdir
 
@@ -1264,7 +1264,7 @@ ls: cannot access 'test/test1/test2': No such file or directory
 root@Orichalcos:~#
 ```
 
-
+<br>
 
 ### 4.3.6、cp
 
@@ -1289,7 +1289,7 @@ cp [options] source1 source2 source3 .... directory
 - `-s`：复制成为符号连结档（symbolic link），亦即『捷径』文件。
 - `-u`：若 destination 比 source 旧才升级 destination ！
 
-
+<br>
 
 ### 4.3.7、rm
 
@@ -1307,7 +1307,7 @@ cp [options] source1 source2 source3 .... directory
 - `-i` ：互动模式，在删除前会询问使用者是否动作。
 - `-r` ：递归删除啊！最常用在目录的删除了！这是非常危险的选项！！！
 
-
+<br>
 
 ### 4.3.8、mv
 
@@ -1326,7 +1326,7 @@ cp [options] source1 source2 source3 .... directory
 - `-i` ：若目标文件（destination）已经存在时，就会询问是否覆盖。
 - `-u` ：若目标文件已经存在，且 source 比较新，才会升级（update）。
 
-
+<br>
 
 ## 4.4、文件内容查看
 
@@ -1342,7 +1342,7 @@ Linux 系统中使用以下命令来查看文件的内容：
 
 可以使用 `man [命令]`来查看各个命令的使用文档，如 ：`man cp`。
 
-
+<br>
 
 ### 4.4.1、cat
 
@@ -1363,13 +1363,13 @@ cat [-AbEnTv] 文件
 - `-T`：将 tab 按键以 `^I` 显示出来。
 - `-v `：列出一些看不出来的特殊字符。
 
-
+<br>
 
 ### 4.4.2、tac
 
 `tac` 与 `cat` 命令刚好相反，文件内容从最后一行开始显示，可以看出 `tac` 是 `cat` 的倒着写！
 
-
+<br>
 
 ### 4.4.3、nl
 
@@ -1392,7 +1392,7 @@ nl [-bnw] 文件
 	- `-n rz` ：行号在自己栏位的最右方显示，且加 0 。
 - `-w` ：行号栏位的占用的位数
 
-
+<br>
 
 ### 4.4.4、more
 
@@ -1415,7 +1415,7 @@ more <文件>
 - `q`：代表立刻离开 more ，不再显示该文件内容。
 - `b` 或 `[ctrl]-b`：代表往回翻页，不过这动作只对文件有用，对管线无用。
 
-
+<br>
 
 ### 4.4.5、less
 
@@ -1436,7 +1436,7 @@ more <文件>
 >
 > Linux 里流传着这样一句话："less is more".
 
-
+<br>
 
 ### 4.4.6、head
 
@@ -1452,7 +1452,7 @@ head [-n number] 文件
 
 - `-n <行数>`：显示文件的头部 *n* 行内容。
 
-
+<br>
 
 ### 4.4.7、tail
 
@@ -1475,7 +1475,7 @@ tail [参数] [文件]
 - `-c <数目>`：显示的字节数。
 - `--pid=<PID>`：与 `-f`  合用，表示在进程 ID、PID 死掉之后结束。
 
-
+<br>
 
 ## 4.5、压缩/解压
 
@@ -1488,15 +1488,19 @@ tail [参数] [文件]
 
 为什么要区分这两个概念呢？这源于 Linux 中很多压缩程序只能针对一个文件进行压缩，这样当你想要压缩一大堆文件时，你得先将这一大堆文件先打成一个包（`tar` 命令），然后再用压缩程序进行压缩（`gzip`、`bzip2` 命令）。
 
-
+<br>
 
 ### 4.5.1、tar
+
+语法：
 
 ```shell
 tar [OPERATION_AND_OPTIONS] [ARCHIVE_NAME] [FILE_NAME(s)]
 ```
 
-- *OPERATION* 也就是操作，`tar` 命令的操作包括：
+常用选项与参数：
+
+- *OPERATION*：操作，`tar` 命令的操作包括：
 
   - `-c`/`--create`：建立压缩档案。
   - `-x`/`--extract`：解压存档文件或在存档文件中提取一个或多个文件与目录。
@@ -1506,7 +1510,7 @@ tar [OPERATION_AND_OPTIONS] [ARCHIVE_NAME] [FILE_NAME(s)]
 
   这 5 个是独立的命令，压缩解压都要用到其中一个，可以和别的命令连用但只能用其中一个。
 
-- *OPTIONS* 选项，`tar` 命令的常用选项包括：
+- *OPTIONS*：选项，`tar` 命令的常用选项包括：
 
   - `-z`：有 gzip 属性的。
   - `-j`：有 bz2 属性的。
@@ -1514,15 +1518,16 @@ tar [OPERATION_AND_OPTIONS] [ARCHIVE_NAME] [FILE_NAME(s)]
   - `-v`/`--verbose`：打印 `tar` 命令正在处理的文件的信息。
   - `-O`：将文件解开到标准输出。
   - `-C`/`--directory`：先切换到指定目录，再执行后续操作（这个选项不影响命令运行的当前目录，而是用于操作文件的相对路径）。
+  - `--strip-component=N`：解压归档时去掉前 *N* 级目录。
 
 - 下面的参数 `-f` 是必须的：
 
-  - `-f ARCHIVE_NAME`/`--file=ARCHIVE_NAME`：使用档案名字，切记，这个参数是最后一个参数，后面只能接 *ARCHIVE_NAME*
+  - `-f ARCHIVE_NAME`/`--file=ARCHIVE_NAME`：使用档案名字，切记，这个参数是最后一个参数，后面只能接 *ARCHIVE_NAME*。
 
-- *ARCHIVE_NAME* 是要解压或者压缩的 `tar` 存档名称。
-- *FILE_NAME(s)* 是要提取的一个或者多个文件与目录，多个文件与目录使用空格分隔。如果未提供，则解压整个存档。
+- *ARCHIVE_NAME*：要解压或者压缩的 `tar` 存档名称。
+- *FILE_NAME(s)*：要提取的一个或者多个文件与目录，多个文件与目录使用空格分隔。如果未提供，则解压整个存档。
 
-
+<br>
 
 **示例**
 
@@ -1550,7 +1555,7 @@ tar –cjf jpg.tar.bz2 *.jpg
 tar –cZf jpg.tar.Z *.jpg
 ```
 
-
+<br>
 
 ### 4.5.2、zip
 
@@ -1566,7 +1571,7 @@ Zip 是一种创建压缩存档文件的最普通、最流行的方法。它也�
 sudo apt install unzip
 ```
 
-
+<br>
 
 **解压到文件夹下**
 
@@ -1588,7 +1593,7 @@ Archive:  metallic-container.zip
 
 这种方式下，所有的提取文件都会被存储到你所指定的文件夹下。如果文件夹不存在，会创建该文件夹。
 
-
+<br>
 
 **查看压缩文件中的内容而不解压压缩文件**
 
@@ -1610,13 +1615,13 @@ Archive:  metallic-container.zip
   6578588                     3 files
 ```
 
-
+<br>
 
 ## 4.6、挂载
 
 所有的硬件设备必须挂载之后才能使用，只不过有些硬件设备（比如硬盘分区）在每次系统启动时会自动挂载，而有些（比如 U 盘、光盘）则需要手动进行挂载。`mount` 命令是 Linux 挂载命令。
 
-
+<br>
 
 **什么是 “挂载” 以及为什么 Linux 需要挂载。**
 
@@ -1628,7 +1633,7 @@ Linux系统中 “一切皆文件”，所有文件都放置在以根目录为�
 
 > 并不是根目录下任何一个目录都可以作为挂载点，由于挂载操作会使得原有目录中文件被隐藏，因此根目录以及系统原有目录都不要作为挂载点，会造成系统异常甚至崩溃，挂载点最好是新建的空目录。
 
-
+<br>
 
 **“挂载点” 的目录要求**
 
@@ -1636,9 +1641,9 @@ Linux系统中 “一切皆文件”，所有文件都放置在以根目录为�
 - 挂载点目录不可被其他进程使用到
 - 挂载点下原有文件将被隐藏
 
+<br>
 
-
-**`mount` 挂载文件系统**
+### 4.6.1、挂载文件系统
 
 `mount` 命令用来挂载文件系统，该命令的基本格式如下：
 
@@ -1677,9 +1682,9 @@ mkdir /mnt/upan
 mount /dev/sda1 /mnt/upan/
 ```
 
+<br>
 
-
-**umount 卸载文件系统**
+### 4.6.2、卸载文件系统
 
 `umount` 命令用于卸载已经挂载的硬件设备，该命令的基本格式如下：
 
@@ -1719,7 +1724,7 @@ umount: /mnt/cdrom: device is busy.
 
 卸载硬件设备成功与否，除了执行 `umount` 命令不报错之外，还可以使用 `df` 命令或 `mount -l` 来查看目标设备是否还挂载在系统中。
 
-
+<br>
 
 ## 4.7、创建文件
 
@@ -1727,7 +1732,7 @@ umount: /mnt/cdrom: device is busy.
 
 要创建一个新文件，您需要对父目录具有写权限。否则，您将收到一个权限被拒绝的错误。
 
-
+<br>
 
 **使用 `touch` 命令创建文件**
 
@@ -1745,7 +1750,7 @@ touch file1.txt
 touch file1.txt file2.txt file3.txt
 ```
 
-
+<br>
 
 **使用重定向运算符创建文件**
 
@@ -1759,7 +1764,7 @@ touch file1.txt file2.txt file3.txt
 
 这是在 Linux 中创建新文件的最短命令。使用重定向创建文件时，请注意不要覆盖现有的重要文件。
 
-
+<br>
 
 **使用 `echo` 命令创建文件**
 
@@ -1769,7 +1774,7 @@ touch file1.txt file2.txt file3.txt
 echo "Some line" > file1.txt
 ```
 
-
+<br>
 
 ## 4.8、文件检索
 
@@ -1781,7 +1786,7 @@ echo "Some line" > file1.txt
 | `find`    | 文件/目录            | 是             | 是             | 慢       | 功能强、准确    |
 | `grep`    | 文件内容             | 是             | 是             | 中等     | 内容搜索利器    |
 
-
+<br>
 
 ### 4.8.1. which
 
@@ -1802,7 +1807,7 @@ which [选项] <文件>
   - `--version`：显示版本信息。
 - `文件`：需要查找的可执行文件名。
 
-
+<br>
 
 **示例**
 
@@ -1818,7 +1823,7 @@ which [选项] <文件>
 which (GNU which) 2.20
 ```
 
-
+<br>
 
 ### 4.8.2. whereis
 
@@ -1843,7 +1848,7 @@ whereis [选项] <文件>
   - `-S`：指定要查找源代码文件的路径。
 - `文件`：需要查找的文件名。
 
-
+<br>
 
 **示例**
 
@@ -1856,7 +1861,7 @@ ls: /usr/bin/ls
 ls: /usr/share/man/man1/ls.1.gz
 ```
 
-
+<br>
 
 ### 4.8.3. locate
 
@@ -1882,7 +1887,7 @@ locate [选项] <模式>
   - `-n`：指定显示的最大条目数。
 - `模式`：匹配文件名的模式，可以包含通配符或正则表达式。
 
-
+<br>
 
 **示例**
 
@@ -1897,7 +1902,7 @@ locate [选项] <模式>
 /usr/sbin/ifconfig
 ```
 
-
+<br>
 
 ### 4.8.4. find
 
@@ -1926,7 +1931,7 @@ find [路径] [选项] [表达式]
   - `-print0`：将查找到的每个文件名以空字符（`\0`，不是空格）作为分隔，而不是默认的换行符 `\n`，常联合 `xargs -0` 使用。
 - `表达式`：查找的具体条件，如文件名、类型等。
 
-
+<br>
 
 **示例**
 
@@ -1939,7 +1944,7 @@ find [路径] [选项] [表达式]
 drwxr-xr-x. 20 root root 4096 Jan 22 10:10 /var/log
 ```
 
-
+<br>
 
 ### 4.8.5. grep
 
@@ -1967,7 +1972,7 @@ grep [选项] <模式> [文件]
 - `模式`：搜索的关键词或正则表达式。
 - `文件`：要搜索的文件列表，如果省略，则从标准输入读取。
 
-
+<br>
 
 **示例**
 
@@ -1980,7 +1985,7 @@ root:x:0:0:root:/root:/bin/bash
 /usr/src/kernels/main.c: int main()
 ```
 
-
+<br>
 
 # 5、用户与用户组
 
@@ -3468,7 +3473,7 @@ BIOS、MBR、GRUB 和内核程序在启动 init 之前就作为 Linux 的引导�
 - 5：图形界面模式
 - 6：重启
 
-
+<br>
 
 ## 9.1、初始化系统
 
@@ -3478,7 +3483,7 @@ BIOS、MBR、GRUB 和内核程序在启动 init 之前就作为 Linux 的引导�
 - Upstart
 - systemd
 
-
+<br>
 
 **System V（Sys V）**
 
@@ -3488,7 +3493,7 @@ System V（Sys V）是类 Unix 系统第一个也是传统的初始化系统。i
 
 但是 systemd 已经被几个主要的 Linux 发行版所采用，以取代传统的 SysV 初始化系统。
 
-
+<br>
 
 **Upstart**
 
@@ -3498,7 +3503,7 @@ Upstart 是一个基于事件的 `/sbin/init` 守护进程的替代品，它在�
 
 Upstart 被用于 Ubuntu 9.10 到 Ubuntu 14.10 和基于 RHEL 6 的系统，之后它被 systemd 取代。
 
-
+<br>
 
 **systemd**
 
@@ -3510,194 +3515,34 @@ systemd 是所有程序的父进程，Fedora 15 是第一个用 systemd 取代 u
 
 systemd 使用 `.service` 文件而不是 bash 脚本（SysVinit 使用的）。systemd 将所有守护进程添加到 cgroups 中排序，你可以通过浏览 `/cgroup/systemd` 文件查看系统等级。
 
+<br>
 
+## 9.2、systemctl
 
-## 9.2、service
+### 9.2.1、服务启动/停止
 
-`service` 命令，顾名思义，就是用于管理 Linux 操作系统中服务的命令。
-
-这个命令不是在所有的 Linux 发行版本中都有，主要是在 redhat、fedora、mandriva 和 centos 中。
-
-```shell
-#查看所有服务当前的运行状态
-service --status-all
-
-#查看指定服务（vsftpd）的运行状态
-service vsftpd status
-
-#停止指定服务（vsftpd）
-service vsftpd stop
-
-#重启网络服务
-service network restart
-```
-
-
-
-## 9.3、systemctl
-
-systemd 核心概念 unit（单元）类型：unit 表示不同类型的 systemd 对象，通过配置文件进行标识和配置。文件中主要包含了系统服务、监听 socket、保存的系统快照以及其它与 init 相关的信息。
-
-下面为 unit 类型 ：
-
-- service：文件扩展名为 `.service`，用于定义系统服务。
-- target：文件扩展名为 `.target`，用于模拟实现运行级别。
-- device ：用于定义内核识别的设备。
-- mount：定义文件系统挂载点。
-- socket：用于标识进程间通信用的 socket 文件，也可在系统启动时，延迟启动服务，实现按需启动。
-- snapshot ：管理系统快照。
-- swap：用于标识 swap 设备。
-- automount ：文件系统的自动挂载点。
-- path：用于定义文件系统中的一个文件或目录使用，常用于当文件系统变化时，延迟激活服务。
-
-如何查看这些类型呢?
-
-可以使用 `-t` 加上类型去查看，以 `service` 为例
+**启动/停止/重启服务**
 
 ```shell
-systemctl -t service
+# 启动http服务
+systemctl start httpd
+# 停止http服务
+systemctl stop httpd
+# 重启http服务
+systemctl restart httpd
 ```
 
+<br>
 
-
-### 9.3.1、systemd 配置文件
-
-systemd 的使用大幅提高了系统服务的运行效率，而 unit 的文件位置一般主要有三个目录：
-
-- `/usr/lib/systemd/system/`：每个服务最主要的启动脚本的配置放在这，有点类似以前的 `/etc/init.d`。
-- `/run/systemd/system/`：系统执行过程中所产生的服务脚本所在目录。
-- `/etc/systemd/system/`：管理员根据主机系统的需求所创建的执行脚本所在目录。
-
-这三个目录的配置文件优先级依次从高到低，如果同一选项三个地方都配置了，优先级高的会覆盖优先级低的。
-
-
-
-**/usr/lib/systemd/system/**
-
-系统安装时，默认会将 unit 文件放在 `/usr/lib/systemd/system`目录。如果我们想要修改系统默认的配置，比如 `nginx.service`，一般有两种方法：
-
-- 在 `/etc/systemd/system` 目录下创建 `nginx.service` 文件，里面写上我们自己的配置。
-- 在 `/etc/systemd/system` 下面创建 `nginx.service.d` 目录，在这个目录里面新建任何以 `.conf` 结尾的文件，然后写入我们自己的配置。（推荐这种做法）
-
-
-
-**/run/systemd/system/**
-
-`/run/systemd/system` 这个目录一般是进程在运行时动态创建 unit 文件的目录，一般很少修改，除非是修改程序运行时的一些参数时，即 Session 级别的，才在这里做修改。
-
-
-
-**/etc/systemd/system/**
-
-Systemd 默认从目录 `/etc/systemd/system/` 读取配置文件，里面存放的大部分文件都是符号链接，指向目录 `/usr/lib/systemd/system/`。
-
-`systemctl enable` 命令用于在上面两个目录之间，建立符号链接关系：
+**列出所有已启动的服务**
 
 ```shell
-systemctl enable clamd@scan.service
-# 等同于
-ln -s '/usr/lib/systemd/system/clamd@scan.service' '/etc/systemd/system/multi-user.target.wants/clamd@scan.service'
+systemctl list-units --type=service
 ```
 
-如果配置文件里面设置了开机启动，`systemctl enable` 命令相当于激活开机启动。
+<br>
 
-与之对应的，`systemctl disable` 命令用于在两个目录之间撤销符号链接关系，相当于撤销开机启动：
-
-```shell
-systemctl disable clamd@scan.service
-```
-
-
-
-### 9.3.2、常用指令
-
-- 设置服务是否开机自启：
-  ```shell
-  # http服务开启自启
-  systemctl enable httpd.service
-  # http服务禁止自启
-  systemctl disable httpd.service
-  ```
-
-- 列出所有服务开机自启情况：
-
-  ```shell
-  systemctl list-unit-files --type=service
-  ```
-
-- 启动/停止/重启服务：
-
-  ```shell
-  # 启动http服务
-  systemctl start httpd.service
-  # 停止http服务
-  systemctl stop httpd.service
-  # 重启http服务
-  systemctl restart httpd.service
-  ```
-
-- 列出所有已启动的服务：
-
-  ```shell
-  systemctl list-units --type=service
-  ```
-
-- 检查服务状态：
-
-  ```shell
-  # http服务详细信息
-  systemctl status httpd.service
-  # 仅显示http服务是否 Active
-  systemctl is-active httpd.service
-  ```
-
-- 设置服务是否禁用：
-
-  ```shell
-  # 禁用http服务
-  systemctl mask httpd.service
-  # 解除禁用httpd服务
-  systemctl unmask httpd.service
-  ```
-
-- 检查服务的所有配置详细信息：
-
-  ```shell
-  systemctl show httpd
-  ```
-
-- 切换操作环境：
-
-  ```shell
-  # 将目前的操作环境改为纯文本模式，关掉图形界面
-  systemctl isolate multi-user.target
-  # 将目前的操作环境改为图形界面
-  systemctl isolate graphical.target
-  ```
-
-- 获取服务的依赖项列表：
-
-  ```shell
-  systemctl list-dependencies httpd.service
-  ```
-
-- 按层次列出控制组：
-
-  ```shell
-  systemd-cgls
-  ```
-
-- 根据CPU，内存，输入和输出列出控制组：
-  ```shell
-  systemd-cgtop
-  ```
-
-- 分析每个进程在引导时花费的时间：
-  ```shell
-  systemd-analyze blame
-  ```
-
-
+### 9.2.2、查看服务
 
 **查看服务状态**
 
@@ -3720,31 +3565,276 @@ systemctl status httpd
 - `static`：这个 daemon 不可以自己启动，不过可能会被其他的 `enabled` 的服务来唤醒（关联属性的服务）
 - `mask`：这个 daemon 无论如何都无法被启动，因为已经被强制注销（非删除），可通过 `systemctl unmask` 方式改回原本状态
 
-<img src="!assets/Linux/image-20211129133826757.png" alt="image-20211129133826757" style="" />
+<img src="!assets/Linux/image-20211129133826757.png" alt="image-20211129133826757" style="zoom: 67%;" />
 
+<br>
 
-
-**列出所有可用的系统套接字**
-
-```shell
-systemctl list-unit-files --type=socket
-```
-
-套接字的操作：
+**检查服务的所有配置详细信息**
 
 ```shell
-systemctl start cups.socket #启动套接字
-systemctl restart cups.socket #重启套接字
-systemctl stop cups.socket #停止套接字
-systemctl reload cups.socket #重新加载套接字
-systemctl status cups.socket #查看套接字状态
-
-systemctl is-active cups.socket
-systemctl enable cups.socket
-systemctl disable cups.socket
+systemctl show httpd
 ```
 
+<br>
 
+### 9.2.3、服务自启
+
+**设置服务是否开机自启**
+
+```shell
+# http服务开启自启
+systemctl enable httpd
+# http服务禁止自启
+systemctl disable httpd
+```
+
+<br>
+
+**列出所有服务开机自启情况**
+
+```shell
+systemctl list-unit-files --type=service
+```
+
+<br>
+
+### 9.2.4、服务禁用
+
+**设置服务是否禁用**
+
+```shell
+# 禁用http服务
+systemctl mask httpd
+# 解除禁用httpd服务
+systemctl unmask httpd
+```
+
+<br>
+
+## 9.3、systemd 配置文件
+
+systemd 核心概念 unit（单元）类型：unit 表示不同类型的 systemd 对象，通过配置文件进行标识和配置。文件中主要包含了系统服务、监听 socket、保存的系统快照以及其它与 init 相关的信息。
+
+下面为 unit 类型 ：
+
+- service：文件扩展名为 `.service`，用于定义系统服务。
+- target：文件扩展名为 `.target`，用于模拟实现运行级别。
+- device ：用于定义内核识别的设备。
+- mount：定义文件系统挂载点。
+- socket：用于标识进程间通信用的 socket 文件，也可在系统启动时，延迟启动服务，实现按需启动。
+- snapshot ：管理系统快照。
+- swap：用于标识 swap 设备。
+- automount ：文件系统的自动挂载点。
+- path：用于定义文件系统中的一个文件或目录使用，常用于当文件系统变化时，延迟激活服务。
+
+可以使用 `-t` 加上类型去查看，比如列出系统中所有服务（service）unit，包括它们的状态：
+
+```shell
+systemctl -t service
+```
+
+systemd 的使用大幅提高了系统服务的运行效率，而 unit 的文件位置一般主要有三个目录：
+
+- `/usr/lib/systemd/system/`：每个服务最主要的启动脚本的配置放在这，有点类似以前的 `/etc/init.d`。
+- `/run/systemd/system/`：系统执行过程中所产生的服务脚本所在目录。
+- `/etc/systemd/system/`：管理员根据主机系统的需求所创建的执行脚本所在目录。
+
+这三个目录的配置文件优先级依次从高到低，如果同一选项三个地方都配置了，优先级高的会覆盖优先级低的。
+
+<br>
+
+**/usr/lib/systemd/system/**
+
+系统安装时，默认会将 unit 文件放在 `/usr/lib/systemd/system`目录。如果我们想要修改系统默认的配置，比如 `nginx.service`，一般有两种方法：
+
+- 在 `/etc/systemd/system` 目录下创建 `nginx.service` 文件，里面写上我们自己的配置。
+- 在 `/etc/systemd/system` 下面创建 `nginx.service.d` 目录，在这个目录里面新建任何以 `.conf` 结尾的文件，然后写入我们自己的配置。（推荐这种做法）
+
+<br>
+
+**/run/systemd/system/**
+
+`/run/systemd/system` 这个目录一般是进程在运行时动态创建 unit 文件的目录，一般很少修改，除非是修改程序运行时的一些参数时，即 Session 级别的，才在这里做修改。
+
+<br>
+
+**/etc/systemd/system/**
+
+Systemd 默认从目录 `/etc/systemd/system/` 读取配置文件，里面存放的大部分文件都是符号链接，指向目录 `/usr/lib/systemd/system/`。
+
+`systemctl enable` 命令用于在上面两个目录之间，建立符号链接关系：
+
+```shell
+systemctl enable clamd@scan.service
+# 等同于
+ln -s '/usr/lib/systemd/system/clamd@scan.service' '/etc/systemd/system/multi-user.target.wants/clamd@scan.service'
+```
+
+如果配置文件里面设置了开机启动，`systemctl enable` 命令相当于激活开机启动。
+
+与之对应的，`systemctl disable` 命令用于在两个目录之间撤销符号链接关系，相当于撤销开机启动：
+
+```shell
+systemctl disable clamd@scan.service
+```
+
+<br>
+
+## 9.4、注册 systemd 服务
+
+
+
+<br>
+
+## 9.5、service
+
+`service` 命令本身并不是 systemd 的一部分，它更早就存在，用于在 SysV init（老的 init 系统）中启动/停止服务，底层依赖 `/etc/init.d/` 里的脚本。
+
+在基于 systemd 的发行版（大多数现代 Linux，比如 CentOS7+、RHEL7+、Ubuntu16.04+、银河麒麟V10） 中，仍然保留了 `service` 命令，主要是为了兼容老习惯。实际上它只是一个 “前端包装器（wrapper）”，最终会调用 `systemctl`。
+
+语法：
+
+```shell
+service <服务名> <动作>
+```
+
+参数与参数：
+
+- `动作`：
+  - `start`：启动服务。
+  - `stop`：停止服务。
+  - `restart`：重启服务。
+  - `reload`：重新加载配置（服务本身支持时才有效）。
+  - `status`：查看服务当前状态。
+  - `condrestart`：如果服务正在运行则重启，否则不动作。
+
+示例：
+
+```shell
+# 启动 nginx
+service nginx start
+
+# 停止 nginx
+service nginx stop
+
+# 重启 nginx
+service nginx restart
+
+# 查看 nginx 状态
+service nginx status
+```
+
+<br>
+
+## 9.6、journalctl
+
+journalctl 是 Linux 系统中用于查询和显示 systemd 日志的强大工具。作为 systemd 生态系统的一部分，它提供了集中化的日志管理功能，替代了传统的 syslog 服务。
+
+它和传统的 `/var/log` 日志文件不同，systemd 会把日志统一收集到 journal 中，支持结构化日志、按服务过滤、时间范围查询等功能。
+
+<br>
+
+**核心特点**
+
+- 二进制日志存储：日志以二进制格式存储，提高检索效率。
+- 结构化日志：支持附加元数据和结构化日志字段。
+- 实时监控：可以实时跟踪日志变化。
+- 多种过滤方式：支持按时间、服务、优先级等多种条件过滤。
+
+<br>
+
+**语法**
+
+```shell
+journalctl [选项] [匹配条件...]
+```
+
+常用选项与参数：
+
+- `-b`：显示本次启动的日志。
+- `-f`：跟踪日志（类似 `tail -f`）。
+- `-k`：只显示内核消息。
+- `-u`：显示指定单元的日志。
+- `-n`：显示最近的n条日志。
+- `--since`：显示指定时间之后的日志。
+- `--until`：显示指定时间之前的日志。
+
+<br>
+
+### 9.6.1、常用操作
+
+**查看本次启动的日志**
+
+```shell
+journalctl -b
+```
+
+<br>
+
+**实时监控新日志**
+
+```shell
+journalctl -f
+```
+
+<br>
+
+**查看特定服务的日志**
+
+```shell
+journalctl -u nginx.service
+```
+
+<br>
+
+### 9.6.2、日志优先级过滤
+
+journalctl 支持按日志优先级过滤，优先级定义如下：
+
+| 优先级  | 数值 | 说明           |
+| :------ | :--- | :------------- |
+| emerg   | 0    | 紧急情况       |
+| alert   | 1    | 需要立即处理   |
+| crit    | 2    | 严重错误       |
+| err     | 3    | 一般错误       |
+| warning | 4    | 警告信息       |
+| notice  | 5    | 需要注意的情况 |
+| info    | 6    | 一般信息       |
+| debug   | 7    | 调试信息       |
+
+使用示例：
+
+```shell
+# 显示错误及以上级别的日志
+journalctl -p err
+
+# 显示警告及以上级别的日志
+journalctl -p warning
+```
+
+<br>
+
+### 9.6.3、高级用法
+
+**显示日志占用的磁盘空间**
+
+```shell
+journalctl --disk-usage
+```
+
+<br>
+
+**清理旧日志**
+
+```shell
+# 保留最近2天的日志
+journalctl --vacuum-time=2d
+
+# 限制日志最大占用500MB
+journalctl --vacuum-size=500M
+```
+
+<br>
 
 # 10、进程管理
 
@@ -3848,7 +3938,12 @@ Linux 系统中主要包括下面几种类型的进程：
   - VIRT：进程占用的虚拟内存。
   - RES：进程占用的物理内存。
   - SHR：进程使用的共享内存。
-  - S：进程的状态。S 表示休眠，R 表示正在运行，Z 表示僵死状态，N 表示该进程优先值为负数。
+  - S：进程的状态。
+    - S：表示休眠。
+    - R：表示正在运行。
+    - T：表示进程已被停止。
+    - Z：表示僵死状态。
+    - N：表示该进程优先值为负数。
   - %CPU：进程占用 CPU 的使用率。
   - %MEM：进程使用的物理内存和总内存的百分比。
   - TIME+：该进程启动后占用的总的 CPU 时间，即占用 CPU 使用时间的累加值。

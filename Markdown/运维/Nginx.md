@@ -2,7 +2,7 @@
 
 Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载均衡、内容缓存等功能，用于客户端访问流量到后台应用服务器负载均衡和请求转发。其基于模块化的代码架构及可与其它有效集成的可编程特性，使其具有强大的扩展能力。Nginx 以资源消耗低、高稳定、高性能的并发处理能力著称。
 
-
+<br>
 
 **Nginx 特性**
 
@@ -17,15 +17,13 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 - 可扩展性：
   可定制的模块化架构方式，更多的语言（C/Perl/JavaScript/Lua）支持开发第三方模块并引入，增强可编程及扩展能力。
 
-
+<br>
 
 # 2、安装
 
 ## 2.1、Linux 安装
 
-### 2.1.1、离线安装
-
-#### 安装运行
+### 2.1.1、安装运行
 
 1. 去 [官网](http://nginx.org/en/download.html) 下载压缩包：
 
@@ -119,9 +117,9 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
    ./nginx
    ```
 
+<br>
 
-
-#### 配置服务
+### 2.1.2、配置服务
 
 1. 到 `/usr/lib/systemd/system` 文件夹里新建 nginx.service 文件或修改现有的：
 
@@ -159,9 +157,9 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
    systemctl enable nginx
    ```
 
+<br>
 
-
-#### 卸载
+### 2.1.3、卸载
 
 1. 停止 Nginx 软件：
    ```shell
@@ -183,9 +181,9 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
    ...
    ```
 
+<br>
 
-
-#### 常用命令
+### 2.1.4、常用命令
 
 **管理 Nginx 服务**
 
@@ -205,7 +203,7 @@ systemctl stop nginx		# 停止
 systemctl reload nginx		# 重载配置文件
 ```
 
-
+<br>
 
 **查看 Nginx 进程**
 
@@ -213,7 +211,7 @@ systemctl reload nginx		# 重载配置文件
 ps -aux | grep nginx 
 ```
 
-
+<br>
 
 **编辑配置文件**
 
@@ -221,11 +219,11 @@ ps -aux | grep nginx
 vim /usr/local/nginx/conf/nginx.conf
 ```
 
-
+<br>
 
 ## 2.2、Windows 安装
 
-#### 安装运行
+### 2.2.1、安装运行
 
 1. 去 [官网](http://nginx.org/en/download.html) 下载压缩包：
 
@@ -241,9 +239,9 @@ vim /usr/local/nginx/conf/nginx.conf
 
    或者直接双击 nginx.exe。
 
+<br>
 
-
-#### 配置服务
+### 2.2.2、配置服务
 
 使用 `sc` 命令注册 Nginx 服务：
 
@@ -269,9 +267,9 @@ vim /usr/local/nginx/conf/nginx.conf
    sc query Nginx    # 查询服务状态
    ```
 
+<br>
 
-
-#### 常用命令
+### 2.2.3、常用命令
 
 ```shell
 cd C:\Nginx					# 进入目录
@@ -286,7 +284,7 @@ start .\nginx				# 启动nginx，或者直接双击nginx.exe
 .\nginx.exe -v				# 查看nginx版本信息
 ```
 
-
+<br>
 
 # 3、配置
 
@@ -331,7 +329,7 @@ http      #http块
 - **server**：配置虚拟主机的相关参数，一个 `http` 中可以有多个 `server`。
 - **location**：配置请求的路由以及各种页面的处理情况。
 
-
+<br>
 
 **关于 `location` 是否带斜杠的区别**
 
@@ -370,13 +368,13 @@ location /txffc/ {
 >
 > 大部分情况推荐带斜杠的 `location` 写法（匹配会更准确些）。
 
-
+<br>
 
 ## 3.2、内置变量
 
 Nginx 提供了许多内置变量，这些变量在配置文件中可以用来动态地获取请求、响应、连接等相关信息。以下是 Nginx 中常见的一些内置变量及其简要说明：
 
-
+<br>
 
 **请求相关变量**
 
@@ -393,7 +391,7 @@ Nginx 提供了许多内置变量，这些变量在配置文件中可以用来�
 - `$request_body`：客户端请求的主体内容。
 - `$request_body_file`：保存客户端请求主体的临时文件名。
 
-
+<br>
 
 **连接相关变量**
 
@@ -405,7 +403,7 @@ Nginx 提供了许多内置变量，这些变量在配置文件中可以用来�
 - `$connection`：当前连接的连接号。
 - `$connection_requests`：当前连接已处理的请求数量。
 
-
+<br>
 
 **响应相关变量**
 
@@ -414,7 +412,7 @@ Nginx 提供了许多内置变量，这些变量在配置文件中可以用来�
 - `$bytes_sent`：响应中发送的总字节数，包括头部和主体内容。
 - `$sent_http_*`：响应头中的自定义变量，如 `$sent_http_content_type` 表示响应的 `Content-Type` 头部字段。
 
-
+<br>
 
 **HTTP 请求头相关变量**
 
@@ -423,7 +421,7 @@ Nginx 提供了许多内置变量，这些变量在配置文件中可以用来�
 - `$http_cookie`：请求的 `Cookie` 头部字段的值。
 - `$http_\*`：用于访问任意的请求头字段，如 `$http_accept` 表示 `Accept` 头部字段的值。
 
-
+<br>
 
 **SSL 相关变量**
 
@@ -432,14 +430,14 @@ Nginx 提供了许多内置变量，这些变量在配置文件中可以用来�
 - `$ssl_client_cert`：客户端证书的详细内容。
 - `$ssl_client_fingerprint`：客户端证书的 SHA1 指纹。
 
-
+<br>
 
 **地理位置相关变量**
 
 - `$geoip_country_code`：基于 IP 地址的国家代码（如果启用了 GeoIP 模块）。
 - `$geoip_country_name`：基于 IP 地址的国家名称（如果启用了 GeoIP 模块）。
 
-
+<br>
 
 **其他常用变量**
 
@@ -452,7 +450,7 @@ Nginx 提供了许多内置变量，这些变量在配置文件中可以用来�
 - `$time_iso8601`：当前时间的 ISO 8601 格式。
 - `$time_local`：当前时间的本地时间格式。
 
-
+<br>
 
 **日志相关变量**
 
@@ -461,7 +459,7 @@ Nginx 提供了许多内置变量，这些变量在配置文件中可以用来�
 - `$upstream_addr`：后端服务器的地址。
 - `$upstream_status`：后端服务器的响应状态码。
 
-
+<br>
 
 ## 3.3、配置模板示例
 
@@ -549,7 +547,7 @@ http {
 }
 ```
 
-
+<br>
 
 ## 3.4、反向代理
 
@@ -557,7 +555,7 @@ Nginx 代替服务端接收请求，常用于服务器集群环境，反向代�
 
 客户端访问目标服务器，在目标服务内部有一个统一接入网关，用来将请求转发至后端真正处理的服务器并返回结果。这个过程当中客户端不需要知道实际服务器地址，代理对客户端而言是透明的。
 
-
+<br>
 
 **代理相关参数**
 
@@ -599,7 +597,7 @@ proxy_ssl_verify on;									# 启用或禁用对上游服务器证书的验证
 proxy_ssl_verify_depth 2;								# 设置验证上游服务器证书时的最大链深度
 ```
 
-
+<br>
 
 **关于 `proxy_pass` 是否带斜杠的区别**
 
@@ -627,7 +625,7 @@ location /txffc {
 >
 > 大部分情况推荐带斜杠的 `proxy_pass` 写法（控制更清晰）。
 
-
+<br>
 
 **配置示例**
 
@@ -653,13 +651,13 @@ server {
 }
 ```
 
-
+<br>
 
 ## 3.5、负载均衡模式
 
 在配置项 `upstream` 中，负责提供可用的服务地址列表并且可以指定负载均衡的实现方式。
 
-
+<br>
 
 **轮询-Round-Robin**
 
@@ -672,7 +670,7 @@ upstream backend-a {
 }
 ```
 
-
+<br>
 
 **权重-Weight**
 
@@ -685,7 +683,7 @@ upstream backend-b {
 }
 ```
 
-
+<br>
 
 **最少连接-Least-Connect**
 
@@ -699,7 +697,7 @@ upstream backend-c {
 }
 ```
 
-
+<br>
 
 **IP-Hash**
 
@@ -717,7 +715,7 @@ upstream backend-d {
 >
 > 第三方的会话保持 sticky_cookie_insert，同时支持负载均衡。
 
-
+<br>
 
 ## 3.6、限流与熔断
 
@@ -725,7 +723,7 @@ upstream backend-d {
 
 通过对并发/请求进行限速来保护系统，防止系统过载瘫痪而不能提供服务；为了更好控制整个系统的负载情况，即使阻止了某些请求，系统继续提供服务。
 
-
+<br>
 
 **http_limit_conn**
 
@@ -749,7 +747,7 @@ http {
 }
 ```
 
-
+<br>
 
 **http_limit_req**
 
@@ -778,7 +776,7 @@ http {
 }
 ```
 
-
+<br>
 
 **http_limit_rate**
 
@@ -796,7 +794,7 @@ http {
 }
 ```
 
-
+<br>
 
 ### 3.6.2、熔断
 
@@ -814,7 +812,7 @@ upstream http_backend {
 >
 > 当然也有容错机制，Nginx 默认自动转向其它服务再请求，相关配置：`proxy_next_upstream`
 
-
+<br>
 
 ## 3.7、Stream
 
@@ -824,7 +822,7 @@ Nginx Stream 模块是 Nginx 的一个扩展模块（1.9.0 开始加入），主
 
 `stream` 模块用法和 `http` 模块差不多，语法几乎一致。
 
-
+<br>
 
 **`stream` 块的主要功能**
 
@@ -833,7 +831,7 @@ Nginx Stream 模块是 Nginx 的一个扩展模块（1.9.0 开始加入），主
 - 基于 SNI 的路由：通过服务器名称指示（SNI），`stream` 块可以基于 SSL 握手中的 SNI 信息将流量路由到不同的上游服务器。
 - 访问控制：支持通过限制模块设置 IP 访问控制。
 
-
+<br>
 
 **配置示例**
 
@@ -860,7 +858,7 @@ stream {
 >
 > `stream` 块配置与 `http` 块并列。
 
-
+<br>
 
 # 4、性能优化
 
@@ -881,7 +879,7 @@ events {
 }
 ```
 
-
+<br>
 
 **与客户端之间的优化**
 
@@ -909,7 +907,7 @@ http {
 }
 ```
 
-
+<br>
 
 **与后端服务之间的优化**
 
@@ -936,7 +934,7 @@ http {
 }
 ```
 
-
+<br>
 
 **缓存设置**
 
