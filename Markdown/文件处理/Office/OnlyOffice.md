@@ -305,7 +305,7 @@ config = {
 
 ## 2.2、保存文件
 
-参考图和以下步骤说明了将文档保存在ONLYOFFICE Document Server中的过程。
+参考图和以下步骤说明了将文档保存在 ONLYOFFICE Document Server 中的过程。
 
 <img src="!assets/OnlyOffice/image-20210307232148928.png" alt="image-20210307232148928" style="width:50%;" />
 

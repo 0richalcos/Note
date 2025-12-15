@@ -111,17 +111,25 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 
    密码将保存在用户目录下的 `~/.vnc/passwd`。
 
-3. 初始化启动 VNC 会话：
+3. 初始化启动 VNC 会话以生成配置文件：
 
    ```shell
    vncserver :1
    ```
 
-   这条命令会启动一个新的 VNC 会话，监听端口为 `5900 + 显示号`，即 5901端口。
+   这条命令会启动一个新的 VNC 会话，监听端口为 `5900 + 显示号`，即 5901端口（后续会改）。
 
    它会自动生成默认的 `~/.vnc/xstartup` 启动脚本（后续需要修改）。
 
-4. 配置 xstartup 启动桌面环境，编辑 `~/.vnc/xstartup` 文件：
+4. 立即停止这个临时的 VNC server：
+
+   ```shell
+   vncserver -kill :1
+   ```
+
+   因为我们最终要用 systemd 来管理它，所以这个只是用来生成文件的，用完就扔。
+
+5. 配置 xstartup 启动桌面环境，编辑生成的 `~/.vnc/xstartup` 文件：
 
    ```shell
    vim ~/.vnc/xstartup
@@ -146,7 +154,7 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
    chmod +x ~/.vnc/xstartup
    ```
 
-5. 以 `:1` 显示号为例，创建 systemd 服务文件：
+6. 以 `:1` 显示号，即以监听 5901 端口为例（这里才是最终监听的端口），创建 systemd 服务文件：
 
    ```shell
    vim /etc/systemd/system/vncserver@:1.service
@@ -174,18 +182,24 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
    - 将 `<YOUR_USERNAME>` 替换为实际使用的用户名。
    - `ExecStart` 中的路径可能根据发行版不同有所差异，可以用 `which vncserver` 确认路径。
 
-6. 启用并启动服务：
+7. 启用并启动服务：
 
    ```shell
    systemctl daemon-reload
-   systemctl enable vncserver@:1.service
-   systemctl start vncserver@:1.service
+   systemctl enable vncserver@:1
+   systemctl start vncserver@:1
    ```
 
-7. 查看服务状态：
+8. 查看服务状态：
 
    ```shell
-   systemctl status vncserver@:1.service
+   systemctl status vncserver@:1
+   ```
+
+9. 查看运行中的回话列表：
+
+   ```shell
+   vncserver -list
    ```
 
 <br>

@@ -1,12 +1,12 @@
-# 1、SpringBoot
+# 1、Spring Boot
 
 ## 1.1、简介
 
-SpringBoot 基于 Spring 开发，SpringBoot 本身并不提供 Spring 框架的核心特性以及扩展功能，只是用于快速、敏捷地开发新一代基于 Spring 框架的应用程序。也就是说，它并不是用来替代 Spring 的解决方案，而是和 Spring 框架紧密结合用于提升 Spring 开发者体验的工具。
+Spring Boot 基于 Spring 开发，Spring Boot 本身并不提供 Spring 框架的核心特性以及扩展功能，只是用于快速、敏捷地开发新一代基于 Spring 框架的应用程序。也就是说，它并不是用来替代 Spring 的解决方案，而是和 Spring 框架紧密结合用于提升 Spring 开发者体验的工具。
 
-SpringBoot 以约定大于配置的核心思想，默认帮我们进行了很多设置，多数 SpringBoot 应用只需要很少的 Spring 配置。Spring Boot 内嵌 Servlet 容器，降低了对环境的要求，可以命令执行语句。同时它集成了大量常用的第三方库配置（例如Redis、MongoDB、Jpa、RabbitMQ、Quartz等等），SpringBoot 应用中这些第三方库几乎可以零配置的开箱即用。
+Spring Boot 以约定大于配置的核心思想，默认帮我们进行了很多设置，多数 Spring Boot 应用只需要很少的 Spring 配置。Spring Boot 内嵌 Servlet 容器，降低了对环境的要求，可以命令执行语句。同时它集成了大量常用的第三方库配置（例如Redis、MongoDB、Jpa、RabbitMQ、Quartz等等），Spring Boot 应用中这些第三方库几乎可以零配置的开箱即用。
 
-简单的来说 SpringBoot 并不是什么新的框架，它默认配置了很多框架的使用方式，就像 maven 整合了所有的 jar 包，SpringBoot 整合了所有的框架。
+简单的来说 Spring Boot 并不是什么新的框架，它默认配置了很多框架的使用方式，就像 maven 整合了所有的 jar 包，Spring Boot 整合了所有的框架。
 
 Spring Boot 解决的问题：
 
@@ -15,33 +15,33 @@ Spring Boot 解决的问题：
 - 使部署变得简单。
 - 使监控变得简单。
 
-SpringBoot 的核心功能：
+Spring Boot 的核心功能：
 
-- 独自运行 Spring 项目：SpringBoot 可以以 jar 包的形式进行独立运行，使用 `java -jar XX.jar` 就可以成功运行；
+- 独自运行 Spring 项目：Spring Boot 可以以 jar 包的形式进行独立运行，使用 `java -jar XX.jar` 就可以成功运行；
 - 内嵌 Servlet 容器：内嵌容器，使得我们可以直接执行运行项目的 main 函数，使得项目快速运行；
-- 提供 starter 简化 maven 配置：SpringBoot 提供了一系列的 start-XXX 来简化 maven 依赖；
-- 自动配置 Spring：SpringBoot 会根据我们项目中的类路径的 jar 包，为 jar 包的类进行自动装配 bean；
-- 应用监控：SpringBoot 提供了基于 HTTP、ssh、Telnet 对运行的项目进行监控。
+- 提供 starter 简化 maven 配置：Spring Boot 提供了一系列的 start-XXX 来简化 maven 依赖；
+- 自动配置 Spring：Spring Boot 会根据我们项目中的类路径的 jar 包，为 jar 包的类进行自动装配 bean；
+- 应用监控：Spring Boot 提供了基于 HTTP、ssh、Telnet 对运行的项目进行监控。
 
-SpringBoot 的缺点：
+Spring Boot 的缺点：
 
 - 高度集成，使用的时候不知道底层的实现；
 - 由于不了解底层，导致项目出现了问题会很难排查。
 
 四大核心：
 
-- 自动配置：针对很多 Spring 应用程序和常见的应用功能，SpringBoot 能自动提供相关配置；
-- 起步依赖：告诉 SpringBoot 需要什么功能，它就能引入相关的依赖库；
-- Actuator：提供在运行时检视应用程序内部情况的能力，让你能够深入运行应用程序，一探 SpringBoot 的内部信息；
-- 命令行界面：这是 SpringBoot 的可选特性，主要针对于 Groovy 语言使用。
+- 自动配置：针对很多 Spring 应用程序和常见的应用功能，Spring Boot 能自动提供相关配置；
+- 起步依赖：告诉 Spring Boot 需要什么功能，它就能引入相关的依赖库；
+- Actuator：提供在运行时检视应用程序内部情况的能力，让你能够深入运行应用程序，一探 Spring Boot 的内部信息；
+- 命令行界面：这是 Spring Boot 的可选特性，主要针对于 Groovy 语言使用。
 
-
+<br>
 
 ## 1.2、微服务
 
-微服务架构是 “新标准”，是一种架构风格。构建小型，独立且可运行的应用程序可以带来极大的灵活性，并为您的代码增加弹性。 SpringBoot 的许多专用功能使在大规模生产中构建和运行微服务变得容易。 而且不要忘记，没有 SpringCloud 简化管理并提高容错能力，就不会有完整的微服务架构。
+微服务架构是 “新标准”，是一种架构风格。构建小型，独立且可运行的应用程序可以带来极大的灵活性，并为您的代码增加弹性。 Spring Boot 的许多专用功能使在大规模生产中构建和运行微服务变得容易。 而且不要忘记，没有 SpringCloud 简化管理并提高容错能力，就不会有完整的微服务架构。
 
-
+<br>
 
 **单体应用架构**
 
@@ -52,7 +52,7 @@ SpringBoot 的缺点：
 - 这样做的好处是：易于开发和测试；也十分方便部署；当需要扩展时，只需要将 war 复制多份，然后放到多个服务器上，再做个负载均衡就可以了。
 - 单体应用架构的缺点是：哪怕要修改一个非常小的地方，都需要停掉整个服务，重新打包、部署这个应用 war 包。特别是对于一个大型应用，我们不可能把所有内容都放在一个应用内，我们如何维护、如何分工合作都是问题。
 
-
+<br>
 
 **微服务架构**
 
@@ -67,9 +67,11 @@ all in one 的架构方式，我们把所有的功能单元放在一个应用里
 
 <img src="!assets/SpringBoot/image-20200402163100834.png" alt="image-20200402163100834" style="zoom: 50%;" />
 
+<br>
 
+# 2、快速开始
 
-# 2、第一个 SpringBoot 程序
+## 2.1、创建 Spring Boot 程序
 
 1. 打开 IDEA，点击【新建项目】，选择 【Spring Initializr】，点确认：
 
@@ -87,29 +89,190 @@ all in one 的架构方式，我们把所有的功能单元放在一个应用里
 	    @RequestMapping("/hello")
 	    @ResponseBody
 	    public String hello() {
-	        return "Hello,SpringBoot!";
+	        return "Hello,Spring Boot!";
 	    }
 	}
 	```
 
 4. 运行 Application.java
 
+<br>
 
+**更改端口号**
 
-> 更改端口号：在 `application.properties` 添加
+在 `application.properties` 添加：
+
+```properties
+#更改项目端口号
+server.port=8080
+```
+
+<br>
+
+## 2.2、Spring Boot 启动流程
+
+SpringApplication 类是 Spring Boot 应用程序的入口点。当你调用 `SpringApplication.run()` 时，它会执行一个定义明确的启动序列。这个过程会广播一系列生命周期事件，允许开发者通过监听这些事件来介入。
+
+<br>
+
+**启动序列**
+
+以下是 `SpringApplication.run()` 方法执行时遵循的核心步骤和对应的事件：
+
+1. SpringApplication 实例化（Instantiation）
+
+   创建一个 SpringApplication 实例。它会根据 classpath 推断应用类型（例如 SERVLET、REACTIVE）。从 `META-INF/spring.factories` 文件中加载并实例化 `ApplicationContextInitializer` 和 `ApplicationListener`。
+
+2. 启动监听器与广播 `ApplicationStartingEvent`
+
+   激活 `SpringApplicationRunListener`，它负责在整个启动过程中广播事件。
+
+   - 事件：`ApplicationStartingEvent`
+
+   - 时机：这是整个流程中最早的事件，此时除了监听器注册和初始化外，几乎没有进行任何其他处理。
+
+3. 准备环境（Environment Preparation）
+
+   创建并配置 `Environment` 对象。该对象聚合了所有配置来源的属性（包括 application.properties、YAML 文件、环境变量、命令行参数等）。
+
+   - 事件：`ApplicationEnvironmentPreparedEvent`
+   - 时机：`Environment` 已准备就绪，但 `ApplicationContext` 尚未创建。
+   - 官方用途：这是在 `ApplicationContext` 创建之前，以编程方式检查或修改 `Environment` 的一个理想时机。
+
+4. 创建并准备 `ApplicationContext`
+
+   根据应用类型创建相应的 `ApplicationContext` 实例。
+
+   - 钩子：调用所有已注册的 `ApplicationContextInitializer` 的 `initialize()` 方法。
+   - 事件：`ApplicationPreparedEvent`
+   - 时机：`ApplicationContext` 已创建并准备就绪，Bean 定义已加载，但 Context 尚未刷新（即 Bean 尚未被创建）。
+
+5. 刷新 `ApplicationContext`（核心）
+
+   这是 Spring 框架的核心功能。容器启动，扫描类路径，创建所有单例 Bean，处理依赖注入（`@Autowired`），并执行 Bean 的生命周期回调（如 `@PostConstruct`）。
+
+   - 事件：`ContextRefreshedEvent`（这是 Spring Framework 的标准事件）。
+   - 时机：`ApplicationContext` 已被完全刷新，所有 Bean 都已处理完毕。
+
+6. 调用 Runners（Runners Execution）
+
+   在 Context 刷新之后，Spring Boot 会查找所有类型为 `ApplicationRunner` 和 `CommandLineRunner` 的 Bean。
+
+   - 钩子：调用这些 Runner Bean 的 `run()` 方法。
+   - 官方用途：文档明确指出，这是在 SpringApplication.run(） 完成之前需要运行某些特定代码”的最佳位置。非常适合执行应用程序级别的初始化任务。
+
+7. 应用就绪（Application Ready）
+
+   此时，`SpringApplication.run()` 方法的生命周期任务基本完成，应用进入运行状态。
+
+   - 事件：`ApplicationReadyEvent`
+   - 时机：在所有的 Runner 执行完毕之后。这个事件标志着应用程序已经准备好处理请求。
+
+8. 启动失败（Startup Failure）
+
+   启动过程中出现任何异常。
+
+   - 事件：`ApplicationFailedEvent`
+   - 时机：应用程序启动失败时。
+   - 官方用途：允许监听器在应用无法正常启动时执行清理或通知逻辑。
+
+<br>
+
+### 2.2.1、ApplicationRunner
+
+`ApplicationRunner` 是 Spring Boot 提供的一个非常有用的接口，它允许你在 Spring Boot 应用程序完全启动并准备好接收请求之前，执行一些自定义的初始化代码。
+
+当 Spring Boot 应用的 `ApplicationContext`（应用上下文）被完全加载和初始化后，Spring Boot 会自动扫描所有实现了 `ApplicationRunner` 接口的 Bean，并调用它们的 `run()` 方法。
+
+<br>
+
+**核心特点：**
+
+- 执行时机：在 `SpringApplication.run()` 方法执行完成之前，但在 `ApplicationContext` 创建完成之后。这意味着此时所有的 Spring Bean 都已经被初始化并注入完毕，你可以安全地使用它们。
+- 用途：非常适合执行那些只需要在应用程序启动时运行一次的任务。
+- 参数：`run()` 方法接收一个 `ApplicationArguments` 类型的参数，可以方便地获取和解析启动时传入的命令行参数。
+
+<br>
+
+**常见用例**
+
+`ApplicationRunner` 非常适合用于以下场景：
+
+- 数据初始化：应用启动时，检查数据库中是否有基础数据（如管理员账户、默认配置），如果没有则进行初始化。
+- 缓存预热：将一些热点数据在应用启动时提前加载到缓存（如 Redis、Caffeine）中，避免首次请求时响应缓慢。
+- 启动后台任务：启动一个常驻的后台线程或任务，例如消息队列的消费者、定时任务调度器。
+- 执行一次性任务：运行一个批处理作业，如数据迁移、文件清理等。任务执行完毕后，应用可以继续运行或直接退出。
+- 打印环境信息：在启动日志中打印一些重要的配置信息或环境诊断信息。
+
+<br>
+
+**如何使用**
+
+使用起来非常简单，只需要两步：
+
+1. 创建一个类，实现 `ApplicationRunner` 接口。
+2. 将这个类声明为一个 Spring Bean（例如，使用 `@Component` 注解）。
+
+假设我们想在应用启动时，打印一条欢迎信息，并显示所有传入的命令行参数：
+
+```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+
+@Component
+public class MyAppRunner implements ApplicationRunner {
+
+    private static final Logger logger = LoggerFactory.getLogger(MyAppRunner.class);
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        logger.info("====== ApplicationRunner 开始执行 ======");
+        logger.info("欢迎使用本应用程序！这是启动时执行的自定义逻辑。");
+
+        // 1. 获取所有原始命令行参数
+        String[] sourceArgs = args.getSourceArgs();
+        logger.info("原始命令行参数: {}", Arrays.toString(sourceArgs));
+
+        // 2. 获取非选项参数 (没有 -- 前缀的参数)
+        List<String> nonOptionArgs = args.getNonOptionArgs();
+        logger.info("非选项参数 (Non-option args): {}", nonOptionArgs);
+
+        // 3. 获取选项参数 (有 -- 前缀的参数)
+        Set<String> optionNames = args.getOptionNames();
+        logger.info("所有选项参数的 Key (Option names): {}", optionNames);
+        for (String optionName : optionNames) {
+            List<String> optionValues = args.getOptionValues(optionName);
+            logger.info("选项参数 '{}' 的值是: {}", optionName, optionValues);
+        }
+
+        // 检查某个选项是否存在
+        if (args.containsOption("env")) {
+            logger.info("检测到 'env' 参数, 值为: {}", args.getOptionValues("env"));
+        }
+
+        logger.info("====== ApplicationRunner 执行完毕 ======");
+    }
+}
+```
+
+> [!NOTE]
 >
-> ```properties
-> #更改项目端口号
-> server.port=8080
-> ```
+> 控制多个 Runner 的执行顺序可以使用 `@Order(n)` 注解：*n* 值越小，优先级越高，越先执行。
 
-
+<br>
 
 # 3、配置文件
 
-当我们构建完 SpringBoot 项目后，会在 resources 目录下给我们一个默认的全局配置文件 `application.properties`，这是一个空文件，因为 SpringBoot 在底层已经把配置都给我们自动配置好了，当在配置文件进行配置时，会修改 SpringBoot 自动配置的默认值。
+当我们构建完 Spring Boot 项目后，会在 resources 目录下给我们一个默认的全局配置文件 `application.properties`，这是一个空文件，因为 Spring Boot 在底层已经把配置都给我们自动配置好了，当在配置文件进行配置时，会修改 Spring Boot 自动配置的默认值。
 
-SpringBoot 有两种类型的配置文件，application 和 bootstrap 文件，SpringBoot 会自动加载 classpath 目录下的这两个文件，文件格式为 `properties` 或 `yml` 格式。
+Spring Boot 有两种类型的配置文件，application 和 bootstrap 文件，Spring Boot 会自动加载 classpath 目录下的这两个文件，文件格式为 `properties` 或 `yml` 格式。
 
 - `*.properties` 文件是 key=value 的形式；
 - `*.yml` 是 key: value 的形式，通过空格来确定层级关系，使配置文件结构更清晰。它的加载的属性是有顺序的，一般推荐用 yml 文件，看起来更加形象；但是 yml 不支持 `@PropertySource` 注解来导入配置。
@@ -118,7 +281,7 @@ bootstrap 配置文件是系统级别的，用来加载外部配置，如配置�
 
 application 配置文件是应用级别的，是当前应用的配置文件。
 
-
+<br>
 
 ## 3.1、YAML
 
@@ -128,7 +291,7 @@ YAML 的语法和其他高级语言类似，并且可以简单表达清单、散
 
 YAML 的配置文件后缀为 `.yml`，如：`application.yml` 。
 
-
+<br>
 
 **基本语法**
 
@@ -138,7 +301,7 @@ YAML 的配置文件后缀为 `.yml`，如：`application.yml` 。
 - 缩进的空格数不重要，只要相同层级的元素左对齐即可；
 - `#` 表示注释。
 
-
+<br>
 
 **数据类型**
 
@@ -148,7 +311,7 @@ YAML 支持以下几种数据类型：
 - 数组：一组按次序排列的值，又称为序列（sequence） / 列表（list）；
 - 纯量（scalars）：单个的、不可再分的值。
 
-
+<br>
 
 ### 3.1.1、YAML 对象
 
@@ -163,8 +326,6 @@ key: value
 ```json
 { key: 'value' }
 ```
-
-
 
 Yaml 也允许另一种写法，将所有键值对写成一个行内对象：
 
@@ -186,7 +347,7 @@ key:
   child-key2: value2
 ```
 
-
+<br>
 
 ### 3.1.2、YAML 数组
 
@@ -204,8 +365,6 @@ key:
 ['A', 'B', 'C']
 ```
 
-
-
 数据结构的子成员是一个数组，则可以在该项下面缩进一个空格：
 
 ```yaml
@@ -221,8 +380,6 @@ key:
 [['A', 'B', 'C']]
 ```
 
-
-
 数组也可以采用行内表示法：
 
 ```yaml
@@ -234,8 +391,6 @@ key: [ value1, value2 ]
 ```json
 {key: ['value1', 'value2']}
 ```
-
-
 
 一个相对复杂的例子：
 
@@ -257,7 +412,7 @@ companies:
 companies: [ { id: 1,name: company1,price: 200W },{ id: 2,name: company2,price: 500W } ]
 ```
 
-
+<br>
 
 ### 3.1.3、复合结构
 
@@ -289,7 +444,7 @@ websites:
 }
 ```
 
-
+<br>
 
 ### 3.1.4、纯量
 
@@ -330,7 +485,7 @@ datetime:
   - 2018-02-17T15:02:31+08:00    #时间使用ISO 8601格式，时间和日期之间使用T连接，最后使用+代表时区
 ```
 
-
+<br>
 
 ### 3.1.5、引用
 
@@ -368,7 +523,7 @@ test:
   host: localhost
 ```
 
-
+<br>
 
 ## 3.2、配置类
 
@@ -378,7 +533,7 @@ test:
 
 通过配置类，开发者可以实现配置与代码的解耦：配置可以交给运维人员管理，而开发者只需要关注如何使用它们。
 
-
+<br>
 
 ### 3.2.1、Configuration
 
@@ -403,7 +558,7 @@ public class MyConfig {
 >
 > `@Configuration` 类默认是被 CGLIB 代理的，保证每个 `@Bean` 方法只会执行一次，从而确保返回的是单例 Bean。
 
-
+<br>
 
 ### 3.2.2、ConditionalOnProperty
 
@@ -431,7 +586,7 @@ feature:
 
 这种方式非常适合做功能开关、模块级控制、动态启用等场景。
 
-
+<br>
 
 ## 3.3、获取配置文件属性
 
@@ -441,7 +596,7 @@ Spring Boot 常见的属性注入方式有：
 - `@ConfigurationProperties` 
 - `@PropertySource`
 
-
+<br>
 
 ### 3.3.1、Value
 
@@ -482,11 +637,11 @@ public class ConfigByValueAnnotation {
 }
 ```
 
-
+<br>
 
 ### 3.3.2、ConfigurationProperties
 
-`@ConfigurationProperties` 告诉 SpringBoot 将本类中的所有属性和配置文件中相关的配置进行绑定，参数 `prefix = "xxx"`：将配置文件中 `xxx` 下面的属性一一对应。
+`@ConfigurationProperties` 告诉 Spring Boot 将本类中的所有属性和配置文件中相关的配置进行绑定，参数 `prefix = "xxx"`：将配置文件中 `xxx` 下面的属性一一对应。
 
 优点：
 
@@ -506,7 +661,7 @@ public class ConfigByValueAnnotation {
 - 需要同时使用多前缀相同 key 的配置。
 - 期望增加新配置但不修改代码的 properties 注入。
 
-
+<br>
 
 #### 自定义的 Bean 使用
 
@@ -583,7 +738,7 @@ public class ConfigByValueAnnotation {
    }
    ```
 
-
+<br>
 
 #### 第三方 Bean 使用
 
@@ -619,7 +774,7 @@ public class ConfigByValueAnnotation {
 
 操作方式跟刚才一样，不同的是 `@ConfigurationProperties` 注解不仅能添加到类上，还可以添加到方法上，添加到类上是为 Spring 容器管理的当前类的对象绑定属性，添加到方法上是为 Spring 容器管理的当前方法的返回值对象绑定属性，本质上都一样。
 
-
+<br>
 
 #### EnableConfigurationProperties
 
@@ -687,7 +842,7 @@ public class ConfigByValueAnnotation {
 
 推荐使用 `@EnableConfigurationProperties` 配合 `@ConfigurationProperties`，因为它可以把配置类从 Spring 管理中解耦，避免把纯粹的配置类变成组件（配置类是 “纯数据承载”，不包含业务逻辑）。
 
-
+<br>
 
 ### 3.3.3、PropertySource
 
@@ -711,8 +866,6 @@ public class ConfigByValueAnnotation {
 	@Value("${name}");
 	```
 
-
-
 可以组合注解使用` @PropertySource`+`@ConfigurationProperties`，`@PropertySource` 指定加载哪个文件，`@ConfigurationProperties` 指定加载文件中的哪一类属性。`@PropertySource`+`@ConfigurationProperties` 在一起解决了 `@ConfigurationProperties` 只能加载主文件内属性问题：
 
 ```java
@@ -724,7 +877,7 @@ public class HelloWorldConfig {
 }
 ```
 
-
+<br>
 
 ## 3.4、多环境配置
 
@@ -739,15 +892,15 @@ public class HelloWorldConfig {
 
 如果多个配置文件含有相同的变量名，并且在使用 `${}` 进行引用时没有指定文件名，那么 Spring Boot 会按照特定的顺序查找配置文件，并使用第一个找到的变量值。这个查找顺序为： `application-{suffix}.properties` 或 `application-{suffix}.yml` > `application.properties` 或 `application.yml` > 其他自定义的配置文件。其中 `{suffix}` 指的是 Spring Profiles 中的激活配置 `profile`。
 
-
+<br>
 
 ### 3.4.1、active
 
-SpringBoot 允许你按照命名约定的格式（`application-{profile}.properties`）来定义多个配置文件，然后在`application.properties` 中通过 `spring.profiles.active` 来具体激活一个或者多个配置文件，如果没有没有指定任何 profile 的配置文件的话，SpringBoot 默认会启动`application.properties`。
+Spring Boot 允许你按照命名约定的格式（`application-{profile}.properties`）来定义多个配置文件，然后在`application.properties` 中通过 `spring.profiles.active` 来具体激活一个或者多个配置文件，如果没有没有指定任何 profile 的配置文件的话，Spring Boot 默认会启动`application.properties`。
 
 日常开发中一般有三个环境，分别是开发环境（`dev`），测试环境（`test`），生产环境（`prod`）。
 
-
+<br>
 
 #### properties
 
@@ -769,7 +922,7 @@ server.port=8082
 server.port=8083
 ```
 
-
+<br>
 
 #### yml 多文件配置
 
@@ -796,7 +949,7 @@ server:
   port: 8083
 ```
 
-
+<br>
 
 #### yml 单文件配置
 
@@ -852,13 +1005,13 @@ server:
   port: 8083
 ```
 
-
+<br>
 
 ### 3.4.2、include
 
 我们可以将一些公共的配置单独拿出来，然后其他文件都把这个配置给包含进去。
 
-
+<br>
 
 #### yml 多文件配置
 
@@ -890,7 +1043,7 @@ feign:
     enabled: true
 ```
 
-
+<br>
 
 #### yml 单文件配置
 
@@ -956,7 +1109,7 @@ feign:
     enabled: true
 ```
 
-
+<br>
 
 #### active 和 include 的区别
 
@@ -968,7 +1121,7 @@ The properties from spring.profile.include override default properties. The prop
 
 即：`spring.profile.include` 的属性会覆盖默认属性，`spring.profiles.active` 会覆盖 `spring.profile.include` 和默认属性。
 
-
+<br>
 
 ### 3.4.3、group
 
@@ -1064,7 +1217,7 @@ spring:
 
 可以看到，在 2.4 版本的配置中，不同环境的配置定义都在第一段默认配置中了，所有的环境定义都转移到了 `spring.profiles.group` 的 `key` 字段（上面配置了 `dev` 和 `prod`），`value` 字段则代表了每个环境需要加载的不同配置分组。
 
-
+<br>
 
 ### 3.4.4、Maven
 
@@ -1074,7 +1227,7 @@ Maven 对于多环境的支持在功能方面更加强大，支持 JDK 版本、
 
 创建不同环境的配置文件，分别是 `application-dev.properties`、`application-test.properties`、`application-prod.properties`，加上默认的配置文件 `application.properties`，同样是四个配置文件。
 
-
+<br>
 
 #### 定义激活的变量
 
@@ -1088,7 +1241,7 @@ spring.profiles.active=@profile.active@
 >
 > `profile.active` 实际上就是一个变量，在 Maven 打包的时候指定的 `-P test` 传入的就是值。
 
-为啥 SpringBoot 中的占位符就变成 `@@` 了呢？可以从 pom 文件中看到：
+为啥 Spring Boot 中的占位符就变成 `@@` 了呢？可以从 pom 文件中看到：
 
 1. 自己 pom 文件中的 `<parent>` 标签：
 
@@ -1129,9 +1282,9 @@ spring.profiles.active=@profile.active@
    </plugin>
    ```
 
-   但是这个只有继承了 `spring-boot-starter-parent` 的 SpringBoot 项目才会使用 `@@` 占位符，否则 SpringBoot 配置文件中的默认占位符 `${}` 可能会与 Maven 的默认占位符 `${}` 冲突。
+   但是这个只有继承了 `spring-boot-starter-parent` 的 Spring Boot 项目才会使用 `@@` 占位符，否则 Spring Boot 配置文件中的默认占位符 `${}` 可能会与 Maven 的默认占位符 `${}` 冲突。
 
-   我们可以自己使用 `maven-resources-plugin` 插件将 SpringBoot 配置文件中的 Maven 占位符改为 `@@`（相当于手动加上 `spring-boot-starter-parent` 的相关配置）：
+   我们可以自己使用 `maven-resources-plugin` 插件将 Spring Boot 配置文件中的 Maven 占位符改为 `@@`（相当于手动加上 `spring-boot-starter-parent` 的相关配置）：
 
    ```xml
    <build>
@@ -1171,7 +1324,7 @@ spring.profiles.active=@profile.active@
    </resources>
    ```
 
-
+<br>
 
 #### pom 文件中定义 profiles
 
@@ -1251,7 +1404,7 @@ Maven 中的 `profile` 的激活条件还可以根据 JDK、操作系统、文�
 </activation>
 ```
 
-
+<br>
 
 #### 资源过滤
 
@@ -1288,13 +1441,13 @@ Maven 中的 `profile` 的激活条件还可以根据 JDK、操作系统、文�
 
 上述配置主要分为两个方面，第一是先排除所有配置文件，第二是根据 `profile.active` 动态的引入配置文件。
 
-
+<br>
 
 ### 3.4.5、-jar
 
 在 Spring Boot 中，使用 `-jar` 运行应用时管理多环境配置（如 `dev`、`test`、`prod`）也是一个常见需求。
 
-
+<br>
 
 #### 直接定义激活配置
 
@@ -1329,7 +1482,7 @@ Maven 中的 `profile` 的激活条件还可以根据 JDK、操作系统、文�
    - 后加载的配置会覆盖先加载的（`prod` > `default`）。
    - 同名属性以激活的 Profile 文件为准。
 
-
+<br>
 
 #### 外部化配置目录
 
@@ -1360,7 +1513,7 @@ Maven 中的 `profile` 的激活条件还可以根据 JDK、操作系统、文�
    java -jar app.jar --spring.config.location=file:/app/application.properties,file:/app/application-prod.properties
    ```
 
-
+<br>
 
 #### 属性优先级规则
 
@@ -1383,7 +1536,7 @@ Spring Boot 的优先级规则遵循一个核心原则：“离应用越近的�
 
 这种设计提供了灵活性，允许在部署时动态切换环境，而无需修改打包好的文件。
 
-
+<br>
 
 # 4、数据校验
 
@@ -1403,7 +1556,7 @@ if (personRequest.getAge() <= 0) {
 
 这种代码严重违反了单一职责原则，将校验逻辑与业务逻辑紧密耦合，导致业务代码臃肿、可读性差、难以维护。JSR-380 为我们提供了一套声明式、可扩展且与业务逻辑解耦的优雅解决方案。
 
-
+<br>
 
 ## 4.1、简介
 
@@ -1418,7 +1571,7 @@ JSR-380，即 Bean Validation 2.0，是作为 Java EE 8 规范的一部分发布
 - 容器元素校验：这是 JSR-380 的一大亮点，允许直接对集合、Map 或数组中的元素进行校验，例如 `List<@NotBlank String> names`。
 - 更强大的 API：提供了更灵活的 API 用于动态配置约束和自定义校验。
 
-
+<br>
 
 ## 4.2、快速开始
 
@@ -1435,7 +1588,7 @@ JSR-380，即 Bean Validation 2.0，是作为 Java EE 8 规范的一部分发布
 
 在 Spring Boot 2.3 之前的版本中，`spring-boot-starter-validation` 默认包含在 `spring-boot-starter-web` 中。从 Spring Boot 2.3 开始，需要显式地手动添加此依赖。
 
-
+<br>
 
 ### 4.2.1、验证 Controller 的输入
 
@@ -1482,7 +1635,7 @@ public class PersonRequest {
 }
 ```
 
-
+<br>
 
 #### 验证请求参数
 
@@ -1525,7 +1678,7 @@ public ResultBean exceptionHandler(ConstraintViolationException exception){
 }
 ```
 
-
+<br>
 
 ### 4.2.2、验证 Service 中的方法
 
@@ -1570,7 +1723,7 @@ public ResultBean exceptionHandler(ConstraintViolationException exception){
 }
 ```
 
-
+<br>
 
 ### 4.2.3、全局异常处理器
 
@@ -1630,7 +1783,7 @@ public class GlobalExceptionHandler {
 >
 > Service 层抛出了 `ConstraintViolationException` 异常，但由于它是在处理一个 Web 请求的生命周期中被抛出并传播到了 Controller 层之外，因此，为 Controller "服务"的 `@RestControllerAdvice` 完全有能力捕获并处理它。
 
-
+<br>
 
 ## 4.3、进阶校验场景
 
@@ -1664,7 +1817,7 @@ public class PersonRequest {
 }
 ```
 
-
+<br>
 
 ### 4.3.2、手动校验
 
@@ -1697,7 +1850,7 @@ public void checkPersonManually() {
 }
 ```
 
-
+<br>
 
 ## 4.4、自定义校验器
 
@@ -1780,13 +1933,15 @@ public void checkPersonManually() {
 
    当 `CreateOrderRequest` 在 Controller 中作为 `@RequestBody` 被校验时，如果传入的 username 在数据库中不存在，`UserExistsValidator` 的 `isValid()` 方法会返回 `false`，从而触发一个 `MethodArgumentNotValidException`，并附带我们在注解中定义的错误消息：“指定的用户不存在”。
 
-
+<br>
 
 ## 4.5、核心概念总结
 
 ### 4.5.1、常用注解
 
 JSR-380 (Bean Validation 2.0) 标准化了许多常用的校验注解。
+
+<br>
 
 **空值检查**
 
@@ -1797,7 +1952,7 @@ JSR-380 (Bean Validation 2.0) 标准化了许多常用的校验注解。
 | `@NotBlank` | 字符串不能为 `null` 且必须包含至少一个非空白字符。 |
 | `@NotEmpty` | 集合、Map 或字符串不能为空（`null` 或大小为 0）。  |
 
-
+<br>
 
 **布尔值检查**
 
@@ -1806,7 +1961,7 @@ JSR-380 (Bean Validation 2.0) 标准化了许多常用的校验注解。
 | `@AssertTrue`  | 元素必须为 `true`。  |
 | `@AssertFalse` | 元素必须为 `false`。 |
 
-
+<br>
 
 **数值检查**
 
@@ -1819,7 +1974,7 @@ JSR-380 (Bean Validation 2.0) 标准化了许多常用的校验注解。
 | `@Negative`       | 数值必须为负数。         |
 | `@NegativeOrZero` | 数值必须为负数或零。     |
 
-
+<br>
 
 **日期时间检查**
 
@@ -1830,7 +1985,7 @@ JSR-380 (Bean Validation 2.0) 标准化了许多常用的校验注解。
 | `@PastOrPresent`   | 日期必须在当前或之前。 |
 | `@FutureOrPresent` | 日期必须在当前或之后。 |
 
-
+<br>
 
 **其他**
 
@@ -1840,7 +1995,7 @@ JSR-380 (Bean Validation 2.0) 标准化了许多常用的校验注解。
 | `@Pattern(regexp)` | 字符串必须匹配指定的正则表达式。               |
 | `@Email`           | 字符串必须是有效的电子邮件格式。               |
 
-
+<br>
 
 ### 4.5.2、@Validated vs @Valid
 
@@ -1863,13 +2018,13 @@ JSR-380 (Bean Validation 2.0) 标准化了许多常用的校验注解。
 - 级联校验（校验对象内的嵌套对象）：必须在嵌套对象的字段上使用 `@Valid`。
 - 分组校验：必须使用 `@Validated`。
 
-
+<br>
 
 # 5、数据源
 
 ##  5.1、JDBC
 
-首先新建一个 SpringBoot 项目
+首先新建一个 Spring Boot 项目
 
 需要导入的组件：Web（必须）、JDBC API（整合所需）、MySQL Driver（连接数据库）
 
@@ -1879,7 +2034,7 @@ JSR-380 (Bean Validation 2.0) 标准化了许多常用的校验注解。
 
 JdbcTemplate是Spring对JDBC的封装，目的是使JDBC更加易于使用。==JdbcTemplate是Spring的一部分。==Spring对数据库的操作在JDBC上面做了深层次的封装，使用Spring的注入功能，可以把DataSource注册到JdbcTemplate中。
 
-
+<br>
 
 **JdbcTemplate主要提供以下五类方法：**
 
@@ -1888,9 +2043,9 @@ JdbcTemplate是Spring对JDBC的封装，目的是使JDBC更加易于使用。==J
 - query方法及queryForXXX方法：用于执行查询相关语句；
 - call方法：用于执行存储过程、函数相关语句。
 
+<br>
 
-
-**例：**
+**示例**
 
 使用Spring默认的数据源 Hikari（后面提），所以直接配置数据库参数即可
 
@@ -1941,11 +2096,11 @@ public class JDBCController {
 }
 ```
 
-
+<br>
 
 **Hikari**
 
-SpringBoot2默认的数据源从Tomcat换成了HikariCP。
+Spring Boot2默认的数据源从Tomcat换成了HikariCP。
 
 HikariCP是数据库连接池的后起之秀，号称性能最好，可以完美PK掉其他的连接池，是一个高i性能的连接池，基于BoneCP做了不少的改进和优化。
 
@@ -1957,7 +2112,7 @@ HikariCP是数据库连接池的后起之秀，号称性能最好，可以完美
 - **自定义集合类型（ConcurrentBag）**：提高并发读写的效率；
 - **其他针对BoneCP缺陷的优化**，比如对于耗时超过一个CPU时间片的方法调用的研究（但没说具体怎么优化）。
 
-
+<br>
 
 由于Spring Boot的自动化配置机制，大部分对于数据源的配置都可以通过配置参数的方式去改变。只有一些特殊情况，比如：更换默认数据源，多数据源共存等情况才需要去修改覆盖初始化的Bean内容。
 
@@ -1994,7 +2149,7 @@ HikariCP是数据库连接池的后起之秀，号称性能最好，可以完美
 	- `spring.datasource.hikari.connection-timeout`: 连接超时时间：毫秒，小于250毫秒，否则被重置为默认值30秒
 	- `spring.datasource.hikari.connection-test-query`: 用于测试连接是否可用的查询语句
 
-
+<br>
 
 # 6、打包
 
@@ -2004,7 +2159,7 @@ Spring Boot 提供了内置的 Tomcat、Undertow、Jetty 三种 Servlet Web 容�
 
 `SpringBootServletInitializer` 是 `WebApplicationInitializer` 的实现，它从部署在 Web 容器上的传统 War 包运行 Spring Boot 应用。该类将 Servlet、Filter 和 ServletContextInitializer Bean 从应用程序上下文绑定到服务器。`SpringBootServletInitializer` 类还允许我们通过覆盖 `SpringApplicationBuilder configure(SpringApplicationBuilder application)` 方法来配置由 Servlet 容器运行的应用程序。
 
-
+<br>
 
  Spring Boot War 部署步骤：
 
@@ -2112,7 +2267,7 @@ Spring Boot 提供了内置的 Tomcat、Undertow、Jetty 三种 Servlet Web 容�
 
      <img src="!assets/SpringBoot/image-20230626153638578.png" alt="image-20230626153638578" style="" />
 
-
+<br>
 
 ### 6.1.1、替换 war 包文件
 
@@ -2134,7 +2289,7 @@ jar <options> <jar-file> [input-files]
 - `<jar-file>`：目标 jar/war 文件名。
 - `[input-files]`：要操作的文件或目录。
 
-
+<br>
 
 **简单示例**
 
@@ -2172,7 +2327,7 @@ jar <options> <jar-file> [input-files]
    >
    > 往 war 包中新增文件也是使用这个参数。
 
-
+<br>
 
 ## 6.2、jar
 
@@ -2207,7 +2362,7 @@ mvn clean package -DskipTests
 java -jar your-project-name.jar
 ```
 
-
+<br>
 
 ### 6.2.1、打 jar 包后乱码
 
@@ -2246,11 +2401,11 @@ java -jar your-project-name.jar
    $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding
    ```
 
-
+<br>
 
 ### 6.2.2、使用 TongWeb
 
-默认情况下，SpringBoot 使用 Tomcat 作为中间件，在某些信创环境下，我们需要将 Tomcat 换成 TongWeb：
+默认情况下，Spring Boot 使用 Tomcat 作为中间件，在某些信创环境下，我们需要将 Tomcat 换成 TongWeb：
 
 1. 在东方通官网申请嵌入版试用，我这里拿到的是 TongWeb8.0.E.3_P2，解压后打开 “安装工程介质” 文件夹：
 
@@ -2286,11 +2441,11 @@ java -jar your-project-name.jar
 
    > [!NOTE]
    >
-   > `-2.x` 是和 SpringBoot 的大版本对应：
+   > `-2.x` 是和 Spring Boot 的大版本对应：
    >
-   > - SpringBoot 版本为 1.x 那么使用 `tongweb-spring-boot-starter-1.x`。
-   > - SpringBoot 版本为 2.x 那么使用 `tongweb-spring-boot-starter-2.x`。
-   > - SpringBoot 版本为 3.x 那么使用 `tongweb-spring-boot-starter-3.x`。
+   > - Spring Boot 版本为 1.x 那么使用 `tongweb-spring-boot-starter-1.x`。
+   > - Spring Boot 版本为 2.x 那么使用 `tongweb-spring-boot-starter-2.x`。
+   > - Spring Boot 版本为 3.x 那么使用 `tongweb-spring-boot-starter-3.x`。
 
    如果需要  TongWeb 容器集成其他的功能，需要添加额外的依赖如：
 
@@ -2319,7 +2474,7 @@ java -jar your-project-name.jar
 
    <img src="!assets/SpringBoot/image-20250521173239848.png" alt="image-20250521173239848" style="zoom:50%;" />
 
-
+<br>
 
 ### 6.2.3、注册为服务
 
@@ -2344,6 +2499,8 @@ java -jar your-project-name.jar
    # 服务运行目录
    WorkingDirectory=/opt/yiplat
    
+   Environment="JAVA_HOME=/usr/local/jdk"   # 这里替换成你真实的 JDK 路径
+   Environment="PATH=$JAVA_HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
    # JVM 参数
    Environment="JAVA_OPTS=-Duser.timezone=Asia/Shanghai -Xms1g -Xmx2g -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=1g -XX:+HeapDumpOnOutOfMemoryError -XX:+PrintGCDateStamps -XX:+PrintGCDetails -XX:NewRatio=1 -XX:SurvivorRatio=30 -XX:+UseParallelGC -XX:+UseParallelOldGC"
    
@@ -2401,7 +2558,7 @@ java -jar your-project-name.jar
    systemctl stop yiplat
    ```
 
-
+<br>
 
 # 7、日志
 
@@ -2442,7 +2599,7 @@ Logback 是 Java 社区中使用最广泛的日志框架之一。 它是其前�
 
 配置完成后，部署时就可以在启动前修改 application.yml 文件中的相关配置，达到自定义的目的。
 
-
+<br>
 
 **logback-spring.xml 和 logback.xml 的区别**
 
@@ -2460,7 +2617,7 @@ logback-spring.xml：
 - Spring Boot 在应用启动时会特别查找 logback-spring.xml，并在 Spring 环境准备好之后加载它，这样就能确保所有 Spring Boot 的特性在日志配置中都可用。
 - 这个配置文件不会被 Logback 直接加载，而是由 Spring Boot 控制，这样可以防止在 Spring Boot 环境变量准备好之前就加载日志配置，避免了一些潜在的问题，比如不能解析 Spring Boot 的属性值。
 
-
+<br>
 
 ## 7.2、Log4j2
 
@@ -2500,7 +2657,7 @@ logging:
 <Property name="LOG_HOME" value="${sys:LOG_PATH}"/>
 ```
 
-
+<br>
 
 # 10、发送邮件
 
@@ -2508,7 +2665,7 @@ logging:
 	这里以 QQ 邮箱为例。登录 QQ 邮箱之后，点击设置，点击账户，**选择开启 IMAP/SMTP 服务**，记住 QQ 邮箱提示的授权码，后面会用到。
 
 2. **引入依赖**
-	在 SpringBoot 的 pom 文件中导入以下依赖
+	在 Spring Boot 的 pom 文件中导入以下依赖
 
 	```xml
 	<dependency>
@@ -2579,13 +2736,13 @@ logging:
 
 	这里需要注意的是，setText 的时候需要传一个布尔值进去，表名需要使用HTML样式。
 
-
+<br>
 
 **项目部署到服务器之后无法发送邮件的问题**
 
 原因：我使用的是阿里云服务器，由于阿里云因为安全考虑不开发邮件默认发送端口25，所以导致本地可以发送邮件，服务器上不能发送邮件。
 
-解决方法：使用端口465以及 SSL 加密方式发送邮件，我的项目是 SpringBoot，所以直接在配置文件中加入下面的配置：
+解决方法：使用端口465以及 SSL 加密方式发送邮件，我的项目是 Spring Boot，所以直接在配置文件中加入下面的配置：
 
 ```properties
 # Use port 465 instead of the default port 25  
@@ -2593,44 +2750,44 @@ spring.mail.properties.mail.smtp.socketFactory.port=465
 spring.mail.properties.mail.smtp.ssl.enable=true
 ```
 
-
+<br>
 
 # 11、处理静态资源
 
 静态资源，一般是网页端的：HTML文件、JavaScript 文件和图片。
 
-虽然真实项目里，图片可以直接存储在**对象存储的存储桶内**或者直接用 **Nginx进行反代**，但是一些小的静态资源，直接 SpringBoot 规划静态资源，也是个不错的选择。
+虽然真实项目里，图片可以直接存储在**对象存储的存储桶内**或者直接用 **Nginx进行反代**，但是一些小的静态资源，直接 Spring Boot 规划静态资源，也是个不错的选择。
 
-SpringBoot 内设置静态资源，或者说静态资源文件夹，主要有两种方法（均为 SpringMVC 实现）：
+Spring Boot 内设置静态资源，或者说静态资源文件夹，主要有两种方法（均为 SpringMVC 实现）：
 
 - 在 `application.yml`/`application.properties` 内配置。
-- 设置 `Configuration 配置类`。
+- 设置 Configuration 配置类。
 
 以上两种方法，均可实现用户访问网址，不走 Controller 层的拦截，直接进行静态文件访问：
 
 <img src="!assets/SpringBoot/f1630117a2b8420a90a8a46dcfa68f2atplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp" alt="简单解释一下" style="" />
 
-
+<br>
 
 ## 11.1、application.yml 配置
 
 设置 application 方法很简单，主要涉及两个配置项：
 
-- `spring.mvc.static-path-pattern`：根据官网的描述和实际效果，可以理解为**静态文件 URL 匹配头**，也就是静态文件的 URL 地址开头。SpringBoot 默认为：`/**`。
-- `spring.web.resources.static-locations`：根据官网的描述和实际效果，可以理解为**实际静态文件地址**，也就是静态文件 URL 后，匹配的实际静态文件。SpringBoot 默认为：`classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/`。
+- `spring.mvc.static-path-pattern`：根据官网的描述和实际效果，可以理解为**静态文件 URL 匹配头**，也就是静态文件的 URL 地址开头。Spring Boot 默认为：`/**`。
+- `spring.web.resources.static-locations`：根据官网的描述和实际效果，可以理解为**实际静态文件地址**，也就是静态文件 URL 后，匹配的实际静态文件。Spring Boot 默认为：`classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/`。
 
 如何运作的？，这里画个简单的图：
 
-<img src="!assets/SpringBoot/f3d35e5cc4ca417b80f12680de0ad194tplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp" alt="简单演示" style="" />
+<img src="!assets/SpringBoot/f3d35e5cc4ca417b80f12680de0ad194tplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp" alt="简单演示" style="zoom: 50%;" />
 
 需要注意：
 
-- `spring.web.resources.static-locations` 是后续配置，旧版 SpringBoot 的配置项为：`spring.resources.static-locations`；在2.2.5 版本之后，旧版本配置已经失效。
-- `spring.web.resources.static-locations` 有多个配置项，在 SpringBoot 编译后，会合并为一个文件。多个配置文件，使用 `,` 进行分割。
+- `spring.web.resources.static-locations` 是后续配置，旧版 Spring Boot 的配置项为：`spring.resources.static-locations`；在2.2.5 版本之后，旧版本配置已经失效。
+- `spring.web.resources.static-locations` 有多个配置项，在 Spring Boot 编译后，会合并为一个文件。多个配置文件，使用 `,` 进行分割。
 - `spring.web.resources.static-location` 仅仅允许一个配置，无法使用 `,` 进行分割，如果需要多个静态资源文件，可以使用下文的配置类方法。
 - `spring.web.resources.static-locations` 可以使用 `classpath`、`file` 进行匹配。如果使用 `file`，这个时候的相对路径为项目地址（打包为 .jar 后，相对路径就是 .jar 运行地址）。
 
-
+<br>
 
 现在来写一个示例，最终效果为浏览器输入：`http://localhost:8088/SystemData/UserData/Avatar/Mintimate.jpeg` 可以直接访问项目文件下的：`/SystemData/UserData/Avatar/Mintimate.jpeg`
 
@@ -2659,7 +2816,7 @@ spring:
 
 这意味着，按上文设置了 `/SystemData/**` 为 URL 匹配，就不能设置第二个 `/resources/**` 这样的配置为第二静态目录。如果需要设置多个地址为静态资源目录，可以参考下文的 **设置配置类方法** 方法。
 
-
+<br>
 
 ## 11.2、Configuration 配置类
 
@@ -2684,7 +2841,9 @@ protected void addResourceHandlers(ResourceHandlerRegistry registry) {
 
 和 `application.yml` 里设置一样，支持 `classpath` 和 `file` 等关键词。
 
+<br>
 
+**示例**
 
 现在就来配置，最终效果为（两组同时）:
 
@@ -2732,7 +2891,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
 
 <img src="!assets/SpringBoot/dba2e1b5b0bb4a7289f39e7d15f91e73tplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp" alt="静态资源二" style="" />
 
-
+<br>
 
 # 12、devtools 热部署
 
@@ -2743,7 +2902,7 @@ devtools 是 boot 的一个热部署工具，会监听 classpath 下的文件变
 - base 类加载器：用于加载不会改变的 jar（第三方依赖的 jar）
 - restart 类加载器：用于加载我们正在开发的 jar（整个项目里我们自己编写的类）。
 
-当应用重启后，原先的 restart 类加载器被丢掉、重新 new 一个 restart 类加载器来加载这些修改过的东西，而 base 类加载器却不需要动一下。这种方法意味着应用程序的重启通常比 “冷启动” 要快得多，因为 bc 没有受到影响并且一直存在着。
+当应用重启后，原先的 restart 类加载器被丢掉、重新 `new` 一个 restart 类加载器来加载这些修改过的东西，而 base 类加载器却不需要动一下。这种方法意味着应用程序的重启通常比 “冷启动” 要快得多，因为 bc 没有受到影响并且一直存在着。
 
 devtools 可以
 
@@ -2781,9 +2940,9 @@ devtools 可以
 
 - 实现对属性文件的热部署。
 
+<br>
 
-
-**使用**
+**使用示例**
 
 1. 引入 spring-boot-devtools 依赖：
 
@@ -2817,9 +2976,4 @@ devtools 可以
   ```properties
   spring.devtools.restart.additional-exclude=[目录]
   ```
-
-IDEA：当我们修改了 Java 类后，IDEA 默认是不自动编译的，而 spring-boot-devtools 又是监测 classpath 下的文件发生变化才会重启应用，所以需要设置 IDEA 的自动编译：
-
-1. File ==> Settings ==> Build, execute, deploy ==> Compiler  ==> Build Project automatically
-2. ctrl + shift + alt + / ==> 选择 Registry ==> 勾上 Compiler autoMake allow when app running
 

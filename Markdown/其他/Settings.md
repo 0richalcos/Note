@@ -17,19 +17,19 @@
 
 此操作虽然以后会比较方便，但是由于所有软件都能获取到管理员权限，所以电脑安全性会有所降低。
 
-
+<br>
 
 ## 【2】diskpart 操作硬盘
 
 DiskPart 是 Windows 11 中的命令行实用程序，使您可以使用 DiskPart 命令提示符执行磁盘分区操作。下面通过示例了解如何使用 DiskPart。
 
-
+<br>
 
 **什么是DiskPart？**
 
 DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，可以管理自 Windows 2000 以来运行所有操作系统版本的计算机中的磁盘、分区或卷，还包括最新的 Windows 11。用户可以输入 DiskPart 命令直接组织硬盘分区，或创建文本文件脚本来执行多个命令。您可以在磁盘管理工具中使用的大多数命令都集成在 DiskPart 中。
 
-
+<br>
 
 **如何在 Windows 11 当中打开 DiskPart？**
 
@@ -37,7 +37,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 <img src="!assets/Settings/image-20220812105905290.png" alt="image-20220812105905290" style="zoom: 50%;" />
 
-
+<br>
 
 **DiskPart Windows 11 命令和示例**
 
@@ -53,7 +53,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 <img src="!assets/Settings/image-20220812112727192.png" alt="image-20220812112727192" style="zoom: 50%;" />
 
-
+<br>
 
 ### 【2.1】转换磁盘格式
 
@@ -95,7 +95,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
    convert mbr
    ```
 
-
+<br>
 
 ### 【2.2】解除磁盘写保护
 
@@ -123,7 +123,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
    attributes disk clear readonly
    ```
 
-
+<br>
 
 ## 【3】系统迁移
 
@@ -171,7 +171,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 系统迁移到第二块硬盘（或 SSD 固态硬盘、U盘等）上之后，如果是支持 UEFI 的电脑，并且在迁移系统之前设置了完成后从目标盘启动。重启电脑后，会自动用迁移后的新系统启动。否则，需手动进入 BIOS 设置，将启动硬盘设置为新的硬盘，之后，就可以用这块硬盘启动电脑，进入系统了。
 
-
+<br>
 
 **系统引导未修改**
 
@@ -187,7 +187,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 3. 重启之后电脑已经使用新硬盘的系统启动，这时可以将旧硬盘直接格式化，并再来软件这里查看是否有多余的启动项，如果有就直接删除。
 
-
+<br>
 
 ## 【4】解决端口占用
 
@@ -211,7 +211,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
    taskkill /T /F /PID <PID>
    ```
 
-
+<br>
 
 ## 【5】compact 压缩
 
@@ -221,7 +221,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 关闭：`compact /compactos:never`。
 
-
+<br>
 
 ## 【6】右键菜单设置
 
@@ -234,7 +234,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 >
 > 如果觉得这个快捷方式以后可能会用到，需要重新打开，可以将 `ShellNew` 选项的名字改掉，比如改为 `ShellNew-`。
 
-
+<br>
 
 ### 【6.2】解决腾讯文档替换 Windows 右键快捷方式
 
@@ -268,7 +268,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
    <img src="!assets/Settings/image-20240411185129951.png" alt="image-20240411185129951" style="zoom:50%;" />
 
-
+<br>
 
 ### 【6.3】删除右键菜单的 AMD Software
 
@@ -286,13 +286,13 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
    <img src="./!assets/Settings/image-20250418150017030.png" alt="image-20250418150017030" style="zoom:67%;" />
 
-
+<br>
 
 ## 【7】取消开机密码
 
 这里分两种情况，一种是微软账号登录，一种是本地帐号登录。
 
-
+<br>
 
 **微软账户登录**
 
@@ -305,13 +305,13 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
    <img src="!assets/Settings/image-20210513005900008.png" alt="image-20210513005900008" style="zoom:50%;" />
 
-
+<br>
 
 **本地账号登录**
 
 直接修改本地登录账号的密码就行，密码留空，点击确认保存即可。
 
-
+<br>
 
 ## 【8】微软输入法快速输入时间
 
@@ -332,7 +332,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
    %yyyy%年%MM%月%dd%日 %HH%:%mm%:%ss%
    ```
 
-
+<br>
 
 ## 【9】通过网络共享文件
 
@@ -364,7 +364,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
    <img src="!assets/Settings/image-20240905001707231.png" alt="image-20240905001707231" style="zoom:50%;" />
 
-
+<br>
 
 ## 【10】手动增加开机启动项
 
@@ -374,7 +374,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 2. 找到你想设置为开机启动的程序，右键单击它，然后选择【创建快捷方式】。
 3. 将新创建的快捷方式拖动到 “启动” 文件夹中，这样程序就会在系统启动时自动运行。
 
-
+<br>
 
 **注册表**
 
@@ -396,7 +396,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
    鼠标右键依次选择【新建】=>【字符串值】，填写名称后右键点击新建的键值选择【修改】，在 “数值数据” 中添加要自启的 exe 文件（最好用英文双引号扩上），在数值数据的最后加上 `/background` 可以实现后台自启（当然也可以加上别的 exe 支持的参数）。
 
-
+<br>
 
 ## 【11】关闭系统小组件
 
@@ -416,13 +416,13 @@ winget uninstall MicrosoftWindows.Client.WebExperience_cw5n1h2txyewy
 winget install 9MSSGKG348SP
 ```
 
-
+<br>
 
 ## 【12】环境变量不换行显示
 
 这是因为变量值的第一个是相对地址，只需要将一个绝对地址（带盘符）的放首位，然后逗号分隔，确定之后，再双击打开就是换行显示了！
 
-
+<br>
 
 ## 【13】你的 PIN 不可用
 
@@ -460,7 +460,7 @@ winget install 9MSSGKG348SP
 
 6. 最后重启电脑，如果一切正常，可以将注册表 DevicePasswordLessBuildVersion 项的值重新改为 2。
 
-
+<br>
 
 ## 【14】sc 控制服务
 
@@ -488,7 +488,7 @@ sc <server> [command] [service name] <option1> <option2>...
 
   *start* 参数的值可以是 `demand`（手动）、`disabled`（禁用），`auto`（自动）。注意：`start=`后面有一个空格
 
-
+<br>
 
 **使用提示**
 
@@ -504,7 +504,7 @@ sc <server> [command] [service name] <option1> <option2>...
 
 > 如果提示 “拒绝访问” 可能是没有管理员权限，或者电脑安装有火绒之类的安全工具。
 
-
+<br>
 
 ## 【15】mstsc 远程连接
 
@@ -512,7 +512,7 @@ sc <server> [command] [service name] <option1> <option2>...
 
 使用 Windows + R 快捷键呼出运行窗口，在输入框输入 `mstsc` 命令即可使用远程连接功能，输入远程电脑的 IP、用户名、密码即可远程访问。
 
-
+<br>
 
 ### 【15.1】提示 Windows Defender Credential Guard 不允许使用已保存的凭据
 
@@ -534,7 +534,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
    确定配置并重启电脑即可解决。
 
-
+<br>
 
 ### 【15.2】删除远程连接记录
 
@@ -548,7 +548,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
    <img src="!assets/Settings/image-20230613190733588.png" alt="image-20230613190733588" style="" />
 
-
+<br>
 
 ### 【15.3】修改远程桌面的侦听端口
 
@@ -567,7 +567,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 下次使用远程桌面连接连接到此计算机时，必须键入新端口。 如果正在使用防火墙，请确保将防火墙配置为允许连接到新端口号。
 
-
+<br>
 
 ### 【15.4】远程本地多用户桌面
 
@@ -578,7 +578,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 3. 安装 RDP Wrap 补丁。
 4. 连接本地桌面。
 
-
+<br>
 
 #### 创建新用户
 
@@ -602,7 +602,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
    <img src="!assets/Settings/image-20250311144810934.png" alt="image-20250311144810934" style="zoom: 67%;" />
 
-
+<br>
 
 #### 配置本地组策略
 
@@ -616,7 +616,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
    - 配置【限制连接的数量】，点击【已启用】，其中【允许的RD最大连接数】可以自己视情况而定。
    - 配置【将远程桌面服务用户限制到单独的远程桌面服务会话】，选择：【已启用】。
 
-
+<br>
 
 #### 安装 RDP Wrapper 补丁
 
@@ -654,7 +654,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 >
 > 安装完成后，会在系统自动创建一个名为 “RDPWUpdater” 定时任务程序，用来更新 rdpwrap.ini 文件，但是更新的内容没有包含最新的系统信息，建议将此任务禁用。
 
-
+<br>
 
 #### 连接本地桌面
 
@@ -674,7 +674,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
    <img src="!assets/Settings/image-20250311150329217.png" alt="image-20250311150329217" style="zoom: 50%;" />
 
-
+<br>
 
 ## 【16】控制台设置代理
 
@@ -702,7 +702,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
    curl -vk https://www.google.com
    ```
 
-
+<br>
 
 **永久生效**
 
@@ -720,7 +720,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
    
      变量值：`http://127.0.0.1:7890`
 
-
+<br>
 
 **代理绕过**
 
@@ -730,7 +730,45 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 localhost,127.0.0.1,Orichalcos.com
 ```
 
+<br>
 
+## 【17】取消 Ctrl+空格 快捷键
+
+> [!NOTE]
+>
+> 目前已经尝试过直接修改默认的语言栏选项，但是重启后系统会重新将其改为「Ctrl+空格」。
+
+对于大部分开发者，「Ctrl+空格」的快捷键都用于代码自动生成，但是微软强制使用「Ctrl+空格」作为切换输入法的快捷键，这里讲一下如何替换。
+
+1. 新建文本文档，输入以下内容：
+
+   ```
+   Windows Registry Editor Version 5.00
+   
+   [HKEY_CURRENT_USER\Control Panel\Input Method\Hot Keys\00000010]
+   "Key Modifiers"=hex:00,c0,00,00
+   "Virtual Key"=hex:ff,00,00,00
+   
+   [HKEY_CURRENT_USER\Control Panel\Input Method\Hot Keys\00000070]
+   "Key Modifiers"=hex:00,c0,00,00
+   "Virtual Key"=hex:ff,00,00,00
+   
+   [HKEY_USERS\.DEFAULT\Control Panel\Input Method\Hot Keys\00000010]
+   "Key Modifiers"=hex:02,c0,00,00
+   "Target IME"=hex:00,00,00,00
+   "Virtual Key"=hex:ff,00,00,00
+   
+   [HKEY_USERS\.DEFAULT\Control Panel\Input Method\Hot Keys\00000070]
+   "Key Modifiers"=hex:02,c0,00,00
+   "Target IME"=hex:00,00,00,00
+   "Virtual Key"=hex:ff,00,00,00
+   ```
+
+2. 将后缀名改为 `.reg`。
+
+3. 运行该文件即可，运行成功后重启电脑。
+
+<br>
 
 ## 【18】彻底关闭病毒实时保护
 
@@ -744,7 +782,7 @@ localhost,127.0.0.1,Orichalcos.com
 
    <img src="!assets/Settings/image-20231214235546195.png" alt="image-20231214235546195" style="" />
 
-
+<br>
 
 ## 【19】Xbox 卸载
 
@@ -766,7 +804,7 @@ localhost,127.0.0.1,Orichalcos.com
    
 4. 最后重启电脑即可。
 
-
+<br>
 
 ## 【20】开发驱动器
 
@@ -776,7 +814,7 @@ localhost,127.0.0.1,Orichalcos.com
 
 <img src="!assets/Settings/DevDrivePerfChart.png" alt="Visual Studio Dev Drive" style="" />
 
-
+<br>
 
 **开发驱动器如何运作？**
 
@@ -784,7 +822,7 @@ localhost,127.0.0.1,Orichalcos.com
 
 开发驱动器利用 ReFS 来支持初始化专用于开发工作负载的存储卷，从而提供更快的性能和针对开发方案优化的可自定义设置。 ReFS 包含多项特定于文件系统的优化，以提高关键开发人员方案的性能。
 
-
+<br>
 
 **应该在开发驱动器上放置什么内容？**
 
@@ -803,7 +841,7 @@ localhost,127.0.0.1,Orichalcos.com
 
 这些工具应存储在主 C:\ 驱动器上。
 
-
+<br>
 
 **设置开发驱动器**
 
@@ -844,7 +882,7 @@ localhost,127.0.0.1,Orichalcos.com
 
 6. 到这里就已经创建并调整了开发驱动器的大小！
 
-
+<br>
 
 # Chrome
 
@@ -858,7 +896,7 @@ Chrome 默认的数据文件地址是：C:\Users\Orichalcos\AppData\Local\Google
 mklink <旧地址> <新地址>
 ```
 
-
+<br>
 
 ## 【2】主页被篡改
 
@@ -873,7 +911,7 @@ mklink <旧地址> <新地址>
 
 当然也可以直接删除快捷方式，然后重新生成；或者在目标栏输入一个自己需要的网址（输入网址之前要加一个空格键，否则无法保存），然后将属性改为只读。
 
-
+<br>
 
 ## 【3】访问带端口的页面提示 ERR_UNSAFE_PORT
 
@@ -962,7 +1000,7 @@ mklink <旧地址> <新地址>
 10080,  // Amanda
 ```
 
-
+<br>
 
 # IDEA
 
@@ -993,7 +1031,7 @@ Maven 由于它的约定大于配置，之后可能遇到写的配置文件，�
 </build>
 ```
 
-
+<br>
 
 ## 【2】Maven 框架 web-app 中 web.xml 版本过低
 
@@ -1015,7 +1053,7 @@ Maven 由于它的约定大于配置，之后可能遇到写的配置文件，�
 
 该属性默认为 `true`，表示容器在部署时只依赖部署描述文件，忽略所有标注，如果不配置该属性，或者将其设置为 `false`，则表示启动注解支持。当 `metadata-complete="false"` 时，web.xml 和注解对于 Servlet 的影响同时起作用，两种方法定义的 url-partten 都可以访问到该 Servlet，但是当通过 web.xml 定义的 url-partten 访问时，注解定义的属性将失效。
 
-
+<br>
 
 ## 【3】修改内存大小
 
@@ -1025,13 +1063,15 @@ Maven 由于它的约定大于配置，之后可能遇到写的配置文件，�
 
 <img src="!assets/Settings/image-20200428211739758.png" alt="image-20200428211739758" style="zoom: 67%;" />
 
+<br>
+
 **修改内存大小**
 
 依次点击导航栏【帮助】=>【更改内存设置】：
 
 <img src="!assets/Settings/QQ_1734269047966.png" alt="QQ_1734269047966" style="zoom:67%;" />
 
-
+<br>
 
 ## 【4】注释设置首行缩进
 
@@ -1039,7 +1079,7 @@ IDEA 通过快捷键 Ctrl + / 进行注释的代码不会进行首行缩进：
 
 <img src="!assets/Settings/QQ_1734291118508.png" alt="QQ_1734291118508" style="zoom: 67%;" />
 
-
+<br>
 
 **Java 文件设置**
 
@@ -1047,13 +1087,13 @@ IDEA 通过快捷键 Ctrl + / 进行注释的代码不会进行首行缩进：
 
 <img src="!assets/Settings/QQ_1734291301243.png" alt="QQ_1734291301243" style="zoom:67%;" />
 
-
+<br>
 
 **其他文件格式**
 
 其他文件格式，如 HTML、YAML 等，也是同样的套路，选中对应的菜单进行设置就行。
 
-
+<br>
 
 ## 【5】Lombok 报错
 
@@ -1067,7 +1107,7 @@ Lombok supports: sun/apple javac 1.6, ECJ
 
 这是由于 Lombok 的版本过低的原因。
 
-
+<br>
 
 **版本提升**
 
@@ -1084,7 +1124,7 @@ Lombok supports: sun/apple javac 1.6, ECJ
 
 <img src="!assets/Settings/QQ_1735503460171.png" alt="QQ_1735503460171" style="zoom: 67%;" />
 
-
+<br>
 
 **添加参数**
 
@@ -1096,7 +1136,7 @@ Lombok supports: sun/apple javac 1.6, ECJ
 
 <img src="!assets/Settings/QQ_1735503436346.png" alt="QQ_1735503436346" />
 
-
+<br>
 
 ## 【6】插件：Camel Case
 
@@ -1110,7 +1150,7 @@ Camel Case 包含 6 种格式的切换，可能某些格式是平时不用的，
 
 <img src="!assets/Settings/5e7827dc0001c7ea11720724.png" alt="图片描述" style="zoom: 80%;" />
 
-
+<br>
 
 
 ## 【7】jar 包自动导入及优化
@@ -1124,7 +1164,7 @@ Camel Case 包含 6 种格式的切换，可能某些格式是平时不用的，
 
 第二个是 优化导入，也就是除去没有用到的 jar 包，这个设置只会对当前的项目有效！每个项目都需要单独设置 此选项！
 
-
+<br>
 
 ## 【8】保存时触发操作
 
@@ -1137,7 +1177,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 额外再提一点，个人建议上面格式化代码不要设置成 **Whole file（整个文件）**，这是因为多人开发中同时改动这个文件，你整个格式化，比较容易造成冲突，解决这种格式化导致的冲突比较蛋疼。
 
-
+<br>
 
 ## 【9】正则替换
 
@@ -1148,7 +1188,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 比如上图将所有这个文件中的 `name=""` 替换为 `th:field=""` ，`()` 内填写正则表达式，`$1` 为正则匹配到的第一个内容的占位符。
 
-
+<br>
 
 ## 【10】设置类和方法模板
 
@@ -1158,7 +1198,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 <img src="!assets/Settings/image-20211214150741576.png" alt="image-20211214150741576" style="zoom:80%;" />
 
-
+<br>
 
 
 **方法模板**
@@ -1174,7 +1214,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 最后应用就行，在类的方法上方输入 `com` 按回车就可自动生成方法注释。
 
-
+<br>
 
 ## 【11】插件：Translation
 
@@ -1207,8 +1247,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 4. 进入后会弹出一个安全提示：
 
    <img src="!assets/Settings/image-20220328160748769.png" alt="image-20220328160748769" style="zoom: 60%;" />
-
-
+   
    简而言之，在这里创建的 AccessKey 能调用你账号下的所有资源，权限范围太大了，一旦泄露的话影响面很大，所以阿里云建议你创建一个子用户，然后给这个子用户只分配机器翻译的权限，这样的话即使泄露了也只会影响到机器翻译。
 
 5. 点击【创建用户】，填写用户信息 ：
@@ -1235,7 +1274,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
    <img src="!assets/Settings/image-20220328161610458.png" alt="image-20220328161610458" style="zoom:67%;" />
 
-
+<br>
 
 ## 【12】Defender 排除项目目录
 
@@ -1251,7 +1290,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
    <img src="!assets/Settings/image-20221122105441981.png" alt="image-20221122105441981" style="zoom:50%;" />
 
-
+<br>
 
 ## 【13】修改（文件）编码格式
 
@@ -1276,265 +1315,7 @@ IntelliJ IDEA 可以在菜单中的【File】=>【Settings】=>【Editor】=>【
 
 > 含有中文的代码文件，Convert 之后可能会使中文变成乱码，所以在转换成请做好备份，不然可能出现转换过程变成乱码，无法还原。
 
-
-
-
-
-
-
-# STS
-
-## 【1】修改内存大小
-
-显示内存：【首选项】=>【常规】=>【显示堆状态 】。
-
-在安装目录找到 SpringToolSuite4.ini，修改 Xms Xmx。
-
-然后在【Java】=>【已安装的 JRE】中，修改缺省 VM 参数，添加 Xms 和 Xmx，中间用空格隔开：
-
-<img src="!assets/Settings/image-20200428213849950.png" alt="image-20200428213849950" style="zoom: 50%;" />
-
-
-
-
-## 【2】汉化
-
-<img src="!assets/Settings/image-20200622113126300.png" alt="image-20200622113126300" style="zoom:67%;" />
-
-
-打开 https://www.eclipse.org/babel/downloads.php 
-
-<img src="!assets/Settings/image-20200622113248801.png" alt="image-20200622113248801" style="zoom:50%;" />
-
-
-选择一个复制，在弹出的窗口中点击添加
-
-<img src="!assets/Settings/image-20200622113354699.png" alt="image-20200622113354699" style="" />
-
-
-找到中文简体安装就行了。
-
-
-
-## 【3】SpringBoot 打 jar 包
-
-SpringBoot 是使用内置的 Tomcat 的，所以不用打包成 war 文件，当然也可以打包成 war 文件进行部署，只是个人觉得没有那个必要，通过 Maven 可将 SpringBoot 项目打包成 jar 文件运行。
-
-1. pom.xml 文件中添加所需插件：
-
-	```xml
-	<plugins>
-	    <!-- 要使生成的jar可运行，需要加入此插件 -->
-	    <plugin>
-	        <groupId>org.apache.maven.plugins</groupId>
-	        <artifactId>maven-surefire-plugin</artifactId>
-	        <configuration>
-	            <skip>true</skip>
-	        </configuration>
-	    </plugin>
-	    <plugin>
-	        <groupId>org.springframework.boot</groupId>
-	        <artifactId>spring-boot-maven-plugin</artifactId>
-	    </plugin>
-	</plugins>
-	```
-
-2. 项目运行环境选择 Java JDK：
-	
-	<img src="!assets/Settings/20191105110853305.png" alt="img" style="zoom: 80%;" />
-	
-3. 执行 `maven clean`：
-	
-	右键项目【run as】选择【maven clean】
-	
-4. 执行 `maven install`：
-	
-	右键项目【run as】选择【maven install】
-	
-5. 运行 jar：
-	
-	命令行运行： `java -jar xxx.jar` 
-
-
-
-# Clash for Windows
-
-## 【1】配置文件预处理
-
-在 Clash for Windows 中，如果直接编辑 Profile 的规则只会临时有效，每次重新刷新配置文件后，规则都会重置。有个处理办法就是编辑配置文件预处理规则，每次刷新文件都对配置文件进行预处理。
-
-如果需要对下载地址为 `https://example.com/profile.yaml` 的配置文件进行预处理，操作如下：
-
-1. 进入【Settings】界面。
-
-2. 滚动至【Profiles】栏。
-
-3. 点击【Parsers】右边【Edit】打开编辑器，填入：
-
-   ```yaml
-   parsers:
-     - url: https://example.com/profile.yaml
-       yaml:
-         prepend-rules:
-           - DOMAIN,test.com,DIRECT # rules最前面增加一个规则
-   ```
-
-   - *prepend-rules*：见下方 参数说明；
-   - *DOMAIN*：域名匹配规则；
-   - *test.com*：域名；
-   - *DIRECT*：直连代理模式。
-
-4. 点击编辑器右下角保存按钮。
-
-当配置文件触发刷新（包括自动更新）时，CFW 会读取 `yaml` 字段定义的值，将对应值插入/合并到原配置文件中
-
-
-
-**参数说明**
-
-| 键                   | 值类型 | 操作                                     |
-| -------------------- | ------ | ---------------------------------------- |
-| append-rules         | 数组   | 数组合并至原配置`rules`数组后            |
-| prepend-rules        | 数组   | 数组合并至原配置`rules`数组前            |
-| append-proxies       | 数组   | 数组合并至原配置`proxies`数组后          |
-| prepend-proxies      | 数组   | 数组合并至原配置`proxies`数组前          |
-| append-proxy-groups  | 数组   | 数组合并至原配置`proxy-groups`数组后     |
-| prepend-proxy-groups | 数组   | 数组合并至原配置`proxy-groups`数组前     |
-| mix-proxy-providers  | 对象   | 对象合并至原配置`proxy-providers`中      |
-| mix-rule-providers   | 对象   | 对象合并至原配置`rule-providers`中       |
-| mix-object           | 对象   | 对象合并至原配置最外层中                 |
-| commands             | 数组   | 在上面操作完成后执行简单命令操作配置文件 |
-
-
-
-**匹配规则**
-
-- DOMAIN-SUFFIX：域名后缀匹配
-- DOMAIN：域名匹配
-- DOMAIN-KEYWORD：域名关键字匹配
-- IP-CIDR：IP 段匹配
-- SRC-IP-CIDR：源 IP 段匹配
-- GEOIP：GEOIP 数据库（国家代码）匹配
-- DST-PORT：目标端口匹配
-- SRC-PORT：源端口匹配
-- PROCESS-NAME：源进程名匹配
-- RULE-SET：Rule Provider 规则匹配
-- MATCH：全匹配
-
-
-
-**代理模式**
-
-Clash 共有三种工作模式：
-
-- Global：全局，所有请求直接发往代理服务器
-- Rule：规则，所有请求根据配置文件规则进行分流
-- Direct：直连，所有请求直接发往目的地
-
-
-
-# Clash Verge Rev
-
-## 【1】自定义规则
-
-可以通过 Merge 配置实现：在 Clash Verge Rev 【订阅】页面中，点击右上角的【新建】按钮，类型选择【Merge】，点击【保存】即可创建配置。
-
-- 如果创建了多个 Merge 配置，按照启用顺序先后，链式执行。
-
-- 配置修改后需要重新启用，生效时卡片有颜色标识（右键配置 【禁用】 再 【启用】 ，也可以点击右上角的 🔥 按钮）。
-
-
-
-**配置说明**
-
-```yaml
-# 前置规则
-prepend-rules: []
-# 前置代理
-prepend-proxies: []
-# 前置代理组
-prepend-proxy-groups: []
-# 后置规则
-append-rules: []
-# 后置代理
-append-proxies: []
-# 后置代理组
-append-proxy-groups: []
-```
-
-
-
-**配置用法**
-
-- 规则的匹配顺序是从上到下依次进行匹配，匹配成功会提前结束匹配。
-
-- `MATCH` 规则一定会匹配成功 ，因此配置文件的规则一般均以 `MATCH` 规则结尾。
-
-- 基于上述，配置自定义规则一般使用的是 `prepend-rules` 而非 `append-rules`（使用 `append-rules` 会插入规则到原配置中的 `MATCH` 规则后，会导致插入的规则无效）。
-
-- 基于上述，使用 `prepend-rules` 一般不会插入 `MATCH` 规则（使用 `prepend-rules` 插入 `MATCH` 规则到原配置规则前，会导致原配置的规则无效）。
-
-例如:
-
-- 网站 `www.baidu.com`， 走节点 `🇯🇵6日本-东部优化(hy2)` 。
-- 网站 `www.google.com`， 走节点 `🇰🇷9韩国-全网优化(hy2)` 。
-- 网站 `www.youtube.com`， 走策略组 `♻️自动选择` 。
-- 网站 `www.bilibili.com`，走直连策略组 `DIRECT` 。
-- 网段 `10.11.12.0/24`，走直连策略组 `DIRECT` 。
-
-写法一：
-
-```yaml
-# Profile Enhancement Merge Template for Clash Verge
-
-prepend-rules: [
-  "DOMAIN-SUFFIX,baidu.com,🇯🇵6日本-东部优化(hy2)",
-  "DOMAIN-SUFFIX,google.com,🇰🇷9韩国-全网优化(hy2)",
-  "DOMAIN-SUFFIX,youtube.com,♻️自动选择",
-  "DOMAIN-SUFFIX,bilibili.com,DIRECT",
-  "IP-CIDR,10.11.12.0/24,DIRECT,no-resolve"
-]
-
-prepend-proxies: []
-
-prepend-proxy-groups: []
-
-append-rules: []
-
-append-proxies: []
-
-append-proxy-groups: []
-```
-
-写法二：
-
-```yaml
-# Profile Enhancement Merge Template for Clash Verge
-
-prepend-rules:
-  - DOMAIN-SUFFIX,baidu.com,🇯🇵6日本-东部优化(hy2)
-  - DOMAIN-SUFFIX,google.com,🇰🇷9韩国-全网优化(hy2)
-  - DOMAIN-SUFFIX,youtube.com,♻️自动选择
-  - DOMAIN-SUFFIX,bilibili.com,DIRECT
-  - IP-CIDR,10.11.12.0/24,DIRECT,no-resolve
-
-prepend-proxies: []
-
-prepend-proxy-groups: []
-
-append-rules: []
-
-append-proxies: []
-
-append-proxy-groups: []
-```
-
-> 规则配置请参考 [规则配置文档](https://wiki.metacubex.one/config/rules/)
->
-> - `v1.7.x` 版本的【Merge配置】改名为【扩展配置】，且 prepend/append 功能移动至订阅右键菜单中的可视化编辑器中实现（例如：prepend-rules 移动至订阅右键菜单的【编辑规则】中的 prepend）。扩展配置仅用于配置项覆写/合并。
-> - `v1.7.x` 版本的 Script配置 改名为 扩展脚本 。
-
-
+<br>
 
 # Windows Server
 
@@ -1558,7 +1339,7 @@ append-proxy-groups: []
 
 然后进行 KMS 激活。
 
-
+<br>
 
 **KMS 激活**
 
@@ -1592,7 +1373,7 @@ append-proxy-groups: []
 
 >  以上的方法供学习使用。 
 
-
+<br>
 
 ## 【2】安装 Windows Terminal
 
@@ -1634,7 +1415,7 @@ append-proxy-groups: []
 
 也可以使用相同的说明升级到命令控制台的新版本。但是需要使用旧版 PowerShell 控制台来完成该过程，因为在应用程序运行时无法升级终端。
 
-
+<br>
 
 ## 【3】关闭系统自动更新
 
@@ -1654,7 +1435,7 @@ append-proxy-groups: []
 
    <img src="!assets/Settings/image-20240814001105085.png" alt="image-20240814001105085" style="zoom:67%;" />
 
-
+<br>
 
 ## 【4】修改 CMD 窗口标题
 
@@ -1670,7 +1451,7 @@ title 名字
 set "title=名字"
 ```
 
-
+<br>
 
 ## 【5】服务器与本地电脑无法远程复制粘贴
 
@@ -1688,7 +1469,7 @@ set "title=名字"
 
 4. 再次在任务管理其中查看进程 rdpclip.exe 是否已经启动，如果已经启动，就测试是否可以复制粘贴，如果还是没有启动，则再次操作第 4 步。
 
-
+<br>
 
 # TortoiseSVN
 
@@ -1728,7 +1509,7 @@ ask the administrator to create a pre-revprop-change hook
 
 2. 将文件放到 `\Repositories\SVN文件夹\hooks\` 下执行即可。
 
-
+<br>
 
 ## 【2】查看本地 SVN 账号密码
 
@@ -1740,7 +1521,7 @@ ask the administrator to create a pre-revprop-change hook
 
    <img src="!assets/Settings/image-20231214235920682.png" alt="image-20231214235920682" style="zoom:67%;" />
 
-
+<br>
 
 # PowerShell
 
@@ -1772,7 +1553,7 @@ Winget 是 Windows 软件包管理器，是一个命令行工具，使用户能�
    winget install --id Microsoft.Powershell.Preview --source winget
    ```
 
-
+<br>
 
 ## 【2】因为在此系统上禁止运行脚本
 
@@ -1802,7 +1583,7 @@ PS C:\WINDOWS\system32> get-executionpolicy
 Restricted
 ```
 
-
+<br>
 
 **设置**
 
@@ -1819,7 +1600,7 @@ PS C:\WINDOWS\system32> get-executionpolicy
 RemoteSigned
 ```
 
-
+<br>
 
 ## 【3】Powershell7 中文乱码
 
@@ -1837,7 +1618,7 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 
 <img src="!assets/Settings/QQ_1734291616071.png" alt="QQ_1734291616071" style="zoom:50%;" />
 
-
+<br>
 
 # IDM
 
@@ -1847,7 +1628,9 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 
 <img src="!assets/Settings/image-20240416143932381.png" alt="image-20240416143932381" style="zoom:67%;" />
 
-解决方案：
+<br>
+
+**解决方案**
 
 1. 打开 host 文件（C:\Windows\System32\drivers\etc\hosts），添加以下几项，将 IDM 的认证服务器域名屏蔽了：
 
@@ -1869,7 +1652,7 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 
    <img src="!assets/Settings/image-20240416144317613.png" alt="image-20240416144317613" style="zoom: 50%;" />
 
-
+<br>
 
 ## 【2】浏览器拓展错误
 
@@ -1879,9 +1662,9 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 
 是因为软件版本和扩展版本不一致，只需要下载回旧版本的插件就可以啦（需要禁止浏览器更新扩展版本），或者更新软件的版本。
 
+<br>
 
-
-解决方案：
+**解决方案**
 
 1. 打开浏览器的扩展设置，将 IDM 的扩展删除。
 
@@ -1897,11 +1680,11 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 
    <img src="./!assets/Settings/image-20250503050831462.png" alt="image-20250503050831462" style="zoom:50%;" />
 
-
+<br>
 
 # Unity
 
-## 【1】改变 Unity 游戏启动窗口大小
+## 【1】改变游戏启动窗口大小
 
 可以从命令行启动 Unity 播放器并传入参数来更改播放器的执行方式：
 
@@ -1922,3 +1705,234 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 "yuanshen.exe" -popupwindow -screen-fullscreen 0 -screen-width 1920 -screen-height 1080
 ```
 
+<br>
+
+# Weasel
+
+RIME 本身简洁、流畅，性能优异，注重隐私，可定制性强，对于追求极致输入体验的用户，可谓不二之选。而为 RIME 量身打造的雾凇拼音，是目前维护最积极、功能最强大的 RIME 输入方案，拥有精心打磨的大容量词库、开箱即用的中文输入体验。
+
+RIME 本身是一个输入法引擎，它在不同平台有不同的适配，分别是：
+
+| 平台    | 对应的适配                                                   |
+| ------- | ------------------------------------------------------------ |
+| Linux   | 中州韵（通过 IBus 或 Fcitx 输入法框架运行）                  |
+| Windows | 小狼毫                                                       |
+| macOS   | 鼠须管、[小企鹅输入法](https://sspai.com/link?target=https%3A%2F%2Fgithub.com%2Ffcitx-contrib%2Ffcitx5-macos-installer%2Fblob%2Fmaster%2FREADME.zh-CN.md)（Fcitx） |
+| Android | [同文输入法](https://sspai.com/link?target=https%3A%2F%2Fgithub.com%2Fosfans%2Ftrime)（TRIME） |
+| iOS     | [仓输入法](https://apps.apple.com/cn/app/仓输入法/id6446617683?l=en-GB)（开源免费）、[iRime](https://apps.apple.com/cn/app/irime输入法-小鹤双拼五笔郑码输入法/id1142623977)（付费） |
+
+<br>
+
+## 1、安装小狼毫
+
+1. 前往 [RIME 官方网站](https://sspai.com/link?target=https%3A%2F%2Frime.im%2Fdownload%2F)，下载小狼毫的安装包：
+
+   <img src="./!assets/Settings/image-20250926023154626.png" alt="image-20250926023154626" style="zoom: 50%;" />
+
+   > [!NOTE]
+   >
+   > 不同系统版本适用不同的小狼毫，如果是 Windows 8.1 及更高版本，则选择最新的 0.17.4；如果是老版本的 Windows（如Windows 7），则选择旧版本，但是已经不再更新。
+
+2. 下载后，运行安装程序，按提示安装即可。期间，安装程序会要求你指定用户文件夹，该文件夹用于放置 RIME 的用户配置文件，通常使用默认设置即可，当然你也可以指定其他的位置：
+
+   <img src="./!assets/Settings/image-20250926023247751.png" alt="image-20250926023247751" style="zoom:50%;" />
+
+3. 安装完成后，小狼毫默认启用。在 Windows 10/11，你可以按「Windows+空格」快捷键切换输入法。
+
+<br>
+
+## 2、安装雾凇拼音
+
+Windows 平台安装雾凇拼音非常方便，可以直接使用小狼毫输入法自带的配置工具。
+
+更新步骤与安装步骤完全相同：
+
+1. 右键点击任务栏上的 RIME 图标，选择「输入法设定」，打开配置工具：
+
+   <img src="./!assets/Settings/image-20250926025033466.png" alt="image-20250926025033466" style="zoom:50%;" />
+
+2. 在配置工具中，点击左下角的「获取更多输入方案」按钮（我这里是已经安装过了雾凇拼音）：
+
+   <img src="./!assets/Settings/image-20250926023858671.png" alt="image-20250926023858671" style="zoom: 67%;" />
+
+3. 随后会出现一个命令行窗口，这就是小狼毫自带的配置文件安装工具。在提示符 「Enter package name...」后，输入雾凇拼音的包名（其中 `full` 表示安装所有的组件）：
+
+   ```shell
+   iDvel/rime-ice:others/recipes/full
+   ```
+
+   <img src="./!assets/Settings/image-20250926024000314.png" alt="image-20250926024000314" style="zoom: 50%;" />
+
+4. 回车确认，随即 RIME 会自动下载、安装雾凇拼音输入方案：
+
+   <img src="./!assets/Settings/image-20250926024538894.png" alt="image-20250926024538894" style="zoom: 50%;" />
+
+   > [!CAUTION]
+   >
+   > 配置文件安装工具需要用到 [Git](https://sspai.com/link?target=https%3A%2F%2Fgit-scm.com%2Fdownload%2Fwin)。如果你的系统没有安装 Git，或下载时发生错误，[请参照 RIME 官方的教程](https://sspai.com/link?target=https%3A%2F%2Fgithub.com%2Frime%2Fplum%3Ftab%3Dreadme-ov-file%23windows)，用教程中提供的 Bootstrap 工具包来初始化该工具。
+
+5. 稍等片刻，命令提示符出现「Updated xxx files...」的提示（黄色字样），表示安装完成。此时可以直接关掉该窗口：
+
+   <img src="./!assets/Settings/image-20250926024602644.png" alt="image-20250926024602644" style="zoom:50%;" />
+
+6. 回到小狼毫配置工具，将列表往下拉，你就会看到雾凇拼音的选项。勾选它，然后单击「中」按钮3，确认：
+
+   <img src="./!assets/Settings/image-20250926024701393.png" alt="image-20250926024701393" style="zoom:50%;" />
+
+   接下来配置工具还会要求你选择一款皮肤。直接点击「中」按钮确认，即可完成全部设置。
+
+<br>
+
+## 3、自定义皮肤
+
+具体配置信息可以看[官方文档](https://github.com/rime/weasel/wiki/Weasel-%E5%AE%9A%E5%88%B6%E5%8C%96#%E9%85%8D%E8%89%B2%E6%96%B9%E6%A1%88)，这里给出我用的配置：
+
+1. 右键点击任务栏上的 RIME 图标，选择「用户文件夹」：
+
+   <img src="./!assets/Settings/image-20250926025033466.png" alt="image-20250926025033466" style="zoom:50%;" />
+
+2. 在用户文件夹下找到 weasel.custome.yaml 文件，直接编辑：
+
+   ```yaml
+   customization:
+     distribution_code_name: Weasel
+     distribution_version: 0.17.4
+     generator: "Weasel::UIStyleSettings"
+     modified_time: "Thu Sep 25 22:03:01 2025"
+     rime_version: 1.13.1
+   patch:
+     "preset_color_schemes/+":
+       mac_blue_dark: {author: arvin, back_color: 0x181818, border_color: 0x0808080D, border_width: 0, candidate_back_color: 0x181818, candidate_format: "%c %@ ", candidate_text_color: 0xFFFFFF, color_format: abgr, comment_text_color: 0xFFFFFFFF, hilited_back_color: 0xFFc85c2f, hilited_candidate_back_color: 0xFFc85c2f, hilited_candidate_text_color: 0xFFFFFFFF, hilited_comment_text_color: 0xFFFFFF, hilited_label_color: 0xFFFFFF, hilited_text_color: 0xFFFFFF, label_color: 0xFFFFFF, name: "苹果黑", shadow_color: 0x080808DE, text_color: 0xFF333333}
+       mac_blue_write: {author: arvin, back_color: 0xFFFFFFFF, border_color: 0xd2d2d2FF, candidate_back_color: 0xFFFFFFFF, candidate_format: "%c %@ ", candidate_text_color: 0x333333FF, color_format: rgba, comment_text_color: 0x5C5C5CFF, corner_radius: 6, hilited_back_color: 0x315efb1a, hilited_candidate_back_color: 0x315efb1a, hilited_candidate_text_color: 0x0158ccFF, hilited_comment_text_color: 0x0158ccFF, hilited_corner_radius: 6, hilited_label_color: 0x315efbFF, hilited_text_color: 0x0158ccFF, label_color: 0x333333FF, name: "苹果蓝白", shadow_color: 0x20212447, text_color: 0x333333FF}
+     style:
+       color_scheme: mac_blue_write
+       comment_font_face: "PingFang SC"
+       comment_font_point: 11
+       display_tray_icon: false
+       font_face: "Segoe UI Emoji, PingFang SC, Microsoft YaHei, SF Pro, Noto Color Emoji"
+       font_point: 11
+       horizontal: true
+       inline_preedit: true
+       label_font_face: "PingFang SC"
+       label_font_point: 10
+       label_format: "%s."
+       layout: {align_type: bottom, border_width: 1, candidate_spacing: 16, corner_radius: 6, hilite_padding: 4, hilite_spacing: 3, margin_x: 7, margin_y: 7, max_height: 60, round_corner: 4, shadow_offset_x: 2, shadow_offset_y: 2, shadow_radius: 6, spacing: 5}
+       mark_text: ""
+       preedit_type: composition
+     "style/color_scheme": mac_blue_write
+   ```
+
+3. 右键点击任务栏上的 RIME 图标，选择「重新部署」。
+
+<br>
+
+## 4、配置
+
+### 4.1、输入习惯
+
+打开用户文件夹，在 default.custom.yaml 配置文档中配置输入习惯。
+
+<br>
+
+**配置候选项数量**
+
+```yaml
+patch:
+  menu/page_size: 9
+```
+
+<br>
+
+**配置快捷键**
+
+```yaml
+patch:
+  key_binder/bindings/+:
+    - { when: paging, accept: comma, send: Page_Up }		# 句号向下翻页
+    - { when: has_menu, accept: period, send: Page_Down }	# 逗号向上翻页
+```
+
+<br>
+
+### 4.2、自定义短语
+
+自定义短语作为极度私有化，且能极大提升输入效率的工具，在 RIME 中具有十分重要的意义。
+
+1. 用户自定义短语存储于用户文件夹下的 custom_phrase.txt 文本文件中：
+
+   ```
+   # Rime table
+   # coding: utf-8
+   #
+   # 请将该文件以 UTF-8 无签名编码保存
+   # 存储位置为 ~Rime 用户文件夹/custom_phrase.txt
+   #
+   # 码表各字段以制表符（Tab）分隔
+   # 编码格式：词条+tab+编码+tab+权重 权重决定短语词条在候选项中的排序，权重非必须项
+   
+   xxx@gmail.com	gmail	1
+   xnom	id	1
+   ```
+
+2. 然后，需要在输入方案配置文件 rime_ice.schema.yaml 中，指定调用这张自定义短语表。和词库一样，如果你使用多个输入方案，需要在每个输入方案中调用：
+
+   ```yaml
+   custom_phrase:
+     user_dict: custom_phrase
+   ```
+
+   > [!NOTE]
+   >
+   > 输入方案配置文件名称格式为 `<方案名称>.schema.yaml`，我这里用的雾凇拼音，所以是 rime_ice.schema.yaml。
+
+3. 重新部署后，自定义短语就能生效。
+
+<br>
+
+## 5、用户资料同步
+
+RIME 没有云同步功能，但有本地同步功能。能够将用户数据同步至本地文件夹。
+
+我们可以借助坚果云、OneDrive 等第三方云将这个本地文件夹同步至云端，以此实现个人词典和配置方案在不同电脑间的同步和备份。
+
+以 OneDrive 举例：
+
+1. 在你同步文件夹内，这里举例为 `E:\Users\Orichalcos\OneDrive\`，新建一个 `应用` 文件夹。
+
+2. 打开用户资料夹下的 installation.yaml 文件，在合适的地方添加如下代码：
+
+   ```yaml
+   sync_dir: 'E:\Users\Orichalcos\OneDrive\应用'
+   ```
+
+   最后完成后的样子是这样：
+
+   ```yaml
+   distribution_code_name: Weasel
+   distribution_name: "小狼毫"
+   distribution_version: 0.17.4
+   install_time: "Mon Sep 22 10:01:51 2025"
+   installation_id: "Weasel"	# 此处填写喜欢的名字
+   rime_version: 1.13.1
+   sync_dir: 'E:\Users\Orichalcos\OneDrive\应用'
+   ```
+
+3. 右键托盘图标，运行「用户资料同步」。完成后，你就能在「应用」文件夹中找到 「Weasel 」文件夹，其中的内容就是你的用户资料，包含了自学习个人词典文件和配置文件等等。
+
+4. 利用 OneDrive 将此文件夹同步至云端；在另外一台电脑，按照相同的方式操作。将云端文件夹同步至本地。
+
+<br>
+
+**RIME 的同步逻辑**
+
+RIME 同步两个方面的资料，一为个人词典，二为个人配置：
+
+- 个人词典同步逻辑为双向同步：
+
+  举例来说：甲电脑个人词典累积了词汇 ABC，乙电脑累积了词汇 DEF，那么，通过第三方云同步和 Rime 同步后，甲乙两地个人词典词汇都会同步且合并为 ABCDEF。通过第三方云同步，可以非常方便地同步两地之间的个人词典，保持相同的输入体验。
+
+- 个人配置同步逻辑为单向同步：
+
+  RIME 只会将配置文件，单向地从「用户文件夹 ~\Rime」同步至「同步文件夹\Weasel」。换句话说，个人配置只会在「同步文件夹\Weasel」里在甲乙两地被反复同步和覆盖，而不会导入配置文件。如果你需要导入异地的配置文件，可以在第三方云完成同步后，手动将配置文件导入。
+
+这样的同步逻辑是为了保持配置的一致性。因为，配置文件之于 RIME 十分重要，关系着 RIME 是否能够正常运行。也必须在修改后通过重新部署才能生效。若两地的配置不一致时或其中一地有错误时，必然产生无法预估的混乱后果。不过，个人配置定制好之后，也很少需要修改，权且当作备份。云同步个人配置更多用于异地新电脑部署时。

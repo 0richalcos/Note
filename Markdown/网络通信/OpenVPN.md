@@ -310,6 +310,10 @@ OpenVPN 启动之后会在 `C:\Program Files\OpenVPN\config` 位置生成 ipp.tx
 
 6. 每次更新 CRL 文件后，都需要重启 OpenVPN 服务。
 
+   > [!IMPORTANT]
+   >
+   > CRL 文件默认的有效期通常是 180 天。可以在 easy-rsa 的 vars 文件中找到 `EASYRSA_CRL_DAYS` 这个变量来设置它的有效期。
+
 
 
 **注意事项**

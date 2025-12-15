@@ -49,7 +49,7 @@ SQL 是用于访问和处理数据库的标准计算机语言。
 
 MySQL 是最流行的关系型数据库管理系统，在 Web 应用方面 MySQL 是最好的 RDBMS（Relational Database Management System：关系数据库管理系统）应用软件之一。
 
-
+<br>
 
 ## 2.1、什么是数据库？
 
@@ -69,7 +69,7 @@ RDBMS 即关系数据库管理系统（Relational Database Management System）�
 - 许多的行和列组成一张表单
 - 若干的表单组成 Database
 
-
+<br>
 
 ## 2.2、RDBMS术语
 
@@ -94,7 +94,7 @@ MySQL 为关系型数据库（Relational Database Management System），这种�
 - 值（VALUE）：行的具体信息，每个值必须与该列的数据类型相同
 - 键（KEY）：键的值在当前列具有唯一性
 
-
+<br>
 
 ## 2.3、安装 MySQL 数据库
 
@@ -110,13 +110,13 @@ Windows 系统选择 msi 文件直接安装比较方便；Linux 系统如果使�
 | mysql-community-icu-data-files.rpm | ICU 数据，支持排序/字符集等国际化功能。                      | ⚠️ 可选                 |
 | mysql-community-devel.rpm          | 包含头文件、开发库，给编译程序用<br/>（比如编译 PHP 的 MySQL 扩展）。 | ❌ 非必须（除非你开发） |
 
-
+<br>
 
 ### 2.3.1、Windows 安装
 
 系统版本为 Windows 11，架构为 X86_64，使用 msi 安装包离线安装。
 
-
+<br>
 
 #### 安装数据库
 
@@ -206,13 +206,13 @@ Windows 系统选择 msi 文件直接安装比较方便；Linux 系统如果使�
    mysql>
    ```
 
-
+<br>
 
 ### 2.3.2、Ubuntu 安装
 
 系统版本为 Ubuntu 20.04，架构为 X86_64，使用 `apt` 在线安装。
 
-
+<br>
 
 #### 安装数据库
 
@@ -244,7 +244,7 @@ Windows 系统选择 msi 文件直接安装比较方便；Linux 系统如果使�
 
    现在是 mysql 数据库是没有密码的，Enter password: 处直接回车，就能够进入 mysql 数据库。
 
-
+<br>
 
 #### 初始化数据库
 
@@ -314,7 +314,7 @@ Success.
 All done!
 ```
 
-
+<br>
 
 #### 远程访问
 
@@ -367,7 +367,7 @@ service mysql restart
 
 测试远程访问。
 
-
+<br>
 
 #### 卸载数据库
 
@@ -411,13 +411,13 @@ service mysql restart
 
    <img src="!assets/MySQL/image-20210420112705768.png" alt="image-20210420112705768" style="" />
 
-
+<br>
 
 ### 2.3.3、银河麒麟安装
 
 系统版本为银河麒麟 V10，架构为 X86，使用 tar 压缩包离线安装。
 
-
+<br>
 
 #### 删除系统捆绑依赖包
 
@@ -432,7 +432,7 @@ service mysql restart
    删除 MariaDB：
 
    ```shell
-   rpm -e --nodeps <已经安装的MariaDB包>
+   rpm -e --nodeps $(rpm -qa | grep mariadb)
    ```
 
 2. 倘若之前系统已经安装过 MySQL 包也一起删除。
@@ -446,14 +446,14 @@ service mysql restart
    删除 MySQL：
 
    ```shell
-   rpm -e --nodeps <已经安装的MySQL包>
+   rpm -e --nodeps $(rpm -qa | grep mysql)
    ```
 
-
+<br>
 
 #### 安装数据库
 
-1. 官网下载 MySQL 安装包。
+1. [官网](https://dev.mysql.com/downloads/mysql/)下载 MySQL 安装包。
 
    因为 Kylinos Server V10 就是基于 CentOS 8 开发而来，所以 OS Version 选择 Red Hat Enterprise Linux 8 / Oracle Linux 8 (x86, 64-bit)，选择下载 RPM Bundle：
 
@@ -502,7 +502,7 @@ service mysql restart
    systemctl start mysqld
    ```
 
-
+<br>
 
 #### 初始化数据库
 
@@ -542,13 +542,13 @@ service mysql restart
    flush privileges;
    ```
 
-
+<br>
 
 ### 2.3.4、openEuler 安装
 
 系统版本为 openEuler 22.03（LTS-SP3），架构为 aarch64，使用 tar 压缩包离线安装。
 
-
+<br>
 
 #### 安装数据库
 
@@ -595,7 +595,7 @@ service mysql restart
    systemctl start mysqld
    ```
 
-
+<br>
 
 #### 初始化数据库
 
@@ -633,7 +633,7 @@ service mysql restart
    flush privileges;
    ```
 
-
+<br>
 
 
 #### 卸载数据库
@@ -662,7 +662,7 @@ service mysql restart
    rm -rf $(find / -name mysql)
    ```
 
-
+<br>
 
 ## 2.4、创建数据库
 
@@ -6248,7 +6248,7 @@ show variables like '%authentication%';
 
 针对上述错误，有如下的解决方案：
 
-1. 在条件允许的情况下，不要禁用 SSL/TLS 协议，即不要在 CLI 客户端使用 `--ssl-mode=disabled`，或在 JDBC 连接串中加入 `useSSL=false`
+1. 在条件允许的情况下，不要禁用 SSL/TLS 协议，即不要在 CLI 客户端使用 `--ssl-mode=disabled`，或不要在 JDBC 连接串中加入 `useSSL=false`
 2. 如果必须禁用 SSL/TLS 协议，则可以尝试使用 CLI 客户端登录一次 MySQL 数据库制造登录缓存
 3. 如果必须禁用 SSL/TLS 协议，则可以通过增加如下参数允许客户端获得服务器的公钥：
    - 在 JDBC 连接串中加入 `allowPublicKeyRetrieval=true` 参数

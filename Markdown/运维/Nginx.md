@@ -188,7 +188,7 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 **管理 Nginx 服务**
 
 ```shell
-cd /usr/local/nginx/sbin/     	# 进入目录
+cd /usr/local/nginx/sbin/   # 进入目录
 ./nginx                  	# 启动
 ./nginx -s stop          	# 停止
 ./nginx -s quit          	# 安全退出
@@ -288,7 +288,9 @@ start .\nginx				# 启动nginx，或者直接双击nginx.exe
 
 # 3、配置
 
-## 3.1、配置文件结构
+## 3.1、配置文件
+
+### 3.1.1、配置文件结构
 
 Nginx 的配置文件默认存于 `/etc/nginx/nginx.conf`，其中通过 `include` 引入其它目录子配置文件，Nginx 文件结构如下：
 
@@ -322,146 +324,15 @@ http      #http块
 }
 ```
 
-- **全局块**：配置影响 Nginx 全局的指令。一般有运行 Nginx 服务器的用户、Nginx 进程 pid 存放路径、日志存放路径、配置文件引入、允许生成 worker process 数等。
-- **events**：配置影响 Nginx 服务器或与用户的网络连接。有每个进程的最大连接数、选取哪种事件驱动模型处理连接请求、是否允许同时接受多个网路连接、开启多个网络连接序列化等。
-- **http**：可以嵌套多个 `server`，配置代理、缓存、日志定义等绝大多数功能和第三方模块的配置。如文件引入、mime-type 定义、日志自定义、是否使用 sendfile 传输文件、连接超时时间、单连接请求数等。
-- **upstream**：代理转发的下个目的地列表、后端服务组地址列表、连接与负载均衡的设定。
-- **server**：配置虚拟主机的相关参数，一个 `http` 中可以有多个 `server`。
-- **location**：配置请求的路由以及各种页面的处理情况。
+- 全局块：配置影响 Nginx 全局的指令。一般有运行 Nginx 服务器的用户、Nginx 进程 pid 存放路径、日志存放路径、配置文件引入、允许生成 worker process 数等。
+- `events`：配置影响 Nginx 服务器或与用户的网络连接。有每个进程的最大连接数、选取哪种事件驱动模型处理连接请求、是否允许同时接受多个网路连接、开启多个网络连接序列化等。
+- `http`：可以嵌套多个 `server`，配置代理、缓存、日志定义等绝大多数功能和第三方模块的配置。如文件引入、mime-type 定义、日志自定义、是否使用 sendfile 传输文件、连接超时时间、单连接请求数等。
+- `server`：配置虚拟主机的相关参数，一个 `http` 中可以有多个 `server`。
+- `location`：配置请求的路由以及各种页面的处理情况。
 
 <br>
 
-**关于 `location` 是否带斜杠的区别**
-
-不带斜杠的配置：
-
-```nginx
-location /txffc {
-    proxy_pass http://localhost:8082;
-}
-```
-
-可以匹配：
-
-- http://192.168.231.128/txffc/common
-- http://192.168.231.128/txffcddd
-- http://192.168.231.128/txffcddd/aabc
-
-带斜杠的配置：
-
-```nginx
-location /txffc/ {
-    proxy_pass http://localhost:8082;
-}
-```
-
-可以匹配：
-
-- http://192.168.231.128/txffc/common
-- http://192.168.231.128/txffc/aabb
-
-不能匹配：
-
-- http://192.168.231.128/txffcddd
-
-> [!TIP]
->
-> 大部分情况推荐带斜杠的 `location` 写法（匹配会更准确些）。
-
-<br>
-
-## 3.2、内置变量
-
-Nginx 提供了许多内置变量，这些变量在配置文件中可以用来动态地获取请求、响应、连接等相关信息。以下是 Nginx 中常见的一些内置变量及其简要说明：
-
-<br>
-
-**请求相关变量**
-
-- `$host`：请求中的主机名，优先使用 `Host` 头部字段中的值，否则使用服务器名称。
-- `$http_host`：与 `$host` 类似，获取请求头中的 `Host` 值。
-- `$uri`：当前请求的URI，可能包含查询字符串。
-- `$document_uri`：与 `$uri` 类似，但不包含查询字符串。
-- `$request_uri`：包含完整的请求URI，包括查询字符串，如 `/index.php?page=1`。
-- `$args`：请求中的查询字符串，如 `page=1`。
-- `$is_args`：如果请求包含查询字符串，则值为 `?`，否则为空字符串。
-- `$request_method`：请求方法，如 `GET`、`POST` 等。
-- `$query_string`：与 `$args` 相同，获取请求中的查询字符串。
-- `$request_filename`：请求的文件路径（根目录开始的完整路径）。
-- `$request_body`：客户端请求的主体内容。
-- `$request_body_file`：保存客户端请求主体的临时文件名。
-
-<br>
-
-**连接相关变量**
-
-- `$remote_addr`：客户端的IP地址。
-- `$remote_port`：客户端的端口号。
-- `$server_addr`：服务器的IP地址。
-- `$server_port`：服务器的端口号。
-- `$server_name`：处理请求的服务器名称。
-- `$connection`：当前连接的连接号。
-- `$connection_requests`：当前连接已处理的请求数量。
-
-<br>
-
-**响应相关变量**
-
-- `$status`：响应的状态码，如 `200`、`404` 等。
-- `$body_bytes_sent`：响应中发送的主体内容字节数，不包括响应头部。
-- `$bytes_sent`：响应中发送的总字节数，包括头部和主体内容。
-- `$sent_http_*`：响应头中的自定义变量，如 `$sent_http_content_type` 表示响应的 `Content-Type` 头部字段。
-
-<br>
-
-**HTTP 请求头相关变量**
-
-- `$http_user_agent`：请求的 `User-Agent` 头部字段的值。
-- `$http_referer`：请求的 `Referer` 头部字段的值。
-- `$http_cookie`：请求的 `Cookie` 头部字段的值。
-- `$http_\*`：用于访问任意的请求头字段，如 `$http_accept` 表示 `Accept` 头部字段的值。
-
-<br>
-
-**SSL 相关变量**
-
-- `$ssl_protocol`：当前请求使用的 SSL 协议版本，如 `TLSv1.2`。
-- `$ssl_cipher`：当前 SSL 连接中使用的加密套件。
-- `$ssl_client_cert`：客户端证书的详细内容。
-- `$ssl_client_fingerprint`：客户端证书的 SHA1 指纹。
-
-<br>
-
-**地理位置相关变量**
-
-- `$geoip_country_code`：基于 IP 地址的国家代码（如果启用了 GeoIP 模块）。
-- `$geoip_country_name`：基于 IP 地址的国家名称（如果启用了 GeoIP 模块）。
-
-<br>
-
-**其他常用变量**
-
-- `$scheme`：请求使用的协议，通常是 `http` 或 `https`。
-- `$document_root`：当前请求的文档根目录路径。
-- `$realpath_root`：当前请求的文件的实际物理路径。
-- `$limit_rate`：用于限速的变量，可以动态设置响应的速率。
-- `$pid`：Nginx 工作进程的 PID。
-- `$msec`：当前时间的毫秒数。
-- `$time_iso8601`：当前时间的 ISO 8601 格式。
-- `$time_local`：当前时间的本地时间格式。
-
-<br>
-
-**日志相关变量**
-
-- `$request_time`：请求处理的总时间，单位为秒。
-- `$upstream_response_time`：后端服务器响应的时间，单位为秒。
-- `$upstream_addr`：后端服务器的地址。
-- `$upstream_status`：后端服务器的响应状态码。
-
-<br>
-
-## 3.3、配置模板示例
+### 3.1.2、配置模板示例
 
 ```nginx
 ###### 全局块
@@ -549,7 +420,351 @@ http {
 
 <br>
 
-## 3.4、反向代理
+## 3.2、指令
+
+Nginx 的配置由指令（Directives）组成，指令是键值对的形式，用于配置 Web 服务器。它们通常位于 nginx.conf 文件或通过 `include` 语句引入的其他配置文件中。指令分为两类：
+
+1. 简单指令（Simple Directives）：由名称和参数组成，以分号 `;` 结尾。例如：`worker_processes auto;`。
+2. 块指令（Block Directives）：与简单指令结构类似，但以一对大括号 `{}` 结束，大括号内包含一组额外的指令。
+
+<br>
+
+### 3.2.1、location
+
+Nginx 的 `location` 指令是 Nginx 配置中最核心和最强大的部分之一。它允许你根据客户端请求的 URI（统一资源标识符）来定义不同的配置块，从而实现请求的路由、处理和响应。
+
+`location` 定义了一个配置块，用于：
+
+- 路由请求：根据 URL 模式将请求分发到不同的处理逻辑（例如，静态文件、代理到后端应用、PHP 解释器等）。
+- 应用特定设置：为匹配的 URI 应用特定的配置，如根目录、索引文件、错误页面、HTTP 头等。
+- URL 重写或重定向：修改请求的 URI 或将客户端重定向到新的 URL。
+- 访问控制：基于 URI 路径限制或允许访问。
+- 优化性能：为不同类型的内容（如静态文件）应用特定的缓存或压缩策略。
+
+语法如下：
+
+```nginx
+location [modifier] uri {
+    # 指令，例如 root, index, proxy_pass, rewrite, return 等
+}
+```
+
+- *modifier*：修饰符，可选参数，用于指定匹配 URI 的类型。不同的修饰符决定了 Nginx 如何匹配请求 URI。
+- *uri*：要匹配的请求 URI。它可以是字面字符串或正则表达式。
+
+<br>
+
+#### 修饰符
+
+Nginx 提供了多种修饰符来控制 `location` 的匹配方式：
+
+<br>
+
+**无修饰符（Prefix Match / 前缀匹配）**
+
+- 语法：`location /path/ { ... }`
+
+- 作用：将 URI 作为前缀进行匹配，即只要请求 URI 以指定路径开头，就匹配成功。它是大小写敏感的。
+
+- 特点：Nginx 会尝试找到最长匹配的前缀。
+
+- 示例：
+
+  ```nginx
+  location /images/ {
+      root /data/www; # 请求 /images/foo.png 会查找 /data/www/images/foo.png
+  }
+  ```
+
+<br>
+
+#### uri 末尾斜杆
+
+不带斜杠的配置：
+
+```nginx
+location /txffc {
+    proxy_pass http://localhost:8082;
+}
+```
+
+可以匹配：
+
+- http://192.168.231.128/txffc/common
+- http://192.168.231.128/txffcddd
+- http://192.168.231.128/txffcddd/aabc
+
+带斜杠的配置：
+
+```nginx
+location /txffc/ {
+    proxy_pass http://localhost:8082;
+}
+```
+
+可以匹配：
+
+- http://192.168.231.128/txffc/common
+- http://192.168.231.128/txffc/aabb
+
+不能匹配：
+
+- http://192.168.231.128/txffcddd
+
+> [!TIP]
+>
+> 大部分情况推荐带斜杠的写法（匹配会更准确些）。
+
+<br>
+
+### 3.2.2、map
+
+Nginx 的 `map` 指令是一个强大且灵活的工具，它允许您根据一个变量的值来创建另一个新变量的值。这在需要基于特定条件动态设置 Nginx 配置时非常有用，并且能有效避免使用 Nginx 文档中通常不鼓励的 `if` 语句，因为 `if` 语句有时可能导致不可预测的行为。
+
+`map` 指令的主要目的是创建一个映射表，该表将键与值关联起来，然后可以在整个 Nginx 配置中使用这个映射表。您可以将其视为编程语言中的 `case` 语句，根据输入值匹配不同的条件，并返回相应的输出值。
+
+map 指令必须在 Nginx 配置文件的 `http` 上下文中使用。其基本语法如下：
+
+```nginx
+http {
+    map <输入变量> <输出变量> {
+        [<匹配条件1>] <值1>;
+        [<匹配条件2>] <值2>;
+        ...
+        default <默认值>;
+    }
+}
+```
+
+- *输入变量*：这是 `map` 指令要检查和匹配的 Nginx 变量（例如 `$host`、`$uri`、`$http_user_agent` 等）。
+- *输出变量*：这是根据匹配条件将要设置的新变量的名称。这个变量是全局的，一旦定义，就可以在 `http` 块的任何地方访问。
+- *匹配条件*：可以是字符串、正则表达式或 `hostnames` 关键字。当输入变量的值与某个条件匹配时，输出变量将被赋予相应的值。
+- *值*：当匹配条件成功时，赋予输出变量的值。
+- *default 默认值*：如果输入变量的值与任何定义的匹配条件都不符，则使用 `default` 指定的值。这是可选的，但通常建议设置一个默认值。
+
+`map` 指令在 Nginx 配置中定义后，并不会立即为输出变量赋值。相反，它会在输出变量被引用时才进行求值和赋值。这意味着，如果请求流不触及配置中使用了 `map` 变量的部分，那么 `map` 变量的查找就不会执行，从而不会增加额外的开销。
+
+<br>
+
+**示例**
+
+这个例子根据用户代理字符串将 `$browser` 变量设置为不同的浏览器名称，如果都不匹配则默认为 "Unknown"：
+
+```nginx
+http {
+    map $http_user_agent $browser {
+        default "Unknown";
+        ~*chrome "Chrome";
+        ~*firefox "Firefox";
+        ~*safari "Safari";
+        ~*opera "Opera";
+    }
+
+    server {
+        listen 80;
+        location / {
+            add_header X-Browser $browser;
+            # ... 其他配置
+        }
+    }
+}
+```
+
+<br>
+
+### 3.2.3、client_max_body_size
+
+Nginx 中的 `client_max_body_size` 指令用于设置允许的客户端请求体的最大值。这个指令对于控制上传文件的大小以及防止潜在的拒绝服务（DoS）攻击至关重要。
+
+`client_max_body_size` 的主要作用是限制通过 POST 等方法发送到服务器的数据量。当客户端（例如浏览器）发送的请求体超过了在 Nginx 配置中设定的这个值时，Nginx 将会拒绝该请求，并向客户端返回一个 "413 Request Entity Too Large" 的错误。
+
+<br>
+
+**语法和默认值**
+
+该指令的语法非常简单：
+
+```nginx
+client_max_body_size size;
+```
+
+其中 *size* 可以是以下单位：
+
+- k 或 K（千字节）
+- m 或 M（兆字节）
+- g 或 G（千兆字节）
+
+默认值： 如果没有明确设置，`client_max_body_size` 的默认值为 1兆字节（1m）。
+
+> [!CAUTION]
+>
+> 将 `client_max_body_size` 的值设置为 0 会禁用对客户端请求体大小的检查。这意味着 Nginx 将接受任意大小的请求体。虽然这在某些特定场景下可能有用，但通常不推荐这样做，因为它会带来安全风险，例如容易受到 DoS 攻击。
+
+<br>
+
+**配置上下文**
+
+`client_max_body_size` 可以在 Nginx 配置文件的以下三个上下文中进行设置，其作用域逐级细化：
+
+- http 块： 在这里设置将对所有的虚拟主机（`server` 块）生效，作为全局默认值。
+- server 块： 在这里设置将覆盖 `http` 块中的配置，仅对该特定的虚拟主机的生效。
+- location 块： 这是最精细的控制级别，仅对匹配该 `location` 的请求生效，会覆盖 `server` 和 `http` 块中的设置。
+
+> [!TIP]
+>
+> 为了服务器安全，不建议在 `http` 或 `server` 块中将 `client_max_body_size` 设置得非常大。
+>
+> 如果有文件上传需求，最好的方法是仅为你处理文件上传的特定 URI（或路径）放宽限制。
+
+<br>
+
+### 3.2.4、include
+
+`include` 指令是 Nginx 配置模块化的核心。它的工作原理非常简单：在 Nginx 读取配置时，将目标文件的内容原封不动地“粘贴”到 `include` 指令所在的位置。
+
+<br>
+
+**语法格式**
+
+```nginx
+include <file | mask>;
+```
+
+- *file*：指向硬盘上唯一的、确定的文件：
+
+  ```nginx
+  include mime.types;                 # 相对路径
+  include C:/nginx/conf/proxy.conf;   # 绝对路径
+  ```
+
+- *mask*：使用 Shell 风格的通配符（Glob）来匹配多个文件：
+
+  ```nginx
+  include projects/*.conf;      # 加载 projects 目录下所有 .conf 文件
+  include vhosts/site-*.conf;   # 加载以 site- 开头的 conf 文件
+  ```
+
+<br>
+
+**作用域**
+
+`include` 指令非常灵活，几乎可以放在 Nginx 配置的任何层级：
+
+| 作用域     | 用途举例                                                     | 示例代码                                                   |
+| ---------- | ------------------------------------------------------------ | ---------------------------------------------------------- |
+| `http`     | 引入 MIME 类型、日志格式、引入子 server 配置文件             | `include mime.types;` <br>`include servers/*.conf;`        |
+| `server`   | 引入 `location` 列表、SSL 证书配置、错误页面配置             | `include locations/*.conf;` <br>`include ssl_params.conf;` |
+| `location` | 引入反向代理的公共 Header、跨域（CORS）设置、访问控制列表（IP 白名单） | `include proxy_params;` <br>`include allow_ips.conf;`      |
+| `upstream` | 引入后端服务器列表                                           | `include backends.conf;`                                   |
+
+<br>
+
+**常用排错与检查命令**
+
+当文件被拆散后，如果需要检查最终配置是否正确：
+
+```shell
+nginx -T
+```
+
+此命令会解析所有 `include` 并将内容打印出来，让你看到 Nginx 实际执行的完整代码。
+
+<br>
+
+## 3.3、内置变量
+
+Nginx 提供了许多内置变量（Built-in Variables），它们可以捕获关于请求、响应、服务器和连接的动态信息。这些变量在配置文件中非常有用，可以用于日志记录、条件判断、重定向、URL重写和代理设置等[][18]。变量通常以 `$` 符号开头。
+
+<br>
+
+### 3.3.1、请求相关变量
+
+- `$host`：请求中的主机名，优先使用 `Host` 头部字段中的值，否则使用服务器名称。
+- `$http_host`：与 `$host` 类似，获取请求头中的 `Host` 值。
+- `$uri`：当前请求的URI，可能包含查询字符串。
+- `$document_uri`：与 `$uri` 类似，但不包含查询字符串。
+- `$request_uri`：包含完整的请求URI，包括查询字符串，如 `/index.php?page=1`。
+- `$args`：请求中的查询字符串，如 `page=1`。
+- `$is_args`：如果请求包含查询字符串，则值为 `?`，否则为空字符串。
+- `$request_method`：请求方法，如 `GET`、`POST` 等。
+- `$query_string`：与 `$args` 相同，获取请求中的查询字符串。
+- `$request_filename`：请求的文件路径（根目录开始的完整路径）。
+- `$request_body`：客户端请求的主体内容。
+- `$request_body_file`：保存客户端请求主体的临时文件名。
+
+<br>
+
+### 3.3.2、连接相关变量
+
+- `$remote_addr`：客户端的IP地址。
+- `$remote_port`：客户端的端口号。
+- `$server_addr`：服务器的IP地址。
+- `$server_port`：服务器的端口号。
+- `$server_name`：处理请求的服务器名称。
+- `$connection`：当前连接的连接号。
+- `$connection_requests`：当前连接已处理的请求数量。
+
+<br>
+
+### 3.3.3、响应相关变量
+
+- `$status`：响应的状态码，如 `200`、`404` 等。
+- `$body_bytes_sent`：响应中发送的主体内容字节数，不包括响应头部。
+- `$bytes_sent`：响应中发送的总字节数，包括头部和主体内容。
+- `$sent_http_*`：响应头中的自定义变量，如 `$sent_http_content_type` 表示响应的 `Content-Type` 头部字段。
+
+<br>
+
+### 3.3.4、HTTP 请求头相关变量
+
+- `$http_user_agent`：请求的 `User-Agent` 头部字段的值。
+- `$http_referer`：请求的 `Referer` 头部字段的值。
+- `$http_cookie`：请求的 `Cookie` 头部字段的值。
+- `$http_\*`：用于访问任意的请求头字段，如 `$http_accept` 表示 `Accept` 头部字段的值。
+
+<br>
+
+### 3.3.5、SSL 相关变量
+
+- `$ssl_protocol`：当前请求使用的 SSL 协议版本，如 `TLSv1.2`。
+- `$ssl_cipher`：当前 SSL 连接中使用的加密套件。
+- `$ssl_client_cert`：客户端证书的详细内容。
+- `$ssl_client_fingerprint`：客户端证书的 SHA1 指纹。
+
+<br>
+
+### 3.3.6、地理位置相关变量
+
+- `$geoip_country_code`：基于 IP 地址的国家代码（如果启用了 GeoIP 模块）。
+- `$geoip_country_name`：基于 IP 地址的国家名称（如果启用了 GeoIP 模块）。
+
+<br>
+
+### 3.3.7、其他常用变量
+
+- `$scheme`：请求使用的协议，通常是 `http` 或 `https`。
+- `$document_root`：当前请求的文档根目录路径。
+- `$realpath_root`：当前请求的文件的实际物理路径。
+- `$limit_rate`：用于限速的变量，可以动态设置响应的速率。
+- `$pid`：Nginx 工作进程的 PID。
+- `$msec`：当前时间的毫秒数。
+- `$time_iso8601`：当前时间的 ISO 8601 格式。
+- `$time_local`：当前时间的本地时间格式。
+
+<br>
+
+### 3.3.8、日志相关变量
+
+- `$request_time`：请求处理的总时间，单位为秒。
+- `$upstream_response_time`：后端服务器响应的时间，单位为秒。
+- `$upstream_addr`：后端服务器的地址。
+- `$upstream_status`：后端服务器的响应状态码。
+
+<br>
+
+# 4、应用场景
+
+## 4.1、反向代理
 
 Nginx 代替服务端接收请求，常用于服务器集群环境，反向代理屏蔽了具体某个服务器的地址，客户端不知道最终请求是哪个 Server 处理，反向代理和 Server 端在同一网络环境下，通常为内网。
 
@@ -557,7 +772,7 @@ Nginx 代替服务端接收请求，常用于服务器集群环境，反向代�
 
 <br>
 
-**代理相关参数**
+**相关指令**
 
 ```nginx
 ### 基本代理参数
@@ -599,12 +814,12 @@ proxy_ssl_verify_depth 2;								# 设置验证上游服务器证书时的最大
 
 <br>
 
-**关于 `proxy_pass` 是否带斜杠的区别**
+**路径末尾是否带斜杆**
 
 如果 `proxy_pass` 不带斜杠：
 
 ```nginx
-location /txffc {
+location /txffc/ {
     proxy_pass http://localhost:8082;
 }
 ```
@@ -614,7 +829,7 @@ location /txffc {
 如果 `proxy_pass` 带上斜杠：
 
 ```nginx
-location /txffc {
+location /txffc/ {
     proxy_pass http://localhost:8082/;
 }
 ```
@@ -644,16 +859,16 @@ server {
     }
     
     # 后端配置
-    location /api {
+    location /api/ {
         proxy_set_header host $HOST;
-        proxy_pass http://192.168.1.101:8081;
+        proxy_pass http://192.168.1.101:8081/;
     }
 }
 ```
 
 <br>
 
-## 3.5、负载均衡模式
+## 4.2、负载均衡
 
 在配置项 `upstream` 中，负责提供可用的服务地址列表并且可以指定负载均衡的实现方式。
 
@@ -717,9 +932,9 @@ upstream backend-d {
 
 <br>
 
-## 3.6、限流与熔断
+## 4.3、限流与熔断
 
-### 3.6.1、限流
+### 4.3.1、限流
 
 通过对并发/请求进行限速来保护系统，防止系统过载瘫痪而不能提供服务；为了更好控制整个系统的负载情况，即使阻止了某些请求，系统继续提供服务。
 
@@ -796,7 +1011,7 @@ http {
 
 <br>
 
-### 3.6.2、熔断
+### 4.3.2、熔断
 
 当后端服务发生指定频率错误后，Nginx 触发熔断措施，不再请求此后端服务，直接返回默认内容到用户端。
 
@@ -814,9 +1029,9 @@ upstream http_backend {
 
 <br>
 
-## 3.7、Stream
+## 4.4、TCP/UDP 处理
 
-Nginx Stream 模块是 Nginx 的一个扩展模块（1.9.0 开始加入），主要用于处理四层协议（传输层）的流量，如TCP和UDP。
+Nginx Stream 模块是 Nginx 的一个扩展模块（1.9.0 开始加入），主要用于处理四层协议（传输层）的流量，如 TCP 和 UDP。
 
 与传统的 `http` 块不同，`stream` 块不用于处理 HTTP 请求，而是用于处理诸如数据库连接、邮件服务或其他基于 TCP/UDP 的应用程序的流量。
 
@@ -860,9 +1075,53 @@ stream {
 
 <br>
 
+## 4.5、WebSocket 代理
+
+要将客户端与服务器之间的连接从 HTTP/1.1 转换为 WebSocket，可以使用 HTTP/1.1 中的 [协议切换](https://tools.ietf.org/html/rfc2616#section-14.42) 机制。
+
+然而，有一个微妙的地方：由于 `Upgrade` 是一个[逐跳](https://tools.ietf.org/html/rfc2616#section-13.5.1)（hop-by-hop）头，它不会从客户端传递到代理服务器。当使用转发代理时，客户端可以使用 `CONNECT` 方法来规避此问题。然而，这不适用于反向代理，因为客户端不知道任何代理服务器，这需要在代理服务器上进行特殊处理。
+
+自 1.3.13 版本以来，Nginx 实现了特殊的操作模式，如果代理服务器返回一个 101响应码（交换协议），则客户机和代理服务器之间将建立隧道，客户端 通过请求中的 `Upgrade` 头来请求协议交换。
+
+如上所述，包括 `Upgrade` 和 `Connection` 的逐跳头不会从客户端传递到代理服务器，因此为了使代理服务器知道客户端将协议切换到 WebSocket 的意图，这些头必须明确地传递：
+
+```nginx
+location /chat/ {
+    proxy_pass http://backend;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+}
+```
+
+一个更复杂的例子是，对代理服务器的请求中的 `Connection` 头字段的值取决于客户端请求头中的 `Upgrade` 字段的存在：
+
+```nginx
+http {
+    map $http_upgrade $connection_upgrade {
+        default upgrade;
+        ''      close;
+    }
+
+    server {
+        ...
+
+        location /chat/ {
+            proxy_pass http://backend;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
+        }
+    }
+```
+
+默认情况下，如果代理务器在 60 秒内没有传输任何数据，连接将被关闭。这个超时可以通过 `proxy_read_timeout` 指令来增加。 或者，代理服务器可以配置为定期发送 WebSocket ping 帧以重置超时并检查连接是否仍然活跃。
+
+<br>
+
 # 4、性能优化
 
-**全局优化**
+## 4.1、全局优化
 
 ```nginx
 # 工作进程数
@@ -881,7 +1140,7 @@ events {
 
 <br>
 
-**与客户端之间的优化**
+## 4.2、与客户端之间的优化
 
 ```nginx
 http {
@@ -909,7 +1168,7 @@ http {
 
 <br>
 
-**与后端服务之间的优化**
+## 4.3、与后端服务之间的优化
 
 ```nginx
 http {
@@ -936,7 +1195,7 @@ http {
 
 <br>
 
-**缓存设置**
+## 4.4、缓存设置
 
 也就是把客户端访问的数据放到缓存中，缓存可以存到浏览器中，也可以存到 Nginx 中，当用户端发起请求时，直接将缓存中对应的结果返回给用户端，减少了大量的重复请求。
 

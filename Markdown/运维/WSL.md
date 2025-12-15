@@ -2,7 +2,7 @@
 
 适用于 Linux 的 Windows 子系统（WSL）可让开发人员直接在 Windows 上按原样运行 GNU/Linux 环境（包括大多数命令行工具、实用工具和应用程序），且不会产生传统虚拟机或双启动设置开销。
 
-
+<br>
 
 ## 1.1、什么是 WSL
 
@@ -24,7 +24,7 @@
 - 运行直接集成到 Windows 桌面的 GNU/Linux 图形应用程序
 - 使用你的设备 GPU 加速 Linux 上运行的机器学习工作负载。
 
-
+<br>
 
 **什么是 WSL 2？**
 
@@ -34,7 +34,7 @@ WSL 2 提高了文件系统性能，并且与 WSL 1 体系结构相比增加了�
 
 单个 Linux 分发版可以在 WSL 1 或 WSL 2 体系结构中运行。 每个分发版可随时升级或降级，并且你可以并行运行 WSL 1 和 WSL 2 分发版。
 
-
+<br>
 
 ## 1.2、比较 WSL 版本
 
@@ -59,13 +59,13 @@ WSL 1 和 WSL 2 之间的主要区别在于，在托管 VM 内使用实际的 Li
 
 WSL 2 仅在 Windows 11 或 Windows 10 版本 1903、内部版本 18362 或更高版本中可用。 通过按 Windows 徽标键 + R，检查你的 Windows 版本，然后键入 winver，选择 “确定”。 （或者在 Windows 命令提示符下输入 `ver` 命令）。 你可能需要更新到最新的 Windows 版本。 低于 14393 的版本完全不支持 WSL。
 
-
+<br>
 
 ### 1.2.2、WSL 2 中的新增功能
 
 WSL 2 是对基础体系结构的一次重大改造，它使用虚拟化技术和 Linux 内核来实现其新功能。 此更新的主要目标是提高文件系统性能和添加完全的系统调用兼容性。
 
-
+<br>
 
 **WSL 2 体系结构**
 
@@ -73,13 +73,13 @@ WSL 2 是对基础体系结构的一次重大改造，它使用虚拟化技术�
 
 WSL 2 有 WSL 1 的优点，包括 Windows 和 Linux 之间的无缝集成，启动时间短，资源占用量少，并且无需 VM 配置或管理。 虽然 WSL 2 确实使用 VM，但 VM 是在幕后管理和运行的，因此你将具有与 WSL 1 相同的用户体验。
 
-
+<br>
 
 **完整的 Linux 内核**
 
 WSL 2 中的 Linux 内核是 Microsoft 根据最新的稳定版分支（基于 kernel.org 上提供的源代码）构建的。此内核已专门针对 WSL 2 进行了调整，针对大小和性能进行了优化，以便在 Windows 上提供良好的 Linux 体验。 内核将由 Windows 更新提供服务，这意味着你将获得最新的安全修补程序和内核改进功能，而无需自行管理它。
 
-
+<br>
 
 **提升了文件 IO 性能**
 
@@ -87,7 +87,7 @@ WSL 2 中的 Linux 内核是 Microsoft 根据最新的稳定版分支（基于 k
 
 实际的速度提升将取决于你运行的应用以及它与文件系统的交互方式。 在对压缩的 tarball 进行解包时，WSL 2 的初始版本的运行速度比 WSL 1 快达 20 倍，在各种项目上使用 git 克隆、npm 安装和 cmake 时，大约快 2-5 倍。
 
-
+<br>
 
 **完全的系统调用兼容性**
 
@@ -96,7 +96,7 @@ Linux 二进制文件使用系统调用来执行访问文件、请求内存、�
 - 可以在 WSL 内部运行的一组全新应用，例如 Docker 等。
 - 对 Linux 内核的任何更新都立即可供使用。
 
-
+<br>
 
 ### 1.2.3、例外情况
 
@@ -120,19 +120,19 @@ Linux 二进制文件使用系统调用来执行访问文件、请求内存、�
 
 - 如果依赖 Linux 发行版在与主机相同的网络中拥有 IP 地址，则可能需要设置一种替代方法来运行 WSL 2。 WSL 2 作为 hyper-v 虚拟机运行。 这是对 WSL 1 中使用的桥接网络适配器的更改，这意味着 WSL 2 使用网络地址转换 (NAT) 服务作为其虚拟网络，而不是将其桥接到主机网络接口卡 (NIC)，从而生成唯一的将在重启时更改的 IP 地址。
 
-
+<br>
 
 # 2、安装
 
 开发人员可以在 Windows 计算机上同时访问 Windows 和 Linux 的强大功能。 通过适用于 Linux 的 Windows 子系统 (WSL)，开发人员可以安装 Linux 发行版（例如 Ubuntu、OpenSUSE、Kali、Debian、Arch Linux 等），并直接在 Windows 上使用 Linux 应用程序、实用程序和 Bash 命令行工具，不用进行任何修改，也无需承担传统虚拟机或双启动设置的费用。
 
-
+<br>
 
 ## 2.1、Windows
 
 必须运行 Windows 10 版本 2004 及更高版本（内部版本 19041 及更高版本）或 Windows 11 才能使用以下命令。
 
-
+<br>
 
 **安装 WSL 命令**
 
@@ -150,7 +150,7 @@ wsl --install
 >
 > 仅当根本没有安装 WSL 时，上述命令才有效。
 
-
+<br>
 
 **更改默认安装的 Linux 发行版**
 
@@ -160,7 +160,7 @@ wsl --install
 - 若要查看可通过在线商店下载的可用 Linux 发行版列表，请输入：`wsl --list --online` 或 `wsl -l -o`。
 - 若要在初始安装后安装其他 Linux 发行版，还可使用命令：`wsl --install -d <Distribution Name>`。
 
-
+<br>
 
 ## 2.2、Windows Server
 
@@ -174,7 +174,7 @@ wsl --install
 
 此命令将启用所需的可选组件，下载最新的 Linux 内核，将 WSL 2 设置为默认值，并安装 Linux 发行版（默认安装 Ubuntu）。
 
-
+<br>
 
 # 3、概念
 
@@ -184,7 +184,7 @@ wsl --install
 
 若要获取发行版名称的有效列表，可以使用 `help` 命令。
 
-
+<br>
 
 **Help 命令**
 
@@ -194,7 +194,7 @@ wsl --help
 
 查看 WSL 中可用的选项和命令列表。
 
-
+<br>
 
 ### 3.1.1、安装、更新、卸载
 
@@ -222,7 +222,7 @@ wsl --install
 >
 > 如果在 Windows 10 或更低版本上运行 WSL，可能需要在 `--install` 命令中包含 `-d` 标志以指定发行版：`wsl --install -d <distribution name>`。
 
-
+<br>
 
 **更新 WSL**
 
@@ -236,7 +236,7 @@ wsl --update
 
 - `--web-download`：从 GitHub 而不是 Microsoft Store 下载最新更新。
 
-
+<br>
 
 **注销或卸载 Linux 发行版**
 
@@ -252,7 +252,7 @@ wsl --unregister <DistributionName>
 
 还可以像卸载任何其他应用商店应用程序一样卸载 Windows 计算机上的 Linux 发行版应用。 若要重新安装，请在 Microsoft Store 中找到该发行版，然后选择【启动】。
 
-
+<br>
 
 ### 3.1.2、启动、关闭
 
@@ -264,7 +264,7 @@ wsl ~
 
 `~` 可与 wsl 一起使用，以在用户的主目录中启动。 若要在 WSL 命令提示符中从任何目录跳回到主目录，可使用命令 `cd ~`。
 
-
+<br>
 
 **通过 PowerShell 或 CMD 运行特定的 Linux 发行版**
 
@@ -274,7 +274,7 @@ wsl --distribution <Distribution Name> --user <User Name>
 
 若要通过特定用户运行特定 Linux 发行版，请将 `<Distribution Name>` 替换为你首选的 Linux 发行版的名称（例如 Debian），将 `<User Name>` 替换为现有用户的名称（例如 root）。 如果 WSL 发行版中不存在该用户，你将会收到一个错误。 若要输出当前用户名，请使用 `whoami` 命令。
 
-
+<br>
 
 **以特定用户的身份运行**
 
@@ -284,7 +284,7 @@ wsl --user <Username>
 
 若要以指定用户身份运行 WSL，请将 `<Username>` 替换为 WSL 发行版中存在的用户名。
 
-
+<br>
 
 **关闭**
 
@@ -294,7 +294,7 @@ wsl --shutdown
 
 立即终止所有正在运行的发行版和 WSL 2 轻量级实用工具虚拟机。 
 
-
+<br>
 
 **Terminate**
 
@@ -304,7 +304,7 @@ wsl --terminate <Distribution Name>
 
 若要终止指定的发行版或阻止其运行，请将 `<Distribution Name>` 替换为目标发行版的名称。
 
-
+<br>
 
 ### 3.1.3、设置
 
@@ -320,7 +320,7 @@ wsl --set-version <distribution name> <versionNumber>
 >
 > 在 WSL 1 和 WSL 2 之间切换可能非常耗时，并且可能会由于两种体系结构之间的差异而导致失败。 对于包含大型项目的分发，建议在尝试转换之前备份文件。
 
-
+<br>
 
 **设置默认 WSL 版本**
 
@@ -330,7 +330,7 @@ wsl --set-default-version <Version>
 
 若要设置 WSL 1 或 WSL 2 的默认版本，请将 `<Version>` 替换为数字 1 或 2。 该数字表示新 Linux 发行版安装默认使用的 WSL 版本。
 
-
+<br>
 
 **设置默认 Linux 发行版**
 
@@ -340,7 +340,7 @@ wsl --set-default <Distribution Name>
 
 若要设置 WSL 命令将用于运行的默认 Linux 发行版，请将 `<Distribution Name>` 替换为你首选的 Linux 发行版的名称。
 
-
+<br>
 
 **更改发行版的默认用户**
 
@@ -352,7 +352,7 @@ wsl --set-default <Distribution Name>
 
 例如：`ubuntu config --default-user johndoe` 会将 Ubuntu 发行版的默认用户更改为 johndoe 用户。
 
-
+<br>
 
 ### 3.1.4、查询
 
@@ -364,7 +364,7 @@ wsl --list --online
 
 查看可通过在线商店获得的 Linux 发行版列表。 此命令也可输入为：`wsl -l -o`。
 
-
+<br>
 
 **列出已安装的 Linux 发行版**
 
@@ -380,7 +380,7 @@ wsl --list --verbose
 - `--running`：仅列出当前正在运行的发行版。
 - `--quiet`：仅显示发行版名称。
 
-
+<br>
 
 **检查 WSL 状态**
 
@@ -390,7 +390,7 @@ wsl --status
 
 查看有关 WSL 配置的常规信息，例如默认发行版类型、默认发行版和内核版本。
 
-
+<br>
 
 **检查 WSL 版本**
 
@@ -400,14 +400,14 @@ wsl --version
 
 检查有关 WSL 及其组件的版本信息。
 
-
+<br>
 
 **标识 IP 地址**
 
 - `wsl hostname -I`：返回通过 WSL 2 安装的 Linux 发行版 IP 地址（WSL 2 VM 地址）
 - `ip route show | grep -i default | awk '{ print $3}'`：返回从 WSL 2（WSL 2 VM）看到的 Windows 计算机的 IP 地址
 
-
+<br>
 
 ### 3.1.5、导入、导出
 
@@ -423,7 +423,7 @@ wsl --export <Distribution Name> <FileName>
 
 - `--vhd`：指定导出分发版应为 .vhdx 文件而不是 tar 文件（这仅在使用 WSL 2 的情况下受支持）
 
-
+<br>
 
 **导入分发版**
 
@@ -438,7 +438,7 @@ wsl --import <Distribution Name> <InstallLocation> <FileName>
 - `--vhd`：指定导入分发版应为 .vhdx 文件而不是 tar 文件（这仅在使用 WSL 2 的情况下受支持）
 - `--version <1/2>`：指定将分发版导入为 WSL 1 还是 WSL 2 分发版
 
-
+<br>
 
 **就地导入发行版**
 
@@ -448,7 +448,7 @@ wsl --import-in-place <Distribution Name> <FileName>
 
 将指定的 .vhdx 文件导入为新的发行版。 虚拟硬盘必须采用 ext4 文件系统类型格式。
 
-
+<br>
 
 ## 3.2、跨文件系统工作
 
@@ -469,7 +469,7 @@ wsl --import-in-place <Distribution Name> <FileName>
 >
 > 若要在 Windows 文件资源管理器中查看所有可用的 Linux 发行版及其根文件系统，请在地址栏中输入：`\\wsl$`。
 
-
+<br>
 
 **从 Windows 命令行运行 Linux 工具**
 
@@ -497,7 +497,7 @@ wsl sudo apt-get update
 
 运行此命令后，将会列出默认的 Linux 分发版用户名，并将要求你输入密码。 正确输入密码后，分发版将下载更新。
 
-
+<br>
 
 **混合 Linux 和 Windows 命令**
 
@@ -533,13 +533,13 @@ wsl ls -la /proc/cpuinfo
 wsl ls -la "/mnt/c/Program Files"
 ```
 
-
+<br>
 
 ## 3.3、高级设置配置
 
 wsl.conf 和 .wslconfig 文件用于针对每个发行版（`wsl.conf`）和全局跨所有 WSL 2 发行版 (`.wslconfig`) 配置高级设置选项。 
 
-
+<br>
 
 **wsl.conf 和 .wslconfig 之间有什么差别？**
 
@@ -550,7 +550,7 @@ wsl.conf 和 .wslconfig 文件用于针对每个发行版（`wsl.conf`）和全�
 
 这两种文件类型都用于配置 WSL 设置，但存储文件的位置、配置的范围、可配置的选项类型以及运行发行版的 WSL 版本都会影响应选择的文件类型。
 
-
+<br>
 
 **配置更改的 8 秒规则**
 
@@ -558,7 +558,7 @@ wsl.conf 和 .wslconfig 文件用于针对每个发行版（`wsl.conf`）和全�
 
 例如需要修改分发版 Ubuntu 配置，请修改配置文件，关闭分发版，然后重启它。你可能会假设配置更改已立即生效，但当前情况并非如此，因为子系统可能仍在运行。 在重启之前，必须等子系统停止，给它足够的时间来获取你的更改。 可以通过使用 PowerShell 和以下命令来检查关闭 Linux 发行版（shell）后其是否仍在运行：`wsl --list --running`。 如果分发版未运行，则会收到响应：“没有正在运行的分发版” 。现在可以重启分发版，以查看应用的配置更新。
 
-
+<br>
 
 ### 3.3.1、wsl.conf
 
@@ -572,7 +572,7 @@ wsl.conf 和 .wslconfig 文件用于针对每个发行版（`wsl.conf`）和全�
 >
 > 使用 wsl.conf 文件调整每个发行版设置的功能仅适用于 Windows 版本 17093 及更高版本。
 
-
+<br>
 
 **网络设置**
 
@@ -584,7 +584,7 @@ wsl.conf 节标签：`[network]`
 | generateResolvConf | boolean | true           | true 将 WSL 设置为生成 `/etc/resolv.conf`。 resolv.conf 包含能够将给定主机名解析为其 IP 地址的 DNS 列表。 |
 | hostname           | string  | Windows 主机名 | 设置要用于 WSL 发行版的主机名。                              |
 
-
+<br>
 
 **互操作设置**
 
@@ -595,7 +595,7 @@ wsl.conf 节标签：`[interop]`
 | enabled           | boolean | true   | 设置此键可确定 WSL 是否支持启动 Windows 进程。               |
 | appendWindowsPath | boolean | true   | 设置此键可确定 WSL 是否会将 Windows 路径元素添加到 $PATH 环境变量。 |
 
-
+<br>
 
 **用户设置**
 
@@ -605,7 +605,7 @@ wsl.conf 节标签：`[user]`
 | :------- | :----- | :------------------------- | :---------------------------------------------------- |
 | default  | string | 首次运行时创建的初始用户名 | 设置此键指定在首次启动 WSL 会话时以哪个用户身份运行。 |
 
-
+<br>
 
 **启动设置**
 
@@ -620,7 +620,7 @@ wsl.conf 节标签：`[boot]`
 >
 > 启动设置仅在 Windows 11 和 Server 2022 上可用。
 
-
+<br>
 
 **wsl.conf 文件示例**
 
@@ -661,7 +661,7 @@ systemd = true
 command = service docker start
 ```
 
-
+<br>
 
 ### 3.3.2、.wslconfig
 
@@ -673,7 +673,7 @@ command = service docker start
 
 WSL 将检测这些文件是否存在，读取内容，并在每次启动 WSL 时自动应用配置设置。 如果文件缺失或格式错误（标记格式不正确），则 WSL 将继续正常启动，而不应用配置设置。
 
-
+<br>
 
 **主要 WSL 设置**
 
@@ -705,7 +705,7 @@ WSL 将检测这些文件是否存在，读取内容，并在每次启动 WSL �
 - 值类型后带有 `*` 的条目仅在 Windows 11 中可用。
 - 值类型后带有 `**` 的条目需要 Windows 11 版本 22H2 或更高版本。
 
-
+<br>
 
 **实验性设置**
 
@@ -725,7 +725,7 @@ WSL 将检测这些文件是否存在，读取内容，并在每次启动 WSL �
 - 值类型后带有 `*` 的条目仅在 Windows 11 中可用。
 - 值类型后带有 `**` 的条目需要 Windows 11 版本 22H2 或更高版本。
 
-
+<br>
 
 **.wslconfig 文件示例**
 
@@ -758,7 +758,7 @@ debugConsole=true
 sparseVhd=true
 ```
 
-
+<br>
 
 ## 3.4、网络注意事项
 
@@ -766,13 +766,13 @@ sparseVhd=true
 
 默认情况下，WSL 使用基于 NAT（网络地址转换）的网络体系结构。 
 
-
+<br>
 
 **从 Windows (localhost) 访问 Linux 网络应用**
 
 如果要在 Linux 分发版中构建网络应用（例如，在 NodeJS 或 SQL server 上运行的应用），可以使用 `localhost` 从 Windows 应用（如 Microsoft Edge 或 Chrome Internet 浏览器）访问它（就像往常一样）。
 
-
+<br>
 
 **从 Linux（主机 IP）访问 Windows 网络应用**
 
@@ -781,7 +781,7 @@ sparseVhd=true
 1. 通过在 Linux 分发版中运行以下命令来获取主机的 IP 地址：`ip route show | grep -i default | awk '{ print $3}'`。
 2. 使用复制的 IP 地址连接到任何 Windows 服务器。
 
-
+<br>
 
 ### 3.4.2、镜像模式网络
 
@@ -797,7 +797,7 @@ sparseVhd=true
 
 这种新模式解决了使用基于 NAT（网络地址转换）的体系结构时出现的网络问题。 
 
-
+<br>
 
 # 4、其他
 

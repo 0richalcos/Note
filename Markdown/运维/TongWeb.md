@@ -2,7 +2,7 @@
 
 TongWeb 是一款国产、高性能、高可用、安全并兼容 Java EE 标准的应用服务器。它适用于希望摆脱国外中间件依赖、追求标准兼容、有云原生需求，并拥有大量 Java EE 应用的企业。支持从开发、部署到运维的整个生命周期管理，是国产中间件战略中的重要一环。
 
-
+<br>
 
 # 2、安装
 
@@ -69,7 +69,7 @@ TongWeb 是一款国产、高性能、高可用、安全并兼容 Java EE 标准
    >
    > 默认的账户密码为： thanos/thanos123.com
 
-
+<br>
 
 # 3、配置
 
@@ -91,7 +91,7 @@ TongWeb 是一款国产、高性能、高可用、安全并兼容 Java EE 标准
 
    ![image-20250715221947881](!assets/TongWeb/image-20250715221947881.png)
 
-   填写虚拟主机信息，并设置 `cacheMaxiSize` 属性：
+   填写虚拟主机信息，并设置 `cacheMaxSize` 属性：
 
    ![image-20250715222007632](!assets/TongWeb/image-20250715222007632.png)
 
@@ -107,7 +107,53 @@ TongWeb 是一款国产、高性能、高可用、安全并兼容 Java EE 标准
 
    ![image-20250715222816353](!assets/TongWeb/image-20250715222816353.png)
 
+<br>
 
+## 3.2、HTTP 请求过滤
+
+在【HTTP 通道管理】的【其他设置】里可以配置 HTTP 请求过滤，默认是禁用了 `PUT`、`DELETE` 请求，可以按需打开：
+
+![image-20250919164629530](!assets/TongWeb/image-20250919164629530.png)
+
+<br>
+
+## 3.3、HTTP 重定向 HTTPS
+
+1. 首先在 TongWeb 上创建 HTTP 通道和 HTTPS 通道：
+
+   <img src="./!assets/TongWeb/3932971124cb4e5485624a714e9d8d72.png" alt="img" style="zoom: 80%;" />
+
+   HTTPS 通道需要配置证书：
+
+   <img src="./!assets/TongWeb/b550909db932475586ae464cd8a42e19.png" alt="img" style="zoom: 80%;" />
+
+2. 把通道关联到虚拟主机上：
+
+   <img src="./!assets/TongWeb/02728be8b2114b23934a5dee483063cb.png" alt="img" style="zoom: 67%;" />
+
+   <img src="./!assets/TongWeb/4da9a0e2ae4f408597fa22ec94e82e4c.png" alt="img" style="zoom:67%;" />
+
+3. 在 HTTP 通道上添加重定向端口，即 HTTPS 端口：
+
+   <img src="./!assets/TongWeb/64d9022dbba44b7b94925f596e787912.png" alt="img" style="zoom:80%;" />
+
+4. 并修改部署的应用的 web.xml 添加如下属性：
+
+   ```xml
+   <security-constraint>
+       <web-resource-collection>
+           <web-resource-name>Force HTTPS</web-resource-name>
+           <url-pattern>/*</url-pattern>
+       </web-resource-collection>
+       <user-data-constraint>
+           <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+       </user-data-constraint>
+   </security-constraint>
+   ```
+
+5. 设置完成后再进行 HTTP 访问就会自动跳到 HTTPS 通道。
+
+<br>
 
 # 4、部署
 
@@ -147,7 +193,7 @@ TongWeb 是一款国产、高性能、高可用、安全并兼容 Java EE 标准
    jar -cvf my_app.war *
    ```
 
-
+<br>
 
 ### 4.1.2、部署
 
@@ -167,7 +213,7 @@ TongWeb 是一款国产、高性能、高可用、安全并兼容 Java EE 标准
 
    ![image-20250717012810783](./!assets/TongWeb/image-20250717012810783.png)
 
-
+<br>
 
 ## 4.2、后端
 
@@ -190,3 +236,5 @@ TongWeb 是一款国产、高性能、高可用、安全并兼容 Java EE 标准
 4. 选择之前设置好的虚拟主机，确认信息无误后点击完成，完成部署：
 
    ![image-20250717012838882](./!assets/TongWeb/image-20250717012838882.png)
+
+<br>

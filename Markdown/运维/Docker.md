@@ -14,7 +14,7 @@ Docker 使用 Google 公司推出的 Go 语言进行开发实现，基于 Linux 
 
 > [!NOTE]
 >
-> runc 是一个 Linux 命令行工具，用于根据 OCI容器运行时规范 创建和运行容器。
+> runc 是一个 Linux 命令行工具，用于根据 OCI 容器运行时规范 创建和运行容器。
 >
 > containerd 是一个守护程序，它管理容器生命周期，提供了在一个节点上执行容器和管理镜像的最小功能集。
 
@@ -22,31 +22,31 @@ Docker 在容器的基础上，进行了进一步的封装，从文件系统、�
 
 Docker 和传统虚拟化方式的不同之处。传统虚拟机技术是虚拟出一套硬件后，在其上运行一个完整操作系统，在该系统上再运行所需应用进程；而容器内的应用进程直接运行于宿主的内核，容器内没有自己的内核，而且也没有进行硬件虚拟。因此容器要比传统虚拟机更为轻便。
 
-
+<br>
 
 ### 1.1.2、为什么要用 Docker
 
 作为一种新兴的虚拟化方式，Docker 跟传统的虚拟化方式相比具有众多的优势。
 
-
+<br>
 
 **更高效的利用系统资源**
 
 由于容器不需要进行硬件虚拟以及运行完整操作系统等额外开销，Docker 对系统资源的利用率更高。无论是应用执行速度、内存损耗或者文件存储速度，都要比传统虚拟机技术更高效。因此，相比虚拟机技术，一个相同配置的主机，往往可以运行更多数量的应用。
 
-
+<br>
 
 **更快速的启动时间**
 
 传统的虚拟机技术启动应用服务往往需要数分钟，而 Docker 容器应用，由于直接运行于宿主内核，无需启动完整的操作系统，因此可以做到秒级、甚至毫秒级的启动时间。大大的节约了开发、测试、部署的时间。
 
-
+<br>
 
 **一致的运行环境**
 
 开发过程中一个常见的问题是环境一致性问题。由于开发环境、测试环境、生产环境不一致，导致有些 bug 并未在开发过程中被发现。而 Docker 的镜像提供了除内核外完整的运行时环境，确保了应用运行环境一致性，从而不会再出现「这段代码在我机器上没问题啊」这类问题。
 
-
+<br>
 
 **持续交付和部署**
 
@@ -56,19 +56,19 @@ Docker 和传统虚拟化方式的不同之处。传统虚拟机技术是虚拟�
 
 而且使用 Dockerfile 使镜像构建透明化，不仅仅开发团队可以理解应用运行环境，也方便运维团队理解应用运行所需条件，帮助更好的生产环境中部署该镜像。
 
-
+<br>
 
 **更轻松的迁移**
 
 由于 Docker 确保了执行环境的一致性，使得应用的迁移更加容易。Docker 可以在很多平台上运行，无论是物理机、虚拟机、公有云、私有云，甚至是笔记本，其运行结果是一致的。因此用户可以很轻易的将在一个平台上运行的应用，迁移到另一个平台上，而不用担心运行环境的变化导致应用无法正常运行的情况。
 
-
+<br>
 
 **更轻松的维护和扩展**
 
 Docker 使用的分层存储以及镜像的技术，使得应用重复部分的复用更为容易，也使得应用的维护更新更加简单，基于基础镜像进一步扩展镜像也变得非常简单。此外，Docker 团队同各个开源项目团队一起维护了一大批高质量的 官方镜像，既可以直接在生产环境使用，又可以作为基础进一步定制，大大的降低了应用服务的镜像制作成本。
 
-
+<br>
 
 **对比传统虚拟机总结**
 
@@ -79,7 +79,7 @@ Docker 使用的分层存储以及镜像的技术，使得应用重复部分的�
 | 性能       | 接近原生           | 弱于       |
 | 系统支持量 | 单机支持上千个容器 | 一般几十个 |
 
-
+<br>
 
 ## 1.2、基本概念
 
@@ -91,7 +91,7 @@ Docker 包括三个基本概念：
 
 理解了这三个概念，就理解了 Docker 的整个生命周期。
 
-
+<br>
 
 ### 1.2.1、镜像
 
@@ -99,7 +99,7 @@ Docker 包括三个基本概念：
 
 Docker 镜像是一个特殊的文件系统，除了提供容器运行时所需的程序、库、资源、配置等文件外，还包含了一些为运行时准备的一些配置参数（如匿名卷、环境变量、用户等）。镜像不包含任何动态数据，其内容在构建之后也不会被改变。
 
-
+<br>
 
 **分层存储**
 
@@ -109,7 +109,7 @@ Docker 镜像是一个特殊的文件系统，除了提供容器运行时所需�
 
 分层存储的特征还使得镜像的复用、定制变的更为容易。甚至可以用之前构建好的镜像作为基础层，然后进一步添加新的层，以定制自己所需的内容，构建新的镜像。
 
-
+<br>
 
 ### 1.2.2、容器
 
@@ -125,7 +125,7 @@ Docker 镜像是一个特殊的文件系统，除了提供容器运行时所需�
 
 数据卷的生存周期独立于容器，容器消亡，数据卷不会消亡。因此，使用数据卷后，容器删除或者重新运行之后，数据却不会丢失。
 
-
+<br>
 
 ### 1.2.3、仓库
 
@@ -139,19 +139,19 @@ Docker 镜像是一个特殊的文件系统，除了提供容器运行时所需�
 
 仓库名经常以两段式路径形式出现，比如 `jwilder/nginx-proxy`，前者往往意味着 Docker Registry 多用户环境下的用户名，后者则往往是对应的软件名。但这并非绝对，取决于所使用的具体 Docker Registry 的软件或服务。
 
-
+<br>
 
 **Docker Registry 公开服务**
 
 Docker Registry 公开服务是开放给用户使用、允许用户管理镜像的 Registry 服务。一般这类公开服务允许用户免费上传、下载公开的镜像，并可能提供收费服务供用户管理私有镜像。
 
-最常使用的 Registry 公开服务是官方的 Docker Hub，这也是默认的 Registry，并拥有大量的高质量的官方镜像。除此以外，还有 Red Hat 的 Quay.io；Google 的 Google Container Registry（Kubernetes 的镜像使用的就是这个服务）；代码托管平台 GitHub 推出的 ghcr.io。
+最常使用的 Registry 公开服务是官方的 Docker Hub，这也是默认的 Registry，并拥有大量的高质量的官方镜像。除此以外，还有 Red Hat 的 Quay.io、Google 的 Google Container Registry（Kubernetes 的镜像使用的就是这个服务）、代码托管平台 GitHub 推出的 ghcr.io。
 
 由于某些原因，在国内访问这些服务可能会比较慢。国内的一些云服务商提供了针对 Docker Hub 的镜像服务（Registry Mirror），这些镜像服务被称为加速器。常见的有阿里云加速器、DaoCloud 加速器等。使用加速器会直接从国内的地址下载 Docker Hub 的镜像，比直接从 Docker Hub 下载速度会提高很多。
 
 国内也有一些云服务商提供类似于 Docker Hub 的公开服务。比如网易云镜像服务、DaoCloud 镜像市场、阿里云镜像库等。
 
-
+<br>
 
 **私有 Docker Registry**
 
@@ -161,7 +161,7 @@ Docker Registry 公开服务是开放给用户使用、允许用户管理镜像�
 
 除了官方的 Docker Registry 外，还有第三方软件实现了 Docker Registry API，甚至提供了用户界面以及一些高级功能。比如 Harbor 和 Sonatype Nexus。
 
-
+<br>
 
 ## 1.3、安装 Docker
 
@@ -169,7 +169,7 @@ Docker 分为 stable、test 和 nightly 三个更新频道。
 
 官方网站上有各种环境下的境下的[安装指南](https://docs.docker.com/get-docker/)，这里主要介绍 Docker 在 Windows上的安装。
 
-
+<br>
 
 ### 1.3.1、Windows
 
@@ -177,27 +177,27 @@ Docker 分为 stable、test 和 nightly 三个更新频道。
 
 [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/install/) 支持 64 位版本的 Windows 10 Pro，且必须开启 Hyper-V（若版本为 v1903 及以上则无需开启 Hyper-V），或者 64 位版本的 Windows 10 Home v1903 及以上版本。
 
-
+<br>
 
 **安装**
 
 - 手动下载安装：
 
-  点击[链接](https://desktop.docker.com/win/main/amd64/Docker Desktop Installer.exe)下载 Docker Desktop for Windows，下载好之后双击 Docker Desktop Installer.exe 开始安装。
+  点击[链接](https://desktop.docker.com/win/main/amd64/Docker Desktop Installer.exe)下载 Docker Desktop for Windows，下载好之后双击 `Docker Desktop Installer.exe` 开始安装。
 
-- 使用 winget 安装：
+- 使用 `winget` 安装：
 
   ```shell
   winget install Docker.DockerDesktop
   ```
 
-
+<br>
 
 **在 WSL2 运行 Docker**
 
 若你的 Windows 版本为 Windows 10 专业版或家庭版 v1903 及以上版本可以使用 WSL2 运行 Docker，具体请查看 [Docker Desktop WSL 2 backend](https://docs.docker.com/docker-for-windows/wsl/)。
 
-
+<br>
 
 **运行**
 
@@ -209,7 +209,41 @@ Docker 启动之后会在 Windows 任务栏出现鲸鱼图标：
 
 等待片刻，当鲸鱼图标静止时，说明 Docker 启动成功，之后你可以打开 PowerShell 使用 Docker。
 
+<br>
 
+**开放远程 API 访问**
+
+打开设置，勾选以下选项即可通过 2375 端口访问：
+
+<img src="!assets/Docker/image-20251209140546243.png" alt="image-20251209140546243" style="zoom: 50%;" />
+
+访问 http://localhost:2375/version 测试：
+
+<img src="!assets/Docker/image-20251209140828779.png" alt="image-20251209140828779" style="zoom:50%;" />
+
+> [!CAUTION]
+>
+> 此方法开启没有安全访问，仅限内网或者本地学习使用，最好配置一层 Nginx 反向代理或者开启 HTTPS 访问。
+>
+> 附上 Nginx 反向代理配置：
+>
+> ```nginx
+> location /docker/ {
+>        proxy_pass http://localhost:2375/; 
+>        client_max_body_size 0; 
+>        proxy_connect_timeout 3600;
+>        proxy_send_timeout 3600;
+>        proxy_read_timeout 3600;
+>        send_timeout 3600;
+>        proxy_set_header Host $host;
+>        proxy_set_header X-Real-IP $remote_addr;
+>        proxy_http_version 1.1;
+>        proxy_set_header Upgrade $http_upgrade;
+>        proxy_set_header Connection upgrade;
+> }
+> ```
+
+<br>
 
 ### 1.3.2、麒麟
 
@@ -294,7 +328,7 @@ Docker 启动之后会在 Windows 任务栏出现鲸鱼图标：
 
    输出对应版本，即是成功！
 
-
+<br>
 
 ## 1.4、镜像加速器
 
@@ -306,7 +340,7 @@ Docker 启动之后会在 Windows 任务栏出现鲸鱼图标：
 
 由于镜像服务可能出现宕机，建议同时配置多个镜像。各个镜像站测试结果请到 [docker-practice/docker-registry-cn-mirror-test](https://github.com/docker-practice/docker-registry-cn-mirror-test/actions) 查看。
 
-
+<br>
 
 **检查加速器是否生效**
 
@@ -317,7 +351,7 @@ Registry Mirrors:
  https://hub-mirror.c.163.com/
 ```
 
-
+<br>
 
 **不再提供服务的镜像**
 
@@ -325,7 +359,7 @@ Registry Mirrors:
 
 建议 watch [镜像测试](https://github.com/docker-practice/docker-registry-cn-mirror-test)这个 GitHub 仓库，这里会更新各个镜像地址的状态。
 
-
+<br>
 
 ### 1.4.1、Windows
 
@@ -340,7 +374,9 @@ Registry Mirrors:
 }
 ```
 
+<br>
 
+1.5、
 
 # 2、使用镜像
 
@@ -362,7 +398,7 @@ Docker 管理镜像的主要命令为 `docker image`，其下包含以下子命�
 | `docker image pull`    | 从 Registry 下载镜像。                       |
 | `docker image push`    | 将镜像上传到 Registry。                       |
 
-
+<br>
 
 ## 2.1、获取镜像
 
@@ -374,8 +410,8 @@ docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]
 
 具体的选项可以通过 `docker pull --help` 命令看到，这里说一下镜像名称的格式：
 
-- Docker 镜像仓库地址：地址的格式一般是 `<域名/IP>[:端口号]`。默认地址是 Docker Hub（docker.io）。
-- 仓库名：如之前所说，这里的仓库名是两段式名称，即 `<用户名>/<软件名>`。对于 Docker Hub，如果不给出用户名，则默认为 library，也就是官方镜像。
+- *Docker Registry 地址*：地址的格式一般是 `<域名/IP>[:端口号]`。默认地址是 Docker Hub（docker.io）。
+- *仓库名*：如之前所说，这里的仓库名是两段式名称，即 `<用户名>/<软件名>`。对于 Docker Hub，如果不给出用户名，则默认为 library，也就是官方镜像。
 
 ```
 $ docker pull ubuntu:18.04
@@ -394,7 +430,7 @@ docker.io/library/ubuntu:18.04
 
 在使用上面命令的时候，你可能会发现，你所看到的层 ID 以及 sha256 的摘要和这里的不一样。这是因为官方镜像是一直在维护的，有任何新的 bug，或者版本更新，都会进行修复再以原来的标签发布，这样可以确保任何使用这个标签的用户可以获得更安全、更稳定的镜像。
 
-
+<br>
 
 ## 2.2、列出镜像
 
@@ -415,7 +451,7 @@ ubuntu               bionic              329ed837d508        3 days ago         
 
 镜像 ID 则是镜像的唯一标识，一个镜像可以对应多个标签。因此，在上面的例子中，可以看到 `ubuntu:18.04` 和 `ubuntu:bionic` 拥有相同的 ID，因为它们对应的是同一个镜像。
 
-
+<br>
 
 **镜像体积**
 
@@ -435,7 +471,7 @@ Local Volumes       9                   0                   652.2MB             
 Build Cache                                                 0B                  0B
 ```
 
-
+<br>
 
 **虚悬镜像**
 
@@ -455,7 +491,7 @@ REPOSITORY          TAG                 IMAGE ID            CREATED             
 
 一般来说，虚悬镜像已经失去了存在的价值，是可以随意删除的，可以用 `docker image prune` 命令删除。
 
-
+<br>
 
 ### 2.2.1、中间层镜像
 
@@ -467,7 +503,7 @@ docker images -a
 
 这样会看到很多无标签的镜像，与之前的虚悬镜像不同，这些无标签的镜像很多都是中间层镜像，是其它镜像所依赖的镜像。这些无标签镜像不应该删除，否则会导致上层镜像因为依赖丢失而出错。实际上，这些镜像也没必要删除，因为之前说过，相同的层只会存一遍，而这些镜像是别的镜像的依赖，因此并不会因为它们被列出来而多存了一份，无论如何你也会需要它们。只要删除那些依赖它们的镜像后，这些依赖的中间层镜像也会被连带删除。
 
-
+<br>
 
 ### 2.2.2、列出部分镜像
 
@@ -507,7 +543,7 @@ nginx               latest              05a60462f8ba        5 days ago          
 docker images -f label=com.example.version=0.1
 ```
 
-
+<br>
 
 ### 2.3.3、以特定格式显示
 
@@ -565,7 +601,7 @@ fe9198c04d62        mongo               3.2
 329ed837d508        ubuntu              bionic
 ```
 
-
+<br>
 
 ## 2.3、删除本地镜像
 
@@ -575,7 +611,7 @@ fe9198c04d62        mongo               3.2
 docker rmi [选项] <镜像1> [<镜像2> ...]
 ```
 
-
+<br>
 
 **用 ID、镜像名、摘要删除镜像**
 
@@ -629,7 +665,7 @@ $ docker rmi node@sha256:b4f0e0bdeb578043c1ea6862f0d40cc4afe32a4a582f3be235a3b16
 Untagged: node@sha256:b4f0e0bdeb578043c1ea6862f0d40cc4afe32a4a582f3be235a3b164422be228
 ```
 
-
+<br>
 
 **Untagged 和 Deleted**
 
@@ -641,7 +677,7 @@ Untagged: node@sha256:b4f0e0bdeb578043c1ea6862f0d40cc4afe32a4a582f3be235a3b16442
 
 除了镜像依赖以外，还需要注意的是容器对镜像的依赖。如果有用这个镜像启动的容器存在（即使容器没有运行），那么同样不可以删除这个镜像。之前讲过，容器是以镜像为基础，再加一层容器存储层，组成这样的多层存储结构去运行的。因此该镜像如果被这个容器所依赖的，那么删除必然会导致故障。如果这些容器是不需要的，应该先将它们删除，然后再来删除镜像。
 
-
+<br>
 
 **用 `docker images` 命令来配合**
 
@@ -661,11 +697,11 @@ docker rmi $(docker images -q -f before=mongo:3.2)
 
 充分利用你的想象力和 Linux 命令行的强大，你可以完成很多非常赞的功能。
 
-
+<br>
 
 ## 2.4、保存和加载镜像
 
-
+<br>
 
 # 3、操作容器
 
@@ -703,7 +739,7 @@ Docker 管理容器的命令为 `docker container`，其下有以下子命令：
 | `docker container ls`      | 列出容器。                                           |
 | `docker container run`     | 根据镜像创建并运行新容器。                           |
 
-
+<br>
 
 ## 3.1、启动容器
 
@@ -711,7 +747,7 @@ Docker 管理容器的命令为 `docker container`，其下有以下子命令：
 
 因为 Docker 的容器实在太轻量级了，很多时候用户都是随时删除和新创建容器。
 
-
+<br>
 
 ### 3.1.1、新建并启动容器
 
@@ -754,7 +790,7 @@ bin boot dev etc home lib lib64 media mnt opt proc root run sbin srv sys tmp usr
 - 执行用户指定的应用程序。
 - 执行完毕后容器被终止。
 
-
+<br>
 
 ### 3.1.2、启动已终止容器
 
@@ -771,7 +807,7 @@ root@ba267838cc1b:/# ps
 
 可见，容器中仅运行了指定的 bash 应用。这种特点使得 Docker 对资源的利用率极高，是货真价实的轻量级虚拟化。
 
-
+<br>
 
 ### 3.1.3、守护态启动容器
 
@@ -820,7 +856,7 @@ hello world
 . . .
 ```
 
-
+<br>
 
 ## 3.2、终止容器
 
@@ -842,7 +878,7 @@ ba267838cc1b        ubuntu:18.04             "/bin/bash"            30 minutes a
 
 此外，`docker container restart` 命令（常用别名为 `docker restart`）会将一个运行态的容器终止，然后再重新启动它。
 
-
+<br>
 
 ## 3.3、进入容器
 
@@ -850,7 +886,7 @@ ba267838cc1b        ubuntu:18.04             "/bin/bash"            30 minutes a
 
 某些时候需要进入容器进行操作，可以使用 `docker container attach` 命令（常用别名为 `docker attach`）或 `docker container exec` 命令（常用别名为 `docker exec`），推荐使用 `docker exec` 命令。
 
-
+<br>
 
 **`docker attach` 命令**
 
@@ -872,7 +908,7 @@ root@243c32535da7:/#
 >
 > 如果从这个 STDOUT 中 `exit`，会导致容器的停止。
 
-
+<br>
 
 **`docker exec` 命令**
 
@@ -905,7 +941,7 @@ root@69d137adef7a:/#
 >
 > 如果从这个 STDOUT 中 `exit`，不会导致容器的停止。这就是为什么推荐使用 `docker exec` 的原因。
 
-
+<br>
 
 ## 3.4、导出和导入
 
@@ -922,7 +958,7 @@ $ docker export 7691a814370e > ubuntu.tar
 
 这样将导出容器快照到本地文件。
 
-
+<br>
 
 **导入容器快照**
 
@@ -945,7 +981,7 @@ docker import http://example.com/exampleimage.tgz example/imagerepo
 >
 > 用户既可以使用 `docker import` 来导入一个容器快照到本地镜像库，也可以使用 `docker load` 来导入镜像存储文件到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。
 
-
+<br>
 
 ## 3.5、删除容器
 
@@ -960,13 +996,13 @@ trusting_newton
 
 如果要删除一个运行中的容器，可以添加 `-f` 参数。Docker 会发送 `SIGKILL` 信号给容器。
 
-
+<br>
 
 **清理所有处于终止状态的容器**
 
 用 `docker ps -a` 命令可以查看所有已经创建的包括终止状态的容器，如果数量太多要一个个删除可能会很麻烦，用 `docker container prune` 命令可以清理掉所有处于终止状态的容器。
 
-
+<br>
 
 # 4、访问仓库
 
@@ -984,19 +1020,19 @@ Docker 访问仓库涉及以下常用命令：
 | `docker logout` | 从注册表注销。如果未指定服务器，则默认服务器由守护进程定义。 |
 | `docker search` | 搜索 Docker Hub中 的镜像。                                   |
 
-
+<br>
 
 ## 4.1、Docker Hub
 
 目前 Docker 官方维护了一个公共仓库 [Docker Hub](https://hub.docker.com/)，其中已经包括了数量超过 [2,650,000](https://hub.docker.com/search/?type=image) 的镜像。大部分需求都可以通过在 Docker Hub 中直接下载镜像来实现。
 
-
+<br>
 
 **注册**
 
 你可以在 https://hub.docker.com 免费注册一个 Docker 账号。
 
-
+<br>
 
 **登录**
 
@@ -1004,7 +1040,7 @@ Docker 访问仓库涉及以下常用命令：
 
 你可以通过 `docker logout` 退出登录。
 
-
+<br>
 
 **拉取镜像**
 
@@ -1044,7 +1080,7 @@ Status: Downloaded newer image for centos:latest
 docker.io/library/centos:latest
 ```
 
-
+<br>
 
 **推送镜像**
 
@@ -1069,7 +1105,7 @@ NAME                      DESCRIPTION                                     STARS 
 username/ubuntu
 ```
 
-
+<br>
 
 ## 4.2、私有仓库
 
@@ -1083,7 +1119,7 @@ username/ubuntu
 >
 > [CNCF Distribution CNCF 分发](https://github.com/distribution/distribution)
 
-
+<br>
 
 ### 4.2.1、安装 docker-registry
 
@@ -1099,7 +1135,7 @@ docker run -d -p 5000:5000 --restart=always --name registry registry
 docker run -d -p 5000:5000 -v /opt/data/registry:/var/lib/registry registry
 ```
 
-
+<br>
 
 ### 4.2.2、使用私有仓库
 
@@ -1109,7 +1145,7 @@ docker run -d -p 5000:5000 -v /opt/data/registry:/var/lib/registry registry
 docker tag IMAGE[:TAG] [REGISTRY_HOST[:REGISTRY_PORT]/]REPOSITORY[:TAG]
 ```
 
-
+<br>
 
 **示例**
 
@@ -1175,7 +1211,7 @@ docker tag IMAGE[:TAG] [REGISTRY_HOST[:REGISTRY_PORT]/]REPOSITORY[:TAG]
    127.0.0.1:5000/ubuntu:latest       latest              ba5877dc9bec        6 weeks ago         192.7 MB
    ```
 
-
+<br>
 
 ### 4.2.3、配置非 https 地址
 
@@ -1183,7 +1219,7 @@ docker tag IMAGE[:TAG] [REGISTRY_HOST[:REGISTRY_PORT]/]REPOSITORY[:TAG]
 
 这是因为 Docker 默认不允许非 `HTTPS` 方式推送镜像。我们可以通过 Docker 的配置选项来取消这个限制。
 
-
+<br>
 
 **Ubuntu 16.04+、Debian 8+、centos 7**
 
@@ -1205,13 +1241,13 @@ docker tag IMAGE[:TAG] [REGISTRY_HOST[:REGISTRY_PORT]/]REPOSITORY[:TAG]
 >
 > 该文件必须符合 `json` 规范，否则 Docker 将不能启动。
 
-
+<br>
 
 **其他**
 
 对于 Docker Desktop for Windows 、 Docker Desktop for Mac 在设置中的 `Docker Engine` 中进行编辑 ，增加和上边一样的字符串即可。
 
-
+<br>
 
 # 5、数据管理
 
@@ -1231,7 +1267,7 @@ Docker 管理数据卷的命令为 `docker volume`，其下有以下子命令：
 | `docker volume rm`      | 删除一个或多个卷。           |
 | `docker volume update`  | 更新卷（仅限集群卷）。       |
 
-
+<br>
 
 ## 5.1、数据卷
 
@@ -1246,7 +1282,7 @@ Docker 管理数据卷的命令为 `docker volume`，其下有以下子命令：
 >
 > 数据卷的使用，类似于 Linux 下对目录或文件进行 `mount`，镜像中的被指定为挂载点的目录中的文件会复制到数据卷中（仅数据卷为空时会复制）。
 
-
+<br>
 
 ### 5.1.1、创建数据卷
 
@@ -1285,7 +1321,7 @@ $ docker volume inspect my-vol
 ]
 ```
 
-
+<br>
 
 ### 5.1.2、使用数据卷启动容器
 
@@ -1322,7 +1358,7 @@ docker inspect web
 
 这表明数据卷挂载成功，它显示了正确的源和目标，并且挂载是读写的。
 
-
+<br>
 
 ### 5.1.3、删除数据卷
 
@@ -1340,7 +1376,7 @@ docker volume rm my-vol
 >
 >  `docker volume prune` 只会删除所有未被容器使用的匿名卷，如果想删除所有未使用的卷，需要加上参数 `-a`。
 
-
+<br>
 
 ## 5.2、绑定挂载
 
@@ -1385,14 +1421,14 @@ docker inspect web
 docker run -d --name web --mount type=bind,source=/src/webapp,target=/usr/share/nginx/html,readonly nginx:alpine
 ```
 
-加了 `readonly` 之后，就挂载为只读 了。如果你在容器内 `/usr/share/nginx/html` 目录新建文件，会显示如下错误：
+加了 `readonly` 之后，就挂载为只读了。如果你在容器内 `/usr/share/nginx/html` 目录新建文件，会显示如下错误：
 
 ```
 /usr/share/nginx/html # touch new.txt
 touch: new.txt: Read-only file system
 ```
 
-
+<br>
 
 **挂载主机文件作为数据卷**
 
@@ -1408,7 +1444,7 @@ root@2affd44b4667:/# history
 
 这样就可以记录在容器输入过的命令了。
 
-
+<br>
 
 # 6、使用网络
 
@@ -1426,7 +1462,7 @@ Docker 管理网络的命令为 `docker network`，您可以使用子命令来�
 | `docker network prune`      | 删除所有未使用的网络。         |
 | `docker network rm`         | 删除一个或多个网络。           |
 
-
+<br>
 
 ## 6.1、外部访问容器
 
@@ -1457,7 +1493,7 @@ $ docker logs fae3
 - `ip:hostPort:containerPort`
 - `ip::containerPort`
 
-
+<br>
 
 **映射所有接口地址**
 
@@ -1475,7 +1511,7 @@ docker run -d -p 80:80 nginx:alpine
 docker run -d -p 80:80 -p 443:443 nginx:alpine
 ```
 
-
+<br>
 
 **映射到指定地址的指定端口**
 
@@ -1485,7 +1521,7 @@ docker run -d -p 80:80 -p 443:443 nginx:alpine
 docker run -d -p 127.0.0.1:80:80 nginx:alpine
 ```
 
-
+<br>
 
 **映射到指定地址的任意端口**
 
@@ -1501,7 +1537,7 @@ docker run -d -p 127.0.0.1::80 nginx:alpine
 docker run -d -p 127.0.0.1:80:80/udp nginx:alpine
 ```
 
-
+<br>
 
 ### 6.1.1、查看映射端口配置
 
@@ -1516,7 +1552,7 @@ $ docker port fa 80
 >
 > 容器有自己的内部网络和 IP 地址（使用 `docker inspect` 查看，Docker 还可以有一个可变的网络配置）。
 
-
+<br>
 
 ## 6.2、容器互联
 
@@ -1528,7 +1564,7 @@ $ docker port fa 80
 >
 > 如果你有多个容器之间需要互相连接，推荐使用 Docker Compose。
 
-
+<br>
 
 ### 6.2.1、新建网络
 
@@ -1540,7 +1576,7 @@ docker network create -d bridge my-net
 
 `-d` 参数指定 Docker 网络类型，有 `bridge`、`overlay`。
 
-
+<br>
 
 ### 6.2.2、连接容器
 
@@ -1566,7 +1602,7 @@ b47060aca56b        busybox             "sh"                11 minutes ago      
 8720575823ec        busybox             "sh"                16 minutes ago      Up 16 minutes                           busybox1
 ```
 
-
+<br>
 
 ### 6.2.3、测试互联
 
@@ -1592,7 +1628,7 @@ PING busybox1 (172.19.0.2): 56 data bytes
 
 这样，`busybox1` 容器和 `busybox2` 容器建立了互联关系。
 
-
+<br>
 
 ## 6.3、配置 DNS
 
@@ -1639,7 +1675,7 @@ nameserver 8.8.8.8
 >
 > 如果在容器启动时没有指定最后两个参数，Docker 会默认用主机上的 `/etc/resolv.conf` 来配置容器。
 
-
+<br>
 
 # 7、构建镜像
 
@@ -1666,7 +1702,7 @@ RUN echo '<h1>Hello, Docker!</h1>' > /usr/share/nginx/html/index.html
 
 这个 Dockerfile 很简单，一共就两行。涉及到了两条指令，`FROM` 和 `RUN`。
 
-
+<br>
 
 ### 7.1.1、FROM
 
@@ -1687,7 +1723,7 @@ FROM scratch
 
 不以任何系统为基础，直接将可执行文件复制进镜像的做法并不罕见，对于 Linux 下静态编译的程序来说，并不需要有操作系统提供运行时支持，所需的一切库都已经在可执行文件里了，因此直接 `FROM scratch` 会让镜像体积更加小巧。使用 [Go 语言](https://golang.google.cn/) 开发的应用很多会使用这种方式来制作镜像，这也是有人认为 Go 是特别适合容器微服务架构的语言的原因之一。
 
-
+<br>
 
 ### 7.1.2、RUN
 
@@ -1752,7 +1788,7 @@ RUN set -x; buildDeps='gcc libc6-dev make wget' \
 
 很多人初学 Docker 制作出了很臃肿的镜像的原因之一，就是忘记了每一层构建的最后一定要清理掉无关文件。
 
-
+<br>
 
 ### 7.1.3、构建镜像
 
@@ -1780,7 +1816,7 @@ docker build [选项] <上下文路径/URL/->
 
 在这里我们指定了最终镜像的名称 `-t nginx:v3`，构建成功后，我们可以像之前运行 `nginx:v2` 那样来运行这个镜像，其结果会和 `nginx:v2` 一样。
 
-
+<br>
 
 ### 7.1.4、镜像构建上下文
 
@@ -1822,7 +1858,7 @@ Sending build context to Docker daemon 2.048 kB
 
 当然，一般大家习惯性的会使用默认的文件名 `Dockerfile`，以及会将其置于镜像构建上下文目录中。
 
-
+<br>
 
 ### 7.1.5、build 的其它用法
 
@@ -1849,7 +1885,7 @@ Successfully built 038ad4142d2b
 
 这行命令指定了构建所需的 Git repo，并且指定分支为 `master`，构建目录为 `/amd64/hello-world/`，然后 Docker 就会自己去 `git clone` 这个项目、切换到指定分支、并进入到指定目录后开始构建。
 
-
+<br>
 
 **用给定的 tar 压缩包构建**
 
@@ -1859,7 +1895,7 @@ docker build http://server/context.tar.gz
 
 如果所给出的 URL 不是个 Git repo，而是个 `tar` 压缩包，那么 Docker 引擎会下载这个包，并自动解压缩，以其作为上下文，开始构建。
 
-
+<br>
 
 **从标准输入中读取 Dockerfile 进行构建**
 
@@ -1875,7 +1911,7 @@ cat Dockerfile | docker build -
 
 如果标准输入传入的是文本文件，则将其视为 Dockerfile，并开始构建。这种形式由于直接从标准输入中读取 Dockerfile 的内容，它没有上下文，因此不可以像其他方法那样可以将本地文件 `COPY` 进镜像之类的事情。
 
-
+<br>
 
 **从标准输入中读取上下文压缩包进行构建**
 
@@ -1885,13 +1921,13 @@ docker build - < context.tar.gz
 
 如果发现标准输入的文件格式是 `gzip`、`bzip2` 以及 `xz` 的话，将会使其为上下文压缩包，直接将其展开，将里面视为上下文，并开始构建。
 
-
+<br>
 
 ## 7.2、Dockerfile 指令详解
 
 其实 Dockerfile 功能很强大，除了 `FROM` 和 `RUN`,它提供了十多个指令。
 
-
+<br>
 
 ### 7.2.1、COPY
 
@@ -1934,7 +1970,7 @@ COPY --chown=10:11 files* /mydir/
 
 如果源路径为文件夹，复制的时候不是直接复制该文件夹，而是将文件夹中的内容复制到目标路径。
 
-
+<br>
 
 ### 7.2.2、ADD
 
@@ -1969,7 +2005,7 @@ ADD --chown=1 files* /mydir/
 ADD --chown=10:11 files* /mydir/
 ```
 
-
+<br>
 
 ### 7.2.3、CMD
 
@@ -2014,7 +2050,7 @@ CMD [ "sh", "-c", "echo $HOME" ]
 
 这就是为什么我们可以使用环境变量的原因，因为这些环境变量会被 shell 进行解析处理。
 
-
+<br>
 
 **容器中应用在前台执行和后台执行的问题**
 
@@ -2038,7 +2074,7 @@ CMD service nginx start
 CMD ["nginx", "-g", "daemon off;"]
 ```
 
-
+<br>
 
 ### 7.2.4、ENTRYPOINT
 
@@ -2052,7 +2088,7 @@ CMD ["nginx", "-g", "daemon off;"]
 <ENTRYPOINT> "<CMD>"
 ```
 
-
+<br>
 
 **有了 `CMD` 后，为什么还要有 `ENTRYPOINT`？**
 
@@ -2075,7 +2111,7 @@ CMD ["nginx", "-g", "daemon off;"]
 
   例如：一个 redis 镜像，它的 `ENTRYPOINT` 就是 `redis-server`。你启动它就是为了运行 Redis，你可能会传递一个自定义配置文件的路径作为参数，但你不会想把 `redis-server` 换成 `ls -l`。
 
-
+<br>
 
 **这种 `<ENTRYPOINT> "<CMD>"` 有什么好处？**
 
@@ -2130,7 +2166,7 @@ CMD ["localhost"]
 - 单独使用 `ENTRYPOINT`：适用于创建一个功能非常固定的 "工具型" 容器，但需要用户总是提供参数。
 - `ENTRYPOINT`+`CMD` 组合：适用于创建应用程序镜像。`ENTRYPOINT` 定义了应用本身，`CMD` 定义了应用的默认参数，这使得镜像既稳定又灵活。
 
-
+<br>
 
 ### 7.2.5、ENV
 
@@ -2168,11 +2204,11 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
 
 在这里先定义了环境变量 `NODE_VERSION`，其后的 `RUN` 这层里，多次使用 `$NODE_VERSION` 来进行操作定制。可以看到，将来升级镜像构建版本的时候，只需要更新 `7.2.0` 即可，Dockerfile 构建维护变得更轻松了。
 
-下列指令可以支持环境变量展开： `ADD`、`COPY`、`ENV`、`EXPOSE`、`FROM`、`LABEL`、`USER`、`WORKDIR`、`VOLUME`、`STOPSIGNAL`、`ONBUILD`、`RUN`。
+下列指令可以支持环境变量： `ADD`、`COPY`、`ENV`、`EXPOSE`、`FROM`、`LABEL`、`USER`、`WORKDIR`、`VOLUME`、`STOPSIGNAL`、`ONBUILD`、`RUN`。
 
 可以从这个指令列表里感觉到，环境变量可以使用的地方很多，很强大。通过环境变量，我们可以让一份 Dockerfile 制作更多的镜像，只需使用不同的环境变量即可。
 
-
+<br>
 
 ### 7.2.6、ARG
 
@@ -2250,7 +2286,7 @@ ARG DOCKER_USERNAME=library
 RUN set -x ; echo ${DOCKER_USERNAME}
 ```
 
-
+<br>
 
 ### 7.2.7、VOLUME
 
@@ -2277,7 +2313,7 @@ docker run -d -v mydata:/data xxxx
 
 在这行命令中，就使用了 `mydata` 这个命名卷挂载到了 `/data` 这个位置，替代了 Dockerfile 中定义的匿名卷的挂载配置。
 
- 
+ <br>
 
 ### 7.2.8、EXPOSE
 
@@ -2291,7 +2327,7 @@ EXPOSE <端口1> [<端口2>...]
 
 要将 `EXPOSE` 和在运行时使用 `-p <宿主端口>:<容器端口>` 区分开来。`-p` 是映射宿主端口和容器端口，换句话说，就是将容器的对应端口服务公开给外界访问，而 `EXPOSE` 仅仅是声明容器打算使用什么端口而已，并不会自动在宿主进行端口映射。
 
-
+<br>
 
 ### 7.2.9、WORKDIR
 
@@ -2334,7 +2370,7 @@ RUN pwd
 
 `RUN pwd` 的工作目录为 `/a/b/c`。
 
-
+<br>
 
 ### 7.2.10、USER
 
@@ -2367,7 +2403,7 @@ RUN wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/downloa
 CMD [ "exec", "gosu", "redis", "redis-server" ]
 ```
 
-
+<br>
 
 ### 7.2.11、HEALTHCHECK
 
@@ -2466,7 +2502,7 @@ $ docker inspect --format '{{json .State.Health}}' web | python -m json.tool
 }
 ```
 
-
+<br>
 
 ### 7.2.12、ONBUILD
 
@@ -2480,7 +2516,7 @@ ONBUILD <其它指令>
 
 Dockerfile 中的其它指令都是为了定制当前镜像而准备的，唯有 `ONBUILD` 是为了帮助别人定制自己而准备的。
 
-
+<br>
 
 **为多项目创建统一的构建模板**
 
@@ -2510,7 +2546,7 @@ FROM yourcompany/maven-base:latest
 # 不需要再写 COPY 和 RUN，ONBUILD 会自动执行
 ```
 
-
+<br>
 
 **公司统一构建规范**
 
@@ -2526,7 +2562,7 @@ ONBUILD RUN npm run lint
 ONBUILD RUN npm test
 ```
 
-
+<br>
 
 ### 7.2.13、LABEL
 
@@ -2546,7 +2582,7 @@ LABEL org.opencontainers.image.documentation="https://yeasy.gitbooks.io"
 
 具体可以参考 https://github.com/opencontainers/image-spec/blob/master/annotations.md
 
-
+<br>
 
 ### 7.2.14、SHELL
 
@@ -2586,7 +2622,7 @@ SHELL ["/bin/sh", "-cex"]
 CMD nginx
 ```
 
-
+<br>
 
 ## 7.3、Docker Buildx
 
@@ -2596,4 +2632,3 @@ Docker Buildx 是一个 Docker CLI 插件，其扩展了 Docker 命令，支持 
 >
 > 该功能仅适用于 Docker v19.03+ 版本。
 
-``

@@ -1080,7 +1080,7 @@ footer.ty-footer {
 /* inline codeblock */
 code {
   font-size: 0.9em;
-  background-color: #6952b6;
+  border: 1px solid var(--code-purple-color);
   border-radius: 6px;
   padding: 4px 4px 4px 4px;
   margin: 0px 6px 0px 6px;
