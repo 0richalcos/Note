@@ -36,12 +36,12 @@
 
 ## 📊数据库
 
-- [**MySQL**](https://github.com/0richalcos/Note/blob/main/Markdown/MySQL.md)
-	- [**查询**](https://github.com/0richalcos/Note/blob/main/Markdown/MySQLQuery.md)
+- [**MySQL**](https://github.com/0richalcos/Note/blob/main/Markdown/数据库/MySQL.md)
+	- [**查询**](https://github.com/0richalcos/Note/blob/main/Markdown/数据库/MySQLQuery.md)
 
-- [**Oracle**](https://github.com/0richalcos/Note/blob/main/Markdown/Oracle.md)
-- [**Redis**](https://github.com/0richalcos/Note/blob/main/Markdown/Redis.md)
-- [**Dameng**](https://github.com/0richalcos/Note/blob/main/Markdown/Dameng.md)
+- [**Oracle**](https://github.com/0richalcos/Note/blob/main/Markdown/数据库/Oracle.md)
+- [**Redis**](https://github.com/0richalcos/Note/blob/main/Markdown/数据库/Redis.md)
+- [**Dameng**](https://github.com/0richalcos/Note/blob/main/Markdown/数据库/Dameng.md)
 
 <br>
 
