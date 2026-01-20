@@ -145,9 +145,13 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 ## 2.1、安装
 
-### 2.1.1、Linux
+### 2.1.1、Linux 手动安装
 
 #### 创建用户和所需目录
+
+> [!TIP]
+>
+> 不要使用 root 用户运行 Elasticsearch。请创建一个专用的普通用户，例如 elasticsearch。
 
 1. 创建 elasticsearch 用户并设置密码：
 
@@ -177,7 +181,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
    chown -R elasticsearch:elasticsearch /usr/local/elasticsearch /etc/elasticsearch /var/lib/elasticsearch /var/log/elasticsearch
    ```
 
-
+<br>
 
 #### 安装 Elastisearch
 
@@ -186,7 +190,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 2. 解压到安装目录：
 
    ```shell
-   tar -zxf elasticsearch-7.14.0-linux-x86_64.tar.gz -C /usr/local/elasticsearch --strip-components=1
+   tar -zxf elasticsearch-7.8.0-linux-x86_64.tar.gz -C /usr/local/elasticsearch --strip-components=1
    ```
 
 3. 迁移配置文件：
@@ -197,6 +201,12 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 4. 编辑 `/etc/elasticsearch/elasticsearch.yml`：
 
+   ```shell
+   vim /etc/elasticsearch/elasticsearch.yml
+   ```
+   
+   修改内容如下：
+   
    ```shell
    cluster.name: my-es-cluster
    node.name: node-1
@@ -213,7 +223,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
    discovery.type: single-node
    ```
 
-
+<br>
 
 #### 配置 systemd 服务
 
@@ -272,9 +282,9 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
    systemctl enable elasticsearch
    ```
 
+<br>
 
-
-#### 启动并设置密码
+#### 启动
 
 1. 启动 Elasticsearch：
 
@@ -311,9 +321,70 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
    > firewall-cmd --reload
    > ```
 
+<br>
 
+### 2.1.2、Linux 包安装
 
-### 2.1.2、Docker
+1. 根据操作系统选择相应的命令进行下载安装：
+
+   - 对于 CentOS / RHEL：
+
+     ```shell
+     # 下载最新的 RPM 包
+     wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.8.0-x86_64.rpm -O elasticsearch.rpm
+     
+     # 安装 RPM
+     rpm -ivh elasticsearch.rpm
+     ```
+
+   - 对于 Ubuntu / Debian：
+
+     ```shell
+     # 下载最新的 DEB 包
+     wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.8.0-amd64.deb -O elasticsearch.deb
+     
+     # 安装 DEB
+     dpkg -i elasticsearch.deb
+     ```
+
+2. 编辑 `/etc/elasticsearch/elasticsearch.yml`：
+
+   ```shell
+   vim /etc/elasticsearch/elasticsearch.yml
+   ```
+
+   修改以下内容：
+
+   ```yaml
+   cluster.name: my-es-cluster
+   node.name: node-1
+   
+   # 网络配置
+   network.host: 0.0.0.0
+   
+   # 单节点模式（非集群）
+   discovery.type: single-node
+   ```
+
+   > [!NOTE]
+   >
+   > 如果在 elasticsearch.yml 中自定义了非默认的路径（比如你想把数据放在 `/data/es-data`），必须手动对自定义路径授权： 
+   >
+   > ```shell
+   > chown -R elasticsearch:elasticsearch /data/es-data
+   > ```
+
+3. 启动：
+
+   ```shell
+   systemctl daemon-reload
+   systemctl enable elasticsearch
+   systemctl start elasticsearch
+   ```
+
+<br>
+
+### 2.1.3、Docker
 
 1. 获取镜像：
 
@@ -344,9 +415,9 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
    <img src="!assets/Elasticsearch/image-20220705222221335.png" alt="image-20220705222221335" style="width:80%;" />
 
+<br>
 
-
-### 2.1.3、Windows
+### 2.1.4、Windows
 
 1. 进入[官方页面](https://www.elastic.co/cn/downloads/past-releases#elasticsearch)，点击 Download 进入下载页面：
 
@@ -388,9 +459,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
    <img src="!assets/Elasticsearch/QQ_1726774166786.png" alt="QQ_1726774166786" style="zoom: 67%;" />
 
-
-
-
+<br>
 
 ## 2.2、目录结构
 
@@ -428,69 +497,57 @@ X-Pack 是 Elasticsearch 的一个核心扩展包，它为 Elastic Stack（Elast
 
 ### 2.3.1、启用 X-Pack 安全
 
-在 Linux 系统上部署 Elasticsearch 并开启安全功能，前提条件：
-
-- 一台安装了 Linux 的服务器。
-- 已安装 Java Development Kit（JDK），推荐版本为 JDK 11。Elasticsearch 7.x 兼容 JDK 8，但官方推荐更新的版本。
-- Elasticsearch 已下载并解压（例如，解压到 `/opt/elasticsearch-7.8.0`）。
-
-> [!NOTE]
->
-> 不要使用 root 用户运行 Elasticsearch。请创建一个专用的普通用户，例如 elasticsearch。
-
-开启步骤：
-
-1. 进入 Elasticsearch 的 config 目录：
+1. 编辑 Elasticsearch 配置文件：
 
    ```shell
-   cd /opt/elasticsearch-7.8.0/config
+   vim /etc/elasticsearch/elasticsearch.yml
    ```
 
-2. 编辑 elasticsearch.yml 文件：
-
-   ```shell
-   vim elasticsearch.yml
-   ```
-
-3. 在文件的末尾，添加以下内容。这些配置将启用安全功能，并为单机部署做好准备：
+2. 在文件的末尾，添加以下内容：
 
    ```shell
    # ======================== My Security Settings =========================
    
-   # 1. 开启 X-Pack 安全功能。这是核心开关。
+   # 开启 X-Pack 安全功能。
    xpack.security.enabled: true
    
-   # 2. 开启传输层(节点间)的 TLS 加密。这是生产环境的最佳实践。
+   # 开启传输层(节点间)的 TLS 加密。
    xpack.security.transport.ssl.enabled: true
-   
-   # 3. (可选，但推荐) 为单节点部署设置，避免引导检查错误。
-   discovery.type: single-node
    ```
 
-4. 保存并退出编辑器。
+3. 保存并退出编辑器。
+
+4. 重启 Elasticsearch：
+
+   ```shell
+   # 重启服务
+   systemctl restart elasticsearch
+   
+   # 查看启动状态
+   systemctl status elasticsearch
+   ```
 
 
 
 ### 2.3.2、初始化内置用户密码
 
-在首次启动开启了安全功能的 Elasticsearch 之前，必须为内置的系统用户（如 elastic、kibana_system 等）设置密码：
+> [!NOTE]
+>
+> 需要用到 elasticsearch-setup-passwords 工具：
+>
+> - 在手动安装模式在，该工具在安装目录的 bin 文件夹下。
+> - 在包安装模式下，该工具的完整路径是：`/usr/share/elasticsearch/bin/elasticsearch-setup-passwords`。
 
-1. 先启动 Elasticsearch 服务。
+1. 先保证 Elasticsearch 服务已启动。
 
-2. 新开一个终端，导航到 bin 目录：
-
-   ```shell
-   cd /opt/elasticsearch-7.8.0/bin
-   ```
-
-3. 运行密码设置工具。有两种选择：
+2. 运行密码设置工具。有两种选择：
 
    - 自动生成强密码（推荐）
 
      这是最简单、最安全的方法。工具会自动为所有内置用户生成随机的强密码。
 
      ```shell
-     sudo -u elasticsearch ./elasticsearch-setup-passwords auto
+     sudo -u elasticsearch /usr/share/elasticsearch/bin/elasticsearch-setup-passwords auto
      ```
 
      执行后，终端会输出所有用户的用户名和对应的密码：
@@ -513,7 +570,7 @@ X-Pack 是 Elasticsearch 的一个核心扩展包，它为 Elastic Stack（Elast
      如果想为每个用户手动指定密码，可以使用此模式：
 
      ```shell
-     sudo -u elasticsearch ./elasticsearch-setup-passwords interactive
+     sudo -u elasticsearch /usr/share/elasticsearch/bin/elasticsearch-setup-passwords interactive
      ```
 
      程序会依次提示你为 elastic、kibana_system 等用户输入并确认密码。
@@ -522,7 +579,7 @@ X-Pack 是 Elasticsearch 的一个核心扩展包，它为 Elastic Stack（Elast
 
    ```shell
    # 将 'elastic' 用户的密码重置为想要的值
-   echo "MySecretPassword123!" | ./elasticsearch-reset-password -u elastic -b
+   echo "MySecretPassword123!" | /usr/share/elasticsearch/bin/elasticsearch-setup-passwords -u elastic -b
    ```
 
 
@@ -542,7 +599,7 @@ X-Pack 是 Elasticsearch 的一个核心扩展包，它为 Elastic Stack（Elast
 将 `YOUR_PASSWORD` 替换为你刚才为 elastic 用户设置或生成的密码。
 
 ```shell
-curl -k -u elastic:YOUR_PASSWORD "https://localhost:9200"
+curl -k -u elastic:YOUR_PASSWORD "http://localhost:9200"
 ```
 
 如果成功，你将看到一个包含集群信息的 JSON 响应，如下所示：
@@ -564,7 +621,7 @@ curl -k -u elastic:YOUR_PASSWORD "https://localhost:9200"
 尝试不带凭证访问，验证保护是否生效。
 
 ```shell
-curl -k "https://localhost:9200"
+curl -k "http://localhost:9200"
 ```
 
 你会收到一个 401 Unauthorized 错误，提示需要认证，这证明你的安全配置已成功激活。
@@ -1218,7 +1275,7 @@ POST /_analyze
 3. 移动到 ES 安装目录的 plugins 目录中：
 
    ```shell
-   mv elasticsearch-analysis-ik-7.14.0 elasticsearch-7.14.0/plugins/
+   mv elasticsearch-analysis-ik-7.14.0 elasticsearch-7.8.0/plugins/
    ```
 
 4. 重启 ES 生效

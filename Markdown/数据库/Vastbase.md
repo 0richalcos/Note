@@ -1287,11 +1287,11 @@ echo vastbase >> /etc/cron.allow
 
 ```
 crontab -e -u vastbase
-## Monitor OSWatch every 5 minutes
+# Monitor OSWatch every 5 minutes
 */5 * * * * sh /backup/oswbb/scripts/checkOSWatch.sh 1> /backup/oswbb/scripts/checkOSWatch.sh.out 2>&1
-#Clean DB Logs
+# Clean DB Logs
 0 1 * * * find /data/vblogs/vastbase/pg_log/dn*/ -maxdepth 1 -name "postgresql*" -mtime +90 -exec rm -f {} \;
-#Clean Archive Logs
+# Clean Archive Logs
 0 1 * * * find /backup/archive_wals/ -maxdepth 1  -name "00*" -mtime +7 -exec rm -f {} \;
 ```
 
@@ -1677,5 +1677,7 @@ CREATE SCHEMA yiplat AUTHORIZATION dba;
 <br>
 
 # 4、数据库配置
+
+
 
 <br>

@@ -176,4 +176,5 @@
 
 - [**设置**](https://github.com/0richalcos/Note/blob/main/Markdown/其他/Settings.md)
 - [**解决方案**](https://github.com/0richalcos/Note/blob/main/Markdown/其他/Solutions.md)
+- [**Weasel**](https://github.com/0richalcos/Note/blob/main/Markdown/其他/Weasel.md)
 

@@ -72,7 +72,9 @@ MinIO 服务安装后，可以直接通过浏览器登录系统，完成文件�
 
 ## 2.1、Linux
 
-### 2.1.1、MinIO 安装启动
+### 2.1.1、直接运行
+
+**运行 MinIO**
 
 1. 创建所需要的文件夹：
 
@@ -138,7 +140,7 @@ MinIO 服务安装后，可以直接通过浏览器登录系统，完成文件�
 
 <br>
 
-### 2.1.2、关闭 MinIO
+**关闭 MinIO**
 
 查看端口占用，9000 为 MinIO 占用端口号，`kill` 杀死进程。
 
@@ -154,9 +156,23 @@ kill -9 2524
 
 <br>
 
-### 2.1.3、配置 systemd 服务
+### 2.1.2、手动安装
 
-1. 新建一个 MinIO 配置文件：
+因为二进制包可以直接运行，所以这里配置 systemd 服务文件就可以：
+
+1. 下载安装包：
+
+   这里需要根据自己系统的 Architecture 去下载对应的版本，可以通过 `hostnamectl` 命令查看 Architecture 。
+
+   <img src="!assets/MinIO/image-20230613214942697.png" alt="image-20230613214942697" style="" />
+
+   [点击进入下载地址](https://www.min.io/open-source/download) 或者直接通过 wget 下载：
+
+   ```shell
+    wget https://dl.minio.org.cn/server/minio/release/linux-amd64/minio -O /usr/local/minio/minio
+   ```
+
+2. 新建一个 MinIO 配置文件：
 
    ```bash
    mkdir /etc/minio
@@ -179,7 +195,7 @@ kill -9 2524
    MINIO_OPTS="--address :9000 --console-address :9001"
    ```
 
-2. 新建一个系统服务文件：
+3. 新建一个系统服务文件：
 
    ```bash
    vim /etc/systemd/system/minio.service
@@ -218,13 +234,13 @@ kill -9 2524
    WantedBy=multi-user.target
    ```
 
-3. 重载系统服务：
+4. 重载系统服务：
 
    ```bash
    systemctl daemon-reload
    ```
 
-4. 接下来可以使用以下命令来启动、停止、重启和检查 MinIO 服务的状态：
+5. 接下来可以使用以下命令来启动、停止、重启和检查 MinIO 服务的状态：
 
    ```shell
    systemctl start minio
@@ -233,7 +249,7 @@ kill -9 2524
    systemctl status minio
    ```
 
-5. 如果想要在系统启动时自动启动 MinIO 服务，可以运行以下命令：
+6. 如果想要在系统启动时自动启动 MinIO 服务，可以运行以下命令：
 
    ```shell
    systemctl enable minio
@@ -241,9 +257,108 @@ kill -9 2524
 
 <br>
 
+### 2.1.3、包安装
+
+1. 根据操作系统选择相应的命令进行下载安装：
+
+   - 对于 CentOS / RHEL：
+
+     ```shell
+     # 下载最新的 RPM 包
+     wget https://dl.min.io/server/minio/release/linux-amd64/archive/minio-20241029160148.0.0-1.x86_64.rpm -O minio.rpm
+     
+     # 安装 RPM
+     rpm -ivh minio.rpm
+     ```
+
+   - 对于 Ubuntu / Debian：
+
+     ```shell
+     # 下载最新的 DEB 包
+     wget https://dl.min.io/server/minio/release/linux-amd64/archive/minio_20241029160148.0.0_amd64.deb -O minio.deb
+     
+     # 安装 DEB
+     dpkg -i minio.deb
+     ```
+
+   > [!NOTE]
+   >
+   >  安装完成后自会自动生成 `/usr/lib/systemd/system/minio.service`。
+
+2. 查看系统是否有需要的 minio-user 用户：
+
+   ```shell
+   id minio-user
+   ```
+
+   如果不存在则需要创建需要的用户和组：
+
+   ```shell
+   # 创建系统组
+   groupadd -r minio-user
+   
+   # 创建系统用户（不允许登录，安全第一）
+   useradd -r -g minio-user -s /sbin/nologin minio-user
+   ```
+
+3. 创建数据存储目录并授权：
+
+   ```shell
+   # 创建存储数据的目录
+   mkdir -p /var/lib/minio
+   
+   # RPM/DEB 安装通常会默认使用 minio-user
+   chown -R minio-user:minio-user /var/lib/minio
+   ```
+
+4. 安装包会自动生成一个默认的配置文件路径：`/etc/default/minio`。可以编辑这个文件来设置你的自定义参数：
+
+   ```shell
+   vim /etc/default/minio
+   ```
+
+   将文件内容修改为以下配置：
+
+   ```
+   # 存储目录（可选）
+   MINIO_VOLUMES="/var/lib/minio"
+   
+   # 监听端口 (API端口)
+   MINIO_OPTS="--address :9000 --console-address :9001"
+   # 指定具体的服务器IP（可选）
+   # MINIO_OPTS="--address 192.168.1.100:9000 --console-address :9001"
+   
+   # 管理员用户名
+   MINIO_ROOT_USER="admin"
+   
+   # 管理员密码 (至少8位)
+   MINIO_ROOT_PASSWORD="YourStrongPassword123"
+   ```
+   
+5. 启动并设置自启动：
+
+   ```shell
+   # 重新加载配置
+   systemctl daemon-reload
+   
+   # 启动服务
+   systemctl start minio
+   
+   # 设置开机自启
+   systemctl enable minio
+   ```
+
+6.  检查状态：
+
+   ```shell
+   systemctl status minio
+   ```
+
+<br>
+
 ## 2.2、Windows
 
-### 2.2.1、MinIO 安装启动
+### 2.2.1、直接运行
 
 Windows 环境下和 Linux 大致相同，主要是启动的环境配置有些差异，下方展示如何在 Windows Powershell 中设置环境变量并启动。
 
@@ -383,27 +498,6 @@ $env:MINIO_ROOT_PASSWORD="minioadmin"
 > ```
 >
 > 这将打开与安装时相同的GUI界面，显示所有已配置的选项。
-
-<br>
-
-## 2.3、麒麟V10
-
-1. 查看系统版本：
-
-   ```
-   [root@lightest minio]# uname -a
-   Linux lightest 4.19.90-25.2.v2101.gfb01.ky10.x86_64 #1 SMP Fri Jun 18 12:31:35 CST 2021 x86_64 x86_64 x86_64 GNU/Linux
-   ```
-
-2. 下载二进制文件并给予执行权限：
-
-   ```bash
-   wget https://dl.minio.org.cn/server/minio/release/linux-amd64/minio
-   
-   chmod +x minio
-   ```
-
-3. 安装操作参考 Linux 安装，这里主要是注意下载的 minio 文件版本。
 
 <br>
 
