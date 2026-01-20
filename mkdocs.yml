@@ -6,6 +6,7 @@ edit_uri: edit/main/Markdown/
 # 关键配置：指定你的笔记所在的文件夹名字
 docs_dir: 'Markdown' 
 
+# 主题
 theme:
   name: material
   language: zh
@@ -24,6 +25,10 @@ theme:
       toggle:
         icon: material/brightness-4
         name: 切换亮色模式
+
+# 引入 CSS
+extra_css:
+  - stylesheets/extra.css 
 
 # 必装插件
 plugins:
