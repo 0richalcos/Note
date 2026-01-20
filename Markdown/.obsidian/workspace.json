@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "8e3648bde9263d1b",
+        "id": "e35e6eeca61668a4",
         "type": "tabs",
         "children": [
           {
-            "id": "9809c0e245e44d35",
+            "id": "319424c56bb0b9c1",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "运维/Linux.md",
-                "mode": "preview",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Linux"
+              "title": "新标签页"
             }
           }
         ]
@@ -84,13 +80,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "运维/Linux.md",
                 "followCursor": true,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Linux 的大纲"
+              "title": "大纲"
             }
           },
           {
@@ -156,11 +151,14 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "9809c0e245e44d35",
+  "active": "319424c56bb0b9c1",
   "lastOpenFiles": [
+    "Java/JavaCollection.md",
+    "Java/Java8.md",
+    "Java/Java.md",
+    "运维/Linux.md",
     "数据库/Redis.md",
     "运维/Nginx.md",
-    "运维/Linux.md",
     "运维/Docker.md",
     "其他/Solutions.md",
     "其他/Settings.md",
@@ -184,9 +182,6 @@
     "认证与授权/Shiro.md",
     "认证与授权/Sa-Token.md",
     "分布式存储/FastDFS.md",
-    "分布式存储/MinIO.md",
-    "持久层框架/MyBatis-Plus.md",
-    "持久层框架/Mybatis.md",
     "!assets/AntV-X6/image-20220505010914905.png",
     "!assets/AntV-X6/image-20220505010314434.png",
     "!assets/AntV-X6/image-20220505005938460.png",
