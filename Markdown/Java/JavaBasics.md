@@ -85,32 +85,32 @@ JDK（Java Development Kit，Java 开发工具包）是一种用于构建在 Jav
 
 1. 在浏览器输入www.oracle.com，打开 Oracle 公司的官方网站：
 
-   <img src="!assets/JavaBasics/image-20200422004026006.png" alt="image-20200422004026006" style="width: 90%;" />
-   
+	<img src="!assets/JavaBasics/image-20200422004026006.png" alt="image-20200422004026006" style="zoom: 50%;" />
+
 2. 找到下载：
 
-   <img src="!assets/JavaBasics/image-20200422004245571.png" alt="image-20200422004245571" style="width: 90%;" />
-   
+	<img src="!assets/JavaBasics/image-20200422004245571.png" alt="image-20200422004245571" style="width: 90%;" />
+
 3. 选择 Java：
 
-   <img src="!assets/JavaBasics/image-20200422004518386.png" alt="image-20200422004518386" style="width: 90%;" />
-   
+	<img src="!assets/JavaBasics/image-20200422004518386.png" alt="image-20200422004518386" style="width: 90%;" />
+
 4. 选择 JDK：
 
-   <img src="!assets/JavaBasics/image-20200422004642820.png" alt="image-20200422004642820" style="width:90%;" />
-   
+	<img src="!assets/JavaBasics/image-20200422004642820.png" alt="image-20200422004642820" style="width:90%;" />
+
 5. 下载 1.8 版本：
 
-   <img src="!assets/JavaBasics/image-20200422004732694.png" alt="image-20200422004732694" style="width: 65%;" />
-   
+	<img src="!assets/JavaBasics/image-20200422004732694.png" alt="image-20200422004732694" style="width: 65%;" />
+
 6. 选择自己需要的版本：
 
-   <img src="!assets/JavaBasics/image-20200422004854336.png" alt="image-20200422004854336" style="width:90%;" />
-   
+	<img src="!assets/JavaBasics/image-20200422004854336.png" alt="image-20200422004854336" style="width:90%;" />
+
 7. 同意协议，开始下载：
 
-   <img src="!assets/JavaBasics/image-20200422005006331.png" alt="image-20200422005006331" style="width:90%;" />
-   
+	<img src="!assets/JavaBasics/image-20200422005006331.png" alt="image-20200422005006331" style="width:90%;" />
+
 8. 下载完成后运行 exe 执行文件，开始安装，一共会安装两次，第一次是安装 JDK，第二次是安装 JRE（Java Runtime Environment，Java 运行环境）。
 
 
@@ -132,7 +132,7 @@ JDK（Java Development Kit，Java 开发工具包）是一种用于构建在 Jav
 
 1. 进入 [下载页面](https://www.oracle.com/cn/java/technologies/downloads/) 后首先看到的是 Java 最新版本的下载界面，在这我需要下载 Java 8 的版本，所以得划到下面的界面，即界面如下：
 
-   <img src="./!assets/JavaBasics/1670015-20230801223950250-1670016853.png" alt="img" style="zoom: 50%;" />
+	<img src="./!assets/JavaBasics/1670015-20230801223950250-1670016853.png" alt="img" style="zoom: 50%;" />
 
 2. 在这里将下载：jdk-8u381-linux-x64.tar.gz（压缩包方式安装）、jdk-8u381-linux-x64.rpm（rpm 方式安装），下载完成之后将其上传到 Linux 系统。
 
