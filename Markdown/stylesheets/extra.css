@@ -7,7 +7,7 @@
 .md-typeset h5,
 .md-typeset h6 {
     /* 上间距：原版大概是 1.25em，这里加倍，拉开与上一段的距离 */
-    margin-top: 3em !important; 
+    margin-top: 2em !important; 
     
     /* 下间距：保持紧凑，体现与下方正文的关联 */
     margin-bottom: 0.8em !important;
