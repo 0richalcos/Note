@@ -5,6 +5,8 @@ edit_uri: edit/main/Markdown/
 
 # 关键配置：指定你的笔记所在的文件夹名字
 docs_dir: 'Markdown' 
+# 禁止生成目录式 URL (Pretty URLs)
+use_directory_urls: false
 
 # 主题
 theme:
