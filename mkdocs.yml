@@ -13,7 +13,6 @@ theme:
     - navigation.top           # 回到顶部按钮
     - navigation.indexes    # 允许点击文件夹查看 index.md
     - navigation.tracking    # 滚动正文时，左侧/右侧导航自动跟随高亮
-    - navigation.expand    # 打开页面时，左侧菜单默认展开当前层级
   palette: 
     - scheme: default
       primary: teal         
