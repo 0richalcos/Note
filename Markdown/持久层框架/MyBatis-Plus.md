@@ -1,7 +1,3 @@
----
-typora-copy-images-to: upload
----
-
 # 1、快速入门
 
 ## 1.1、简介
