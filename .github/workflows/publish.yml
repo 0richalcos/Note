@@ -1,0 +1,28 @@
+name: 自动构建文档
+on:
+  push:
+    branches:
+      - main # 或者是 master，请确认你的主分支名称
+permissions:
+  contents: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+          
+      # 缓存依赖，加快构建速度
+      - uses: actions/cache@v4
+        with:
+          key: ${{ github.ref }}
+          path: .cache
+          
+      # 安装 MkDocs, Material 主题 和 自动目录插件
+      - run: pip install mkdocs-material mkdocs-awesome-pages-plugin
+      
+      # 开始构建并发布到 gh-pages 分支
+      - run: mkdocs gh-deploy --force
