@@ -12,7 +12,7 @@ Docker 自开源后受到广泛的关注和讨论，至今其 GitHub 项目 已�
 
 Docker 使用 Google 公司推出的 Go 语言进行开发实现，基于 Linux 内核的 cgroup、namespace 以及 OverlayFS 类的 Union FS 等技术，对进程进行封装隔离，属于 操作系统层面的虚拟化技术。由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器。最初实现是基于 LXC，从 0.7 版本以后开始去除 LXC，转而使用自行开发的 libcontainer，从 1.11 版本开始，则进一步演进为使用 runc 和 containerd。
 
-<img src="!assets/Docker/QQ_1726405952388.png" alt="QQ_1726405952388" style="zoom: 33%;" />
+<img src="!assets/Docker/QQ_1726405952388.png" alt="QQ_1726405952388" style="zoom:33%;" />
 
 > [!NOTE]
 >

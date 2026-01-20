@@ -26,10 +26,10 @@
 /* 用法：**加粗文字**{.t} */
 .t {
     display: block;
-    margin-top: 1.65em;     /* 保持和 H4 一样的上间距 */
+    margin-top: 1.65em;
     margin-bottom: 0.8em;
     font-weight: bold;
-    font-size: 1.1em;
+    font-size: 1.05em;
     color: var(--md-typeset-color);
 }
 
