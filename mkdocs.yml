@@ -35,6 +35,9 @@ plugins:
 
 # Markdown 渲染增强
 markdown_extensions:
+  - toc:
+      permalink: true
+      toc_depth: 1-6  # 强制大纲抓取 H1 到 H3
   - admonition             
   - pymdownx.details       
   - pymdownx.highlight     

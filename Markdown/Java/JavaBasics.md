@@ -1,5 +1,5 @@
 ---
-title: Java基础
+title: Java 基础
 ---
 
 # 1、入门基础及环境搭建
