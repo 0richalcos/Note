@@ -1,14 +1,12 @@
----
-typora-copy-images-to: upload
----
+# Maven
 
-# 1、简介
+## 1、简介
 
 Apache Maven 是一个软件项目管理和理解工具。基于项目对象模型（POM）的概念，Maven 可以从中心信息中管理项目的构建、报告和文档。
 
 
 
-# 2、多环境配置与应用
+## 2、多环境配置与应用
 
 Maven 提供配置多种环境的设定，帮助开发者使用过程中快速切换环境。
 
@@ -16,7 +14,7 @@ Maven 提供配置多种环境的设定，帮助开发者使用过程中快速�
 
 
 
-## 2.1、多环境配置
+### 2.1、多环境配置
 
 ```xml
 <!--定义多环境-->
@@ -52,7 +50,7 @@ Maven 提供配置多种环境的设定，帮助开发者使用过程中快速�
 
 
 
-## 2.2、使用多环境
+### 2.2、使用多环境
 
 命令：
 
@@ -68,7 +66,7 @@ mvn clean package –P pro_env
 
 
 
-## 2.3、命令行指定 localRepository
+### 2.3、命令行指定 localRepository
 
  ```shell
  mvn compile -D maven.repo.local=/opt/maven_build/2ADD3ECC60358D583AEDDA5FB085F2FD/repos
@@ -76,7 +74,7 @@ mvn clean package –P pro_env
 
 
 
-# 3、资源过滤
+## 3、资源过滤
 
 `nonFilteredFileExtensions` 是 Apache Maven 的一个 POM 构建选项，用于通过指定一组文件后缀名，告诉 Maven 在执行资源过滤时不需要对这些文件进行处理。
 
@@ -108,9 +106,9 @@ mvn clean package –P pro_env
 
 
 
-# 4、使用问题
+## 4、使用问题
 
-## 4.1、导入依赖失效，刷新没反应
+### 4.1、导入依赖失效，刷新没反应
 
 可能出现的问题：
 
@@ -133,7 +131,7 @@ mvn clean package –P pro_env
 
 
 
-## 4.2、Maven 上传本地文件到私库
+### 4.2、Maven 上传本地文件到私库
 
 **上传 jar 和 pom 文件**
 

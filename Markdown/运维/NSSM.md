@@ -1,10 +1,12 @@
-# 1、什么是 NSSM？
+# NSSM
+
+## 1、什么是 NSSM？
 
 NSSM 是一个开源的服务封装工具，全称是 "Non-Sucking Service Manager"（意为 “不那么蹩脚的服务管理器”）。它的主要目的是将普通的、非设计为 Windows 服务的可执行程序（`.exe`、脚本等）封装成标准的 Windows 服务。这样，这些程序就可以像其他系统服务一样，在后台运行、随系统启动、自动重启、并由 Windows 服务管理器（`services.msc`）进行管理。
 
 
 
-# 2、为什么需要 NSSM？
+## 2、为什么需要 NSSM？
 
 Windows 自带了一个命令行工具 `sc.exe`（Service Control），也可以用来创建和管理服务。那么为什么还需要 NSSM 呢？
 
@@ -35,7 +37,7 @@ Windows 自带了一个命令行工具 `sc.exe`（Service Control），也可以
 
 
 
-# 3、获取和准备 NSSM
+## 3、获取和准备 NSSM
 
 1.  访问 NSSM [官方网站](https://nssm.cc/)。
 2.  通常下载最新的稳定版本（stable release），下载完成你会得到一个 zip 压缩包。
@@ -48,9 +50,9 @@ Windows 自带了一个命令行工具 `sc.exe`（Service Control），也可以
 
 
 
-# 4、使用 NSSM
+## 4、使用 NSSM
 
-## 4.1、使用 GUI
+### 4.1、使用 GUI
 
 运行 `nssm install <ServiceName>` 会打开配置界面，`nssm edit <ServiceName>` 会打开已存在服务的配置界面。
 
@@ -58,7 +60,7 @@ Windows 自带了一个命令行工具 `sc.exe`（Service Control），也可以
 
 
 
-### 4.1.1、Application
+#### 4.1.1、Application
 
 Application（应用程序）- 核心配置
 
@@ -92,7 +94,7 @@ Application（应用程序）- 核心配置
 
 
 
-### 4.1.2、Details
+#### 4.1.2、Details
 
 Details（详细信息）- 服务标识
 
@@ -125,7 +127,7 @@ Details（详细信息）- 服务标识
 
 
 
-### 4.1.3、Log on
+#### 4.1.3、Log on
 
 Log on（登录）- 运行身份
 
@@ -137,7 +139,7 @@ Log on（登录）- 运行身份
 
 
 
-### 4.1.4、Dependencies
+#### 4.1.4、Dependencies
 
 Dependencies（依赖项）- 服务启动顺序
 
@@ -154,7 +156,7 @@ RabbitMQ
 
 
 
-### 4.1.5、Process
+#### 4.1.5、Process
 
 Process（进程）- 性能与资源
 
@@ -178,7 +180,7 @@ Process（进程）- 性能与资源
 
 
 
-### 4.1.6、Shutdown
+#### 4.1.6、Shutdown
 
 Shutdown（关闭）- 优雅退出
 
@@ -208,7 +210,7 @@ Shutdown（关闭）- 优雅退出
 
 
 
-### 4.1.7、Exit actions
+#### 4.1.7、Exit actions
 
 Exit actions（退出操作）- 可靠性核心
 
@@ -228,7 +230,7 @@ Exit actions（退出操作）- 可靠性核心
 
 
 
-### 4.1.8、I/O
+#### 4.1.8、I/O
 
 I/O（输入/输出）- 日志捕获
 
@@ -256,7 +258,7 @@ I/O（输入/输出）- 日志捕获
 
 
 
-### 4.1.9、File rotation
+#### 4.1.9、File rotation
 
 ile rotation（文件轮换）- 日志管理
 
@@ -288,7 +290,7 @@ ile rotation（文件轮换）- 日志管理
 
 
 
-### 4.1.10、Environment
+#### 4.1.10、Environment
 
 Environment（环境）- 运行环境
 
@@ -313,13 +315,13 @@ Environment（环境）- 运行环境
 
 
 
-## 4.2、使用 CLI
+### 4.2、使用 CLI
 
 CLI 适合脚本自动化或熟悉命令行的用户。
 
 
 
-### 4.2.1、安装服务
+#### 4.2.1、安装服务
 
 安装命令为：
 
@@ -335,7 +337,7 @@ nssm install MyNodeApp "C:\Program Files\nodejs\node.exe" "C:\path\to\my\app\ser
 
 
 
-### 4.2.2、设置服务参数
+#### 4.2.2、设置服务参数
 
 配置命令为（安装后配置）：
 
@@ -416,7 +418,7 @@ nssm set <ServiceName> <Parameter> <Value>
 
 
 
-### 4.2.3、管理服务状态
+#### 4.2.3、管理服务状态
 
 启动服务：
 
@@ -444,7 +446,7 @@ nssm status <ServiceName>
 
 
 
-### 4.2.4、获取服务参数
+#### 4.2.4、获取服务参数
 
 获取服务参数命令为：
 
@@ -460,7 +462,7 @@ nssm get MyNodeApp AppDirectory
 
 
 
-### 4.2.5、删除服务
+#### 4.2.5、删除服务
 
 删除服务命令为：
 
@@ -472,7 +474,7 @@ nssm remove <ServiceName> confirm
 
 
 
-## 4.3、使用 Windows 服务管理器 
+### 4.3、使用 Windows 服务管理器 
 
 一旦使用 NSSM 创建了服务，它就会出现在标准的 Windows 服务列表中（按 Win+R，输入 `services.msc` 并回车）。你可以像管理其他任何 Windows 服务一样，在这里：
 

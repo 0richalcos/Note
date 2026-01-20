@@ -1,6 +1,8 @@
-# Windows
+# Settings
 
-## 【1】默认管理员权限
+## Windows
+
+### 【1】默认管理员权限
 
 1. 按下 Win+R 快捷键唤出【运行】窗口，输入 `gpedit.msc` 打开【组策略编辑器】。
 
@@ -19,7 +21,7 @@
 
 <br>
 
-## 【2】diskpart 操作硬盘
+### 【2】diskpart 操作硬盘
 
 DiskPart 是 Windows 11 中的命令行实用程序，使您可以使用 DiskPart 命令提示符执行磁盘分区操作。下面通过示例了解如何使用 DiskPart。
 
@@ -55,7 +57,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 <br>
 
-### 【2.1】转换磁盘格式
+#### 【2.1】转换磁盘格式
 
 当使用微软官方工具（如「媒体创建工具」或「Windows 安装镜像」）制作启动盘并安装系统时，如果目标磁盘的分区格式不是 GPT（GUID 分区表），可能会出现错误提示，例如：
 
@@ -97,7 +99,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 <br>
 
-### 【2.2】解除磁盘写保护
+#### 【2.2】解除磁盘写保护
 
 写保护，也称为只读模式，它可以是虚拟的或实体的。当硬盘或其他存储设备如 U 盘启用了写保护时，将无法对其进行任何写操作。
 
@@ -125,7 +127,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 <br>
 
-## 【3】系统迁移
+### 【3】系统迁移
 
 使用 DiskGenius 软件，可以方便地将系统从一个硬盘迁移到另外一个硬盘上，或者更常见的是将系统从 HDD 硬盘迁移到 SSD 固态硬盘、U 盘等。
 
@@ -189,7 +191,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 <br>
 
-## 【4】解决端口占用
+### 【4】解决端口占用
 
 1. cmd 命令窗口输入 `netstat –ano` 回车，会显示所有已经在运行的端口情况，其中 PID（最后一列数字就是 PID）为进程号。
 
@@ -213,7 +215,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 <br>
 
-## 【5】compact 压缩
+### 【5】compact 压缩
 
 它可以对所有的系统文件进行压缩，实现磁盘压缩，节约硬盘空间。
 
@@ -223,9 +225,9 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 <br>
 
-## 【6】右键菜单设置
+### 【6】右键菜单设置
 
-### 【6.1】删除右键菜单新建中的选项
+#### 【6.1】删除右键菜单新建中的选项
 
 1. 按下 Win+R，运行 `regedit`。
 2. 展开 `HKEY_CLASSES_ROOT`，找到需要删除的文件后缀名，然后展开文件夹找到 `ShellNew` 选项，直接删除即可。
@@ -236,7 +238,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 <br>
 
-### 【6.2】解决腾讯文档替换 Windows 右键快捷方式
+#### 【6.2】解决腾讯文档替换 Windows 右键快捷方式
 
 在使用一段腾讯文档之后，发现腾讯文档替换掉了我 Windows 上原来 Office 三件套的右键新建文件快捷方式：
 
@@ -270,7 +272,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 <br>
 
-### 【6.3】删除右键菜单的 AMD Software
+#### 【6.3】删除右键菜单的 AMD Software
 
 1. Win+R 运行 `regedit` 打开注册表编辑器，先定位到 `计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Classes\PackagedCom\Package`。
 
@@ -288,7 +290,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 <br>
 
-## 【7】取消开机密码
+### 【7】取消开机密码
 
 这里分两种情况，一种是微软账号登录，一种是本地帐号登录。
 
@@ -313,7 +315,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 <br>
 
-## 【8】微软输入法快速输入时间
+### 【8】微软输入法快速输入时间
 
 1. 右键托盘的输入法，选择【用户自定义短语】：
 
@@ -334,7 +336,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 <br>
 
-## 【9】通过网络共享文件
+### 【9】通过网络共享文件
 
 在局域网中，可以通过 Windows 资源管理器的【网络】快速和其他机器共享文件，具体操作步骤如下：
 
@@ -366,7 +368,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 <br>
 
-## 【10】手动增加开机启动项
+### 【10】手动增加开机启动项
 
 **“启动” 文件夹**
 
@@ -398,7 +400,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 <br>
 
-## 【11】关闭系统小组件
+### 【11】关闭系统小组件
 
 隐藏只需要在任务栏设置中设置就好了。
 
@@ -418,13 +420,13 @@ winget install 9MSSGKG348SP
 
 <br>
 
-## 【12】环境变量不换行显示
+### 【12】环境变量不换行显示
 
 这是因为变量值的第一个是相对地址，只需要将一个绝对地址（带盘符）的放首位，然后逗号分隔，确定之后，再双击打开就是换行显示了！
 
 <br>
 
-## 【13】你的 PIN 不可用
+### 【13】你的 PIN 不可用
 
 开机遇到一系列问题：
 
@@ -462,7 +464,7 @@ winget install 9MSSGKG348SP
 
 <br>
 
-## 【14】sc 控制服务
+### 【14】sc 控制服务
 
 `sc` 命令的语法格式：
 
@@ -506,7 +508,7 @@ sc <server> [command] [service name] <option1> <option2>...
 
 <br>
 
-## 【15】mstsc 远程连接
+### 【15】mstsc 远程连接
 
 远程桌面的命令行指令 `mstsc`，它的意思是 Microsoft Terminal Server Connection（微软终端服务器连接）的缩写。
 
@@ -514,7 +516,7 @@ sc <server> [command] [service name] <option1> <option2>...
 
 <br>
 
-### 【15.1】提示 Windows Defender Credential Guard 不允许使用已保存的凭据
+#### 【15.1】提示 Windows Defender Credential Guard 不允许使用已保存的凭据
 
 <img src="!assets/Settings/image-20231216141553114.png" alt="image-20231216141553114" style="" />
 
@@ -536,7 +538,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 <br>
 
-### 【15.2】删除远程连接记录
+#### 【15.2】删除远程连接记录
 
 1. Win + R 打开【运行】，输入 `regedit` 命令打开注册表；
 
@@ -550,7 +552,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 <br>
 
-### 【15.3】修改远程桌面的侦听端口
+#### 【15.3】修改远程桌面的侦听端口
 
 > [!NOTE]
 >
@@ -569,7 +571,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 <br>
 
-### 【15.4】远程本地多用户桌面
+#### 【15.4】远程本地多用户桌面
 
 使用远程桌面连接本地电脑的其他账户，可以避免电脑跟你抢键鼠，主要步骤：
 
@@ -580,7 +582,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 <br>
 
-#### 创建新用户
+##### 创建新用户
 
 1. 右键 Windows 图标点击【计算机管理】：
 
@@ -604,7 +606,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 <br>
 
-#### 配置本地组策略
+##### 配置本地组策略
 
 1. Win+R 打开运行窗口，输入 `gpedit.msc`，打开本地组策略编辑器，依次选择【计算机配置】=>【管理模板】=>【Windows组件】=>【远程桌面服务】=>【远程桌面会话主机】=>【连接】：
 
@@ -618,7 +620,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 <br>
 
-#### 安装 RDP Wrapper 补丁
+##### 安装 RDP Wrapper 补丁
 
 1. [下载地址](https://github.com/sebaxakerhtc/rdpwrap)，下载 RDPW_Installer.exe 文件。
 
@@ -656,7 +658,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 <br>
 
-#### 连接本地桌面
+##### 连接本地桌面
 
 1. Win+R 打开运行窗口，输入 `mstsc`，输入本地回环地址，注意不要输入 `127.0.0.1` 否则会报错：
 
@@ -676,7 +678,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 <br>
 
-## 【16】控制台设置代理
+### 【16】控制台设置代理
 
 **临时设置**
 
@@ -732,7 +734,7 @@ localhost,127.0.0.1,Orichalcos.com
 
 <br>
 
-## 【17】取消 Ctrl+空格 快捷键
+### 【17】取消 Ctrl+空格 快捷键
 
 > [!NOTE]
 >
@@ -770,7 +772,7 @@ localhost,127.0.0.1,Orichalcos.com
 
 <br>
 
-## 【18】彻底关闭病毒实时保护
+### 【18】彻底关闭病毒实时保护
 
 1. 首先按 Win+R，输入 `gpedit.msc` 按回车打开【组策略编辑器】。
 
@@ -784,7 +786,7 @@ localhost,127.0.0.1,Orichalcos.com
 
 <br>
 
-## 【19】Xbox 卸载
+### 【19】Xbox 卸载
 
 直接将 Xbox 和 Game Bar 相关的程序都卸载。
 
@@ -806,7 +808,7 @@ localhost,127.0.0.1,Orichalcos.com
 
 <br>
 
-## 【20】开发驱动器
+### 【20】开发驱动器
 
 开发驱动器是一种新形式的存储卷，可用于提高关键开发人员工作负载的性能。
 
@@ -884,9 +886,9 @@ localhost,127.0.0.1,Orichalcos.com
 
 <br>
 
-# Chrome
+## Chrome
 
-## 【1】移动 Chrome 的数据文件
+### 【1】移动 Chrome 的数据文件
 
 Chrome 默认的数据文件地址是：C:\Users\Orichalcos\AppData\Local\Google
 
@@ -898,7 +900,7 @@ mklink <旧地址> <新地址>
 
 <br>
 
-## 【2】主页被篡改
+### 【2】主页被篡改
 
 浏览器主页被篡改，直接去浏览器的设置里找首页设置一般没用，可以看一下是不是快捷方式出了问题，找到浏览器的快捷方式，右键查看【属性】，通常目标栏显示的都是浏览器的安装目录：
 
@@ -913,7 +915,7 @@ mklink <旧地址> <新地址>
 
 <br>
 
-## 【3】访问带端口的页面提示 ERR_UNSAFE_PORT
+### 【3】访问带端口的页面提示 ERR_UNSAFE_PORT
 
 使用非默认端口 Chrome 等浏览器提示非安全端口，详见 [官方文件](https://chromium.googlesource.com/chromium/src.git/+/refs/heads/master/net/base/port_util.cc)。
 
@@ -1002,9 +1004,9 @@ mklink <旧地址> <新地址>
 
 <br>
 
-# IDEA
+## IDEA
 
-## 【1】Maven 部分文件无法导出
+### 【1】Maven 部分文件无法导出
 
 Maven 由于它的约定大于配置，之后可能遇到写的配置文件，无法被导出或者生效的问题
 
@@ -1033,7 +1035,7 @@ Maven 由于它的约定大于配置，之后可能遇到写的配置文件，�
 
 <br>
 
-## 【2】Maven 框架 web-app 中 web.xml 版本过低
+### 【2】Maven 框架 web-app 中 web.xml 版本过低
 
 1. 找到 maven-archetype-webapp 的 jar 包位置：`<Maven位置>\repository\org\apache\maven\archetypes\maven-archetype-webapp\1.4`。
 2. 用压缩包形式打开，不要解压！
@@ -1055,7 +1057,7 @@ Maven 由于它的约定大于配置，之后可能遇到写的配置文件，�
 
 <br>
 
-## 【3】修改内存大小
+### 【3】修改内存大小
 
 **在 IDEA 中显示内存**
 
@@ -1073,7 +1075,7 @@ Maven 由于它的约定大于配置，之后可能遇到写的配置文件，�
 
 <br>
 
-## 【4】注释设置首行缩进
+### 【4】注释设置首行缩进
 
 IDEA 通过快捷键 Ctrl + / 进行注释的代码不会进行首行缩进：
 
@@ -1095,7 +1097,7 @@ IDEA 通过快捷键 Ctrl + / 进行注释的代码不会进行首行缩进：
 
 <br>
 
-## 【5】Lombok 报错
+### 【5】Lombok 报错
 
 IDEA 因为 Lombok 的报错：
 
@@ -1138,7 +1140,7 @@ Lombok supports: sun/apple javac 1.6, ECJ
 
 <br>
 
-## 【6】插件：Camel Case
+### 【6】插件：Camel Case
 
 下划线 <=> 驼峰，你是怎么转换的，一个一个字母的修改吗？
 
@@ -1153,7 +1155,7 @@ Camel Case 包含 6 种格式的切换，可能某些格式是平时不用的，
 <br>
 
 
-## 【7】jar 包自动导入及优化
+### 【7】jar 包自动导入及优化
 
 加快开发效率，除去没用的包，洁癖者必用!   这样设置，就可以自动导入包以及除去没有用到的包！
 
@@ -1166,7 +1168,7 @@ Camel Case 包含 6 种格式的切换，可能某些格式是平时不用的，
 
 <br>
 
-## 【8】保存时触发操作
+### 【8】保存时触发操作
 
 IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化，优化 Java 包导入。我们可以在【Settings】=>【Tools】=>【Actions on Save】进行设置：
 
@@ -1179,7 +1181,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 <br>
 
-## 【9】正则替换
+### 【9】正则替换
 
 在开发时遇到需要大量替换代码时，不需要一个一个的去改，可以使用**正则替换**：
 
@@ -1190,7 +1192,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 <br>
 
-## 【10】设置类和方法模板
+### 【10】设置类和方法模板
 
 **设置类模板**
 
@@ -1216,7 +1218,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 <br>
 
-## 【11】插件：Translation
+### 【11】插件：Translation
 
 可以在 IDEA 使用翻译功能，效果：
 
@@ -1276,7 +1278,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 <br>
 
-## 【12】Defender 排除项目目录
+### 【12】Defender 排除项目目录
 
 <img src="!assets/Settings/image-20221122104415995.png" alt="image-20221122104415995" style="zoom: 67%;" />
 
@@ -1292,7 +1294,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 <br>
 
-## 【13】修改（文件）编码格式
+### 【13】修改（文件）编码格式
 
 IntelliJ IDEA 可以在菜单中的【File】=>【Settings】=>【Editor】=>【File Encoding】下修改项目文件的编码：
 
@@ -1317,9 +1319,9 @@ IntelliJ IDEA 可以在菜单中的【File】=>【Settings】=>【Editor】=>【
 
 <br>
 
-# Windows Server
+## Windows Server
 
-## 【1】激活
+### 【1】激活
 
 **评估版本改变为正式版本**
 
@@ -1375,7 +1377,7 @@ IntelliJ IDEA 可以在菜单中的【File】=>【Settings】=>【Editor】=>【
 
 <br>
 
-## 【2】安装 Windows Terminal
+### 【2】安装 Windows Terminal
 
 1. 在 Windows Server 2022 上打开【开始】。
 
@@ -1417,7 +1419,7 @@ IntelliJ IDEA 可以在菜单中的【File】=>【Settings】=>【Editor】=>【
 
 <br>
 
-## 【3】关闭系统自动更新
+### 【3】关闭系统自动更新
 
 1. 在终端中输入命令 `sconfig` 回车：
 
@@ -1437,7 +1439,7 @@ IntelliJ IDEA 可以在菜单中的【File】=>【Settings】=>【Editor】=>【
 
 <br>
 
-## 【4】修改 CMD 窗口标题
+### 【4】修改 CMD 窗口标题
 
 在命令行中输入：
 
@@ -1453,7 +1455,7 @@ set "title=名字"
 
 <br>
 
-## 【5】服务器与本地电脑无法远程复制粘贴
+### 【5】服务器与本地电脑无法远程复制粘贴
 
 通过重启 rdpclip.exe 进程解决：
 
@@ -1471,7 +1473,7 @@ set "title=名字"
 
 <br>
 
-## 【6】开启 OpenSSH
+### 【6】开启 OpenSSH
 
 **本地电脑配置**
 
@@ -1536,9 +1538,9 @@ set "title=名字"
 
 <br>
 
-# TortoiseSVN
+## TortoiseSVN
 
-## 【1】存储库尚未启用接受修订注释更改
+### 【1】存储库尚未启用接受修订注释更改
 
 使用 SVN 提交版本信息时，注释内容写的不全。
 
@@ -1576,7 +1578,7 @@ ask the administrator to create a pre-revprop-change hook
 
 <br>
 
-## 【2】查看本地 SVN 账号密码
+### 【2】查看本地 SVN 账号密码
 
 1. 找到存放 SVN 账号密码的路径，默认路径 `C:\Users\{用户名}\AppData\Roaming\Subversion\auth\svn.simple`。
 
@@ -1588,9 +1590,9 @@ ask the administrator to create a pre-revprop-change hook
 
 <br>
 
-# PowerShell
+## PowerShell
 
-## 【1】安装 PowerShell
+### 【1】安装 PowerShell
 
 **使用 Winget 安装 PowerShell（推荐）**
 
@@ -1620,7 +1622,7 @@ Winget 是 Windows 软件包管理器，是一个命令行工具，使用户能�
 
 <br>
 
-## 【2】因为在此系统上禁止运行脚本
+### 【2】因为在此系统上禁止运行脚本
 
 **报错详情**
 
@@ -1667,7 +1669,7 @@ RemoteSigned
 
 <br>
 
-## 【3】Powershell7 中文乱码
+### 【3】Powershell7 中文乱码
 
 在 `$Profile` 文件（`notepad.exe $Profile`）中添加或者直接在终端里运行：
 
@@ -1685,9 +1687,9 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 
 <br>
 
-# IDM
+## IDM
 
-## 【1】关闭假序列号弹窗
+### 【1】关闭假序列号弹窗
 
 使用破解版的 IDM 会时不时出现假序列号弹窗：
 
@@ -1719,7 +1721,7 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 
 <br>
 
-## 【2】浏览器拓展错误
+### 【2】浏览器拓展错误
 
 使用破解版的 IDM 下载时浏览器提示扩展错误：
 
@@ -1747,9 +1749,9 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 
 <br>
 
-# Unity
+## Unity
 
-## 【1】改变游戏启动窗口大小
+### 【1】改变游戏启动窗口大小
 
 可以从命令行启动 Unity 播放器并传入参数来更改播放器的执行方式：
 

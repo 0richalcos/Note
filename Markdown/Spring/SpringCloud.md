@@ -1,8 +1,6 @@
----
-typora-copy-images-to: upload
----
+# SpringCloud
 
-# 1、微服务
+## 1、微服务
 
 微服务就是由一系列围绕自己业务开发的微小服务构成，他们独立部署运行在自己的进程里，基于分布式进行管理。
 
@@ -10,7 +8,7 @@ typora-copy-images-to: upload
 
 
 
-## 1.1、单体应用和微服务结构应用
+### 1.1、单体应用和微服务结构应用
 
 **单体应用**
 
@@ -47,7 +45,7 @@ typora-copy-images-to: upload
 
 
 
-## 1.2、架构的演变
+### 1.2、架构的演变
 
 `[单一应用架构] `==> ` [垂直应用架构] ` ==> ` [分布式服务架构] ` ==>` [流动计算架构]||[微服务架构]` 
 
@@ -77,7 +75,7 @@ typora-copy-images-to: upload
 
 
 
-# 2、SpringCloud
+## 2、SpringCloud
 
 SpringCloud 为开发人员提供了在分布式系统中快速构建一些通用模式的工具，例如配置管理、服务发现、断路器、智能路由、微代理、控制总线。分布式系统的协调导致了锅炉板模式，开发人员使用 SpringCloud 可以快速地建立实现这些模式的服务和应用程序。
 
@@ -87,7 +85,7 @@ SpringCloud 为开发人员提供了在分布式系统中快速构建一些通�
 
 
 
-## 2.1、核心组件说明
+### 2.1、核心组件说明
 
 - EurekaServer、Consul、Nacos	  服务注册中心组件
 - Rabbion & OpenFeign				  	服务负载均衡 和 服务调用组件
@@ -101,7 +99,7 @@ SpringCloud 为开发人员提供了在分布式系统中快速构建一些通�
 
 
 
-## 2.2、命名和版本选择
+### 2.2、命名和版本选择
 
 **SpringCloud 的命名**
 
@@ -129,7 +127,7 @@ SpringCloud 是一个由众多独立子项目组成的大型综合项目，原�
 
 
 
-# 2、环境搭建
+## 2、环境搭建
 
 说明：
 
@@ -186,7 +184,7 @@ SpringCloud 是一个由众多独立子项目组成的大型综合项目，原�
 
 
 
-# 3、服务注册中心
+## 3、服务注册中心
 
 所谓服务注册中心就是在整个的微服务架构中单独提出一个服务，这个服务不完成系统的任何的业务功能，仅仅用来完成对整个微服务系统的服务注册和服务发现，以及对服务健康状态的监控和管理功能。
 
@@ -202,7 +200,7 @@ SpringCloud 支持多种注册中心：Eureka、Consul、Zookeeper、以及阿�
 
 
 
-## 3.1、Eureka
+### 3.1、Eureka
 
 Eureka 是 Netflix 开发的服务发现框架，本身是一个基于 REST 的服务。SpringCloud 将它集成在其子项目 spring-cloud-netflix 中，以实现SpringCloud 的服务注册和发现功能。
 
@@ -210,7 +208,7 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 
 
 
-### 3.1.1、开发 Eureka Server
+#### 3.1.1、开发 Eureka Server
 
 1. 创建一个 Maven 项目并引入 Eureka Server 依赖
 
@@ -273,7 +271,7 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 
 
 
-### 3.1.2、开发 Eureka Client
+#### 3.1.2、开发 Eureka Client
 
 1. 创建一个 Maven 子项目并引入 Spring Web 和 Eureka Client 依赖
 
@@ -323,7 +321,7 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 
 
 
-### 3.1.3、Eureka Server 集群
+#### 3.1.3、Eureka Server 集群
 
 1. 首先在本地 hosts 文件中配置如下映射
 
@@ -399,7 +397,7 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 
 
 
-### 3.1.4、Eureka 自我保护机制
+#### 3.1.4、Eureka 自我保护机制
 
 首先 Eureka 注册中心各个节点都是平等的，没有 ZK 中角色的概念， 即使 N-1 个节点挂掉也不会影响其他节点的正常运行。
 
@@ -455,13 +453,13 @@ Eureka Server 自动进入自我保护机制，此时会出现以下几种情况
 
 
 
-## 3.2、Consul
+### 3.2、Consul
 
 Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其它分布式服务注册与发现的方案，Consul 的方案更 “一站式”，内置了服务注册与发现框架、分布一致性协议实现、健康检查、Key/Value 存储、多数据中心方案，不再需要依赖其它工具（比如 ZooKeeper 等）。使用起来也较为简单。Consul 使用 Go 语言编写，因此具有天然可移植性（支持Linux、windows和Mac OS X）；安装包仅包含一个可执行文件，方便部署，与 Docker 等轻量级容器可无缝配合。
 
 
 
-### 3.2.1、安装 Consul
+#### 3.2.1、安装 Consul
 
 **Windows 下安装 Consul**
 
@@ -507,7 +505,7 @@ Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统�
 
 
 
-### 3.2.2、开发 Consul Client
+#### 3.2.2、开发 Consul Client
 
 1. 创建项目并引入 Spring Web 和 Consul 客户端依赖
 
@@ -568,7 +566,7 @@ Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统�
 
 
 
-# 4、服务调用组件
+## 4、服务调用组件
 
 接下来在整个微服务架构中，我们比较关心的就是服务间的服务改如何调用，有哪些调用方式？
 
@@ -578,7 +576,7 @@ Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统�
 
 
 
-## 4.1、RestTemplate
+### 4.1、RestTemplate
 
 Spring 框架提供的 RestTemplate 类可用于在应用中调用 REST 服务，它简化了与 HTTP 服务的通信方式，统一了 RESTful 的标准，封装了 HTTP 链接， 我们只需要传入url 及返回值类型即可。相较于之前常用的 HttpClient，RestTemplate 是一种更优雅的调用 RESTful 服务的方式。
 
@@ -711,13 +709,13 @@ exchange(String url, HttpMethod method,HttpEntity requestEntity, Class responseT
 
 
 
-## 4.2、OpenFeign
+### 4.2、OpenFeign
 
 Feign 是一个声明式的伪 HTTP 客户端，它使得写 HTTP 客户端变得更简单。使用 Feign，只需要创建一个接口并添加注解。它具有可插拔的注解特性，可以使用 SpringMVC 的注解，可使用 Feign 注解和 JAX-RS 注解。Feign 支持可插拔的编码器和解码器。Feign 默认集成了 Ribbon，默认实现了负载均衡的效果并且 SpringCloud 为 Feign 添加了 SpringMVC 注解的支持。
 
 
 
-### 4.2.1、OpenFeign 服务调用
+#### 4.2.1、OpenFeign 服务调用
 
 1. 新建两个服务 Category、Product，并将其注册到 Consul 中（Product 可根据启动文件启动两个，用于测试负载均衡）
 
@@ -805,7 +803,7 @@ Feign 是一个声明式的伪 HTTP 客户端，它使得写 HTTP 客户端变�
 
 
 
-### 4.2.2、调用服务并传参
+#### 4.2.2、调用服务并传参
 
 服务和服务之间通信，不仅仅是调用，往往在调用过程中还伴随着参数传递，接下来重点来看看 OpenFeign 在调用服务时如何传递参数。
 
@@ -937,7 +935,7 @@ Feign 是一个声明式的伪 HTTP 客户端，它使得写 HTTP 客户端变�
 
 
 
-### 4.2.3、OpenFeign 超时设置
+#### 4.2.3、OpenFeign 超时设置
 
 默认情况下，OpenFiegn 在进行服务调用时，要求服务提供方处理业务逻辑时间必须在 1S 内返回，如果超过 1S 没有返回则 OpenFeign 会直接报错，不会等待服务执行，但是往往在处理复杂业务逻辑是可能会超过 1S，因此需要修改 OpenFeign 的默认服务调用超时时间。
 
@@ -973,7 +971,7 @@ feign.client.config.PRODUCTS.readTimeout=5000		  	#配置指定服务等待超�
 
 
 
-### 4.2.4、日志展示
+#### 4.2.4、日志展示
 
 往往在服务调用时我们需要详细展示 Feign 的日志，默认 Feign 在调用是并不是最详细日志输出，因此在调试程序时应该开启 Feign 的详细日志展示。Feign 对日志的处理非常灵活，可为每个 Feign 客户端指定日志记录策略，每个客户端都会创建一个 logger，默认情况下 logger 的名称是Feign 的全限定名需要注意的是，Feign 日志的打印只会DEBUG级别做出响应。
 
@@ -1000,15 +998,15 @@ feign.client.config.PRODUCTS.readTimeout=5000		  	#配置指定服务等待超�
 
 
 
-# 5、服务负载均衡
+## 5、服务负载均衡
 
-## 5.1、Ribbon
+### 5.1、Ribbon
 
 Spring Cloud Ribbon 是一个基于 HTTP 和 TCP 的客户端负载均衡工具，它基于 Netflix Ribbon 实现。通过 Spring Cloud 的封装，可以让我们轻松地将面向服务的 REST 模版请求自动转换成客户端负载均衡的服务调用。
 
 
 
-### 5.1.1、Ribbon 服务调用
+#### 5.1.1、Ribbon 服务调用
 
 **准备工作**
 
@@ -1179,7 +1177,7 @@ public String loadBalanced() {
 
 
 
-### 5.1.2、Ribbon 的负载均衡策略
+#### 5.1.2、Ribbon 的负载均衡策略
 
 这里可以点进自动注入的 `LoadBalancerClient `查看其源码：
 
@@ -1245,7 +1243,7 @@ public String loadBalanced() {
 
 
 
-### 5.1.3、修改默认负载均衡策略
+#### 5.1.3、修改默认负载均衡策略
 
 被调用的服务id.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
 
@@ -1256,15 +1254,15 @@ order.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
 
 
 
-# 6、服务断路器
+## 6、服务断路器
 
-## 6.1、Hystrix
+### 6.1、Hystrix
 
  在分布式环境中，许多服务依赖项不可避免地会失败。Hystrix 是一个库，它通过添加延迟容忍和容错逻辑来帮助您控制这些分布式服务之间的交互。Hystrix 通过隔离服务之间的访问点、停止它们之间的级联故障以及提供后备选项来实现这一点，所有这些都可以提高系统的整体弹性。
 
 
 
-### 6.1.1、服务雪崩、熔断、降级
+#### 6.1.1、服务雪崩、熔断、降级
 
 **服务雪崩**
 
@@ -1318,7 +1316,7 @@ order.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
 
 
 
-### 6.2.2、服务熔断的实现
+#### 6.2.2、服务熔断的实现
 
 1. 添加一个微服务 springcloud_hystrix，并引入相关依赖：
 
@@ -1424,7 +1422,7 @@ public String defaultFallback() {
 
 
 
-### 6.2.3、服务降级的实现
+#### 6.2.3、服务降级的实现
 
 1. 创建一个新的微服务：openfeignHystrix，并引入相关依赖：
 
@@ -1528,7 +1526,7 @@ public String defaultFallback() {
 
 
 
-# 7、服务网关组件
+## 7、服务网关组件
 
 **什么是服务网关？**
 
@@ -1551,7 +1549,7 @@ public String defaultFallback() {
 
 
 
-## 7.1、Gateway
+### 7.1、Gateway
 
 这个项目提供了一个在 SpringMVC 之上构建 API 网关的库。SpringCloud Gateway 旨在提供一种简单而有效的方法来路由到 API，并为 API 提供横切关注点，比如：安全性、监控、度量和弹性。
 
@@ -1565,7 +1563,7 @@ public String defaultFallback() {
 
 
 
-### 7.1.1、开发网关动态路由
+#### 7.1.1、开发网关动态路由
 
 网关配置有两种方式：一种是快捷方式（Java 代码编写网关），一种是完全展开方式（配置文件方式）[推荐]。
 
@@ -1679,4 +1677,4 @@ public String defaultFallback() {
 
 
 
-### 7.1.2、查看网关路由规则
+#### 7.1.2、查看网关路由规则

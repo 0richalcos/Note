@@ -1,6 +1,8 @@
-# 1、简介
+# frp
 
-## 1.1、概览
+## 1、简介
+
+### 1.1、概览
 
 **frp 是什么？**
 
@@ -48,7 +50,7 @@ frp 支持多种代理类型，以适应不同的使用场景。以下是一些�
 
 
 
-## 1.2、安装
+### 1.2、安装
 
 **下载**
 
@@ -73,9 +75,9 @@ frp 支持多种代理类型，以适应不同的使用场景。以下是一些�
 
 
 
-# 2、功能特性
+## 2、功能特性
 
-## 2.1、配置文件
+### 2.1、配置文件
 
 从 v0.52.0 版本开始，frp 开始支持 TOML、YAML 和 JSON 作为配置文件格式。INI 已被弃用，并将在未来的发布中移除。新功能只能在 TOML、YAML 或 JSON 中使用。
 
@@ -123,9 +125,9 @@ frpc: the configuration file ./frpc.toml syntax is ok
 
 
 
-# 3、配置说明
+## 3、配置说明
 
-## 3.1、通用配置
+### 3.1、通用配置
 
 **<span id='LogConfig'>LogConfig</span>**
 
@@ -152,7 +154,7 @@ frpc: the configuration file ./frpc.toml syntax is ok
 
 
 
-## 3.2、服务端配置
+### 3.2、服务端配置
 
 **ServerConfig**
 
@@ -197,7 +199,7 @@ frpc: the configuration file ./frpc.toml syntax is ok
 
 
 
-## 3.3、客户端配置
+### 3.3、客户端配置
 
 **ClientConfig**
 
@@ -233,7 +235,7 @@ frpc: the configuration file ./frpc.toml syntax is ok
 
 
 
-## 3.4、代理配置
+### 3.4、代理配置
 
 **ProxyConfig**
 
@@ -252,9 +254,9 @@ frpc: the configuration file ./frpc.toml syntax is ok
 
 
 
-# 4、示例
+## 4、示例
 
-## 4.1、通过 SSH 访问内网机器
+### 4.1、通过 SSH 访问内网机器
 
 通过简单配置 TCP 类型的代理，使用户能够访问内网服务器：
 
@@ -326,7 +328,7 @@ frpc: the configuration file ./frpc.toml syntax is ok
 
 
 
-## 4.2、访问内网的 Web 服务
+### 4.2、访问内网的 Web 服务
 
 通过简单配置 HTTP 类型的代理可以让用户访问内网的 Web 服务。
 

@@ -1,4 +1,6 @@
-# 1、SQL 简介
+# MySQL
+
+## 1、SQL 简介
 
 SQL 是用于访问和处理数据库的标准计算机语言。
 
@@ -45,13 +47,13 @@ SQL 是用于访问和处理数据库的标准计算机语言。
 
 
 
-# 2、数据库
+## 2、数据库
 
 MySQL 是最流行的关系型数据库管理系统，在 Web 应用方面 MySQL 是最好的 RDBMS（Relational Database Management System：关系数据库管理系统）应用软件之一。
 
 <br>
 
-## 2.1、什么是数据库？
+### 2.1、什么是数据库？
 
 数据库（Database）是按照数据结构来组织、存储和管理数据的仓库。
 
@@ -71,7 +73,7 @@ RDBMS 即关系数据库管理系统（Relational Database Management System）�
 
 <br>
 
-## 2.2、RDBMS术语
+### 2.2、RDBMS术语
 
 - 数据库：数据库是一些关联表的集合
 - 数据表：表是数据库的矩阵。在一个数据库中的表看起来像一个简单的电子表格
@@ -96,7 +98,7 @@ MySQL 为关系型数据库（Relational Database Management System），这种�
 
 <br>
 
-## 2.3、安装 MySQL 数据库
+### 2.3、安装 MySQL 数据库
 
 Windows 系统选择 msi 文件直接安装比较方便；Linux 系统如果使用 tar 文件离线解压安装，解压后会出现很多 rpm 安装包，以下为常用安装包：
 
@@ -112,13 +114,13 @@ Windows 系统选择 msi 文件直接安装比较方便；Linux 系统如果使�
 
 <br>
 
-### 2.3.1、Windows 安装
+#### 2.3.1、Windows 安装
 
 系统版本为 Windows 11，架构为 X86_64，使用 msi 安装包离线安装。
 
 <br>
 
-#### 安装数据库
+##### 安装数据库
 
 1. 先下载 [MySQL](https://dev.mysql.com/downloads/mysql/)，现在的版本是 8.0.27：
 
@@ -154,7 +156,7 @@ Windows 系统选择 msi 文件直接安装比较方便；Linux 系统如果使�
 
 
 
-#### 初始化数据库
+##### 初始化数据库
 
 1. 开始配置：
 
@@ -208,13 +210,13 @@ Windows 系统选择 msi 文件直接安装比较方便；Linux 系统如果使�
 
 <br>
 
-### 2.3.2、Ubuntu 安装
+#### 2.3.2、Ubuntu 安装
 
 系统版本为 Ubuntu 20.04，架构为 X86_64，使用 `apt` 在线安装。
 
 <br>
 
-#### 安装数据库
+##### 安装数据库
 
 1. 查看有没有安装 MySQL：
 
@@ -246,7 +248,7 @@ Windows 系统选择 msi 文件直接安装比较方便；Linux 系统如果使�
 
 <br>
 
-#### 初始化数据库
+##### 初始化数据库
 
 接下来，为了确保数据库的安全性和正常运转，对数据库进行初始化操作。这个初始化操作涉及下面5个步骤：
 
@@ -316,7 +318,7 @@ All done!
 
 <br>
 
-#### 远程访问
+##### 远程访问
 
 控制台连接 MySQL：
 
@@ -338,7 +340,7 @@ mysql> update user set host='%',plugin='mysql_native_password' where user='root'
 
 mysql> flush privileges;
 
-# 重新设置密码
+## 重新设置密码
 mysql> alter user'root'@'%' IDENTIFIED BY 'root';
 ```
 
@@ -369,7 +371,7 @@ service mysql restart
 
 <br>
 
-#### 卸载数据库
+##### 卸载数据库
 
 1. 首先停止 MySQL 服务
 
@@ -413,13 +415,13 @@ service mysql restart
 
 <br>
 
-### 2.3.3、银河麒麟安装
+#### 2.3.3、银河麒麟安装
 
 系统版本为银河麒麟 V10，架构为 X86，使用 tar 压缩包离线安装。
 
 <br>
 
-#### 删除系统捆绑依赖包
+##### 删除系统捆绑依赖包
 
 1. 删除原有的 MariaDB，因为会跟 MySQL 包安装有冲突。
 
@@ -451,7 +453,7 @@ service mysql restart
 
 <br>
 
-#### 安装数据库
+##### 安装数据库
 
 1. [官网](https://dev.mysql.com/downloads/mysql/)下载 MySQL 安装包。
 
@@ -504,7 +506,7 @@ service mysql restart
 
 <br>
 
-#### 初始化数据库
+##### 初始化数据库
 
 1. 获取初始密码并登录。
 
@@ -544,13 +546,13 @@ service mysql restart
 
 <br>
 
-### 2.3.4、openEuler 安装
+#### 2.3.4、openEuler 安装
 
 系统版本为 openEuler 22.03（LTS-SP3），架构为 aarch64，使用 tar 压缩包离线安装。
 
 <br>
 
-#### 安装数据库
+##### 安装数据库
 
 1. [官网](https://dev.mysql.com/downloads/mysql/) 下载 MySQL 安装包。
 
@@ -597,7 +599,7 @@ service mysql restart
 
 <br>
 
-#### 初始化数据库
+##### 初始化数据库
 
 1. 获取初始化临时密码：
 
@@ -636,7 +638,7 @@ service mysql restart
 <br>
 
 
-#### 卸载数据库
+##### 卸载数据库
 
 1. 查找 MySQL 包：
 
@@ -664,7 +666,7 @@ service mysql restart
 
 <br>
 
-## 2.4、创建数据库
+### 2.4、创建数据库
 
 使用 `CREATE` 命令创建数据库，语法如下：
 
@@ -690,7 +692,7 @@ CREATE DATABASE [IF NOT EXISTS] <数据库名>
 
 
 
-## 2.5、数据库操作
+### 2.5、数据库操作
 
 **查看数据库**
 
@@ -750,9 +752,9 @@ USE <数据库名>;
 
 
 
-# 3、存储引擎
+## 3、存储引擎
 
-## 3.1、什么是存储引擎？
+### 3.1、什么是存储引擎？
 
 数据库存储引擎是数据库底层软件组件，数据库管理系统使用数据引擎进行创建、查询、更新和删除数据操作。不同的存储引擎提供不同的存储机制、索引技巧、锁定水平等功能，使用不同的存储引擎还可以获得特定的功能。
 
@@ -764,7 +766,7 @@ USE <数据库名>;
 
 
 
-## 3.2、支持的存储引擎
+### 3.2、支持的存储引擎
 
 MySQL 支持多种类型的数据库引擎，可分别根据各个引擎的功能和特性为不同的数据库处理任务提供各自不同的适应性和灵活性。
 
@@ -778,7 +780,7 @@ Support 列的值表示某种引擎是否能使用，YES 表示可以使用，NO
 
 
 
-## 3.3、如何选择存储引擎？
+### 3.3、如何选择存储引擎？
 
 不同的存储引擎都有各自的特点，以适应不同的需求，如表所示。为了做出选择，首先要考虑每一个存储引擎提供了哪些不同的功能。
 
@@ -803,7 +805,7 @@ Support 列的值表示某种引擎是否能使用，YES 表示可以使用，NO
 
 
 
-## 3.4、修改存储引擎
+### 3.4、修改存储引擎
 
 InnoDB 是系统的默认引擎，支持可靠的事务处理。
 
@@ -817,9 +819,9 @@ SET DEFAULT_storage_engine=<存储引擎名>
 
 
 
-# 4、数据表
+## 4、数据表
 
-## 4.1、创建数据表
+### 4.1、创建数据表
 
 使用 CREATE TABLE 语句创建表。其语法格式为：
 
@@ -868,7 +870,7 @@ CREATE TABLE runoob_tb1(
 
 
 
-## 4.2、查看表结构
+### 4.2、查看表结构
 
 ```mysql
 DESC <表名>;
@@ -897,7 +899,7 @@ SHOW CREATE TABLE <表名>\G；
 
 
 
-## 4.3、修改数据表
+### 4.3、修改数据表
 
 当我们需要修改数据表名或者修改数据表字段时，就需要使用到MySQL ALERT命令。
 
@@ -989,7 +991,7 @@ ALTER TABLE <旧表名> RENAME [TO] <新表名>；
 
 
 
-## 4.4、删除数据表
+### 4.4、删除数据表
 
 删除MySQL数据表的通用语法：
 
@@ -1004,7 +1006,7 @@ DROP TABLE [IF EXISTS] <表名> [ , <表名1> , <表名2>] …
 - 表被删除时，用户在该表上的权限并不会自动被删除。
 - 参数IF EXISTS用于在删除前判断删除的表是否存在，加上该参数后，在删除表的时候，如果表不存在，SQL 语句可以顺利执行，但会发出警告（warning）。
 
-# 5、约束
+## 5、约束
 
 SQL约束用于规定表中的规则。
 
@@ -1023,7 +1025,7 @@ SQL约束用于规定表中的规则。
 
 
 
-## 5.1、NOT NULL
+### 5.1、NOT NULL
 
 添加NOT NULL约束:
 
@@ -1043,7 +1045,7 @@ ALTER TABLE Persons MODIFY Age INT NULL;
 
 
 
-## 5.2、UNIQUE
+### 5.2、UNIQUE
 
 UNIQUE约束唯一标识数据库表中的每条记录。
 
@@ -1107,7 +1109,7 @@ ALTER TABLE Persons DROP INDEX uc_PersonID;
 
 
 
-## 5.3、PRIMARY KEY
+### 5.3、PRIMARY KEY
 
 PRIMARY KEY约束唯一标识数据库表中的没条记录。
 
@@ -1181,7 +1183,7 @@ ALTER TABLE Persons DROP PRIMARY KEY;
 
 
 
-## 5.4、FOREIGN KEY
+### 5.4、FOREIGN KEY
 
 一个表中的FOREIGN KEY指向另一个表的UNIQUE KEY（唯一约束的键）。
 
@@ -1259,7 +1261,7 @@ ON UPDATE和ON DELETE后面可以跟的词语有四个：
 
 
 
-## 5.5、CHECK
+### 5.5、CHECK
 
 CHECK约束用于限制列中的值得范围
 
@@ -1321,7 +1323,7 @@ ALTER TABLE Persons DROP CHECK chk_Person;
 
 
 
-## 5.6、DEFAULT
+### 5.6、DEFAULT
 
 **添加DEFAULT约束**
 
@@ -1363,7 +1365,7 @@ ALTER TABLE Persons ALTER City DROP DEFAULT;
 
 
 
-## 5.7、查看表中的约束
+### 5.7、查看表中的约束
 
 查看数据表中的约束语法格式如下：
 
@@ -1373,9 +1375,9 @@ SHOW CREATE TABLE <数据表名>;
 
 
 
-# 6、增、删、改
+## 6、增、删、改
 
-## 6.1、插入数据
+### 6.1、插入数据
 
 语法：
 
@@ -1459,7 +1461,7 @@ VALUES
 
 
 
-## 6.2、删除数据
+### 6.2、删除数据
 
 **语法：**
 
@@ -1499,7 +1501,7 @@ TRUNCATE TABLE <表名>
 
 
 
-## 6.3、更新数据
+### 6.3、更新数据
 
 语法：
 
@@ -1514,13 +1516,13 @@ UPDATE <表名> SET field1=new_VALUE1, field2=new_VALUE2
 
 
 
-# 7、查询数据
+## 7、查询数据
 
 `SELECT` 语句用于从数据库中选取数据，结果被存储在一个结果表中，称为结果集。
 
 
 
-## 7.1、限制查询结果数和偏移
+### 7.1、限制查询结果数和偏移
 
 语法：
 
@@ -1559,7 +1561,7 @@ SELECT * FROM _TABLE LIMIT lines_perpage OFFSET (page_number-1)*lines_perpage
 
 
 
-## 7.2、WHERE 条件查询
+### 7.2、WHERE 条件查询
 
 语法：
 
@@ -1587,7 +1589,7 @@ SELECT field1, field2,…fieldN FROM TABLE_name1, TABLE_name2…
 
 
 
-### 7.2.1、WHERE的运算符
+#### 7.2.1、WHERE的运算符
 
 | 运算符    | 描述                                                         |
 | --------- | ------------------------------------------------------------ |
@@ -1623,7 +1625,7 @@ SELECT field1, field2,…fieldN FROM TABLE_name1, TABLE_name2…
 
 
 
-### 7.2.2、LIKE 子句
+#### 7.2.2、LIKE 子句
 
 `LIKE` 子句中使用百分号 `%` 字符来表示任何字符，类似于 `UNIX` 或正则表达式中的星号 `*`，如果没有使用百分号 `%`，`LIKE` 子句与等号 `=` 的效果是一样的。
 
@@ -1649,7 +1651,7 @@ WHERE field1 LIKE condition1 [and | or] field2 = 'someVALUE'
 
 
 
-### 7.2.3、EXISTS 运算符
+#### 7.2.3、EXISTS 运算符
 
 `EXISTS` 运算符用于判断查询子句是否有记录，如果有一条或多条记录存在返回 True，否则返回 False。
 
@@ -1691,7 +1693,7 @@ SELECT * FROM A WHERE EXISTS (SELECT 1 FROM B WHERE A.id = B.id);
 
 
 
-## 7.3、连接的使用
+### 7.3、连接的使用
 
 可以在 `SELECT`、`UPDATE` 和 `DELETE` 语句中使用 MySQL 的 `JOIN` 来联合多表查询。
 
@@ -1721,7 +1723,7 @@ mysql> SELECT * from Table_B ORDER BY PK ASC;
 
 
 
-### 7.3.1、INNER JOIN
+#### 7.3.1、INNER JOIN
 
 `INNER JOIN` 一般被译作内连接。内连接查询能将左表（表 A）和右表（表 B）中能关联起来的数据连接后返回。
 
@@ -1750,7 +1752,7 @@ ON A.PK = B.PK;
 
 
 
-### 7.3.2、LEFT JOIN
+#### 7.3.2、LEFT JOIN
 
 `LEFT JOIN` 一般被译作左连接，也写作 `LEFT OUTER JOIN`。左连接查询会返回左表（表 A）中所有记录，不管右表（表 B）中有没有关联的数据。在右表中找到的关联数据列也会被一起返回。
 
@@ -1780,7 +1782,7 @@ ON A.PK = B.PK;
 
 
 
-### 7.3.3、RIGHT JOIN
+#### 7.3.3、RIGHT JOIN
 
 `RIGHT JOIN` 一般被译作右连接，也写作 `RIGHT OUTER JOIN`。右连接查询会返回右表（表 B）中所有记录，不管左表（表 A）中有没有关联的数据。在左表中找到的关联数据列也会被一起返回。
 
@@ -1810,7 +1812,7 @@ ON A.PK = B.PK;
 
 
 
-### 7.3.4、FULL JOIN
+#### 7.3.4、FULL JOIN
 
 `FULL JOIN` 一般被译作外连接、全连接，实际查询语句中可以写作 `FULL OUTER JOIN`。外连接查询能返回左右表里的所有记录，其中左右表里能关联起来的记录被连接后返回。
 
@@ -1862,7 +1864,7 @@ mysql> SELECT *
 
 
 
-### 7.3.5、CROSS JOIN
+#### 7.3.5、CROSS JOIN
 
 返回左表与右表之间符合条件的记录的迪卡尔集。
 
@@ -1895,7 +1897,7 @@ CROSS JOIN Table_B B;
 
 
 
-### 7.3.6、ON、WHERE 的区别
+#### 7.3.6、ON、WHERE 的区别
 
 数据库在通过连接两张或多张表来返回记录时，都会生成一张中间的临时表，然后再将这张临时表返回给用户。
 
@@ -1925,7 +1927,7 @@ SELECT * FROM tab1 LEFT JOIN tab2 ON (tab1.size = tab2.size AND tab2.name='AAA�
 
 
 
-## 7.4、排序
+### 7.4、排序
 
 语法：
 
@@ -1967,7 +1969,7 @@ SELECT * FROM <表名> ORDER BY CONVERT(<字段名> USING gbk) ASC;
 
 
 
-## 7.5、分组
+### 7.5、分组
 
 `GROUP BY` 语句根据一个或多个列对结果集进行分组，`GROUP BY` 子句经常使用与聚合函数，例如`SUM`、`AVG`、`MAX`、`MIN` 和 `COUNT`。
 
@@ -1993,13 +1995,13 @@ SELECT COUNT(DISTINCT <去重字段>) FROM <表>
 
 
 
-### 7.5.1、ROLLUP
+#### 7.5.1、ROLLUP
 
 在数据库查询语句中，在 `GROUP BY` 表达式之后加上 `WITH ROLLUP` 语句，可以在查询结果中包含更多高层级的统计输出。ROLLUP 功能使得可以通过单个查询语句来实现对数据进行不同层级上的分析与统计。因此，ROLLUP 功能能够很好得为 OLAP（Online Analytical Processing）任务提供支持。
 
 
 
-#### 功能介绍
+##### 功能介绍
 
 假如有一个 `sales` 表有 `year`、`country`、`product` 和 `profit` 四列，其中 `profit` 列为某年份某个国家的某种产品的一条收益。数据表的创建语句如下：
 
@@ -2118,7 +2120,7 @@ GROUP BY
 
 
 
-#### GROUPING()
+##### GROUPING()
 
 要检查 `NULL` 结果集中是否表示小计或总计，请使用 `GROUPING()` 函数。
 
@@ -2221,7 +2223,7 @@ GROUP BY
 
 
 
-### 7.5.2、HAVING 子句
+#### 7.5.2、HAVING 子句
 
 增加 `HAVING` 子句的原因是，`WHERE` 关键字无法与聚合函数一起使用。
 
@@ -2261,7 +2263,7 @@ select goods_name,goods_number from sw_goods having goods_price > 100 //报错�
 
 
 
-## 7.6、正则表达式
+### 7.6、正则表达式
 
 MySQL 同样支持其他正则表达式的匹配，MySQL 中使用 `REGEXP` 或 `NOT REGEXP`（或 `RLIKE` 和 `NOT RLIKE` ）运算符来进行正则表达式匹配
 
@@ -2307,7 +2309,7 @@ SELECT name FROM person_tbl WHERE name REGEXP '^[aeiou]|ok$';
 
 
 
-## 7.7、UNION
+### 7.7、UNION
 
 描述：
 
@@ -2336,7 +2338,7 @@ FROM <表名>
 
 
 
-## 7.8、NULL 值处理
+### 7.8、NULL 值处理
 
 MySQL使用SELECT命令及WHERE子句来读取数据表中的数据，但是当提供的查询条件字段为NULL时，该命令就无法正常工作
 
@@ -2358,13 +2360,13 @@ MySQL使用SELECT命令及WHERE子句来读取数据表中的数据，但是当�
 
 
 
-## 7.9、WITH（CTE）
+### 7.9、WITH（CTE）
 
 MySQL 的 CTE 是在 MySQL 8.0 版本开始支持的，公用表表达式 （CTE） 是一个命名的临时结果集，它存在于单个语句的范围内，以后可以在该语句中引用，可能多次引用。
 
 
 
-### 7.9.1、公用表表达式
+#### 7.9.1、公用表表达式
 
 若要指定公用表表达式，请使用具有一个或多个逗号分隔子句的 `WITH` 子句。每个子句提供一个子查询，该子查询产生一个结果集，并将名称与子查询相关联。 下面的示例定义名为的 `cte1` 和 `cte2` 中 `WITH` 子句，并在 `WITH` 子句后面的 `SELECT` 中引用了它们：
 
@@ -2503,7 +2505,7 @@ WITH cte1 AS (...), cte2 AS (...) SELECT ...
 
 
 
-### 7.9.2、递归公用表表达式
+#### 7.9.2、递归公用表表达式
 
 递归常见表表达式是具有引用其自己名称的子查询的表达式。例如：
 
@@ -2691,7 +2693,7 @@ CTE 的实际成本也可能受到结果集大小的影响。产生许多行的 
 
 
 
-### 7.9.3、限制公共表表达式递归
+#### 7.9.3、限制公共表表达式递归
 
 对于递归 CTE 来说，递归 `SELECT` 部分包括一个终止递归的条件是很重要的。作为一种防止失控递归 CTE 的开发技术，你可以通过限制执行时间来强制终止:
 
@@ -2778,7 +2780,7 @@ SELECT /*+ MAX_EXECUTION_TIME(1000) */ * FROM cte;
 
 
 
-### 7.9.4、递归公共表表达式示例
+#### 7.9.4、递归公共表表达式示例
 
 如前所述，递归公共表表达式（CTEs）经常被用于序列生成和遍历层次结构或树状结构的数据。本节展示了这些技术的一些简单例子。
 
@@ -2788,7 +2790,7 @@ SELECT /*+ MAX_EXECUTION_TIME(1000) */ * FROM cte;
 
 
 
-#### 斐波那契序列生成
+##### 斐波那契序列生成
 
 斐波那契数列以两个数字 `0` 和 `1`（或 `1` 和  `1`）开始，之后的每个数字都是前两个数字的总和。如果由递归 `SELECT` 产生的每一行都可以访问系列中的前两个数字，那么递归的普通表表达式就可以生成一个斐波那契数列。下面的 CTE 使用 `0` 和 `1` 作为前两个数字，生成了一个 10 数字系列：
 
@@ -2844,7 +2846,7 @@ mysql> WITH RECURSIVE fibonacci ...
 
 
 
-#### 日期序列生成
+##### 日期序列生成
 
 公共表表达式可以生成一系列连续的日期，这对于生成包含序列中所有日期行（包括汇总数据中未表示的日期）的摘要非常有用。
 
@@ -2960,7 +2962,7 @@ ORDER BY dates.date;
 
 
 
-#### 分层数据遍历
+##### 分层数据遍历
 
 递归公共表表达式对于遍历形成层次结构的数据很有用。考虑这些语句，创建了一个小的数据集，对于公司的每个员工，显示员工的名字和 ID号，以及员工的经理的 ID。最高级别的员工（CEO），其经理 ID 为 `NULL`（没有经理）。
 
@@ -3060,7 +3062,7 @@ mysql> WITH RECURSIVE ...
 
 
 
-### 7.9.5、CTE 和类似结构的比较
+#### 7.9.5、CTE 和类似结构的比较
 
 公共表表达式（CTE）在某些方面与派生表类似：
 
@@ -3085,7 +3087,7 @@ CTE 类似于用 `CREATE [TEMPORARY] TABLE` 创建的表，但不需要明确定
 
 
 
-# 8、视图
+## 8、视图
 
 视图是可视化的表。
 
@@ -3153,7 +3155,7 @@ WHERE <条件>;
 DROP VIEW view_name;
 ```
 
-# 9、存储过程
+## 9、存储过程
 
 存储过程（Stored Procedure）是一种在数据库中存储复杂程序，以便外部程序调用的一种数据库对象。
 
@@ -3175,7 +3177,7 @@ DROP VIEW view_name;
 
 
 
-## 9.1、存储过程的创建和调用
+### 9.1、存储过程的创建和调用
 
 - 存储过程就是具有名字的一段代码，用来完成一个特定的功能。
 - 创建的存储过程保存在数据库的数据字典中。
@@ -3303,7 +3305,7 @@ END label1
 
 
 
-## 9.2、存储过程的参数
+### 9.2、存储过程的参数
 
 MySQL存储过程的参数用在存储过程的定义，共有三种参数类型,IN,OUT,INOUT,形式如：
 
@@ -3334,7 +3336,7 @@ CREATEPROCEDURE 存储过程名([IN,OUT,INOUT] 参数名 数据类形...)
 
 
 
-## 9.3、变量
+### 9.3、变量
 
 MySQL 变量可分为两大类，即**系统变量**和**用户变量**。
 
@@ -3342,7 +3344,7 @@ MySQL 变量可分为两大类，即**系统变量**和**用户变量**。
 
 
 
-### 9.3.1、各种变量的介绍
+#### 9.3.1、各种变量的介绍
 
 **局部变量**
 
@@ -3498,7 +3500,7 @@ show global variables;
 
 
 
-### 9.3.2、使用变量进行累加计算
+#### 9.3.2、使用变量进行累加计算
 
 ```mysql
 +---------+------------+
@@ -3564,7 +3566,7 @@ FROM
 
 
 
-## 9.4、存储过程的删除
+### 9.4、存储过程的删除
 
 ```mysql
  DROP { PROCEDURE | FUNCTION } [ IF EXISTS ] <过程名>
@@ -3580,9 +3582,9 @@ SHOWCREATE PROCEDURE 数据库.存储过程名;
 
 
 
-## 9.5、存储过程的控制语句
+### 9.5、存储过程的控制语句
 
-### 9.5.1、变量作用域
+#### 9.5.1、变量作用域
 
 内部的变量在其作用域范围内享有更高的优先权，当执行到 end。变量时，内部变量消失，此时已经在其作用域外，变量不再可见了，应为在存储过程外再也不能找到这个申明的变量，但是你可以通过 out 参数或者将其值指派给会话变量来保存其值。
 
@@ -3590,7 +3592,7 @@ SHOWCREATE PROCEDURE 数据库.存储过程名;
 
 
 
-### 9.5.2、条件语句
+#### 9.5.2、条件语句
 
 **if-then-else**
 
@@ -3604,7 +3606,7 @@ SHOWCREATE PROCEDURE 数据库.存储过程名;
 
 
 
-### 9.5.3、循环语句
+#### 9.5.3、循环语句
 
 **while ···· end while**
 
@@ -3634,15 +3636,15 @@ loop 循环不需要初始条件，这点和 while 循环相似，同时和 repe
 
 
 
-## 9.6、ITERATE迭代
+### 9.6、ITERATE迭代
 
 ITERATE 通过引用复合语句的标号,来从新开始复合语句:
 
 <img src="!assets/MySQL/image-20200531195350919.png" alt="image-20200531195350919" style="zoom:80%;" />
 
-# 10、触发器
+## 10、触发器
 
-## 10.1、触发器简介
+### 10.1、触发器简介
 
 MySQL 数据库中触发器是一个特殊的存储过程，不同的是执行存储过程要使用 CALL 语句来调用，而触发器的执行不需要使用 CALL 语句来调用，也不需要手工启动，只要一个预定义的事件发生就会被 MySQL自动调用。
 
@@ -3704,7 +3706,7 @@ MySQL 数据库中触发器是一个特殊的存储过程，不同的是执行�
 
 
 
-## 10.2、创建触发器
+### 10.2、创建触发器
 
 使用 CREATE TRIGGER 语句创建触发器。
 
@@ -3751,7 +3753,7 @@ ON <表名> FOR EACH ROW<触发器主体>
 
 
 
-## 10.3、修改和删除触发器
+### 10.3、修改和删除触发器
 
 与其他 MySQL 数据库对象一样，可以使用 DROP 语句将触发器从数据库中删除。
 
@@ -3776,9 +3778,9 @@ DROP TRIGGER [ IF EXISTS ] [数据库名] <触发器名>
 
 
 
-# 11、函数
+## 11、函数
 
-## 11.1、自定义函数
+### 11.1、自定义函数
 
 **创建并使用自定义函数**
 
@@ -3851,13 +3853,13 @@ DROP FUNCTION [ IF EXISTS ] <自定义函数名>
 
 
 
-## 11.2、窗口函数
+### 11.2、窗口函数
 
 MySQL 支持窗口函数，对于查询中的每一行，使用与该行相关的行执行计算。下面几节讨论如何使用窗口函数，包括对 `OVER` 和 `WINDOW` 子句的介绍。
 
 
 
-### 11.2.1、窗口函数的概念和语法
+#### 11.2.1、窗口函数的概念和语法
 
 本节介绍如何使用窗口函数。
 
@@ -4068,7 +4070,7 @@ window_spec:
 
 
 
-### 11.2.2、窗口功能框架规范
+#### 11.2.2、窗口功能框架规范
 
 与窗口函数一起使用的窗口的定义可以包括一个框架子句。框架是当前分区的一个子集，框架子句指定了如何定义这个子集。
 
@@ -4288,7 +4290,7 @@ mysql> SELECT
 
 
 
-### 11.2.3、窗口的命名
+#### 11.2.3、窗口的命名
 
 在 `OVER` 子句中，可以定义窗口并赋予其名称，以便对其进行引用。要做到这一点，需要使用 `WINDOW` 子句。如果在查询中出现，`WINDOW` 子句会在 `HAVING` 子句和 `ORDER BY` 子句的位置之间，并且有这样的语法：
 
@@ -4378,7 +4380,7 @@ WINDOW w AS (PARTITION BY country);
 
 
 
-### 11.2.4、窗口函数介绍
+#### 11.2.4、窗口函数介绍
 
 本节描述非聚合窗口函数，对于查询中的每一行，使用与该行相关的行执行计算。大多数聚合函数也可以用作窗口函数。
 
@@ -4400,7 +4402,7 @@ WINDOW w AS (PARTITION BY country);
 
 
 
-#### CUME_DIST() 
+##### CUME_DIST() 
 
 语法：
 
@@ -4447,7 +4449,7 @@ mysql> SELECT
 
 
 
-#### DENSE_RANK() 
+##### DENSE_RANK() 
 
 语法：
 
@@ -4482,7 +4484,7 @@ mysql>SELECT
 
 
 
-#### FIRST_VALUE()
+##### FIRST_VALUE()
 
 语法：
 
@@ -4523,7 +4525,7 @@ mysql> SELECT
 
 
 
-#### LAG()
+##### LAG()
 
 ```mysql
 LAG(expr [, N[, default]]) [null_treatment] over_clause
@@ -4615,7 +4617,7 @@ mysql> SELECT
 
 
 
-#### LAST VALUE()
+##### LAST VALUE()
 
 ```mysql
 LAST_VALUE(expr) [null_treatment] over_clause
@@ -4627,7 +4629,7 @@ LAST_VALUE(expr) [null_treatment] over_clause
 
 
 
-#### LEAD()
+##### LEAD()
 
 ```mysql
 LEAD(expr [, N[, default]]) [null_treatment] over_clause
@@ -4650,7 +4652,7 @@ LEAD(expr [, N[, default]]) [null_treatment] over_clause
 
 
 
-#### NTH_VALUE()
+##### NTH_VALUE()
 
 ```mysql
 NTH_VALUE(expr, N) [from_first_last] [null_treatment] over_clause
@@ -4668,7 +4670,7 @@ NTH_VALUE(expr, N) [from_first_last] [null_treatment] over_clause
 
 
 
-#### NTILE()
+##### NTILE()
 
 ```mysql
 NTILE(N) over_clause
@@ -4716,7 +4718,7 @@ mysql> SELECT
 
 
 
-#### PERCENT_RANK()
+##### PERCENT_RANK()
 
 ```mysql
 PERCENT_RANK() over_clause
@@ -4734,7 +4736,7 @@ PERCENT_RANK() over_clause
 
 
 
-#### RANK()
+##### RANK()
 
 ```mysql
 RANK() over_clause
@@ -4771,7 +4773,7 @@ mysql> SELECT
 
 
 
-#### ROW_NUMBER()
+##### ROW_NUMBER()
 
 ```mysql
 ROW_NUMBER() over_clause
@@ -4785,11 +4787,11 @@ ROW_NUMBER() over_clause
 
 
 
-## 11.3、时间日期相关
+### 11.3、时间日期相关
 
-### 11.3.1、时间差
+#### 11.3.1、时间差
 
-#### PERIOD_DIFF()
+##### PERIOD_DIFF()
 
 `PERIOD_DIFF()` 函数返回两个日期之间的月份差。
 
@@ -4815,7 +4817,7 @@ SELECT PERIOD_DIFF(201710, 201703);
 
 
 
-#### DATEDIFF() 
+##### DATEDIFF() 
 
 `DATEDIFF()` 函数返回两个日期之间的天数。
 
@@ -4841,7 +4843,7 @@ SELECT DATEDIFF(DATE_FORMAT(NOW(), '%Y-%m-%d'),DATE_FORMAT('2018-09-10','%Y-%m-%
 
 
 
-#### TIMESTAMPDIFF()
+##### TIMESTAMPDIFF()
 
 根据单位返回时间差，对于传入的 *begin* 和 *end* 不需要相同的数据结构，可以存在一个为 Date 一个 DateTime。
 
@@ -4893,7 +4895,7 @@ SELECT TIMESTAMPDIFF(MONTH,'2017-05-01', DATE_FORMAT(NOW(), '%Y-%m-%d'))
 
 
 
-### 11.3.2、当前日期
+#### 11.3.2、当前日期
 
 ```mysql
 SELECT NOW(),CURDATE(),CURTIME();
@@ -4905,7 +4907,7 @@ SELECT NOW(),CURDATE(),CURTIME();
 
 
 
-### 11.3.3、求几天前几天后
+#### 11.3.3、求几天前几天后
 
 `DATE_SUB()` 函数从日期减去指定的时间间隔。
 
@@ -4955,7 +4957,7 @@ SELECT DATE_SUB(CURDATE(),INTERVAL -1 DAY);
 
 
 
-### 11.3.4、倒数第几天
+#### 11.3.4、倒数第几天
 
 `LAST_DAY()` 返回某月最后一天
 
@@ -4967,7 +4969,7 @@ LAST_DAY(<日期>)-2 #倒数第三天
 
 
 
-### 11.3.5、提取年月日
+#### 11.3.5、提取年月日
 
 `EXTRACT()` 函数用于返回日期/时间的单独部分，比如年、月、日、小时、分钟等等。
 
@@ -4997,9 +4999,9 @@ EXTRACT(unit FROM <日期>)
 
 
 
-### 11.3.6、日期转换
+#### 11.3.6、日期转换
 
-#### DATE_FORMAT()
+##### DATE_FORMAT()
 
 MySQL 使用 `DATE_FORMAT()` 函数实现日期格式的转换，即日期类型转字符串类型，`DATE_FORMAT(date,format)` 函数按照表达式 *format* 的要求显示日期 *date*，其语法格式如下：
 
@@ -5062,7 +5064,7 @@ SELECT DATE_FORMAT(NOW(),'%Y年%m月%d日 %H时%i分%s秒');
 
 
 
-#### STR_TO_DATE()
+##### STR_TO_DATE()
 
 使用 `STR_TO_DATE()` 函数实现字符串转换日期类型，`STR_TO_DATE(str,format)` 函数是将时间格式的字符串 *str*，按照所提供的显示格式 *format* 转换为 DATETIME 类型的值。
 
@@ -5084,11 +5086,11 @@ SELECT STR_TO_DATE('2019年01月17日 19时05分05秒','%Y年%m月%d日 %H时%i�
 
  
 
-## 11.4、字符串相关
+### 11.4、字符串相关
 
-### 11.4.1、拆分
+#### 11.4.1、拆分
 
-#### SUBSTRING()
+##### SUBSTRING()
 
 `SUBSTRING()` 函数从特定位置开始的字符串返回一个给定长度的子字符串。 MySQL 提供了各种形式的子串功能。
 
@@ -5109,9 +5111,9 @@ SUBSTRING(string FROM position FOR length);
 
 
 
-### 11.4.2、拼接
+#### 11.4.2、拼接
 
-#### CONCAT()
+##### CONCAT()
 
 返回连接参数产生的字符串，一个或多个待拼接的内容，任意一个为 `NULL` 则返回值为 `NULL`。
 
@@ -5125,7 +5127,7 @@ CONCAT(str1, str2, …)
 
 
 
-#### CONCAT_WS()
+##### CONCAT_WS()
 
 `CONCAT_WS()` 代表 CONCAT With Separator ，是 `CONCAT()` 的特殊形式。
 
@@ -5143,7 +5145,7 @@ CONCAT_WS(separator, str1, str2, …)
 
 
 
-#### GROUP_CONCAT()
+##### GROUP_CONCAT()
 
 MySQL `GROUP_CONCAT()` 函数将组中的字符串连接成为具有各种选项的单个字符串。
 
@@ -5201,9 +5203,9 @@ FROM
 
 
 
-### 11.4.3、字符串转数字
+#### 11.4.3、字符串转数字
 
-#### CAST()
+##### CAST()
 
 `CAST()` 函数将任何类型的值转换为具有指定类型的值。
 
@@ -5220,7 +5222,7 @@ CAST(expression AS type)
 
 
 
-#### CONVERT()
+##### CONVERT()
 
 `CONVERT()` 函数将值转换为指定的数据类型或字符集。
 
@@ -5239,7 +5241,7 @@ CONVERT(value USING charset);
 
 
 
-### 11.4.4、填充
+#### 11.4.4、填充
 
 填充某个字段的查询结果，`lpad()` 在左侧填充，`rpad()` 填充在右侧。
 
@@ -5286,15 +5288,15 @@ select rpad('123456',7,'0') from dual
 
 
 
-## 11.5、数字相关
+### 11.5、数字相关
 
-### 11.5.1、保留两位小数
+#### 11.5.1、保留两位小数
 
 `ROUND(x,d)`，四舍五入。`ROUND(x)` ，其实就是 `ROUND(x,0)`，也就是默认 *d* 为0。
 
 ```sql
 select round(110.35,1);
-# 110.4
+## 110.4
 ```
 
 
@@ -5303,7 +5305,7 @@ select round(110.35,1);
 
 ```sql
 select TRUNCATE(110.35,1);
-# 110.3
+## 110.3
 ```
 
 
@@ -5312,12 +5314,12 @@ select TRUNCATE(110.35,1);
 
 ```sql
 select FORMAT(110.35,1);
-# 110.4
+## 110.4
 ```
 
 
 
-# 12、事务
+## 12、事务
 
 MySQL事务主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，需要删除人员的基本资料，也要删除该人员相关的信息，比如信息，文章等等，这样，这些数据库操作就构成一个事务！
 
@@ -5351,7 +5353,7 @@ MYSQL事务处理主要有两种方法：
 
 
 
-## 12.1、事务的四大特性（ACID）
+### 12.1、事务的四大特性（ACID）
 
 一般来说，事务必须满足4个条件：原子性（或称不可分割性）、一致性、隔离性（又称独立性）、持久性
 
@@ -5362,7 +5364,7 @@ MYSQL事务处理主要有两种方法：
 
 
 
-## 12.2、事务的隔离级别
+### 12.2、事务的隔离级别
 
 多个线程开启各自事务操作数据库中数据时，数据库系统要负责隔离操作，以保证各个线程在获取数据时的准确性。
 
@@ -5567,7 +5569,7 @@ select @@transaction_isolation;  #查询当前事务隔离级别
 
 
 
-# 13、索引
+## 13、索引
 
 为什么要使用索引？
 
@@ -5646,7 +5648,7 @@ SHOW INDEX FROM <表名> [ FROM <数据库名>];\G
 
 
 
-# 14、临时表
+## 14、临时表
 
 MySQL临时表在需要保存一些临时数据时是非常有用的。临时表只在当前连接可见，当关闭连接时，MySQL会自动删除表并释放所有空间。
 
@@ -5668,9 +5670,9 @@ MySQL临时表在需要保存一些临时数据时是非常有用的。临时表
 
 
 
-# 15、备份
+## 15、备份
 
-## 15.1、数据库备份
+### 15.1、数据库备份
 
 数据库的主要作用就是对数据进行保存和维护，所以备份数据是数据库管理中最常用的操作。为了防止数据库意外崩溃或硬件损伤而导致的数据丢失，数据库系统提供了备份和恢复策略。
 
@@ -5682,7 +5684,7 @@ MySQL 中提供了两种备份方式，即 `mysqldump` 命令以及 mysqlhotcopy
 
 
 
-### 15.1.1、mysqldump
+#### 15.1.1、mysqldump
 
 `mysqldump` 命令可以将数据库中的数据备份成一个文本文件。表的结构和表中的数据将存储在生成的文本文件中。
 
@@ -5789,15 +5791,15 @@ mysqldump -u username -P --all-databases > filename.sql
 
 
 
-## 15.2、自动备份
+### 15.2、自动备份
 
 
 
 
 
-## 15.3、数据恢复
+### 15.3、数据恢复
 
-### 15.3.1、.ibd 文件恢复
+#### 15.3.1、.ibd 文件恢复
 
 不小心删除了 MySQL 数据目录，但还剩个 `.ibd` 文件在，没得备份，没得 binlog，要恢复这个 ibd 文件里面的数据。
 
@@ -5867,9 +5869,9 @@ mysql -h127.0.0.1 -P3314 -p123456 < /tmp/ddcw_alltype_table.sql
 
 
 
-# 17、JDBC
+## 17、JDBC
 
-## 17.1、JDBC 简介
+### 17.1、JDBC 简介
 
 JDBC 全称为：Java DataBase Connectivity（java数据库连接）。
 
@@ -5917,7 +5919,7 @@ SUN 公司为了简化、统一对数据库的操作，定义了一套 Java 操�
 
 
 
-### 18.1.1、DriverManager
+#### 18.1.1、DriverManager
 
 DriverManager类的是管理一组 JDBC 驱动程序的基本服务。作用有两个，如下：
 
@@ -5944,7 +5946,7 @@ URL用于标识数据库的位置，程序员通过URL地址告诉JDBC程序连�
 
 
 
-### 18.1.2、Connection
+#### 18.1.2、Connection
 
 Jdbc程序中的Connection，它用于代表数据库的链接，Collection是数据库编程中最重要的一个对象，客户端与数据库所有交互都是通过connection对象完成的，
 
@@ -5961,7 +5963,7 @@ Jdbc程序中的Connection，它用于代表数据库的链接，Collection是�
 
 
 
-### 18.1.3、Statement
+#### 18.1.3、Statement
 
 Jdbc程序中的Statement对象用于向数据库发送SQL语句， Statement对象常用方法：
 
@@ -5985,7 +5987,7 @@ PreparedStatement是Statement的子接口，它的实例对象可以通过调用
 
 
 
-### 18.1.4、ResultSet
+#### 18.1.4、ResultSet
 
 Jdbc程序中的ResultSet用于代表Sql语句的执行结果。Resultset封装执行结果时，采用的类似于表格的方式。ResultSet 对象维护了一个指向表格数据行的游标cursor，初始的时候，游标在第一行之前，调用ResultSet.next() 方法，可以使游标指向具体的数据行，进而调用方法获取该行的数据。
 
@@ -6029,7 +6031,7 @@ ResultSet 滚动结果集方法
 
 
 
-## 17.2、JDBC 进行 CRUD
+### 17.2、JDBC 进行 CRUD
 
 Jdbc中的statement对象用于向数据库发送SQL语句，想完成对数据库的增删改查，只需要通过这个对象向数据库发送增删改查语句即可。
 
@@ -6104,7 +6106,7 @@ while (rs.next()) {
 
 
 
-## 17.3、JDBC 处理大数据
+### 17.3、JDBC 处理大数据
 
 在实际开发中，程序需要把大文本 TEXT 或二进制数据 BLOB保存到数据库。TEXT是mysql叫法，Oracle中叫CLOB
 
@@ -6178,7 +6180,7 @@ st.executeBatch();
 
 
 
-## 17.4、JDBC 事务控制管理
+### 17.4、JDBC 事务控制管理
 
 当Jdbc程序向数据库获得一个Connection对象时，默认情况下这个Connection对象会自动向数据库提交在它上面发送的SQL语句。若想关闭这种默认提交方式，让多条SQL在一个事务中执行，可使用下列语句：
 
@@ -6211,7 +6213,7 @@ Connection接口中定义事务隔离级别四个常量：
 
 
 
-## 17.5、JDBC 连接报错
+### 17.5、JDBC 连接报错
 
 在使用 JDBC 连接 MySQL 8.0 时，可能会出现 “Public Key Retrieval is not allowed” 的错误：
 
@@ -6257,9 +6259,9 @@ show variables like '%authentication%';
 
 
 
-# 18、服务管理
+## 18、服务管理
 
-## 18.1、SQL 模式
+### 18.1、SQL 模式
 
 MySQL 服务可以在不同的 SQL 模式下运行，并且可以根据 `sql_mode` 系统变量的值将这些模式应用于不同的客户端。DBA 可以设置全局 SQL 模式以匹配站点服务器的操作要求，并且每个应用程序可以根据自己的要求设置其会话 SQL 模式。
 
@@ -6269,7 +6271,7 @@ MySQL 服务可以在不同的 SQL 模式下运行，并且可以根据 `sql_mod
 
 
 
-### 18.1.1、设置 SQL 模式
+#### 18.1.1、设置 SQL 模式
 
 SQL 模式在不同的版本有不同的默认值：
 
@@ -6299,7 +6301,7 @@ SELECT @@SESSION.sql_mode;
 
 
 
-### 18.1.2、SQL 模式列表
+#### 18.1.2、SQL 模式列表
 
 以下列表介绍了所有支持的 SQL 模式：
 
@@ -6325,7 +6327,7 @@ SELECT @@SESSION.sql_mode;
 
 
 
-#### NO_ZERO_DATE
+##### NO_ZERO_DATE
 
 该模式下不允许 "0000-00-00" 作为有效日期，插入会产生警告，通常和严格模式一同使用。
 
@@ -6358,7 +6360,7 @@ Query OK, 1 row affected (0.00 sec)
 
 
 
-#### NO_ZERO_IN_DATE
+##### NO_ZERO_IN_DATE
 
 该模式下不允许月或者日部分出现 0 的日期，插入会转换成 "0000-00-00" 并产生警告，通常和严格模式一起使用。
 
@@ -6388,7 +6390,7 @@ mysql> select * from t_date;
 
 
 
-#### ONLY_FULL_GROUP_BY
+##### ONLY_FULL_GROUP_BY
 
 该模式下当 `SELECT`、`HAVING` 和 `ORDER BY` 的字段使用了非聚合列，如果既不在 `GROUP BY` 子句中引用或命名，也不是一个聚合函数时将会拒绝执行。
 
@@ -6416,7 +6418,7 @@ mysql> select c1,c2 from t_mode_t group by c2;
 
 
 
-#### PAD_CHAR_TO_FULL_LENGTH
+##### PAD_CHAR_TO_FULL_LENGTH
 
 该模式下 `CHAR(N)` 字段类型将会在尾部填充空格到其全长；
 
@@ -6461,7 +6463,7 @@ mysql> select char_length(c1),char_length(c2) from t_char;
 
 
 
-#### PIPES_AS_CONCAT
+##### PIPES_AS_CONCAT
 
 该模式下将 `||` 作为字符串连接运算符（和 `CONCAT()` 函数相同），而不是作为 `OR` 的同义词。
 
@@ -6491,7 +6493,7 @@ mysql> select 1||0;
 
 
 
-#### REAL_AS_FLOAT
+##### REAL_AS_FLOAT
 
 该模式将 `REAL` 作为 `FLOAT` 的同义词；禁用该模式 MySQL 将 `REAL` 作为 `DOUBLE` 的同义词。
 
@@ -6527,7 +6529,7 @@ mysql> desc t_real_1;
 
 
 
-#### TIME_TRUNCATE_FRACTIONAL
+##### TIME_TRUNCATE_FRACTIONAL
 
 控制对 `DATE`、`DATETIME`、`TIMESTAMP` 类型的带小数部分的秒的处理，该模式下会根据精度截断。默认会做四舍五入。
 
@@ -6573,7 +6575,7 @@ mysql> select * from t_time_fractional;
 
 
 
-### 18.1.3、组合 SQL 模式
+#### 18.1.3、组合 SQL 模式
 
 以下特殊模式是前面列表中模式值组合的简写：
 
@@ -6593,7 +6595,7 @@ mysql> select * from t_time_fractional;
 
 
 
-## 18.2、集群
+### 18.2、集群
 
 所谓集群，就是多台服务器之间共享数据，从而实现系统的高可用。节点之间的数据是实时同步的，采用的是同步复制机制。除了有多个主节点外，这些主节点还有多个从节点，当在主节点上进行写操作时，这些写操作会立即被复制到其他节点。因此，所有节点上的数据都是同步的，可以保持一致性。
 
@@ -6601,7 +6603,7 @@ mysql> select * from t_time_fractional;
 
 
 
-### 18.2.1、主从复制
+#### 18.2.1、主从复制
 
 有一个主数据库（Master）和一个或多个从数据库（Slave）。主数据库负责处理事务操作（INSERT、UPDATE、DELETE），并将这些操作的日志（binlog）传送给从数据库。从数据库通过解析主数据库的日志并执行相同的操作，在从库上实现数据的同步。其作用是可以实现读写分离（主节点负责读和写，从节点只负责读），也可以在发生故障时进行数据的恢复（从数据库相当于是主数据库的备份）。
 
@@ -6627,7 +6629,7 @@ MySQL 的主从复制中主要有三个线程：master（binlog dump thread）�
 
 
 
-#### 搭建主从复制
+##### 搭建主从复制
 
 这里搭建最简单的一主一从形式，服务器信息如下：
 
@@ -6745,13 +6747,13 @@ MySQL 的主从复制中主要有三个线程：master（binlog dump thread）�
 
 
 
-#### 测试主从复制
+##### 测试主从复制
 
 Master 中新建一个数据库，去 Slave 上查看数据库，看到数据库已同步。
 
 
 
-#### 可能出现的问题
+##### 可能出现的问题
 
 出现问题先确定 `Slave_IO_Running` 和 `Slave_SQL_Running` 的状态（必须同时是 YES 状态），如果不为 YES 可以使用 `SHOW SLAVE STATUS \G` 查看 `Last_IO_Errno`、`Last_IO_Error` 和 `Last_SQL_Errno`、`Last_SQL_Error` 的信息定位问题。
 
@@ -6767,16 +6769,16 @@ Last_IO_Error: Error connecting to source 'replica_user@10.13.18.187:3306'. This
 这种情况是连接不上主库，可以排查下两个主机之间是否能 `ping` 通，不通则可能是两个主机之间的网络问题，如果可以通则 `telnet` 看看端口是否有反应，如果不通可能是防火墙问题：
 
 ```shell
-# 查看防火墙状态
+## 查看防火墙状态
 firewall-cmd --state
 
-# 查看防火墙开放端口
+## 查看防火墙开放端口
 firewall-cmd --list-ports
 
-# 防火墙开放3306端口
+## 防火墙开放3306端口
 firewall-cmd --permanent --add-port=3306/tcp
 
-# 重新加载防火墙
+## 重新加载防火墙
 firewall-cmd --reload
 ```
 
@@ -6846,7 +6848,7 @@ Last_IO_Error: Fatal error: The replica I/O thread stops because source and repl
 
 
 
-## 18.3、配置不区分大小写 
+### 18.3、配置不区分大小写 
 
 在默认情况下，Linux 系统上 MySQL 是大小写敏感的。这意味着在查询表名、列名或关键字时，必须精确匹配大小写。然而，在某些情况下，我们可能希望数据库忽略大小写，以便更方便地进行操作。
 

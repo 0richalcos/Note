@@ -1,12 +1,14 @@
-# 1、入门
+# Mybatis
 
-## 1.1、什么是 MyBatis？
+## 1、入门
+
+### 1.1、什么是 MyBatis？
 
 MyBatis 是一款优秀的持久层框架，它支持自定义 SQL、存储过程以及高级映射。MyBatis 免除了几乎所有的 JDBC 代码以及设置参数和获取结果集的工作。MyBatis 可以通过简单的 XML 或注解来配置和映射原始类型、接口和 Java POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。
 
 
 
-## 1.2、安装
+### 1.2、安装
 
 要使用 MyBatis， 只需将 [mybatis-x.x.x.jar](https://github.com/mybatis/mybatis-3/releases) 文件置于类路径（classpath）中即可。
 
@@ -22,7 +24,7 @@ MyBatis 是一款优秀的持久层框架，它支持自定义 SQL、存储过�
 
 
 
-## 1.3、SqlSessionFactory
+### 1.3、SqlSessionFactory
 
 每个基于 MyBatis 的应用都是以一个 SqlSessionFactory 的实例为核心的。SqlSessionFactory 的实例可以通过 SqlSessionFactoryBuilder 获得。而 SqlSessionFactoryBuilder 则可以从 XML 配置文件或一个预先配置的 Configuration 实例来构建出 SqlSessionFactory 实例。
 
@@ -91,7 +93,7 @@ SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(confi
 
 
 
-## 1.4、SqlSession
+### 1.4、SqlSession
 
 既然有了 SqlSessionFactory，顾名思义，我们可以从中获得 SqlSession 的实例。SqlSession 提供了在数据库执行 SQL 命令所需的所有方法。你可以通过 SqlSession 实例来直接执行已映射的 SQL 语句。例如：
 
@@ -116,7 +118,7 @@ try (SqlSession session = sqlSessionFactory.openSession()) {
 
 
 
-## 1.5、探究已映射的 SQL 语句
+### 1.5、探究已映射的 SQL 语句
 
 在上面提到的例子中，一个语句既可以通过 XML 定义，也可以通过注解定义。我们先看看 XML 定义语句的方式，事实上 MyBatis 提供的所有特性都可以利用基于 XML 的映射语言来实现，这使得 MyBatis 在过去的数年间得以流行。这里给出一个基于 XML 映射语句的示例，它应该可以满足上个示例中 SqlSession 的调用。
 
@@ -180,7 +182,7 @@ public interface BlogMapper {
 
 
 
-## 1.6、作用域（Scope）和生命周期
+### 1.6、作用域（Scope）和生命周期
 
 **SqlSessionFactoryBuilder**
 
@@ -221,7 +223,7 @@ try (SqlSession session = sqlSessionFactory.openSession()) {
 
 
 
-# 2、XML配置
+## 2、XML配置
 
 MyBatis 的配置文件包含了会深深影响 MyBatis 行为的设置和属性信息。 配置文档的顶层结构如下：
 
@@ -241,7 +243,7 @@ MyBatis 的配置文件包含了会深深影响 MyBatis 行为的设置和属性
 
 
 
-## 2.1、属性（properties）
+### 2.1、属性（properties）
 
 这些属性可以在外部进行配置，并可以进行动态替换。你既可以在典型的 Java 属性文件中配置这些属性，也可以在 properties 元素的子元素中设置。例如：
 
@@ -318,7 +320,7 @@ SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader, environ
 
 
 
-## 2.2、设置（settings）
+### 2.2、设置（settings）
 
 这是 MyBatis 中极为重要的调整设置，它们会改变 MyBatis 的运行时行为。 下表描述了设置中各项设置的含义、默认值等。
 
@@ -348,7 +350,7 @@ SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader, environ
 
 
 
-## 2.3、类型别名（typeAliases）
+### 2.3、类型别名（typeAliases）
 
 类型别名可为 Java 类型设置一个缩写名字。 它仅用于 XML 配置，意在降低冗余的全限定类名书写。例如：
 
@@ -416,7 +418,7 @@ public class Author {
 
 
 
-## 2.4、环境配置（environments）
+### 2.4、环境配置（environments）
 
 MyBatis 可以配置成适应多种环境，这种机制有助于将 SQL 映射应用于多种数据库之中， 现实情况下有多种理由需要这么做。例如，开发、测试和生产环境需要有不同的配置；或者想在具有相同 Schema 的多个生产数据库中使用相同的 SQL 映射。还有许多类似的使用场景。
 
@@ -591,7 +593,7 @@ public class C3P0DataSourceFactory extends UnpooledDataSourceFactory {
 
 
 
-## 2.5、映射器（mappers）
+### 2.5、映射器（mappers）
 
 既然 MyBatis 的行为已经由上述元素配置完了，我们现在就要来定义 SQL 映射语句了。 但首先，我们需要告诉 MyBatis 到哪里去找到这些语句。 在自动查找资源方面，Java 并没有提供一个很好的解决方案，所以最好的办法是直接告诉 MyBatis 到哪里去找映射文件。 你可以使用相对于类路径的资源引用，或完全限定资源定位符（包括 `file:///` 形式的 URL），或类名和包名等。例如：
 
@@ -633,7 +635,7 @@ public class C3P0DataSourceFactory extends UnpooledDataSourceFactory {
 
 
 
-# 3、XML映射文件
+## 3、XML映射文件
 
 SQL 映射文件只有很少的几个顶级元素（按照应被定义的顺序列出）：
 
@@ -649,7 +651,7 @@ SQL 映射文件只有很少的几个顶级元素（按照应被定义的顺序�
 
 
 
-## 3.1、select
+### 3.1、select
 
 查询语句是 MyBatis 中最常用的元素之一——光能把数据存到数据库中价值并不大，还要能重新取出来才有用，多数应用也都是查询比修改要频繁。 MyBatis 的基本原则之一是：在每个插入、更新或删除操作之间，通常会执行多个查询操作。因此，MyBatis 在查询和结果映射做了相当多的改进。一个简单查询的 select 元素是非常简单的。比如：
 
@@ -699,7 +701,7 @@ select 元素允许你配置很多属性来配置每条语句的行为细节。
 
 
 
-## 3.2、insert、update、delete
+### 3.2、insert、update、delete
 
 数据变更语句 insert，update 和 delete 的实现非常接近：
 
@@ -851,7 +853,7 @@ selectKey 元素描述如下：
 
 
 
-## 3.3、参数
+### 3.3、参数
 
 之前见到的所有语句都使用了简单的参数形式。但实际上，参数是 MyBatis 非常强大的元素。对于大多数简单的使用场景，你都不需要使用复杂的参数，比如：
 
@@ -968,7 +970,7 @@ User userOfEmail = userMapper.findByColumn("email", "noone@nowhere.com");
 
 
 
-## 3.4、结果映射
+### 3.4、结果映射
 
 `resultMap` 元素是 MyBatis 中最重要最强大的元素。ResultMap 的设计思想是，对简单的语句做到零配置，对于复杂一点的语句，只需要描述语句之间的关系就行了。
 
@@ -1055,7 +1057,7 @@ public class User {
 
 
 
-### 3.4.1、高级结果映射
+#### 3.4.1、高级结果映射
 
 那么如何映射下面这个非常复杂的语句？
 
@@ -1158,7 +1160,7 @@ ResultMap 的属性列表：
 
 
 
-### 3.4.2、id & result
+#### 3.4.2、id & result
 
 ```xml
 <id property="id" column="post_id"/>
@@ -1185,11 +1187,11 @@ ResultMap 的属性列表：
 
 MyBatis 通过内置的 jdbcType 枚举类型支持下面的 JDBC 类型：
 
-![image-20250724223129075](./!assets/Mybatis/image-20250724223129075.png)
+![image-20250724223129075](image-20250724223129075.png)
 
 
 
-### 3.4.3、构造方法
+#### 3.4.3、构造方法
 
 通过无参构造函数 + setter 方式，可以满足大多数的数据传输对象（Data Transfer Object, DTO）以及绝大部分领域模型的要求。但有些情况下你想使用不可变类。 一般来说，很少改变或基本不变的包含引用或数据的表，很适合使用不可变类。 
 
@@ -1249,7 +1251,7 @@ public class User {
 
 
 
-### 3.4.4、关联
+#### 3.4.4、关联
 
 ```xml
 <association property="author" column="blog_author_id" javaType="Author">
@@ -1276,7 +1278,7 @@ public class User {
 
 
 
-#### 嵌套 Select 查询
+##### 嵌套 Select 查询
 
 | 属性        | 描述                                                         |
 | ----------- | ------------------------------------------------------------ |
@@ -1313,7 +1315,7 @@ public class User {
 
 
 
-#### 嵌套结果映射
+##### 嵌套结果映射
 
 | 属性            | 描述                                                         |
 | --------------- | ------------------------------------------------------------ |
@@ -1433,7 +1435,7 @@ public class User {
 
 
 
-#### 多结果集（ResultSet）
+##### 多结果集（ResultSet）
 
 | 属性            | 描述                                                         |
 | --------------- | ------------------------------------------------------------ |
@@ -1479,7 +1481,7 @@ SELECT * FROM AUTHOR WHERE ID = #{id}
 
 
 
-### 3.4.5、集合
+#### 3.4.5、集合
 
 ```xml
 <collection property="posts" ofType="domain.blog.Post">
@@ -1501,7 +1503,7 @@ private List<Post> posts;
 
 
 
-#### 嵌套 Select 查询
+##### 嵌套 Select 查询
 
 使用嵌套 Select 查询来为博客加载文章：
 
@@ -1529,7 +1531,7 @@ private List<Post> posts;
 
 
 
-#### 嵌套结果映射
+##### 嵌套结果映射
 
 集合的嵌套结果映射除了新增的 `ofType` 属性，其他和关联的完全相同。
 
@@ -1582,7 +1584,7 @@ private List<Post> posts;
 
 
 
-#### 多结果集（ResultSet）
+##### 多结果集（ResultSet）
 
 像关联元素那样可以通过执行存储过程实现，它会执行两个查询并返回两个结果集，一个是博客的结果集，另一个是文章的结果集：
 
@@ -1616,7 +1618,7 @@ SELECT * FROM POST WHERE BLOG_ID = #{id}
 
 
 
-### 3.4.6、鉴别器
+#### 3.4.6、鉴别器
 
 ```xml
 <discriminator javaType="int" column="draft">
@@ -1693,7 +1695,7 @@ SELECT * FROM POST WHERE BLOG_ID = #{id}
 
 
 
-## 3.5、自动映射
+### 3.5、自动映射
 
 正如你在前面一节看到的，在简单的场景下，MyBatis 可以为你自动映射查询结果。但如果遇到复杂的场景，你需要构建一个结果映射。 但是在本节中，你将看到，你可以混合使用这两种策略。让我们深入了解一下自动映射是怎样工作的。
 
@@ -1761,7 +1763,7 @@ SELECT * FROM POST WHERE BLOG_ID = #{id}
 
 
 
-## 3.6、缓存
+### 3.6、缓存
 
 MyBatis 内置了一个强大的事务性查询缓存机制，它可以非常方便地配置和定制。 为了使它更加强大而且易于配置，我们对 MyBatis 3 中的缓存实现进行了许多改进。
 
@@ -1886,7 +1888,7 @@ public interface InitializingObject {
 
 
 
-# 4、动态SQL
+## 4、动态SQL
 
 动态 SQL 是 MyBatis 的强大特性之一。如果你使用过 JDBC 或其它类似的框架，你应该能理解根据不同条件拼接 SQL 语句有多痛苦，例如拼接时要确保不能忘记添加必要的空格，还要注意去掉列表最后一个列名的逗号。利用动态 SQL，可以彻底摆脱这种痛苦。
 
@@ -1901,7 +1903,7 @@ public interface InitializingObject {
 
 
 
-## 4.1、If
+### 4.1、If
 
 使用动态 SQL 最常见情景是根据条件包含 where 子句的一部分。比如：
 
@@ -1974,7 +1976,7 @@ create_date_time <![CDATA[ >= ]]> #{startTime} and  create_date_time <![CDATA[ <
 
 
 
-## 4.2、choose、when、otherwise
+### 4.2、choose、when、otherwise
 
 有时候，我们不想使用所有的条件，而只是想从多个条件中选择一个使用。针对这种情况，MyBatis 提供了 choose 元素，它有点像 Java 中的 switch 语句。
 
@@ -2000,7 +2002,7 @@ create_date_time <![CDATA[ >= ]]> #{startTime} and  create_date_time <![CDATA[ <
 
 
 
-## 4.3、trim、where、set
+### 4.3、trim、where、set
 
 前面几个例子已经合宜地解决了一个臭名昭著的动态 SQL 问题。现在回到之前的 “if” 示例，这次我们将 “state = ‘ACTIVE’” 设置成动态条件，看看会发生什么。
 
@@ -2099,7 +2101,7 @@ MyBatis 有一个简单且适合大多数场景的解决办法。而在其他场
 
 
 
-## 4.4、foreach
+### 4.4、foreach
 
 动态 SQL 的另一个常见使用场景是对集合进行遍历（尤其是在构建 IN 条件语句的时候）。比如：
 
@@ -2133,7 +2135,7 @@ MyBatis 有一个简单且适合大多数场景的解决办法。而在其他场
 
 
 
-## 4.5、OGNL 表达式
+### 4.5、OGNL 表达式
 
 MyBatis 的动态 SQL 广泛应用到了OGNL 表达式，OGNL 表达式可以灵活的组装 SQL 语句，从而完成更多的功能。
 
@@ -2184,35 +2186,35 @@ pedro.setAge(23);
 访问用户的 username 属性，OGNL 表达式为`pedro.username`，结果为：
 
 ```
-# pedro.username
+## pedro.username
 pedro
 ```
 
 访问用户的第一个标签，OGNL 表达式为`pedro.tags[0]`，结果为：
 
 ```
-# pedro.tags[0]
+## pedro.tags[0]
 admin
 ```
 
 比较用户标签长度是否大于 1，OGNL 表达式为`pedro.tags[0]`，结果为：
 
 ```
-# pedro.tags.size > 1
+## pedro.tags.size > 1
 true
 ```
 
 用户年龄加上一个整数 22，OGNL 表达式为`pedro.age + 22`，结果为：
 
 ```
-# pedro.age + 22
+## pedro.age + 22
 45
 ```
 
 将用户年龄全部大写，OGNL 表达式为`pedro.username.toUpperCase`，结果为：
 
 ```
-# pedro.username.toUpperCase
+## pedro.username.toUpperCase
 PEDRO
 ```
 
@@ -2220,7 +2222,7 @@ PEDRO
 
 
 
-# 5、Java API
+## 5、Java API
 
 既然你已经知道如何配置 MyBatis 以及如何创建映射，是时候来尝点甜头了。MyBatis 的 Java API 就是这个甜头。稍后你将看到，和 JDBC 相比，MyBatis 大幅简化你的代码并力图保持其简洁、容易理解和维护。为了使得 SQL 映射更加优秀，MyBatis 3 引入了许多重要的改进。
 
@@ -2230,7 +2232,7 @@ PEDRO
 
 
 
-## 5.1、SqlSessionFactory
+### 5.1、SqlSessionFactory
 
 SqlSessionFactoryBuilder 有五个 build() 方法，每一种都允许你从不同的资源中创建一个 SqlSessionFactory 实例。
 
@@ -2318,7 +2320,7 @@ SqlSessionFactory factory = builder.build(configuration);
 
 
 
-## 5.2、SqlSession
+### 5.2、SqlSession
 
 SqlSessionFactory 有六个方法创建 SqlSession 实例。通常来说，当你选择其中一个方法时，你需要考虑以下几点：
 
@@ -2361,7 +2363,7 @@ SqlSession 类的方法超过了 20 个，为了方便理解，我们将它们�
 
 
 
-## 5.3、语句执行方法
+### 5.3、语句执行方法
 
 这些方法被用来执行定义在 SQL 映射 XML 文件中的 SELECT、INSERT、UPDATE 和 DELETE 语句。你可以通过名字快速了解它们的作用，每一方法都接受语句的 ID 以及参数对象，参数可以是原始类型（支持自动装箱或包装类）、JavaBean、POJO 或 Map。
 
@@ -2482,7 +2484,7 @@ Configuration getConfiguration()
 
 
 
-## 5.4、使用映射器
+### 5.4、使用映射器
 
 ```java
 <T> T getMapper(Class<T> type)
@@ -2657,7 +2659,7 @@ class UserSqlProvider implements ProviderMethodResolver {
 
 
 
-# 6、SQL 语句构建器
+## 6、SQL 语句构建器
 
 Java 程序员面对的最痛苦的事情之一就是在 Java 代码中嵌入 SQL 语句。这通常是因为需要动态生成 SQL 语句，不然我们可以将它们放到外部文件或者存储过程中。如你所见，MyBatis 在 XML 映射中具备强大的 SQL 动态生成能力。但有时，我们还是需要在 Java 代码里构建 SQL 语句。此时，MyBatis 有另外一个特性可以帮到你，让你从处理典型问题中解放出来，比如加号、引号、换行、格式化问题、嵌入条件的逗号管理及 AND 连接。确实，在 Java 代码中动态生成 SQL 代码真的就是一场噩梦。例如：
 
@@ -2706,7 +2708,7 @@ private String selectPersonSql() {
 
 这个例子有什么特别之处吗？仔细看一下你会发现，你不用担心可能会重复出现的 "AND" 关键字，或者要做出用 "WHERE" 拼接还是 "AND" 拼接还是不用拼接的选择。SQL 类已经为你处理了哪里应该插入 "WHERE"、哪里应该使用 "AND" 的问题，并帮你完成所有的字符串拼接工作。
 
-### SQL 类
+#### SQL 类
 
 这里有一些示例：
 
@@ -2849,7 +2851,7 @@ public String selectPersonsWithFetchFirstSql() {
 
 
 
-# 7、日志
+## 7、日志
 
 Mybatis 通过使用内置的日志工厂提供日志功能。内置日志工厂将会把日志工作委托给下面的实现之一：
 
@@ -2978,7 +2980,7 @@ org.apache.ibatis.logging.LogFactory.useStdOutLogging();
 
 
 
-# 8、SpringBoot 集成
+## 8、SpringBoot 集成
 
 1. **建表**
 
@@ -3087,7 +3089,7 @@ org.apache.ibatis.logging.LogFactory.useStdOutLogging();
 
 
 
-## 8.1、注解版
+### 8.1、注解版
 
 1. 新建 `@Mapper` 注解标识的接口，接口中方法上面使用 `@Insert`、`@Delete`、`@Update`、`@Select` 注解编写操作数据库增删改查的 SQL：
 
@@ -3259,7 +3261,7 @@ public class HippoApplication {
 
 
 
-## 8.2、XML 配置版
+### 8.2、XML 配置版
 
 除了使用 `@Mapper` 注解的方式，也可以使用 MyBatis xml 文件配置的方式。实际开发中可以同时存在 MyBatis 的注解方式与配置方式，如 User 实体可以使用注解方式进行 CRUD，Party 实体可以使用配置方式进行 CRUD。
 
@@ -3371,13 +3373,13 @@ public class HippoApplication {
 
 
 
-# 9、异常
+## 9、异常
 
 这里列出一些开发过程中遇到的异常以及解决办法。
 
 
 
-## 9.1、net.sf.jsqlparser.parser.ParseException
+### 9.1、net.sf.jsqlparser.parser.ParseException
 
 运行 Mybatis 查询 SQL 时报错异常：
 

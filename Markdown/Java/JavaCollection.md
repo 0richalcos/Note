@@ -1,8 +1,6 @@
----
-title: Java 集合
----
+# Java 集合
 
-# 1、集合详解
+## 1、集合详解
 
 在编程时，可以使用数组来保存多个对象，但数组长度不可变化，一旦在初始化数组时指定了数组长度，这个数组长度就是不可变的。如果需要保存数量变化的数据，数组就有点无能为力了。而且数组无法保存具有映射关系的数据，如成绩表为语文——79，数学——80，这种数据看上去像两个数组，但这两个数组的元素之间有一定的关联关系。
 
@@ -46,7 +44,7 @@ Java 集合类型分为 Collection 和 Map，它们是 Java 集合的根接口�
 
 
 
-# 9.2、Collection 接口
+## 9.2、Collection 接口
 
 ==Collection 接口是 List、Set 和 Queue 接口的父接口，通常情况下不被直接使用。==Collection 接口定义了一些通用的方法，通过这些方法可以实现对集合的基本操作。定义的方法既可用于操作 Set 集合，也可用于操作 List 和 Queue 集合。
 
@@ -143,7 +141,7 @@ one、three、
 
 
 
-# 9.3、List集合
+## 9.3、List集合
 
 List 是一个==有序、可重复的集合，==集合中每个元素都有其对应的顺序索引。List 集合允许使用重复元素，可以通过索引来访问指定位置的集合元素。List 集合默认按元素的添加顺序设置元素的索引，第一个添加到 List 集合中的元素的索引为 0，第二个为 1，依此类推。
 
@@ -163,7 +161,7 @@ List ==实现了 Collection 接口，==它主要有两个常用的实现类：==
 
 
 
-### 9.3.1、ArrayList 类
+#### 9.3.1、ArrayList 类
 
 ==ArrayList 类实现了可变数组的大小，==存储在内的数据称为元素。它还==提供了快速基于索引访问元素的方式，对尾部成员的增加和删除支持较好。==使用 ArrayList 创建的集合，允许对集合中的元素进行快速的随机访问，不过，向 ArrayList 中插入与删除元素的速度相对较慢。
 
@@ -188,7 +186,7 @@ ArrayList 类除了包含 Collection 接口中的所有方法之外，还包括 
 
 
 
-#### 底层实现
+##### 底层实现
 
 ArrayList的主要底层实现是数组Object[] elementData，可以通过构造方法在初始化的时候指定底层数组的大小。
 
@@ -201,7 +199,7 @@ ArrayList的主要底层实现是数组Object[] elementData，可以通过构造
 
 
 
-#### 扩容
+##### 扩容
 
 就比如现在有一个长度为10的数组，现在我们要新增一个元素，发现已经满了：
 
@@ -223,7 +221,7 @@ ArrayList1.7和1.8版本初始化的时候的区别：arrayList1.7开始变化�
 
 
 
-#### 增删
+##### 增删
 
 ArrayList 有指定 index 新增，也有直接新增的，在这之前他会有一步校验长度的判断 **ensureCapacityInternal**，就是说如果长度不够，是需要扩容的。
 
@@ -275,7 +273,7 @@ ArrayList 有指定 index 新增，也有直接新增的，在这之前他会有
 
 
 
-#### 初始化
+##### 初始化
 
 ==ArrayList（int initialCapacity）会初始化数组大小！==但是List的大小没有变，因为list的大小是返回size的！而且将构造函数与initialCapacity结合使用，然后使用set()会抛出异常，尽管该数组已创建，但是大小设置不正确。使用sureCapacity()也不起作用，因为它基于elementData数组而不是大小。
 
@@ -283,7 +281,7 @@ ArrayList 有指定 index 新增，也有直接新增的，在这之前他会有
 
 
 
-#### 线程安全
+##### 线程安全
 
 ArrayList 不是线程安全的，线程安全版本的数组容器是 Vector。
 
@@ -293,7 +291,7 @@ Vector 的实现很简单，就是把所有的方法统统加上 synchronized �
 
 
 
-### 9.3.2、LinkedList类
+#### 9.3.2、LinkedList类
 
 ==LinkedList 类采用链表结构保存对象，==这种结构的优点是==便于向集合中插入或者删除元素。==需要频繁向集合中插入和删除元素时，使用 LinkedList 类比 ArrayList 类效果高，但是 LinkedList 类随机访问元素的速度则相对较慢。这里的随机访问是指检索集合中特定索引位置的元素。
 
@@ -322,13 +320,13 @@ ArrayList 是基于动态数组数据结构的实现，访问元素速度优于 
 
 
 
-# 9.4、Set集合
+## 9.4、Set集合
 
 Set 集合类似于一个罐子，程序可以依次把多个对象“丢进”Set 集合，而 Set 集合通常不能记住元素的添加顺序。也就是说 ==Set 集合中的对象不按特定的方式排序，==只是简单地把对象加入集合。==Set 集合中不能包含重复的对象，=并且最多只允许包含一个 null 元素。
 
 Set 实现了 Collection 接口，它主要有两个常用的实现类：HashSet 类和 TreeSet类。
 
-### 9.4.1、HashSet 类
+#### 9.4.1、HashSet 类
 
 ==HashSet 是 Set 接口的典型实现，==大多数时候使用 Set 集合时就是使用这个实现类。HashSet 是按照 Hash 算法来存储集合中的元素。因此==具有很好的存取和查找性能。==
 
@@ -356,7 +354,7 @@ HashSet<String> hss = new HashSet<String>();    // 创建泛型的 HashSet 集�
 
 
 
-### 9.4.2、TreeSet 类
+#### 9.4.2、TreeSet 类
 
 ==TreeSet 类同时实现了 Set 接口和 SortedSet 接口。SortedSet 接口是 Set 接口的子接口，可以实现对集合进行自然排序，==因此使用 TreeSet 类实现的 Set 接口默认情况下是自然排序的，这里的自然排序指的是升序排序。
 
@@ -388,7 +386,7 @@ TreeSet 类除了实现 Collection 接口的所有方法之外，还提供了下
 
 
 
-# 9.5、Map集合
+## 9.5、Map集合
 
 ==Map 是一种键-值对（key-value）集合，==Map 集合中的每一个元素都包含一个键（key）对象和一个值（value）对象。==用于保存具有映射关系的数据。==
 
@@ -423,9 +421,9 @@ Map接口的常用方法
 
 
 
-### 9.5.1、HashMap
+#### 9.5.1、HashMap
 
-#### 底层结构
+##### 底层结构
 
 HashMap 由**数组和链表组合构成**的数据结构。大概如下，数组里面每个地方都存了 Key-Value 这样的实例，在 Java7 叫 Entry 在 Java8 中叫 Node。
 
@@ -445,7 +443,7 @@ HashMap 由**数组和链表组合构成**的数据结构。大概如下，数�
 
 
 
-#### 插入和扩容
+##### 插入和扩容
 
 ==Java8 之前是头插法==，就是说新来的值会取代原有的值，原有的值就顺推到链表中去，就像上面的例子一样，因为写这个代码的作者认为后来的值被查找的可能性更大一点，提升查找的效率。但是，在 ==Java 8 之后，都是所用尾部插入了。==
 
@@ -511,7 +509,7 @@ Java 8 在同样的前提下并不会引起死循环，原因是扩容转移后�
 
 
 
-#### 初始长度
+##### 初始长度
 
 HashMap 的默认初始化长度为什么是 16，这样是为了位运算的方便，**位与运算比算数计算的效率高了很多**，之所以选择 16，是为了服务将 Key 映射到 index 的算法。所有的 key 都会拿到他的 hash，为了尽可能的得到一个均匀分布的 hash，会通过 Key 的 HashCode 值去做位运算。
 
@@ -521,7 +519,7 @@ HashMap 的默认初始化长度为什么是 16，这样是为了位运算的方
 
 
 
-#### 线程安全
+##### 线程安全
 
 HashMap 是线程不安全的，一般都会使用 `Collections.synchronizedMap(Map)` 创建线程安全的map集合、`HashTable` 或者 `ConcurrentHashMap`，但是因为 Hashtable 的**并发度**的原因基本上没啥使用场景了，所以存在线程不安全的场景使用的是 ConcurrentHashMap。
 
@@ -583,7 +581,7 @@ public void clear() {
 
 
 
-### 9.5.2、Hashtable
+#### 9.5.2、Hashtable
 
 Hashtable 和 HashMap 很像，下面概述一下不同点：
 
@@ -670,13 +668,13 @@ HashMap 的初始容量为：16，Hashtable 初始容量为：11，两者的负�
 
 
 
-### 9.5.3、ConcurrentHashMap
+#### 9.5.3、ConcurrentHashMap
 
 虽然 Hashtable 是线程安全的，但是 get / put 所有相关操作都是 synchronized 的，这相当于给整个哈希表加了一把大锁，多线程中只要有一个线程访问或操作该对象，那其他线程只能阻塞。
 
 ConcurrentHashMap 1.7 和 1.8 版本结构不同，下面分别概述：
 
-#### JDK 1.7
+##### JDK 1.7
 
 在 JDK1.5~1.7版本，Java使用了==分段锁==技术实现 ConcurrentHashMap，简而言之，ConcurrentHashMap 在对象中保存了一个 Segment 数组，即将整个 Hash 表划分为多个分段；而每个 Segment 元素类似于一个 Hashtable；这样在执行 put 操作时首先根据 hash 算法定位到元素属于哪个Segment，然后对该 Segment 加锁即可。
 
@@ -784,7 +782,7 @@ get 逻辑比较简单：
 
 
 
-#### JDK 1.8
+##### JDK 1.8
 
 在 1.8 中抛弃了原有的 Segment 分段锁，而采用了 `CAS + synchronized` 来保证并发安全性。跟HashMap很像，也把之前的 HashEntry 改成了Node，但是作用不变，把值和 next 采用了 volatile 去修饰，保证了可见性，并且也引入了红黑树，在链表大于一定值的时候会转换（默认是8）。
 
@@ -809,7 +807,7 @@ get:
 
 
 
-# 9.6、Iterator（迭代器）
+## 9.6、Iterator（迭代器）
 
 首先说一下迭代器模式，它是 Java 中常用的设计模式之一。用于顺序访问集合对象的元素，无需知道集合对象的底层实现。Iterator 是可以遍历集合的对象，为各种容器提供了公共的操作接口，隔离对容器的遍历操作和底层实现，从而解耦。缺点是增加新的集合类需要对应增加新的迭代器类，迭代器类与集合类成对增加。
 
@@ -907,7 +905,7 @@ java.util 包下的集合类都是快速失败的，不能在多线程下发生�
 
 
 
-### 9.6.1、使用Lambda表达式遍历Iterator迭代器
+#### 9.6.1、使用Lambda表达式遍历Iterator迭代器
 
 Java 8 为 Iterator 引入了一个 forEachRemaining(Consumer action) 默认方法，该方法所需的 Consumer 参数同样也是函数式接口。当程序调用 Iterator 的 forEachRemaining(Consumer action) 遍历集合元素时，程序会依次将集合元素传给 Consumer 的 accept(T t) 方法（该接口中唯一的抽象方法）。
 
@@ -943,7 +941,7 @@ public class IteratorEach {
 
 
 
-### 9.6.2、Iterator 和 ListIterator 有什么区别？
+#### 9.6.2、Iterator 和 ListIterator 有什么区别？
 
 - ListIterator 继承 Iterator
 - 使用范围不同，Iterator可以迭代所有集合；ListIterator 只能用于List及其子类
@@ -954,7 +952,7 @@ public class IteratorEach {
 
 
 
-# 9.7、Collections 类
+## 9.7、Collections 类
 
 ==Collections 类是 Java 提供的一个操作 Set、List 和 Map 等集合的工具类。==Collections 类提供了许多操作集合的静态方法，借助这些静态方法可以实现集合元素的排序、查找替换和复制等操作。下面介绍 Collections 类中操作集合的常用方法。
 
@@ -1014,9 +1012,9 @@ void copy(List <? super T> dest,List<? extends T> src)
 
 
 
-# 9.8、JDK8 新增集合操作
+## 9.8、JDK8 新增集合操作
 
-### 9.8.1、使用Lambda表达式遍历Collection集合
+#### 9.8.1、使用Lambda表达式遍历Collection集合
 
 Java 8 为 Iterable 接口新增了一个 forEach(Consumer action) 默认方法，该方法所需参数的类型是一个函数式接口，而 Iterable 接口是 Collection 接口的父接口，因此 Collection 集合也可直接调用该方法。
 
@@ -1070,7 +1068,7 @@ infoMap.forEach((key, value) -> {
 
 
 
-### 9.8.2、Predicate操作Collection集合
+#### 9.8.2、Predicate操作Collection集合
 
 Java 8 起为 Collection 集合新增了一个 removeIf(Predicate filter) 方法，该方法将会批量删除符合 filter 条件的所有元素。该方法需要一个 Predicate 对象作为参数，Predicate 也是函数式接口，因此可使用 Lambda 表达式作为参数。
 
@@ -1148,7 +1146,7 @@ public class ForeachTest2 {
 
 
 
-### 9.8.3、Stream操作Collection集合
+#### 9.8.3、Stream操作Collection集合
 
 Java 8 还新增了 Stream、IntStream、LongStream、DoubleStream 等流式 API，这些 API 代表多个支持串行和并行聚集操作的元素。上面 4 个接口中，Stream 是一个通用的流接口，而 IntStream、LongStream、 DoubleStream 则代表元素类型为 int、long、double 的流。
 
@@ -1263,7 +1261,7 @@ public class CollectionStream {
 
 
 
-# 9.9、泛型
+## 9.9、泛型
 
 前面提到 Java 集合有个缺点，就是把一个对象“丢进”集合里之后，集合就会“忘记”这个对象的数据类型，当再次取出该对象时，该对象的编译类型就变成了 Object 类型（其运行时类型没变）。
 
@@ -1276,7 +1274,7 @@ Java 集合之所以被设计成这样，是因为集合的设计者不知道我
 
 
 
-### 9.9.1、泛型集合
+#### 9.9.1、泛型集合
 
 ==泛型本质上是提供类型的“类型参数”，也就是参数化类型。==我们可以为类、接口或方法指定一个类型参数，通过这个参数限制操作的数据类型，从而保证类型转换的绝对安全。
 
@@ -1348,7 +1346,7 @@ public class Test14 {
 
 
 
-### 9.9.2、泛型类
+#### 9.9.2、泛型类
 
 除了可以定义泛型集合之外，还可以直接限定泛型类的类型参数。语法格式如下：
 
@@ -1430,7 +1428,7 @@ public class Test14 {
 
 
 
-### 9.9.3、泛型方法
+#### 9.9.3、泛型方法
 
 到目前为止，我们所使用的泛型都是应用于整个类上。泛型同样可以在类中包含参数化的方法，而方法所在的类可以是泛型类，也可以不是泛型类。也就是说，==是否拥有泛型方法，与其所在的类是不是泛型没有关系。==
 
@@ -1465,7 +1463,7 @@ public class Test16 {
 
 
 
-### 9.9.4、泛型的高级用法
+#### 9.9.4、泛型的高级用法
 
 泛型的用法非常灵活，除在集合、类和方法中使用外，本节将从三个方面介绍泛型的高级用法，包括限制泛型可用类型、使用类型通配符、继承泛型类和实现泛型接口。
 
@@ -1524,7 +1522,7 @@ c = new A<HashMap> ();    // 错误
 
 
 
-# 9.10、图书信息查询
+## 9.10、图书信息查询
 
 在图书管理系统中为了方便管理图书，将图书划分为几个类别。每个类别下有很多图书，每本图书都有相对应的类别，这就具备了一对多的关系映射，即一个类别对应多本图书。
 

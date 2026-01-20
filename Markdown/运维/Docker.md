@@ -1,8 +1,10 @@
-# 1、简介
+# Docker
 
-## 1.1、概述
+## 1、简介
 
-### 1.1.1、什么是 Docker
+### 1.1、概述
+
+#### 1.1.1、什么是 Docker
 
 Docker 最初是 dotCloud 公司创始人 Solomon Hykes 在法国期间发起的一个公司内部项目，它是基于 dotCloud 公司多年云服务技术的一次革新，并于 2013 年 3 月以 Apache 2.0 授权协议开源，主要项目代码在 GitHub 上进行维护。Docker 项目后来还加入了 Linux 基金会，并成立推动 开放容器联盟（OCI）。
 
@@ -24,7 +26,7 @@ Docker 和传统虚拟化方式的不同之处。传统虚拟机技术是虚拟�
 
 <br>
 
-### 1.1.2、为什么要用 Docker
+#### 1.1.2、为什么要用 Docker
 
 作为一种新兴的虚拟化方式，Docker 跟传统的虚拟化方式相比具有众多的优势。
 
@@ -81,7 +83,7 @@ Docker 使用的分层存储以及镜像的技术，使得应用重复部分的�
 
 <br>
 
-## 1.2、基本概念
+### 1.2、基本概念
 
 Docker 包括三个基本概念：
 
@@ -93,7 +95,7 @@ Docker 包括三个基本概念：
 
 <br>
 
-### 1.2.1、镜像
+#### 1.2.1、镜像
 
 我们都知道，操作系统分为内核和用户空间。对于 Linux 而言，内核启动后，会挂载 root 文件系统为其提供用户空间支持。而 Docker 镜像（Image），就相当于是一个 root 文件系统。比如官方镜像 ubuntu:18.04 就包含了完整的一套 Ubuntu 18.04 最小系统的 root 文件系统。
 
@@ -111,7 +113,7 @@ Docker 镜像是一个特殊的文件系统，除了提供容器运行时所需�
 
 <br>
 
-### 1.2.2、容器
+#### 1.2.2、容器
 
 镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例 一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。
 
@@ -127,7 +129,7 @@ Docker 镜像是一个特殊的文件系统，除了提供容器运行时所需�
 
 <br>
 
-### 1.2.3、仓库
+#### 1.2.3、仓库
 
 镜像构建完成后，可以很容易的在当前宿主机上运行，但是，如果需要在其它服务器上使用这个镜像，我们就需要一个集中的存储、分发镜像的服务，Docker Registry 就是这样的服务。
 
@@ -163,7 +165,7 @@ Docker Registry 公开服务是开放给用户使用、允许用户管理镜像�
 
 <br>
 
-## 1.3、安装 Docker
+### 1.3、安装 Docker
 
 Docker 分为 stable、test 和 nightly 三个更新频道。
 
@@ -171,7 +173,7 @@ Docker 分为 stable、test 和 nightly 三个更新频道。
 
 <br>
 
-### 1.3.1、Windows
+#### 1.3.1、Windows
 
 **系统要求**
 
@@ -245,7 +247,7 @@ Docker 启动之后会在 Windows 任务栏出现鲸鱼图标：
 
 <br>
 
-### 1.3.2、麒麟
+#### 1.3.2、麒麟
 
 麒麟-Kylin 作为中国国产操作系统，基于 Linux 开发的商业操作系统。针对中国国企央企开发的系统，麒麟、统信大体都会接触过。既然是基于 Linux  开发的，软件按照就可以先尝试 Linux 对应架构的版本，如果运行有问题，再在对应的操作系统上进行编译操作。
 
@@ -330,7 +332,7 @@ Docker 启动之后会在 Windows 任务栏出现鲸鱼图标：
 
 <br>
 
-## 1.4、镜像加速器
+### 1.4、镜像加速器
 
 国内从 Docker Hub 拉取镜像有时会遇到困难，此时可以配置镜像加速器。国内很多云服务商都提供了国内加速器服务，例如：
 
@@ -361,7 +363,7 @@ Registry Mirrors:
 
 <br>
 
-### 1.4.1、Windows
+#### 1.4.1、Windows
 
 对于使用 Windows 的用户，在 Docker Desktop 中打开配置窗口后在左侧导航菜单选择 Docker Engine，编辑右侧的 json 文件，之后点击 Apply & Restart 保存后 Docker 就会重启并应用配置的镜像地址了。
 
@@ -376,7 +378,7 @@ Registry Mirrors:
 
 <br>
 
-# 2、使用镜像
+## 2、使用镜像
 
 Docker 运行容器前需要本地存在对应的镜像，如果本地不存在该镜像，Docker 会从镜像仓库下载该镜像。
 
@@ -398,7 +400,7 @@ Docker 管理镜像的主要命令为 `docker image`，其下包含以下子命�
 
 <br>
 
-## 2.1、获取镜像
+### 2.1、获取镜像
 
 [Docker Hub](https://hub.docker.com/search?q=&type=image) 上有大量的高质量的镜像可以用，从 Docker 镜像仓库获取镜像的命令是 `docker image pull`（常用别名为 `docker pull`）。其命令格式为：
 
@@ -430,7 +432,7 @@ docker.io/library/ubuntu:18.04
 
 <br>
 
-## 2.2、列出镜像
+### 2.2、列出镜像
 
 要想列出已经下载下来的镜像，可以使用 `docker image ls` 命令（常用别名为 `docker images`）：
 
@@ -491,7 +493,7 @@ REPOSITORY          TAG                 IMAGE ID            CREATED             
 
 <br>
 
-### 2.2.1、中间层镜像
+#### 2.2.1、中间层镜像
 
 为了加速镜像构建、重复利用资源，Docker 会利用中间层镜像。所以在使用一段时间后，可能会看到一些依赖的中间层镜像。默认的 `docker images` 列表中只会显示顶层镜像，如果希望显示包括中间层镜像在内的所有镜像的话，需要加 `-a` 参数：
 
@@ -503,7 +505,7 @@ docker images -a
 
 <br>
 
-### 2.2.2、列出部分镜像
+#### 2.2.2、列出部分镜像
 
 不加任何参数的情况下，`docker images` 会列出所有顶层镜像，但是有时候我们只希望列出部分镜像。`docker images` 有好几个参数可以帮助做到这个事情。
 
@@ -543,7 +545,7 @@ docker images -f label=com.example.version=0.1
 
 <br>
 
-### 2.3.3、以特定格式显示
+#### 2.3.3、以特定格式显示
 
 默认情况下 `docker images` 会输出一个完整的表格，但是我们并非所有时候都会需要这些内容。比如，刚才删除虚悬镜像的时候，我们需要利用 `docker images` 把所有的虚悬镜像的 ID 列出来，然后才可以交给 `docker rmi` 命令作为参数来删除指定的这些镜像，这个时候就用到了 `-q` 参数（quiet：只显示镜像 ID，不显示其他信息）：
 
@@ -601,7 +603,7 @@ fe9198c04d62        mongo               3.2
 
 <br>
 
-## 2.3、删除本地镜像
+### 2.3、删除本地镜像
 
 如果要删除本地的镜像，可以使用 `docker image rm` 命令（常用别名为 `docker rmi`），其格式为：
 
@@ -697,11 +699,11 @@ docker rmi $(docker images -q -f before=mongo:3.2)
 
 <br>
 
-## 2.4、保存和加载镜像
+### 2.4、保存和加载镜像
 
 <br>
 
-# 3、操作容器
+## 3、操作容器
 
 容器是 Docker 又一核心概念。
 
@@ -739,7 +741,7 @@ Docker 管理容器的命令为 `docker container`，其下有以下子命令：
 
 <br>
 
-## 3.1、启动容器
+### 3.1、启动容器
 
 启动容器有两种方式，一种是基于镜像新建一个容器并启动，另外一个是将在终止状态（`exited`）的容器重新启动。
 
@@ -747,7 +749,7 @@ Docker 管理容器的命令为 `docker container`，其下有以下子命令：
 
 <br>
 
-### 3.1.1、新建并启动容器
+#### 3.1.1、新建并启动容器
 
 所需要的命令主要为 `docker container run`（常用别名为 `docker run`）。
 
@@ -790,7 +792,7 @@ bin boot dev etc home lib lib64 media mnt opt proc root run sbin srv sys tmp usr
 
 <br>
 
-### 3.1.2、启动已终止容器
+#### 3.1.2、启动已终止容器
 
 可以利用 `docker container start` 命令（常用别名为 `docker start`），直接将一个已经终止（`exited`）的容器启动运行。
 
@@ -807,7 +809,7 @@ root@ba267838cc1b:/# ps
 
 <br>
 
-### 3.1.3、守护态启动容器
+#### 3.1.3、守护态启动容器
 
 更多的时候，需要让 Docker 在后台运行而不是直接把执行命令的结果输出在当前宿主机下。此时，可以通过添加 `-d` 参数来实现。
 
@@ -856,7 +858,7 @@ hello world
 
 <br>
 
-## 3.2、终止容器
+### 3.2、终止容器
 
 可以使用 `docker container stop` 命令（常用别名为 `docker stop`）来终止一个运行中的容器。
 
@@ -878,7 +880,7 @@ ba267838cc1b        ubuntu:18.04             "/bin/bash"            30 minutes a
 
 <br>
 
-## 3.3、进入容器
+### 3.3、进入容器
 
 在使用 `-d` 参数时，容器启动后会进入后台。
 
@@ -941,7 +943,7 @@ root@69d137adef7a:/#
 
 <br>
 
-## 3.4、导出和导入
+### 3.4、导出和导入
 
 **导出容器**
 
@@ -981,7 +983,7 @@ docker import http://example.com/exampleimage.tgz example/imagerepo
 
 <br>
 
-## 3.5、删除容器
+### 3.5、删除容器
 
 **删除容器**
 
@@ -1002,7 +1004,7 @@ trusting_newton
 
 <br>
 
-# 4、访问仓库
+## 4、访问仓库
 
 仓库（Repository）是集中存放镜像的地方。
 
@@ -1020,7 +1022,7 @@ Docker 访问仓库涉及以下常用命令：
 
 <br>
 
-## 4.1、Docker Hub
+### 4.1、Docker Hub
 
 目前 Docker 官方维护了一个公共仓库 [Docker Hub](https://hub.docker.com/)，其中已经包括了数量超过 [2,650,000](https://hub.docker.com/search/?type=image) 的镜像。大部分需求都可以通过在 Docker Hub 中直接下载镜像来实现。
 
@@ -1105,7 +1107,7 @@ username/ubuntu
 
 <br>
 
-## 4.2、私有仓库
+### 4.2、私有仓库
 
 有时候使用 Docker Hub 这样的公共仓库可能不方便，用户可以创建一个本地仓库供私人使用。
 
@@ -1119,7 +1121,7 @@ username/ubuntu
 
 <br>
 
-### 4.2.1、安装 docker-registry
+#### 4.2.1、安装 docker-registry
 
 你可以使用官方 `registry` 镜像来运行：
 
@@ -1135,7 +1137,7 @@ docker run -d -p 5000:5000 -v /opt/data/registry:/var/lib/registry registry
 
 <br>
 
-### 4.2.2、使用私有仓库
+#### 4.2.2、使用私有仓库
 
 创建好私有仓库之后，就可以使用 `docker image tag` 命令（常用别名为 `docker tag`）来标记一个镜像，然后推送到仓库。`docker tag` 格式为：
 
@@ -1211,7 +1213,7 @@ docker tag IMAGE[:TAG] [REGISTRY_HOST[:REGISTRY_PORT]/]REPOSITORY[:TAG]
 
 <br>
 
-### 4.2.3、配置非 https 地址
+#### 4.2.3、配置非 https 地址
 
 如果你不想使用 `127.0.0.1:5000` 作为仓库地址，比如想让本网段的其他主机也能把镜像推送到私有仓库。你就得把例如 `192.168.199.100:5000` 这样的内网地址作为私有仓库地址，这时你会发现无法成功推送镜像。
 
@@ -1247,7 +1249,7 @@ docker tag IMAGE[:TAG] [REGISTRY_HOST[:REGISTRY_PORT]/]REPOSITORY[:TAG]
 
 <br>
 
-# 5、数据管理
+## 5、数据管理
 
 在容器中管理数据主要有两种方式：
 
@@ -1267,7 +1269,7 @@ Docker 管理数据卷的命令为 `docker volume`，其下有以下子命令：
 
 <br>
 
-## 5.1、数据卷
+### 5.1、数据卷
 
 数据卷是一个可供一个或多个容器使用的特殊目录，它绕过 UnionFS，可以提供很多有用的特性：
 
@@ -1282,7 +1284,7 @@ Docker 管理数据卷的命令为 `docker volume`，其下有以下子命令：
 
 <br>
 
-### 5.1.1、创建数据卷
+#### 5.1.1、创建数据卷
 
 创建数据卷 `my-vol`：
 
@@ -1321,7 +1323,7 @@ $ docker volume inspect my-vol
 
 <br>
 
-### 5.1.2、使用数据卷启动容器
+#### 5.1.2、使用数据卷启动容器
 
 在用 `docker run` 命令的时候，使用 `--mount` 标记来将数据卷挂载到容器里，在一次 `docker run` 中可以挂载多个数据卷。
 
@@ -1358,7 +1360,7 @@ docker inspect web
 
 <br>
 
-### 5.1.3、删除数据卷
+#### 5.1.3、删除数据卷
 
 删除数据卷 `my-vol`：
 
@@ -1376,7 +1378,7 @@ docker volume rm my-vol
 
 <br>
 
-## 5.2、绑定挂载
+### 5.2、绑定挂载
 
 **挂载主机目录作为数据卷**
 
@@ -1444,7 +1446,7 @@ root@2affd44b4667:/# history
 
 <br>
 
-# 6、使用网络
+## 6、使用网络
 
 Docker 允许通过外部访问容器或容器互联的方式来提供网络服务。
 
@@ -1462,7 +1464,7 @@ Docker 管理网络的命令为 `docker network`，您可以使用子命令来�
 
 <br>
 
-## 6.1、外部访问容器
+### 6.1、外部访问容器
 
 容器中可以运行一些网络应用，要让外部也可以访问这些应用，可以通过 `-P` 或 `-p` 参数来指定端口映射。
 
@@ -1537,7 +1539,7 @@ docker run -d -p 127.0.0.1:80:80/udp nginx:alpine
 
 <br>
 
-### 6.1.1、查看映射端口配置
+#### 6.1.1、查看映射端口配置
 
 使用 `docker container port`（常用别名为 `docker port`）来查看当前映射的端口配置，也可以查看到绑定的地址：
 
@@ -1552,7 +1554,7 @@ $ docker port fa 80
 
 <br>
 
-## 6.2、容器互联
+### 6.2、容器互联
 
 如果你之前有 `Docker` 使用经验，你可能已经习惯了使用 `--link` 参数来使容器互联。
 
@@ -1564,7 +1566,7 @@ $ docker port fa 80
 
 <br>
 
-### 6.2.1、新建网络
+#### 6.2.1、新建网络
 
 下面先创建一个新的 Docker 网络：
 
@@ -1576,7 +1578,7 @@ docker network create -d bridge my-net
 
 <br>
 
-### 6.2.2、连接容器
+#### 6.2.2、连接容器
 
 运行一个容器并连接到新建的 `my-net` 网络：
 
@@ -1602,7 +1604,7 @@ b47060aca56b        busybox             "sh"                11 minutes ago      
 
 <br>
 
-### 6.2.3、测试互联
+#### 6.2.3、测试互联
 
 下面通过 `ping` 来证明 `busybox1` 容器和 `busybox2` 容器建立了互联关系。
 
@@ -1628,7 +1630,7 @@ PING busybox1 (172.19.0.2): 56 data bytes
 
 <br>
 
-## 6.3、配置 DNS
+### 6.3、配置 DNS
 
 如何自定义配置容器的主机名和 DNS 呢？秘诀就是 Docker 利用虚拟文件来挂载容器的 3 个相关配置文件。
 
@@ -1675,9 +1677,9 @@ nameserver 8.8.8.8
 
 <br>
 
-# 7、构建镜像
+## 7、构建镜像
 
-## 7.1、Dockerfile 定制镜像
+### 7.1、Dockerfile 定制镜像
 
 镜像的定制实际上就是定制每一层所添加的配置、文件。如果我们可以把每一层修改、安装、构建、操作的命令都写入一个脚本，用这个脚本来构建、定制镜像，这个脚本就是 Dockerfile。
 
@@ -1702,7 +1704,7 @@ RUN echo '<h1>Hello, Docker!</h1>' > /usr/share/nginx/html/index.html
 
 <br>
 
-### 7.1.1、FROM
+#### 7.1.1、FROM
 
 所谓定制镜像，那一定是以一个镜像为基础，在其上进行定制。而 `FROM` 就是指定基础镜像，因此一个 Dockerfile 中 `FROM` 是必备的指令，并且必须是第一条指令。
 
@@ -1723,7 +1725,7 @@ FROM scratch
 
 <br>
 
-### 7.1.2、RUN
+#### 7.1.2、RUN
 
 `RUN` 指令是用来执行命令行命令的。由于命令行的强大能力，`RUN` 指令在定制镜像时是最常用的指令之一。
 
@@ -1788,7 +1790,7 @@ RUN set -x; buildDeps='gcc libc6-dev make wget' \
 
 <br>
 
-### 7.1.3、构建镜像
+#### 7.1.3、构建镜像
 
 在 Dockerfile 文件所在目录执行命令开始构建镜像：
 
@@ -1816,7 +1818,7 @@ docker build [选项] <上下文路径/URL/->
 
 <br>
 
-### 7.1.4、镜像构建上下文
+#### 7.1.4、镜像构建上下文
 
 如果注意，会看到 `docker build` 命令最后有一个 `.`。`.` 表示当前目录，而 Dockerfile 就在当前目录，因此不少初学者以为这个路径是在指定 Dockerfile 所在路径，这么理解其实是不准确的。如果对应上面的命令格式，你可能会发现，这是在指定上下文路径。
 
@@ -1858,15 +1860,15 @@ Sending build context to Docker daemon 2.048 kB
 
 <br>
 
-### 7.1.5、build 的其它用法
+#### 7.1.5、build 的其它用法
 
 **直接用 Git repo 进行构建**
 
 `docker build` 还支持从 URL 构建，比如可以直接从 Git repo 中构建：
 
 ```shell
-# $env:DOCKER_BUILDKIT=0
-# export DOCKER_BUILDKIT=0
+## $env:DOCKER_BUILDKIT=0
+## export DOCKER_BUILDKIT=0
 
 $ docker build -t hello-world https://github.com/docker-library/hello-world.git#master:amd64/hello-world
 
@@ -1921,13 +1923,13 @@ docker build - < context.tar.gz
 
 <br>
 
-## 7.2、Dockerfile 指令详解
+### 7.2、Dockerfile 指令详解
 
 其实 Dockerfile 功能很强大，除了 `FROM` 和 `RUN`,它提供了十多个指令。
 
 <br>
 
-### 7.2.1、COPY
+#### 7.2.1、COPY
 
 `COPY` 指令将从构建上下文目录中 `<源路径>` 的文件/目录复制到新的一层的镜像内的 `<目标路径>` 位置。
 
@@ -1970,7 +1972,7 @@ COPY --chown=10:11 files* /mydir/
 
 <br>
 
-### 7.2.2、ADD
+#### 7.2.2、ADD
 
 `ADD` 指令和 `COPY` 的格式和性质基本一致。但是在 `COPY` 基础上增加了一些功能。
 
@@ -2005,7 +2007,7 @@ ADD --chown=10:11 files* /mydir/
 
 <br>
 
-### 7.2.3、CMD
+#### 7.2.3、CMD
 
 Docker 不是虚拟机，容器就是进程。既然是进程，那么在启动容器的时候，需要指定所运行的程序及参数。`CMD` 指令就是用于指定默认的容器主进程的启动命令。
 
@@ -2074,7 +2076,7 @@ CMD ["nginx", "-g", "daemon off;"]
 
 <br>
 
-### 7.2.4、ENTRYPOINT
+#### 7.2.4、ENTRYPOINT
 
 `ENTRYPOINT` 的主要目的是将容器配置为像一个可执行文件。当你设置了 `ENTRYPOINT`，容器启动时执行的就是这个命令，并且 `docker run` 命令行中跟在镜像名后面的所有内容都会被当作参数传递给 `ENTRYPOINT`。
 
@@ -2119,10 +2121,10 @@ CMD ["nginx", "-g", "daemon off;"]
 FROM ubuntu
 RUN apt-get update && apt-get install -y iputils-ping
 
-# 1. 定义固定的主命令
+## 1. 定义固定的主命令
 ENTRYPOINT ["ping", "-c", "4"]
 
-# 2. 提供默认参数
+## 2. 提供默认参数
 CMD ["localhost"]
 ```
 
@@ -2166,7 +2168,7 @@ CMD ["localhost"]
 
 <br>
 
-### 7.2.5、ENV
+#### 7.2.5、ENV
 
 这个指令很简单，就是设置环境变量而已，无论是后面的其它指令，如 `RUN`，还是运行时的应用，都可以直接使用这里定义的环境变量。
 
@@ -2208,7 +2210,7 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
 
 <br>
 
-### 7.2.6、ARG
+#### 7.2.6、ARG
 
 `ARG` 构建参数和 `ENV` 的效果一样，都是设置环境变量。所不同的是，`ARG` 所设置的构建环境的环境变量，在将来容器运行时是不会存在这些环境变量的。但是不要因此就使用 `ARG` 保存密码之类的信息，因为 `docker history` 还是可以看到所有值的。
 
@@ -2238,12 +2240,12 @@ RUN set -x ; echo ${DOCKER_USERNAME}
 使用上述 Dockerfile 会发现无法输出 `${DOCKER_USERNAME}` 变量的值，要想正常输出，你必须在 `FROM` 之后再次指定 `ARG`
 
 ```dockerfile
-# 只在 FROM 中生效
+## 只在 FROM 中生效
 ARG DOCKER_USERNAME=library
 
 FROM ${DOCKER_USERNAME}/alpine
 
-# 要想在 FROM 之后使用，必须再次指定
+## 要想在 FROM 之后使用，必须再次指定
 ARG DOCKER_USERNAME=library
 
 RUN set -x ; echo ${DOCKER_USERNAME}
@@ -2252,7 +2254,7 @@ RUN set -x ; echo ${DOCKER_USERNAME}
 对于多阶段构建，尤其要注意这个问题：
 
 ```dockerfile
-# 这个变量在每个 FROM 中都生效
+## 这个变量在每个 FROM 中都生效
 ARG DOCKER_USERNAME=library
 
 FROM ${DOCKER_USERNAME}/alpine
@@ -2271,14 +2273,14 @@ ARG DOCKER_USERNAME=library
 
 FROM ${DOCKER_USERNAME}/alpine
 
-# 在FROM 之后使用变量，必须在每个阶段分别指定
+## 在FROM 之后使用变量，必须在每个阶段分别指定
 ARG DOCKER_USERNAME=library
 
 RUN set -x ; echo ${DOCKER_USERNAME}
 
 FROM ${DOCKER_USERNAME}/alpine
 
-# 在FROM 之后使用变量，必须在每个阶段分别指定
+## 在FROM 之后使用变量，必须在每个阶段分别指定
 ARG DOCKER_USERNAME=library
 
 RUN set -x ; echo ${DOCKER_USERNAME}
@@ -2286,7 +2288,7 @@ RUN set -x ; echo ${DOCKER_USERNAME}
 
 <br>
 
-### 7.2.7、VOLUME
+#### 7.2.7、VOLUME
 
 容器运行时应该尽量保持容器存储层不发生写操作，对于数据库类需要保存动态数据的应用，其数据库文件应该保存于卷（volume）中。为了防止运行时用户忘记将动态文件所保存目录挂载为卷，在 Dockerfile 中可以使用 `VOLUME` 指令事先指定某些目录挂载为匿名卷，这样在运行时如果用户不指定挂载，其应用也可以正常运行，不会向容器存储层写入大量数据。
 
@@ -2313,7 +2315,7 @@ docker run -d -v mydata:/data xxxx
 
  <br>
 
-### 7.2.8、EXPOSE
+#### 7.2.8、EXPOSE
 
 `EXPOSE` 指令是声明容器运行时提供服务的端口，这只是一个声明，在容器运行时并不会因为这个声明应用就会开启这个端口的服务。在 Dockerfile 中写入这样的声明有两个好处，一个是帮助镜像使用者理解这个镜像服务的守护端口，以方便配置映射；另一个用处则是在运行时使用随机端口映射时，也就是 `docker run -P` 时，会自动随机映射 `EXPOSE` 的端口。
 
@@ -2327,7 +2329,7 @@ EXPOSE <端口1> [<端口2>...]
 
 <br>
 
-### 7.2.9、WORKDIR
+#### 7.2.9、WORKDIR
 
 使用 `WORKDIR` 指令可以来指定工作目录（或者称为当前目录），以后各层的当前目录就被改为指定的目录，如该目录不存在，`WORKDIR` 会帮你建立目录。
 
@@ -2370,7 +2372,7 @@ RUN pwd
 
 <br>
 
-### 7.2.10、USER
+#### 7.2.10、USER
 
 `USER` 指令和 `WORKDIR` 相似，都是改变环境状态并影响以后的层。`WORKDIR` 是改变工作目录，`USER` 则是改变之后层的执行 `RUN`、`CMD` 以及 `ENTRYPOINT` 这类命令的身份。
 
@@ -2391,19 +2393,19 @@ RUN [ "redis-server" ]
 如果以 `root` 执行的脚本，在执行期间希望改变身份，比如希望以某个已经建立好的用户来运行某个服务进程，不要使用 `su` 或者 `sudo`，这些都需要比较麻烦的配置，而且在 TTY 缺失的环境下经常出错。建议使用 [`gosu`](https://github.com/tianon/gosu)：
 
 ```dockerfile
-# 建立 redis 用户，并使用 gosu 换另一个用户执行命令
+## 建立 redis 用户，并使用 gosu 换另一个用户执行命令
 RUN groupadd -r redis && useradd -r -g redis redis
-# 下载 gosu
+## 下载 gosu
 RUN wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/1.12/gosu-amd64" \
     && chmod +x /usr/local/bin/gosu \
     && gosu nobody true
-# 设置 CMD，并以另外的用户执行
+## 设置 CMD，并以另外的用户执行
 CMD [ "exec", "gosu", "redis", "redis-server" ]
 ```
 
 <br>
 
-### 7.2.11、HEALTHCHECK
+#### 7.2.11、HEALTHCHECK
 
 `HEALTHCHECK` 指令是告诉 Docker 应该如何进行判断容器的状态是否正常，这是 Docker 1.12 引入的新指令。
 
@@ -2502,7 +2504,7 @@ $ docker inspect --format '{{json .State.Health}}' web | python -m json.tool
 
 <br>
 
-### 7.2.12、ONBUILD
+#### 7.2.12、ONBUILD
 
 `ONBUILD` 是 Dockerfile 中的一个特殊指令，它后面跟的是其它指令，比如 `RUN`、`COPY` 等，用于为子镜像设置触发器（trigger），即：当以当前镜像为基础构建另一个镜像时，`ONBUILD` 中的指令才会执行。
 
@@ -2527,10 +2529,10 @@ Dockerfile 中的其它指令都是为了定制当前镜像而准备的，唯有
 你可以做一个统一的基础镜像，比如 Java 项目打包镜像：
 
 ```dockerfile
-# Dockerfile for base image
+## Dockerfile for base image
 FROM maven:3.8.6-openjdk-17
 
-# 设置触发器：当别人 FROM 这个镜像时会执行下面指令
+## 设置触发器：当别人 FROM 这个镜像时会执行下面指令
 ONBUILD COPY . /app
 ONBUILD WORKDIR /app
 ONBUILD RUN mvn clean package
@@ -2539,9 +2541,9 @@ ONBUILD RUN mvn clean package
 然后你在项目中用这个镜像：
 
 ```dockerfile
-# Project-specific Dockerfile
+## Project-specific Dockerfile
 FROM yourcompany/maven-base:latest
-# 不需要再写 COPY 和 RUN，ONBUILD 会自动执行
+## 不需要再写 COPY 和 RUN，ONBUILD 会自动执行
 ```
 
 <br>
@@ -2562,7 +2564,7 @@ ONBUILD RUN npm test
 
 <br>
 
-### 7.2.13、LABEL
+#### 7.2.13、LABEL
 
 `LABEL` 指令用来给镜像以键值对的形式添加一些元数据（metadata）。
 
@@ -2582,7 +2584,7 @@ LABEL org.opencontainers.image.documentation="https://yeasy.gitbooks.io"
 
 <br>
 
-### 7.2.14、SHELL
+#### 7.2.14、SHELL
 
 `SHELL` 指令可以指定 `RUN`、`ENTRYPOINT` 和 `CMD` 指令的 shell，Linux 中默认为 `["/bin/sh", "-c"]`。
 
@@ -2609,20 +2611,20 @@ RUN lll ; ls
 ```dockerfile
 SHELL ["/bin/sh", "-cex"]
 
-# /bin/sh -cex "nginx"
+## /bin/sh -cex "nginx"
 ENTRYPOINT nginx
 ```
 
 ```dockerfile
 SHELL ["/bin/sh", "-cex"]
 
-# /bin/sh -cex "nginx"
+## /bin/sh -cex "nginx"
 CMD nginx
 ```
 
 <br>
 
-## 7.3、Docker Buildx
+### 7.3、Docker Buildx
 
 Docker Buildx 是一个 Docker CLI 插件，其扩展了 Docker 命令，支持 [Moby BuildKit](https://yeasy.gitbook.io/docker_practice/buildx/buildkit) 提供的功能。提供了与 `docker build` 相同的用户体验，并增加了许多新功能。
 

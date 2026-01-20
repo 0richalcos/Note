@@ -1,6 +1,8 @@
-# 1、NoSQL概述
+# Redis
 
-## 1.1、为什么要用 NoSQL？
+## 1、NoSQL概述
+
+### 1.1、为什么要用 NoSQL？
 
 **单机 MySQL 年代**
 
@@ -44,7 +46,7 @@ DAL 是数据访问层的英文缩写，即为数据访问层（Data Access Laye
 
 
 
-## 1.2、什么是 NoSQL？
+### 1.2、什么是 NoSQL？
 
 NoSQL = Not Only SQL（不仅仅是 SQL）
 
@@ -104,9 +106,9 @@ NoSQL = Not Only SQL（不仅仅是 SQL）
 
 
 
-# 2、Redis 入门
+## 2、Redis 入门
 
-## 2.1、概述
+### 2.1、概述
 
 Redis（Remote Dictionary Server )，即远程字典服务，是一个开源的使用ANSI C语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API。
 
@@ -139,23 +141,23 @@ Redis 是单线程的（6.0 是多线程），因为 Redis 是基于内存操作
 
 
 
-## 2.2、Reids 安装
+### 2.2、Reids 安装
 
-### 2.2.1、Linxu
+#### 2.2.1、Linxu
 
 如果嫌麻烦并且服务器可以连接互联网，可以使用在线安装的方式：
 
 ```shell
-# 安装redis，安装后redis默认为启动状态
+## 安装redis，安装后redis默认为启动状态
 apt install redis
 
-# 启动redis服务
+## 启动redis服务
 redis-server &
 
-# 启动客户端
+## 启动客户端
 redis-cli
 
-# 卸载
+## 卸载
 apt purge --auto-remove redis-server
 ```
 
@@ -163,7 +165,7 @@ apt purge --auto-remove redis-server
 
 
 
-#### 安装 Reids
+##### 安装 Reids
 
 1. 下载源码（服务离线可以使用 SFTP 等工具上传过去）：
 
@@ -204,7 +206,7 @@ apt purge --auto-remove redis-server
 
 
 
-#### 配置 systemd 服务
+##### 配置 systemd 服务
 
 1. Redis 安装后，默认配置文件位于源码目录中的 redis.conf 文件。可以将其复制到 `/etc/redis/` 目录，并进行自定义配置：
 
@@ -258,19 +260,19 @@ apt purge --auto-remove redis-server
 
 
 
-#### 卸载并删除
+##### 卸载并删除
 
 ```shell
-# 先停下redis，然后删除安装目录
+## 先停下redis，然后删除安装目录
 rm -rf /usr/local/redis 
 
-# 删除所有redis相关命令脚本
+## 删除所有redis相关命令脚本
 rm -rf /usr/bin/redis-*
 ```
 
 
 
-### 2.2.2、Docker
+#### 2.2.2、Docker
 
 1. 下载 redis 镜像：
 
@@ -298,7 +300,7 @@ rm -rf /usr/bin/redis-*
 
 
 
-### 2.2.2、Windows
+#### 2.2.2、Windows
 
 前往 [地址](https://github.com/redis-windows/redis-windows/releases) 下载安装包：
 
@@ -359,21 +361,21 @@ sc create Redis binpath= "C:\Software\Redis\RedisService.exe" start= auto
 服务默认为自动启动状态（开机自启），如果不希望自动启动可以改为手动启动，通过服务页面或者以下命令控制 Redis 服务：
 
 ```shell
-# 启动 Redis 服务
+## 启动 Redis 服务
 sc start Redis
 
-# 停止 Redis 服务
+## 停止 Redis 服务
 sc stop Redis
 
-# 卸载 Redis 服务
+## 卸载 Redis 服务
 sc delete Redis
 ```
 
 
 
-### 2.2.3、安装遇到的一些问题
+#### 2.2.3、安装遇到的一些问题
 
-#### ARM64环境启动BUG
+##### ARM64环境启动BUG
 
 ```
 1:C 24 Apr 2022 14:31:23.525 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
@@ -416,11 +418,11 @@ ignore-warnings ARM64-COW-BUG
 
 
 
-## 2.3、基础知识
+### 2.3、基础知识
 
-### 2.3.1、快速上手
+#### 2.3.1、快速上手
 
-#### 启动
+##### 启动
 
 启动 Redis 服务器：
 
@@ -448,7 +450,7 @@ redis-server -v
 
 
 
-#### 连接
+##### 连接
 
 启动 Redis 客户端：
 
@@ -464,7 +466,7 @@ redis-cli -h 127.0.0.1 -p 6379
 
 
 
-#### 关闭
+##### 关闭
 
 关闭 Redis：
 
@@ -480,7 +482,7 @@ auth <密码>
 
 
 
-#### Redis 工具
+##### Redis 工具
 
 Redis 性能测试工具：
 
@@ -502,7 +504,7 @@ redis-check-dump
 
 
 
-### 2.3.2、常用命令
+#### 2.3.2、常用命令
 
 | 命令                    | 描述                                                         |
 | ----------------------- | ------------------------------------------------------------ |
@@ -520,13 +522,13 @@ redis-check-dump
 
 
 
-# 3、五大数据类型
+## 3、五大数据类型
 
 Redis 是一个开源（BSD许可）的，内存中的数据结构存储系统，它可以用作数据库、缓存和消息中间件。 它支持多种类型的数据结构，如 字符串（strings）， 散列（hashes）， 列表（lists）， 集合（sets）， 有序集合（sorted sets） 与范围查询， bitmaps， hyperloglogs 和 地理空间（geospatial） 索引半径查询。 Redis 内置了 复制（replication），LUA脚本（Lua scripting）， LRU驱动事件（LRU eviction），事务（transactions） 和不同级别的 磁盘持久化（persistence）， 并通过 Redis哨兵（Sentinel）和自动分区（Cluster）提供高可用性（high availability）。
 
 
 
-## 3.1、String（字符串）
+### 3.1、String（字符串）
 
 string 是 redis 最基本的类型，可以理解成与 Memcached 一模一样的类型，一个 key 对应一个 value。value 其实不仅是 String，也可以是数字。string 类型是二进制安全的。意思是 redis 的 string 可以包含任何数据。比如 jpg 图片或者序列化的对象。string 类型是 Redis 最基本的数据类型，string 类型的值最大能存储 512MB。
 
@@ -658,7 +660,7 @@ OK
 
 
 
-## 3.2、List（列表）
+### 3.2、List（列表）
 
 列表是简单的字符串列表，按照插入顺序排序。可以添加一个元素到列表的头部（左边）或者尾部（右边）。
 
@@ -797,7 +799,7 @@ OK
 
 
 
-## 3.3、Set（集合）
+### 3.3、Set（集合）
 
 Redis set 是 string 类型的无序集合。集合是通过 intset 和 hashtable 实现的，概念和数学中个的集合基本类似，可以交集，并集，差集等等，set 中的元素是没有顺序的。所以添加，删除，查找的复杂度都是O(1)。
 
@@ -875,7 +877,7 @@ Redis set 是 string 类型的无序集合。集合是通过 intset 和 hashtabl
 ```
 
 ```shell
-# 可以用于共同关注，共同爱好，推荐好友
+## 可以用于共同关注，共同爱好，推荐好友
 127.0.0.1:6379> sadd key1 a b c
 (integer) 3
 127.0.0.1:6379> sadd key2 c d e
@@ -895,7 +897,7 @@ Redis set 是 string 类型的无序集合。集合是通过 intset 和 hashtabl
 
 
 
-## 3.4、Hash（哈希）
+### 3.4、Hash（哈希）
 
 Redis hash 是一个键值 (key => value) 对集合。Redis hash 是一个 string 类型的 field 和 value 的映射表，hash 特别适合用于存储对象。
 
@@ -973,7 +975,7 @@ OK
 
 ​	
 
-## 3.5、Zset（有序集合）
+### 3.5、Zset（有序集合）
 
 Redis zset 和 set 一样也是string类型元素的集合,且不允许重复的成员。
 
@@ -1044,9 +1046,9 @@ Redis zset 和 set 一样也是string类型元素的集合,且不允许重复的
 
 
 
-# 4、三大特殊类型
+## 4、三大特殊类型
 
-## 4.1、geospatial（地理位置）
+### 4.1、geospatial（地理位置）
 
 朋友的定位，附近的人，打车距离的计算？
 
@@ -1190,7 +1192,7 @@ GEO 底层的实现原理其实就是 Zset，可以使用 Zset 命令来操作 g
 
 
 
-## 4.2、hyperloglog
+### 4.2、hyperloglog
 
 Redis Hyperloglog 基数统计算法。
 
@@ -1236,7 +1238,7 @@ OK
 
 
 
-## 4.3、Bitmap
+### 4.3、Bitmap
 
 统计用户信息，活跃-不活跃；登录-未登录；打卡-未打卡。这种两个状态的，都可以使用 Bitmaps。
 
@@ -1267,7 +1269,7 @@ Bitmaps 位图，数据结构！都是操作二进制位来记录，就只有 0 
 
 
 
-# 5、事务
+## 5、事务
 
 Redis 通过 `multi`、 `discard` 、`exec` 和 `watch` 四个命令来实现事务功能。
 
@@ -1302,7 +1304,7 @@ redis> exec
 
 
 
-## 5.1、事务的流程
+### 5.1、事务的流程
 
 一个事务从开始到执行会经历以下三个阶段：
 
@@ -1430,7 +1432,7 @@ QUEUED
 
 
 
-## 5.2、watch
+### 5.2、watch
 
 `watch` 命令用于在事务开始之前监视任意数量的键： 当调用 `exec` 命令执行事务时， 如果任意一个被监视的键已经被其他客户端修改了， 那么整个事务不再执行， 直接返回失败。
 
@@ -1503,7 +1505,7 @@ redis> exec
 
 
 
-## 5.3、事务错误与回滚
+### 5.3、事务错误与回滚
 
 **当命令入队时就报错，那么整个事务中所有的命令都不会执行：**
 
@@ -1563,7 +1565,7 @@ Redis 不支持事务回滚！
 
 
 
-# 6、Jedis
+## 6、Jedis
 
 什么是 Jedis 是 Redis 推荐的 Java 连接开发工具！使用 Java 操作 Redis 的中间件，如果要使用 Java 操作 Redis，那么一定要对 Jedis 十分熟悉。
 
@@ -1647,7 +1649,7 @@ public class RTransaction {
 
 
 
-# 7、Spring Boot 整合
+## 7、Spring Boot 整合
 
 RedisTemplate 是 Spring Data Redis 提供的一个强大的模板类，用于在 Spring 应用中与 Redis 进行交互。它是与 Spring 框架紧密集成的，可以适用于多种 Redis 客户端实现，包括 Jedis 和 Lettuce。
 
@@ -1709,7 +1711,7 @@ Jedis 是一个基于同步、非线程安全的 Redis 客户端，如果想要�
 
 
 
-## 7.1、RedisTemplate 及序列化方式
+### 7.1、RedisTemplate 及序列化方式
 
 运行上个例子后，在 Redis 中通过 `keys *` 命令可以看到：
 
@@ -1963,7 +1965,7 @@ class Redis02SpringbootApplicationTests {
 
 
 
-## 7.2、获取 Redis 连接信息
+### 7.2、获取 Redis 连接信息
 
 获取 Redis 连接的主机名和端口是由 Redis 客户端库自身提供的功能。这些细节在不同的客户端库（如 Jedis 和 Lettuce）中可能有所不同。
 
@@ -1986,11 +1988,11 @@ int port = redisUri.getPort();
 
 
 
-# 8、Redis 配置详解
+## 8、Redis 配置详解
 
-## 8.1、redis.conf 详解
+### 8.1、redis.conf 详解
 
-### 8.1.1、单位
+#### 8.1.1、单位
 
 <img src="!assets/Redis/image-20210531165111502.png" alt="image-20210531165111502" style="" />
 
@@ -1998,7 +2000,7 @@ int port = redisUri.getPort();
 
 
 
-### 8.1.2、包含
+#### 8.1.2、包含
 
 INCLOUDES：
 
@@ -2008,152 +2010,152 @@ INCLOUDES：
 
 
 
-### 8.1.3、网络
+#### 8.1.3、网络
 
 NETWORK：
 
 ```bash
-# 绑定的IP，默认为本机地址，如果不限制可以在前面加 # 注释掉
+## 绑定的IP，默认为本机地址，如果不限制可以在前面加 # 注释掉
 bind 172.0.0.1
 
-# 保护模式，如果想要远程访问，这个要关掉
+## 保护模式，如果想要远程访问，这个要关掉
 protected-mode no
 
-# 端口号
+## 端口号
 prot 6379
 
-# 设置客户端连接时的超时时间，单位为秒。当客户端在这段时间内没有发出任何指令，那么关闭该连接
-# 0是关闭此设置
+## 设置客户端连接时的超时时间，单位为秒。当客户端在这段时间内没有发出任何指令，那么关闭该连接
+## 0是关闭此设置
 timeout 0
 ```
 
 
 
-### 8.1.4、通用
+#### 8.1.4、通用
 
 GENERAL：
 
 ```bash
-# 以守护线程的方式运行
-# 如果你 systemctl 来管理 Redis 服务（即通过 systemd 启动 Redis），就必须把这里改为 no
+## 以守护线程的方式运行
+## 如果你 systemctl 来管理 Redis 服务（即通过 systemd 启动 Redis），就必须把这里改为 no
 deamonize yes
 
-# 如果以后台的方式运行，那么就需要指定一个 pid 文件
+## 如果以后台的方式运行，那么就需要指定一个 pid 文件
 pidfile /var/run/redis/redis-server.pid
 
-# 指定日志记录级别
-# Redis总共支持四个级别：debug、verbose、notice、warning
-# debug 记录很多信息，用于开发和测试
-# varbose 有用的信息，不像debug会记录那么多
-# notice 普通的verbose，常用于生产环境
-# warning 只有非常重要或者严重的信息会记录到日志
+## 指定日志记录级别
+## Redis总共支持四个级别：debug、verbose、notice、warning
+## debug 记录很多信息，用于开发和测试
+## varbose 有用的信息，不像debug会记录那么多
+## notice 普通的verbose，常用于生产环境
+## warning 只有非常重要或者严重的信息会记录到日志
 loglevel debug
 
-# 配置log文件地址
+## 配置log文件地址
 logfile /var/log/redis/redis.log
 
-# 可用数据库数
-# 默认值为16，默认数据库为0，数据库范围在0-（database-1）之间
+## 可用数据库数
+## 默认值为16，默认数据库为0，数据库范围在0-（database-1）之间
 databases 16
 
-# 是否总是显示 logo
+## 是否总是显示 logo
 always-show-logo yes
 ```
 
 
 
-### 8.1.5、快照
+#### 8.1.5、快照
 
 SNAPSHOTTING：
 
 ```bash
-# 指出在多长时间内，有多少次更新操作，就将数据同步到数据文件rdb。
-# 相当于条件触发抓取快照，这个可以多个条件配合
+## 指出在多长时间内，有多少次更新操作，就将数据同步到数据文件rdb。
+## 相当于条件触发抓取快照，这个可以多个条件配合
 #
-# 比如默认配置文件中的设置，就设置了三个条件
+## 比如默认配置文件中的设置，就设置了三个条件
 #
-# save 900 1 900秒内至少有1个key被改变
-# save 300 10 300秒内至少有300个key被改变
-# save 60 10000 60秒内至少有10000个key被改变
+## save 900 1 900秒内至少有1个key被改变
+## save 300 10 300秒内至少有300个key被改变
+## save 60 10000 60秒内至少有10000个key被改变
 
 save 900 1
 save 300 10
 save 60 10000
 
-# 创建快照出错后是否停止写入
+## 创建快照出错后是否停止写入
 stop-writes-on-bgsave-error yes
 
-# 存储至本地数据库时（持久化到rdb文件）是否压缩数据
+## 存储至本地数据库时（持久化到rdb文件）是否压缩数据
 rdbcompression yes
 
-# 保存 rdb 文件时，进行错误的检查校检
+## 保存 rdb 文件时，进行错误的检查校检
 rdbchecksum yes
 
-# 本地持久化数据库文件名
+## 本地持久化数据库文件名
 dbfilename dump.rdb
 
-# 工作目录
+## 工作目录
 #
-# 数据库镜像备份的文件放置的路径。
-# 这里的路径跟文件名要分开配置是因为redis在进行备份时，先会将当前数据库的状态写入到一个临时文件中，等备份完成时，
-# 再把该该临时文件替换为上面所指定的文件，而这里的临时文件和上面所配置的备份文件都会放在这个指定的路径当中。
+## 数据库镜像备份的文件放置的路径。
+## 这里的路径跟文件名要分开配置是因为redis在进行备份时，先会将当前数据库的状态写入到一个临时文件中，等备份完成时，
+## 再把该该临时文件替换为上面所指定的文件，而这里的临时文件和上面所配置的备份文件都会放在这个指定的路径当中。
 #
-# AOF文件也会存放在这个目录下面
+## AOF文件也会存放在这个目录下面
 #
-# 注意这里必须指定一个目录而不是文件
+## 注意这里必须指定一个目录而不是文件
 dir ./
 ```
 
 
 
-### 8.1.6、复制
+#### 8.1.6、复制
 
 REPLICATION：
 
 ```bash
-# 主从复制. 设置该数据库为其他数据库的从数据库.
-# 设置当本机为slave服务时，设置master服务的IP地址及端口，在Redis启动时，它会自动从master进行数据同步
+## 主从复制. 设置该数据库为其他数据库的从数据库.
+## 设置当本机为slave服务时，设置master服务的IP地址及端口，在Redis启动时，它会自动从master进行数据同步
 #
-# replicaof <masterip> <masterport>
+## replicaof <masterip> <masterport>
 
-# 当master服务设置了密码保护时(用requirepass制定的密码)
-# slav服务连接master的密码
+## 当master服务设置了密码保护时(用requirepass制定的密码)
+## slav服务连接master的密码
 #
-# masterauth <master-password>
+## masterauth <master-password>
 
-# 当从库同主机失去连接或者复制正在进行，从机库有两种运行方式：
+## 当从库同主机失去连接或者复制正在进行，从机库有两种运行方式：
 #
-# 1) 如果replica-serve-stale-data设置为yes(默认设置)，从库会继续相应客户端的请求
+## 1) 如果replica-serve-stale-data设置为yes(默认设置)，从库会继续相应客户端的请求
 #
-# 2) 如果replica-serve-stale-data是指为no，除去INFO和SLAVOF命令之外的任何请求都会返回一个
-# 错误"SYNC with master in progress"
+## 2) 如果replica-serve-stale-data是指为no，除去INFO和SLAVOF命令之外的任何请求都会返回一个
+## 错误"SYNC with master in progress"
 #
 replica-serve-stale-data yes
 
-# 从库会按照一个时间间隔向主库发送PINGs.可以通过repl-ping-replica-period设置这个时间间隔，默认是10秒
+## 从库会按照一个时间间隔向主库发送PINGs.可以通过repl-ping-replica-period设置这个时间间隔，默认是10秒
 #
-# repl-ping-replica-period 10
+## repl-ping-replica-period 10
 
-# “心跳检测” 这个值对三个场景都有效：
-# 大量的I/O操作，从节点收到主节点的响应时间。
-# 从节点认为主节点的超时时间
-# 主节点认为从节点的超时时间
-# repl-timeout 60
+## “心跳检测” 这个值对三个场景都有效：
+## 大量的I/O操作，从节点收到主节点的响应时间。
+## 从节点认为主节点的超时时间
+## 主节点认为从节点的超时时间
+## repl-timeout 60
 ```
 
 
 
-### 8.1.7、安全
+#### 8.1.7、安全
 
 SECURITY：
 
 ```bash
-# 设置客户端连接后进行任何其他指定前需要使用的密码。
-# 警告：因为redis速度相当快，所以在一台比较好的服务器下，一个外部的用户可以在一秒钟进行150K次的密码尝试，
-# 这意味着你需要指定非常非常强大的密码来防止暴力破解
-# 
-# 取消以下注释并修改 foobared 来永久设置密码
-# requirepass foobared
+## 设置客户端连接后进行任何其他指定前需要使用的密码。
+## 警告：因为redis速度相当快，所以在一台比较好的服务器下，一个外部的用户可以在一秒钟进行150K次的密码尝试，
+## 这意味着你需要指定非常非常强大的密码来防止暴力破解
+## 
+## 取消以下注释并修改 foobared 来永久设置密码
+## requirepass foobared
 ```
 
 也可以通过命令来设置这个密码：
@@ -2165,352 +2167,352 @@ config set requirepass "123456"
 获取密码：
 
 ```shell
-# 获取前需要验证
+## 获取前需要验证
 auth 123456
 
-# 获取密码
+## 获取密码
 config get requirepass
 ```
 
 
 
-### 8.1.8、客户端
+#### 8.1.8、客户端
 
 CLIENTS：
 
 ```bash
-# 设置同一时间最大客户端连接数，默认无限制，Redis可以同时打开的客户端连接数为Redis进程可以打开的最大文件描述符数，
-# 如果设置 maxclients 0，表示不作限制。
-# 当客户端连接数到达限制时，Redis会关闭新的连接并向客户端返回max number of clients reached错误信息
+## 设置同一时间最大客户端连接数，默认无限制，Redis可以同时打开的客户端连接数为Redis进程可以打开的最大文件描述符数，
+## 如果设置 maxclients 0，表示不作限制。
+## 当客户端连接数到达限制时，Redis会关闭新的连接并向客户端返回max number of clients reached错误信息
 #
-# maxclients 10000
+## maxclients 10000
 ```
 
 
 
-### 8.1.9、内存管理
+#### 8.1.9、内存管理
 
 MEMORY MANAGEMENT：
 
 ```bash
-# 指定Redis最大内存限制，Redis在启动时会把数据加载到内存中，达到最大内存后，Redis会先尝试清除已到期或即将到期的Key
-# Redis同时也会移除空的list对象
+## 指定Redis最大内存限制，Redis在启动时会把数据加载到内存中，达到最大内存后，Redis会先尝试清除已到期或即将到期的Key
+## Redis同时也会移除空的list对象
 #
-# 当此方法处理后，仍然到达最大内存设置，将无法再进行写入操作，但仍然可以进行读取操作
+## 当此方法处理后，仍然到达最大内存设置，将无法再进行写入操作，但仍然可以进行读取操作
 #
-# 注意：Redis新的vm机制，会把Key存放内存，Value会存放在swap区
+## 注意：Redis新的vm机制，会把Key存放内存，Value会存放在swap区
 #
-# maxmemory的设置比较适合于把redis当作于类似memcached的缓存来使用，而不适合当做一个真实的DB。
-# 当把Redis当做一个真实的数据库使用的时候，内存使用将是一个很大的开销
-# maxmemory <bytes>
+## maxmemory的设置比较适合于把redis当作于类似memcached的缓存来使用，而不适合当做一个真实的DB。
+## 当把Redis当做一个真实的数据库使用的时候，内存使用将是一个很大的开销
+## maxmemory <bytes>
 
-# 当内存达到最大值的时候Redis会选择删除哪些数据？有五种方式可供选择
+## 当内存达到最大值的时候Redis会选择删除哪些数据？有五种方式可供选择
 #
-# volatile-lru -> 利用LRU算法移除设置过过期时间的key (LRU:最近使用 Least Recently Used )
-# allkeys-lru -> 利用LRU算法移除任何key
-# volatile-lfu -> 利用LFU算法移除设置过过期时间的key (LRU:最少使用 Least Frequently Used )
-# allkeys-lfu -> 利用LFU算法移除任何key
-# volatile-random -> 移除设置过过期时间的随机key
-# allkeys->random -> remove a random key, any key (随机删除)
-# volatile-ttl -> 移除即将过期的key(minor TTL)
-# noeviction -> 不移除任何key，只是返回一个写错误
+## volatile-lru -> 利用LRU算法移除设置过过期时间的key (LRU:最近使用 Least Recently Used )
+## allkeys-lru -> 利用LRU算法移除任何key
+## volatile-lfu -> 利用LFU算法移除设置过过期时间的key (LRU:最少使用 Least Frequently Used )
+## allkeys-lfu -> 利用LFU算法移除任何key
+## volatile-random -> 移除设置过过期时间的随机key
+## allkeys->random -> remove a random key, any key (随机删除)
+## volatile-ttl -> 移除即将过期的key(minor TTL)
+## noeviction -> 不移除任何key，只是返回一个写错误
 #
-# 注意：对于上面的策略，如果没有合适的key可以移除，当写的时候Redis会返回一个错误
+## 注意：对于上面的策略，如果没有合适的key可以移除，当写的时候Redis会返回一个错误
 #
-# 写命令包括: set setnx setex append
-# incr decr rpush lpush rpushx lpushx linsert lset rpoplpush sadd
-# sinter sinterstore sunion sunionstore sdiff sdiffstore zadd zincrby
-# zunionstore zinterstore hset hsetnx hmset hincrby incrby decrby
-# getset mset msetnx exec sort
+## 写命令包括: set setnx setex append
+## incr decr rpush lpush rpushx lpushx linsert lset rpoplpush sadd
+## sinter sinterstore sunion sunionstore sdiff sdiffstore zadd zincrby
+## zunionstore zinterstore hset hsetnx hmset hincrby incrby decrby
+## getset mset msetnx exec sort
 #
-# 默认是:
+## 默认是:
 #
-# maxmemory-policy volatile-lru
+## maxmemory-policy volatile-lru
 ```
 
 
 
-### 8.1.10、AOF 模式
+#### 8.1.10、AOF 模式
 
 AOF APPEND ONLY MODE：
 
 ```bash
-# 默认情况下，redis会在后台异步的把数据库镜像备份到磁盘，但是该备份是非常耗时的，而且备份也不能很频繁，
-# 如果发生诸如拉闸限电、拔插头等状况，那么将造成比较大范围的数据丢失。
-# 所以redis提供了另外一种更加高效的数据库备份及灾难恢复方式。
-# 开启append only模式之后，redis会把所接收到的每一次写操作请求都追加到appendonly.aof文件中，
-# 当redis重新启动时，会从该文件恢复出之前的状态。
-# 但是这样会造成appendonly.aof文件过大，所以redis还支持了 BGREWRITEAOF 指令，对 appendonly.aof 进行重新整理。
-# 你可以同时开启asynchronous dumps 和 AOF
+## 默认情况下，redis会在后台异步的把数据库镜像备份到磁盘，但是该备份是非常耗时的，而且备份也不能很频繁，
+## 如果发生诸如拉闸限电、拔插头等状况，那么将造成比较大范围的数据丢失。
+## 所以redis提供了另外一种更加高效的数据库备份及灾难恢复方式。
+## 开启append only模式之后，redis会把所接收到的每一次写操作请求都追加到appendonly.aof文件中，
+## 当redis重新启动时，会从该文件恢复出之前的状态。
+## 但是这样会造成appendonly.aof文件过大，所以redis还支持了 BGREWRITEAOF 指令，对 appendonly.aof 进行重新整理。
+## 你可以同时开启asynchronous dumps 和 AOF
 appendonly no
 
-# AOF文件名称 (默认: "appendonly.aof")
+## AOF文件名称 (默认: "appendonly.aof")
 appendfilename "appendonly.aof"
 
-# Redis支持三种同步AOF文件的策略:
+## Redis支持三种同步AOF文件的策略:
 #
-# no: 不进行同步，系统去操作 . Faster.
-# always: always表示每次有写操作都进行同步. Slow, Safest.
-# everysec: 表示对写操作进行累积，每秒同步一次. Compromise.
+## no: 不进行同步，系统去操作 . Faster.
+## always: always表示每次有写操作都进行同步. Slow, Safest.
+## everysec: 表示对写操作进行累积，每秒同步一次. Compromise.
 #
-# 默认是"everysec"，按照速度和安全折中这是最好的。
-# 如果想让Redis能更高效的运行，你也可以设置为"no"，让操作系统决定什么时候去执行
-# 或者相反想让数据更安全你也可以设置为"always"
+## 默认是"everysec"，按照速度和安全折中这是最好的。
+## 如果想让Redis能更高效的运行，你也可以设置为"no"，让操作系统决定什么时候去执行
+## 或者相反想让数据更安全你也可以设置为"always"
 #
-# 如果不确定就用 "everysec".
+## 如果不确定就用 "everysec".
 
-# appendfsync always
+## appendfsync always
 appendfsync everysec
-# appendfsync no
+## appendfsync no
 
-# bgrewriteaof机制，在一个子进程中进行aof的重写，从而不阻塞主进程对其余命令的处理，同时解决了aof文件过大问题
-# 同时在执行bgrewriteaof操作和主进程写aof文件的操作，两者都会操作磁盘，而bgrewriteaof往往会涉及大量磁盘操作，
-# 这样就会造成主进程在写aof文件的时候出现阻塞的情形，现在no-appendfsync-on-rewrite参数出场了。
-# 如果该参数设置为no，是最安全的方式，不会丢失数据，但是要忍受阻塞的问题。
-# 如果设置为yes呢？这就相当于将appendfsync设置为no，这说明并没有执行磁盘操作，只是写入了缓冲区，
-# 因此这样并不会造成阻塞（因为没有竞争磁盘），但是如果这个时候redis挂掉，就会丢失数据。
-# 丢失多少数据呢？在linux的操作系统的默认设置下，最多会丢失30s的数据。
+## bgrewriteaof机制，在一个子进程中进行aof的重写，从而不阻塞主进程对其余命令的处理，同时解决了aof文件过大问题
+## 同时在执行bgrewriteaof操作和主进程写aof文件的操作，两者都会操作磁盘，而bgrewriteaof往往会涉及大量磁盘操作，
+## 这样就会造成主进程在写aof文件的时候出现阻塞的情形，现在no-appendfsync-on-rewrite参数出场了。
+## 如果该参数设置为no，是最安全的方式，不会丢失数据，但是要忍受阻塞的问题。
+## 如果设置为yes呢？这就相当于将appendfsync设置为no，这说明并没有执行磁盘操作，只是写入了缓冲区，
+## 因此这样并不会造成阻塞（因为没有竞争磁盘），但是如果这个时候redis挂掉，就会丢失数据。
+## 丢失多少数据呢？在linux的操作系统的默认设置下，最多会丢失30s的数据。
 no-appendfsync-on-rewrite no
 
-# Automatic rewrite of the append only file.
-# AOF 自动重写
-# 当AOF文件增长到一定大小的时候Redis能够调用 BGREWRITEAOF 对日志文件进行重写
+## Automatic rewrite of the append only file.
+## AOF 自动重写
+## 当AOF文件增长到一定大小的时候Redis能够调用 BGREWRITEAOF 对日志文件进行重写
 #
-# 它是这样工作的：Redis会记住上次进行些日志后文件的大小(如果从开机以来还没进行过重写，那日子大小在开机的时候确定)
+## 它是这样工作的：Redis会记住上次进行些日志后文件的大小(如果从开机以来还没进行过重写，那日子大小在开机的时候确定)
 #
-# 基础大小会同现在的大小进行比较。如果现在的大小比基础大小大制定的百分比，重写功能将启动
-# 同时需要指定一个最小大小用于AOF重写，这个用于阻止即使文件很小但是增长幅度很大也去重写AOF文件的情况
+## 基础大小会同现在的大小进行比较。如果现在的大小比基础大小大制定的百分比，重写功能将启动
+## 同时需要指定一个最小大小用于AOF重写，这个用于阻止即使文件很小但是增长幅度很大也去重写AOF文件的情况
 #
-# auto-aof-rewrite-percentage:aof文件增长比例，指当前aof文件比上次重写的增长比例大小。
-# aof重写即在aof文件在一定大小之后，重新将整个内存写到aof文件当中，以反映最新的状态(相当于bgsave)。
-# 这样就避免了aof文件过大而实际内存数据小的问题(频繁修改数据问题).设置 percentage 为0就关闭这个特性
-# 
-# auto-aof-rewrite-percentage:aof文件重写最小的文件大小，即最开始aof文件必须要达到这个大小才触发，
-# 后面的每次重写就不会根据这个变量了(根据上一次重写完成之后的大小).
-# 此变量仅初始化启动redis有效，如果是redis恢复时，则lastSize等于初始aof文件大小.
+## auto-aof-rewrite-percentage:aof文件增长比例，指当前aof文件比上次重写的增长比例大小。
+## aof重写即在aof文件在一定大小之后，重新将整个内存写到aof文件当中，以反映最新的状态(相当于bgsave)。
+## 这样就避免了aof文件过大而实际内存数据小的问题(频繁修改数据问题).设置 percentage 为0就关闭这个特性
+## 
+## auto-aof-rewrite-percentage:aof文件重写最小的文件大小，即最开始aof文件必须要达到这个大小才触发，
+## 后面的每次重写就不会根据这个变量了(根据上一次重写完成之后的大小).
+## 此变量仅初始化启动redis有效，如果是redis恢复时，则lastSize等于初始aof文件大小.
 auto-aof-rewrite-percentage 100
 auto-aof-rewrite-min-size 64mb
 ```
 
 
 
-### 8.1.11、集群
+#### 8.1.11、集群
 
 REDIS CLUSTER：
 
 ```bash
-# 只有开启了以下选项，redis才能成为集群服务的一部分
-# cluster-enabled yes
+## 只有开启了以下选项，redis才能成为集群服务的一部分
+## cluster-enabled yes
 
-# 配置redis自动生成的集群配置文件名。确保同一系统中运行的各redis实例该配置文件不要重名。
-# 主要用于记录集群中有哪些节点、他们的状态以及一些持久化参数等，方便在重启时恢复这些状态。
-# cluster-config-file nodes-6379.conf
+## 配置redis自动生成的集群配置文件名。确保同一系统中运行的各redis实例该配置文件不要重名。
+## 主要用于记录集群中有哪些节点、他们的状态以及一些持久化参数等，方便在重启时恢复这些状态。
+## cluster-config-file nodes-6379.conf
 
-# 集群节点超时毫秒数。超时的节点将被视为不可用状态。
-# cluster-node-timeout 15000
+## 集群节点超时毫秒数。超时的节点将被视为不可用状态。
+## cluster-node-timeout 15000
 
-# 如果数据太旧，集群中的不可用master的slave节点会避免成为备用master。
-# 如果slave和master失联时间超过:
-# (node-timeout * slave-validity-factor) + repl-ping-slave-period 
-# 则不会被提升为master。
+## 如果数据太旧，集群中的不可用master的slave节点会避免成为备用master。
+## 如果slave和master失联时间超过:
+## (node-timeout * slave-validity-factor) + repl-ping-slave-period 
+## 则不会被提升为master。
 #
-# 如node-timeout为30秒，slave-validity-factor为10, 默认default repl-ping-slave-period为10秒,
-# 失联时间超过310秒slave就不会成为master。
-# 
-# 较大的slave-validity-factor值可能允许包含过旧数据的slave成为master，同时较小的值可能会阻止集群选举出新master。
-# 为了达到最大限度的高可用性，可以设置为0，即slave不管和master失联多久都可以提升为master
-# cluster-slave-validity-factor 10
+## 如node-timeout为30秒，slave-validity-factor为10, 默认default repl-ping-slave-period为10秒,
+## 失联时间超过310秒slave就不会成为master。
+## 
+## 较大的slave-validity-factor值可能允许包含过旧数据的slave成为master，同时较小的值可能会阻止集群选举出新master。
+## 为了达到最大限度的高可用性，可以设置为0，即slave不管和master失联多久都可以提升为master
+## cluster-slave-validity-factor 10
 
-# 只有在之前master有其它指定数量的工作状态下的slave节点时，slave节点才能提升为master。
-# 默认为1（即该集群至少有3个节点，1 master＋2 slaves，master宕机，仍有另外1个slave的情况下其中1个slave可以提升）
-# 测试环境可设置为0，生成环境中至少设置为1
-# cluster-migration-barrier 1
+## 只有在之前master有其它指定数量的工作状态下的slave节点时，slave节点才能提升为master。
+## 默认为1（即该集群至少有3个节点，1 master＋2 slaves，master宕机，仍有另外1个slave的情况下其中1个slave可以提升）
+## 测试环境可设置为0，生成环境中至少设置为1
+## cluster-migration-barrier 1
 
-# 默认情况下如果redis集群如果检测到至少有1个hash slot不可用，集群将停止查询数据。
-# 如果所有slot恢复则集群自动恢复。
-# 如果需要集群部分可用情况下仍可提供查询服务，设置为no。
-# cluster-require-full-coverage yes
+## 默认情况下如果redis集群如果检测到至少有1个hash slot不可用，集群将停止查询数据。
+## 如果所有slot恢复则集群自动恢复。
+## 如果需要集群部分可用情况下仍可提供查询服务，设置为no。
+## cluster-require-full-coverage yes
 ```
 
 
 
-### 8.1.12、慢日志
+#### 8.1.12、慢日志
 
 SLOW LOG：
 
 ```bash
-# Redis Slow Log 记录超过特定执行时间的命令。执行时间不包括I/O计算比如连接客户端，返回结果等，只是命令执行时间
+## Redis Slow Log 记录超过特定执行时间的命令。执行时间不包括I/O计算比如连接客户端，返回结果等，只是命令执行时间
 #
-# 可以通过两个参数设置slow log：一个是告诉Redis执行超过多少时间被记录的参数slowlog-log-slower-than(微妙)，
-# 另一个是slow log 的长度。当一个新命令被记录的时候最早的命令将被从队列中移除
+## 可以通过两个参数设置slow log：一个是告诉Redis执行超过多少时间被记录的参数slowlog-log-slower-than(微妙)，
+## 另一个是slow log 的长度。当一个新命令被记录的时候最早的命令将被从队列中移除
 
-# 下面的时间以微妙微单位，因此1000000代表一分钟。
-# 注意制定一个负数将关闭慢日志，而设置为0将强制每个命令都会记录
+## 下面的时间以微妙微单位，因此1000000代表一分钟。
+## 注意制定一个负数将关闭慢日志，而设置为0将强制每个命令都会记录
 slowlog-log-slower-than 10000
 
-# 对日志长度没有限制，只是要注意它会消耗内存
-# 可以通过 SLOWLOG RESET 回收被慢日志消耗的内存
+## 对日志长度没有限制，只是要注意它会消耗内存
+## 可以通过 SLOWLOG RESET 回收被慢日志消耗的内存
 slowlog-max-len 128
 ```
 
 
 
-## 8.2、sentinel.conf 详解
+### 8.2、sentinel.conf 详解
 
 ```bash
-# Example sentinel.conf
+## Example sentinel.conf
 
-# *** IMPORTANT ***
-# 绑定IP地址
-# bind 127.0.0.1 192.168.1.1
-# 保护模式（是否禁止外部链接，除绑定的ip地址外）
-# protected-mode no
+## *** IMPORTANT ***
+## 绑定IP地址
+## bind 127.0.0.1 192.168.1.1
+## 保护模式（是否禁止外部链接，除绑定的ip地址外）
+## protected-mode no
 
-# port <sentinel-port>
-# 此Sentinel实例运行的端口
+## port <sentinel-port>
+## 此Sentinel实例运行的端口
 port 26379
 
-# 默认情况下，Redis Sentinel不作为守护程序运行。 如果需要，可以设置为 yes。
+## 默认情况下，Redis Sentinel不作为守护程序运行。 如果需要，可以设置为 yes。
 daemonize no
 
-# 启用守护进程运行后，Redis将在/var/run/redis-sentinel.pid中写入一个pid文件
+## 启用守护进程运行后，Redis将在/var/run/redis-sentinel.pid中写入一个pid文件
 pidfile /var/run/redis-sentinel.pid
 
-# 指定日志文件名。 如果值为空，将强制Sentinel日志标准输出。守护进程下，如果使用标准输出进行日志记录，则日志将发送到/dev/null
+## 指定日志文件名。 如果值为空，将强制Sentinel日志标准输出。守护进程下，如果使用标准输出进行日志记录，则日志将发送到/dev/null
 logfile ""
 
-# sentinel announce-ip <ip>
-# sentinel announce-port <port>
+## sentinel announce-ip <ip>
+## sentinel announce-port <port>
 #
-# 上述两个配置指令在环境中非常有用，因为NAT可以通过非本地地址从外部访问Sentinel。
+## 上述两个配置指令在环境中非常有用，因为NAT可以通过非本地地址从外部访问Sentinel。
 #
-# 当提供announce-ip时，Sentinel将在通信中声明指定的IP地址，而不是像通常那样自动检测本地地址。
+## 当提供announce-ip时，Sentinel将在通信中声明指定的IP地址，而不是像通常那样自动检测本地地址。
 #
-# 类似地，当提供announce-port 有效且非零时，Sentinel将宣布指定的TCP端口。
+## 类似地，当提供announce-port 有效且非零时，Sentinel将宣布指定的TCP端口。
 #
-# 这两个选项不需要一起使用，如果只提供announce-ip，Sentinel将宣告指定的IP和“port”选项指定的服务器端口。
-# 如果仅提供announce-port，Sentinel将通告自动检测到的本地IP和指定端口。
+## 这两个选项不需要一起使用，如果只提供announce-ip，Sentinel将宣告指定的IP和“port”选项指定的服务器端口。
+## 如果仅提供announce-port，Sentinel将通告自动检测到的本地IP和指定端口。
 #
-# Example:
-# sentinel announce-ip 1.2.3.4
+## Example:
+## sentinel announce-ip 1.2.3.4
 
-# dir <working-directory>
-# 每个长时间运行的进程都应该有一个明确定义的工作目录。对于Redis Sentinel来说，/tmp就是自己的工作目录。
+## dir <working-directory>
+## 每个长时间运行的进程都应该有一个明确定义的工作目录。对于Redis Sentinel来说，/tmp就是自己的工作目录。
 dir /tmp
 
-# sentinel monitor <master-name> <ip> <redis-port> <quorum>
+## sentinel monitor <master-name> <ip> <redis-port> <quorum>
 #
-# 告诉Sentinel监听指定主节点，并且只有在至少<quorum>哨兵达成一致的情况下才会判断它 O_DOWN 状态。
-# 一般建议将其设置为Sentinel节点的一半加1。不仅如此，quorum还与Sentinel节点的领导者选举有关。
-# 为了选出Sentinel的领导者，至少需要max(quorum, num(sentinels) / 2 + 1)个Sentinel节点参与选举
+## 告诉Sentinel监听指定主节点，并且只有在至少<quorum>哨兵达成一致的情况下才会判断它 O_DOWN 状态。
+## 一般建议将其设置为Sentinel节点的一半加1。不仅如此，quorum还与Sentinel节点的领导者选举有关。
+## 为了选出Sentinel的领导者，至少需要max(quorum, num(sentinels) / 2 + 1)个Sentinel节点参与选举
 #
-# 副本是自动发现的，因此您无需指定副本。
-# Sentinel本身将重写此配置文件，使用其他配置选项添加副本。另请注意，当副本升级为主副本时，将重写配置文件。
+## 副本是自动发现的，因此您无需指定副本。
+## Sentinel本身将重写此配置文件，使用其他配置选项添加副本。另请注意，当副本升级为主副本时，将重写配置文件。
 #
-# 注意：主节点（master）名称不能包含特殊字符或空格。
-# 有效字符可以是 A-z 0-9 和这三个字符 ".-_".
+## 注意：主节点（master）名称不能包含特殊字符或空格。
+## 有效字符可以是 A-z 0-9 和这三个字符 ".-_".
 sentinel monitor mymaster 127.0.0.1 6379 2
 
-# 如果redis配置了密码，那这里必须配置认证，否则不能自动切换
-# Example:
-# sentinel auth-pass mymaster MySUPER--secret-0123passw0rd
+## 如果redis配置了密码，那这里必须配置认证，否则不能自动切换
+## Example:
+## sentinel auth-pass mymaster MySUPER--secret-0123passw0rd
 
-# sentinel down-after-milliseconds <master-name> <milliseconds>
+## sentinel down-after-milliseconds <master-name> <milliseconds>
 #
-# 主节点在指定时间内没有回复PING，便认为该节点为主观下线 S_DOWN 状态。
-# 需要注意的是，该参数不仅用来判断主节点状态，同样也用来判断该主节点下面的从节点及其它sentinel的状态
-# 默认是30秒
+## 主节点在指定时间内没有回复PING，便认为该节点为主观下线 S_DOWN 状态。
+## 需要注意的是，该参数不仅用来判断主节点状态，同样也用来判断该主节点下面的从节点及其它sentinel的状态
+## 默认是30秒
 sentinel down-after-milliseconds mymaster 30000
 
-# sentinel parallel-syncs <master-name> <numreplicas>
+## sentinel parallel-syncs <master-name> <numreplicas>
 #
-# 在故障转移期间，多少个副本节点进行数据同步
-# 如果numslaves设置较大的话，虽然复制操作并不会阻塞主节点，但多个节点同时指向新的主节点，会增加主节点的网络和磁盘IO负载。
+## 在故障转移期间，多少个副本节点进行数据同步
+## 如果numslaves设置较大的话，虽然复制操作并不会阻塞主节点，但多个节点同时指向新的主节点，会增加主节点的网络和磁盘IO负载。
 sentinel parallel-syncs mymaster 1
 
-# sentinel failover-timeout <master-name> <milliseconds>
+## sentinel failover-timeout <master-name> <milliseconds>
 #
-# 指定故障转移超时（以毫秒为单位）。 它以多种方式使用：
+## 指定故障转移超时（以毫秒为单位）。 它以多种方式使用：
 #
-# - 在先前的故障转移之后重新启动故障转移所需的时间已由给定的Sentinel针对同一主服务器尝试，是故障转移超时的两倍。
-# - 当一个slave从一个错误的master那里同步数据开始计算时间。直到slave被纠正为向正确的master那里同步数据时。
-# - 取消已在进行但未生成任何配置更改的故障转移所需的时间
-# - 当进行failover时，配置所有slaves指向新的master所需的最大时间。
-#   即使过了这个超时，slaves依然会被正确配置为指向master。
-# 默认3分钟
+## - 在先前的故障转移之后重新启动故障转移所需的时间已由给定的Sentinel针对同一主服务器尝试，是故障转移超时的两倍。
+## - 当一个slave从一个错误的master那里同步数据开始计算时间。直到slave被纠正为向正确的master那里同步数据时。
+## - 取消已在进行但未生成任何配置更改的故障转移所需的时间
+## - 当进行failover时，配置所有slaves指向新的master所需的最大时间。
+##   即使过了这个超时，slaves依然会被正确配置为指向master。
+## 默认3分钟
 sentinel failover-timeout mymaster 180000
 
-# 脚本执行
+## 脚本执行
 #
-# sentinel notification-script和sentinel reconfig-script用于配置调用的脚本，以通知系统管理员或在故障转移后重新配置客户端。
-# 脚本使用以下规则执行以进行错误处理：
+## sentinel notification-script和sentinel reconfig-script用于配置调用的脚本，以通知系统管理员或在故障转移后重新配置客户端。
+## 脚本使用以下规则执行以进行错误处理：
 #
-# 如果脚本以“1”退出，则稍后重试执行（最多重试次数为当前设置的10次）。
+## 如果脚本以“1”退出，则稍后重试执行（最多重试次数为当前设置的10次）。
 #
-# 如果脚本以“2”（或更高的值）退出，则不会重试执行。
+## 如果脚本以“2”（或更高的值）退出，则不会重试执行。
 #
-# 如果脚本因为收到信号而终止，则行为与退出代码1相同。
+## 如果脚本因为收到信号而终止，则行为与退出代码1相同。
 #
-# 脚本的最长运行时间为60秒。 达到此限制后，脚本将以SIGKILL终止，并重试执行。
+## 脚本的最长运行时间为60秒。 达到此限制后，脚本将以SIGKILL终止，并重试执行。
 
-# 通知脚本
+## 通知脚本
 #
-# sentinel notification-script <master-name> <script-path>
+## sentinel notification-script <master-name> <script-path>
 #
-# 为警告级别生成的任何Sentinel事件调用指定的通知脚本（例如-sdown，-odown等）。
-# 此脚本应通过电子邮件，SMS或任何其他消息传递系统通知系统管理员 监控的Redis系统出了问题。
+## 为警告级别生成的任何Sentinel事件调用指定的通知脚本（例如-sdown，-odown等）。
+## 此脚本应通过电子邮件，SMS或任何其他消息传递系统通知系统管理员 监控的Redis系统出了问题。
 #
-# 使用两个参数调用脚本：第一个是事件类型，第二个是事件描述。
+## 使用两个参数调用脚本：第一个是事件类型，第二个是事件描述。
 #
-# 该脚本必须存在且可执行，以便在提供此选项时启动sentinel。
+## 该脚本必须存在且可执行，以便在提供此选项时启动sentinel。
 #
-# 举例:
-# sentinel notification-script mymaster /var/redis/notify.sh
+## 举例:
+## sentinel notification-script mymaster /var/redis/notify.sh
 
-# 客户重新配置脚本
+## 客户重新配置脚本
 #
-# sentinel client-reconfig-script <master-name> <script-path>
+## sentinel client-reconfig-script <master-name> <script-path>
 #
-# 当主服务器因故障转移而变更时，可以调用脚本执行特定于应用程序的任务，以通知客户端，配置已更改且主服务器地址已经变更。
+## 当主服务器因故障转移而变更时，可以调用脚本执行特定于应用程序的任务，以通知客户端，配置已更改且主服务器地址已经变更。
 #
-# 以下参数将传递给脚本：
+## 以下参数将传递给脚本：
 #
-# <master-name> <role> <state> <from-ip> <from-port> <to-ip> <to-port>
+## <master-name> <role> <state> <from-ip> <from-port> <to-ip> <to-port>
 #
-# <state> 目前始终是故障转移 "failover"
-# <role> 是 "leader" 或 "observer"
+## <state> 目前始终是故障转移 "failover"
+## <role> 是 "leader" 或 "observer"
 #
-# 参数 from-ip, from-port, to-ip, to-port 用于传递主服务器的旧地址和所选副本的新地址。
+## 参数 from-ip, from-port, to-ip, to-port 用于传递主服务器的旧地址和所选副本的新地址。
 #
-# 举例:
-# sentinel client-reconfig-script mymaster /var/redis/reconfig.sh
+## 举例:
+## sentinel client-reconfig-script mymaster /var/redis/reconfig.sh
 
-# 安全
-# 避免脚本重置，默认值yes
-# 默认情况下，SENTINEL SET将无法在运行时更改notification-script和client-reconfig-script。
-# 这避免了一个简单的安全问题，客户端可以将脚本设置为任何内容并触发故障转移以便执行程序。
+## 安全
+## 避免脚本重置，默认值yes
+## 默认情况下，SENTINEL SET将无法在运行时更改notification-script和client-reconfig-script。
+## 这避免了一个简单的安全问题，客户端可以将脚本设置为任何内容并触发故障转移以便执行程序。
 sentinel deny-scripts-reconfig yes
 
-# REDIS命令重命名
+## REDIS命令重命名
 #
-# 在这种情况下，可以告诉Sentinel使用不同的命令名称而不是正常的命令名称。
-# 例如，如果主“mymaster”和相关副本的“CONFIG”全部重命名为“GUESSME”，我可以使用：
+## 在这种情况下，可以告诉Sentinel使用不同的命令名称而不是正常的命令名称。
+## 例如，如果主“mymaster”和相关副本的“CONFIG”全部重命名为“GUESSME”，我可以使用：
 #
-# SENTINEL rename-command mymaster CONFIG GUESSME
+## SENTINEL rename-command mymaster CONFIG GUESSME
 #
-# 设置此类配置后，每次Sentinel使用CONFIG时，它将使用GUESSME。 
-# 请注意，实际上不需要尊重命令案例，因此在上面的示例中写“config guessme”是相同的。
+## 设置此类配置后，每次Sentinel使用CONFIG时，它将使用GUESSME。 
+## 请注意，实际上不需要尊重命令案例，因此在上面的示例中写“config guessme”是相同的。
 #
-# SENTINEL SET也可用于在运行时执行此配置。
+## SENTINEL SET也可用于在运行时执行此配置。
 #
-# 为了将命令设置回其原始名称（撤消重命名），可以将命令重命名为它自身：
+## 为了将命令设置回其原始名称（撤消重命名），可以将命令重命名为它自身：
 #
-# SENTINEL rename-command mymaster CONFIG CONFIG
+## SENTINEL rename-command mymaster CONFIG CONFIG
 ```
 
 
 
-# 9、持久化
+## 9、持久化
 
 什么是Redis持久化？
 
@@ -2528,13 +2530,13 @@ Redis 作为一个键值对内存数据库（NoSQL），数据都存储在内存
 
 
 
-## 9.1、RDB
+### 9.1、RDB
 
 RDB（Redis DataBase） 是一种快照存储持久化方式，具体就是将 Redis 某一时刻的内存数据保存到硬盘的文件当中，默认保存的文件名为 dump.rdb，而在 Redis 服务器启动时，会重新加载 dump.rdb 文件的数据到内存当中恢复数据。
 
 
 
-### 9.1.1、开启 RDB 持久化方式
+#### 9.1.1、开启 RDB 持久化方式
 
 **save**
 
@@ -2563,11 +2565,11 @@ RDB（Redis DataBase） 是一种快照存储持久化方式，具体就是将 R
 除了通过客户端发送命令外，还有一种方式，就是在 Redis 配置文件中的 save 指定到达触发 RDB 持久化的条件，比如【多少秒内至少达到多少写操作】就开启 RDB 数据同步。
 
 ```bash
-# 900s内至少达到一条写命令
+## 900s内至少达到一条写命令
 save 900 1
-# 300s内至少达至10条写命令
+## 300s内至少达至10条写命令
 save 300 10
-# 60s内至少达到10000条写命令
+## 60s内至少达到10000条写命令
 save 60 10000
 ```
 
@@ -2579,7 +2581,7 @@ save 60 10000
 
 
 
-### 9.1.2、RDB 文件
+#### 9.1.2、RDB 文件
 
 上面三种让服务器生成 rdb 文件的方式，无论是由主进程生成还是子进程来生成，其过程如下：
 
@@ -2590,19 +2592,19 @@ save 60 10000
 RDB 默认生成的文件名为 dump.rdb，可以通过配置文件进行更加详细配置，比如在单机下启动多个 Redis 服务器进程时，可以通过端口号配置不同的rdb 名称，如下所示：
 
 ```bash
-# 是否压缩rdb文件
+## 是否压缩rdb文件
 rdbcompression yes
 
-# rdb文件的名称
+## rdb文件的名称
 dbfilename redis-6379.rdb
 
-# rdb文件保存目录
+## rdb文件保存目录
 dir ~/redis/
 ```
 
 
 
-### 9.1.3、RDB 的优缺点
+#### 9.1.3、RDB 的优缺点
 
 **优点**
 
@@ -2620,7 +2622,7 @@ dir ~/redis/
 
 
 
-## 9.2、AOF
+### 9.2、AOF
 
 与 RDB 存储某个时刻的快照不同，AOF （Append-only file）持久化方式会记录客户端对服务器的每一次写操作命令，并将这些写操作以 Redis 协议追加保存到以后缀为 aof 文件末尾，在 Redis 服务器重启时，会加载并运行 aof 文件的命令，以达到恢复数据的目的。
 
@@ -2628,24 +2630,24 @@ dir ~/redis/
 
 
 
-### 9.2.1、开启 AOF 持久化方式
+#### 9.2.1、开启 AOF 持久化方式
 
 Redis 默认不开启 AOF 持久化方式，可以在配置文件中开启并进行更加详细的配置：
 
 ```bash
-# 开启aof机制
+## 开启aof机制
 appendonly yes
 
-# aof文件名
+## aof文件名
 appendfilename "appendonly.aof"
 
-# 写入策略,always表示每个写操作都保存到aof文件中,也可以是everysec或no
+## 写入策略,always表示每个写操作都保存到aof文件中,也可以是everysec或no
 appendfsync always
 
-# 默认不重写aof文件
+## 默认不重写aof文件
 no-appendfsync-on-rewrite no
 
-# 保存目录
+## 保存目录
 dir ~/redis/
 ```
 
@@ -2657,7 +2659,7 @@ appendfsync 选项指定写入策略，有三个选项：
 
 
 
-### 9.2.2、AOF 文件
+#### 9.2.2、AOF 文件
 
 **AOF 文件重写**
 
@@ -2704,7 +2706,7 @@ set num 100000
 
 
 
-### 9.2.3、AOF 的优缺点
+#### 9.2.3、AOF 的优缺点
 
 **优点**
 
@@ -2719,7 +2721,7 @@ AOF 只是追加日志文件，因此对服务器性能影响较小，速度比 
 
 
 
-# 10、订阅与发布
+## 10、订阅与发布
 
 Redis 通过 `publish` 、 `subscribe` 等命令实现了订阅与发布模式， 这个功能提供两种信息机制， 分别是订阅/发布到频道和订阅/发布到模式。
 
@@ -2735,7 +2737,7 @@ Redis 的`subscribe`命令可以让客户端订阅任意数量的频道， 每�
 
 
 
-## 10.1、订阅与退订频道
+### 10.1、订阅与退订频道
 
 **订阅频道**
 
@@ -2783,7 +2785,7 @@ def SUBSCRIBE(client, channels):
 
 
 
-## 10.2、发送信息到频道
+### 10.2、发送信息到频道
 
 当调用 `publish channel message` 命令， 程序首先根据 channel 定位到字典的键， 然后将信息发送给字典值链表中的所有客户端。
 
@@ -2805,7 +2807,7 @@ def PUBLISH(channel, message):
 
 
 
-## 10.3、模式的订阅与信息发送
+### 10.3、模式的订阅与信息发送
 
 当使用 `publish` 命令发送信息到某个频道时， 不仅所有订阅该频道的客户端会收到信息， 如果有某个/某些模式和这个频道匹配的话， 那么所有订阅这个/这些频道的客户端也同样会收到信息。
 
@@ -2823,7 +2825,7 @@ def PUBLISH(channel, message):
 
 
 
-## 10.4、订阅与退订模式
+### 10.4、订阅与退订模式
 
 **订阅模式**
 
@@ -2868,7 +2870,7 @@ client 属性保存着订阅模式的客户端，而 pattern 属性则保存着�
 
 
 
-## 10.5、发送信息到模式
+### 10.5、发送信息到模式
 
 发送信息到模式的工作也是由`publish`命令进行的， 在前面讲解频道的时候， 给出了这样一段伪代码， 说它定义了 `publish` 命令的行为
 
@@ -2913,7 +2915,7 @@ def PUBLISH(channel, message):
 
 
 
-# 11、Redis 集群
+## 11、Redis 集群
 
 Redis 有三种集群模式，分别是：
 
@@ -2923,9 +2925,9 @@ Redis 有三种集群模式，分别是：
 
 
 
-## 11.1、主从复制
+### 11.1、主从复制
 
-### 11.1.1、主从复制介绍
+#### 11.1.1、主从复制介绍
 
 通过持久化功能，Redis 保证了即使在服务器重启的情况下也不会丢失（或少量丢失）数据，因为持久化会把内存中数据保存到硬盘上，重启会从硬盘上加载数据。 但是由于数据是存储在一台服务器上的，如果这台服务器出现硬盘故障等问题，也会导致数据丢失。
 
@@ -2976,7 +2978,7 @@ slave 挂了不影响其他 slave 的读和 master 的读和写，重新启动�
 
 
 
-### 11.1.2、主从复制搭建
+#### 11.1.2、主从复制搭建
 
 启动方式
 
@@ -3003,14 +3005,14 @@ slave 挂了不影响其他 slave 的读和 master 的读和写，重新启动�
 此为以服务器配置启动：
 
 ```bash
-# 新建一个临时文件夹，方便后期删除
+## 新建一个临时文件夹，方便后期删除
 mkdir data
 cd data
 
-# 创建一个配置文件
+## 创建一个配置文件
 vim redis_6379.conf
 
-# 写入内容
+## 写入内容
 include /etc/redis/redis.conf
 port 6379
 daemonize no
@@ -3019,21 +3021,21 @@ logfile "redis_6379.log"
 dbfilename dump_6379.rdb
 dir /root/data
 
-# 复制一份 6379 配置文件并将文件中的 6379 改为 6380
+## 复制一份 6379 配置文件并将文件中的 6379 改为 6380
 sed 's/6379/6380/g' redis_6379.conf > redis_6380.conf
 
-# 6380 配置文件末尾追加 replicaof 127.0.0.1 6379，$a\ 表示最后一行，\n 表示换行
+## 6380 配置文件末尾追加 replicaof 127.0.0.1 6379，$a\ 表示最后一行，\n 表示换行
 sed -i '$a\\nreplicaof 127.0.0.1 6379' redis_6380.conf
 
-# 复制一份 6380 配置文件并将文件中的 6380 改为 6381
+## 复制一份 6380 配置文件并将文件中的 6380 改为 6381
 sed 's/6380/6381/g' redis_6380.conf > redis_6381.conf
 
-# 顺序启动节点
+## 顺序启动节点
 redis-server redis_6379.conf
 redis-server redis_6380.conf
 redis-server redis_6381.conf
 
-# 进入redis 客户端，开多个窗口查看方便些
+## 进入redis 客户端，开多个窗口查看方便些
 redis-cli -p 6379
 ```
 
@@ -3046,14 +3048,14 @@ redis-cli -p 6379
 **数据同步验证**
 
 ```bash
-# master
+## master
 redis-cli -p 6379
 127.0.0.1:6379> set k1 v1
 OK
 
 exit
 
-# slave1
+## slave1
 redis-cli -p 6380
 127.0.0.1:6380> get k1
 "v1"
@@ -3064,7 +3066,7 @@ redis-cli -p 6380
 **Spring Boot 配置**
 
 ```yaml
-# 连接主节点即可
+## 连接主节点即可
 spring:
   redis:
     host: 127.0.0.1
@@ -3074,9 +3076,9 @@ spring:
 
 
 
-## 11.2、Sentinel 模式
+### 11.2、Sentinel 模式
 
-### 11.2.1、哨兵模式介绍
+#### 11.2.1、哨兵模式介绍
 
 主从模式的弊端就是不具备高可用性，当 master 挂掉以后，Redis 将不能再对外提供写入操作，因此 sentinel 应运而生。
 
@@ -3117,15 +3119,15 @@ sentinel 因为也是一个进程有挂掉的可能，所以 sentinel 也会启�
 
 
 
-### 11.2.2、哨兵模式搭建
+#### 11.2.2、哨兵模式搭建
 
 Redis 配置文件用主从复制的那三个
 
 ```bash
-# 在data文件夹下新建一个sentinel配置文件
+## 在data文件夹下新建一个sentinel配置文件
 vim sentinel_26379.conf
 
-# sentinel_26379配置
+## sentinel_26379配置
 port 26379
 daemonize no
 logfile 26379.log
@@ -3135,16 +3137,16 @@ sentinel down-after-milliseconds mymaster 30000
 sentinel parallel-syncs mymaster 1
 sentinel failover-timeout mymaster 180000
 
-# 将配置文件复制两份，更改端口
+## 将配置文件复制两份，更改端口
 sed 's/26379/26380/g' sentinel_26379.conf > sentinel_26380.conf
 sed 's/26379/26381/g' sentinel_26379.conf > sentinel_26381.conf
 
-# 启动三个redis
+## 启动三个redis
 redis-server redis_6379.conf
 redis-server redis_6380.conf
 redis-server redis_6381.conf
 
-# 启动三个sentinel
+## 启动三个sentinel
 redis-sentinel sentinel_26379.conf
 redis-sentinel sentinel_26380.conf
 redis-sentinel sentinel_26381.conf
@@ -3192,7 +3194,7 @@ root@Orichalcos:~/data# redis-cli -p 6380 get k1
 **Spring Boot 配置**
 
 ```yaml
-# 记得开启哨兵的远程连接
+## 记得开启哨兵的远程连接
 spring:
   redis:
     sentinel:
@@ -3204,9 +3206,9 @@ spring:
 
 
 
-## 11.3、Cluster 模式 
+### 11.3、Cluster 模式 
 
-### 11.3.1、Cluster 模式介绍
+#### 11.3.1、Cluster 模式介绍
 
 Redis Cluster是一种服务器 Sharding（分片） 技术，3.0版本开始正式提供。
 
@@ -3246,13 +3248,13 @@ Redis 集群有 16384 个哈希槽，每个 key 通过 CRC16 校验后对 16384 
 
 
 
-### 11.3.2、Cluster 模式搭建
+#### 11.3.2、Cluster 模式搭建
 
 ```bash
-# 清除掉data文件夹下的所有文件，在里面新建一个redis_6379.conf
+## 清除掉data文件夹下的所有文件，在里面新建一个redis_6379.conf
 vim redis_6379.conf
 
-# 写入以下内容
+## 写入以下内容
 include /etc/redis/redis.conf
 port 6379
 daemonize no
@@ -3264,7 +3266,7 @@ cluster-enabled yes
 cluster-config-file nodes_6379.conf 
 cluster-node-timeout 15000
 
-# 将文件复制五份，更改其中端口等信息
+## 将文件复制五份，更改其中端口等信息
 sed 's/6379/6380/g' redis_6379.conf > redis_6380.conf
 sed 's/6379/6381/g' redis_6379.conf > redis_6381.conf
 sed 's/6379/6382/g' redis_6379.conf > redis_6382.conf
@@ -3332,7 +3334,7 @@ spring:
 
 
 
-### 11.3.3、Redis Cluster 操作
+#### 11.3.3、Redis Cluster 操作
 
 可以通过 `redis-cli --cluster help` 查看手册：
 
@@ -3393,18 +3395,18 @@ Cluster Manager Commands:
 **增加节点**
 
 ```bash
-# 增加两个节点配置
+## 增加两个节点配置
 sed 's/6379/6385/g' redis_6379.conf > redis_6385.conf
 sed 's/6379/6386/g' redis_6379.conf > redis_6386.conf
 
-# 启动
+## 启动
 redis-server redis_6385.conf
 redis-server redis_6386.conf
 
-# 集群中增加节点
+## 集群中增加节点
 redis-cli -p 6379 --cluster add-node 127.0.0.1:6385 127.0.0.1:6379
 
-# 查看节点信息
+## 查看节点信息
 redis-cli cluster nodes
 ```
 
@@ -3450,9 +3452,9 @@ redis-cli --cluster del-node 127.0.0.1:6385 57547cced0901aec48897bd97c9a6e9a40c8
 
 
 
-# 12、缓存雪崩、击穿、穿透
+## 12、缓存雪崩、击穿、穿透
 
-## 12.1、缓存雪崩
+### 12.1、缓存雪崩
 
 **什么是缓存雪崩**
 
@@ -3499,7 +3501,7 @@ redis-cli --cluster del-node 127.0.0.1:6385 57547cced0901aec48897bd97c9a6e9a40c8
 
 
 
-## 12.2、缓存击穿
+### 12.2、缓存击穿
 
  **什么是缓存击穿**
 
@@ -3514,7 +3516,7 @@ redis-cli --cluster del-node 127.0.0.1:6385 57547cced0901aec48897bd97c9a6e9a40c8
 
 
 
-## 12.3、缓存穿透
+### 12.3、缓存穿透
 
 **什么是缓存穿透**
 
@@ -3544,7 +3546,7 @@ redis-cli --cluster del-node 127.0.0.1:6385 57547cced0901aec48897bd97c9a6e9a40c8
 
 
 
-## 12.4、缓存预热
+### 12.4、缓存预热
 
 **什么是缓存预热**
 
@@ -3562,7 +3564,7 @@ redis-cli --cluster del-node 127.0.0.1:6385 57547cced0901aec48897bd97c9a6e9a40c8
 
 
 
-## 12.5、缓存降级
+### 12.5、缓存降级
 
 缓存降级是指缓存失效或缓存服务器挂掉的情况下，可以将其他次要服务的数据进行缓存降级，从而提升主服务的稳定性。不去访问数据库，直接返回默认数据或访问服务的内存数据。降级一般是有损的操作，所以尽量减少降级对于业务的影响程度。
 
@@ -3572,7 +3574,7 @@ redis-cli --cluster del-node 127.0.0.1:6385 57547cced0901aec48897bd97c9a6e9a40c8
 
 
 
-# 13、Redis 实现分布式锁
+## 13、Redis 实现分布式锁
 
 `set` 还可以添加一些其他的参数：
 
@@ -3685,7 +3687,7 @@ public static void releaseLockByDel(String lockKey, String requestId) {
 
 
 
-# 14、Redis 实现分布式缓存
+## 14、Redis 实现分布式缓存
 
 在 Mybatis 中默认情况下，只启用了本地的会话缓存，它仅仅对一个会话中的数据进行缓存。 要启用全局的二级缓存，只需要在 SQL 映射文件中添加一行：
 
@@ -3695,7 +3697,7 @@ public static void releaseLockByDel(String lockKey, String requestId) {
 
 
 
-## 14.1、搭建环境
+### 14.1、搭建环境
 
 1. 这里新建一个简单的 SpringBoot 项目，引入以下依赖：
 
@@ -3863,7 +3865,7 @@ public static void releaseLockByDel(String lockKey, String requestId) {
 
 
 
-## 14.2、开启 Mybatis 的二级缓存
+### 14.2、开启 Mybatis 的二级缓存
 
 在开启之前，修改下 `test()` 方法：
 
@@ -3902,7 +3904,7 @@ public void test() {
 
 
 
-## 14.3、使用 Redis 作为缓存
+### 14.3、使用 Redis 作为缓存
 
 首先，看看 Mybatis 的 Cache 接口的实现类：
 
@@ -4150,7 +4152,7 @@ public class RedisCache implements Cache {
 
 
 
-## 14.4、问题及优化
+### 14.4、问题及优化
 
 **多表连接问题**
 
@@ -4240,7 +4242,7 @@ RedisCache.java 只是简单实现！
 
 
 
-# 15、Redis Session 管理
+## 15、Redis Session 管理
 
 Redis 的 session 管理是利用 Spring 提供的 session 管理解决方案，将一个应用 session 交给 Redis 存储，整个应用中所有 session 的请求都会去 redis 中获取对应的 session 数据。
 

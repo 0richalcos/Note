@@ -1,4 +1,6 @@
-# 1、什么是axios
+# Axios
+
+## 1、什么是axios
 
 Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。
 
@@ -25,7 +27,7 @@ Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js �
 
 
 
-# 2、案例
+## 2、案例
 
 **执行 `GET` 请求**
 
@@ -96,7 +98,7 @@ axios.all([getUserAccount(), getUserPermissions()])
 
 
 
-# 3、axios API
+## 3、axios API
 
 可以通过向 `axios` 传递相关配置来创建请求
 
@@ -137,7 +139,7 @@ axios('/user/12345');
 
 
 
-# 4、请求方法的别名
+## 4、请求方法的别名
 
 为方便起见，为所有支持的请求方法提供了别名
 
@@ -172,7 +174,7 @@ const instance = axios.create({
 
 
 
-# 5、请求配置
+## 5、请求配置
 
 这些是创建请求时可以用的配置选项。只有 `url` 是必需的。如果没有指定 `method`，请求将默认使用 `get` 方法。
 
@@ -314,7 +316,7 @@ const instance = axios.create({
 
 
 
-# 6、响应结构
+## 6、响应结构
 
 某个请求的响应包含以下信息
 
@@ -359,7 +361,7 @@ axios.get('/user/12345')
 
 
 
-# 7、配置默认值
+## 7、配置默认值
 
 **全局的 axios 默认值**
 

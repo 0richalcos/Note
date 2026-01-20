@@ -1,10 +1,12 @@
-# 1、简介
+# WebLogic
+
+## 1、简介
 
 WebLogic 是美国 Oracle 公司出品的一个 application server，确切的说是一个基于 JAVAEE 架构的中间件，WebLogic 是用于开发、集成、部署和管理大型分布式 Web 应用、网络应用和数据库应用的 Java 应用服务器。将 Java 的动态功能和 Java Enterprise 标准的安全性引入大型网络应用的开发、集成、部署和管理之中。
 
 
 
-## 1.1、下载介质
+### 1.1、下载介质
 
 访问：https://www.oracle.com/cn/middleware/technologies/weblogic-server-downloads.html，在页面中找到 `Oracle WebLogic Server 12.2.1.4`，点击 `Generic` 下载。
 
@@ -12,7 +14,7 @@ WebLogic 是美国 Oracle 公司出品的一个 application server，确切的�
 
 
 
-## 1.2、安装
+### 1.2、安装
 
 1. 安装前请安装 JDK1.8，安装路径不能有空格
 
@@ -98,7 +100,7 @@ WebLogic 是美国 Oracle 公司出品的一个 application server，确切的�
 
 
 
-## 1.3、启动
+### 1.3、启动
 
 在安装目录依次找到 `Oracle\Middleware\Oracle_Home\user_projects\domains\base_domain\bin\startWebLogic.cmd`，双击启动。
 
@@ -112,7 +114,7 @@ WebLogic 是美国 Oracle 公司出品的一个 application server，确切的�
 
 
 
-## 1.4、卸载
+### 1.4、卸载
 
 在开始中找到 `Uninstall OracleHome1` 快捷方式，或者在 C 盘搜索到 `Uninstall OracleHome1` 快捷方式位置，点击即可卸载。
 
@@ -122,9 +124,9 @@ WebLogic 是美国 Oracle 公司出品的一个 application server，确切的�
 
 
 
-# 2、部署项目
+## 2、部署项目
 
-## 2.1、部署 web 项目（war包）
+### 2.1、部署 web 项目（war包）
 
 1. 启动并访问 Weblogic，进入登录页面：
 
@@ -196,7 +198,7 @@ WebLogic 是美国 Oracle 公司出品的一个 application server，确切的�
 
 
 
-## 2.2、删除自动部署项目
+### 2.2、删除自动部署项目
 
 1. 从域的 autodeploy 目录下删除相应的文件夹或者 war 文件。
 
@@ -210,9 +212,9 @@ WebLogic 是美国 Oracle 公司出品的一个 application server，确切的�
 
 
 
-# 3、配置
+## 3、配置
 
-## 3.1、修改 JVM 堆大小
+### 3.1、修改 JVM 堆大小
 
 您可以更改默认的 JVM 堆大小以适应部署的需要。
 
@@ -256,7 +258,7 @@ WebLogic 的默认 JVM 堆大小为 3GB。该大小是在 Linux 的 `setDomainEn
 
 
 
-## 3.2、修改的端口 
+### 3.2、修改的端口 
 
 两种方法可以修改，第一种方法是后台管理界面修改，第二种是配置文件修改。
 
@@ -294,7 +296,7 @@ WebLogic 的默认 JVM 堆大小为 3GB。该大小是在 Linux 的 `setDomainEn
 
 
 
-## 3.3、修改控制台路径
+### 3.3、修改控制台路径
 
 **配置文件修改方式**
 

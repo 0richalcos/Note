@@ -1,6 +1,8 @@
-# 1、快速入门
+# MyBatis-Plus
 
-## 1.1、简介
+## 1、快速入门
+
+### 1.1、简介
 
 MyBatis-Plus (opens new window)（简称 MP）是一个 MyBatis（opens new window）的增强工具，在 MyBatis 的基础上只做增强不做改变，为简化开发、提高效率而生。
 
@@ -38,7 +40,7 @@ MyBatis-Plus (opens new window)（简称 MP）是一个 MyBatis（opens new wind
 
 
 
-## 1.2、安装
+### 1.2、安装
 
 全新的 MyBatis-Plus 3.0 版本基于 JDK8，提供了 lambda 形式的调用，所以安装集成 MP3.0 要求如下：
 
@@ -67,7 +69,7 @@ Maven：
 
 
 
-## 1.3、配置
+### 1.3、配置
 
 MyBatis-Plus 的配置异常的简单，仅需要一些简单的配置即可使用 MyBatis-Plus 的强大功能！
 
@@ -91,17 +93,17 @@ public class Application {
 
 
 
-# 2、指南
+## 2、指南
 
 
 
-# 3、插件
+## 3、插件
 
 
 
-# 4、参考
+## 4、参考
 
-## 4.1、使用配置
+### 4.1、使用配置
 
 通常来说，一般的简单工程，通过以上配置即可正常使用 MyBatis-Plus，同时 MyBatis-Plus 提供了大量的个性化配置来满足不同复杂度的工程：
 
@@ -206,9 +208,9 @@ mybatis-plus:
 
 
 
-## 4.2、注解配置
+### 4.2、注解配置
 
-### 4.2.1、@TableName
+#### 4.2.1、@TableName
 
 该注解用于指定实体类对应的数据库表名。当实体类名与数据库表名不一致，或者实体类名不是数据库表名的驼峰写法时，您需要使用这个注解来明确指定表名。
 
@@ -246,7 +248,7 @@ MyBatis 只支持将 `typeHandler` 写在两个地方：
 
 
 
-### 4.2.2、@TableId
+#### 4.2.2、@TableId
 
 该注解用于标记实体类中的主键字段。如果你的主键字段名为 id，你可以省略这个注解。
 
@@ -282,7 +284,7 @@ public class User {
 
 
 
-### 4.2.3、@TableField
+#### 4.2.3、@TableField
 
 该注解用于标记实体类中的非主键字段，它告诉 MyBatis-Plus 如何映射实体类字段到数据库表字段。如果你的实体类字段名遵循驼峰命名规则，并且与数据库表字段名一致，你可以省略这个注解。
 

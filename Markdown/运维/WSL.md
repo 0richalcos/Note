@@ -1,10 +1,12 @@
-# 1、概述
+# WSL
+
+## 1、概述
 
 适用于 Linux 的 Windows 子系统（WSL）可让开发人员直接在 Windows 上按原样运行 GNU/Linux 环境（包括大多数命令行工具、实用工具和应用程序），且不会产生传统虚拟机或双启动设置开销。
 
 <br>
 
-## 1.1、什么是 WSL
+### 1.1、什么是 WSL
 
 **什么是适用于 Linux 的 Windows 子系统？**
 
@@ -36,9 +38,9 @@ WSL 2 提高了文件系统性能，并且与 WSL 1 体系结构相比增加了�
 
 <br>
 
-## 1.2、比较 WSL 版本
+### 1.2、比较 WSL 版本
 
-### 1.2.1、比较 WSL 1 和 WSL 2
+#### 1.2.1、比较 WSL 1 和 WSL 2
 
 WSL 1 和 WSL 2 之间的主要区别在于，在托管 VM 内使用实际的 Linux 内核、支持完整的系统调用兼容性以及跨 Linux 和 Windows 操作系统的性能。 WSL 2 是安装 Linux 发行版时的当前默认版本，它使用最新最好的虚拟化技术在轻量级实用工具虚拟机（VM）内运行 Linux 内核。 WSL2 将 Linux 发行版作为托管 VM 内的隔离容器运行。
 
@@ -61,7 +63,7 @@ WSL 2 仅在 Windows 11 或 Windows 10 版本 1903、内部版本 18362 或更�
 
 <br>
 
-### 1.2.2、WSL 2 中的新增功能
+#### 1.2.2、WSL 2 中的新增功能
 
 WSL 2 是对基础体系结构的一次重大改造，它使用虚拟化技术和 Linux 内核来实现其新功能。 此更新的主要目标是提高文件系统性能和添加完全的系统调用兼容性。
 
@@ -98,7 +100,7 @@ Linux 二进制文件使用系统调用来执行访问文件、请求内存、�
 
 <br>
 
-### 1.2.3、例外情况
+#### 1.2.3、例外情况
 
 我们建议使用 WSL 2，因为它提供更快的性能和100% 的系统调用兼容性。 但是，在某些特定情况下，你可能会更倾向于使用 WSL 1。 在以下情况下，请考虑使用 WSL 1：
 
@@ -122,13 +124,13 @@ Linux 二进制文件使用系统调用来执行访问文件、请求内存、�
 
 <br>
 
-# 2、安装
+## 2、安装
 
 开发人员可以在 Windows 计算机上同时访问 Windows 和 Linux 的强大功能。 通过适用于 Linux 的 Windows 子系统 (WSL)，开发人员可以安装 Linux 发行版（例如 Ubuntu、OpenSUSE、Kali、Debian、Arch Linux 等），并直接在 Windows 上使用 Linux 应用程序、实用程序和 Bash 命令行工具，不用进行任何修改，也无需承担传统虚拟机或双启动设置的费用。
 
 <br>
 
-## 2.1、Windows
+### 2.1、Windows
 
 必须运行 Windows 10 版本 2004 及更高版本（内部版本 19041 及更高版本）或 Windows 11 才能使用以下命令。
 
@@ -162,7 +164,7 @@ wsl --install
 
 <br>
 
-## 2.2、Windows Server
+### 2.2、Windows Server
 
 Windows Server 2022 现在使用命令支持简单的 WSL 安装：
 
@@ -176,9 +178,9 @@ wsl --install
 
 <br>
 
-# 3、概念
+## 3、概念
 
-## 3.1、基本 WSL 命令
+### 3.1、基本 WSL 命令
 
 以下 WSL 命令以 PowerShell 或 Windows 命令提示符支持的格式列出。 若要通过 Bash/Linux 发行版命令行运行这些命令，必须将 `wsl` 替换为 `wsl.exe`。
 
@@ -196,7 +198,7 @@ wsl --help
 
 <br>
 
-### 3.1.1、安装、更新、卸载
+#### 3.1.1、安装、更新、卸载
 
 **安装**
 
@@ -254,7 +256,7 @@ wsl --unregister <DistributionName>
 
 <br>
 
-### 3.1.2、启动、关闭
+#### 3.1.2、启动、关闭
 
 **将目录更改为主页**
 
@@ -306,7 +308,7 @@ wsl --terminate <Distribution Name>
 
 <br>
 
-### 3.1.3、设置
+#### 3.1.3、设置
 
 **将 WSL 版本设置为 1 或 2**
 
@@ -354,7 +356,7 @@ wsl --set-default <Distribution Name>
 
 <br>
 
-### 3.1.4、查询
+#### 3.1.4、查询
 
 **列出可用的 Linux 发行版**
 
@@ -409,7 +411,7 @@ wsl --version
 
 <br>
 
-### 3.1.5、导入、导出
+#### 3.1.5、导入、导出
 
 **导出分发版**
 
@@ -450,7 +452,7 @@ wsl --import-in-place <Distribution Name> <FileName>
 
 <br>
 
-## 3.2、跨文件系统工作
+### 3.2、跨文件系统工作
 
 **跨文件系统的文件存储和性能**
 
@@ -535,7 +537,7 @@ wsl ls -la "/mnt/c/Program Files"
 
 <br>
 
-## 3.3、高级设置配置
+### 3.3、高级设置配置
 
 wsl.conf 和 .wslconfig 文件用于针对每个发行版（`wsl.conf`）和全局跨所有 WSL 2 发行版 (`.wslconfig`) 配置高级设置选项。 
 
@@ -560,7 +562,7 @@ wsl.conf 和 .wslconfig 文件用于针对每个发行版（`wsl.conf`）和全�
 
 <br>
 
-### 3.3.1、wsl.conf
+#### 3.3.1、wsl.conf
 
 使用 wsl.conf 为 WSL 1 或 WSL 2 上运行的每个 Linux 发行版按各个发行版配置本地设置。
 
@@ -625,45 +627,45 @@ wsl.conf 节标签：`[boot]`
 **wsl.conf 文件示例**
 
 ```bash
-# 当启动该发行版时自动挂载Windows驱动器
+## 当启动该发行版时自动挂载Windows驱动器
 [automount]
-# 设置为true时，将在上面设置的根目录下自动挂载固定驱动器（如C:/或D:/）到DrvFs。
-# 设置为false时，驱动器将不会自动挂载，需要手动挂载或使用fstab文件挂载。
+## 设置为true时，将在上面设置的根目录下自动挂载固定驱动器（如C:/或D:/）到DrvFs。
+## 设置为false时，驱动器将不会自动挂载，需要手动挂载或使用fstab文件挂载。
 enabled = true
-# 设置固定驱动器自动挂载的目录。这个例子更改了挂载位置，因此你的C盘会挂载为/c，而不是默认的/mnt/c。
+## 设置固定驱动器自动挂载的目录。这个例子更改了挂载位置，因此你的C盘会挂载为/c，而不是默认的/mnt/c。
 root = /
-# 可以指定DrvFs的特定选项。
+## 可以指定DrvFs的特定选项。
 options = "metadata,uid=1003,gid=1003,umask=077,fmask=11,case=off"
-# 设置WSL发行版启动时是否处理`/etc/fstab`文件。
+## 设置WSL发行版启动时是否处理`/etc/fstab`文件。
 mountFsTab = true
 
-# 网络主机设置，用于启用WSL2使用的DNS服务器。
-# 这个例子更改了主机名，设置generateHosts为false，防止WSL自动生成/etc/hosts，
-# 并设置generateResolvConf为false，防止WSL自动生成/etc/resolv.conf，以便你可以创建自己的配置（例如：nameserver 1.1.1.1）。
+## 网络主机设置，用于启用WSL2使用的DNS服务器。
+## 这个例子更改了主机名，设置generateHosts为false，防止WSL自动生成/etc/hosts，
+## 并设置generateResolvConf为false，防止WSL自动生成/etc/resolv.conf，以便你可以创建自己的配置（例如：nameserver 1.1.1.1）。
 [network]
 hostname = DemoHost
 generateHosts = false
 generateResolvConf = false
 
-# 设置WSL是否支持启动Windows应用程序和添加路径变量。将这些设置为false将阻止启动Windows进程，并阻止添加$PATH环境变量。
+## 设置WSL是否支持启动Windows应用程序和添加路径变量。将这些设置为false将阻止启动Windows进程，并阻止添加$PATH环境变量。
 [interop]
 enabled = false
 appendWindowsPath = false
 
-# 设置使用WSL启动发行版时的默认用户。
+## 设置使用WSL启动发行版时的默认用户。
 [user]
 default = DemoUser
 
-# 设置启动新的WSL实例时要运行的命令。这个例子启动了Docker容器服务。
+## 设置启动新的WSL实例时要运行的命令。这个例子启动了Docker容器服务。
 [boot]
-# 启用 systemd
+## 启用 systemd
 systemd = true
 command = service docker start
 ```
 
 <br>
 
-### 3.3.2、.wslconfig
+#### 3.3.2、.wslconfig
 
 使用 .wslconfig 为 WSL 上运行的所有已安装的发行版配置全局设置。
 
@@ -730,39 +732,39 @@ WSL 将检测这些文件是否存在，读取内容，并在每次启动 WSL �
 **.wslconfig 文件示例**
 
 ```bash
-# 设置适用于在WSL2上运行的所有Linux发行版
+## 设置适用于在WSL2上运行的所有Linux发行版
 [wsl2]
-# 限制虚拟机内存使用不超过4GB，这个值可以设置为整数，使用GB或MB作为单位
+## 限制虚拟机内存使用不超过4GB，这个值可以设置为整数，使用GB或MB作为单位
 memory=4GB 
-# 设置虚拟机使用两个虚拟处理器
+## 设置虚拟机使用两个虚拟处理器
 processors=2
-# 指定一个自定义的Linux内核供已安装的发行版使用。默认使用的内核可以在 https://github.com/microsoft/WSL2-Linux-Kernel 找到
+## 指定一个自定义的Linux内核供已安装的发行版使用。默认使用的内核可以在 https://github.com/microsoft/WSL2-Linux-Kernel 找到
 kernel=C:\\temp\\myCustomKernel
-# 设置额外的内核参数，在这个例子中启用了对较旧的Linux基础镜像（如CentOS 6）的支持
+## 设置额外的内核参数，在这个例子中启用了对较旧的Linux基础镜像（如CentOS 6）的支持
 kernelCommandLine = vsyscall=emulate
-# 设置交换空间大小为8GB，默认值为可用内存的25%
+## 设置交换空间大小为8GB，默认值为可用内存的25%
 swap=8GB
-# 设置交换文件路径位置，默认路径为 %USERPROFILE%\AppData\Local\Temp\swap.vhdx
+## 设置交换文件路径位置，默认路径为 %USERPROFILE%\AppData\Local\Temp\swap.vhdx
 swapfile=C:\\temp\\wsl-swap.vhdx
-# 禁用页面报告，使WSL保留从Windows中分配的所有内存，不在空闲时释放回去
+## 禁用页面报告，使WSL保留从Windows中分配的所有内存，不在空闲时释放回去
 pageReporting=false
-# 启用默认连接，将WSL2的localhost绑定到Windows的localhost。此设置在networkingMode=mirrored时被忽略
+## 启用默认连接，将WSL2的localhost绑定到Windows的localhost。此设置在networkingMode=mirrored时被忽略
 localhostforwarding=true
-# 禁用嵌套虚拟化
+## 禁用嵌套虚拟化
 nestedVirtualization=false
-# 打开输出控制台，在打开WSL2发行版时显示dmesg的内容以进行调试
+## 打开输出控制台，在打开WSL2发行版时显示dmesg的内容以进行调试
 debugConsole=true
 
-# 启用实验性功能
+## 启用实验性功能
 [experimental]
 sparseVhd=true
 ```
 
 <br>
 
-## 3.4、网络注意事项
+### 3.4、网络注意事项
 
-### 3.4.1、默认网络模式：NAT
+#### 3.4.1、默认网络模式：NAT
 
 默认情况下，WSL 使用基于 NAT（网络地址转换）的网络体系结构。 
 
@@ -783,7 +785,7 @@ sparseVhd=true
 
 <br>
 
-### 3.4.2、镜像模式网络
+#### 3.4.2、镜像模式网络
 
 在运行 Windows 11 22H2 及更高版本的计算机上，可以在 .wslconfig 文件中的 `[wsl2]` 下设置 `networkingMode=mirrored` 以启用镜像模式网络。 启用此功能会将 WSL 更改为全新的网络体系结构，其目标是将 Windows 上的网络接口 “镜像” 到 Linux 中，以添加新的网络功能并提高兼容性。
 
@@ -799,9 +801,9 @@ sparseVhd=true
 
 <br>
 
-# 4、其他
+## 4、其他
 
-## 4.1、设置中文
+### 4.1、设置中文
 
 1. 安装中文语言包：
 

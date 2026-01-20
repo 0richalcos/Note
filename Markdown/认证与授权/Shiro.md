@@ -1,8 +1,6 @@
----
-typora-copy-images-to: upload
----
+# Shiro
 
-# 1、权限的管理
+## 1、权限的管理
 
 **什么是权限管理？**
 
@@ -24,13 +22,13 @@ typora-copy-images-to: upload
 
 
 
-# 2、什么是 Shiro
+## 2、什么是 Shiro
 
 Shiro 是 apache 旗下一个功能强大且易于使用的 Java 安全框架，它执行身份验证、授权、加密和会话管理。使用 Shiro 易于理解的 API，您可以快速轻松地保护任何应用程序，从最小的移动应用程序到最大的 web 和企业应用程序。
 
 
 
-# 3、Shiro 的核心架构
+## 3、Shiro 的核心架构
 
 <img src="!assets/Shiro/ShiroArchitecture.png" alt="img" style="" />
 
@@ -90,7 +88,7 @@ Cryptography 即密码管理，Shiro 提供了一套加密/解密的组件，方
 
 
 
-# 4、Shiro 中的认证
+## 4、Shiro 中的认证
 
 身份认证，就是判断一个用户是否为合法用户的处理过程。最常用的简单身份认证方式是系统通过核对用户输入的用户名和口令，看其是否与系统中存储的该用户的用户名和口令一致， 来判断用户身份是否正确。
 
@@ -128,7 +126,7 @@ Subject：主体，访问系统的用户，主体可以是用户、程序等，�
 
 
 
-## 4.1、认证的开发
+### 4.1、认证的开发
 
 1. 创建项目并引入依赖
 
@@ -191,7 +189,7 @@ Subject：主体，访问系统的用户，主体可以是用户、程序等，�
 
 
 
-## 4.2、自定义 Realm
+### 4.2、自定义 Realm
 
 上边的程序使用的是 Shiro 自带的 IniRealm，IniRealm 从 ini 配置文件中读取用户的信息，大部分情况下需要从系统的数据库中读取用户信息，所以需要自定义 realm。
 
@@ -314,7 +312,7 @@ public class SimpleAccountRealm extends AuthorizingRealm {
 
 
 
-## 4.3、使用 MD5 + salt
+### 4.3、使用 MD5 + salt
 
 1. MD5 和 salt 的使用
 
@@ -421,7 +419,7 @@ public class SimpleAccountRealm extends AuthorizingRealm {
 
 
 
-# 5、Shiro 中的授权
+## 5、Shiro 中的授权
 
 授权，即访问控制，控制谁能访问哪些资源。主体进行身份认证后需要分配权限方可访问系统的资源，对于某些资源没有权限是无法访问的。
 
@@ -476,7 +474,7 @@ public class SimpleAccountRealm extends AuthorizingRealm {
 
 
 
-## 5.1、权限字符串
+### 5.1、权限字符串
 
 权限字符串的规则是：`资源标识符：操作：资源实例标识符`，意思是对哪个资源的哪个实例具有什么操作，“:” 是资源/操作/实例的分割符，权限字符串也可以使用*通配符。
 
@@ -522,7 +520,7 @@ public class SimpleAccountRealm extends AuthorizingRealm {
 
 
 
-## 5.2、开发授权
+### 5.2、开发授权
 
 1. realm 的实现：
 
@@ -634,7 +632,7 @@ public class SimpleAccountRealm extends AuthorizingRealm {
 
 
 
-# 6、项目实战
+## 6、项目实战
 
 1. 创建简单的 maven 项目
 
@@ -678,7 +676,7 @@ public class SimpleAccountRealm extends AuthorizingRealm {
 
 
 
-## 6.1、配置 Shiro 环境
+### 6.1、配置 Shiro 环境
 
 整合思路：
 
@@ -764,7 +762,7 @@ public class SimpleAccountRealm extends AuthorizingRealm {
 
 
 
-## 6.2、常见过滤器
+### 6.2、常见过滤器
 
 注意: **shiro提供和多个默认的过滤器，我们可以用这些过滤器来配置控制指定url的权限：**
 
@@ -784,7 +782,7 @@ public class SimpleAccountRealm extends AuthorizingRealm {
 
 
 
-## 6.3、实现简单认证
+### 6.3、实现简单认证
 
 1. 编写 login.jsp 
 
@@ -870,7 +868,7 @@ public class SimpleAccountRealm extends AuthorizingRealm {
 
 
 
-## 6.4、数据库+MD5+Salt
+### 6.4、数据库+MD5+Salt
 
 1. 添加依赖：
 
@@ -1107,7 +1105,7 @@ public class SimpleAccountRealm extends AuthorizingRealm {
 
 
 
-## 6.5、数据库信息认证
+### 6.5、数据库信息认证
 
 1. 在 ShiroMapper.xml 中添加 findUserByUsername
 
@@ -1241,7 +1239,7 @@ public class SimpleAccountRealm extends AuthorizingRealm {
 
 	
 
-## 6.6、数据库信息授权
+### 6.6、数据库信息授权
 
 授权数据库结构
 
@@ -1574,7 +1572,7 @@ public class AdviceController {
 
 
 
-## 6.7、使用 EhCache 缓存
+### 6.7、使用 EhCache 缓存
 
 Cache 可以减轻DB的访问压力,从而提高系统的查询效率
 
@@ -1624,7 +1622,7 @@ Cache 可以减轻DB的访问压力,从而提高系统的查询效率
 
 
 
-## 6.8、使用 Redis 缓存
+### 6.8、使用 Redis 缓存
 
 查看 EhCacheManager：
 
@@ -1946,7 +1944,7 @@ return new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), new 
 
 
 
-# 7、使用 Thymeleaf
+## 7、使用 Thymeleaf
 
 1. 引入依赖
 

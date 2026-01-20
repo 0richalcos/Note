@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "e35e6eeca61668a4",
+        "id": "f17d619c462ebee1",
         "type": "tabs",
         "children": [
           {
-            "id": "319424c56bb0b9c1",
+            "id": "9f59c6388eca2070",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "开发工具/Swagger.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "Swagger"
             }
           }
         ]
@@ -80,12 +84,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "开发工具/Swagger.md",
                 "followCursor": true,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "Swagger 的大纲"
             }
           },
           {
@@ -144,44 +149,44 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "bases:创建新数据库": false,
+      "bases:新建数据库": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
       "command-palette:打开命令面板": false
     }
   },
-  "active": "319424c56bb0b9c1",
+  "active": "4cf6274faea93b58",
   "lastOpenFiles": [
+    "其他/Settings.md",
+    "其他/Solutions.md",
+    "其他/Weasel.md",
+    "文件处理/XML/XMLParse.md",
+    "文件处理/PDF/ApachePDFBox.md",
+    "文件处理/Office/OnlyOffice.md",
+    "文件处理/Office/Poi-tl.md",
+    "文件处理/Office/Spire.OfficeForJava.md",
+    "文件处理/Office/EasyExcel.md",
+    "文件处理/Office/ApachePOI.md",
+    "运维/WSL.md",
+    "运维/WebLogic.md",
+    "运维/TongWeb.md",
+    "运维/Tomcat.md",
+    "运维/NSSM.md",
+    "运维/Nginx.md",
+    "运维/Linux.md",
+    "运维/Docker.md",
+    "Java/JavaWeb.md",
+    "Java/JavaObject.md",
     "Java/JavaCollection.md",
+    "Java/JavaBasics.md",
     "Java/Java8.md",
     "Java/Java.md",
-    "运维/Linux.md",
-    "数据库/Redis.md",
-    "运维/Nginx.md",
-    "运维/Docker.md",
-    "其他/Solutions.md",
-    "其他/Settings.md",
-    "数据结构及算法/Algorithm.md",
-    "数据库/Vastbase.md",
+    "Spring/SpringMVC.md",
+    "Spring/SpringCloud.md",
     "数据库/!assets/Vastbase/dd960c20-f720-4806-b7cf-df8ae4ead701_zh_CN_1.png",
     "数据库/!assets/Vastbase/d8814a5e-63ef-42b7-ae6c-ac37ca37006c_zh_CN_1.png",
     "数据库/!assets/Vastbase/1761711144uploads20251029.png",
-    "Spring/SpringBoot.md",
-    "Spring/SpringCloud.md",
-    "网络通信/WebSocket.md",
-    "网络通信/VNC.md",
-    "网络通信/OpenVPN.md",
-    "网络通信/Encryption.md",
-    "网络通信/HTTP.md",
-    "网络通信/frp.md",
-    "数据库/Oracle.md",
-    "数据库/MySQL.md",
-    "数据库/MySQLQuery.md",
-    "数据库/DM.md",
-    "认证与授权/Shiro.md",
-    "认证与授权/Sa-Token.md",
-    "分布式存储/FastDFS.md",
     "!assets/AntV-X6/image-20220505010914905.png",
     "!assets/AntV-X6/image-20220505010314434.png",
     "!assets/AntV-X6/image-20220505005938460.png",

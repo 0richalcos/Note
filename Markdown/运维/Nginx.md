@@ -1,4 +1,6 @@
-# 1、简介
+# Nginx
+
+## 1、简介
 
 Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载均衡、内容缓存等功能，用于客户端访问流量到后台应用服务器负载均衡和请求转发。其基于模块化的代码架构及可与其它有效集成的可编程特性，使其具有强大的扩展能力。Nginx 以资源消耗低、高稳定、高性能的并发处理能力著称。
 
@@ -19,11 +21,11 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 
 <br>
 
-# 2、安装
+## 2、安装
 
-## 2.1、Linux 安装
+### 2.1、Linux 安装
 
-### 2.1.1、安装运行
+#### 2.1.1、安装运行
 
 1. 去 [官网](http://nginx.org/en/download.html) 下载压缩包：
 
@@ -119,7 +121,7 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 
 <br>
 
-### 2.1.2、配置服务
+#### 2.1.2、配置服务
 
 1. 到 `/usr/lib/systemd/system` 文件夹里新建 nginx.service 文件或修改现有的：
 
@@ -159,7 +161,7 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 
 <br>
 
-### 2.1.3、卸载
+#### 2.1.3、卸载
 
 1. 停止 Nginx 软件：
    ```shell
@@ -183,7 +185,7 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 
 <br>
 
-### 2.1.4、常用命令
+#### 2.1.4、常用命令
 
 **管理 Nginx 服务**
 
@@ -221,9 +223,9 @@ vim /usr/local/nginx/conf/nginx.conf
 
 <br>
 
-## 2.2、Windows 安装
+### 2.2、Windows 安装
 
-### 2.2.1、安装运行
+#### 2.2.1、安装运行
 
 1. 去 [官网](http://nginx.org/en/download.html) 下载压缩包：
 
@@ -241,7 +243,7 @@ vim /usr/local/nginx/conf/nginx.conf
 
 <br>
 
-### 2.2.2、配置服务
+#### 2.2.2、配置服务
 
 使用 `sc` 命令注册 Nginx 服务：
 
@@ -269,7 +271,7 @@ vim /usr/local/nginx/conf/nginx.conf
 
 <br>
 
-### 2.2.3、常用命令
+#### 2.2.3、常用命令
 
 ```shell
 cd C:\Nginx					# 进入目录
@@ -286,11 +288,11 @@ start .\nginx				# 启动nginx，或者直接双击nginx.exe
 
 <br>
 
-# 3、配置
+## 3、配置
 
-## 3.1、配置文件
+### 3.1、配置文件
 
-### 3.1.1、配置文件结构
+#### 3.1.1、配置文件结构
 
 Nginx 的配置文件默认存于 `/etc/nginx/nginx.conf`，其中通过 `include` 引入其它目录子配置文件，Nginx 文件结构如下：
 
@@ -332,10 +334,10 @@ http      #http块
 
 <br>
 
-### 3.1.2、配置模板示例
+#### 3.1.2、配置模板示例
 
 ```nginx
-###### 全局块
+####### 全局块
 worker_processes    auto;                   # 工作进程数
 error_log  /var/log/nginx/error.log notice; # 错误级别记录
 
@@ -420,7 +422,7 @@ http {
 
 <br>
 
-## 3.2、指令
+### 3.2、指令
 
 Nginx 的配置由指令（Directives）组成，指令是键值对的形式，用于配置 Web 服务器。它们通常位于 nginx.conf 文件或通过 `include` 语句引入的其他配置文件中。指令分为两类：
 
@@ -429,7 +431,7 @@ Nginx 的配置由指令（Directives）组成，指令是键值对的形式，�
 
 <br>
 
-### 3.2.1、location
+#### 3.2.1、location
 
 Nginx 的 `location` 指令是 Nginx 配置中最核心和最强大的部分之一。它允许你根据客户端请求的 URI（统一资源标识符）来定义不同的配置块，从而实现请求的路由、处理和响应。
 
@@ -454,7 +456,7 @@ location [modifier] uri {
 
 <br>
 
-#### 修饰符
+##### 修饰符
 
 Nginx 提供了多种修饰符来控制 `location` 的匹配方式：
 
@@ -478,7 +480,7 @@ Nginx 提供了多种修饰符来控制 `location` 的匹配方式：
 
 <br>
 
-#### uri 末尾斜杆
+##### uri 末尾斜杆
 
 不带斜杠的配置：
 
@@ -517,7 +519,7 @@ location /txffc/ {
 
 <br>
 
-### 3.2.2、map
+#### 3.2.2、map
 
 Nginx 的 `map` 指令是一个强大且灵活的工具，它允许您根据一个变量的值来创建另一个新变量的值。这在需要基于特定条件动态设置 Nginx 配置时非常有用，并且能有效避免使用 Nginx 文档中通常不鼓励的 `if` 语句，因为 `if` 语句有时可能导致不可预测的行为。
 
@@ -572,7 +574,7 @@ http {
 
 <br>
 
-### 3.2.3、client_max_body_size
+#### 3.2.3、client_max_body_size
 
 Nginx 中的 `client_max_body_size` 指令用于设置允许的客户端请求体的最大值。这个指令对于控制上传文件的大小以及防止潜在的拒绝服务（DoS）攻击至关重要。
 
@@ -618,7 +620,7 @@ client_max_body_size size;
 
 <br>
 
-### 3.2.4、include
+#### 3.2.4、include
 
 `include` 指令是 Nginx 配置模块化的核心。它的工作原理非常简单：在 Nginx 读取配置时，将目标文件的内容原封不动地“粘贴”到 `include` 指令所在的位置。
 
@@ -671,13 +673,13 @@ nginx -T
 
 <br>
 
-## 3.3、内置变量
+### 3.3、内置变量
 
 Nginx 提供了许多内置变量（Built-in Variables），它们可以捕获关于请求、响应、服务器和连接的动态信息。这些变量在配置文件中非常有用，可以用于日志记录、条件判断、重定向、URL重写和代理设置等[][18]。变量通常以 `$` 符号开头。
 
 <br>
 
-### 3.3.1、请求相关变量
+#### 3.3.1、请求相关变量
 
 - `$host`：请求中的主机名，优先使用 `Host` 头部字段中的值，否则使用服务器名称。
 - `$http_host`：与 `$host` 类似，获取请求头中的 `Host` 值。
@@ -694,7 +696,7 @@ Nginx 提供了许多内置变量（Built-in Variables），它们可以捕获�
 
 <br>
 
-### 3.3.2、连接相关变量
+#### 3.3.2、连接相关变量
 
 - `$remote_addr`：客户端的IP地址。
 - `$remote_port`：客户端的端口号。
@@ -706,7 +708,7 @@ Nginx 提供了许多内置变量（Built-in Variables），它们可以捕获�
 
 <br>
 
-### 3.3.3、响应相关变量
+#### 3.3.3、响应相关变量
 
 - `$status`：响应的状态码，如 `200`、`404` 等。
 - `$body_bytes_sent`：响应中发送的主体内容字节数，不包括响应头部。
@@ -715,7 +717,7 @@ Nginx 提供了许多内置变量（Built-in Variables），它们可以捕获�
 
 <br>
 
-### 3.3.4、HTTP 请求头相关变量
+#### 3.3.4、HTTP 请求头相关变量
 
 - `$http_user_agent`：请求的 `User-Agent` 头部字段的值。
 - `$http_referer`：请求的 `Referer` 头部字段的值。
@@ -724,7 +726,7 @@ Nginx 提供了许多内置变量（Built-in Variables），它们可以捕获�
 
 <br>
 
-### 3.3.5、SSL 相关变量
+#### 3.3.5、SSL 相关变量
 
 - `$ssl_protocol`：当前请求使用的 SSL 协议版本，如 `TLSv1.2`。
 - `$ssl_cipher`：当前 SSL 连接中使用的加密套件。
@@ -733,14 +735,14 @@ Nginx 提供了许多内置变量（Built-in Variables），它们可以捕获�
 
 <br>
 
-### 3.3.6、地理位置相关变量
+#### 3.3.6、地理位置相关变量
 
 - `$geoip_country_code`：基于 IP 地址的国家代码（如果启用了 GeoIP 模块）。
 - `$geoip_country_name`：基于 IP 地址的国家名称（如果启用了 GeoIP 模块）。
 
 <br>
 
-### 3.3.7、其他常用变量
+#### 3.3.7、其他常用变量
 
 - `$scheme`：请求使用的协议，通常是 `http` 或 `https`。
 - `$document_root`：当前请求的文档根目录路径。
@@ -753,7 +755,7 @@ Nginx 提供了许多内置变量（Built-in Variables），它们可以捕获�
 
 <br>
 
-### 3.3.8、日志相关变量
+#### 3.3.8、日志相关变量
 
 - `$request_time`：请求处理的总时间，单位为秒。
 - `$upstream_response_time`：后端服务器响应的时间，单位为秒。
@@ -762,9 +764,9 @@ Nginx 提供了许多内置变量（Built-in Variables），它们可以捕获�
 
 <br>
 
-# 4、应用场景
+## 4、应用场景
 
-## 4.1、反向代理
+### 4.1、反向代理
 
 Nginx 代替服务端接收请求，常用于服务器集群环境，反向代理屏蔽了具体某个服务器的地址，客户端不知道最终请求是哪个 Server 处理，反向代理和 Server 端在同一网络环境下，通常为内网。
 
@@ -775,10 +777,10 @@ Nginx 代替服务端接收请求，常用于服务器集群环境，反向代�
 **相关指令**
 
 ```nginx
-### 基本代理参数
+#### 基本代理参数
 proxy_pass http://backend						# 代理服务
 
-### 请求和响应头设置
+#### 请求和响应头设置
 proxy_set_header Host $host;					# 为转发的请求设置特定的HTTP头
 proxy_hide_header X-Powered-By;					# 隐藏上游服务器响应中指定的头部字段
 proxy_pass_header Set-Cookie;					# 将上游服务器响应中的指定头部字段传递给客户端
@@ -786,7 +788,7 @@ proxy_set_body $request_body;					# 设置转发到上游服务器的请求体
 proxy_method POST;								# 修改转发到上游服务器的HTTP方法
 proxy_redirect http://backend http://frontend;	# 将上游服务器的重定向URL修改为客户端可访问的URL
 
-### 连接设置
+#### 连接设置
 proxy_connect_timeout 90s; 						# 与上游服务器建立连接的超时时间
 proxy_send_timeout 90s; 						# 向上游服务器发送请求的超时时间
 proxy_read_timeout 90s;  						# 从上游服务器读取响应的超时时间
@@ -795,7 +797,7 @@ proxy_buffers 4 32k;							# 定义从上游服务器读取响应的缓冲区数
 proxy_busy_buffers_size 64k; 					# 当代理响应较大时，可以设置一个额外的缓冲区
 proxy_temp_file_write_size 64k; 				# 设置写入临时文件的最大大小
 
-### 缓存设置
+#### 缓存设置
 proxy_cache my_cache;							# 启用缓存并指定缓存区域
 proxy_cache_key $scheme$proxy_host$request_uri;	# 定义缓存条目的键
 proxy_cache_valid 200 302 10m;					# 定义缓存的有效时间
@@ -803,7 +805,7 @@ proxy_cache_min_uses 3;							# 设置一个请求必须访问的次数才能被
 proxy_cache_use_stale error timeout updating;	# 在上游服务器不可用时，使用陈旧的缓存
 proxy_cache_bypass $cookie_nocache;				# 指定在特定条件下绕过缓存
 
-### SSL设置
+#### SSL设置
 proxy_ssl_certificate /etc/nginx/ssl/client.crt;		# 指定用于与上游服务器通信的客户端证书
 proxy_ssl_certificate_key /etc/nginx/ssl/client.key;	# 指定用于与上游服务器通信的客户端证书密钥
 proxy_ssl_protocols TLSv1.2 TLSv1.3;					# 设置Nginx与上游服务器通信时使用的SSL/TLS协议
@@ -868,7 +870,7 @@ server {
 
 <br>
 
-## 4.2、负载均衡
+### 4.2、负载均衡
 
 在配置项 `upstream` 中，负责提供可用的服务地址列表并且可以指定负载均衡的实现方式。
 
@@ -932,9 +934,9 @@ upstream backend-d {
 
 <br>
 
-## 4.3、限流与熔断
+### 4.3、限流与熔断
 
-### 4.3.1、限流
+#### 4.3.1、限流
 
 通过对并发/请求进行限速来保护系统，防止系统过载瘫痪而不能提供服务；为了更好控制整个系统的负载情况，即使阻止了某些请求，系统继续提供服务。
 
@@ -1011,7 +1013,7 @@ http {
 
 <br>
 
-### 4.3.2、熔断
+#### 4.3.2、熔断
 
 当后端服务发生指定频率错误后，Nginx 触发熔断措施，不再请求此后端服务，直接返回默认内容到用户端。
 
@@ -1029,7 +1031,7 @@ upstream http_backend {
 
 <br>
 
-## 4.4、TCP/UDP 处理
+### 4.4、TCP/UDP 处理
 
 Nginx Stream 模块是 Nginx 的一个扩展模块（1.9.0 开始加入），主要用于处理四层协议（传输层）的流量，如 TCP 和 UDP。
 
@@ -1075,7 +1077,7 @@ stream {
 
 <br>
 
-## 4.5、WebSocket 代理
+### 4.5、WebSocket 代理
 
 要将客户端与服务器之间的连接从 HTTP/1.1 转换为 WebSocket，可以使用 HTTP/1.1 中的 [协议切换](https://tools.ietf.org/html/rfc2616#section-14.42) 机制。
 
@@ -1119,16 +1121,16 @@ http {
 
 <br>
 
-# 4、性能优化
+## 4、性能优化
 
-## 4.1、全局优化
+### 4.1、全局优化
 
 ```nginx
-# 工作进程数
+## 工作进程数
 worker_processes auto;           # 建议 CPU核心数|CPU线程数
 
-# 最大支持的连接(open-file)数量；最大值受限于 Linux open files (ulimit -n)
-# 建议公式：worker_rlimit_nofile > worker_processes * worker_connections
+## 最大支持的连接(open-file)数量；最大值受限于 Linux open files (ulimit -n)
+## 建议公式：worker_rlimit_nofile > worker_processes * worker_connections
 worker_rlimit_nofile    65535;
 
 events {
@@ -1140,7 +1142,7 @@ events {
 
 <br>
 
-## 4.2、与客户端之间的优化
+### 4.2、与客户端之间的优化
 
 ```nginx
 http {
@@ -1168,7 +1170,7 @@ http {
 
 <br>
 
-## 4.3、与后端服务之间的优化
+### 4.3、与后端服务之间的优化
 
 ```nginx
 http {
@@ -1195,7 +1197,7 @@ http {
 
 <br>
 
-## 4.4、缓存设置
+### 4.4、缓存设置
 
 也就是把客户端访问的数据放到缓存中，缓存可以存到浏览器中，也可以存到 Nginx 中，当用户端发起请求时，直接将缓存中对应的结果返回给用户端，减少了大量的重复请求。
 

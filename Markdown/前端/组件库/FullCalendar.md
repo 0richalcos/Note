@@ -1,16 +1,14 @@
----
-typora-copy-images-to: upload
----
+# FullCalendar
 
-# 1、快速开始
+## 1、快速开始
 
-## 1.1、介绍
+### 1.1、介绍
 
 如何获取 [FullCalendar](https://fullcalendar.io/docs/v3) 的代码，初始化日历和其他基本原则。
 
 
 
-### 1.1.1、加载代码
+#### 1.1.1、加载代码
 
 在初始化日历之前，必须首先让 FullCalendar 的代码加载到页面上。你可以编写自己的 `<script>` 标签，也可以使用 Webpack 这样的构建系统。
 
@@ -56,7 +54,7 @@ import 'fullcalendar';
 
 
 
-### 1.1.2、初始化选项
+#### 1.1.2、初始化选项
 
 将 FullCalendar 及其依赖项加载到页面上后，就可以编写初始化日历的 JS 代码。该代码必须在初始化之后执行。最好的方法是使用 jQuery 的 `$(document).ready`，例如：
 
@@ -96,7 +94,7 @@ $('#calendar').fullCalendar({
 
 
 
-### 1.1.3、处理程序（Handlers）
+#### 1.1.3、处理程序（Handlers）
 
 处理程序（有时称为 “callbacks” ）有点像选项，但它们是在发生特殊情况时被调用的函数。在以下示例中，每当用户单击某一天时，都会出现一个警报框：
 
@@ -128,7 +126,7 @@ calendar.on('dayClick', function(date, jsEvent, view) {
 
 
 
-### 1.1.4、方法（Methods）
+#### 1.1.4、方法（Methods）
 
 方法提供了从 JavaScript 代码操纵日历的方法。方法对已初始化的日历的 jQuery 对象进行操作，使用熟悉的 `fullCalendar` 命令，但方式完全不同：
 
@@ -150,13 +148,13 @@ calendar.next();
 
 
 
-## 1.2、日期库
+### 1.2、日期库
 
 FullCalendar 将 `MomentJS` 作为其日期库。Moment 和 Duration 对象可用于很多设置，并且在整个 API 中使用它们。
 
 
 
-### 1.2.1、Moment 对象
+#### 1.2.1、Moment 对象
 
 Moment 对象代表一个时间点，就像本地的 Date 对象一样，但要比它优越得多。
 
@@ -264,15 +262,15 @@ m.format();
 
 
 
-# 2、整体显示
+## 2、整体显示
 
-## 2.1、工具栏
+### 2.1、工具栏
 
 日历顶部和底部包含按钮和其他控件的区域。
 
 
 
-### 2.1.1、标题（header）
+#### 2.1.1、标题（header）
 
 定义日历顶部的按钮和标题。
 
@@ -299,13 +297,13 @@ Object/false, default:
 
 
 
-## 2.2、调整大小
+### 2.2、调整大小
 
 如何控制日历的尺寸。
 
 
 
-### 2.2.1、高度（height）
+#### 2.2.1、高度（height）
 
 设置整个日历的高度，包括标题和页脚。
 
@@ -343,9 +341,9 @@ $('#calendar').fullCalendar('option', 'height', 700);
 
 
 
-# 3、视图
+## 3、视图
 
-## 3.1、月视图
+### 3.1、月视图
 
 月视图以类似表格的形式显示当前月份的天数，通常还有上个月和下个月的几天。它可以像这样初始化：
 
@@ -398,7 +396,7 @@ Boolean, default: true
 
 
 
-## 3.2、日程视图
+### 3.2、日程视图
 
 议程视图显示一个或多个水平天数，以及垂直轴上的时间轴，通常是午夜到午夜。两个预定义的议程视图是 `agendaDay` 和 `agendaWeek`。它们可以像这样被初始化：
 
@@ -452,7 +450,7 @@ String, default: 'all-day'
 
 
 
-## 3.3、列表视图
+### 3.3、列表视图
 
 列表视图在一个简单的垂直列表中显示特定时间间隔内的事件。如果在一个特定的时间间隔内没有事件，就会显示 `noEventsMessage`。列表视图是在 FullCalendar 3.0.0 版本中添加的。 有 4 个预设的列表视图：`listDay`、`listWeek`、`listMonth` 和 `listYear`。你可以像这样初始化一个列表视图：
 
@@ -514,9 +512,9 @@ String, default: "No events to display"
 
 
 
-# 4、日期和时间
+## 4、日期和时间
 
-## 4.1、日期单击和选择
+### 4.1、日期单击和选择
 
 检测用户何时单击日期或时间。让用户能够使用鼠标或触摸设备选择多个日期或时间段。
 
@@ -546,7 +544,7 @@ Boolean, default: true
 
 
 
-### 4.1.1、回调（CALLBACKS）
+#### 4.1.1、回调（CALLBACKS）
 
 **dayClick**
 
@@ -605,15 +603,15 @@ function( start, end, jsEvent, view, [ resource ] )
 
 
 
-# 5、事件
+## 5、事件
 
-## 5.1、事件数据
+### 5.1、事件数据
 
 如何将事件添加到日历中。如何在初始加载后动态操作它们。
 
 
 
-### 5.1.1、事件（数组）
+#### 5.1.1、事件（数组）
 
 将显示在日历上的 Event 对象数组。
 
@@ -644,7 +642,7 @@ $('#calendar').fullCalendar({
 
 
 
-### 5.1.2、事件（JSON feed）
+#### 5.1.2、事件（JSON feed）
 
 访问一个 JSON feed 的 URL 是 FullCalendar 获取 Event 对象的方式之一。当用户点击上一页/下一页或者改变日历视图时，就会发生此操作。FullCalendar 会确定它需要的事件的日期范围，并在 GET 参数中传递该信息。
 
@@ -758,7 +756,7 @@ $('#calendar').fullCalendar({
 
 
 
-### 5.1.3、事件（函数）
+#### 5.1.3、事件（函数）
 
 一个自定义函数，用于以编程方式生成 Event 对象。
 
@@ -806,7 +804,7 @@ $('#calendar').fullCalendar({
 
 
 
-### 5.1.4、Event 对象
+#### 5.1.4、Event 对象
 
 一个普通的 JavaScript 对象，FullCalendar 用它来存储一个日历事件的信息。下面是它的属性：
 
@@ -839,7 +837,7 @@ $('#calendar').fullCalendar({
 
 
 
-### 5.1.5、方法
+#### 5.1.5、方法
 
 **updateEvent**
 
@@ -883,7 +881,7 @@ $('#calendar').fullCalendar({
 
 
 
-## 5.2、事件显示
+### 5.2、事件显示
 
 如何控制日历上事件的外观。
 
@@ -950,7 +948,7 @@ String
 
 
 
-### 5.2.1、方法
+#### 5.2.1、方法
 
 **renderEvent**
 
@@ -966,7 +964,7 @@ String
 
 
 
-## 5.3、事件单击和悬停
+### 5.3、事件单击和悬停
 
 了解事件何时被单击或悬停。
 
@@ -1030,7 +1028,7 @@ $('#calendar').fullCalendar({
 
 
 
-## 5.4、事件拖动和调整大小
+### 5.4、事件拖动和调整大小
 
 如何启用和控制用户可以拖放和调整事件的大小。首先将 `editable` 设置设为 `true`。如果想允许外部元素被放到日历上，请访问 `droppable`、`drop` 和 `eventReceive` 文章。
 
@@ -1070,7 +1068,7 @@ Boolean, default: true
 
 
 
-### 5.4.1、回调（CALLBACK）
+#### 5.4.1、回调（CALLBACK）
 
 **eventDrop**
 
@@ -1158,15 +1156,15 @@ $('#calendar').fullCalendar({
 
 
 
-# 6、国际化
+## 6、国际化
 
-## 6.1、语言环境
+### 6.1、语言环境
 
 你可以为某些语言（又称 “地区”）定制日历。地区设置是最重要的，因为它同时设置了许多其他选项的默认值。
 
 
 
-### 6.1.1、local
+#### 6.1.1、local
 
 自定义日历的语言和本地化选项。
 
@@ -1244,9 +1242,9 @@ A String locale code. default: "en"
 
 
 
-# 7、第三方机构
+## 7、第三方机构
 
-## 7.1、Vue
+### 7.1、Vue
 
 FullCalendar 与 Vue JavaScript 框架无缝集成。它提供了一个与 FullCalendar 标准 API 的功能完全匹配的组件。
 
@@ -1301,7 +1299,7 @@ export default {
 
 
 
-### 7.1.1、插件索引
+#### 7.1.1、插件索引
 
 FullCalendar 提供以下软件包（仅列出我常用的，详见[官网](https://fullcalendar.io/docs/plugin-index)）：
 

@@ -1,3 +1,5 @@
+# Spire.OfficeForJava
+
 Spire.Office for Java 是一套企业级的涵盖 E-iceblue 所有 Java组件的集合，它包括以下产品的最新版本：Spire.Doc for Java、Spire.XLS for Java、Spire.Presentation for Java、Spire.PDF for Java 和 Spire.Barcode for Java。
 
 使用Spire.Office for Java，开发人员可以创建多种多样的用于处理办公文档的 Java 应用程序。对文档的处理包括打开、创建、修改、转换、打印 MS Word、Excel、PowerPoint ®、PDF 和一维、二维条码。
@@ -8,7 +10,7 @@ Spire.Office for Java 支持 32 位和 64 位操作系统，支持 Windows 系�
 
 
 
-# 1、Spire.Doc for Java
+## 1、Spire.Doc for Java
 
 Spire.Doc for Java 是一款专业的 Java Word 组件，开发人员使用它可以轻松地将 Word 文档创建、读取、编辑、转换和打印等功能集成到自己的 Java 应用程序中。作为一款完全独立的组件，Spire.Doc for Java 的运行环境无需安装 Microsoft Office。
 
@@ -44,7 +46,7 @@ Spire.Doc for Java 能执行多种 Word 文档处理任务，包括生成、读�
 
 
 
-## 1.1、比较两个 Word 文档的内容
+### 1.1、比较两个 Word 文档的内容
 
 自版本 3.8.8 开始，Spire.Doc for Java 支持比较两个 Word 文档的内容，并以修订模式生成结果文档。
 
@@ -81,7 +83,7 @@ public class Comparison {
 
 
 
-## 1.2、将 Word 转为 PDF
+### 1.2、将 Word 转为 PDF
 
 Spire.Doc for Java 拥有强大的文件转换功能，其提供了 `Document.saveToFile(String fileName, FileFormat fileFormat)` 方法可将 Word 文档转为多种格式的目标文件，下面是转为 PDF 的方法步骤：
 
@@ -113,7 +115,7 @@ public class WordToPDF {
 
 
 
-# 2、Spire.XLS for Java
+## 2、Spire.XLS for Java
 
 Spire.XLS for Java 是一款专业的 Java Excel 组件，开发人员使用它可以在 Java 应用程序中轻松实现创建、操作、转换和打印 Excel 工作表，并且运行环境无需安装 Microsoft Office 或 Microsoft Excel。
 
@@ -149,7 +151,7 @@ Spire.XLS for Java 支持多种 Excel 文件格式，包括 Excel 97-2003 格式
 
 
 
-## 2.1、Excel 转 PDF
+### 2.1、Excel 转 PDF
 
 使用 Spire.XLS 来实现 Excel 转换 PDF 的方法虽然简单，但是不适合于较大的 Excel 文件转化，只适合有小于 3 个 sheet 页的文件使用。
 

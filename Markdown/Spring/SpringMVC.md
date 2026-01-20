@@ -1,8 +1,6 @@
----
-typora-copy-images-to: upload
----
+# SpringMVC
 
-# 1、回顾 MVC
+## 1、回顾 MVC
 
 什么是 MVC？
 
@@ -27,7 +25,7 @@ typora-copy-images-to: upload
 
 
 
-## 1.1、Model1 时代
+### 1.1、Model1 时代
 
 - 在早期的开发中，通常采用的都是 Model1。
 - Model1 中，主要分为两层，视图层和模型层。
@@ -40,7 +38,7 @@ Model1 缺点：JSP 职责不单一，职责较重，不便于维护；
 
 
 
-## 1.2、Model2 时代
+### 1.2、Model2 时代
 
 Model2 把一个项目分成三部分，包括视图、控制、模型。
 
@@ -77,7 +75,7 @@ Model2 这样不仅提高了代码的复用率和项目的扩展性，且大大�
 
 
 
-# 2、回顾 Servlet
+## 2、回顾 Servlet
 
 1. 新建一个 Maven 工程作为父工程，导入  pom 依赖：
 
@@ -200,9 +198,9 @@ MVC 框架要做那些事情
 
 
 
-# 3、SpringMVC
+## 3、SpringMVC
 
-## 3.1、什么是SpringMVC
+### 3.1、什么是SpringMVC
 
 概述：Spring MVC 是 Spring Framework 的一部分，是基于 Java 实现 MVC 的轻量级 Web 框架。
 
@@ -221,7 +219,7 @@ DispatcherServlet 的作用是将请求分发到不同的处理器。从 Spring 
 
 
 
-## 3.2、工作原理
+### 3.2、工作原理
 
 Spring 的 Web 框架围绕 DispatcherServlet 设计。DispatcherServlet 的作用是将请求分发到不同的处理器。从 Spring 2.5 开始，使用 Java 5 或者以上的版本可以采用基于注解的 controller 声明方式。
 
@@ -280,9 +278,9 @@ Spring MVC 的工作原理图：
 
 
 
-# 4、HelloSpringMVC
+## 4、HelloSpringMVC
 
-## 4.1、配置版
+### 4.1、配置版
 
 1. 新建一个 Moudle，添加 Web 的支持
 
@@ -408,7 +406,7 @@ Spring MVC 的工作原理图：
 
 
 
-## 4.2、注解版
+### 4.2、注解版
 
 1. 新建一个 Moudle，添加 Web支持！建立包结构 `com.kuang.controller` 
 
@@ -532,9 +530,9 @@ Spring MVC 的工作原理图：
 
 
 
-# 5、Controller 及 RESTful 风格
+## 5、Controller 及 RESTful 风格
 
-## 5.1、Controller
+### 5.1、Controller
 
 控制器负责提供访问应用程序的行为，通常通过接口定义或注解定义两种方法实现。
 
@@ -569,13 +567,13 @@ public interface Controller {
 
 
 
-## 5.2、RequestMapping
+### 5.2、RequestMapping
 
 `@RequestMapping` 注解用于映射 URL 到控制器类或一个特定的处理程序方法。可用于类或方法上。用于类上则表示类中的所有响应请求的方法都是以该地址作为父路径。
 
 
 
-## 5.3、RESTful 风格
+### 5.3、RESTful 风格
 
 RESTful 就是一个资源定位及资源操作的风格。不是标准也不是协议，只是一种风格。基于这个风格设计的软件可以更简洁、更有层次，更易于实现缓存等机制。
 
@@ -642,9 +640,9 @@ RESTful 就是一个资源定位及资源操作的风格。不是标准也不是
 
 
 
-# 6、结果跳转方式
+## 6、结果跳转方式
 
-## 6.1、ModelAndView
+### 6.1、ModelAndView
 
 设置 ModelAndView 对象，根据 View 的名称，和视图解析器跳到指定的页面。
 
@@ -673,7 +671,7 @@ public class HelloController implements Controller {
 
 
 
-## 6.2、SpringAPI
+### 6.2、SpringAPI
 
 通过设置 ServletAPI，不需要视图解析器：
 
@@ -697,7 +695,7 @@ public class ModelTest1 {
 
 
 
-## 6.3、Spring MVC
+### 6.3、Spring MVC
 
 **无视图解析器**
 
@@ -731,9 +729,9 @@ public class ModelTest1 {
 
 
 
-# 7、数据处理
+## 7、数据处理
 
-## 7.1、处理提交的数据
+### 7.1、处理提交的数据
 
 **普通参数：**
 
@@ -811,7 +809,7 @@ public @ResponseBody String fetchResult(@RequestParam("from") @DateTimeFormat(pa
 
 
 
-## 7.2、乱码问题
+### 7.2、乱码问题
 
 **准备工作：**
 
@@ -910,9 +908,9 @@ public class EncodingFilter implements Filter {
 
 
 
-# 8、JSON
+## 8、JSON
 
-## 8.1、什么是JSON
+### 8.1、什么是JSON
 
 JSON（JavaScript Object Notation，JS 对象简谱）是一种轻量级的数据交换格式，目前使用特别广泛。JSON 采用完全独立于编程语言的文本格式来存储和表示数据。简洁和清晰的层次结构使得 JSON 成为理想的数据交换语言。易于人阅读和编写，同时也易于机器解析和生成，并有效地提升网络传输效率。
 
@@ -958,7 +956,7 @@ let user = {
 
 
 
-## 8.2、Controller 返回 JSON
+### 8.2、Controller 返回 JSON
 
 1. 首先导入 Jackson 的 jar 包：
 
@@ -1066,7 +1064,7 @@ let user = {
 
 
 
-## 8.3、代码优化
+### 8.3、代码优化
 
 上一种方法比较麻烦，如果项目中有许多请求则每一个都要添加，可以通过 Spring 配置统一指定，这样就不用每次都去处理了！
 
@@ -1133,7 +1131,7 @@ let user = {
 
 
 
-## 8.4、FastJson
+### 8.4、FastJson
 
 FastJson.jar 是阿里开发的一款专门用于 Java  开发的包，可以方便的实现 Json 对象与 JavaBean 对象的转换，实现 JavaBean 对象与 Json 字符串的转换，实现 Json 对象与 Json 字符串的转换。
 
@@ -1154,7 +1152,7 @@ FastJson.jar 是阿里开发的一款专门用于 Java  开发的包，可以方
 
 
 
-# 9、整合 SSM
+## 9、整合 SSM
 
 **数据库环境**
 
@@ -1290,7 +1288,7 @@ INSERT INTO books(bookID, bookName, bookCount, detail) VALUES
 
 
 
-## 9.1、Mybatis 层
+### 9.1、Mybatis 层
 
 1. database.properties：
 
@@ -1434,7 +1432,7 @@ INSERT INTO books(bookID, bookName, bookCount, detail) VALUES
 
 
 
-## 9.2、Spring 层
+### 9.2、Spring 层
 
 1. 编写 spring-dao.xml：
    ```xml
@@ -1532,7 +1530,7 @@ INSERT INTO books(bookID, bookName, bookCount, detail) VALUES
 
 
 
-## 9.3、Spring MVC 层
+### 9.3、Spring MVC 层
 
 1. 编写 web.xml：
 
@@ -1611,9 +1609,9 @@ INSERT INTO books(bookID, bookName, bookCount, detail) VALUES
 
 
 
-# 10、添加业务功能
+## 10、添加业务功能
 
-## 10.1、查询书籍
+### 10.1、查询书籍
 
 1. 编写 BookController.java：
 
@@ -1716,7 +1714,7 @@ INSERT INTO books(bookID, bookName, bookCount, detail) VALUES
 
 
 
-## 10.2、添加书籍
+### 10.2、添加书籍
 
 1. 向 BookController.java 添加内容：
 
@@ -1782,7 +1780,7 @@ INSERT INTO books(bookID, bookName, bookCount, detail) VALUES
 
 
 
-## 10.3、修改书籍
+### 10.3、修改书籍
 
 1. 向 BookController.java 添加内容：
 
@@ -1855,7 +1853,7 @@ INSERT INTO books(bookID, bookName, bookCount, detail) VALUES
 
 
 
-## 10.4、删除书籍
+### 10.4、删除书籍
 
 1. 向 BookController.java 添加内容：
 
@@ -1880,7 +1878,7 @@ INSERT INTO books(bookID, bookName, bookCount, detail) VALUES
 
 
 
-## 10.5、查询书籍
+### 10.5、查询书籍
 
 1. 在 BookMapper.java 添加接口：
 
@@ -1938,9 +1936,9 @@ INSERT INTO books(bookID, bookName, bookCount, detail) VALUES
 
 
 
-# 11、拦截器
+## 11、拦截器
 
-## 11.1、概述
+### 11.1、概述
 
 Spring MVC 的处理器拦截器类似于 Servelt 开发中的过滤器 Filter，用于对处理器进行预处理和后处理。开发者可以自己定义一些拦截器来实现特定的功能。
 
@@ -1958,7 +1956,7 @@ Spring MVC 的处理器拦截器类似于 Servelt 开发中的过滤器 Filter�
 
 
 
-## 11.2、自定义拦截器
+### 11.2、自定义拦截器
 
 想要自定义拦截器，必须实现 HandlerInterceptor 接口。
 

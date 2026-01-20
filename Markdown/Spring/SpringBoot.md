@@ -1,6 +1,8 @@
-# 1、Spring Boot
+# SpringBoot
 
-## 1.1、简介
+## 1、Spring Boot
+
+### 1.1、简介
 
 Spring Boot 基于 Spring 开发，Spring Boot 本身并不提供 Spring 框架的核心特性以及扩展功能，只是用于快速、敏捷地开发新一代基于 Spring 框架的应用程序。也就是说，它并不是用来替代 Spring 的解决方案，而是和 Spring 框架紧密结合用于提升 Spring 开发者体验的工具。
 
@@ -37,7 +39,7 @@ Spring Boot 的缺点：
 
 <br>
 
-## 1.2、微服务
+### 1.2、微服务
 
 微服务架构是 “新标准”，是一种架构风格。构建小型，独立且可运行的应用程序可以带来极大的灵活性，并为您的代码增加弹性。 Spring Boot 的许多专用功能使在大规模生产中构建和运行微服务变得容易。 而且不要忘记，没有 SpringCloud 简化管理并提高容错能力，就不会有完整的微服务架构。
 
@@ -69,9 +71,9 @@ all in one 的架构方式，我们把所有的功能单元放在一个应用里
 
 <br>
 
-# 2、快速开始
+## 2、快速开始
 
-## 2.1、创建 Spring Boot 程序
+### 2.1、创建 Spring Boot 程序
 
 1. 打开 IDEA，点击【新建项目】，选择 【Spring Initializr】，点确认：
 
@@ -109,7 +111,7 @@ server.port=8080
 
 <br>
 
-## 2.2、Spring Boot 启动流程
+### 2.2、Spring Boot 启动流程
 
 SpringApplication 类是 Spring Boot 应用程序的入口点。当你调用 `SpringApplication.run()` 时，它会执行一个定义明确的启动序列。这个过程会广播一系列生命周期事件，允许开发者通过监听这些事件来介入。
 
@@ -178,7 +180,7 @@ SpringApplication 类是 Spring Boot 应用程序的入口点。当你调用 `Sp
 
 <br>
 
-### 2.2.1、ApplicationRunner
+#### 2.2.1、ApplicationRunner
 
 `ApplicationRunner` 是 Spring Boot 提供的一个非常有用的接口，它允许你在 Spring Boot 应用程序完全启动并准备好接收请求之前，执行一些自定义的初始化代码。
 
@@ -268,7 +270,7 @@ public class MyAppRunner implements ApplicationRunner {
 
 <br>
 
-# 3、配置文件
+## 3、配置文件
 
 当我们构建完 Spring Boot 项目后，resources 目录下默认会包含一个全局配置文件 `application.properties`。这是一个空文件，因为 Spring Boot 在底层已经通过 “约定优于配置” 的思想预设了大量自动配置。我们在配置文件中所做的任何修改，本质上都是在覆盖这些自动配置的默认值。
 
@@ -311,7 +313,7 @@ Spring Boot 涉及两种作用域不同的配置文件：application 和 bootstr
 
 <br>
 
-## 3.1、YAML
+### 3.1、YAML
 
 YAML 是 "YAML Ain't a Markup Language"（YAML 不是一种标记语言）的递归缩写。在开发的这种语言时，YAML 的意思其实是："Yet Another Markup Language"（仍是一种标记语言）。
 
@@ -341,7 +343,7 @@ YAML 支持以下几种数据类型：
 
 <br>
 
-### 3.1.1、YAML 对象
+#### 3.1.1、YAML 对象
 
 对象键值对使用冒号结构表示（冒号后面要加一个空格）： 
 
@@ -377,7 +379,7 @@ key:
 
 <br>
 
-### 3.1.2、YAML 数组
+#### 3.1.2、YAML 数组
 
 以 `-` 开头的行表示构成一个数组：
 
@@ -442,7 +444,7 @@ companies: [ { id: 1,name: company1,price: 200W },{ id: 2,name: company2,price: 
 
 <br>
 
-### 3.1.3、复合结构
+#### 3.1.3、复合结构
 
 数组和对象可以构成复合结构，例：
 
@@ -474,7 +476,7 @@ websites:
 
 <br>
 
-### 3.1.4、纯量
+#### 3.1.4、纯量
 
 纯量是最基本的，不可再分的值，包括：
 
@@ -515,7 +517,7 @@ datetime:
 
 <br>
 
-### 3.1.5、引用
+#### 3.1.5、引用
 
 `&` 用来建立锚点（defaults），`<<` 表示合并到当前数据，`*` 用来引用锚点：
 
@@ -553,7 +555,7 @@ test:
 
 <br>
 
-## 3.2、属性绑定
+### 3.2、属性绑定
 
 在 Spring Boot 中，配置属性的读取主要有两种思路：一种是零散地注入到业务类中；另一种是更专业的做法——将一组相关的配置封装到一个专用的 Java 类中，这个类我们称之为 Properties 类（配置属性类）。
 
@@ -561,7 +563,7 @@ test:
 
 <br>
 
-### 3.2.1、Value
+#### 3.2.1、Value
 
 `@Value` 用于将单个配置项注入到变量中。它最适合那些不需要封装成对象的、孤立的配置点。
 
@@ -604,7 +606,7 @@ test:
 
 <br>
 
-### 3.2.2、ConfigurationProperties
+#### 3.2.2、ConfigurationProperties
 
 `@ConfigurationProperties` 是 Spring Boot 构建 Properties 类最推荐的方式。它能将配置文件中某个前缀下的所有数据，一次性、全自动地注入到 Properties 类的同名属性中。
 
@@ -616,7 +618,7 @@ test:
 
 <br>
 
-#### 自定义的 Bean 使用
+##### 自定义的 Bean 使用
 
 1. 编写 Properties 类：
 
@@ -675,7 +677,7 @@ test:
 
 <br>
 
-#### 第三方 Bean 使用
+##### 第三方 Bean 使用
 
 第三方库（如 Druid、Redis）的类我们无法修改源码添加注解。此时可以在[配置类](#3.3、配置类)的 `@Bean` 方法上使用 `@ConfigurationProperties`：
 
@@ -703,7 +705,7 @@ datasource:
 
 <br>
 
-### 3.2.3、PropertySource
+#### 3.2.3、PropertySource
 
 默认情况下，Properties 类从全局 `application.yml` 中查找配置。如果你希望将某些模块的配置（如阿里云 OSS 配置）独立存放在一个 `.properties` 文件中，可以配合 `@PropertySource` 使用。
 
@@ -735,7 +737,7 @@ datasource:
 
 <br>
 
-## 3.3、配置类
+### 3.3、配置类
 
 在 Spring Boot 项目中，配置文件（YAML/Properties）只是 “原材料”，而真正让配置“活起来”并驱动系统功能的，是配置类（Config 类）。
 
@@ -743,7 +745,7 @@ datasource:
 
 <br>
 
-### 3.2.1、Configuration
+#### 3.2.1、Configuration
 
 `@Configuration` 注解表明该类是一个配置类，作用等同于传统的 XML 配置文件。Spring 会扫描此类，并将其中标注了 `@Bean` 的方法返回值注册为 Spring 容器中的 Bean：
 
@@ -766,7 +768,7 @@ public class MyConfig {
 
 <br>
 
-### 3.2.2、EnableConfigurationProperties
+#### 3.2.2、EnableConfigurationProperties
 
 在 3.2 节中，我们通过 `@Component` 定义了 Properties 类。但在企业级开发时，更推荐将 Properties 类（纯属性）与 Config 类（业务逻辑）解耦。
 
@@ -814,7 +816,7 @@ public class MyConfig {
 
 <br>
 
-### 3.2.2、ConditionalOnProperty
+#### 3.2.2、ConditionalOnProperty
 
 Spring Boot 提供了 `@ConditionalOnProperty` 注解，用于按条件控制配置类或 Bean 的是否加载。
 
@@ -842,7 +844,7 @@ feature:
 
 <br>
 
-#### 空对象模式
+##### 空对象模式
 
 无论配置开关是否开启，Spring 容器中始终存在一个 Bean。 只是根据配置的不同，容器会注入一个“真实的实现类” 或一个 “不干活的空实现类（空对象）”。
 
@@ -951,7 +953,7 @@ feature:
 
 <br>
 
-#### ObjectProvider
+##### ObjectProvider
 
 适用于基础设施、中间件或框架插件（如：接口签名校验、自定义权限过滤器、Redis 性能监控等）。这些组件通常挂载在框架的生命周期中。如果功能关闭，通过该策略可以实现“零挂载”，彻底消除功能关闭时的运行开销。
 
@@ -1020,7 +1022,7 @@ feature:
 
 <br>
 
-## 3.4、多环境配置
+### 3.4、多环境配置
 
 很多时候，我们项目在开发环境和生成环境的环境配置是不一样的，例如数据库配置，在开发的时候，我们一般用测试数据库，而在生产环境的时候，我们是用正式的数据，这时候，我们可以配置 `profile` 在不同的环境下用不同的配置文件或者不同的配置。
 
@@ -1035,7 +1037,7 @@ feature:
 
 <br>
 
-### 3.4.1、active
+#### 3.4.1、active
 
 Spring Boot 允许你按照命名约定的格式（`application-{profile}.properties`）来定义多个配置文件，然后在`application.properties` 中通过 `spring.profiles.active` 来具体激活一个或者多个配置文件，如果没有没有指定任何 profile 的配置文件的话，Spring Boot 默认会启动`application.properties`。
 
@@ -1043,7 +1045,7 @@ Spring Boot 允许你按照命名约定的格式（`application-{profile}.proper
 
 <br>
 
-#### properties
+##### properties
 
 `application.properties`：
 
@@ -1065,12 +1067,12 @@ server.port=8083
 
 <br>
 
-#### yml 多文件配置
+##### yml 多文件配置
 
 `application.yml`：
 
 ```yaml
-# 需要使用的配置文件
+## 需要使用的配置文件
 spring:
   profiles:
     active: test
@@ -1092,7 +1094,7 @@ server:
 
 <br>
 
-#### yml 单文件配置
+##### yml 单文件配置
 
 yml 可以不需要创建多个文件来区分，可以直接以 `---` 来当做一个配置文件环境。
 
@@ -1148,13 +1150,13 @@ server:
 
 <br>
 
-### 3.4.2、include
+#### 3.4.2、include
 
 我们可以将一些公共的配置单独拿出来，然后其他文件都把这个配置给包含进去。
 
 <br>
 
-#### yml 多文件配置
+##### yml 多文件配置
 
 `application.yml`：
 
@@ -1186,7 +1188,7 @@ feign:
 
 <br>
 
-#### yml 单文件配置
+##### yml 单文件配置
 
 `application.yml`：
 
@@ -1199,7 +1201,7 @@ spring:
     name: order
 
 ---
-# eureka配置
+## eureka配置
 spring:
   config:
     activate:
@@ -1210,7 +1212,7 @@ eureka:
       defaultZone: http://localhost:7001/eureka
       
 ---
-# feign配置
+## feign配置
 spring:
   config:
     activate:
@@ -1233,7 +1235,7 @@ spring:
     name: order
 
 ---
-# eureka配置
+## eureka配置
 spring:
   profiles: eureka
 eureka:
@@ -1242,7 +1244,7 @@ eureka:
       defaultZone: http://localhost:7001/eureka
       
 ---
-# feign配置
+## feign配置
 spring:
   profiles: feign
 feign:
@@ -1252,7 +1254,7 @@ feign:
 
 <br>
 
-#### active 和 include 的区别
+##### active 和 include 的区别
 
 我认为主要是语意上的区别，实际使用效果基本相同。假设，项目有 2 种环境：`dev`、`prod`，我们选择激活其中一种；其中涉及到 3 种组件：`https`、`mysql`、`log`，我们根据环境选择包含一个或多个。`active` 的构件被认为是与环境有关的，`include` 的构件被认为是与环境无关的。
 
@@ -1264,7 +1266,7 @@ The properties from spring.profile.include override default properties. The prop
 
 <br>
 
-### 3.4.3、group
+#### 3.4.3、group
 
 Spring Boot 2.4 之后增加了 Profile 不能同时使用 `spring.profiles.active` 和 `spring.profiles.include` 的限制，但有个常用的场景，就是可能需要同时使用两个 Profile 配置， 比如线上配置了 MySQL 以及 RabbitMQ：
 
@@ -1360,7 +1362,7 @@ spring:
 
 <br>
 
-### 3.4.4、Maven
+#### 3.4.4、Maven
 
 Maven 本身也提供了对多环境的支持，不仅仅支持 Spring Boot 项目，只要是基于 Maven 的项目都可以配置。
 
@@ -1370,7 +1372,7 @@ Maven 对于多环境的支持在功能方面更加强大，支持 JDK 版本、
 
 <br>
 
-#### 定义激活的变量
+##### 定义激活的变量
 
 需要将 Maven 激活的环境作用于 Spring Boot，实际还是利用了 `spring.profiles.active` 这个属性，只是现在这个属性的取值将是取值于 Maven。配置如下：
 
@@ -1467,7 +1469,7 @@ spring.profiles.active=@profile.active@
 
 <br>
 
-#### pom 文件中定义 profiles
+##### pom 文件中定义 profiles
 
 需要在 Maven 的 `pom.xml` 文件中定义不同环境的 `profile`，如下：
 
@@ -1547,7 +1549,7 @@ Maven 中的 `profile` 的激活条件还可以根据 JDK、操作系统、文�
 
 <br>
 
-#### 资源过滤
+##### 资源过滤
 
 如果你不配置这一步，将会在任何环境下打包都会带上全部的配置文件，但是我们可以配置只保留对应环境下的配置文件，这样安全性更高。
 
@@ -1584,13 +1586,13 @@ Maven 中的 `profile` 的激活条件还可以根据 JDK、操作系统、文�
 
 <br>
 
-### 3.4.5、-jar
+#### 3.4.5、-jar
 
 在 Spring Boot 中，使用 `-jar` 运行应用时管理多环境配置（如 `dev`、`test`、`prod`）也是一个常见需求。
 
 <br>
 
-#### 直接定义激活配置
+##### 直接定义激活配置
 
 打包好后运行 jar 包时可以通过 `--spring.profiles.active` 指令定义激活配置：
 
@@ -1625,7 +1627,7 @@ Maven 中的 `profile` 的激活条件还可以根据 JDK、操作系统、文�
 
 <br>
 
-#### 外部化配置目录
+##### 外部化配置目录
 
 打包好后运行 jar 包时可以通过 `--spring.config.location` 指令指定外部配置文件路径， 完全控制配置来源：
 
@@ -1656,7 +1658,7 @@ Maven 中的 `profile` 的激活条件还可以根据 JDK、操作系统、文�
 
 <br>
 
-#### 属性优先级规则
+##### 属性优先级规则
 
 Spring Boot 的属性源（包括 Profile 激活配置）按以下顺序加载（从低优先级 → 高优先级），后加载的会覆盖先加载的：
 
@@ -1679,7 +1681,7 @@ Spring Boot 的优先级规则遵循一个核心原则：“离应用越近的�
 
 <br>
 
-# 4、数据校验
+## 4、数据校验
 
 数据校验是构建健壮后端服务的基石。即便前端已实施校验，后端校验依然是不可或缺的最后一道防线，它可以有效防止恶意用户通过 API 工具直接提交非法或脏数据。
 
@@ -1699,7 +1701,7 @@ if (personRequest.getAge() <= 0) {
 
 <br>
 
-## 4.1、简介
+### 4.1、简介
 
 JSR-380，即 Bean Validation 2.0，是作为 Java EE 8 规范的一部分发布的，它是广受欢迎的 JSR-303 的正式继任者。其官方参考实现依然是强大的 Hibernate Validator。
 
@@ -1714,7 +1716,7 @@ JSR-380，即 Bean Validation 2.0，是作为 Java EE 8 规范的一部分发布
 
 <br>
 
-## 4.2、快速开始
+### 4.2、快速开始
 
 在 Spring Boot 项目中启用 JSR-380 非常简单。
 
@@ -1731,9 +1733,9 @@ JSR-380，即 Bean Validation 2.0，是作为 Java EE 8 规范的一部分发布
 
 <br>
 
-### 4.2.1、验证 Controller 的输入
+#### 4.2.1、验证 Controller 的输入
 
-#### 验证请求体
+##### 验证请求体
 
 验证被 `@RequestBody` 注解标记的请求体是最常见的场景。只需在参数上添加 `@Valid` 注解，如果验证失败，Spring 将抛出 `MethodArgumentNotValidException` 异常，并默认返回 HTTP 400（Bad Request）状态码。
 
@@ -1778,7 +1780,7 @@ public class PersonRequest {
 
 <br>
 
-#### 验证请求参数
+##### 验证请求参数
 
 对于通过 `@PathVariable` 或 `@RequestParam` 传入的 “平铺” 参数，需要在 Controller 类上添加 `@Validated` 注解来启用校验。如果验证失败，将抛出 `ConstraintViolationException` 异常。
 
@@ -1821,7 +1823,7 @@ public ResultBean exceptionHandler(ConstraintViolationException exception){
 
 <br>
 
-### 4.2.2、验证 Service 中的方法
+#### 4.2.2、验证 Service 中的方法
 
 我们也可以在 Service 层或其他 Spring Bean 中进行方法级别的校验。当使用接口编程时，推荐将校验注解定义在接口上。
 
@@ -1866,7 +1868,7 @@ public ResultBean exceptionHandler(ConstraintViolationException exception){
 
 <br>
 
-### 4.2.3、全局异常处理器
+#### 4.2.3、全局异常处理器
 
 通过全局异常处理器，我们可以捕获校验异常，并返回统一格式的错误信息：
 
@@ -1926,9 +1928,9 @@ public class GlobalExceptionHandler {
 
 <br>
 
-## 4.3、进阶校验场景
+### 4.3、进阶校验场景
 
-### 4.3.1、级联校验
+#### 4.3.1、级联校验
 
 级联校验允许我们校验一个对象中嵌套的另一个对象。其关键在于对嵌套对象的字段使用 `@Valid` 注解。`@Validated` 注解不能用于字段级别，因此此处必须使用 `@Valid`：
 
@@ -1960,7 +1962,7 @@ public class PersonRequest {
 
 <br>
 
-### 4.3.2、手动校验
+#### 4.3.2、手动校验
 
 在某些非 Spring 管理的环境或特殊场景下，我们需要手动触发校验。可以通过 `Validation` 工厂获取一个 `Validator` 实例。如果在 Spring 环境中，可以直接注入 `Validator`：
 
@@ -1993,7 +1995,7 @@ public void checkPersonManually() {
 
 <br>
 
-## 4.4、自定义校验器
+### 4.4、自定义校验器
 
 虽然内置注解功能丰富，但在真实业务场景中，我们经常需要根据数据库中的数据来动态决定校验结果。例如，在创建订单时，我们需要确保指定的 username 是系统中已注册的有效用户。
 
@@ -2076,9 +2078,9 @@ public void checkPersonManually() {
 
 <br>
 
-## 4.5、核心概念总结
+### 4.5、核心概念总结
 
-### 4.5.1、常用注解
+#### 4.5.1、常用注解
 
 JSR-380 (Bean Validation 2.0) 标准化了许多常用的校验注解。
 
@@ -2138,7 +2140,7 @@ JSR-380 (Bean Validation 2.0) 标准化了许多常用的校验注解。
 
 <br>
 
-### 4.5.2、@Validated vs @Valid
+#### 4.5.2、@Validated vs @Valid
 
 尽管这两个注解都可以触发校验，但它们之间存在关键区别：
 
@@ -2161,9 +2163,9 @@ JSR-380 (Bean Validation 2.0) 标准化了许多常用的校验注解。
 
 <br>
 
-# 5、数据源
+## 5、数据源
 
-##  5.1、JDBC
+###  5.1、JDBC
 
 首先新建一个 Spring Boot 项目
 
@@ -2292,9 +2294,9 @@ HikariCP是数据库连接池的后起之秀，号称性能最好，可以完美
 
 <br>
 
-# 6、打包
+## 6、打包
 
-## 6.1、war
+### 6.1、war
 
 Spring Boot 提供了内置的 Tomcat、Undertow、Jetty 三种 Servlet Web 容器让我们开箱即用，可以迅速以 JAR 启动一个 Web 应用。但是在某些场景中可能还需要将我们的 Spring Boot 容器以 War 的形式进行传统的部署。这时就需要通过借助于 `SpringBootServletInitializer` 来实现。
 
@@ -2410,7 +2412,7 @@ Spring Boot 提供了内置的 Tomcat、Undertow、Jetty 三种 Servlet Web 容�
 
 <br>
 
-### 6.1.1、替换 war 包文件
+#### 6.1.1、替换 war 包文件
 
 `jar` 命令可以替换 `.jar` 包或 `.war` 包中的文件，`jar` 是 Java 提供的归档工具，用于创建、更新、查看和解压 `.jar`、`.war`、`.ear` 等归档文件。它本质上是对 ZIP 格式的封装。`jar` 的用法：
 
@@ -2470,7 +2472,7 @@ jar <options> <jar-file> [input-files]
 
 <br>
 
-## 6.2、jar
+### 6.2、jar
 
 在项目根目录下找到 pom.xml 文件，确保其中包含了 spring-boot-maven-plugin 插件，如果没有的话需要添加：
 
@@ -2505,7 +2507,7 @@ java -jar your-project-name.jar
 
 <br>
 
-### 6.2.1、打 jar 包后乱码
+#### 6.2.1、打 jar 包后乱码
 
 1. 在 pom.xml 文件中指定编码：
 
@@ -2544,7 +2546,7 @@ java -jar your-project-name.jar
 
 <br>
 
-### 6.2.2、使用 TongWeb
+#### 6.2.2、使用 TongWeb
 
 默认情况下，Spring Boot 使用 Tomcat 作为中间件，在某些信创环境下，我们需要将 Tomcat 换成 TongWeb：
 
@@ -2617,7 +2619,7 @@ java -jar your-project-name.jar
 
 <br>
 
-### 6.2.3、注册为服务
+#### 6.2.3、注册为服务
 
 在生产环境中，通常需要让 Spring Boot 的 jar 包像系统服务一样管理，这样可以通过 `systemctl start|stop|restart` 来控制应用，同时支持开机自启、日志查看和自动重启。
 
@@ -2702,9 +2704,9 @@ java -jar your-project-name.jar
 
 <br>
 
-# 7、日志
+## 7、日志
 
-## 7.1、Logback
+### 7.1、Logback
 
 Logback 是 Java 社区中使用最广泛的日志框架之一。 它是其前身 Log4j 的替代品。 Logback 提供了更快的执行速度，提供了更多的配置选项，以及归档旧日志文件的更大灵活性。
 
@@ -2761,14 +2763,14 @@ logback-spring.xml：
 
 <br>
 
-## 7.2、Log4j2
+### 7.2、Log4j2
 
 Apache Log4j2 是对 Log4j 的升级，它比其前身 Log4j 1.x 提供了重大改进，并参考了 Logback 中优秀的设计，同时修复了 Logback 架构中的一些问题。被誉为是目前最优秀的 Java 日志框架；企业中通常使用 SLF4j 门面 + Log4j2 来记录日志。
 
 Spirngboot 整合的 log4j2 默认有内置的 xml 配置文件 log4j2.xml：
 
 ```yaml
-# log4j2 配置
+## log4j2 配置
 logging:
   config: classpath:log4j2.xml
 ```
@@ -2801,7 +2803,7 @@ logging:
 
 <br>
 
-# 10、发送邮件
+## 10、发送邮件
 
 1. **开启 SMTP**
 	这里以 QQ 邮箱为例。登录 QQ 邮箱之后，点击设置，点击账户，**选择开启 IMAP/SMTP 服务**，记住 QQ 邮箱提示的授权码，后面会用到。
@@ -2887,14 +2889,14 @@ logging:
 解决方法：使用端口465以及 SSL 加密方式发送邮件，我的项目是 Spring Boot，所以直接在配置文件中加入下面的配置：
 
 ```properties
-# Use port 465 instead of the default port 25  
+## Use port 465 instead of the default port 25  
 spring.mail.properties.mail.smtp.socketFactory.port=465
 spring.mail.properties.mail.smtp.ssl.enable=true
 ```
 
 <br>
 
-# 11、处理静态资源
+## 11、处理静态资源
 
 静态资源，一般是网页端的：HTML文件、JavaScript 文件和图片。
 
@@ -2911,7 +2913,7 @@ Spring Boot 内设置静态资源，或者说静态资源文件夹，主要有�
 
 <br>
 
-## 11.1、application.yml 配置
+### 11.1、application.yml 配置
 
 设置 application 方法很简单，主要涉及两个配置项：
 
@@ -2960,7 +2962,7 @@ spring:
 
 <br>
 
-## 11.2、Configuration 配置类
+### 11.2、Configuration 配置类
 
 写一个配置类，实现静态资源的文件夹方法很多。比如：
 
@@ -3035,7 +3037,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
 
 <br>
 
-# 12、devtools 热部署
+## 12、devtools 热部署
 
 devtools 是 boot 的一个热部署工具，会监听 classpath 下的文件变动（包括类文件、属性文件、页面等），并且会立即重启应用（发生在保存时机），会重新启动应用（由于其采用的双类加载器机制，这个启动会非常快，如果发现这个启动比较慢，可以选择使用 JRebel）
 

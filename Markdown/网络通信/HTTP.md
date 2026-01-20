@@ -1,4 +1,6 @@
-# 1、HTTP/HTTPS 简介
+# HTTP
+
+## 1、HTTP/HTTPS 简介
 
 HTTP 协议是 Hyper Text Transfer Protocol（超文本传输协议）的缩写，是用于从万维网（ WWW:World Wide Web ）服务器传输超文本到本地浏览器的传送协议。
 
@@ -15,7 +17,7 @@ HTTP 的 URL 是由 `http://` 起始与默认使用端口 `80`，而 HTTPS 的 U
 
 
 
-## 1.1、HTTP 工作原理
+### 1.1、HTTP 工作原理
 
 HTTP 协议工作于客户端-服务端架构上。
 
@@ -50,7 +52,7 @@ HTTP 默认端口号为 `80`，但是你也可以改为 `8080` 或者其他端�
 
 
 
-## 1.2、HTTPS 作用
+### 1.2、HTTPS 作用
 
 HTTPS 的主要作用是在不安全的网络上创建一个安全信道，并可在使用适当的加密包和服务器证书可被验证且可被信任时，对窃听和中间人攻击提供合理的防护。
 
@@ -78,7 +80,7 @@ HTTPS 链接显示为安全：
 
 
 
-# 2、HTTP 消息结构
+## 2、HTTP 消息结构
 
 HTTP 是基于客户端/服务端（C/S）的架构模型，通过一个可靠的链接来交换信息，是一个无状态的请求/响应协议。
 
@@ -92,7 +94,7 @@ HTTP 使用统一资源标识符（Uniform Resource Identifiers，URI）来传�
 
 
 
-## 2.1、客户端请求消息
+### 2.1、客户端请求消息
 
 客户端发送一个 HTTP 请求到服务器的请求消息包括以下格式：请求行（request line）、请求头部（header）、空行和请求数据四个部分组成，下图给出了请求报文的一般格式。
 
@@ -110,7 +112,7 @@ Accept-Language: en, mi
 
 
 
-## 2.2、服务器响应消息
+### 2.2、服务器响应消息
 
 HTTP 响应也由四个部分组成，分别是：状态行、消息报头、空行和响应正文。
 
@@ -133,7 +135,7 @@ Content-Type: text/plain
 
 
 
-# 3、HTTP 请求方法
+## 3、HTTP 请求方法
 
 根据 HTTP 标准，HTTP 请求可以使用多种请求方法。
 
@@ -155,7 +157,7 @@ HTTP 1.1 新增了六种请求方法：OPTIONS、PUT、PATCH、DELETE、TRACE �
 
 
 
-# 4、HTTP 响应头信息
+## 4、HTTP 响应头信息
 
 HTTP 请求头提供了关于请求、响应或者其他的发送实体的信息。
 
@@ -176,7 +178,7 @@ HTTP 请求头提供了关于请求、响应或者其他的发送实体的信息
 
 
 
-# 5、HTTP 状态码
+## 5、HTTP 状态码
 
 当浏览者访问一个网页时，浏览者的浏览器会向网页所在服务器发出请求。当浏览器接收并显示网页前，此网页所在的服务器会返回一个包含 HTTP 状态码的信息头（server header）用以响应浏览器的请求。
 
@@ -191,7 +193,7 @@ HTTP 状态码的英文为 **HTTP Status Code**。。
 
 
 
-## 5.1、HTTP 状态码分类
+### 5.1、HTTP 状态码分类
 
 HTTP 状态码由三个十进制数字组成，第一个十进制数字定义了状态码的类型。响应分为五类：信息响应（100–199），成功响应（200–299），重定向（300–399），客户端错误（400–499）和服务器错误（500–599）：
 
@@ -255,7 +257,7 @@ HTTP状态码列表：
 
 
 
-# 6、HTTP content-type
+## 6、HTTP content-type
 
 Content-Type（内容类型），一般是指网页中存在的 Content-Type，用于定义网络文件的类型和网页的编码，决定浏览器将以什么形式、什么编码读取这个文件，这就是经常看到一些 PHP 网页点击的结果却是下载一个文件或一张图片的原因。
 
@@ -294,7 +296,7 @@ Content-Type: multipart/form-data; boundary=something
 
 
 
-## 6.1、HTTP content-type 对照表
+### 6.1、HTTP content-type 对照表
 
 | 文件扩展名                          | Content-Type(Mime-Type)                 | 文件扩展名 | Content-Type(Mime-Type)             |
 | :---------------------------------- | :-------------------------------------- | :--------- | :---------------------------------- |
@@ -473,7 +475,7 @@ Content-Type: multipart/form-data; boundary=something
 
 
 
-# 7、MIME 类型
+## 7、MIME 类型
 
 MIME (Multipurpose Internet Mail Extensions) 是描述消息内容类型的标准，用来表示文档、文件或字节流的性质和格式。
 

@@ -1,8 +1,6 @@
----
-typora-copy-images-to: upload
----
+# BootstrapTable
 
-# 1、简单案例
+## 1、简单案例
 
 这里使用了 Bootstrap 4.3.1、Bootstrap Table 1.15.3、FontAwesome 5.11.2、jQuery 3.3.1，下面是引用的 CSS 和 JS：
 
@@ -161,7 +159,7 @@ public interface ProductMapper {
 
 
 
-# 2、文档
+## 2、文档
 
 ```javascript
 $('#table').bootstrapTable({
@@ -250,7 +248,7 @@ $('#table').bootstrapTable({
 
 
 
-## 2.1、列参数
+### 2.1、列参数
 
 ```javascript
 var columns = [{
@@ -299,7 +297,7 @@ var columns = [{
 
 
 
-## 2.2、事件
+### 2.2、事件
 
 ```javascript
 $('#table').bootstrapTable({
@@ -344,7 +342,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
 
 
-## 2.3、方法
+### 2.3、方法
 
 ```javascript
 //第一步，获取对象（即jQuery对象）
@@ -413,7 +411,7 @@ var result=$table.bootstrapTable('方法名称',{field1:value1,field2:value2,...
 
 
 
-# 3、图标
+## 3、图标
 
 在做网页开发中，前端页面显示时经常会用到字体库图标，如 iconfont，fontawesome，glyphicons，lonicons 等。这里使用 fontawesome，下载地址：https://fontawesome.com/download
 
@@ -463,9 +461,9 @@ CSS 方法要调用两组文件，一个是 CSS（或 less 或 SCSS）样式表,
 
 
 
-# 4、扩展 
+## 4、扩展 
 
-## 4.1、页脚合并
+### 4.1、页脚合并
 
 首先在 columns 里面定义 footerFormatter：
 
@@ -497,7 +495,7 @@ onPostBody: function () {
 
 
 
-## 4.2、行内编辑
+### 4.2、行内编辑
 
 **思路一**
 
@@ -673,7 +671,7 @@ $("#table").bootstrapTable({
 
 
 
-## 4.3、表格样式
+### 4.3、表格样式
 
 设置 bootstrap-table 表格样式可以通过设置 classess 属性进行设置，官方默认支持黑色主题、隔行变色等样式。
 
@@ -696,7 +694,7 @@ $('#table').bootstrapTable({
 
 
 
-## 4.4、表格超过长度自动隐藏
+### 4.4、表格超过长度自动隐藏
 
 当表格里面的内容列数过多的，内容长度过长的时候，会出现自动换行的效果，整个表格的每一行高度就不相同了，看上去就不够美观。
 
@@ -758,7 +756,7 @@ $('#table').bootstrapTable({
 
 
 
-## 4.5、合并单元格
+### 4.5、合并单元格
 
 使用 `mergeCells()`：
 

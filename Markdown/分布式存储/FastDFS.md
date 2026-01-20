@@ -1,6 +1,8 @@
-# 1、简介
+# FastDFS
 
-## 1.1、FastDFS 是什么
+## 1、简介
+
+### 1.1、FastDFS 是什么
 
 DFS（Distributed File System，分布式文件系统）是一种基于网络的文件系统，区别于传统的文件系统，具有扁平化、简单化、高性能和分布式存储的特征，在云计算、大数据等领域具有广泛的应用。
 
@@ -11,7 +13,7 @@ FastDFS 是一个轻量级的开源分布式文件系统，使用类似 Google F
 
 <br>
 
-## 1.2、FastDFS 架构
+### 1.2、FastDFS 架构
 
 <img src="!assets/FastDFS/21333fedd78a39c680d12c684eedfdb7.png" alt="FastDFS" style="zoom:67%;" />
 
@@ -35,9 +37,9 @@ FastDFS 是一个轻量级的开源分布式文件系统，使用类似 Google F
 
 <br>
 
-# 2、安装和配置
+## 2、安装和配置
 
-## 2.1、安装 FastDFS 核心组件
+### 2.1、安装 FastDFS 核心组件
 
 1. 由于 FastDFS 是由 C 编写的，所以首先需要确保 Linux 的 C 环境：
 
@@ -76,7 +78,7 @@ FastDFS 是一个轻量级的开源分布式文件系统，使用类似 Google F
 
 <br>
 
-## 2.2、配置 Tracker
+### 2.2、配置 Tracker
 
 1. （第一次运行）在配置文件路径 `/etc/fdfs` 中配置，可以直接使用提供的参考配置：
 
@@ -108,7 +110,7 @@ FastDFS 是一个轻量级的开源分布式文件系统，使用类似 Google F
 
 <br>
 
-## 2.3、配置 Storage
+### 2.3、配置 Storage
 
 使用完全类似的方法，可以配置 Storage，不过，它需要额外配置文件存储路径 data。
 

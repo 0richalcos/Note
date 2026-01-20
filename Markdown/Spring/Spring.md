@@ -1,10 +1,8 @@
----
-typora-copy-images-to: upload
----
+# Spring
 
-# 1、Spring
+## 1、Spring
 
-## 1.1、简介
+### 1.1、简介
 
 - Spring：春天----->给软件行业带来了春天！
 - 2002，首次推出了Spring框架的雏形：interface21框架！
@@ -32,7 +30,7 @@ typora-copy-images-to: upload
 
 
 
-## 1.2、优点
+### 1.2、优点
 
 - Spring是一个开源的免费框架（容器）！
 - Spring是一个轻量级的、非入侵式的框架！
@@ -63,7 +61,7 @@ Spring 可以将简单的组件配置、组合成为复杂的应用。在 Spring
 
 
 
-## 1.3、组成
+### 1.3、组成
 
 <img src="!assets/Spring/image-20200316215023023.png" alt="image-20200316215616542" style="zoom:67%;" />
 
@@ -97,7 +95,7 @@ Spring 可以将简单的组件配置、组合成为复杂的应用。在 Spring
 
 
 
-## 1.4、扩展
+### 1.4、扩展
 
 在Spring的官网有这个介绍：现代化的Java开发！说白了就是基于Spring的开发
 
@@ -120,7 +118,7 @@ Spring 可以将简单的组件配置、组合成为复杂的应用。在 Spring
 
 
 
-# 2、IoC 理论推导（DI）
+## 2、IoC 理论推导（DI）
 
 1. UserDao 接口
 
@@ -276,7 +274,7 @@ public void setUserDao(UserDao userDao) {
 
 
 
-## 2.1、依赖倒置和 DI
+### 2.1、依赖倒置和 DI
 
 假设我们设计一辆汽车：先设计轮子，然后根据轮子大小设计底盘，接着根据底盘设计车身，最后根据车身设计好整个汽车。这里就出现了一个 “依赖” 关系：汽车依赖车身，车身依赖底盘，底盘依赖轮子。
 
@@ -314,7 +312,7 @@ public void setUserDao(UserDao userDao) {
 
 
 
-## 2.2、IoC 本质和 IoC 容器
+### 2.2、IoC 本质和 IoC 容器
 
 **控制反转 IoC（Inversion of Control），是一种设计思想，DI（依赖注入）是实现 IoC 的一种方法**，也有人认为 DI 只是 IoC 的另一种说法。没有IoC 的程序中，我们使用面向对象编程，对象的创建与对象中的依赖关系完全硬编码在程序中，对象的创建由程序自己控制，控制反转后将对象的创建转移给第三方，个人认为所谓的控制反转就是：获得依赖对象的方式反转了。
 
@@ -342,9 +340,9 @@ IoC Container 可以直接隐藏具体的创建实例的细节.
 
 
 
-# 3、HelloSpring
+## 3、HelloSpring
 
-## 3.1、导入依赖
+### 3.1、导入依赖
 
 ```xml
 <dependency>
@@ -356,7 +354,7 @@ IoC Container 可以直接隐藏具体的创建实例的细节.
 
 
 
-## 3.2、编写代码
+### 3.2、编写代码
 
 1. 编写一个Hello实体类
 
@@ -414,7 +412,7 @@ IoC Container 可以直接隐藏具体的创建实例的细节.
 
 
 
-## 3.3、思考
+### 3.3、思考
 
 - Hello对象是谁创建的？
 	- 【hello对象是由Spring创建的】
@@ -432,7 +430,7 @@ IoC Container 可以直接隐藏具体的创建实例的细节.
 
 
 
-# 4、Ioc创建对象的方式
+## 4、Ioc创建对象的方式
 
 1. 使用无参构造创建对象，默认！
 
@@ -469,9 +467,9 @@ IoC Container 可以直接隐藏具体的创建实例的细节.
 
 
 
-# 5、Spring配置
+## 5、Spring配置
 
-## 5.1、别名
+### 5.1、别名
 
 ```xml
 <!--别名，如果添加了别名，就可以使用别名获取到这个对象-->
@@ -480,7 +478,7 @@ IoC Container 可以直接隐藏具体的创建实例的细节.
 
 
 
-## 5.2、Bean的配置
+### 5.2、Bean的配置
 
 ```xml
 <!--
@@ -495,7 +493,7 @@ IoC Container 可以直接隐藏具体的创建实例的细节.
 
 
 
-## 5.3、import
+### 5.3、import
 
 import一般用于团队开发，它可以将多个配置文件，导入合并为一个。
 
@@ -519,15 +517,15 @@ import一般用于团队开发，它可以将多个配置文件，导入合并�
 
 
 
-# 6、依赖注入（DI）
+## 6、依赖注入（DI）
 
-## 6.1、构造器注入
+### 6.1、构造器注入
 
 见 <a href="#4、IoC创建对象的方式" style="text-decoration:none">4、 IoC创建对象的方式</a>
 
 
 
-## 6.2、Set方式注入
+### 6.2、Set方式注入
 
 - 依赖注入：Set注入！
 	- 依赖：bean对象的创建依赖于容器！
@@ -656,7 +654,7 @@ import一般用于团队开发，它可以将多个配置文件，导入合并�
 
 	
 
-## 6.3、扩展方式注入
+### 6.3、扩展方式注入
 
 可以使用p命名空间和c命名空间进行注入
 
@@ -698,7 +696,7 @@ public void test2(){
 
 
 
-## 6.4、bean的作用域
+### 6.4、bean的作用域
 
 <img src="!assets/Spring/image-20200318144358878.png" alt="image-20200318144358878" style="" />
 
@@ -718,7 +716,7 @@ public void test2(){
 
 
 
-# 7、bean的装配方式
+## 7、bean的装配方式
 
 在Spring中有三种装配的方式
 
@@ -737,7 +735,7 @@ Spring 中的 bean 默认是单例模式，Spring 框架并没有对单例 bean 
 
 
 
-## 7.1、测试
+### 7.1、测试
 
 环境搭建：一个人有两个宠物！
 
@@ -801,7 +799,7 @@ Spring 中的 bean 默认是单例模式，Spring 框架并没有对单例 bean 
 
 
 
-## 7.2、ByName
+### 7.2、ByName
 
 ```xml
 <bean id="dog" class="com.kuang.pojo.Dog"/>
@@ -819,7 +817,7 @@ Spring 中的 bean 默认是单例模式，Spring 框架并没有对单例 bean 
 
 
 
-## 7.3、ByType
+### 7.3、ByType
 
 ```xml
 <bean class="com.kuang.pojo.Dog"/>
@@ -837,7 +835,7 @@ Spring 中的 bean 默认是单例模式，Spring 框架并没有对单例 bean 
 
 
 
-## 7.4、注解实现
+### 7.4、注解实现
 
 使用注解须要配置注解的支持：
 
@@ -948,7 +946,7 @@ public People(@Nullable String name) {
 
 
 
-# 8、使用注解开发
+## 8、使用注解开发
 
 在Spring4之后，要使用注解开发，必须要保证aop的包已经导入
 
@@ -1031,7 +1029,7 @@ public People(@Nullable String name) {
 
 
 
-# 9、使用Java的方式配置Spring
+## 9、使用Java的方式配置Spring
 
 可以不使用Spring的xml配置，全权交给Java来做！
 
@@ -1112,7 +1110,7 @@ public class KuangConfig {}
 
 
 
-# 10、代理模式
+## 10、代理模式
 
 为什么要学代理模式？因为这就是SpringAOP的底层！
 
@@ -1127,7 +1125,7 @@ public class KuangConfig {}
 
 
 
-## 10.1、静态代理
+### 10.1、静态代理
 
 角色分析：
 
@@ -1240,7 +1238,7 @@ public class Test {
 
 
 
-## 10.2、动态代理
+### 10.2、动态代理
 
 - 动态代理和静态代理角色一样
 - 动态代理的代理类是动态生成的，不是直接写好的！
@@ -1328,9 +1326,9 @@ public class Test {
 
 
 
-# 11、AOP
+## 11、AOP
 
-## 11.1、什么是AOP
+### 11.1、什么是AOP
 
 AOP（Aspect-Oriented Programming，面向方面编程），通过预编译方式和运行期间动态代理实现程序功能的统一维护的一种技术，可以说是OOP（Object-Oriented Programing，面向对象编程）的补充和完善。OOP引入封装、继承和多态性等概念来建立一种对象层次结构，用以模拟公共行为的一个集合。当我们需要为分散的对象引入公共行为的时候，OOP则显得无能为力。也就是说，OOP允许你定义从上到下的关系，但并不适合定义从左到右的关系。例如日志功能。日志代码往往水平地散布在所有对象层次中，而与它所散布到的对象的核心功能毫无关系。对于其他类型的代码，如安全性、异常处理和透明的持续性也是如此。这种散布在各处的无关的代码被称为横切（cross-cutting）代码，在OOP设计中，它导致了大量代码的重复，而不利于各个模块的重用。
 
@@ -1342,7 +1340,7 @@ AOP（Aspect-Oriented Programming，面向方面编程），通过预编译方�
 
 
 
-## 11.2、AOP在Spring中的作用
+### 11.2、AOP在Spring中的作用
 
 ==提供声明式事务；允许用户自定义切面==
 
@@ -1366,7 +1364,7 @@ SpringAOP中，通过Advice定义横切逻辑，Spring中支持5种类型的Advi
 
 
 
-## 11.3、使用Spring实现AOP
+### 11.3、使用Spring实现AOP
 
 使用AOP织入，需要导入一个依赖包！
 
@@ -1615,7 +1613,7 @@ applicationContext.xml：
 
 
 
-# 12、整合Mybatis
+## 12、整合Mybatis
 
 步骤：
 
@@ -1633,7 +1631,7 @@ applicationContext.xml：
 
 
 
-## 12.1、回忆Mybatis
+### 12.1、回忆Mybatis
 
 1. 编写实体类
 
@@ -1721,7 +1719,7 @@ applicationContext.xml：
 
 
 
-## 12.2、Mybatis-spring
+### 12.2、Mybatis-spring
 
 **方式一：**
 
@@ -1891,7 +1889,7 @@ public class UserMapperImpl extends SqlSessionDaoSupport implements UserMapper {
 
 
 
-# 13、事务
+## 13、事务
 
 - 编程式事务管理，在代码中调用 commit()、rollback()等事务管理相关的方法
 - 基于 TransactionProxyFactoryBean 的声明式事务管理
@@ -1900,7 +1898,7 @@ public class UserMapperImpl extends SqlSessionDaoSupport implements UserMapper {
 
 
 
-## 13.1、编程式事务 
+### 13.1、编程式事务 
 
 **编程式事务管理，在代码中调用 commit()、rollback()等事务管理相关的方法**
 
@@ -2035,7 +2033,7 @@ public class TransactionTest {
 
 
 
-## 13.2、声明式事务 1
+### 13.2、声明式事务 1
 
 **基于 TransactionProxyFactoryBean 的声明式事务管理**
 
@@ -2177,7 +2175,7 @@ Exception in thread "main" java.lang.RuntimeException
 
 
 
-## 13.3、声明式事务 2
+### 13.3、声明式事务 2
 
 **基于注解 @Transactional 的声明式事务管理**
 
@@ -2294,7 +2292,7 @@ Exception in thread "main" java.lang.RuntimeException
 
 
 
-## 13.4、基于注解的事务
+### 13.4、基于注解的事务
 
 **基于 Aspectj AOP 配置（注解）事务**
 
@@ -2431,7 +2429,7 @@ Exception in thread "main" java.lang.RuntimeException
 
 
 
-## 13.5、事务的传播属性
+### 13.5、事务的传播属性
 
 - **PROPAGATION_REQUIRED = 0**
 

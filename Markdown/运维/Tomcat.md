@@ -1,4 +1,6 @@
-# 1、简介
+# Tomcat
+
+## 1、简介
 
 Tomcat 容器实现了 Jakarta Servlet、Jakarta Expression Language 与 WebSocket 技术规范，统一管理 Web 应用的生命周期与请求分发。
 
@@ -28,9 +30,9 @@ Tomcat 既可作为独立 HTTP 服务器，也可通过 Coyote Connector 与 Apa
 
 
 
-# 2、安装与目录结构
+## 2、安装与目录结构
 
-## 2.1、安装
+### 2.1、安装
 
 1. 下载 Tomcat 安装包：
 
@@ -70,7 +72,7 @@ Tomcat 既可作为独立 HTTP 服务器，也可通过 Coyote Connector 与 Apa
 
 
 
-## 2.2、目录结构
+### 2.2、目录结构
 
 ```perl
 /opt/tomcat
@@ -86,15 +88,15 @@ Tomcat 既可作为独立 HTTP 服务器，也可通过 Coyote Connector 与 Apa
 
 
 
-# 3、部署项目
+## 3、部署项目
 
 将 `myapp.war` 复制至 `webapps/`，Tomcat 自动解压部署。
 
 
 
-# 4、配置文件
+## 4、配置文件
 
-## 4.1、server.xml  
+### 4.1、server.xml  
 
 全局核心配置，定义 `<Server>`、`<Service>`、`<Connector>`、`<Engine>`、`<Host>` 等组件及其关系。
 
@@ -163,7 +165,7 @@ Tomcat 既可作为独立 HTTP 服务器，也可通过 Coyote Connector 与 Apa
 
 
 
-### 4.1.1、Server
+#### 4.1.1、Server
 
 下面示例展示了 `<Server>` 的常见配置，包括关闭端口、关闭口令及周期性任务线程数的设置：
 
@@ -190,7 +192,7 @@ Tomcat 既可作为独立 HTTP 服务器，也可通过 Coyote Connector 与 Apa
 
 
 
-### 4.1.2、Service
+#### 4.1.2、Service
 
 下面示例展示了包含两个 `<Connector>`（HTTP 和 AJP）以及一个 `<Engine>` 的典型 `<Service>` 配置：
 
@@ -221,7 +223,7 @@ Tomcat 既可作为独立 HTTP 服务器，也可通过 Coyote Connector 与 Apa
 
 
 
-### 4.1.3、Connector
+#### 4.1.3、Connector
 
 `<Connector>` 是 Tomcat 用来处理网络请求的关键组件，可配置多种协议（HTTP、HTTPS、AJP），并对线程数、超时、压缩等进行精细控制。
 
@@ -302,7 +304,7 @@ AJP 连接器示例：
 
 
 
-### 4.1.4、Engine
+#### 4.1.4、Engine
 
 `<Engine>` 是 Servlet 引擎的核心组件，负责将 `<Connector>` 接收到的请求分发给相应的 `<Host>` 中的 `<Context>`（Web 应用）。一个 `<Service>` 只能包含一个 `<Engine>`。
 
@@ -336,7 +338,7 @@ AJP 连接器示例：
 
 
 
-### 4.1.5、Host
+#### 4.1.5、Host
 
 `<Host>` 用于定义虚拟主机（Virtual Host），每个 `<Engine>` 可包含多个 `<Host>`。每个虚拟主机拥有独立的应用部署目录及日志配置。
 
@@ -383,7 +385,7 @@ AJP 连接器示例：
 
 
 
-### 4.1.6、Context
+#### 4.1.6、Context
 
 `<Context>` 元素可以嵌套在 `<Host>` 中，也可以通过独立 XML 文件放置在 `conf/[enginename]/[hostname]/` 路径下，例如 `conf/Catalina/localhost/myapp.xml`。
 
@@ -422,7 +424,7 @@ AJP 连接器示例：
 
 
 
-## 4.2、web.xml
+### 4.2、web.xml
 
 全局 Web 应用默认配置，所有部署的 WAR 都会继承此配置 。
 
@@ -437,7 +439,7 @@ AJP 连接器示例：
 
 
 
-## 4.3、context.xml
+### 4.3、context.xml
 
 全局应用上下文配置，定义所有 Web 应用的默认 JNDI 资源、Session 持久化、Cookie 策略等
 
@@ -460,7 +462,7 @@ AJP 连接器示例：
 
 
 
-### 4.3.1、静态资源的缓存行为
+#### 4.3.1、静态资源的缓存行为
 
 示例：
 
@@ -494,7 +496,7 @@ AJP 连接器示例：
 
 
 
-## 4.4、tomcat-users.xml
+### 4.4、tomcat-users.xml
 
 配置访问 Manager、Host Manager 应用的用户与角色。
 
@@ -510,13 +512,13 @@ AJP 连接器示例：
 
 
 
-## 4.5、catalina.properties
+### 4.5、catalina.properties
 
 定义 Catalina 系统属性、共享类加载器白名单、包隔离等。
 
 
 
-### 4.5.1、日志编码
+#### 4.5.1、日志编码
 
 示例：
 
@@ -530,6 +532,6 @@ java.util.logging.ConsoleHandler.encoding = UTF-8
 
 
 
-## 4.6、logging.properties
+### 4.6、logging.properties
 
 配置 JULI 日志框架，包括日志级别、输出格式、文件轮转、日志目录等。

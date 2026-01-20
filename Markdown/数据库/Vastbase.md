@@ -1,10 +1,12 @@
-# 1、简介
+# Vastbase
+
+## 1、简介
 
 Vastbase G100 数据库是海量数据基于开源 openGauss 内核开发的企业级关系型数据库。融合多年对各行业应用场景的深入理解，Vastbase G100 除了具有 openGauss 极致的性能以外，还在原有功能基础上增加了大量 Oracle 兼容特性，并遵循 EAL4+ 标准进行了大幅度的安全增强，同时整合 GIS/流计算 等一系列专业应用领域的企业级功能。
 
 <br>
 
-## 1.1、产品介绍
+### 1.1、产品介绍
 
 Vastbase G100 支持 SQL2003 标准语法，支持主备部署的高可用关系型数据库。
 
@@ -61,7 +63,7 @@ Vastbase G100 的数据库节点负责存储数据，其存储介质也是磁盘
 
 <br>
 
-## 1.2、部署方案
+### 1.2、部署方案
 
 常用概念：
 
@@ -85,7 +87,7 @@ Vastbase G100 的数据库节点负责存储数据，其存储介质也是磁盘
 
 <br>
 
-### 1.2.1、部署形态汇总
+#### 1.2.1、部署形态汇总
 
 部署形态方案介绍如下表所示：
 
@@ -109,7 +111,7 @@ Vastbase G100 的数据库节点负责存储数据，其存储介质也是磁盘
 
 <br>
 
-### 1.2.2、部署方案介绍
+#### 1.2.2、部署方案介绍
 
 整体部署方案可以分为三类：单机部署、一主一备部署、一主多备部署。
 
@@ -146,9 +148,9 @@ Vastbase G100 的数据库节点负责存储数据，其存储介质也是磁盘
 
 <br>
 
-## 1.3、数据库核心技术
+### 1.3、数据库核心技术
 
-### 1.3.1、相关概念
+#### 1.3.1、相关概念
 
 **数据库**
 
@@ -180,11 +182,11 @@ Vastbase G100 使用用户和角色来控制对数据库的访问。根据角色
 
 <br>
 
-# 2、部署和卸载
+## 2、部署和卸载
 
-## 2.1、安装数据库
+### 2.1、安装数据库
 
-### 2.1.1、部署规划
+#### 2.1.1、部署规划
 
 **IP规划**
 
@@ -219,13 +221,13 @@ Vastbase G100 使用用户和角色来控制对数据库的访问。根据角色
 
 <br>
 
-### 2.1.2、安装前准备
+#### 2.1.2、安装前准备
 
 对操作系统环境进行配置，注意需使用 root 用户操作。
 
 <br>
 
-#### 主机名设置
+##### 主机名设置
 
 设置节点主机名称，XML 配置文件的 `nodeNames` 需与节点 hostname 保持一致。
 
@@ -235,7 +237,7 @@ hostnamectl set-hostname orichalcos
 
 <br>
 
-#### 关闭透明大页
+##### 关闭透明大页
 
 1. 配置系统服务，关闭透明大页：
 
@@ -267,7 +269,7 @@ hostnamectl set-hostname orichalcos
 
 <br>
 
-#### 防火墙设置
+##### 防火墙设置
 
 （可选）关闭防火墙：
 
@@ -287,7 +289,7 @@ firewall-cmd --list-port
 
 <br>
 
-#### SELinux 设置
+##### SELinux 设置
 
 > [!NOTE]
 >
@@ -324,7 +326,7 @@ getenforce
 
 <br>
 
-#### IPC 参数设置
+##### IPC 参数设置
 
 1. 添加 `RemoveIPC=no` 到 logind.conf  文件：
 
@@ -348,7 +350,7 @@ getenforce
 
 <br>
 
-#### 内核参数调整
+##### 内核参数调整
 
 1. 编辑配置文件：
 
@@ -392,7 +394,7 @@ getenforce
 
 
 
-#### 创建用户与目录
+##### 创建用户与目录
 
 1. 创建数据库用户并设置密码：
 
@@ -420,7 +422,7 @@ getenforce
 
 <br>
 
-#### 修改资源限制
+##### 修改资源限制
 
 1. 执行以下命令，计算生成一次 core 文件需要的磁盘空间大小（KB）：
 
@@ -451,7 +453,7 @@ getenforce
 
 <br>
 
-#### 预装依赖
+##### 预装依赖
 
 安装依赖软件需要使用 `yum`（RedHat、CentOS 等操作系统）或 `apt`（Ubuntu 等操作系统），在安装依赖前，请确保已经加载了下载这些依赖软件的源。
 
@@ -495,7 +497,7 @@ getenforce
 
 <br>
 
-#### 安装 Python3
+##### 安装 Python3
 
 | 操作系统  | Python 版本                      |
 | --------- | -------------------------------- |
@@ -550,7 +552,7 @@ cp -p /usr/local/python3/lib/*  /usr/lib64  -r
 
 <br>
 
-#### sudo 配置
+##### sudo 配置
 
 为 vastbase 用户添加 fio 权限以便完成数据库上线前的磁盘 I/O 性能检查。
 
@@ -574,9 +576,9 @@ cp -p /usr/local/python3/lib/*  /usr/lib64  -r
 
 <br>
 
-### 2.1.3、数据库安装
+#### 2.1.3、数据库安装
 
-#### 解压安装包
+##### 解压安装包
 
 1. 将 G100 和 Has 安装包上传至软件目录 `/data/soft` 下，为避免后续脚本执行出错，注意该路径下不要存放其他 G100 和 Has 安装包：
 
@@ -616,7 +618,7 @@ cp -p /usr/local/python3/lib/*  /usr/lib64  -r
 
 <br>
 
-#### 上传许可文件
+##### 上传许可文件
 
 生产部署时应使用正式许可文件，上传有效许可 vastbase_license 至 `/data/soft` 目录，并替换安装包里的许可文件：
 
@@ -630,7 +632,7 @@ echo "yes" | cp /data/soft/vastbase_license /data/soft/vastbase-installer/licens
 
 <br>
 
-#### 配置 XML 文件
+##### 配置 XML 文件
 
 编辑 XML 文件，详细参数说明参考 [Has配置说明](https://docs.vastdata.com.cn/zh/docs/VastbaseG100Ver2.2.15/doc/安装升级指南/集群部署/HAS3.2/HAS3.2-配置说明.html)：
 
@@ -677,7 +679,7 @@ vi /data/soft/vastbase-installer/single_node.xml
 
 <br>
 
-#### 预安装
+##### 预安装
 
 > [!TIP]
 >
@@ -776,7 +778,7 @@ Preinstallation succeeded.
 
 <br>
 
-#### 执行安装
+##### 执行安装
 
 1. 安装包解压后未对 vastbase 用户授权，补充授权：
 
@@ -857,9 +859,9 @@ Preinstallation succeeded.
 
 <br>
 
-### 2.1.4、安装后配置
+#### 2.1.4、安装后配置
 
-#### 数据库参数配置
+##### 数据库参数配置
 
 1. 设置环境变量，以 vastbase 用户执行：
 
@@ -1077,7 +1079,7 @@ Preinstallation succeeded.
 
 <br>
 
-#### 调整统计数据目录
+##### 调整统计数据目录
 
 使用 root 用户操作，挂载 tmpfs 目录用于存放数据库统计数据，避免 statscollecter 线程占用大量磁盘 IO。
 
@@ -1140,7 +1142,7 @@ mount -t tmpfs -o remount,size=128M tmpfs /stat_tmp/pg_stat_tmp
 
 <br>
 
-#### 添加系统服务
+##### 添加系统服务
 
 1. 将数据库程序加入系统服务，以便开机自启：
 
@@ -1224,7 +1226,7 @@ mount -t tmpfs -o remount,size=128M tmpfs /stat_tmp/pg_stat_tmp
 
 <br>
 
-#### 修改定时任务
+##### 修改定时任务
 
 **OSWatch监控（强制）**
 
@@ -1287,17 +1289,17 @@ echo vastbase >> /etc/cron.allow
 
 ```
 crontab -e -u vastbase
-# Monitor OSWatch every 5 minutes
+## Monitor OSWatch every 5 minutes
 */5 * * * * sh /backup/oswbb/scripts/checkOSWatch.sh 1> /backup/oswbb/scripts/checkOSWatch.sh.out 2>&1
-# Clean DB Logs
+## Clean DB Logs
 0 1 * * * find /data/vblogs/vastbase/pg_log/dn*/ -maxdepth 1 -name "postgresql*" -mtime +90 -exec rm -f {} \;
-# Clean Archive Logs
+## Clean Archive Logs
 0 1 * * * find /backup/archive_wals/ -maxdepth 1  -name "00*" -mtime +7 -exec rm -f {} \;
 ```
 
 <br>
 
-#### 修改管理员密码
+##### 修改管理员密码
 
 inituser 不允许远程访问，为便于后续运维，建议初始化 vbadmin 用户密码：
 
@@ -1307,7 +1309,7 @@ vsql -c "alter user vbadmin password 'xxxxxxxx'"
 
 <br>
 
-## 2.2、连接数据库
+### 2.2、连接数据库
 
 `vsql` 是 Vastbase 自带的客户端工具，用于连接数据库，可以交互式地输入、编辑和执行 SQL 语句。
 
@@ -1315,7 +1317,7 @@ vsql -c "alter user vbadmin password 'xxxxxxxx'"
 
 <br>
 
-### 2.2.1、使用 vsql 连接
+#### 2.2.1、使用 vsql 连接
 
 vsql 是 Vastbase提供的在命令行下运行的数据库连接工具。此工具除了具备操作数据库的基本功能，还提供了若干高级特性，便于用户使用。
 
@@ -1366,7 +1368,7 @@ vsql 是 Vastbase提供的在命令行下运行的数据库连接工具。此工
 
 <br>
 
-### 2.2.2、使用 VDS 连接
+#### 2.2.2、使用 VDS 连接
 
 VDS（Vastbase Data Studio ）作为北京海量数据提供的一款数据库开发工具，专注于为 Vastbase 数据库提供图形化界面的数据管理和操作能力。可以极大地提高数据的管理效率，降低操作复杂度。
 
@@ -1374,7 +1376,7 @@ VDS 软件可以前往 [MVS](https://support.vastdata.com.cn) （My Vastdata Sup
 
 <br>
 
-## 2.3、卸载数据库
+### 2.3、卸载数据库
 
 卸载 Vastbase 的过程包含卸载 Vastbase 和对 Vastbase 服务器的环境清理。
 
@@ -1423,9 +1425,9 @@ VDS 软件可以前往 [MVS](https://support.vastdata.com.cn) （My Vastdata Sup
 
 <br>
 
-# 3、数据库使用
+## 3、数据库使用
 
-## 3.1、表空间管理
+### 3.1、表空间管理
 
 通过使用表空间，管理员可以控制一个数据库安装的磁盘布局。这样有以下优点：
 
@@ -1450,7 +1452,7 @@ Vastbase G100 自带了两个表空间：pg_default 和 pg_global。
 
 <br>
 
-### 3.1.1、创建表空间
+#### 3.1.1、创建表空间
 
 1. 执行如下命令创建表空间：
 
@@ -1480,7 +1482,7 @@ Vastbase G100 自带了两个表空间：pg_default 和 pg_global。
 
 <br>
 
-### 3.1.2、查看表空间
+#### 3.1.2、查看表空间
 
 **查询表空间**
 
@@ -1521,7 +1523,7 @@ pg_tablespace_size
 
 <br>
 
-### 3.1.3、修改表空间
+#### 3.1.3、修改表空间
 
 执行如下命令对表空间 fastspace 重命名为 fspace：
 
@@ -1532,7 +1534,7 @@ ALTER TABLESPACE yiplat RENAME TO ptjyj;
 
 <br>
 
-### 3.1.4、删除表空间
+#### 3.1.4、删除表空间
 
 > [!CAUTION]
 >
@@ -1547,7 +1549,7 @@ DROP TABLESPACE fspace;
 
 <br>
 
-## 3.2、数据库管理
+### 3.2、数据库管理
 
 用户必须拥有数据库创建的权限或者是数据库的系统管理员权限才能创建数据库。
 
@@ -1559,7 +1561,7 @@ DROP TABLESPACE fspace;
 
 <br>
 
-### 3.2.1、创建数据库
+#### 3.2.1、创建数据库
 
 使用如下命令在表空间 tpcds_local 下创建一个新的数据库 db_tpcc：
 
@@ -1569,7 +1571,7 @@ CREATE DATABASE db_tpcc WITH TABLESPACE = tpcds_local;
 
 <br>
 
-### 3.2.2、查看数据库
+#### 3.2.2、查看数据库
 
 通过系统表 PG_DATABASE 查询数据库列表：
 
@@ -1585,7 +1587,7 @@ SELECT datname FROM PG_DATABASE;
 
 <br>
 
-## 3.3、用户管理
+### 3.3、用户管理
 
 使用 `CREATE USER` 和 `ALTER USER` 可以创建和管理数据库用户。Vastbase G100 包含一个或多个已命名数据库。用户和角色在整个 Vastbase G100 范围内是共享的，但是其数据并不共享。即用户可以连接任何数据库，但当连接成功后，任何用户都只能访问连接请求里声明的那个数据库。
 
@@ -1595,7 +1597,7 @@ SELECT datname FROM PG_DATABASE;
 
 <br>
 
-### 3.3.1、创建用户
+#### 3.3.1、创建用户
 
 > [!TIP]
 >
@@ -1613,7 +1615,7 @@ CREATE USER joe WITH CREATEDB PASSWORD "Bigdata@123";
 
 <br>
 
-### 3.3.2、查看用户
+#### 3.3.2、查看用户
 
 要查看用户列表，请查询视图 PG_USER：
 
@@ -1629,7 +1631,7 @@ SELECT * FROM pg_authid;
 
 <br>
 
-### 3.3.3、修改用户
+#### 3.3.3、修改用户
 
 要更改用户帐户（例如，重命名用户或更改密码），请使用 ALTER USER 语句。
 
@@ -1641,7 +1643,7 @@ ALTER USER joe RENAME TO orichalcos;
 
 <br>
 
-## 3.4、模式管理
+### 3.4、模式管理
 
 Schema 又称作模式。通过管理 Schema，允许多个用户使用同一数据库而不相互干扰，可以将数据库对象组织成易于管理的逻辑组，同时便于将第三方应用添加到相应的 Schema 下而不引起冲突。管理 Schema包括：创建 Schema、使用 Schema、删除 Schema、设置 Schema 的搜索路径以及 schema 的权限控制。
 
@@ -1657,7 +1659,7 @@ Schema 又称作模式。通过管理 Schema，允许多个用户使用同一数
 
 <br>
 
-### 3.4.1、创建模式
+#### 3.4.1、创建模式
 
 访问命名对象时可以使用模式名作为前缀进行访问，如果无模式名前缀，则访问当前模式下的命名对象。创建命名对象时也可用模式名作为前缀修饰。
 
@@ -1676,7 +1678,7 @@ CREATE SCHEMA yiplat AUTHORIZATION dba;
 
 <br>
 
-# 4、数据库配置
+## 4、数据库配置
 
 
 

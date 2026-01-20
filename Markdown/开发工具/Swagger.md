@@ -1,8 +1,6 @@
----
-typora-copy-images-to: upload
----
+# Swagger
 
-# 1、概述
+## 1、概述
 
 **导语**
 
@@ -38,9 +36,9 @@ typora-copy-images-to: upload
 
 
 
-# 2、Spring Boot 集成 Swagger 3.0
+## 2、Spring Boot 集成 Swagger 3.0
 
-## 2.1、搭建环境
+### 2.1、搭建环境
 
 1. 新建一个 Spring Boot 项目
 
@@ -82,7 +80,7 @@ typora-copy-images-to: upload
 
 
 
-## 2.2、Swagger 3.0 配置
+### 2.2、Swagger 3.0 配置
 
 Swagger 的实例 Bean 是 Docket，所以通过配置 Docket 实例来配置 Swagger。
 
@@ -97,7 +95,7 @@ public Docket docket(){
 
 
 
-### 2.2.1、DocumentationType 
+#### 2.2.1、DocumentationType 
 
 这个时候发现构造函数需要一个参数，先别急，点进 Docket 构造函数源码看看：
 
@@ -120,7 +118,7 @@ public Docket docket() {
 
 
 
-### 2.2.2、Docket
+#### 2.2.2、Docket
 
 再回去反观 Docket 的其他源码：
 
@@ -143,7 +141,7 @@ public Docket docket() {
 
 
 
-### 2.2.3、ApiInfo
+#### 2.2.3、ApiInfo
 
 ApiInfo 见名知意，提供了一些基本信息的配置，这些配置信息可以显示 UI 界面上。同样的，点进它的源码看看：
 
@@ -199,7 +197,7 @@ public ApiInfo getApiInfo() {
 
 
 
-### 2.2.4、ApiSelectorBuilder
+#### 2.2.4、ApiSelectorBuilder
 
 构建 Docket 时通过 select() 方法配置怎么扫描接口，它会返回一个 ApiSelectorBuilder 对象
 
@@ -282,7 +280,7 @@ public Docket docket() {
 
 
 
-### 2.2.5、groupName
+#### 2.2.5、groupName
 
 groupName 就是上面说的右上角的分组选项，一般项目中不同的开发人员，可以创建不同的分组，默认的分组是 default。我们可以通过配置多个 Docket 去实现分组：
 
@@ -319,7 +317,7 @@ public Docket docket1(){
 
 
 
-### 2.2.6、useDefaultResponseMessages
+#### 2.2.6、useDefaultResponseMessages
 
 点开接口文档中的接口，可以看见，在 Response 中 Swagger 默认提供了 200,401,403,404 这几个状态码
 
@@ -348,7 +346,7 @@ public Docket docket() {
 
 
 
-### 2.2.7、enabled
+#### 2.2.7、enabled
 
 在开发、测试时候需要启动 Swagger，但是在实际项目发布上线了就要关闭它，因为一旦一些重要的接口暴露是很危险的，而且一直运行着 Swagger 也会浪费系统资源。
 
@@ -393,9 +391,9 @@ public Docket docket() {
 
 
 
-## 2.3、注解使用
+### 2.3、注解使用
 
-### 2.3.1、Controller 注解
+#### 2.3.1、Controller 注解
 
 **@Api**
 
@@ -496,7 +494,7 @@ public User hey(@RequestBody User user) {
 
 
 
-### 2.3.2、实体类注解
+#### 2.3.2、实体类注解
 
 **@ApiModel**
 
@@ -526,7 +524,7 @@ public class User {
 
 
 
-# 3、Swagger 2.0
+## 3、Swagger 2.0
 
 其实上面的 Swagger 3.0 已经使用了大量的 2.0 注解，所以这里主要讲与集成 3.0 的不同之处。
 
@@ -573,7 +571,7 @@ Swagger 2.0 的 Swagger UI 的访问路径为：http://localhost:8080/swagger-ui
 
 
 
-# 4、禁用 Swagger
+## 4、禁用 Swagger
 
 除了前面提到的禁用方法，还有其他一些有意思的禁用方法。
 

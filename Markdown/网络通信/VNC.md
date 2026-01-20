@@ -1,4 +1,6 @@
-# 1、什么是 VNC？
+# VNC
+
+## 1、什么是 VNC？
 
 VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote FrameBuffer）协议的远程桌面共享系统。它允许用户通过网络远程控制另一台计算机的桌面界面。
 
@@ -28,7 +30,7 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 
 <br>
 
-# 2、VNC 的工作原理
+## 2、VNC 的工作原理
 
 **架构组成**
 
@@ -58,7 +60,7 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 
 <br>
 
-# 3、VNC 与其他远程协议对比
+## 3、VNC 与其他远程协议对比
 
 | 协议/工具   | 图形界面 | 默认加密    | 跨平台          | 典型用途               | 带宽效率           |
 | ----------- | -------- | ----------- | --------------- | ---------------------- | ------------------ |
@@ -70,9 +72,9 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 
 <br>
 
-# 4、环境搭建
+## 4、环境搭建
 
-## 4.1、Linux 通用
+### 4.1、Linux 通用
 
 通用 Linux 远程桌面搭建方案：TigerVNC（服务端） + XFCE4（桌面环境）。
 
@@ -204,7 +206,7 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 
 <br>
 
-## 4.2、统信 UOS
+### 4.2、统信 UOS
 
 在统信服务器操作系统中安装 VNC 工具，用于实现从 Windows 侧系统上使用 VNC Viewer 等软件远程登录桌面访问 UOS 服务器操作系统。
 

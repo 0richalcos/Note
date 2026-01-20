@@ -1,4 +1,6 @@
-# 1、简介
+# OceanBase
+
+## 1、简介
 
 OceanBase 数据库（OceanBase Database）是一款蚂蚁集团完全自研的企业级原生分布式数据库，在普通硬件上实现金融级高可用，首创“三地五中心”城市级故障自动无损容灾新标准，刷新 TPC-C 标准测试，单集群规模超过 1500 节点，具有云原生、强一致性、高度兼容 Oracle/MySQL 等特性。
 
@@ -46,13 +48,13 @@ OceanBase 数据库（OceanBase Database）是一款蚂蚁集团完全自研的�
 
 <br>
 
-# 2、安装数据库
+## 2、安装数据库
 
 
 
 <br>
 
-# 3、连接数据库
+## 3、连接数据库
 
 连接数据库需要用到数据库连接串，请联系 OceanBase 数据库部署人员或者管理员获取相应的数据库连接串，例如：
 
@@ -88,9 +90,9 @@ obclient -h$host -P$port -u$user_name -p$password -D$database_name
 
 <br>
 
-## 3.1、基于 MySQL 模式
+### 3.1、基于 MySQL 模式
 
-### 3.1.1、Navicat
+#### 3.1.1、Navicat
 
 Navicat 是一款通用的数据库客户端工具，其原理是使用各个数据库提供的 JDBC 驱动连接数据库，支持常见的关系型数据库、非关系型数据库、分布式数据库等等。
 
@@ -112,7 +114,7 @@ Navicat 是一款通用的数据库客户端工具，其原理是使用各个数
 
 <br>
 
-### 3.1.2、SpringBoot
+#### 3.1.2、SpringBoot
 
 SpringBoot 连接 OceanBase 只需要修改 `datasource` 信息即可：
 

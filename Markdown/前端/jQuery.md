@@ -1,6 +1,8 @@
-# 1、jQuery 教程
+# jQuery
 
-## 1.1、jQuery 简介
+## 1、jQuery 教程
+
+### 1.1、jQuery 简介
 
 jQuery 库可以通过一行简单的标记被添加到网页中。
 
@@ -48,7 +50,7 @@ jQuery 库位于一个 JavaScript 文件中，其中包含了所有的 jQuery �
 
 <br>
 
-## 1.2、jQuery 语法
+### 1.2、jQuery 语法
 
 通过 jQuery，您可以选取（查询，query） HTML 元素，并对它们执行“操作”（actions）。
 
@@ -95,7 +97,7 @@ $(function(){
 
 
 
-## 1.3、jQuery 选择器
+### 1.3、jQuery 选择器
 
 jQuery 元素选择器和属性选择器允许您通过标签名、属性名或内容对 HTML 元素进行选择。
 
@@ -168,7 +170,7 @@ jQuery 元素选择器和属性选择器允许您通过标签名、属性名或�
 
 
 
-## 1.4、jQuery 事件
+### 1.4、jQuery 事件
 
 jQuery 是为事件处理特别设计的。
 
@@ -303,9 +305,9 @@ $('input').trigger('onblur');
 
 
 
-# 2、jQuery 效果 
+## 2、jQuery 效果 
 
-## 2.1、jQuery 隐藏/显示
+### 2.1、jQuery 隐藏/显示
 
 **jQuery hide() 和 show()**
 
@@ -358,7 +360,7 @@ $(selector).toggle(speed,callback);
 
 <br>
 
-## 2.2、jQuery 淡入淡出
+### 2.2、jQuery 淡入淡出
 
 通过 jQuery 可以实现元素的淡入淡出效果。
 
@@ -471,7 +473,7 @@ fadeTo() 方法中必需的 opacity 参数将淡入淡出效果设置为给定�
 
 <br>
 
-## 2.3、jQuery 滑动
+### 2.3、jQuery 滑动
 
 jQuery 滑动方法可使元素上下滑动。
 
@@ -553,7 +555,7 @@ $(selector).slideToggle(speed,callback);
 
 <br>
 
-## 2.4、jQuery 动画
+### 2.4、jQuery 动画
 
 jQuery animate() 方法允许创建自定义的动画。
 
@@ -665,7 +667,7 @@ $("button").click(function(){
 
 <br>
 
-## 2.5、jQuery stop()
+### 2.5、jQuery stop()
 
 jQuery stop() 方法用于在动画或效果完成前对它们进行停止。
 
@@ -691,7 +693,7 @@ $(selector).stop(stopAll,goToEnd);
 
 <br>
 
-## 2.6、jQuery Callback
+### 2.6、jQuery Callback
 
 **jQuery 动画的问题**
 
@@ -742,7 +744,7 @@ alert("The paragraph is now hidden");
 
 <br>
 
-## 2.7、jQuery Chaining
+### 2.7、jQuery Chaining
 
 通过 jQuery 可以把动作/方法链接起来。Chaining 允许在一条语句中运行多个 jQuery 方法（在相同的元素上）。
 
@@ -774,9 +776,9 @@ jQuery 会抛掉多余的空格，并按照一行长代码来执行上面的代�
 
 <br>
 
-# 3、jQuery HTML
+## 3、jQuery HTML
 
-## 3.1、jQuery 获取
+### 3.1、jQuery 获取
 
 jQuery 拥有可操作 HTML 元素和属性的强大方法。
 
@@ -829,7 +831,7 @@ $("button").click(function(){
 
 <br>
 
-## 3.2、jQuery 设置
+### 3.2、jQuery 设置
 
 **设置内容 - text()、html() 以及 val()**
 
@@ -935,7 +937,7 @@ prop() 方法设置或返回被选元素的属性和值。功能和 attr() 基�
 
 <br>
 
-## 3.3、jQuery 添加
+### 3.3、jQuery 添加
 
 通过 jQuery，可以很容易地添加新元素/内容。
 
@@ -1016,7 +1018,7 @@ function afterText(){
 
 <br>
 
-## 3.4、jQuery 删除
+### 3.4、jQuery 删除
 
 通过 jQuery，可以很容易地删除已有的 HTML 元素。
 
@@ -1056,7 +1058,7 @@ $("p").remove(".italic");
 
 <br>
 
-## 3.5、jQuery CSS 类
+### 3.5、jQuery CSS 类
 
 jQuery 拥有若干进行 CSS 操作的方法。
 
@@ -1123,7 +1125,7 @@ $("button").click(function(){
 
 <br>
 
-## 3.6、jQuery css()
+### 3.6、jQuery css()
 
 css() 方法设置或返回被选元素的一个或多个样式属性。
 
@@ -1175,7 +1177,7 @@ $("p").css({"background-color":"yellow","font-size":"200%"});
 
 <br>
 
-## 3.7、jQuery 尺寸
+### 3.7、jQuery 尺寸
 
 通过 jQuery，很容易处理元素和浏览器窗口的尺寸。
 
@@ -1280,9 +1282,9 @@ $("button").click(function(){
 
 <br>
 
-# 4、jQuery 遍历
+## 4、jQuery 遍历
 
-## 4.1、jQuery 祖先
+### 4.1、jQuery 祖先
 
 这些 jQuery 方法用于向上遍历 DOM 树：
 
@@ -1339,7 +1341,7 @@ $(document).ready(function(){
 
 <br>
 
-## 4.2、jQuery 后代
+### 4.2、jQuery 后代
 
 下面两个是用于向下遍历 DOM 树的 jQuery 方法：
 
@@ -1390,7 +1392,7 @@ $(document).ready(function(){
 
 <br>
 
-## 4.3、jQuery 同胞
+### 4.3、jQuery 同胞
 
 同胞拥有相同的父元素。
 
@@ -1473,7 +1475,7 @@ $(document).ready(function(){
 
 <br>
 
-## 4.4、jQuery 过滤
+### 4.4、jQuery 过滤
 
 三个最基本的过滤方法是：`first()`、`last()` 和 `eq()`，它们允许基于其在一组元素中的位置来选择一个特定的元素。
 
@@ -1546,7 +1548,7 @@ $(document).ready(function(){
 
 <br>
 
-## 4.5、each()/map()
+### 4.5、each()/map()
 
 **each()**
 
@@ -1646,9 +1648,9 @@ A0A0, B1B1, C2C2, D3D3, E4E4
 
 <br>
 
-# 5、jQuery AJAX
+## 5、jQuery AJAX
 
-## 5.1、jQuery Load
+### 5.1、jQuery Load
 
 **jQuery load() 方法**
 
@@ -1712,7 +1714,7 @@ $("button").click(function(){
 
 <br>
 
-## 5.2、jQuery Get/Post
+### 5.2、jQuery Get/Post
 
 两种在客户端和服务器端进行请求-响应的常用方法是：GET 和 POST。
 
@@ -1796,7 +1798,7 @@ $.post() 的第一个参数是希望请求的 URL ("demo_test_post.asp")。
 
 <br>
 
-## 5.3、.serialize()
+### 5.3、.serialize()
 
 serialize() 方法通过序列化表单值，创建 URL 编码文本字符串。
 
@@ -1854,7 +1856,7 @@ a=1&b=2&c=3&d=4&e=5
 
 <br>
 
-## 5.4、.serializeArray()
+### 5.4、.serializeArray()
 
 serializeArray() 方法通过序列化表单值来创建对象数组（名称和值）。
 
@@ -1931,7 +1933,7 @@ $(selector).serializeArray()
 
 <br>
 
-## 5.5、jQuery Param
+### 5.5、jQuery Param
 
 有关 URL 操作的工具函数，暂时也只有一种，那就是`$.param()`方法。在 jQuery 中，我们可以使用`$.param()`方法将数组或对象转化为字符串序列，以便用于 URL 查询字符串或 Ajax 请求。
 
@@ -1971,9 +1973,9 @@ name=Orichalcos&age=25
 
 <br>
 
-## 5.6、jQuery When
+### 5.6、jQuery When
 
-### 5.6.1、什么是deferred对象？
+#### 5.6.1、什么是deferred对象？
 
 开发网站的过程中，我们经常遇到某些耗时很长的 javascript 操作。其中，既有异步的操作（比如 ajax 读取服务器数据），也有同步的操作（比如遍历一个大型数组），它们都不是立即能得到结果的。
 
@@ -1985,7 +1987,7 @@ name=Orichalcos&age=25
 
 <br>
 
-### 5.6.2、ajax 操作的链式写法
+#### 5.6.2、ajax 操作的链式写法
 
 jQuery 的 ajax 操作的传统写法：
 
@@ -2028,7 +2030,7 @@ $.when($.ajax( "/main.php" ))
 
 <br>
 
-### 5.6.3、为操作指定多个回调函数
+#### 5.6.3、为操作指定多个回调函数
 
 deferred 对象的一大好处，就是它允许自由添加多个回调函数。
 
@@ -2047,7 +2049,7 @@ $.ajax("test.html")
 
 <br>
 
-### 5.6.4、为多个操作指定回调函数
+#### 5.6.4、为多个操作指定回调函数
 
 deferred 对象的另一大好处，就是它允许你为多个事件指定一个回调函数，这是传统写法做不到的。
 
@@ -2063,7 +2065,7 @@ $.when($.ajax("test1.html"), $.ajax("test2.html"))
 
 <br>
 
-### 5.6.5、普通操作的回调函数接口
+#### 5.6.5、普通操作的回调函数接口
 
 deferred 对象的最大优点，就是它把这一套回调函数接口，从 ajax 操作扩展到了所有操作。也就是说，任何一个操作，不管是 ajax 操作还是本地操作，也不管是异步操作还是同步操作，都可以使用 deferred 对象的各种方法，指定回调函数。
 
@@ -2116,7 +2118,7 @@ $.when(wait(dtd))
 
 <br>
 
-# 7、jQuery.extend()
+## 7、jQuery.extend()
 
 `jQuery.extend()` 函数用于将一个或多个对象的内容合并到目标对象。
 

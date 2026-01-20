@@ -1,6 +1,4 @@
----
-typora-copy-images-to: upload
----
+# DHTMLXGantt
 
 DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 UI 组件。使用 dhtmlxSuite 生成企业级 WEB 应用程序有干净的界面、 快速的性能和丰富的用户体验。DHTMLX 组件是由位于俄罗斯圣彼得堡的 DHTMLX 公司开发的，适用于 B/S  模式的 WEB 应用开发，DHTMLX-Gantt 是该公司旗下开发的甘特图组件.
 
@@ -8,7 +6,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 
 
 
-# 1、简单使用
+## 1、简单使用
 
 这里使用 Standard 版：
 
@@ -53,9 +51,9 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 
 
 
-# 2、Gantt API
+## 2、Gantt API
 
-## 2.1、属性
+### 2.1、属性
 
 [官方文档](https://docs.dhtmlx.com/gantt/api__refs__gantt_props.html)
 
@@ -1874,15 +1872,15 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 
 
 
-# 3、向导
+## 3、向导
 
 [官方文档](https://docs.dhtmlx.com/gantt/desktop__guides.html)
 
 
 
-## 3.1、样式
+### 3.1、样式
 
-### 3.1.1、CSS 文档
+#### 3.1.1、CSS 文档
 
 **网格样式**
 
@@ -1962,7 +1960,7 @@ DHTMLX 组件是一个 JavaScript 库，提供了一套完整的 AJAX 驱动的 
 
 
 
-### 3.1.2、任务着色
+#### 3.1.2、任务着色
 
 给任务着色可以突出显示特定的任务，以便将用户注意：
 
@@ -2068,13 +2066,13 @@ gantt.templates.task_class  = function(start, end, task){
 
 
 
-## 3.2、配置任务
+### 3.2、配置任务
 
 <img src="!assets/DHTMLXGantt/gantt_tasks.png" alt="img" style="width:60%;" />
 
 
 
-### 3.2.1、时间线区域的额外元素
+#### 3.2.1、时间线区域的额外元素
 
 默认情况下，DHTMLX Gantt 将时间线区域的元素渲染为层，并按以下顺序执行：
 
@@ -2200,14 +2198,14 @@ gantt.addTaskLayer(function myNewElement(task) {
 
 
 
-## 3.3、配置刻度
+### 3.3、配置刻度
 
 <img src="!assets/DHTMLXGantt/gantt_right.png" alt="img" style="width:60%;" />
 
 
 
 
-### 3.3.1、设置刻度
+#### 3.3.1、设置刻度
 
 <img src="!assets/DHTMLXGantt/gantt_dates.png" alt="img" style="width:60%;" />
 
@@ -2237,7 +2235,7 @@ gantt.config.scales = [
 
 
 
-#### 时间单位
+##### 时间单位
 
 <img src="!assets/DHTMLXGantt/month_day_scale_units.png" alt="img" style="width:45%;" />
 
@@ -2257,7 +2255,7 @@ gantt.init("gantt_here");
 
 
 
-#### 范围
+##### 范围
 
 <img src="!assets/DHTMLXGantt/day_scale_unit.png" alt="img" style="width:45%;" />
 
@@ -2330,7 +2328,7 @@ gantt.init("gantt_here", new Date(2020, 1, 1), new Date(2020, 2,1));
 
 
 
-#### 高度
+##### 高度
 
 <img src="!assets/DHTMLXGantt/scale_height.png" alt="img" style="width:50%;" />
 
@@ -2347,7 +2345,7 @@ gantt.init("gantt_here");
 
 
 
-#### 日期格式
+##### 日期格式
 
 使用相应刻度对象中的 `format` 特性可以设置刻度的格式。日期格式可以设置为字符串：
 
@@ -2433,7 +2431,7 @@ gantt.config.scales = [
 
 
 
-### 3.3.2、缩放
+#### 3.3.2、缩放
 
 DHTMLX Gantt 提供了一个内置模块，用于方便地管理时间刻度缩放。如果要自定义默认缩放行为，有一个灵活的 API 可以实现动态更改时间刻度设置的功能。
 
@@ -2592,14 +2590,14 @@ for (var i = 0; i < els.length; i++) {
 
 
 
-## 3.4、配置网格区域
+### 3.4、配置网格区域
 
 <img src="!assets/DHTMLXGantt/gantt_left.png" alt="img" style="width:70%;" />
 
 
 
 
-### 3.4.1、配置树列
+#### 3.4.1、配置树列
 
 **设置树节点模板**
 

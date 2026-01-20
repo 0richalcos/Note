@@ -1,6 +1,8 @@
-# 1、OnlyOffice
+# OnlyOffice
 
-## 1.1、基本概念和安装
+## 1、OnlyOffice
+
+### 1.1、基本概念和安装
 
 OnlyOffice（前身为TeamLab ），亦被称为 ONLYOFFICE， 是一个开源办公套件，包括文本文档、电子表格、演示文稿和可填写表单的编辑器。
 ONLYOFFICE 文档提供以下功能：
@@ -12,13 +14,13 @@ ONLYOFFICE 文档提供以下功能：
 
 
 
-### 1.1.1、 Docker 安装
+#### 1.1.1、 Docker 安装
 
 推荐使用 [Docker](https://www.docker.com/) 进行集成，避免了出现服务器系统的不同而重新适配的问题。Docker的思想来自于集装箱，集装箱解决了什么问题？在一艘大船上，可以把货物规整的摆放起来。并且各种各样的货物被集装箱标准化了，集装箱和集装箱之间不会互相影响。那么我就不需要专门运送水果的船和专门运送化学品的船了。只要这些货物在集装箱里封装的好好的，那我就可以用一艘大船把他们都运走。
 
 
 
-#### 安装
+##### 安装
 
 1. 拉取 OnlyOffice 镜像：
 
@@ -90,23 +92,23 @@ ONLYOFFICE 文档提供以下功能：
 
 
 
-#### 常用命令
+##### 常用命令
 
 ```shell
-# 开始运行
+## 开始运行
 docker start onlyoffice
 
-# 停止运行
+## 停止运行
 docker stop onlyoffice
 
-# 删除镜像（如果有镜像创建的容器需要先删除容器，删除容器需要先停止运行才可以删除）
+## 删除镜像（如果有镜像创建的容器需要先删除容器，删除容器需要先停止运行才可以删除）
 docker rm onlyoffice
 docker rmi onlyoffice/documentserver
 ```
 
 
 
-#### Nginx 代理
+##### Nginx 代理
 
 使用 Nginx 将客户端请求转发到后端的 ONLYOFFICE Document Server，同时处理好 WebSocket 和反向代理相关的头部信息，确保 ONLYOFFICE 正常工作：
 
@@ -155,7 +157,7 @@ server {
 
 
 
-## 1.2、简单示例
+### 1.2、简单示例
 
 通常可以在以下编辑器文件夹中找到 API JavaScript 文件：
 
@@ -227,9 +229,9 @@ config = {
 
 
 
-# 2、工作原理及实践
+## 2、工作原理及实践
 
-## 2.1、打开文件
+### 2.1、打开文件
 
 参考图和以下步骤说明了在ONLYOFFICE Document Server中打开文档的过程：
 
@@ -303,7 +305,7 @@ config = {
 
 
 
-## 2.2、保存文件
+### 2.2、保存文件
 
 参考图和以下步骤说明了将文档保存在 ONLYOFFICE Document Server 中的过程。
 
@@ -409,7 +411,7 @@ config = {
 
 
 
-## 3.3、审阅
+### 3.3、审阅
 
 “审阅” 选项允许您审阅文档、更改句子、短语和其他页面元素、更正拼写等，而无需实际编辑文档。所有更改都将被记录并显示给创建文档的用户。
 
@@ -442,9 +444,9 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 
 
-# 3、文档
+## 3、文档
 
-## 3.1、高级参数
+### 3.1、高级参数
 
 可以为 ONLYOFFICE Document Server 更改的参数可细分为以下主要部分：
 
@@ -640,7 +642,7 @@ config = {
 
 
 
-## 3.2、Config
+### 3.2、Config
 
 config base 部分允许更改使用的平台类型、文档显示大小（宽度和高度）以及打开的文档类型。
 
@@ -669,7 +671,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 
 
-### Document
+#### Document
 
 文档部分允许更改与文档相关的所有参数（标题、url、文件类型等），这些参数为必填字段。
 
@@ -700,7 +702,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 
 
-#### Info
+##### Info
 
 文档信息部分允许更改文档的附加参数(文档所有者、文档存储的文件夹、上传日期、共享设置)。
 
@@ -753,7 +755,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 
 
-#### Permissions
+##### Permissions
 
 文档权限部分允许更改是否要编辑和下载文档的权限。
 
@@ -835,9 +837,9 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 
 
-# 4、故障排除
+## 4、故障排除
 
-## 4.1.1、下载失败
+### 4.1.1、下载失败
 
 <img src="!assets/OnlyOffice/e-download.png" alt="Download failed" style="width:33%;" />
 
@@ -850,7 +852,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 
 
-## 4.1.2、文件版本变更
+### 4.1.2、文件版本变更
 
 <img src="!assets/OnlyOffice/e-key.png" alt="The file version has been changed" style="width:50%;" />
 
@@ -863,7 +865,7 @@ var docEditor = new DocsAPI.DocEditor("placeholder", {
 
 
 
-## 4.1.3、403 Editor.bin
+### 4.1.3、403 Editor.bin
 
 编辑器加载失败，F12 看到获取 Editor.bin 的链接出现 403。
 
@@ -875,7 +877,7 @@ bash documentserver-update-securelink.sh
 
 
 
-# 5、前端框架
+## 5、前端框架
 
 ONLYOFFICE 文档可以使用组件与一些现有的前端框架集成。这些组件提供随时可用的代码模块、标准化的前端技术和可重用的接口块，使构建用户界面的过程更快、更容易。
 
@@ -887,7 +889,7 @@ ONLYOFFICE 文档可以使用组件与一些现有的前端框架集成。这些
 
 
 
-## 5.1、Vue 2.x
+### 5.1、Vue 2.x
 
 目前官方提供的组件都是基于 Vue 3.x 的，Vue 2.x 不能直接使用。
 
@@ -899,7 +901,7 @@ ONLYOFFICE 文档可以使用组件与一些现有的前端框架集成。这些
 
 
 
-### 5.1.1、utils.js
+#### 5.1.1、utils.js
 
 ```javascript
 /**
@@ -1026,7 +1028,7 @@ function generateFallbackUUID() {
 
 
 
-### 5.1.2、DocEditor.vue
+#### 5.1.2、DocEditor.vue
 
 ```vue
 <template>
@@ -1513,7 +1515,7 @@ export default {
 
 
 
-### 5.1.3、DocDialog.vue
+#### 5.1.3、DocDialog.vue
 
 ```vue
 <template>

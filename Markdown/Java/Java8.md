@@ -1,8 +1,6 @@
----
-title: Java 8 新特性
----
+# Java 8
 
-# 1、Effectively final
+## 1、Effectively final
 
 Java 中局部内部类和匿名内部类访问的局部变量必须由 `final` 修饰，以保证内部类和外部类的数据一致性。但从 Java 8 开始，我们可以不加 `final` 修饰符，由系统默认添加，当然这在 Java 8 以前的版本是不允许的。Java 将这个功能称为 Effectively final 功能。
 
@@ -47,7 +45,7 @@ Lambda 表达式在编程中是经常使用的，而匿名内部类是很少使�
 
 
 
-# 2、Lambda 表达式
+## 2、Lambda 表达式
 
 Lambda 表达式（Lambda expression）是一个匿名函数，基于数学中的 λ 演算得名，也可称为闭包（Closure）。现在很多语言都支持 Lambda 表达式，如 C++、C#、Java、 Python 和 JavaScript 等。
 
@@ -193,7 +191,7 @@ Lambda 表达式标准语法形式如下：
 
 
 
-## 2.1、Lambda 的简写方式
+### 2.1、Lambda 的简写方式
 
 使用 Lambda 表达式是为了简化程序代码，Lambda 表达式本身也提供了多种简化形式，这些简化形式虽然简化了代码，但客观上使得代码可读性变差。
 
@@ -308,7 +306,7 @@ public static Calculable calculate(int power) {
 
 
 
-## 2.2、Lambda 的使用
+### 2.2、Lambda 的使用
 
 **作为参数使用 Lambda 表达式**
 
@@ -428,7 +426,7 @@ Lambda 表达式只能访问局部变量而不能修改，否则会发生编译�
 
 
 
-## 2.3、Lambda 与匿名内部类的联系和区别
+### 2.3、Lambda 与匿名内部类的联系和区别
 
 Java Lambda 表达式的一个重要用法是简化某些匿名内部类的写法，因此它可以部分取代匿名内部类的作用。
 
@@ -526,7 +524,7 @@ public void test() {
 
 
 
-# 3、方法引用
+## 3、方法引用
 
 方法引用可以理解为 Lambda 表达式的快捷写法，它比 Lambda 表达式更加的简洁，可读性更高，有很好的重用性。如果实现比较简单，复用的地方又不多，推荐使用 Lambda 表达式，否则应该使用方法引用。
 
@@ -589,7 +587,7 @@ public class HelloWorld {
 
 
 
-# 4、函数式接口
+## 4、函数式接口
 
 Lambda 表达式实现的接口不是普通的接口，而是**函数式接口**。如果一个接口中，有且只有一个抽象的方法（Object 类中的方法不包括在内），那这个接口就可以被看做是函数式接口。这种接口只能有一个方法。如果接口中声明多个抽象方法，那么 Lambda 表达式会发生编译错误：
 
@@ -634,13 +632,13 @@ JDK 1.8 新增加的函数接口：
 
 
 
-## 4.1、常用函数式接口
+### 4.1、常用函数式接口
 
 这里只介绍最基础的函数式接口，至于它的变体只要明白了基础自然就能够明白。
 
 
 
-### 4.1.1、`Consumer<T>`
+#### 4.1.1、`Consumer<T>`
 
 **`Consumer<T>`：消费型接口**
 
@@ -731,7 +729,7 @@ for (String string : strings) {
 
 
 
-### 4.1.2、`Supplier<T>`
+#### 4.1.2、`Supplier<T>`
 
 **`Supplier<T>`：供给型接口**
 
@@ -784,7 +782,7 @@ System.out.println(supplier.get());
 
 
 
-### 4.1.3、`Function<T,R>`
+#### 4.1.3、`Function<T,R>`
 
 **`Function<T,R>`: 函数型接口**
 
@@ -955,7 +953,7 @@ System.out.println(apply);
 
 
 
-### 4.1.4、`Predicate<T>` 
+#### 4.1.4、`Predicate<T>` 
 
 **`Predicate<T>` ： 断言型接口**
 
@@ -1163,7 +1161,7 @@ false
 
 
 
-### 4.1.5、Operator
+#### 4.1.5、Operator
 
 可以简单理解成算术中的各种运算操作，当然不仅仅是运算这么简单，因为它只定义了运算这个定义，但至于运算成什么样你说了算。由于没有最基础的 Operator，这里将通过 BinaryOperator、IntBinaryOperator 来理解 Operator 函数式接口，先从简单的 IntBinaryOperator 开始。
 
@@ -1258,7 +1256,7 @@ BinaryOperator 是 BiFunction 生的，而 IntBinaryOperator 是从石头里蹦�
 
 
 
-## 4.2、function 包下所有接口
+### 4.2、function 包下所有接口
 
 java.util.function 它包含了很多类，用来支持 Java 的函数式编程，该包中的函数式接口有：
 
@@ -1310,7 +1308,7 @@ java.util.function 它包含了很多类，用来支持 Java 的函数式编程�
 
 
 
-# 5、新的日期和时间 API
+## 5、新的日期和时间 API
 
 在 Java 8 之前，所有关于日期和时间的 API 都存在各种使用方面的缺陷，主要有：
 
@@ -1322,7 +1320,7 @@ java.util.function 它包含了很多类，用来支持 Java 的函数式编程�
 
 
 
-## 5.1、Instant 
+### 5.1、Instant 
 
 `Instant` 实例表示时间线上的一个点。 参考点是标准的 Java 纪元（epoch），即1970-01-01 T00：00：00Z（1970 年 1 月 1 日 00:00 GMT）。 `Instant` 类的 `EPOCH` 属性返回表示 Java 纪元的 `Instant` 实例。 在纪元之后的时间是正值，而在此之前的时间即是负值。
 
@@ -1353,7 +1351,7 @@ public static void main(String[] args) {
 
 
 
-## 5.2、LocalDate
+### 5.2、LocalDate
 
 `LocalDate` 类只包括日期没有时间的部分。 它也没有时区。下表显示了 `LocalDate` 中一些重要的方法：
 
@@ -1438,7 +1436,7 @@ LocalDate pastDate = LocalDate.now().minus(2, ChronoUnit.DECADES);
 
 
 
-## 5.3、Period
+### 5.3、Period
 
 `Period` 类基于日期的时间数量构建，例如五天、一周或三年。 下面列出了一些重要的方法：
 
@@ -1516,7 +1514,7 @@ Between 1978-08-26 and 1988-09-28 there are 10 years, 1 months and 2 days
 
 
 
-## 5.4、LocalDateTime
+### 5.4、LocalDateTime
 
 `LocalDateTime` 类是一个没有时区的日期时间的构建。 下表显示了 `LocalDateTime` 中一些重要的方法。 这些方法类似于 `LocalDate` 的方法，以及用于修改时间部分的一些其他方法，例如在 `LocalDate` 中不可用的 `plusHours()`、`plusMinutes()` 和 `plusSeconds()`：
 
@@ -1571,7 +1569,7 @@ LocalDateTime sameTimeTomorrow = now.plusHours(24);
 
 
 
-## 5.5、Time Zones
+### 5.5、Time Zones
 
 互联网数字分配机构（IANA）维护一个可从此网页下载的[时区数据库](http://www.iana.org/time-zones)。
 
@@ -1633,7 +1631,7 @@ US/Pacific
 
 
 
-## 5.6、ZonedDateTime
+### 5.6、ZonedDateTime
 
 `ZonedDateTime` 类以一个时区的日期时间的构建。例如，以下是一个时区的日期时间:
 
@@ -1684,7 +1682,7 @@ ZonedDateTime threeDaysEarlier = now.minusDays(3);
 
 
 
-## 5.7、Duration
+### 5.7、Duration
 
 `Duration` 类是基于时间的持续时间的构建。 它与 `Period` 类似，不同之处在于 `Duration` 的时间分量为纳秒精度，并考虑了`ZonedDateTime` 实例之间的时区。 下表显示了 `Duration` 中重要的方法：
 
@@ -1811,7 +1809,7 @@ Travel time 2: 22 hours
 
 
 
-## 5.8、DateTimeFormatter
+### 5.8、DateTimeFormatter
 
 新的日期 API 中提供了一个`DateTimeFormatter` 类用于处理日期格式化操作，它被包含在 `java.time.format` 包中，Java 8 的日期类有一个 `format()` 方法用于将日期格式化为字符串，该方法接收一个 `DateTimeFormatter` 类型参数：
 
@@ -1855,7 +1853,7 @@ LocalDateTime localDateTime = LocalDateTime.ofInstant(new Date().toInstant(), zo
 
 
 
-# 6、默认方法
+## 6、默认方法
 
 Java 8 新增了接口的默认方法。
 
@@ -1921,7 +1919,7 @@ public class Car implements Vehicle, FourWheeler {
 
 
 
-## 6.1、静态默认方法
+### 6.1、静态默认方法
 
 Java 8 的另一个特性是接口可以声明（并且可以提供实现）静态方法。例如：
 
@@ -1939,7 +1937,7 @@ public interface Vehicle {
 
 
 
-## 6.2、默认方法实例
+### 6.2、默认方法实例
 
 可以通过以下代码来了解关于默认方法的使用，可以将代码放入 Java8Tester.java 文件中：
 
@@ -1990,7 +1988,7 @@ $ java Java8Tester
 
 
 
-# 7、Base64
+## 7、Base64
 
 在 Java 8 中，Base64 编码已经成为 Java 类库的标准。
 
@@ -2004,7 +2002,7 @@ Base64 工具类提供了一套静态方法获取下面三种 BASE64 编解码�
 
 
 
-## 7.1、内嵌类
+### 7.1、内嵌类
 
 | 序号 | 内嵌类 & 描述                                                |
 | :--- | :----------------------------------------------------------- |
@@ -2013,7 +2011,7 @@ Base64 工具类提供了一套静态方法获取下面三种 BASE64 编解码�
 
 
 
-## 7.2、方法
+### 7.2、方法
 
 | 序号 | 方法名 & 描述                                                |
 | :--- | :----------------------------------------------------------- |
@@ -2029,7 +2027,7 @@ Base64 工具类提供了一套静态方法获取下面三种 BASE64 编解码�
 
 
 
-## 7.3、Base64 实例
+### 7.3、Base64 实例
 
 以下实例演示了 Base64 的使用：
 
@@ -2088,7 +2086,7 @@ LWEzMWItYjk3MmEwZTYyNTdk
 
 
 
-# 8、Optional 类
+## 8、Optional 类
 
 Optional 类是一个可以为 `null` 的容器对象。如果值存在则 `isPresent()` 方法会返回 `true`，调用 `get()` 方法会返回该对象。
 
@@ -2098,7 +2096,7 @@ Optional 类的引入很好的解决空指针异常。
 
 
 
-## 8.1、Optional 声明
+### 8.1、Optional 声明
 
 以下是一个 `java.util.Optional<T>` 类的声明：
 
@@ -2108,7 +2106,7 @@ public final class Optional<T> extends Object
 
 
 
-## 8.2、Optional 方法
+### 8.2、Optional 方法
 
 | 方法                                                         | 描述                                                         |
 | :----------------------------------------------------------- | ------------------------------------------------------------ |
@@ -2132,7 +2130,7 @@ public final class Optional<T> extends Object
 
 
 
-## 8.3、Optional 实例
+### 8.3、Optional 实例
 
 ```java
 import java.util.Optional;
@@ -2181,7 +2179,7 @@ $ java Java8Tester
 
 
 
-## 8.4、正确使用 Optional
+### 8.4、正确使用 Optional
 
 **尽量避免使用的地方：**
 
@@ -2256,7 +2254,7 @@ $ java Java8Tester
 
 
 
-# 9、Stream
+## 9、Stream
 
 作为 Java 8 添加的一个新特性，Stream 流提供了一种声明的方式来处理数据。其基于函数式编程思想，将复杂的语句代码通过简洁的方法调用来表示，让程序员写出的代码更加的高效、简洁并具备可读性。
 
@@ -2268,7 +2266,7 @@ $ java Java8Tester
 
 
 
-## 9.1、Stream 流是如何工作的？
+### 9.1、Stream 流是如何工作的？
 
 流表示包含着一系列元素的集合，我们可以对其做不同类型的操作，用来对这些元素执行计算：
 
@@ -2303,13 +2301,13 @@ C2
 
 
 
-## 9.2、Stream 类
+### 9.2、Stream 类
 
 Stream 类最常用的是其对各个数组以及集合的处，它可以很方便的去对数组以及集合中的元素进行筛选、处理、聚合并返回一个全新的数组/集合，其中对该数据类型的处理并不会影响原数组/集合本身。
 
 
 
-### 9.2.1、源的创建
+#### 9.2.1、源的创建
 
 对于 Stream 流常见起始创建方法有3种：
 
@@ -2353,7 +2351,7 @@ Stream<Double> dStream = Stream.generate(Math::random);
 
 
 
-### 9.2.2、中间处理方法
+#### 9.2.2、中间处理方法
 
 **`filter()` 方法**
 
@@ -2602,7 +2600,7 @@ System.out.println();
 
 
 
-### 9.2.3、终端收集方法
+#### 9.2.3、终端收集方法
 
 **`forEach()/forEachOrdered()` 方法**
 
@@ -2776,7 +2774,7 @@ System.out.println("任意一个数为：" + anyNum);
 
 
 
-## 9.3、其他特定类型的流
+### 9.3、其他特定类型的流
 
 除了常规对象流之外，Java 8 还附带了一些特殊类型的流，用于处理原始数据类型 `int`、`long` 以及 `double`，它们就是 `IntStream`、`LongStream` 还有 `DoubleStream`。
 
@@ -2863,7 +2861,7 @@ a3
 
 
 
-## 9.4、Stream 流的处理顺序
+### 9.4、Stream 流的处理顺序
 
 Stream 流的中间操作的有个重要特性 —— **延迟性**。观察下面这个没有终端操作的示例代码：
 
@@ -2934,7 +2932,7 @@ anyMatch:	A2
 
 
 
-## 9.5、中间操作顺序这么重要？
+### 9.5、中间操作顺序这么重要？
 
 下面的例子由两个中间操作 `map` 和 `filter`，以及一个终端操作 `forEach` 组成。让我们再来看看这些操作是如何执行的：
 
@@ -3074,7 +3072,7 @@ forEach:	A2
 
 
 
-## 9.6、数据流复用问题
+### 9.6、数据流复用问题
 
 Java8 Stream 流是不能被复用的，一旦你调用任何终端操作，流就会关闭：
 
@@ -3111,7 +3109,7 @@ streamSupplier.get().noneMatch(s -> true);  // true
 
 
 
-## 9.7、高级操作
+### 9.7、高级操作
 
 `Streams` 支持的操作很丰富，除了上面介绍的这些比较常用的中间操作，如 `filter` 或 `map`（参见[Stream Javadoc](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html)）外。还有一些更复杂的操作，如 `collect`、`flatMap` 以及 `reduce`。
 
@@ -3144,7 +3142,7 @@ List<Person> persons =
 
 
 
-### 9.7.1、Collect
+#### 9.7.1、Collect
 
 `collect` 是一个非常有用的终端操作，它可以将流中的元素转变成另外一个不同的对象，例如一个 `List`、`Set` 或 `Map`。`collect` 接受入参为 `Collector`（收集器），它由四个不同的操作组成：供应器（supplier）、累加器（accumulator）、组合器（combiner）和终止器（finisher）。
 
@@ -3289,7 +3287,7 @@ MAX | PETER | PAMELA | DAVID
 
 
 
-### 9.7.2、FlatMap
+#### 9.7.2、FlatMap
 
 通过 `map` 操作可以将流中的对象转换为另一种类型。但是 `Map` 只能将每个对象映射到另一个对象。如果想要将一个对象转换为多个其他对象或者根本不做转换操作呢？这个时候 `flatMap` 就派上用场了。
 
@@ -3414,7 +3412,7 @@ Optional.of(new Outer())
 
 
 
-### 9.7.3、Reduce
+#### 9.7.3、Reduce
 
 规约操作可以将流的所有元素组合成一个结果。Java 8 支持三种不同的 `reduce` 方法。
 
@@ -3557,7 +3555,7 @@ combiner: sum1=41; sum2=35
 
 
 
-## 9.8、并行流
+### 9.8、并行流
 
 流是可以并行执行的，当流中存在大量元素时，可以显著提升性能。并行流底层使用的 `ForkJoinPool`，它由 `ForkJoinPool.commonPool()` 方法提供。底层线程池的大小最多为五个（具体取决于 CPU 可用核心数）：
 

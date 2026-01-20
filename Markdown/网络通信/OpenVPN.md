@@ -1,4 +1,6 @@
-# 1、简介
+# OpenVPN
+
+## 1、简介
 
 OpenVPN 是一个用于创建虚拟私人网络加密通道的软件包，最早由 James Yonan 编写。OpenVPN 允许建立的 VPN 使用公开密钥、电子证书、或者用户名/密码来进行身份验证。
 
@@ -8,19 +10,19 @@ OpenVPN 是一个用于创建虚拟私人网络加密通道的软件包，最早
 
 
 
-# 2、搭建 OpenVPN
+## 2、搭建 OpenVPN
 
 准备三台电脑，一台具有公网 IP 的服务器，用来安装 OpenVPN 服务端，一台内网服务器和一台家用电脑，用来安装 OpenVPN 客户端。
 
 
 
-## 2.1、OpenVPN 下载
+### 2.1、OpenVPN 下载
 
 安装包可以在 [GitHub](https://github.com/OpenVPN/openvpn) 下载，或者去[官网](https://openvpn.net/community-downloads/)下载。
 
 
 
-## 2.2、服务端安装
+### 2.2、服务端安装
 
 OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 OpenVPN 安装包为 2.6.12 版本。
 
@@ -36,7 +38,7 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
 
 
-## 2.3、证书生成
+### 2.3、证书生成
 
 上一步已经安装了证书生成工具 EasyRSA3，使用此工具即可生成所需证书：
 
@@ -113,7 +115,7 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
 
 
-## 2.4、服务端配置
+### 2.4、服务端配置
 
 服务端配置文件模板为 server.ovpn ，在 `C:\Program Files\OpenVPN\sample-config` 目录下：
 
@@ -164,7 +166,7 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
 
 
-## 2.5、客户端配置
+### 2.5、客户端配置
 
 1. **安装**
 
@@ -227,9 +229,9 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
 
 
-# 3、使用 OpenVPN
+## 3、使用 OpenVPN
 
-## 3.1、查看在线用户
+### 3.1、查看在线用户
 
 OpenVPN 启动之后会在 `C:\Program Files\OpenVPN\config` 位置生成 ipp.txt 和 openvpn-status.log 文件：
 
@@ -238,7 +240,7 @@ OpenVPN 启动之后会在 `C:\Program Files\OpenVPN\config` 位置生成 ipp.tx
 
 
 
-## 3.2、客户端设置静态 IP
+### 3.2、客户端设置静态 IP
 
 有多个内网及公网的机器需要打通然后部署了 OpenVPN 服务，但是一旦有机器重启就好导致 IP 发生变化，因此需要想办法固定 IP：
 
@@ -266,7 +268,7 @@ OpenVPN 启动之后会在 `C:\Program Files\OpenVPN\config` 位置生成 ipp.tx
 
 
 
-## 3.3、吊销指定用户
+### 3.3、吊销指定用户
 
 吊销证书意味着使以前签名的证书失效，使其不能再用于身份验证目的。
 

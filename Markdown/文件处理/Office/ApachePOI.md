@@ -1,8 +1,6 @@
----
-typora-copy-images-to: upload
----
+# ApachePOI
 
-# 1、Apache POI
+## 1、Apache POI
 
 Apache POI 是 Apache 软件基金会的开放源码函数库，POI 提供 API 给 Java 程序对 Microsoft Office 格式档案读和写的功能
 
@@ -65,9 +63,9 @@ Apache POI 是 Apache 软件基金会的开放源码函数库，POI 提供 API �
 
 
 
-# 2、POI Excel 写
+## 2、POI Excel 写
 
-## 2.1、基础操作
+### 2.1、基础操作
 
 ```java
 public class ExcelWriteTest {
@@ -157,7 +155,7 @@ public class ExcelWriteTest {
 
 
 
-## 2.2、数据批量导入
+### 2.2、数据批量导入
 
 **大文件写 HSSF**
 
@@ -282,7 +280,7 @@ public void testWrite07BigDataS() {
 
 
 
-## 2.3、合并单元格
+### 2.3、合并单元格
 
 ```java
  public class Excel2 {
@@ -331,7 +329,7 @@ sheet.addMergedRegion(cra);
 
 
 
-## 2.4、基于注解的导出
+### 2.4、基于注解的导出
 
 数据库 Excel 导出操作代码过于冗长惨不忍睹，无法复用。
 
@@ -855,9 +853,9 @@ sheet.addMergedRegion(cra);
 
 
 
-# 3、POI Excel 读
+## 3、POI Excel 读
 
-## 3.1、基础操作
+### 3.1、基础操作
 
 ```java
 public class ExcelReadTest {
@@ -909,7 +907,7 @@ public class ExcelReadTest {
 
 
 
-## 3.2、读取不同类型数据
+### 3.2、读取不同类型数据
 
 ```java
 @Test
@@ -989,7 +987,7 @@ public void testCellType() throws IOException {
 
 
 
-## 3.3、计算公式
+### 3.3、计算公式
 
 ```java
 @Test
@@ -1023,7 +1021,7 @@ public void testFormula() throws IOException {
 
 
 
-# 4、POI Word 读
+## 4、POI Word 读
 
 使用 POI 读取文档中的表格，当有多个表格时可以指定需要读取的表格，同时支持读取 docx 和 doc 格式。需要添加 poi 的 jar 包：
 
@@ -1163,7 +1161,7 @@ public class ExportDoc {
 
 
 
-## 4.1、Word 转 HTML
+### 4.1、Word 转 HTML
 
 **07 版 Word 转 Html**
 

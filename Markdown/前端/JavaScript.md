@@ -1,6 +1,8 @@
-# 1、基础
+# JavaScript
 
-## 1.1、使用
+## 1、基础
+
+### 1.1、使用
 
 在 HTML 中，JavaScript 代码必须位于 `<script>` 与 `</script>` 标签之间。
 
@@ -67,7 +69,7 @@
 
 <br>
 
-## 1.2、Let 和 Const
+### 1.2、Let 和 Const
 
 ES2015 引入了两个重要的 JavaScript 新关键词：`let` 和 `const`。
 
@@ -77,7 +79,7 @@ ES2015 引入了两个重要的 JavaScript 新关键词：`let` 和 `const`。
 
 <br>
 
-### 1.2.1、作用域
+#### 1.2.1、作用域
 
 **全局作用域**
 
@@ -140,7 +142,7 @@ JavaScript 块作用域
 
 <br>
 
-### 1.2.2、var 和 let 的不同
+#### 1.2.2、var 和 let 的不同
 
 **重新声明变量**
 
@@ -279,7 +281,7 @@ let carName;
 
 <br>
 
-### 1.2.3、var 和 let 的相同点
+#### 1.2.3、var 和 let 的相同点
 
 **函数作用域**
 
@@ -311,7 +313,7 @@ let y = 6;       // 全局作用域
 
 <br>
 
-### 1.2.4、Const
+#### 1.2.4、Const
 
 通过 `const` 定义的变量与 `let` 变量类似，但不能重新赋值：
 
@@ -357,7 +359,7 @@ cars = ["Honda", "Toyota", "Volvo"];    // ERROR
 
 <br>
 
-## 1.3、数据类型
+### 1.3、数据类型
 
 JavaScript 拥有动态类型，这意味着相同变量可用作不同类型：
 
@@ -369,7 +371,7 @@ var x = "Bill";      // 现在 x 是字符串值
 
 <br>
 
-### 1.3.1、String
+#### 1.3.1、String
 
 字符串（或文本字符串）是一串字符（比如 "Bill Gates"），字符串被引号包围，可使用单引号或双引号：
 
@@ -380,7 +382,7 @@ var carName = 'Porsche 911';   // 使用单引号
 
 <br>
 
-### 1.3.2、Number
+#### 1.3.2、Number
 
 JavaScript 只有一种数值类型，写数值时用不用小数点均可：
 
@@ -391,7 +393,7 @@ var x2 = 34;        // 不带小数点
 
 <br>
 
-### 1.3.3、Boolean
+#### 1.3.3、Boolean
 
 布尔值只有两个值：`true` 或 `false`。
 
@@ -402,7 +404,7 @@ var y = false;
 
 <br>
 
-### 1.3.4、Undefined
+#### 1.3.4、Undefined
 
 在 JavaScript 中，没有值的变量，其值是 `undefined`。`typeof` 也返回 `undefined`。
 
@@ -414,7 +416,7 @@ var person;                  // 值是 undefined，类型是 undefined
 
 <br>
 
-### 1.3.5、Null
+#### 1.3.5、Null
 
 在 JavaScript 中，`null` 是 "nothing"。它被看做不存在的事物。 `null` 的数据类型是对象。
 
@@ -428,7 +430,7 @@ var person = null;           // 值是 null，但是类型仍然是对象
 
 <br>
 
-### 1.3.6、Object
+#### 1.3.6、Object
 
 JavaScript 对象用花括号来书写。对象属性是 `name:value` 对，由逗号分隔。
 
@@ -440,7 +442,7 @@ var person = {firstName:"Bill", lastName:"Gates", age:62, eyeColor:"blue"};
 
 <br>
 
-## 1.4、循环
+### 1.4、循环
 
 **For/In 循环**
 
@@ -486,9 +488,9 @@ for (let x of cars) {
 
 <br>
 
-# 2、对象（Object）
+## 2、对象（Object）
 
-## 2.1、对象
+### 2.1、对象
 
 JavaScript 中有八种数据类型。有七种原始类型，因为它们的值只包含一种东西（字符串，数字或者其他）。相反，对象则用来存储键值对和更复杂的实体。
 
@@ -505,7 +507,7 @@ let user = {};  // “字面量” 的语法
 
 
 
-### 2.1.1、文本和属性
+#### 2.1.1、文本和属性
 
 在创建对象的时候，可以立即将一些属性以键值对的形式放到 `{...}` 中：
 
@@ -549,7 +551,7 @@ let user = {
 
 
 
-### 2.1.2、方括号
+#### 2.1.2、方括号
 
 对于多词属性，点操作就不能用了：
 
@@ -600,7 +602,7 @@ alert( user.key ) // undefined
 
 
 
-### 2.1.3、属性值简写
+#### 2.1.3、属性值简写
 
 在实际开发中，我们通常用已存在的变量当做属性名，例如：
 
@@ -642,7 +644,7 @@ let user = {
 
 
 
-### 2.1.4、属性存在性测试
+#### 2.1.4、属性存在性测试
 
 相比于其他语言，JavaScript 的对象有一个需要注意的特性：能够被访问任何属性。即使属性不存在也不会报错！
 
@@ -696,7 +698,7 @@ alert( "test" in obj ); // true，属性存在！
 
 
 
-## 2.2、对象引用和复制
+### 2.2、对象引用和复制
 
 对象与原始类型的根本区别之一是，对象是 “通过引用” 存储和复制的，而原始类型：字符串、数字、布尔值等 —— 总是 “作为一个整体” 复制。
 
@@ -731,7 +733,7 @@ alert(user.name); // 'Pete'，修改能通过 "user" 引用看到
 
 
 
-### 2.2.1、通过引用来比较
+#### 2.2.1、通过引用来比较
 
 仅当两个对象为同一对象时，两者才相等。
 
@@ -756,7 +758,7 @@ alert( a == b ); // false
 
 
 
-### 2.2.2、克隆与合并
+#### 2.2.2、克隆与合并
 
 我们可以使用 `Object.assign` 方法来达到克隆的效果。
 
@@ -806,7 +808,7 @@ alert(user.name); // 现在 user = { name: "Pete" }
 
 
 
-### 2.2.3、深层克隆
+#### 2.2.3、深层克隆
 
 到现在为止，我们都假设 `user` 的所有属性均为原始类型。但属性可以是对其他对象的引用：
 
@@ -848,9 +850,9 @@ alert(clone.sizes.width); // 51，能从另外一个获取到变更后的结果
 
 
 
-# 3、数据类型
+## 3、数据类型
 
-## 3.1、数字
+### 3.1、数字
 
 **JavaScript 只有一种数值类型。书写数值时带不带小数点均可。**
 
@@ -981,7 +983,7 @@ myNumber.toString(2);      // 返回 10000000
 
 <br>
 
-### 3.1.1、数字方法
+#### 3.1.1、数字方法
 
 原始值（比如 3.14 或 2016），无法拥有属性和方法（因为它们不是对象）。
 
@@ -1095,9 +1097,9 @@ parseFloat("years 10");  // 返回 NaN
 
 <br>
 
-## 3.2、字符串
+### 3.2、字符串
 
-### 3.2.1、字符串搜索
+#### 3.2.1、字符串搜索
 
 **String.search()**
 
@@ -1147,7 +1149,7 @@ text.includes("world")    // 返回 true
 
 <br>
 
-### 3.2.2、模板字符串
+#### 3.2.2、模板字符串
 
 **Back-Tics 语法**
 
@@ -1221,9 +1223,9 @@ html += `</ul>`;
 
 <br>
 
-## 3.3、数组
+### 3.3、数组
 
-### 1.6.1、数组方法
+#### 1.6.1、数组方法
 
 **把数组转换为字符串**
 
@@ -1334,7 +1336,7 @@ var citrus = fruits.slice(1, 3); //["Orange", "Lemon"]
 
 <br>
 
-### 1.6.2、数组排序
+#### 1.6.2、数组排序
 
 **数组排序**
 
@@ -1442,7 +1444,7 @@ function myArrayMin(arr) {
 
 <br>
 
-### 1.6.3、数组迭代
+#### 1.6.3、数组迭代
 
 **Array.forEach()**
 
@@ -1634,9 +1636,9 @@ function myFunction(value, index, array) {
 
 <br>
 
-# 4、函数（Function）
+## 4、函数（Function）
 
-## 4.1、函数
+### 4.1、函数
 
 **JavaScript 函数是被设计为执行特定任务的代码块。JavaScript 函数会在某代码调用它时被执行。**
 
@@ -1691,7 +1693,7 @@ sayHello(); // 输出：Hello, guest
 
 
 
-## 4.2、箭头函数
+### 4.2、箭头函数
 
 ES6 中引入了箭头函数，箭头函数允许我们编写更短的函数。
 
@@ -1753,7 +1755,7 @@ document.getElementById("btn").addEventListener("click", hello);	//[object Windo
 
 
 
-## 4.3、函数 Call
+### 4.3、函数 Call
 
 **方法重用**
 
@@ -1824,7 +1826,7 @@ person.fullName.call(person1, "Seattle", "USA"); // 将返回 "Bill Gates,Seatle
 
 
 
-## 4.4、函数 Apply
+### 4.4、函数 Apply
 
 **方法重用**
 
@@ -1901,7 +1903,7 @@ Math.max.apply(null, [1,2,3]); // 也会返回 3
 
 
 
-## 4.5、闭包
+### 4.5、闭包
 
 一个函数和对其周围状态（**lexical environment，词法环境**）的引用捆绑在一起（或者说函数被引用包围），这样的组合就是**闭包**（**closure**）。也就是说，闭包让你可以在一个内层函数中访问到其外层函数的作用域。在 JavaScript 中，每当创建一个函数，闭包就会在函数创建的同时被创建出来。
 
@@ -1973,9 +1975,9 @@ console.log(add10(2)); // 12
 
 
 
-# 5、Browser 对象
+## 5、Browser 对象
 
-## 5.1、存储对象
+### 5.1、存储对象
 
 Web 存储 API 提供了 sessionStorage （会话存储） 和 localStorage（本地存储）两个存储对象来对网页的数据进行添加、删除、修改、查询操作。
 
@@ -2004,7 +2006,7 @@ Web 存储 API 提供了 sessionStorage （会话存储） 和 localStorage（�
 
 
 
-### 5.1.1、localStorage
+#### 5.1.1、localStorage
 
 localStorage 和 sessionStorage 属性允许在浏览器中存储 key/value 对的数据。localStorage 用于长久保存整个网站的数据，保存的数据没有过期时间，直到手动去删除。
 
@@ -2066,7 +2068,7 @@ if(!window.localStorage){
 
 
 
-### 5.1.2、sessionStorage 
+#### 5.1.2、sessionStorage 
 
 localStorage 和 sessionStorage 属性允许在浏览器中存储 key/value 对的数据。sessionStorage 用于临时保存同一窗口（或标签页）的数据，在关闭窗口或标签页之后将会删除这些数据。
 
@@ -2079,7 +2081,7 @@ localStorage 和 sessionStorage 属性允许在浏览器中存储 key/value 对�
 
 
 
-## 5.2、Window 对象
+### 5.2、Window 对象
 
 Window 对象表示浏览器中打开的窗口。
 
@@ -2089,7 +2091,7 @@ Window 对象表示浏览器中打开的窗口。
 
 
 
-### 5.2.1、Window 对象属性
+#### 5.2.1、Window 对象属性
 
 | 属性           | 描述                                                         |
 | -------------- | ------------------------------------------------------------ |
@@ -2099,9 +2101,9 @@ Window 对象表示浏览器中打开的窗口。
 
 
 
-### 5.2.2、Window 对象方法
+#### 5.2.2、Window 对象方法
 
-#### setInterval()
+##### setInterval()
 
 `setInterval()` 方法可按照指定的周期（以毫秒计）来调用函数或计算表达式。
 
@@ -2124,7 +2126,7 @@ setInterval(function, milliseconds, param1, param2, ...);
 
 
 
-#### clearTimeout()
+##### clearTimeout()
 
 `clearTimeout()` 方法可取消由 `setTimeout()` 方法设置的定时操作。
 
@@ -2150,7 +2152,7 @@ clearTimeout(id_of_settimeout)
 
 
 
-#### open()
+##### open()
 
 用指定的名称将指定的资源加载到新的或已存在的浏览上下文（标签、窗口或 iframe）中。
 
@@ -2209,9 +2211,9 @@ open(url, target, windowFeatures)
 
 
 
-# 6、关键字和运算符
+## 6、关键字和运算符
 
-## 6.1、this
+### 6.1、this
 
 **this 是什么？**
 
@@ -2323,7 +2325,7 @@ person1.fullName.call(person2);  // 会返回 "Bill Gates"
 
 
 
-## 6.2、void
+### 6.2、void
 
 众所周知，`undefined` 是 JS 语言中的 7 大基本类型之一，表示未定义，它的值只有一个，就是 `undefined`。任何变量在赋值前都是 `undefined`。
 
@@ -2445,7 +2447,7 @@ The void operator evaluates the given expression and then returns undefined.
 
 
 
-## 6.3、…
+### 6.3、…
 
 扩展操作符 `…` 是 ES6 中引入的，将可迭代对象展开到其单独的元素中，所谓的可迭代对象就是任何能用 `for of` 循环进行遍历的对象，例如：数组、字符串、Map、Set 、DOM 节点等。
 
@@ -2559,7 +2561,7 @@ console.log(charts); // [ 'c', 'h', 'i', 'n', 'a' ]
 
 
 
-## 6.4、typeof
+### 6.4、typeof
 
 `typeof` 运算符返回变量或表达式的类型：
 
@@ -2573,9 +2575,9 @@ typeof "Bill Gates"        // 返回 "string"
 
 <br>
 
-# 7、模块 (Module) 
+## 7、模块 (Module) 
 
-## 7.1、简介
+### 7.1、简介
 
 很长一段时间，JavaScript 都没有语言级（language-level）的模块语法。这不是一个问题，因为最初的脚本又小又简单，所以没必要将其模块化。
 
@@ -2585,7 +2587,7 @@ typeof "Bill Gates"        // 返回 "string"
 
 
 
-### 7.1.1、什么是模块？
+#### 7.1.1、什么是模块？
 
 一个模块（module）就是一个文件。一个脚本就是一个模块。就这么简单。
 
@@ -2632,7 +2634,7 @@ sayHi('John'); // Hello, John!
 
 
 
-### 7.1.2、模块核心功能
+#### 7.1.2、模块核心功能
 
 **始终使用 “use strict”**
 
@@ -2790,7 +2792,7 @@ alert(admin.name); // Pete
 
 
 
-### 7.1.3、浏览器特定功能
+#### 7.1.3、浏览器特定功能
 
 与常规脚本相比，拥有 `type="module"` 标识的脚本有一些特定于浏览器的差异。
 
@@ -2912,13 +2914,13 @@ import {sayHi} from 'sayHi'; // Error，“裸”模块
 
 
 
-## 7.2、导出和导入
+### 7.2、导出和导入
 
 导出（export）和导入（import）指令有几种语法变体。
 
 
 
-### 7.2.1、导出与声明
+#### 7.2.1、导出与声明
 
 **在声明前导出**
 
@@ -2976,7 +2978,7 @@ export {sayHi, sayBye}; // 导出变量列表
 
 
 
-### 7.2.2、Import *
+#### 7.2.2、Import *
 
 通常，我们把要导入的东西列在花括号 `import {...}` 中，就像这样：
 
@@ -3026,7 +3028,7 @@ say.sayBye('John');
 
 
 
-### 7.2.3、Import/Export “as”
+#### 7.2.3、Import/Export “as”
 
 **Import “as”**
 
@@ -3068,7 +3070,7 @@ say.bye('John'); // Bye, John!
 
 
 
-### 7.2.4、Export default
+#### 7.2.4、Export default
 
 在实际中，主要有两种模块。
 
@@ -3201,7 +3203,7 @@ import func from '/path/to/func.js';
 
 
 
-### 7.2.5、重新导出
+#### 7.2.5、重新导出
 
 “重新导出（Re-export）”语法 `export ... from ...` 允许导入内容，并立即将其导出（可能是用的是其他的名字），就像这样：
 
@@ -3309,9 +3311,9 @@ export default class User {
 
 
 
-# 8、杂项
+## 8、杂项
 
-## 8.1、脚本：async，defer
+### 8.1、脚本：async，defer
 
 现代的网站中，脚本往往比 HTML 更 “重”：它们的大小通常更大，处理时间也更长。
 
@@ -3348,7 +3350,7 @@ export default class User {
 
 <br>
 
-### 8.1.1、defer
+#### 8.1.1、defer
 
 `defer` 特性告诉浏览器不要等待脚本。相反，浏览器将继续处理 HTML，构建 DOM。脚本会 “在后台” 下载，然后等 DOM 构建完成后，脚本才会执行。
 
@@ -3406,7 +3408,7 @@ export default class User {
 
 <br>
 
-### 8.1.2、async
+#### 8.1.2、async
 
 `async` 特性与 `defer` 有些类似。它也能够让脚本不阻塞页面。但是，在行为上二者有着重要的区别。
 
@@ -3454,9 +3456,9 @@ export default class User {
 
 <br>
 
-## 8.2、正则表达式
+### 8.2、正则表达式
 
-### 8.2.1、RegExp 对象
+#### 8.2.1、RegExp 对象
 
 RegExp 对象表示正则表达式，它是对字符串执行模式匹配的强大工具。
 
@@ -3549,7 +3551,7 @@ new RegExp(pattern, attributes);
 
 <br>
 
-### 8.2.2、RegExp 方法
+#### 8.2.2、RegExp 方法
 
  **test()**
 

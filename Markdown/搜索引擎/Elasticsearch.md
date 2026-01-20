@@ -1,4 +1,6 @@
-# 1、什么是 Elastisearch？
+# Elasticsearch
+
+## 1、什么是 Elastisearch？
 
 > 你懂的，用来搜索（也用来分析）
 
@@ -18,7 +20,7 @@ Elasticsearch 为各种数据类型提供接近实时的搜索和分析。不论
 
 
 
-## 1.1、数据输入：文档和索引
+### 1.1、数据输入：文档和索引
 
 Elasticsearch 是一种分布式文档存储。Elasticsearch 不用列数据行存储信息，而是存储已序列化为 JSON 文档的复杂数据结构。当集群中有多个 Elasticsearch 节点时，存储的文档将分布在集群中，且可以从任何节点直接访问。
 
@@ -44,7 +46,7 @@ Elasticsearch 也具有无模式能力，这意味着文档无需明确地指定
 
 
 
-## 1.2、信息输出：搜索和分析
+### 1.2、信息输出：搜索和分析
 
 虽然你能将 Elasticsearch 用作文档存储和检测文档及他们的元数据，但真正强大之处在于能轻松访问构建在 Apache Lucene 搜索引擎库之上的全套搜索能力。
 
@@ -96,7 +98,7 @@ Elasticsearch 聚合使你能够构建数据的复杂摘要，并深入了解关
 
 
 
-## 1.3、可伸缩性和弹性
+### 1.3、可伸缩性和弹性
 
 **集群、节点和分片**
 
@@ -141,13 +143,13 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 
 
-# 2、安装和配置
+## 2、安装和配置
 
-## 2.1、安装
+### 2.1、安装
 
-### 2.1.1、Linux 手动安装
+#### 2.1.1、Linux 手动安装
 
-#### 创建用户和所需目录
+##### 创建用户和所需目录
 
 > [!TIP]
 >
@@ -183,7 +185,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 <br>
 
-#### 安装 Elastisearch
+##### 安装 Elastisearch
 
 1. 官网下载对应版本的压缩包之后，将其上传到服务器。
 
@@ -225,7 +227,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 <br>
 
-#### 配置 systemd 服务
+##### 配置 systemd 服务
 
 1. 创建文件：
 
@@ -284,7 +286,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 <br>
 
-#### 启动
+##### 启动
 
 1. 启动 Elasticsearch：
 
@@ -323,7 +325,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 <br>
 
-### 2.1.2、Linux 包安装
+#### 2.1.2、Linux 包安装
 
 1. 根据操作系统选择相应的命令进行下载安装：
 
@@ -384,7 +386,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 <br>
 
-### 2.1.3、Docker
+#### 2.1.3、Docker
 
 1. 获取镜像：
 
@@ -417,7 +419,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 <br>
 
-### 2.1.4、Windows
+#### 2.1.4、Windows
 
 1. 进入[官方页面](https://www.elastic.co/cn/downloads/past-releases#elasticsearch)，点击 Download 进入下载页面：
 
@@ -461,7 +463,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 <br>
 
-## 2.2、目录结构
+### 2.2、目录结构
 
 ES 目录结构：
 
@@ -481,7 +483,7 @@ ES 目录结构：
 
 
 
-## 2.3、安全设置
+### 2.3、安全设置
 
 X-Pack 是 Elasticsearch 的一个核心扩展包，它为 Elastic Stack（Elasticsearch, Kibana, Beats, Logstash）提供了一系列强大的增强功能。在早期版本中，X-Pack 是一个需要单独安装的商业插件，但从 6.8 和 7.1 版本开始，它的许多基础功能被免费开放，并直接内置到了 Elasticsearch 的默认发行版中。
 
@@ -495,7 +497,7 @@ X-Pack 是 Elasticsearch 的一个核心扩展包，它为 Elastic Stack（Elast
 
 
 
-### 2.3.1、启用 X-Pack 安全
+#### 2.3.1、启用 X-Pack 安全
 
 1. 编辑 Elasticsearch 配置文件：
 
@@ -529,7 +531,7 @@ X-Pack 是 Elasticsearch 的一个核心扩展包，它为 Elastic Stack（Elast
 
 
 
-### 2.3.2、初始化内置用户密码
+#### 2.3.2、初始化内置用户密码
 
 > [!NOTE]
 >
@@ -584,7 +586,7 @@ X-Pack 是 Elasticsearch 的一个核心扩展包，它为 Elastic Stack（Elast
 
 
 
-### 2.3.3、验证安全配置
+#### 2.3.3、验证安全配置
 
 现在，你的 Elasticsearch 集群已经受到密码保护，现在进行验证是否启用成功：
 
@@ -628,7 +630,7 @@ curl -k "http://localhost:9200"
 
 
 
-# 3、使用 cURL 命令交互
+## 3、使用 cURL 命令交互
 
 本指南中的大部分示例，允许你复制合适的 cURL 命令，并从命令行中向本地 Elasticsearch 实例提交请求。
 
@@ -654,13 +656,13 @@ Elasticsearch 对每个 API 请求响应 HTTP 状态码，如 `200 ok`。除了 
 
 
 
-# 4、安装 Kibana
+## 4、安装 Kibana
 
 Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化平台，使用 Kibana 可以查询、查看并与存储在 ES 索引的数据进行交互操作，使用 Kibana 能执行高级的数据分析，并能以图表、表格和地图的形式查看数据。
 
 
 
-## 4.1、Linux（Ubuntu）
+### 4.1、Linux（Ubuntu）
 
 1. 先切换到 esuser 用户下：
 
@@ -700,7 +702,7 @@ Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化�
 
 
 
-## 4.2、Docker
+### 4.2、Docker
 
 1. 获取镜像：
 
@@ -727,7 +729,7 @@ Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化�
 
 
 
-## 4.3、compose
+### 4.3、compose
 
 > 由于我服务器内存不够，启动服务太慢，这里使用 Docker Desktop for Windows 和 Docker-compose 在自己本地电脑上操作
 
@@ -785,15 +787,15 @@ Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化�
 
 
 
-# 5、核心概念
+## 5、核心概念
 
-## 5.1、Index（索引）
+### 5.1、Index（索引）
 
 一个索引就是一个拥有几分相似特征的文档的集合。比如说，你可以有一个商品数据的索引，一个订单数据的索引，还有一个用户数据的索引。一个索引由一个名字来标识（必须全部是小写字母的），并且当我们要对这个索引中的文档进行索引、搜索、更新和删除的时候，都要使用到这个名字。
 
 
 
-### 5.1.1、创建索引
+#### 5.1.1、创建索引
 
 ```http
 PUT /索引名
@@ -820,7 +822,7 @@ PUT /products
 
 
 
-### 5.1.2、查询索引
+#### 5.1.2、查询索引
 
 ```http
 GET /_cat/indices?v
@@ -831,7 +833,7 @@ GET /_cat/indices?v
 </div>
 
 
-### 5.1.3、删除索引
+#### 5.1.3、删除索引
 
 ```http
 DELETE /索引名
@@ -854,7 +856,7 @@ DELETE /products
 
 
 
-## 5.2、Mapping（映射）
+### 5.2、Mapping（映射）
 
 映射是定义一个文档和它所包含的字段如何被存储和索引的过程。在默认配置下，ES 可以根据插入的数据自动地创建 Mapping，也可以手动创建 Mapping。 Mapping 中主要包括字段名、字段类型等。
 
@@ -868,7 +870,7 @@ DELETE /products
 
 
 
-### 5.2.1、创建映射
+#### 5.2.1、创建映射
 
 ```http
 PUT /products
@@ -900,7 +902,7 @@ PUT /products
 
 
 
-### 5.2.2、查询映射
+#### 5.2.2、查询映射
 
 ```http
 GET /索引名/_mapping
@@ -917,13 +919,13 @@ GET /products/_mapping
 
 
 
-## 5.3、Document（文档）
+### 5.3、Document（文档）
 
 文档是索引中存储的一条条数据。一条文档是一个可被索引的最小单元。ES 中的文档采用了轻量级的 JSON 格式数据来表示。
 
 
 
-### 5.3.1、添加文档
+#### 5.3.1、添加文档
 
 ```http
 POST /索引名/_doc/文档ID
@@ -966,7 +968,7 @@ POST /products/_doc/
 
 
 
-### 5.3.2、查询文档
+#### 5.3.2、查询文档
 
 ```http
 GET /索引名/_doc/文档ID
@@ -982,7 +984,7 @@ GET /products/_doc/1
 
 
 
-### 5.3.3、删除文档
+#### 5.3.3、删除文档
 
 ```http
 DELETE /索引名/_doc/文档ID
@@ -998,7 +1000,7 @@ DELETE /products/_doc/1
 
 
 
-### 5.3.4、更新文档
+#### 5.3.4、更新文档
 
 ```http
 PUT /索引名/_doc/文档ID
@@ -1035,7 +1037,7 @@ POST /products/_doc/wZbA6IEB0wOojxAnBiDQ/_update
 
 
 
-### 5.3.5、批量操作
+#### 5.3.5、批量操作
 
  批量索引两条文档：
 
@@ -1062,15 +1064,15 @@ POST /products/_doc/_bulk
 
 
 
-# 6、索引原理
+## 6、索引原理
 
-## 6.1、倒排索引
+### 6.1、倒排索引
 
 倒排索引（Inverted Index）也叫反向索引，有反向索引必有正向索引。通俗地来讲，正向索引是通过 key 找 value，反向索引则是通过 value 找 key。ES 底层在检索时底层使用的就是倒排索引。
 
 
 
-## 6.2、索引模型
+### 6.2、索引模型
 
 现有索引和映射如下：
 
@@ -1137,7 +1139,7 @@ POST /products/_doc/_bulk
 
 
 
-# 7、分词器
+## 7、分词器
 
 Analysis： 文本分析是把全文本转换一系列单词（term/token）的过程，也叫分词（Analyzer）。Analysis 是通过 Analyzer 来实现的。分词就是将文档通过 Analyzer 分成一个一个的 term（关键词查询），每一个 term 都指向包含这个 term 的文档。
 
@@ -1184,7 +1186,7 @@ PUT /索引名
 
 
 
-## 7.1、内置分词器
+### 7.1、内置分词器
 
 - Standard Analyzer - 默认分词器，英文按单词词切分，并小写处理
 - Simple Analyzer - 按照单词切分（符号被过滤），小写处理
@@ -1243,13 +1245,13 @@ POST /_analyze
 
 
 
-## 7.2、中文分词器
+### 7.2、中文分词器
 
 在 ES 中支持中文分词器非常多，如 smartCN、IK 等，推荐的就是 IK 分词器。
 
 
 
-### 7.2.1、安装 IK
+#### 7.2.1、安装 IK
 
 **Linux 环境**
 
@@ -1331,7 +1333,7 @@ services:
 
 
 
-### 7.2.2、IK 使用
+#### 7.2.2、IK 使用
 
 IK有两种颗粒度的拆分：
 
@@ -1369,7 +1371,7 @@ POST /_analyze
 
 
 
-### 7.2.3、扩展词、停用词
+#### 7.2.3、扩展词、停用词
 
 IK支持自定义扩展词典和停用词典
 
@@ -1470,7 +1472,7 @@ IK 自带许多常用的扩展字典：
 
 
 
-# 8、高级查询
+## 8、高级查询
 
 ES 中提供了一种强大的检索数据方式,这种检索方式称之为 Query DSL（Domain Specified Language>），Query DSL 是利用 Rest API 传递 JSON 格式的请求体（Request Body）数据与 ES 进行交互，这种方式的丰富查询语法让 ES 检索变得更强大，更简洁。
 
@@ -1528,7 +1530,7 @@ GET /索引名/_search {json格式请求体数据}
 
 
 
-## 8.1、查询所有
+### 8.1、查询所有
 
 `match_all` 关键字：返回索引中的全部文档。
 
@@ -1546,7 +1548,7 @@ GET /products/_search
 
 
 
-## 8.2、关键字查询
+### 8.2、关键字查询
 
 `term` 关键字：用来使用关键词查询。
 
@@ -1571,7 +1573,7 @@ GET /products/_search
 
 
 
-## 8.3、范围查询
+### 8.3、范围查询
 
 `range` 关键字：用来指定查询指定范围内的文档。
 
@@ -1594,7 +1596,7 @@ GET /products/_search
 
 
 
-## 8.4、前缀查询
+### 8.4、前缀查询
 
 `prefix` 关键字：用来检索含有指定前缀的关键词的相关文档。
 
@@ -1616,7 +1618,7 @@ GET /products/_search
 
 
 
-## 8.5、通配符查询
+### 8.5、通配符查询
 
 `wildcard` 关键字：通配符查询，`?` 用来匹配一个任意字符，`*` 用来匹配多个任意字符。
 
@@ -1638,7 +1640,7 @@ GET /products/_search
 
 
 
-## 8.6、多 id 查询
+### 8.6、多 id 查询
 
 `ids` 关键字：值为数组类型，用来根据一组 id 获取多个对应的文档。
 
@@ -1658,7 +1660,7 @@ GET /products/_search
 
 
 
-## 8.7、模糊查询
+### 8.7、模糊查询
 
 `fuzzy` 关键字：用来模糊查询含有指定关键字的文档。
 
@@ -1686,7 +1688,7 @@ GET /products/_search
 
 
 
-## 8.8、布尔查询
+### 8.8、布尔查询
 
 `bool` 关键字：用来组合多个条件实现复杂查询：
 
@@ -1717,7 +1719,7 @@ GET /products/_search
 
 
 
-## 8.9、多字段查询
+### 8.9、多字段查询
 
 `multi_match` 关键字：用于多字段查询。
 
@@ -1740,7 +1742,7 @@ GET /products/_search
 
 
 
-## 8.10、默认字段分词查询
+### 8.10、默认字段分词查询
 
 `query_string` 关键字：用于默认字段查询
 
@@ -1763,7 +1765,7 @@ GET /products/_search
 
 
 
-## 8.11、高亮查询
+### 8.11、高亮查询
 
 `highlight` 关键字：可以让符合条件的文档中的关键词高亮。
 
@@ -1792,7 +1794,7 @@ GET /products/_search
 
 
 
-## 8.12、返回指定条数
+### 8.12、返回指定条数
 
 `size` 关键字：指定查询结果中返回指定条数。默认返回 10 条。
 
@@ -1811,7 +1813,7 @@ GET /products/_search
 
 
 
-## 8.13、分页查询
+### 8.13、分页查询
 
 `form` 关键字：用来指定起始返回位置，和 `size` 关键字连用可实现分页效果。
 
@@ -1831,7 +1833,7 @@ GET /products/_search
 
 
 
-## 8.14、指定字段排序
+### 8.14、指定字段排序
 
 `sort` 关键字：用来指定排序字段和排序方式。
 
@@ -1858,7 +1860,7 @@ GET /products/_search
 
 
 
-## 8.15、返回指定字段
+### 8.15、返回指定字段
 
 `_source` 关键字：是一个数组，在数组中用来指定展示那些字段。
 
@@ -1876,7 +1878,7 @@ GET /products/_search
 
 
 
-# 9、过滤查询
+## 9、过滤查询
 
 过滤查询 `<filter query>`，其实准确来说，ES 中的查询操作分为 2 种：查询（query）和过滤（filter）。查询即是之前提到的 query 查询，它（查询）默认会计算每个返回文档的得分，然后根据得分排序。而过滤（filter）只会筛选出符合的文档，并不计算得分，而且它可以缓存文档 。所以，单从性能考虑，过滤比查询更快。 
 
@@ -1907,7 +1909,7 @@ GET /索引名/_search
 
 
 
-## 9.1、term
+### 9.1、term
 
 ```http
 GET /products/_search
@@ -1934,7 +1936,7 @@ GET /products/_search
 
 
 
-## 9.2、terms
+### 9.2、terms
 
 ```http
 GET /products/_search
@@ -1966,7 +1968,7 @@ GET /products/_search
 
 
 
-## 9.3、range
+### 9.3、range
 
 ```http
 GET /products/_search
@@ -1995,7 +1997,7 @@ GET /products/_search
 
 
 
-## 9.4、exists
+### 9.4、exists
 
 存在指定字段，获取字段不为空的索引记录。
 
@@ -2023,7 +2025,7 @@ GET /products/_search
 
 
 
-## 9.5、ids
+### 9.5、ids
 
 含有指定字段的索引记录。
 
@@ -2052,7 +2054,7 @@ GET /products/_search
 
 
 
-# 10、整合应用
+## 10、整合应用
 
 新建一个 Spring Boot 对象，引入 ES 依赖：
 
@@ -2066,7 +2068,7 @@ GET /products/_search
 在 Spring Boot 配置文件中写入 ES 服务地址相关配置：
 
 ```properties
-# 自定义 es 主机和端口
+## 自定义 es 主机和端口
 elasticsearch.host=localhost:9200
 ```
 
@@ -2106,9 +2108,9 @@ public class ElasticSearchClientConfig extends AbstractElasticsearchConfiguratio
 
 
 
-## 10.1、ElasticSearchOperations
+### 10.1、ElasticSearchOperations
 
-### 10.1.1、相关注解
+#### 10.1.1、相关注解
 
 - `@Document` ：用在类上，代表一个对象为一个文档
 
@@ -2150,7 +2152,7 @@ public class Product {
 
 
 
-### 10.1.2、索引文档
+#### 10.1.2、索引文档
 
 新建一个测试类：
 

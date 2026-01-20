@@ -1,10 +1,8 @@
----
-title: Java Web
----
+# JavaWeb
 
-# 1、Servlet
+## 1、Servlet
 
-## 1.1、Servlet简介
+### 1.1、Servlet简介
 
 Servlet（Server Applet）是 Java Servlet 的简称，是为小服务程序或服务连接器，用 Java 编写的服务器端程序，主要功能在于交互式地浏览和修改数据，生成动态 Web 内容。
 
@@ -19,7 +17,7 @@ Sun 公司在其 API 中提供了一个 Servlet 接口，用户若想要开发�
 
 
 
-## 1.2、Servlet 的开发步骤
+### 1.2、Servlet 的开发步骤
 
 - 编写普通的类，实现 Servlet 接口，重写 5 个方法。Servlet 接口代码：
 	
@@ -57,7 +55,7 @@ Sun 公司在其 API 中提供了一个 Servlet 接口，用户若想要开发�
 
 
 
-## 1.3、Servlet 生命周期
+### 1.3、Servlet 生命周期
 
 Servlet 是一个供其他 Java 程序（Servlet 引擎）调用的 Java 类，它不能独立运行，它的运行完全由 Servlet 引擎来控制和调度。
 
@@ -84,7 +82,7 @@ Servlet 程序是由 Web 服务器调用，Web服务器收到客户端的 Servle
 
 
 
-## 1.4、Servlet 接口实现类
+### 1.4、Servlet 接口实现类
 
 Sun 公司定义了 `Servlet` 接口的两个默认实现类，分别为：`GenericServlet`、`HttpServlet`。
 
@@ -222,7 +220,7 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 
 
 
-## 1.5、Servlet 的配置
+### 1.5、Servlet 的配置
 
 **配置 Servlet 自动加载**
 
@@ -357,7 +355,7 @@ while(names.hasMoreElements()){
 
 
 
-## 1.6、ServletContext
+### 1.6、ServletContext
 
 `ServletContext` 对象的简介
 
@@ -414,7 +412,7 @@ InputStream is2 = servletContext.getResourceAsStream("/WEB-INF/classes/jdbc.prop
 
 
 
-## 1.7、域对象概述
+### 1.7、域对象概述
 
 域对象：域对象可以用来在多个 Servlet 中进行数据的传递。
 
@@ -451,7 +449,7 @@ InputStream is2 = servletContext.getResourceAsStream("/WEB-INF/classes/jdbc.prop
 
 
 
-## 1.8、HttpServletResponse
+### 1.8、HttpServletResponse
 
 Web 服务器收到客户端的 HTTP 请求，会针对每一次请求，分别创建一个用于代表请求的 `Request` 对象、和代表响应的 `Response` 对象。
 
@@ -568,7 +566,7 @@ ImageIO.write(image, "jpg", resp.getOutputStream());
 
 
 
-## 1.9、HttpServletRequest
+### 1.9、HttpServletRequest
 
 `HttpServletRequest` 对象代表客户端的请求，当客户端通过 HTTP 协议访问服务器时，HTTP 请求中的所有信息都封装在这个对象中，开发人员通过这个对象的方法，可以获得客户这些信息。
 
@@ -622,7 +620,7 @@ dispatcher.forward(request, response);
 
 
 
-## 1.10、重定向和转发的区别
+### 1.10、重定向和转发的区别
 
 redirect 和 forward 是 Servlet 中的两种主要的跳转方式：redirect 叫做重定向，forward 叫做转发。
 
@@ -655,7 +653,7 @@ redirect 和 forward 是 Servlet 中的两种主要的跳转方式：redirect �
 
 
 
-# 2、@webservlet 注解详解
+## 2、@webservlet 注解详解
 
 **作用**：用于将一个类声明为 Servlet
 
@@ -703,9 +701,9 @@ public class UserServlet extends HttpServlet {
 
 
 
-# 3、JSP
+## 3、JSP
 
-## 3.1、JSP 简介
+### 3.1、JSP 简介
 
 JSP（Java Server Pages）与 Java Servlet 一样，是在服务器端执行的，不同的是先由服务器编译部署成 Servlet 执行
 
@@ -730,7 +728,7 @@ HTML 注释：`<!-- … -->`, 不会消失，在页面中也能看到
 
 
 
-## 3.2、JSP 的运行原理
+### 3.2、JSP 的运行原理
 
 JSP 其实是一种特殊的 Servlet，当 JSP 页面第一次被访问时，服务器会把 JSP 编译成 Java 文件（这个 Java 其实是一个 Servlet 类），然后再把 Java 编译成 `.class`，然后创建该类对象，最后调用它的 `service()` 方法，第二次请求同一 JSP 时，直接调用 `service()` 方法。
 
@@ -739,7 +737,7 @@ JSP 其实是一种特殊的 Servlet，当 JSP 页面第一次被访问时，服
 
 
 
-## 3.3、JSP 指令元素
+### 3.3、JSP 指令元素
 
 语法格式：
 
@@ -817,7 +815,7 @@ taglib 指令用于在 JSP 页面中导入标签库
 
 
 
-## 3.4、JSP 内置对象
+### 3.4、JSP 内置对象
 
 九大隐式对象
 
@@ -899,7 +897,7 @@ PageContext、Request、Session、ServletConext
 
 
 
-# 4、会话管理
+## 4、会话管理
 
 什么是会话？
 
@@ -921,7 +919,7 @@ PageContext、Request、Session、ServletConext
 
 
 
-## 4.1、Cookie
+### 4.1、Cookie
 
 `javax.servlet.http.Cookie` 类用于创建一个 Cookie，`Response` 接口也中定义了一个 `addCookie` 方法，它用于在其响应头中增加一个相应的 Set-Cookie 头字段。 同样，`Request` 接口中也定义了一个 `getCookies` 方法，它用于获取客户端提交的 Cookie。
 
@@ -955,7 +953,7 @@ Cookie 类的方法：
 
 
 
-## 4.2、Session
+### 4.2、Session
 
 在 Web 开发中，服务器可以为每个用户浏览器创建一个会话对象（session 对象），注意：一个浏览器独占一个 session 对象(默认情况下)。因此，在需要保存用户数据时，服务器程序可以把用户数据写到用户浏览器独占的 session 中，当用户使用浏览器访问其它程序时，其它程序可以从用户的session 中取出该用户的数据，为用户服务。
 
@@ -1017,7 +1015,7 @@ Session 对象由服务器创建，开发人员可以调用 Request 对象的 `g
 
 
 
-## 4.3、表单重复提交
+### 4.3、表单重复提交
 
 产生表单重复提交的原因：网络延迟、重新刷新、点击网页回退到之前页面继续提交...
 
@@ -1034,7 +1032,7 @@ Session 对象由服务器创建，开发人员可以调用 Request 对象的 `g
 
 
 
-# 5、过滤器
+## 5、过滤器
 
 过滤器，顾名思义就是起到过滤筛选作用的一种事物，只不过相较于现实生活中的过滤器，这里的过滤器过滤的对象是客户端访问的 Web 资源，也可以理解为一种预处理手段，对资源进行拦截后，将其中我们认为的杂质（用户自己定义的）过滤，符合条件的放行，不符合的则拦截下来
 
@@ -1064,7 +1062,7 @@ public class FilterDemo1 implements Filter {
 
 
 
-## 5.1、Filter 配置
+### 5.1、Filter 配置
 
 **web.xml配置**
 
@@ -1131,7 +1129,7 @@ public class FilterDemo1 implements Filter {
 
 
 
-## 5.2、过滤器的生命周期
+### 5.2、过滤器的生命周期
 
 首先是 `init(FilterConfig config)` 方法和 `void destroy()` 方法，Servlet 也有这两个方法，两者分别在服务器启动和关闭的时候被创建以及销毁，两者均执行一次，用于加载以及释放资源。
 
@@ -1162,7 +1160,7 @@ public interface FilterChain {
 
 
 
-# 6、JSP 动态包含和静态包含
+## 6、JSP 动态包含和静态包含
 
 JSP 中有两种包含：
 

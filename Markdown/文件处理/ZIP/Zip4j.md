@@ -1,6 +1,8 @@
-# 1、JDK 内置操作 ZIP 文件
+# Zip4j
 
-## 1.1、ZipInputStream
+## 1、JDK 内置操作 ZIP 文件
+
+### 1.1、ZipInputStream
 
 `ZipInputStream` 是 Java 类，实现用于读取 ZIP 文件格式的文件的输入流过滤器。 它支持压缩和未压缩的条目。
 
@@ -106,7 +108,7 @@ public static void unZipFile(String file) throws Exception {
 
 
 
-## 2.2、ZipOutputStream
+### 2.2、ZipOutputStream
 
 **Java 将多个文件压缩打包成 ZIP 下载：**
 
@@ -167,7 +169,7 @@ public void downloadFile(String ids, HttpServletResponse response) throws IOExce
 
 
 
-# 2、Zip4j
+## 2、Zip4j
 
 Zip4j 默认采用的是 UTF-8 编码，所以本身支持中文（但是，还是建议在读取 ZIP 文件后，立即设置字符集），同时也支持密码，而且支持多种压缩算法，可以说功能强大，但使用起来却非常简单。如果有其他需求，需要自己从官网上看 API。
 
@@ -200,7 +202,7 @@ Zip4j 默认采用的是 UTF-8 编码，所以本身支持中文（但是，还�
 
 
 
-## 2.1、解压
+### 2.1、解压
 
 **解压文件：**
 
@@ -256,7 +258,7 @@ private void filterZipFile(ZipFile zipFile, String destPath) throws ZipException
 
 
 
-## 2.2、压缩
+### 2.2、压缩
 
 **压缩一个文件**
 
@@ -322,7 +324,7 @@ zipFile.addFolder(new File("/users/folder_to_add"), zipParameters);
 
 
 
-## 2.3、其他
+### 2.3、其他
 
 **不解压 ZIP 文件的前提下，直接利用流（InuptStream）形式读取其中的文件：**
 

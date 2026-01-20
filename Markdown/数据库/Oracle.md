@@ -1,6 +1,8 @@
-# 1、Oracle 简介
+# Oracle
 
-## 1.1、Oracle 简介
+## 1、Oracle 简介
+
+### 1.1、Oracle 简介
 
 Oracle Database，又名 Oracle RDBMS，简称 Oracle。Oracle 数据库系统是美国 Oracle 公司（甲骨文）提供的以分布式数据库为核心的一组软件产品，是目前最流行的客户/服务器（client/server）或B/S体系结构的数据库之一，比如 SilverStream 就是基于数据库的一种中间件。Oracle 数据库是目前世界上使用最为广泛的数据库管理系统，作为一个通用的数据库系统，它具有完整的数据管理功能；作为一个关系型数据库，它是一个完备关系的产品；作为分布式数据库它实现了分布式处理功能。
 
@@ -32,7 +34,7 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 
 
-## 1.2、Oracle 19c 安装
+### 1.2、Oracle 19c 安装
 
 **安装前注意退出杀毒软件！！！**
 
@@ -89,7 +91,7 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 
 
-### 1.2.1、安装问题
+#### 1.2.1、安装问题
 
 **Oracle19c 安装中的无法将 Windows 用户或 Windows 组 “XXX“ 添加到 Windows 组 “XXX“ 中**
 
@@ -97,7 +99,7 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 
 
-## 1.3、Oracle 19c 卸载
+### 1.3、Oracle 19c 卸载
 
 要在 Windows 上卸载 Oracle 数据库，我们必须手动删除所有相关的 `Ora*` 注册表项、文件和文件夹。
 
@@ -127,11 +129,11 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 
 
-# 2、连接和配置
+## 2、连接和配置
 
-## 2.1、连接 Oracle
+### 2.1、连接 Oracle
 
-### 2.1.1、SQL*Plus
+#### 2.1.1、SQL*Plus
 
 SQL*Plus 是 Oracle 提供的命令行工具，用于与 Oracle 数据库交互。它支持：
 
@@ -174,7 +176,7 @@ sqlplus <用户名>@[<主机IP>:<端口>/]<数据库服务名>
 
 
 
-### 2.1.2、Navicat 
+#### 2.1.2、Navicat 
 
 <img src="!assets/Oracle/image-20230523200124483.png" alt="image-20230523200124483" style="" />
 
@@ -182,7 +184,7 @@ sqlplus <用户名>@[<主机IP>:<端口>/]<数据库服务名>
 
 
 
-#### ORA-12514
+##### ORA-12514
 
 ORA-12514:TNS:监听程序当前无法识别连接述符中请求的服务
 
@@ -194,7 +196,7 @@ ORA-12514:TNS:监听程序当前无法识别连接述符中请求的服务
 
 
 
-#### ORA-12516
+##### ORA-12516
 
 ORA-12516:TNS:监听程序找不到符合协议堆栈要求的可用处理程序
 
@@ -238,7 +240,7 @@ ORA-12516:TNS:监听程序找不到符合协议堆栈要求的可用处理程序
 
 
 
-#### ORA-12638
+##### ORA-12638
 
 ORA-12638: 身份证明检索失败
 
@@ -246,7 +248,7 @@ ORA-12638: 身份证明检索失败
 
 
 
-#### ORA-28547
+##### ORA-28547
 
 ORA-28547:connection to server failed, probable Oracle Net admin error
 
@@ -274,7 +276,7 @@ OCI 下载地址：https://www.oracle.com/database/technologies/instant-client/d
 
 
 
-### 2.1.3、SQL Developer
+#### 2.1.3、SQL Developer
 
 Oracle SQL Developer 是一个免费的图形化工具，可以提高生产力并简化数据库开发任务。使用 SQL Developer 可以浏览数据库对象、运行 SQL 语句和 SQL 脚本、编辑和调试 PL/SQL 语句、操作和导出数据以及查看和创建报告。您可以连接到 Oracle 数据库，也可以连接到选定的第三方（非 Oracle）数据库，查看元数据和数据，并将这些数据库迁移到 Oracle。
 
@@ -308,7 +310,7 @@ SQL Developer 还将接口集成到一些相关技术中，包括 Oracle Data Mi
 
 
 
-## 2.2、Oracle 配置
+### 2.2、Oracle 配置
 
 listener.ora、tnsnames.ora 和 sqlnet.ora 这 3 个文件是关系 Oracle 网络配置的 3 个主要文件，都是放在  `$ORACLE_HOME/network/admin/` 目录下。
 
@@ -326,7 +328,7 @@ listener.ora、tnsnames.ora 和 sqlnet.ora 这 3 个文件是关系 Oracle 网�
 
 
 
-### 2.2.1、开放远程连接
+#### 2.2.1、开放远程连接
 
 与连接远程数据库有关的只有远程数据库上的 listener.ora 文件，listener.ora 文件 是 Listener 监听器进程的配置文件。Listener 进程存在于服务器上，负责接受远程对数据库的接入申请并转交给 Oracle 的服务器进程。所以如果不是使用的远程的连接，Listener 进程就不是必需的，同样的如果关闭 Listener 进程并不会影响已经存在的数据库连接。
 
@@ -335,7 +337,7 @@ Listener 即监听器，原则上，一个监听器对应一个数据库实例�
 一个典型的文件如下，由数据库自己生成：
 
 ```shell
-# 这个的后缀对应着listener，它是listener监听器对应的实例列表
+## 这个的后缀对应着listener，它是listener监听器对应的实例列表
 SID_LIST_LISTENER =
   (SID_LIST =
     (SID_DESC =
@@ -346,7 +348,7 @@ SID_LIST_LISTENER =
     )
   )
 
-# 定义一个叫listener的监听器，这里名称可变
+## 定义一个叫listener的监听器，这里名称可变
 LISTENER =
   (DESCRIPTION =
     (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
@@ -379,7 +381,7 @@ LISTENER =
 
 
 
-### 2.2.2、修改端口号
+#### 2.2.2、修改端口号
 
 Oracle 默认监听端口 1521，一众扫描器通常通过探测 1521 端口是否开启来探测是否存在 Oracle 服务，如果修改默认监听端口在一定程度上可以提升数据库和主机的安全性。
 
@@ -482,7 +484,7 @@ Oracle 默认监听端口 1521，一众扫描器通常通过探测 1521 端口�
 
 
 
-### 2.2.3、sqlnet.ora
+#### 2.2.3、sqlnet.ora
 
 通过这个文件来决定怎样找一个连接中出现的连接字符串，示例文件：
 
@@ -505,7 +507,7 @@ NAMES.DIRECTORY_PATH= (TNSNAMES, HOSTNAME, ONAMES，EZCONNECT)
 
 
 
-### 2.2.4、修改字符集
+#### 2.2.4、修改字符集
 
 1. 运行以下命令启动 SQL*Plus 并直接以 `SYSDBA` 权限连接到数据库：
 
@@ -596,7 +598,7 @@ NAMES.DIRECTORY_PATH= (TNSNAMES, HOSTNAME, ONAMES，EZCONNECT)
 
 
 
-### 2.2.5、修改占用内存
+#### 2.2.5、修改占用内存
 
 Oracle 安装好之后，也可以调整内存的分配。
 
@@ -735,9 +737,9 @@ STARTUP;
 
 
 
-# 3、用户及表空间
+## 3、用户及表空间
 
-## 3.1、用户管理
+### 3.1、用户管理
 
 运行以下命令启动 SQL*Plus 并直接以 `SYSDBA` 权限连接到数据库：
 
@@ -785,7 +787,7 @@ alter user <用户名> identified by <密码>;
 
 
 
-## 3.2、表空间
+### 3.2、表空间
 
 **删除表空间**
 
@@ -815,9 +817,9 @@ DROP TABLESPACE tablespace_name INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRA
 
 
 
-# 4、数据结构
+## 4、数据结构
 
-## 4.1、VARCHAR 和 VARCHAR2
+### 4.1、VARCHAR 和 VARCHAR2
 
 1. `VARCHAR` 是标准 SQL 里面的； `VARCHAR2` 是 Oracle 提供的独有的数据类型。
 2. `VARCHAR` 对于汉字占两个字节，对于英文是一个字节，占的内存小；`VARCHAR2` 都是占两个字节。
@@ -827,13 +829,13 @@ DROP TABLESPACE tablespace_name INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRA
 
 
 
-# 5、查询
+## 5、查询
 
 我初学的数据库是 MySQL，由于 Oracle 也是使用 SQL 标准，这里用于记录工作中使用 Oracle 所遇到的查询问题。
 
 
 
-## 5.1、对 CLOB 进行模糊查询
+### 5.1、对 CLOB 进行模糊查询
 
 在 Oracle 中大文本数据我们没有办法使用 `LIKE` 进行查询，所以只能使用 Oracle 中的函数：
 
@@ -858,7 +860,7 @@ instr(sourceString, destString, start, appearPosition)
 
 
 
-## 5.2、树形结构层级查询
+### 5.2、树形结构层级查询
 
 通常，在查询树形结构的数据时，需要使用 `START WITH...CONNECT BY PRIOR` 的方式查询。
 
@@ -913,13 +915,13 @@ CONNECT BY PRIOR DEPID = PARENTDEPID
 
 
 
-## 5.3、关于 Oracle 中的 AS
+### 5.3、关于 Oracle 中的 AS
 
 在 Oracle 中 `AS` 关键字不能用于指定表的别名，在 Oracle 中指定表的别名时只需在原有表名和表的别名之间用空格分隔即可，指定列的别名的用法和 MySQL 相同，但在存储过程中如果列的别名与原有列名相同，在运行时会报错（编译时不会出错），其他情况下列的别名可以与列名本身相同。
 
 
 
-## 5.4、限制查询条数
+### 5.4、限制查询条数
 
 在 MySQL 数据库中，`LIMIT` 关键字用于限制查询结果的返回行数。它通常用于分页查询或限制结果集的大小。
 
@@ -964,7 +966,7 @@ WHERE rnum >= 11 AND rnum <= 20;
 
 
 
-## 5.5、不等于空字符串
+### 5.5、不等于空字符串
 
 之前的应用一直是连接 MySQL 数据库，在 MySQL 中 `''` 和 `NULL` 是不相等的，如：
 
@@ -988,7 +990,7 @@ SELECT CASE WHEN '' IS NULL THEN 'Yes' ELSE 'No' END AS result FROM dual;
 
 
 
-## 5.6、字段名与 SQL 关键字重名
+### 5.6、字段名与 SQL 关键字重名
 
 Oracle 中，如果表中的字段名正好跟 SQL 中关键字重名，写 SQL 语句时要注意：
 
@@ -1010,7 +1012,7 @@ CREATE TABLE address(
 
 
 
-## 5.7、取排名最靠前或最靠后的值
+### 5.7、取排名最靠前或最靠后的值
 
 在 Oracle SQL 语句中，`KEEP` 子句主要用于聚合函数（如 `SUM`、`MAX`、`MIN`）中，配合 `DENSE_RANK` 计算来保留特定排名的数据。
 
@@ -1031,11 +1033,11 @@ AGGREGATE_FUNCTION(<列名>) KEEP (DENSE_RANK FIRST | LAST ORDER BY <列名>)
 
 
 
-# 6、函数
+## 6、函数
 
-## 6.1、时间日期
+### 6.1、时间日期
 
-### 6.1.1、SYSDATE
+#### 6.1.1、SYSDATE
 
 获取当前日期和时间：
 
@@ -1045,7 +1047,7 @@ SYSDATE()
 
 
 
-### 6.1.2、ADD_MONTHS
+#### 6.1.2、ADD_MONTHS
 
 日期/时间增减。
 
@@ -1085,7 +1087,7 @@ ADD_MONTHS(dateField, -12;
 
 
 
-### 6.1.3、MONTHS_BETWEEN
+#### 6.1.3、MONTHS_BETWEEN
 
 Oracle `MONTHS_BETWEEN` 函数用于计算两个日期之间的月份差。它返回一个浮点数，表示两个日期之间相差的月份数量。这个函数可以用于计算例如年龄差、账单周期等涉及月份差异的情况。
 
@@ -1116,7 +1118,7 @@ FROM dual;
 
 
 
-## 6.2、正则表达式
+### 6.2、正则表达式
 
 **匹配机制**
 
@@ -1187,7 +1189,7 @@ FROM dual;
 
 
 
-### 6.2.1、REGEXP_LIKE
+#### 6.2.1、REGEXP_LIKE
 
 `REGEXP_LIKE()` 与 `LIKE` 的功能相似，可以支持按正则表达式与文本进行匹配。
 
@@ -1224,7 +1226,7 @@ SELECT ENAME, JOB FROM EMP WHERE REGEXP_LIKE(JOB, '(clerk|analyst)', 'i');
 
 
 
-### 6.2.2、REGEXP_INSTR
+#### 6.2.2、REGEXP_INSTR
 
 `REGEXP_INSTR()` 返回指定字符串中与正则表达式匹配部分第一次出现的位置。
 
@@ -1266,7 +1268,7 @@ SELECT REGEXP_INSTR('11a22A33a11a22A33a', '2A', 1, 1, 1, 'c') AS STR FROM DUAL;
 
 
 
-### 6.3.3、REGEXP_COUNT
+#### 6.3.3、REGEXP_COUNT
 
 `REGEXP_COUNT()` 返回指定字符串中与正则表达式匹配部分出现的次数。
 
@@ -1296,7 +1298,7 @@ SELECT REGEXP_COUNT('11a22A33a11a22A33a', '2A', 1, 'c') AS STR FROM DUAL;
 
 
 
-### 6.2.4、REGEXP_SUBSTR
+#### 6.2.4、REGEXP_SUBSTR
 
 `REGEXP_SUBSTR()` 截取指定字符串中与正则表达式匹配的部分。
 
@@ -1349,7 +1351,7 @@ SELECT REGEXP_SUBSTR('11a22A33a', '[^A]+', 4, 1, 'c') AS STR FROM DUAL;
 
 
 
-### 6.2.5、REGEXP_REPLACE
+#### 6.2.5、REGEXP_REPLACE
 
 `REGEXP_REPLACE()` 替换指定字符串中与正则表达式匹配的部分。
 
@@ -1377,9 +1379,9 @@ SELECT REGEXP_REPLACE('11a22A33a11a22A33a', '[^A]+', '#') AS STR FROM DUAL;
 
 
 
-## 6.3、聚合函数
+### 6.3、聚合函数
 
-### 6.3.1、WM_CONCAT
+#### 6.3.1、WM_CONCAT
 
 Oracle 的 `WM_CONCAT` 函数是一个已废弃的函数，用于将多个行的值合并成一个单一字符串。它类似于 `LISTAGG` 函数，但不像 `LISTAGG` 那样强大和灵活。`WM_CONCAT` 函数在较早版本的 Oracle 数据库中存在，但在 Oracle 11g 之后的版本中被弃用。
 
@@ -1468,7 +1470,7 @@ SELECT deptno, WM_CONCAT(DISTINCT ',', sal) FROM emp GROUP BY deptno ORDER BY de
 
 
 
-### 6.3.2、LISTAGG
+#### 6.3.2、LISTAGG
 
 Oracle 的 `LISTAGG` 函数是一个用于将多个行的值合并成一个单一字符串的聚合函数。它可以用于将查询结果中的多个行的某一列的值连接在一起，并以指定的分隔符分隔它们。
 
@@ -1496,9 +1498,9 @@ GROUP BY department;
 
 
 
-## 6.4、判空
+### 6.4、判空
 
-### 6.4.1、NVL
+#### 6.4.1、NVL
 
 Oracle `NVL` 函数的格式如下：
 
@@ -1510,9 +1512,9 @@ NVL(expr1,expr2)
 
 
 
-## 6.5、类型转换
+### 6.5、类型转换
 
-### 6.5.1、TO_CHAR
+#### 6.5.1、TO_CHAR
 
 Oracle `TO_CHAR` 函数用于将特定数据类型的值，通常是日期或数字，转换为格式化的字符串表示。
 
@@ -1550,7 +1552,7 @@ SELECT TO_CHAR(1234.56, '$9,999.99') FROM DUAL;
 
 
 
-### 6.5.2、TO_DATE
+#### 6.5.2、TO_DATE
 
 Oracle `TO_DATE` 函数用于将一个字符串值转换为日期类型。
 
@@ -1581,7 +1583,7 @@ SELECT TO_DATE('2023-08-31 15:30:00', 'YYYY-MM-DD HH24:MI:SS') FROM DUAL;
 
 
 
-### 6.5.3、CAST
+#### 6.5.3、CAST
 
 Oracle `CAST()` 是一个内置函数，它将给定的参数从一种类型转换为另一种类型。此函数支持基本数据类型和集合类型。
 
@@ -1631,9 +1633,9 @@ FROM dual;
 
 
 
-# 7、Spring Boot 集成
+## 7、Spring Boot 集成
 
-## 7.1、集成步骤
+### 7.1、集成步骤
 
 **Spring Boot 配置 Oracle19c 数据库**
 
@@ -1682,9 +1684,9 @@ FROM dual;
 
    
 
-## 7.2、遇到的问题
+### 7.2、遇到的问题
 
-### 7.2.1、ORA-28040: 没有匹配的验证协议
+#### 7.2.1、ORA-28040: 没有匹配的验证协议
 
 可能的原因有：
 
@@ -1730,15 +1732,15 @@ jdbc:oracle:thin:@//localhost:1521/ORCL?oracle.net.disableOob=true
 
 
 
-### 7.2.2、NL Exception was generated
+#### 7.2.2、NL Exception was generated
 
 出现这个错误，主要是数据库配置文件中 url 字符串写错导致的。仔细检查 url 字符串，问题基本就解决了。
 
 
 
-# 8、导入导出
+## 8、导入导出
 
-## 8.1、数据泵
+### 8.1、数据泵
 
 数据泵（expdp、impdp）是 Oracle 10g 时引入的新技术，兼容了之前的数据导出导入工具（exp，imp）大部分功能，并进一步完善，提供了很多新功能以满足复杂的业务需求。区别于传统的 exp、imp 工具，数据泵相关命令需在数据库服务端执行。
 
@@ -1746,7 +1748,7 @@ jdbc:oracle:thin:@//localhost:1521/ORCL?oracle.net.disableOob=true
 
 
 
-### 8.1.1、expdp
+#### 8.1.1、expdp
 
 用于将数据库数据导出到 `.dmp` 文件中，可用于数据备份或迁移。
 
@@ -1839,7 +1841,7 @@ expdp 用户名/密码@ORCL SCHEMAS=HR DUMPFILE=hr_comp.dmp LOGFILE=hr_comp.log 
 
 
 
-### 8.1.2、impdp
+#### 8.1.2、impdp
 
 用于将 `.dmp` 备份文件导入数据库。
 
