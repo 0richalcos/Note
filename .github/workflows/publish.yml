@@ -2,7 +2,7 @@ name: 自动构建文档
 on:
   push:
     branches:
-      - main # 或者是 master，请确认你的主分支名称
+      - main
 permissions:
   contents: write
 jobs:
