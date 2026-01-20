@@ -1,5 +1,5 @@
 ---
-typora-copy-images-to: upload
+title: Java 类和对象
 ---
 
 # 1、类和对象

@@ -1,5 +1,5 @@
 ---
-typora-copy-images-to: upload
+title: Java 8 新特性
 ---
 
 # 1、Effectively final
