@@ -1,24 +1,23 @@
 site_name: 我的技术知识库
 site_url: https://0richalcos.github.io/Note/
 repo_url: https://github.com/0richalcos/Note
-edit_uri: edit/main/Markdown/ # 允许在网页直接点击编辑跳转到GitHub对应文件
+edit_uri: edit/main/Markdown/ 
 
 # 关键配置：指定你的笔记所在的文件夹名字
 docs_dir: 'Markdown' 
 
 theme:
   name: material
-  language: zh-CN
-  # 手机端核心优化配置
+  language: zh
   features:
-    - navigation.top        # 返回顶部按钮
-    - navigation.tabs       # 电脑端顶部导航栏（手机端会自动收起）
-    - navigation.indexes    # 允许文件夹也有对应的页面
-    - navigation.tracking   # 滚动时侧边栏自动跟随
-    - toc.integrate         # 手机端将目录集成在侧边栏，节省空间
+    - navigation.top        
+    - navigation.tabs       
+    - navigation.indexes    
+    - navigation.tracking   
+    - toc.integrate         
   palette: 
     - scheme: default
-      primary: teal         # 主题色，建议选个清爽的颜色
+      primary: teal         
       toggle:
         icon: material/brightness-7
         name: 切换深色模式
@@ -31,17 +30,17 @@ theme:
 # 必装插件
 plugins:
   - search
-  - awesome-pages:         # 这是一个神器，它能自动处理你的复杂层级
+  - awesome-pages:         
       filename: .pages
       collapse_single_pages: true
 
 # Markdown 渲染增强
 markdown_extensions:
-  - admonition             # 提示块
-  - pymdownx.details       # 折叠块
-  - pymdownx.highlight     # 代码高亮
-  - pymdownx.superfences   # 代码块嵌套
+  - admonition             
+  - pymdownx.details       
+  - pymdownx.highlight     
+  - pymdownx.superfences   
   - attr_list
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
