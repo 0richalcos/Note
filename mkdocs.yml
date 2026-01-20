@@ -11,7 +11,6 @@ theme:
   language: zh
   features:
     - navigation.top        
-    - navigation.tabs       
     - navigation.indexes    
     - navigation.tracking   
     - toc.integrate         
