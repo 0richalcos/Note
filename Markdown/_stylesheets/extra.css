@@ -26,33 +26,46 @@
    ================================================== */
 p.auto-t {
     display: flex;
+    align-items: center;
     justify-content: center;
     margin-top: 3em;
     margin-bottom: 2em;
 }
 
-/* 不需要左右线条了，把它们隐藏或去掉 */
+/* 线条 */
 p.auto-t::before,
 p.auto-t::after {
-    content: none; 
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid var(--md-default-fg-color--lighter);
+    margin: 0 1em;
 }
 
-/* 文字变成胶囊样式 */
+/* 文字 */
 p.auto-t strong {
-    display: inline-block;
-    padding: 0.4em 1.5em; /* 上下左右留白 */
-    
-    /* 背景色：使用主题最淡的颜色 */
-    background-color: var(--md-default-fg-color--lightest);
-    border-radius: 50px; /* 圆角胶囊 */
-    
+    position: relative; /* 为了放伪元素 */
     font-weight: bold;
-    font-size: 0.95em; /* 字体稍微小一点，显得精致 */
-    color: var(--md-default-fg-color--light); /* 文字颜色深灰 */
-    
-    /* 加个淡淡的边框 */
-    border: 1px solid var(--md-default-fg-color--lighter);
-    letter-spacing: 1px;
+    font-size: 1.0em;
+    color: var(--md-primary-fg-color); /* 使用主题色 */
+    padding: 0 0.5em;
+}
+
+/* 在文字左右加装饰符号 (这里用菱形 ◆ ) */
+/* 也可以换成: "•" (圆点) 或者 "★" (星星) */
+p.auto-t strong::before {
+    content: "◆"; 
+    color: var(--md-default-fg-color--lightest);
+    margin-right: 10px;
+    font-size: 0.8em;
+    vertical-align: middle;
+}
+
+p.auto-t strong::after {
+    content: "◆";
+    color: var(--md-default-fg-color--lightest);
+    margin-left: 10px;
+    font-size: 0.8em;
+    vertical-align: middle;
 }
 
 /* ==================================================
