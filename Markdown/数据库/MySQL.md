@@ -31,11 +31,10 @@ SQL 是用于访问和处理数据库的标准计算机语言。
 
 **SQL 分类**
 
-- DDL（数据定义语言）
+- **DDL（数据定义语言）**
 	- 数据定义语言（Data Definition Language）
 	- 用来定义数据库的对象，如数据表、视图、索引等
 	- `CREATFE`、`DROP`、`ALTER`
-		- 131313
 - **DML（数据操纵语言）**
 	- 数据处理语言（Data Manipulation Language）
 	- 在数据库中更新，增加和删除记录
