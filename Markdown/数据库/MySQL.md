@@ -2,15 +2,15 @@
 
 ## 1、SQL 简介
 
-SQL 是用于访问和处理数据库的标准计算机语言。
+SQL 是用于访问和处理数据库的标准计算机语言。``
+
+
 
 **SQL 是什么？**
 
 - SQL，指结构化查询语言，全称是 Structured Query Language
 - SQL 可以让我们访问和处理数据库
 - SQL 是一种 ANSI（American National Standards Institute）标准的计算机语言
-
-
 
 **SQL 能做什么？**
 
@@ -38,7 +38,6 @@ SQL 是用于访问和处理数据库的标准计算机语言。
   - 在数据库中更新，增加和删除记录
   - `UPDATE`、`DELETE`、`INSERT`
 - **DCL（数据控制语言）**
-
   - 数据控制语言（Data Control Language）
   - 指用于设置用户权限和控制事务语句
 - **DQL（数据查询语言）**
@@ -51,7 +50,7 @@ SQL 是用于访问和处理数据库的标准计算机语言。
 
 MySQL 是最流行的关系型数据库管理系统，在 Web 应用方面 MySQL 是最好的 RDBMS（Relational Database Management System：关系数据库管理系统）应用软件之一。
 
-<br>
+
 
 ### 2.1、什么是数据库？
 
@@ -71,7 +70,7 @@ RDBMS 即关系数据库管理系统（Relational Database Management System）�
 - 许多的行和列组成一张表单
 - 若干的表单组成 Database
 
-<br>
+
 
 ### 2.2、RDBMS术语
 
@@ -96,7 +95,7 @@ MySQL 为关系型数据库（Relational Database Management System），这种�
 - 值（VALUE）：行的具体信息，每个值必须与该列的数据类型相同
 - 键（KEY）：键的值在当前列具有唯一性
 
-<br>
+
 
 ### 2.3、安装 MySQL 数据库
 
@@ -112,13 +111,13 @@ Windows 系统选择 msi 文件直接安装比较方便；Linux 系统如果使�
 | mysql-community-icu-data-files.rpm | ICU 数据，支持排序/字符集等国际化功能。                      | ⚠️ 可选                 |
 | mysql-community-devel.rpm          | 包含头文件、开发库，给编译程序用<br/>（比如编译 PHP 的 MySQL 扩展）。 | ❌ 非必须（除非你开发） |
 
-<br>
+
 
 #### 2.3.1、Windows 安装
 
 系统版本为 Windows 11，架构为 X86_64，使用 msi 安装包离线安装。
 
-<br>
+
 
 ##### 安装数据库
 
@@ -208,13 +207,13 @@ Windows 系统选择 msi 文件直接安装比较方便；Linux 系统如果使�
    mysql>
    ```
 
-<br>
+
 
 #### 2.3.2、Ubuntu 安装
 
 系统版本为 Ubuntu 20.04，架构为 X86_64，使用 `apt` 在线安装。
 
-<br>
+
 
 ##### 安装数据库
 
@@ -246,7 +245,7 @@ Windows 系统选择 msi 文件直接安装比较方便；Linux 系统如果使�
 
    现在是 mysql 数据库是没有密码的，Enter password: 处直接回车，就能够进入 mysql 数据库。
 
-<br>
+
 
 ##### 初始化数据库
 
@@ -316,7 +315,7 @@ Success.
 All done!
 ```
 
-<br>
+
 
 ##### 远程访问
 
@@ -369,7 +368,7 @@ service mysql restart
 
 测试远程访问。
 
-<br>
+
 
 ##### 卸载数据库
 
@@ -413,13 +412,13 @@ service mysql restart
 
    <img src="!assets/MySQL/image-20210420112705768.png" alt="image-20210420112705768" style="" />
 
-<br>
+
 
 #### 2.3.3、银河麒麟安装
 
 系统版本为银河麒麟 V10，架构为 X86，使用 tar 压缩包离线安装。
 
-<br>
+
 
 ##### 删除系统捆绑依赖包
 
@@ -451,7 +450,7 @@ service mysql restart
    rpm -e --nodeps $(rpm -qa | grep mysql)
    ```
 
-<br>
+
 
 ##### 安装数据库
 
@@ -504,7 +503,7 @@ service mysql restart
    systemctl start mysqld
    ```
 
-<br>
+
 
 ##### 初始化数据库
 
@@ -544,13 +543,13 @@ service mysql restart
    flush privileges;
    ```
 
-<br>
+
 
 #### 2.3.4、openEuler 安装
 
 系统版本为 openEuler 22.03（LTS-SP3），架构为 aarch64，使用 tar 压缩包离线安装。
 
-<br>
+
 
 ##### 安装数据库
 
@@ -597,7 +596,7 @@ service mysql restart
    systemctl start mysqld
    ```
 
-<br>
+
 
 ##### 初始化数据库
 
@@ -635,7 +634,7 @@ service mysql restart
    flush privileges;
    ```
 
-<br>
+
 
 
 ##### 卸载数据库
@@ -664,7 +663,7 @@ service mysql restart
    rm -rf $(find / -name mysql)
    ```
 
-<br>
+
 
 ### 2.4、创建数据库
 

@@ -1,162 +1,172 @@
 /* ==========================================================================
+   0. 全局说明
+   - 目标：技术文档 / 笔记友好
+   - 原则：章节清晰、正文紧凑、不空旷
+   ========================================================================== */
+
+
+/* ==========================================================================
    1. 二级标题 (H2) - 核心章节
-   样式：⚓️ 图标 + 底部实线 + 主题色
+   样式：⚓ 图标 + 底部实线 + 主题色
    ========================================================================== */
 .md-typeset h2 {
     position: relative;
-    margin-top: 3em;        /* 大间距 */
-    margin-bottom: 1em;
-    padding-bottom: 0.3em;  /* 文字与线的距离 */
-    
+    margin-top: 2.2em;
+    margin-bottom: 0.8em;
+    padding-bottom: 0.25em;
+
     font-weight: bold;
-    font-size: 1.5em;
-    color: var(--md-primary-fg-color); /* 主题色 */
-    
-    /* 底部实线 */
+    font-size: 1.45em;
+    color: var(--md-primary-fg-color);
+
     border-bottom: 2px solid var(--md-default-fg-color--lightest);
 }
 
-/* 添加 ⚓️ 图标 */
 .md-typeset h2::before {
-    content: "⚓";          /* 这里的图标可以换 */
-    margin-right: 0.5em;    /* 图标与文字的距离 */
-    font-size: 0.9em;       /* 图标稍微小一点点，协调 */
-    vertical-align: middle; /* 垂直居中对齐 */
-    opacity: 0.8;
+    content: "⚓";
+    margin-right: 0.45em;
+    font-size: 0.9em;
+    vertical-align: middle;
+    opacity: 0.85;
 }
+
 
 /* ==========================================================================
    2. 三级标题 (H3) - 子章节
-   样式：⚓️ 图标 (稍小) + 底部虚线 + 稍浅颜色
+   样式：⚓ 小图标 + 底部虚线 + 主题色
    ========================================================================== */
 .md-typeset h3 {
     position: relative;
-    margin-top: 2.5em;
-    margin-bottom: 1em;
-    padding-bottom: 0.3em;
-    
+    margin-top: 1.8em;
+    margin-bottom: 0.8em;
+    padding-bottom: 0.25em;
+
     font-weight: bold;
     font-size: 1.25em;
-    color: var(--md-typeset-color); 
-    
-    /* 底部虚线 (区分于 H2) */
+    color: var(--md-primary-fg-color);
+
     border-bottom: 1px dashed var(--md-default-fg-color--lightest);
 }
 
-/* 添加小号 ⚓️ 图标 */
 .md-typeset h3::before {
-    content: "⚓"; 
-    margin-right: 0.5em;
-    font-size: 0.75em;      /* 比 H2 的图标小 */
+    content: "⚓";
+    margin-right: 0.45em;
+    font-size: 0.75em;
     vertical-align: middle;
-    opacity: 0.6;           /* 颜色淡一点 */
+    opacity: 0.65;
 }
+
 
 /* ==========================================================================
    3. 四级至六级标题 (H4 - H6) - 内容要点
-   样式：左侧竖线标记 + 大间距 (不加横线，避免页面太碎)
+   样式：左侧竖线 + 主题色弱化
    ========================================================================== */
 .md-typeset h4,
 .md-typeset h5,
 .md-typeset h6 {
     position: relative;
-    margin-top: 3em !important;      /* 保持之前约定的大间距 */
-    margin-bottom: 1em !important;
-    
+    margin-top: 1.6em !important;
+    margin-bottom: 0.6em !important;
+
     font-weight: bold !important;
-    color: var(--md-typeset-color);
     line-height: 1.4;
-    
-    /* 左侧加一道竖线，像代码注释一样，很专业 */
+
     padding-left: 0.6em;
-    border-left: 4px solid var(--md-primary-fg-color); 
-    
-    /* 如果你非常想用图标，把上面 border-left 两行删掉，
-       用下面这段 content 代码：
-    */
-    /* content: "🔹"; padding-left: 0; */
+    border-left: 4px solid;
 }
 
-/* 细微调整各级大小 */
-.md-typeset h4 { font-size: 1.15em !important; border-left-color: var(--md-primary-fg-color); }
-.md-typeset h5 { font-size: 1.1em !important;  border-left-color: var(--md-primary-fg-color--light); }
-.md-typeset h6 { font-size: 1.05em !important; border-left-color: var(--md-default-fg-color--lighter); color: var(--md-default-fg-color--light) !important; }
+/* 不同级别弱化处理 */
+.md-typeset h4 {
+    font-size: 1.15em !important;
+    color: color-mix(in srgb,
+        var(--md-primary-fg-color) 80%,
+        var(--md-default-fg-color)
+    );
+    border-left-color: var(--md-primary-fg-color);
+}
+
+.md-typeset h5 {
+    font-size: 1.1em !important;
+    color: color-mix(in srgb,
+        var(--md-primary-fg-color) 65%,
+        var(--md-default-fg-color)
+    );
+    border-left-color: var(--md-primary-fg-color--light);
+}
+
+.md-typeset h6 {
+    font-size: 1.05em !important;
+    color: var(--md-default-fg-color--light);
+    border-left-color: var(--md-default-fg-color--lighter);
+}
 
 
-/* ==================================================
-   伪标题样式
-   用法：一行只有 **加粗** 时自动生效
-   ================================================== */
+/* ==========================================================================
+   4. 伪标题样式（auto-t）
+   用法：一整行只有 **加粗文字**，且上下有空行
+   ========================================================================== */
 p.auto-t {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 3em;
-    margin-bottom: 2em;
+
+    margin-top: 2em;
+    margin-bottom: 1.6em;
 }
 
-/* 线条 */
 p.auto-t::before,
 p.auto-t::after {
     content: "";
     flex: 1;
     border-bottom: 1px solid var(--md-default-fg-color--lighter);
-    margin: 0 1em;
+    margin: 0 0.8em;
 }
 
-/* 文字 */
 p.auto-t strong {
-    position: relative; /* 为了放伪元素 */
     font-weight: bold;
-    font-size: 1.0em;
-    color: var(--md-primary-fg-color); /* 使用主题色 */
-    padding: 0 0.5em;
+    font-size: 1em;
+    color: var(--md-primary-fg-color);
+    padding: 0 0.4em;
 }
 
-/* 在文字左右加装饰符号 (这里用菱形 ◆ ) */
-/* 也可以换成: "•" (圆点) 或者 "★" (星星) */
-p.auto-t strong::before {
-    content: "◆"; 
-    color: var(--md-default-fg-color--lightest);
-    margin-right: 10px;
-    font-size: 0.8em;
-    vertical-align: middle;
-}
-
+p.auto-t strong::before,
 p.auto-t strong::after {
     content: "◆";
     color: var(--md-default-fg-color--lightest);
-    margin-left: 10px;
     font-size: 0.8em;
     vertical-align: middle;
 }
 
-/* ==================================================
-   全局优化：让正文阅读更透气
-   ================================================== */
-/* 增加普通段落之间的距离 */
-.md-typeset p {
-    margin-bottom: 1.2em;
+p.auto-t strong::before {
+    margin-right: 8px;
 }
 
-/* 增加列表项之间的距离 */
-.md-typeset li {
-    margin-bottom: 0.5em;
+p.auto-t strong::after {
+    margin-left: 8px;
 }
 
 
 /* ==========================================================================
-   全局图片默认居中
-   让所有正文图片自动变成块级元素并居中
+   5. 正文阅读优化（压缩空隙）
    ========================================================================== */
-.md-typeset img {
-    display: block;        /* 让图片独占一行 (不再混在文字里) */
-    margin: 0 auto;        /* 左右自动边距 = 水平居中 */
-    max-width: 100%;       /* 保证大图不会撑破手机屏幕 */
+.md-typeset p {
+    margin-bottom: 0.9em;
 }
 
-/* 例外处理：防止 Emoji 表情包被错误居中
-   Twemoji 通常是 SVG 不受 img 影响，但为了防止你用了图片格式的 icon */
+.md-typeset li {
+    margin-bottom: 0.35em;
+}
+
+
+/* ==========================================================================
+   6. 图片统一居中 & 间距优化
+   ========================================================================== */
+.md-typeset img {
+    display: block;
+    margin: 0.8em auto;
+    max-width: 100%;
+}
+
 .md-typeset .twemoji img,
 .md-typeset .icon img {
     display: inline-block !important;
@@ -164,10 +174,8 @@ p.auto-t strong::after {
     vertical-align: text-bottom;
 }
 
-/* 修复 figure (带标题的图片) 居中
-   如果你用了 ![描述](路径 "标题") 语法，MkDocs 会生成 figure 标签 */
 .md-typeset figure {
     display: block;
-    margin: 2em auto;      /* 上下留点空隙，左右居中 */
-    text-align: center;    /* 让下面的 figcaption 文字也居中 */
+    margin: 1.5em auto;
+    text-align: center;
 }
