@@ -86,6 +86,7 @@ extra_css:
 # 引入自定义 JavaScript 文件
 extra_javascript:
   - _javascripts/auto_title.js
+  - _javascripts/search_boost.js
 
 
 # ==================== 插件配置 ====================
@@ -96,6 +97,7 @@ plugins:
       lang:
         - zh
         - en
+      separator: '[\s\u200b\-]+'  # 改进的分词分隔符，支持零宽字符
   
   # awesome-pages：灵活的导航管理
   # 使用 .pages 文件定义每个目录的导航结构
