@@ -36,8 +36,7 @@ theme:
     - navigation.top
     
     # 允许点击目录文件夹时显示其 index.md 内容
-    # 配合 section-index 插件使用效果更佳
-    - navigation.indexes
+    # - navigation.indexes
     
     # 滚动页面时，左侧导航自动跟随高亮当前章节
     - navigation.tracking
@@ -124,10 +123,7 @@ plugins:
       htmlmin_opts:
         remove_comments: true       # 移除 HTML 注释
       cache_safe: true              # 启用缓存安全模式
-  
-  # 目录索引页（让目录也能显示内容）
-  - section-index
-  
+
   # 图片灯箱效果（点击图片放大查看）
   - glightbox:
       touchNavigation: true         # 移动端触摸滑动切换图片

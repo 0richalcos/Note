@@ -6,7 +6,6 @@ mkdocs-awesome-pages-plugin>=2.9.0
 mkdocs-callouts>=1.10.0
 mkdocs-git-revision-date-localized-plugin>=1.2.0
 mkdocs-minify-plugin>=0.8.0
-mkdocs-section-index>=0.3.0
 mkdocs-glightbox>=0.3.0
 
 # 中文搜索支持
