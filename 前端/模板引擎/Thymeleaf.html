@@ -1,0 +1,5065 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://0richalcos.github.io/Note/%E5%89%8D%E7%AB%AF/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/Thymeleaf.html">
+      
+      
+        <link rel="prev" href="../jQuery.html">
+      
+      
+        <link rel="next" href="../%E7%BB%84%E4%BB%B6%E5%BA%93/AntV-X6.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Thymeleaf - 随便记记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../_stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1thymeleaf" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../index.html" title="随便记记" class="md-header__button md-logo" aria-label="随便记记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            随便记记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Thymeleaf
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="切换深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="切换亮色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换亮色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/0richalcos/Note" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="随便记记" class="md-nav__button md-logo" aria-label="随便记记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    随便记记
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/0richalcos/Note" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🏠 首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ♨️ Java
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ♨️ Java
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java 8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/JavaBasics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java 基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/JavaCollection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java 集合
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/JavaObject.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java 类和对象
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/JavaWeb.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaWeb
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/%E6%B5%8B%E8%AF%95%E5%BA%8F%E5%8F%B7.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    测试序号
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🧮 数据结构及算法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🧮 数据结构及算法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%AE%97%E6%B3%95/Algorithm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%AE%97%E6%B3%95/DesignPattern.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DesignPattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🍃 Spring
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🍃 Spring
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Spring/Spring.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Spring/SpringBoot.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringBoot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Spring/SpringCloud.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringCloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Spring/SpringMVC.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringMVC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💾 持久层框架
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    💾 持久层框架
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6/MyBatis-Plus.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MyBatis-Plus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6/Mybatis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mybatis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔐 认证与授权
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔐 认证与授权
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83/SSO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83/Sa-Token.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sa-Token
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83/Shiro.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shiro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🌐 前端
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🌐 前端
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CSS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CSS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JavaScript.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Vue.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jQuery.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    jQuery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thymeleaf
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="Thymeleaf.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thymeleaf
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1thymeleaf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1、Thymeleaf
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2、标准表达式语法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2、标准表达式语法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 简单表达式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 简单表达式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1、${...}
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2、*{...}
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3、#{…}
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4、@{…}
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.5、~{…}
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#216" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.6、内置对象
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#217" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.7、工具类
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2、字面值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3、文本操作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4、算术运算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5、布尔运算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6、比较和相等
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7、条件运算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8、无操作符
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3、使用文本
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4、设置属性值
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5、遍历
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6、条件判断
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7、定义局部变量
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8、注释
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8、注释">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1、标准注释
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2、解析器级注释
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9、内联表达式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9、内联表达式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1、[[…]]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2、[(…)]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93thinline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3、th:inline
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10、其他
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_6" id="__nav_7_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    组件库
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    组件库
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BB%84%E4%BB%B6%E5%BA%93/AntV-X6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AntV-X6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BB%84%E4%BB%B6%E5%BA%93/ApacheECharts.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ApacheECharts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BB%84%E4%BB%B6%E5%BA%93/Axios.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Axios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BB%84%E4%BB%B6%E5%BA%93/BootstrapTable.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BootstrapTable
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BB%84%E4%BB%B6%E5%BA%93/DHTMLXGantt.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DHTMLXGantt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BB%84%E4%BB%B6%E5%BA%93/Element.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Element
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BB%84%E4%BB%B6%E5%BA%93/FullCalendar.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FullCalendar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BB%84%E4%BB%B6%E5%BA%93/X-editable.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    X-editable
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📊 数据库
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📊 数据库
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/Dameng.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dameng
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MySQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQLQuery.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MySQLQuery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/OceanBase.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OceanBase
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/Oracle.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Oracle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/Redis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/Vastbase.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vastbase
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/Elasticsearch.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elasticsearch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📇 分布式存储
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📇 分布式存储
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8/FastDFS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FastDFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8/MinIO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MinIO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛰️ 网络通信
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛰️ 网络通信
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/Encryption.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Encryption
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/HTTP.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/OpenVPN.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenVPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/VNC.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VNC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/WebSocket.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WebSocket
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/frp.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    frp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🗃️ 文件处理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🗃️ 文件处理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_12_1" id="__nav_12_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Office
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_12_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Office
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Office/ApachePOI.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ApachePOI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Office/EasyExcel.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EasyExcel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Office/OnlyOffice.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OnlyOffice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Office/Poi-tl.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Poi-tl
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Office/Spire.OfficeForJava.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spire.OfficeForJava
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/PDF/ApachePDFBox.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ApachePDFBox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/XML/XMLParse.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XMLParse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/ZIP/Zip4j.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zip4j
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/XXL-JOB.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XXL-JOB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🧑‍🔧 运维
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🧑‍🔧 运维
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%BF%90%E7%BB%B4/Docker.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%BF%90%E7%BB%B4/Linux.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%BF%90%E7%BB%B4/NSSM.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NSSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%BF%90%E7%BB%B4/Nginx.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%BF%90%E7%BB%B4/Tomcat.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tomcat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%BF%90%E7%BB%B4/TongWeb.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TongWeb
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%BF%90%E7%BB%B4/WSL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WSL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%BF%90%E7%BB%B4/WebLogic.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WebLogic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛠️ 开发工具
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛠️ 开发工具
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/Git.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/Maven.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maven
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/Node.js.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Node.js
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/Swagger.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Swagger
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    👻 其他
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    👻 其他
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96/Settings.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Settings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96/Solutions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solutions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96/Weasel.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Weasel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1thymeleaf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1、Thymeleaf
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2、标准表达式语法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2、标准表达式语法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 简单表达式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 简单表达式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1、${...}
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2、*{...}
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3、#{…}
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4、@{…}
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.5、~{…}
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#216" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.6、内置对象
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#217" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.7、工具类
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2、字面值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3、文本操作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4、算术运算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5、布尔运算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6、比较和相等
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7、条件运算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8、无操作符
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3、使用文本
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4、设置属性值
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5、遍历
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6、条件判断
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7、定义局部变量
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8、注释
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8、注释">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1、标准注释
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2、解析器级注释
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9、内联表达式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9、内联表达式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1、[[…]]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2、[(…)]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93thinline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3、th:inline
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10、其他
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="thymeleaf">Thymeleaf<a class="headerlink" href="#thymeleaf" title="Permanent link">&para;</a></h1>
+<h2 id="1thymeleaf">1、Thymeleaf<a class="headerlink" href="#1thymeleaf" title="Permanent link">&para;</a></h2>
+<p>Thymeleaf 是一个服务器端 Java 模板引擎，能够处理 HTML、XML、CSS、JavaScript 等模板文件。Thymeleaf 模板可以直接当作静态原型来使用，它主要目标是为开发者的开发工作流程带来优雅的自然模板，也是 Java 服务器端 HTML5 开发的理想选择。</p>
+<p>创建一个 HTML 模板文件</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;!DOCTYPE HTML&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">xmlns:th</span><span class="o">=</span><span class="s">&quot;http://www.thymeleaf.org&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Index Page<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;Content-Type&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;text/html; charset=UTF-8&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${message}&quot;</span><span class="p">&gt;</span>Welcome to BeiJing!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>通过 <code>&lt;html xmlns:th="http://www.thymeleaf.org"&gt;</code> 引入 Thymeleaf 命名空间。<code>th:text</code> 用于处理 <code>&lt;p&gt;</code> 标签体的文本内容。该模板文件直接在任何浏览器中正确显示，浏览器会自动忽略它们不能理解的属性 <code>th:text</code>。但这不是一个真正有效的 HTML5 文档，因为 HTML5 规范是不允许使用 <code>th:*</code> 这些非标准属性的。我们可以切换到 Thymeleaf 的 <code>data-th-*</code> 语法，以此来替换 <code>th:*</code> 语法：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;!DOCTYPE HTML&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">xmlns:th</span><span class="o">=</span><span class="s">&quot;http://www.thymeleaf.org&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Index Page<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;Content-Type&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;text/html; charset=UTF-8&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span> <span class="na">data-th-text</span><span class="o">=</span><span class="s">&quot;${message}&quot;</span><span class="p">&gt;</span>Welcome to BeiJing!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>HTML5 规范是允许 <code>data-*</code> 这样自定义的属性的。<code>th:*</code> 和 <code>data-th-*</code> 这两个符号是完全等效且可以互换的。但为了简单直观和代码的紧凑性，本文采用 <code>th:*</code> 的表示形式。</p>
+<h2 id="2">2、标准表达式语法<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<p>Thymeleaf 提供了非常丰富的标准表达式语法，总共有 8 大类：</p>
+<ul>
+<li>简单表达式</li>
+<li>字面值</li>
+<li>文本操作</li>
+<li>算术运算</li>
+<li>布尔运算</li>
+<li>比较和相等</li>
+<li>条件运算</li>
+<li>无操作符</li>
+</ul>
+<h3 id="21">2.1 简单表达式<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">语法</th>
+<th style="text-align: left;">名称</th>
+<th>描述</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>${...}</code></td>
+<td style="text-align: left;">Variable Expressions</td>
+<td>变量表达式</td>
+<td>取出上下文变量的值</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>*{...}</code></td>
+<td style="text-align: left;">Selection Variable Expressions</td>
+<td>选择变量表达式</td>
+<td>取出选择的对象的属性值</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>#{...}</code></td>
+<td style="text-align: left;">Message Expressions</td>
+<td>消息表达式</td>
+<td>使文字消息国际化，I18N</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>@{...}</code></td>
+<td style="text-align: left;">Link URL Expressions</td>
+<td>链接表达式</td>
+<td>用于表示各种超链接地址</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>~{...}</code></td>
+<td style="text-align: left;">Fragment Expressions</td>
+<td>片段表达式</td>
+<td>引用一段公共的代码片段</td>
+</tr>
+</tbody>
+</table>
+<h4 id="211">2.1.1、${...}<a class="headerlink" href="#211" title="Permanent link">&para;</a></h4>
+<p><code>${…}</code>，变量表达式，它包含一个称为 OGNL（Object-Graph Navigation Language）语言的表达式。</p>
+<p><strong>OGNL的特性</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cm">/*</span>
+<span class="cm"> * 使用点(.)访问属性。相当于调用属性getter。</span>
+<span class="cm"> */</span>
+<span class="nx">$</span><span class="p">{</span><span class="nx">person</span><span class="p">.</span><span class="nx">father</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * 还可以通过使用中括号([])并将属性的</span>
+<span class="cm"> * 名称作为变量或单引号来访问属性。</span>
+<span class="cm"> */</span>
+<span class="nx">$</span><span class="p">{</span><span class="nx">person</span><span class="p">[</span><span class="s1">&#39;father&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]}</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * 如果对象是一个map, 点和中括号语法将</span>
+<span class="cm"> * 等效于对其get(...)方法执行调用。</span>
+<span class="cm"> */</span>
+<span class="nx">$</span><span class="p">{</span><span class="nx">countriesByCode</span><span class="p">.</span><span class="nx">ES</span><span class="p">}</span>
+<span class="nx">$</span><span class="p">{</span><span class="nx">personsByName</span><span class="p">[</span><span class="s1">&#39;Stephen Zucchini&#39;</span><span class="p">].</span><span class="nx">age</span><span class="p">}</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * 对数组或集合的索引访问也使用中括号执行, </span>
+<span class="cm"> * 不使用引号编写索引。</span>
+<span class="cm"> */</span>
+<span class="nx">$</span><span class="p">{</span><span class="nx">personsArray</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">name</span><span class="p">}</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * 方法可以调用, 甚至可以有参数。</span>
+<span class="cm"> */</span>
+<span class="nx">$</span><span class="p">{</span><span class="nx">person</span><span class="p">.</span><span class="nx">createCompleteName</span><span class="p">()}</span>
+<span class="nx">$</span><span class="p">{</span><span class="nx">person</span><span class="p">.</span><span class="nx">createCompleteNameWithSeparator</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)}</span><span class="w"> </span>
+</code></pre></div>
+<p><strong>示例：</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&quot;/standard-expression-syntax/variables&quot;</span><span class="p">)</span>
+<span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">variables</span><span class="p">(</span><span class="n">ModelMap</span><span class="w"> </span><span class="n">model</span><span class="p">,</span><span class="w"> </span><span class="n">HttpSession</span><span class="w"> </span><span class="n">session</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">model</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;now&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Date</span><span class="p">());</span>
+<span class="w">    </span><span class="n">model</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Welcome to BeiJing!&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">session</span><span class="p">.</span><span class="na">setAttribute</span><span class="p">(</span><span class="s">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">User</span><span class="p">(</span><span class="s">&quot;fanlychie&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;男&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">24</span><span class="p">));</span>
+<span class="w">    </span><span class="p">......</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>通过变量表达式<code>${}</code>取出上下文环境中的<code>message</code>变量：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- Welcome to BeiJing! --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${message}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>它相当于：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">ctx</span><span class="p">.</span><span class="nx">getVariable</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span>
+</code></pre></div>
+<blockquote>
+<p>此外 <code>Thymeleaf</code> 的官方文档中提到了 <code>${@myBean.doSomething(new java.util.Date())}</code> 可以访问容器中 bean 的数据：</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Service</span><span class="p">(</span><span class="s">&quot;myBean&quot;</span><span class="p">)</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DictService</span><span class="p">{</span>
+<span class="w">     </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">doSomething</span><span class="p">(</span><span class="n">Date</span><span class="w"> </span><span class="n">date</span><span class="p">){</span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;Hello World!&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">date</span><span class="p">.</span><span class="na">toString</span><span class="p">();</span>
+<span class="w">     </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</blockquote>
+<h4 id="212">2.1.2、*{...}<a class="headerlink" href="#212" title="Permanent link">&para;</a></h4>
+<p>变量表达式 <code>${}</code> 是面向整个上下文的，而选择变量表达式 <code>*{}</code> 的上下文是父标签（<code>th:object</code>）所选择的对象：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">th:object</span><span class="o">=</span><span class="s">&quot;${session.user}&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;*{name}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;*{sex}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;*{age}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>它相当于：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${session.user.name}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${session.user.sex}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${session.user.age}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>如果对象没有被选择，那么，<code>*{}</code>和<code>${}</code>表达式所达到的效果是完全相同的：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;*{session.user.name}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${session.user.name}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<h4 id="213">2.1.3、#{…}<a class="headerlink" href="#213" title="Permanent link">&para;</a></h4>
+<p>消息表达式可用于国际化文字信息。下面是 i18n 资源文件的命名规则：</p>
+<ul>
+<li>basename.properties</li>
+<li>basename_language.properties</li>
+<li>basename_language_country.properties</li>
+</ul>
+<p><code>basename</code> 是自定义的资源文件名称，<code>language</code> 和 <code>country</code> 必须是 Java 支持的语言和国家。<code>basename.properties</code> 是缺省加载的资源文件，当客户端根据本地语言查找不到相关的资源文件时，则使用该配置文件。</p>
+<p>创建文件 <code>src/main/resources/messages.properties</code></p>
+<div class="highlight"><pre><span></span><code><span class="na">welcome.message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">北京欢迎你！</span>
+</code></pre></div>
+<p>创建文件 <code>src/main/resources/messages_en_US.properties</code></p>
+<div class="highlight"><pre><span></span><code><span class="na">welcome.message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Welcome to BeiJing!</span>
+</code></pre></div>
+<p>在 IntelliJ IDEA 编辑视图：</p>
+<p><img src="!assets/Thymeleaf/i18n-messages.png" alt="img" style="width:60%;" /></p>
+<p><code>messages</code> 是 Spring Boot 加载资源文件默认采用的名称（<code>basename</code>），如果你所使用的资源文件名称不是以 <code>messages</code> 命名或所使用的资源文件不是在 <code>src/main/resources</code> 根目录，你可以通过 <code>spring.messages.basename</code> 属性来做具体的配置。如，资源文件<code>messages.properties</code> 和 <code>messages_en_US.properties</code> 假设它们所在的目录位置是 <code>src/main/resources/i18n</code>。</p>
+<p>application.properties 配置示例：</p>
+<div class="highlight"><pre><span></span><code><span class="na">spring.messages.basename</span><span class="o">:</span><span class="s">i18n/messages</span>
+</code></pre></div>
+<p>application.yml 配置示例：</p>
+<div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">spring</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">messages</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">basename</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">i18n/messages</span>
+</code></pre></div>
+<p>静态文本消息示例：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- 北京欢迎你！ --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;#{welcom.message}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>消息表达式 <code>#{}</code> 是不允许直接处理非静态的文本消息的，但是可以在资源文件中通过使用占位符 <code>{}</code> 来处理非静态的文本消息：</p>
+<p>messages.properties 配置示例：</p>
+<div class="highlight"><pre><span></span><code><span class="na">welcome.user.message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">{0}, 北京欢迎你！</span>
+</code></pre></div>
+<p>messages_en_US.properties 配置示例：</p>
+<div class="highlight"><pre><span></span><code><span class="na">welcome.user.message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">{0}, Welcome to BeiJing!</span>
+</code></pre></div>
+<p>非静态文本消息，以参数的形式传递变量的值：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- fanlychie, 北京欢迎你！ --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;#{welcome.user.message(${session.user.name})}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<h4 id="214">2.1.4、@{…}<a class="headerlink" href="#214" title="Permanent link">&para;</a></h4>
+<p>链接表达式 <code>@{}</code> 是专门用来处理 URL 链接地址的。</p>
+<p>绝对地址示例：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- https://fanlychie.github.io --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;@{https://fanlychie.github.io}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>页面相对地址示例：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- commons/base.html --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;@{commons/base.html}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>上下文相对地址（相对于当前的服务）示例：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- /css/mian.css --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;@{/css/mian.css}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>服务器相对地址（相对于部署在同一个服务器中的不同服务）示例：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- /image/upload --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;@{~/image/upload}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>参数使用示例：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- /css/mian.css?v=1.0 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;@{/css/mian.css(v=1.0)}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- /user/order?username=fanlychie --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;@{/user/order(username=${session.user.name})}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- /user/order?username=fanlychie&amp;status=PAIED --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;@{/user/order(username=${session.user.name},status=&#39;PAIED&#39;)}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- /user/fanlychie/info --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;@{/user/{username}/info(username=${session.user.name})}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<h4 id="215">2.1.5、~{…}<a class="headerlink" href="#215" title="Permanent link">&para;</a></h4>
+<p>片段表达式 <code>~{}</code> 可以用来引用一段公共的 HTML 代码片段。</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>~{templatename}</code></td>
+<td>引用整个模板文件的代码片段</td>
+</tr>
+<tr>
+<td><code>~{templatename :: selector}</code></td>
+<td>selector 可以是 th:fragment 指定的名称或其他选择器。<br/>如类选择器、ID选择器等</td>
+</tr>
+<tr>
+<td><code>~{::selector}</code></td>
+<td>相当于 ~{this :: selector}，表示引用当前模板定义的代码片段</td>
+</tr>
+</tbody>
+</table>
+<p>在 Thymeleaf 模板文件中，可以使用 <code>th:fragment</code> 属性来定义一段公共的代码片段，然后你可以通过使用 <code>th:insert</code>、<code>th:replace</code>、<code>th:include</code>（Thymeleaf 3.0 开始不再推荐使用，这里不再介绍它）属性来将这些公共的代码片段引入到模板文件中来。</p>
+<p>src/main/resources/templates/base.html，通过 <code>th:fragment</code> 属性定义一段公共的代码片段：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;footer&quot;</span> <span class="na">th:fragment</span><span class="o">=</span><span class="s">&quot;footerFragment&quot;</span><span class="p">&gt;</span><span class="ni">&amp;copy;</span> 2017 fanlychie<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>src/main/resources/templates/index.html，通过 <code>th:insert</code> 属性引用一段公共的代码片段：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">th:insert</span><span class="o">=</span><span class="s">&quot;~{base :: footerFragment}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>其中，<code>~{}</code> 是可选的，我们可以去掉这层的包裹：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">th:insert</span><span class="o">=</span><span class="s">&quot;base :: footerFragment&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>若 index.html 与 base.html 不在同级目录，如 templates/commons/base.html：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">th:insert</span><span class="o">=</span><span class="s">&quot;~{commons/base :: footerFragment}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>使用 <code>th:fragment</code> 属性定义代码片段时，还可以声明一组参数：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">th:fragment</span><span class="o">=</span><span class="s">&quot;crumbs(parent, child)&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">i</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${parent}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">i</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${child}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!--</span>
+<span class="cm">&lt;i&gt;用户中心&lt;/i&gt;</span>
+<span class="cm">&lt;i&gt;我的订单&lt;/i&gt;</span>
+<span class="cm">--&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">th:insert</span><span class="o">=</span><span class="s">&quot;::crumbs(&#39;用户中心&#39;, &#39;我的订单&#39;)&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>此外，还可以通过类选择器、ID选择器等来引用公共的代码片段：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">th:insert</span><span class="o">=</span><span class="s">&quot;~{base :: #footer}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>除了 <code>th:insert</code> 属性 <code>th:replace</code> 也可以用来引用公共的代码片段。不同的是，<code>th:insert</code> 是直接将代码片段插入到标签体内，而<code>th:replace</code> 则是用代码片段直接替换标签体内容。</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!--</span>
+<span class="cm">&lt;div&gt;</span>
+<span class="cm">    &lt;div id=&quot;footer&quot;&gt;© 2017 fanlychie&lt;/div&gt;</span>
+<span class="cm">&lt;/div&gt;</span>
+<span class="cm">--&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">th:insert</span><span class="o">=</span><span class="s">&quot;~{base :: footerFragment}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!--</span>
+<span class="cm">&lt;div id=&quot;footer&quot;&gt;© 2017 fanlychie&lt;/div&gt;</span>
+<span class="cm">--&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">th:replace</span><span class="o">=</span><span class="s">&quot;~{base :: footerFragment}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<h4 id="216">2.1.6、内置对象<a class="headerlink" href="#216" title="Permanent link">&para;</a></h4>
+<p>在上下文变量中评估 OGNL 表达式时，一些对象可用于表达式，以实现更高的灵活性。 这些对象从 <code>#</code> 符号开始就会被引用（根据 OGNL 标准）：</p>
+<table>
+<thead>
+<tr>
+<th>对象</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>#ctx</code></td>
+<td>上下文对象</td>
+</tr>
+<tr>
+<td><code>#vars</code></td>
+<td>同 <code>#ctx</code>，表示上下文变量</td>
+</tr>
+<tr>
+<td><code>#locale</code></td>
+<td>上下文本地化（特定的地理区域）变量，可参考 java.util.Locale</td>
+</tr>
+<tr>
+<td><code>#request</code></td>
+<td>HttpServletRequest 对象，可参考 javax.servlet.http.HttpServletRequest</td>
+</tr>
+<tr>
+<td><code>#response</code></td>
+<td>HttpServletResponse 对象，可参考 javax.servlet.http.HttpServletResponse</td>
+</tr>
+<tr>
+<td><code>#session</code></td>
+<td>HttpSession 对象，可参考 javax.servlet.http.HttpSession</td>
+</tr>
+<tr>
+<td><code>#servletContext</code></td>
+<td>ServletContext 对象，可参考 javax.servlet.ServletContext</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>#ctx</code> 示例：</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- zh_CN --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#ctx.getLocale()}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- Welcome to BeiJing! --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#ctx.getVariable(&#39;message&#39;)}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- true --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#ctx.containsVariable(&#39;message&#39;)}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong><code>#vars</code> 示例：</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- zh_CN --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#vars.getLocale()}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- Welcome to BeiJing! --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#vars.getVariable(&#39;message&#39;)}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- true --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#vars.containsVariable(&#39;message&#39;)}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong><code>#locale</code> 示例：</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- zh_CN --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#locale}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- CN --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#locale.country}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- 中国 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#locale.displayCountry}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- zh --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#locale.language}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- 中文 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#locale.displayLanguage}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- 中文 (中国) --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#locale.displayName}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong><code>#request</code> 示例：</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- HTTP/1.1 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#request.protocol}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- http --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#request.scheme}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- localhost --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#request.serverName}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- 8080 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#request.serverPort}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- GET --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#request.method}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- /standard-expression-syntax/variables --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#request.requestURI}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- http://localhost:8080/standard-expression-syntax/variables --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#request.requestURL}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- /standard-expression-syntax/variables --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#request.servletPath}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- java.util.Collections$3@203646fe --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#request.parameterNames}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- {q=[Ljava.lang.String;@3308c69f} --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#request.parameterMap}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- q=expression --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#request.queryString}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>注意，请求地址的 URL 参数直接通过 <code>#request.x</code> 是取不出来的，需要使用 <code>param.x</code> 语法来取出。如，URL：<code>/standard-expression-syntax/variables?q=expression</code>，取出 q 参数的正确姿势：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${param.q}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong><code>#response</code> 示例：</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- 200 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#response.status}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- 8192 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#response.bufferSize}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- UTF-8 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#response.characterEncoding}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- text/html;charset=UTF-8 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#response.contentType}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong><code>#session</code> 示例：</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- 2BCB2A0EACFF2D9D249D9799431B5127 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#session.id}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- 1499786693244 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#session.lastAccessedTime}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- fanlychie --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#session.getAttribute(&#39;user&#39;).name}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>注意，放到会话里面的对象直接通过 <code>#session.x</code> 是取不出来的，需要使用 <code>session.x</code> 语法来取出。如，取出会话里面的 user 对象的正确姿势：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${session.user.name}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<h4 id="217">2.1.7、工具类<a class="headerlink" href="#217" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>对象</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>#messages</code></td>
+<td>消息工具类，与 ＃{…} 作用相同</td>
+</tr>
+<tr>
+<td><code>#uris</code></td>
+<td>地址相关的工具类</td>
+</tr>
+<tr>
+<td><code>#conversions</code></td>
+<td>对象转换工具类</td>
+</tr>
+<tr>
+<td><code>#dates</code></td>
+<td>日期时间工具类</td>
+</tr>
+<tr>
+<td><code>#calendars</code></td>
+<td>日历工具类</td>
+</tr>
+<tr>
+<td><code>#numbers</code></td>
+<td>数字工具类</td>
+</tr>
+<tr>
+<td><code>#strings</code></td>
+<td>字符串工具类</td>
+</tr>
+<tr>
+<td><code>#objects</code></td>
+<td>对象工具类</td>
+</tr>
+<tr>
+<td><code>#bools</code></td>
+<td>布尔工具类</td>
+</tr>
+<tr>
+<td><code>#arrays</code></td>
+<td>数组工具类</td>
+</tr>
+<tr>
+<td><code>#lists</code></td>
+<td>List 工具类</td>
+</tr>
+<tr>
+<td><code>#sets</code></td>
+<td>Set 工具类</td>
+</tr>
+<tr>
+<td><code>#maps</code></td>
+<td>Map 工具类</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- false --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#strings.isEmpty(message)}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- 2017-07-12 00:37:25 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#dates.format(now, &#39;yyyy-MM-dd HH:mm:ss&#39;)}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- 四舍五入显示两位小数 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">span</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${#numbers.formatDecimal(num,1,&#39;COMMA&#39;,2,&#39;POINT&#39;)}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="22">2.2、字面值<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<p>所谓字面值，首先它不是一个变量，它是一个具体的确切的值，通常这些值是比较简单的，例如：<code>18</code>、<code>'welcome'</code> 等，它们没有名称，以至于我们只能用值来称呼它们，因此我们称其为字面值。</p>
+<p><strong>文字字面值</strong></p>
+<p>文字字面值是用单引号引起来的任何字符内容，如果字符内容里面含有单引号，则需要进行转义：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- Welcome to BeiJing! --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;&#39;Welcome to BeiJing!&#39;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- &#39;Welcome to BeiJing!&#39; --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;&#39;\&#39;Welcome to BeiJing!\&#39;&#39;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong>数字字面值</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- 2017 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;2017&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- 2018 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;2017 + 1&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong>布尔字面值</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- false --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;1 &gt; 2&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- 否 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;1 &gt; 2 ? &#39;是&#39; : &#39;否&#39;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong>空字面值</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- false --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${user == null}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong>字面令牌</strong></p>
+<p>字面令牌（Literal Tokens）的内容只能含有（不能含有空格、特殊符号等）：</p>
+<ul>
+<li>大写或小写的字母、中文等不含空格和特殊符号的文本</li>
+<li>0 到 9 的数字</li>
+<li>中括号</li>
+<li>下划线</li>
+<li>连字符（-）</li>
+<li>点符号（.）</li>
+</ul>
+<p>实际上，数字、布尔和空字面值都是字面令牌的特殊情况。字面令牌能够用来对标准表达式语法进行简化，我们可以将包裹它的内容的单引号去掉：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;Welcome to BeiJing!&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>它等效于：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;&#39;Welcome to BeiJing!&#39;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="23">2.3、文本操作<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
+<p>对文本内容进行常用的操作，分别为字符串连接和字符串替换。</p>
+<p><strong>字符串连接</strong></p>
+<p>不管是字面值还是表达式的结果，都可以使用 <code>+</code> 符号将它们连接起来：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- Welcome to BeiJing! --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;&#39;Welcome to &#39; + ${location} + &#39;!&#39;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong>字面值替换</strong></p>
+<p>符号 <code>||</code> 可以用来将字面值和表达式包裹起来，这样就能方便的替换变量的值，而不需要使用 <code>+</code> 连接符：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- Welcome to BeiJing! --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;|Welcome to ${location}!|&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="24">2.4、算术运算<a class="headerlink" href="#24" title="Permanent link">&para;</a></h3>
+<p>支持 <code>+</code>（加）、<code>-</code>（减）、<code>*</code>（乘）、<code>/</code>（除）、<code>%</code>（模）运算：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- 6 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;4 + 2&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- 2 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;4 - 2&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- 8 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;4 * 2&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- 2 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;4 / 2&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- 0 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;4 % 2&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- 2 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${pagination.page + 1}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- 2 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${pagination.page} + 1&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="25">2.5、布尔运算<a class="headerlink" href="#25" title="Permanent link">&para;</a></h3>
+<p>支持 <code>and</code>（且）、<code>or</code>（或）、<code>!</code>（非）、<code>not</code>（非）运算：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${user.online and user.vip}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${user.online or user.vip}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${!user.online}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${not user.online}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="26">2.6、比较和相等<a class="headerlink" href="#26" title="Permanent link">&para;</a></h3>
+<p>支持 <code>&lt;</code>（<code>lt</code>）、<code>&gt;</code>（<code>gt</code>）、<code>&lt;=</code>（<code>le</code>）、<code>&gt;=</code>（<code>ge</code>）、<code>==</code>（<code>eq</code>）、<code>！=</code>（<code>ne</code>）：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${user.age &lt; 60}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${user.age &lt;= 60}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${user.age &gt; 18}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${user.age &gt;= 18}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${user.age == 18}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${user.age != 18}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="27">2.7、条件运算<a class="headerlink" href="#27" title="Permanent link">&para;</a></h3>
+<p>三元运算符：<code>(if) ? (then) : (else)</code></p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${user.online ? &#39;在线&#39; : &#39;离线&#39;}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${user.online ? (user.vip ? &#39;VIP用户在线&#39; : &#39;普通用户在线&#39;) : &#39;离线&#39;}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>二元运算符：<code>(value) ?: (defaultValue)</code>。</p>
+<p>其中，<code>value</code> 非空（null）即真，条件为真时输出 <code>value</code>，否则输出 <code>defaultValue</code>。假设 <code>token = null</code>，<code>user.email = fanlychie@gmail.com</code></p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- 你还没有登录，请先登录 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${token} ?: &#39;你还没有登录，请先登录&#39;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- fanlychie@gmail.com --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${user.email} ?: &#39;你还没有绑定邮箱&#39;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="28">2.8、无操作符<a class="headerlink" href="#28" title="Permanent link">&para;</a></h3>
+<p>当模板运行在服务器端时，Thymeleaf 会解析 <code>th:*</code> 属性的具体值替换标签体的内容。无操作符（<code>_</code>）则允许你使用原型标签体的内容作为默认值：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- 你还没有登录，请先登录 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${token} ?: _&quot;</span><span class="p">&gt;</span>你还没有登录，请先登录<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<h2 id="3">3、使用文本<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<p>首先介绍两个最基础的 <code>th:*</code> 属 <code>th:text</code> 和 <code>th:utext</code>，它们都是用于处理文本消息内容。</p>
+<p><strong>th:text</strong></p>
+<p>在标签体中展示表达式评估结果的文本内容：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${message}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>使用外部化的文本内容：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${message}&quot;</span><span class="p">&gt;</span>Welcome to BeiJing!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>当它作为静态文件直接运行时，浏览器会自动忽略它不能识别的 <code>th:text</code> 属性，而显示 <code>&lt;p&gt;</code> 标签体的文本内容 <code>Welcome to BeiJing!</code></p>
+<p>当它作为模板文件运行在服务器端时，<code>th:text</code> 属性的具体值将会替换 <code>&lt;p&gt;</code> 标签体的文本内容。</p>
+<p><strong>th:utext</strong></p>
+<p>属性 <code>th:utext</code> 与 <code>th:text</code> 的区别在于：</p>
+<ul>
+<li><code>th:text</code> 默认会对含有 HTML 标签的内容进行字符转义；</li>
+<li><code>th:utext</code>（Unescaped Text）则不会对含有 HTML 标签的内容进行字符转义；</li>
+</ul>
+<p>假设：<code>message = "&lt;b&gt;Welcome to BeiJing!&lt;/b&gt;"</code>。</p>
+<p>使用 <code>th:text</code> 属性：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${message}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><code>th:text</code> 效果：<code>&lt;b&gt;Welcome to BeiJing!&lt;/b&gt;</code></p>
+<p>使用  <code>th:utext</code> 属性：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:utext</span><span class="o">=</span><span class="s">&quot;${message}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><code>th:utext</code> 效果：<code>Welcome to BeiJing!</code></p>
+<h2 id="4">4、设置属性值<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<p>在 Thymeleaf 模板文件中，可以使用 <code>th:*</code>（或者使用 <code>th:attr</code> 属性）来设置任意的 HTML5 标签属性的值。不仅如此，还可以 <code>th:*-*</code> 来同时为多个不同的标签属性设置相同的一个值，甚至你可以使用 <code>th:attrappend</code> 和 <code>th:attrprepend</code> 来追加新的值到现有的标签属性值中。</p>
+<p><strong>th:attr</strong></p>
+<p>这种方式是不被推荐的，了解一下就行。下面是用 <code>th:attr="href=..."</code> 来设置标签 <code>href</code> 属性的值：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">a</span> <span class="na">th:attr</span><span class="o">=</span><span class="s">&quot;href=@{https://www.google.com.hk}&quot;</span><span class="p">&gt;</span>谷歌一下你就知道<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong>th:</strong>*</p>
+<p>显然 <code>th:attr="href=@{http://www.baidu.com}"</code> 不够简洁，所以更推荐下面的这种语法：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">a</span> <span class="na">th:href</span><span class="o">=</span><span class="s">&quot;@{https://www.google.com.hk}&quot;</span><span class="p">&gt;</span>谷歌一下你就知道<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>其中 <code>th:*</code> 中的 <code>*</code> 可以是 HTML5 支持的任意属性名称，甚至这些属性名称可以是自定义的：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- &lt;div item-id=&quot;1001&quot;&gt;Welcome to BeiJing!&lt;/div&gt; --&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">th:item-id</span><span class="o">=</span><span class="s">&quot;${user.id}&quot;</span><span class="p">&gt;</span>Welcome to BeiJing!<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong>th:<em>-</em></strong></p>
+<p>如果想要同时为标签的多个不同属性设置相同的一个值，可以使用 <code>th:*-*</code> 的语法：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;logo.png&quot;</span> <span class="na">th:alt-title</span><span class="o">=</span><span class="s">&quot;LOGO图片&quot;</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>它相当于：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;logo.png&quot;</span> <span class="na">th:alt</span><span class="o">=</span><span class="s">&quot;LOGO图片&quot;</span> <span class="na">th:title</span><span class="o">=</span><span class="s">&quot;LOGO图片&quot;</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong>th:attrappend &amp; th:attrprepend</strong></p>
+<p><code>th:attrappend</code> 和 <code>th:attrprepend</code> 可以将表达式的结果分别追加到指定的属性值之后和之前。</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- &lt;button class=&quot;btn enable&quot;&gt;购买&lt;/button&gt; --&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn&quot;</span> <span class="na">th:attrappend</span><span class="o">=</span><span class="s">&quot;class=${outOfStock} ? &#39; enable&#39; : &#39; disable&#39;&quot;</span><span class="p">&gt;</span>购买<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- &lt;button class=&quot;enable btn&quot;&gt;购买&lt;/button&gt; --&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn&quot;</span> <span class="na">th:attrprepend</span><span class="o">=</span><span class="s">&quot;class=${outOfStock} ? &#39;enable &#39; : &#39;disable &#39;&quot;</span><span class="p">&gt;</span>购买<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>另外，还有两个常用的具体附加属性 <code>th:classappend="..."</code> 和 <code>th:styleappend=""</code>。</p>
+<p>它们分别用来代替 <code>th:attrappend="class=..."</code> 和 <code>th:attrappend="style=..."</code>。</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- &lt;button class=&quot;btn enable&quot;&gt;购买&lt;/button&gt; --&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn&quot;</span> <span class="na">th:classappend</span><span class="o">=</span><span class="s">&quot;${outOfStock} ? &#39; enable&#39; : &#39; disable&#39;&quot;</span><span class="p">&gt;</span>购买<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong>布尔属性</strong></p>
+<p>在 HTML 中有些属性是布尔属性，布尔属性是指没有值的属性，如 <code>readonly</code>、<code>checked</code>、<code>selected</code> 等。它们若存在那就意味着值为 true。</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;rememberme&quot;</span> <span class="na">checked</span> <span class="p">/&gt;</span> 记住我
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;radio&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;sex&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;male&quot;</span> <span class="na">checked</span><span class="p">&gt;</span> 男
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;radio&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;sex&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;female&quot;</span><span class="p">&gt;</span> 女
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;appId&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;J123654&quot;</span> <span class="na">readonly</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">select</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">option</span> <span class="na">selected</span><span class="p">&gt;</span>北京<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">option</span><span class="p">&gt;</span>上海<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">option</span><span class="p">&gt;</span>广州<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">option</span><span class="p">&gt;</span>深圳<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>Thymeleaf 也允许我们通过 <code>th:*</code>（这里的 <code>*</code> 表示任意的布尔属性） 来选择是否使用这些布尔属性。</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;rememberme&quot;</span> <span class="na">ch:checked</span><span class="o">=</span><span class="s">&quot;${rememberme}&quot;</span> <span class="p">/&gt;</span> 记住我
+</code></pre></div>
+<p>如果表达式的结果为 <code>true</code>，则自动勾选复选框，若为 <code>false</code>，则不会自动勾选。</p>
+<h2 id="5">5、遍历<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<p>遍历（迭代）的语法 <code>th:each="自定义的元素变量名称 : ${集合变量名称}"</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">spn</span><span class="p">&gt;</span>你所在城市：<span class="p">&lt;/</span><span class="nt">spn</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">select</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;mycity&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">option</span> <span class="na">th:each</span><span class="o">=</span><span class="s">&quot;city : ${cities}&quot;</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${city.name}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>属性 <code>th:each</code> 提供了一个用于跟踪迭代的状态变量，它包含以下几个属性：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td>int</td>
+<td>当前迭代的索引，从 0 开始</td>
+</tr>
+<tr>
+<td>count</td>
+<td>int</td>
+<td>当前迭代的计数，从 1 开始</td>
+</tr>
+<tr>
+<td>size</td>
+<td>int</td>
+<td>集合中元素的总个数</td>
+</tr>
+<tr>
+<td>current</td>
+<td>int</td>
+<td>当前的元素对象</td>
+</tr>
+<tr>
+<td>even</td>
+<td>boolean</td>
+<td>当前迭代的计数是否是偶数</td>
+</tr>
+<tr>
+<td>odd</td>
+<td>boolean</td>
+<td>当前迭代的计数是否是奇数</td>
+</tr>
+<tr>
+<td>first</td>
+<td>boolean</td>
+<td>当前元素是否是集合的第一个元素</td>
+</tr>
+<tr>
+<td>last</td>
+<td>boolean</td>
+<td>当前元素是否是集合的最后一个元素</td>
+</tr>
+</tbody>
+</table>
+<p>状态变量的使用语法：<code>th:each="自定义的元素变量名称, 自定义的状态变量名称 : ${集合变量名称}"</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>所在城市：<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">select</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;mycity&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">option</span> <span class="na">th:each</span><span class="o">=</span><span class="s">&quot;city, status : ${cities}&quot;</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${city.name}&quot;</span> <span class="na">th:item-index</span><span class="o">=</span><span class="s">&quot;${status.count}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>不管什么时候，Thymeleaf 始终会为每个 <code>th:each</code> 创建一个状态变量，默认的状态变量名称就是自定义的元素变量名称后面加 <code>Stat</code> 字符串组成：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">spn</span><span class="p">&gt;</span>所在城市：<span class="p">&lt;/</span><span class="nt">spn</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">select</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;mycity&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">option</span> <span class="na">th:each</span><span class="o">=</span><span class="s">&quot;city : ${cities}&quot;</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${city.name}&quot;</span> <span class="na">th:item-index</span><span class="o">=</span><span class="s">&quot;${cityStat.count}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong>循环固定次数</strong></p>
+<p>输出 5 个 <code>&lt;li&gt;&lt;/li&gt;</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">th:each</span><span class="o">=</span><span class="s">&quot;index:${#numbers.sequence(1, 5)}&quot;</span> <span class="p">&gt;</span>
+        [(${index})]. some thing
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>输出结果：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+        1. some thing
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+        2. some thing
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+        3. some thing
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+        4. some thing
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+        5. some thing
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong>循环次数由变量控制</strong></p>
+<p>输出 5 个 <code>&lt;li&gt;&lt;/li&gt;</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">th:with</span><span class="o">=</span><span class="s">&quot;liSize=5&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">th:each</span><span class="o">=</span><span class="s">&quot;index : ${#numbers.sequence(1, liSize)}&quot;</span> <span class="p">&gt;</span>
+        [(${index})]. some thing
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>输出结果：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+        1. some thing
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+        2. some thing
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+        3. some thing
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+        4. some thing
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+        5. some thing
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</code></pre></div>
+<h2 id="6">6、条件判断<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<p>条件判断语句有三种，分别是：<code>th:if</code>、<code>th:unless</code>、<code>th:swith</code>。</p>
+<p><strong>th:if</strong></p>
+<p>当表达式的评估结果为真时则显示内容，否则不显示：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">a</span> <span class="na">th:href</span><span class="o">=</span><span class="s">&quot;@{/user/order(uid=${user.id})}&quot;</span> <span class="na">th:if</span><span class="o">=</span><span class="s">&quot;${user != null}&quot;</span><span class="p">&gt;</span>我的订单<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>真假评估的依据：</p>
+<ul>
+<li>当表达式的值不为空（null）时<ul>
+<li>如果表达式的值是一个布尔类型，且值为 <code>true</code> 评估为真，否则为假</li>
+<li>如果表达式的值是一个数字类型，且值为非 <code>0</code> 评估为真，否则为假</li>
+<li>如果表达式的值是一个字符类型，且值为非 <code>0</code> 评估为真，否则为假</li>
+<li>如果表达式的值是一个字符串类型，且值为非 <code>"false"</code>、<code>"off"</code>、<code>"no"</code> 评估为真，否则为假</li>
+<li>如果表达式的值不是一个 <code>布尔</code>、<code>数字</code>、<code>字符</code> 或 <code>字符串</code> 评估为真</li>
+</ul>
+</li>
+<li>当表达式的值为空（null）时，评估结果为假</li>
+</ul>
+<p>因此，上面代码我们也可以简写成：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">a</span> <span class="na">th:href</span><span class="o">=</span><span class="s">&quot;@{/user/order(uid=${user.id})}&quot;</span> <span class="na">th:if</span><span class="o">=</span><span class="s">&quot;${user}&quot;</span><span class="p">&gt;</span>我的订单<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>但是，为了代码的可读性，并不建议这样使用。</p>
+<p><strong>th:unless</strong></p>
+<p><code>th:unless</code> 与 <code>th:if</code> 判断恰好相反，当表达式的评估结果为假时则显示内容，否则不显示：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">a</span> <span class="na">th:href</span><span class="o">=</span><span class="s">&quot;@{/user/order(uid=${user.id})}&quot;</span> <span class="na">th:unless</span><span class="o">=</span><span class="s">&quot;${user == null}&quot;</span><span class="p">&gt;</span>我的订单<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong>th:swith</strong></p>
+<p>多路选择语句，它需要搭配 <code>th:case</code> 来使用：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">th:switch</span><span class="o">=</span><span class="s">&quot;${user.role}&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:case</span><span class="o">=</span><span class="s">&quot;admin&quot;</span><span class="p">&gt;</span>管理员<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:case</span><span class="o">=</span><span class="s">&quot;user&quot;</span><span class="p">&gt;</span>普通用户<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<h2 id="7">7、定义局部变量<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<p>使用 <code>th:with</code> 属性可以定义局部变量：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:with</span><span class="o">=</span><span class="s">&quot;name=&#39;fanlychie&#39;&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${name}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>同时定义多个局部变量时，用英文 <code>,</code> 号分隔开：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:with</span><span class="o">=</span><span class="s">&quot;name=${user.name},age={user.age}&quot;</span><span class="p">&gt;</span>
+    ......
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<h2 id="8">8、注释<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<h3 id="81">8.1、标准注释<a class="headerlink" href="#81" title="Permanent link">&para;</a></h3>
+<p>语法：<code>&lt;!-- ... ---&gt;</code>，注释的代码块会在文件源代码中显示出来。</p>
+<p><strong>单行注释</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- &lt;span&gt;${message}&lt;/span&gt; ---&gt;</span>
+</code></pre></div>
+<p><strong>多行注释</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!--</span>
+<span class="cm">&lt;div th:switch=&quot;${user.role}&quot;&gt;</span>
+<span class="cm">    &lt;p th:case=&quot;admin&quot;&gt;管理员&lt;/p&gt;</span>
+<span class="cm">    &lt;p th:case=&quot;user&quot;&gt;普通用户&lt;/p&gt;</span>
+<span class="cm">&lt;/div&gt;</span>
+<span class="cm">---&gt;</span>
+</code></pre></div>
+<h3 id="82">8.2、解析器级注释<a class="headerlink" href="#82" title="Permanent link">&para;</a></h3>
+<p>语法：<code>&lt;!--/* ... */--&gt;</code>，注释的代码块会在引擎解析的时候抹去。</p>
+<p><strong>单行注释：</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!--/* &lt;span&gt;${message}&lt;/span&gt; */--&gt;</span>
+</code></pre></div>
+<p><strong>多行注释</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!--/*--&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">th:switch</span><span class="o">=</span><span class="s">&quot;${user.role}&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:case</span><span class="o">=</span><span class="s">&quot;admin&quot;</span><span class="p">&gt;</span>管理员<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:case</span><span class="o">=</span><span class="s">&quot;user&quot;</span><span class="p">&gt;</span>普通用户<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="cm">&lt;!--*/--&gt;</span>
+</code></pre></div>
+<h2 id="9">9、内联表达式<a class="headerlink" href="#9" title="Permanent link">&para;</a></h2>
+<p>内联表达式允许我们直接在 HTML 文本中使用标准表达式，而不需要使用 <code>th:*</code> 标签属性。</p>
+<h3 id="91">9.1、[[…]]<a class="headerlink" href="#91" title="Permanent link">&para;</a></h3>
+<p><code>[[]]</code> 相当于 <code>th:text</code>，对含有 HTML 标签的内容自动进行字符转义。</p>
+<h3 id="92">9.2、[(…)]<a class="headerlink" href="#92" title="Permanent link">&para;</a></h3>
+<p><code>[()]</code> 相当于 <code>th:utext</code>，对含有 HTML 标签的内容不进行字符转义。</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>The message is : [(${htmlContent})]<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="93thinline">9.3、th:inline<a class="headerlink" href="#93thinline" title="Permanent link">&para;</a></h3>
+<p>使用 <code>[[]]</code> 和 <code>[()]</code> 语法可以直接在 HTML 文本中使用标准表达式，如果想要使用更多高级的功能，需要使用 <code>th:inline</code> 属性来激活，它的取值如下：</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>none</td>
+<td>禁止内联表达式，可以原样输出 [[]] 和 [()] 字符串</td>
+</tr>
+<tr>
+<td>text</td>
+<td>文本内联，可以使用 <code>th:each</code> 等高级语法</td>
+</tr>
+<tr>
+<td>css</td>
+<td>样式内联，如：<code>&lt;style th:inline="css"&gt;</code></td>
+</tr>
+<tr>
+<td>javascript</td>
+<td>脚本内联，如：<code>&lt;style th:inline="javascript"&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>none</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- [[1, 2], [3, 4]] --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:inline</span><span class="o">=</span><span class="s">&quot;none&quot;</span><span class="p">&gt;</span>[[1, 2], [3, 4]]<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong>text</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- 北京 上海 广州 深圳 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">th:inline</span><span class="o">=</span><span class="s">&quot;text&quot;</span><span class="p">&gt;</span>
+    [# th:each=&quot;city : ${cities}&quot;]
+        [(${city.name})]
+    [/]
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong>css</strong></p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">style</span> <span class="na">th:inline</span><span class="o">=</span><span class="s">&quot;css&quot;</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="nt">body</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">background-color</span><span class="p">:[[</span><span class="err">${</span><span class="n">bgColor</span><span class="p">}</span><span class="o">]];</span>
+<span class="w">    </span><span class="err">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong>javascript</strong></p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">th:inline</span><span class="o">=</span><span class="s">&quot;javascript&quot;</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[[</span><span class="nx">$</span><span class="p">{</span><span class="nx">user</span><span class="p">}]];</span>
+<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;用户名：&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<h2 id="10">10、其他<a class="headerlink" href="#10" title="Permanent link">&para;</a></h2>
+<p><strong><code>th:field</code> 和 <code>th:value</code>：</strong></p>
+<p>Thymeleaf 里的 <code>th:field</code> 等同于 <code>th:name</code> 和 <code>th:value</code>，浏览器在解析 <code>th:field</code> 的时候，会解析成 <code>name="${th:field}"</code> 的值。然后后台就可以接收到从前台传过来的值。而 <code>th:value</code> 可以接受到后台的的值，后台则可以根据 <code>name</code> 获取到前台的值。</p>
+<p><code>th:field</code> 和 <code>th:value</code> 都有两种从后台接受值的方式：</p>
+<ol>
+<li><code>${obj.name}</code></li>
+<li><code>*{name}</code></li>
+</ol>
+<p>需要注意的是，<code>th:field</code> 需要有 <code>th:object</code> 指定前台传过来的参数，否则浏览器在解析的时候会出现错误。</p>
+<p><strong>checkbox 多选回显</strong></p>
+<p>比如一条数据包含三个标签（标签一，标签二，标签三），那么在数据库中保存为（1,2,3）</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;input_info_scroll&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">th:each</span><span class="o">=</span><span class="s">&quot;m:${Modules}&quot;</span><span class="p">&gt;</span> 
+        <span class="p">&lt;</span><span class="nt">li</span> <span class="na">th:each</span><span class="o">=</span><span class="s">&quot;rm:${RoleModuleVo.modules}&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;checkbox&quot;</span> 
+                   <span class="na">th:checked</span><span class="o">=</span><span class="s">&quot;${rm.moduleId==m.moduleId}&quot;</span>
+                   <span class="na">th:text</span><span class="o">=</span><span class="s">&quot;${m.name}&quot;</span><span class="p">/&gt;</span> 
+        <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong>获取 URL 地址跳转时所带参数</strong></p>
+<p><code>th:value="${param.houseId}"</code> 即可接收到跳转时所带参数。</p>
+<p>地址为：<code>localhost:8080/toHousedesc?houseId=2</code>，在表单元素或标签中用 Thymeleaf 的语法进行接收：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">form</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;addCollectForm&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;houseId&quot;</span> <span class="na">th:value</span><span class="o">=</span><span class="s">&quot;${param.houseId}&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.indexes", "navigation.tracking"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../_javascripts/auto_title.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,5290 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://0richalcos.github.io/Note/%E5%89%8D%E7%AB%AF/%E7%BB%84%E4%BB%B6%E5%BA%93/FullCalendar.html">
+      
+      
+        <link rel="prev" href="Element.html">
+      
+      
+        <link rel="next" href="X-editable.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>FullCalendar - 随便记记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../_stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../index.html" title="随便记记" class="md-header__button md-logo" aria-label="随便记记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            随便记记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              FullCalendar
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="切换深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="切换亮色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换亮色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/0richalcos/Note" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="随便记记" class="md-nav__button md-logo" aria-label="随便记记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    随便记记
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/0richalcos/Note" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🏠 首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ♨️ Java
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ♨️ Java
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java 8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/JavaBasics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java 基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/JavaCollection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java 集合
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/JavaObject.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java 类和对象
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/JavaWeb.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaWeb
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/%E6%B5%8B%E8%AF%95%E5%BA%8F%E5%8F%B7.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    测试序号
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🧮 数据结构及算法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🧮 数据结构及算法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%AE%97%E6%B3%95/Algorithm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%AE%97%E6%B3%95/DesignPattern.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DesignPattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🍃 Spring
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🍃 Spring
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Spring/Spring.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Spring/SpringBoot.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringBoot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Spring/SpringCloud.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringCloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Spring/SpringMVC.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringMVC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💾 持久层框架
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    💾 持久层框架
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6/MyBatis-Plus.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MyBatis-Plus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6/Mybatis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mybatis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔐 认证与授权
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔐 认证与授权
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83/SSO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83/Sa-Token.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sa-Token
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83/Shiro.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shiro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🌐 前端
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🌐 前端
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CSS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CSS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JavaScript.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Vue.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jQuery.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    jQuery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/Thymeleaf.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thymeleaf
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7_6" id="__nav_7_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    组件库
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    组件库
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="AntV-X6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AntV-X6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ApacheECharts.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ApacheECharts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Axios.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Axios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="BootstrapTable.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BootstrapTable
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="DHTMLXGantt.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DHTMLXGantt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Element.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Element
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FullCalendar
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="FullCalendar.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FullCalendar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1、快速开始
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1、快速开始">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1、介绍
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1、介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.1、加载代码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.2、初始化选项
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113handlers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.3、处理程序（Handlers）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.4、方法（Methods）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2、日期库
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2、日期库">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121moment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1、Moment 对象
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2、整体显示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2、整体显示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1、工具栏
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1、工具栏">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1、标题（header）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2、调整大小
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2、调整大小">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221height" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1、高度（height）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3、视图
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3、视图">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1、月视图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2、日程视图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3、列表视图
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4、日期和时间
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4、日期和时间">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1、日期单击和选择
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1、日期单击和选择">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#411callbacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1.1、回调（CALLBACKS）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5、事件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5、事件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1、事件数据
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1、事件数据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#511" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.1、事件（数组）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#512json-feed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.2、事件（JSON feed）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#513" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.3、事件（函数）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#514event" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.4、Event 对象
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#515" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.5、方法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2、事件显示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2、事件显示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2.1、方法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3、事件单击和悬停
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4、事件拖动和调整大小
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4、事件拖动和调整大小">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#541callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4.1、回调（CALLBACK）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6、国际化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6、国际化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1、语言环境
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1、语言环境">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#611local" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1.1、local
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7、第三方机构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7、第三方机构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71vue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1、Vue
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.1、Vue">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#711" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1.1、插件索引
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="X-editable.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    X-editable
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📊 数据库
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📊 数据库
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/Dameng.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dameng
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MySQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQLQuery.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MySQLQuery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/OceanBase.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OceanBase
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/Oracle.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Oracle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/Redis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/Vastbase.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vastbase
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/Elasticsearch.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elasticsearch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📇 分布式存储
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📇 分布式存储
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8/FastDFS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FastDFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8/MinIO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MinIO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛰️ 网络通信
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛰️ 网络通信
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/Encryption.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Encryption
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/HTTP.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/OpenVPN.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenVPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/VNC.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VNC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/WebSocket.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WebSocket
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/frp.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    frp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🗃️ 文件处理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🗃️ 文件处理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_12_1" id="__nav_12_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Office
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_12_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Office
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Office/ApachePOI.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ApachePOI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Office/EasyExcel.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EasyExcel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Office/OnlyOffice.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OnlyOffice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Office/Poi-tl.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Poi-tl
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Office/Spire.OfficeForJava.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spire.OfficeForJava
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/PDF/ApachePDFBox.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ApachePDFBox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/XML/XMLParse.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XMLParse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/ZIP/Zip4j.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zip4j
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/XXL-JOB.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XXL-JOB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🧑‍🔧 运维
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🧑‍🔧 运维
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%BF%90%E7%BB%B4/Docker.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%BF%90%E7%BB%B4/Linux.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%BF%90%E7%BB%B4/NSSM.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NSSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%BF%90%E7%BB%B4/Nginx.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%BF%90%E7%BB%B4/Tomcat.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tomcat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%BF%90%E7%BB%B4/TongWeb.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TongWeb
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%BF%90%E7%BB%B4/WSL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WSL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%BF%90%E7%BB%B4/WebLogic.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WebLogic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛠️ 开发工具
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛠️ 开发工具
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/Git.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/Maven.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maven
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/Node.js.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Node.js
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/Swagger.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Swagger
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    👻 其他
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    👻 其他
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96/Settings.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Settings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96/Solutions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solutions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96/Weasel.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Weasel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1、快速开始
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1、快速开始">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1、介绍
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1、介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.1、加载代码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.2、初始化选项
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113handlers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.3、处理程序（Handlers）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.4、方法（Methods）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2、日期库
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2、日期库">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121moment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1、Moment 对象
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2、整体显示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2、整体显示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1、工具栏
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1、工具栏">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1、标题（header）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2、调整大小
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2、调整大小">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221height" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1、高度（height）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3、视图
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3、视图">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1、月视图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2、日程视图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3、列表视图
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4、日期和时间
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4、日期和时间">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1、日期单击和选择
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1、日期单击和选择">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#411callbacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1.1、回调（CALLBACKS）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5、事件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5、事件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1、事件数据
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1、事件数据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#511" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.1、事件（数组）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#512json-feed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.2、事件（JSON feed）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#513" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.3、事件（函数）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#514event" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.4、Event 对象
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#515" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.5、方法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2、事件显示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2、事件显示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2.1、方法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3、事件单击和悬停
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4、事件拖动和调整大小
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4、事件拖动和调整大小">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#541callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4.1、回调（CALLBACK）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6、国际化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6、国际化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1、语言环境
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1、语言环境">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#611local" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1.1、local
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7、第三方机构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7、第三方机构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71vue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1、Vue
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.1、Vue">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#711" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1.1、插件索引
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="fullcalendar">FullCalendar<a class="headerlink" href="#fullcalendar" title="Permanent link">&para;</a></h1>
+<h2 id="1">1、快速开始<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h3 id="11">1.1、介绍<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<p>如何获取 <a href="https://fullcalendar.io/docs/v3">FullCalendar</a> 的代码，初始化日历和其他基本原则。</p>
+<h4 id="111">1.1.1、加载代码<a class="headerlink" href="#111" title="Permanent link">&para;</a></h4>
+<p>在初始化日历之前，必须首先让 FullCalendar 的代码加载到页面上。你可以编写自己的 <code>&lt;script&gt;</code> 标签，也可以使用 Webpack 这样的构建系统。</p>
+<p><strong><code>&lt;scritp&gt;</code> 标签</strong></p>
+<p>首先，从 <a href="https://github.com/fullcalendar/fullcalendar/releases">发布页面</a> 下载一个 ZIP 文件。解压后，找到文件 <code>fullcalendar.js</code> 和 <code>fullcalendar.css</code>。</p>
+<p>然后，下载 FullCalendar 所依赖的两个 JavaScript 文件：<a href="https://jquery.com/">jQuery</a> 和 <a href="https://momentjs.com/">Moment</a>。</p>
+<p>然后，在页面的 <code>&lt;head&gt;</code> 中写下如下内容：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#39;stylesheet&#39;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;fullcalendar/fullcalendar.css&#39;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;lib/jquery.min.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;lib/moment.min.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;fullcalendar/fullcalendar.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>在加载 FullCalendar 的 JS 文件之前，要先加载 jQuery 和 Moment 的 JS 文件。</p>
+<p><strong>作为 NPM 模块（Webpack / Browserify）</strong></p>
+<p>使用 NPM 安装FullCalendar：</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install<span class="w"> </span>jquery<span class="w"> </span>moment<span class="w"> </span>fullcalendar
+</code></pre></div>
+<p>然后，你必须安装一个构建系统，如 Webpack 或 Browserify，它将自动捆绑所有代码。<a href="https://github.com/fullcalendar/webpack-example/tree/v3">查看使用 WebPack 的示例»</a></p>
+<p>然后，编写一个模块，同时导入 jQuery 和 FullCalendar：</p>
+<div class="highlight"><pre><span></span><code>import<span class="w"> </span>$<span class="w"> </span>from<span class="w"> </span><span class="s1">&#39;jquery&#39;</span><span class="p">;</span>
+import<span class="w"> </span><span class="s1">&#39;fullcalendar&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>导入的 <code>fullcalendar</code> 不需要被命名。它将作为一个插件附在 jQuery 中。</p>
+<h4 id="112">1.1.2、初始化选项<a class="headerlink" href="#112" title="Permanent link">&para;</a></h4>
+<p>将 FullCalendar 及其依赖项加载到页面上后，就可以编写初始化日历的 JS 代码。该代码必须在初始化之后执行。最好的方法是使用 jQuery 的 <code>$(document).ready</code>，例如：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="c1">// 页面已准备就绪，初始化日历...</span>
+
+<span class="w">  </span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+<span class="w">    </span><span class="c1">// 将您的选择和回调放在这里</span>
+<span class="w">  </span><span class="p">})</span>
+
+<span class="p">});</span>
+</code></pre></div>
+<p>上面的代码应在页面头的 <code>&lt;script&gt;</code> 标签中。该代码依赖于页面正文中具有 "calendar" ID 的元素。日历将放置在此 <code>div</code> 内：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#39;calendar&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>就这样，应该可以在页面上看到一个基于月份的日历，上面没有任何事件。</p>
+<p><strong>Options</strong></p>
+<p>FullCalendar 的大多数文档都描述了影响日历外观或行为的选项。选项通常在初始化日历时设置，如下所示：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">weekends</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="c1">// 会隐藏周六和周日</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>一个重要的选项是 <code>defaultView</code>，它确定加载日历时首先显示哪个日历视图。</p>
+<h4 id="113handlers">1.1.3、处理程序（Handlers）<a class="headerlink" href="#113handlers" title="Permanent link">&para;</a></h4>
+<p>处理程序（有时称为 “callbacks” ）有点像选项，但它们是在发生特殊情况时被调用的函数。在以下示例中，每当用户单击某一天时，都会出现一个警报框：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">dayClick</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;a day has been clicked!&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><strong>动态添加处理程序</strong></p>
+<p>可以在日历初始化后使用 <code>on</code> 和 <code>off</code> 方法附加处理程序。此功能自2.4.0版起可用。</p>
+<p>下面的示例动态绑定 <code>dayClick</code> 处理程序：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 获取日历对象的方便实用程序。</span>
+<span class="c1">// 你可以直接调用日历对象上的方法。</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">calendar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">(</span><span class="s1">&#39;getCalendar&#39;</span><span class="p">);</span>
+
+<span class="nx">calendar</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;dayClick&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">date</span><span class="p">,</span><span class="w"> </span><span class="nx">jsEvent</span><span class="p">,</span><span class="w"> </span><span class="nx">view</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;clicked on &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">date</span><span class="p">.</span><span class="nx">format</span><span class="p">());</span>
+<span class="p">});</span>
+</code></pre></div>
+<h4 id="114methods">1.1.4、方法（Methods）<a class="headerlink" href="#114methods" title="Permanent link">&para;</a></h4>
+<p>方法提供了从 JavaScript 代码操纵日历的方法。方法对已初始化的日历的 jQuery 对象进行操作，使用熟悉的 <code>fullCalendar</code> 命令，但方式完全不同：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">(</span><span class="s1">&#39;next&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p>这将调用 <code>next</code> 方法，并将迫使日历转移到下个 月/周/天。</p>
+<p>如果想在每次调用方法时都避免使用 jQuery，则可以做这样的事情：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 获取日历对象的方便实用程序</span>
+<span class="c1">// 你可以直接调用日历对象上的方法。</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">calendar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">(</span><span class="s1">&#39;getCalendar&#39;</span><span class="p">);</span>
+
+<span class="nx">calendar</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="12">1.2、日期库<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<p>FullCalendar 将 <code>MomentJS</code> 作为其日期库。Moment 和 Duration 对象可用于很多设置，并且在整个 API 中使用它们。</p>
+<h4 id="121moment">1.2.1、Moment 对象<a class="headerlink" href="#121moment" title="Permanent link">&para;</a></h4>
+<p>Moment 对象代表一个时间点，就像本地的 Date 对象一样，但要比它优越得多。</p>
+<p>这个功能是由 MomentJS 提供的，这是一个第三方的开源库。FullCalendar 对这个功能做了一些扩展，以适应时间不明确和区域不明确的时刻。</p>
+<p><a href="https://momentjs.com/docs/">查看MomentJS文档»</a></p>
+<p>在API中，大多数接受 Moment 的选项也会方便地接受 <code>moment()</code> 构造函数所接受的任何东西，包括：</p>
+<ul>
+<li>日期字符串（强烈建议使用 ISO8601 标准）</li>
+<li>unix偏移量（自Unix Epoch以来的毫秒数）</li>
+<li>本地日期对象</li>
+</ul>
+<p><strong>从头开始创建 Moments</strong></p>
+<p>大多数情况下，不必担心实例化你自己的 Moments。例如，当指定事件数组数据时，可以只写 ISO8601 字符串，让 FullCalendar 来处理解析工作。</p>
+<p>然而，从头开始创建 Moments 有时是必要的。由于 Moment 是 FullCalendar 的一个附属品，全局的 Moment 构造器很可能对你有用。你应该能够像这样从头开始创建新的 Moments：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">moment</span><span class="p">();</span>
+</code></pre></div>
+<p>要创建一个具有 FullCalendar 扩展格式和 "模糊" 功能的时刻（见下文），请使用 FullCalendar 的 <code>moment</code>、<code>moment.utc</code> 和 moment.parseZone 构造函数的版本：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">noTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$</span><span class="p">.</span><span class="nx">fullCalendar</span><span class="p">.</span><span class="nx">moment</span><span class="p">(</span><span class="s1">&#39;2014-05-01&#39;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">local</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$</span><span class="p">.</span><span class="nx">fullCalendar</span><span class="p">.</span><span class="nx">moment</span><span class="p">(</span><span class="s1">&#39;2014-05-01T12:00:00&#39;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">utc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$</span><span class="p">.</span><span class="nx">fullCalendar</span><span class="p">.</span><span class="nx">moment</span><span class="p">.</span><span class="nx">utc</span><span class="p">(</span><span class="s1">&#39;2014-05-01T12:00:00&#39;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">noTZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$</span><span class="p">.</span><span class="nx">fullCalendar</span><span class="p">.</span><span class="nx">moment</span><span class="p">.</span><span class="nx">parseZone</span><span class="p">(</span><span class="s1">&#39;2014-05-01T12:00:00&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p>要创建一个具有扩展功能的时刻，它已经在一个给定的日历的时区和地区设置范围内，使用 <code>Calendar</code> 对象的 <code>moment</code> 构造函数版本：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">calendar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">(</span><span class="s1">&#39;getCalendar&#39;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">calendar</span><span class="p">.</span><span class="nx">moment</span><span class="p">();</span>
+</code></pre></div>
+<p><strong>模糊时间的时刻</strong></p>
+<p>对于 FullCalendar，Moment 对象已经被扩展，以表示没有时间的时刻，或 "模糊时间的时刻"。在引擎盖下，这些时刻以 UTC 模式表示，时间为 <code>00:00:00</code>。</p>
+<p>要创建一个，可以使用 FullCalendar 的 <code>moment</code>、<code>moment.utc</code> 或 <code>moment.parseZone</code> 构造函数，同时使用一个没有时间部分的 ISO8601 字符串：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$</span><span class="p">.</span><span class="nx">fullCalendar</span><span class="p">.</span><span class="nx">moment</span><span class="p">(</span><span class="s1">&#39;2014-01-22&#39;</span><span class="p">);</span>
+<span class="nx">m</span><span class="p">.</span><span class="nx">hasTime</span><span class="p">();</span>
+<span class="p">=&gt;</span><span class="w"> </span><span class="kc">false</span>
+</code></pre></div>
+<p>正如你所看到的，可以通过使用 <code>hasTime</code> 方法来查询一个时刻是否有模糊的时间。这个方法只适用于通过 FullCalendar 的某个时刻构造函数创建的时刻。</p>
+<p>也可以通过使用 <code>stripTime</code> 方法将一个有时间的时刻转换为模糊的。这个方法只适用于通过 FullCalendar 的某个时刻构造函数创建的时刻：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$</span><span class="p">.</span><span class="nx">fullCalendar</span><span class="p">.</span><span class="nx">moment</span><span class="p">(</span><span class="s1">&#39;2014-01-22T05:00:00&#39;</span><span class="p">);</span>
+<span class="nx">m</span><span class="p">.</span><span class="nx">stripTime</span><span class="p">();</span>
+<span class="nx">m</span><span class="p">.</span><span class="nx">hasTime</span><span class="p">();</span>
+<span class="p">=&gt;</span><span class="w"> </span><span class="kc">false</span>
+</code></pre></div>
+<p><code>format</code> 和 <code>toISOString</code> 方法已经被修改，这样，时间不明确的时刻就不会返回字符串中的时间部分：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">m</span><span class="p">.</span><span class="nx">format</span><span class="p">();</span>
+<span class="p">=&gt;</span><span class="w"> </span><span class="s2">&quot;2013-01-22&quot;</span>
+</code></pre></div>
+<p><strong>模糊时区的时刻</strong></p>
+<p>Moment 对象也被扩展为代表一个没有指定时区的日期。在引擎盖下，这些时刻以  UTC 模式表示。</p>
+<p>要创建一个，可以使用 FullCalendar 的 <code>moment.parseZone</code> 构造函数的版本，同时使用一个没有时区偏移部分的 ISO8601 字符串。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$</span><span class="p">.</span><span class="nx">fullCalendar</span><span class="p">.</span><span class="nx">moment</span><span class="p">.</span><span class="nx">parseZone</span><span class="p">(</span><span class="s1">&#39;2014-01-22T06:00:00&#39;</span><span class="p">);</span>
+<span class="nx">m</span><span class="p">.</span><span class="nx">hasZone</span><span class="p">();</span>
+<span class="p">=&gt;</span><span class="w"> </span><span class="kc">false</span>
+</code></pre></div>
+<p>正如你所看到的，可以通过使用 <code>hasZone</code> 方法来查询一个时刻是否有模糊的区域。这个方法只适用于通过 FullCalendar 的某个时刻构造函数创建的时刻。</p>
+<p>也可以通过使用 <code>stripZone</code> 方法将一个有时区的时刻转换成模糊的  。这个方法只适用于通过 FullCalendar 的某个时刻构造函数创建的时刻：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$</span><span class="p">.</span><span class="nx">fullCalendar</span><span class="p">.</span><span class="nx">moment</span><span class="p">(</span><span class="s1">&#39;2014-01-22T05:00:00-07:00&#39;</span><span class="p">);</span>
+<span class="nx">m</span><span class="p">.</span><span class="nx">stripZone</span><span class="p">();</span>
+<span class="nx">m</span><span class="p">.</span><span class="nx">hasZone</span><span class="p">();</span>
+<span class="p">=&gt;</span><span class="w"> </span><span class="kc">false</span>
+</code></pre></div>
+<p><code>format</code> 和 <code>toISOString</code> 方法已被修改，使模糊时区的时刻不返回字符串中的时区偏移部分：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">m</span><span class="p">.</span><span class="nx">format</span><span class="p">();</span>
+<span class="p">=&gt;</span><span class="w"> </span><span class="s2">&quot;2014-01-22T05:00:00&quot;</span>
+</code></pre></div>
+<h2 id="2">2、整体显示<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1、工具栏<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<p>日历顶部和底部包含按钮和其他控件的区域。</p>
+<h4 id="211header">2.1.1、标题（header）<a class="headerlink" href="#211header" title="Permanent link">&para;</a></h4>
+<p>定义日历顶部的按钮和标题。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Object</span><span class="o">/</span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="k">default</span><span class="o">:</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="nx">left</span><span class="o">:</span><span class="w">   </span><span class="s1">&#39;title&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">center</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">right</span><span class="o">:</span><span class="w">  </span><span class="s1">&#39;today prev,next&#39;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>将标题选项设置为 <code>false</code> 将不显示标题。可以为对象提供特性 <code>left</code>、<code>center</code> 和 <code>right</code> 三个属性。这些属性包含以逗号/空格分隔的字符串。用逗号分隔的值将相邻显示。用空格分隔的值将以较小的间距显示。字符串可以包含以下任意值：</p>
+<ul>
+<li><code>text</code> - 包含当前月/周/日的文本</li>
+<li><code>prev</code> - 用于将日历向后移动一个月/周/天的按钮</li>
+<li><code>next</code> - 用于将日历向前移动一个月/周/天的按钮</li>
+<li><code>prevYear</code> - 用于将日历向后移动一年的按钮</li>
+<li><code>nextYear</code> - 用于将日历向前移动一年的按钮</li>
+<li><code>today</code> - 用于将日历移动到当前月/周/日的按钮</li>
+<li>视图名称 - 将日历切换到任何可用视图的按钮</li>
+</ul>
+<p>为属性指定空字符串将导致其不显示文本/按钮。</p>
+<h3 id="22">2.2、调整大小<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<p>如何控制日历的尺寸。</p>
+<h4 id="221height">2.2.1、高度（height）<a class="headerlink" href="#221height" title="Permanent link">&para;</a></h4>
+<p>设置整个日历的高度，包括标题和页脚。</p>
+<div class="highlight"><pre><span></span><code>Integer, Function, &quot;parent&quot;, &quot;auto&quot;
+</code></pre></div>
+<p>默认情况下，此选项是未设置的，日历的高度由 aspectRatio 计算。</p>
+<p>如果指定了一个整数，则将保证日历的高度为精确的像素高度。如果内容不适合这个高度，就会出现滚动条（2.1.0版本的新内容）。</p>
+<p>如果指定了一个函数，这个函数将在每次请求高度更新时被调用。这个函数应该返回一个像素值。</p>
+<p>如果指定了 <code>"parent"</code>，日历的高度将与它的父容器元素的高度一致。</p>
+<p>如果指定了 <code>"auto"</code>，视图的内容将采用自然高度，不会使用滚动条。(2.1.0版新增）。</p>
+<p><code>height</code> 用法示例：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">height</span><span class="o">:</span><span class="w"> </span><span class="mf">650</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><strong>Setter</strong></p>
+<p>可以在初始化后动态设置日历的高度：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">(</span><span class="s1">&#39;option&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;height&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">700</span><span class="p">);</span>
+</code></pre></div>
+<h2 id="3">3、视图<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h3 id="31">3.1、月视图<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<p>月视图以类似表格的形式显示当前月份的天数，通常还有上个月和下个月的几天。它可以像这样初始化：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">defaultView</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;month&#39;</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><img src="!assets/FullCalendar/image-20220627152424647.png" alt="image-20220627152424647" style="width: 60%;" /></p>
+<p>下面的选项是专门针对月视图的。然而，在整个文档中，还有许多其他的选项会影响到月视图的显示，比如与本地相关的选项和日期/时间显示选项。</p>
+<p><strong>fixedWeekCount</strong></p>
+<p>确定月视图中显示的周数。</p>
+<div class="highlight"><pre><span></span><code>Boolean, default: true
+</code></pre></div>
+<p>如果为 <code>true</code>，日历将始终显示 6 周。如果为 <code>false</code>，日历将有 4 周、5 周或 6 周，具体取决于月份。</p>
+<p><strong>showNonCurrentDates</strong></p>
+<p>在月视图中，上个月或下个月的日期是否应该显示。</p>
+<div class="highlight"><pre><span></span><code>Boolean, default: true
+</code></pre></div>
+<p>禁用的天数不会渲染事件。</p>
+<p>在月视图中设置为 <code>false</code> 时：</p>
+<p><img src="!assets/FullCalendar/showNonCurrentDates-false.png" alt="not showing dates in other months" style="width: 50%;" /></p>
+<p>在月视图中设置为 <code>true</code> 时（默认值）：</p>
+<p><img src="!assets/FullCalendar/showNonCurrentDates-true.png" alt="showing dates in other months" style="width:50%;" /></p>
+<h3 id="32">3.2、日程视图<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<p>议程视图显示一个或多个水平天数，以及垂直轴上的时间轴，通常是午夜到午夜。两个预定义的议程视图是 <code>agendaDay</code> 和 <code>agendaWeek</code>。它们可以像这样被初始化：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">defaultView</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;agendaWeek&#39;</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><img src="!assets/FullCalendar/image-20220627154524890.png" alt="image-20220627154524890" style="width:50%;" /></p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">defaultView</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;agendaDay&#39;</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><img src="!assets/FullCalendar/image-20220627154849156.png" alt="image-20220627154849156" style="width:50%;" /></p>
+<p>可以使用类型为 <code>agenda</code> 的自定义视图创建其他工期的议程视图。</p>
+<p>下面的选项是针对议程视图的。然而，在整个文档中，还有许多其他选项影响到议程视图的显示，例如与本地有关的选项和日期/时间显示选项。</p>
+<p><strong>allDaySlot</strong></p>
+<p>是否在日历顶部显示 “全天” 插槽。</p>
+<div class="highlight"><pre><span></span><code>Boolean, default: true
+</code></pre></div>
+<p>如果使用 <code>false</code> 隐藏，则日程视图中将不会显示全天事件。</p>
+<p><strong>allDayText</strong></p>
+<p>日历顶部标题为 “全天” 的文本。</p>
+<div class="highlight"><pre><span></span><code>String, default: &#39;all-day&#39;
+</code></pre></div>
+<p>默认值取决于当前区域设置。</p>
+<h3 id="33">3.3、列表视图<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<p>列表视图在一个简单的垂直列表中显示特定时间间隔内的事件。如果在一个特定的时间间隔内没有事件，就会显示 <code>noEventsMessage</code>。列表视图是在 FullCalendar 3.0.0 版本中添加的。 有 4 个预设的列表视图：<code>listDay</code>、<code>listWeek</code>、<code>listMonth</code> 和 <code>listYear</code>。你可以像这样初始化一个列表视图：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">defaultView</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;listWeek&#39;</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><img src="!assets/FullCalendar/image-20220627155512294.png" alt="image-20220627155512294" style="width: 50%;" /></p>
+<p>如果需要不同的时间间隔，可以创建类型为 <code>list</code> 的自定义视图。</p>
+<p>下面的选项是针对列表视图的。然而，在整个文档中，还有许多其他选项影响到列表视图的显示，比如 <code>eventRender</code> 和 <code>eventClick</code>。</p>
+<p>**listDayFormat **</p>
+<p>一个日期格式化字符串，影响列表视图中日期标题左侧的文本。</p>
+<div class="highlight"><pre><span></span><code>String, false
+</code></pre></div>
+<p><img src="!assets/FullCalendar/listDayFormat.png" alt="customized list-view date strings" style="width: 50%;" /></p>
+<p>如果指定 <code>false</code>，则不显示文本。</p>
+<p><strong>listDayAltFormat</strong></p>
+<p>一个日期格式字符串，影响列表视图中日期标题右侧的文本。</p>
+<div class="highlight"><pre><span></span><code>String, false
+</code></pre></div>
+<p><img src="!assets/FullCalendar/listDayAltFormat.png" alt="displaying alt date strings" style="width:50%;" /></p>
+<p>如果指定 <code>false</code>，则不显示文本。</p>
+<p><strong>noEventsMessage</strong></p>
+<p>显示在列表视图中间的文本，提醒用户在给定范围内没有事件。</p>
+<div class="highlight"><pre><span></span><code>String, default: &quot;No events to display&quot;
+</code></pre></div>
+<h2 id="4">4、日期和时间<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h3 id="41">4.1、日期单击和选择<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<p>检测用户何时单击日期或时间。让用户能够使用鼠标或触摸设备选择多个日期或时间段。</p>
+<p><strong>dayClick</strong></p>
+<p>允许用户通过点击和拖动来突出显示多个日期或时间段。</p>
+<div class="highlight"><pre><span></span><code>Boolean, default: false
+</code></pre></div>
+<p>要让用户通过点击和拖动进行选择，这个选项必须设置为 <code>true</code>。</p>
+<p><strong>unselectAuto</strong></p>
+<p>单击页面上的其他位置是否会导致清除当前选择。</p>
+<div class="highlight"><pre><span></span><code>Boolean, default: true
+</code></pre></div>
+<p>此选项仅在 <code>selectable</code> 设置为 <code>true</code> 时生效。</p>
+<h4 id="411callbacks">4.1.1、回调（CALLBACKS）<a class="headerlink" href="#411callbacks" title="Permanent link">&para;</a></h4>
+<p><strong>dayClick</strong></p>
+<p>当用户单击日期或时间时触发。</p>
+<div class="highlight"><pre><span></span><code>function( date, jsEvent, view, [ resourceObj ] ) { }
+</code></pre></div>
+<p><code>date</code> 持有被点击的那一天的 Moment。如果一个全天的区域被点击了，那么这个时刻将是模糊的时间。如果议程周或议程日视图中的一个时段被点击了，<code>date</code> 将拥有该时段的时间。</p>
+<p><code>jsEvent</code> 持有 jQuery 事件的低层次信息，如点击坐标。</p>
+<p><code>view</code> 被设置为当前的视图对象。</p>
+<p>在回调函数中，<code>this</code> 被设置为被点击的日期的 <code>&lt;td&gt;</code>。</p>
+<p>下面是一个展示所有这些变量的例子：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">dayClick</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">date</span><span class="p">,</span><span class="w"> </span><span class="nx">jsEvent</span><span class="p">,</span><span class="w"> </span><span class="nx">view</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Clicked on: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">date</span><span class="p">.</span><span class="nx">format</span><span class="p">());</span>
+
+<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Coordinates: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">jsEvent</span><span class="p">.</span><span class="nx">pageX</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;,&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">jsEvent</span><span class="p">.</span><span class="nx">pageY</span><span class="p">);</span>
+
+<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Current view: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">view</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// 改变一天的背景颜色只是为了好玩</span>
+<span class="w">    </span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;background-color&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;red&#39;</span><span class="p">);</span>
+
+<span class="w">  </span><span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<blockquote>
+<p>当用户单击列表视图中的日标题时，不会触发 <code>dayClick</code> 触发器。</p>
+</blockquote>
+<p><strong>select</strong></p>
+<p>选择日期/时间时触发。</p>
+<div class="highlight"><pre><span></span><code>function( start, end, jsEvent, view, [ resource ] )
+</code></pre></div>
+<p><code>start</code> 是一个 Moment，表示选择的开始。</p>
+<p><code>end</code> 是一个表示选择结束的 Moment。它是一个排他性的值，所以如果选择是 all-day（全天）的，而最后一天是星期四，<code>end</code> 将是星期五。</p>
+<p>你可以通过调用 <code>hasTime</code> 来测试 <code>start</code>/<code>end</code> 是定时的还是全天的。</p>
+<p><code>jsEvent</code> 持有 jQuery 事件的信息，如鼠标坐标。如果 <code>select</code> 是通过 <code>select</code> 方法触发的，<code>jsEvent</code> 则为 <code>undefined</code>。</p>
+<h2 id="5">5、事件<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<h3 id="51">5.1、事件数据<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
+<p>如何将事件添加到日历中。如何在初始加载后动态操作它们。</p>
+<h4 id="511">5.1.1、事件（数组）<a class="headerlink" href="#511" title="Permanent link">&para;</a></h4>
+<p>将显示在日历上的 Event 对象数组。</p>
+<p>以下是如何指定事件数组的示例：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">events</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">title</span><span class="w">  </span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;event1&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">start</span><span class="w">  </span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2010-01-01&#39;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">title</span><span class="w">  </span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;event2&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">start</span><span class="w">  </span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2010-01-05&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">end</span><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2010-01-07&#39;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">title</span><span class="w">  </span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;event3&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">start</span><span class="w">  </span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2010-01-09T12:30:00&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">allDay</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="c1">// 将显示时间</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">});</span>
+</code></pre></div>
+<blockquote>
+<p>确保数组中最后一个事件后没有逗号！这将使 Internet Explorer 窒息。</p>
+</blockquote>
+<h4 id="512json-feed">5.1.2、事件（JSON feed）<a class="headerlink" href="#512json-feed" title="Permanent link">&para;</a></h4>
+<p>访问一个 JSON feed 的 URL 是 FullCalendar 获取 Event 对象的方式之一。当用户点击上一页/下一页或者改变日历视图时，就会发生此操作。FullCalendar 会确定它需要的事件的日期范围，并在 GET 参数中传递该信息。</p>
+<p>GET 参数名称将由 <code>startParam</code> 和 <code>endParam</code> 选项确定。（默认情况下为 <code>start</code> 和 <code>end</code>）。</p>
+<p>这些参数的值将是 ISO8601日期字符串（如 <code>2013-12-01</code>）。关于精确的行为，请参见时区文档。</p>
+<p>以下是 FullCalendar 可能访问的 URL，以从 JSON  feed 获取新事件数据：</p>
+<div class="highlight"><pre><span></span><code>/myfeed.php?start=2013-12-01&amp;end=2014-01-12&amp;_=1386054751381
+</code></pre></div>
+<p><code>_</code> 参数是自动插入的，以防止浏览器缓存结果（更多内容见下文）。</p>
+<p>如果你需要访问一个在不同域中的 feed，你可以使用 JSONP，在你的 URL 中加一个 <code>?</code>（见 <a href="https://api.jquery.com/jQuery.ajax/">$.ajax</a> 的 JSONP 讨论）。</p>
+<p><strong>JSON日期字符串格式</strong></p>
+<p>以下是 JSON feed 中开始和结束日期的 ISO8601日期字符串的示例：<code>2015-03-17</code></p>
+<p>FullCalendar 将接受用小时、分钟、秒和毫秒写入的 ISO8601日期字符串：<code>2015-03-17T13:13:55.008</code></p>
+<p>FullCalendar 还接受带有时区偏移的 ISO8601日期字符串（请参阅时区文档）：<code>2015-03-17T13:13:55+0800</code>、<code>2015-03-17T13:13:55-0400</code></p>
+<blockquote>
+<p>注意：FullCalendar 不接受 <code>new Date()</code> JavaScript构造函数作为日期字符串的一部分（例如 <code>new Date(2010, 12, 25)</code>），因为 JSON 格式不支持用 <code>new</code> 操作符进行对象实例化。日期字符串必须使用 ISO8601标准（YYYY-MM-DDTHH<img alt="🇲🇲" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1f2-1f1f2.svg" title=":mm:" />ss.ssZ）编写。</p>
+</blockquote>
+<p>带有 ISO8601日期字符串的脚本示例：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">events</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Event Title1&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">start</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2015-03-17T13:13:55.008&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">end</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2015-03-19T13:13:55.008&#39;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Event Title2&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">start</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2015-03-17T13:13:55-0400&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">end</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2015-03-19T13:13:55-0400&#39;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>毫秒级的时间也可以添加到 JSON feeds 中。需要注意的是，这个数字必须以毫秒为单位，例如 1426612435000（"March 17, 2015 5:13:55 PM"），而不是秒 1426612435。</p>
+<p>具有Unix时间戳的脚本示例：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">events</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Event Title&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">start</span><span class="o">:</span><span class="w"> </span><span class="mf">1426612435000</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">end</span><span class="o">:</span><span class="w"> </span><span class="mf">1426785379000</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><strong>jQuery $.ajax选项</strong></p>
+<p>也可以在同一个对象中指定任何 jQuery 的 $.ajax 选项，这允许你轻松地传递额外的参数给你的 feed 脚本，以及监听ajax 的回调：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+
+<span class="w">  </span><span class="nx">events</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;/myfeed.php&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">custom_param1</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;something&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">custom_param2</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;somethingelse&#39;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;there was an error while fetching events!&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span><span class="w">   </span><span class="c1">// a non-ajax option</span>
+<span class="w">    </span><span class="nx">textColor</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;black&#39;</span><span class="w"> </span><span class="c1">// a non-ajax option</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="p">});</span>
+</code></pre></div>
+<p><strong>动态 <code>data</code> 参数</strong></p>
+<p><code>date</code> 参数，通过 GET 或 POST 向你的 JSON 脚本发送信息，也可以被指定为一个函数，以便发送动态值：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+
+<span class="w">  </span><span class="nx">events</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;/myfeed.php&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// 返回对象的函数</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">dynamic_value</span><span class="o">:</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span>
+<span class="w">      </span><span class="p">};</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="p">});</span>
+</code></pre></div>
+<h4 id="513">5.1.3、事件（函数）<a class="headerlink" href="#513" title="Permanent link">&para;</a></h4>
+<p>一个自定义函数，用于以编程方式生成 Event 对象。</p>
+<div class="highlight"><pre><span></span><code>function( start, end, timezone, callback ) { }
+</code></pre></div>
+<p>FullCalendar 在需要新的事件数据时都会调用这个函数。当用户点击上一页/下一页或切换视图时，就会触发这个功能。</p>
+<p>此函数将提供 <code>start</code> 和 <code>end</code> 参数，这些参数表示日历需要事件的范围。</p>
+<p><code>timezone</code> 是一个 string/boolean，描述了日历的当前时区。它是时区选项的精确值。</p>
+<p>它也将被赋予 <code>callback</code>，一个必须在自定义事件函数产生其事件时被调用的函数。事件函数有责任确保回调是用一个 Event 对象的数组来调用的。</p>
+<p>下面的示例演示如何使用事件函数从假设的 XML feed 获取事件：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">events</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span><span class="w"> </span><span class="nx">end</span><span class="p">,</span><span class="w"> </span><span class="nx">timezone</span><span class="p">,</span><span class="w"> </span><span class="nx">callback</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;myxmlfeed.php&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">dataType</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;xml&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 我们假设的 feed 需要 UNIX 时间戳</span>
+<span class="w">        </span><span class="nx">start</span><span class="o">:</span><span class="w"> </span><span class="nx">start</span><span class="p">.</span><span class="nx">unix</span><span class="p">(),</span>
+<span class="w">        </span><span class="nx">end</span><span class="o">:</span><span class="w"> </span><span class="nx">end</span><span class="p">.</span><span class="nx">unix</span><span class="p">()</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[];</span>
+<span class="w">        </span><span class="nx">$</span><span class="p">(</span><span class="nx">doc</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;event&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nx">events</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+<span class="w">            </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">),</span>
+<span class="w">            </span><span class="nx">start</span><span class="o">:</span><span class="w"> </span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;start&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">// will be parsed</span>
+<span class="w">          </span><span class="p">});</span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">        </span><span class="nx">callback</span><span class="p">(</span><span class="nx">events</span><span class="p">);</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>然而，如果有选择，JSON 是一个更好的主意，因为可以直接指定一个feed URL。</p>
+<h4 id="514event">5.1.4、Event 对象<a class="headerlink" href="#514event" title="Permanent link">&para;</a></h4>
+<p>一个普通的 JavaScript 对象，FullCalendar 用它来存储一个日历事件的信息。下面是它的属性：</p>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>String/Integer。可选的。唯一标识给定的事件。重复事件的不同实例应该都有相同的 <code>id</code>。</td>
+</tr>
+<tr>
+<td>title</td>
+<td>String。必须的。事件元素上的文本</td>
+</tr>
+<tr>
+<td>allDay</td>
+<td><code>true</code> 或 <code>false</code>。可选的。一个事件是否发生在一个特定的时间段。这个属性会影响事件的时间是否被显示。另外，在议程视图中，决定它是否显示在 “全天” 部分。如果没有明确指定这个值，如果定义了<code>allDayDefault</code>，就会使用它。如果其他都失败了，FullCalendar 会尝试猜测。如果 <code>start</code> 或 <code>end</code> 值有一个 <code>"T"</code> 作为 ISO8601日期字符串的一部分，<code>allDay</code> 将变为 <code>false</code>。否则，它将是 <code>true</code>。不要在你的 <code>true</code>/<code>false</code> 周围加入引号。这个值是一个布尔值，而不是一个字符串!</td>
+</tr>
+<tr>
+<td>start</td>
+<td>事件开始的日期/时间。必需的。一个类似于 Moment 的输入，像一个 ISO8601 字符串。在整个 API 中，这将成为一个真正的 Moment 对象。</td>
+</tr>
+<tr>
+<td>end</td>
+<td>事件结束的唯一日期/时间。可选的。一个类似于 Moment 的输入，像一个 ISO8601字符串。在整个 API中，这将成为一个真正的 Moment 对象。它是事件结束后的第一时间。例如，如果一个事件的最后一天是星期四，那么事件的结束时间将是星期五的 00:00:00!</td>
+</tr>
+<tr>
+<td>url</td>
+<td>String。可选的。当该事件被用户点击时将被访问的 URL。关于控制这种行为的更多信息，请参见<code>eventClick</code> 回调。</td>
+</tr>
+<tr>
+<td>className</td>
+<td>String/Array。可选的。一个 CSS class（或 class 的数组），将被附加到这个事件的元素上。</td>
+</tr>
+<tr>
+<td>editable</td>
+<td><code>true</code> 或 <code>false</code>。可选的。覆盖此单个事件的 <code>editable</code> 选项。</td>
+</tr>
+<tr>
+<td>startEditable</td>
+<td><code>true</code> 或 <code>false</code>。可选的。覆盖此单个事件的 <code>eventStartEditable</code> 选项。</td>
+</tr>
+<tr>
+<td>durationEditable</td>
+<td><code>true</code> 或 <code>false</code>。可选的。覆盖此单个事件的 <code>eventDurationEditable</code> 选项。</td>
+</tr>
+<tr>
+<td>resourceEditable</td>
+<td><code>true</code> 或 <code>false</code>。可选的。覆盖此单个事件的 <code>eventResourceEditable</code> 选项。</td>
+</tr>
+<tr>
+<td>rendering</td>
+<td>允许对事件进行交替渲染，例如背景事件。可以是空的，也可以是 <code>"background"</code> 或 <code>"inverse-background"</code>。</td>
+</tr>
+<tr>
+<td>overlap</td>
+<td><code>true</code> 或 <code>false</code>。可选的。覆盖此单个事件 <code>eventOverlap</code> 选项。如果是 <code>false</code>，可以防止此事件被拖动/调整到其他事件上。也防止其他事件在此事件上被拖动/调整大小。</td>
+</tr>
+<tr>
+<td>constraint</td>
+<td>一个事件 ID，"businessHours"，对象。可选的。覆盖此单个事件的 <code>eventConstraint</code> 选项。</td>
+</tr>
+<tr>
+<td>color</td>
+<td>设置一个事件的背景和边框颜色，就像日历范围内的 <code>eventColor</code> 选项一样。</td>
+</tr>
+<tr>
+<td>backgroundColor</td>
+<td>设置一个事件的背景颜色，就像日历范围内的 <code>eventBackgroundColor</code> 选项一样。</td>
+</tr>
+<tr>
+<td>borderColor</td>
+<td>设置一个事件的边框颜色，就像日历范围内的 <code>eventBorderColor</code> 选项一样。</td>
+</tr>
+<tr>
+<td>textColor</td>
+<td>设置一个事件的文本颜色，就像日历范围内的 <code>eventTextColor</code> 选项一样。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>非标准字段</strong></p>
+<p>除了上述字段外，还可以在每个 Event 对象中包含自己的非标准字段。FullCalendar 不会修改或删除这些字段。例如，开发人员经常包括一个描述字段，用于回调，如 <code>eventRender</code>。</p>
+<h4 id="515">5.1.5、方法<a class="headerlink" href="#515" title="Permanent link">&para;</a></h4>
+<p><strong>updateEvent</strong></p>
+<p>改变单个事件的数据，重新渲染该事件。</p>
+<div class="highlight"><pre><span></span><code>.fullCalendar( ‘updateEvent’, event )
+</code></pre></div>
+<p><code>event</code> 必须是事件的原始 Event 对象，而不仅仅是重构对象。原始 Event 对象可以通过回调（如 <code>eventClick</code>）或 <code>clientEvents</code> 方法获得。</p>
+<p>以下是单击后如何更新事件：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">eventClick</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">,</span><span class="w"> </span><span class="nx">element</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="nx">event</span><span class="p">.</span><span class="nx">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;CLICKED!&quot;</span><span class="p">;</span>
+
+<span class="w">    </span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">(</span><span class="s1">&#39;updateEvent&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="p">);</span>
+
+<span class="w">  </span><span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><strong>removeEvents</strong></p>
+<p>从日历中删除事件。</p>
+<div class="highlight"><pre><span></span><code>.fullCalendar( ‘removeEvents’ [, idOrFilter ] )
+</code></pre></div>
+<p>如果省略 <code>idOrFilter</code>，则删除所有事件。</p>
+<p>如果 <code>idOrFilter</code> 是一个 ID，则将删除所有具有相同 ID 的事件。</p>
+<p><code>idOrFilter</code> 也可以是一个过滤器函数，它接受一个 Event 对象参数，如果应该删除它，则返回 <code>true</code>。</p>
+<h3 id="52">5.2、事件显示<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<p>如何控制日历上事件的外观。</p>
+<p><strong>eventColor</strong></p>
+<p>设置日历上所有事件的背景和边框颜色。</p>
+<div class="highlight"><pre><span></span><code>String
+</code></pre></div>
+<p>更改日历上所有事件的颜色，如下所示：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">events</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="c1">// my event data</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nx">eventColor</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#378006&#39;</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>可以使用任何 CSS 颜色格式，如 <code>#f00</code>、<code>#ff0000</code>、<code>rgb(255,0,0)</code>或 <code>red</code>。</p>
+<p><code>eventBackgroundColor</code>、<code>eventBorderColor</code> 和<code>eventTextColor</code> 选项可用于更细化。</p>
+<p><strong>eventBackgroundColor</strong></p>
+<p>设置日历上所有事件的背景色。</p>
+<div class="highlight"><pre><span></span><code>String
+</code></pre></div>
+<p>可以使用任何 CSS 颜色格式，如 <code>#f00</code>、<code>#ff0000</code>、<code>rgb(255,0,0)</code>或 <code>red</code>。</p>
+<p><strong>eventBorderColor</strong></p>
+<p>设置日历上所有事件的边框颜色。</p>
+<div class="highlight"><pre><span></span><code>String
+</code></pre></div>
+<p>可以使用任何 CSS 颜色格式，如 <code>#f00</code>、<code>#ff0000</code>、<code>rgb(255,0,0)</code>或 <code>red</code>。</p>
+<p><strong>eventTextColor</strong></p>
+<p>设置日历上所有事件的文本颜色。</p>
+<div class="highlight"><pre><span></span><code>String
+</code></pre></div>
+<p>可以使用任何 CSS 颜色格式，如 <code>#f00</code>、<code>#ff0000</code>、<code>rgb(255,0,0)</code>或 <code>red</code>。</p>
+<h4 id="521">5.2.1、方法<a class="headerlink" href="#521" title="Permanent link">&para;</a></h4>
+<p><strong>renderEvent</strong></p>
+<p>在日历上呈现一个新事件。</p>
+<div class="highlight"><pre><span></span><code>.fullCalendar( ‘renderEvent’, event [, stick ] )
+</code></pre></div>
+<p><code>event</code> 必须是具有 <code>title</code> 和 <code>start</code> 的 Event 对象。</p>
+<p>通常情况下，一旦日历重新获取其事件源（例如：点击上一个/下一个），该事件就会消失。然而，将 <code>stick</code> 设置为 <code>true</code> 将导致事件被永久地固定在日历上。</p>
+<h3 id="53">5.3、事件单击和悬停<a class="headerlink" href="#53" title="Permanent link">&para;</a></h3>
+<p>了解事件何时被单击或悬停。</p>
+<p><strong>eventClick</strong></p>
+<p>当用户单击事件时触发。</p>
+<div class="highlight"><pre><span></span><code>function( event, jsEvent, view ) { }
+</code></pre></div>
+<p><code>event</code> 是保存事件信息（日期、标题等）的 Event 对象。</p>
+<p><code>jsEvent</code> 保存 jQuery 事件和低级信息，例如单击坐标。</p>
+<p><code>view</code> 保存当前视图对象。</p>
+<p>在回调函数中，<code>this</code> 被设置为事件的 <code>&lt;div&gt;</code> 元素。</p>
+<p>下面是一个演示所有这些变量的示例：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">eventClick</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">calEvent</span><span class="p">,</span><span class="w"> </span><span class="nx">jsEvent</span><span class="p">,</span><span class="w"> </span><span class="nx">view</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Event: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">calEvent</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Coordinates: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">jsEvent</span><span class="p">.</span><span class="nx">pageX</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;,&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">jsEvent</span><span class="p">.</span><span class="nx">pageY</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;View: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">view</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// 更改边框颜色</span>
+<span class="w">    </span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;border-color&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;red&#39;</span><span class="p">);</span>
+
+<span class="w">  </span><span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>通常，如果 Event 对象设置了其 URL 属性，则单击事件将导致浏览器访问事件的 URL（在同一窗口/选项卡中）。从函数中返回 <code>false</code> 可以防止这种情况发生</p>
+<p>通常情况下，开发者希望一个事件的 URL 在不同的标签页或弹出窗口中打开。下面的例子显示了如何做到这一点：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">events</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;My Event&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">start</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2010-01-01&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;http://google.com/&#39;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// other events here</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nx">eventClick</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">url</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nb">window</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<h3 id="54">5.4、事件拖动和调整大小<a class="headerlink" href="#54" title="Permanent link">&para;</a></h3>
+<p>如何启用和控制用户可以拖放和调整事件的大小。首先将 <code>editable</code> 设置设为 <code>true</code>。如果想允许外部元素被放到日历上，请访问 <code>droppable</code>、<code>drop</code> 和 <code>eventReceive</code> 文章。</p>
+<p><strong>editable</strong></p>
+<p>确定是否可以修改日历上的事件。</p>
+<div class="highlight"><pre><span></span><code>Boolean, default: false
+</code></pre></div>
+<p>这确定是否可以拖动事件并调整其大小。同时启用/禁用两者。如果不想两者兼得，请改用更具体的 <code>eventStartEditable</code> 和 <code>eventDurationEditable</code>。</p>
+<p>可以使用 Event 对象的 <code>editable</code> 属性在每个事件的基础上覆盖此选项。但是，无法拖动或调整后台事件的大小。</p>
+<p><strong>eventStartEditable</strong></p>
+<p>允许通过拖动编辑事件的开始时间。</p>
+<div class="highlight"><pre><span></span><code>Boolean, default: true
+</code></pre></div>
+<p><strong>eventDurationEditable</strong></p>
+<p>允许通过调整大小来编辑事件的持续时间。</p>
+<div class="highlight"><pre><span></span><code>Boolean, default: true
+</code></pre></div>
+<h4 id="541callback">5.4.1、回调（CALLBACK）<a class="headerlink" href="#541callback" title="Permanent link">&para;</a></h4>
+<p><strong>eventDrop</strong></p>
+<p>当拖动停止且事件已移至其他日期/时间时触发。</p>
+<div class="highlight"><pre><span></span><code>function( event, delta, revertFunc, jsEvent, ui, view ) { }
+</code></pre></div>
+<p><code>event</code> 是一个 Event 对象，持有事件的信息（日期、标题等）。在事件的 <code>start</code>/<code>end</code> 时调用 <code>hasTime</code>，以查看它是否被丢在一个定时或全天的区域。</p>
+<p><code>delta</code> 是一个Duration对象，表示事件移动的时间量。版本2.0.1及更高版本中提供。</p>
+<p><code>revertFunc</code> 是一个函数，如果调用它，它会将事件的开始/结束日期还原为拖动之前的值。如果 <code>ajax</code> 调用失败，这很有用。</p>
+<p><code>jsEvent</code> 持有 jQuery 事件的低层次信息，如鼠标坐标。</p>
+<p><code>ui</code> 持有一个空对象。在 2.1 版本之前，<a href="https://jqueryui.com/draggable/">jQuery 的 UI 对象</a>。</p>
+<p><code>view</code> 保存当前视图对象。</p>
+<p>当外部事件到达日历时，不会调用 <code>eventDrop</code>。改为调用 <code>eventReceive</code>。</p>
+<p>示例：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">events</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="c1">// events here</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nx">editable</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">eventDrop</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">,</span><span class="w"> </span><span class="nx">delta</span><span class="p">,</span><span class="w"> </span><span class="nx">revertFunc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">title</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot; was dropped on &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">start</span><span class="p">.</span><span class="nx">format</span><span class="p">());</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">confirm</span><span class="p">(</span><span class="s2">&quot;你确定要更改吗？&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">revertFunc</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">  </span><span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><strong>eventResize</strong></p>
+<p>当调整大小停止且事件持续时间已更改时触发。</p>
+<div class="highlight"><pre><span></span><code>function( event, delta, revertFunc, jsEvent, ui, view ) { }
+</code></pre></div>
+<p><code>event</code> 是保存事件信息（日期、标题等）的 Event 对象。</p>
+<p><code>delta</code> 是一个 Duration 对象，表示事件的开始或结束 延长或缩短的时间量。</p>
+<p><code>revertFunc</code> 是一个函数，如果调用它，它会将事件的结束日期还原为拖动之前的值。如果 <code>ajax</code> 调用失败，这很有用。</p>
+<p><code>jsEvent</code> 持有 jQuery 事件的低层次信息，如鼠标坐标。</p>
+<p><code>ui</code> 持有一个空对象。在 2.1 版本之前，<a href="https://jqueryui.com/draggable/">jQuery 的 UI 对象</a>。</p>
+<p><code>view</code> 保存当前视图对象。</p>
+<p>示例：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">events</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="c1">// events here</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nx">editable</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">eventResize</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">,</span><span class="w"> </span><span class="nx">delta</span><span class="p">,</span><span class="w"> </span><span class="nx">revertFunc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">title</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot; end is now &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">end</span><span class="p">.</span><span class="nx">format</span><span class="p">());</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">confirm</span><span class="p">(</span><span class="s2">&quot;这样可以吗？&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">revertFunc</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">  </span><span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<h2 id="6">6、国际化<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<h3 id="61">6.1、语言环境<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
+<p>你可以为某些语言（又称 “地区”）定制日历。地区设置是最重要的，因为它同时设置了许多其他选项的默认值。</p>
+<h4 id="611local">6.1.1、local<a class="headerlink" href="#611local" title="Permanent link">&para;</a></h4>
+<p>自定义日历的语言和本地化选项。</p>
+<div class="highlight"><pre><span></span><code>A String locale code. default: &quot;en&quot;
+</code></pre></div>
+<p>此选项会影响许多事情，例如：</p>
+<ul>
+<li>按钮中的文本，由 <code>header</code> 定义</li>
+<li>包含月份或星期几字符串的文本</li>
+<li>日期格式字符串，如 <code>timeFormat</code></li>
+<li><code>weekNumberCalculation</code></li>
+<li><code>firstDay</code></li>
+</ul>
+<p><strong>如何使用其他地区</strong></p>
+<p>首先需要加载 local JavaScript 数据文件才能使用它。这些文件包含在 FullCalendar 下载的 <code>locale/</code> 目录中。在加载主 FullCalendar 库后，必须通过 <code>&lt;script&gt;</code> 标签加载它们。</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;fullcalendar/fullcalendar.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;fullcalendar/locale/es.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="w">  </span><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">  </span><span class="p">});</span>
+
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>如果只是加载一个区域设置，则无需指定 <code>local</code> 选项。FullCalendar 将查看最近加载的 local 文件并使用它。</p>
+<p>但是，如果加载了多个语言环境文件，或者加载了联合的 <code>locale-all.js</code> 文件，则必须通过 <code>local</code> 选项明确指定使用哪个语言环境：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;fullcalendar/fullcalendar.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;fullcalendar/locale-all.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="w">  </span><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#calendar&#39;</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">locale</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;es&#39;</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">  </span><span class="p">});</span>
+
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong>MomentJS and jQuery UI Datepicker</strong></p>
+<p>当你加载 FullCalendar 的 local 文件时，它也会加载 MomentJS 和 jQuery UI Datepicker 的翻译（如果该库已经在页面上）。只要确保在 FullCalendar 的 local 文件之前包含 Moment 和 Datepicker 的 <code>&lt;script&gt;</code> 标签就可以了。</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;lib/moment.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;lib/jquery-ui.custom-datepicker.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;fullcalendar/fullcalendar.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;fullcalendar/locale-all.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<h2 id="7">7、第三方机构<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<h3 id="71vue">7.1、Vue<a class="headerlink" href="#71vue" title="Permanent link">&para;</a></h3>
+<p>FullCalendar 与 Vue JavaScript 框架无缝集成。它提供了一个与 FullCalendar 标准 API 的功能完全匹配的组件。</p>
+<p>这个包是在 MIT 许可证下发布的，与 FullCalendar 的标准版本使用的许可证相同。有用的链接：</p>
+<ul>
+<li><a href="https://github.com/fullcalendar/fullcalendar-vue">浏览 Github 仓库</a></li>
+<li><a href="https://fullcalendar.io/reporting-bugs">Bug 报告说明</a></li>
+<li>示例项目：<ul>
+<li><a href="https://github.com/fullcalendar/fullcalendar-examples/tree/main/vue2">Vue 2 示例</a>（使用 <a href="https://webpack.js.org/">Webpack</a> 和 <a href="https://webpack.js.org/loaders/css-loader/">css-loader</a>）</li>
+<li><a href="https://github.com/fullcalendar/fullcalendar-examples/tree/main/vue3">Vue 3 示例</a> (使用 <a href="https://github.com/vitejs/vite">Vite</a>）</li>
+</ul>
+</li>
+</ul>
+<p>首先是安装与 FullCalendar 相关的依赖项，你需要 FullCalendar 核心、Vue 适配器以及你打算使用的插件。</p>
+<ul>
+<li>
+<p>如果使用 Vue2：</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install<span class="w"> </span>--save<span class="w"> </span>@fullcalendar/core,<span class="w"> </span>@fullcalendar/vue
+</code></pre></div>
+</li>
+</ul>
+<p>安装需要使用的 FullCalendar 插件，比如 <code>@fullcalendar/daygrid</code>：</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install<span class="w"> </span>--save<span class="w"> </span>@fullcalendar/daygrid
+</code></pre></div>
+<p>然后你可以开始编写一个利用 <code>&lt;FullCalendar&gt;</code> 组件的父组件：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">FullCalendar</span> <span class="p">:</span><span class="na">options</span><span class="o">=</span><span class="s">&quot;</span><span class="nx">calendarOptions</span><span class="s">&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">FullCalendar</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@fullcalendar/vue&#39;</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">dayGridPlugin</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@fullcalendar/daygrid&#39;</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">components</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">FullCalendar</span><span class="w"> </span><span class="c1">// make the &lt;FullCalendar&gt; tag available</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nx">data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">calendarOptions</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">plugins</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nx">dayGridPlugin</span><span class="w"> </span><span class="p">],</span>
+<span class="w">        </span><span class="nx">initialView</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;dayGridMonth&#39;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<h4 id="711">7.1.1、插件索引<a class="headerlink" href="#711" title="Permanent link">&para;</a></h4>
+<p>FullCalendar 提供以下软件包（仅列出我常用的，详见<a href="https://fullcalendar.io/docs/plugin-index">官网</a>）：</p>
+<table>
+<thead>
+<tr>
+<th>包名</th>
+<th>功能/视图</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>@fullcalendar/core</strong></td>
+<td>提供 <code>Calendar</code> 类等。</td>
+</tr>
+<tr>
+<td><strong>@fullcalendar/interaction</strong></td>
+<td>检测日期点击动作、选择动作和事件拖放及大小调整。</td>
+</tr>
+<tr>
+<td><strong>@fullcalendar/daygrid</strong></td>
+<td>提供月和日的网格视图：dayGridYear、dayGridMonth、dayGridWeek、dayGridDay、dayGrid（通用）。</td>
+</tr>
+<tr>
+<td><strong>@fullcalendar/vue</strong></td>
+<td>提供 Vue 2 组件。</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.indexes", "navigation.tracking"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../_javascripts/auto_title.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,241 @@
+/* ==========================================================================
+   1. 二级标题 (H2) - 核心章节
+   样式：⚓ 图标 + 底部实线 + 主题色
+   ========================================================================== */
+.md-typeset h2 {
+    position: relative;
+    margin-top: 2.2em;
+    margin-bottom: 0.8em;
+    padding-bottom: 0.25em;
+
+    font-weight: bold;
+    font-size: 1.45em;
+    color: var(--md-primary-fg-color);
+
+    border-bottom: 2px solid var(--md-default-fg-color--lightest);
+}
+
+.md-typeset h2::before {
+    content: "⚓";
+    margin-right: 0.45em;
+    font-size: 0.9em;
+    vertical-align: middle;
+    opacity: 0.85;
+}
+
+
+/* ==========================================================================
+   2. 三级标题 (H3) - 子章节
+   样式：⚓ 小图标 + 底部虚线 + 主题色
+   ========================================================================== */
+.md-typeset h3 {
+    position: relative;
+    margin-top: 1.8em;
+    margin-bottom: 0.8em;
+    padding-bottom: 0.25em;
+
+    font-weight: bold;
+    font-size: 1.25em;
+    color: var(--md-primary-fg-color);
+
+    border-bottom: 1px dashed var(--md-default-fg-color--lightest);
+}
+
+.md-typeset h3::before {
+    content: "⚓";
+    margin-right: 0.45em;
+    font-size: 0.75em;
+    vertical-align: middle;
+    opacity: 0.65;
+}
+
+
+/* ==========================================================================
+   3. 四级至六级标题 (H4 - H6) - 内容要点
+   样式：左侧竖线 + 主题色弱化
+   ========================================================================== */
+.md-typeset h4,
+.md-typeset h5,
+.md-typeset h6 {
+    position: relative;
+    margin-top: 1.6em !important;
+    margin-bottom: 0.6em !important;
+
+    font-weight: bold !important;
+    line-height: 1.4;
+
+    padding-left: 0.6em;
+    border-left: 4px solid;
+}
+
+/* 不同级别弱化处理 */
+.md-typeset h4 {
+    font-size: 1.15em !important;
+    color: color-mix(in srgb,
+        var(--md-primary-fg-color) 80%,
+        var(--md-default-fg-color)
+    );
+    border-left-color: var(--md-primary-fg-color);
+}
+
+.md-typeset h5 {
+    font-size: 1.1em !important;
+    color: color-mix(in srgb,
+        var(--md-primary-fg-color) 65%,
+        var(--md-default-fg-color)
+    );
+    border-left-color: var(--md-primary-fg-color--light);
+}
+
+.md-typeset h6 {
+    font-size: 1.05em !important;
+    color: var(--md-default-fg-color--light);
+    border-left-color: var(--md-default-fg-color--lighter);
+}
+
+
+/* ==========================================================================
+   4. 伪标题样式（auto-t）
+   用法：一整行只有 **加粗文字**，且上下有空行
+   ========================================================================== */
+p.auto-t {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 2em;
+    margin-bottom: 1.6em;
+}
+
+p.auto-t::before,
+p.auto-t::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid var(--md-default-fg-color--lighter);
+    margin: 0 0.8em;
+}
+
+p.auto-t strong {
+    font-weight: bold;
+    font-size: 1em;
+    color: var(--md-primary-fg-color);
+    padding: 0 0.4em;
+}
+
+p.auto-t strong::before,
+p.auto-t strong::after {
+    content: "◆";
+    color: var(--md-default-fg-color--lightest);
+    font-size: 0.8em;
+    vertical-align: middle;
+}
+
+p.auto-t strong::before {
+    margin-right: 8px;
+}
+
+p.auto-t strong::after {
+    margin-left: 8px;
+}
+
+
+/* ==========================================================================
+   5. 正文阅读优化（压缩空隙）
+   ========================================================================== */
+.md-typeset p {
+    margin-bottom: 0.9em;
+}
+
+.md-typeset li {
+    margin-bottom: 0.35em;
+}
+
+
+/* ==========================================================================
+   6. 图片统一居中 & 间距优化
+   ========================================================================== */
+.md-typeset img {
+    display: block;
+    margin: 0.8em auto;
+    max-width: 100%;
+}
+
+.md-typeset .twemoji img,
+.md-typeset .icon img {
+    display: inline-block !important;
+    margin: 0 !important;
+    vertical-align: text-bottom;
+}
+
+.md-typeset figure {
+    display: block;
+    margin: 1.5em auto;
+    text-align: center;
+}
+
+/* ==========================================================================
+   7. 多级列表增强（统一你的技术笔记风格）
+   目标：让列表真正“有层级、有结构”
+   ========================================================================== */
+
+/* ----------------------------
+   一级列表（主分类）
+   ---------------------------- */
+.md-typeset ul {
+    margin-top: 0.6em;
+    margin-bottom: 0.8em;
+    padding-left: 1.2em;
+}
+
+/* 一级列表项 */
+.md-typeset ul > li {
+    position: relative;
+    margin-bottom: 0.6em;
+    padding-left: 0.4em;
+}
+
+/* 一级列表前的圆点强化 */
+.md-typeset ul > li::marker {
+    color: var(--md-primary-fg-color);
+    font-size: 1em;
+}
+
+
+/* ----------------------------
+   二级列表（说明 / 细分）
+   ---------------------------- */
+.md-typeset ul ul {
+    margin-top: 0.4em;
+    margin-bottom: 0.6em;
+    padding-left: 1.4em;
+    border-left: 2px dashed var(--md-default-fg-color--lightest);
+}
+
+/* 二级列表项 */
+.md-typeset ul ul > li {
+    margin-bottom: 0.35em;
+    padding-left: 0.4em;
+    font-size: 0.95em;
+    color: var(--md-default-fg-color--light);
+}
+
+/* 二级列表圆点 */
+.md-typeset ul ul > li::marker {
+    color: var(--md-default-fg-color--lighter);
+    font-size: 0.85em;
+}
+
+
+/* ----------------------------
+   三级列表（很少用，继续弱化）
+   ---------------------------- */
+.md-typeset ul ul ul {
+    padding-left: 1.2em;
+    border-left: 1px dotted var(--md-default-fg-color--lighter);
+}
+
+.md-typeset ul ul ul > li {
+    font-size: 0.9em;
+    color: var(--md-default-fg-color--lighter);
+}
+

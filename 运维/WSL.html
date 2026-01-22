@@ -1,0 +1,4893 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://0richalcos.github.io/Note/%E8%BF%90%E7%BB%B4/WSL.html">
+      
+      
+        <link rel="prev" href="TongWeb.html">
+      
+      
+        <link rel="next" href="WebLogic.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>WSL - 随便记记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../_stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../index.html" title="随便记记" class="md-header__button md-logo" aria-label="随便记记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            随便记记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              WSL
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="切换深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="切换亮色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换亮色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/0richalcos/Note" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="随便记记" class="md-nav__button md-logo" aria-label="随便记记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    随便记记
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/0richalcos/Note" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🏠 首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ♨️ Java
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ♨️ Java
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java/Java.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java/Java8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java 8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java/JavaBasics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java 基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java/JavaCollection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java 集合
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java/JavaObject.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java 类和对象
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java/JavaWeb.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaWeb
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java/%E6%B5%8B%E8%AF%95%E5%BA%8F%E5%8F%B7.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    测试序号
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🧮 数据结构及算法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🧮 数据结构及算法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%AE%97%E6%B3%95/Algorithm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%AE%97%E6%B3%95/DesignPattern.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DesignPattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🍃 Spring
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🍃 Spring
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Spring/Spring.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Spring/SpringBoot.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringBoot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Spring/SpringCloud.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringCloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Spring/SpringMVC.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringMVC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💾 持久层框架
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    💾 持久层框架
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6/MyBatis-Plus.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MyBatis-Plus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6/Mybatis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mybatis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔐 认证与授权
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔐 认证与授权
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83/SSO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83/Sa-Token.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sa-Token
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83/Shiro.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shiro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🌐 前端
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🌐 前端
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/CSS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CSS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/JavaScript.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/Vue.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/jQuery.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    jQuery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/Thymeleaf.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thymeleaf
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_6" id="__nav_7_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    组件库
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    组件库
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/%E7%BB%84%E4%BB%B6%E5%BA%93/AntV-X6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AntV-X6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/%E7%BB%84%E4%BB%B6%E5%BA%93/ApacheECharts.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ApacheECharts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/%E7%BB%84%E4%BB%B6%E5%BA%93/Axios.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Axios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/%E7%BB%84%E4%BB%B6%E5%BA%93/BootstrapTable.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BootstrapTable
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/%E7%BB%84%E4%BB%B6%E5%BA%93/DHTMLXGantt.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DHTMLXGantt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/%E7%BB%84%E4%BB%B6%E5%BA%93/Element.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Element
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/%E7%BB%84%E4%BB%B6%E5%BA%93/FullCalendar.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FullCalendar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/%E7%BB%84%E4%BB%B6%E5%BA%93/X-editable.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    X-editable
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📊 数据库
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📊 数据库
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93/Dameng.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dameng
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MySQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQLQuery.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MySQLQuery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93/OceanBase.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OceanBase
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93/Oracle.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Oracle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93/Redis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93/Vastbase.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vastbase
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/Elasticsearch.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elasticsearch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📇 分布式存储
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📇 分布式存储
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8/FastDFS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FastDFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8/MinIO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MinIO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛰️ 网络通信
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛰️ 网络通信
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/Encryption.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Encryption
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/HTTP.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/OpenVPN.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenVPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/VNC.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VNC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/WebSocket.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WebSocket
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/frp.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    frp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🗃️ 文件处理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🗃️ 文件处理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_12_1" id="__nav_12_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Office
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_12_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Office
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Office/ApachePOI.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ApachePOI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Office/EasyExcel.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EasyExcel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Office/OnlyOffice.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OnlyOffice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Office/Poi-tl.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Poi-tl
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Office/Spire.OfficeForJava.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spire.OfficeForJava
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/PDF/ApachePDFBox.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ApachePDFBox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/XML/XMLParse.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XMLParse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/ZIP/Zip4j.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zip4j
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/XXL-JOB.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XXL-JOB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🧑‍🔧 运维
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🧑‍🔧 运维
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Docker.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Linux.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="NSSM.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NSSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Nginx.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Tomcat.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tomcat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="TongWeb.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TongWeb
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WSL
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="WSL.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WSL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1、概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1、概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-wsl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1、什么是 WSL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-wsl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2、比较 WSL 版本
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2、比较 WSL 版本">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-wsl-1-wsl-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1、比较 WSL 1 和 WSL 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122wsl-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.2、WSL 2 中的新增功能
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.3、例外情况
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2、安装
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2、安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1、Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22windows-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2、Windows Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3、概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3、概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-wsl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1、基本 WSL 命令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1、基本 WSL 命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.1、安装、更新、卸载
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.2、启动、关闭
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#313" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.3、设置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#314" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.4、查询
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#315" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.5、导入、导出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2、跨文件系统工作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3、高级设置配置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3、高级设置配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331wslconf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.1、wsl.conf
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#332wslconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.2、.wslconfig
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4、网络注意事项
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4、网络注意事项">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#341nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.1、默认网络模式：NAT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#342" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.2、镜像模式网络
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4、其他
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4、其他">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1、设置中文
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="WebLogic.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WebLogic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛠️ 开发工具
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛠️ 开发工具
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/Git.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/Maven.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maven
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/Node.js.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Node.js
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/Swagger.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Swagger
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    👻 其他
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    👻 其他
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%85%B6%E4%BB%96/Settings.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Settings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%85%B6%E4%BB%96/Solutions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solutions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%85%B6%E4%BB%96/Weasel.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Weasel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1、概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1、概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-wsl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1、什么是 WSL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-wsl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2、比较 WSL 版本
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2、比较 WSL 版本">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-wsl-1-wsl-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1、比较 WSL 1 和 WSL 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122wsl-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.2、WSL 2 中的新增功能
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.3、例外情况
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2、安装
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2、安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1、Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22windows-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2、Windows Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3、概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3、概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-wsl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1、基本 WSL 命令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1、基本 WSL 命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.1、安装、更新、卸载
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.2、启动、关闭
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#313" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.3、设置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#314" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.4、查询
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#315" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.5、导入、导出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2、跨文件系统工作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3、高级设置配置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3、高级设置配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331wslconf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.1、wsl.conf
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#332wslconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.2、.wslconfig
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4、网络注意事项
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4、网络注意事项">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#341nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.1、默认网络模式：NAT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#342" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.2、镜像模式网络
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4、其他
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4、其他">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1、设置中文
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="wsl">WSL<a class="headerlink" href="#wsl" title="Permanent link">&para;</a></h1>
+<h2 id="1">1、概述<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>适用于 Linux 的 Windows 子系统（WSL）可让开发人员直接在 Windows 上按原样运行 GNU/Linux 环境（包括大多数命令行工具、实用工具和应用程序），且不会产生传统虚拟机或双启动设置开销。</p>
+<p><br></p>
+<h3 id="11-wsl">1.1、什么是 WSL<a class="headerlink" href="#11-wsl" title="Permanent link">&para;</a></h3>
+<p><strong>什么是适用于 Linux 的 Windows 子系统？</strong></p>
+<p>适用于 Linux 的 Windows 子系统（WSL）是 Windows 的一项功能，可用于在 Windows 计算机上运行 Linux 环境，而无需单独的虚拟机或双引导。 WSL 旨在为希望同时使用 Windows 和 Linux 的开发人员提供无缝高效的体验。</p>
+<ul>
+<li>使用 WSL 安装和运行各种 Linux 发行版，例如 Ubuntu、Debian、Kali 等。 安装 Linux 发行版并从 Microsoft Store 接收自动更新、导入 Microsoft Store 中没有的 Linux 发行版，或构建你自己的定制 Linux 发行版。</li>
+<li>将文件存储在独立的 Linux 文件系统中，具体取决于安装的发行版。</li>
+<li>运行命令行工具，例如 BASH。</li>
+<li>运行常用的 BASH 命令行工具（例如 <code>grep</code>、<code>sed</code>、<code>awk</code>）或其他 ELF-64 二进制文件。</li>
+<li>运行 Bash 脚本和 GNU/Linux 命令行应用程序，包括：<ul>
+<li>工具：vim、emacs、tmux</li>
+<li>语言：NodeJS、JavaScript、Python、Ruby、C/C++、C# 和 F#、Rust、Go 等。</li>
+<li>服务：SSHD、MySQL、Apache、lighttpd、MongoDB、PostgreSQL。</li>
+</ul>
+</li>
+<li>使用自己的 GNU/Linux 分发包管理器安装其他软件。</li>
+<li>使用类似于 Unix 的命令行 shell 调用 Windows 应用程序。</li>
+<li>在 Windows 上调用 GNU/Linux 应用程序。</li>
+<li>运行直接集成到 Windows 桌面的 GNU/Linux 图形应用程序</li>
+<li>使用你的设备 GPU 加速 Linux 上运行的机器学习工作负载。</li>
+</ul>
+<p><br></p>
+<p><strong>什么是 WSL 2？</strong></p>
+<p>安装 Linux 发行版时，WSL 2 是默认发行版类型。 WSL 2 使用虚拟化技术在轻量级实用工具虚拟机（VM）中运行 Linux 内核。 Linux 发行版作为独立的容器在 WSL 2 托管 VM 内运行。 通过 WSL 2 运行的 Linux 发行版将共享同一网络命名空间、设备树（而非 <code>/dev/pts</code>）、CPU/内核/内存/交换空间、<code>/init</code> 二进制文件，但有自己的 PID 命名空间、装载命名空间、用户命名空间、Cgroup 命名空间和 <code>init</code> 进程。</p>
+<p>WSL 2 提高了文件系统性能，并且与 WSL 1 体系结构相比增加了完整的系统调用兼容性。</p>
+<p>单个 Linux 分发版可以在 WSL 1 或 WSL 2 体系结构中运行。 每个分发版可随时升级或降级，并且你可以并行运行 WSL 1 和 WSL 2 分发版。</p>
+<p><br></p>
+<h3 id="12-wsl">1.2、比较 WSL 版本<a class="headerlink" href="#12-wsl" title="Permanent link">&para;</a></h3>
+<h4 id="121-wsl-1-wsl-2">1.2.1、比较 WSL 1 和 WSL 2<a class="headerlink" href="#121-wsl-1-wsl-2" title="Permanent link">&para;</a></h4>
+<p>WSL 1 和 WSL 2 之间的主要区别在于，在托管 VM 内使用实际的 Linux 内核、支持完整的系统调用兼容性以及跨 Linux 和 Windows 操作系统的性能。 WSL 2 是安装 Linux 发行版时的当前默认版本，它使用最新最好的虚拟化技术在轻量级实用工具虚拟机（VM）内运行 Linux 内核。 WSL2 将 Linux 发行版作为托管 VM 内的隔离容器运行。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">功能</th>
+<th style="text-align: left;">WSL 1</th>
+<th style="text-align: left;">WSL 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Windows 和 Linux 之间的集成</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr>
+<td style="text-align: left;">启动时间短</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr>
+<td style="text-align: left;">与传统虚拟机相比，占用的资源量少</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr>
+<td style="text-align: left;">可以与当前版本的 VMware 和 VirtualBox 一起运行</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">❌</td>
+</tr>
+<tr>
+<td style="text-align: left;">托管 VM</td>
+<td style="text-align: left;">❌</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr>
+<td style="text-align: left;">完整的 Linux 内核</td>
+<td style="text-align: left;">❌</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr>
+<td style="text-align: left;">完全的系统调用兼容性</td>
+<td style="text-align: left;">❌</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr>
+<td style="text-align: left;">跨 OS 文件系统的性能</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">❌</td>
+</tr>
+<tr>
+<td style="text-align: left;">systemd 支持</td>
+<td style="text-align: left;">❌</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr>
+<td style="text-align: left;">IPv6 支持</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+</tbody>
+</table>
+<p>从上面的比较表中可以看出，WSL 2 架构在几个方面优于 WSL 1，但跨 OS 文件系统的性能除外，对于这种情况，可通过将项目文件存储在与处理项目时运行的工具相同的操作系统上进行处理。</p>
+<p>WSL 2 仅在 Windows 11 或 Windows 10 版本 1903、内部版本 18362 或更高版本中可用。 通过按 Windows 徽标键 + R，检查你的 Windows 版本，然后键入 winver，选择 “确定”。 （或者在 Windows 命令提示符下输入 <code>ver</code> 命令）。 你可能需要更新到最新的 Windows 版本。 低于 14393 的版本完全不支持 WSL。</p>
+<p><br></p>
+<h4 id="122wsl-2">1.2.2、WSL 2 中的新增功能<a class="headerlink" href="#122wsl-2" title="Permanent link">&para;</a></h4>
+<p>WSL 2 是对基础体系结构的一次重大改造，它使用虚拟化技术和 Linux 内核来实现其新功能。 此更新的主要目标是提高文件系统性能和添加完全的系统调用兼容性。</p>
+<p><br></p>
+<p><strong>WSL 2 体系结构</strong></p>
+<p>传统的 VM 体验可能启动速度慢，是独立的，消耗大量资源，需要你花费时间进行管理。 WSL 2 没有这些属性。</p>
+<p>WSL 2 有 WSL 1 的优点，包括 Windows 和 Linux 之间的无缝集成，启动时间短，资源占用量少，并且无需 VM 配置或管理。 虽然 WSL 2 确实使用 VM，但 VM 是在幕后管理和运行的，因此你将具有与 WSL 1 相同的用户体验。</p>
+<p><br></p>
+<p><strong>完整的 Linux 内核</strong></p>
+<p>WSL 2 中的 Linux 内核是 Microsoft 根据最新的稳定版分支（基于 kernel.org 上提供的源代码）构建的。此内核已专门针对 WSL 2 进行了调整，针对大小和性能进行了优化，以便在 Windows 上提供良好的 Linux 体验。 内核将由 Windows 更新提供服务，这意味着你将获得最新的安全修补程序和内核改进功能，而无需自行管理它。</p>
+<p><br></p>
+<p><strong>提升了文件 IO 性能</strong></p>
+<p>如果使用 WSL 2，文件密集型操作（如 git 克隆、npm 安装、apt 更新、apt 升级等）的速度都明显更快。</p>
+<p>实际的速度提升将取决于你运行的应用以及它与文件系统的交互方式。 在对压缩的 tarball 进行解包时，WSL 2 的初始版本的运行速度比 WSL 1 快达 20 倍，在各种项目上使用 git 克隆、npm 安装和 cmake 时，大约快 2-5 倍。</p>
+<p><br></p>
+<p><strong>完全的系统调用兼容性</strong></p>
+<p>Linux 二进制文件使用系统调用来执行访问文件、请求内存、创建进程等功能。 虽然 WSL 1 使用的是由 WSL 团队构建的转换层，但 WSL 2 包括了自己的 Linux 内核，具有完全的系统调用兼容性。 优点包括：</p>
+<ul>
+<li>可以在 WSL 内部运行的一组全新应用，例如 Docker 等。</li>
+<li>对 Linux 内核的任何更新都立即可供使用。</li>
+</ul>
+<p><br></p>
+<h4 id="123">1.2.3、例外情况<a class="headerlink" href="#123" title="Permanent link">&para;</a></h4>
+<p>我们建议使用 WSL 2，因为它提供更快的性能和100% 的系统调用兼容性。 但是，在某些特定情况下，你可能会更倾向于使用 WSL 1。 在以下情况下，请考虑使用 WSL 1：</p>
+<ul>
+<li>
+<p>你的项目文件必须存储在 Windows 文件系统中。 WSL 1 可以更快地访问从 Windows 装载的文件。</p>
+<p>如果你将使用 WSL Linux 分发版来访问 Windows 文件系统上的项目文件，并且这些文件无法存储在 Linux 文件系统上，那么，通过使用 WSL 1，你将跨 OS 文件系统实现更快的性能。</p>
+</li>
+<li>
+<p>一个项目要求对相同的文件使用 Windows 和 Linux 工具进行交叉编译。</p>
+<p>在 WSL 1 中，跨 Windows 和 Linux 操作系统的文件性能比 WSL 2 中更快，因此如果要使用 Windows 应用程序来访问 Linux 文件，则目前通过 WSL 1 可实现更快的性能。</p>
+</li>
+<li>
+<p>你的项目需要访问串行端口或 USB 设备。 但是，现在可通过 USBIPD-WIN 项目为 WSL 2 提供 USB 设备支持。</p>
+</li>
+<li>
+<p>WSL 2 不支持访问串行端口。</p>
+</li>
+<li>
+<p>有严格的内存要求</p>
+<p>WSL 2 的内存使用量会随使用而缩放。 当进程释放内存时，这会自动返回到 Windows。 但从现在开始，在关闭 WSL 实例前，WSL 2 还不会将内存中缓存的页面释放回 Windows。 如果你有长时间运行的 WSL 会话或访问非常大量的文件，此缓存可能会耗尽 Windows 内存。</p>
+</li>
+<li>
+<p>如果依赖 Linux 发行版在与主机相同的网络中拥有 IP 地址，则可能需要设置一种替代方法来运行 WSL 2。 WSL 2 作为 hyper-v 虚拟机运行。 这是对 WSL 1 中使用的桥接网络适配器的更改，这意味着 WSL 2 使用网络地址转换 (NAT) 服务作为其虚拟网络，而不是将其桥接到主机网络接口卡 (NIC)，从而生成唯一的将在重启时更改的 IP 地址。</p>
+</li>
+</ul>
+<p><br></p>
+<h2 id="2">2、安装<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<p>开发人员可以在 Windows 计算机上同时访问 Windows 和 Linux 的强大功能。 通过适用于 Linux 的 Windows 子系统 (WSL)，开发人员可以安装 Linux 发行版（例如 Ubuntu、OpenSUSE、Kali、Debian、Arch Linux 等），并直接在 Windows 上使用 Linux 应用程序、实用程序和 Bash 命令行工具，不用进行任何修改，也无需承担传统虚拟机或双启动设置的费用。</p>
+<p><br></p>
+<h3 id="21windows">2.1、Windows<a class="headerlink" href="#21windows" title="Permanent link">&para;</a></h3>
+<p>必须运行 Windows 10 版本 2004 及更高版本（内部版本 19041 及更高版本）或 Windows 11 才能使用以下命令。</p>
+<p><br></p>
+<p><strong>安装 WSL 命令</strong></p>
+<p>在管理员模式下打开 PowerShell 或 Windows 命令提示符，输入 <code>wsl --install</code> 命令，然后重启计算机。</p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="p">-</span><span class="n">-install</span>
+</code></pre></div>
+<p>此命令将启用运行 WSL 并安装 Linux 的 Ubuntu 发行版所需的功能。 </p>
+<p>首次启动新安装的 Linux 发行版时，将打开一个控制台窗口，要求你等待将文件解压缩并存储到计算机上。 未来的所有启动时间应不到一秒。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>仅当根本没有安装 WSL 时，上述命令才有效。</p>
+</div>
+<p><br></p>
+<p><strong>更改默认安装的 Linux 发行版</strong></p>
+<p>默认情况下，安装的 Linux 分发版为 Ubuntu。 可以使用 <code>-d</code> 标志进行更改。</p>
+<ul>
+<li>若要更改安装的发行版，请输入：<code>wsl --install -d &lt;Distribution Name&gt;</code>。 将 <code>&lt;Distribution Name&gt;</code> 替换为要安装的发行版的名称。</li>
+<li>若要查看可通过在线商店下载的可用 Linux 发行版列表，请输入：<code>wsl --list --online</code> 或 <code>wsl -l -o</code>。</li>
+<li>若要在初始安装后安装其他 Linux 发行版，还可使用命令：<code>wsl --install -d &lt;Distribution Name&gt;</code>。</li>
+</ul>
+<p><br></p>
+<h3 id="22windows-server">2.2、Windows Server<a class="headerlink" href="#22windows-server" title="Permanent link">&para;</a></h3>
+<p>Windows Server 2022 现在使用命令支持简单的 WSL 安装：</p>
+<div class="highlight"><pre><span></span><code>wsl<span class="w"> </span>--install
+</code></pre></div>
+<p>现在，可以在管理员 PowerShell 或 Windows 命令提示符中输入此命令，然后重启计算机来安装在 Windows Server 2022 上运行 WSL 所需的全部内容。</p>
+<p>此命令将启用所需的可选组件，下载最新的 Linux 内核，将 WSL 2 设置为默认值，并安装 Linux 发行版（默认安装 Ubuntu）。</p>
+<p><br></p>
+<h2 id="3">3、概念<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h3 id="31-wsl">3.1、基本 WSL 命令<a class="headerlink" href="#31-wsl" title="Permanent link">&para;</a></h3>
+<p>以下 WSL 命令以 PowerShell 或 Windows 命令提示符支持的格式列出。 若要通过 Bash/Linux 发行版命令行运行这些命令，必须将 <code>wsl</code> 替换为 <code>wsl.exe</code>。</p>
+<p>若要获取发行版名称的有效列表，可以使用 <code>help</code> 命令。</p>
+<p><br></p>
+<p><strong>Help 命令</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="p">-</span><span class="n">-help</span>
+</code></pre></div>
+<p>查看 WSL 中可用的选项和命令列表。</p>
+<p><br></p>
+<h4 id="311">3.1.1、安装、更新、卸载<a class="headerlink" href="#311" title="Permanent link">&para;</a></h4>
+<p><strong>安装</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="p">-</span><span class="n">-install</span>
+</code></pre></div>
+<p>安装 WSL 和 Linux 的默认 Ubuntu 发行版。 </p>
+<p>选项包括：</p>
+<ul>
+<li><code>--distribution</code>：指定要安装的 Linux 发行版（<code>wsl --install --distribution &lt;distribution name&gt;</code>）。 </li>
+<li><code>--no-launch</code>：安装 Linux 发行版，但不自动启动它。</li>
+<li><code>--web-download</code>：通过联机渠道安装，而不是使用 Microsoft Store 安装。</li>
+</ul>
+<p>未安装 WSL 时，选项包括：</p>
+<ul>
+<li><code>--inbox</code>：使用 Windows 组件（而不是 Microsoft Store）安装 WSL。 （WSL 更新将通过 Windows 更新接收，而不是通过 Microsoft Store 中推送的可用更新来接收）。</li>
+<li><code>--enable-wsl1</code>：在安装 Microsoft Store 版本的 WSL 的过程中也启用 “适用于 Linux 的 Windows 子系统” 可选组件，从而启用 WSL 1。</li>
+<li><code>--no-distribution</code>：安装 WSL 时不安装发行版。</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>如果在 Windows 10 或更低版本上运行 WSL，可能需要在 <code>--install</code> 命令中包含 <code>-d</code> 标志以指定发行版：<code>wsl --install -d &lt;distribution name&gt;</code>。</p>
+</div>
+<p><br></p>
+<p><strong>更新 WSL</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="p">-</span><span class="n">-update</span>
+</code></pre></div>
+<p>将 WSL 版本更新到最新版本。</p>
+<p>选项包括：</p>
+<ul>
+<li><code>--web-download</code>：从 GitHub 而不是 Microsoft Store 下载最新更新。</li>
+</ul>
+<p><br></p>
+<p><strong>注销或卸载 Linux 发行版</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="p">-</span><span class="n">-unregister</span> <span class="p">&lt;</span><span class="n">DistributionName</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>如果将 <code>&lt;DistributionName&gt;</code> 替换为目标 Linux 发行版的名称，则将从 WSL 取消注册该发行版，以便可以重新安装或清理它。</p>
+<div class="admonition warning">
+<p class="admonition-title">Caution</p>
+<p>取消注册后，与该分发版关联的所有数据、设置和软件将永久丢失。 从 Store 重新安装会安装分发版的干净副本。 例如：<code>wsl --unregister Ubuntu</code> 将从可用于 WSL 的发行版中删除 Ubuntu。 运行 <code>wsl --list</code> 将会显示它不再列出。</p>
+</div>
+<p>还可以像卸载任何其他应用商店应用程序一样卸载 Windows 计算机上的 Linux 发行版应用。 若要重新安装，请在 Microsoft Store 中找到该发行版，然后选择【启动】。</p>
+<p><br></p>
+<h4 id="312">3.1.2、启动、关闭<a class="headerlink" href="#312" title="Permanent link">&para;</a></h4>
+<p><strong>将目录更改为主页</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="p">~</span>
+</code></pre></div>
+<p><code>~</code> 可与 wsl 一起使用，以在用户的主目录中启动。 若要在 WSL 命令提示符中从任何目录跳回到主目录，可使用命令 <code>cd ~</code>。</p>
+<p><br></p>
+<p><strong>通过 PowerShell 或 CMD 运行特定的 Linux 发行版</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="p">-</span><span class="n">-distribution</span> <span class="p">&lt;</span><span class="n">Distribution</span> <span class="n">Name</span><span class="p">&gt;</span> <span class="p">-</span><span class="n">-user</span> <span class="p">&lt;</span><span class="n">User</span> <span class="n">Name</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>若要通过特定用户运行特定 Linux 发行版，请将 <code>&lt;Distribution Name&gt;</code> 替换为你首选的 Linux 发行版的名称（例如 Debian），将 <code>&lt;User Name&gt;</code> 替换为现有用户的名称（例如 root）。 如果 WSL 发行版中不存在该用户，你将会收到一个错误。 若要输出当前用户名，请使用 <code>whoami</code> 命令。</p>
+<p><br></p>
+<p><strong>以特定用户的身份运行</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="p">-</span><span class="n">-user</span> <span class="p">&lt;</span><span class="n">Username</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>若要以指定用户身份运行 WSL，请将 <code>&lt;Username&gt;</code> 替换为 WSL 发行版中存在的用户名。</p>
+<p><br></p>
+<p><strong>关闭</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="p">-</span><span class="n">-shutdown</span>
+</code></pre></div>
+<p>立即终止所有正在运行的发行版和 WSL 2 轻量级实用工具虚拟机。 </p>
+<p><br></p>
+<p><strong>Terminate</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="p">-</span><span class="n">-terminate</span> <span class="p">&lt;</span><span class="n">Distribution</span> <span class="n">Name</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>若要终止指定的发行版或阻止其运行，请将 <code>&lt;Distribution Name&gt;</code> 替换为目标发行版的名称。</p>
+<p><br></p>
+<h4 id="313">3.1.3、设置<a class="headerlink" href="#313" title="Permanent link">&para;</a></h4>
+<p><strong>将 WSL 版本设置为 1 或 2</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="p">-</span><span class="n">-set-version</span> <span class="p">&lt;</span><span class="n">distribution</span> <span class="n">name</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="n">versionNumber</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>若要指定运行 Linux 发行版的 WSL 版本（1 或 2），请将 <code>&lt;distribution name&gt;</code> 替换为发行版的名称，并将 <code>&lt;versionNumber&gt;</code> 替换为 1 或 2。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>在 WSL 1 和 WSL 2 之间切换可能非常耗时，并且可能会由于两种体系结构之间的差异而导致失败。 对于包含大型项目的分发，建议在尝试转换之前备份文件。</p>
+</div>
+<p><br></p>
+<p><strong>设置默认 WSL 版本</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="p">-</span><span class="n">-set-default-version</span> <span class="p">&lt;</span><span class="n">Version</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>若要设置 WSL 1 或 WSL 2 的默认版本，请将 <code>&lt;Version&gt;</code> 替换为数字 1 或 2。 该数字表示新 Linux 发行版安装默认使用的 WSL 版本。</p>
+<p><br></p>
+<p><strong>设置默认 Linux 发行版</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="p">-</span><span class="n">-set-default</span> <span class="p">&lt;</span><span class="n">Distribution</span> <span class="n">Name</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>若要设置 WSL 命令将用于运行的默认 Linux 发行版，请将 <code>&lt;Distribution Name&gt;</code> 替换为你首选的 Linux 发行版的名称。</p>
+<p><br></p>
+<p><strong>更改发行版的默认用户</strong></p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="n">DistributionName</span><span class="p">&gt;</span> <span class="n">config</span> <span class="p">-</span><span class="n">-default-user</span> <span class="p">&lt;</span><span class="n">Username</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>更改用于发行版登录的默认用户。 用户必须已经存在于发行版中才能成为默认用户。</p>
+<p>例如：<code>ubuntu config --default-user johndoe</code> 会将 Ubuntu 发行版的默认用户更改为 johndoe 用户。</p>
+<p><br></p>
+<h4 id="314">3.1.4、查询<a class="headerlink" href="#314" title="Permanent link">&para;</a></h4>
+<p><strong>列出可用的 Linux 发行版</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="p">-</span><span class="n">-list</span> <span class="p">-</span><span class="n">-online</span>
+</code></pre></div>
+<p>查看可通过在线商店获得的 Linux 发行版列表。 此命令也可输入为：<code>wsl -l -o</code>。</p>
+<p><br></p>
+<p><strong>列出已安装的 Linux 发行版</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="p">-</span><span class="n">-list</span> <span class="p">-</span><span class="n">-verbose</span>
+</code></pre></div>
+<p>查看安装在 Windows 计算机上的 Linux 发行版列表，其中包括状态（发行版是正在运行还是已停止）和运行发行版的 WSL 版本（WSL 1 或 WSL 2）。  此命令也可输入为：<code>wsl -l -v</code>。</p>
+<p>选项包括：</p>
+<ul>
+<li><code>--all</code>：列出所有发行版。</li>
+<li><code>--running</code>：仅列出当前正在运行的发行版。</li>
+<li><code>--quiet</code>：仅显示发行版名称。</li>
+</ul>
+<p><br></p>
+<p><strong>检查 WSL 状态</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="p">-</span><span class="n">-status</span>
+</code></pre></div>
+<p>查看有关 WSL 配置的常规信息，例如默认发行版类型、默认发行版和内核版本。</p>
+<p><br></p>
+<p><strong>检查 WSL 版本</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="p">-</span><span class="n">-version</span>
+</code></pre></div>
+<p>检查有关 WSL 及其组件的版本信息。</p>
+<p><br></p>
+<p><strong>标识 IP 地址</strong></p>
+<ul>
+<li><code>wsl hostname -I</code>：返回通过 WSL 2 安装的 Linux 发行版 IP 地址（WSL 2 VM 地址）</li>
+<li><code>ip route show | grep -i default | awk '{ print $3}'</code>：返回从 WSL 2（WSL 2 VM）看到的 Windows 计算机的 IP 地址</li>
+</ul>
+<p><br></p>
+<h4 id="315">3.1.5、导入、导出<a class="headerlink" href="#315" title="Permanent link">&para;</a></h4>
+<p><strong>导出分发版</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="p">-</span><span class="n">-export</span> <span class="p">&lt;</span><span class="n">Distribution</span> <span class="n">Name</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="n">FileName</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>将指定分发版的快照导出为新的分发文件。 默认为 tar 格式。 在标准输入中，文件名可以是 <code>-</code>。 </p>
+<p>选项包括：</p>
+<ul>
+<li><code>--vhd</code>：指定导出分发版应为 .vhdx 文件而不是 tar 文件（这仅在使用 WSL 2 的情况下受支持）</li>
+</ul>
+<p><br></p>
+<p><strong>导入分发版</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="p">-</span><span class="n">-import</span> <span class="p">&lt;</span><span class="n">Distribution</span> <span class="n">Name</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="n">InstallLocation</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="n">FileName</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>导入指定的 tar 文件作为新的分发版。 在标准输入中，文件名可以是 <code>-</code>。</p>
+<p>选项包括：</p>
+<ul>
+<li><code>--vhd</code>：指定导入分发版应为 .vhdx 文件而不是 tar 文件（这仅在使用 WSL 2 的情况下受支持）</li>
+<li><code>--version &lt;1/2&gt;</code>：指定将分发版导入为 WSL 1 还是 WSL 2 分发版</li>
+</ul>
+<p><br></p>
+<p><strong>就地导入发行版</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="p">-</span><span class="n">-import-in-place</span> <span class="p">&lt;</span><span class="n">Distribution</span> <span class="n">Name</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="n">FileName</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>将指定的 .vhdx 文件导入为新的发行版。 虚拟硬盘必须采用 ext4 文件系统类型格式。</p>
+<p><br></p>
+<h3 id="32">3.2、跨文件系统工作<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<p><strong>跨文件系统的文件存储和性能</strong></p>
+<p>建议不要跨操作系统使用文件，除非有这么做的特定原因。 在 Linux 命令行（Ubuntu、OpenSUSE 等）工作中想获得最快的性能速度，请将文件存储在 WSL 文件系统中。 如果使用 Windows 命令行（PowerShell、命令提示符）工作，请将文件存储在 Windows 文件系统中。</p>
+<p>例如，在存储 WSL 项目文件时：</p>
+<ul>
+<li>使用 Linux 文件系统根目录：<code>/home/&lt;user name&gt;/Project</code>。</li>
+<li>而不使用 Windows 文件系统根目录：<code>/mnt/c/Users/&lt;user name&gt;/Project$</code> 或 <code>C:\Users\&lt;user name&gt;\Project</code>。</li>
+</ul>
+<p>在 WSL 命令行的文件路径中看到 <code>/mnt/</code> 时，表示你正在使用已装载的驱动器。 因此，Windows 文件系统 <code>C:\Users\&lt;user name&gt;\Project</code> 在 WSL 命令行中装载时将如下所示：<code>/mnt/c/Users/&lt;user name&gt;/Project$</code>。</p>
+<p>可以将项目文件存储在装载的驱动器上，但如果将其直接存储在 <code>\\wsl$</code> 驱动器上，性能速度会提高。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>若要在 Windows 文件资源管理器中查看所有可用的 Linux 发行版及其根文件系统，请在地址栏中输入：<code>\\wsl$</code>。</p>
+</div>
+<p><br></p>
+<p><strong>从 Windows 命令行运行 Linux 工具</strong></p>
+<p>使用 <code>wsl &lt;command&gt;</code>（或 <code>wsl.exe &lt;command&gt;</code>）从 Windows 命令提示符（CMD）或 PowerShell 运行 Linux 二进制文件。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="nb">ls </span><span class="n">-la</span>
+</code></pre></div>
+<p>以这种方式调用二进制文件：</p>
+<ul>
+<li>使用当前 CMD 或 PowerShell 提示符中提到的同一工作目录。</li>
+<li>以 WSL 默认用户的身份运行。</li>
+<li>拥有与调用方进程和终端相同的 Windows 管理权限。</li>
+</ul>
+<p><code>wsl</code>（或 <code>wsl.exe</code>）后面的 Linux 命令的处理方式与 WSL 中运行的任何命令的处理方式类似。 可以执行 <code>sudo</code>、管道处理和文件重定向等操作。</p>
+<p>使用 <code>sudo</code> 更新默认 Linux 分发版的示例：</p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="n">sudo</span> <span class="n">apt-get</span> <span class="n">update</span>
+</code></pre></div>
+<p>运行此命令后，将会列出默认的 Linux 分发版用户名，并将要求你输入密码。 正确输入密码后，分发版将下载更新。</p>
+<p><br></p>
+<p><strong>混合 Linux 和 Windows 命令</strong></p>
+<p>下面是几个使用 PowerShell 混合 Linux 和 Windows 命令的示例。</p>
+<p>若要使用 Linux 命令 <code>ls -la</code> 列出文件，并使用 PowerShell 命令 <code>findstr</code> 来筛选包含 git 的单词的结果，请组合这些命令：</p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="nb">ls </span><span class="n">-la</span> <span class="p">|</span> <span class="n">findstr</span> <span class="s2">&quot;git&quot;</span>
+</code></pre></div>
+<p>若要使用 PowerShell 命令 <code>dir</code> 列出文件，并使用 Linux 命令 <code>grep</code> 来筛选包含 git 的单词的结果，请组合这些命令：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">dir </span><span class="p">|</span> <span class="n">wsl</span> <span class="n">grep</span> <span class="n">git</span>
+</code></pre></div>
+<p>若要使用 Linux 命令 <code>ls -la</code> 列出文件，并使用 PowerShell 命令 <code>&gt; out.txt</code> 将该列表输出到名为 out.txt 的文本文件，请组合这些命令：</p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="nb">ls </span><span class="n">-la</span> <span class="p">&gt;</span> <span class="n">out</span><span class="p">.</span><span class="n">txt</span>
+</code></pre></div>
+<p>若要使用 Linux 命令 <code>ls -la</code> 列出 <code>/proc/cpuinfo</code> Linux 文件系统路径中的文件，请使用 PowerShell：</p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="nb">ls </span><span class="n">-la</span> <span class="p">/</span><span class="n">proc</span><span class="p">/</span><span class="n">cpuinfo</span>
+</code></pre></div>
+<p>若要使用 Linux 命令 <code>ls -la</code> 列出 <code>C:\Program Files</code> Windows 文件系统路径中的文件，请使用 PowerShell：</p>
+<div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="nb">ls </span><span class="n">-la</span> <span class="s2">&quot;/mnt/c/Program Files&quot;</span>
+</code></pre></div>
+<p><br></p>
+<h3 id="33">3.3、高级设置配置<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<p>wsl.conf 和 .wslconfig 文件用于针对每个发行版（<code>wsl.conf</code>）和全局跨所有 WSL 2 发行版 (<code>.wslconfig</code>) 配置高级设置选项。 </p>
+<p><br></p>
+<p><strong>wsl.conf 和 .wslconfig 之间有什么差别？</strong></p>
+<p>可以为已安装的 Linux 发行版配置设置，使它们在你每次启动 WSL 时自动应用，有两种方法：</p>
+<ul>
+<li>.wslconfig 用于在 WSL 2 上运行的所有已安装发行版中配置全局设置。</li>
+<li>wsl.conf 用于为在 WSL 1 或 WSL 2 上运行的每个 Linux 发行版按各个发行版配置本地设置。</li>
+</ul>
+<p>这两种文件类型都用于配置 WSL 设置，但存储文件的位置、配置的范围、可配置的选项类型以及运行发行版的 WSL 版本都会影响应选择的文件类型。</p>
+<p><br></p>
+<p><strong>配置更改的 8 秒规则</strong></p>
+<p>必须等到运行你的 Linux 发行版的子系统完全停止运行并重启，配置设置更新才会显示。 这通常需要关闭发行版 shell 的所有实例后大约 8 秒。</p>
+<p>例如需要修改分发版 Ubuntu 配置，请修改配置文件，关闭分发版，然后重启它。你可能会假设配置更改已立即生效，但当前情况并非如此，因为子系统可能仍在运行。 在重启之前，必须等子系统停止，给它足够的时间来获取你的更改。 可以通过使用 PowerShell 和以下命令来检查关闭 Linux 发行版（shell）后其是否仍在运行：<code>wsl --list --running</code>。 如果分发版未运行，则会收到响应：“没有正在运行的分发版” 。现在可以重启分发版，以查看应用的配置更新。</p>
+<p><br></p>
+<h4 id="331wslconf">3.3.1、wsl.conf<a class="headerlink" href="#331wslconf" title="Permanent link">&para;</a></h4>
+<p>使用 wsl.conf 为 WSL 1 或 WSL 2 上运行的每个 Linux 发行版按各个发行版配置本地设置。</p>
+<ul>
+<li>作为 unix 文件存储在发行版的 <code>/etc</code> 目录中。</li>
+<li>用于针对每个发行版配置设置。 在此文件中配置的设置将仅应用于包含存储此文件的目录的特定 Linux 发行版。</li>
+<li>可用于由 WSL 1 或 WSL 2 版本运行的发行版。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>使用 wsl.conf 文件调整每个发行版设置的功能仅适用于 Windows 版本 17093 及更高版本。</p>
+</div>
+<p><br></p>
+<p><strong>网络设置</strong></p>
+<p>wsl.conf 节标签：<code>[network]</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">设置名称</th>
+<th style="text-align: left;">值</th>
+<th style="text-align: left;">默认值</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">generateHosts</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">true 将 WSL 设置为生成 <code>/etc/hosts</code>。 hosts 文件包含主机名对应的 IP 地址的静态映射。</td>
+</tr>
+<tr>
+<td style="text-align: left;">generateResolvConf</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">true 将 WSL 设置为生成 <code>/etc/resolv.conf</code>。 resolv.conf 包含能够将给定主机名解析为其 IP 地址的 DNS 列表。</td>
+</tr>
+<tr>
+<td style="text-align: left;">hostname</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">Windows 主机名</td>
+<td style="text-align: left;">设置要用于 WSL 发行版的主机名。</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>互操作设置</strong></p>
+<p>wsl.conf 节标签：<code>[interop]</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">设置名称</th>
+<th style="text-align: left;">值</th>
+<th style="text-align: left;">默认值</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">enabled</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">设置此键可确定 WSL 是否支持启动 Windows 进程。</td>
+</tr>
+<tr>
+<td style="text-align: left;">appendWindowsPath</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">设置此键可确定 WSL 是否会将 Windows 路径元素添加到 $PATH 环境变量。</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>用户设置</strong></p>
+<p>wsl.conf 节标签：<code>[user]</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">设置名称</th>
+<th style="text-align: left;">值</th>
+<th style="text-align: left;">默认值</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">default</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">首次运行时创建的初始用户名</td>
+<td style="text-align: left;">设置此键指定在首次启动 WSL 会话时以哪个用户身份运行。</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>启动设置</strong></p>
+<p>wsl.conf 节标签：<code>[boot]</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">设置名称</th>
+<th style="text-align: left;">值</th>
+<th style="text-align: left;">默认值</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">systemd</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">true 将启用 systemd。</td>
+</tr>
+<tr>
+<td style="text-align: left;">command</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">""</td>
+<td style="text-align: left;">你希望在 WSL 实例启动时运行的命令字符串。 <br />此命令以根用户身份运行。 例如 <code>service docker start</code>。</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>启动设置仅在 Windows 11 和 Server 2022 上可用。</p>
+</div>
+<p><br></p>
+<p><strong>wsl.conf 文件示例</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1">## 当启动该发行版时自动挂载Windows驱动器</span>
+<span class="o">[</span>automount<span class="o">]</span>
+<span class="c1">## 设置为true时，将在上面设置的根目录下自动挂载固定驱动器（如C:/或D:/）到DrvFs。</span>
+<span class="c1">## 设置为false时，驱动器将不会自动挂载，需要手动挂载或使用fstab文件挂载。</span>
+<span class="nv">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span>
+<span class="c1">## 设置固定驱动器自动挂载的目录。这个例子更改了挂载位置，因此你的C盘会挂载为/c，而不是默认的/mnt/c。</span>
+<span class="nv">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>/
+<span class="c1">## 可以指定DrvFs的特定选项。</span>
+<span class="nv">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;metadata,uid=1003,gid=1003,umask=077,fmask=11,case=off&quot;</span>
+<span class="c1">## 设置WSL发行版启动时是否处理`/etc/fstab`文件。</span>
+<span class="nv">mountFsTab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span>
+
+<span class="c1">## 网络主机设置，用于启用WSL2使用的DNS服务器。</span>
+<span class="c1">## 这个例子更改了主机名，设置generateHosts为false，防止WSL自动生成/etc/hosts，</span>
+<span class="c1">## 并设置generateResolvConf为false，防止WSL自动生成/etc/resolv.conf，以便你可以创建自己的配置（例如：nameserver 1.1.1.1）。</span>
+<span class="o">[</span>network<span class="o">]</span>
+<span class="nv">hostname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>DemoHost
+<span class="nv">generateHosts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span>
+<span class="nv">generateResolvConf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span>
+
+<span class="c1">## 设置WSL是否支持启动Windows应用程序和添加路径变量。将这些设置为false将阻止启动Windows进程，并阻止添加$PATH环境变量。</span>
+<span class="o">[</span>interop<span class="o">]</span>
+<span class="nv">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span>
+<span class="nv">appendWindowsPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span>
+
+<span class="c1">## 设置使用WSL启动发行版时的默认用户。</span>
+<span class="o">[</span>user<span class="o">]</span>
+<span class="nv">default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>DemoUser
+
+<span class="c1">## 设置启动新的WSL实例时要运行的命令。这个例子启动了Docker容器服务。</span>
+<span class="o">[</span>boot<span class="o">]</span>
+<span class="c1">## 启用 systemd</span>
+<span class="nv">systemd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span>
+<span class="nb">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>service<span class="w"> </span>docker<span class="w"> </span>start
+</code></pre></div>
+<p><br></p>
+<h4 id="332wslconfig">3.3.2、.wslconfig<a class="headerlink" href="#332wslconfig" title="Permanent link">&para;</a></h4>
+<p>使用 .wslconfig 为 WSL 上运行的所有已安装的发行版配置全局设置。</p>
+<ul>
+<li>默认情况下，.wslconfig 文件不存在。 它必须创建并存储在 <code>C:\Users\&lt;UserName&gt;</code> 目录中才能应用这些配置设置。</li>
+<li>用于在作为 WSL 2 版本运行的所有已安装的 Linux 发行版中全局配置设置。</li>
+<li>只能用于 WSL 2 运行的发行版。 作为 WSL 1 运行的发行版不受此配置的影响，因为它们不作为虚拟机运行。</li>
+</ul>
+<p>WSL 将检测这些文件是否存在，读取内容，并在每次启动 WSL 时自动应用配置设置。 如果文件缺失或格式错误（标记格式不正确），则 WSL 将继续正常启动，而不应用配置设置。</p>
+<p><br></p>
+<p><strong>主要 WSL 设置</strong></p>
+<p>.wslconfig 节标签：<code>[wsl2]</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">设置名称</th>
+<th style="text-align: left;">值</th>
+<th style="text-align: left;">默认值</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">kernel</td>
+<td style="text-align: left;">path</td>
+<td style="text-align: left;">Microsoft 内置内核提供的收件箱</td>
+<td style="text-align: left;">自定义 Linux 内核的绝对 Windows 路径。</td>
+</tr>
+<tr>
+<td style="text-align: left;">memory</td>
+<td style="text-align: left;">size</td>
+<td style="text-align: left;">Windows 上总内存的 50%</td>
+<td style="text-align: left;">要分配给 WSL 2 VM 的内存量。</td>
+</tr>
+<tr>
+<td style="text-align: left;">processors</td>
+<td style="text-align: left;">number</td>
+<td style="text-align: left;">Windows 上相同数量的逻辑处理器</td>
+<td style="text-align: left;">要分配给 WSL 2 VM 的逻辑处理器数量。</td>
+</tr>
+<tr>
+<td style="text-align: left;">localhostForwarding</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">一个布尔值，用于指定绑定到 WSL 2 VM 中的通配符或 localhost 的端口是否应可通过 <code>localhost:port</code> 从主机连接。</td>
+</tr>
+<tr>
+<td style="text-align: left;">kernelCommandLine</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">空白</td>
+<td style="text-align: left;">其他内核命令行参数。</td>
+</tr>
+<tr>
+<td style="text-align: left;">safeMode</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">在 “安全模式” 中运行 WSL，这会禁用许多功能，应用于恢复处于错误状态的发行版。 仅适用于 Windows 11 和 WSL 版本 0.66.2+。</td>
+</tr>
+<tr>
+<td style="text-align: left;">swap</td>
+<td style="text-align: left;">size</td>
+<td style="text-align: left;">Windows 上 25% 的内存大小四舍五入到最接近的 GB</td>
+<td style="text-align: left;">要向 WSL 2 VM 添加的交换空间量，0 表示无交换文件。 交换存储是当内存需求超过硬件设备上的限制时使用的基于磁盘的 RAM。</td>
+</tr>
+<tr>
+<td style="text-align: left;">pageReporting</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">默认的 true 设置使 Windows 能够回收分配给 WSL 2 虚拟机的未使用内存。</td>
+</tr>
+<tr>
+<td style="text-align: left;">guiApplications</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">一个布尔值，用于在 WSL 中打开或关闭对 GUI 应用程序（WSLg）的支持。</td>
+</tr>
+<tr>
+<td style="text-align: left;">debugConsole*</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">一个布尔值，用于在 WSL 2 发行版实例启动时打开显示 <code>dmesg</code> 内容的输出控制台窗口。 仅适用于 Windows 11。</td>
+</tr>
+<tr>
+<td style="text-align: left;">nestedVirtualization*</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">用于打开或关闭嵌套虚拟化的布尔值，使其他嵌套 VM 能够在 WSL 2 中运行。 仅适用于 Windows 11。</td>
+</tr>
+<tr>
+<td style="text-align: left;">vmIdleTimeout*</td>
+<td style="text-align: left;">number</td>
+<td style="text-align: left;">60000</td>
+<td style="text-align: left;">VM 在关闭之前处于空闲状态的毫秒数。 仅适用于 Windows 11。</td>
+</tr>
+<tr>
+<td style="text-align: left;">dnsProxy</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">仅适用于 networkingMode = NAT。 布尔值，通知 WSL 将 Linux 中的 DNS 服务器配置为主机上的 NAT。 设置为 false 会将 DNS 服务器从 Windows 镜像到 Linux。</td>
+</tr>
+<tr>
+<td style="text-align: left;">networkingMode**</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">NAT</td>
+<td style="text-align: left;">如果值为 mirrored，则会启用镜像网络模式。 默认或无法识别的字符串会生成 NAT 网络。</td>
+</tr>
+<tr>
+<td style="text-align: left;">firewall**</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">如果设置为 true，则 Windows 防火墙规则以及特定于 Hyper-V 流量的规则可以筛选 WSL 网络流量。</td>
+</tr>
+<tr>
+<td style="text-align: left;">dnsTunneling**</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">更改将 DNS 请求从 WSL 代理到 Windows 的方式</td>
+</tr>
+<tr>
+<td style="text-align: left;">autoProxy*</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">强制 WSL 使用 Windows 的 HTTP 代理信息</td>
+</tr>
+<tr>
+<td style="text-align: left;">defaultVhdSize</td>
+<td style="text-align: left;">siize</td>
+<td style="text-align: left;">1TB</td>
+<td style="text-align: left;">设置存储 Linux 发行版（例如 Ubuntu）文件系统的虚拟硬盘（VHD）大小。 可用于限制分发文件系统允许占用的最大大小。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>具有 <code>path</code> 值的条目必须是带有转义反斜杠的 Windows 路径，例如：<code>C:\\Temp\\myCustomKernel</code>。</li>
+<li>具有 <code>size</code> 值的条目后面必须跟上大小的单位，例如 <code>8GB</code> 或 <code>512MB</code>。</li>
+<li>值类型后带有 <code>*</code> 的条目仅在 Windows 11 中可用。</li>
+<li>值类型后带有 <code>**</code> 的条目需要 Windows 11 版本 22H2 或更高版本。</li>
+</ul>
+<p><br></p>
+<p><strong>实验性设置</strong></p>
+<p>.wslconfig 节标签：<code>[experimental]</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">设置名称</th>
+<th style="text-align: left;">值</th>
+<th style="text-align: left;">默认值</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">autoMemoryReclaim</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">disabled</td>
+<td style="text-align: left;">检测空闲 CPU 使用率后，自动释放缓存的内存。 设置为 gradual 以慢速释放，设置为 dropcache 以立即释放缓存的内存。</td>
+</tr>
+<tr>
+<td style="text-align: left;">sparseVhd</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">如果设置为 true，则任何新创建的 VHD 将自动设置为稀疏。</td>
+</tr>
+<tr>
+<td style="text-align: left;">useWindowsDnsCache**</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">仅当 <code>wsl2.dnsTunneling</code> 设置为 true 时才适用。 如果此选项设置为 false，则从 Linux 隧道传输的 DNS 请求将绕过 Windows 中的缓存名称，以始终将请求放在网络上。</td>
+</tr>
+<tr>
+<td style="text-align: left;">bestEffortDnsParsing**</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">仅当 <code>wsl2.dnsTunneling</code> 设置为 true 时才适用。 如果设置为 true，Windows 将从 DNS 请求中提取问题并尝试解决该问题，从而忽略未知记录。</td>
+</tr>
+<tr>
+<td style="text-align: left;">dnsTunnelingIpAddress**</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">10.255.255.254</td>
+<td style="text-align: left;">仅当 <code>wsl2.dnsTunneling</code> 设置为 true 时才适用。 指定启用 DNS 隧道的情况下将在 Linux resolv.conf 文件中配置的 nameserver。</td>
+</tr>
+<tr>
+<td style="text-align: left;">initialAutoProxyTimeout*</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">1000</td>
+<td style="text-align: left;">仅当 <code>wsl2.autoProxy</code> 设置为 true 时才适用。 配置启动 WSL 容器时，WSL 等待检索 HTTP 代理信息的时长（以毫秒为单位）。 如果代理设置在此时间之后解析，则必须重启 WSL 实例才能使用检索到的代理设置。</td>
+</tr>
+<tr>
+<td style="text-align: left;">ignoredPorts**</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">Null</td>
+<td style="text-align: left;">仅当 <code>wsl2.networkingMode</code> 设置为 mirrored 时才适用。 指定 Linux 应用程序可以绑定到哪些端口（即使该端口已在 Windows 中使用）。 通过此设置，应用程序能够仅侦听 Linux 中的流量端口，因此即使该端口在 Windows 上用于其他用途，这些应用程序也不会被阻止。 例如，WSL 将允许绑定到 Linux for Docker Desktop 中的端口 53，因为它只侦听来自 Linux 容器中的请求。 应在逗号分隔列表中设置格式，例如：<code>3000,9000,9090</code>。</td>
+</tr>
+<tr>
+<td style="text-align: left;">hostAddressLoopback**</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">仅当 <code>wsl2.networkingMode</code> 设置为 mirrored 时才适用。 如果设置为 true，将会允许容器通过分配给主机的 IP 地址连接到主机，或允许主机通过此方式连接到容器。 始终可以使用 127.0.0.1 环回地址，此选项也允许使用所有额外分配的本地 IP 地址。 仅支持分配给主机的 IPv4 地址。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>值类型后带有 <code>*</code> 的条目仅在 Windows 11 中可用。</li>
+<li>值类型后带有 <code>**</code> 的条目需要 Windows 11 版本 22H2 或更高版本。</li>
+</ul>
+<p><br></p>
+<p><strong>.wslconfig 文件示例</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1">## 设置适用于在WSL2上运行的所有Linux发行版</span>
+<span class="o">[</span>wsl2<span class="o">]</span>
+<span class="c1">## 限制虚拟机内存使用不超过4GB，这个值可以设置为整数，使用GB或MB作为单位</span>
+<span class="nv">memory</span><span class="o">=</span>4GB<span class="w"> </span>
+<span class="c1">## 设置虚拟机使用两个虚拟处理器</span>
+<span class="nv">processors</span><span class="o">=</span><span class="m">2</span>
+<span class="c1">## 指定一个自定义的Linux内核供已安装的发行版使用。默认使用的内核可以在 https://github.com/microsoft/WSL2-Linux-Kernel 找到</span>
+<span class="nv">kernel</span><span class="o">=</span>C:<span class="se">\\</span>temp<span class="se">\\</span>myCustomKernel
+<span class="c1">## 设置额外的内核参数，在这个例子中启用了对较旧的Linux基础镜像（如CentOS 6）的支持</span>
+<span class="nv">kernelCommandLine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">vsyscall</span><span class="o">=</span>emulate
+<span class="c1">## 设置交换空间大小为8GB，默认值为可用内存的25%</span>
+<span class="nv">swap</span><span class="o">=</span>8GB
+<span class="c1">## 设置交换文件路径位置，默认路径为 %USERPROFILE%\AppData\Local\Temp\swap.vhdx</span>
+<span class="nv">swapfile</span><span class="o">=</span>C:<span class="se">\\</span>temp<span class="se">\\</span>wsl-swap.vhdx
+<span class="c1">## 禁用页面报告，使WSL保留从Windows中分配的所有内存，不在空闲时释放回去</span>
+<span class="nv">pageReporting</span><span class="o">=</span><span class="nb">false</span>
+<span class="c1">## 启用默认连接，将WSL2的localhost绑定到Windows的localhost。此设置在networkingMode=mirrored时被忽略</span>
+<span class="nv">localhostforwarding</span><span class="o">=</span><span class="nb">true</span>
+<span class="c1">## 禁用嵌套虚拟化</span>
+<span class="nv">nestedVirtualization</span><span class="o">=</span><span class="nb">false</span>
+<span class="c1">## 打开输出控制台，在打开WSL2发行版时显示dmesg的内容以进行调试</span>
+<span class="nv">debugConsole</span><span class="o">=</span><span class="nb">true</span>
+
+<span class="c1">## 启用实验性功能</span>
+<span class="o">[</span>experimental<span class="o">]</span>
+<span class="nv">sparseVhd</span><span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
+<p><br></p>
+<h3 id="34">3.4、网络注意事项<a class="headerlink" href="#34" title="Permanent link">&para;</a></h3>
+<h4 id="341nat">3.4.1、默认网络模式：NAT<a class="headerlink" href="#341nat" title="Permanent link">&para;</a></h4>
+<p>默认情况下，WSL 使用基于 NAT（网络地址转换）的网络体系结构。 </p>
+<p><br></p>
+<p><strong>从 Windows (localhost) 访问 Linux 网络应用</strong></p>
+<p>如果要在 Linux 分发版中构建网络应用（例如，在 NodeJS 或 SQL server 上运行的应用），可以使用 <code>localhost</code> 从 Windows 应用（如 Microsoft Edge 或 Chrome Internet 浏览器）访问它（就像往常一样）。</p>
+<p><br></p>
+<p><strong>从 Linux（主机 IP）访问 Windows 网络应用</strong></p>
+<p>如果要从 Linux 分发版（即 Ubuntu）访问 Windows 上运行的网络应用（例如在 NodeJS 或 SQL 服务器上运行的应用），则需要使用主机的 IP 地址。 虽然这不是一种常见方案，但你可以执行以下步骤来使其可行。</p>
+<ol>
+<li>通过在 Linux 分发版中运行以下命令来获取主机的 IP 地址：<code>ip route show | grep -i default | awk '{ print $3}'</code>。</li>
+<li>使用复制的 IP 地址连接到任何 Windows 服务器。</li>
+</ol>
+<p><br></p>
+<h4 id="342">3.4.2、镜像模式网络<a class="headerlink" href="#342" title="Permanent link">&para;</a></h4>
+<p>在运行 Windows 11 22H2 及更高版本的计算机上，可以在 .wslconfig 文件中的 <code>[wsl2]</code> 下设置 <code>networkingMode=mirrored</code> 以启用镜像模式网络。 启用此功能会将 WSL 更改为全新的网络体系结构，其目标是将 Windows 上的网络接口 “镜像” 到 Linux 中，以添加新的网络功能并提高兼容性。</p>
+<p>以下是启用此模式的当前优势：</p>
+<ul>
+<li>IPv6 支持。</li>
+<li>使用 localhost 地址 127.0.0.1 从 Linux 内部连接到 Windows 服务器。 不支持 IPv6 localhost 地址 <code>::1</code>。</li>
+<li>改进了 VPN 的网络兼容性。</li>
+<li>多播支持。</li>
+<li>直接从局域网（LAN）连接到 WSL。</li>
+</ul>
+<p>这种新模式解决了使用基于 NAT（网络地址转换）的体系结构时出现的网络问题。 </p>
+<p><br></p>
+<h2 id="4">4、其他<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h3 id="41">4.1、设置中文<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>安装中文语言包：</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>language-pack-zh-hans
+</code></pre></div>
+</li>
+<li>
+<p>设置中文为默认语言：</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dpkg-reconfigure<span class="w"> </span>locales
+</code></pre></div>
+<p>选择 <code>en_US.UTF-8</code> 和 <code>zh_CN.UTF-8</code>，选择 <code>zh_CN.UTF-8</code> 为默认语言。</p>
+</li>
+<li>
+<p>重启 WSL Ubuntu 终端即可显示中文。</p>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.top", "navigation.indexes", "navigation.tracking"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../_javascripts/auto_title.js"></script>
+      
+    
+  </body>
+</html>

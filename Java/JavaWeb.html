@@ -1,0 +1,5144 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://0richalcos.github.io/Note/Java/JavaWeb.html">
+      
+      
+        <link rel="prev" href="JavaObject.html">
+      
+      
+        <link rel="next" href="%E6%B5%8B%E8%AF%95%E5%BA%8F%E5%8F%B7.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>JavaWeb - 随便记记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../_stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1servlet" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../index.html" title="随便记记" class="md-header__button md-logo" aria-label="随便记记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            随便记记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              JavaWeb
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="切换深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="切换亮色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换亮色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/0richalcos/Note" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="随便记记" class="md-nav__button md-logo" aria-label="随便记记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    随便记记
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/0richalcos/Note" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🏠 首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ♨️ Java
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ♨️ Java
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Java.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Java8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java 8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="JavaBasics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java 基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="JavaCollection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java 集合
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="JavaObject.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java 类和对象
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaWeb
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="JavaWeb.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaWeb
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1servlet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1、Servlet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1、Servlet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11servlet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1、Servlet简介
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12servlet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2、Servlet 的开发步骤
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13servlet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3、Servlet 生命周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14servlet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4、Servlet 接口实现类
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15servlet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5、Servlet 的配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16servletcontext" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6、ServletContext
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7、域对象概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18httpservletresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8、HttpServletResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19httpservletrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.9、HttpServletRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#110" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.10、重定向和转发的区别
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2webservlet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2、@webservlet 注解详解
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3jsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3、JSP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3、JSP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31jsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1、JSP 简介
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32jsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2、JSP 的运行原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33jsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3、JSP 指令元素
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34jsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4、JSP 内置对象
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4、会话管理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4、会话管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41cookie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1、Cookie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2、Session
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3、表单重复提交
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5、过滤器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5、过滤器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1、Filter 配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2、过滤器的生命周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6jsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6、JSP 动态包含和静态包含
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E6%B5%8B%E8%AF%95%E5%BA%8F%E5%8F%B7.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    测试序号
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🧮 数据结构及算法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🧮 数据结构及算法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%AE%97%E6%B3%95/Algorithm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%AE%97%E6%B3%95/DesignPattern.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DesignPattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🍃 Spring
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🍃 Spring
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Spring/Spring.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Spring/SpringBoot.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringBoot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Spring/SpringCloud.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringCloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Spring/SpringMVC.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringMVC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💾 持久层框架
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    💾 持久层框架
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6/MyBatis-Plus.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MyBatis-Plus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6/Mybatis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mybatis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔐 认证与授权
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔐 认证与授权
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83/SSO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83/Sa-Token.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sa-Token
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83/Shiro.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shiro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🌐 前端
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🌐 前端
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/CSS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CSS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/JavaScript.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/Vue.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/jQuery.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    jQuery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/Thymeleaf.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thymeleaf
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_6" id="__nav_7_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    组件库
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    组件库
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/%E7%BB%84%E4%BB%B6%E5%BA%93/AntV-X6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AntV-X6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/%E7%BB%84%E4%BB%B6%E5%BA%93/ApacheECharts.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ApacheECharts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/%E7%BB%84%E4%BB%B6%E5%BA%93/Axios.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Axios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/%E7%BB%84%E4%BB%B6%E5%BA%93/BootstrapTable.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BootstrapTable
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/%E7%BB%84%E4%BB%B6%E5%BA%93/DHTMLXGantt.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DHTMLXGantt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/%E7%BB%84%E4%BB%B6%E5%BA%93/Element.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Element
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/%E7%BB%84%E4%BB%B6%E5%BA%93/FullCalendar.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FullCalendar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF/%E7%BB%84%E4%BB%B6%E5%BA%93/X-editable.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    X-editable
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📊 数据库
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📊 数据库
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93/Dameng.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dameng
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MySQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQLQuery.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MySQLQuery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93/OceanBase.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OceanBase
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93/Oracle.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Oracle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93/Redis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93/Vastbase.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vastbase
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/Elasticsearch.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elasticsearch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📇 分布式存储
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📇 分布式存储
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8/FastDFS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FastDFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8/MinIO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MinIO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛰️ 网络通信
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛰️ 网络通信
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/Encryption.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Encryption
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/HTTP.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/OpenVPN.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenVPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/VNC.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VNC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/WebSocket.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WebSocket
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/frp.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    frp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🗃️ 文件处理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🗃️ 文件处理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_12_1" id="__nav_12_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Office
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_12_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Office
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Office/ApachePOI.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ApachePOI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Office/EasyExcel.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EasyExcel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Office/OnlyOffice.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OnlyOffice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Office/Poi-tl.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Poi-tl
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Office/Spire.OfficeForJava.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spire.OfficeForJava
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/PDF/ApachePDFBox.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ApachePDFBox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/XML/XMLParse.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XMLParse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/ZIP/Zip4j.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zip4j
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/XXL-JOB.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XXL-JOB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🧑‍🔧 运维
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🧑‍🔧 运维
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%BF%90%E7%BB%B4/Docker.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%BF%90%E7%BB%B4/Linux.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%BF%90%E7%BB%B4/NSSM.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NSSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%BF%90%E7%BB%B4/Nginx.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%BF%90%E7%BB%B4/Tomcat.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tomcat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%BF%90%E7%BB%B4/TongWeb.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TongWeb
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%BF%90%E7%BB%B4/WSL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WSL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%BF%90%E7%BB%B4/WebLogic.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WebLogic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛠️ 开发工具
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛠️ 开发工具
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/Git.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/Maven.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maven
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/Node.js.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Node.js
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/Swagger.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Swagger
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    👻 其他
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    👻 其他
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%85%B6%E4%BB%96/Settings.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Settings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%85%B6%E4%BB%96/Solutions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solutions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%85%B6%E4%BB%96/Weasel.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Weasel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1servlet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1、Servlet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1、Servlet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11servlet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1、Servlet简介
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12servlet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2、Servlet 的开发步骤
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13servlet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3、Servlet 生命周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14servlet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4、Servlet 接口实现类
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15servlet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5、Servlet 的配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16servletcontext" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6、ServletContext
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7、域对象概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18httpservletresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8、HttpServletResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19httpservletrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.9、HttpServletRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#110" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.10、重定向和转发的区别
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2webservlet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2、@webservlet 注解详解
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3jsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3、JSP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3、JSP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31jsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1、JSP 简介
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32jsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2、JSP 的运行原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33jsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3、JSP 指令元素
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34jsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4、JSP 内置对象
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4、会话管理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4、会话管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41cookie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1、Cookie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2、Session
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3、表单重复提交
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5、过滤器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5、过滤器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1、Filter 配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2、过滤器的生命周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6jsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6、JSP 动态包含和静态包含
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="javaweb">JavaWeb<a class="headerlink" href="#javaweb" title="Permanent link">&para;</a></h1>
+<h2 id="1servlet">1、Servlet<a class="headerlink" href="#1servlet" title="Permanent link">&para;</a></h2>
+<h3 id="11servlet">1.1、Servlet简介<a class="headerlink" href="#11servlet" title="Permanent link">&para;</a></h3>
+<p>Servlet（Server Applet）是 Java Servlet 的简称，是为小服务程序或服务连接器，用 Java 编写的服务器端程序，主要功能在于交互式地浏览和修改数据，生成动态 Web 内容。</p>
+<p>Servlet 是 Sun 公司提供的一门用于开发动态 Web 资源的技术。</p>
+<p>Servlet 是一个小的 Java 程序，能接收和响应从客户端发送过来的请求，使用的是 HTTP 的协议。</p>
+<p>Sun 公司在其 API 中提供了一个 Servlet 接口，用户若想要开发一个动态 Web 资源（即开发一个 Java  程序向浏览器输出数据），需要完成以下 2 个步骤：</p>
+<ul>
+<li>编写一个 Java 类，实现 Servlet 接口。</li>
+<li>把开发好的 Java  类部署到 Web 服务器中</li>
+</ul>
+<h3 id="12servlet">1.2、Servlet 的开发步骤<a class="headerlink" href="#12servlet" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>编写普通的类，实现 Servlet 接口，重写 5 个方法。Servlet 接口代码：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">Servlet</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">init</span><span class="p">(</span><span class="n">ServletConfig</span><span class="w"> </span><span class="n">var1</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">ServletConfig</span><span class="w"> </span><span class="nf">getServletConfig</span><span class="p">();</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">service</span><span class="p">(</span><span class="n">ServletRequest</span><span class="w"> </span><span class="n">var1</span><span class="p">,</span><span class="w"> </span><span class="n">ServletResponse</span><span class="w"> </span><span class="n">var2</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="p">,</span><span class="w"> </span><span class="n">IOException</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">getServletInfo</span><span class="p">();</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">destroy</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+</li>
+<li>
+<p>在 WEB 程序的 web.xml 文件进行配置：</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;servlet&gt;</span>
+<span class="w">    </span><span class="nt">&lt;servlet-name&gt;</span>ServletDemo1<span class="nt">&lt;/servlet-name&gt;</span>
+<span class="w">    </span><span class="nt">&lt;servlet-class&gt;</span>cn.itcast.servlet.ServletDemo1<span class="nt">&lt;/servlet-class&gt;</span>
+<span class="nt">&lt;/servlet&gt;</span>
+<span class="nt">&lt;servlet-mapping&gt;</span>
+<span class="w">    </span><span class="nt">&lt;servlet-name&gt;</span>ServletDemo1<span class="nt">&lt;/servlet-name&gt;</span>
+<span class="w">    </span><span class="nt">&lt;url-pattern&gt;</span>/demo1<span class="nt">&lt;/url-pattern&gt;</span>
+<span class="nt">&lt;/servlet-mapping&gt;</span>
+</code></pre></div>
+</li>
+</ul>
+<p>访问顺序：</p>
+<p><img src="!assets/JavaWeb/image-20200602000053667.png" alt="image-20200602000053667" style="width:40%;" /></p>
+<h3 id="13servlet">1.3、Servlet 生命周期<a class="headerlink" href="#13servlet" title="Permanent link">&para;</a></h3>
+<p>Servlet 是一个供其他 Java 程序（Servlet 引擎）调用的 Java 类，它不能独立运行，它的运行完全由 Servlet 引擎来控制和调度。</p>
+<ul>
+<li>实例化：在第一次访问或启动 Tomcat 时，Tomcat 会调用此无参构造方法实例化 Servlet。</li>
+<li><code>init()</code> 方法：服务器调用该方法初始化 Servlet。</li>
+<li><code>service()</code> 方法：初始化完毕，服务器调用该方法响应客户的请求。</li>
+<li><code>destroy()</code> 方法：服务器调用该方法消灭 Servlet 对象。</li>
+</ul>
+<p>其中实例化，初始化，销毁只会执行一次，<code>service</code> 方法执行多次，这说明 Serlvet 的单实例的！当有客户再请求 Servlet 服务时，Web 服务器将启动一个新的线程，在该线程中，调用 <code>service</code> 方法响应客户的请求。</p>
+<p>针对客户端的多次 Servlet 请求，通常情况下，服务器只会创建一个 Servlet 实例对象，也就是说 Servlet 实例对象一旦创建，它就会驻留在内存中，为后续的其它请求服务，直至 Web 容器退出，Servlet 实例对象才会销毁。</p>
+<p><strong>Servlet 的运行过程</strong></p>
+<p>Servlet 程序是由 Web 服务器调用，Web服务器收到客户端的 Servlet 访问请求后：</p>
+<ol>
+<li>Web 服务器首先检查是否已经装载并创建了该 Servlet 的实例对象。如果是，则直接执行第 ④ 步，否则，执行第 ② 步。</li>
+<li>装载并创建该 Servlet 的一个实例对象。</li>
+<li>调用 Servlet 实例对象的 <code>init()</code> 方法。</li>
+<li>创建一个用于封装 HTTP 请求消息的 HttpServletRequest 对象和一个代表 HTTP 响应消息的 <code>HttpServletResponse</code> 对象，然后调用 Servlet 的 <code>service()</code> 方法并将请求和响应对象作为参数传递进去。</li>
+<li>Web 应用程序被停止或重新启动之前，Servlet 引擎将卸载 Servlet，并在卸载之前调用 Servlet 的 <code>destroy()</code> 方法。</li>
+</ol>
+<h3 id="14servlet">1.4、Servlet 接口实现类<a class="headerlink" href="#14servlet" title="Permanent link">&para;</a></h3>
+<p>Sun 公司定义了 <code>Servlet</code> 接口的两个默认实现类，分别为：<code>GenericServlet</code>、<code>HttpServlet</code>。</p>
+<p>HttpServlet 指能够处理 HTTP 请求的 Servlet，它在原有 Servlet 接口上添加了一些与 HTTP 协议处理方法，它比 Servlet 接口的功能更为强大。因此开发人员在编写 Servlet 时，通常应继承这个类，而避免直接去实现 Servlet 接口。</p>
+<p>HttpServlet 在实现 Servlet 接口时，覆写了 <code>service</code> 方法，该方法体内的代码会自动判断用户的请求方式，如为 GET 请求，则调用 <code>HttpServlet</code> 的 <code>doGet</code> 方法，如为 Post 请求，则调用 <code>doPost</code> 方法。因此，开发人员在编写 Servlet 时，通常只需要覆写 <code>doGet</code> 或 <code>doPost</code> 方法，而不要去覆写 <code>service</code> 方法。</p>
+<p><strong>GenericServlet</strong></p>
+<p>GenericServlet 是一个 Serlvet。是 <code>Servlet</code> 接口和 <code>ServletConfig</code> 接口的实现类。但是是一个抽象类，其中的 <code>service</code> 方法为抽象方法。</p>
+<p>如果新建的 Servlet 程序直接继承 <code>GenericSerlvet</code> 会使开发更简洁。</p>
+<p>具体实现：</p>
+<ul>
+<li>在 <code>GenericServlet</code> 中声明了一个 <code>SerlvetConfig</code> 类型的成员变量，在 <code>init(ServletConfig)</code> 方法中对其进行了初始化</li>
+<li>利用 <code>servletConfig</code> 成员变量的方法实现了 <code>ServletConfig</code> 接口的方法</li>
+<li>还定义了一个 <code>init()</code> 方法，在 <code>init(SerlvetConfig)</code> 方法中对其进行调用，子类可以直接覆盖 <code>init()</code> 在其中实现对 Servlet 的初始化.</li>
+<li>不建议直接覆盖 <code>init(ServletConfig)</code>，因为如果忘记编写 <code>super.init(config)</code>；而还是用了 <code>SerlvetConfig</code> 接口的方法，则会出现空指针异常.</li>
+<li>新建的 <code>init(){}</code> 并非 Serlvet 的生命周期方法。而 <code>init(ServletConfig)</code> 是生命周期相关的方法。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span> <span class="nc">GenericServlet</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Servlet</span><span class="p">,</span><span class="w"> </span><span class="n">ServletConfig</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="cm">/** 以下方法为 Servlet 接口的方法 **/</span>
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">destroy</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">ServletConfig</span><span class="w"> </span><span class="nf">getServletConfig</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">servletConfig</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getServletInfo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">ServletConfig</span><span class="w"> </span><span class="n">servletConfig</span><span class="p">;</span>
+
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">init</span><span class="p">(</span><span class="n">ServletConfig</span><span class="w"> </span><span class="n">arg0</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">servletConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arg0</span><span class="p">;</span>
+<span class="w">        </span><span class="n">init</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">init</span><span class="p">()</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="p">{}</span>
+
+<span class="w">     </span><span class="cm">/**【注意】唯独service方法没有被实现，还是一个抽象方法，这个service方法必须我们自己去重写*/</span>
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">service</span><span class="p">(</span><span class="n">ServletRequest</span><span class="w"> </span><span class="n">arg0</span><span class="p">,</span><span class="w"> </span><span class="n">ServletResponse</span><span class="w"> </span><span class="n">arg1</span><span class="p">)</span>
+<span class="w">            </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="p">,</span><span class="w"> </span><span class="n">IOException</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** 以下方法为 ServletConfig 接口的方法 **/</span>
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getInitParameter</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">arg0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">servletConfig</span><span class="p">.</span><span class="na">getInitParameter</span><span class="p">(</span><span class="n">arg0</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Enumeration</span><span class="w"> </span><span class="nf">getInitParameterNames</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">servletConfig</span><span class="p">.</span><span class="na">getInitParameterNames</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">ServletContext</span><span class="w"> </span><span class="nf">getServletContext</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">servletConfig</span><span class="p">.</span><span class="na">getServletContext</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getServletName</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">servletConfig</span><span class="p">.</span><span class="na">getServletName</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>HttpServlet</strong></p>
+<p><code>HttpServlet</code> 是一个 Servlet，继承自 <code>GenericServlet</code>。针对于 HTTP 协议所定制。</p>
+<p>在 <code>service()</code> 方法中直接把 <code>ServletReuqest</code> 和 <code>ServletResponse</code> 转为 <code>HttpServletRequest</code> 和 <code>HttpServletResponse</code>。并调用了重载的 <code>service(HttpServletRequest, HttpServletResponse)</code></p>
+<p>在 <code>service(HttpServletRequest, HttpServletResponse)</code> 获取了请求方式：<code>request.getMethod()</code>，根据请求方式有创建了<code>doXxx()</code> 方法（xxx 为具体的请求方式，比如 doGet、doPost）</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Override</span>
+<span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">service</span><span class="p">(</span><span class="n">ServletRequest</span><span class="w"> </span><span class="n">req</span><span class="p">,</span><span class="w"> </span><span class="n">ServletResponse</span><span class="w"> </span><span class="n">res</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="p">,</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="n">HttpServletRequest</span><span class="w">  </span><span class="n">request</span><span class="p">;</span>
+<span class="w">    </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">response</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="p">)</span><span class="w"> </span><span class="n">req</span><span class="p">;</span>
+<span class="w">        </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">HttpServletResponse</span><span class="p">)</span><span class="w"> </span><span class="n">res</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">ClassCastException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ServletException</span><span class="p">(</span><span class="s">&quot;non-HTTP request or response&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">service</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">response</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">service</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">response</span><span class="p">)</span>
+<span class="w">        </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="p">,</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">//1. 获取请求方式.</span>
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="na">getMethod</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">//2. 根据请求方式再调用对应的处理方法</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="s">&quot;GET&quot;</span><span class="p">.</span><span class="na">equalsIgnoreCase</span><span class="p">(</span><span class="n">method</span><span class="p">)){</span>
+<span class="w">        </span><span class="n">doGet</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">response</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="s">&quot;POST&quot;</span><span class="p">.</span><span class="na">equalsIgnoreCase</span><span class="p">(</span><span class="n">method</span><span class="p">)){</span>
+<span class="w">        </span><span class="n">doPost</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">response</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doPost</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">response</span><span class="p">)</span><span class="w"> </span>
+<span class="w">        </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="p">,</span><span class="w"> </span><span class="n">IOException</span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// TODO Auto-generated method stub</span>
+
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doGet</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">response</span><span class="p">)</span><span class="w"> </span>
+<span class="w">        </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="p">,</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// TODO Auto-generated method stub</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<p>实际开发中，直接继承 <code>HttpServlet</code>，并根据请求方式复写 <code>doXxx()</code> 方法即可。</p>
+<p>好处：直接由针对性的覆盖 <code>doXxx()</code> 方法；直接使用 <code>HttpServletRequest</code> 和 <code>HttpServletResponse</code>，不再需要强转。</p>
+<h3 id="15servlet">1.5、Servlet 的配置<a class="headerlink" href="#15servlet" title="Permanent link">&para;</a></h3>
+<p><strong>配置 Servlet 自动加载</strong></p>
+<p>如果在 <code>&lt;servlet&gt;</code> 元素中配置了一个 <code>&lt;load-on-startup&gt;</code> 元素，那么 Web 应用程序在启动时，就会装载并创建 Servlet 的实例对象、以及调用Servlet 实例对象的 <code>init()</code> 方法。 若为负数，则在第一次请求时被创建，若为 0 或正数，则在当前 WEB 应用被 Serlvet 容器加载时创建实例，且数越小越早被创建。</p>
+<p>举例，为 Web 应用写一个 InitServlet，这个 Servlet 配置为启动时装载，为整个 Web 应用创建必要的数据库表和数据：</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;servlet&gt;</span>
+<span class="w">    </span><span class="nt">&lt;servlet-name&gt;</span>invoker<span class="nt">&lt;/servlet-name&gt;</span>
+<span class="w">    </span><span class="nt">&lt;servlet-class&gt;</span>org.apache.catalina.servlets.InvokerServlet<span class="nt">&lt;/servlet-class&gt;</span>
+<span class="w">    </span><span class="nt">&lt;load-on-startup&gt;</span>2<span class="nt">&lt;/load-on-startup&gt;</span>
+<span class="nt">&lt;/servlet&gt;</span>
+</code></pre></div>
+<p><strong>配置 Servlet 路径映射配置</strong></p>
+<p>由于客户端是通过 URL 地址访问 Web 服务器中的资源，所以 Servlet 程序若想被外界访问，必须把 Servlet 程序映射到一个 URL 地址上，这个工作在 web.xml 文件中使用 <code>&lt;servlet&gt;</code> 元素和 <code>&lt;servlet-mapping&gt;</code> 元素完成。</p>
+<p><code>&lt;servlet&gt;</code> 元素用于注册 Servlet，它包含有两个主要的子元素：<code>&lt;servlet-name&gt;</code> 和 <code>&lt;servlet-class&gt;</code>，分别用于设置 Servlet 的注册名称和 Servlet 的完整类名。 </p>
+<p>一个 <code>&lt;servlet-mapping&gt;</code> 元素用于映射一个已注册的 Servlet 的一个对外访问路径，它包含有两个子元素：<code>&lt;servlet-name&gt;</code> 和 <code>&lt;url-pattern&gt;</code>，分别用于指定 Servlet 的注册名称和 Servlet 的对外访问路径。例如：</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;web-app&gt;</span>
+<span class="w">    </span><span class="nt">&lt;servlet&gt;</span>
+<span class="w">        </span><span class="nt">&lt;servlet-name&gt;</span>AnyName<span class="nt">&lt;/servlet-name&gt;</span>
+<span class="w">        </span><span class="nt">&lt;servlet-class&gt;</span>HelloServlet<span class="nt">&lt;/servlet-class&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/servlet&gt;</span>
+<span class="w">    </span><span class="nt">&lt;servlet-mapping&gt;</span>
+<span class="w">        </span><span class="nt">&lt;servlet-name&gt;</span>AnyName<span class="nt">&lt;/servlet-name&gt;</span>
+<span class="w">        </span><span class="nt">&lt;url-pattern&gt;</span>/demo/hello.html<span class="nt">&lt;/url-pattern&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/servlet-mapping&gt;</span>
+<span class="nt">&lt;/web-app&gt;</span>
+</code></pre></div>
+<p>同一个 Servlet 可以被映射到多个URL上，即多个 <code>&lt;servlet-mapping&gt;</code> 元素的 <code>&lt;servlet-name&gt;</code> 子元素的设置值可以是同一个 Servlet 的注册名。 </p>
+<p>在 Servlet 映射到的 URL 中也可以使用 <code>*</code> 通配符，但是只能有两种固定的格式：一种格式是 <code>*.扩展名</code>，另一种格式是以正斜杠 <code>/</code> 开头并以 <code>/*</code> 结尾。</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;servlet-mapping&gt;</span>
+<span class="w">    </span><span class="nt">&lt;servlet-name&gt;</span>AnyName<span class="nt">&lt;/servlet-name&gt;</span>
+<span class="w">    </span><span class="nt">&lt;url-pattern&gt;</span>/action/*<span class="nt">&lt;/url-pattern&gt;</span>
+<span class="nt">&lt;/servlet-mapping&gt;</span>
+
+<span class="nt">&lt;servlet-mapping&gt;</span>
+<span class="w">    </span><span class="nt">&lt;servlet-name&gt;</span>AnyName<span class="nt">&lt;/servlet-name&gt;</span>
+<span class="w">    </span><span class="nt">&lt;url-pattern&gt;</span>/action/*<span class="nt">&lt;/url-pattern&gt;</span>
+<span class="nt">&lt;/servlet-mapping&gt;</span>
+</code></pre></div>
+<p><strong>Servlet 路径映射举例</strong></p>
+<ul>
+<li>Servlet1 映射到 <code>/abc/*</code></li>
+<li>Servlet2 映射到 <code>/*</code></li>
+<li>Servlet3 映射到 <code>/abc</code></li>
+<li>Servlet4 映射到 <code>*.do</code></li>
+</ul>
+<p>当请求URL为 <code>/abc/a.html</code>，<code>/abc/*</code> 和 <code>/*</code> 都匹配，哪个 Servlet 响应？</p>
+<ul>
+<li>Servlet 引擎将调用 Servlet1。</li>
+</ul>
+<p>当请求 URL 为 <code>/abc</code> 时，<code>/abc/*</code> 和 <code>/abc</code> 都匹配，哪个 Servlet 响应</p>
+<ul>
+<li>Servlet 引擎将调用 Servlet3。</li>
+</ul>
+<p>当请求 URL 为 <code>/abc/a.do</code> 时，<code>/abc/*</code> 和 <code>*.do</code> 都匹配，哪个 Servlet响应</p>
+<ul>
+<li>Servlet 引擎将调用 Servlet1。</li>
+</ul>
+<p>当请求 URL 为 <code>/a.do</code> 时，<code>/*</code> 和 <code>*.do</code> 都匹配，哪个 Servlet 响应</p>
+<ul>
+<li>Servlet 引擎将调用 Servlet2。</li>
+</ul>
+<p>当请求 URL 为 <code>/xxx/yyy/a.do</code> 时，<code>/*</code> 和 <code>*.do</code> 都匹配，哪个 Servlet 响应</p>
+<ul>
+<li>Servlet 引擎将调用 Servlet2。</li>
+</ul>
+<p><strong><code>init</code> 方法中的 ServletConfig 对象</strong></p>
+<p>继承了 <code>GenericServlet</code> 的类可以直接通过 <code>getServletConfig()</code> 方法获取。</p>
+<p>在 Servlet 的配置文件中，可以使用一个或多个 <code>&lt;init-param&gt;</code> 标签为 Servlet  配置一些初始化参数。</p>
+<p>当 Servlet 配置了初始化参数后，Web 容器在创建 Servlet 实例对象时，会自动将这些初始化参数封装到 <code>ServletConfig</code> 对象中，并在调用 Servlet 的 in<code>i</code>t 方法时，将 <code>ServletConfig</code> 对象传递给 Servlet。进而，程序员通过 <code>ServletConfig</code> 对象就可以得到当前 Servlet 的初始化参数信息。</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;servlet&gt;</span>
+<span class="w">    </span><span class="nt">&lt;servlet-name&gt;</span>helloServlet<span class="nt">&lt;/servlet-name&gt;</span>
+<span class="w">    </span><span class="nt">&lt;servlet-class&gt;</span>com.atguigu.javaweb.HelloServlet<span class="nt">&lt;/servlet-class&gt;</span>
+
+<span class="w">    </span><span class="cm">&lt;!-- 配置 Serlvet 的初始化参数。 且节点必须在 load-on-startup 节点的前面 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;init-param&gt;</span>
+<span class="w">        </span><span class="cm">&lt;!-- 参数名 --&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param-name&gt;</span>user<span class="nt">&lt;/param-name&gt;</span>
+<span class="w">        </span><span class="cm">&lt;!-- 参数值 --&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param-value&gt;</span>root<span class="nt">&lt;/param-value&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/init-param&gt;</span>
+
+<span class="w">    </span><span class="nt">&lt;init-param&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param-name&gt;</span>password<span class="nt">&lt;/param-name&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param-value&gt;</span>1230<span class="nt">&lt;/param-value&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/init-param&gt;</span>
+
+<span class="w">    </span><span class="nt">&lt;load-on-startup&gt;</span>-1<span class="nt">&lt;/load-on-startup&gt;</span>
+
+<span class="nt">&lt;/servlet&gt;</span>
+</code></pre></div>
+<p><code>getInitParameter(String name)</code>：获取指定参数名的初始化参数</p>
+<p><code>getInitParameterNames()</code>：获取参数名组成的 Enumeration 对象. </p>
+<div class="highlight"><pre><span></span><code><span class="n">String</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">servletConfig</span><span class="p">.</span><span class="na">getInitParameter</span><span class="p">(</span><span class="s">&quot;user&quot;</span><span class="p">);</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;user： &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">user</span><span class="p">);</span>
+
+<span class="n">Enumeration</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">servletConfig</span><span class="p">.</span><span class="na">getInitParameterNames</span><span class="p">();</span>
+<span class="k">while</span><span class="p">(</span><span class="n">names</span><span class="p">.</span><span class="na">hasMoreElements</span><span class="p">()){</span>
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">names</span><span class="p">.</span><span class="na">nextElement</span><span class="p">();</span>
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">servletConfig</span><span class="p">.</span><span class="na">getInitParameter</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;^^&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">value</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="16servletcontext">1.6、ServletContext<a class="headerlink" href="#16servletcontext" title="Permanent link">&para;</a></h3>
+<p><code>ServletContext</code> 对象的简介</p>
+<ul>
+<li>一个项目只有一个 <code>ServletContext</code> 对象！</li>
+<li>我们可以在 N 个 Servlet 中来获取这个唯一的对象，使用它可以给多个 Servlet 传递数据。（相当于只有这么一个快递员）</li>
+<li>与天地同寿：这个对象在 Tomcat 启动时创建，在 Tomcat 关闭时销毁。</li>
+</ul>
+<p>Web 容器在启动时，它会为每个 Web 应用程序都创建一个对应的 <code>ServletContext</code> 对象，它代表当前 Web 应用。</p>
+<p>如何获取 <code>ServletContext</code> 对象</p>
+<ul>
+<li>通过 <code>ServletConfig</code> 对象获取</li>
+<li>继承了 <code>GenericServlet</code> 类可以直接获取</li>
+</ul>
+<p>设置初始化参数：可以为所有的 Servlet 所获取，而 Servlet 的初始化参数只用那个 Serlvet 可以获取。</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- 配置当前 WEB 应用的初始化参数 --&gt;</span>
+<span class="nt">&lt;context-param&gt;</span>
+<span class="w">　　</span><span class="nt">&lt;param-name&gt;</span>driver<span class="nt">&lt;/param-name&gt;</span>
+<span class="w">　　</span><span class="nt">&lt;param-value&gt;</span>com.mysql.jdbc.Driver<span class="nt">&lt;/param-value&gt;</span>
+<span class="nt">&lt;/context-param&gt;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">ServletContext</span><span class="w"> </span><span class="n">servletContext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">servletConfig</span><span class="p">.</span><span class="na">getServletContext</span><span class="p">();</span>
+<span class="n">String</span><span class="w"> </span><span class="n">driver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">servletContext</span><span class="p">.</span><span class="na">getInitParameter</span><span class="p">(</span><span class="s">&quot;driver&quot;</span><span class="p">);</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;driver:&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">driver</span><span class="p">);</span>
+
+<span class="n">Enumeration</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">names2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">servletContext</span><span class="p">.</span><span class="na">getInitParameterNames</span><span class="p">();</span>
+<span class="k">while</span><span class="p">(</span><span class="n">names2</span><span class="p">.</span><span class="na">hasMoreElements</span><span class="p">()){</span>
+<span class="w">　　</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">names2</span><span class="p">.</span><span class="na">nextElement</span><span class="p">();</span>
+<span class="w">　　</span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;--&gt;&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">name</span><span class="p">);</span><span class="w"> </span>
+<span class="p">}</span>
+</code></pre></div>
+<p>获取当前 Web 应用的某一个文件在服务器上的绝对路径，而不是部署前的路径：</p>
+<div class="highlight"><pre><span></span><code><span class="n">String</span><span class="w"> </span><span class="n">realPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">servletContext</span><span class="p">.</span><span class="na">getRealPath</span><span class="p">(</span><span class="s">&quot;/note.txt&quot;</span><span class="p">);</span>
+</code></pre></div>
+<p>获取当前 Web 应用的名称：</p>
+<div class="highlight"><pre><span></span><code><span class="n">String</span><span class="w"> </span><span class="n">contextPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">servletContext</span><span class="p">.</span><span class="na">getContextPath</span><span class="p">();</span>
+</code></pre></div>
+<p>获取当前 Web 应用的某一个文件对应的输入流：</p>
+<div class="highlight"><pre><span></span><code><span class="n">InputStream</span><span class="w"> </span><span class="n">is2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">servletContext</span><span class="p">.</span><span class="na">getResourceAsStream</span><span class="p">(</span><span class="s">&quot;/WEB-INF/classes/jdbc.properties&quot;</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="17">1.7、域对象概述<a class="headerlink" href="#17" title="Permanent link">&para;</a></h3>
+<p>域对象：域对象可以用来在多个 Servlet 中进行数据的传递。</p>
+<ul>
+<li>域对象必须有存储数据功能</li>
+<li>域对象必须有获取数据功能</li>
+</ul>
+<p>由于一个 Web 应用中的所有 Servlet 共享同一个 <code>ServletContext</code> 对象，因此 Servlet 对象之间可以通过 <code>ServletContext</code> 对象来实现通讯。<code>ServletContext</code> 对象通常也被称之为 context 域对象。</p>
+<p>所有域对象都有存取数据的功能，因为域对象内部有一个 Map，用来存储数据，下面是 <code>ServletContext</code> 对象用来操作数据的方法：</p>
+<ul>
+<li>
+<p><code>void setAttribute(String name, Object value)</code>：用来存储一个对象，也可以称之为存储一个域属性，</p>
+<div class="highlight"><pre><span></span><code><span class="n">servletContext</span><span class="p">.</span><span class="na">setAttribute</span><span class="p">(</span><span class="s">&quot;xxx&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;XXX&quot;</span><span class="p">);</span>
+</code></pre></div>
+<p>在 <code>ServletContext</code>中 保存了一个域属性，域属性名称为 <em>xxx</em>，域属性的值为 <em>XXX</em>。</p>
+<p>请注意，如果多次调用该方法，并且使用相同的 <em>name</em>，那么会覆盖上一次的值，这一特性与 Map 相同；</p>
+</li>
+<li>
+<p><code>Object getAttribute(String name)</code>：用来获取 <code>ServletContext</code> 中的数据，当前在获取之前需要先去存储才行，</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="n">String</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">String</span><span class="p">)</span><span class="n">servletContext</span><span class="p">.</span><span class="na">getAttribute</span><span class="p">(</span><span class="s">&quot;xxx&quot;</span><span class="p">);</span>
+</code></pre></div>
+<p>获取名为 <em>xxx</em> 的域属性；</p>
+</li>
+<li>
+<p><code>void removeAttribute(String name)</code>：用来移除 <code>ServletContext</code> 中的域属性，如果参数 <em>name</em> 指定的域属性不存在，那么本方法什么都不做；</p>
+</li>
+<li>
+<p><code>Enumeration getAttributeNames()</code>：获取所有域属性的名称；</p>
+</li>
+</ul>
+<h3 id="18httpservletresponse">1.8、HttpServletResponse<a class="headerlink" href="#18httpservletresponse" title="Permanent link">&para;</a></h3>
+<p>Web 服务器收到客户端的 HTTP 请求，会针对每一次请求，分别创建一个用于代表请求的 <code>Request</code> 对象、和代表响应的 <code>Response</code> 对象。</p>
+<p><code>Request</code> 和 <code>Response</code> 对象既然代表请求和响应，那我们要获取客户机提交过来的数据，只需要找 <code>Request</code> 对象就行了。要向客户机输出数据，只需要找 <code>Response</code> 对象就行了。</p>
+<p><code>HttpServletResponse</code> 对象服务器的响应。这个对象中封装了向客户端发送数据、发送响应头，发送响应状态码的方法。</p>
+<p><code>ServletResponse</code>：封装了响应信息，如果想给用户什么响应，具体可以使用该接口的方法实现</p>
+<ul>
+<li><code>getWriter()</code>：返回 <code>PrintWriter</code> 对象。调用该对象的 <code>print()</code> 方法，将把 <code>print()</code> 中的参数直接打印到客户的浏览器上。</li>
+<li><code>getOutputStream()</code>：返回 <code>ServletOutputStream</code> 对象。</li>
+<li>设置响应的内容类型：<code>response.setContentType("application/msword")</code>。</li>
+<li><code>sendRedirect(String location)</code>：请求的重定向（此方法为 <code>HttpServletResponse</code> 中定义）。</li>
+</ul>
+<p><strong>getWriter() 和 getOutputStream() 详解</strong></p>
+<ul>
+<li>
+<p><code>java
+    PrintWriter out = response.getWriter()</code></p>
+<p><em>out</em> 对象用于处理字符流数据。</p>
+</li>
+<li>
+<p><code>java
+    ServletOutputStream os = response.getOutputStream();</code></p>
+<p><em>os</em> 用于输出字符流数据或者二进制的字节流数据都可以。</p>
+</li>
+</ul>
+<p><code>getOutputStream()</code> 和 <code>getWriter()</code> 这两个方法互相排斥，调用了其中的任何一个方法后，就不能再调用另一方法。 </p>
+<p>Servlet 程序向 <code>ServletOutputStream</code> 或 <code>PrintWriter</code> 对象中写入的数据将被 Servlet 引擎从 <code>Response</code> 里面获取，Servlet 引擎将这些数据当作响应消息的正文，然后再与响应状态行和各响应头组合后输出到客户端。</p>
+<p>Serlvet 的 <code>service()</code> 方法结束后，Servlet 引擎将检查 <code>getWriter()</code> 或 <code>getOutputStream()</code> 方法返回的输出流对象是否已经调用过 <code>close()</code> 方法，如果没有，Servlet 引擎 Tomcat 将调用 <code>close()</code> 方法关闭该输出流对象。调用 <code>close()</code> 的时候，应该会调用 <code>flushBuffer()</code>。</p>
+<p><strong>输出验证码图片</strong></p>
+<p>建立 <code>BufferedImage</code> 对象：指定图片的长度宽度和类型：</p>
+<div class="highlight"><pre><span></span><code><span class="n">BufferedImage</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BufferedImage</span><span class="p">(</span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="p">,</span><span class="n">BufferedImage</span><span class="p">.</span><span class="na">TYPE_INT_RGB</span><span class="p">);</span>
+</code></pre></div>
+<p>取得 <code>Graphics</code> 对象，用来绘制图片：</p>
+<div class="highlight"><pre><span></span><code><span class="n">Graphics</span><span class="w"> </span><span class="n">graphics</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">image</span><span class="p">.</span><span class="na">getGraphics</span><span class="p">();</span>
+</code></pre></div>
+<p>绘制背景颜色：</p>
+<div class="highlight"><pre><span></span><code><span class="n">graphics</span><span class="p">.</span><span class="na">setColor</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">WHITE</span><span class="p">);</span>
+<span class="n">graphics</span><span class="p">.</span><span class="na">fillRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="p">);</span>
+</code></pre></div>
+<p>绘制边界：</p>
+<div class="highlight"><pre><span></span><code><span class="n">graphics</span><span class="p">.</span><span class="na">setColor</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">BLUE</span><span class="p">);</span>
+<span class="n">graphics</span><span class="p">.</span><span class="na">drawRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div>
+<p>生成随机数：</p>
+<div class="highlight"><pre><span></span><code><span class="n">Random</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Random</span><span class="p">();</span>
+<span class="n">random</span><span class="p">.</span><span class="na">nextInt</span><span class="p">(</span><span class="n">n</span><span class="p">);</span><span class="w"> </span><span class="c1">// 生成0 到 n的随机数 前闭后开</span>
+</code></pre></div>
+<p>绘制干扰线</p>
+<div class="highlight"><pre><span></span><code><span class="n">graphics</span><span class="p">.</span><span class="na">drawLine</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="w"> </span><span class="n">y1</span><span class="p">,</span><span class="w"> </span><span class="n">x2</span><span class="p">,</span><span class="w"> </span><span class="n">y2</span><span class="p">);</span>
+</code></pre></div>
+<p>设置字体 ：</p>
+<div class="highlight"><pre><span></span><code><span class="n">graphics</span><span class="p">.</span><span class="na">setFont</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Font</span><span class="p">(</span><span class="s">&quot;Times New Roman&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">Font</span><span class="p">.</span><span class="o">*</span><span class="n">PLAIN</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="mi">18</span><span class="p">));</span>
+</code></pre></div>
+<p>如果验证码是中文，要使用中文的字体库，通过词库生成随机验证码内容：</p>
+<div class="highlight"><pre><span></span><code><span class="n">String</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890&quot;</span><span class="p">;</span>
+<span class="n">graphics</span><span class="p">.</span><span class="na">drawString</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">);</span>
+</code></pre></div>
+<p>设置旋转：</p>
+<div class="highlight"><pre><span></span><code><span class="n">Graphics2D</span><span class="w"> </span><span class="n">graphics</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Graphics2D</span><span class="p">)</span><span class="w"> </span><span class="n">image</span><span class="p">.</span><span class="na">getGraphics</span><span class="p">();</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">jiaodu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">random</span><span class="p">.</span><span class="na">nextInt</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">30</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">hudu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jiaodu</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">PI</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">180</span><span class="p">;</span>
+<span class="n">graphics</span><span class="p">.</span><span class="na">rotate</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">);</span>
+<span class="n">graphics</span><span class="p">.</span><span class="na">rotate</span><span class="p">(</span><span class="o">-</span><span class="n">theta</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">);</span>
+</code></pre></div>
+<p>释放此图形的上下文以及它使用的所有系统资源：</p>
+<div class="highlight"><pre><span></span><code><span class="n">graphics</span><span class="p">.</span><span class="na">dispose</span><span class="p">();</span>
+</code></pre></div>
+<p>通过 <code>ImageIO</code> 对象的 <code>write</code> 静态方法将图片输出 ：</p>
+<div class="highlight"><pre><span></span><code><span class="n">ImageIO</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">image</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;jpg&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">resp</span><span class="p">.</span><span class="na">getOutputStream</span><span class="p">());</span>
+</code></pre></div>
+<h3 id="19httpservletrequest">1.9、HttpServletRequest<a class="headerlink" href="#19httpservletrequest" title="Permanent link">&para;</a></h3>
+<p><code>HttpServletRequest</code> 对象代表客户端的请求，当客户端通过 HTTP 协议访问服务器时，HTTP 请求中的所有信息都封装在这个对象中，开发人员通过这个对象的方法，可以获得客户这些信息。</p>
+<p><code>HttpServletRequest</code> 是 <code>SerlvetRequest</code> 的子接口，针对于 HTTP 请求所定义，里边包含了大量获取 HTTP 请求相关的方法。</p>
+<p><strong>Request 获取客户机信息</strong></p>
+<p><code>http://localhost:8080/day10/AServlet?username=xxx&amp;password=yyy</code></p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>String getScheme()</code></td>
+<td>获取协议，http</td>
+</tr>
+<tr>
+<td><code>String getServerName()</code></td>
+<td>获取服务器名，localhost</td>
+</tr>
+<tr>
+<td><code>String getServerPort()</code></td>
+<td>获取服务器端口，8080</td>
+</tr>
+<tr>
+<td><code>String getContextPath()</code></td>
+<td>获取项目名，/day10</td>
+</tr>
+<tr>
+<td><code>String getServletPath()</code></td>
+<td>获取 Servlet 路径，/AServlet</td>
+</tr>
+<tr>
+<td><code>String getQueryString()</code></td>
+<td>获取参数部分，即问号后面的部分。username=xxx&amp;password=yyy</td>
+</tr>
+<tr>
+<td><code>String getRequestURI()</code></td>
+<td>获取请求 URI，等于 项目名+Servlet 路径。/day10/AServlet</td>
+</tr>
+<tr>
+<td><code>String getRequestURL()</code></td>
+<td>获取请求 URL，等于不包含参数的整个请求路径。<code>http://localhost:8080/day10/AServlet</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request 获取请求参数</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>String getParameter(name)</code></td>
+<td>通过 <em>name</em> 获得值</td>
+</tr>
+<tr>
+<td><code>String[ ] getParameterValues</code></td>
+<td>通过 <em>name</em> 获得多值：checkbox</td>
+</tr>
+<tr>
+<td><code>Enumeration&lt;String&gt; getParameterNames</code></td>
+<td>获得所有 <em>name</em></td>
+</tr>
+<tr>
+<td><code>getParameterMap Map&lt;String,String[ ]&gt;</code></td>
+<td>key :name value: 多值</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request 利用请求域传递对象</strong></p>
+<p><code>Request</code> 对象同时也是一个域对象，开发人员通过 <code>Request</code> 对象在实现转发时，把数据通过 <code>Request</code> 对象带给其它 Web 资源处理</p>
+<ul>
+<li><code>setAttribute</code> 方法 </li>
+<li><code>getAttribute</code> 方法 </li>
+<li><code>removeAttribute</code> 方法</li>
+<li><code>getAttributeNames</code> 方法</li>
+</ul>
+<p><code>Request</code> 对象提供了一个 <code>getRequestDispatcher</code> 方法，该方法返回一个 <code>RequestDispatcher</code> 对象，调用这个对象的 <code>forward</code> 方法可以实现请求转发，从而共享请求中的数据：</p>
+<div class="highlight"><pre><span></span><code><span class="n">RequestDispatcher</span><span class="w"> </span><span class="n">dispatcher</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="na">getRequestDispatcher</span><span class="p">(</span><span class="s">&quot;/request2&quot;</span><span class="p">);</span>
+<span class="n">dispatcher</span><span class="p">.</span><span class="na">forward</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">response</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="110">1.10、重定向和转发的区别<a class="headerlink" href="#110" title="Permanent link">&para;</a></h3>
+<p>redirect 和 forward 是 Servlet 中的两种主要的跳转方式：redirect 叫做重定向，forward 叫做转发。</p>
+<p><strong>从地址栏显示来说：</strong></p>
+<ul>
+<li>forword 是服务器内部的重定向，服务器直接访问目标地址的 URL 网址，把里面的东西读取出来，但是客户端并不知道，因此用 forward 的话，客户端浏览器的网址是不会发生变化的。</li>
+<li>redirect 是服务器根据逻辑，发送一个状态码，告诉浏览器重新去请求那个地址，所以地址栏显示的是新的地址。</li>
+</ul>
+<p><strong>从数据共享来说：</strong></p>
+<ul>
+<li>由于在整个重定向的过程中用的是同一个 Request，因此 forward 会将 Request 的信息带到被重定向的 JSP 或者 Servlet 中使用。即可以共享数据。</li>
+<li>redirect 不能共享。</li>
+</ul>
+<p><strong>从运用的地方来说：</strong></p>
+<ul>
+<li>forword 一般用于用户登录的时候，根据角色转发到相应的模块。</li>
+<li>redirect 一般用于用户注销登录时返回主页面或者跳转到其他网站。</li>
+</ul>
+<p><strong>从效率来说</strong>：</p>
+<ul>
+<li>forword 效率高，而 redirect 效率低。</li>
+</ul>
+<p><strong>从本质来说</strong>：</p>
+<ul>
+<li>forword 转发是服务器上的行为，而 redirect 重定向是客户端的行为。</li>
+</ul>
+<p><strong>从请求的次数来说</strong>：</p>
+<ul>
+<li>forword 只有一次请求；而 redirect 有两次请求。</li>
+</ul>
+<h2 id="2webservlet">2、@webservlet 注解详解<a class="headerlink" href="#2webservlet" title="Permanent link">&para;</a></h2>
+<p><strong>作用</strong>：用于将一个类声明为 Servlet</p>
+<p>该注解在部署时会被容器处理，容器将根据具体的属性配置将相应的类部署为 Servlet</p>
+<p><strong>属性</strong>：下面是一些常用属性，value 和 url  一般是必须的，但是二者不能共存，若同时指定，一般自动忽略 value</p>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类名</th>
+<th>属性描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>指定 Servlet 的 name 属性，等价于 <code>&lt;servlet-name&gt;</code>，若没有指定，则默认是类的全限定名</td>
+</tr>
+<tr>
+<td>value</td>
+<td>String[]</td>
+<td>等价于 urlPatterns，两者不能共存</td>
+</tr>
+<tr>
+<td>urlPatterns</td>
+<td>String[]</td>
+<td>指定一组 Servlet 的 url 的匹配模式，等价于 <code>&lt;url-pattern&gt;</code></td>
+</tr>
+<tr>
+<td>loadOnStartup</td>
+<td>int</td>
+<td>指定 Servlet 的加载顺序，等价于 <code>&lt;load-on-startup&gt;</code></td>
+</tr>
+<tr>
+<td>initParams</td>
+<td>WebinitParams[]</td>
+<td>指定一组初始化参数，等价于 <code>&lt;init-params&gt;</code></td>
+</tr>
+<tr>
+<td>asyncSupported</td>
+<td>boolean</td>
+<td>申明 Servlet 是否支持异步操作模式，等价于 <code>&lt;async-supported&gt;</code></td>
+</tr>
+<tr>
+<td>displayName</td>
+<td>String</td>
+<td>Servlet 的显示名，等价于 <code>&lt;display-name&gt;</code></td>
+</tr>
+<tr>
+<td>description</td>
+<td>String</td>
+<td>Servlet 的描述信息，等价于 <code>&lt;description&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="c1">//注解配置</span>
+<span class="nd">@WebServlet</span><span class="p">(</span>
+<span class="n">displayName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;UserServlet&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="c1">//描述</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;UserServlet&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">//servlet名称</span>
+<span class="n">urlPatterns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;/user&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="c1">//url</span>
+<span class="n">loadOnStartup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="c1">//启动项</span>
+<span class="n">initParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nd">@WebInitParam</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;username&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;张三&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="p">)</span><span class="c1">//初始化参数</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">UserServlet</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">HttpServlet</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">username</span><span class="p">;</span>
+
+<span class="w">    </span><span class="nd">@Override</span><span class="w"> </span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">init</span><span class="p">(</span><span class="n">ServletConfig</span><span class="w"> </span><span class="n">config</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">      </span><span class="c1">//获取初始化信息：张三  </span>
+<span class="w">      </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="na">getInitParameter</span><span class="p">(</span><span class="s">&quot;username&quot;</span><span class="p">);</span><span class="w"> </span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span>
+
+<span class="w">    </span><span class="nd">@Override</span><span class="w"> </span><span class="kd">protected</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">doPost</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">req</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">resp</span><span class="p">)</span><span class="w">   </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="p">,</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">//主要内容操作 </span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="3jsp">3、JSP<a class="headerlink" href="#3jsp" title="Permanent link">&para;</a></h2>
+<h3 id="31jsp">3.1、JSP 简介<a class="headerlink" href="#31jsp" title="Permanent link">&para;</a></h3>
+<p>JSP（Java Server Pages）与 Java Servlet 一样，是在服务器端执行的，不同的是先由服务器编译部署成 Servlet 执行</p>
+<p>JSP 的组成</p>
+<ul>
+<li>JSP = HTML + Java脚本 + JSP 标签（指令）</li>
+<li>JSP 中无需创建即可使用的对象一共有 9 个，被称之为 9 大内置对象。例如：request对象、out 对象 </li>
+</ul>
+<p>JSP 的脚本元素</p>
+<ul>
+<li><code>&lt;% 程序代码 %&gt;</code>：编写 Java 代码片段，但是不可以定义方法。</li>
+<li><code>&lt;%= 表达式 %&gt;</code>：Java 表达式，用于输出 Java 中变量或者表达式的值到页面上（后面不能有分号 <code>;</code>）。</li>
+<li><code>&lt;%! 变量或方法声明 %&gt;</code>：声明，用来创建类的成员变量和成员方法。</li>
+</ul>
+<p>JSP 页面注释</p>
+<p>JSP 注释：<code>&lt;%-- … --%&gt;</code>，转化阶段消失，只能被开发人员看到</p>
+<p>Java 注释：<code>//</code>、<code>/**/</code>、<code>/***/</code>，编译阶段消失</p>
+<p>HTML 注释：<code>&lt;!-- … --&gt;</code>, 不会消失，在页面中也能看到</p>
+<h3 id="32jsp">3.2、JSP 的运行原理<a class="headerlink" href="#32jsp" title="Permanent link">&para;</a></h3>
+<p>JSP 其实是一种特殊的 Servlet，当 JSP 页面第一次被访问时，服务器会把 JSP 编译成 Java 文件（这个 Java 其实是一个 Servlet 类），然后再把 Java 编译成 <code>.class</code>，然后创建该类对象，最后调用它的 <code>service()</code> 方法，第二次请求同一 JSP 时，直接调用 <code>service()</code> 方法。</p>
+<p><img src="!assets/JavaWeb/image-20200603004751826.png" alt="image-20200603004751826" style="width:50%;" /></p>
+<h3 id="33jsp">3.3、JSP 指令元素<a class="headerlink" href="#33jsp" title="Permanent link">&para;</a></h3>
+<p>语法格式：</p>
+<div class="highlight"><pre><span></span><code><span class="k">&lt;%@</span><span class="w"> </span><span class="n">directive</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="n">attribute</span><span class="w"> </span><span class="o">=</span><span class="s">&quot;value&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">%&gt;</span>
+</code></pre></div>
+<p>分类</p>
+<ul>
+<li>page 指令标记</li>
+<li>include 指令标记</li>
+<li>taglib 指令标记</li>
+</ul>
+<p><strong>page 指令标记</strong></p>
+<p>page 属性包含在 <code>&lt;%@ page</code> 和 <code>%&gt;</code> 之间，这些属性可以单独使用，也可以几个或多个同时使用。</p>
+<p>page 指令用来定义 JSP 文件的全局属性</p>
+<p>在 JSP 页面中，只有 <code>import</code> 可以出现多次，其它属性都只能出现一次</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>language</td>
+<td>声明使用脚本的种类</td>
+<td><code>language="java"</code></td>
+</tr>
+<tr>
+<td>import</td>
+<td>用于导入 Java 包或内的列表</td>
+<td><code>import="java.util.Date"</code></td>
+</tr>
+<tr>
+<td>buffer</td>
+<td>指定 JSP 客户端输出缓冲区的大小</td>
+<td><code>buffer="8k"</code></td>
+</tr>
+<tr>
+<td>autoFlush</td>
+<td>如果 buffer 溢出，设置为 <code>true</code> 时，正常输出；<br>设置为 <code>false</code> 时，出现异常</td>
+<td><code>autoFlush="true"</code></td>
+</tr>
+<tr>
+<td>errorPage</td>
+<td>处理异常事件时调用的 JSP 页面</td>
+<td><code>errorPage="error.jsp"</code></td>
+</tr>
+<tr>
+<td>contentType</td>
+<td>定义 JSP 页面响应的 MIME 类型</td>
+<td><code>contentType="text/html;charset=utf-8"</code></td>
+</tr>
+<tr>
+<td>isErrorPage</td>
+<td>设置此页是否可以为其它页面的 errorPage 目标</td>
+<td><code>isErrorPage="true"</code></td>
+</tr>
+<tr>
+<td>isELIgnored</td>
+<td>用来指定 EL 是否被忽略。<code>ture</code> 则忽略，<code>false</code> 则计算表达式的值</td>
+<td><code>isELIgnored="false"</code></td>
+</tr>
+<tr>
+<td>pageEncoding</td>
+<td>JSP 页面字符编码，其优先权高于 contentType</td>
+<td><code>pageEncoding="utf-8"</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>include 指令标记</strong></p>
+<p>include 指令的语法格式如下：</p>
+<div class="highlight"><pre><span></span><code><span class="k">&lt;%@</span><span class="w"> </span><span class="n">include</span><span class="w"> </span><span class="n">file</span><span class="o">=</span><span class="err">“</span><span class="n">filename</span><span class="err">”</span><span class="w"> </span><span class="k">%&gt;</span>
+</code></pre></div>
+<p>include 指令的作用是在 JSP 页面中静态包含一个文件，同时由 JSP 解析包含的文件内容</p>
+<p>静态包含的含义：</p>
+<ul>
+<li>
+<p>file 不能为一变量</p>
+<div class="highlight"><pre><span></span><code><span class="k">&lt;%</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">url</span><span class="o">=</span><span class="s">&quot;index.html&quot;</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">%&gt;</span>
+<span class="k">&lt;%@</span><span class="w"> </span><span class="n">include</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&lt;%= url </span><span class="k">%&gt;</span>&quot;<span class="w"> </span>%&gt;
+</code></pre></div>
+</li>
+<li>
+<p>不可以在 file 所指定的文件后接任何参数</p>
+<div class="highlight"><pre><span></span><code><span class="k">&lt;%@</span><span class="w"> </span><span class="n">include</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;jw.jsp?nm=browser&quot;</span><span class="w"> </span><span class="k">%&gt;</span>
+</code></pre></div>
+</li>
+</ul>
+<p><strong>taglib 指令标记</strong></p>
+<p>taglib 指令用于在 JSP 页面中导入标签库</p>
+<p>常用标签库 JSTL</p>
+<p>常用属性：</p>
+<ul>
+<li>uri：标签文件的  URI 地址</li>
+<li>prefix：标签组的命名空间前缀</li>
+</ul>
+<h3 id="34jsp">3.4、JSP 内置对象<a class="headerlink" href="#34jsp" title="Permanent link">&para;</a></h3>
+<p>九大隐式对象</p>
+<table>
+<thead>
+<tr>
+<th>内置对象</th>
+<th>代表内容</th>
+<th>类型</th>
+<th>范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>request</td>
+<td>触发服务器调用的请求</td>
+<td>HttpServletRequest</td>
+<td>request</td>
+</tr>
+<tr>
+<td>response</td>
+<td>对请求的应答</td>
+<td>HttpServletResponse</td>
+<td>page</td>
+</tr>
+<tr>
+<td>session</td>
+<td>为请求的客户端创建的 session 对象</td>
+<td>HttpSession</td>
+<td>session</td>
+</tr>
+<tr>
+<td>application</td>
+<td>从 Servlet 配置对象获得的 Servlet 上下文</td>
+<td>ServletContext</td>
+<td>application</td>
+</tr>
+<tr>
+<td>out</td>
+<td>向输出流写入内容的对象</td>
+<td>ServletConfig</td>
+<td>page</td>
+</tr>
+<tr>
+<td>pageContext</td>
+<td>本 JSP 内容的上下文</td>
+<td>this(HttpServlet)</td>
+<td>page</td>
+</tr>
+<tr>
+<td>page</td>
+<td>实现处理本页当前请求的类的实例</td>
+<td>PageContext</td>
+<td>page</td>
+</tr>
+<tr>
+<td>config</td>
+<td>本 JSP 的 ServletConfig</td>
+<td>Throwable</td>
+<td>page</td>
+</tr>
+<tr>
+<td>exception</td>
+<td>表示 JSP 页面运行时产生的异常</td>
+<td>JspWriter</td>
+<td>page</td>
+</tr>
+</tbody>
+</table>
+<p><strong>四大域对象</strong></p>
+<p>PageContext、Request、Session、ServletConext</p>
+<ul>
+<li>
+<p><strong>ServletContext（ServletContext类）</strong></p>
+<blockquote>
+<p>在 JSP 中为 application</p>
+<p>生命周期:</p>
+<ul>
+<li>开始：Web 应用启动时创建整个 Web中 的 <code>ServletContext</code> 对象。</li>
+<li>死亡：服务器关闭或 Web 应用被移除时，<code>ServletContext</code> 跟着销毁。</li>
+</ul>
+<p>作用范围：整个 Web 应用中。</p>
+<p>作用（用途）：</p>
+<ol>
+<li>身为作用域，存储可以作用于整个 Web 应用范围的数据。</li>
+<li>用于获取绝对路径：获取 WEB-INF 下的 properties 的绝对路径：
+  <code>this.getServletContext().getRealPath("WEB-INF/1.properties");</code></li>
+</ol>
+</blockquote>
+</li>
+<li>
+<p><strong>Request（HttpServletRequest）</strong></p>
+<blockquote>
+<p>在 JSP 中为 request
+生命周期：</p>
+<ul>
+<li>开始：在 <code>service</code> 方法调用之前由服务器创建，传入 <code>service</code> 方法。</li>
+<li>死亡：整个请求结束 request 死亡。</li>
+</ul>
+<p>作用范围：整个请求链（请求转发 <code>forward()</code> 也算）
+作用（用途）：</p>
+<ol>
+<li>在请求链中共享数据，最常用于从 Servlet 中将处理好的数据通过存入 request 交给 JSP 显示：                                                                                   <code>request.setAttribute("x",x);request.getAttribute("x");</code></li>
+</ol>
+</blockquote>
+</li>
+<li>
+<p><strong>RageContext（PageContext）</strong></p>
+<blockquote>
+<p>在 JSP 中为 PageContext</p>
+<p>生命周期：当对一个 JSP 请求开始,当相应结束时销毁。</p>
+<p>作用范围：整个 JSP 页面，是四大作用域中最小的一个。</p>
+<p>作用(用途):</p>
+<ol>
+<li>获取其它八大隐式对象，可以认为是一个入口对象。</li>
+<li>获取其所有域中的数据：
+  <code>pageContext.findAttribute("x");</code>
+  会在四大作用域中自动搜索属性，顺序从低到高：page、request、session、application。如果搜索到就直接获取该值，如果所有域中都找不到，返回一个 <code>null</code>。</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<p><strong>通过 pageContext 获得其他对象</strong></p>
+<ul>
+<li><code>getException</code> 方法返回 exception 隐式对象 </li>
+<li><code>getPage</code> 方法返回 page 隐式对象</li>
+<li><code>getRequest</code> 方法返回 request 隐式对象 </li>
+<li><code>getResponse</code> 方法返回 response 隐式对象 </li>
+<li><code>getServletConfig</code> 方法返回 config 隐式对象</li>
+<li><code>getServletContext</code> 方法返回 application 隐式对象</li>
+<li><code>getSession</code> 方法返回 session 隐式对象 </li>
+<li><code>getOut</code> 方法返回 out 隐式对象</li>
+</ul>
+<h2 id="4">4、会话管理<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<p>什么是会话？</p>
+<p>会话可简单理解为：用户开一个浏览器，点击多个超链接，访问服务器多个 WEB 资源，然后关闭浏览器，整个过程称之为一个会话。</p>
+<p>会话过程中要解决的一些问题？</p>
+<ul>
+<li>每个用户与服务器进行交互的过程中，各自会有一些数据，程序要想办法保存每个用户的数据。</li>
+<li>例如：用户点击超链接通过一个 Servlet 购买了一个商品，程序应该保存用户购买的商品，以便于用户点结帐 Servlet 时，结帐 Servlet 可以得到用户商品为用户结帐。</li>
+</ul>
+<p>保存会话数据的两种技术：</p>
+<ul>
+<li>
+<p>Cookie</p>
+<p>Cookie 是客户端技术，程序把每个用户的数据以 cookie 的形式写给用户各自的浏览器。当用户使用浏览器再去访问服务器中的 Web 资源时，就会带着各自的数据去。这样，Web 资源处理的就是用户各自的数据了。
+- Session</p>
+<p>Session 是服务器端技术，利用这个技术，服务器在运行时可以为每一个用户的浏览器创建一个其独享的 session 对象，由于 session 为用户浏览器独享，所以用户在访问服务器的 Web 资源时，可以把各自的数据放在各自的 session 中，当用户再去访问服务器中的其它 Web 资源时，其它 Web 资源再从用户各自的 session 中取出数据为用户服务。</p>
+</li>
+</ul>
+<h3 id="41cookie">4.1、Cookie<a class="headerlink" href="#41cookie" title="Permanent link">&para;</a></h3>
+<p><code>javax.servlet.http.Cookie</code> 类用于创建一个 Cookie，<code>Response</code> 接口也中定义了一个 <code>addCookie</code> 方法，它用于在其响应头中增加一个相应的 Set-Cookie 头字段。 同样，<code>Request</code> 接口中也定义了一个 <code>getCookies</code> 方法，它用于获取客户端提交的 Cookie。</p>
+<p>Cookie 类的方法： </p>
+<ul>
+<li><code>public Cookie(String name,String value)</code></li>
+<li><code>setValue</code> 与 <code>getValue</code>方法 </li>
+<li><code>setMaxAge</code> 与 <code>getMaxAge</code>方法 </li>
+<li><code>setPath</code> 与 <code>getPath</code>方法</li>
+<li><code>setDomain</code> 与 <code>getDomain</code>方法</li>
+<li><code>getName</code> 方法</li>
+</ul>
+<p>一个 Cookie 只能标识一种信息，它至少含有一个标识该信息的名称（NAME）和设置值（VALUE）。 </p>
+<p>一个 Web 站点可以给一个 Web 浏览器发送多个 Cookie，一个 Web 浏览器也可以存储多个 Web 站点提供的 Cookie。</p>
+<p>浏览器一般只允许存放 300 个 Cookie，每个站点最多存放 20 个 Cookie，每个 Cookie 的大小限制为 4KB。</p>
+<p><code>void setPath(java.lang.String uri)</code> ：设置 cookie 的有效访问路径。有效路径指的是 cookie 的有效路径保存在哪里，那么浏    览器在有效路径下访问服务器时就会带着 cookie 信息，否则不带 cookie 信息。</p>
+<p>如果创建了一个 cookie，并将他发送到浏览器，默认情况下它是一个会话级别的 cookie（即存储在浏览器的内存中），用户退出浏览器之后即被删除。若希望浏览器将该 cookie 存储在磁盘上，则需要使用 <code>maxAge</code>，并给出一个以秒为单位的时间。</p>
+<p>删除持久 cookie，可以将 cookie 最大时效设为0（然后 <code>addCookie()</code>），注意，删除 cookie 时，path 必须一致，否则不会删除。</p>
+<p><strong>案例-显示用户上次访问时间</strong></p>
+<p><img src="!assets/JavaWeb/20180319145720896.png" alt="img" style="width:80%;" /></p>
+<h3 id="42session">4.2、Session<a class="headerlink" href="#42session" title="Permanent link">&para;</a></h3>
+<p>在 Web 开发中，服务器可以为每个用户浏览器创建一个会话对象（session 对象），注意：一个浏览器独占一个 session 对象(默认情况下)。因此，在需要保存用户数据时，服务器程序可以把用户数据写到用户浏览器独占的 session 中，当用户使用浏览器访问其它程序时，其它程序可以从用户的session 中取出该用户的数据，为用户服务。</p>
+<p>Cookie 的局限</p>
+<ul>
+<li>Cookie 只能存字符串类型。不能保存对象</li>
+<li>1个 Cookie 的容量不超过 4 KB。</li>
+</ul>
+<p>Session 和 Cookie 的主要区别在于：</p>
+<ul>
+<li>Cookie 是把用户的数据写给用户的浏览器。</li>
+<li>Session 把用户的数据写到用户独占的 session 中（服务器端）。</li>
+<li>Session 由于存在服务器端，安全性高；浏览器的 Cookie 可能被其他程序分析获取，所以安全性较低。</li>
+</ul>
+<p>Session 对象由服务器创建，开发人员可以调用 Request 对象的 <code>getSession</code> 方法得到 session 对象。</p>
+<p><code>getSession(true)</code> /<code>getSession()</code> ：创建或得到 session 对象。没有匹配的 session 编号自动创建新的 session 对象。</p>
+<p><code>getSession(false)</code>：得到 session 对象。没有匹配的 session 编号，返回 <code>null</code>。</p>
+<p><code>void setMaxInactiveInterval(int interval)</code>：设置 session 的有效时间，默认情况 30 分服务器自动回收</p>
+<p><strong>session 原理</strong></p>
+<ol>
+<li>
+<p>第一次访问创建 session 对象，给 session 对象分配一个唯一的 ID，叫 JSESSIONID</p>
+<div class="highlight"><pre><span></span><code>```java
+new HttpSession();
+```
+</code></pre></div>
+</li>
+<li>
+<p>把 JSESSIONID 作为 Cookie 的值发送给浏览器保存</p>
+<div class="highlight"><pre><span></span><code><span class="n">Cookie</span><span class="w"> </span><span class="n">cookie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Cookie</span><span class="p">(</span><span class="s">&quot;JSESSIONID&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">sessionID</span><span class="p">);</span>
+<span class="n">response</span><span class="p">.</span><span class="na">addCookie</span><span class="p">(</span><span class="n">cookie</span><span class="p">);</span>
+</code></pre></div>
+</li>
+<li>
+<p>第二次访问的时候，浏览器带着 JSESSIONID 的 cookie 访问服务器</p>
+</li>
+<li>
+<p>服务器得到 JSESSIONID，在服务器的内存中搜索是否存放对应编号的 session 对象。</p>
+</li>
+<li>
+<p>如果找到对应编号的 session 对象，直接返回该对象，如果找不到对应编号的 session 对象，创建新的 session 对象，继续走1的流程</p>
+</li>
+</ol>
+<p><strong>案例 创建和获取 session</strong></p>
+<p>创建 session </p>
+<p><img src="!assets/JavaWeb/20180319164035404.png" alt="img" style="width:80%;" /></p>
+<p>获取 session</p>
+<p><img src="!assets/JavaWeb/2018031916405859.png" alt="img.png" style="width:80%;" /></p>
+<h3 id="43">4.3、表单重复提交<a class="headerlink" href="#43" title="Permanent link">&para;</a></h3>
+<p>产生表单重复提交的原因：网络延迟、重新刷新、点击网页回退到之前页面继续提交...</p>
+<p>解决方式：</p>
+<p>在服务器端生成一个唯一的随机标识号，专业术语称为 Token（令牌），同时在当前用户的 Session 域中保存这个 Token。然后将 Token 发送到客户端的 Form 表单中，在 Form 表单中使用隐藏域来存储这个 Token，表单提交的时候连同这个 Token 一起提交到服务器端，然后在服务器端判断客户端提交上来的 Token 与服务器端生成的 Token 是否一致，如果不一致，那就是重复提交了，此时服务器端就可以不处理重复提交的表单。如果相同则处理表单提交，处理完后清除当前用户的 Session 域中存储的标识号。</p>
+<p><img src="!assets/JavaWeb/20180320104403671.png" alt="img" style="width:80%;" /></p>
+<p><img src="!assets/JavaWeb/20180320111511238.png" alt="img" style="width:60%;" /></p>
+<p><img src="!assets/JavaWeb/20180320111547811.png" alt="img" style="width:80%;" /></p>
+<h2 id="5">5、过滤器<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<p>过滤器，顾名思义就是起到过滤筛选作用的一种事物，只不过相较于现实生活中的过滤器，这里的过滤器过滤的对象是客户端访问的 Web 资源，也可以理解为一种预处理手段，对资源进行拦截后，将其中我们认为的杂质（用户自己定义的）过滤，符合条件的放行，不符合的则拦截下来</p>
+<p>当然，过滤器既可以拦截 Request，也可以拦截返回的 Response</p>
+<p><img src="!assets/JavaWeb/1693413-20190910104134290-43589150.png" alt="img" style="width:60%;" /></p>
+<p><strong>过滤器的本质就是一个实现了 Filter 接口的 Java 类</strong></p>
+<p>先自己创建一个类，实现 <code>Filter</code> 接口（javax.servlet），重写其中的所有方法：</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@WebFilter</span><span class="p">(</span><span class="s">&quot;/*&quot;</span><span class="p">)</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">FilterDemo1</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">destroy</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doFilter</span><span class="p">(</span><span class="n">ServletRequest</span><span class="w"> </span><span class="n">req</span><span class="p">,</span><span class="w"> </span><span class="n">ServletResponse</span><span class="w"> </span><span class="n">resp</span><span class="p">,</span><span class="w"> </span><span class="n">FilterChain</span><span class="w"> </span><span class="n">chain</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="p">,</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">//放行代码</span>
+<span class="w">        </span><span class="n">chain</span><span class="p">.</span><span class="na">doFilter</span><span class="p">(</span><span class="n">req</span><span class="p">,</span><span class="w"> </span><span class="n">resp</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">init</span><span class="p">(</span><span class="n">FilterConfig</span><span class="w"> </span><span class="n">config</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="51filter">5.1、Filter 配置<a class="headerlink" href="#51filter" title="Permanent link">&para;</a></h3>
+<p><strong>web.xml配置</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;filter&gt;</span>
+<span class="w">    </span><span class="nt">&lt;filter-name&gt;</span>filterDemo1<span class="nt">&lt;/filter-name&gt;</span>
+<span class="w">    </span><span class="nt">&lt;filter-class&gt;</span>package<span class="w"> </span>cn.ideal.web.filter.FilterDemo1<span class="nt">&lt;/filter-class&gt;</span>
+<span class="nt">&lt;/filter&gt;</span>
+
+<span class="nt">&lt;filter-mapping&gt;</span>
+<span class="w">    </span><span class="nt">&lt;filter-name&gt;</span>filterDemo1<span class="nt">&lt;/filter-name&gt;</span>
+<span class="w">    </span><span class="cm">&lt;!-- 拦截路径 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;url-pattern&gt;</span>/*<span class="nt">&lt;/url-pattern&gt;</span>
+<span class="nt">&lt;/filter-mapping&gt;</span>
+</code></pre></div>
+<p><code>&lt;filter-name&gt;&lt;/filter-name&gt;</code>：指定 Filter名字</p>
+<p><code>&lt;filter-class&gt;&lt;/filter-class&gt;</code>：指定 Filter 全类名（带包名）</p>
+<p><code>&lt;filter-name&gt;&lt;/filter-name&gt;</code>：这里的标签是为了与上面 Filter 中的名字对应，从而指向到对应的文件中</p>
+<p><code>&lt;url-pattern&gt;&lt;/url-pattern&gt;</code>：设置 Filter 所拦截的路径，这里决定了什么样的资源会被过滤器拦截处理</p>
+<p>拦截路径设置:</p>
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/test.jsp</code></td>
+<td>只有访问 test.jsp 这个资源的时候才会执行过滤器</td>
+</tr>
+<tr>
+<td><code>/test/*</code></td>
+<td>访问 test 下所有资源你的时候，执行过滤器</td>
+</tr>
+<tr>
+<td><code>*.jsp</code></td>
+<td>所有 jsp 格式的资源被访问的时候，执行过滤器</td>
+</tr>
+<tr>
+<td><code>/*</code></td>
+<td>任意资源被访问，均执行过滤器</td>
+</tr>
+</tbody>
+</table>
+<p>拦截方式配置：dispatcher</p>
+<p>拦截方式配置也就是资源被访问的形式，有这么几个属性</p>
+<ul>
+<li>REQUEST：默认值，浏览器直接请求资源</li>
+<li>FORWARD：转发访问资源：<code>RequestDispatcher.forward();</code></li>
+<li>INCLUDE：包含访问资源：<code>RequestDispatcher.include();</code></li>
+<li>ERROR：错误跳转资源：被声明式异常处理机制调用的时候</li>
+</ul>
+<p><strong>使用注解配置</strong></p>
+<p>与 Servlet 相似的配置 ，我们可以指定它的名字和拦截路径：</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@WebFilter</span><span class="p">(</span><span class="n">filterName</span><span class="o">=</span><span class="s">&quot;FilterDemo1&quot;</span><span class="p">,</span><span class="n">urlPatters</span><span class="o">=</span><span class="s">&quot;/*&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>但是直接在类上声明注解，显然那是不需要我们指定其名字的，而通过查看源码又可以知道，urlPatters 又可以被 value 指定，而 value 又可以省略，所以我们可以简写为：</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@WebFilter</span><span class="p">(</span><span class="s">&quot;/*&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>若想在 Filter 注解中配置 dispatcher，我们需要设置 dispatcherTypes 属性：</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@WebFilter</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/*&quot;</span><span class="p">,</span><span class="n">dispatcherTypes</span><span class="w"> </span><span class="o">=</span><span class="p">{</span><span class="n">DispatcherType</span><span class="p">.</span><span class="na">FORWARD</span><span class="p">,</span><span class="n">DispatcherType</span><span class="p">.</span><span class="na">FORWARD</span><span class="p">})</span>
+</code></pre></div>
+<h3 id="52">5.2、过滤器的生命周期<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<p>首先是 <code>init(FilterConfig config)</code> 方法和 <code>void destroy()</code> 方法，Servlet 也有这两个方法，两者分别在服务器启动和关闭的时候被创建以及销毁，两者均执行一次，用于加载以及释放资源。</p>
+<p>再者就是过滤器的核心方法了：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">doFilter</span><span class="p">(</span><span class="n">ServletRequest</span><span class="w"> </span><span class="n">req</span><span class="p">,</span><span class="w"> </span><span class="n">ServletResponse</span><span class="w"> </span><span class="n">resp</span><span class="p">,</span><span class="w"> </span><span class="n">FilterChain</span><span class="w"> </span><span class="n">chain</span><span class="p">)</span>
+</code></pre></div>
+<p><code>doFilter</code> 方法就是真正进行拦截的方法，通过前两个参数可以知道，不论是 <code>Request</code> 亦或是 <code>Respone</code> 都可以对其进行过滤操作，那么第三个参数是什么意思呢？</p>
+<p>FilterChain 的源码:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">FilterChain</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">doFilter</span><span class="p">(</span><span class="n">ServletRequest</span><span class="w"> </span><span class="n">var1</span><span class="p">,</span><span class="w"> </span><span class="n">ServletResponse</span><span class="w"> </span><span class="n">var2</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="p">,</span><span class="w"> </span><span class="n">ServletException</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>嗯！<code>FilterChain</code> 是一个接口，接口内也定义了一个 <code>doFilter</code> 方法，它存在的意义是什呢？</p>
+<p>这是一种链式结构，在这里称作过滤器链，其作用就是为了配置多个过滤器。</p>
+<p>那么，多个过滤器谁前谁后呢？这还与前面的配置有关：</p>
+<ul>
+<li>注解配置：按照类名字符串比较，值小的先执行（AFilterDemo 优先于 BFilterDemo）</li>
+<li>web.xml 配置：<code>&lt;filter-mapping&gt;</code> 中谁在上面，谁优先执行</li>
+</ul>
+<h2 id="6jsp">6、JSP 动态包含和静态包含<a class="headerlink" href="#6jsp" title="Permanent link">&para;</a></h2>
+<p>JSP 中有两种包含：</p>
+<ul>
+<li>静态包含：<code>&lt;%@include file="被包含页面"%&gt;</code></li>
+<li>动态包含：<code>&lt;jsp:include page="被包含页面" flush="true"&gt;</code></li>
+</ul>
+<p>下面以一个例子来说明如何使用包含</p>
+<p>项目文件树：</p>
+<p><img src="!assets/JavaWeb/20181212200247237.png" alt="img" style="style:60%;" /></p>
+<p>header.jsp 文件中内容：</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+<span class="w">    </span><span class="nt">&lt;meta</span><span class="w"> </span><span class="na">http-equiv=</span><span class="s">&quot;Content-Type&quot;</span><span class="w"> </span><span class="na">content=</span><span class="s">&quot;text/html; charset=GB18030&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;title&gt;</span>Insert<span class="w"> </span>title<span class="w"> </span>here<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;h1&gt;</span>This<span class="w"> </span>is<span class="w"> </span>header<span class="err">&lt;</span>/<span class="nt">&lt;/h1&gt;</span>
+</code></pre></div>
+<p>content.jsp 文件中内容：</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;table</span><span class="w"> </span><span class="na">border=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;tr&gt;</span>
+<span class="w">        </span><span class="nt">&lt;td&gt;</span>col1<span class="nt">&lt;/td&gt;</span>
+<span class="w">        </span><span class="nt">&lt;td&gt;</span>col2<span class="nt">&lt;/td&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/tr&gt;</span>
+<span class="w">    </span><span class="nt">&lt;tr&gt;</span>
+<span class="w">        </span><span class="nt">&lt;td&gt;</span>col1<span class="nt">&lt;/td&gt;</span>
+<span class="w">        </span><span class="nt">&lt;td&gt;</span>col2<span class="nt">&lt;/td&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/tr&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
+</code></pre></div>
+<p>footer.jsp 文件中内容：</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;hr&gt;</span>
+<span class="w">    </span>copyright:<span class="w"> </span>1999-2010
+<span class="w">    </span><span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div>
+<p><strong>静态包含</strong></p>
+<p>index.jsp 文件中内容：</p>
+<div class="highlight"><pre><span></span><code><span class="k">&lt;%@</span><span class="w"> </span><span class="n">page</span><span class="w"> </span><span class="n">language</span><span class="o">=</span><span class="s">&quot;java&quot;</span><span class="w"> </span><span class="n">import</span><span class="o">=</span><span class="s">&quot;java.util.*&quot;</span><span class="w"> </span><span class="n">pageEncoding</span><span class="o">=</span><span class="s">&quot;GB18030&quot;</span><span class="k">%&gt;</span>
+
+<span class="k">&lt;%@</span><span class="w"> </span><span class="n">include</span><span class="w"> </span><span class="n">file</span><span class="o">=</span><span class="s">&quot;/header.jsp&quot;</span><span class="w"> </span><span class="k">%&gt;</span>
+
+<span class="k">&lt;%@</span><span class="w"> </span><span class="n">include</span><span class="w"> </span><span class="n">file</span><span class="o">=</span><span class="s">&quot;/content.jsp&quot;</span><span class="w"> </span><span class="k">%&gt;</span>
+
+<span class="k">&lt;%@</span><span class="w"> </span><span class="n">include</span><span class="w"> </span><span class="n">file</span><span class="o">=</span><span class="s">&quot;/footer.jsp&quot;</span><span class="w"> </span><span class="k">%&gt;</span>
+</code></pre></div>
+<p>页面显示结果：</p>
+<p><img src="!assets/JavaWeb/20181212200718992.png" alt="img" style="width:30%;" /></p>
+<p>被编译成的 Java 文件：</p>
+<p><img src="!assets/JavaWeb/20181212200734757.png" alt="img" style="width:35%;" /></p>
+<p><strong>动态包含</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">&lt;%@</span><span class="w"> </span><span class="n">page</span><span class="w"> </span><span class="n">language</span><span class="o">=</span><span class="s">&quot;java&quot;</span><span class="w"> </span><span class="n">import</span><span class="o">=</span><span class="s">&quot;java.util.*&quot;</span><span class="w"> </span><span class="n">pageEncoding</span><span class="o">=</span><span class="s">&quot;GB18030&quot;</span><span class="k">%&gt;</span>
+
+<span class="k">&lt;jsp:include page=&quot;/header.jsp&quot;&gt;&lt;/jsp:include&gt;</span>
+
+<span class="k">&lt;jsp:include page=&quot;/content.jsp&quot;&gt;&lt;/jsp:include&gt;</span>
+
+<span class="k">&lt;jsp:include page=&quot;/footer.jsp&quot;&gt;&lt;/jsp:include&gt;</span>
+</code></pre></div>
+<p>页面显示结果：</p>
+<p><img src="!assets/JavaWeb/20181212200848170.png" alt="img" style="width:30%;" /></p>
+<p>被编译成的 Java 文件：</p>
+<p><img src="!assets/JavaWeb/20181212200858508.png" alt="img" style="width:35%;" /></p>
+<p>说明：使用静态包含和动态包含最终的执行结果相同，但是实现过程不同，很明显编译成的 Java 文件数目不同。</p>
+<p><strong>静态和动态包含的区别与联系</strong></p>
+<p>注：下文将包含有其它文件的 JSP 文件称为主体文件，比如上文中的 index.jsp 文件。将被包含的文件称为包含文件，比如上文中的 header.jsp 文件。</p>
+<ul>
+<li><code>&lt;%@ include file=""%&gt;</code> 是指令元素。<code>&lt;jsp:include page=""/&gt;</code> 是行为元素</li>
+<li>最终编译成 Java 文件的数目不同<ul>
+<li>静态包含在转换成为 Java 文件的时候将包含文件的内容 “复制” 到主体文件，然后作为一个<strong>整体编译</strong>，最终编译为一个 Java 文件；</li>
+<li>动态包含是各个 JSP 文件分别转换，<strong>分别编译</strong>。最终编译成多个  Java 文件。</li>
+</ul>
+</li>
+<li>执行时间不同<ul>
+<li>静态包含发生在：JSP ==&gt; Java 文件阶段。</li>
+<li>动态包含发生在：执行 class 文件阶段，动态加入。</li>
+</ul>
+</li>
+<li>静态包含在两个文件中不能有相同的变量，动态包含允许。<ul>
+<li>静态包含相当于将包含文件内容直接复制到主体文件中，如果出现相同的变量，就会出现覆盖等问题，导致文件出错。</li>
+<li>动态包含相当于调用不同的 JSP，变量所在的空间不同，自然不会出现覆盖等现象。</li>
+</ul>
+</li>
+<li>无论是动态包含还是静态包含，其 Request 对象都是相同的。<ul>
+<li>静态包含最终编译成一个 Java 文件，所以有一个 Request 对象。</li>
+<li>而动态包含最终编译成多个 JSP 文件，<strong>这些 JSP 组合的过程是一个请求转发的过程</strong>，自然也使用同一个 Request 对象了。</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.top", "navigation.indexes", "navigation.tracking"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../_javascripts/auto_title.js"></script>
+      
+    
+  </body>
+</html>
