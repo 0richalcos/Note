@@ -406,6 +406,8 @@ sc delete Redis
 1:M 24 Apr 2022 14:31:23.527 # Redis will now exit to prevent data corruption. Note that it is possible to suppress this warning by setting the following config: ignore-warnings ARM64-COW-BUG
 ```
 
+
+
 **解决办法**
 
 在 redis.conf 最后一行取消以下配置注释：
