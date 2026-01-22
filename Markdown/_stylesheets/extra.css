@@ -20,16 +20,35 @@
 }
 
 /* ==================================================
-   配合 attr_list 插件使用的“伪标题”样式 (.t)
+   伪标题”样式，手动模式 (.t) - 保持不变
+   用法：**文字**{.t}
    ================================================== */
-/* 用法：**加粗文字**{.t} */
 .t {
     display: block;
-    margin-top: 1.65em;
+    margin-top: 2.5em; /* 建议用 2.5em 效果更好 */
     margin-bottom: 0.8em;
     font-weight: bold;
-    font-size: 1.05em;
+    font-size: 1.1em;
     color: var(--md-typeset-color);
+}
+
+/* ==================================================
+   伪标题”样式，自动模式 (.auto-t) - JS 自动添加的样式
+   用法：一行只有 **加粗** 时自动生效
+   ================================================== */
+/* 给 P 标签加间距 */
+p.auto-t {
+    margin-top: 2.5em; 
+    margin-bottom: 0.8em;
+}
+
+/* 让里面的 strong 变成块级元素 */
+p.auto-t strong {
+    display: block;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: var(--md-typeset-color);
+    line-height: 1.4;
 }
 
 /* ==================================================

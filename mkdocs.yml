@@ -32,6 +32,10 @@ theme:
 extra_css:
   - _stylesheets/extra.css 
 
+# 引入 JS
+extra_javascript:
+  - javascripts/auto_title.js
+
 # 必装插件
 plugins:
   - search
