@@ -23,36 +23,43 @@
 /* ==================================================
    伪标题样式
    用法：一行只有 **加粗** 时自动生效
-   效果：------- 文字 -------
    ================================================== */
-/* 设置弹性盒子，让线条和文字横向排列并居中 */
 p.auto-t {
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    margin-top: 3em;     /* 上间距 */
-    margin-bottom: 2em;  /* 下间距 */
+    margin-top: 3.5em;    /* 加大间距 */
+    margin-bottom: 2em;
 }
 
-/* 左右两侧的自动线条 */
+/* 线条：从透明渐变到主题色，再渐变回透明 */
 p.auto-t::before,
 p.auto-t::after {
     content: "";
-    flex: 1;             /* 自动撑满剩余空间 */
+    flex: 1;
+    height: 1px; /* 线条高度 */
     
-    /* 线条样式：实线，颜色跟随主题但淡一点 */
-    border-bottom: 1px solid var(--md-default-fg-color--lightest); 
-    
-    margin: 0 1em;       /* 线条与文字之间的空隙 */
+    /* 核心：使用径向渐变或线性渐变 */
+    background: linear-gradient(
+        90deg, 
+        transparent, 
+        var(--md-primary-fg-color), 
+        transparent
+    );
+    opacity: 0.5; /* 半透明，不要太抢眼 */
+    margin: 0 1.5em; /* 拉开线条和文字的距离 */
 }
 
-/* 中间的文字样式 */
+/* 文字：加粗，并带一点点主题色的阴影 */
 p.auto-t strong {
-    font-weight: bold;
-    font-size: 1.0em;
+    font-weight: 700;
+    font-size: 1.1em;
     color: var(--md-typeset-color);
-    opacity: 0.9;        /* 稍微淡一点，更有质感 */
+    letter-spacing: 2px; /* 增加字间距，显得大气 */
+    text-transform: uppercase; /* 如果是英文，强制大写 */
+    
+    /* 可选：给文字加一点点同色系的光晕 */
+    text-shadow: 0 0 15px var(--md-primary-fg-color--light);
 }
 
 
