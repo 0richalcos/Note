@@ -200,12 +200,6 @@ p.auto-t strong::after {
     font-size: 1em;
 }
 
-/* 一级列表里的“标题型 strong” */
-.md-typeset ul > li > p > strong {
-    color: var(--md-primary-fg-color);
-    font-weight: bold;
-}
-
 
 /* ----------------------------
    二级列表（说明 / 细分）
