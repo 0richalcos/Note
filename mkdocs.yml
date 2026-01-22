@@ -38,6 +38,7 @@ plugins:
   - awesome-pages:         
       filename: .pages
       collapse_single_pages: true
+  - callouts
 
 # Markdown 渲染增强
 markdown_extensions:

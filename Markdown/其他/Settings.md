@@ -8,7 +8,7 @@
 
 2. 依次选择【计算机配置】=>【Windows设置】=>【安全设置】=>【本地策略】=>【安全选项】，双击【安全选项】：
 
-   <img src="!assets/Settings/image-20231215001054470.png" alt="image-20231215001054470" style="zoom:80%;" />
+	<img src="!assets/Settings/image-20231215001054470.png" alt="image-20231215001054470" style="zoom:80%;" />
 
 3. 向下滑，找到
 
@@ -19,19 +19,19 @@
 
 此操作虽然以后会比较方便，但是由于所有软件都能获取到管理员权限，所以电脑安全性会有所降低。
 
-<br>
+
 
 ### 【2】diskpart 操作硬盘
 
 DiskPart 是 Windows 11 中的命令行实用程序，使您可以使用 DiskPart 命令提示符执行磁盘分区操作。下面通过示例了解如何使用 DiskPart。
 
-<br>
+
 
 **什么是DiskPart？**
 
 DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，可以管理自 Windows 2000 以来运行所有操作系统版本的计算机中的磁盘、分区或卷，还包括最新的 Windows 11。用户可以输入 DiskPart 命令直接组织硬盘分区，或创建文本文件脚本来执行多个命令。您可以在磁盘管理工具中使用的大多数命令都集成在 DiskPart 中。
 
-<br>
+
 
 **如何在 Windows 11 当中打开 DiskPart？**
 
@@ -39,7 +39,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 <img src="!assets/Settings/image-20220812105905290.png" alt="image-20220812105905290" style="zoom: 50%;" />
 
-<br>
+
 
 **DiskPart Windows 11 命令和示例**
 
@@ -55,7 +55,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 <img src="!assets/Settings/image-20220812112727192.png" alt="image-20220812112727192" style="zoom: 50%;" />
 
-<br>
+
 
 #### 【2.1】转换磁盘格式
 
@@ -97,7 +97,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
    convert mbr
    ```
 
-<br>
+
 
 #### 【2.2】解除磁盘写保护
 
@@ -125,7 +125,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
    attributes disk clear readonly
    ```
 
-<br>
+
 
 ### 【3】系统迁移
 
@@ -135,23 +135,23 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 1. 在 DiskGenius 主菜单，点击【工具】=>【系统迁移】菜单项，如下图：
 
-   <img src="!assets/Settings/system-migration-01.png" alt="系统迁移" style="zoom: 80%;" />
+	<img src="!assets/Settings/system-migration-01.png" alt="系统迁移" style="zoom: 80%;" />
 
 2. 选择迁移系统的目标盘，然后点击【确定】按钮。目标磁盘可以小于源磁盘，但是目标磁盘容量需大于源磁盘的已用数据总量：
 
-   <img src="!assets/Settings/system-migration-02.png" alt="系统迁移" style="zoom: 67%;" />
+	<img src="!assets/Settings/system-migration-02.png" alt="系统迁移" style="zoom: 67%;" />
 
 3. 对于支持 UEFI 的电脑，还可以直接指定系统迁移完成后，要不要更改系统的启动项。 点击【开始】按钮，准备进行迁移：
 
-   <img src="!assets/Settings/system-migration-03.png" alt="系统迁移" style="zoom:67%;" />
+	<img src="!assets/Settings/system-migration-03.png" alt="系统迁移" style="zoom:67%;" />
 
 4. 程序显示如下警告：目标磁盘上的所有数据将会被覆盖。确认没问题后，点击【确定】按钮：
 
-   <img src="!assets/Settings/system-migration-04.png" alt="系统迁移" style="zoom: 80%;" />
+	<img src="!assets/Settings/system-migration-04.png" alt="系统迁移" style="zoom: 80%;" />
 
 5. DiskGenius 软件将让用户选择系统迁移的模式，如下图：
 
-   <img src="!assets/Settings/system-migration-05.png" alt="系统迁移" style="zoom: 80%;" />
+	<img src="!assets/Settings/system-migration-05.png" alt="系统迁移" style="zoom: 80%;" />
 
    热迁移，就是在不关机的情况下，迁移系统到第二块硬盘，在迁移过程中，用户仍然可以对电脑做各种操作，不影响用户对电脑的使用。
 
@@ -163,17 +163,17 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 6. 点击【热迁移】按钮，DiskGenius 将开始热迁移操作，如下图：
 
-   <img src="!assets/Settings/system-migration-06.png" alt="系统迁移" style="zoom:80%;" />
+	<img src="!assets/Settings/system-migration-06.png" alt="系统迁移" style="zoom:80%;" />
 
    系统迁移窗口中，将显示一个进度条，进度条显示系统迁移大致的进度，进度条下面显示已经复制，和还没有复制的数据大小，及已经用时与估计的完成系统迁移所需的剩余时间。
 
 7. 完成系统迁移后，DiskGenius 软件会给出系统迁移完成的提示，如下图：
 
-   <img src="!assets/Settings/system-migration-07.png" alt="系统迁移" style="zoom:80%;" />
+	<img src="!assets/Settings/system-migration-07.png" alt="系统迁移" style="zoom:80%;" />
 
 系统迁移到第二块硬盘（或 SSD 固态硬盘、U盘等）上之后，如果是支持 UEFI 的电脑，并且在迁移系统之前设置了完成后从目标盘启动。重启电脑后，会自动用迁移后的新系统启动。否则，需手动进入 BIOS 设置，将启动硬盘设置为新的硬盘，之后，就可以用这块硬盘启动电脑，进入系统了。
 
-<br>
+
 
 **系统引导未修改**
 
@@ -181,15 +181,15 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 1. 可以在 DiskGenius 主菜单，点击【工具】=>【设置 UEFI BIOS 启动项】菜单项，如下图：
 
-   <img src="!assets/Settings/{9693E1D6-E98C-4BA9-A2F4-1A474C20A1AF}" alt="img" style="zoom: 50%;" />
+	<img src="!assets/Settings/{9693E1D6-E98C-4BA9-A2F4-1A474C20A1AF}" alt="img" style="zoom: 50%;" />
 
 2. 在打开的弹窗中，将旧硬盘的启动项备份后直接删除，设置新硬盘启动项【下一次从该项启动（仅一次有效）】后，立即重启：
 
-   <img src="!assets/Settings/QQ_1735680018651.png" alt="QQ_1735680018651" style="zoom: 50%;" />
+	<img src="!assets/Settings/QQ_1735680018651.png" alt="QQ_1735680018651" style="zoom: 50%;" />
 
 3. 重启之后电脑已经使用新硬盘的系统启动，这时可以将旧硬盘直接格式化，并再来软件这里查看是否有多余的启动项，如果有就直接删除。
 
-<br>
+
 
 ### 【4】解决端口占用
 
@@ -213,7 +213,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
    taskkill /T /F /PID <PID>
    ```
 
-<br>
+
 
 ### 【5】compact 压缩
 
@@ -223,7 +223,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 关闭：`compact /compactos:never`。
 
-<br>
+
 
 ### 【6】右键菜单设置
 
@@ -236,7 +236,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 >
 > 如果觉得这个快捷方式以后可能会用到，需要重新打开，可以将 `ShellNew` 选项的名字改掉，比如改为 `ShellNew-`。
 
-<br>
+
 
 #### 【6.2】解决腾讯文档替换 Windows 右键快捷方式
 
@@ -270,7 +270,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
    <img src="!assets/Settings/image-20240411185129951.png" alt="image-20240411185129951" style="zoom:50%;" />
 
-<br>
+
 
 #### 【6.3】删除右键菜单的 AMD Software
 
@@ -288,13 +288,13 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
    <img src="./!assets/Settings/image-20250418150017030.png" alt="image-20250418150017030" style="zoom:67%;" />
 
-<br>
+
 
 ### 【7】取消开机密码
 
 这里分两种情况，一种是微软账号登录，一种是本地帐号登录。
 
-<br>
+
 
 **微软账户登录**
 
@@ -307,13 +307,13 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
    <img src="!assets/Settings/image-20210513005900008.png" alt="image-20210513005900008" style="zoom:50%;" />
 
-<br>
+
 
 **本地账号登录**
 
 直接修改本地登录账号的密码就行，密码留空，点击确认保存即可。
 
-<br>
+
 
 ### 【8】微软输入法快速输入时间
 
@@ -334,7 +334,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
    %yyyy%年%MM%月%dd%日 %HH%:%mm%:%ss%
    ```
 
-<br>
+
 
 ### 【9】通过网络共享文件
 
@@ -366,7 +366,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
    <img src="!assets/Settings/image-20240905001707231.png" alt="image-20240905001707231" style="zoom:50%;" />
 
-<br>
+
 
 ### 【10】手动增加开机启动项
 
@@ -376,7 +376,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 2. 找到你想设置为开机启动的程序，右键单击它，然后选择【创建快捷方式】。
 3. 将新创建的快捷方式拖动到 “启动” 文件夹中，这样程序就会在系统启动时自动运行。
 
-<br>
+
 
 **注册表**
 
@@ -398,7 +398,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
    鼠标右键依次选择【新建】=>【字符串值】，填写名称后右键点击新建的键值选择【修改】，在 “数值数据” 中添加要自启的 exe 文件（最好用英文双引号扩上），在数值数据的最后加上 `/background` 可以实现后台自启（当然也可以加上别的 exe 支持的参数）。
 
-<br>
+
 
 ### 【11】关闭系统小组件
 
@@ -418,13 +418,13 @@ winget uninstall MicrosoftWindows.Client.WebExperience_cw5n1h2txyewy
 winget install 9MSSGKG348SP
 ```
 
-<br>
+
 
 ### 【12】环境变量不换行显示
 
 这是因为变量值的第一个是相对地址，只需要将一个绝对地址（带盘符）的放首位，然后逗号分隔，确定之后，再双击打开就是换行显示了！
 
-<br>
+
 
 ### 【13】你的 PIN 不可用
 
@@ -462,7 +462,7 @@ winget install 9MSSGKG348SP
 
 6. 最后重启电脑，如果一切正常，可以将注册表 DevicePasswordLessBuildVersion 项的值重新改为 2。
 
-<br>
+
 
 ### 【14】sc 控制服务
 
@@ -490,7 +490,7 @@ sc <server> [command] [service name] <option1> <option2>...
 
   *start* 参数的值可以是 `demand`（手动）、`disabled`（禁用），`auto`（自动）。注意：`start=`后面有一个空格
 
-<br>
+
 
 **使用提示**
 
@@ -506,7 +506,7 @@ sc <server> [command] [service name] <option1> <option2>...
 
 > 如果提示 “拒绝访问” 可能是没有管理员权限，或者电脑安装有火绒之类的安全工具。
 
-<br>
+
 
 ### 【15】mstsc 远程连接
 
@@ -514,7 +514,7 @@ sc <server> [command] [service name] <option1> <option2>...
 
 使用 Windows + R 快捷键呼出运行窗口，在输入框输入 `mstsc` 命令即可使用远程连接功能，输入远程电脑的 IP、用户名、密码即可远程访问。
 
-<br>
+
 
 #### 【15.1】提示 Windows Defender Credential Guard 不允许使用已保存的凭据
 
@@ -536,7 +536,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
    确定配置并重启电脑即可解决。
 
-<br>
+
 
 #### 【15.2】删除远程连接记录
 
@@ -550,7 +550,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
    <img src="!assets/Settings/image-20230613190733588.png" alt="image-20230613190733588" style="" />
 
-<br>
+
 
 #### 【15.3】修改远程桌面的侦听端口
 
@@ -569,7 +569,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 下次使用远程桌面连接连接到此计算机时，必须键入新端口。 如果正在使用防火墙，请确保将防火墙配置为允许连接到新端口号。
 
-<br>
+
 
 #### 【15.4】远程本地多用户桌面
 
@@ -580,7 +580,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 3. 安装 RDP Wrap 补丁。
 4. 连接本地桌面。
 
-<br>
+
 
 ##### 创建新用户
 
@@ -604,7 +604,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
    <img src="!assets/Settings/image-20250311144810934.png" alt="image-20250311144810934" style="zoom: 67%;" />
 
-<br>
+
 
 ##### 配置本地组策略
 
@@ -618,7 +618,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
    - 配置【限制连接的数量】，点击【已启用】，其中【允许的RD最大连接数】可以自己视情况而定。
    - 配置【将远程桌面服务用户限制到单独的远程桌面服务会话】，选择：【已启用】。
 
-<br>
+
 
 ##### 安装 RDP Wrapper 补丁
 
@@ -656,7 +656,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 >
 > 安装完成后，会在系统自动创建一个名为 “RDPWUpdater” 定时任务程序，用来更新 rdpwrap.ini 文件，但是更新的内容没有包含最新的系统信息，建议将此任务禁用。
 
-<br>
+
 
 ##### 连接本地桌面
 
@@ -676,7 +676,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
    <img src="!assets/Settings/image-20250311150329217.png" alt="image-20250311150329217" style="zoom: 50%;" />
 
-<br>
+
 
 ### 【16】控制台设置代理
 
@@ -704,7 +704,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
    curl -vk https://www.google.com
    ```
 
-<br>
+
 
 **永久生效**
 
@@ -722,7 +722,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
    
      变量值：`http://127.0.0.1:7890`
 
-<br>
+
 
 **代理绕过**
 
@@ -732,7 +732,7 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 localhost,127.0.0.1,Orichalcos.com
 ```
 
-<br>
+
 
 ### 【17】取消 Ctrl+空格 快捷键
 
@@ -770,7 +770,7 @@ localhost,127.0.0.1,Orichalcos.com
 
 3. 运行该文件即可，运行成功后重启电脑。
 
-<br>
+
 
 ### 【18】彻底关闭病毒实时保护
 
@@ -784,7 +784,7 @@ localhost,127.0.0.1,Orichalcos.com
 
    <img src="!assets/Settings/image-20231214235546195.png" alt="image-20231214235546195" style="" />
 
-<br>
+
 
 ### 【19】Xbox 卸载
 
@@ -806,7 +806,7 @@ localhost,127.0.0.1,Orichalcos.com
    
 4. 最后重启电脑即可。
 
-<br>
+
 
 ### 【20】开发驱动器
 
@@ -816,7 +816,7 @@ localhost,127.0.0.1,Orichalcos.com
 
 <img src="!assets/Settings/DevDrivePerfChart.png" alt="Visual Studio Dev Drive" style="" />
 
-<br>
+
 
 **开发驱动器如何运作？**
 
@@ -824,7 +824,7 @@ localhost,127.0.0.1,Orichalcos.com
 
 开发驱动器利用 ReFS 来支持初始化专用于开发工作负载的存储卷，从而提供更快的性能和针对开发方案优化的可自定义设置。 ReFS 包含多项特定于文件系统的优化，以提高关键开发人员方案的性能。
 
-<br>
+
 
 **应该在开发驱动器上放置什么内容？**
 
@@ -843,7 +843,7 @@ localhost,127.0.0.1,Orichalcos.com
 
 这些工具应存储在主 C:\ 驱动器上。
 
-<br>
+
 
 **设置开发驱动器**
 
@@ -884,7 +884,7 @@ localhost,127.0.0.1,Orichalcos.com
 
 6. 到这里就已经创建并调整了开发驱动器的大小！
 
-<br>
+
 
 ## Chrome
 
@@ -898,7 +898,7 @@ Chrome 默认的数据文件地址是：C:\Users\Orichalcos\AppData\Local\Google
 mklink <旧地址> <新地址>
 ```
 
-<br>
+
 
 ### 【2】主页被篡改
 
@@ -913,7 +913,7 @@ mklink <旧地址> <新地址>
 
 当然也可以直接删除快捷方式，然后重新生成；或者在目标栏输入一个自己需要的网址（输入网址之前要加一个空格键，否则无法保存），然后将属性改为只读。
 
-<br>
+
 
 ### 【3】访问带端口的页面提示 ERR_UNSAFE_PORT
 
@@ -1002,7 +1002,7 @@ mklink <旧地址> <新地址>
 10080,  // Amanda
 ```
 
-<br>
+
 
 ## IDEA
 
@@ -1033,7 +1033,7 @@ Maven 由于它的约定大于配置，之后可能遇到写的配置文件，�
 </build>
 ```
 
-<br>
+
 
 ### 【2】Maven 框架 web-app 中 web.xml 版本过低
 
@@ -1055,7 +1055,7 @@ Maven 由于它的约定大于配置，之后可能遇到写的配置文件，�
 
 该属性默认为 `true`，表示容器在部署时只依赖部署描述文件，忽略所有标注，如果不配置该属性，或者将其设置为 `false`，则表示启动注解支持。当 `metadata-complete="false"` 时，web.xml 和注解对于 Servlet 的影响同时起作用，两种方法定义的 url-partten 都可以访问到该 Servlet，但是当通过 web.xml 定义的 url-partten 访问时，注解定义的属性将失效。
 
-<br>
+
 
 ### 【3】修改内存大小
 
@@ -1065,7 +1065,7 @@ Maven 由于它的约定大于配置，之后可能遇到写的配置文件，�
 
 <img src="!assets/Settings/image-20200428211739758.png" alt="image-20200428211739758" style="zoom: 67%;" />
 
-<br>
+
 
 **修改内存大小**
 
@@ -1073,7 +1073,7 @@ Maven 由于它的约定大于配置，之后可能遇到写的配置文件，�
 
 <img src="!assets/Settings/QQ_1734269047966.png" alt="QQ_1734269047966" style="zoom:67%;" />
 
-<br>
+
 
 ### 【4】注释设置首行缩进
 
@@ -1081,7 +1081,7 @@ IDEA 通过快捷键 Ctrl + / 进行注释的代码不会进行首行缩进：
 
 <img src="!assets/Settings/QQ_1734291118508.png" alt="QQ_1734291118508" style="zoom: 67%;" />
 
-<br>
+
 
 **Java 文件设置**
 
@@ -1089,13 +1089,13 @@ IDEA 通过快捷键 Ctrl + / 进行注释的代码不会进行首行缩进：
 
 <img src="!assets/Settings/QQ_1734291301243.png" alt="QQ_1734291301243" style="zoom:67%;" />
 
-<br>
+
 
 **其他文件格式**
 
 其他文件格式，如 HTML、YAML 等，也是同样的套路，选中对应的菜单进行设置就行。
 
-<br>
+
 
 ### 【5】Lombok 报错
 
@@ -1109,7 +1109,7 @@ Lombok supports: sun/apple javac 1.6, ECJ
 
 这是由于 Lombok 的版本过低的原因。
 
-<br>
+
 
 **版本提升**
 
@@ -1126,7 +1126,7 @@ Lombok supports: sun/apple javac 1.6, ECJ
 
 <img src="!assets/Settings/QQ_1735503460171.png" alt="QQ_1735503460171" style="zoom: 67%;" />
 
-<br>
+
 
 **添加参数**
 
@@ -1138,7 +1138,7 @@ Lombok supports: sun/apple javac 1.6, ECJ
 
 <img src="!assets/Settings/QQ_1735503436346.png" alt="QQ_1735503436346" />
 
-<br>
+
 
 ### 【6】插件：Camel Case
 
@@ -1152,7 +1152,7 @@ Camel Case 包含 6 种格式的切换，可能某些格式是平时不用的，
 
 <img src="!assets/Settings/5e7827dc0001c7ea11720724.png" alt="图片描述" style="zoom: 80%;" />
 
-<br>
+
 
 
 ### 【7】jar 包自动导入及优化
@@ -1166,7 +1166,7 @@ Camel Case 包含 6 种格式的切换，可能某些格式是平时不用的，
 
 第二个是 优化导入，也就是除去没有用到的 jar 包，这个设置只会对当前的项目有效！每个项目都需要单独设置 此选项！
 
-<br>
+
 
 ### 【8】保存时触发操作
 
@@ -1179,7 +1179,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 额外再提一点，个人建议上面格式化代码不要设置成 **Whole file（整个文件）**，这是因为多人开发中同时改动这个文件，你整个格式化，比较容易造成冲突，解决这种格式化导致的冲突比较蛋疼。
 
-<br>
+
 
 ### 【9】正则替换
 
@@ -1190,7 +1190,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 比如上图将所有这个文件中的 `name=""` 替换为 `th:field=""` ，`()` 内填写正则表达式，`$1` 为正则匹配到的第一个内容的占位符。
 
-<br>
+
 
 ### 【10】设置类和方法模板
 
@@ -1200,7 +1200,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 <img src="!assets/Settings/image-20211214150741576.png" alt="image-20211214150741576" style="zoom:80%;" />
 
-<br>
+
 
 
 **方法模板**
@@ -1216,7 +1216,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 最后应用就行，在类的方法上方输入 `com` 按回车就可自动生成方法注释。
 
-<br>
+
 
 ### 【11】插件：Translation
 
@@ -1276,7 +1276,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
    <img src="!assets/Settings/image-20220328161610458.png" alt="image-20220328161610458" style="zoom:67%;" />
 
-<br>
+
 
 ### 【12】Defender 排除项目目录
 
@@ -1292,7 +1292,7 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
    <img src="!assets/Settings/image-20221122105441981.png" alt="image-20221122105441981" style="zoom:50%;" />
 
-<br>
+
 
 ### 【13】修改（文件）编码格式
 
@@ -1317,7 +1317,7 @@ IntelliJ IDEA 可以在菜单中的【File】=>【Settings】=>【Editor】=>【
 
 > 含有中文的代码文件，Convert 之后可能会使中文变成乱码，所以在转换成请做好备份，不然可能出现转换过程变成乱码，无法还原。
 
-<br>
+
 
 ## Windows Server
 
@@ -1341,7 +1341,7 @@ IntelliJ IDEA 可以在菜单中的【File】=>【Settings】=>【Editor】=>【
 
 然后进行 KMS 激活。
 
-<br>
+
 
 **KMS 激活**
 
@@ -1375,7 +1375,7 @@ IntelliJ IDEA 可以在菜单中的【File】=>【Settings】=>【Editor】=>【
 
 >  以上的方法供学习使用。 
 
-<br>
+
 
 ### 【2】安装 Windows Terminal
 
@@ -1417,7 +1417,7 @@ IntelliJ IDEA 可以在菜单中的【File】=>【Settings】=>【Editor】=>【
 
 也可以使用相同的说明升级到命令控制台的新版本。但是需要使用旧版 PowerShell 控制台来完成该过程，因为在应用程序运行时无法升级终端。
 
-<br>
+
 
 ### 【3】关闭系统自动更新
 
@@ -1437,7 +1437,7 @@ IntelliJ IDEA 可以在菜单中的【File】=>【Settings】=>【Editor】=>【
 
    <img src="!assets/Settings/image-20240814001105085.png" alt="image-20240814001105085" style="zoom:67%;" />
 
-<br>
+
 
 ### 【4】修改 CMD 窗口标题
 
@@ -1453,7 +1453,7 @@ title 名字
 set "title=名字"
 ```
 
-<br>
+
 
 ### 【5】服务器与本地电脑无法远程复制粘贴
 
@@ -1471,7 +1471,7 @@ set "title=名字"
 
 4. 再次在任务管理其中查看进程 rdpclip.exe 是否已经启动，如果已经启动，就测试是否可以复制粘贴，如果还是没有启动，则再次操作第 4 步。
 
-<br>
+
 
 ### 【6】开启 OpenSSH
 
@@ -1502,7 +1502,7 @@ set "title=名字"
 
    服务器配置完成后可以直接使用 `ssh my-web-server` 登录。
 
-<br>
+
 
 **服务器配置**
 
@@ -1536,7 +1536,7 @@ set "title=名字"
 
    以后每多一台电脑，就把它的公钥多加一行。
 
-<br>
+
 
 ## TortoiseSVN
 
@@ -1576,7 +1576,7 @@ ask the administrator to create a pre-revprop-change hook
 
 2. 将文件放到 `\Repositories\SVN文件夹\hooks\` 下执行即可。
 
-<br>
+
 
 ### 【2】查看本地 SVN 账号密码
 
@@ -1588,7 +1588,7 @@ ask the administrator to create a pre-revprop-change hook
 
    <img src="!assets/Settings/image-20231214235920682.png" alt="image-20231214235920682" style="zoom:67%;" />
 
-<br>
+
 
 ## PowerShell
 
@@ -1620,7 +1620,7 @@ Winget 是 Windows 软件包管理器，是一个命令行工具，使用户能�
    winget install --id Microsoft.Powershell.Preview --source winget
    ```
 
-<br>
+
 
 ### 【2】因为在此系统上禁止运行脚本
 
@@ -1650,7 +1650,7 @@ PS C:\WINDOWS\system32> get-executionpolicy
 Restricted
 ```
 
-<br>
+
 
 **设置**
 
@@ -1667,7 +1667,7 @@ PS C:\WINDOWS\system32> get-executionpolicy
 RemoteSigned
 ```
 
-<br>
+
 
 ### 【3】Powershell7 中文乱码
 
@@ -1685,7 +1685,7 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 
 <img src="!assets/Settings/QQ_1734291616071.png" alt="QQ_1734291616071" style="zoom:50%;" />
 
-<br>
+
 
 ## IDM
 
@@ -1695,7 +1695,7 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 
 <img src="!assets/Settings/image-20240416143932381.png" alt="image-20240416143932381" style="zoom:67%;" />
 
-<br>
+
 
 **解决方案**
 
@@ -1717,9 +1717,9 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 
 2. 每次 IDM 启动的时候，都会修改 hosts 文件，将以上内容注释，可以将 hosts 文件设置为【只读】，也可以使用火绒的自定义防护禁止 IDMan.exe 修改 hosts：
 
-   <img src="!assets/Settings/image-20240416144317613.png" alt="image-20240416144317613" style="zoom: 50%;" />
+	<img src="!assets/Settings/image-20240416144317613.png" alt="image-20240416144317613" style="zoom: 50%;" />
 
-<br>
+
 
 ### 【2】浏览器拓展错误
 
@@ -1729,7 +1729,7 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 
 是因为软件版本和扩展版本不一致，只需要下载回旧版本的插件就可以啦（需要禁止浏览器更新扩展版本），或者更新软件的版本。
 
-<br>
+
 
 **解决方案**
 
@@ -1737,17 +1737,17 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 
 2. 打开 IDM 的安装目录，找到 IDMGCExt.crx 文件，将其拖入浏览器中，浏览器会重新安装扩展：
 
-   <img src="./!assets/Settings/image-20250503032759698.png" alt="image-20250503032759698" style="zoom: 50%;" />
+	<img src="./!assets/Settings/image-20250503032759698.png" alt="image-20250503032759698" style="zoom: 50%;" />
    
 3. 安装完成后，在扩展管理中找到扩展 ID：
 
-   <img src="./!assets/Settings/image-20250503050512140.png" alt="image-20250503050512140" style="zoom:50%;" />
+	<img src="./!assets/Settings/image-20250503050512140.png" alt="image-20250503050512140" style="zoom:50%;" />
 
 4. 前往 `C:\Users\<用户名>\AppData\Local\Microsoft\Edge\User Data\Default\Extensions` 目录下找到与扩展 ID 同名的文件夹，右键打开【属性】，在【安全】页签中设置拒绝所有用户写入：
 
-   <img src="./!assets/Settings/image-20250503050831462.png" alt="image-20250503050831462" style="zoom:50%;" />
+	<img src="./!assets/Settings/image-20250503050831462.png" alt="image-20250503050831462" style="zoom:50%;" />
 
-<br>
+
 
 ## Unity
 
@@ -1772,5 +1772,5 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 "yuanshen.exe" -popupwindow -screen-fullscreen 0 -screen-width 1920 -screen-height 1080
 ```
 
-<br>
+
 

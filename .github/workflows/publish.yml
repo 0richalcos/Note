@@ -22,7 +22,7 @@ jobs:
           path: .cache
           
       # 安装 MkDocs, Material 主题 和 自动目录插件
-      - run: pip install mkdocs-material mkdocs-awesome-pages-plugin
+      - run: pip install mkdocs-material mkdocs-awesome-pages-plugin mkdocs-callouts
       
       # 开始构建并发布到 gh-pages 分支
       - run: mkdocs gh-deploy --force
