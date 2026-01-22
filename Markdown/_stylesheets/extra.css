@@ -20,35 +20,38 @@
 }
 
 /* ==================================================
-   伪标题”样式，手动模式 (.t) - 保持不变
-   用法：**文字**{.t}
-   ================================================== */
-.t {
-    display: block;
-    margin-top: 2.5em; /* 建议用 2.5em 效果更好 */
-    margin-bottom: 0.8em;
-    font-weight: bold;
-    font-size: 1.1em;
-    color: var(--md-typeset-color);
-}
-
-/* ==================================================
-   伪标题”样式，自动模式 (.auto-t) - JS 自动添加的样式
+   伪标题样式
    用法：一行只有 **加粗** 时自动生效
+   效果：------- 文字 -------
    ================================================== */
-/* 给 P 标签加间距 */
+/* 设置弹性盒子，让线条和文字横向排列并居中 */
 p.auto-t {
-    margin-top: 2.5em; 
-    margin-bottom: 0.8em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    margin-top: 3em;     /* 上间距 */
+    margin-bottom: 2em;  /* 下间距 */
 }
 
-/* 让里面的 strong 变成块级元素 */
+/* 左右两侧的自动线条 */
+p.auto-t::before,
+p.auto-t::after {
+    content: "";
+    flex: 1;             /* 自动撑满剩余空间 */
+    
+    /* 线条样式：实线，颜色跟随主题但淡一点 */
+    border-bottom: 1px solid var(--md-default-fg-color--lightest); 
+    
+    margin: 0 1em;       /* 线条与文字之间的空隙 */
+}
+
+/* 中间的文字样式 */
 p.auto-t strong {
-    display: block;
     font-weight: bold;
     font-size: 1.1em;
     color: var(--md-typeset-color);
-    line-height: 1.4;
+    opacity: 0.9;        /* 稍微淡一点，更有质感 */
 }
 
 /* ==================================================
