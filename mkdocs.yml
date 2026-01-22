@@ -34,7 +34,7 @@ extra_css:
 
 # 引入 JS
 extra_javascript:
-  - javascripts/auto_title.js
+  - _javascripts/auto_title.js
 
 # 必装插件
 plugins:
