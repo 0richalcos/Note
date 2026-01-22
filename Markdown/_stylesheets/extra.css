@@ -1,11 +1,4 @@
 /* ==========================================================================
-   0. 全局说明
-   - 目标：技术文档 / 笔记友好
-   - 原则：章节清晰、正文紧凑、不空旷
-   ========================================================================== */
-
-
-/* ==========================================================================
    1. 二级标题 (H2) - 核心章节
    样式：⚓ 图标 + 底部实线 + 主题色
    ========================================================================== */
@@ -25,7 +18,7 @@
 .md-typeset h2::before {
     content: "⚓";
     margin-right: 0.45em;
-    font-size: 1.0em;
+    font-size: 0.9em;
     vertical-align: middle;
     opacity: 0.85;
 }
@@ -51,9 +44,9 @@
 .md-typeset h3::before {
     content: "⚓";
     margin-right: 0.45em;
-    font-size: 0.90em;
+    font-size: 0.75em;
     vertical-align: middle;
-    opacity: 0.85;
+    opacity: 0.65;
 }
 
 
@@ -178,4 +171,76 @@ p.auto-t strong::after {
     display: block;
     margin: 1.5em auto;
     text-align: center;
+}
+
+/* ==========================================================================
+   7. 多级列表增强（统一你的技术笔记风格）
+   目标：让列表真正“有层级、有结构”
+   ========================================================================== */
+
+/* ----------------------------
+   一级列表（主分类）
+   ---------------------------- */
+.md-typeset ul {
+    margin-top: 0.6em;
+    margin-bottom: 0.8em;
+    padding-left: 1.2em;
+}
+
+/* 一级列表项 */
+.md-typeset ul > li {
+    position: relative;
+    margin-bottom: 0.6em;
+    padding-left: 0.4em;
+}
+
+/* 一级列表前的圆点强化 */
+.md-typeset ul > li::marker {
+    color: var(--md-primary-fg-color);
+    font-size: 1em;
+}
+
+/* 一级列表里的“标题型 strong” */
+.md-typeset ul > li > p > strong {
+    color: var(--md-primary-fg-color);
+    font-weight: bold;
+}
+
+
+/* ----------------------------
+   二级列表（说明 / 细分）
+   ---------------------------- */
+.md-typeset ul ul {
+    margin-top: 0.4em;
+    margin-bottom: 0.6em;
+    padding-left: 1.4em;
+    border-left: 2px dashed var(--md-default-fg-color--lightest);
+}
+
+/* 二级列表项 */
+.md-typeset ul ul > li {
+    margin-bottom: 0.35em;
+    padding-left: 0.4em;
+    font-size: 0.95em;
+    color: var(--md-default-fg-color--light);
+}
+
+/* 二级列表圆点 */
+.md-typeset ul ul > li::marker {
+    color: var(--md-default-fg-color--lighter);
+    font-size: 0.85em;
+}
+
+
+/* ----------------------------
+   三级列表（很少用，继续弱化）
+   ---------------------------- */
+.md-typeset ul ul ul {
+    padding-left: 1.2em;
+    border-left: 1px dotted var(--md-default-fg-color--lighter);
+}
+
+.md-typeset ul ul ul > li {
+    font-size: 0.9em;
+    color: var(--md-default-fg-color--lighter);
 }
