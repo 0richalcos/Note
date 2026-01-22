@@ -17,9 +17,9 @@
 - 运行命令行工具，例如 BASH。
 - 运行常用的 BASH 命令行工具（例如 `grep`、`sed`、`awk`）或其他 ELF-64 二进制文件。
 - 运行 Bash 脚本和 GNU/Linux 命令行应用程序，包括：
-  - 工具：vim、emacs、tmux
-  - 语言：NodeJS、JavaScript、Python、Ruby、C/C++、C# 和 F#、Rust、Go 等。
-  - 服务：SSHD、MySQL、Apache、lighttpd、MongoDB、PostgreSQL。
+	- 工具：vim、emacs、tmux
+	- 语言：NodeJS、JavaScript、Python、Ruby、C/C++、C# 和 F#、Rust、Go 等。
+	- 服务：SSHD、MySQL、Apache、lighttpd、MongoDB、PostgreSQL。
 - 使用自己的 GNU/Linux 分发包管理器安装其他软件。
 - 使用类似于 Unix 的命令行 shell 调用 Windows 应用程序。
 - 在 Windows 上调用 GNU/Linux 应用程序。
@@ -106,11 +106,11 @@ Linux 二进制文件使用系统调用来执行访问文件、请求内存、�
 
 - 你的项目文件必须存储在 Windows 文件系统中。 WSL 1 可以更快地访问从 Windows 装载的文件。
 
-  如果你将使用 WSL Linux 分发版来访问 Windows 文件系统上的项目文件，并且这些文件无法存储在 Linux 文件系统上，那么，通过使用 WSL 1，你将跨 OS 文件系统实现更快的性能。
+	如果你将使用 WSL Linux 分发版来访问 Windows 文件系统上的项目文件，并且这些文件无法存储在 Linux 文件系统上，那么，通过使用 WSL 1，你将跨 OS 文件系统实现更快的性能。
 
 - 一个项目要求对相同的文件使用 Windows 和 Linux 工具进行交叉编译。
 
-  在 WSL 1 中，跨 Windows 和 Linux 操作系统的文件性能比 WSL 2 中更快，因此如果要使用 Windows 应用程序来访问 Linux 文件，则目前通过 WSL 1 可实现更快的性能。
+	在 WSL 1 中，跨 Windows 和 Linux 操作系统的文件性能比 WSL 2 中更快，因此如果要使用 Windows 应用程序来访问 Linux 文件，则目前通过 WSL 1 可实现更快的性能。
 
 - 你的项目需要访问串行端口或 USB 设备。 但是，现在可通过 USBIPD-WIN 项目为 WSL 2 提供 USB 设备支持。
 
@@ -118,7 +118,7 @@ Linux 二进制文件使用系统调用来执行访问文件、请求内存、�
 
 - 有严格的内存要求
 
-  WSL 2 的内存使用量会随使用而缩放。 当进程释放内存时，这会自动返回到 Windows。 但从现在开始，在关闭 WSL 实例前，WSL 2 还不会将内存中缓存的页面释放回 Windows。 如果你有长时间运行的 WSL 会话或访问非常大量的文件，此缓存可能会耗尽 Windows 内存。
+	WSL 2 的内存使用量会随使用而缩放。 当进程释放内存时，这会自动返回到 Windows。 但从现在开始，在关闭 WSL 实例前，WSL 2 还不会将内存中缓存的页面释放回 Windows。 如果你有长时间运行的 WSL 会话或访问非常大量的文件，此缓存可能会耗尽 Windows 内存。
 
 - 如果依赖 Linux 发行版在与主机相同的网络中拥有 IP 地址，则可能需要设置一种替代方法来运行 WSL 2。 WSL 2 作为 hyper-v 虚拟机运行。 这是对 WSL 1 中使用的桥接网络适配器的更改，这意味着 WSL 2 使用网络地址转换 (NAT) 服务作为其虚拟网络，而不是将其桥接到主机网络接口卡 (NIC)，从而生成唯一的将在重启时更改的 IP 地址。
 
@@ -234,7 +234,7 @@ wsl --update
 
 将 WSL 版本更新到最新版本。
 
- 选项包括：
+选项包括：
 
 - `--web-download`：从 GitHub 而不是 Microsoft Store 下载最新更新。
 
@@ -435,7 +435,7 @@ wsl --import <Distribution Name> <InstallLocation> <FileName>
 
 导入指定的 tar 文件作为新的分发版。 在标准输入中，文件名可以是 `-`。
 
- 选项包括：
+选项包括：
 
 - `--vhd`：指定导入分发版应为 .vhdx 文件而不是 tar 文件（这仅在使用 WSL 2 的情况下受支持）
 - `--version <1/2>`：指定将分发版导入为 WSL 1 还是 WSL 2 分发版
@@ -807,17 +807,17 @@ sparseVhd=true
 
 1. 安装中文语言包：
 
-   ```shell
-   sudo apt install language-pack-zh-hans
-   ```
+	```shell
+	sudo apt install language-pack-zh-hans
+	```
 
 2. 设置中文为默认语言：
 
-   ```shell
-   sudo dpkg-reconfigure locales
-   ```
+	```shell
+	sudo dpkg-reconfigure locales
+	```
 
-   选择 `en_US.UTF-8` 和 `zh_CN.UTF-8`，选择 `zh_CN.UTF-8` 为默认语言。
+	选择 `en_US.UTF-8` 和 `zh_CN.UTF-8`，选择 `zh_CN.UTF-8` 为默认语言。
 
 2. 重启 WSL Ubuntu 终端即可显示中文。
 

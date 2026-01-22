@@ -54,7 +54,7 @@ frp 支持多种代理类型，以适应不同的使用场景。以下是一些�
 
 **下载**
 
- GitHub 的 [Release](https://github.com/fatedier/frp/releases) 页面中下载最新版本的客户端和服务器二进制文件。所有文件都打包在一个压缩包中，还包含了一份完整的配置参数说明。
+GitHub 的 [Release](https://github.com/fatedier/frp/releases) 页面中下载最新版本的客户端和服务器二进制文件。所有文件都打包在一个压缩包中，还包含了一份完整的配置参数说明。
 
 
 
@@ -262,69 +262,69 @@ frpc: the configuration file ./frpc.toml syntax is ok
 
 1. **在具有公网 IP 的机器上部署 frps**
 
-   部署 frps 并编辑 frps.yaml 文件。以下是简化的配置，其中设置了 frp 服务器用于接收客户端连接的端口：
+	部署 frps 并编辑 frps.yaml 文件。以下是简化的配置，其中设置了 frp 服务器用于接收客户端连接的端口：
 
-   ```yaml
-   bindAddr: 0.0.0.0
-   bindPort: 7000
-   
-   auth:
-     method: token
-     token: Orichalcos
-   
-   webServer:
-     addr: 0.0.0.0
-     port: 8080
-     user: root
-     password: root
-   
-   log:
-     to: console
-     level: info
-     maxDays: 3
-   ```
+	```yaml
+	bindAddr: 0.0.0.0
+	bindPort: 7000
+	
+	auth:
+	  method: token
+	  token: Orichalcos
+	
+	webServer:
+	  addr: 0.0.0.0
+	  port: 8080
+	  user: root
+	  password: root
+	
+	log:
+	  to: console
+	  level: info
+	  maxDays: 3
+	```
 
 2. **在需要被访问的内网机器上部署 frpc**
 
-   部署 frpc 并编辑 frpc.yaml 文件，假设 frps 所在服务器的公网 IP 地址为 `x.x.x.x`。以下是示例配置：
+	部署 frpc 并编辑 frpc.yaml 文件，假设 frps 所在服务器的公网 IP 地址为 `x.x.x.x`。以下是示例配置：
 
-   ```yaml
-   serverAddr: x.x.x.x
-   serverPort: 7000
-   
-   auth:
-     method: token
-     token: Orichalcos
-   
-   log:
-     to: console
-     level: info
-     maxDays: 3
-   
-   proxies:
-     - name: ssh
-       type: tcp
-       localIP: 127.0.0.1
-       localPort: 22
-       remotePort: 6000
-       annotations:
-         ssh: SSH访问
-   ```
+	```yaml
+	serverAddr: x.x.x.x
+	serverPort: 7000
+	
+	auth:
+	  method: token
+	  token: Orichalcos
+	
+	log:
+	  to: console
+	  level: info
+	  maxDays: 3
+	
+	proxies:
+	  - name: ssh
+	    type: tcp
+	    localIP: 127.0.0.1
+	    localPort: 22
+	    remotePort: 6000
+	    annotations:
+	      ssh: SSH访问
+	```
 
-   - `localIP` 和 `localPort` 配置为需要从公网访问的内网服务的地址和端口。
-   - `remotePort` 表示在 frp 服务端监听的端口，访问此端口的流量将被转发到本地服务的相应端口。
+	- `localIP` 和 `localPort` 配置为需要从公网访问的内网服务的地址和端口。
+	- `remotePort` 表示在 frp 服务端监听的端口，访问此端口的流量将被转发到本地服务的相应端口。
 
 3. **启动 frps 和 frpc**
 
 4. **通过 SSH 访问内网机器**
 
-   使用以下命令通过 SSH 访问内网机器，假设用户名为 test：
+	使用以下命令通过 SSH 访问内网机器，假设用户名为 test：
 
-   ```shell
-   ssh -o Port=6000 test@x.x.x.x
-   ```
+	```shell
+	ssh -o Port=6000 test@x.x.x.x
+	```
 
-   frp 将请求发送到 `x.x.x.x:6000` 的流量转发到内网机器的 22 端口。
+	frp 将请求发送到 `x.x.x.x:6000` 的流量转发到内网机器的 22 端口。
 
 
 
@@ -338,64 +338,64 @@ HTTPS 与此类似，但是需要注意，frp 的 https 代理需要本地服务
 
 1. **配置 frps.yaml**
 
-   在 frps.yaml 文件中添加以下内容，以指定 HTTP 请求的监听端口为 9090：
+	在 frps.yaml 文件中添加以下内容，以指定 HTTP 请求的监听端口为 9090：
 
-   ```yaml
-   bindPort: 7000
-   vhostHTTPPort: 9090
-   
-   auth:
-     method: token
-     token: Orichalcos
-   
-   webServer:
-     addr: 0.0.0.0
-     port: 8080
-     user: root
-     password: root
-   
-   log:
-     to: console
-     level: info
-     maxDays: 3
-   ```
+	```yaml
+	bindPort: 7000
+	vhostHTTPPort: 9090
+	
+	auth:
+	  method: token
+	  token: Orichalcos
+	
+	webServer:
+	  addr: 0.0.0.0
+	  port: 8080
+	  user: root
+	  password: root
+	
+	log:
+	  to: console
+	  level: info
+	  maxDays: 3
+	```
 
-   如果需要配置 HTTPS 代理，还需要设置 `vhostHTTPSPort`。
+	如果需要配置 HTTPS 代理，还需要设置 `vhostHTTPSPort`。
 
 2. **配置 frpc.yaml**
 
-   在 frpc.yaml 文件中添加以下内容，确保设置了正确的服务器 IP 地址、本地 Web 服务监听端口：
+	在 frpc.yaml 文件中添加以下内容，确保设置了正确的服务器 IP 地址、本地 Web 服务监听端口：
 
-   ```yaml
-   serverAddr: x.x.x.x
-   serverPort: 7000
-   
-   auth:
-     method: token
-     token: Orichalcos
-   
-   log:
-     to: console
-     level: info
-     maxDays: 3
-   
-   proxies:
-     - name: http-proxy
-     	# 选择穿透协议
-       type: http
-       localIP: 127.0.0.1
-       # 本地服务的端口，http模式下不允许使用remotePort
-       localPort: 80
-       annotations:
-         http-proxy: HTTP访问
-       # 注意此处是必填项，后面访问服务也必须使用这个域名，用ip等别的方式是不能访问服务的；如果此处填的是ip，则也只能通过ip来访问。
-       customDomains:
-         - x.x.x.x
-         - orichalcos.com
-   ```
+	```yaml
+	serverAddr: x.x.x.x
+	serverPort: 7000
+	
+	auth:
+	  method: token
+	  token: Orichalcos
+	
+	log:
+	  to: console
+	  level: info
+	  maxDays: 3
+	
+	proxies:
+	  - name: http-proxy
+	  	# 选择穿透协议
+	    type: http
+	    localIP: 127.0.0.1
+	    # 本地服务的端口，http模式下不允许使用remotePort
+	    localPort: 80
+	    annotations:
+	      http-proxy: HTTP访问
+	    # 注意此处是必填项，后面访问服务也必须使用这个域名，用ip等别的方式是不能访问服务的；如果此处填的是ip，则也只能通过ip来访问。
+	    customDomains:
+	      - x.x.x.x
+	      - orichalcos.com
+	```
 
 3. **启动 frps 和 frpc**
 
 4. **通过浏览器访问**
 
-   使用浏览器访问 `http://x.x.x.x:9090` 即可访问内网机器上的 80 端口 Web 服务。
+	使用浏览器访问 `http://x.x.x.x:9090` 即可访问内网机器上的 80 端口 Web 服务。

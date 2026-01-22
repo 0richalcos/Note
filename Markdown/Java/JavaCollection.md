@@ -11,11 +11,11 @@
 Java 集合类型分为 Collection 和 Map，它们是 Java 集合的根接口，这两个接口又包含了一些子接口或实现类。
 
 <div align="center">
-    <img src="!assets/JavaCollection/5-1912051036333V.png" alt="Collection接口结构" style="width:75%" />
+		<img src="!assets/JavaCollection/5-1912051036333V.png" alt="Collection接口结构" style="width:75%" />
 </div>
 
 <div align="center">
-    <img src="!assets/JavaCollection/5-191205103G5960.png" alt="Map接口结构" style="width:45%;" />
+		<img src="!assets/JavaCollection/5-191205103G5960.png" alt="Map接口结构" style="width:45%;" />
 </div>
 
 黄色块为集合的接口，蓝色块为集合的实现类。
@@ -204,7 +204,7 @@ ArrayList的主要底层实现是数组Object[] elementData，可以通过构造
 就比如现在有一个长度为10的数组，现在我们要新增一个元素，发现已经满了：
 
 <div align="center">
-    <img src="!assets/JavaCollection/275634327b031b1584201358e274914925d37e94.jpg@736w_134h.webp" alt="img" style="width:25%;" />
+		<img src="!assets/JavaCollection/275634327b031b1584201358e274914925d37e94.jpg@736w_134h.webp" alt="img" style="width:25%;" />
 </div>
 
 ArrayList首先会重新定义一个长度为10+10/2的数组也就是新增一个长度为15的数组（扩容为原容量的1.5倍）。
@@ -1006,7 +1006,7 @@ void copy(List <? super T> dest,List<? extends T> src)
 
 **确保集合不被修改**
 
- Collections 包下的 unmodifiableMap 方法，通过这个方法返回的map，是不可以修改的。它会抛出java.lang.UnsupportedOperationException异常。 
+Collections 包下的 unmodifiableMap 方法，通过这个方法返回的map，是不可以修改的。它会抛出java.lang.UnsupportedOperationException异常。 
 
 同理：Collections包也提供了对list和set集合的方法。 Collections.unmodififiableList(List) 和 Collections.unmodififiableSet(Set) 
 
@@ -1193,7 +1193,7 @@ Stream 提供了大量的方法进行聚集操作，这些方法既可以是“�
 - 有状态的方法：这种方法会给流增加一些新的属性，比如元素的唯一性、元素的最大数量、保证元素以排序的方式被处理等。有状态的方法往往需要更大的性能开销。
 - 短路方法：短路方法可以尽早结束对流的操作，不必检查所有的元素。
 
- Stream 常用的中间方法。
+Stream 常用的中间方法。
 
 | 方法                           | 说明                                                         |
 | ------------------------------ | ------------------------------------------------------------ |

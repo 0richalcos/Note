@@ -1139,14 +1139,14 @@ public class User {
 下面是 `resultMap` 元素的概念视图：
 
 - `constructor`：用于在实例化类时，注入结果到构造方法中。
-  - `idArg`：ID 参数；标记出作为 ID 的结果可以帮助提高整体性能。
-  - `arg`：将被注入到构造方法的一个普通结果。
+	- `idArg`：ID 参数；标记出作为 ID 的结果可以帮助提高整体性能。
+	- `arg`：将被注入到构造方法的一个普通结果。
 - `id`：一个 ID 结果；标记出作为 ID 的结果可以帮助提高整体性能。
 - `result`：注入到字段或 JavaBean 属性的普通结果。
 - `association`：一个复杂类型的关联；许多结果将包装成这种类型。
 - `collection`：一个复杂类型的集合。
 - `discriminator`：使用结果值来决定使用哪个 `resultMap`。
-  - `case`：基于某些值的结果映射。
+	- `case`：基于某些值的结果映射。
 
 
 
@@ -2984,108 +2984,108 @@ org.apache.ibatis.logging.LogFactory.useStdOutLogging();
 
 1. **建表**
 
-   在 MySQL 数据库中的 test 数据库下新建 person 表，脚本如下：
+	在 MySQL 数据库中的 test 数据库下新建 person 表，脚本如下：
 
-   ```mysql
-   -- 新增 person 表
-   DROP TABLE IF EXISTS person;
-   CREATE TABLE person (
-     pId int(11) NOT NULL AUTO_INCREMENT,
-     pName varchar(18) NOT NULL,
-     birthday date NOT NULL,
-     salary float(10,2) DEFAULT NULL,
-     summary varchar(256) DEFAULT NULL,
-     PRIMARY KEY (pId)
-   ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-    
-   -- ----------------------------
-   -- Records of person
-   -- ----------------------------
-   INSERT INTO person VALUES ('1', '张三', '2021-03-21', '7867.00', '重要人物');
-   INSERT INTO person VALUES ('2', '李四', '2010-05-17', '6878.00', '重要人物');
-   INSERT INTO person VALUES ('3', '王五', '2020-02-09', '99.00', '重要人物');
-   INSERT INTO person VALUES ('4', '马六', '2016-07-22', '8897.00', '白领');
-   ```
+	```mysql
+	-- 新增 person 表
+	DROP TABLE IF EXISTS person;
+	CREATE TABLE person (
+	  pId int(11) NOT NULL AUTO_INCREMENT,
+	  pName varchar(18) NOT NULL,
+	  birthday date NOT NULL,
+	  salary float(10,2) DEFAULT NULL,
+	  summary varchar(256) DEFAULT NULL,
+	  PRIMARY KEY (pId)
+	) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+	 
+	-- ----------------------------
+	-- Records of person
+	-- ----------------------------
+	INSERT INTO person VALUES ('1', '张三', '2021-03-21', '7867.00', '重要人物');
+	INSERT INTO person VALUES ('2', '李四', '2010-05-17', '6878.00', '重要人物');
+	INSERT INTO person VALUES ('3', '王五', '2020-02-09', '99.00', '重要人物');
+	INSERT INTO person VALUES ('4', '马六', '2016-07-22', '8897.00', '白领');
+	```
 
 2. **导入 Maven 依赖**
 
-   其中 MyBatis 官方提供的适配 Spring Boot 的依赖如下：
+	其中 MyBatis 官方提供的适配 Spring Boot 的依赖如下：
 
-   ```xml
-   <!-- 引入 myBatis，这是 MyBatis官方提供的适配 Spring Boot 的，而不是Spring Boot自己的-->
-   <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
-   <dependency>
-   	<groupId>org.mybatis.spring.boot</groupId>
-   	<artifactId>mybatis-spring-boot-starter</artifactId>
-   	<version>2.1.2</version>
-   </dependency>
-   ```
+	```xml
+	<!-- 引入 myBatis，这是 MyBatis官方提供的适配 Spring Boot 的，而不是Spring Boot自己的-->
+	<!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
+	<dependency>
+		<groupId>org.mybatis.spring.boot</groupId>
+		<artifactId>mybatis-spring-boot-starter</artifactId>
+		<version>2.1.2</version>
+	</dependency>
+	```
 
 3. **全局配置文件**
 
-   ```yaml
-   #页面日期传入后台时，指定格式化
-   spring:
-     mvc:
-       date-format: yyyy-MM-dd HH:mm:ss
-    
-     #数据库配置
-     datasource:
-       username: root
-       password: root
-       url: jdbc:mysql://localhost:3306/test?characterEncoding=UTF-8&serverTimezone=UTC
-       driver-class-name: com.mysql.cj.jdbc.Driver
-   ```
+	```yaml
+	#页面日期传入后台时，指定格式化
+	spring:
+	  mvc:
+	    date-format: yyyy-MM-dd HH:mm:ss
+	 
+	  #数据库配置
+	  datasource:
+	    username: root
+	    password: root
+	    url: jdbc:mysql://localhost:3306/test?characterEncoding=UTF-8&serverTimezone=UTC
+	    driver-class-name: com.mysql.cj.jdbc.Driver
+	```
 
-   > 高版本的 MySQL 驱动（如 mysql-connector-java:8.0.16）的 `driver-class-name` 值中间带 `cj`、`url` 值必须带时区 `serverTimezone`
+	> 高版本的 MySQL 驱动（如 mysql-connector-java:8.0.16）的 `driver-class-name` 值中间带 `cj`、`url` 值必须带时区 `serverTimezone`
 
 4. **数据源测试**
 
-   因为 Spring Boot 已经配置了默认的数据源 HikariDataSource ，所以此时就可以测试一下获取数据源：
+	因为 Spring Boot 已经配置了默认的数据源 HikariDataSource ，所以此时就可以测试一下获取数据源：
 
-   ```java
-   @RunWith(SpringRunner.class)
-   @SpringBootTest
-   public class ThymeleafappApplicationTests {
-       /**
-        * Spring Boot 默认已经配置好了数据源，程序员可以直接 DI 注入然后使用即可
-        * 数据源获取正常，能正常拿到数据库连接，则说明数据库连接成功
-        */
-       @Resource
-       DataSource dataSource;
-       @Test
-       public void contextLoads() throws SQLException {
-           System.out.println("数据源>>>>>>" + dataSource.getClass());
-           Connection connection = dataSource.getConnection();
-           System.out.println("连接>>>>>>>>>" + connection);
-           System.out.println("连接地址>>>>>" + connection.getMetaData().getURL());
-           connection.close();
-       }
-   }
-   ```
+	```java
+	@RunWith(SpringRunner.class)
+	@SpringBootTest
+	public class ThymeleafappApplicationTests {
+	    /**
+	     * Spring Boot 默认已经配置好了数据源，程序员可以直接 DI 注入然后使用即可
+	     * 数据源获取正常，能正常拿到数据库连接，则说明数据库连接成功
+	     */
+	    @Resource
+	    DataSource dataSource;
+	    @Test
+	    public void contextLoads() throws SQLException {
+	        System.out.println("数据源>>>>>>" + dataSource.getClass());
+	        Connection connection = dataSource.getConnection();
+	        System.out.println("连接>>>>>>>>>" + connection);
+	        System.out.println("连接地址>>>>>" + connection.getMetaData().getURL());
+	        connection.close();
+	    }
+	}
+	```
 
 5. **新建 POJO**
 
-   创建 Person Java Bean 实体来封装数据，到此环境准备完毕，之后就使用 MyBatis 操作数据库即可：
+	创建 Person Java Bean 实体来封装数据，到此环境准备完毕，之后就使用 MyBatis 操作数据库即可：
 
-   ```java
-   import java.time.LocalDateTime;
-   /**
-    * @author wangmaoxiong
-    * @version 1.0
-    * @date 2020/5/9 15:56
-    */
-   public class Pserson {
-       private Integer pId;
-       private String pName;
-       private LocalDateTime birthday;
-       private Float salary;
-       private String summary;
-    
-       //省略 getter、settter 方法未粘贴
-       
-   }
-   ```
+	```java
+	import java.time.LocalDateTime;
+	/**
+	 * @author wangmaoxiong
+	 * @version 1.0
+	 * @date 2020/5/9 15:56
+	 */
+	public class Pserson {
+	    private Integer pId;
+	    private String pName;
+	    private LocalDateTime birthday;
+	    private Float salary;
+	    private String summary;
+	 
+	    //省略 getter、settter 方法未粘贴
+	    
+	}
+	```
 
 
 
@@ -3093,143 +3093,143 @@ org.apache.ibatis.logging.LogFactory.useStdOutLogging();
 
 1. 新建 `@Mapper` 注解标识的接口，接口中方法上面使用 `@Insert`、`@Delete`、`@Update`、`@Select` 注解编写操作数据库增删改查的 SQL：
 
-   ```java
-   import com.wmx.thymeleafapp.pojo.Person;
-   import org.apache.ibatis.annotations.*;
-   import java.util.List;
-   
-   /**
-    * @author wangmaoxiong
-    * @version 1.0
-    * @date 2020/5/9 16:02
-    * </p>
-    * @Mapper 注解表示本类是一个 MyBatis 的 Mapper（映射）.
-    * 1、以前 Spring 整合 mybatis 时，一个 POJO 对应 MyBatis一个操作数据库的 xml 文件， xml 文件又指向一个 mapper 接口.
-    * 2、现在 Spring Boot 则省略了 xml 文件这一环节，直接将 sql 写在了接口上.
-    */
-   @Mapper
-   public interface PersonMapper {
-       
-       /**
-        * 根据用户 id 查询
-        *
-        * @param pId
-        * @return :返回查询结果,不存在时返回 null
-        * @Select ：等价于以前 xml 形式时的 <select 标签,sql写法仍然和以前一样
-        */
-       @Select(value = {"select * from Person where pId=#{pId}"})
-       Person findPersonById(Integer pId);
-       
-       /**
-        * 查询所有用户
-        *
-        * @return :返回查询结果
-        * @Select ：等价于以前 xml 形式时的 <select 标签,sql写法仍然和以前一样
-        */
-       @Select(value = {"select * from Person"})
-       List<Person> findAllPersons();
-       
-       /**
-        * 添加用户
-        *
-        * @param Person ：因为主键 pId 自增，所以没设值
-        * @return
-        */
-       @Insert("insert into Person(pName,birthday,salary,summary) values(#{pName},#{birthday},#{salary},#{summary})")
-       Integer addPerson(Person Person);
-       
-       /**
-        * 根据用户 pId 修改用户
-        *
-        * @param Person
-        * @return
-        */
-       @Update("update Person set pName=#{pName},birthday=#{birthday},salary=#{salary},summary=#{summary} where pId=#{pId}")
-       Integer updatePerson(Person Person);
-       
-       /**
-        * 根据用户 id 删除用户
-        *
-        * @return ：返回操作的行数，也可以不返回
-        */
-       @Delete("delete from Person where pId = #{pId}")
-       Integer deletePersonById(Integer pId);
-   }
-   ```
+	```java
+	import com.wmx.thymeleafapp.pojo.Person;
+	import org.apache.ibatis.annotations.*;
+	import java.util.List;
+	
+	/**
+	 * @author wangmaoxiong
+	 * @version 1.0
+	 * @date 2020/5/9 16:02
+	 * </p>
+	 * @Mapper 注解表示本类是一个 MyBatis 的 Mapper（映射）.
+	 * 1、以前 Spring 整合 mybatis 时，一个 POJO 对应 MyBatis一个操作数据库的 xml 文件， xml 文件又指向一个 mapper 接口.
+	 * 2、现在 Spring Boot 则省略了 xml 文件这一环节，直接将 sql 写在了接口上.
+	 */
+	@Mapper
+	public interface PersonMapper {
+	    
+	    /**
+	     * 根据用户 id 查询
+	     *
+	     * @param pId
+	     * @return :返回查询结果,不存在时返回 null
+	     * @Select ：等价于以前 xml 形式时的 <select 标签,sql写法仍然和以前一样
+	     */
+	    @Select(value = {"select * from Person where pId=#{pId}"})
+	    Person findPersonById(Integer pId);
+	    
+	    /**
+	     * 查询所有用户
+	     *
+	     * @return :返回查询结果
+	     * @Select ：等价于以前 xml 形式时的 <select 标签,sql写法仍然和以前一样
+	     */
+	    @Select(value = {"select * from Person"})
+	    List<Person> findAllPersons();
+	    
+	    /**
+	     * 添加用户
+	     *
+	     * @param Person ：因为主键 pId 自增，所以没设值
+	     * @return
+	     */
+	    @Insert("insert into Person(pName,birthday,salary,summary) values(#{pName},#{birthday},#{salary},#{summary})")
+	    Integer addPerson(Person Person);
+	    
+	    /**
+	     * 根据用户 pId 修改用户
+	     *
+	     * @param Person
+	     * @return
+	     */
+	    @Update("update Person set pName=#{pName},birthday=#{birthday},salary=#{salary},summary=#{summary} where pId=#{pId}")
+	    Integer updatePerson(Person Person);
+	    
+	    /**
+	     * 根据用户 id 删除用户
+	     *
+	     * @return ：返回操作的行数，也可以不返回
+	     */
+	    @Delete("delete from Person where pId = #{pId}")
+	    Integer deletePersonById(Integer pId);
+	}
+	```
 
 2. 省略业务层，直接编写控制层调用 Mapper 层操作数据库：
 
-   ```java
-   @RestController
-   public class PersonController {
-       
-       @Resource
-       private PersonMapper personMapper;
-       
-       /**
-        * 根据用户 id 查询----直接将结果返回给用户页面
-        * http://localhost:8080/person/1
-        *
-        * @param pId
-        * @return
-        */
-       @GetMapping("/person/{pId}")
-       public Person findPersonById(@PathVariable("pId") Integer pId) {
-           Person person = personMapper.findPersonById(pId);
-           return person;
-       }
-       
-       /**
-        * 查询所有用户----直接将结果返回给用户页面
-        * http://localhost:8080/person
-        *
-        * @return
-        */
-       @GetMapping("/person")
-       public List<Person> findAllPersons() {
-           List<Person> personList = personMapper.findAllPersons();
-           return personList;
-       }
-       
-       /**
-        * 添加用户： http://localhost:8080/person/add
-        * {"pName":"张无忌","salary":9999.99,"birthday":"1897-09-09T12:00:11","summary":"武学奇才"}
-        *
-        * @param person
-        * @return
-        */
-       @PostMapping("/person/add")
-       public String addPerson(@RequestBody Person person) {
-           Integer integer = personMapper.addPerson(person);
-           return String.valueOf(integer);
-       }
-       
-       /**
-        * 修改用户：http://localhost:8080/person/update
-        * {"pId":1,"pName":"张无忌","salary":9999.99,"birthday":"1897-09-09T12:00:11","summary":"武学奇才"}
-        *
-        * @param person
-        * @return
-        */
-       @PostMapping("/person/update")
-       public String updatePerson(@RequestBody Person person) {
-           Integer integer = personMapper.updatePerson(person);
-           return String.valueOf(integer);
-       }
-       
-       /**
-        * 删除用户:    http://localhost:8080/person/del/2
-        *
-        * @param pId
-        * @return
-        */
-       @GetMapping("/person/del/{pId}")
-       public String deletePerson(@PathVariable("pId") Integer pId) {
-           Integer integer = personMapper.deletePersonById(pId);
-           return String.valueOf(integer);
-       }
-   }
-   ```
+	```java
+	@RestController
+	public class PersonController {
+	    
+	    @Resource
+	    private PersonMapper personMapper;
+	    
+	    /**
+	     * 根据用户 id 查询----直接将结果返回给用户页面
+	     * http://localhost:8080/person/1
+	     *
+	     * @param pId
+	     * @return
+	     */
+	    @GetMapping("/person/{pId}")
+	    public Person findPersonById(@PathVariable("pId") Integer pId) {
+	        Person person = personMapper.findPersonById(pId);
+	        return person;
+	    }
+	    
+	    /**
+	     * 查询所有用户----直接将结果返回给用户页面
+	     * http://localhost:8080/person
+	     *
+	     * @return
+	     */
+	    @GetMapping("/person")
+	    public List<Person> findAllPersons() {
+	        List<Person> personList = personMapper.findAllPersons();
+	        return personList;
+	    }
+	    
+	    /**
+	     * 添加用户： http://localhost:8080/person/add
+	     * {"pName":"张无忌","salary":9999.99,"birthday":"1897-09-09T12:00:11","summary":"武学奇才"}
+	     *
+	     * @param person
+	     * @return
+	     */
+	    @PostMapping("/person/add")
+	    public String addPerson(@RequestBody Person person) {
+	        Integer integer = personMapper.addPerson(person);
+	        return String.valueOf(integer);
+	    }
+	    
+	    /**
+	     * 修改用户：http://localhost:8080/person/update
+	     * {"pId":1,"pName":"张无忌","salary":9999.99,"birthday":"1897-09-09T12:00:11","summary":"武学奇才"}
+	     *
+	     * @param person
+	     * @return
+	     */
+	    @PostMapping("/person/update")
+	    public String updatePerson(@RequestBody Person person) {
+	        Integer integer = personMapper.updatePerson(person);
+	        return String.valueOf(integer);
+	    }
+	    
+	    /**
+	     * 删除用户:    http://localhost:8080/person/del/2
+	     *
+	     * @param pId
+	     * @return
+	     */
+	    @GetMapping("/person/del/{pId}")
+	    public String deletePerson(@PathVariable("pId") Integer pId) {
+	        Integer integer = personMapper.deletePersonById(pId);
+	        return String.valueOf(integer);
+	    }
+	}
+	```
 
 
 
@@ -3269,105 +3269,105 @@ public class HippoApplication {
 
 1. 新建 `@Mapper` 注解标识的接口：
 
-   ```java
-   import com.wmx.thymeleafapp.pojo.Person;
-   import org.apache.ibatis.annotations.*;
-   import java.util.List;
-   
-   /**
-    * @author wangmaoxiong
-    * @version 1.0
-    * @date 2020/5/9 16:02
-    * </p>
-    */
-   @Mapper
-   public interface PersonMapper {
-       
-       /**
-        * 根据用户 id 查询
-        *
-        * @param pId
-        * @return :返回查询结果,不存在时返回 null
-        */
-       Person findPersonById(Integer pId);
-       
-       /**
-        * 查询所有用户
-        *
-        * @return :返回查询结果
-        */
-       List<Person> findAllPersons();
-       
-       /**
-        * 添加用户
-        *
-        * @param Person ：因为主键 pId 自增，所以没设值
-        * @return
-        */
-       Integer addPerson(Person Person);
-       
-       /**
-        * 根据用户 pId 修改用户
-        *
-        * @param Person
-        * @return
-        */
-       Integer updatePerson(Person Person);
-       
-       /**
-        * 根据用户 id 删除用户
-        *
-        * @return ：返回操作的行数，也可以不返回
-        */
-       Integer deletePersonById(Integer pId);
-   }
-   ```
+	```java
+	import com.wmx.thymeleafapp.pojo.Person;
+	import org.apache.ibatis.annotations.*;
+	import java.util.List;
+	
+	/**
+	 * @author wangmaoxiong
+	 * @version 1.0
+	 * @date 2020/5/9 16:02
+	 * </p>
+	 */
+	@Mapper
+	public interface PersonMapper {
+	    
+	    /**
+	     * 根据用户 id 查询
+	     *
+	     * @param pId
+	     * @return :返回查询结果,不存在时返回 null
+	     */
+	    Person findPersonById(Integer pId);
+	    
+	    /**
+	     * 查询所有用户
+	     *
+	     * @return :返回查询结果
+	     */
+	    List<Person> findAllPersons();
+	    
+	    /**
+	     * 添加用户
+	     *
+	     * @param Person ：因为主键 pId 自增，所以没设值
+	     * @return
+	     */
+	    Integer addPerson(Person Person);
+	    
+	    /**
+	     * 根据用户 pId 修改用户
+	     *
+	     * @param Person
+	     * @return
+	     */
+	    Integer updatePerson(Person Person);
+	    
+	    /**
+	     * 根据用户 id 删除用户
+	     *
+	     * @return ：返回操作的行数，也可以不返回
+	     */
+	    Integer deletePersonById(Integer pId);
+	}
+	```
 
 2. 提供 MyBatis 操作数据库的 Mapper 接口对应的 xml 文件：
 
-   ```xml
-   <?xml version="1.0" encoding="UTF-8" ?>
-   <!DOCTYPE mapper
-           PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-           "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-   
-   <!--namespace 指向对应的 Mapper 接口 -->
-   <mapper namespace="com.wmx.thymeleafapp.mapper.PersonMapper">
-       <select id="findPersonById" resultType="com.wmx.thymeleafapp.pojo.Person">
-           select * from Person where pId = #{pId}
-       </select>
-   
-       <select id="findAllPersons" resultType="person">
-           select * from Person
-       </select>
-   
-       <insert id="addPerson" parameterType="person">
-       	insert into 
-           Person(pName,birthday,salary,summary) 
-           values(#{pName},#{birthday},#{salary},#{summary}
-       </insert>
-   
-       <update id="updatePerson">
-           update Person set 
-           pName=#{pName},birthday=#{birthday},salary=#{salary},summary=#{summary} 
-           where pId=#{pId}
-       </update>
-   
-       <delete id="deletePersonById">
-       	delete from Person where pId = #{pId}
-       </delete>
-   
-   </mapper>
-   ```
+	```xml
+	<?xml version="1.0" encoding="UTF-8" ?>
+	<!DOCTYPE mapper
+	        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<!--namespace 指向对应的 Mapper 接口 -->
+	<mapper namespace="com.wmx.thymeleafapp.mapper.PersonMapper">
+	    <select id="findPersonById" resultType="com.wmx.thymeleafapp.pojo.Person">
+	        select * from Person where pId = #{pId}
+	    </select>
+	
+	    <select id="findAllPersons" resultType="person">
+	        select * from Person
+	    </select>
+	
+	    <insert id="addPerson" parameterType="person">
+	    	insert into 
+	        Person(pName,birthday,salary,summary) 
+	        values(#{pName},#{birthday},#{salary},#{summary}
+	    </insert>
+	
+	    <update id="updatePerson">
+	        update Person set 
+	        pName=#{pName},birthday=#{birthday},salary=#{salary},summary=#{summary} 
+	        where pId=#{pId}
+	    </update>
+	
+	    <delete id="deletePersonById">
+	    	delete from Person where pId = #{pId}
+	    </delete>
+	
+	</mapper>
+	```
 
 3. Spring Boot 全局配置文件指定 mybatis 配置文件路径：
 
-   ```yaml
-   #指定 myBatis 核心配置文件与 Mapper 映射 xml 文件
-   mybatis:
-     config-location: classpath:mybatis/mybatis-config.xml
-     mapper-locations: classpath:mybatis/mapper/*.xml
-   ```
+	```yaml
+	#指定 myBatis 核心配置文件与 Mapper 映射 xml 文件
+	mybatis:
+	  config-location: classpath:mybatis/mybatis-config.xml
+	  mapper-locations: classpath:mybatis/mapper/*.xml
+	```
 
 4. 使用注解版写的控制层测试。
 

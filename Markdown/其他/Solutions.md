@@ -103,11 +103,11 @@ hostname 查看本机名称,
 
 - 若本机名称不是一个 IP 地址，比如是 "Orichalcos"，则必须在 `/etc/hosts` 中配置 "Orichalcos" 对应本机 IP，否则 `java.net.InetAddress.getLocalHost` 会抛出 `java.Net.UnknownHostException`异常。
 
-  > 配置格式为（示例）：
-  >
-  > ```
-  > 本机IP	Orichalcos
-  > ```
+	> 配置格式为（示例）：
+	>
+	> ```
+	> 本机IP	Orichalcos
+	> ```
 
 - 若本机名称是一个 IP 地址，而且必须是本机某块网卡的 IP。
 
@@ -227,23 +227,23 @@ Caused by: com.fasterxml.jackson.core.JsonParseException: Invalid UTF-8 middle b
 
 1. 在 pom.xml 文件标签中添加：
 
-   ```xml
-   <plugin>
-       <groupId>org.apache.maven.plugins</groupId>
-       <artifactId>maven-surefire-plugin</artifactId>
-       <version>2.17</version>
-       <configuration>
-           <testFailureIgnore>true</testFailureIgnore>
-           <argLine>-Dfile.encoding=UTF-8</argLine>
-       </configuration>
-   </plugin>
-   ```
+	```xml
+	<plugin>
+	    <groupId>org.apache.maven.plugins</groupId>
+	    <artifactId>maven-surefire-plugin</artifactId>
+	    <version>2.17</version>
+	    <configuration>
+	        <testFailureIgnore>true</testFailureIgnore>
+	        <argLine>-Dfile.encoding=UTF-8</argLine>
+	    </configuration>
+	</plugin>
+	```
 
 2. 启动命令：
 
-   ```shell
-   java -Dfile.encoding=UTF-8 -jar 项目.jar
-   ```
+	```shell
+	java -Dfile.encoding=UTF-8 -jar 项目.jar
+	```
 
 > 该方法会导致控制台乱码，需要同步调整控制台编码！
 
@@ -716,7 +716,7 @@ public static void main(String[] args) {
 
 
 
- **那有什么解决方法呢？**
+**那有什么解决方法呢？**
 
 解决办法之一就是让 Javascript 把数字当成字符串进行处理，对 Javascript 来说如果不进行运算，数字和字符串处理起来没有什么区别。
 

@@ -77,11 +77,11 @@ all in one 的架构方式，我们把所有的功能单元放在一个应用里
 
 1. 打开 IDEA，点击【新建项目】，选择 【Spring Initializr】，点确认：
 
-   <img src="!assets/SpringBoot/image-20200402181821619.png" alt="image-20200402181821619" style="" />
+	<img src="!assets/SpringBoot/image-20200402181821619.png" alt="image-20200402181821619" style="" />
 
 2. Spring Web 依赖的主要作用是提供 Web 开发场景所需的底层所有依赖，引入后就可以实现 Web 场景开发，而不需要额外导入Tomcat 服务器以及其他 Web 依赖文件等：
 
-   <img src="!assets/SpringBoot/image-20200402181913472.png" alt="image-20200402181913472" style="" />
+	<img src="!assets/SpringBoot/image-20200402181913472.png" alt="image-20200402181913472" style="" />
 
 3. 在 Application.java 同级目录下创建 controller 包，编写 UserController.java：
 
@@ -123,60 +123,60 @@ SpringApplication 类是 Spring Boot 应用程序的入口点。当你调用 `Sp
 
 1. SpringApplication 实例化（Instantiation）
 
-   创建一个 SpringApplication 实例。它会根据 classpath 推断应用类型（例如 SERVLET、REACTIVE）。从 `META-INF/spring.factories` 文件中加载并实例化 `ApplicationContextInitializer` 和 `ApplicationListener`。
+	创建一个 SpringApplication 实例。它会根据 classpath 推断应用类型（例如 SERVLET、REACTIVE）。从 `META-INF/spring.factories` 文件中加载并实例化 `ApplicationContextInitializer` 和 `ApplicationListener`。
 
 2. 启动监听器与广播 `ApplicationStartingEvent`
 
-   激活 `SpringApplicationRunListener`，它负责在整个启动过程中广播事件。
+	激活 `SpringApplicationRunListener`，它负责在整个启动过程中广播事件。
 
-   - 事件：`ApplicationStartingEvent`
+	- 事件：`ApplicationStartingEvent`
 
-   - 时机：这是整个流程中最早的事件，此时除了监听器注册和初始化外，几乎没有进行任何其他处理。
+	- 时机：这是整个流程中最早的事件，此时除了监听器注册和初始化外，几乎没有进行任何其他处理。
 
 3. 准备环境（Environment Preparation）
 
-   创建并配置 `Environment` 对象。该对象聚合了所有配置来源的属性（包括 application.properties、YAML 文件、环境变量、命令行参数等）。
+	创建并配置 `Environment` 对象。该对象聚合了所有配置来源的属性（包括 application.properties、YAML 文件、环境变量、命令行参数等）。
 
-   - 事件：`ApplicationEnvironmentPreparedEvent`
-   - 时机：`Environment` 已准备就绪，但 `ApplicationContext` 尚未创建。
-   - 官方用途：这是在 `ApplicationContext` 创建之前，以编程方式检查或修改 `Environment` 的一个理想时机。
+	- 事件：`ApplicationEnvironmentPreparedEvent`
+	- 时机：`Environment` 已准备就绪，但 `ApplicationContext` 尚未创建。
+	- 官方用途：这是在 `ApplicationContext` 创建之前，以编程方式检查或修改 `Environment` 的一个理想时机。
 
 4. 创建并准备 `ApplicationContext`
 
-   根据应用类型创建相应的 `ApplicationContext` 实例。
+	根据应用类型创建相应的 `ApplicationContext` 实例。
 
-   - 钩子：调用所有已注册的 `ApplicationContextInitializer` 的 `initialize()` 方法。
-   - 事件：`ApplicationPreparedEvent`
-   - 时机：`ApplicationContext` 已创建并准备就绪，Bean 定义已加载，但 Context 尚未刷新（即 Bean 尚未被创建）。
+	- 钩子：调用所有已注册的 `ApplicationContextInitializer` 的 `initialize()` 方法。
+	- 事件：`ApplicationPreparedEvent`
+	- 时机：`ApplicationContext` 已创建并准备就绪，Bean 定义已加载，但 Context 尚未刷新（即 Bean 尚未被创建）。
 
 5. 刷新 `ApplicationContext`（核心）
 
-   这是 Spring 框架的核心功能。容器启动，扫描类路径，创建所有单例 Bean，处理依赖注入（`@Autowired`），并执行 Bean 的生命周期回调（如 `@PostConstruct`）。
+	这是 Spring 框架的核心功能。容器启动，扫描类路径，创建所有单例 Bean，处理依赖注入（`@Autowired`），并执行 Bean 的生命周期回调（如 `@PostConstruct`）。
 
-   - 事件：`ContextRefreshedEvent`（这是 Spring Framework 的标准事件）。
-   - 时机：`ApplicationContext` 已被完全刷新，所有 Bean 都已处理完毕。
+	- 事件：`ContextRefreshedEvent`（这是 Spring Framework 的标准事件）。
+	- 时机：`ApplicationContext` 已被完全刷新，所有 Bean 都已处理完毕。
 
 6. 调用 Runners（Runners Execution）
 
-   在 Context 刷新之后，Spring Boot 会查找所有类型为 `ApplicationRunner` 和 `CommandLineRunner` 的 Bean。
+	在 Context 刷新之后，Spring Boot 会查找所有类型为 `ApplicationRunner` 和 `CommandLineRunner` 的 Bean。
 
-   - 钩子：调用这些 Runner Bean 的 `run()` 方法。
-   - 官方用途：文档明确指出，这是在 SpringApplication.run(） 完成之前需要运行某些特定代码”的最佳位置。非常适合执行应用程序级别的初始化任务。
+	- 钩子：调用这些 Runner Bean 的 `run()` 方法。
+	- 官方用途：文档明确指出，这是在 SpringApplication.run(） 完成之前需要运行某些特定代码”的最佳位置。非常适合执行应用程序级别的初始化任务。
 
 7. 应用就绪（Application Ready）
 
-   此时，`SpringApplication.run()` 方法的生命周期任务基本完成，应用进入运行状态。
+	此时，`SpringApplication.run()` 方法的生命周期任务基本完成，应用进入运行状态。
 
-   - 事件：`ApplicationReadyEvent`
-   - 时机：在所有的 Runner 执行完毕之后。这个事件标志着应用程序已经准备好处理请求。
+	- 事件：`ApplicationReadyEvent`
+	- 时机：在所有的 Runner 执行完毕之后。这个事件标志着应用程序已经准备好处理请求。
 
 8. 启动失败（Startup Failure）
 
-   启动过程中出现任何异常。
+	启动过程中出现任何异常。
 
-   - 事件：`ApplicationFailedEvent`
-   - 时机：应用程序启动失败时。
-   - 官方用途：允许监听器在应用无法正常启动时执行清理或通知逻辑。
+	- 事件：`ApplicationFailedEvent`
+	- 时机：应用程序启动失败时。
+	- 官方用途：允许监听器在应用无法正常启动时执行清理或通知逻辑。
 
 <br>
 
@@ -280,36 +280,36 @@ Spring Boot 支持两种主流的文件格式：properties 和 yml。
 
 - `.yml` / `.yaml`：采用 `key: value` 形式，通过空格缩进来确定层级关系，结构更加清晰、易读。
 
-  > [!NOTE]
-  >
-  > YAML 格式默认不支持使用 `@PropertySource` 注解来导入配置（若需支持，需自定义 PropertySourceFactory）。
+	> [!NOTE]
+	>
+	> YAML 格式默认不支持使用 `@PropertySource` 注解来导入配置（若需支持，需自定义 PropertySourceFactory）。
 
 Spring Boot 涉及两种作用域不同的配置文件：application 和 bootstrap：
 
 - application（应用级别）
 
-  用途：用于当前应用的业务配置，如数据库连接、端口设置、自定义业务参数等。
+	用途：用于当前应用的业务配置，如数据库连接、端口设置、自定义业务参数等。
 
-  加载：Spring Boot 启动时默认会自动加载。
+	加载：Spring Boot 启动时默认会自动加载。
 
 - bootstrap（系统级别）
 
-  用途：主要用于系统级别的参数配置，例如连接 Spring Cloud 配置中心（Nacos/Config）、解密密钥等。
+	用途：主要用于系统级别的参数配置，例如连接 Spring Cloud 配置中心（Nacos/Config）、解密密钥等。
 
-  加载：其加载优先级高于 application 文件，且属性通常不会被 application 文件覆盖。
+	加载：其加载优先级高于 application 文件，且属性通常不会被 application 文件覆盖。
 
-  > [!WARNING]
-  >
-  > - Spring Boot 2.4 以前：默认支持并自动加载 bootstrap 文件。
-  >
-  > - Spring Boot 2.4 及以后：官方默认不再主动加载 bootstrap 文件。如果项目需要使用它（例如连接 Nacos），必须在 `pom.xml` 中手动引入以下依赖：
-  >
-  >   ```xml
-  >   <dependency>
-  >       <groupId>org.springframework.cloud</groupId>
-  >       <artifactId>spring-cloud-starter-bootstrap</artifactId>
-  >   </dependency>
-  >   ```
+	> [!WARNING]
+	>
+	> - Spring Boot 2.4 以前：默认支持并自动加载 bootstrap 文件。
+	>
+	> - Spring Boot 2.4 及以后：官方默认不再主动加载 bootstrap 文件。如果项目需要使用它（例如连接 Nacos），必须在 `pom.xml` 中手动引入以下依赖：
+	>
+	>   ```xml
+	>   <dependency>
+	>       <groupId>org.springframework.cloud</groupId>
+	>       <artifactId>spring-cloud-starter-bootstrap</artifactId>
+	>   </dependency>
+	>   ```
 
 <br>
 
@@ -369,7 +369,7 @@ key: { key1: value1, key2: value2 }
 { key: { key1: 'value1', key2: 'value2' } }
 ```
 
- 还可以使用缩进表示层级关系：
+还可以使用缩进表示层级关系：
 
 ```yaml
 key: 
@@ -577,32 +577,32 @@ test:
 
 1. YAML 配置：
 
-   ```yaml
-   file:
-     upload-path: /tmp/uploads
-     max-size: 10MB
-   ```
+	```yaml
+	file:
+	  upload-path: /tmp/uploads
+	  max-size: 10MB
+	```
 
 2. 在业务服务中直接注入：
 
-   ```java
-   @Component	// 必须是 Spring 容器管理的 Bean 才能使用注入
-   public class FileService {
-   
-    	@Value("${file.upload-path:/default/path}") // 获取路径，冒号后为默认值
-       private String uploadPath;
-   
-       @Value("${file.max-size}")
-       private String maxSize;
-   
-       @Value("#{systemProperties['user.home']}") // 支持 SpEL 表达式获取系统属性
-       private String userHome;
-   
-       public void upload() {
-           System.out.println("文件将上传至: " + uploadPath + "，限制大小: " + maxSize);
-       }
-   }
-   ```
+	```java
+	@Component	// 必须是 Spring 容器管理的 Bean 才能使用注入
+	public class FileService {
+	
+	 	@Value("${file.upload-path:/default/path}") // 获取路径，冒号后为默认值
+	    private String uploadPath;
+	
+	    @Value("${file.max-size}")
+	    private String maxSize;
+	
+	    @Value("#{systemProperties['user.home']}") // 支持 SpEL 表达式获取系统属性
+	    private String userHome;
+	
+	    public void upload() {
+	        System.out.println("文件将上传至: " + uploadPath + "，限制大小: " + maxSize);
+	    }
+	}
+	```
 
 <br>
 
@@ -622,58 +622,58 @@ test:
 
 1. 编写 Properties 类：
 
-   ```java
-   @Data
-   @Component // 将该 Properties 类注册为 Spring 的 Bean
-   @ConfigurationProperties(prefix = "person") // 自动绑定 person 前缀下的所有属性
-   public class PersonProperties {
-       private String name;
-       private Integer age;
-       private Boolean happy;
-       private Date birthday;
-       private Map<String, Object> map;
-       private List<Object> list;
-       private DogProperties dog; // 嵌套另一个 Properties 对象
-   }
-   
-   @Data
-   class DogProperties {
-       private String name;
-       private Integer age;
-   }
-   ```
+	```java
+	@Data
+	@Component // 将该 Properties 类注册为 Spring 的 Bean
+	@ConfigurationProperties(prefix = "person") // 自动绑定 person 前缀下的所有属性
+	public class PersonProperties {
+	    private String name;
+	    private Integer age;
+	    private Boolean happy;
+	    private Date birthday;
+	    private Map<String, Object> map;
+	    private List<Object> list;
+	    private DogProperties dog; // 嵌套另一个 Properties 对象
+	}
+	
+	@Data
+	class DogProperties {
+	    private String name;
+	    private Integer age;
+	}
+	```
 
-   > [!NOTE] 
-   >
-   > Properties 类注意要提供属性对应的 Setter 方法。
+	> [!NOTE] 
+	>
+	> Properties 类注意要提供属性对应的 Setter 方法。
 
-   > [!NOTE]
-   >
-   > 如果加入 `@ConfigurationProperties` 后爆红可以在 `pom.xml` 中加入下面的依赖解决：
-   >
-   > ```xml
-   > <dependency>
-   >     <groupId>org.springframework.boot</groupId>
-   >     <artifactId>spring-boot-configuration-processor</artifactId>
-   >     <optional>true</optional>
-   > </dependency>
-   > ```
+	> [!NOTE]
+	>
+	> 如果加入 `@ConfigurationProperties` 后爆红可以在 `pom.xml` 中加入下面的依赖解决：
+	>
+	> ```xml
+	> <dependency>
+	>     <groupId>org.springframework.boot</groupId>
+	>     <artifactId>spring-boot-configuration-processor</artifactId>
+	>     <optional>true</optional>
+	> </dependency>
+	> ```
 
 2. YAML 配置：
 
-   ```yaml
-   person:
-     name: qinjiang
-     age: 3
-     last-name: qin # 演示松散绑定，自动映射到 lastName 属性
-     happy: false
-     birthday: 2019/11/02
-     map: {k1: v1, k2: v2}
-     list: [code, music, girl]
-     dog:
-       name: 旺财
-       age: 3
-   ```
+	```yaml
+	person:
+	  name: qinjiang
+	  age: 3
+	  last-name: qin # 演示松散绑定，自动映射到 lastName 属性
+	  happy: false
+	  birthday: 2019/11/02
+	  map: {k1: v1, k2: v2}
+	  list: [code, music, girl]
+	  dog:
+	    name: 旺财
+	    age: 3
+	```
 
 <br>
 
@@ -717,23 +717,23 @@ datasource:
 
 1. 创建一个 `oss.properties`：
 
-   ```properties
-   oss.endpoint=http://oss-cn-hangzhou.aliyuncs.com
-   oss.bucket-name=my-bucket
-   ```
+	```properties
+	oss.endpoint=http://oss-cn-hangzhou.aliyuncs.com
+	oss.bucket-name=my-bucket
+	```
 
 2. 在 Properties 类中引用：
 
-   ```java
-   @Component
-   @PropertySource("classpath:oss.properties") // 指定外部文件路径
-   @ConfigurationProperties(prefix = "oss")
-   public class OssConfig {
-       private String endpoint;
-       private String bucketName;
-       // Getters & Setters...
-   }
-   ```
+	```java
+	@Component
+	@PropertySource("classpath:oss.properties") // 指定外部文件路径
+	@ConfigurationProperties(prefix = "oss")
+	public class OssConfig {
+	    private String endpoint;
+	    private String bucketName;
+	    // Getters & Setters...
+	}
+	```
 
 <br>
 
@@ -783,34 +783,34 @@ public class MyConfig {
 
 1. 定义纯属性类（不加 `@Component`）：
 
-   ```java
-   @Data
-   @ConfigurationProperties(prefix = "spring.drools")
-   public class DroolsProperties {
-       private String path;
-       private Long update;
-       private boolean autoUpdate;
-       // ... 其他属性
-   }
-   ```
+	```java
+	@Data
+	@ConfigurationProperties(prefix = "spring.drools")
+	public class DroolsProperties {
+	    private String path;
+	    private Long update;
+	    private boolean autoUpdate;
+	    // ... 其他属性
+	}
+	```
 
 2. 在配置类中启用并使用：
 
-   ```java
-   @Configuration
-   @EnableConfigurationProperties(DroolsProperties.class) // 启用属性绑定
-   public class DroolsConfig {
-       
-       @Bean
-       public KieTemplate kieTemplate(DroolsProperties properties) {
-           KieTemplate template = new KieTemplate();
-           template.setPath(properties.getPath());
-           // 根据配置决定逻辑
-           template.setUpdate(properties.isAutoUpdate() ? properties.getUpdate() : 9999L);
-           return template;
-       }
-   }
-   ```
+	```java
+	@Configuration
+	@EnableConfigurationProperties(DroolsProperties.class) // 启用属性绑定
+	public class DroolsConfig {
+	    
+	    @Bean
+	    public KieTemplate kieTemplate(DroolsProperties properties) {
+	        KieTemplate template = new KieTemplate();
+	        template.setPath(properties.getPath());
+	        // 根据配置决定逻辑
+	        template.setUpdate(properties.isAutoUpdate() ? properties.getUpdate() : 9999L);
+	        return template;
+	    }
+	}
+	```
 
 推荐使用 `@EnableConfigurationProperties` 配合 `@ConfigurationProperties`，因为它可以把属性类从 Spring 管理中解耦，避免把纯粹的属性类变成组件（属性类是 “纯数据承载”，不包含业务逻辑）。
 
@@ -857,99 +857,99 @@ feature:
 
 1. 定义负责承载 YAML 中的属性类：
 
-   ```java
-   @Data
-   @ConfigurationProperties(prefix = "app.es")
-   public class EsProperties {
-       private boolean enabled; // 开关
-       private String indexName; // 索引名
-   }
-   ```
+	```java
+	@Data
+	@ConfigurationProperties(prefix = "app.es")
+	public class EsProperties {
+	    private boolean enabled; // 开关
+	    private String indexName; // 索引名
+	}
+	```
 
 2. 服务接口利用 Java 8 的 `default` 关键字提供默认的 “空操作”：
 
-   ```java
-   public interface EsService {
-       // 默认不干活，子类（真实实现）按需重写
-       default void save(Object data) { }
-       
-       default void delete(Long id) { }
-   
-       // 有返回值的方法可以返回默认值（如空集合）
-       default List<Object> search(String keyword) {
-           return Collections.emptyList();
-       }
-   }
-   ```
+	```java
+	public interface EsService {
+	    // 默认不干活，子类（真实实现）按需重写
+	    default void save(Object data) { }
+	    
+	    default void delete(Long id) { }
+	
+	    // 有返回值的方法可以返回默认值（如空集合）
+	    default List<Object> search(String keyword) {
+	        return Collections.emptyList();
+	    }
+	}
+	```
 
 3. 编写真实业务实现：
 
-   ```java
-   public class EsServiceImpl implements EsService {
-       private final EsProperties properties;
-       private final UserService userService; // 依赖其他 Service
-   
-       // 通过构造函数接收依赖
-       public EsServiceImpl(EsProperties properties, UserService userService) {
-           this.properties = properties;
-           this.userService = userService;
-       }
-   
-       @Override
-       public void save(Object data) {
-           String user = userService.getCurrentUserName();
-           System.out.println("用户[" + user + "]同步数据到索引：" + properties.getIndexName());
-       }
-       
-       // 重写其他需要实现的方法...
-   }
-   ```
+	```java
+	public class EsServiceImpl implements EsService {
+	    private final EsProperties properties;
+	    private final UserService userService; // 依赖其他 Service
+	
+	    // 通过构造函数接收依赖
+	    public EsServiceImpl(EsProperties properties, UserService userService) {
+	        this.properties = properties;
+	        this.userService = userService;
+	    }
+	
+	    @Override
+	    public void save(Object data) {
+	        String user = userService.getCurrentUserName();
+	        System.out.println("用户[" + user + "]同步数据到索引：" + properties.getIndexName());
+	    }
+	    
+	    // 重写其他需要实现的方法...
+	}
+	```
 
 4. 配置类通过 `@ConditionalOnProperty` 决定注入哪种策略：
 
-   ```java
-   @Configuration
-   @EnableConfigurationProperties(EsProperties.class) // 启用并注册属性 Bean
-   public class EsConfig {
-   
-       /**
-        * 当配置为开启时，注入真实的业务实现
-        */
-       @Bean
-       @ConditionalOnProperty(name = "app.es.enabled", havingValue = "true")
-       public EsService esService(EsProperties properties, UserService userService) {
-           return new EsServiceImpl(properties, userService);
-       }
-   
-       /**
-        * 当配置为关闭或缺失时，注入空对象实现
-        */
-       @Bean
-       @ConditionalOnProperty(name = "app.es.enabled", havingValue = "false", matchIfMissing = true)
-       public EsService esNoOpService() {
-           // 利用接口 default 特性，只需一行代码即可返回一个“不干活”的实现实例
-           return new EsService() {}; 
-       }
-   }
-   ```
+	```java
+	@Configuration
+	@EnableConfigurationProperties(EsProperties.class) // 启用并注册属性 Bean
+	public class EsConfig {
+	
+	    /**
+	     * 当配置为开启时，注入真实的业务实现
+	     */
+	    @Bean
+	    @ConditionalOnProperty(name = "app.es.enabled", havingValue = "true")
+	    public EsService esService(EsProperties properties, UserService userService) {
+	        return new EsServiceImpl(properties, userService);
+	    }
+	
+	    /**
+	     * 当配置为关闭或缺失时，注入空对象实现
+	     */
+	    @Bean
+	    @ConditionalOnProperty(name = "app.es.enabled", havingValue = "false", matchIfMissing = true)
+	    public EsService esNoOpService() {
+	        // 利用接口 default 特性，只需一行代码即可返回一个“不干活”的实现实例
+	        return new EsService() {}; 
+	    }
+	}
+	```
 
 5. 业务类不需要关心 EsService 的真假，直接使用：
 
-   ```java
-   @Service
-   public class BusinessService {
-       @Autowired
-       private EsService esService;
-   
-       public void process() {
-           // 业务逻辑...
-           
-           // 直接调用，无需 if(enabled) 判空。
-           // 配置关闭时，此行代码执行“默认空逻辑”，不会产生异常。
-           esService.save(new Object()); 
-       }
-   }
-   ```
+	```java
+	@Service
+	public class BusinessService {
+	    @Autowired
+	    private EsService esService;
+	
+	    public void process() {
+	        // 业务逻辑...
+	        
+	        // 直接调用，无需 if(enabled) 判空。
+	        // 配置关闭时，此行代码执行“默认空逻辑”，不会产生异常。
+	        esService.save(new Object()); 
+	    }
+	}
+	```
 
 <br>
 
@@ -961,62 +961,62 @@ feature:
 
 1. 定义配置属性类：
 
-   ```java
-   @Data
-   @ConfigurationProperties(prefix = "app.sig")
-   public class SigProperties {
-       private boolean enabled;
-       private String secretKey;
-   }
-   ```
+	```java
+	@Data
+	@ConfigurationProperties(prefix = "app.sig")
+	public class SigProperties {
+	    private boolean enabled;
+	    private String secretKey;
+	}
+	```
 
 2. 定义可选的服务 Bean：
 
-   ```java
-   @Component
-   // 只有开启时，容器中才会存在这个 SignatureService 实例
-   @ConditionalOnProperty(name = "app.sig.enabled", havingValue = "true")
-   @ConfigurationProperties(prefix = "app.sig")
-   public class SignatureService {
-       private String secretKey;
-   
-       public boolean verify(String sign) {
-           return secretKey != null && secretKey.equals(sign);
-       }
-   }
-   ```
+	```java
+	@Component
+	// 只有开启时，容器中才会存在这个 SignatureService 实例
+	@ConditionalOnProperty(name = "app.sig.enabled", havingValue = "true")
+	@ConfigurationProperties(prefix = "app.sig")
+	public class SignatureService {
+	    private String secretKey;
+	
+	    public boolean verify(String sign) {
+	        return secretKey != null && secretKey.equals(sign);
+	    }
+	}
+	```
 
 3. 利用 ObjectProvider 来探测 SignatureService 是否存在，从而决定是否挂载 Web 拦截器：
 
-   ```java
-   @Configuration
-   public class WebConfig implements WebMvcConfigurer {
-   
-       // ObjectProvider 允许 SignatureService 不存在而不报错
-       private final ObjectProvider<SignatureService> sigProvider;
-   
-       public WebConfig(ObjectProvider<SignatureService> sigProvider) {
-           this.sigProvider = sigProvider;
-       }
-   
-       @Override
-       public void addInterceptors(InterceptorRegistry registry) {
-           // 尝试从容器中获取 Bean
-           // 如果 app.sig.enabled=false，此处 service 为 null
-           SignatureService service = sigProvider.getIfAvailable();
-   
-           if (service != null) {
-               // 只有当服务存在时，才真正创建并挂载拦截器
-               // 这种方式避免了“空拦截器”在每一行请求中白白浪费 CPU 栈调用
-               registry.addInterceptor(new MySignatureInterceptor(service))
-                       .addPathPatterns("/api/**");
-               System.out.println(">> 系统集成：签名校验拦截器已挂载。");
-           } else {
-               System.out.println(">> 系统集成：签名校验功能未开启，跳过拦截器挂载。");
-           }
-       }
-   }
-   ```
+	```java
+	@Configuration
+	public class WebConfig implements WebMvcConfigurer {
+	
+	    // ObjectProvider 允许 SignatureService 不存在而不报错
+	    private final ObjectProvider<SignatureService> sigProvider;
+	
+	    public WebConfig(ObjectProvider<SignatureService> sigProvider) {
+	        this.sigProvider = sigProvider;
+	    }
+	
+	    @Override
+	    public void addInterceptors(InterceptorRegistry registry) {
+	        // 尝试从容器中获取 Bean
+	        // 如果 app.sig.enabled=false，此处 service 为 null
+	        SignatureService service = sigProvider.getIfAvailable();
+	
+	        if (service != null) {
+	            // 只有当服务存在时，才真正创建并挂载拦截器
+	            // 这种方式避免了“空拦截器”在每一行请求中白白浪费 CPU 栈调用
+	            registry.addInterceptor(new MySignatureInterceptor(service))
+	                    .addPathPatterns("/api/**");
+	            System.out.println(">> 系统集成：签名校验拦截器已挂载。");
+	        } else {
+	            System.out.println(">> 系统集成：签名校验功能未开启，跳过拦截器挂载。");
+	        }
+	    }
+	}
+	```
 
    
 
@@ -1388,84 +1388,84 @@ spring.profiles.active=@profile.active@
 
 1. 自己 pom 文件中的 `<parent>` 标签：
 
-   ```xml
-   <parent>
-       <groupId>org.springframework.boot</groupId>
-       <artifactId>spring-boot-starter-parent</artifactId>
-       <version>2.0.3.RELEASE</version>
-   </parent>
-   ```
+	```xml
+	<parent>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-parent</artifactId>
+	    <version>2.0.3.RELEASE</version>
+	</parent>
+	```
 
 2. 点击 `<version>` 标签中的 `2.0.3.RELEASE` 后，进入 `spring-boot-starter-parent-2.0.3.RELEASE.pom` 文件。在该 pom 文件中，`<properties>` 定义了占位符为 `@`，如下：
 
-   ```xml
-   <properties>
-       <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-       <java.version>1.8</java.version>
-       <resource.delimiter>@</resource.delimiter>
-       <maven.compiler.source>${java.version}</maven.compiler.source>
-       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-       <maven.compiler.target>${java.version}</maven.compiler.target>
-   </properties>
-   ```
+	```xml
+	<properties>
+	    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	    <java.version>1.8</java.version>
+	    <resource.delimiter>@</resource.delimiter>
+	    <maven.compiler.source>${java.version}</maven.compiler.source>
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	    <maven.compiler.target>${java.version}</maven.compiler.target>
+	</properties>
+	```
 
-   同时，`<plugin>` 还配置了 `maven-resources-plugin` 插件，该插件禁用了默认的占位符，替换为前面定义的 `@`。如下：
+	同时，`<plugin>` 还配置了 `maven-resources-plugin` 插件，该插件禁用了默认的占位符，替换为前面定义的 `@`。如下：
 
-   ```xml
-   <plugin>
-       <artifactId>maven-resources-plugin</artifactId>
-       <configuration>
-           <delimiters>
-               <!-- 声明自己的占位符 -->
-               <delimiter>${resource.delimiter}</delimiter>
-           </delimiters>
-           <!-- 禁用默认占位符 -->
-           <useDefaultDelimiters>false</useDefaultDelimiters>
-       </configuration>
-   </plugin>
-   ```
+	```xml
+	<plugin>
+	    <artifactId>maven-resources-plugin</artifactId>
+	    <configuration>
+	        <delimiters>
+	            <!-- 声明自己的占位符 -->
+	            <delimiter>${resource.delimiter}</delimiter>
+	        </delimiters>
+	        <!-- 禁用默认占位符 -->
+	        <useDefaultDelimiters>false</useDefaultDelimiters>
+	    </configuration>
+	</plugin>
+	```
 
-   但是这个只有继承了 `spring-boot-starter-parent` 的 Spring Boot 项目才会使用 `@@` 占位符，否则 Spring Boot 配置文件中的默认占位符 `${}` 可能会与 Maven 的默认占位符 `${}` 冲突。
+	但是这个只有继承了 `spring-boot-starter-parent` 的 Spring Boot 项目才会使用 `@@` 占位符，否则 Spring Boot 配置文件中的默认占位符 `${}` 可能会与 Maven 的默认占位符 `${}` 冲突。
 
-   我们可以自己使用 `maven-resources-plugin` 插件将 Spring Boot 配置文件中的 Maven 占位符改为 `@@`（相当于手动加上 `spring-boot-starter-parent` 的相关配置）：
+	我们可以自己使用 `maven-resources-plugin` 插件将 Spring Boot 配置文件中的 Maven 占位符改为 `@@`（相当于手动加上 `spring-boot-starter-parent` 的相关配置）：
 
-   ```xml
-   <build>
-       <plugins>
-           <plugin>
-               <groupId>org.apache.maven.plugins</groupId>
-               <artifactId>maven-resources-plugin</artifactId>
-               <configuration>
-                   <delimiters>
-                       <!--将maven占位符替换为 @ @ -->
-                       <delimiter>@</delimiter>
-                   </delimiters>
-                   <!--不使用默认的变量分割符即${}-->
-                   <useDefaultDelimiters>false</useDefaultDelimiters>
-               </configuration>
-           </plugin>
-       </plugins>
-   </build>
-   ```
+	```xml
+	<build>
+	    <plugins>
+	        <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-resources-plugin</artifactId>
+	            <configuration>
+	                <delimiters>
+	                    <!--将maven占位符替换为 @ @ -->
+	                    <delimiter>@</delimiter>
+	                </delimiters>
+	                <!--不使用默认的变量分割符即${}-->
+	                <useDefaultDelimiters>false</useDefaultDelimiters>
+	            </configuration>
+	        </plugin>
+	    </plugins>
+	</build>
+	```
 
 3. 最后，`resource` 配置启用资源文件的变量替换：
 
-   ```xml
-    <resources>
-        <resource>
-            <!-- 资源根目录 -->
-            <directory>src/main/resources</directory>
-            <!-- maven会解析并替换其中的占位符 -->
-            <filtering>true</filtering>
-            <!-- 只处理哪些文件（包含） -->
-            <includes>
-                <include>**/application*.yml</include>
-                <include>**/application*.yaml</include>
-                <include>**/application*.properties</include>
-            </includes>
-        </resource>
-   </resources>
-   ```
+	```xml
+	 <resources>
+	     <resource>
+	         <!-- 资源根目录 -->
+	         <directory>src/main/resources</directory>
+	         <!-- maven会解析并替换其中的占位符 -->
+	         <filtering>true</filtering>
+	         <!-- 只处理哪些文件（包含） -->
+	         <includes>
+	             <include>**/application*.yml</include>
+	             <include>**/application*.yaml</include>
+	             <include>**/application*.properties</include>
+	         </includes>
+	     </resource>
+	</resources>
+	```
 
 <br>
 
@@ -1598,32 +1598,32 @@ Maven 中的 `profile` 的激活条件还可以根据 JDK、操作系统、文�
 
 1. 创建环境专属配置：
 
-   ```
-   /resources/
-     ├── application.yml          # 公共配置
-     ├── application-dev.yml      # 开发环境
-     ├── application-test.yml     # 测试环境
-     └── application-prod.yml     # 生产环境
-   ```
+	```
+	/resources/
+	  ├── application.yml          # 公共配置
+	  ├── application-dev.yml      # 开发环境
+	  ├── application-test.yml     # 测试环境
+	  └── application-prod.yml     # 生产环境
+	```
 
 2. 在 `application.yml` 中设置默认 Profile：
 
-   ```yaml
-   spring:
-     profiles:
-       active: dev  # 默认开发环境
-   ```
+	```yaml
+	spring:
+	  profiles:
+	    active: dev  # 默认开发环境
+	```
 
 3. 打包后通过命令行或环境变量覆盖：
 
-   ```shell
-   java -jar app.jar --spring.profiles.active=prod
-   ```
+	```shell
+	java -jar app.jar --spring.profiles.active=prod
+	```
 
 4. 优先级规则：
 
-   - 后加载的配置会覆盖先加载的（`prod` > `default`）。
-   - 同名属性以激活的 Profile 文件为准。
+	- 后加载的配置会覆盖先加载的（`prod` > `default`）。
+	- 同名属性以激活的 Profile 文件为准。
 
 <br>
 
@@ -1633,28 +1633,28 @@ Maven 中的 `profile` 的激活条件还可以根据 JDK、操作系统、文�
 
 1. 将配置文件放在容器或服务器的固定目录：
 
-   ```
-   /etc/app/
-     ├── application.yml
-     └── application-prod.yml
-   ```
+	```
+	/etc/app/
+	  ├── application.yml
+	  └── application-prod.yml
+	```
 
 2. 启动时指定路径：
 
-   ```shell
-   java -jar app.jar --spring.config.location=file:/etc/app/
-   ```
+	```shell
+	java -jar app.jar --spring.config.location=file:/etc/app/
+	```
 
-   支持多个路径（用逗号分隔）：
+	支持多个路径（用逗号分隔）：
 
-   ```shell
-   java -jar app.jar --spring.config.location=file:/etc/app/,file:/home/config/
-   ```
+	```shell
+	java -jar app.jar --spring.config.location=file:/etc/app/,file:/home/config/
+	```
 
-   也可以直接指定配置文件：
-   ```shell
-   java -jar app.jar --spring.config.location=file:/app/application.properties,file:/app/application-prod.properties
-   ```
+	也可以直接指定配置文件：
+	```shell
+	java -jar app.jar --spring.config.location=file:/app/application.properties,file:/app/application-prod.properties
+	```
 
 <br>
 
@@ -2005,76 +2005,76 @@ public void checkPersonManually() {
 
 1. 实现校验器 `UserExistsValidator`，实现 `ConstraintValidator` 接口，并直接通过构造函数或字段注入 UserRepository：
 
-   ```java
-   import org.springframework.beans.factory.annotation.Autowired;
-   import javax.validation.ConstraintValidator;
-   import javax.validation.ConstraintValidatorContext;
-   
-   // 注意：这个类本身不需要 @Component 注解，Spring 会自动管理它
-   public class UserExistsValidator implements ConstraintValidator<UserExists, String> {
-   
-       private final UserRepository userRepository;
-   
-       // 推荐使用构造函数注入，更清晰地表达了依赖关系
-       @Autowired
-       public UserExistsValidator(UserRepository userRepository) {
-           this.userRepository = userRepository;
-       }
-   
-       /**
-        * 校验逻辑
-        * @param username DTO 中需要被校验的字段值
-        * @param context 校验上下文
-        * @return 如果校验通过则返回 true，否则返回 false
-        */
-       @Override
-       public boolean isValid(String username, ConstraintValidatorContext context) {
-           // 	如果传入的 username 为 null 或为空，不在这里处理。对于非空检查，应该组合使用 @NotNull 或 @NotBlank 注解。
-           if (username == null || username.trim().isEmpty()) {
-               return true;
-           }
-   
-           // 查询数据库，判断用户是否存在
-           return userRepository.existsByUsername(username);
-       }
-   }
-   ```
+	```java
+	import org.springframework.beans.factory.annotation.Autowired;
+	import javax.validation.ConstraintValidator;
+	import javax.validation.ConstraintValidatorContext;
+	
+	// 注意：这个类本身不需要 @Component 注解，Spring 会自动管理它
+	public class UserExistsValidator implements ConstraintValidator<UserExists, String> {
+	
+	    private final UserRepository userRepository;
+	
+	    // 推荐使用构造函数注入，更清晰地表达了依赖关系
+	    @Autowired
+	    public UserExistsValidator(UserRepository userRepository) {
+	        this.userRepository = userRepository;
+	    }
+	
+	    /**
+	     * 校验逻辑
+	     * @param username DTO 中需要被校验的字段值
+	     * @param context 校验上下文
+	     * @return 如果校验通过则返回 true，否则返回 false
+	     */
+	    @Override
+	    public boolean isValid(String username, ConstraintValidatorContext context) {
+	        // 	如果传入的 username 为 null 或为空，不在这里处理。对于非空检查，应该组合使用 @NotNull 或 @NotBlank 注解。
+	        if (username == null || username.trim().isEmpty()) {
+	            return true;
+	        }
+	
+	        // 查询数据库，判断用户是否存在
+	        return userRepository.existsByUsername(username);
+	    }
+	}
+	```
 
 2. 创建自定义注解 `@UserExists`，这个注解将用于标记一个字段，表示该字段的值（用户名）必须在用户表中存在。自定义注解需要使用 `@Constraint` 来指定其验证器：
 
-   ```java
-   @Target({FIELD, METHOD, PARAMETER}) // 可用于字段、方法、参数
-   @Retention(RUNTIME)
-   @Documented
-   @Constraint(validatedBy = UserExistsValidator.class) // 指定处理该注解的校验器
-   public @interface UserExists {
-   
-       String message() default "指定的用户不存在";
-   
-       Class<?>[] groups() default {};
-   
-       Class<? extends Payload>[] payload() default {};
-   }
-   ```
+	```java
+	@Target({FIELD, METHOD, PARAMETER}) // 可用于字段、方法、参数
+	@Retention(RUNTIME)
+	@Documented
+	@Constraint(validatedBy = UserExistsValidator.class) // 指定处理该注解的校验器
+	public @interface UserExists {
+	
+	    String message() default "指定的用户不存在";
+	
+	    Class<?>[] groups() default {};
+	
+	    Class<? extends Payload>[] payload() default {};
+	}
+	```
 
 3. 在 DTO 中使用注解：
 
-   ```java
-   @Data
-   public class CreateOrderRequest {
-   
-       @NotBlank(message = "订单号不能为空")
-       private String orderId;
-   
-       @NotBlank(message = "必须指定用户名")
-       @UserExists // 使用我们的自定义注解
-       private String username;
-   
-       // ... 其他订单相关字段
-   }
-   ```
+	```java
+	@Data
+	public class CreateOrderRequest {
+	
+	    @NotBlank(message = "订单号不能为空")
+	    private String orderId;
+	
+	    @NotBlank(message = "必须指定用户名")
+	    @UserExists // 使用我们的自定义注解
+	    private String username;
+	
+	    // ... 其他订单相关字段
+	}
+	```
 
-   当 `CreateOrderRequest` 在 Controller 中作为 `@RequestBody` 被校验时，如果传入的 username 在数据库中不存在，`UserExistsValidator` 的 `isValid()` 方法会返回 `false`，从而触发一个 `MethodArgumentNotValidException`，并附带我们在注解中定义的错误消息：“指定的用户不存在”。
+	当 `CreateOrderRequest` 在 Controller 中作为 `@RequestBody` 被校验时，如果传入的 username 在数据库中不存在，`UserExistsValidator` 的 `isValid()` 方法会返回 `false`，从而触发一个 `MethodArgumentNotValidException`，并附带我们在注解中定义的错误消息：“指定的用户不存在”。
 
 <br>
 
@@ -2304,111 +2304,111 @@ Spring Boot 提供了内置的 Tomcat、Undertow、Jetty 三种 Servlet Web 容�
 
 <br>
 
- Spring Boot War 部署步骤：
+Spring Boot War 部署步骤：
 
 1. 修改打包方式为 War。
 
-   修改 Spring Boot 项目的 `pom.xml` 文件将打包方式修改为 `war` 。
+	修改 Spring Boot 项目的 `pom.xml` 文件将打包方式修改为 `war` 。
 
-   默认打 `jar` 包：
+	默认打 `jar` 包：
 
-   ```xml
-   <packaging>jar</packaging>
-   ```
+	```xml
+	<packaging>jar</packaging>
+	```
 
-   改为打 `war` 包：
+	改为打 `war` 包：
 
-   ```xml
-   <packaging>war</packaging>
-   ```
+	```xml
+	<packaging>war</packaging>
+	```
 
 2. 排除内嵌的 Web 容器。
 
-   默认使用内嵌 Tomcat Web 容器。如果此前使用了内嵌的 Jetty、Undertow ，请务必清除相关的 Starter 依赖。然后我们可以使用两种方式来处理：
+	默认使用内嵌 Tomcat Web 容器。如果此前使用了内嵌的 Jetty、Undertow ，请务必清除相关的 Starter 依赖。然后我们可以使用两种方式来处理：
 
-   - 方法一
+	- 方法一
 
-     Spring Boot 内嵌的 Tomcat 默认已经集成在 `spring-boot-starter-web` 包里，所以要排除掉它。
+		Spring Boot 内嵌的 Tomcat 默认已经集成在 `spring-boot-starter-web` 包里，所以要排除掉它。
 
-     ```xml
-     <dependency>
-         <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-web</artifactId>
-         <exclusions>
-             <exclusion>
-                 <groupId>org.springframework.boot</groupId>
-                 <artifactId>spring-boot-starter-tomcat</artifactId>
-             </exclusion>
-         </exclusions>
-     </dependency>
-     ```
+		```xml
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-web</artifactId>
+		    <exclusions>
+		        <exclusion>
+		            <groupId>org.springframework.boot</groupId>
+		            <artifactId>spring-boot-starter-tomcat</artifactId>
+		        </exclusion>
+		    </exclusions>
+		</dependency>
+		```
 
-     此方式我们把 Servlet Api 依赖也排除掉了，`SpringBootServletInitializer` 需要依赖 Servlet Api ，因此要加上它（务必注意  versionNumber 版本要跟外置的 Tomcat 版本兼容）。
+		此方式我们把 Servlet Api 依赖也排除掉了，`SpringBootServletInitializer` 需要依赖 Servlet Api ，因此要加上它（务必注意  versionNumber 版本要跟外置的 Tomcat 版本兼容）。
 
-     ```xml
-     <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>javax.servlet-api</artifactId>
-          <version>${versionNumber}</version>
-          <scope>provided</scope>
-     </dependency>
-     ```
+		```xml
+		<dependency>
+		     <groupId>javax.servlet</groupId>
+		     <artifactId>javax.servlet-api</artifactId>
+		     <version>${versionNumber}</version>
+		     <scope>provided</scope>
+		</dependency>
+		```
 
-   - 方法二
+	- 方法二
 
-     通过引入 `spring-boot-starter-tomcat` 覆盖掉默认的内置 Tomcat 并设置作用范围（scope）为 `provided`(编译、测试)。
+		通过引入 `spring-boot-starter-tomcat` 覆盖掉默认的内置 Tomcat 并设置作用范围（scope）为 `provided`(编译、测试)。
 
-     ```xml
-     <dependency>
-         <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-tomcat</artifactId>
-         <scope>provided</scope>
-     </dependency>                      
-     ```
+		```xml
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-tomcat</artifactId>
+		    <scope>provided</scope>
+		</dependency>                      
+		```
 
 3. 添加 War 包打包插件。
 
-   如果用的是继承 `spring-boot-starter-parent` 的形式使用 Spring Boot，那可以跳过，因为它已经帮你配置好了。如果使用的依赖 `spring-boot-dependencies` 形式，你需要添加以下插件：
+	如果用的是继承 `spring-boot-starter-parent` 的形式使用 Spring Boot，那可以跳过，因为它已经帮你配置好了。如果使用的依赖 `spring-boot-dependencies` 形式，你需要添加以下插件：
 
-   ```xml
-   <plugin>
-       <groupId>org.apache.maven.plugins</groupId>
-       <artifactId>maven-war-plugin</artifactId>
-       <configuration>
-           <failOnMissingWebXml>false</failOnMissingWebXml>
-       </configuration>
-   </plugin>
-   ```
+	```xml
+	<plugin>
+	    <groupId>org.apache.maven.plugins</groupId>
+	    <artifactId>maven-war-plugin</artifactId>
+	    <configuration>
+	        <failOnMissingWebXml>false</failOnMissingWebXml>
+	    </configuration>
+	</plugin>
+	```
 
 4. 实现 SpringBootServletInitializer 接口。
 
-   启动类继承 `SpringBootServletInitializer` 类，并覆盖 `configure`。
+	启动类继承 `SpringBootServletInitializer` 类，并覆盖 `configure`。
 
-   ```java
-   @SpringBootApplication
-   public class Application extends SpringBootServletInitializer {
-   
-       @Override
-       protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-           return application.sources(Application.class);
-       }
-   
-       public static void main(String[] args) throws Exception {
-           SpringApplication.run(Application.class, args);
-       }
-   
-   }
-   ```
+	```java
+	@SpringBootApplication
+	public class Application extends SpringBootServletInitializer {
+	
+	    @Override
+	    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+	        return application.sources(Application.class);
+	    }
+	
+	    public static void main(String[] args) throws Exception {
+	        SpringApplication.run(Application.class, args);
+	    }
+	
+	}
+	```
 
 5. 打包。
 
-   打 War 包方式和打 Jar 包方式一样，没有区别。
+	打 War 包方式和打 Jar 包方式一样，没有区别。
 
-   - 在 Maven 中使用 `mvn clean package` 命令即可打包。
+	- 在 Maven 中使用 `mvn clean package` 命令即可打包。
 
-   - 在 Idea 中可以这样设置打包：
+	- 在 Idea 中可以这样设置打包：
 
-     <img src="!assets/SpringBoot/image-20230626153638578.png" alt="image-20230626153638578" style="" />
+		<img src="!assets/SpringBoot/image-20230626153638578.png" alt="image-20230626153638578" style="" />
 
 <br>
 
@@ -2421,14 +2421,14 @@ jar <options> <jar-file> [input-files]
 ```
 
 - `<options>`：操作选项，必须放在最前。
-  - `c`：创建新的归档文件（create）。
-  - `u`：更新已有的归档文件（update）。
-  - `x`：解压文件（extract）。
-  - `t`：列出归档文件的内容（list）。
-  - `f`：后面跟归档文件名（file）。
-  - `v`：显示详细信息（verbose）。
-  - `m`：指定 manifest 文件（仅用于创建）。
-  - `-C`：先切换到指定目录，再执行后续操作（这个选项不影响命令运行的当前目录，而是用于操作文件的相对路径）。
+	- `c`：创建新的归档文件（create）。
+	- `u`：更新已有的归档文件（update）。
+	- `x`：解压文件（extract）。
+	- `t`：列出归档文件的内容（list）。
+	- `f`：后面跟归档文件名（file）。
+	- `v`：显示详细信息（verbose）。
+	- `m`：指定 manifest 文件（仅用于创建）。
+	- `-C`：先切换到指定目录，再执行后续操作（这个选项不影响命令运行的当前目录，而是用于操作文件的相对路径）。
 - `<jar-file>`：目标 jar/war 文件名。
 - `[input-files]`：要操作的文件或目录。
 
@@ -2438,37 +2438,37 @@ jar <options> <jar-file> [input-files]
 
 1. 列出 war 中的内容：
 
-   ```shell
-   jar -tvf jenkins.war
-   ```
+	```shell
+	jar -tvf jenkins.war
+	```
 
-   如果需要过滤的话：
+	如果需要过滤的话：
 
-   ```shell
-   jar -tvf jenkins.war | grep combobox-readme
-   ```
+	```shell
+	jar -tvf jenkins.war | grep combobox-readme
+	```
 
-   会得到类似这样的输出：
+	会得到类似这样的输出：
 
-   ```
-   1392 Wed Jul 28 14:13:10 CST 2021 scripts/combobox-readme.txt
-   ```
+	```
+	1392 Wed Jul 28 14:13:10 CST 2021 scripts/combobox-readme.txt
+	```
 
 2. 提取某个 war 包中的文件：
 
-   ```shell
-   jar -xvf jenkins.war scripts/combobox-readme.txt
-   ```
+	```shell
+	jar -xvf jenkins.war scripts/combobox-readme.txt
+	```
 
 3. 更新 war 中的某个文件：
 
-   ```shell
-   jar -uvf jenkins.war scripts/combobox-readme.txt
-   ```
+	```shell
+	jar -uvf jenkins.war scripts/combobox-readme.txt
+	```
 
-   > [!NOTE]
-   >
-   > 往 war 包中新增文件也是使用这个参数。
+	> [!NOTE]
+	>
+	> 往 war 包中新增文件也是使用这个参数。
 
 <br>
 
@@ -2511,38 +2511,38 @@ java -jar your-project-name.jar
 
 1. 在 pom.xml 文件中指定编码：
 
-   ```xml
-   <plugin>
-       <groupId>org.apache.maven.plugins</groupId>
-       <artifactId>maven-compiler-plugin</artifactId>
-       <configuration>
-           <source>1.8</source>
-           <target>1.8</target>
-           <encoding>UTF-8</encoding>
-       </configuration>
-   </plugin>
-   ```
+	```xml
+	<plugin>
+	    <groupId>org.apache.maven.plugins</groupId>
+	    <artifactId>maven-compiler-plugin</artifactId>
+	    <configuration>
+	        <source>1.8</source>
+	        <target>1.8</target>
+	        <encoding>UTF-8</encoding>
+	    </configuration>
+	</plugin>
+	```
 
 2. 在 IDE 中设置项目的编码格式（这里使用的IDEA）：
 
-   <img src="!assets/SpringBoot/QQ_1720978751626.png" alt="QQ_1720978751626" style="zoom: 50%;" />
+	<img src="!assets/SpringBoot/QQ_1720978751626.png" alt="QQ_1720978751626" style="zoom: 50%;" />
 
 3. 运行 jar 时指定文件编码：
 
-   ```shell
-   java -Dfile.encoding=utf-8 -jar your-project-name.jar
-   ```
+	```shell
+	java -Dfile.encoding=utf-8 -jar your-project-name.jar
+	```
 
 4. Windows cmd 中默认显示的编码是 GBK，此时控制台打印的中文会乱码，切换下就好了：
 
-   - 切换 UTF-8：`chcp 65001`。
-   - 切换 GBK：`chcp 936`。
+	- 切换 UTF-8：`chcp 65001`。
+	- 切换 GBK：`chcp 936`。
 
-   如果使用的是 Powershell，则执行以下命令可切换到 UTF-8：
+	如果使用的是 Powershell，则执行以下命令可切换到 UTF-8：
 
-   ```shell
-   $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding
-   ```
+	```shell
+	$OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding
+	```
 
 <br>
 
@@ -2552,70 +2552,70 @@ java -jar your-project-name.jar
 
 1. 在东方通官网申请嵌入版试用，我这里拿到的是 TongWeb8.0.E.3_P2，解压后打开 “安装工程介质” 文件夹：
 
-   <img src="!assets/SpringBoot/image-20250521170928704.png" alt="image-20250521170928704" style="zoom:50%;" />
+	<img src="!assets/SpringBoot/image-20250521170928704.png" alt="image-20250521170928704" style="zoom:50%;" />
 
-   > [!WARNING]
-   >
-   > 运行批处理文件之前，先确保本地已配置好 Maven 环境变量。
+	> [!WARNING]
+	>
+	> 运行批处理文件之前，先确保本地已配置好 Maven 环境变量。
 
-   直接双击运行 installAll-8.0.E.3_P2.bat  批处理文件，开始在本地 Maven 仓库安装相关依赖。
+	直接双击运行 installAll-8.0.E.3_P2.bat  批处理文件，开始在本地 Maven 仓库安装相关依赖。
 
 2. 修改 pom.xml：
 
-   ```xml
-   <!--  添加tongweb-spring-boot-starter依赖 -->
-   <dependency>
-       <groupId>com.tongweb.springboot</groupId>
-       <artifactId>tongweb-spring-boot-starter-2.x</artifactId>
-       <version>8.0.E.3_P2</version>
-   </dependency>
-   <!--  排除springboot自带的tomcat依赖 -->
-   <dependency>
-       <groupId>org.springframework.boot</groupId>
-       <artifactId>spring-boot-starter-web</artifactId>
-       <exclusions>
-           <exclusion>
-               <groupId>org.springframework.boot</groupId>
-               <artifactId>spring-boot-starter-tomcat</artifactId>
-           </exclusion>
-       </exclusions>
-   </dependency>
-   ```
+	```xml
+	<!--  添加tongweb-spring-boot-starter依赖 -->
+	<dependency>
+	    <groupId>com.tongweb.springboot</groupId>
+	    <artifactId>tongweb-spring-boot-starter-2.x</artifactId>
+	    <version>8.0.E.3_P2</version>
+	</dependency>
+	<!--  排除springboot自带的tomcat依赖 -->
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-web</artifactId>
+	    <exclusions>
+	        <exclusion>
+	            <groupId>org.springframework.boot</groupId>
+	            <artifactId>spring-boot-starter-tomcat</artifactId>
+	        </exclusion>
+	    </exclusions>
+	</dependency>
+	```
 
-   > [!NOTE]
-   >
-   > `-2.x` 是和 Spring Boot 的大版本对应：
-   >
-   > - Spring Boot 版本为 1.x 那么使用 `tongweb-spring-boot-starter-1.x`。
-   > - Spring Boot 版本为 2.x 那么使用 `tongweb-spring-boot-starter-2.x`。
-   > - Spring Boot 版本为 3.x 那么使用 `tongweb-spring-boot-starter-3.x`。
+	> [!NOTE]
+	>
+	> `-2.x` 是和 Spring Boot 的大版本对应：
+	>
+	> - Spring Boot 版本为 1.x 那么使用 `tongweb-spring-boot-starter-1.x`。
+	> - Spring Boot 版本为 2.x 那么使用 `tongweb-spring-boot-starter-2.x`。
+	> - Spring Boot 版本为 3.x 那么使用 `tongweb-spring-boot-starter-3.x`。
 
-   如果需要  TongWeb 容器集成其他的功能，需要添加额外的依赖如：
+	如果需要  TongWeb 容器集成其他的功能，需要添加额外的依赖如：
 
-   | 功能                          | 依赖                                  |
-   | ----------------------------- | ------------------------------------- |
-   | 集成 JDBC                     | tongweb-spring-boot-data-jdbc-starter |
-   | 集成 Websocket                | tongweb-spring-boot-websocket         |
-   | 集成 gmssl 安全通信库（国密） | tongweb-gmssl                         |
-   | JSP 支持                      | tongweb-jsp                           |
+	| 功能                          | 依赖                                  |
+	| ----------------------------- | ------------------------------------- |
+	| 集成 JDBC                     | tongweb-spring-boot-data-jdbc-starter |
+	| 集成 Websocket                | tongweb-spring-boot-websocket         |
+	| 集成 gmssl 安全通信库（国密） | tongweb-gmssl                         |
+	| JSP 支持                      | tongweb-jsp                           |
 
 3. 配置 application.yml：
 
-   ```yaml
-   server:
-     tongweb:
-       license:
-         type: file
-         path: classpath:tongweb/license.dat
-   ```
+	```yaml
+	server:
+	  tongweb:
+	    license:
+	      type: file
+	      path: classpath:tongweb/license.dat
+	```
 
-   配置了授权码的类型和路径，路径推荐放到项目的 tongweb 文件夹里面：
+	配置了授权码的类型和路径，路径推荐放到项目的 tongweb 文件夹里面：
 
-   <img src="!assets/SpringBoot/{FC0B529F-E671-401F-9E54-1D168A52D722}" alt="img" style="zoom:50%;" />
+	<img src="!assets/SpringBoot/{FC0B529F-E671-401F-9E54-1D168A52D722}" alt="img" style="zoom:50%;" />
 
 4. 启动验证：
 
-   <img src="!assets/SpringBoot/image-20250521173239848.png" alt="image-20250521173239848" style="zoom:50%;" />
+	<img src="!assets/SpringBoot/image-20250521173239848.png" alt="image-20250521173239848" style="zoom:50%;" />
 
 <br>
 
@@ -2627,80 +2627,80 @@ java -jar your-project-name.jar
 
 1. 编写 `yiplat.service` 服务配置文件：
 
-   ```shell
-   vim /etc/systemd/system/yiplat.service
-   ```
+	```shell
+	vim /etc/systemd/system/yiplat.service
+	```
 
-   添加以下内容：
+	添加以下内容：
 
-   ```
-   [Unit]
-   Description=YiPlat Admin Service
-   After=network.target
-   
-   [Service]
-   # 服务运行目录
-   WorkingDirectory=/opt/yiplat
-   
-   # 替换成自定义的 JDK 路径（可选）
-   # Environment="JAVA_HOME=/usr/local/jdk"
-   # Environment="PATH=$JAVA_HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
-   # JVM 参数
-   Environment="JAVA_OPTS=-Duser.timezone=Asia/Shanghai -Xms1g -Xmx2g -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=1g -XX:+HeapDumpOnOutOfMemoryError -XX:+PrintGCDateStamps -XX:+PrintGCDetails -XX:NewRatio=1 -XX:SurvivorRatio=30 -XX:+UseParallelGC -XX:+UseParallelOldGC"
-   
-   # 启动命令：选最新版本的 JAR
-   ExecStart=/bin/bash -c '\
-     LATEST_JAR=$(ls -v /opt/yiplat/yiplat-admin-*.jar | tail -n 1); \
-     echo ">>> Starting YiPlat with $LATEST_JAR"; \
-     exec java $JAVA_OPTS -jar "$LATEST_JAR" \
-   '
-   
-   # 停止时，优雅退出 Java
-   ExecStop=/bin/kill -TERM $MAINPID
-   
-   # 自动重启策略
-   Restart=on-failure
-   RestartSec=5
-   
-   [Install]
-   WantedBy=multi-user.target
-   ```
+	```
+	[Unit]
+	Description=YiPlat Admin Service
+	After=network.target
+	
+	[Service]
+	# 服务运行目录
+	WorkingDirectory=/opt/yiplat
+	
+	# 替换成自定义的 JDK 路径（可选）
+	# Environment="JAVA_HOME=/usr/local/jdk"
+	# Environment="PATH=$JAVA_HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
+	# JVM 参数
+	Environment="JAVA_OPTS=-Duser.timezone=Asia/Shanghai -Xms1g -Xmx2g -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=1g -XX:+HeapDumpOnOutOfMemoryError -XX:+PrintGCDateStamps -XX:+PrintGCDetails -XX:NewRatio=1 -XX:SurvivorRatio=30 -XX:+UseParallelGC -XX:+UseParallelOldGC"
+	
+	# 启动命令：选最新版本的 JAR
+	ExecStart=/bin/bash -c '\
+	  LATEST_JAR=$(ls -v /opt/yiplat/yiplat-admin-*.jar | tail -n 1); \
+	  echo ">>> Starting YiPlat with $LATEST_JAR"; \
+	  exec java $JAVA_OPTS -jar "$LATEST_JAR" \
+	'
+	
+	# 停止时，优雅退出 Java
+	ExecStop=/bin/kill -TERM $MAINPID
+	
+	# 自动重启策略
+	Restart=on-failure
+	RestartSec=5
+	
+	[Install]
+	WantedBy=multi-user.target
+	```
 
 2. 重新加载 systemd：
 
-   ```shell
-   systemctl daemon-reload
-   ```
+	```shell
+	systemctl daemon-reload
+	```
 
 3. 设置服务开机自启：
 
-   ```shell
-   systemctl enable yiplat
-   ```
+	```shell
+	systemctl enable yiplat
+	```
 
 4. 启动服务：
 
-   ```shell
-   systemctl start yiplat
-   ```
+	```shell
+	systemctl start yiplat
+	```
 
 5. 查看服务状态：
 
-   ```shell
-   systemctl restart yiplat
-   ```
+	```shell
+	systemctl restart yiplat
+	```
 
 6. 实时查看日志：
 
-   ```shell
-   journalctl -u yiplat -f
-   ```
+	```shell
+	journalctl -u yiplat -f
+	```
 
 7. 关闭服务：
 
-   ```shell
-   systemctl stop yiplat
-   ```
+	```shell
+	systemctl stop yiplat
+	```
 
 <br>
 
@@ -2716,30 +2716,30 @@ Logback 是 Java 社区中使用最广泛的日志框架之一。 它是其前�
 
 2. 在 yml 文件中配置日志存放路径：
 
-   ```yaml
-   # 日志配置
-   logging:
-     config: classpath:logback-spring.xml
-     path: /home/xlaims/logs
-   ```
+	```yaml
+	# 日志配置
+	logging:
+	  config: classpath:logback-spring.xml
+	  path: /home/xlaims/logs
+	```
 
-   > [!NOTE]
-   >
-   > `logging.path` 在新版已改为 `logging.file.path`。
+	> [!NOTE]
+	>
+	> `logging.path` 在新版已改为 `logging.file.path`。
 
 3. 在 logback-spring.xml 加入 Spring 属性读取 yml 配置：
 
-   ```xml
-   <!--读取yml中的日志路径-->
-   <springProperty scope="context" name="logPath" source="logging.path"/>
-   ```
+	```xml
+	<!--读取yml中的日志路径-->
+	<springProperty scope="context" name="logPath" source="logging.path"/>
+	```
 
 4. 使用配置：
 
-   ```xml
-   <!--日志存放路径-->
-   <property name="log.path" value="${logPath}"/>
-   ```
+	```xml
+	<!--日志存放路径-->
+	<property name="log.path" value="${logPath}"/>
+	```
 
 配置完成后，部署时就可以在启动前修改 application.yml 文件中的相关配置，达到自定义的目的。
 
@@ -3052,33 +3052,33 @@ devtools 可以
 
 - 实现页面热部署，即 JSP 页面修改后会立即生效。
 
-  在 Spring Boot 中，模板引擎的页面默认是开启缓存的，如果修改了页面的内容，则刷新页面是得不到修改后的页面的，因此如果只是想实现页面热部署可以在 application.properties 中关闭模版引擎的缓存，如下：
+	在 Spring Boot 中，模板引擎的页面默认是开启缓存的，如果修改了页面的内容，则刷新页面是得不到修改后的页面的，因此如果只是想实现页面热部署可以在 application.properties 中关闭模版引擎的缓存，如下：
 
-  - Thymeleaf 的配置：
+	- Thymeleaf 的配置：
 
-    ```properties
-    spring.thymeleaf.cache=false
-    ```
+		```properties
+		spring.thymeleaf.cache=false
+		```
 
-  - FreeMarker 的配置：
+	- FreeMarker 的配置：
 
-    ```properties
-    spring.freemarker.cache=false
-    ```
+		```properties
+		spring.freemarker.cache=false
+		```
 
-  - Groovy 的配置：
+	- Groovy 的配置：
 
-    ```properties
-    spring.groovy.template.cache=false
-    ```
+		```properties
+		spring.groovy.template.cache=false
+		```
 
-  - Velocity 的配置：
+	- Velocity 的配置：
 
-    ```properties
-    spring.velocity.cache=false
-    ```
+		```properties
+		spring.velocity.cache=false
+		```
 
-  devtools 默认关闭了模版缓存，如果使用则不用单独配置关闭模版缓存。
+	devtools 默认关闭了模版缓存，如果使用则不用单独配置关闭模版缓存。
 
 - 实现类文件热部署（Java 类文件修改后不会立即生效）。Java 类热部署前提条件：类的结构不发生变化（即类方法结构不变、类属性不变）
 
@@ -3090,18 +3090,18 @@ devtools 可以
 
 1. 引入 spring-boot-devtools 依赖：
 
-   <img src="!assets/SpringBoot/1676221-20200430155320785-521416484.png" alt="img" style="zoom: 80%;" />
+	<img src="!assets/SpringBoot/1676221-20200430155320785-521416484.png" alt="img" style="zoom: 80%;" />
 
 2. 在 application.yml 中配置一下 devtools：
 
-   ```yaml
-   spring:
-       devtools:
-           restart:
-               enabled: true  #设置开启热部署
-               additional-paths: src/main/java #重启目录
-               exclude: WEB-INF/**
-   ```
+	```yaml
+	spring:
+	    devtools:
+	        restart:
+	            enabled: true  #设置开启热部署
+	            additional-paths: src/main/java #重启目录
+	            exclude: WEB-INF/**
+	```
 
 配置了后再修改 Java 文件后也就支持了热启动，不过这种方式是属于项目重启（速度比较快的项目重启），会清空 session 中的值，也就是如果有用户登陆的话，项目重启后需要重新登陆。
 
@@ -3109,15 +3109,15 @@ devtools 可以
 
 - 如果想改变默认的设置，可以自己设置不重启的目录：
 
-  ```properties
-  spring.devtools.restart.exclude=static/**,public/**
-  ```
+	```properties
+	spring.devtools.restart.exclude=static/**,public/**
+	```
 
-  这样的话，就只有这两个目录下的文件修改不会导致 restart 操作了。
+	这样的话，就只有这两个目录下的文件修改不会导致 restart 操作了。
 
 - 如果要在保留默认设置的基础上还要添加其他的排除目录：
 
-  ```properties
-  spring.devtools.restart.additional-exclude=[目录]
-  ```
+	```properties
+	spring.devtools.restart.additional-exclude=[目录]
+	```
 

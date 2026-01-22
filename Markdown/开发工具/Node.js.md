@@ -22,19 +22,19 @@ npm 是随同 Node.js 一起安装的包管理工具，能解决 Node.js 代码�
 
 1. 打开官网[下载链接](https://nodejs.org/en/download/): 
 
-   <img src="!assets/Node.js/image-20221118103127016.png" alt="image-20221118103127016" style="zoom: 50%;" />
+	<img src="!assets/Node.js/image-20221118103127016.png" alt="image-20221118103127016" style="zoom: 50%;" />
 
 2. 下载完成后直接安装，可以不用修改，直接默认选项安装，如有需要可以修改安装目录。
 
 3. 安装完成后打开命令行查看版本：
 
-   <img src="!assets/Node.js/image-20221118103806893.png" alt="image-20221118103806893" style="zoom:50%;" />
+	<img src="!assets/Node.js/image-20221118103806893.png" alt="image-20221118103806893" style="zoom:50%;" />
 
-   `node -v` 显示 Node.js 的版本说明已安装成功，`npm -v` 显示 npm 的版本说明自带的 npm 也已经安装成功。
+	`node -v` 显示 Node.js 的版本说明已安装成功，`npm -v` 显示 npm 的版本说明自带的 npm 也已经安装成功。
 
 4. 安装完成后的目录如下所示：
 
-   <img src="!assets/Node.js/image-20221118104255998.png" alt="image-20221118104255998" style="zoom: 50%;" />
+	<img src="!assets/Node.js/image-20221118104255998.png" alt="image-20221118104255998" style="zoom: 50%;" />
 
 
 
@@ -62,27 +62,27 @@ NVM 主要在 Linux 和 Mac 上得到支持。它不支持 Windows。但是 core
 
 1. 点击 “立即下载”：
 
-   在 nvm-windows 仓库的 Readme 文件中，单击 “立即下载”：
+	在 nvm-windows 仓库的 Readme 文件中，单击 “立即下载”：
 
-   <img src="!assets/Node.js/image-338.png" alt="image-338" style="" />
+	<img src="!assets/Node.js/image-338.png" alt="image-338" style="" />
 
-   这将打开一个显示不同 NVM 版本的页面。
+	这将打开一个显示不同 NVM 版本的页面。
 
 2. 安装最新版本的 .exe 文件：
 
-   在最新版本中，单击 nvm-setup.exe 资源：
+	在最新版本中，单击 nvm-setup.exe 资源：
 
-   <img src="!assets/Node.js/image-20231214000940061.png" alt="" style="" />
+	<img src="!assets/Node.js/image-20231214000940061.png" alt="" style="" />
 
 3. 完成安装向导：
 
-   打开你下载的文件，然后完成安装向导。完成后，你可以通过运行以下命令确认 NVM 已安装：
+	打开你下载的文件，然后完成安装向导。完成后，你可以通过运行以下命令确认 NVM 已安装：
 
-   ```shell
-   nvm -v
-   ```
+	```shell
+	nvm -v
+	```
 
-   如果 NVM 安装正确，此命令将显示已安装的 NVM 版本。
+	如果 NVM 安装正确，此命令将显示已安装的 NVM 版本。
 
 
 
@@ -94,15 +94,15 @@ NVM 主要在 Linux 和 Mac 上得到支持。它不支持 Windows。但是 core
 
 - 安装最新版本的 Node：
 
-  ```shell
-  nvm install latest
-  ```
+	```shell
+	nvm install latest
+	```
 
 - 安装 `X.Y.Z` Node 版本：
 
-  ```shell
-  nvm install vX.Y.Z
-  ```
+	```shell
+	nvm install vX.Y.Z
+	```
 
 如果你想在任何时候使用特定版本，你可以在终端中运行以下命令：
 
@@ -124,9 +124,9 @@ nvm use vA.B.C
 
 1. 依赖管理：在 Node.js 项目中，经常会使用第三方库来简化开发工作。包管理工具自动处理这些库之间的依赖，确保所需的依赖被正确安装。
 2. 安装包：通过包管理工具，开发者只需通过命令行指定库的名称，工具会自动从远程仓库下载并安装库，减少了手动查找和安装的步骤。例如：
-   - `npm install express`
-   - `yarn add lodash`
-   - `pnpm add axios`
+	- `npm install express`
+	- `yarn add lodash`
+	- `pnpm add axios`
 3. 版本控制：包管理工具确保项目中的库的版本保持一致，避免因为库版本不一致而导致的项目问题。例如 `package-lock.json` 或 `yarn.lock` 文件会记录依赖的具体版本，以确保在不同的环境下安装相同版本的包。
 4. 依赖更新：包管理工具可以自动检查项目中的依赖是否有新版本，并提供更新机制。例如，`npm update` 或 `yarn upgrade`。
 5. 发布和共享：开发者可以将自己的代码库打包发布到公共仓库中，供其他开发者使用。npm、Yarn、pnpm 都允许发布自己的包到 npm Registry。
@@ -137,21 +137,21 @@ nvm use vA.B.C
 
 1. npm（Node Package Manager）
 
-   默认工具：随着 Node.js 一起安装，几乎所有 Node.js 项目都默认使用 npm 进行包管理。
+	默认工具：随着 Node.js 一起安装，几乎所有 Node.js 项目都默认使用 npm 进行包管理。
 
-   npm 的特点：简单、成熟、支持大量第三方库，生态系统非常庞大。
+	npm 的特点：简单、成熟、支持大量第三方库，生态系统非常庞大。
 
 2. Yarn
 
-   替代工具：由 Facebook 开发，旨在改进 npm 在早期版本中的性能和稳定性问题。
+	替代工具：由 Facebook 开发，旨在改进 npm 在早期版本中的性能和稳定性问题。
 
-   Yarn 的特点：速度快、并行下载、离线安装、稳定的依赖管理。
+	Yarn 的特点：速度快、并行下载、离线安装、稳定的依赖管理。
 
 3. pnpm
 
-   高效工具：通过符号链接机制提高磁盘使用效率，并加速包安装速度。
+	高效工具：通过符号链接机制提高磁盘使用效率，并加速包安装速度。
 
-   pnpm 的特点：节省磁盘空间、速度快、适合大型项目和 monorepo 环境。
+	pnpm 的特点：节省磁盘空间、速度快、适合大型项目和 monorepo 环境。
 
 
 
@@ -174,28 +174,28 @@ npm 是 Node.js 社区最庞大、最常用、也是默认的包管理工具。�
 理解 npm，需要了解其几个关键部分：
 
 1.  **npm Registry（注册表）**
-    *   这是一个巨大的数据库，存储了所有公开可用的 npm 包及其版本信息、元数据等。
-    *   当你使用 `npm install <package>` 命令时，npm CLI 会从这个注册表下载指定的包。
-    *   官方的 npm Registry 地址是 `https://registry.npmjs.org/`。你也可以配置使用其他的 Registry（例如淘宝 NPM 镜像）。
+		*   这是一个巨大的数据库，存储了所有公开可用的 npm 包及其版本信息、元数据等。
+		*   当你使用 `npm install <package>` 命令时，npm CLI 会从这个注册表下载指定的包。
+		*   官方的 npm Registry 地址是 `https://registry.npmjs.org/`。你也可以配置使用其他的 Registry（例如淘宝 NPM 镜像）。
 2.  **npm CLI（命令行工具）**
-    *   这是安装 Node.js 时附带的命令行接口工具。
-    *   你在终端中执行的所有 `npm` 命令（如 `npm install`, `npm run` 等）都通过这个工具与 Registry 和你的项目文件进行交互。
+		*   这是安装 Node.js 时附带的命令行接口工具。
+		*   你在终端中执行的所有 `npm` 命令（如 `npm install`, `npm run` 等）都通过这个工具与 Registry 和你的项目文件进行交互。
 3.  **`package.json` 文件**
-    *   项目的清单文件： 这是每个 npm 项目（或模块）的根目录下的一个重要文件。
-    *   记录项目信息： 包括项目的名称、版本、描述、作者、许可证等元数据。
-    *   定义依赖： 最核心的功能之一是列出项目所需的所有第三方包（依赖）及其版本范围。
-    *   定义脚本： 允许定义一些自定义的命令脚本，方便运行项目任务（如启动、构建、测试）。
-    *   如何创建： 在项目根目录运行 `npm init` (交互式) 或 `npm init -y`（快速生成默认）。
-    *   重要性： 这个文件是项目的 “身份证明”，必须被提交到版本控制（如 Git）。
+		*   项目的清单文件： 这是每个 npm 项目（或模块）的根目录下的一个重要文件。
+		*   记录项目信息： 包括项目的名称、版本、描述、作者、许可证等元数据。
+		*   定义依赖： 最核心的功能之一是列出项目所需的所有第三方包（依赖）及其版本范围。
+		*   定义脚本： 允许定义一些自定义的命令脚本，方便运行项目任务（如启动、构建、测试）。
+		*   如何创建： 在项目根目录运行 `npm init` (交互式) 或 `npm init -y`（快速生成默认）。
+		*   重要性： 这个文件是项目的 “身份证明”，必须被提交到版本控制（如 Git）。
 4.  **`node_modules` 目录**
-    *   依赖存放地： 当你在项目目录中运行 `npm install` 安装本地依赖时，npm 会创建一个 `node_modules` 文件夹，并将所有安装的包及其依赖项都放在这里。
-    *   体积庞大： 由于依赖的嵌套关系，这个目录通常会变得非常大。
-    *   不应提交到版本控制： `node_modules` 目录不应该被提交到 Git 仓库。因为它可以通过 `package.json` 和 `package-lock.json` 文件由 npm 自动重建。提交它会使仓库过于庞大，且可能导致跨平台兼容性问题。需要在 `.gitignore` 文件中忽略 `node_modules/`。
+		*   依赖存放地： 当你在项目目录中运行 `npm install` 安装本地依赖时，npm 会创建一个 `node_modules` 文件夹，并将所有安装的包及其依赖项都放在这里。
+		*   体积庞大： 由于依赖的嵌套关系，这个目录通常会变得非常大。
+		*   不应提交到版本控制： `node_modules` 目录不应该被提交到 Git 仓库。因为它可以通过 `package.json` 和 `package-lock.json` 文件由 npm 自动重建。提交它会使仓库过于庞大，且可能导致跨平台兼容性问题。需要在 `.gitignore` 文件中忽略 `node_modules/`。
 5.  **`package-lock.json` 文件**
-    *   锁定依赖版本： 自 npm v5 起引入。它记录了 `node_modules` 目录下所有包的精确安装版本、依赖关系、下载来源和文件校验值。
-    *   确保一致性： 它的主要目的是保证在任何时间、任何环境下，只要使用相同的 `package-lock.json` 文件运行 `npm install`，都能安装出完全相同的依赖树结构和精确版本。这解决了 `package.json` 中版本范围可能导致安装版本不一致的问题。
-    *   自动生成/更新： 大多数 npm 命令（如 `install`, `update`, `uninstall`）都会自动生成或更新 `package-lock.json` 文件。
-    *   必须提交到版本控制： 和 `package.json` 一样，`package-lock.json` 是项目状态的重要记录，**必须**提交到版本控制，以确保团队成员或部署环境依赖的一致性。
+		*   锁定依赖版本： 自 npm v5 起引入。它记录了 `node_modules` 目录下所有包的精确安装版本、依赖关系、下载来源和文件校验值。
+		*   确保一致性： 它的主要目的是保证在任何时间、任何环境下，只要使用相同的 `package-lock.json` 文件运行 `npm install`，都能安装出完全相同的依赖树结构和精确版本。这解决了 `package.json` 中版本范围可能导致安装版本不一致的问题。
+		*   自动生成/更新： 大多数 npm 命令（如 `install`, `update`, `uninstall`）都会自动生成或更新 `package-lock.json` 文件。
+		*   必须提交到版本控制： 和 `package.json` 一样，`package-lock.json` 是项目状态的重要记录，**必须**提交到版本控制，以确保团队成员或部署环境依赖的一致性。
 
 简单来说： `package.json` 定义了项目需要哪些包以及它们的版本范围；`package-lock.json` 记录了 npm 实际安装的每个包的精确版本；`node_modules` 则是这些包实际存放的位置。
 
@@ -221,28 +221,28 @@ npm 是 Node.js 社区最庞大、最常用、也是默认的包管理工具。�
 
 * `^`：最常用，允许在不改变主版本号的情况下进行次版本和修订版本更新。
 
-  例如 `^1.2.3` 会匹配 `1.2.3` 到 `1.x.x` 的最新版本（不包括 `2.0.0`）。
+	例如 `^1.2.3` 会匹配 `1.2.3` 到 `1.x.x` 的最新版本（不包括 `2.0.0`）。
 
-  对于 `1.0.0` 以下的版本（`0.x.x` 版本），行为有所不同：
+	对于 `1.0.0` 以下的版本（`0.x.x` 版本），行为有所不同：
 
-  - `^0.0.z` 匹配 `0.0.z` 的最新修订版本。
-  - `^0.y.z` 匹配 `0.y.z` 的最新修订版本。
+	- `^0.0.z` 匹配 `0.0.z` 的最新修订版本。
+	- `^0.y.z` 匹配 `0.y.z` 的最新修订版本。
 
 * `~`：允许在不改变主版本号和次版本号的情况下进行修订版本更新。
 
-  例如 `~1.2.3` 会匹配 `1.2.3` 到 `1.2.x` 的最新版本（不包括 `1.3.0`）。
+	例如 `~1.2.3` 会匹配 `1.2.3` 到 `1.2.x` 的最新版本（不包括 `1.3.0`）。
 
 * 精确版本：直接写版本号，如 `1.2.3`，只会安装这个特定版本。
 
 * 其他符号：
 
-  *   `>`：大于。
-  *   `<`：小于。
-  *   `>=`：大于等于。
-  *   `<=`：小于等于。
-  *   `-`：范围。
-  *   `||`：或。
-  *   `*`：任意版本，不推荐。
+	*   `>`：大于。
+	*   `<`：小于。
+	*   `>=`：大于等于。
+	*   `<=`：小于等于。
+	*   `-`：范围。
+	*   `||`：或。
+	*   `*`：任意版本，不推荐。
 
 
 
@@ -664,59 +664,59 @@ npm 全局下载依赖时，会默认下载到当前使用的 Nodejs 版本的�
 
 1. 在文件夹 `Z:\Nodejs` 下创建两个文件夹 node_global 及 node_cache：
 
-   <img src="!assets/Node.js/QQ_1735383284339.png" alt="QQ_1735383284339" />
+	<img src="!assets/Node.js/QQ_1735383284339.png" alt="QQ_1735383284339" />
 
 2. 创建完两个空文件夹之后，打开命令行窗口，输入：
 
-   ```shell
-   # 修改npm全局预设
-   npm config set prefix "Z:\Nodejs\node_global"
-   
-   # 修改npm缓存
-   npm config set cache "Z:\Nodejs\node_cache"
-   ```
+	```shell
+	# 修改npm全局预设
+	npm config set prefix "Z:\Nodejs\node_global"
+	
+	# 修改npm缓存
+	npm config set cache "Z:\Nodejs\node_cache"
+	```
 
 3. 查看确认全局预设与缓存配置：
 
-   ```shell
-   # 查看npm全局预设
-   npm prefix -g
-   
-   # 查看npm缓存
-   npm config get cache
-   ```
+	```shell
+	# 查看npm全局预设
+	npm prefix -g
+	
+	# 查看npm缓存
+	npm config get cache
+	```
 
 4. 前面配置 prefix 预设只是告诉了 npm 安装依赖到全局预设路径下，我们也需要告诉电脑，当我们输入 cli 命令时，去到全局预设路径下查找。
 
-   进入环境变量对话框，新建系统变量：
+	进入环境变量对话框，新建系统变量：
 
-   - 变量名：`NODE_GLOBAL`，变量值：`Z:\Nodejs\node_global`
-   - 变量名：`NODE_PATH`，变量值：`%NODE_GLOBAL%\node_modules`
+	- 变量名：`NODE_GLOBAL`，变量值：`Z:\Nodejs\node_global`
+	- 变量名：`NODE_PATH`，变量值：`%NODE_GLOBAL%\node_modules`
 
-   将新建的两个环境变量配置到 Path 中，请注意顺序（未装 NVM 请忽视 NVM 相关环境变量）：
+	将新建的两个环境变量配置到 Path 中，请注意顺序（未装 NVM 请忽视 NVM 相关环境变量）：
 
-   <img src="!assets/Node.js/image-20231214004741293.png" alt="image-20231214004741293" style="" />
+	<img src="!assets/Node.js/image-20231214004741293.png" alt="image-20231214004741293" style="" />
 
-   以上涉及的变量：
+	以上涉及的变量：
 
-   - `NVM_HOME`：NVM 安装路径
-   - `NVM_SYMLINK`：NVM 切换使用 Node 版本后，生成快捷方式指向的，快捷方式路径
-   - `NODE_GLOBAL`：Node 全局安装依赖的路径
-   - `NODE_PATH`：Node 全局安装的依赖包路径
+	- `NVM_HOME`：NVM 安装路径
+	- `NVM_SYMLINK`：NVM 切换使用 Node 版本后，生成快捷方式指向的，快捷方式路径
+	- `NODE_GLOBAL`：Node 全局安装依赖的路径
+	- `NODE_PATH`：Node 全局安装的依赖包路径
 
 5. 配置完后，安装个 module 测试下，我们就安装最常用的 vue-cli 模块。
 
-   在命令行输入如下命令进行模块的全局安装：
+	在命令行输入如下命令进行模块的全局安装：
 
-   ```shell
-   npm install -g @vue/cli
-   ```
+	```shell
+	npm install -g @vue/cli
+	```
 
-   查看 vue 版本：
+	查看 vue 版本：
 
-   ```shell
-   vue --version
-   ```
+	```shell
+	vue --version
+	```
 
 
 
@@ -756,14 +756,14 @@ Yarn 是由 Facebook、Google、Exponent 和 Tilde 联合推出了一个新的 J
 
 - 速度快！速度快主要来自以下两个方面：
 
-  1. 并行安装：无论 npm 还是 Yarn 在执行包的安装时，都会执行一系列任务。npm 是按照队列执行每个 package，也就是说必须要等到当前 package 安装完成之后，才能继续后面的安装。而 Yarn 是同步执行所有任务，提高了性能。
-  2. 离线模式：如果之前已经安装过一个软件包，用 Yarn再次安装时之间从缓存中获取，就不用像npm那样再从网络下载了。
+	1. 并行安装：无论 npm 还是 Yarn 在执行包的安装时，都会执行一系列任务。npm 是按照队列执行每个 package，也就是说必须要等到当前 package 安装完成之后，才能继续后面的安装。而 Yarn 是同步执行所有任务，提高了性能。
+	2. 离线模式：如果之前已经安装过一个软件包，用 Yarn再次安装时之间从缓存中获取，就不用像npm那样再从网络下载了。
 
 - 安装版本统一：为了防止拉取到不同的版本，Yarn 有一个锁定文件（lock file）记录了被确切安装上的模块的版本号。每次只要新增了一个模块，Yarn 就会创建（或更新）yarn.lock 这个文件。这么做就保证了，每一次拉取同一个项目依赖时，使用的都是一样的模块版本。
 
-  npm 其实也有办法实现处处使用相同版本的 packages，但需要开发者执行 `npm shrinkwrap` 命令。这个命令将会生成一个锁定文件，在执行 `npm install` 的时候，该锁定文件会先被读取，和 Yarn 读取 yarn.lock 文件一个道理。
+	npm 其实也有办法实现处处使用相同版本的 packages，但需要开发者执行 `npm shrinkwrap` 命令。这个命令将会生成一个锁定文件，在执行 `npm install` 的时候，该锁定文件会先被读取，和 Yarn 读取 yarn.lock 文件一个道理。
 
-  npm 和 Yarn 两者的不同之处在于，Yarn 默认会生成这样的锁定文件，而 npm 要通过 `shrinkwrap` 命令生成 npm-shrinkwrap.json 文件，只有当这个文件存在的时候，packages 版本信息才会被记录和更新。
+	npm 和 Yarn 两者的不同之处在于，Yarn 默认会生成这样的锁定文件，而 npm 要通过 `shrinkwrap` 命令生成 npm-shrinkwrap.json 文件，只有当这个文件存在的时候，packages 版本信息才会被记录和更新。
 
 - 更简洁的输出：npm 的输出信息比较冗长。在执行 `npm install` 的时候，命令行里会不断地打印出所有被安装上的依赖。相比之下，Yarn 简洁太多：默认情况下，结合了 emoji 直观且直接地打印出必要的信息，也提供了一些命令供开发者查询额外的安装信息。
 
@@ -781,47 +781,47 @@ Yarn 是由 Facebook、Google、Exponent 和 Tilde 联合推出了一个新的 J
 
 1. **安装 Corepack**
 
-   用户根据自己的 Node.js 版本执行以下命令：
+	用户根据自己的 Node.js 版本执行以下命令：
 
-   - Node.js >= 16.10
+	- Node.js >= 16.10
 
-     默认情况下，Corepack 包含在所有 Node.js 安装中，但目前可以选择加入。若要启用它，请运行以下命令：
+		默认情况下，Corepack 包含在所有 Node.js 安装中，但目前可以选择加入。若要启用它，请运行以下命令：
 
-     ```shell
-     corepack enable
-     ```
+		```shell
+		corepack enable
+		```
 
-   - Node.js < 16.10
+	- Node.js < 16.10
 
-     在 16.10 之前的版本中，Node.js 不包含 Corepack；要解决此问题，请运行：
+		在 16.10 之前的版本中，Node.js 不包含 Corepack；要解决此问题，请运行：
 
-     ```shell
-     npm i -g corepack
-     ```
+		```shell
+		npm i -g corepack
+		```
 
 2. **安装全局 Yarn 版本**
 
-   用户根据自己的 Node.js 版本执行以下 Corepack 命令：
+	用户根据自己的 Node.js 版本执行以下 Corepack 命令：
 
-   - Node.js ^16.17 or >= 18.6
+	- Node.js ^16.17 or >= 18.6
 
-     ```shell
-     corepack prepare yarn@stable --activate
-     ```
+		```shell
+		corepack prepare yarn@stable --activate
+		```
 
-   - Node.js < 16.17 or < 18.6
+	- Node.js < 16.17 or < 18.6
 
-     查看[最新的 Yarn](https://github.com/yarnpkg/berry/releases/latest) 版本，记下版本号，然后运行：
+		查看[最新的 Yarn](https://github.com/yarnpkg/berry/releases/latest) 版本，记下版本号，然后运行：
 
-     ```shell
-     corepack prepare yarn@<version> --activate
-     ```
+		```shell
+		corepack prepare yarn@<version> --activate
+		```
 
-     示例：
+		示例：
 
-     ```shell
-     corepack prepare yarn@3.4.1 --activate
-     ```
+		```shell
+		corepack prepare yarn@3.4.1 --activate
+		```
 
 
 
@@ -830,35 +830,35 @@ Yarn 是由 Facebook、Google、Exponent 和 Tilde 联合推出了一个新的 J
 
 1. **通过 npm 安装**
 
-   ```shell
-   npm i -g yarn
-   ```
+	```shell
+	npm i -g yarn
+	```
 
 2. **验证安装**
 
-   安装完成后，可以使用以下命令检查 yarn 是否已正确安装：
+	安装完成后，可以使用以下命令检查 yarn 是否已正确安装：
 
-   ```shell
-   yarn -v
-   ```
+	```shell
+	yarn -v
+	```
 
 3. **更新 Yarn 版本**
 
-   如果以后要将 Yarn 更新到最新版本，请运行：
+	如果以后要将 Yarn 更新到最新版本，请运行：
 
-   ```shell
-   yarn set version stable
-   ```
+	```shell
+	yarn set version stable
+	```
 
-   也可以指定版本：
+	也可以指定版本：
 
-   ```shell
-   yarn set version 3.4.1
-   ```
+	```shell
+	yarn set version 3.4.1
+	```
    
-   > [!NOTE]
-   >
-   > 如果遇到说 Node 版本不合适，可以选择升级 Node 版本，或者输入 `$env:YARN_IGNORE_NODE="1"` 修改环境变量解决。
+	> [!NOTE]
+	>
+	> 如果遇到说 Node 版本不合适，可以选择升级 Node 版本，或者输入 `$env:YARN_IGNORE_NODE="1"` 修改环境变量解决。
 
 
 
@@ -869,33 +869,33 @@ Yarn 是由 Facebook、Google、Exponent 和 Tilde 联合推出了一个新的 J
 
 1. 首先查看 Yarn 全局模块所在路径和缓存路径：
 
-   ```shell
-   # 全局模块所在路径
-   yarn config get globalFolder
-   
-   # 缓存路径
-   yarn config get cacheFolder
-   ```
+	```shell
+	# 全局模块所在路径
+	yarn config get globalFolder
+	
+	# 缓存路径
+	yarn config get cacheFolder
+	```
 
-   附：可以通过以下命令查看 Yarn 配置列表：
+	附：可以通过以下命令查看 Yarn 配置列表：
 
-   ```shell
-   yarn config
-   ```
+	```shell
+	yarn config
+	```
 
-   <img src="!assets/Node.js/image-20231213225852215.png" alt="image-20231213225852215" style="" />
+	<img src="!assets/Node.js/image-20231213225852215.png" alt="image-20231213225852215" style="" />
 
 2. 首先清除以上文件数据，然后创建新的全局模块所在路径和缓存路径：
 
-   <img src="!assets/Node.js/QQ_1735383345722.png" alt="QQ_1735383345722" />
+	<img src="!assets/Node.js/QQ_1735383345722.png" alt="QQ_1735383345722" />
 
 3. 修改 Yarn 的全局模块所在路径和缓存路径：
 
-   ```shell
-   yarn config set globalFolder "Z:\Nodejs\yarn_global"
-   
-   yarn config set cacheFolder "Z:\Nodejs\yarn_cache"
-   ```
+	```shell
+	yarn config set globalFolder "Z:\Nodejs\yarn_global"
+	
+	yarn config set cacheFolder "Z:\Nodejs\yarn_cache"
+	```
 
 
 > [!TIP]
@@ -975,11 +975,11 @@ yarn install
 
 1. 如果你用到了某个依赖项的不同版本，只需将不同版本间存在差异的文件添加到仓库。
 
-   例如，如果有 100 个文件，而新版本仅更改了其中一个文件， `pnpm update` 只会向存储添加 1 个新文件，而不是仅仅为了单个更改而克隆整个依赖项。
+	例如，如果有 100 个文件，而新版本仅更改了其中一个文件， `pnpm update` 只会向存储添加 1 个新文件，而不是仅仅为了单个更改而克隆整个依赖项。
 
 2. 所有文件都会存储在硬盘上的某一位置。 
 
-   当软件包被被安装时，包里的文件会硬链接到这一位置，而不会占用额外的磁盘空间。 这允许你跨项目地共享同一版本的依赖。
+	当软件包被被安装时，包里的文件会硬链接到这一位置，而不会占用额外的磁盘空间。 这允许你跨项目地共享同一版本的依赖。
 
 因此，您在磁盘上节省了大量空间，这与项目和依赖项的数量成正比，并且安装速度要快得多！
 
@@ -1017,33 +1017,33 @@ Corepack 是 Node.js 16.10.0 引入的一种工具，用于管理 Node.js 包管
 
 1. **启用 Corepack**
 
-   从 v16.10 开始，Node.js 发布了 [Corepack](https://nodejs.org/api/corepack.html) 来管理包管理器。 这是一项实验性功能，因此您需要通过运行如下脚本来启用它：
+	从 v16.10 开始，Node.js 发布了 [Corepack](https://nodejs.org/api/corepack.html) 来管理包管理器。 这是一项实验性功能，因此您需要通过运行如下脚本来启用它：
 
-   ```shell
-   corepack enable
-   ```
+	```shell
+	corepack enable
+	```
 
 2. **安装并激活**
 
-   然后使用以下 Corepack 命令会安装最新版本的 pnpm 并将其激活，使其在全局可用：
+	然后使用以下 Corepack 命令会安装最新版本的 pnpm 并将其激活，使其在全局可用：
 
-   ```shell
-   corepack prepare pnpm@latest --activate
-   ```
+	```shell
+	corepack prepare pnpm@latest --activate
+	```
 
-   如果需要使用特定版本的 pnpm，可以指定版本号，例如：
+	如果需要使用特定版本的 pnpm，可以指定版本号，例如：
 
-   ```shell
-   corepack prepare pnpm@7.0.0 --activate
-   ```
+	```shell
+	corepack prepare pnpm@7.0.0 --activate
+	```
 
 3. **验证安装**
 
-   安装完成后，可以使用以下命令检查 pnpm 是否已正确安装：
+	安装完成后，可以使用以下命令检查 pnpm 是否已正确安装：
 
-   ```shell
-   pnpm --version
-   ```
+	```shell
+	pnpm --version
+	```
 
 你可以通过下列命令固定项目所用的 pnpm 版本：
 
@@ -1065,17 +1065,17 @@ corepack use pnpm@latest
 
 1. **通过 npm 安装**
 
-   ```shell
-   npm i -g pnpm@latest
-   ```
+	```shell
+	npm i -g pnpm@latest
+	```
 
 2. **验证安装**
 
-   安装完成后，可以使用以下命令检查 pnpm 是否已正确安装：
+	安装完成后，可以使用以下命令检查 pnpm 是否已正确安装：
 
-   ```shell
-   pnpm -v
-   ```
+	```shell
+	pnpm -v
+	```
 
 
 
@@ -1083,32 +1083,32 @@ corepack use pnpm@latest
 
 1. 首先查看 pnpm 全局存储路径、缓存存储路径、状态存储路径：
 
-   ```shell
-   # 全局存储路径
-   pnpm config get store-dir
-   
-   # 缓存存储路径
-   pnpm config get cache-dir
-   
-   # 状态存储路径
-   pnpm config get state-dir
-   ```
+	```shell
+	# 全局存储路径
+	pnpm config get store-dir
+	
+	# 缓存存储路径
+	pnpm config get cache-dir
+	
+	# 状态存储路径
+	pnpm config get state-dir
+	```
 
-   附：可以通过以下命令查看 pnpm 配置列表：
+	附：可以通过以下命令查看 pnpm 配置列表：
 
-   ```shell
-   pnpm config list
-   ```
+	```shell
+	pnpm config list
+	```
 
 2. 修改 pnpm 全局存储路径、缓存存储路径、状态存储路径：
 
-   ```shell
-   # 全局存储路径
-   pnpm config set store-dir "Z:\Nodejs\pnpm_global"
-   
-   # 缓存存储路径
-   pnpm config set cache-dir "Z:\Nodejs\pnpm_cache"
-   
-   # 状态存储路径
-   pnpm config set state-dir "Z:\Nodejs\pnpm_state"
-   ```
+	```shell
+	# 全局存储路径
+	pnpm config set store-dir "Z:\Nodejs\pnpm_global"
+	
+	# 缓存存储路径
+	pnpm config set cache-dir "Z:\Nodejs\pnpm_cache"
+	
+	# 状态存储路径
+	pnpm config set state-dir "Z:\Nodejs\pnpm_state"
+	```

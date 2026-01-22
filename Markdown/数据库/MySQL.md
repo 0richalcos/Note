@@ -125,35 +125,35 @@ Windows 系统选择 msi 文件直接安装比较方便；Linux 系统如果使�
 
 1. 先下载 [MySQL](https://dev.mysql.com/downloads/mysql/)，现在的版本是 8.0.27：
 
-   <img src="!assets/MySQL/image-20211115115209195.png" alt="image-20211115115209195" style="zoom: 67%;" />
+	<img src="!assets/MySQL/image-20211115115209195.png" alt="image-20211115115209195" style="zoom: 67%;" />
 
-   这里下载的是 Zip 安装包版，可以点击 【Go to Download Page】，去载 MSI 安装版（这里下载的是安装版）：
+	这里下载的是 Zip 安装包版，可以点击 【Go to Download Page】，去载 MSI 安装版（这里下载的是安装版）：
 
-   <img src="!assets/MySQL/image-20211115115812248.png" alt="image-20211115115812248" style="zoom: 67%;" />
+	<img src="!assets/MySQL/image-20211115115812248.png" alt="image-20211115115812248" style="zoom: 67%;" />
 
 2. 下载后打开文件开始安装，这里选择自定义安装：
 
-   <img src="!assets/MySQL/image-20211115141345534.png" alt="image-20211115141345534" style="zoom: 80%;" />
+	<img src="!assets/MySQL/image-20211115141345534.png" alt="image-20211115141345534" style="zoom: 80%;" />
 
 3. 这里选择只安装基础的 MySQL 服务和 JDBC，并且勾选下面的选项：
 
-   <img src="!assets/MySQL/image-20211115141638695.png" alt="image-20211115141638695" style="zoom: 80%;" />
+	<img src="!assets/MySQL/image-20211115141638695.png" alt="image-20211115141638695" style="zoom: 80%;" />
 
 4. 点击 MySQL Server，下方会出现 Advanced Options（高级选项），点击高级选项，盘它！（这里是第二次装发现的，所以版本不一样）：
 
-   <img src="!assets/MySQL/image-20220320164455188.png" alt="image-20220320164455188" style="zoom: 50%;" />
+	<img src="!assets/MySQL/image-20220320164455188.png" alt="image-20220320164455188" style="zoom: 50%;" />
 
 5. 这里可以更改安装地址，我建议改一下数据存储地址，防止数据太多占用 C 盘空间，然后点 OK 和 Next：
 
-   <img src="!assets/MySQL/image-20220320164751257.png" alt="image-20220320164751257" style="zoom: 50%;" />
+	<img src="!assets/MySQL/image-20220320164751257.png" alt="image-20220320164751257" style="zoom: 50%;" />
 
 6. 取消了文档：
 
-   <img src="!assets/MySQL/image-20211115141735403.png" alt="image-20211115141735403" style="zoom: 80%;" />
+	<img src="!assets/MySQL/image-20211115141735403.png" alt="image-20211115141735403" style="zoom: 80%;" />
 
 7. 开始安装：
 
-   <img src="!assets/MySQL/image-20211115141804300.png" alt="image-20211115141804300" style="zoom: 80%;" />
+	<img src="!assets/MySQL/image-20211115141804300.png" alt="image-20211115141804300" style="zoom: 80%;" />
 
 
 
@@ -161,53 +161,53 @@ Windows 系统选择 msi 文件直接安装比较方便；Linux 系统如果使�
 
 1. 开始配置：
 
-   <img src="!assets/MySQL/image-20211115141841846.png" alt="image-20211115141841846" style="zoom: 80%;" />
+	<img src="!assets/MySQL/image-20211115141841846.png" alt="image-20211115141841846" style="zoom: 80%;" />
 
 2. 选择开发电脑：
 
-   <img src="!assets/MySQL/image-20211115142116388.png" alt="image-20211115142116388" style="zoom: 80%;" />
+	<img src="!assets/MySQL/image-20211115142116388.png" alt="image-20211115142116388" style="zoom: 80%;" />
 
 3. 这里使用默认的加密加密方法：
 
-   <img src="!assets/MySQL/image-20211115142310317.png" alt="image-20211115142310317" style="zoom: 80%;" />
+	<img src="!assets/MySQL/image-20211115142310317.png" alt="image-20211115142310317" style="zoom: 80%;" />
 
 4. 填写数据库密码：
 
-   <img src="!assets/MySQL/image-20211115142333702.png" alt="image-20211115142333702" style="zoom: 80%;" />
+	<img src="!assets/MySQL/image-20211115142333702.png" alt="image-20211115142333702" style="zoom: 80%;" />
 
 5. 取消开机自启：
 
-   <img src="!assets/MySQL/image-20211115142440712.png" alt="image-20211115142440712" style="zoom: 80%;" />
+	<img src="!assets/MySQL/image-20211115142440712.png" alt="image-20211115142440712" style="zoom: 80%;" />
 
 6. 应用配置：
 
-   <img src="!assets/MySQL/image-20211115142501957.png" alt="image-20211115142501957" style="zoom: 80%;" />
+	<img src="!assets/MySQL/image-20211115142501957.png" alt="image-20211115142501957" style="zoom: 80%;" />
 
 7. 配置环境变量：
 
-   <img src="!assets/MySQL/image-20211115142610319.png" alt="image-20211115142610319" style="zoom: 67%;" />
+	<img src="!assets/MySQL/image-20211115142610319.png" alt="image-20211115142610319" style="zoom: 67%;" />
 
-   <img src="!assets/MySQL/image-20211115142647651.png" alt="image-20211115142647651" style="zoom: 80%;" />
+	<img src="!assets/MySQL/image-20211115142647651.png" alt="image-20211115142647651" style="zoom: 80%;" />
 
 8. 访问：
 
-   ```shell
-   PS C:\Users\Orichalcos> mysql -u root -p
-   Enter password: ****
-   Welcome to the MySQL monitor.  Commands end with ; or \g.
-   Your MySQL connection id is 11
-   Server version: 8.0.27 MySQL Community Server - GPL
-   
-   Copyright (c) 2000, 2021, Oracle and/or its affiliates.
-   
-   Oracle is a registered trademark of Oracle Corporation and/or its
-   affiliates. Other names may be trademarks of their respective
-   owners.
-   
-   Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-   
-   mysql>
-   ```
+	```shell
+	PS C:\Users\Orichalcos> mysql -u root -p
+	Enter password: ****
+	Welcome to the MySQL monitor.  Commands end with ; or \g.
+	Your MySQL connection id is 11
+	Server version: 8.0.27 MySQL Community Server - GPL
+	
+	Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+	
+	Oracle is a registered trademark of Oracle Corporation and/or its
+	affiliates. Other names may be trademarks of their respective
+	owners.
+	
+	Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+	
+	mysql>
+	```
 
 
 
@@ -221,31 +221,31 @@ Windows 系统选择 msi 文件直接安装比较方便；Linux 系统如果使�
 
 1. 查看有没有安装 MySQL：
 
-   ```shell
-   dpkg -l | grep mysql
-   ```
+	```shell
+	dpkg -l | grep mysql
+	```
 
 2. 安装MySQL：
 
-   ```shell
-   apt install mysql-server
-   ```
+	```shell
+	apt install mysql-server
+	```
 
 3. 安装完成之后可以使用如下命令来检查是否安装成功：
 
-   ```shell
-   netstat -tap | grep mysql
-   ```
+	```shell
+	netstat -tap | grep mysql
+	```
 
-   通过上述命令检查之后，如果看到有 mysql 的 socket 处于 LISTEN 状态则表示安装成功
+	通过上述命令检查之后，如果看到有 mysql 的 socket 处于 LISTEN 状态则表示安装成功
 
 4. 登录 mysql 数据库可以通过如下命令：
 
-   ```shell
-   mysql -u root -p
-   ```
+	```shell
+	mysql -u root -p
+	```
 
-   现在是 mysql 数据库是没有密码的，Enter password: 处直接回车，就能够进入 mysql 数据库。
+	现在是 mysql 数据库是没有密码的，Enter password: 处直接回车，就能够进入 mysql 数据库。
 
 
 
@@ -376,43 +376,43 @@ service mysql restart
 
 1. 首先停止 MySQL 服务
 
-   ```shell
-   service mysql stop;
-   service mysql status;
-   ```
+	```shell
+	service mysql stop;
+	service mysql status;
+	```
 
 2. 在终端中查看MySQL的依赖项：
 
-   ```shell
-   dpkg --list | grep mysql
-   ```
+	```shell
+	dpkg --list | grep mysql
+	```
 
 3. 卸载：
 
-   ```shell
-   sudo apt-get remove mysql-common
-   sudo apt-get autoremove --purge mysql-server-8.0
-   ```
+	```shell
+	sudo apt-get remove mysql-common
+	sudo apt-get autoremove --purge mysql-server-8.0
+	```
 
 4. 如果看到没有删除的文件记得手动删除：
 
-   <img src="!assets/MySQL/image-20210420112319964.png" alt="image-20210420112319964" style="" />
+	<img src="!assets/MySQL/image-20210420112319964.png" alt="image-20210420112319964" style="" />
 
 5. 清除残留数据：
 
-   ```shell
-   dpkg -l|grep ^rc|awk '{print$2}'|sudo xargs dpkg -P
-   ```
+	```shell
+	dpkg -l|grep ^rc|awk '{print$2}'|sudo xargs dpkg -P
+	```
 
 6. 再次查看MySQL的剩余依赖项：
 
-   ```shell
-   dpkg --list | grep mysql
-   ```
+	```shell
+	dpkg --list | grep mysql
+	```
 
 7. 删除 MySQL 的数据库信息，位置：`/var/lib/mysql/`：
 
-   <img src="!assets/MySQL/image-20210420112705768.png" alt="image-20210420112705768" style="" />
+	<img src="!assets/MySQL/image-20210420112705768.png" alt="image-20210420112705768" style="" />
 
 
 
@@ -426,31 +426,31 @@ service mysql restart
 
 1. 删除原有的 MariaDB，因为会跟 MySQL 包安装有冲突。
 
-   查找：
+	查找：
 
-   ```shell
-   rpm -qa | grep mariadb
-   ```
+	```shell
+	rpm -qa | grep mariadb
+	```
 
-   删除 MariaDB：
+	删除 MariaDB：
 
-   ```shell
-   rpm -e --nodeps $(rpm -qa | grep mariadb)
-   ```
+	```shell
+	rpm -e --nodeps $(rpm -qa | grep mariadb)
+	```
 
 2. 倘若之前系统已经安装过 MySQL 包也一起删除。
 
-   查找：
+	查找：
 
-   ```shell
-   rpm -qa | grep mysql
-   ```
+	```shell
+	rpm -qa | grep mysql
+	```
 
-   删除 MySQL：
+	删除 MySQL：
 
-   ```shell
-   rpm -e --nodeps $(rpm -qa | grep mysql)
-   ```
+	```shell
+	rpm -e --nodeps $(rpm -qa | grep mysql)
+	```
 
 
 
@@ -458,52 +458,52 @@ service mysql restart
 
 1. [官网](https://dev.mysql.com/downloads/mysql/)下载 MySQL 安装包。
 
-   因为 Kylinos Server V10 就是基于 CentOS 8 开发而来，所以 OS Version 选择 Red Hat Enterprise Linux 8 / Oracle Linux 8 (x86, 64-bit)，选择下载 RPM Bundle：
+	因为 Kylinos Server V10 就是基于 CentOS 8 开发而来，所以 OS Version 选择 Red Hat Enterprise Linux 8 / Oracle Linux 8 (x86, 64-bit)，选择下载 RPM Bundle：
 
-   ![image-20250409233857708](./!assets/MySQL/image-20250409233857708.png)
+	![image-20250409233857708](./!assets/MySQL/image-20250409233857708.png)
 
-   > [!NOTE]
-   >
-   > 如果是别的麒麟系统也可以按照此逻辑进行安装，只需要事先查询系统基于哪个 Linux 版本，然后下载对应的安装包即可。
+	> [!NOTE]
+	>
+	> 如果是别的麒麟系统也可以按照此逻辑进行安装，只需要事先查询系统基于哪个 Linux 版本，然后下载对应的安装包即可。
 
 2. 将其上传到服务器后，解压：
 
-   ```shell
-   tar -xvf mysql-8.0.33-1.el8.x86_64.rpm-bundle.tar
-   ```
+	```shell
+	tar -xvf mysql-8.0.33-1.el8.x86_64.rpm-bundle.tar
+	```
 
 3. 按照如下顺序逐个安装：
 
-   ```shell
-   rpm -ivh mysql-community-common-8.0.33-1.el8.x86_64.rpm
-   rpm -ivh mysql-community-client-plugins-8.0.33-1.el8.x86_64.rpm
-   rpm -ivh mysql-community-libs-8.0.33-1.el8.x86_64.rpm
-   rpm -ivh mysql-community-client-8.0.33-1.el8.x86_64.rpm
-   rpm -ivh mysql-community-icu-data-files-8.0.33-1.el8.x86_64.rpm
-   rpm -ivh mysql-community-server-8.0.33-1.el8.x86_64.rpm
-   rpm -ivh mysql-community-devel-8.0.33-1.el8.x86_64.rpm
-   ```
+	```shell
+	rpm -ivh mysql-community-common-8.0.33-1.el8.x86_64.rpm
+	rpm -ivh mysql-community-client-plugins-8.0.33-1.el8.x86_64.rpm
+	rpm -ivh mysql-community-libs-8.0.33-1.el8.x86_64.rpm
+	rpm -ivh mysql-community-client-8.0.33-1.el8.x86_64.rpm
+	rpm -ivh mysql-community-icu-data-files-8.0.33-1.el8.x86_64.rpm
+	rpm -ivh mysql-community-server-8.0.33-1.el8.x86_64.rpm
+	rpm -ivh mysql-community-devel-8.0.33-1.el8.x86_64.rpm
+	```
 
-   > [!TIP]
-   >
-   > 如果遇到问题如下：
-   >
-   > ```
-   > error: Failed dependencies:
-   > 		net-tools is needed by mysql-community-server-8.0.33-1.el8.x86_64
-   > ```
-   >
-   > 可以先安装 net-tools。
+	> [!TIP]
+	>
+	> 如果遇到问题如下：
+	>
+	> ```
+	> error: Failed dependencies:
+	> 		net-tools is needed by mysql-community-server-8.0.33-1.el8.x86_64
+	> ```
+	>
+	> 可以先安装 net-tools。
 
 4. 启动服务：
 
-   > [!TIP]
-   >
-   > 如果想要修改 MySQL `lower_case_table_names`（大小写敏感）参数，请在执行启动命令前修改 my.cnf 文件配置。
+	> [!TIP]
+	>
+	> 如果想要修改 MySQL `lower_case_table_names`（大小写敏感）参数，请在执行启动命令前修改 my.cnf 文件配置。
    
-   ```shell
-   systemctl start mysqld
-   ```
+	```shell
+	systemctl start mysqld
+	```
 
 
 
@@ -511,39 +511,39 @@ service mysql restart
 
 1. 获取初始密码并登录。
 
-   获取初始化临时密码：
+	获取初始化临时密码：
 
-   ```shell
-   cat /var/log/mysqld.log | grep password
-   ```
+	```shell
+	cat /var/log/mysqld.log | grep password
+	```
 
-   用临时密码登录数据库：
+	用临时密码登录数据库：
 
-   ```shell
-   mysql -u root -p
-   ```
+	```shell
+	mysql -u root -p
+	```
 
 2. 设置自己的密码：
 
-   ```sql
-   alter user root@localhost identified by 'xxxxxxxx';
-   ```
+	```sql
+	alter user root@localhost identified by 'xxxxxxxx';
+	```
 
 3. 修改 MySQL 链接地址：
 
-   ```sql
-   use mysql;
-   
-   update user set host='%' where user = 'root';
-   
-   commit;
-   ```
+	```sql
+	use mysql;
+	
+	update user set host='%' where user = 'root';
+	
+	commit;
+	```
    
 4. 刷新授权信息：
 
-   ```sql
-   flush privileges;
-   ```
+	```sql
+	flush privileges;
+	```
 
 
 
@@ -557,46 +557,46 @@ service mysql restart
 
 1. [官网](https://dev.mysql.com/downloads/mysql/) 下载 MySQL 安装包。
 
-   因为 openEuler 基于 Red Hat Enterprise Linux 开发而来，所以 OS Version 选择 Red Hat Enterprise Linux 8 / Oracle Linux 8 (ARM, 64-bit)，选择下载 RPM Bundle：
+	因为 openEuler 基于 Red Hat Enterprise Linux 开发而来，所以 OS Version 选择 Red Hat Enterprise Linux 8 / Oracle Linux 8 (ARM, 64-bit)，选择下载 RPM Bundle：
 
-   ![image-20250416114705259](./!assets/MySQL/image-20250416114705259.png)
+	![image-20250416114705259](./!assets/MySQL/image-20250416114705259.png)
 
 2. 将其上传到服务器后，解压：
 
-   ```shell
-   tar -xvf ./mysql-8.0.42-1.el8.aarch64.rpm-bundle.tar
-   ```
+	```shell
+	tar -xvf ./mysql-8.0.42-1.el8.aarch64.rpm-bundle.tar
+	```
 
 3. 按照如下顺序逐个安装：
 
-   ```shell
-   rpm -ivh mysql-community-common-8.0.42-1.el8.aarch64.rpm
-   rpm -ivh mysql-community-client-plugins-8.0.42-1.el8.aarch64.rpm
-   rpm -ivh mysql-community-libs-8.0.42-1.el8.aarch64.rpm
-   rpm -ivh mysql-community-client-8.0.42-1.el8.aarch64.rpm
-   rpm -ivh mysql-community-icu-data-files-8.0.42-1.el8.aarch64.rpm
-   rpm -ivh mysql-community-server-8.0.42-1.el8.aarch64.rpm
-   rpm -ivh mysql-community-devel-8.0.42-1.el8.aarch64.rpm
-   ```
+	```shell
+	rpm -ivh mysql-community-common-8.0.42-1.el8.aarch64.rpm
+	rpm -ivh mysql-community-client-plugins-8.0.42-1.el8.aarch64.rpm
+	rpm -ivh mysql-community-libs-8.0.42-1.el8.aarch64.rpm
+	rpm -ivh mysql-community-client-8.0.42-1.el8.aarch64.rpm
+	rpm -ivh mysql-community-icu-data-files-8.0.42-1.el8.aarch64.rpm
+	rpm -ivh mysql-community-server-8.0.42-1.el8.aarch64.rpm
+	rpm -ivh mysql-community-devel-8.0.42-1.el8.aarch64.rpm
+	```
 
-   > [!TIP]
-   >
-   > 如何安装的时候提示缺少依赖，可以去 [openEuler 软件中心](https://easysoftware.openeuler.org/zh/) 下载系统对应版本的相关依赖。
+	> [!TIP]
+	>
+	> 如何安装的时候提示缺少依赖，可以去 [openEuler 软件中心](https://easysoftware.openeuler.org/zh/) 下载系统对应版本的相关依赖。
 
 4. 设置开机自启：
-   ```shell
-   systemctl enable mysqld
-   ```
+	```shell
+	systemctl enable mysqld
+	```
 
 5. 启动服务：
 
-   > [!TIP]
-   >
-   > 如果想要修改 MySQL `lower_case_table_names`（大小写敏感）参数，请在执行启动命令前修改 `` 文件配置。
+	> [!TIP]
+	>
+	> 如果想要修改 MySQL `lower_case_table_names`（大小写敏感）参数，请在执行启动命令前修改 `` 文件配置。
 
-   ```shell
-   systemctl start mysqld
-   ```
+	```shell
+	systemctl start mysqld
+	```
 
 
 
@@ -604,37 +604,37 @@ service mysql restart
 
 1. 获取初始化临时密码：
 
-   ```shell
-   cat /var/log/mysqld.log | grep password
-   ```
+	```shell
+	cat /var/log/mysqld.log | grep password
+	```
    
-   用临时密码登录数据库：
+	用临时密码登录数据库：
 
-   ```shell
-   mysql -u root -p
-   ```
+	```shell
+	mysql -u root -p
+	```
    
 2. 设置自己的密码：
 
-   ```sql
-   alter user root@localhost identified by 'xxxxxxxx';
-   ```
+	```sql
+	alter user root@localhost identified by 'xxxxxxxx';
+	```
 
 3. 修改 MySQL 链接地址：
 
-   ```sql
-   use mysql;
-   
-   update user set host='%' where user = 'root';
-   
-   commit;
-   ```
+	```sql
+	use mysql;
+	
+	update user set host='%' where user = 'root';
+	
+	commit;
+	```
 
 4. 刷新授权信息：
 
-   ```sql
-   flush privileges;
-   ```
+	```sql
+	flush privileges;
+	```
 
 
 
@@ -643,27 +643,27 @@ service mysql restart
 
 1. 查找 MySQL 包：
 
-   ```shell
-   rpm -qa | grep mysql
-   ```
+	```shell
+	rpm -qa | grep mysql
+	```
 
 2. 删除刚刚查询到的 MySQL 包 ：
 
-   ```shell
-   rpm -e --nodeps $(rpm -qa | grep mysql)
-   ```
+	```shell
+	rpm -e --nodeps $(rpm -qa | grep mysql)
+	```
 
 3. 使用 `find` 命令查找 MySQL 的相关文件夹：
 
-   ```shell
-   find / -name mysql
-   ```
+	```shell
+	find / -name mysql
+	```
 
 4. 使用 `rm` 命令删除所有的文件夹：
 
-   ```shell
-   rm -rf $(find / -name mysql)
-   ```
+	```shell
+	rm -rf $(find / -name mysql)
+	```
 
 
 
@@ -1431,33 +1431,33 @@ VALUES
 
 - 复制表结构：
 
-  ```mysql
-  CREATE TABLE targetTable LIKE sourceTable;
-  ```
+	```mysql
+	CREATE TABLE targetTable LIKE sourceTable;
+	```
 
-  或者
+	或者
 
-  ```mysql
-  CREATE TABLE targetTable AS SELECT * FROM sourceTable WHERE 1=2;
-  ```
+	```mysql
+	CREATE TABLE targetTable AS SELECT * FROM sourceTable WHERE 1=2;
+	```
 
 - 复制表数据：
 
-  ```mysql
-  INSERT INTO targetTable SELECT * FROM sourceTable;
-  ```
+	```mysql
+	INSERT INTO targetTable SELECT * FROM sourceTable;
+	```
 
-  或者：
+	或者：
 
-  ```mysql
-  SELECT * INTO targetTable [IN externaldatabase] FROM sourceTable
-  ```
+	```mysql
+	SELECT * INTO targetTable [IN externaldatabase] FROM sourceTable
+	```
 
 - 复制表结构及数据到新表：
 
-  ```mysql
-  CREATE TABLE newTable AS SELECT * FROM oldTable;
-  ```
+	```mysql
+	CREATE TABLE newTable AS SELECT * FROM oldTable;
+	```
 
 
 
@@ -1492,13 +1492,13 @@ TRUNCATE TABLE <表名>
 
 1. `DELETE` 语句执行删除的过程是每次从表中删除一行，并且同时将该行的删除操作作为事务记录在日志中保存以便进行进行回滚操作。
 
-   `TRUNCATE TABLE` 则一次性地从表中删除所有的数据并不把单独的删除操作记录记入日志保存，删除行是不能恢复的。并且在删除的过程中不会激活与表有关的删除触发器。执行速度快。
+	`TRUNCATE TABLE` 则一次性地从表中删除所有的数据并不把单独的删除操作记录记入日志保存，删除行是不能恢复的。并且在删除的过程中不会激活与表有关的删除触发器。执行速度快。
 
 2. 当表被 `TRUNCATE` 后，这个表和索引所占用的空间会恢复到初始大小，`DELETE` 操作不会减少表或索引所占用的空间。`DROP` 语句将表所占用的空间全释放掉。
 
 3. `DELETE` 语句为 DML（data maintain Language)，这个操作会被放到 rollback segment 中，事务提交后才生效。如果有相应的 tigger，执行的时候将被触发。
 
-   由于 `TRUNCATE TABLE` 不记录在日志中，所以它不能激活触发器。
+	由于 `TRUNCATE TABLE` 不记录在日志中，所以它不能激活触发器。
 
 
 
@@ -2409,29 +2409,29 @@ WITH [RECURSIVE]
 
 - 如果 CTE 名称后面有一个带括号的名称列表，这些名称就是列名：
 
-  ```mysql
-  WITH cte (col1, col2) AS
-  (
-    SELECT 1, 2
-    UNION ALL
-    SELECT 3, 4
-  )
-  SELECT col1, col2 FROM cte;
-  ```
+	```mysql
+	WITH cte (col1, col2) AS
+	(
+	  SELECT 1, 2
+	  UNION ALL
+	  SELECT 3, 4
+	)
+	SELECT col1, col2 FROM cte;
+	```
 
-  列表中的列名数量必须与结果集中的列数量相同。
+	列表中的列名数量必须与结果集中的列数量相同。
 
 - 否则，列名来选择列表中第一个 ` AS (subquery)` 部分中第一个 `SELECT` 的选择列表：
 
-  ```mysql
-  WITH cte AS
-  (
-    SELECT 1 AS col1, 2 AS col2
-    UNION ALL
-    SELECT 3, 4
-  )
-  SELECT col1, col2 FROM cte;
-  ```
+	```mysql
+	WITH cte AS
+	(
+	  SELECT 1 AS col1, 2 AS col2
+	  UNION ALL
+	  SELECT 3, 4
+	)
+	SELECT col1, col2 FROM cte;
+	```
 
 
 
@@ -2439,29 +2439,29 @@ WITH [RECURSIVE]
 
 - 在 `SELECT`、`UPDATE` 和 `DELETE` 语句的开头。
 
-  ```mysql
-  WITH ... SELECT ...
-  WITH ... UPDATE ...
-  WITH ... DELETE ...
-  ```
+	```mysql
+	WITH ... SELECT ...
+	WITH ... UPDATE ...
+	WITH ... DELETE ...
+	```
 
 - 在子查询（包括派生表子查询）的开头：
 
-  ```mysql
-  SELECT ... WHERE id IN (WITH ... SELECT ...) ...
-  SELECT * FROM (WITH ... SELECT ...) AS dt ...
-  ```
+	```mysql
+	SELECT ... WHERE id IN (WITH ... SELECT ...) ...
+	SELECT * FROM (WITH ... SELECT ...) AS dt ...
+	```
 
 - 对于包含 `SELECT` 语句的语句，紧接在 `SELECT` 之前：
 
-  ```mysql
-  INSERT ... WITH ... SELECT ...
-  REPLACE ... WITH ... SELECT ...
-  CREATE TABLE ... WITH ... SELECT ...
-  CREATE VIEW ... WITH ... SELECT ...
-  DECLARE CURSOR ... WITH ... SELECT ...
-  EXPLAIN ... WITH ... SELECT ...
-  ```
+	```mysql
+	INSERT ... WITH ... SELECT ...
+	REPLACE ... WITH ... SELECT ...
+	CREATE TABLE ... WITH ... SELECT ...
+	CREATE VIEW ... WITH ... SELECT ...
+	DECLARE CURSOR ... WITH ... SELECT ...
+	EXPLAIN ... WITH ... SELECT ...
+	```
 
 
 
@@ -2540,23 +2540,23 @@ SELECT * FROM cte;
 
 - 如果 `WITH` 子句中的任何 CTE 指代自己，`WITH` 子句必须以 `WITH RECURSIVE` 开始。（如果没有 CTE 指代自己，`RECURSIVE` 是允许的，但不是必须的。）
 
-  如果你忘记了递归 CTE 的 `RECURSIVE`，则可能会出现以下错误：
+	如果你忘记了递归 CTE 的 `RECURSIVE`，则可能会出现以下错误：
 
-  ```mysql
-  ERROR 1146 (42S02): Table 'cte_name' doesn't exist
-  ```
+	```mysql
+	ERROR 1146 (42S02): Table 'cte_name' doesn't exist
+	```
 
 - 递归 CTE 子查询有两个部分，用 `UNION [ALL]` 或 `UNION DISTINCT` 分开：
 
-  ```mysql
-  SELECT ...      -- return initial row set
-  UNION ALL
-  SELECT ...      -- return additional row sets
-  ```
+	```mysql
+	SELECT ...      -- return initial row set
+	UNION ALL
+	SELECT ...      -- return additional row sets
+	```
 
-  第一个 `SELECT` 生成 CTE 的初始行或初始行，但不引用 CTE 名称。第二个 `SELECT` 生成额外的行，并通过在其 `FROM` 子句中引用 CTE 名称来递归。当此部分不产生新行时，递归结束。因此，递归 CTE 由一个非递归 `SELECT` 部分和一个递归 `SELECT` 部分组成。
+	第一个 `SELECT` 生成 CTE 的初始行或初始行，但不引用 CTE 名称。第二个 `SELECT` 生成额外的行，并通过在其 `FROM` 子句中引用 CTE 名称来递归。当此部分不产生新行时，递归结束。因此，递归 CTE 由一个非递归 `SELECT` 部分和一个递归 `SELECT` 部分组成。
 
-  每个 `SELECT` 部件本身可以是多个 `SELECT` 语句的并集。
+	每个 `SELECT` 部件本身可以是多个 `SELECT` 语句的并集。
 
 - CTE 结果列的类型仅从非递归 `SELECT` 部分的列类型推断出来，并且所有列都是可为空的。对于类型确定，忽略递归 `SELECT` 部分。
 
@@ -2672,15 +2672,15 @@ SELECT * FROM cte;
 
 - 递归 `SELECT`部分不能包含这些结构：
 
-  - 聚合函数，如 `SUM()`
-  - 窗口函数
-  - `GROUP BY`
-  - `ORDER BY`
-  - `DISTINCT`
+	- 聚合函数，如 `SUM()`
+	- 窗口函数
+	- `GROUP BY`
+	- `ORDER BY`
+	- `DISTINCT`
 
-  在 MySQL 8.0.19 之前，递归 CTE 的递归 `SELECT` 部分也不能使用 `LIMIT` 子句。在 MySQL 8.0.19 中取消了这一限制，现在在这种情况下支持 `LIMIT`，还有一个可选的 `OFFSET` 子句。对结果集的影响与在最外层的 `SELECT` 中使用 `LIMIT` 时相同，但也更有效，因为与递归`SELECT` 一起使用，一旦产生了所要求的行数，就停止生成行。
+	在 MySQL 8.0.19 之前，递归 CTE 的递归 `SELECT` 部分也不能使用 `LIMIT` 子句。在 MySQL 8.0.19 中取消了这一限制，现在在这种情况下支持 `LIMIT`，还有一个可选的 `OFFSET` 子句。对结果集的影响与在最外层的 `SELECT` 中使用 `LIMIT` 时相同，但也更有效，因为与递归`SELECT` 一起使用，一旦产生了所要求的行数，就停止生成行。
 
-  这些约束并不适用于递归 CTE 的非递归 `SELECT` 部分。对 `DISTINCT` 的禁止只适用于 `UNION` 成员；`UNION DISTINCT` 是允许的。
+	这些约束并不适用于递归 CTE 的非递归 `SELECT` 部分。对 `DISTINCT` 的禁止只适用于 `UNION` 成员；`UNION DISTINCT` 是允许的。
 
 - 递归 `SELECT` 部分必须只引用一次 CTE，并且只在它的 `FROM` 子句中，而不是在任何子查询中。它可以引用除 CTE 以外的表，并且用 CTE 连接它们。如果在这样的连接中使用，CTE 不能在 `LEFT JOIN` 的右边。
 
@@ -3039,7 +3039,7 @@ CTE 的工作原理：
 
 - 非递归 `SELECT`生成 CEO 的行（具有 `NULL` 的 `manager_id`行）。
 
-  `path` 列被扩展为 `CHAR(200)`，以确保有空间容纳递归 `SELECT` 产生的更长的 `path` 值。
+	`path` 列被扩展为 `CHAR(200)`，以确保有空间容纳递归 `SELECT` 产生的更长的 `path` 值。
 
 - 由递归 `SELECT` 生成的每一行都会找到所有直接向前一行生成的员工报告的员工。对于每个这样的员工，该行包括员工 ID 和姓名，以及雇员管理链。该链是经理的链，末尾添加了员工 ID。
 
@@ -3321,11 +3321,11 @@ CREATEPROCEDURE 存储过程名([IN,OUT,INOUT] 参数名 数据类形...)
 注意：
 
 - 如果过程没有参数，也必须在过程名后面写上小括号
-  例：
+	例：
 
-  ```mysql
-  CREATE PROCEDURE sp_name ([proc_parameter[,...]]) ……
-  ```
+	```mysql
+	CREATE PROCEDURE sp_name ([proc_parameter[,...]]) ……
+	```
 
 - 确保参数的名字不等于列的名字，否则在过程体中，参数名被当做列名来处理。
 
@@ -3364,12 +3364,12 @@ DECLARE variable_name datatype [DEFAULT VALUE];
 赋值方式：
 
 - ```mysql
-  set age=18;
-  ```
+	set age=18;
+	```
 
 - ```mysql
-  select StuAge into age from demo.student where StuNo='A001';
-  ```
+	select StuAge into age from demo.student where StuNo='A001';
+	```
 
 
 
@@ -3383,19 +3383,19 @@ MySQL 用户变量，MySQL 中用户变量不用提前申明，在用的时候�
 
 - 使用 `set` 时可以用 `=` 或 `:=` 两种赋值符号赋值：
 
-  ```mysql
-  set @age=19;
-  
-  set @age:=20;
-  ```
+	```mysql
+	set @age=19;
+	
+	set @age:=20;
+	```
 
 - 使用 `SELECT` 时必须用 `:=` 赋值符号赋值：
 
-  ```mysql
-  select @age:=22;
-  
-  select @age:=StuAge from demo.student where StuNo='A001';
-  ```
+	```mysql
+	select @age:=22;
+	
+	select @age:=StuAge from demo.student where StuNo='A001';
+	```
 
 在存储过程中使用用户变量：
 
@@ -3427,34 +3427,34 @@ show session variables;
 设置会话变量的值的三种方式：
 
 - ```mysql
-  set session auto_increment_increment=1;
-  ```
+	set session auto_increment_increment=1;
+	```
 
 - ```mysql
-  set @@session.auto_increment_increment=2;
-  ```
+	set @@session.auto_increment_increment=2;
+	```
 
 - ```mysql
-  set auto_increment_increment=3;
-  ```
+	set auto_increment_increment=3;
+	```
 
-  当省略 `session` 关键字时，默认缺省为 `session`，即设置会话变量的值。
+	当省略 `session` 关键字时，默认缺省为 `session`，即设置会话变量的值。
 
 查询会话变量的值的三种方式：
 
 - ```mysql
-  select @@auto_increment_increment;
-  ```
+	select @@auto_increment_increment;
+	```
 
 - ```mysql
-  select @@session.auto_increment_increment;
-  ```
+	select @@session.auto_increment_increment;
+	```
 
 - ```mysql
-  show session variables like '%auto_increment_increment%';
-  ```
+	show session variables like '%auto_increment_increment%';
+	```
 
-  `session` 关键字可省略。
+	`session` 关键字可省略。
 
 关键字 `session` 也可用关键字 `local` 替代：
 
@@ -3480,24 +3480,24 @@ show global variables;
 设置全局变量的值的两种方式：
 
 - ```mysql
-  set global sql_warnings=ON;
-  ```
+	set global sql_warnings=ON;
+	```
 
-  `global` 不能省略
+	`global` 不能省略
 
 - ```mysql
-  set @@global.sql_warnings=OFF;
-  ```
+	set @@global.sql_warnings=OFF;
+	```
 
 查询全局变量的值的两种方式：
 
 - ```mysql
-  select @@global.sql_warnings;
-  ```
+	select @@global.sql_warnings;
+	```
 
 - ```mysql
-  show global variables like '%sql_warnings%';
-  ```
+	show global variables like '%sql_warnings%';
+	```
 
 
 
@@ -3722,31 +3722,31 @@ ON <表名> FOR EACH ROW<触发器主体>
 语法说明如下。
 
 - 触发器名
-  触发器的名称，触发器在当前数据库中必须具有唯一的名称。如果要在某个特定数据库中创建，名称前面应该加上数据库的名称。
+	触发器的名称，触发器在当前数据库中必须具有唯一的名称。如果要在某个特定数据库中创建，名称前面应该加上数据库的名称。
 
 - INSERT | UPDATE | DELETE
-  触发事件，用于指定激活触发器的语句的种类。
+	触发事件，用于指定激活触发器的语句的种类。
 
-  注意：三种触发器的执行时间如下。
+	注意：三种触发器的执行时间如下。
 
-  - INSERT：将新行插入表时激活触发器。例如，INSERT 的 BEFORE 触发器不仅能被 MySQL 的 INSERT 语句激活，也能被 LOAD DATA 语句激活。
+	- INSERT：将新行插入表时激活触发器。例如，INSERT 的 BEFORE 触发器不仅能被 MySQL 的 INSERT 语句激活，也能被 LOAD DATA 语句激活。
 
-  - DELETE： 从表中删除某一行数据时激活触发器，例如 DELETE 和 REPLACE 语句。
+	- DELETE： 从表中删除某一行数据时激活触发器，例如 DELETE 和 REPLACE 语句。
 
-  - UPDATE：更改表中某一行数据时激活触发器，例如 UPDATE 语句。
+	- UPDATE：更改表中某一行数据时激活触发器，例如 UPDATE 语句。
 
 - BEFORE | AFTER
-  BEFORE 和 AFTER，触发器被触发的时刻，表示触发器是在激活它的语句之前或之后触发。若希望验证新数据是否满足条件，则使用 BEFORE 选项；若希望在激活触发器的语句执行之后完成几个或更多的改变，则通常使用 AFTER 选项。
+	BEFORE 和 AFTER，触发器被触发的时刻，表示触发器是在激活它的语句之前或之后触发。若希望验证新数据是否满足条件，则使用 BEFORE 选项；若希望在激活触发器的语句执行之后完成几个或更多的改变，则通常使用 AFTER 选项。
 
 - 表名
 
-  与触发器相关联的表名，此表必须是永久性表，不能将触发器与临时表或视图关联起来。在该表上触发事件发生时才会激活触发器。同一个表不能拥有两个具有相同触发时刻和事件的触发器。例如，对于一张数据表，不能同时有两个 BEFORE UPDATE 触发器，但可以有一个 BEFORE UPDATE 触发器和一个 BEFORE INSERT 触发器，或一个 BEFORE UPDATE 触发器和一个 AFTER UPDATE 触发器。
+	与触发器相关联的表名，此表必须是永久性表，不能将触发器与临时表或视图关联起来。在该表上触发事件发生时才会激活触发器。同一个表不能拥有两个具有相同触发时刻和事件的触发器。例如，对于一张数据表，不能同时有两个 BEFORE UPDATE 触发器，但可以有一个 BEFORE UPDATE 触发器和一个 BEFORE INSERT 触发器，或一个 BEFORE UPDATE 触发器和一个 AFTER UPDATE 触发器。
 
 - 触发器主体
-  触发器动作主体，包含触发器激活时将要执行的 MySQL 语句。如果要执行多个语句，可使用 BEGIN…END 复合语句结构。
+	触发器动作主体，包含触发器激活时将要执行的 MySQL 语句。如果要执行多个语句，可使用 BEGIN…END 复合语句结构。
 
 - FOR EACH ROW
-  一般是指行级触发，对于受触发事件影响的每一行都要激活触发器的动作。例如，使用 INSERT 语句向某个表中插入多行数据时，触发器会对每一行数据的插入都执行相应的触发器动作。
+	一般是指行级触发，对于受触发事件影响的每一行都要激活触发器的动作。例如，使用 INSERT 语句向某个表中插入多行数据时，触发器会对每一行数据的插入都执行相应的触发器动作。
 
 注意：每个表都支持 INSERT、UPDATE 和 DELETE 的 BEFORE 与 AFTER，因此每个表最多支持 6 个触发器。每个表的每个事件每次只允许有一个触发器。单一触发器不能与多个事件或多个表关联。
 
@@ -3767,13 +3767,13 @@ DROP TRIGGER [ IF EXISTS ] [数据库名] <触发器名>
 语法说明如下：
 
 - 触发器名
-  要删除的触发器名称。
+	要删除的触发器名称。
 - 数据库名
-  可选项。指定触发器所在的数据库的名称。若没有指定，则为当前默认的数据库。
+	可选项。指定触发器所在的数据库的名称。若没有指定，则为当前默认的数据库。
 - 权限
-  执行 DROP TRIGGER 语句需要 SUPER 权限。
+	执行 DROP TRIGGER 语句需要 SUPER 权限。
 - IF EXISTS
-  可选项。避免在没有触发器的情况下删除触发器。
+	可选项。避免在没有触发器的情况下删除触发器。
 
 注意：删除一个表的同时，也会自动删除该表上的触发器。另外，触发器不能更新或覆盖，为了修改一个触发器，必须先删除它，再重新创建。
 
@@ -4045,27 +4045,27 @@ window_spec:
 
 - *partition_clause*：`PARTITION BY` 子句表示如何将查询行分成组，可以理解为 `GROUP BY`。如果忽略 `PARTITION BY`，则只有一个由所有查询行组成的分区。
 
-  *partition_clause* 具有以下语法：
+	*partition_clause* 具有以下语法：
 
-  ```mysql
-  partition_clause:
-      PARTITION BY expr [, expr] ...
-  ```
+	```mysql
+	partition_clause:
+	    PARTITION BY expr [, expr] ...
+	```
 
-  标准 SQL 要求 `PARTITION BY` 后面只跟列名。MySQL 扩展允许表达式，而不仅仅是列名。例如，如果一个表包含一个名为 `ts` 的 `TIMESTAMP` 列，标准 SQL 允许 `PARTITION BY ts`，但不允许 `PARTITION BY HOUR(ts)`，而 MySQL 允许两者。
+	标准 SQL 要求 `PARTITION BY` 后面只跟列名。MySQL 扩展允许表达式，而不仅仅是列名。例如，如果一个表包含一个名为 `ts` 的 `TIMESTAMP` 列，标准 SQL 允许 `PARTITION BY ts`，但不允许 `PARTITION BY HOUR(ts)`，而 MySQL 允许两者。
 
 - *order_clause*：`ORDER BY` 子句表明如何对每个分区的行进行排序。根据 `ORDER BY` 子句相等的分区行被认为是对等的。如果省略了 `ORDER BY`，分区行是无序的，不隐含处理顺序，所有的分区行都是对等的。
 
-  *order_clause* 具有以下语法：
+	*order_clause* 具有以下语法：
 
-  ```mysql
-  order_clause:
-      ORDER BY expr [ASC|DESC] [, expr [ASC|DESC]] ...
-  ```
+	```mysql
+	order_clause:
+	    ORDER BY expr [ASC|DESC] [, expr [ASC|DESC]] ...
+	```
 
-  每个 `ORDER BY` 表达式后面可以选择 `ASC` 或 `DESC` 来表示排序方向。如果没有指定方向，默认是 `ASC`。对于升序排序，`NULL` 值优先排序，对于降序排序，最后排序。
+	每个 `ORDER BY` 表达式后面可以选择 `ASC` 或 `DESC` 来表示排序方向。如果没有指定方向，默认是 `ASC`。对于升序排序，`NULL` 值优先排序，对于降序排序，最后排序。
 
-  窗口定义中的 `ORDER BY` 适用于各个分区。要将结果集作为一个整体进行排序，请在查询的顶层包含一个 `ORDER BY`。
+	窗口定义中的 `ORDER BY` 适用于各个分区。要将结果集作为一个整体进行排序，请在查询的顶层包含一个 `ORDER BY`。
 
 - *frame_clause*：框架是当前分区的一个子集，*frame_clause* 指定了如何定义这个子集。*frame_clause* 有很多自己的子句。详见下一节。
 
@@ -4183,18 +4183,18 @@ frame_start, frame_end: {
 
 - `expr FOLLOWING`：对于 `ROWS` 来说，边界是当前行之后的 *expr* 行。对于 `RANGE`，边界是值等于当前行值加上 *expr* 的行；如果当前行值是 `NULL`，边界是该行的同级。
 
-  对于 `expr PRECEDING`（和 `expr FOLLOWING`），*expr* 可以是一个 ? 参数标记（在准备好的语句中使用），一个非负数的数字字头，或者一个 `INTERVAL val unit` 形式的时间间隔。对于 `INTERVAL` 表达式，*val* 指定了非负的间隔值，*unit* 是一个关键字，表示该值应该被解释的单位。
+	对于 `expr PRECEDING`（和 `expr FOLLOWING`），*expr* 可以是一个 ? 参数标记（在准备好的语句中使用），一个非负数的数字字头，或者一个 `INTERVAL val unit` 形式的时间间隔。对于 `INTERVAL` 表达式，*val* 指定了非负的间隔值，*unit* 是一个关键字，表示该值应该被解释的单位。
 
-  数字或时间 *expr* 上的 `RANGE` 分别要求数字或时间表达式上的 `ORDER BY`。
+	数字或时间 *expr* 上的 `RANGE` 分别要求数字或时间表达式上的 `ORDER BY`。
 
-  有效的 `expr PRECEDING` 和 `expr FOLLOWING` 指标的例子：
+	有效的 `expr PRECEDING` 和 `expr FOLLOWING` 指标的例子：
 
-  ```mysql
-  10 PRECEDING
-  INTERVAL 5 DAY PRECEDING
-  5 FOLLOWING
-  INTERVAL '2:30' MINUTE_SECOND FOLLOWING
-  ```
+	```mysql
+	10 PRECEDING
+	INTERVAL 5 DAY PRECEDING
+	5 FOLLOWING
+	INTERVAL '2:30' MINUTE_SECOND FOLLOWING
+	```
 
 下面的查询演示了 `FIRST_VALUE()`、`LAST_VALUE()`  和 `NTH_VALUE()` 的两个实例：
 
@@ -4231,15 +4231,15 @@ mysql> SELECT
 
 - 有 `ORDER BY`：默认的框架包括从分区开始到当前行的记录，包括当前行的所有同级别的记录（根据 `ORDER BY` 子句，等于当前行的记录）。默认情况下等同于这个框架规范：
 
-  ```mysql
-  RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
-  ```
+	```mysql
+	RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+	```
 
 - 没有 `ORDER BY`：默认的框架包括所有分区行（因为在没有 `ORDER BY`的情况下，所有分区行都是同行）。默认情况等同于这个框架规范：
 
-  ```mysql
-  RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
-  ```
+	```mysql
+	RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+	```
 
 因为默认的框架因 `ORDER BY` 的存在与否而不同，在查询中加入 `ORDER BY` 以获得确定的结果可能会改变结果。（例如，由 `SUM()` 产生的值可能会改变）。为了获得相同的结果，但按 `ORDER BY` 排序，请提供一个明确的框架规范，无论 `ORDER BY` 是否存在都要使用。
 
@@ -4248,46 +4248,46 @@ mysql> SELECT
 当当前行值为 `NULL` 时，框架规范的含义可能是不明显的。假设是这种情况，这些例子说明了各种框架规范的应用：
 
 - ```mysql
-  ORDER BY X ASC RANGE BETWEEN 10 FOLLOWING AND 15 FOLLOWING
-  ```
+	ORDER BY X ASC RANGE BETWEEN 10 FOLLOWING AND 15 FOLLOWING
+	```
 
-  这个框架从 `NULL` 开始，到 `NULL` 结束，因此只包括数值为 `NULL` 的记录。
-
-- ```mysql
-  ORDER BY X ASC RANGE BETWEEN 10 FOLLOWING AND UNBOUNDED FOLLOWING
-  ```
-
-  这个框架从 `NULL` 开始，到分区的末尾为止。因为 `ASC` 排序将 `NULL` 值放在前面，所以框架是整个分区。
+	这个框架从 `NULL` 开始，到 `NULL` 结束，因此只包括数值为 `NULL` 的记录。
 
 - ```mysql
-  ORDER BY X DESC RANGE BETWEEN 10 FOLLOWING AND UNBOUNDED FOLLOWING
-  ```
+	ORDER BY X ASC RANGE BETWEEN 10 FOLLOWING AND UNBOUNDED FOLLOWING
+	```
 
-  这个框架从 `NULL` 开始，在分区的末端停止。因为 `DESC` 排序将 `NULL` 值放在最后，所以框架中只有 `NULL` 值。
-
-- ```mysql
-  ORDER BY X ASC RANGE BETWEEN 10 PRECEDING AND UNBOUNDED FOLLOWING
-  ```
-
-  这个框架从 `NULL` 开始，到分区的末尾为止。因为 `ASC` 排序将 `NULL` 值放在前面，所以框架是整个分区。
+	这个框架从 `NULL` 开始，到分区的末尾为止。因为 `ASC` 排序将 `NULL` 值放在前面，所以框架是整个分区。
 
 - ```mysql
-  ORDER BY X ASC RANGE BETWEEN 10 PRECEDING AND 10 FOLLOWING
-  ```
+	ORDER BY X DESC RANGE BETWEEN 10 FOLLOWING AND UNBOUNDED FOLLOWING
+	```
 
-  这个框架从 `NULL` 开始，到 `NULL` 结束，因此只包括数值为 `NULL` 的记录。
-
-- ```mysql
-  ORDER BY X ASC RANGE BETWEEN 10 PRECEDING AND 1 PRECEDING
-  ```
-
-  这个框架从 `NULL` 开始，到 `NULL` 结束，因此只包括数值为 `NULL` 的记录。
+	这个框架从 `NULL` 开始，在分区的末端停止。因为 `DESC` 排序将 `NULL` 值放在最后，所以框架中只有 `NULL` 值。
 
 - ```mysql
-  ORDER BY X ASC RANGE BETWEEN UNBOUNDED PRECEDING AND 10 FOLLOWING
-  ```
+	ORDER BY X ASC RANGE BETWEEN 10 PRECEDING AND UNBOUNDED FOLLOWING
+	```
 
-  这个框架从分区的开始开始，到数值为 `NULL` 的行为止。因为 `ASC` 排序将 `NULL` 值放在首位，所以框架中只有 `NULL` 值。
+	这个框架从 `NULL` 开始，到分区的末尾为止。因为 `ASC` 排序将 `NULL` 值放在前面，所以框架是整个分区。
+
+- ```mysql
+	ORDER BY X ASC RANGE BETWEEN 10 PRECEDING AND 10 FOLLOWING
+	```
+
+	这个框架从 `NULL` 开始，到 `NULL` 结束，因此只包括数值为 `NULL` 的记录。
+
+- ```mysql
+	ORDER BY X ASC RANGE BETWEEN 10 PRECEDING AND 1 PRECEDING
+	```
+
+	这个框架从 `NULL` 开始，到 `NULL` 结束，因此只包括数值为 `NULL` 的记录。
+
+- ```mysql
+	ORDER BY X ASC RANGE BETWEEN UNBOUNDED PRECEDING AND 10 FOLLOWING
+	```
+
+	这个框架从分区的开始开始，到数值为 `NULL` 的行为止。因为 `ASC` 排序将 `NULL` 值放在首位，所以框架中只有 `NULL` 值。
 
 
 
@@ -4297,14 +4297,14 @@ mysql> SELECT
 
 ```mysql
 WINDOW window_name AS (window_spec)
-    [, window_name AS (window_spec)] ...
+		[, window_name AS (window_spec)] ...
 ```
 
 对于每个窗口定义，*window_name* 是窗口名称，而 *window_spec* 是在 `OVER` 子句的括号中给出的相同类型的窗口规范：
 
 ```mysql
 window_spec:
-    [window_name] [partition_clause] [order_clause] [frame_clause]
+		[window_name] [partition_clause] [order_clause] [frame_clause]
 ```
 
 
@@ -4313,10 +4313,10 @@ window_spec:
 
 ```mysql
 SELECT
-  val,
-  ROW_NUMBER() OVER (ORDER BY val) AS 'row_number',
-  RANK()       OVER (ORDER BY val) AS 'rank',
-  DENSE_RANK() OVER (ORDER BY val) AS 'dense_rank'
+	val,
+	ROW_NUMBER() OVER (ORDER BY val) AS 'row_number',
+	RANK()       OVER (ORDER BY val) AS 'rank',
+	DENSE_RANK() OVER (ORDER BY val) AS 'dense_rank'
 FROM numbers;
 ```
 
@@ -4324,10 +4324,10 @@ FROM numbers;
 
 ```mysql
 SELECT
-  val,
-  ROW_NUMBER() OVER w AS 'row_number',
-  RANK()       OVER w AS 'rank',
-  DENSE_RANK() OVER w AS 'dense_rank'
+	val,
+	ROW_NUMBER() OVER w AS 'row_number',
+	RANK()       OVER w AS 'rank',
+	DENSE_RANK() OVER w AS 'dense_rank'
 FROM numbers
 WINDOW w AS (ORDER BY val);
 ```
@@ -4340,9 +4340,9 @@ WINDOW w AS (ORDER BY val);
 
 ```mysql
 SELECT
-  DISTINCT year, country,
-  FIRST_VALUE(year) OVER (w ORDER BY year ASC) AS first,
-  FIRST_VALUE(year) OVER (w ORDER BY year DESC) AS last
+	DISTINCT year, country,
+	FIRST_VALUE(year) OVER (w ORDER BY year ASC) AS first,
+	FIRST_VALUE(year) OVER (w ORDER BY year DESC) AS last
 FROM sales
 WINDOW w AS (PARTITION BY country);
 ```
@@ -4351,17 +4351,17 @@ WINDOW w AS (PARTITION BY country);
 
 - 这个结构是允许的，因为窗口定义和引用的 `OVER` 子句不包含同种属性：
 
-  ```mysql
-  OVER (w ORDER BY country)
-  ... WINDOW w AS (PARTITION BY country)
-  ```
+	```mysql
+	OVER (w ORDER BY country)
+	... WINDOW w AS (PARTITION BY country)
+	```
 
 - 这个结构是不允许的，因为 `OVER` 子句为一个已经有 `PARTITION BY` 的命名窗口指定了 `PARTITION BY`：
 
-  ```mysql
-  OVER (w PARTITION BY year)
-  ... WINDOW w AS (PARTITION BY country)
-  ```
+	```mysql
+	OVER (w PARTITION BY year)
+	... WINDOW w AS (PARTITION BY country)
+	```
 
 
 
@@ -4369,15 +4369,15 @@ WINDOW w AS (PARTITION BY country);
 
 - 这是被允许的；它包含向前和向后的引用，但没有循环：
 
-  ```mysql
-  WINDOW w1 AS (w2), w2 AS (), w3 AS (w1)
-  ```
+	```mysql
+	WINDOW w1 AS (w2), w2 AS (), w3 AS (w1)
+	```
 
 - 这是不允许的，因为它包含一个循环：
 
-  ```mysql
-  WINDOW w1 AS (w2), w2 AS (w3), w3 AS (w1)
-  ```
+	```mysql
+	WINDOW w1 AS (w2), w2 AS (w3), w3 AS (w1)
+	```
 
 
 
@@ -4419,12 +4419,12 @@ CUME_DIST() over_clause
 
 ```mysql
 mysql> SELECT
-         val,
-         ROW_NUMBER()   OVER w AS 'row_number',
-         CUME_DIST()    OVER w AS 'cume_dist',
-         PERCENT_RANK() OVER w AS 'percent_rank'
-       FROM numbers
-       WINDOW w AS (ORDER BY val);
+				val,
+				ROW_NUMBER()   OVER w AS 'row_number',
+				CUME_DIST()    OVER w AS 'cume_dist',
+				PERCENT_RANK() OVER w AS 'percent_rank'
+			FROM numbers
+			WINDOW w AS (ORDER BY val);
 +------+------------+--------------------+--------------+
 | val  | row_number | cume_dist          | percent_rank |
 +------+------------+--------------------+--------------+
@@ -4464,12 +4464,12 @@ DENSE_RANK() over_clause
 
 ```mysql
 mysql>SELECT
-        val,
-        DENSE_RANK() OVER (
-            ORDER BY val
-        ) my_rank
-      FROM
-        rankDemo; 
+				val,
+				DENSE_RANK() OVER (
+						ORDER BY val
+				) my_rank
+			FROM
+				rankDemo; 
 +------+---------+
 | val  | my_rank |
 +------+---------+
@@ -4499,14 +4499,14 @@ FIRST_VALUE(expr) [null_treatment] over_clause
 
 ```mysql
 mysql> SELECT
-         time, subject, val,
-         FIRST_VALUE(val)  OVER w AS 'first',
-         LAST_VALUE(val)   OVER w AS 'last',
-         NTH_VALUE(val, 2) OVER w AS 'second',
-         NTH_VALUE(val, 4) OVER w AS 'fourth'
-       FROM observations
-       WINDOW w AS (PARTITION BY subject ORDER BY time
-                    ROWS UNBOUNDED PRECEDING);
+				time, subject, val,
+				FIRST_VALUE(val)  OVER w AS 'first',
+				LAST_VALUE(val)   OVER w AS 'last',
+				NTH_VALUE(val, 2) OVER w AS 'second',
+				NTH_VALUE(val, 4) OVER w AS 'fourth'
+			FROM observations
+			WINDOW w AS (PARTITION BY subject ORDER BY time
+										ROWS UNBOUNDED PRECEDING);
 +----------+---------+------+-------+------+--------+--------+
 | time     | subject | val  | first | last | second | fourth |
 +----------+---------+------+-------+------+--------+--------+
@@ -4547,13 +4547,13 @@ LAG(expr [, N[, default]]) [null_treatment] over_clause
 
 ```mysql
 mysql> SELECT
-         t, val,
-         LAG(val)        OVER w AS 'lag',
-         LEAD(val)       OVER w AS 'lead',
-         val - LAG(val)  OVER w AS 'lag diff',
-         val - LEAD(val) OVER w AS 'lead diff'
-       FROM series
-       WINDOW w AS (ORDER BY t);
+				t, val,
+				LAG(val)        OVER w AS 'lag',
+				LEAD(val)       OVER w AS 'lead',
+				val - LAG(val)  OVER w AS 'lag diff',
+				val - LEAD(val) OVER w AS 'lead diff'
+			FROM series
+			WINDOW w AS (ORDER BY t);
 +----------+------+------+------+----------+-----------+
 | t        | val  | lag  | lead | lag diff | lead diff |
 +----------+------+------+------+----------+-----------+
@@ -4593,13 +4593,13 @@ mysql> SELECT n FROM fib ORDER BY n;
 
 ```mysql
 mysql> SELECT
-         n,
-         LAG(n, 1, 0)      OVER w AS 'lag',
-         LEAD(n, 1, 0)     OVER w AS 'lead',
-         n + LAG(n, 1, 0)  OVER w AS 'next_n',
-         n + LEAD(n, 1, 0) OVER w AS 'next_next_n'
-       FROM fib
-       WINDOW w AS (ORDER BY n);
+				n,
+				LAG(n, 1, 0)      OVER w AS 'lag',
+				LEAD(n, 1, 0)     OVER w AS 'lead',
+				n + LAG(n, 1, 0)  OVER w AS 'next_n',
+				n + LEAD(n, 1, 0) OVER w AS 'next_next_n'
+			FROM fib
+			WINDOW w AS (ORDER BY n);
 +------+------+------+--------+-------------+
 | n    | lag  | lead | next_n | next_next_n |
 +------+------+------+--------+-------------+
@@ -4694,12 +4694,12 @@ NTILE(N) over_clause
 
 ```mysql
 mysql> SELECT
-         val,
-         ROW_NUMBER() OVER w AS 'row_number',
-         NTILE(2)     OVER w AS 'ntile2',
-         NTILE(4)     OVER w AS 'ntile4'
-       FROM numbers
-       WINDOW w AS (ORDER BY val);
+				val,
+				ROW_NUMBER() OVER w AS 'row_number',
+				NTILE(2)     OVER w AS 'ntile2',
+				NTILE(4)     OVER w AS 'ntile4'
+			FROM numbers
+			WINDOW w AS (ORDER BY val);
 +------+------------+--------+--------+
 | val  | row_number | ntile2 | ntile4 |
 +------+------------+--------+--------+
@@ -4751,12 +4751,12 @@ RANK() over_clause
 
 ```mysql
 mysql> SELECT
-         val,
-         ROW_NUMBER() OVER w AS 'row_number',
-         RANK()       OVER w AS 'rank',
-         DENSE_RANK() OVER w AS 'dense_rank'
-       FROM numbers
-       WINDOW w AS (ORDER BY val);
+				val,
+				ROW_NUMBER() OVER w AS 'row_number',
+				RANK()       OVER w AS 'rank',
+				DENSE_RANK() OVER w AS 'dense_rank'
+			FROM numbers
+			WINDOW w AS (ORDER BY val);
 +------+------------+------+------------+
 | val  | row_number | rank | dense_rank |
 +------+------------+------+------------+
@@ -5154,8 +5154,8 @@ MySQL `GROUP_CONCAT()` 函数将组中的字符串连接成为具有各种选项
 
 ```mysql
 GROUP_CONCAT(DISTINCT expression
-    ORDER BY expression
-    SEPARATOR sep);
+		ORDER BY expression
+		SEPARATOR sep);
 ```
 
 `DISTINCT` 子句用于在连接分组之前消除组中的重复值。
@@ -5174,19 +5174,19 @@ GROUP_CONCAT(DISTINCT expression
 USE testdb;
 
 CREATE TABLE t (
-    v CHAR
+		v CHAR
 );
 
 INSERT INTO t(v) VALUES('A'),('B'),('C'),('B');
 
 SELECT 
-    GROUP_CONCAT(
-        DISTINCT v
-        ORDER BY v ASC
-        SEPARATOR ';'
-    )
+		GROUP_CONCAT(
+				DISTINCT v
+				ORDER BY v ASC
+				SEPARATOR ';'
+		)
 FROM
-    t;
+		t;
 ```
 
 执行上面查询语句，得到以下结果：
@@ -5437,34 +5437,34 @@ select @@transaction_isolation;  #查询当前事务隔离级别
 
 3. 设置A窗口的隔离级别为：read uncommitted （有脏读发生的可能）
 
-   ```mysql
-   set session transaction isolation level read uncommitted;
-   ```
+	```mysql
+	set session transaction isolation level read uncommitted;
+	```
 
 4. 在A和B窗口中都开启事物。
 
-   ```mysql
-   start transaction;
-   ```
+	```mysql
+	start transaction;
+	```
 
 5. 在B窗口中完成转账的操作，但是没有提交事物。
 
-   ```mysql
-   update user set money = money - 1000 where name = '张三';
-   update user set money = money + 1000 where name = '赵四';
-   ```
+	```mysql
+	update user set money = money - 1000 where name = '张三';
+	update user set money = money + 1000 where name = '赵四';
+	```
 
 6. 在A窗口中查询账户的余额。
 
-   ```mysql
-   select * from user;
-   ```
+	```mysql
+	select * from user;
+	```
 
 7. 在B窗口中回滚数据
 
-   ```mysql
-   rollback;
-   ```
+	```mysql
+	rollback;
+	```
 
 
 
@@ -5472,34 +5472,34 @@ select @@transaction_isolation;  #查询当前事务隔离级别
 
 1. 设置A窗口的隔离级别为：read committed （避免脏读，不可重复读会发生）
 
-   ```mysql
-   set session transaction isolation level read committed;
-   ```
+	```mysql
+	set session transaction isolation level read committed;
+	```
 
 2. 在A和B窗口中都开启事物。
 
-   ```mysql
-   start transaction;
-   ```
+	```mysql
+	start transaction;
+	```
 
 3. 在B窗口中完成转账的操作，但是没有提交事物。
 
-   ```mysql
-   update user set money = money - 1000 where name = '张三';
-   update user set money = money + 1000 where name = '赵四';
-   ```
+	```mysql
+	update user set money = money - 1000 where name = '张三';
+	update user set money = money + 1000 where name = '赵四';
+	```
 
 4. 在A窗口中查询账户的余额，查询的结果没有变化，说明已经避免了脏读。
 
-   ```mysql
-   select * from user;
-   ```
+	```mysql
+	select * from user;
+	```
 
 5. 在B窗口中提交数据数据
 
-   ```mysql
-   commit;
-   ```
+	```mysql
+	commit;
+	```
 
 6. B窗口的数据已经提交了，在A窗口中查询数据，发现两次查询的结果发生了变化，这就导致了不可重复读的发生。
 
@@ -5509,34 +5509,34 @@ select @@transaction_isolation;  #查询当前事务隔离级别
 
 1. 设置A窗口的隔离级别为： repeatable read   （避免脏读和不可重复读，但是虚读有可能发生）
 
-   ```mysql
-   set session transaction isolation level repeatable read ;
-   ```
+	```mysql
+	set session transaction isolation level repeatable read ;
+	```
 
 2. 在A和B窗口中都开启事物。
 
-   ```mysql
-   start transaction;
-   ```
+	```mysql
+	start transaction;
+	```
 
 3. 在B窗口中完成转账的操作，但是没有提交事物。
 
-   ```mysql
-   update user set money = money - 1000 where name = '张三';
-   update user set money = money + 1000 where name = '赵四';
-   ```
+	```mysql
+	update user set money = money - 1000 where name = '张三';
+	update user set money = money + 1000 where name = '赵四';
+	```
 
 4. 在A窗口中查询账户的余额，查询的结果没有变化，说明已经避免了脏读。
 
-   ```mysql
-   select * from user;
-   ```
+	```mysql
+	select * from user;
+	```
 
 5. 在B窗口中提交数据数据
 
-   ```mysql
-   commit;
-   ```
+	```mysql
+	commit;
+	```
 
 6. B窗口的数据已经提交了，在A窗口中查询数据，发现两次查询的结果一致，说明已经避免了不可重复读的发生。
 
@@ -5546,27 +5546,27 @@ select @@transaction_isolation;  #查询当前事务隔离级别
 
 1. 设置A窗口的隔离级别serializable 
 
-   ```mysql
-   set session transaction isolation level serializable ;
-   ```
+	```mysql
+	set session transaction isolation level serializable ;
+	```
 
 2. 在A和B窗口中都开启事物。
 
-   ```mysql
-   start transaction;
-   ```
+	```mysql
+	start transaction;
+	```
 
 3. 在B窗口中插入一条数据（没有提交）
 
-   ```mysql
-   insert into user values (null,'小凤',10000);
-   ```
+	```mysql
+	insert into user values (null,'小凤',10000);
+	```
 
 4. 在A窗口查询数据，如果B窗口没有提交或者回滚，在A窗口是 不能查询到结果的。
 
-   ```mysql
-   select * from user;
-   ```
+	```mysql
+	select * from user;
+	```
 
 
 
@@ -5738,11 +5738,11 @@ DROP TABLE IF EXISTS `student`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `student` (
-  `id` int(4) NOT NULL,
-  `name` varchar(20) DEFAULT NULL,
-  `stuno` int(11) DEFAULT NULL,
-  `age` int(4) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+	`id` int(4) NOT NULL,
+	`name` varchar(20) DEFAULT NULL,
+	`stuno` int(11) DEFAULT NULL,
+	`age` int(4) DEFAULT NULL,
+	PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -5891,22 +5891,22 @@ SUN 公司为了简化、统一对数据库的操作，定义了一套 Java 操�
 
 2. 编写程序，在程序中加载数据库驱动
 
-   ```java
-   DriverManager.registerDriver(Driver driver);
-   ```
+	```java
+	DriverManager.registerDriver(Driver driver);
+	```
 
 3. 建立连接(Connection)
 
-   ```java
-   Connection conn = DriverManager.getConnection(url,user,pass); 
-   ```
+	```java
+	Connection conn = DriverManager.getConnection(url,user,pass); 
+	```
 
 4. 创建用于向数据库发送SQL的Statement对象，并发送
 
-   ```java
-   Statement st = conn.createStatement();
-   ResultSet rs = st.executeQuery(sql);
-   ```
+	```java
+	Statement st = conn.createStatement();
+	ResultSet rs = st.executeQuery(sql);
+	```
 
 5. 从代表结果集的ResultSet中取出数据，打印到命令行窗口
 
@@ -5926,16 +5926,16 @@ DriverManager类的是管理一组 JDBC 驱动程序的基本服务。作用有�
 
 1. 注册驱动
 
-   static void registerDriver(Driver driver)方法进行注册驱动
-   但是这种方式不是很好，原因如下：
+	static void registerDriver(Driver driver)方法进行注册驱动
+	但是这种方式不是很好，原因如下：
 
-   让应用程序依赖具体的驱动包，如果是切换数据库还需要修改源代码才能完成。调用该方法导致驱动被注册两次，通过查看驱动的源代码能发现次问题。所以在实际开发中不会这么做。
+	让应用程序依赖具体的驱动包，如果是切换数据库还需要修改源代码才能完成。调用该方法导致驱动被注册两次，通过查看驱动的源代码能发现次问题。所以在实际开发中不会这么做。
 
-   具体做法如下：
+	具体做法如下：
 
-   ```java
-   Class.forName("com.mysql.jdbc.Driver");
-   ```
+	```java
+	Class.forName("com.mysql.jdbc.Driver");
+	```
 
 2. 获取链接对象
 
@@ -5954,13 +5954,13 @@ Jdbc程序中的Connection，它用于代表数据库的链接，Collection是�
 有两个作用：
 
 1. 创建执行SQL语句的对象：
-   - createStatement()：创建向数据库发送sql的statement对象
-   - prepareStatement(sql) ：创建向数据库发送预编译sql的PreparedSatement对象
-   - prepareCall(sql)：创建执行存储过程的CallableStatement对象。
+	- createStatement()：创建向数据库发送sql的statement对象
+	- prepareStatement(sql) ：创建向数据库发送预编译sql的PreparedSatement对象
+	- prepareCall(sql)：创建执行存储过程的CallableStatement对象。
 2. 管理事物：
-   - setAutoCommit(boolean autoCommit)：设置事务是否自动提交。
-   - commit() ：在链接上提交事务。 ---与事务相关！！
-   - rollback() ：在此链接上回滚事务。
+	- setAutoCommit(boolean autoCommit)：设置事务是否自动提交。
+	- commit() ：在链接上提交事务。 ---与事务相关！！
+	- rollback() ：在此链接上回滚事务。
 
 
 
@@ -5969,12 +5969,12 @@ Jdbc程序中的Connection，它用于代表数据库的链接，Collection是�
 Jdbc程序中的Statement对象用于向数据库发送SQL语句， Statement对象常用方法：
 
 1. 执行SQL语句
-   - executeQuery(String sql) ：用于向数据发送查询语句。
-   - executeUpdate(String sql)：用于向数据库发送insert、update或delete语句
-   - execute(String sql)：用于向数据库发送任意sql语句
+	- executeQuery(String sql) ：用于向数据发送查询语句。
+	- executeUpdate(String sql)：用于向数据库发送insert、update或delete语句
+	- execute(String sql)：用于向数据库发送任意sql语句
 2. 执行批处理
-   - addBatch(String sql) ：把多条sql语句放到一个批处理中。
-   - executeBatch()：向数据库发送一批sql语句执行。
+	- addBatch(String sql) ：把多条sql语句放到一个批处理中。
+	- executeBatch()：向数据库发送一批sql语句执行。
 
 
 
@@ -5995,11 +5995,11 @@ Jdbc程序中的ResultSet用于代表Sql语句的执行结果。Resultset封装�
 ResultSet既然用于封装执行结果的，所以该对象提供的大部分方法都是用于获取数据的get方法：
 
 1. 获取任意类型的数据
-   - getObject(int index)
-   - getObject(string columnName)
+	- getObject(int index)
+	- getObject(string columnName)
 2. 获取指定类型的数据
-   - getString(int index)
-   - getString(String columnName)
+	- getString(int index)
+	- getString(String columnName)
 
 
 
@@ -6051,7 +6051,7 @@ Statement st = conn.createStatement();
 String sql = "insert into user(...) values(...)";
 int num = st.executeUpdate(sql);
 if (num > 0) {
-    System.out.println("插入成功！");
+		System.out.println("插入成功！");
 }
 ```
 
@@ -6066,7 +6066,7 @@ Statement st = conn.createStatement();
 String sql = "update user set name='' where name=''";
 int num = st.executeUpdate(sql);
 if (num > 0) {
-    System.out.println("修改成功！");
+		System.out.println("修改成功！");
 }
 ```
 
@@ -6081,7 +6081,7 @@ Statement st = conn.createStatement();
 String sql = "delete from user where id=1";
 int num = st.executeUpdate(sql);
 if (num > 0) {
-    System.out.println("删除成功！");
+		System.out.println("删除成功！");
 }
 ```
 
@@ -6096,8 +6096,8 @@ Statement st = conn.createStatement();
 String sql = "select * from user where id=1";
 ResultSet rs = st.executeQuery(sql);
 while (rs.next()) {
-    // 根据获取列的数据类型，分别调用ts的响应方法
-    // 映射到java对象中
+		// 根据获取列的数据类型，分别调用ts的响应方法
+		// 映射到java对象中
 }
 ```
 
@@ -6165,16 +6165,16 @@ conn = jdbcUtil.getConnection();
 String sql = "insert into person(name,password,email,birthday) values(?,?,?,?,?)";
 st = conn.prepareStatement(sql);
 for (int i = 0; i < 50000; i++) {
-    st.setString(1, "aaa" + i);
-    st.setString(2, "123" + i);
-    st.setString(3, "aaa" + i + "@sina.com");
-    st.setDate(4, new Date(1980, 10, 10));
+		st.setString(1, "aaa" + i);
+		st.setString(2, "123" + i);
+		st.setString(3, "aaa" + i + "@sina.com");
+		st.setDate(4, new Date(1980, 10, 10));
 
-    st.addBatch();
-    if (i % 1000 == 0) {
-        st.executeBatch();
-        st.clearBatch();
-    }
+		st.addBatch();
+		if (i % 1000 == 0) {
+				st.executeBatch();
+				st.clearBatch();
+		}
 }
 st.executeBatch();
 ```
@@ -6645,60 +6645,60 @@ MySQL 的主从复制中主要有三个线程：master（binlog dump thread）�
 
 1. 修改配置文件`my.cnf`：
 
-   ```shell
-   vim /etc/my.cnf
-   ```
+	```shell
+	vim /etc/my.cnf
+	```
 
-   在最后添加以下内容：
+	在最后添加以下内容：
 
-   ```
-   # 指定server_id
-   server_id=1
-   # 定义日志名
-   log-bin=master.bin
-   ```
+	```
+	# 指定server_id
+	server_id=1
+	# 定义日志名
+	log-bin=master.bin
+	```
 
 2. 重启服务生效配置：
 
-   ```shell
-   systemctl restart mysqld
-   ```
+	```shell
+	systemctl restart mysqld
+	```
 
 3. 连接数据库，创建一个用户用于数据的同步：
 
-   ```sql
-   CREATE USER 'replica_user'@'%' IDENTIFIED WITH mysql_native_password BY 'Replica#user1';
-   ```
+	```sql
+	CREATE USER 'replica_user'@'%' IDENTIFIED WITH mysql_native_password BY 'Replica#user1';
+	```
 
-   用户授权：
+	用户授权：
 
-   ```sql
-   GRANT REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'replica_user'@'%';
-   ```
+	```sql
+	GRANT REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'replica_user'@'%';
+	```
 
-   刷新授权信息：
+	刷新授权信息：
 
-   ```sql
-   FLUSH PRIVILEGES;
-   ```
+	```sql
+	FLUSH PRIVILEGES;
+	```
 
-   查看用户信息：
+	查看用户信息：
 
-   ```sql
-   SELECT host, user FROM mysql.user WHERE user = 'replica_user';
-   ```
+	```sql
+	SELECT host, user FROM mysql.user WHERE user = 'replica_user';
+	```
 
 4. 使用 `SHOW MASTER STATUS;` 查看 Master 信息，目的是查看 `File` 和 `Position` 的值：
 
-   ```
-   mysql> SHOW MASTER STATUS;
-   +---------------+----------+--------------+------------------+-------------------+
-   | File          | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |
-   +---------------+----------+--------------+------------------+-------------------+
-   | master.000001 |      719 |              |                  |                   |
-   +---------------+----------+--------------+------------------+-------------------+
-   1 row in set (0.00 sec)
-   ```
+	```
+	mysql> SHOW MASTER STATUS;
+	+---------------+----------+--------------+------------------+-------------------+
+	| File          | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |
+	+---------------+----------+--------------+------------------+-------------------+
+	| master.000001 |      719 |              |                  |                   |
+	+---------------+----------+--------------+------------------+-------------------+
+	1 row in set (0.00 sec)
+	```
 
 
 
@@ -6706,45 +6706,45 @@ MySQL 的主从复制中主要有三个线程：master（binlog dump thread）�
 
 1. 修改配置文件`my.cnf`：
 
-   ```shell
-   vim /etc/my.cnf
-   ```
+	```shell
+	vim /etc/my.cnf
+	```
 
-   在最后添加以下内容：
+	在最后添加以下内容：
 
-   ```
-   # 执行server_id
-   server-id=2
-   ```
+	```
+	# 执行server_id
+	server-id=2
+	```
 
 2. 重启服务生效配置：
 
-   ```shell
-   systemctl restart mysqld
-   ```
+	```shell
+	systemctl restart mysqld
+	```
 
 3. 连接数据库，指定主服务器信息：
 
-   ```sql
-   CHANGE MASTER TO master_host="10.13.18.187", master_user="replica_user", master_password="Replica#user1", master_log_file="master.000001", master_log_pos=719;
-   ```
+	```sql
+	CHANGE MASTER TO master_host="10.13.18.187", master_user="replica_user", master_password="Replica#user1", master_log_file="master.000001", master_log_pos=719;
+	```
 
-   - *master_host*：主服务器 IP 地址
-   - *master_user*：主服务器添加用户名。
-   - *master_password*：用户密码。
-   - *master_log_file*：主服务器 binlog 日志名。
-   - *master_log_pos*：偏移量。
+	- *master_host*：主服务器 IP 地址
+	- *master_user*：主服务器添加用户名。
+	- *master_password*：用户密码。
+	- *master_log_file*：主服务器 binlog 日志名。
+	- *master_log_pos*：偏移量。
 
 4. 启动 Slave进程：
 
-   ```sql
-   START SLAVE;
+	```sql
+	START SLAVE;
 
 5. 查看状态信息（`Slave_IO_Running` 和 `Slave_SQL_Running` 必须同时是 YES 状态）：
 
-   ```sql
-   SHOW SLAVE STATUS \G
-   ```
+	```sql
+	SHOW SLAVE STATUS \G
+	```
 
 
 
@@ -6829,23 +6829,23 @@ Last_IO_Error: Fatal error: The replica I/O thread stops because source and repl
 
 1. 先停止 Slave：
 
-   ```sql
-   STOP SLAVE;
-   ```
+	```sql
+	STOP SLAVE;
+	```
 
 2. 重置 Slave：
 
-   ```sql
-   RESET SLAVE ALL;
-   ```
+	```sql
+	RESET SLAVE ALL;
+	```
 
 3. 之后可以再执行：
 
-   ```sql
-   SHOW SLAVE STATUS\G
-   ```
+	```sql
+	SHOW SLAVE STATUS\G
+	```
 
-   确认是空的状态即可。
+	确认是空的状态即可。
 
 
 

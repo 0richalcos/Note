@@ -185,13 +185,13 @@ Docker 分为 stable、test 和 nightly 三个更新频道。
 
 - 手动下载安装：
 
-  点击[链接](https://desktop.docker.com/win/main/amd64/Docker Desktop Installer.exe)下载 Docker Desktop for Windows，下载好之后双击 `Docker Desktop Installer.exe` 开始安装。
+	点击[链接](https://desktop.docker.com/win/main/amd64/Docker Desktop Installer.exe)下载 Docker Desktop for Windows，下载好之后双击 `Docker Desktop Installer.exe` 开始安装。
 
 - 使用 `winget` 安装：
 
-  ```shell
-  winget install Docker.DockerDesktop
-  ```
+	```shell
+	winget install Docker.DockerDesktop
+	```
 
 
 
@@ -265,70 +265,70 @@ Docker 启动之后会在 Windows 任务栏出现鲸鱼图标：
 	tar -xzf docker-20.10.19.tgz
 	```
 
-   移动解压后的全部内容到 `/usr/bin` 下：
+	移动解压后的全部内容到 `/usr/bin` 下：
 
-   ```shell
-   mv docker/* /usr/bin/
-   ```
+	```shell
+	mv docker/* /usr/bin/
+	```
 
 3. 编辑 `docker.service` 文件：
 
-   ```shell
-   vi /usr/lib/systemd/system/docker.service
-   ```
+	```shell
+	vi /usr/lib/systemd/system/docker.service
+	```
 
-   复制如下内容：
+	复制如下内容：
 
-   ```shell
-   [Unit]
-   Description=Docker Application Container Engine
-   Documentation=https://docs.docker.com
-   After=network-online.target firewalld.service
-   Wants=network-online.target
-   
-   [Service]
-   Type=notify
-   ExecStart=/usr/bin/dockerd
-   ExecReload=/bin/kill -s HUP $MAINPID
-   LimitNOFILE=infinity
-   LimitNPROC=infinity
-   TimeoutStartSec=0
-   Delegate=yes
-   KillMode=process
-   Restart=on-failure
-   StartLimitBurst=3
-   StartLimitInterval=60s
-   
-   [Install]
-   WantedBy=multi-user.target
-   ```
+	```shell
+	[Unit]
+	Description=Docker Application Container Engine
+	Documentation=https://docs.docker.com
+	After=network-online.target firewalld.service
+	Wants=network-online.target
+	
+	[Service]
+	Type=notify
+	ExecStart=/usr/bin/dockerd
+	ExecReload=/bin/kill -s HUP $MAINPID
+	LimitNOFILE=infinity
+	LimitNPROC=infinity
+	TimeoutStartSec=0
+	Delegate=yes
+	KillMode=process
+	Restart=on-failure
+	StartLimitBurst=3
+	StartLimitInterval=60s
+	
+	[Install]
+	WantedBy=multi-user.target
+	```
 
 4. 添加 docker.service 文件的权限：
 
-   ```shell
-   chmod +x /usr/lib/systemd/system/docker.service
-   ```
+	```shell
+	chmod +x /usr/lib/systemd/system/docker.service
+	```
 
-   通知 systemd 守护进程重新读取配置文件：
+	通知 systemd 守护进程重新读取配置文件：
 
-   ```shell
-   systemctl daemon-reload
-   ```
+	```shell
+	systemctl daemon-reload
+	```
 
 5. 启动 Docker，设置开机启动：
 
-   ```shell
-   systemctl start docker
-   systemctl enable docker
-   ```
+	```shell
+	systemctl start docker
+	systemctl enable docker
+	```
 
 6. 验证 Docker 安装是否成功：
 
-   ```shell
-   docker -v
-   ```
+	```shell
+	docker -v
+	```
 
-   输出对应版本，即是成功！
+	输出对应版本，即是成功！
 
 
 
@@ -1153,63 +1153,63 @@ docker tag IMAGE[:TAG] [REGISTRY_HOST[:REGISTRY_PORT]/]REPOSITORY[:TAG]
 
 1. 先在本机查看已有的镜像：
 
-   ```
-   $ docker images
-   REPOSITORY                        TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
-   ubuntu                            latest              ba5877dc9bec        6 weeks ago         192.7 MB
-   ```
+	```
+	$ docker images
+	REPOSITORY                        TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+	ubuntu                            latest              ba5877dc9bec        6 weeks ago         192.7 MB
+	```
 
 2. 使用 `docker tag` 将 `ubuntu:latest` 这个镜像标记为 `127.0.0.1:5000/ubuntu:latest`：
 
-   ```
-   $ docker tag ubuntu:latest 127.0.0.1:5000/ubuntu:latest
-   $ docker images
-   REPOSITORY                        TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
-   ubuntu                            latest              ba5877dc9bec        6 weeks ago         192.7 MB
-   127.0.0.1:5000/ubuntu:latest      latest              ba5877dc9bec        6 weeks ago         192.7 MB
-   ```
+	```
+	$ docker tag ubuntu:latest 127.0.0.1:5000/ubuntu:latest
+	$ docker images
+	REPOSITORY                        TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+	ubuntu                            latest              ba5877dc9bec        6 weeks ago         192.7 MB
+	127.0.0.1:5000/ubuntu:latest      latest              ba5877dc9bec        6 weeks ago         192.7 MB
+	```
 
 3. 使用 `docker push` 上传标记的镜像：
 
-   ```
-   $ docker push 127.0.0.1:5000/ubuntu:latest
-   The push refers to repository [127.0.0.1:5000/ubuntu]
-   373a30c24545: Pushed
-   a9148f5200b0: Pushed
-   cdd3de0940ab: Pushed
-   fc56279bbb33: Pushed
-   b38367233d37: Pushed
-   2aebd096e0e2: Pushed
-   latest: digest: sha256:fe4277621f10b5026266932ddf760f5a756d2facd505a94d2da12f4f52f71f5a size: 1568
-   ```
+	```
+	$ docker push 127.0.0.1:5000/ubuntu:latest
+	The push refers to repository [127.0.0.1:5000/ubuntu]
+	373a30c24545: Pushed
+	a9148f5200b0: Pushed
+	cdd3de0940ab: Pushed
+	fc56279bbb33: Pushed
+	b38367233d37: Pushed
+	2aebd096e0e2: Pushed
+	latest: digest: sha256:fe4277621f10b5026266932ddf760f5a756d2facd505a94d2da12f4f52f71f5a size: 1568
+	```
 
 4. 用 `curl` 查看仓库中的镜像：
 
-   ```
-   $ curl 127.0.0.1:5000/v2/_catalog
-   {"repositories":["ubuntu"]}
-   ```
+	```
+	$ curl 127.0.0.1:5000/v2/_catalog
+	{"repositories":["ubuntu"]}
+	```
 
-   这里可以看到 `{"repositories":["ubuntu"]}`，表明镜像已经被成功上传了。
+	这里可以看到 `{"repositories":["ubuntu"]}`，表明镜像已经被成功上传了。
 
 5. 先删除已有镜像，再尝试从私有仓库中下载这个镜像：
 
-   ```
-   $ docker rmi 127.0.0.1:5000/ubuntu:latest
-   
-   $ docker pull 127.0.0.1:5000/ubuntu:latest
-   Pulling repository 127.0.0.1:5000/ubuntu:latest
-   ba5877dc9bec: Download complete
-   511136ea3c5a: Download complete
-   9bad880da3d2: Download complete
-   25f11f5fb0cb: Download complete
-   ebc34468f71d: Download complete
-   2318d26665ef: Download complete
-   
-   $ docker images
-   REPOSITORY                         TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
-   127.0.0.1:5000/ubuntu:latest       latest              ba5877dc9bec        6 weeks ago         192.7 MB
-   ```
+	```
+	$ docker rmi 127.0.0.1:5000/ubuntu:latest
+	
+	$ docker pull 127.0.0.1:5000/ubuntu:latest
+	Pulling repository 127.0.0.1:5000/ubuntu:latest
+	ba5877dc9bec: Download complete
+	511136ea3c5a: Download complete
+	9bad880da3d2: Download complete
+	25f11f5fb0cb: Download complete
+	ebc34468f71d: Download complete
+	2318d26665ef: Download complete
+	
+	$ docker images
+	REPOSITORY                         TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+	127.0.0.1:5000/ubuntu:latest       latest              ba5877dc9bec        6 weeks ago         192.7 MB
+	```
 
 
 
@@ -1733,9 +1733,9 @@ FROM scratch
 
 - shell 格式：`RUN <命令>`，就像直接在命令行中输入的命令一样。刚才写的 Dockerfile 中的 `RUN` 指令就是这种格式。
 
-  ```shell
-  RUN echo '<h1>Hello, Docker!</h1>' > /usr/share/nginx/html/index.html
-  ```
+	```shell
+	RUN echo '<h1>Hello, Docker!</h1>' > /usr/share/nginx/html/index.html
+	```
 
 - exec 格式：`RUN ["可执行文件", "参数1", "参数2"]`，这更像是函数调用中的格式。
 
@@ -2019,15 +2019,15 @@ Docker 不是虚拟机，容器就是进程。既然是进程，那么在启动�
 
 - shell 格式：
 
-  ```dockerfile
-  CMD <命令>
-  ```
+	```dockerfile
+	CMD <命令>
+	```
 
 - exec 格式：
 
-  ```dockerfile
-  CMD ["可执行文件", "参数1", "参数2"...]
-  ```
+	```dockerfile
+	CMD ["可执行文件", "参数1", "参数2"...]
+	```
 
 > [!NOTE]
 >
@@ -2105,11 +2105,11 @@ CMD ["nginx", "-g", "daemon off;"]
 
 - `CMD` 的设计意图是：“这是容器启动时默认要做的事，但你可以轻松地让它做别的。”
 
-  例如：一个 ubuntu 镜像，`CMD ["bash"]` 让你默认进入一个 shell，但你也可以用 `docker run ubuntu python my_script.py` 来运行一个 Python 脚本。
+	例如：一个 ubuntu 镜像，`CMD ["bash"]` 让你默认进入一个 shell，但你也可以用 `docker run ubuntu python my_script.py` 来运行一个 Python 脚本。
 
 - `ENTRYPOINT` 的设计意图是：“这个容器就是一个 X 程序，你只能给它传递参数，而不是替换它。”
 
-  例如：一个 redis 镜像，它的 `ENTRYPOINT` 就是 `redis-server`。你启动它就是为了运行 Redis，你可能会传递一个自定义配置文件的路径作为参数，但你不会想把 `redis-server` 换成 `ls -l`。
+	例如：一个 redis 镜像，它的 `ENTRYPOINT` 就是 `redis-server`。你启动它就是为了运行 Redis，你可能会传递一个自定义配置文件的路径作为参数，但你不会想把 `redis-server` 换成 `ls -l`。
 
 
 
@@ -2132,27 +2132,27 @@ CMD ["localhost"]
 
 - 场景一：不提供任何参数
 
-  ```shell
-  docker run my-pro-ping
-  ```
+	```shell
+	docker run my-pro-ping
+	```
 
-  `CMD` 的值 `["localhost"]` 会被追加到 `ENTRYPOINT` 后面。实际执行：`ping -c 4 localhost`。
+	`CMD` 的值 `["localhost"]` 会被追加到 `ENTRYPOINT` 后面。实际执行：`ping -c 4 localhost`。
 
 - 场景二：提供一个新的参数
 
-  ```shell
-  docker run my-pro-ping google.com
-  ```
+	```shell
+	docker run my-pro-ping google.com
+	```
 
-  `docker run` 后面的 `google.com` 会覆盖掉 `CMD` 的内容。实际执行：`ping -c 4 google.com`。
+	`docker run` 后面的 `google.com` 会覆盖掉 `CMD` 的内容。实际执行：`ping -c 4 google.com`。
 
 - 场景三：提供多个新参数
 
-  ```shell
-  docker run my-pro-ping -W 5 baidu.com
-  ```
+	```shell
+	docker run my-pro-ping -W 5 baidu.com
+	```
 
-  `-W 5 baidu.com` 会覆盖 `CMD`。实际执行：`ping -c 4 -W 5 baidu.com`。
+	`-W 5 baidu.com` 会覆盖 `CMD`。实际执行：`ping -c 4 -W 5 baidu.com`。
 
 通过这种组合，我们创建了一个非常强大且灵活的镜像：
 
@@ -2413,15 +2413,15 @@ CMD [ "exec", "gosu", "redis", "redis-server" ]
 
 - 设置检查容器健康状况的命令：
 
-  ```dockerfile
-  HEALTHCHECK [选项] CMD <命令>
-  ```
+	```dockerfile
+	HEALTHCHECK [选项] CMD <命令>
+	```
 
 - 如果基础镜像有健康检查指令，使用这行可以屏蔽掉其健康检查指令：
 
-  ```dockerfile
-  HEALTHCHECK NONE
-  ```
+	```dockerfile
+	HEALTHCHECK NONE
+	```
 
 在没有 `HEALTHCHECK` 指令前，Docker 引擎只可以通过容器内主进程是否退出来判断容器是否状态异常。很多情况下这没问题，但是如果程序进入死锁状态，或者死循环状态，应用进程并不退出，但是该容器已经无法提供服务了。在 1.12 以前，Docker 不会检测到容器的这种状态，从而不会重新调度，导致可能会有部分容器已经无法提供服务了却还在接受用户请求。
 

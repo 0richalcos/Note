@@ -63,85 +63,85 @@ import { Graph } from '@antv/x6';
 
 1. **创建容器**
 
-   在页面中创建一个用于容纳 X6 绘图的容器，可以是一个 `div` 标签：
+	在页面中创建一个用于容纳 X6 绘图的容器，可以是一个 `div` 标签：
 
-   ```html
-   <div id="container"></div>
-   ```
+	```html
+	<div id="container"></div>
+	```
 
 2. **准备数据**
 
-   X6 支持 JSON 格式数据，该对象中需要有节点 `nodes` 和边 `edges` 字段，分别用数组表示：
+	X6 支持 JSON 格式数据，该对象中需要有节点 `nodes` 和边 `edges` 字段，分别用数组表示：
 
-   ```ts
-   const data = {
-     // 节点
-     nodes: [
-       {
-         id: 'node1', // String，可选，节点的唯一标识
-         x: 40,       // Number，必选，节点位置的 x 值
-         y: 40,       // Number，必选，节点位置的 y 值
-         width: 80,   // Number，可选，节点大小的 width 值
-         height: 40,  // Number，可选，节点大小的 height 值
-         label: 'hello', // String，节点标签
-       },
-       {
-         id: 'node2', // String，节点的唯一标识
-         x: 160,      // Number，必选，节点位置的 x 值
-         y: 180,      // Number，必选，节点位置的 y 值
-         width: 80,   // Number，可选，节点大小的 width 值
-         height: 40,  // Number，可选，节点大小的 height 值
-         label: 'world', // String，节点标签
-       },
-     ],
-     // 边
-     edges: [
-       {
-         source: 'node1', // String，必须，起始节点 id
-         target: 'node2', // String，必须，目标节点 id
-       },
-     ],
-   };
-   ```
+	```ts
+	const data = {
+	  // 节点
+	  nodes: [
+	    {
+	      id: 'node1', // String，可选，节点的唯一标识
+	      x: 40,       // Number，必选，节点位置的 x 值
+	      y: 40,       // Number，必选，节点位置的 y 值
+	      width: 80,   // Number，可选，节点大小的 width 值
+	      height: 40,  // Number，可选，节点大小的 height 值
+	      label: 'hello', // String，节点标签
+	    },
+	    {
+	      id: 'node2', // String，节点的唯一标识
+	      x: 160,      // Number，必选，节点位置的 x 值
+	      y: 180,      // Number，必选，节点位置的 y 值
+	      width: 80,   // Number，可选，节点大小的 width 值
+	      height: 40,  // Number，可选，节点大小的 height 值
+	      label: 'world', // String，节点标签
+	    },
+	  ],
+	  // 边
+	  edges: [
+	    {
+	      source: 'node1', // String，必须，起始节点 id
+	      target: 'node2', // String，必须，目标节点 id
+	    },
+	  ],
+	};
+	```
 
 3. **渲染画布**
 
-   首先，需要创建一个 `Graph` 对象，并为其指定一个页面上的绘图容器，通常也会指定画布的大小：
+	首先，需要创建一个 `Graph` 对象，并为其指定一个页面上的绘图容器，通常也会指定画布的大小：
 
-   ```ts
-   import { Graph } from '@antv/x6';
-   
-   // 使用 CDN 引入时暴露了 X6 全局变量
-   // const { Graph } = X6
-   
-   const graph = new Graph({
-     container: document.getElementById('container'),
-     width: 800,
-     height: 600,
-   });
-   ```
+	```ts
+	import { Graph } from '@antv/x6';
+	
+	// 使用 CDN 引入时暴露了 X6 全局变量
+	// const { Graph } = X6
+	
+	const graph = new Graph({
+	  container: document.getElementById('container'),
+	  width: 800,
+	  height: 600,
+	});
+	```
 
-   如果是通过 `script` 标签引入方式， `Graph` 对象是挂载在 `X6` 这个全局变量下面：
+	如果是通过 `script` 标签引入方式， `Graph` 对象是挂载在 `X6` 这个全局变量下面：
 
-   ```html
-   <script src="https://unpkg.com/@antv/x6/dist/x6.js"></script>
-   <script>
-     const graph = new X6.Graph({
-       container: document.getElementById('container'),
-       width: 800,
-       height: 600,
-     });
-   </script>
-   ```
+	```html
+	<script src="https://unpkg.com/@antv/x6/dist/x6.js"></script>
+	<script>
+	  const graph = new X6.Graph({
+	    container: document.getElementById('container'),
+	    width: 800,
+	    height: 600,
+	  });
+	</script>
+	```
 
-   然后就可以使用刚刚创建的 `graph` 来渲染节点和边：
-   ```ts
-   graph.fromJSON(data)
-   ```
+	然后就可以使用刚刚创建的 `graph` 来渲染节点和边：
+	```ts
+	graph.fromJSON(data)
+	```
 
-   到此，我们就得到一个最简单的 `Hello --> World` 示例：
+	到此，我们就得到一个最简单的 `Hello --> World` 示例：
 
-   <img src="!assets/AntV-X6/image-20220505005938460.png" alt="image-20220505005938460" style="width:70%;" />
+	<img src="!assets/AntV-X6/image-20220505005938460.png" alt="image-20220505005938460" style="width:70%;" />
 
 
 

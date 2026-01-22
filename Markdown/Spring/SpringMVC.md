@@ -247,34 +247,34 @@ Spring MVC 的工作原理图：
 
 - **DispatcherServlet**（前端控制器）不需要工程师开发，由框架提供
 
-  作用：接收请求，响应结果，相当于转发器，中央处理器。有了dispatcherServlet 减少了其它组件之间的耦合度。
-  用户请求到达前端控制器，它就相当于 mvc 模式中的 c，dispatcherServlet 是整个流程控制的中心，由它调用其它组件处理用户的请求，dispatcherServlet 的存在降低了组件之间的耦合性。
+	作用：接收请求，响应结果，相当于转发器，中央处理器。有了dispatcherServlet 减少了其它组件之间的耦合度。
+	用户请求到达前端控制器，它就相当于 mvc 模式中的 c，dispatcherServlet 是整个流程控制的中心，由它调用其它组件处理用户的请求，dispatcherServlet 的存在降低了组件之间的耦合性。
 
 - **HandlerMapping** （处理器映射器 ）不需要工程师开发，由框架提供
 
-  作用：根据请求的 URL 查找 Handler
-  HandlerMapping 负责根据用户请求找到 Handler 即处理器，springmvc 提供了不同的映射器实现不同的映射方式，例如：配置文件方式，实现接口方式，注解方式等。
+	作用：根据请求的 URL 查找 Handler
+	HandlerMapping 负责根据用户请求找到 Handler 即处理器，springmvc 提供了不同的映射器实现不同的映射方式，例如：配置文件方式，实现接口方式，注解方式等。
 
 - **HandlerAdapter**（处理器适配器）
 
-  作用：按照特定规则（HandlerAdapter 要求的规则）去执行 Handler
-  通过 HandlerAdapter 对处理器进行执行，这是适配器模式的应用，通过扩展适配器可以对更多类型的处理器进行执行。
+	作用：按照特定规则（HandlerAdapter 要求的规则）去执行 Handler
+	通过 HandlerAdapter 对处理器进行执行，这是适配器模式的应用，通过扩展适配器可以对更多类型的处理器进行执行。
 
 - **Handler**（处理器）需要工程师开发
 
-  Handler 是继 DispatcherServlet 前端控制器的后端控制器，在 DispatcherServlet 的控制下 Handler 对具体的用户请求进行处理。
-  由于 Handler 涉及到具体的用户业务请求，所以一般情况需要工程师根据业务需求开发 Handler。
+	Handler 是继 DispatcherServlet 前端控制器的后端控制器，在 DispatcherServlet 的控制下 Handler 对具体的用户请求进行处理。
+	由于 Handler 涉及到具体的用户业务请求，所以一般情况需要工程师根据业务需求开发 Handler。
 
-  > 注意：编写 Handler 时按照 HandlerAdapter 的要求去做，这样适配器才可以去正确执行 Handler
+	> 注意：编写 Handler 时按照 HandlerAdapter 的要求去做，这样适配器才可以去正确执行 Handler
 
 - View Resolver （视图解析器）不需要工程师开发，由框架提供
 
-  作用：进行视图解析，根据逻辑视图名解析成真正的视图（View）
-  View Resolver 负责将处理结果生成 View 视图，View Resolver 首先根据逻辑视图名解析成物理视图名即具体的页面地址，再生成 View 视图对象，最后对 View 进行渲染将处理结果通过页面展示给用户。 Spring MVC 框架提供了很多的 View 视图类型，包括：jstlView、freemarkerView、pdfView 等。
+	作用：进行视图解析，根据逻辑视图名解析成真正的视图（View）
+	View Resolver 负责将处理结果生成 View 视图，View Resolver 首先根据逻辑视图名解析成物理视图名即具体的页面地址，再生成 View 视图对象，最后对 View 进行渲染将处理结果通过页面展示给用户。 Spring MVC 框架提供了很多的 View 视图类型，包括：jstlView、freemarkerView、pdfView 等。
 
 - View（视图）需要工程师开发
 
-  View 是一个接口，实现类支持不同的 View 类型（JSP、FreeMarker、PDF...）
+	View 是一个接口，实现类支持不同的 View 类型（JSP、FreeMarker、PDF...）
 
 
 
@@ -605,21 +605,21 @@ RESTful 就是一个资源定位及资源操作的风格。不是标准也不是
 
 1. 再新建一个类 RESTfulController：
 
-   ```java
-   @Controller
-   public class RestFulController {
-       //原来的：http://localhost:8080/add?a=1&b=2
-       //RestFul：http://localhost:8080/add/1/2
-       @RequestMapping(value = "/add/{a}/{b}",method = RequestMethod.GET)
-       public String test1(@PathVariable int a, @PathVariable int b, Model model) {
-           int res = a + b;
-           model.addAttribute("msg", "结果为" + res);
-           return "test";
-       }
-   }
-   ```
+	```java
+	@Controller
+	public class RestFulController {
+	    //原来的：http://localhost:8080/add?a=1&b=2
+	    //RestFul：http://localhost:8080/add/1/2
+	    @RequestMapping(value = "/add/{a}/{b}",method = RequestMethod.GET)
+	    public String test1(@PathVariable int a, @PathVariable int b, Model model) {
+	        int res = a + b;
+	        model.addAttribute("msg", "结果为" + res);
+	        return "test";
+	    }
+	}
+	```
 
-   在 Spring MVC 中可以使用 `@PathVariable` 注解，让方法参数的值对应绑定到一个 URL 模板变量上
+	在 Spring MVC 中可以使用 `@PathVariable` 注解，让方法参数的值对应绑定到一个 URL 模板变量上
 
 
 
@@ -1069,65 +1069,65 @@ let user = {
 上一种方法比较麻烦，如果项目中有许多请求则每一个都要添加，可以通过 Spring 配置统一指定，这样就不用每次都去处理了！
 
 1. 在 Spring MVC 的配置文件上添加一段 StringHttpMessageConverter 转换配置：
-   ```xml
-   <!--JSON乱码问题配置-->
-   <mvc:annotation-driven>
-       <mvc:message-converters>
-           <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-               <constructor-arg value="UTF-8"/>
-           </bean>
-           <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-               <property name="objectMapper">
-                   <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
-                       <property name="failOnEmptyBeans" value="false"/>
-                   </bean>
-               </property>
-           </bean>
-       </mvc:message-converters>
-   </mvc:annotation-driven>
-   ```
+	```xml
+	<!--JSON乱码问题配置-->
+	<mvc:annotation-driven>
+	    <mvc:message-converters>
+	        <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+	            <constructor-arg value="UTF-8"/>
+	        </bean>
+	        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+	            <property name="objectMapper">
+	                <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+	                    <property name="failOnEmptyBeans" value="false"/>
+	                </bean>
+	            </property>
+	        </bean>
+	    </mvc:message-converters>
+	</mvc:annotation-driven>
+	```
 
 2. 将@Controller替换为@RestController则意味着类中所有的方法都默认不走视图解析器：
 
-   ```xml
-   @RestController
-   public class UserController {
-       @RequestMapping("/j1")
-       public String json1() throws JsonProcessingException {
-           ObjectMapper mapper = new ObjectMapper();
-           User user = new User("琴江", 3, "男");
-   
-           String string = mapper.writeValueAsString(user);
-   
-           return string;
-       }
-   }
-   ```
+	```xml
+	@RestController
+	public class UserController {
+	    @RequestMapping("/j1")
+	    public String json1() throws JsonProcessingException {
+	        ObjectMapper mapper = new ObjectMapper();
+	        User user = new User("琴江", 3, "男");
+	
+	        String string = mapper.writeValueAsString(user);
+	
+	        return string;
+	    }
+	}
+	```
 
 3. 传递多个数据：
-   ```java
-   @RestController
-   public class UserController {
-       @RequestMapping("/j2")
-       public String json2() throws JsonProcessingException {
-           ObjectMapper mapper = new ObjectMapper();
-           List<User> list = new ArrayList<>();
-   
-           User user1 = new User("琴江1号", 3, "男");
-           User user2 = new User("琴江2号", 4, "男");
-           User user3 = new User("琴江3号", 5, "男");
-           User user4 = new User("琴江4号", 6, "男");
-   
-           list.add(user1);
-           list.add(user2);
-           list.add(user3);
-           list.add(user4);
-   
-           String string = mapper.writeValueAsString(list);
-           return string;
-       }
-   }
-   ```
+	```java
+	@RestController
+	public class UserController {
+	    @RequestMapping("/j2")
+	    public String json2() throws JsonProcessingException {
+	        ObjectMapper mapper = new ObjectMapper();
+	        List<User> list = new ArrayList<>();
+	
+	        User user1 = new User("琴江1号", 3, "男");
+	        User user2 = new User("琴江2号", 4, "男");
+	        User user3 = new User("琴江3号", 5, "男");
+	        User user4 = new User("琴江4号", 6, "男");
+	
+	        list.add(user1);
+	        list.add(user2);
+	        list.add(user3);
+	        list.add(user4);
+	
+	        String string = mapper.writeValueAsString(list);
+	        return string;
+	    }
+	}
+	```
 
 
 
@@ -1435,98 +1435,98 @@ INSERT INTO books(bookID, bookName, bookCount, detail) VALUES
 ### 9.2、Spring 层
 
 1. 编写 spring-dao.xml：
-   ```xml
-   <?xml version="1.0" encoding="UTF8"?>
-   <beans xmlns="http://www.springframework.org/schema/beans"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xmlns:context="http://www.springframework.org/schema/context"
-          xsi:schemaLocation="http://www.springframework.org/schema/beans
-          http://www.springframework.org/schema/beans/spring-beans.xsd
-          http://www.springframework.org/schema/context
-          https://www.springframework.org/schema/context/spring-context.xsd">
-       <!--关联数据库配置文件-->
-       <context:property-placeholder location="classpath:database.properties"/>
-   
-       <bean class="com.mchange.v2.c3p0.ComboPooledDataSource" id="dataSource">
-           <property name="driverClass" value="${jdbc.driver}"/>
-           <property name="jdbcUrl" value="${url}"/>
-           <property name="user" value="${username}"/>
-           <property name="password" value="${password}"/>
-   
-           <property name="maxPoolSize" value="30"/>
-           <property name="initialPoolSize" value="10"/>
-           <property name="minPoolSize" value="10"/>
-           <!--关闭连接后不自动commit-->
-           <property name="autoCommitOnClose" value="false"/>
-           <!--获取连接超时时间-->
-           <property name="checkoutTimeout" value="10000"/>
-           <!--当获取连接失败重试次数-->
-           <property name="acquireIncrement" value="2"/>
-       </bean>
-   
-       <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
-           <property name="dataSource" ref="dataSource"/>
-           <property name="configLocation" value="classpath:mybatis-config.xml"/>
-       </bean>
-   
-       <!--配置dao接口扫描包，动态实现了Dao接口可以注入到Spring容器中-->
-       <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-           <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-           <property name="basePackage" value="com.kuang.dao"/>
-       </bean>
-   </beans>
-   ```
+	```xml
+	<?xml version="1.0" encoding="UTF8"?>
+	<beans xmlns="http://www.springframework.org/schema/beans"
+	       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	       xmlns:context="http://www.springframework.org/schema/context"
+	       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	       http://www.springframework.org/schema/beans/spring-beans.xsd
+	       http://www.springframework.org/schema/context
+	       https://www.springframework.org/schema/context/spring-context.xsd">
+	    <!--关联数据库配置文件-->
+	    <context:property-placeholder location="classpath:database.properties"/>
+	
+	    <bean class="com.mchange.v2.c3p0.ComboPooledDataSource" id="dataSource">
+	        <property name="driverClass" value="${jdbc.driver}"/>
+	        <property name="jdbcUrl" value="${url}"/>
+	        <property name="user" value="${username}"/>
+	        <property name="password" value="${password}"/>
+	
+	        <property name="maxPoolSize" value="30"/>
+	        <property name="initialPoolSize" value="10"/>
+	        <property name="minPoolSize" value="10"/>
+	        <!--关闭连接后不自动commit-->
+	        <property name="autoCommitOnClose" value="false"/>
+	        <!--获取连接超时时间-->
+	        <property name="checkoutTimeout" value="10000"/>
+	        <!--当获取连接失败重试次数-->
+	        <property name="acquireIncrement" value="2"/>
+	    </bean>
+	
+	    <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
+	        <property name="dataSource" ref="dataSource"/>
+	        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+	    </bean>
+	
+	    <!--配置dao接口扫描包，动态实现了Dao接口可以注入到Spring容器中-->
+	    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+	        <property name="basePackage" value="com.kuang.dao"/>
+	    </bean>
+	</beans>
+	```
 
 2. 编写 spring-service.xml：
-   ```xml
-   <?xml version="1.0" encoding="UTF-8"?>
-   <beans xmlns="http://www.springframework.org/schema/beans"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xmlns:context="http://www.springframework.org/schema/context"
-          xmlns:tx="http://www.springframework.org/schema/tx"
-          xmlns:aop="http://www.springframework.org/schema/aop"
-          xsi:schemaLocation="http://www.springframework.org/schema/beans
-          http://www.springframework.org/schema/beans/spring-beans.xsd
-          http://www.springframework.org/schema/context
-          https://www.springframework.org/schema/context/spring-context.xsd
-          http://www.springframework.org/schema/tx
-          http://www.springframework.org/schema/tx/spring-tx.xsd
-          http://www.springframework.org/schema/aop 
-          https://www.springframework.org/schema/aop/spring-aop.xsd">
-       <context:component-scan base-package="com.kuang.service"/>
-   
-       <bean id="bookServiceImpl" class="com.kuang.service.BookServiceImpl">
-           <property name="bookMapper" ref="bookMapper"/>
-       </bean>
-   
-       <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="dataSourceTransactionManager">
-           <property name="dataSource" ref="dataSource"/>
-       </bean>
-   
-       <tx:advice transaction-manager="dataSourceTransactionManager" id="transactionInterceptor">
-           <tx:attributes>
-               <tx:method name="*" propagation="REQUIRED"/>
-           </tx:attributes>
-       </tx:advice>
-   
-       <aop:config>
-           <aop:pointcut id="txPoint" expression="execution(* com.kuang.service.*.*(..))"/>
-           <aop:advisor advice-ref="transactionInterceptor" pointcut-ref="txPoint"/>
-       </aop:config>
-   </beans>
-   ```
+	```xml
+	<?xml version="1.0" encoding="UTF-8"?>
+	<beans xmlns="http://www.springframework.org/schema/beans"
+	       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	       xmlns:context="http://www.springframework.org/schema/context"
+	       xmlns:tx="http://www.springframework.org/schema/tx"
+	       xmlns:aop="http://www.springframework.org/schema/aop"
+	       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	       http://www.springframework.org/schema/beans/spring-beans.xsd
+	       http://www.springframework.org/schema/context
+	       https://www.springframework.org/schema/context/spring-context.xsd
+	       http://www.springframework.org/schema/tx
+	       http://www.springframework.org/schema/tx/spring-tx.xsd
+	       http://www.springframework.org/schema/aop 
+	       https://www.springframework.org/schema/aop/spring-aop.xsd">
+	    <context:component-scan base-package="com.kuang.service"/>
+	
+	    <bean id="bookServiceImpl" class="com.kuang.service.BookServiceImpl">
+	        <property name="bookMapper" ref="bookMapper"/>
+	    </bean>
+	
+	    <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="dataSourceTransactionManager">
+	        <property name="dataSource" ref="dataSource"/>
+	    </bean>
+	
+	    <tx:advice transaction-manager="dataSourceTransactionManager" id="transactionInterceptor">
+	        <tx:attributes>
+	            <tx:method name="*" propagation="REQUIRED"/>
+	        </tx:attributes>
+	    </tx:advice>
+	
+	    <aop:config>
+	        <aop:pointcut id="txPoint" expression="execution(* com.kuang.service.*.*(..))"/>
+	        <aop:advisor advice-ref="transactionInterceptor" pointcut-ref="txPoint"/>
+	    </aop:config>
+	</beans>
+	```
 
 3. 编写 applicationContext.xml：
-   ```xml
-   <?xml version="1.0" encoding="UTF-8"?>
-   <beans xmlns="http://www.springframework.org/schema/beans"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://www.springframework.org/schema/beans
-          http://www.springframework.org/schema/beans/spring-beans.xsd">
-       <import resource="classpath:spring-dao.xml"/>
-       <import resource="classpath:spring-service.xml"/>
-   </beans>
-   ```
+	```xml
+	<?xml version="1.0" encoding="UTF-8"?>
+	<beans xmlns="http://www.springframework.org/schema/beans"
+	       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	       http://www.springframework.org/schema/beans/spring-beans.xsd">
+	    <import resource="classpath:spring-dao.xml"/>
+	    <import resource="classpath:spring-service.xml"/>
+	</beans>
+	```
 
 
 
@@ -1633,50 +1633,50 @@ INSERT INTO books(bookID, bookName, bookCount, detail) VALUES
 	```
 
 2. 编写 allBook.jsp：
-   ```jsp
-   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-   <html>
-   <head>
-       <title>书籍展示</title>
-       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-   </head>
-   <body>
-   <div class="container mt-3">
-       <div class="jumbotron">
-           <h1 class="display-5">书籍列表</h1>
-           <hr class="my-4">
-           <a class="btn btn-primary" href="${pageContext.request.contextPath}/">主页</a>
-           <a class="btn btn-primary" href="${pageContext.request.contextPath}/book/toAddBook">
-               添加书籍
-           </a>
-       </div>
-   </div>
-   <div class="container">
-       <table class="table">
-           <thead>
-           <tr>
-               <th scope="col">书籍编号</th>
-               <th scope="col">书籍名称</th>
-               <th scope="col">书籍数量</th>
-               <th scope="col">书籍详情</th>
-           </tr>
-           </thead>
-           <tbody>
-           <c:forEach var="book" items="${list}">
-               <tr>
-                   <th scope="row">${book.bookID}</th>
-                   <td>${book.bookName}</td>
-                   <td>${book.bookCount}</td>
-                   <td>${book.detail}</td>
-               </tr>
-           </c:forEach>
-           </tbody>
-       </table>
-   </div>
-   </body>
-   </html>
-   ```
+	```jsp
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+	<html>
+	<head>
+	    <title>书籍展示</title>
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	</head>
+	<body>
+	<div class="container mt-3">
+	    <div class="jumbotron">
+	        <h1 class="display-5">书籍列表</h1>
+	        <hr class="my-4">
+	        <a class="btn btn-primary" href="${pageContext.request.contextPath}/">主页</a>
+	        <a class="btn btn-primary" href="${pageContext.request.contextPath}/book/toAddBook">
+	            添加书籍
+	        </a>
+	    </div>
+	</div>
+	<div class="container">
+	    <table class="table">
+	        <thead>
+	        <tr>
+	            <th scope="col">书籍编号</th>
+	            <th scope="col">书籍名称</th>
+	            <th scope="col">书籍数量</th>
+	            <th scope="col">书籍详情</th>
+	        </tr>
+	        </thead>
+	        <tbody>
+	        <c:forEach var="book" items="${list}">
+	            <tr>
+	                <th scope="row">${book.bookID}</th>
+	                <td>${book.bookName}</td>
+	                <td>${book.bookCount}</td>
+	                <td>${book.detail}</td>
+	            </tr>
+	        </c:forEach>
+	        </tbody>
+	    </table>
+	</div>
+	</body>
+	</html>
+	```
 
 3. 修改 index.jsp：
 

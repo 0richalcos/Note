@@ -18,58 +18,58 @@ TongWeb 是一款国产、高性能、高可用、安全并兼容 Java EE 标准
 
 1. 你可以从 TongWeb 的官方网站下载最新版本的安装包。
 
-   假设下载的文件名为 `tongweb-8.1.0-enterprise-linux-x64.tar.gz`。
+	假设下载的文件名为 `tongweb-8.1.0-enterprise-linux-x64.tar.gz`。
 
 2. 解压下载的文件：
 
-   ```shell
-   tar -zxvf tongweb-8.1.0-enterprise-linux-x64.tar.gz -C /usr/local/
-   ```
+	```shell
+	tar -zxvf tongweb-8.1.0-enterprise-linux-x64.tar.gz -C /usr/local/
+	```
 
 3. 修改安装目录名称：
 
-   ```shell
-   mv /usr/local/tongweb-8.1.0-enterprise-linux-x64 /usr/local/tongweb
-   ```
+	```shell
+	mv /usr/local/tongweb-8.1.0-enterprise-linux-x64 /usr/local/tongweb
+	```
 
 4. 编辑 `/etc/profile` 文件：
-   ```shell
-   nano /etc/profile
-   ```
+	```shell
+	nano /etc/profile
+	```
 
-   添加以下内容：
+	添加以下内容：
 
-   ```
-   export TONGWEB_HOME=/usr/local/tongweb
-   export PATH=$PATH:$TONGWEB_HOME/bin
-   ```
+	```
+	export TONGWEB_HOME=/usr/local/tongweb
+	export PATH=$PATH:$TONGWEB_HOME/bin
+	```
 
 5. 使配置生效：
 
-   ```shell
-   source /etc/profile
-   ```
+	```shell
+	source /etc/profile
+	```
 
 6. 安装 TongWeb 服务：
 
-   ```shell
-   /usr/local/tongweb/bin/installservice.sh
-   ```
+	```shell
+	/usr/local/tongweb/bin/installservice.sh
+	```
 
-   安装完成后会在 `/etc/systemd/system` 目录生成 tongweb.service。
+	安装完成后会在 `/etc/systemd/system` 目录生成 tongweb.service。
 
 7. 设置开机自启并启动 TongWeb：
 
-   ```shell
-   systemctl enable tongweb
-   systemctl start tongweb
-   ```
+	```shell
+	systemctl enable tongweb
+	systemctl start tongweb
+	```
 
 8. 打开浏览器，访问 `http://<your_server_ip>:9060/console`，应该能看到 TongWeb 的管理控制台。
 
-   > [!NOTE]
-   >
-   > 默认的账户密码为： thanos/thanos123.com
+	> [!NOTE]
+	>
+	> 默认的账户密码为： thanos/thanos123.com
 
 <br>
 
@@ -83,31 +83,31 @@ TongWeb 是一款国产、高性能、高可用、安全并兼容 Java EE 标准
 
 1. 修改容器配置：
 
-   <img src="!assets/TongWeb/image-20250715221659000.png" alt="image-20250715221659000" style="zoom: 50%;" />
+	<img src="!assets/TongWeb/image-20250715221659000.png" alt="image-20250715221659000" style="zoom: 50%;" />
 
-   将字符集修改为 `UTF-8`：
+	将字符集修改为 `UTF-8`：
 
-   ![image-20250715221739290](!assets/TongWeb/image-20250715221739290.png)
+	![image-20250715221739290](!assets/TongWeb/image-20250715221739290.png)
 
 2. 创建虚拟主机：
 
-   ![image-20250715221947881](!assets/TongWeb/image-20250715221947881.png)
+	![image-20250715221947881](!assets/TongWeb/image-20250715221947881.png)
 
-   填写虚拟主机信息，并设置 `cacheMaxSize` 属性：
+	填写虚拟主机信息，并设置 `cacheMaxSize` 属性：
 
-   ![image-20250715222007632](!assets/TongWeb/image-20250715222007632.png)
+	![image-20250715222007632](!assets/TongWeb/image-20250715222007632.png)
 
 3. 创建 HTTP 通道：
 
-   ![image-20250715222113465](!assets/TongWeb/image-20250715222113465.png)
+	![image-20250715222113465](!assets/TongWeb/image-20250715222113465.png)
 
-   指定监听端口，选择刚刚创建的虚拟主机：
+	指定监听端口，选择刚刚创建的虚拟主机：
 
-   ![image-20250715222153979](!assets/TongWeb/image-20250715222153979.png)
+	![image-20250715222153979](!assets/TongWeb/image-20250715222153979.png)
 
-   URL 编码格式改为 `UTF-8`，最后保存：
+	URL 编码格式改为 `UTF-8`，最后保存：
 
-   ![image-20250715222816353](!assets/TongWeb/image-20250715222816353.png)
+	![image-20250715222816353](!assets/TongWeb/image-20250715222816353.png)
 
 <br>
 
@@ -123,35 +123,35 @@ TongWeb 是一款国产、高性能、高可用、安全并兼容 Java EE 标准
 
 1. 首先在 TongWeb 上创建 HTTP 通道和 HTTPS 通道：
 
-   <img src="./!assets/TongWeb/3932971124cb4e5485624a714e9d8d72.png" alt="img" style="zoom: 80%;" />
+	<img src="./!assets/TongWeb/3932971124cb4e5485624a714e9d8d72.png" alt="img" style="zoom: 80%;" />
 
-   HTTPS 通道需要配置证书：
+	HTTPS 通道需要配置证书：
 
-   <img src="./!assets/TongWeb/b550909db932475586ae464cd8a42e19.png" alt="img" style="zoom: 80%;" />
+	<img src="./!assets/TongWeb/b550909db932475586ae464cd8a42e19.png" alt="img" style="zoom: 80%;" />
 
 2. 把通道关联到虚拟主机上：
 
-   <img src="./!assets/TongWeb/02728be8b2114b23934a5dee483063cb.png" alt="img" style="zoom: 67%;" />
+	<img src="./!assets/TongWeb/02728be8b2114b23934a5dee483063cb.png" alt="img" style="zoom: 67%;" />
 
-   <img src="./!assets/TongWeb/4da9a0e2ae4f408597fa22ec94e82e4c.png" alt="img" style="zoom:67%;" />
+	<img src="./!assets/TongWeb/4da9a0e2ae4f408597fa22ec94e82e4c.png" alt="img" style="zoom:67%;" />
 
 3. 在 HTTP 通道上添加重定向端口，即 HTTPS 端口：
 
-   <img src="./!assets/TongWeb/64d9022dbba44b7b94925f596e787912.png" alt="img" style="zoom:80%;" />
+	<img src="./!assets/TongWeb/64d9022dbba44b7b94925f596e787912.png" alt="img" style="zoom:80%;" />
 
 4. 并修改部署的应用的 web.xml 添加如下属性：
 
-   ```xml
-   <security-constraint>
-       <web-resource-collection>
-           <web-resource-name>Force HTTPS</web-resource-name>
-           <url-pattern>/*</url-pattern>
-       </web-resource-collection>
-       <user-data-constraint>
-           <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-       </user-data-constraint>
-   </security-constraint>
-   ```
+	```xml
+	<security-constraint>
+	    <web-resource-collection>
+	        <web-resource-name>Force HTTPS</web-resource-name>
+	        <url-pattern>/*</url-pattern>
+	    </web-resource-collection>
+	    <user-data-constraint>
+	        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+	    </user-data-constraint>
+	</security-constraint>
+	```
 
 5. 设置完成后再进行 HTTP 访问就会自动跳到 HTTPS 通道。
 
@@ -167,33 +167,33 @@ TongWeb 是一款国产、高性能、高可用、安全并兼容 Java EE 标准
 
 1. 前端 `build` 完成后 ，会生成一个 dist 的目录：
 
-   <img src="!assets/TongWeb/image-20250715223758719.png" alt="image-20250715223758719" style="zoom:67%;" />
+	<img src="!assets/TongWeb/image-20250715223758719.png" alt="image-20250715223758719" style="zoom:67%;" />
 
 2. 在 dist 目录下新增 WEB-INF 目录以及 web.xml 文件：
 
-   <img src="!assets/TongWeb/image-20250715223857025.png" alt="image-20250715223857025" style="zoom:67%;" />
+	<img src="!assets/TongWeb/image-20250715223857025.png" alt="image-20250715223857025" style="zoom:67%;" />
 
-   web.xml 内容如下：
+	web.xml 内容如下：
 
-   ```xml
-   <?xml version="1.0"?>
-   <web-app>
-       <error-page>
-           <error-code>404</error-code>
-           <location>/index.html</location>
-       </error-page>
-   </web-app>
-   ```
+	```xml
+	<?xml version="1.0"?>
+	<web-app>
+	    <error-page>
+	        <error-code>404</error-code>
+	        <location>/index.html</location>
+	    </error-page>
+	</web-app>
+	```
 
-   > [!CAUTION]
-   >
-   > 没有 WEB-INF 与 web.xml 在部署时将提示无法识别应用类型！
+	> [!CAUTION]
+	>
+	> 没有 WEB-INF 与 web.xml 在部署时将提示无法识别应用类型！
 
 3. 使用命令行进入 dist 目录，将目录下所有文件打成 war 包：
 
-   ```shell
-   jar -cvf my_app.war *
-   ```
+	```shell
+	jar -cvf my_app.war *
+	```
 
 <br>
 
@@ -201,19 +201,19 @@ TongWeb 是一款国产、高性能、高可用、安全并兼容 Java EE 标准
 
 1.  打开【应用管理】页面，点击【部署应用】按钮：
 
-   <img src="!assets/TongWeb/image_1702978002159-4dba7fb0ac3e3f956ba26ba740eeddf5.png" alt="img" style="zoom:50%;" />
+	<img src="!assets/TongWeb/image_1702978002159-4dba7fb0ac3e3f956ba26ba740eeddf5.png" alt="img" style="zoom:50%;" />
 
 2. 文件位置选择【本机】，上传本地打包好的前端 war 包：
 
-   <img src="!assets/TongWeb/image-20250715224212733.png" alt="image-20250715224212733" style="zoom: 33%;" />
+	<img src="!assets/TongWeb/image-20250715224212733.png" alt="image-20250715224212733" style="zoom: 33%;" />
 
 3.  点击【开始部署】，修改应用前缀，点击【下一步】：
 
-   <img src="!assets/TongWeb/image-20250715224316242.png" alt="image-20250715224316242" style="zoom: 50%;" />
+	<img src="!assets/TongWeb/image-20250715224316242.png" alt="image-20250715224316242" style="zoom: 50%;" />
 
 4. 选择之前设置好的虚拟主机，确认信息无误后点击完成，完成部署：
 
-   ![image-20250717012810783](./!assets/TongWeb/image-20250717012810783.png)
+	![image-20250717012810783](./!assets/TongWeb/image-20250717012810783.png)
 
 <br>
 
@@ -221,22 +221,22 @@ TongWeb 是一款国产、高性能、高可用、安全并兼容 Java EE 标准
 
 1. 打开【应用管理】页面，点击【部署应用】按钮：
 
-   <img src="./!assets/TongWeb/image_1702978002159-4dba7fb0ac3e3f956ba26ba740eeddf5-1752686730628-1.png" alt="img" style="zoom:50%;" />
+	<img src="./!assets/TongWeb/image_1702978002159-4dba7fb0ac3e3f956ba26ba740eeddf5-1752686730628-1.png" alt="img" style="zoom:50%;" />
 
 2. 文件位置选择【本机】，上传本地打包好的后端 war 包：
 
-   <img src="./!assets/TongWeb/image-20250717012615625.png" alt="image-20250717012615625" style="zoom: 33%;" />
+	<img src="./!assets/TongWeb/image-20250717012615625.png" alt="image-20250717012615625" style="zoom: 33%;" />
 
 3. 点击【开始部署】，修改应用前缀，点击下一步：
 
-   <img src="./!assets/TongWeb/image-20250717012723998.png" alt="image-20250717012723998" style="zoom:67%;" />
+	<img src="./!assets/TongWeb/image-20250717012723998.png" alt="image-20250717012723998" style="zoom:67%;" />
 
-   > [!IMPORTANT]
-   >
-   > 后端的应用前缀必须与前端项目打包时设置的前缀一致！
+	> [!IMPORTANT]
+	>
+	> 后端的应用前缀必须与前端项目打包时设置的前缀一致！
 
 4. 选择之前设置好的虚拟主机，确认信息无误后点击完成，完成部署：
 
-   ![image-20250717012838882](./!assets/TongWeb/image-20250717012838882.png)
+	![image-20250717012838882](./!assets/TongWeb/image-20250717012838882.png)
 
 <br>

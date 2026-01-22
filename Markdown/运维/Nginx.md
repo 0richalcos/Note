@@ -9,15 +9,15 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 **Nginx 特性**
 
 - 访问代理：
-  Nginx 可以通过访问路径、URL 关键字、客户端 IP等多种手段实现访问路由分配。
+	Nginx 可以通过访问路径、URL 关键字、客户端 IP等多种手段实现访问路由分配。
 - 反向代理：
-  将接收到的请求再转到后端的目标应用服务器，并把响应数据返回给客户端。支持目前绝大多数的网络协议：HTTP/FastCGI/RPC/UDP/TCP 等。
+	将接收到的请求再转到后端的目标应用服务器，并把响应数据返回给客户端。支持目前绝大多数的网络协议：HTTP/FastCGI/RPC/UDP/TCP 等。
 - 负载均衡：
-  通过自身的 upstream 模块支持多种负载均衡算法，使后端服务器可以非常方便地进行横向扩展，以应对高并发。
+	通过自身的 upstream 模块支持多种负载均衡算法，使后端服务器可以非常方便地进行横向扩展，以应对高并发。
 - 内容缓存：
-  Nginx 支持静态站点和后端分离，可以把静态内容缓存起来，也可以将后端变化不大的响应结果缓存起来，使整体实现了更高速的相应能力。
+	Nginx 支持静态站点和后端分离，可以把静态内容缓存起来，也可以将后端变化不大的响应结果缓存起来，使整体实现了更高速的相应能力。
 - 可扩展性：
-  可定制的模块化架构方式，更多的语言（C/Perl/JavaScript/Lua）支持开发第三方模块并引入，增强可编程及扩展能力。
+	可定制的模块化架构方式，更多的语言（C/Perl/JavaScript/Lua）支持开发第三方模块并引入，增强可编程及扩展能力。
 
 <br>
 
@@ -33,91 +33,91 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 
 2. 将下载好的包上传至服务器，解压至 `/usr/local`：
 
-   ```shell
-   tar -xzf nginx-1.24.0.tar.gz -C /usr/local
-   ```
+	```shell
+	tar -xzf nginx-1.24.0.tar.gz -C /usr/local
+	```
 
 3. 将解压后的文件夹改名为 `nginx` 并进入：
 
-   ```shell
-   # 改名
-   mv /usr/local/nginx-1.24.0/ /usr/local/nginx
-   
-   # 进入
-   cd /usr/local/nginx
-   ```
+	```shell
+	# 改名
+	mv /usr/local/nginx-1.24.0/ /usr/local/nginx
+	
+	# 进入
+	cd /usr/local/nginx
+	```
 
 4. 执行配置文件：
 
-   ```shell
-   sudo ./configure
-   ```
+	```shell
+	sudo ./configure
+	```
 
-   如无问题，则直接进入第 5 步，如像以下一样缺少库，则先安装库再继续。
+	如无问题，则直接进入第 5 步，如像以下一样缺少库，则先安装库再继续。
 
 	<img src="!assets/Nginx/image-20230615001606389.png" alt="image-20230615001606389" style="" />
 
-   这里显示缺少 PCRE 库，可以从 [官网](http://www.pcre.org/) 下载，然后上传至服务器、解压、执行配置文件、安装：
+	这里显示缺少 PCRE 库，可以从 [官网](http://www.pcre.org/) 下载，然后上传至服务器、解压、执行配置文件、安装：
 
-   ```shell
-   tar -xzf pcre2-10.42.tar.gz -C /usr/local
-   
-   mv /usr/local/pcre2-10.42/ /usr/local/pcre2/
-   
-   cd /usr/local/pcre2
-   
-   sudo ./configure
-   
-   sudo make
-   
-   sudo make install
-   ```
+	```shell
+	tar -xzf pcre2-10.42.tar.gz -C /usr/local
+	
+	mv /usr/local/pcre2-10.42/ /usr/local/pcre2/
+	
+	cd /usr/local/pcre2
+	
+	sudo ./configure
+	
+	sudo make
+	
+	sudo make install
+	```
 
-   安装完成后再前往 `/usr/local/nginx` 目录执行 `./configure`：
+	安装完成后再前往 `/usr/local/nginx` 目录执行 `./configure`：
 
 	<img src="!assets/Nginx/image-20230615003550134.png" alt="image-20230615003550134" style="zoom: 33%;" />
 
-   这里显示缺少 zlib 库，可以从 [官网](http://www.zlib.net) 下载，然后上传至服务器、解压、执行配置文件、安装：
+	这里显示缺少 zlib 库，可以从 [官网](http://www.zlib.net) 下载，然后上传至服务器、解压、执行配置文件、安装：
 
-   ```shell
-   tar -xzf zlib-1.2.13.tar.gz -C /usr/local
-   
-   mv /usr/local/zlib-1.2.13/ /usr/local/zlib/
-   
-   cd /usr/local/zlib
-   
-   sudo ./configure
-   
-   sudo make
-   
-   sudo make install
-   ```
+	```shell
+	tar -xzf zlib-1.2.13.tar.gz -C /usr/local
+	
+	mv /usr/local/zlib-1.2.13/ /usr/local/zlib/
+	
+	cd /usr/local/zlib
+	
+	sudo ./configure
+	
+	sudo make
+	
+	sudo make install
+	```
 
-   之后再前往 `/usr/local/nginx` 目录执行 `./configure`，缺少库就去安装，直到 `./configure` 不显示错误。
+	之后再前往 `/usr/local/nginx` 目录执行 `./configure`，缺少库就去安装，直到 `./configure` 不显示错误。
 
-   > Nginx 对 OpenSSL 不做硬性要求，在不使用 SSL 模块的情况下没有 OpenSSL 也可以安装通过，如果需要此功能，请先安装 OpenSSL 然后执行以下配置命令：
-   >
-   > ```shell
-   > sudo ./configure --with-http_stub_status_module --with-http_ssl_module --with-openssl=/usr/local/openssl
-   > ```
+	> Nginx 对 OpenSSL 不做硬性要求，在不使用 SSL 模块的情况下没有 OpenSSL 也可以安装通过，如果需要此功能，请先安装 OpenSSL 然后执行以下配置命令：
+	>
+	> ```shell
+	> sudo ./configure --with-http_stub_status_module --with-http_ssl_module --with-openssl=/usr/local/openssl
+	> ```
 
 5. 编译并安装：
 
-   ```shell
-   sudo make
-   
-   sudo make install
-   ```
+	```shell
+	sudo make
+	
+	sudo make install
+	```
 
 6. 运行（默认运行在服务 80 端口）：
 
-   ```shell
-   # 进入 sbin/ 目录
-   cd sbin/
-   
-   # 运行
-   ./nginx
-   ```
+	```shell
+	# 进入 sbin/ 目录
+	cd sbin/
+	
+	# 运行
+	./nginx
+	```
 
 <br>
 
@@ -125,63 +125,63 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 
 1. 到 `/usr/lib/systemd/system` 文件夹里新建 nginx.service 文件或修改现有的：
 
-   ```shell
-   vim /etc/systemd/system/nginx.service
-   ```
+	```shell
+	vim /etc/systemd/system/nginx.service
+	```
 
 2. 文件内容如下：
 
-   ```shell
-   [Unit]
-   Description=nginx service
-   After=network.target
-    
-   [Service]
-   Type=forking
-   ExecStart=/usr/local/nginx/sbin/nginx
-   ExecReload=/usr/local/nginx/sbin/nginx -s reload
-   ExecStop=/usr/local/nginx/sbin/nginx -s stop
-   PrivateTmp=true
-    
-   [Install]
-   WantedBy=multi-user.target
-   ```
+	```shell
+	[Unit]
+	Description=nginx service
+	After=network.target
+	 
+	[Service]
+	Type=forking
+	ExecStart=/usr/local/nginx/sbin/nginx
+	ExecReload=/usr/local/nginx/sbin/nginx -s reload
+	ExecStop=/usr/local/nginx/sbin/nginx -s stop
+	PrivateTmp=true
+	 
+	[Install]
+	WantedBy=multi-user.target
+	```
 
 3. 在终端以下命令，刷新服务配置：
 
-   ```shell
-   systemctl daemon-reload
-   ```
+	```shell
+	systemctl daemon-reload
+	```
    
 4. 设置开机自启：
 
-   ```shell
-   systemctl enable nginx
-   ```
+	```shell
+	systemctl enable nginx
+	```
 
 <br>
 
 #### 2.1.3、卸载
 
 1. 停止 Nginx 软件：
-   ```shell
-   /usr/local/nginx/sbin/nginx -s stop
-   ```
+	```shell
+	/usr/local/nginx/sbin/nginx -s stop
+	```
 
-   如果不知道 Nginx 的安装路径，可以通过 `ps` 查看 Nginx 的 PID，然后 `kill`  其 PID。
+	如果不知道 Nginx 的安装路径，可以通过 `ps` 查看 Nginx 的 PID，然后 `kill`  其 PID。
 
 2. 查找根下所有名字包含 Nginx 的文件：
 
-   ```shell
-   find / -name nginx
-   ```
+	```shell
+	find / -name nginx
+	```
 
 3. 执行命令 `rm -rf *` 删除 Nignx 安装的相关文件：
 
-   ```shell
-   rm -rf /usr/local/sbin/nginx
-   ...
-   ```
+	```shell
+	rm -rf /usr/local/sbin/nginx
+	...
+	```
 
 <br>
 
@@ -235,11 +235,11 @@ vim /usr/local/nginx/conf/nginx.conf
 
 3. 执行以下命令运行（默认运行在服务 80 端口）：
 
-   ```shell
-   start .\nginx
-   ```
+	```shell
+	start .\nginx
+	```
 
-   或者直接双击 nginx.exe。
+	或者直接双击 nginx.exe。
 
 <br>
 
@@ -251,23 +251,23 @@ vim /usr/local/nginx/conf/nginx.conf
 
 2. 执行以下命令创建 Nginx 服务：
 
-   ```shell
-   sc create Nginx binPath= "C:\Program Files\Nginx\nginx.exe" start= auto
-   ```
+	```shell
+	sc create Nginx binPath= "C:\Program Files\Nginx\nginx.exe" start= auto
+	```
 
-   - `binPath=` 后面是 Nginx 可执行文件的完整路径。
-   - `start=` 指定启动类型（`auto`表示自动启动）。
-   - 等号后最好有一个空格，在早期的 Windows 版本中，这个空格是必需的。
-   - 可以根据需要添加其他参数，如 `DisplayName=` 设置显示名称。
+	- `binPath=` 后面是 Nginx 可执行文件的完整路径。
+	- `start=` 指定启动类型（`auto`表示自动启动）。
+	- 等号后最好有一个空格，在早期的 Windows 版本中，这个空格是必需的。
+	- 可以根据需要添加其他参数，如 `DisplayName=` 设置显示名称。
 
 3. 通过服务页面或者以下命令控制 Nginx 服务：
 
-   ```shell
-   sc start Nginx    # 启动服务
-   sc stop Nginx     # 停止服务
-   sc delete Nginx   # 删除服务
-   sc query Nginx    # 查询服务状态
-   ```
+	```shell
+	sc start Nginx    # 启动服务
+	sc stop Nginx     # 停止服务
+	sc delete Nginx   # 删除服务
+	sc query Nginx    # 查询服务状态
+	```
 
 <br>
 
@@ -472,11 +472,11 @@ Nginx 提供了多种修饰符来控制 `location` 的匹配方式：
 
 - 示例：
 
-  ```nginx
-  location /images/ {
-      root /data/www; # 请求 /images/foo.png 会查找 /data/www/images/foo.png
-  }
-  ```
+	```nginx
+	location /images/ {
+	    root /data/www; # 请求 /images/foo.png 会查找 /data/www/images/foo.png
+	}
+	```
 
 <br>
 
@@ -634,17 +634,17 @@ include <file | mask>;
 
 - *file*：指向硬盘上唯一的、确定的文件：
 
-  ```nginx
-  include mime.types;                 # 相对路径
-  include C:/nginx/conf/proxy.conf;   # 绝对路径
-  ```
+	```nginx
+	include mime.types;                 # 相对路径
+	include C:/nginx/conf/proxy.conf;   # 绝对路径
+	```
 
 - *mask*：使用 Shell 风格的通配符（Glob）来匹配多个文件：
 
-  ```nginx
-  include projects/*.conf;      # 加载 projects 目录下所有 .conf 文件
-  include vhosts/site-*.conf;   # 加载以 site- 开头的 conf 文件
-  ```
+	```nginx
+	include projects/*.conf;      # 加载 projects 目录下所有 .conf 文件
+	include vhosts/site-*.conf;   # 加载以 site- 开头的 conf 文件
+	```
 
 <br>
 

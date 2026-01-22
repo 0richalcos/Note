@@ -113,12 +113,12 @@ SpringCloud 是一个由众多独立子项目组成的大型综合项目，原�
 
 - Angel 										版本基于 SpringBoot1.2.x 版本构建与 1.3 版本不兼容
 - Brixton									  版本基于 SpringBoot1.3.x 版本构建与 1.2 版本不兼容
-	                                                   2017 年 Brixton and Angel release 官方宣布报废
+																										2017 年 Brixton and Angel release 官方宣布报废
 - Camden      							  版本基于 SpringBoot1.4.x 版本构建并在 1.5 版本通过测试
-	                                                   2018 年 Camden release 官方宣布报废
+																										2018 年 Camden release 官方宣布报废
 - Dalston、Edgware 				 版本基于 SpringBoot1.5.x 版本构建，目前不能在 SpringBoot2.0.x 版本中使用
-	                                                   Dalston（达尔斯顿）将于 2018 年 12 月官方宣布报废
-	                                                   Edgware 将遵循 Spring Boot 1.5.x 的生命周期结束
+																										Dalston（达尔斯顿）将于 2018 年 12 月官方宣布报废
+																										Edgware 将遵循 Spring Boot 1.5.x 的生命周期结束
 - Finchley 			         			   版本基于 SpringBoot2.0.x 版本进行构建，不能兼容 1.x 版本
 - Greenwich								版本基于 SpringBoot2.1.x 版本进行构建，不能兼容 1.x 版本
 - Hoxton									  版本基于 SpringBoot2.2.x 版本进行构建
@@ -212,14 +212,14 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 
 1. 创建一个 Maven 项目并引入 Eureka Server 依赖
 
-   ```xml
-   <dependencies>
-       <dependency>
-           <groupId>org.springframework.cloud</groupId>
-           <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-       </dependency>
-   </dependencies>
-   ```
+	```xml
+	<dependencies>
+	    <dependency>
+	        <groupId>org.springframework.cloud</groupId>
+	        <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+	    </dependency>
+	</dependencies>
+	```
 
 2. 编写配置文件 application.properties
 
@@ -275,49 +275,49 @@ Eureka 包含两个组件：Eureka Server 和 Eureka Client。
 
 1. 创建一个 Maven 子项目并引入 Spring Web 和 Eureka Client 依赖
 
-   ```xml
-   <dependencies>
-       <dependency>
-           <groupId>org.springframework.boot</groupId>
-           <artifactId>spring-boot-starter-web</artifactId>
-       </dependency>
-       <dependency>
-           <groupId>org.springframework.cloud</groupId>
-           <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-       </dependency>
-   </dependencies>
-   ```
+	```xml
+	<dependencies>
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-web</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework.cloud</groupId>
+	        <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+	    </dependency>
+	</dependencies>
+	```
 
 2. 编写配置文件 application.properties
 
-   ```properties
-   #执行服务端口
-   server.port=8888
-   #指定服务名称 唯一标识
-   spring.application.name=eurekaclient
-   #eureka注册中心地址
-   eureka.client.service-url.defaultZone=http://localhost:8761/eureka
-   ```
+	```properties
+	#执行服务端口
+	server.port=8888
+	#指定服务名称 唯一标识
+	spring.application.name=eurekaclient
+	#eureka注册中心地址
+	eureka.client.service-url.defaultZone=http://localhost:8761/eureka
+	```
 
 3. 编写入口类 EurekaClient8888Application.java 并添加开启 Eureka Client 注解
 
-   ```java
-   @SpringBootApplication
-   @EnableEurekaClient
-   public class EurekaClient8888Application {
-       public static void main(String[] args) {
-           SpringApplication.run(EurekaClient8888Application.class, args);
-       }
-   }
-   ```
+	```java
+	@SpringBootApplication
+	@EnableEurekaClient
+	public class EurekaClient8888Application {
+	    public static void main(String[] args) {
+	        SpringApplication.run(EurekaClient8888Application.class, args);
+	    }
+	}
+	```
 
 4. 启动之前的 Eureka Server，再启动 Eureka Client
 
-   <img src="!assets/SpringCloud/image-20210714001817434.png" alt="image-20210714001817434" style="" />
+	<img src="!assets/SpringCloud/image-20210714001817434.png" alt="image-20210714001817434" style="" />
 
 5. 查看 Eureka Server 的服务注册情况
 
-   <img src="!assets/SpringCloud/image-20210714001846314.png" alt="image-20210714001846314" style="" />
+	<img src="!assets/SpringCloud/image-20210714001846314.png" alt="image-20210714001846314" style="" />
 
 
 
@@ -465,41 +465,41 @@ Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统�
 
 1. 前往 https://www.consul.io/downloads
 
-   <img src="!assets/SpringCloud/image-20210714233845045.png" alt="image-20210714233845045" style="" />
+	<img src="!assets/SpringCloud/image-20210714233845045.png" alt="image-20210714233845045" style="" />
 
-   选择自己电脑对应的版本下载
+	选择自己电脑对应的版本下载
 
 2. 解压完后只有一个脚本文件
 
-   <img src="!assets/SpringCloud/image-20210714234043504.png" alt="image-20210714234043504" style="" />
+	<img src="!assets/SpringCloud/image-20210714234043504.png" alt="image-20210714234043504" style="" />
 
 3. 使用终端切换到 consul.exe 目录并执行以下命令启动 Consul
 
-   <img src="!assets/SpringCloud/image-20210714235520532.png" alt="image-20210714235520532" style="" />
+	<img src="!assets/SpringCloud/image-20210714235520532.png" alt="image-20210714235520532" style="" />
 
 4. 访问 Consul 的 WEB 服务端口：http://localhost:8500
 
-   <img src="!assets/SpringCloud/image-20210714235639426.png" alt="image-20210714235639426" style="" />
+	<img src="!assets/SpringCloud/image-20210714235639426.png" alt="image-20210714235639426" style="" />
 
-   左上角 Consul logo 旁边的 dc1 为数据中心，可以通过 `-datacenter` 进行设置：
+	左上角 Consul logo 旁边的 dc1 为数据中心，可以通过 `-datacenter` 进行设置：
 
-   ```bash
-   consul agent -dev -datacenter=aa
-   ```
+	```bash
+	consul agent -dev -datacenter=aa
+	```
 
 可以通过设置环境变量，不用更改终端路径，直接执行 Consul 命令：
 
 1. 新建一个环境变量，路径指向 consul.exe  的文件夹
 
-   <img src="!assets/SpringCloud/image-20210715000050208.png" alt="image-20210715000050208" style="" />
+	<img src="!assets/SpringCloud/image-20210715000050208.png" alt="image-20210715000050208" style="" />
 
 2. 在系统变量 Path 中将刚刚添加的变量加上
 
-   <img src="!assets/SpringCloud/image-20210715000501565.png" alt="image-20210715000501565" style="" />
+	<img src="!assets/SpringCloud/image-20210715000501565.png" alt="image-20210715000501565" style="" />
 
 3. 赶紧试试~
 
-   <img src="!assets/SpringCloud/image-20210715000842740.png" alt="image-20210715000842740" style="" />
+	<img src="!assets/SpringCloud/image-20210715000842740.png" alt="image-20210715000842740" style="" />
 
 > 如果前面使用的是 Windows CMD 开启了 Consul，记得按 Ctrl + C 关闭，然后还需重新启动 CMD
 
@@ -589,7 +589,7 @@ Spring 框架提供的 RestTemplate 类可用于在应用中调用 REST 服务�
 	- users	  	代表用户服务，端口为 9999
 	- order 		 代表订单服务，端口为 9998
 
-	 注意：这里服务仅仅用来测试，没有实际业务意义
+	注意：这里服务仅仅用来测试，没有实际业务意义
 
 	<img src="!assets/SpringCloud/image-20210801002648820.png" alt="image-20210801002648820" style="" />
 
@@ -1012,71 +1012,71 @@ Spring Cloud Ribbon 是一个基于 HTTP 和 TCP 的客户端负载均衡工具�
 
 1. 项目中引入依赖：
 
-   - 如果使用的是 Eureka Client 和 Consul Client，无须引入依赖，因为在 Eureka、Consul 中默认集成了 Ribbon 组件
+	- 如果使用的是 Eureka Client 和 Consul Client，无须引入依赖，因为在 Eureka、Consul 中默认集成了 Ribbon 组件
 
-   - 如果使用的 Client 中没有 Ribbon 依赖需要显式引入如下依赖
+	- 如果使用的 Client 中没有 Ribbon 依赖需要显式引入如下依赖
 
-     ```xml
-     <!--引入ribbon依赖-->
-     <dependency>
-       <groupId>org.springframework.cloud</groupId>
-       <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-     </dependency>
-     ```
+		```xml
+		<!--引入ribbon依赖-->
+		<dependency>
+		  <groupId>org.springframework.cloud</groupId>
+		  <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+		</dependency>
+		```
 
 2. 修改 Order 服务的控制器
 
-   ```java
-   @RestController
-   @RequestMapping("/order")
-   public class OrderController {
-   
-       private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
-   
-       @Value("${server.port}")
-       private String port;
-   
-       @GetMapping
-       public String demo() {
-           LOGGER.info("order被调用，服务端口为：{}", port);
-           return "order demo OK!!,服务端口为：" + port;
-       }
-   }
-   ```
+	```java
+	@RestController
+	@RequestMapping("/order")
+	public class OrderController {
+	
+	    private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
+	
+	    @Value("${server.port}")
+	    private String port;
+	
+	    @GetMapping
+	    public String demo() {
+	        LOGGER.info("order被调用，服务端口为：{}", port);
+	        return "order demo OK!!,服务端口为：" + port;
+	    }
+	}
+	```
 
 3. 修改 Order 服务的配置文件，，增加三个 `profile`
 
-   ```yaml
-   spring:
-     application:
-       name: order
-     cloud:
-       consul:
-         host: localhost
-         port: 8500
-   
-   ---
-   spring:
-     profiles: order9998
-   server:
-     port: 9998
-   
-   ---
-   spring:
-     profiles: order9997
-   server:
-     port: 9997
-   
-   ---
-   spring:
-     profiles: order9996
-   server:
-     port: 9996
-   ```
+	```yaml
+	spring:
+	  application:
+	    name: order
+	  cloud:
+	    consul:
+	      host: localhost
+	      port: 8500
+	
+	---
+	spring:
+	  profiles: order9998
+	server:
+	  port: 9998
+	
+	---
+	spring:
+	  profiles: order9997
+	server:
+	  port: 9997
+	
+	---
+	spring:
+	  profiles: order9996
+	server:
+	  port: 9996
+	```
 
 4. 分别启动三个注册中心，环境变量 `spring.profiles.active` 激活对应的集群配置
 
-   <img src="!assets/SpringCloud/image-20210805002959560.png" alt="image-20210805002959560" style="" />
+	<img src="!assets/SpringCloud/image-20210805002959560.png" alt="image-20210805002959560" style="" />
 
 
 
@@ -1226,11 +1226,11 @@ public String loadBalanced() {
 <img src="!assets/SpringCloud/image-20210807010639929.png" alt="image-20210807010639929" style="" />
 
 - RoundRobinRule 
-  轮训策略：按顺序循环选择 Server
+	轮训策略：按顺序循环选择 Server
 - RandomRule
-  随机策略：随机选择 Server
+	随机策略：随机选择 Server
 - AvailabilityFilteringRule
-  可用过滤策略：会先过滤由于多次访问故障而处于断路器跳闸状态的服务，还有并发的连接数量超过阈值的服务，然后对剩余的服务列表按照轮询策略进行访问
+	可用过滤策略：会先过滤由于多次访问故障而处于断路器跳闸状态的服务，还有并发的连接数量超过阈值的服务，然后对剩余的服务列表按照轮询策略进行访问
 
 - WeightedResponseTimeRule 
 	响应时间加权策略：根据平均响应的时间计算所有服务的权重，响应时间越快服务权重越大被选中的概率越高，刚启动时如果统计信息不足，则使用RoundRobinRule策略，等统计信息足够会切换到
@@ -1258,7 +1258,7 @@ order.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
 
 ### 6.1、Hystrix
 
- 在分布式环境中，许多服务依赖项不可避免地会失败。Hystrix 是一个库，它通过添加延迟容忍和容错逻辑来帮助您控制这些分布式服务之间的交互。Hystrix 通过隔离服务之间的访问点、停止它们之间的级联故障以及提供后备选项来实现这一点，所有这些都可以提高系统的整体弹性。
+在分布式环境中，许多服务依赖项不可避免地会失败。Hystrix 是一个库，它通过添加延迟容忍和容错逻辑来帮助您控制这些分布式服务之间的交互。Hystrix 通过隔离服务之间的访问点、停止它们之间的级联故障以及提供后备选项来实现这一点，所有这些都可以提高系统的整体弹性。
 
 
 

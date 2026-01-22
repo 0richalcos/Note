@@ -629,7 +629,7 @@ redirect 和 forward 是 Servlet 中的两种主要的跳转方式：redirect �
 - forword 是服务器内部的重定向，服务器直接访问目标地址的 URL 网址，把里面的东西读取出来，但是客户端并不知道，因此用 forward 的话，客户端浏览器的网址是不会发生变化的。
 - redirect 是服务器根据逻辑，发送一个状态码，告诉浏览器重新去请求那个地址，所以地址栏显示的是新的地址。
 
- **从数据共享来说：**
+**从数据共享来说：**
 
 - 由于在整个重定向的过程中用的是同一个 Request，因此 forward 会将 Request 的信息带到被重定向的 JSP 或者 Servlet 中使用。即可以共享数据。
 - redirect 不能共享。
@@ -982,9 +982,9 @@ Session 对象由服务器创建，开发人员可以调用 Request 对象的 `g
 
 1. 第一次访问创建 session 对象，给 session 对象分配一个唯一的 ID，叫 JSESSIONID
 
-    ```java
-    new HttpSession();
-    ```
+		```java
+		new HttpSession();
+		```
 
 3. 把 JSESSIONID 作为 Cookie 的值发送给浏览器保存
 

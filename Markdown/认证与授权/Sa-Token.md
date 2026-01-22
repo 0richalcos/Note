@@ -26,35 +26,35 @@ StpUtil.checkLogin();
 
 - 踢人下线：
 
-  ```java
-  // 将账号id为 10077 的会话踢下线 
-  StpUtil.kickout(10077);
-  ```
+	```java
+	// 将账号id为 10077 的会话踢下线 
+	StpUtil.kickout(10077);
+	```
 
 - 权限认证：
 
-  ```java
-  // 注解鉴权：只有具备 `user:add` 权限的会话才可以进入方法
-  @SaCheckPermission("user:add")
-  public String insert(SysUser user) {
-      // ... 
-      return "用户增加";
-  }
-  ```
+	```java
+	// 注解鉴权：只有具备 `user:add` 权限的会话才可以进入方法
+	@SaCheckPermission("user:add")
+	public String insert(SysUser user) {
+	    // ... 
+	    return "用户增加";
+	}
+	```
 
 - 路由拦截鉴权：
 
-  ```java
-  // 根据路由划分模块，不同模块不同鉴权 
-  registry.addInterceptor(new SaInterceptor(handler -> {
-      SaRouter.match("/user/**", r -> StpUtil.checkPermission("user"));
-      SaRouter.match("/admin/**", r -> StpUtil.checkPermission("admin"));
-      SaRouter.match("/goods/**", r -> StpUtil.checkPermission("goods"));
-      SaRouter.match("/orders/**", r -> StpUtil.checkPermission("orders"));
-      SaRouter.match("/notice/**", r -> StpUtil.checkPermission("notice"));
-      // 更多模块... 
-  })).addPathPatterns("/**");
-  ```
+	```java
+	// 根据路由划分模块，不同模块不同鉴权 
+	registry.addInterceptor(new SaInterceptor(handler -> {
+	    SaRouter.match("/user/**", r -> StpUtil.checkPermission("user"));
+	    SaRouter.match("/admin/**", r -> StpUtil.checkPermission("admin"));
+	    SaRouter.match("/goods/**", r -> StpUtil.checkPermission("goods"));
+	    SaRouter.match("/orders/**", r -> StpUtil.checkPermission("orders"));
+	    SaRouter.match("/notice/**", r -> StpUtil.checkPermission("notice"));
+	    // 更多模块... 
+	})).addPathPatterns("/**");
+	```
 
 当你受够 Shiro、SpringSecurity 等框架的三拜九叩之后，你就会明白，相对于这些传统老牌框架，Sa-Token 的 API 设计是多么的简单、优雅！
 

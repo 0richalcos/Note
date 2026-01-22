@@ -23,16 +23,16 @@
 **为什么要使用 Swagger？**
 
 - 对于后端开发人员来说：
-  不用再手写 WiKi 接口拼大量的参数，避免手写错误
-  对代码侵入性低，采用全注解的方式，开发简单
-  方法参数名修改、增加、减少参数都可以直接生效，不用手动维护
-  缺点：增加了开发成本，写接口还得再写一套参数配置
+	不用再手写 WiKi 接口拼大量的参数，避免手写错误
+	对代码侵入性低，采用全注解的方式，开发简单
+	方法参数名修改、增加、减少参数都可以直接生效，不用手动维护
+	缺点：增加了开发成本，写接口还得再写一套参数配置
 - 对于前端开发来说
-  后端只需要定义好接口，会自动生成文档，接口功能、参数一目了然
-  联调方便，如果出问题，直接测试接口，实时检查参数和返回值，就可以快速定位是前端还是后端的问题
+	后端只需要定义好接口，会自动生成文档，接口功能、参数一目了然
+	联调方便，如果出问题，直接测试接口，实时检查参数和返回值，就可以快速定位是前端还是后端的问题
 - 对于测试
-  对于某些没有前端界面UI的功能，可以用它来测试接口
-  操作简单，不用了解具体代码就可以操作
+	对于某些没有前端界面UI的功能，可以用它来测试接口
+	操作简单，不用了解具体代码就可以操作
 
 
 
@@ -44,39 +44,39 @@
 
 2. 导入相关依赖
 
-   ```xml
-   <!-- https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter -->
-   <dependency>
-       <groupId>io.springfox</groupId>
-       <artifactId>springfox-boot-starter</artifactId>
-       <version>3.0.0</version>
-   </dependency>
-   ```
+	```xml
+	<!-- https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter -->
+	<dependency>
+	    <groupId>io.springfox</groupId>
+	    <artifactId>springfox-boot-starter</artifactId>
+	    <version>3.0.0</version>
+	</dependency>
+	```
 
 3. 写一个 Hello 测试下
 
-   ```java
-   @RestController
-   public class HelloController {
-       @GetMapping("/hello")
-       public String hello() {
-           return "hello";
-       }
-   }
-   ```
+	```java
+	@RestController
+	public class HelloController {
+	    @GetMapping("/hello")
+	    public String hello() {
+	        return "hello";
+	    }
+	}
+	```
 
 4. 编写一个 SwaggerConfig.java 开启 Swagger
 
-   ```java
-   @Configuration
-   @EnableOpenApi
-   public class SwaggerConfig {
-   }
-   ```
+	```java
+	@Configuration
+	@EnableOpenApi
+	public class SwaggerConfig {
+	}
+	```
 
 5. 访问 http://localhost:8080/swagger-ui/index.html
 
-   <img src="!assets/Swagger/image-20210706010548564.png" alt="image-20210706010548564" style="width:90%;" />
+	<img src="!assets/Swagger/image-20210706010548564.png" alt="image-20210706010548564" style="width:90%;" />
 
 
 
@@ -206,7 +206,7 @@ public ApiInfo getApiInfo() {
 
 点开 ApiSelectorBuilder 源码：
 
- <img src="!assets/Swagger/image-20210708001526009.png" alt="image-20210708001526009" style="width:100%;" />
+<img src="!assets/Swagger/image-20210708001526009.png" alt="image-20210708001526009" style="width:100%;" />
 
 
 可以看到需要配置的是 requestHandlerSelector 和 pathSelector。
@@ -312,7 +312,7 @@ public Docket docket1(){
 }
 ```
 
- <img src="!assets/Swagger/image-20210708003601775.png" alt="image-20210708003601775" style="width:90%;" />
+<img src="!assets/Swagger/image-20210708003601775.png" alt="image-20210708003601775" style="width:90%;" />
 
 
 
@@ -354,40 +354,40 @@ public Docket docket() {
 
 1. 创建两个新的配置文件，application-dev.properties 和 application-por.properties，分别代表正式环境和开发环境的配置。在这两个配置文件中，分别把启动端口设为 8081 和 8080：
 
-   <img src="!assets/Swagger/image-20210708005409853.png" alt="image-20210708005409853" style="width:70%;" />
+	<img src="!assets/Swagger/image-20210708005409853.png" alt="image-20210708005409853" style="width:70%;" />
    
 2. 修改 application.properties，将当前的环境设为 dev：
 
-   ```properties
-   spring.profiles.active=dev
-   ```
+	```properties
+	spring.profiles.active=dev
+	```
 
 3. 修改 SwaggerCofing.java，让它根据环境开启 Swagger：
 
-   ```java
-   @Bean
-   //注：这里注入了 Environment 对象，目的是获取系统环境
-   public Docket docket(Environment environment) {
-   
-       //设置要显示 swagger 的环境（dev 或者 test）
-       Profiles profiles = Profiles.of("dev", "test");
-       //判断当前是否处于该环境
-       boolean flag = environment.acceptsProfiles(profiles);
-   
-       return new Docket(DocumentationType.OAS_30)
-           .apiInfo(apiInfo())
-           .useDefaultResponseMessages(false)
-           .enable(flag)
-           .select()
-           .apis(RequestHandlerSelectors.basePackage("com.orichalcos.controller"))
-           .paths(PathSelectors.any())
-           .build();
-   }
-   ```
+	```java
+	@Bean
+	//注：这里注入了 Environment 对象，目的是获取系统环境
+	public Docket docket(Environment environment) {
+	
+	    //设置要显示 swagger 的环境（dev 或者 test）
+	    Profiles profiles = Profiles.of("dev", "test");
+	    //判断当前是否处于该环境
+	    boolean flag = environment.acceptsProfiles(profiles);
+	
+	    return new Docket(DocumentationType.OAS_30)
+	        .apiInfo(apiInfo())
+	        .useDefaultResponseMessages(false)
+	        .enable(flag)
+	        .select()
+	        .apis(RequestHandlerSelectors.basePackage("com.orichalcos.controller"))
+	        .paths(PathSelectors.any())
+	        .build();
+	}
+	```
 
-   然后重启项目，就可以发现，8080 端口已经无法访问了，但8081 可以：
+	然后重启项目，就可以发现，8080 端口已经无法访问了，但8081 可以：
 
-   <img src="!assets/Swagger/image-20210708005813542.png" alt="image-20210708005813542" style="width:100%;" />
+	<img src="!assets/Swagger/image-20210708005813542.png" alt="image-20210708005813542" style="width:100%;" />
 
 
 

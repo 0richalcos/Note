@@ -31,41 +31,41 @@
 **JS 文件中引入另一个JS文件**
 
 1. 在调用文件的顶部加入下例代码：
-   ```javascript
-   document.write("<script language=javascript src="+url+"></script>");
-   ```
+	```javascript
+	document.write("<script language=javascript src="+url+"></script>");
+	```
 
-   > [!NOTE]
-   >
-   > 有时引用的文件还可能需要引用其他的 JS，我们需要将需要的那个 JS 文件也以同样的方法引用进来。
+	> [!NOTE]
+	>
+	> 有时引用的文件还可能需要引用其他的 JS，我们需要将需要的那个 JS 文件也以同样的方法引用进来。
    
 2. 在 JS 中写如下代码：
-   ```javascript
-   function addScript(url){
-   	var script = document.createElement('script');
-   	script.setAttribute('type','text/javascript');
-   	script.setAttribute('src',url);
-   	document.getElementsByTagName('head')[0].appendChild(script);
-   }
-   ```
+	```javascript
+	function addScript(url){
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		script.setAttribute('src',url);
+		document.getElementsByTagName('head')[0].appendChild(script);
+	}
+	```
 
-   利用 `document.createElement("script")` 生成了一个 `script` 的标签，设置其 `type` 属性为 `text/javascript`。
+	利用 `document.createElement("script")` 生成了一个 `script` 的标签，设置其 `type` 属性为 `text/javascript`。
 
 3. 利用 ES6 中 `export` 和 `import` 实现模块化：
 
-   一个 JS 文件代表一个 JS 模块 。ES6 引入外部模块分两种情况：
+	一个 JS 文件代表一个 JS 模块 。ES6 引入外部模块分两种情况：
 
-   1. 导入外部的变量或函数等：
+	1. 导入外部的变量或函数等：
 
-      ```javascript
-      import {firstName, lastName} from './test';
-      ```
+			```javascript
+			import {firstName, lastName} from './test';
+			```
 
-   2. 导入外部的模块，并立即执行：
-      ```javascript
-      import './test'
-      //执行test.js，但不导入任何变量
-      ```
+	2. 导入外部的模块，并立即执行：
+			```javascript
+			import './test'
+			//执行test.js，但不导入任何变量
+			```
 
 <br>
 
@@ -2173,41 +2173,41 @@ open(url, target, windowFeatures)
 
 - *windowFeatures*：可选。一个字符串，包含以逗号分隔的窗口特性列表，形式为 `name=value`，布尔特性则仅为 `name`。这些特性包括窗口的默认大小和位置、是否打开最小弹出窗口等选项。支持以下选项：
 
-  - `popup`：
+	- `popup`：
 
-    如果启用此特性，则要求使用最小弹出窗口。弹出窗口中包含的用户界面功能将由浏览器自动决定，一般只包括地址栏。
+		如果启用此特性，则要求使用最小弹出窗口。弹出窗口中包含的用户界面功能将由浏览器自动决定，一般只包括地址栏。
 
-    如果未启用 `popup`，也没有声明窗口特性，则新的浏览上下文将是一个标签页。
+		如果未启用 `popup`，也没有声明窗口特性，则新的浏览上下文将是一个标签页。
 
-    要启用该特性，可以不指定 `popup` 值，或将其设置为 yes、1 或 true。
+		要启用该特性，可以不指定 `popup` 值，或将其设置为 yes、1 或 true。
 
-    例如：`popup=yes`、`popup=1`、`popup=true` 和 `popup` 的结果完全相同。
+		例如：`popup=yes`、`popup=1`、`popup=true` 和 `popup` 的结果完全相同。
 
-  - `width` 或 `innerWidth`：
+	- `width` 或 `innerWidth`：
 
-    指定内容区域（包括滚动条）的宽度。最小要求值为 100。
+		指定内容区域（包括滚动条）的宽度。最小要求值为 100。
 
-  - `height` 或 `innerHeight`：
+	- `height` 或 `innerHeight`：
 
-    指定内容区域（包括滚动条）的高度。最小要求值为 100。
+		指定内容区域（包括滚动条）的高度。最小要求值为 100。
 
-  - `top` 或 `screenX`：
+	- `top` 或 `screenX`：
 
-    指定从用户操作系统定义的工作区左侧到新窗口生成位置的距离（以像素为单位）。
+		指定从用户操作系统定义的工作区左侧到新窗口生成位置的距离（以像素为单位）。
 
-  - `top` 或 `screenY`：
+	- `top` 或 `screenY`：
 
-    指定从用户操作系统定义的工作区顶部到新窗口生成位置的距离（以像素为单位）。
+		指定从用户操作系统定义的工作区顶部到新窗口生成位置的距离（以像素为单位）。
 
-  - `noopener`：
+	- `noopener`：
 
-    如果设置了此特性，新窗口将无法通过 `Window.opener` 访问原窗口，并返回 null。
+		如果设置了此特性，新窗口将无法通过 `Window.opener` 访问原窗口，并返回 null。
 
-    使用 `noopener` 时，在决定是否打开新的浏览上下文时，除 `_top`、`_self` 和 `_parent` 以外的非空目标名称会像 `_blank` 一样处理。
+		使用 `noopener` 时，在决定是否打开新的浏览上下文时，除 `_top`、`_self` 和 `_parent` 以外的非空目标名称会像 `_blank` 一样处理。
 
-  - `noreferrer`：
+	- `noreferrer`：
 
-    如果设置了此特性，浏览器将省略 Referer 标头，并将 `noopener` 设为 true。
+		如果设置了此特性，浏览器将省略 Referer 标头，并将 `noopener` 设为 true。
 
 
 
@@ -2364,38 +2364,38 @@ The void operator evaluates the given expression and then returns undefined.
 
 1. `undefined` 可以被重写：
 
-   在 ES5 的全局环境中，`undefined` 是只读的，但是在部分低级别的浏览器（IE7,IE8）中可以被修改。而在局部作用域中，`undefined` 也是可变的。这个是 JS 语言公认的设计失误之一。
+	在 ES5 的全局环境中，`undefined` 是只读的，但是在部分低级别的浏览器（IE7,IE8）中可以被修改。而在局部作用域中，`undefined` 也是可变的。这个是 JS 语言公认的设计失误之一。
 
-   ```javascript
-   (function() {
-     var undefined = 10;
-    
-     // 10 -- chrome
-     alert(undefined);
-   })();
-    
-   (function() {
-     undefined = 10;
-    
-     // undefined -- chrome
-     alert(undefined);
-   })();
-   ```
+	```javascript
+	(function() {
+	  var undefined = 10;
+	 
+	  // 10 -- chrome
+	  alert(undefined);
+	})();
+	 
+	(function() {
+	  undefined = 10;
+	 
+	  // undefined -- chrome
+	  alert(undefined);
+	})();
+	```
 
 2. 从性能方面： `void 0` 比 `undefined` 少了三个字节：
 
-   当源码中有大量用 `undefined` 判断的时候，这个优化还是值得关注的。
+	当源码中有大量用 `undefined` 判断的时候，这个优化还是值得关注的。
 
-   ```javascript
-   >"undefined".length
-   9
-   >"void 0".length
-   6
-   ```
+	```javascript
+	>"undefined".length
+	9
+	>"void 0".length
+	6
+	```
 
 3. 保证结果不变性：
 
-   `undefined` 并不是 Javascript中的保留字，我们可以使用 `undefined` 作为变量名字，然后给它赋值。`void 0` 输出唯一的结果 `undefined`，保证了不变性。
+	`undefined` 并不是 Javascript中的保留字，我们可以使用 `undefined` 作为变量名字，然后给它赋值。`void 0` 输出唯一的结果 `undefined`，保证了不变性。
 
 
 
@@ -2403,47 +2403,47 @@ The void operator evaluates the given expression and then returns undefined.
 
 1. 立即调用的函数表达式：
 
-   在使用**立即执行的函数表达式**时，可以利用 `void` 运算符让 JavaScript 引擎把一个 `function` 关键字识别成函数表达式而不是函数声明（语句）。
+	在使用**立即执行的函数表达式**时，可以利用 `void` 运算符让 JavaScript 引擎把一个 `function` 关键字识别成函数表达式而不是函数声明（语句）。
 
-   ```javascript
-   void function iife() {
-       var bar = function () {};
-       var baz = function () {};
-       var foo = function () {
-           bar();
-           baz();
-        };
-       var biz = function () {};
-   
-       foo();
-       biz();
-   }();
-   ```
+	```javascript
+	void function iife() {
+	    var bar = function () {};
+	    var baz = function () {};
+	    var foo = function () {
+	        bar();
+	        baz();
+	     };
+	    var biz = function () {};
+	
+	    foo();
+	    biz();
+	}();
+	```
 
 2. `javascript URIs`：
 
-   当用户点击一个以 `javascript:` 开头的 URI 时，它会执行 URI 中的代码，然后用返回的值替换页面内容，除非返回的值是 `undefined`。`void` 运算符可用于返回 `undefined`。例如：
+	当用户点击一个以 `javascript:` 开头的 URI 时，它会执行 URI 中的代码，然后用返回的值替换页面内容，除非返回的值是 `undefined`。`void` 运算符可用于返回 `undefined`。例如：
 
-   ```html
-   <a href="javascript:void(0);">
-     这个链接点击之后不会做任何事情，如果去掉 void()，
-     点击之后整个页面会被替换成一个字符 0。
-   </a>
-   <p> chrome中即使<a href="javascript:0;">也没变化，firefox中会变成一个字符串0 </p>
-   <a href="javascript:void(document.body.style.backgroundColor='green');">
-     点击这个链接会让页面背景变成绿色。
-   </a>
-   ```
+	```html
+	<a href="javascript:void(0);">
+	  这个链接点击之后不会做任何事情，如果去掉 void()，
+	  点击之后整个页面会被替换成一个字符 0。
+	</a>
+	<p> chrome中即使<a href="javascript:0;">也没变化，firefox中会变成一个字符串0 </p>
+	<a href="javascript:void(document.body.style.backgroundColor='green');">
+	  点击这个链接会让页面背景变成绿色。
+	</a>
+	```
 
-   注意，虽然这么做是可行的，但利用 `javascript:` 伪协议来执行 JavaScript 代码是不推荐的，推荐的做法是为链接元素绑定事件。
+	注意，虽然这么做是可行的，但利用 `javascript:` 伪协议来执行 JavaScript 代码是不推荐的，推荐的做法是为链接元素绑定事件。
 
 3. 箭头函数中避免泄漏：
 
-   箭头函数标准中，允许在函数体不使用括号来直接返回值。 如果右侧调用了一个原本没有返回值的函数，其返回值改变后，则会导致非预期的副作用。 安全起见，当函数返回值是一个不会被使用到的时候，应该使用 `void` 运算符，来确保返回 `undefined`（如下方示例），这样，当 API 改变时，并不会影响箭头函数的行为。
+	箭头函数标准中，允许在函数体不使用括号来直接返回值。 如果右侧调用了一个原本没有返回值的函数，其返回值改变后，则会导致非预期的副作用。 安全起见，当函数返回值是一个不会被使用到的时候，应该使用 `void` 运算符，来确保返回 `undefined`（如下方示例），这样，当 API 改变时，并不会影响箭头函数的行为。
 
-   ```javascript
-   button.onclick = () => void doSomething();
-   ```
+	```javascript
+	button.onclick = () => void doSomething();
+	```
 
 
 
@@ -2864,21 +2864,21 @@ alert(admin.name); // Pete
 
 1. 具有相同 `src` 的外部脚本仅运行一次：
 
-   ```html
-   <!-- 脚本 my.js 被加载完成（fetched）并只被运行一次 -->
-   <script type="module" src="my.js"></script>
-   <script type="module" src="my.js"></script>
-   ```
+	```html
+	<!-- 脚本 my.js 被加载完成（fetched）并只被运行一次 -->
+	<script type="module" src="my.js"></script>
+	<script type="module" src="my.js"></script>
+	```
 
 2. 从另一个源（例如另一个网站）获取的外部脚本需要 CORS header。换句话说，如果一个模块脚本是从另一个源获取的，则远程服务器必须提供表示允许获取的 header `Access-Control-Allow-Origin`。
 
-   ```html
-   <!-- another-site.com 必须提供 Access-Control-Allow-Origin -->
-   <!-- 否则，脚本将无法执行 -->
-   <script type="module" src="http://another-site.com/their.js"></script>
-   ```
+	```html
+	<!-- another-site.com 必须提供 Access-Control-Allow-Origin -->
+	<!-- 否则，脚本将无法执行 -->
+	<script type="module" src="http://another-site.com/their.js"></script>
+	```
 
-   默认这样做可以确保更好的安全性。
+	默认这样做可以确保更好的安全性。
 
 
 
@@ -3004,23 +3004,23 @@ say.sayBye('John');
 
 1. 现代的构建工具（webpack 和其他工具）将模块打包到一起并对其进行优化，以加快加载速度并删除未使用的代码。
 
-   比如说，我们向我们的项目里添加一个第三方库 `say.js`，它具有许多函数：
+	比如说，我们向我们的项目里添加一个第三方库 `say.js`，它具有许多函数：
 
-   ```javascript
-   // 📁 say.js
-   export function sayHi() { ... }
-   export function sayBye() { ... }
-   export function becomeSilent() { ... }
-   ```
+	```javascript
+	// 📁 say.js
+	export function sayHi() { ... }
+	export function sayBye() { ... }
+	export function becomeSilent() { ... }
+	```
 
-   现在，如果我们只在我们的项目里使用了 `say.js` 中的一个函数：
+	现在，如果我们只在我们的项目里使用了 `say.js` 中的一个函数：
 
-   ```javascript
-   // 📁 main.js
-   import {sayHi} from './say.js';
-   ```
+	```javascript
+	// 📁 main.js
+	import {sayHi} from './say.js';
+	```
 
-   那么，优化器（optimizer）就会检测到它，并从打包好的代码中删除那些未被使用的函数，从而使构建更小。这就是所谓的 “摇树（tree-shaking）”。
+	那么，优化器（optimizer）就会检测到它，并从打包好的代码中删除那些未被使用的函数，从而使构建更小。这就是所谓的 “摇树（tree-shaking）”。
 
 2. 明确列出要导入的内容会使得名称较短：`sayHi()` 而不是 `say.sayHi()`。
 
@@ -3296,16 +3296,16 @@ export default class User {
 
 1. `export User from './user.js'` 无效。这会导致一个语法错误。
 
-   要重新导出默认导出，我们必须明确写出 `export {default as User}`，就像上面的例子中那样。
+	要重新导出默认导出，我们必须明确写出 `export {default as User}`，就像上面的例子中那样。
 
 2. `export * from './user.js'` 重新导出只导出了命名的导出，但是忽略了默认的导出。
 
-   如果我们想将命名的导出和默认的导出都重新导出，那么需要两条语句：
+	如果我们想将命名的导出和默认的导出都重新导出，那么需要两条语句：
 
-   ```javascript
-   export * from './user.js'; // 重新导出命名的导出
-   export {default} from './user.js'; // 重新导出默认的导出
-   ```
+	```javascript
+	export * from './user.js'; // 重新导出命名的导出
+	export {default} from './user.js'; // 重新导出默认的导出
+	```
 
 重新导出一个默认导出的这种奇怪现象，是某些开发者不喜欢默认导出，而是喜欢命名的导出的原因之一。
 
@@ -3325,14 +3325,14 @@ export default class User {
 
 2. 如果页面顶部有一个笨重的脚本，它会 “阻塞页面”。在该脚本下载并执行结束前，用户都不能看到页面内容：
 
-   ```html
-   <p>...content before script...</p>
-   
-   <script src="https://javascript.info/article/script-async-defer/long.js?speed=1"></script>
-   
-   <!-- This isn't visible until the script loads -->
-   <p>...content after script...</p>
-   ```
+	```html
+	<p>...content before script...</p>
+	
+	<script src="https://javascript.info/article/script-async-defer/long.js?speed=1"></script>
+	
+	<!-- This isn't visible until the script loads -->
+	<p>...content after script...</p>
+	```
 
 这里有一些解决办法。例如，我们可以把脚本放在页面底部。此时，它可以访问到它上面的元素，并且不会阻塞页面显示内容：
 
@@ -3417,8 +3417,8 @@ export default class User {
 - 浏览器不会因 `async` 脚本而阻塞（与 `defer` 类似）。
 - 其他脚本不会等待 `async` 脚本加载完成，同样，`async` 脚本也不会等待其他脚本。
 - `DOMContentLoaded` 和异步脚本不会彼此等待：
-  - `DOMContentLoaded` 可能会发生在异步脚本之前（如果异步脚本在页面完成后才加载完成）
-  - `DOMContentLoaded` 也可能发生在异步脚本之后（如果异步脚本很短，或者是从 HTTP 缓存中加载的）
+	- `DOMContentLoaded` 可能会发生在异步脚本之前（如果异步脚本在页面完成后才加载完成）
+	- `DOMContentLoaded` 也可能发生在异步脚本之后（如果异步脚本很短，或者是从 HTTP 缓存中加载的）
 
 换句话说，`async` 脚本会在后台加载，并在加载就绪时运行。DOM 和其他脚本不会等待它们，它们也不会等待其它的东西。`async` 脚本就是一个会在加载完成时执行的完全独立的脚本。
 
@@ -3553,7 +3553,7 @@ new RegExp(pattern, attributes);
 
 #### 8.2.2、RegExp 方法
 
- **test()**
+**test()**
 
 `test()` 是一个正则表达式方法，它通过模式来搜索字符串，然后根据结果返回 `true` 或 `false`。
 

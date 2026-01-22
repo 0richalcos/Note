@@ -66,27 +66,27 @@ obclient -h$host -P$port -u$user_name -p$password -D$database_name
 
 - *`$host`*：提供 OceanBase 数据库连接 IP。
 
-  ODP 连接方式使用的是一个 ODP 地址；直连方式使用的是 OBServer 节点的 IP 地址。
+	ODP 连接方式使用的是一个 ODP 地址；直连方式使用的是 OBServer 节点的 IP 地址。
 
-  > [!NOTE]
-  >
-  > OceanBase 数据库代理 ODP（OceanBase Database Proxy，又称 OBProxy）是 OceanBase 数据库专用的代理服务器，OceanBase 数据库用户的数据会以多副本的形式存放在各个 OBServer 节点上，ODP 接收用户发出的 SQL 请求，并将 SQL 请求转发至最佳目标 OBServer 节点，最后将执行结果返回给用户。
+	> [!NOTE]
+	>
+	> OceanBase 数据库代理 ODP（OceanBase Database Proxy，又称 OBProxy）是 OceanBase 数据库专用的代理服务器，OceanBase 数据库用户的数据会以多副本的形式存放在各个 OBServer 节点上，ODP 接收用户发出的 SQL 请求，并将 SQL 请求转发至最佳目标 OBServer 节点，最后将执行结果返回给用户。
 
 - *`$port`*：提供 OceanBase 数据库连接端口。
 
-  ODP 连接的方式默认是 2883，在部署 ODP 时可自定义；直连方式默认是 2881，在部署 OceanBase 数据库时可自定义。
+	ODP 连接的方式默认是 2883，在部署 ODP 时可自定义；直连方式默认是 2881，在部署 OceanBase 数据库时可自定义。
 
 - *`$user_name`*：提供租户的连接账户。
 
-  ODP 连接的常用格式：`用户名@租户名#集群名` 或者 `集群名:租户名:用户名`；直连方式格式：`用户名@租户名`。
+	ODP 连接的常用格式：`用户名@租户名#集群名` 或者 `集群名:租户名:用户名`；直连方式格式：`用户名@租户名`。
 
 - *`$password`*：提供账户密码。
 
 - `$database_name`：需要访问的数据库名称。
 
-  > [!NOTE]
-  >
-  > 连接租户的用户需要拥有该数据库的 `CREATE`、`INSERT`、`DROP` 和 `SELECT` 权限。
+	> [!NOTE]
+	>
+	> 连接租户的用户需要拥有该数据库的 `CREATE`、`INSERT`、`DROP` 和 `SELECT` 权限。
 
 <br>
 
@@ -104,11 +104,11 @@ Navicat 是一款通用的数据库客户端工具，其原理是使用各个数
 
 1. 单击「连接」>「OceanBase 」>「OceanBase 企业版（MySQL 模式）」，进入到「新建连接」页面：
 
-   ![image-20251216023444142](./!assets/OceanBase/image-20251216023444142.png)
+	![image-20251216023444142](./!assets/OceanBase/image-20251216023444142.png)
 
 2. 在「新建连接」页面根据待连接的数据库信息进行填写，之后单击「测试连接」：
 
-   <img src="./!assets/OceanBase/image-20251216023523795.png" alt="image-20251216023523795" style="zoom:50%;" />
+	<img src="./!assets/OceanBase/image-20251216023523795.png" alt="image-20251216023523795" style="zoom:50%;" />
 
 3. 当「测试连接」弹窗中显示 已连接，表示可成功连接，单击「保存」，即可连接到 OceanBase 数据库。
 

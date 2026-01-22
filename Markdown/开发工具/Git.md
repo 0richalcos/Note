@@ -26,9 +26,9 @@ Git 是一种版本控制系统，是一个命令，是一种工具。
 
 - 如果进行多人协作，每个人都需要将自己电脑上版本库中的新修改同步到其他人的版本库中，可以有两种方式；
 
-  第一：将自己的修改直接推送到其他人的版本库中，我不会弄。
+	第一：将自己的修改直接推送到其他人的版本库中，我不会弄。
 
-  第二：建立一台充当 “中央服务器” 的电脑，每个人把自己电脑上版本库和中央服务器建立通信，但这个中央服务器的作用仅仅是用来方便 “交换” 大家的修改，在大家不相互协作的情况下，没有它大家也一样干活，如果中央服务器有一天被人炸了也没关系，因为我们每个人的电脑上都有一个完整的版本库。现在流行的 GitHub、Gitee 都是开放的中央服务器，公司内部还可以使用 GitLab 来自己搭建中央服务器。
+	第二：建立一台充当 “中央服务器” 的电脑，每个人把自己电脑上版本库和中央服务器建立通信，但这个中央服务器的作用仅仅是用来方便 “交换” 大家的修改，在大家不相互协作的情况下，没有它大家也一样干活，如果中央服务器有一天被人炸了也没关系，因为我们每个人的电脑上都有一个完整的版本库。现在流行的 GitHub、Gitee 都是开放的中央服务器，公司内部还可以使用 GitLab 来自己搭建中央服务器。
 
 
 
@@ -49,75 +49,75 @@ GitHub 和 GitLab 都是基于 Git 仓库的 Web 开发流程代码托管平台�
 ### 2.1、安装 GitLab
 
 1. 安装 GitLab 所需的依赖包：
-   ```shell
-   sudo apt update
-   sudo apt install -y curl openssh-server ca-certificates tzdata perl
-   ```
+	```shell
+	sudo apt update
+	sudo apt install -y curl openssh-server ca-certificates tzdata perl
+	```
 
 2. 启动 SSH 服务并设置 SSH 服务为开机自启动：
 
-   ```shell
-   sudo systemctl start ssh
-   sudo systemctl enable ssh
-   ```
+	```shell
+	sudo systemctl start ssh
+	sudo systemctl enable ssh
+	```
 
 3. （可选）安装并配置Postfix。
 
-   Postfix用于GitLab发送电子邮件通知。如果您想使用其他解决方案发送电子邮件，请跳过此步骤并在安装GitLab后配置外部SMTP服务器。具体操作，请参见 [配置外部 SMTP 服务器](https://docs.gitlab.cn/omnibus/settings/smtp.html)。
+	Postfix用于GitLab发送电子邮件通知。如果您想使用其他解决方案发送电子邮件，请跳过此步骤并在安装GitLab后配置外部SMTP服务器。具体操作，请参见 [配置外部 SMTP 服务器](https://docs.gitlab.cn/omnibus/settings/smtp.html)。
 
-   安装 Postfix：
+	安装 Postfix：
 
-   ```shell
-   sudo apt install -y postfix
-   ```
+	```shell
+	sudo apt install -y postfix
+	```
 
-   > [!TIP]
-   >
-   > 安装的时候会要求配置 Postfix 信息：
-   >
-   > 1. 邮件服务器配置的类型，我这里选择 Internet Site 选项。
-   > 2. 系统邮件名称或完全限定域名（FQDN），我这里输入 `Orichalcos.com` ，一般这里会填 `<主机名>.com`。
+	> [!TIP]
+	>
+	> 安装的时候会要求配置 Postfix 信息：
+	>
+	> 1. 邮件服务器配置的类型，我这里选择 Internet Site 选项。
+	> 2. 系统邮件名称或完全限定域名（FQDN），我这里输入 `Orichalcos.com` ，一般这里会填 `<主机名>.com`。
 
-   启动Postfix并设置Postfix为开机自启动：
+	启动Postfix并设置Postfix为开机自启动：
 
-   ```shell
-   sudo systemctl start postfix
-   sudo systemctl enable postfix
-   ```
+	```shell
+	sudo systemctl start postfix
+	sudo systemctl enable postfix
+	```
 
 4. 添加 GitLab 软件包仓库：
 
-   ```shell
-   sudo curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash
-   ```
+	```shell
+	sudo curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash
+	```
 
-   > [!NOTE]
-   >
-   > 由于网络原因，可能会出现无法添加 GitLab 软件源镜像的问题，建议多尝试几次。
+	> [!NOTE]
+	>
+	> 由于网络原因，可能会出现无法添加 GitLab 软件源镜像的问题，建议多尝试几次。
 
-   当出现类似如下回显信息，表示 GitLab 软件包仓库已安装：
+	当出现类似如下回显信息，表示 GitLab 软件包仓库已安装：
 
-   <img src="!assets/Git/image-20240810163038904.png" alt="image-20240810163038904" style="" />
+	<img src="!assets/Git/image-20240810163038904.png" alt="image-20240810163038904" style="" />
 
 5. 刷新软件包列表：
 
-   ```shell
-   sudo apt update
-   ```
+	```shell
+	sudo apt update
+	```
 
 6. 安装 GitLab：
 
-   ```shell
-   sudo EXTERNAL_URL=<GitLab服务器的公网IP地址> apt install -y gitlab-ce
-   ```
+	```shell
+	sudo EXTERNAL_URL=<GitLab服务器的公网IP地址> apt install -y gitlab-ce
+	```
 
-   > [!IMPORTANT]
-   >
-   > GitLab 会因为实例规格较低而导致长时间处于 Installing 状态时，请耐心等待安装完成。
+	> [!IMPORTANT]
+	>
+	> GitLab 会因为实例规格较低而导致长时间处于 Installing 状态时，请耐心等待安装完成。
 
-   当出现类似如下回显信息，表示 GitLab 已经安装成功：
+	当出现类似如下回显信息，表示 GitLab 已经安装成功：
 
-   <img src="!assets/Git/image-20240810170021865.png" alt="image-20240810170021865" style="" />
+	<img src="!assets/Git/image-20240810170021865.png" alt="image-20240810170021865" style="" />
 
 
 
@@ -334,29 +334,29 @@ gitaly['env'] = {
 
 1. 获取 GitLab 的登录密码：
 
-   ```shell
-   sudo cat /etc/gitlab/initial_root_password
-   ```
+	```shell
+	sudo cat /etc/gitlab/initial_root_password
+	```
 
-   回显信息类似如下所示，可以在 Password 后获取 GitLab 的初始登录密码：
+	回显信息类似如下所示，可以在 Password 后获取 GitLab 的初始登录密码：
 
-   <img src="!assets/Git/image-20240810170359737.png" alt="image-20240810170359737" style="" />
+	<img src="!assets/Git/image-20240810170359737.png" alt="image-20240810170359737" style="" />
 
-   > [!IMPORTANT]
-   >
-   > 出于安全原因，24小时后，该文件会被自动删除，建议安装成功，首次登录之后，立即修改初始密码。
+	> [!IMPORTANT]
+	>
+	> 出于安全原因，24小时后，该文件会被自动删除，建议安装成功，首次登录之后，立即修改初始密码。
 
 2. 登录 GitLab。
 
-   在浏览器的地址栏中，输入 `http://ECS实例的公网IP` 即可进入 GitLab 的登录界面：
+	在浏览器的地址栏中，输入 `http://ECS实例的公网IP` 即可进入 GitLab 的登录界面：
 
-   <img src="!assets/Git/image-20240810171208179.png" alt="image-20240810171208179" style="" />
+	<img src="!assets/Git/image-20240810171208179.png" alt="image-20240810171208179" style="" />
 
-   首次登录使用用户名 root，密码为步骤 1 获取的密码。
+	首次登录使用用户名 root，密码为步骤 1 获取的密码。
 
 3. 进去后将语言设置成中文：
 
-   <img src="!assets/Git/image-20240810171806780.png" alt="image-20240810171806780" style="" />
+	<img src="!assets/Git/image-20240810171806780.png" alt="image-20240810171806780" style="" />
 
 
 
@@ -364,15 +364,15 @@ gitaly['env'] = {
 
 1. 在 GitLab 的主页中，单击【创建项目】：
 
-   <img src="!assets/Git/image-20240810172758823.png" alt="image-20240810172758823" style="" />
+	<img src="!assets/Git/image-20240810172758823.png" alt="image-20240810172758823" style="" />
 
 2. 单击【创建空白项目】，设置项目名称和项目 URL，然后单击【新建项目】：
 
-   <img src="!assets/Git/image-20240811224306100.png" alt="image-20240811224306100" style="" />
+	<img src="!assets/Git/image-20240811224306100.png" alt="image-20240811224306100" style="" />
 
 3. 复制 Clone 链接，该链接在进行克隆操作时需要使用：
 
-   <img src="!assets/Git/image-20240812000643716.png" alt="image-20240812000643716" style="" />
+	<img src="!assets/Git/image-20240812000643716.png" alt="image-20240812000643716" style="" />
 
 
 
@@ -380,19 +380,19 @@ gitaly['env'] = {
 
 1. 在 GitLab 的【偏好设置】里，找到【访问令牌】，在页面中创建一个令牌：
 
-   <img src="!assets/Git/image-20240811235925254.png" alt="image-20240811235925254" style="" />
+	<img src="!assets/Git/image-20240811235925254.png" alt="image-20240811235925254" style="" />
 
-   > [!IMPORTANT]
-   >
-   > 必须为访问令牌授予以下范围：api、read_user，否则无法在 IDEA 使用可能会有问题。
+	> [!IMPORTANT]
+	>
+	> 必须为访问令牌授予以下范围：api、read_user，否则无法在 IDEA 使用可能会有问题。
 
 2. 在 IDEA 的 GitLab 设置里，使用自己搭建的 GitLab 访问地址和步骤 1 获取的令牌登录：
 
-   <img src="!assets/Git/image-20240812000432360.png" alt="image-20240812000432360" style="zoom: 50%;" />
+	<img src="!assets/Git/image-20240812000432360.png" alt="image-20240812000432360" style="zoom: 50%;" />
 
 3. 最后直接 Clone 就行：
 
-   <img src="!assets/Git/image-20240812000735712.png" alt="image-20240812000735712" style="zoom:50%;" />
+	<img src="!assets/Git/image-20240812000735712.png" alt="image-20240812000735712" style="zoom:50%;" />
 
 
 
@@ -402,34 +402,34 @@ gitaly['env'] = {
 
 1. 创建备份目录：
 
-   ```shell
-   sudo mkdir -p /data/GitLabBackup/
-   ```
+	```shell
+	sudo mkdir -p /data/GitLabBackup/
+	```
 
 2. 备份 GitLab 主数据：
 
-   ```shell
-   sudo gitlab-backup create
-   ```
+	```shell
+	sudo gitlab-backup create
+	```
 
-   生成文件路径：`/var/opt/gitlab/backups/<时间戳>_gitlab_backup.tar`。
+	生成文件路径：`/var/opt/gitlab/backups/<时间戳>_gitlab_backup.tar`。
 
-   > [!NOTE]
-   >
-   > 包含所有 Git 仓库、用户数据、项目数据、CI/CD 记录、issues 等。
+	> [!NOTE]
+	>
+	> 包含所有 Git 仓库、用户数据、项目数据、CI/CD 记录、issues 等。
 
 3. 拷贝备份文件：
 
-   ```shell
-   sudo cp /var/opt/gitlab/backups/*.tar /mnt/d/GitLabBackup/
-   ```
+	```shell
+	sudo cp /var/opt/gitlab/backups/*.tar /mnt/d/GitLabBackup/
+	```
 
 4. 备份配置文件和密钥：
 
-   ```shell
-   sudo cp /etc/gitlab/gitlab.rb /data/GitLabBackup/
-   sudo cp /etc/gitlab/gitlab-secrets.json /data/GitLabBackup/
-   ```
+	```shell
+	sudo cp /etc/gitlab/gitlab.rb /data/GitLabBackup/
+	sudo cp /etc/gitlab/gitlab-secrets.json /data/GitLabBackup/
+	```
 
 
 
@@ -443,48 +443,48 @@ gitaly['env'] = {
 
 2. 还原配置和密钥：
 
-   ```shell
-   sudo cp /data/GitLabBackup/gitlab.rb /etc/gitlab/
-   sudo cp /data/GitLabBackup/gitlab-secrets.json /etc/gitlab/
-   ```
+	```shell
+	sudo cp /data/GitLabBackup/gitlab.rb /etc/gitlab/
+	sudo cp /data/GitLabBackup/gitlab-secrets.json /etc/gitlab/
+	```
 
-   若首次启动 GitLab，可执行：
+	若首次启动 GitLab，可执行：
 
-   ```shell
-   sudo gitlab-ctl reconfigure
-   ```
+	```shell
+	sudo gitlab-ctl reconfigure
+	```
 
 3. 拷贝备份数据文件：
 
-   ```shell
-   sudo cp /data/GitLabBackup/*.tar /var/opt/gitlab/backups/
-   sudo chown git:git /var/opt/gitlab/backups/*.tar
-   ```
+	```shell
+	sudo cp /data/GitLabBackup/*.tar /var/opt/gitlab/backups/
+	sudo chown git:git /var/opt/gitlab/backups/*.tar
+	```
 
 4. 停止 GitLab 关键服务（准备还原）：
 
-   ```shell
-   sudo gitlab-ctl stop unicorn
-   sudo gitlab-ctl stop sidekiq
-   ```
+	```shell
+	sudo gitlab-ctl stop unicorn
+	sudo gitlab-ctl stop sidekiq
+	```
 
 5. 还原数据：
 
-   ```shell
-   sudo gitlab-backup restore BACKUP=<时间戳>
-   ```
+	```shell
+	sudo gitlab-backup restore BACKUP=<时间戳>
+	```
 
-   例如：
+	例如：
 
-   ```shell
-   sudo gitlab-backup restore BACKUP=1718531400
-   ```
+	```shell
+	sudo gitlab-backup restore BACKUP=1718531400
+	```
 
 6. 重启并检查 GitLab：
 
-   ```shell
-   sudo gitlab-ctl reconfigure
-   sudo gitlab-ctl restart
-   sudo gitlab-ctl status
-   ```
+	```shell
+	sudo gitlab-ctl reconfigure
+	sudo gitlab-ctl restart
+	sudo gitlab-ctl status
+	```
 

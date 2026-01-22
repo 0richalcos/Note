@@ -36,39 +36,39 @@ Tomcat 既可作为独立 HTTP 服务器，也可通过 Coyote Connector 与 Apa
 
 1. 下载 Tomcat 安装包：
 
-   ```shell
-   wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.105/bin/apache-tomcat-9.0.105.tar.gz
-   ```
+	```shell
+	wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.105/bin/apache-tomcat-9.0.105.tar.gz
+	```
 
 2. 解压到目标目录：
 
-   ```shell
-   tar zxvf apache-tomcat-9.0.105.tar.gz -C /opt
-   ```
+	```shell
+	tar zxvf apache-tomcat-9.0.105.tar.gz -C /opt
+	```
 
 3. 重命名目录以简化路径：
 
-   ```shell
-   mv /opt/apache-tomcat-9.0.105 /opt/tomcat
-   ```
+	```shell
+	mv /opt/apache-tomcat-9.0.105 /opt/tomcat
+	```
 
 4. 编辑系统环境变量：
 
-   ```shell
-   sudo vim /etc/profile
-   ```
+	```shell
+	sudo vim /etc/profile
+	```
 
-   添加如下内容：
-   ```shell
-   export CATALINA_HOME=/opt/tomcat
-   export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
-   export PATH=$JAVA_HOME/bin:$CATALINA_HOME/bin:$PATH
-   ```
+	添加如下内容：
+	```shell
+	export CATALINA_HOME=/opt/tomcat
+	export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+	export PATH=$JAVA_HOME/bin:$CATALINA_HOME/bin:$PATH
+	```
 
 5. 执行以下命令使配置生效：
-   ```shell
-   source /etc/profile
-   ```
+	```shell
+	source /etc/profile
+	```
 
 
 
@@ -243,7 +243,7 @@ HTTP/1.1 连接器示例：
            enableLookups="false" />
 ```
 
- HTTPS (NIO2) 连接器示例：
+HTTPS (NIO2) 连接器示例：
 
 ```xml
 <Connector port="8443" protocol="org.apache.coyote.http11.Http11Nio2Protocol"

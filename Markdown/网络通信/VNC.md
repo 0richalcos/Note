@@ -53,10 +53,10 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 2. 认证阶段：常见为口令认证（也支持 TLS、UNIX login 等方式）。
 3. 初始化阶段：客户端请求共享桌面。
 4. 图像传输：
-   - Server 以增量方式传输屏幕图像（仅变化部分）。
-   - 支持多种压缩编码（Raw、Hextile、Tight 等）。
+	- Server 以增量方式传输屏幕图像（仅变化部分）。
+	- 支持多种压缩编码（Raw、Hextile、Tight 等）。
 5. 事件传输：
-   - Client 发送鼠标移动、点击、键盘按键等事件。
+	- Client 发送鼠标移动、点击、键盘按键等事件。
 
 <br>
 
@@ -87,122 +87,122 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 
 1. 安装桌面环境和 VNC 服务端：
 
-   - Debian 系系统：
+	- Debian 系系统：
 
-     ```shell
-     apt update
-     apt install -y xfce4 xfce4-goodies tigervnc-standalone-server
-     ```
+		```shell
+		apt update
+		apt install -y xfce4 xfce4-goodies tigervnc-standalone-server
+		```
 
-   - RedHat 系系统：
+	- RedHat 系系统：
 
-     ```shell
-     yum groupinstall -y "Xfce"
-     yum install -y tigervnc-server
-     ```
+		```shell
+		yum groupinstall -y "Xfce"
+		yum install -y tigervnc-server
+		```
 
-   > [!NOTE]
-   >
-   > 不同发行版桌面环境包名略有差异，请根据实际发行版调整。
+	> [!NOTE]
+	>
+	> 不同发行版桌面环境包名略有差异，请根据实际发行版调整。
 
 2. 设置 VNC 访问密码：
 
-   ```shell
-   vncpasswd
-   ```
+	```shell
+	vncpasswd
+	```
 
-   密码将保存在用户目录下的 `~/.vnc/passwd`。
+	密码将保存在用户目录下的 `~/.vnc/passwd`。
 
 3. 初始化启动 VNC 会话以生成配置文件：
 
-   ```shell
-   vncserver :1
-   ```
+	```shell
+	vncserver :1
+	```
 
-   这条命令会启动一个新的 VNC 会话，监听端口为 `5900 + 显示号`，即 5901端口（后续会改）。
+	这条命令会启动一个新的 VNC 会话，监听端口为 `5900 + 显示号`，即 5901端口（后续会改）。
 
-   它会自动生成默认的 `~/.vnc/xstartup` 启动脚本（后续需要修改）。
+	它会自动生成默认的 `~/.vnc/xstartup` 启动脚本（后续需要修改）。
 
 4. 立即停止这个临时的 VNC server：
 
-   ```shell
-   vncserver -kill :1
-   ```
+	```shell
+	vncserver -kill :1
+	```
 
-   因为我们最终要用 systemd 来管理它，所以这个只是用来生成文件的，用完就扔。
+	因为我们最终要用 systemd 来管理它，所以这个只是用来生成文件的，用完就扔。
 
 5. 配置 xstartup 启动桌面环境，编辑生成的 `~/.vnc/xstartup` 文件：
 
-   ```shell
-   vim ~/.vnc/xstartup
-   ```
+	```shell
+	vim ~/.vnc/xstartup
+	```
 
-   内容示例：
+	内容示例：
 
-   ```
-   #!/bin/sh
-   
-   unset SESSION_MANAGER
-   unset DBUS_SESSION_BUS_ADDRESS
-   
-   [ -r /etc/X11/Xresources ] && xrdb /etc/X11/Xresources
-   
-   startxfce4 &
-   ```
+	```
+	#!/bin/sh
+	
+	unset SESSION_MANAGER
+	unset DBUS_SESSION_BUS_ADDRESS
+	
+	[ -r /etc/X11/Xresources ] && xrdb /etc/X11/Xresources
+	
+	startxfce4 &
+	```
 
-   保存并赋予执行权限：
+	保存并赋予执行权限：
 
-   ```shell
-   chmod +x ~/.vnc/xstartup
-   ```
+	```shell
+	chmod +x ~/.vnc/xstartup
+	```
 
 6. 以 `:1` 显示号，即以监听 5901 端口为例（这里才是最终监听的端口），创建 systemd 服务文件：
 
-   ```shell
-   vim /etc/systemd/system/vncserver@:1.service
-   ```
+	```shell
+	vim /etc/systemd/system/vncserver@:1.service
+	```
 
-   内容示例：
+	内容示例：
 
-   ```
-   [Unit]
-   Description=TigerVNC server for %i display
-   After=syslog.target network.target
-   
-   [Service]
-   Type=forking
-   User=<YOUR_USERNAME>
-   PAMName=login
-   PIDFile=/home/<YOUR_USERNAME>/.vnc/%H:%i.pid
-   ExecStart=/usr/bin/vncserver %i -geometry 1280x800 -depth 24
-   ExecStop=/usr/bin/vncserver -kill %i
-   
-   [Install]
-   WantedBy=multi-user.target
-   ```
+	```
+	[Unit]
+	Description=TigerVNC server for %i display
+	After=syslog.target network.target
+	
+	[Service]
+	Type=forking
+	User=<YOUR_USERNAME>
+	PAMName=login
+	PIDFile=/home/<YOUR_USERNAME>/.vnc/%H:%i.pid
+	ExecStart=/usr/bin/vncserver %i -geometry 1280x800 -depth 24
+	ExecStop=/usr/bin/vncserver -kill %i
+	
+	[Install]
+	WantedBy=multi-user.target
+	```
 
-   - 将 `<YOUR_USERNAME>` 替换为实际使用的用户名。
-   - `ExecStart` 中的路径可能根据发行版不同有所差异，可以用 `which vncserver` 确认路径。
+	- 将 `<YOUR_USERNAME>` 替换为实际使用的用户名。
+	- `ExecStart` 中的路径可能根据发行版不同有所差异，可以用 `which vncserver` 确认路径。
 
 7. 启用并启动服务：
 
-   ```shell
-   systemctl daemon-reload
-   systemctl enable vncserver@:1
-   systemctl start vncserver@:1
-   ```
+	```shell
+	systemctl daemon-reload
+	systemctl enable vncserver@:1
+	systemctl start vncserver@:1
+	```
 
 8. 查看服务状态：
 
-   ```shell
-   systemctl status vncserver@:1
-   ```
+	```shell
+	systemctl status vncserver@:1
+	```
 
 9. 查看运行中的回话列表：
 
-   ```shell
-   vncserver -list
-   ```
+	```shell
+	vncserver -list
+	```
 
 <br>
 
@@ -219,84 +219,84 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 
 1. 关闭本机防火墙：
 
-   ```shell
-   systemctl stop firewalld
-   systemctl disable firewalld
-   systemctl mask firewalld
-   
-   systemctl stop ebtables
-   systemctl disable ebtables
-   systemctl mask ebtables
-   
-   systemctl stop iptables
-   systemctl disable iptables
-   systemctl mask iptables
-   
-   systemctl stop ip6tables
-   systemctl disable ip6tables
-   systemctl mask ip6tables
-   
-   systemctl stop nftables
-   systemctl disable nftables
-   systemctl mask nftables
-   ```
+	```shell
+	systemctl stop firewalld
+	systemctl disable firewalld
+	systemctl mask firewalld
+	
+	systemctl stop ebtables
+	systemctl disable ebtables
+	systemctl mask ebtables
+	
+	systemctl stop iptables
+	systemctl disable iptables
+	systemctl mask iptables
+	
+	systemctl stop ip6tables
+	systemctl disable ip6tables
+	systemctl mask ip6tables
+	
+	systemctl stop nftables
+	systemctl disable nftables
+	systemctl mask nftables
+	```
 
-   上述指令会关闭并停用相关防火墙服务，同时将屏蔽防火墙服务。
+	上述指令会关闭并停用相关防火墙服务，同时将屏蔽防火墙服务。
 
 2. 安装 x11vnc 软件包：
 
-   - Debian 系系统：
+	- Debian 系系统：
 
-     ```shell
-     apt update
-     apt install -y x11vnc
-     ```
+		```shell
+		apt update
+		apt install -y x11vnc
+		```
 
-   - RedHat 系系统：
+	- RedHat 系系统：
 
-     ```shell
-     yum install x11vnc
-     ```
+		```shell
+		yum install x11vnc
+		```
 
 3. 修改配置文件：
 
-   ```shell
-   vim /lib/systemd/system/x11vnc.service
-   ```
+	```shell
+	vim /lib/systemd/system/x11vnc.service
+	```
 
-   注释掉文件所有的原内容后，粘贴以下内容：
+	注释掉文件所有的原内容后，粘贴以下内容：
 
-   ```shell
-   [Unit]
-   Description=Start x11vnc at startup.
-   After=multi-user.target
-   
-   [Service]
-   Type=simple
-   ExecStart=/usr/bin/x11vnc -auth /var/run/lightdm/root/:0 -forever -loop -noxdamage -repeat -rfbauth /etc/x11vnc.pwd -rfbport 5900 -shared
-   ExecStop=/bin/kill ${MAINPID}
-   RemainAfterExit=yes
-   
-   [Install] 
-   WantedBy=multi-user.target
-   ```
+	```shell
+	[Unit]
+	Description=Start x11vnc at startup.
+	After=multi-user.target
+	
+	[Service]
+	Type=simple
+	ExecStart=/usr/bin/x11vnc -auth /var/run/lightdm/root/:0 -forever -loop -noxdamage -repeat -rfbauth /etc/x11vnc.pwd -rfbport 5900 -shared
+	ExecStop=/bin/kill ${MAINPID}
+	RemainAfterExit=yes
+	
+	[Install] 
+	WantedBy=multi-user.target
+	```
 
-   > [!NOTE]
-   >
-   > 以上配置内容中 VNC 使用的端口是 5900，网络防火墙需要注意提前放行。
+	> [!NOTE]
+	>
+	> 以上配置内容中 VNC 使用的端口是 5900，网络防火墙需要注意提前放行。
 
 4. 配置 VNC 密码：
 
-   ```shell
-   x11vnc -storepasswd
-   mv ~/.vnc/passwd /etc/x11vnc.pwd
-   ```
+	```shell
+	x11vnc -storepasswd
+	mv ~/.vnc/passwd /etc/x11vnc.pwd
+	```
 
 5. 启动服务：
 
-   ```shell
-   systemctl daemon-reload
-   systemctl enable x11vnc
-   systemctl restart x11vnc
-   ```
+	```shell
+	systemctl daemon-reload
+	systemctl enable x11vnc
+	systemctl restart x11vnc
+	```
 

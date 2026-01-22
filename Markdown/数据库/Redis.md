@@ -62,20 +62,20 @@ NoSQL = Not Only SQL（不仅仅是 SQL）
 
 - 传统的 RDBMS
 
-  - 结构化组织
-  - SQL
-  - 数据和关系都存在单独的表中
-  - 严格的一致性
-  - 基础的事务
+	- 结构化组织
+	- SQL
+	- 数据和关系都存在单独的表中
+	- 严格的一致性
+	- 基础的事务
 
 - NoSQL
 
-  - 不仅仅是数据
-  - 没有固定的查询语言
-  - 键值对存储、列存储、文档存储，图形数据库（社交关系）
-  - 最终一致性
-  - CPA 定理和 BASE
-  - 高性能、高可用、高可扩
+	- 不仅仅是数据
+	- 没有固定的查询语言
+	- 键值对存储、列存储、文档存储，图形数据库（社交关系）
+	- 最终一致性
+	- CPA 定理和 BASE
+	- 高性能、高可用、高可扩
 
 
 
@@ -169,40 +169,40 @@ apt purge --auto-remove redis-server
 
 1. 下载源码（服务离线可以使用 SFTP 等工具上传过去）：
 
-   ```shell
-   wget http://download.redis.io/releases/redis-6.0.5.tar.gz
-   ```
+	```shell
+	wget http://download.redis.io/releases/redis-6.0.5.tar.gz
+	```
 
 2. 解压到 `/usr/local` ：
 
-   ```shell
-   tar -xzf ./redis-6.0.5.tar.gz -C /usr/local/
-   ```
+	```shell
+	tar -xzf ./redis-6.0.5.tar.gz -C /usr/local/
+	```
 
 3. 更改文件夹名称为 `redis`：
 
-   ```shell
-   mv /usr/local/redis-6.0.5/ /usr/local/redis/
-   ```
+	```shell
+	mv /usr/local/redis-6.0.5/ /usr/local/redis/
+	```
 
 4. 进入目录，C/C++ 构建，类似 mvn install，npm build：
 
-   ```shell
-   cd /usr/local/redis
-   sudo make
-   ```
+	```shell
+	cd /usr/local/redis
+	sudo make
+	```
 
 5. 安装：
 
-   ```shell
-   sudo make install
-   ```
+	```shell
+	sudo make install
+	```
 
 6. 启动 Redis：
 
-   ```shell
-   src/redis-server
-   ```
+	```shell
+	src/redis-server
+	```
 
 
 
@@ -210,53 +210,53 @@ apt purge --auto-remove redis-server
 
 1. Redis 安装后，默认配置文件位于源码目录中的 redis.conf 文件。可以将其复制到 `/etc/redis/` 目录，并进行自定义配置：
 
-   ```shell
-   mkdir /etc/redis/
-   cp /usr/local/redis/redis.conf /etc/redis/
-   ```
+	```shell
+	mkdir /etc/redis/
+	cp /usr/local/redis/redis.conf /etc/redis/
+	```
 
 2. 新建一个系统服务文件：
 
-   ```shell
-   vim /etc/systemd/system/redis.service
-   ```
+	```shell
+	vim /etc/systemd/system/redis.service
+	```
 
-   文件内容如下：
+	文件内容如下：
 
-   ```shell
-   [Unit]
-   Description=Redis Server
-   After=network.target
-   
-   [Service]
-   ExecStart=/usr/local/bin/redis-server /etc/redis/redis.conf
-   ExecStop=/usr/local/bin/redis-cli shutdown
-   Restart=always
-   
-   [Install]
-   WantedBy=multi-user.target
-   ```
+	```shell
+	[Unit]
+	Description=Redis Server
+	After=network.target
+	
+	[Service]
+	ExecStart=/usr/local/bin/redis-server /etc/redis/redis.conf
+	ExecStop=/usr/local/bin/redis-cli shutdown
+	Restart=always
+	
+	[Install]
+	WantedBy=multi-user.target
+	```
 
 4. 重载系统服务：
 
-   ```shell
-   systemctl daemon-reload
-   ```
+	```shell
+	systemctl daemon-reload
+	```
 
 5. 接下来可以使用以下命令来启动、停止、重启和检查 Redis 服务的状态：
 
-   ```shell
-   systemctl start redis
-   systemctl stop redis
-   systemctl restart redis
-   systemctl status redis
-   ```
+	```shell
+	systemctl start redis
+	systemctl stop redis
+	systemctl restart redis
+	systemctl status redis
+	```
 
 6. 如果想要在系统启动时自动启动 Redis 服务，可以运行以下命令：
 
-   ```shell
-   systemctl enable redis
-   ```
+	```shell
+	systemctl enable redis
+	```
 
 
 
@@ -276,27 +276,27 @@ rm -rf /usr/bin/redis-*
 
 1. 下载 redis 镜像：
 
-   ```shell
-   docker pull redis
-   ```
+	```shell
+	docker pull redis
+	```
 
 2. 创建 reids 容器：
 
-   ```shell
-   docker run --name redis -td -p 6379:6379 redis
-   ```
+	```shell
+	docker run --name redis -td -p 6379:6379 redis
+	```
 
 3. 进入 reids 容器：
 
-   ```shell
-   docker exec -it redis bash
-   ```
+	```shell
+	docker exec -it redis bash
+	```
 
 4. 启动客户端：
 
-   ```shell
-   redis-cli
-   ```
+	```shell
+	redis-cli
+	```
 
 
 
@@ -1671,12 +1671,12 @@ Jedis 是一个基于同步、非线程安全的 Redis 客户端，如果想要�
 
 1. 导入依赖
 
-   ```xml
-   <dependency>
-       <groupId>org.springframework.boot</groupId>
-       <artifactId>spring-boot-starter-data-redis</artifactId>
-   </dependency>
-   ```
+	```xml
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-data-redis</artifactId>
+	</dependency>
+	```
 
 2. 配置连接
 
@@ -2699,10 +2699,10 @@ set num 100000
 
 2. 使用`redis-check-aof`命令修复 aof 文件，该命令格式如下：
 
-   ```bash
-   # 修复aof日志文件
-   $ redis-check-aof -fix file.aof
-   ```
+	```bash
+	# 修复aof日志文件
+	$ redis-check-aof -fix file.aof
+	```
 
 3. 重启 Redis 服务器，加载已经修复的 aof 文件，恢复数据
 
@@ -3505,7 +3505,7 @@ redis-cli --cluster del-node 127.0.0.1:6385 57547cced0901aec48897bd97c9a6e9a40c8
 
 ### 12.2、缓存击穿
 
- **什么是缓存击穿**
+**什么是缓存击穿**
 
 缓存击穿跟缓存雪崩有点类似，缓存雪崩是大规模的 key 失效，而缓存击穿是某个热点的 key 失效，大并发集中对其进行请求，就会造成大量请求读缓存没读到数据，从而导致高并发访问数据库，引起数据库压力剧增。这种现象就叫做缓存击穿。
 
@@ -3703,77 +3703,77 @@ public static void releaseLockByDel(String lockKey, String requestId) {
 
 1. 这里新建一个简单的 SpringBoot 项目，引入以下依赖：
 
-   ```xml
-   <dependencies>
-       <dependency>
-           <groupId>org.springframework.boot</groupId>
-           <artifactId>spring-boot-starter-data-redis</artifactId>
-       </dependency>
-       <dependency>
-           <groupId>org.springframework.boot</groupId>
-           <artifactId>spring-boot-starter-web</artifactId>
-       </dependency>
-       <dependency>
-           <groupId>org.mybatis.spring.boot</groupId>
-           <artifactId>mybatis-spring-boot-starter</artifactId>
-           <version>2.2.0</version>
-       </dependency>
-       <dependency>
-           <groupId>org.springframework.boot</groupId>
-           <artifactId>spring-boot-devtools</artifactId>
-           <scope>runtime</scope>
-           <optional>true</optional>
-       </dependency>
-       <dependency>
-           <groupId>mysql</groupId>
-           <artifactId>mysql-connector-java</artifactId>
-           <scope>runtime</scope>
-       </dependency>
-       <dependency>
-           <groupId>org.projectlombok</groupId>
-           <artifactId>lombok</artifactId>
-           <optional>true</optional>
-       </dependency>
-       <dependency>
-           <groupId>org.springframework.boot</groupId>
-           <artifactId>spring-boot-starter-test</artifactId>
-           <scope>test</scope>
-       </dependency>
-       <dependency>
-           <groupId>com.alibaba</groupId>
-           <artifactId>druid-spring-boot-starter</artifactId>
-           <version>1.2.6</version>
-       </dependency>
-   </dependencies>
-   ```
+	```xml
+	<dependencies>
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-data-redis</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-web</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.mybatis.spring.boot</groupId>
+	        <artifactId>mybatis-spring-boot-starter</artifactId>
+	        <version>2.2.0</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-devtools</artifactId>
+	        <scope>runtime</scope>
+	        <optional>true</optional>
+	    </dependency>
+	    <dependency>
+	        <groupId>mysql</groupId>
+	        <artifactId>mysql-connector-java</artifactId>
+	        <scope>runtime</scope>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.projectlombok</groupId>
+	        <artifactId>lombok</artifactId>
+	        <optional>true</optional>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-test</artifactId>
+	        <scope>test</scope>
+	    </dependency>
+	    <dependency>
+	        <groupId>com.alibaba</groupId>
+	        <artifactId>druid-spring-boot-starter</artifactId>
+	        <version>1.2.6</version>
+	    </dependency>
+	</dependencies>
+	```
 
 2. 编辑 application.yml 文件：
 
-   ```yaml
-   server:
-     port: 8888
-   spring:
-     #redis
-     redis:
-       host: localhost
-       port: 6379
-       database: 0
-     #mysql
-     datasource:
-       type: com.alibaba.druid.pool.DruidDataSource
-       driver-class-name: com.mysql.cj.jdbc.Driver
-       url: jdbc:mysql://localhost:3306/redis?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-       username: root
-       password: root
-   #mybatis
-   mybatis:
-     mapper-locations: classpath:mapper/*.xml
-     type-aliases-package: com.orichalcos.entity
-   
-   logging:
-     level:
-       com.orichalcos.mapper: debug
-   ```
+	```yaml
+	server:
+	  port: 8888
+	spring:
+	  #redis
+	  redis:
+	    host: localhost
+	    port: 6379
+	    database: 0
+	  #mysql
+	  datasource:
+	    type: com.alibaba.druid.pool.DruidDataSource
+	    driver-class-name: com.mysql.cj.jdbc.Driver
+	    url: jdbc:mysql://localhost:3306/redis?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+	    username: root
+	    password: root
+	#mybatis
+	mybatis:
+	  mapper-locations: classpath:mapper/*.xml
+	  type-aliases-package: com.orichalcos.entity
+	
+	logging:
+	  level:
+	    com.orichalcos.mapper: debug
+	```
    
 3. 新建一个简单的实体类 User.java，并在数据库创建对应表：
 

@@ -157,31 +157,31 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 1. 创建 elasticsearch 用户并设置密码：
 
-   ```shell
-   groupadd elasticsearch
-   useradd -r -g elasticsearch -s /bin/false elasticsearch
-   # 设置密码，可选
-   passwd elasticsearch
-   ```
+	```shell
+	groupadd elasticsearch
+	useradd -r -g elasticsearch -s /bin/false elasticsearch
+	# 设置密码，可选
+	passwd elasticsearch
+	```
 
 2. 创建目录结构：
 
-   ```shell
-   # 安装目录
-   mkdir -p /usr/local/elasticsearch
-   # 配置文件目录
-   mkdir -p /etc/elasticsearch
-   # 数据目录
-   mkdir -p /var/lib/elasticsearch
-   # 日志目录
-   mkdir -p /var/log/elasticsearch
-   ```
+	```shell
+	# 安装目录
+	mkdir -p /usr/local/elasticsearch
+	# 配置文件目录
+	mkdir -p /etc/elasticsearch
+	# 数据目录
+	mkdir -p /var/lib/elasticsearch
+	# 日志目录
+	mkdir -p /var/log/elasticsearch
+	```
 
 3. 设置权限：
 
-   ```shell
-   chown -R elasticsearch:elasticsearch /usr/local/elasticsearch /etc/elasticsearch /var/lib/elasticsearch /var/log/elasticsearch
-   ```
+	```shell
+	chown -R elasticsearch:elasticsearch /usr/local/elasticsearch /etc/elasticsearch /var/lib/elasticsearch /var/log/elasticsearch
+	```
 
 <br>
 
@@ -191,39 +191,39 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 2. 解压到安装目录：
 
-   ```shell
-   tar -zxf elasticsearch-7.8.0-linux-x86_64.tar.gz -C /usr/local/elasticsearch --strip-components=1
-   ```
+	```shell
+	tar -zxf elasticsearch-7.8.0-linux-x86_64.tar.gz -C /usr/local/elasticsearch --strip-components=1
+	```
 
 3. 迁移配置文件：
 
-   ```shell
-   cp -r /usr/local/elasticsearch/config/* /etc/elasticsearch
-   ```
+	```shell
+	cp -r /usr/local/elasticsearch/config/* /etc/elasticsearch
+	```
 
 4. 编辑 `/etc/elasticsearch/elasticsearch.yml`：
 
-   ```shell
-   vim /etc/elasticsearch/elasticsearch.yml
-   ```
+	```shell
+	vim /etc/elasticsearch/elasticsearch.yml
+	```
    
-   修改内容如下：
+	修改内容如下：
    
-   ```shell
-   cluster.name: my-es-cluster
-   node.name: node-1
-   
-   # 自定义路径
-   path.data: /var/lib/elasticsearch
-   path.logs: /var/log/elasticsearch
-   
-   # 网络配置
-   network.host: 0.0.0.0
-   http.port: 9200
-   
-   # 单节点模式（非集群）
-   discovery.type: single-node
-   ```
+	```shell
+	cluster.name: my-es-cluster
+	node.name: node-1
+	
+	# 自定义路径
+	path.data: /var/lib/elasticsearch
+	path.logs: /var/log/elasticsearch
+	
+	# 网络配置
+	network.host: 0.0.0.0
+	http.port: 9200
+	
+	# 单节点模式（非集群）
+	discovery.type: single-node
+	```
 
 <br>
 
@@ -231,58 +231,58 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 1. 创建文件：
 
-   ```shell
-   vi /etc/systemd/system/elasticsearch.service
-   ```
+	```shell
+	vi /etc/systemd/system/elasticsearch.service
+	```
 
-   内容如下：
+	内容如下：
 
-   ```
-   [Unit]
-   Description=Elasticsearch
-   Wants=network-online.target
-   After=network-online.target
-   
-   [Service]
-   Type=simple
-   User=elasticsearch
-   Group=elasticsearch
-   PrivateTmp=true
-   
-   # 指定配置文件目录的环境变量
-   Environment=ES_PATH_CONF=/etc/elasticsearch
-   # 强制 Elasticsearch 使用其自带的 JDK
-   Environment=JAVA_HOME=/usr/local/elasticsearch/jdk
-   
-   # 增加文件句柄数和进程数限制
-   LimitNOFILE=65535
-   LimitNPROC=4096
-   
-   # Elasticsearch 的可执行文件路径
-   ExecStart=/usr/local/elasticsearch/bin/elasticsearch
-   
-   # JVM 堆内存设置 (可选)
-   # 默认是 1GB，可以根据服务器内存调整。例如设置为 2GB：
-   # Environment="ES_JAVA_OPTS=-Xms2g -Xmx2g"
-   
-   StandardOutput=journal
-   StandardError=inherit
-   
-   [Install]
-   WantedBy=multi-user.target
-   ```
+	```
+	[Unit]
+	Description=Elasticsearch
+	Wants=network-online.target
+	After=network-online.target
+	
+	[Service]
+	Type=simple
+	User=elasticsearch
+	Group=elasticsearch
+	PrivateTmp=true
+	
+	# 指定配置文件目录的环境变量
+	Environment=ES_PATH_CONF=/etc/elasticsearch
+	# 强制 Elasticsearch 使用其自带的 JDK
+	Environment=JAVA_HOME=/usr/local/elasticsearch/jdk
+	
+	# 增加文件句柄数和进程数限制
+	LimitNOFILE=65535
+	LimitNPROC=4096
+	
+	# Elasticsearch 的可执行文件路径
+	ExecStart=/usr/local/elasticsearch/bin/elasticsearch
+	
+	# JVM 堆内存设置 (可选)
+	# 默认是 1GB，可以根据服务器内存调整。例如设置为 2GB：
+	# Environment="ES_JAVA_OPTS=-Xms2g -Xmx2g"
+	
+	StandardOutput=journal
+	StandardError=inherit
+	
+	[Install]
+	WantedBy=multi-user.target
+	```
 
 2. 加载配置：
 
-   ```shell
-   systemctl daemon-reload
-   ```
+	```shell
+	systemctl daemon-reload
+	```
 
 3. 设置开机自启：
 
-   ```shell
-   systemctl enable elasticsearch
-   ```
+	```shell
+	systemctl enable elasticsearch
+	```
 
 <br>
 
@@ -290,38 +290,38 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 1. 启动 Elasticsearch：
 
-   ```shell
-   systemctl start elasticsearch
-   ```
+	```shell
+	systemctl start elasticsearch
+	```
 
 2. 检查服务状态：
 
-   ```shell
-   systemctl status elasticsearch.service
-   ```
+	```shell
+	systemctl status elasticsearch.service
+	```
 
 3. 查看日志（用于排错）：
 
-   ```shell
-   journalctl -u elasticsearch -f
-   ```
+	```shell
+	journalctl -u elasticsearch -f
+	```
 
 4. ES 启动默认监听 9200 端口，访问 9200：
 
-   ```shell
-   curl http://localhost:9200
-   ```
+	```shell
+	curl http://localhost:9200
+	```
 
-   <img src="!assets/Elasticsearch/image-20220630111509343.png" alt="image-20220630111509343" style="width:70%;" />
+	<img src="!assets/Elasticsearch/image-20220630111509343.png" alt="image-20220630111509343" style="width:70%;" />
 
-   > [!NOTE]
-   >
-   > 如有防火墙需要开放 9200 端口：
-   >
-   > ```shell
-   > firewall-cmd --permanent --add-port=9200/tcp
-   > firewall-cmd --reload
-   > ```
+	> [!NOTE]
+	>
+	> 如有防火墙需要开放 9200 端口：
+	>
+	> ```shell
+	> firewall-cmd --permanent --add-port=9200/tcp
+	> firewall-cmd --reload
+	> ```
 
 <br>
 
@@ -329,60 +329,60 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 1. 根据操作系统选择相应的命令进行下载安装：
 
-   - 对于 CentOS / RHEL：
+	- 对于 CentOS / RHEL：
 
-     ```shell
-     # 下载最新的 RPM 包
-     wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.8.0-x86_64.rpm -O elasticsearch.rpm
-     
-     # 安装 RPM
-     rpm -ivh elasticsearch.rpm
-     ```
+		```shell
+		# 下载最新的 RPM 包
+		wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.8.0-x86_64.rpm -O elasticsearch.rpm
+		
+		# 安装 RPM
+		rpm -ivh elasticsearch.rpm
+		```
 
-   - 对于 Ubuntu / Debian：
+	- 对于 Ubuntu / Debian：
 
-     ```shell
-     # 下载最新的 DEB 包
-     wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.8.0-amd64.deb -O elasticsearch.deb
-     
-     # 安装 DEB
-     dpkg -i elasticsearch.deb
-     ```
+		```shell
+		# 下载最新的 DEB 包
+		wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.8.0-amd64.deb -O elasticsearch.deb
+		
+		# 安装 DEB
+		dpkg -i elasticsearch.deb
+		```
 
 2. 编辑 `/etc/elasticsearch/elasticsearch.yml`：
 
-   ```shell
-   vim /etc/elasticsearch/elasticsearch.yml
-   ```
+	```shell
+	vim /etc/elasticsearch/elasticsearch.yml
+	```
 
-   修改以下内容：
+	修改以下内容：
 
-   ```yaml
-   cluster.name: my-es-cluster
-   node.name: node-1
-   
-   # 网络配置
-   network.host: 0.0.0.0
-   
-   # 单节点模式（非集群）
-   discovery.type: single-node
-   ```
+	```yaml
+	cluster.name: my-es-cluster
+	node.name: node-1
+	
+	# 网络配置
+	network.host: 0.0.0.0
+	
+	# 单节点模式（非集群）
+	discovery.type: single-node
+	```
 
-   > [!NOTE]
-   >
-   > 如果在 elasticsearch.yml 中自定义了非默认的路径（比如你想把数据放在 `/data/es-data`），必须手动对自定义路径授权： 
-   >
-   > ```shell
-   > chown -R elasticsearch:elasticsearch /data/es-data
-   > ```
+	> [!NOTE]
+	>
+	> 如果在 elasticsearch.yml 中自定义了非默认的路径（比如你想把数据放在 `/data/es-data`），必须手动对自定义路径授权： 
+	>
+	> ```shell
+	> chown -R elasticsearch:elasticsearch /data/es-data
+	> ```
 
 3. 启动：
 
-   ```shell
-   systemctl daemon-reload
-   systemctl enable elasticsearch
-   systemctl start elasticsearch
-   ```
+	```shell
+	systemctl daemon-reload
+	systemctl enable elasticsearch
+	systemctl start elasticsearch
+	```
 
 <br>
 
@@ -390,32 +390,32 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 1. 获取镜像：
 
-   ```shell
-   docker pull elasticsearch:7.14.0
-   ```
+	```shell
+	docker pull elasticsearch:7.14.0
+	```
 
 2. 运行 ES：
 
-   ```shell
-   docker run -d -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:7.14.0
-   ```
+	```shell
+	docker run -d -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:7.14.0
+	```
 
-   输入 `docker logs -f [容器ID]` 可以查看相关容器日志。
+	输入 `docker logs -f [容器ID]` 可以查看相关容器日志。
 
-   可以输入其他环境变量修改端口、数据存储路径等配置信息：
+	可以输入其他环境变量修改端口、数据存储路径等配置信息：
 
-   ```shell
-   docker run -e discovery.type="single-node" `
-   		   -e path.data="/usr/share/elasticsearch/data" `
-     		   -e path.logs="/usr/share/elasticsearch/logs" `
-     		   -e network.host="0.0.0.0" `
-     		   -e http.port="9200" `
-              -itd -p 9200:9200 -p 9300:9300 --platform linux/arm64 --name elasticsearch elasticsearch:7.14.0
-   ```
+	```shell
+	docker run -e discovery.type="single-node" `
+			   -e path.data="/usr/share/elasticsearch/data" `
+	  		   -e path.logs="/usr/share/elasticsearch/logs" `
+	  		   -e network.host="0.0.0.0" `
+	  		   -e http.port="9200" `
+	           -itd -p 9200:9200 -p 9300:9300 --platform linux/arm64 --name elasticsearch elasticsearch:7.14.0
+	```
 
 3. 访问 ES：
 
-   <img src="!assets/Elasticsearch/image-20220705222221335.png" alt="image-20220705222221335" style="width:80%;" />
+	<img src="!assets/Elasticsearch/image-20220705222221335.png" alt="image-20220705222221335" style="width:80%;" />
 
 <br>
 
@@ -423,43 +423,43 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 1. 进入[官方页面](https://www.elastic.co/cn/downloads/past-releases#elasticsearch)，点击 Download 进入下载页面：
 
-   <img src="!assets/Elasticsearch/QQ_1726769418773.png" alt="QQ_1726769418773" style="zoom: 50%;" />
+	<img src="!assets/Elasticsearch/QQ_1726769418773.png" alt="QQ_1726769418773" style="zoom: 50%;" />
 
 2. 选择 Windows 版本的下载：
 
-   <img src="!assets/Elasticsearch/QQ_1726769681272.png" alt="QQ_1726769681272" style="zoom: 50%;" />
+	<img src="!assets/Elasticsearch/QQ_1726769681272.png" alt="QQ_1726769681272" style="zoom: 50%;" />
 
 3. 下载完成后解压到非中文目录下即可：
 
-   > [!WARNING]
-   >
-   > 注意路径不要包含空格！
+	> [!WARNING]
+	>
+	> 注意路径不要包含空格！
 
-   <img src="!assets/Elasticsearch/QQ_1726773540436.png" alt="QQ_1726773540436" style="zoom:50%;" />
+	<img src="!assets/Elasticsearch/QQ_1726773540436.png" alt="QQ_1726773540436" style="zoom:50%;" />
 
 4. 在 Elasticsearch 的 config 目录下，打开 elasticsearch.yml 配置文件：
 
-   ```yaml
-   # Elasticsearch数据存放目录
-   path.data: D:/50-ProgramData/ElasticSearch/ElasticSearch7.8/data
-   
-   # Elasticsearch数据存放目录
-   path.logs: D:/50-ProgramData/ElasticSearch/ElasticSearch7.8/logs
-   
-   # Elasticsearch节点监听IP
-   network.host: localhost
-   
-   # Elasticsearch节点监听Port
-   http.port: 9200
-   ```
+	```yaml
+	# Elasticsearch数据存放目录
+	path.data: D:/50-ProgramData/ElasticSearch/ElasticSearch7.8/data
+	
+	# Elasticsearch数据存放目录
+	path.logs: D:/50-ProgramData/ElasticSearch/ElasticSearch7.8/logs
+	
+	# Elasticsearch节点监听IP
+	network.host: localhost
+	
+	# Elasticsearch节点监听Port
+	http.port: 9200
+	```
 
 5. 在 Elasticsearch 安装目录的 bin 目录中，双击 elasticsearch.bat 即可启动：
 
-   <img src="!assets/Elasticsearch/QQ_1726774051409.png" alt="QQ_1726774051409" style="" />
+	<img src="!assets/Elasticsearch/QQ_1726774051409.png" alt="QQ_1726774051409" style="" />
 
 6. 接下来访问 Elasticsearch，在浏览器输入http://localhost:9200，看到以下界面即可证明 ES 启动成功：
 
-   <img src="!assets/Elasticsearch/QQ_1726774166786.png" alt="QQ_1726774166786" style="zoom: 67%;" />
+	<img src="!assets/Elasticsearch/QQ_1726774166786.png" alt="QQ_1726774166786" style="zoom: 67%;" />
 
 <br>
 
@@ -501,33 +501,33 @@ X-Pack 是 Elasticsearch 的一个核心扩展包，它为 Elastic Stack（Elast
 
 1. 编辑 Elasticsearch 配置文件：
 
-   ```shell
-   vim /etc/elasticsearch/elasticsearch.yml
-   ```
+	```shell
+	vim /etc/elasticsearch/elasticsearch.yml
+	```
 
 2. 在文件的末尾，添加以下内容：
 
-   ```shell
-   # ======================== My Security Settings =========================
-   
-   # 开启 X-Pack 安全功能。
-   xpack.security.enabled: true
-   
-   # 开启传输层(节点间)的 TLS 加密。
-   xpack.security.transport.ssl.enabled: true
-   ```
+	```shell
+	# ======================== My Security Settings =========================
+	
+	# 开启 X-Pack 安全功能。
+	xpack.security.enabled: true
+	
+	# 开启传输层(节点间)的 TLS 加密。
+	xpack.security.transport.ssl.enabled: true
+	```
 
 3. 保存并退出编辑器。
 
 4. 重启 Elasticsearch：
 
-   ```shell
-   # 重启服务
-   systemctl restart elasticsearch
-   
-   # 查看启动状态
-   systemctl status elasticsearch
-   ```
+	```shell
+	# 重启服务
+	systemctl restart elasticsearch
+	
+	# 查看启动状态
+	systemctl status elasticsearch
+	```
 
 
 
@@ -544,45 +544,45 @@ X-Pack 是 Elasticsearch 的一个核心扩展包，它为 Elastic Stack（Elast
 
 2. 运行密码设置工具。有两种选择：
 
-   - 自动生成强密码（推荐）
+	- 自动生成强密码（推荐）
 
-     这是最简单、最安全的方法。工具会自动为所有内置用户生成随机的强密码。
+		这是最简单、最安全的方法。工具会自动为所有内置用户生成随机的强密码。
 
-     ```shell
-     sudo -u elasticsearch /usr/share/elasticsearch/bin/elasticsearch-setup-passwords auto
-     ```
+		```shell
+		sudo -u elasticsearch /usr/share/elasticsearch/bin/elasticsearch-setup-passwords auto
+		```
 
-     执行后，终端会输出所有用户的用户名和对应的密码：
+		执行后，终端会输出所有用户的用户名和对应的密码：
 
-     ```
-     Changed password for user apm_system
-     PASSWORD apm_system = HklmN9sOpq7gE9oW0bFh
-     
-     Changed password for user kibana_system
-     PASSWORD kibana_system = ...
-     
-     Changed password for user elastic
-     PASSWORD elastic = PxL9sOpq7gE9oW0bFhKm
-     
-     ...
-     ```
+		```
+		Changed password for user apm_system
+		PASSWORD apm_system = HklmN9sOpq7gE9oW0bFh
+		
+		Changed password for user kibana_system
+		PASSWORD kibana_system = ...
+		
+		Changed password for user elastic
+		PASSWORD elastic = PxL9sOpq7gE9oW0bFhKm
+		
+		...
+		```
 
-   - 交互式地手动设置密码
+	- 交互式地手动设置密码
 
-     如果想为每个用户手动指定密码，可以使用此模式：
+		如果想为每个用户手动指定密码，可以使用此模式：
 
-     ```shell
-     sudo -u elasticsearch /usr/share/elasticsearch/bin/elasticsearch-setup-passwords interactive
-     ```
+		```shell
+		sudo -u elasticsearch /usr/share/elasticsearch/bin/elasticsearch-setup-passwords interactive
+		```
 
-     程序会依次提示你为 elastic、kibana_system 等用户输入并确认密码。
+		程序会依次提示你为 elastic、kibana_system 等用户输入并确认密码。
 
 4. 后续可以使用 `elasticsearch-reset-password` 修改密码：
 
-   ```shell
-   # 将 'elastic' 用户的密码重置为想要的值
-   echo "MySecretPassword123!" | /usr/share/elasticsearch/bin/elasticsearch-setup-passwords -u elastic -b
-   ```
+	```shell
+	# 将 'elastic' 用户的密码重置为想要的值
+	echo "MySecretPassword123!" | /usr/share/elasticsearch/bin/elasticsearch-setup-passwords -u elastic -b
+	```
 
 
 
@@ -666,37 +666,37 @@ Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化�
 
 1. 先切换到 esuser 用户下：
 
-   ```shell
-   su - esuser
-   ```
+	```shell
+	su - esuser
+	```
 
 2. 下载 Kibana：
 
-   ```shell
-   curl -L -O https://artifacts.elastic.co/downloads/kibana/kibana-7.14.0-linux-x86_64.tar.gz
-   ```
+	```shell
+	curl -L -O https://artifacts.elastic.co/downloads/kibana/kibana-7.14.0-linux-x86_64.tar.gz
+	```
 
 3. 解压：
 
-   ```shell
-   tar -zxvf kibana-7.14.0-linux-x86_64.tar.gz
-   ```
+	```shell
+	tar -zxvf kibana-7.14.0-linux-x86_64.tar.gz
+	```
 
 4. 编辑 Kibana 的配置文件：
 
-   ```shell
-   vim kibana-7.14.0-linux-x86_64/config/kibana.yml
-   ```
+	```shell
+	vim kibana-7.14.0-linux-x86_64/config/kibana.yml
+	```
 
-   修改如下配置：
+	修改如下配置：
 
-   <img src="!assets/Elasticsearch/image-20220705225554258.png" alt="image-20220705225554258" style="width:80%;" />
+	<img src="!assets/Elasticsearch/image-20220705225554258.png" alt="image-20220705225554258" style="width:80%;" />
    
 5. 启动 kibana（记得启动 ES）：
 
-   ```shell
-   kibana-7.14.0-linux-x86_64/bin/kibana
-   ```
+	```shell
+	kibana-7.14.0-linux-x86_64/bin/kibana
+	```
 
 6. 访问 kibana 的 WEB 界面（Kibana 的默认端口为 5601）
 
@@ -706,26 +706,26 @@ Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化�
 
 1. 获取镜像：
 
-   ```shell
-   docker pull kibana:7.14.0
-   ```
+	```shell
+	docker pull kibana:7.14.0
+	```
 
 2. 运行 Kibana：
 
-   ```shell
-   docker run -d  --name kibana -p 5601:5601 kibana:7.14.0
-   ```
+	```shell
+	docker run -d  --name kibana -p 5601:5601 kibana:7.14.0
+	```
 
 3. 进入容器连接到 ES，重启 Kibana 容器，访问 `http://服务器IP:5601`
 
 4. 基于数据卷加载配置文件方式运行：
 
-   ```shell
-   # 从容器复制kibana配置文件出来
-   # 修改配置文件为对应ES服务器地址
-   # 通过数据卷加载配置文件方式启动
-   docker run -d -v /root/kibana.yml:/usr/share/kibana/config/kibana.yml  --name kibana -p 5601:5601 kibana:7.14.0
-   ```
+	```shell
+	# 从容器复制kibana配置文件出来
+	# 修改配置文件为对应ES服务器地址
+	# 通过数据卷加载配置文件方式启动
+	docker run -d -v /root/kibana.yml:/usr/share/kibana/config/kibana.yml  --name kibana -p 5601:5601 kibana:7.14.0
+	```
 
 
 
@@ -735,55 +735,55 @@ Kibana Navicat 是一个针对 Elasticsearch MySQL 的开源分析及可视化�
 
 1. 创建一个 ES-Kibana 的文件夹，并在文件夹中创建 compose.yml：
 
-   ```yaml
-   version: "3.8"
-   volumes:
-     data:
-     config:
-     plugin:
-   networks:
-     es:
-   services:
-     elasticsearch:
-       image: elasticsearch:7.14.0
-       ports:
-         - "9200:9200"
-         - "9300:9300"
-       networks:
-         - "es"
-       environment:
-         - "discovery.type=single-node"
-         - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-       volumes:
-         - data:/usr/share/elasticsearch/data
-         - config:/usr/share/elasticsearch/config
-         - plugin:/usr/share/elasticsearch/plugins
-   
-     kibana:
-       image: kibana:7.14.0
-       ports:
-         - "5601:5601"
-       networks:
-         - "es"
-       volumes:
-         - ./kibana.yml:/usr/share/kibana/config/kibana.yml
-   ```
+	```yaml
+	version: "3.8"
+	volumes:
+	  data:
+	  config:
+	  plugin:
+	networks:
+	  es:
+	services:
+	  elasticsearch:
+	    image: elasticsearch:7.14.0
+	    ports:
+	      - "9200:9200"
+	      - "9300:9300"
+	    networks:
+	      - "es"
+	    environment:
+	      - "discovery.type=single-node"
+	      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+	    volumes:
+	      - data:/usr/share/elasticsearch/data
+	      - config:/usr/share/elasticsearch/config
+	      - plugin:/usr/share/elasticsearch/plugins
+	
+	  kibana:
+	    image: kibana:7.14.0
+	    ports:
+	      - "5601:5601"
+	    networks:
+	      - "es"
+	    volumes:
+	      - ./kibana.yml:/usr/share/kibana/config/kibana.yml
+	```
 
 2. Kibana.yml：
 
-   ```yaml
-   # kibana配置文件 连接到ES
-   server.host: "0"
-   server.shutdownTimeout: "5s"
-   elasticsearch.hosts: [ "http://elasticsearch:9200" ]
-   monitoring.ui.container.elasticsearch.enabled: true
-   ```
+	```yaml
+	# kibana配置文件 连接到ES
+	server.host: "0"
+	server.shutdownTimeout: "5s"
+	elasticsearch.hosts: [ "http://elasticsearch:9200" ]
+	monitoring.ui.container.elasticsearch.enabled: true
+	```
 
 3. 在当前文件夹中打开控制台，执行命令开始部署：
 
-   ```sheel
-   docker-compose up -d
-   ```
+	```sheel
+	docker-compose up -d
+	```
 
 
 
@@ -829,7 +829,7 @@ GET /_cat/indices?v
 ```
 
 <div align="center">
-    <img src="!assets/Elasticsearch/image-20220710231614286.png" alt="image-20220710231614286" style="width:90%" />
+		<img src="!assets/Elasticsearch/image-20220710231614286.png" alt="image-20220710231614286" style="width:90%" />
 </div>
 
 
@@ -1039,7 +1039,7 @@ POST /products/_doc/wZbA6IEB0wOojxAnBiDQ/_update
 
 #### 5.3.5、批量操作
 
- 批量索引两条文档：
+批量索引两条文档：
 
 ```http
 POST /products/_doc/_bulk
@@ -1049,7 +1049,7 @@ POST /products/_doc/_bulk
   		{"title":"iphone15","price":8999.99,"created_at":"2021-09-15","description":"iPhone 15屏幕采用10.8英寸OLED屏幕"}
 ```
 
- 更新文档同时删除文档：
+更新文档同时删除文档：
 
 ```http
 POST /products/_doc/_bulk
@@ -1108,32 +1108,32 @@ POST /products/_doc/_bulk
 
 - title 字段：
 
-  | term         | _id（文档 id） |
-  | ------------ | -------------- |
-  | 蓝月亮洗衣液 | 1              |
-  | iphone13     | 2              |
-  | 小浣熊干脆面 | 3              |
+	| term         | _id（文档 id） |
+	| ------------ | -------------- |
+	| 蓝月亮洗衣液 | 1              |
+	| iphone13     | 2              |
+	| 小浣熊干脆面 | 3              |
 
 - price 字段：
 
-  | term | _id（文档 id） |
-  | ---- | -------------- |
-  | 19.9 | [1, 2]         |
-  | 1.5  | 3              |
+	| term | _id（文档 id） |
+	| ---- | -------------- |
+	| 19.9 | [1, 2]         |
+	| 1.5  | 3              |
 
 - description 字段：
 
-  | term | _id                   | term | _id  | term | _id  |
-  | ---- | --------------------- | ---- | ---- | ---- | ---- |
-  | 蓝   | 1                     | 不   | 2    | 小   | 3    |
-  | 月   | 1                     | 错   | 2    | 浣   | 3    |
-  | 亮   | 1                     | 的   | 2    | 熊   | 3    |
-  | 洗   | 1                     | 手   | 2    | 好   | 3    |
-  | 衣   | 1                     | 机   | 2    | 吃   | 3    |
-  | 液   | 1                     |      |      |      |      |
-  | 很   | [1:1:9, 2:1:6, 3:1:6] |      |      |      |      |
-  | 高   | 1                     |      |      |      |      |
-  | 效   | 1                     |      |      |      |      |
+	| term | _id                   | term | _id  | term | _id  |
+	| ---- | --------------------- | ---- | ---- | ---- | ---- |
+	| 蓝   | 1                     | 不   | 2    | 小   | 3    |
+	| 月   | 1                     | 错   | 2    | 浣   | 3    |
+	| 亮   | 1                     | 的   | 2    | 熊   | 3    |
+	| 洗   | 1                     | 手   | 2    | 好   | 3    |
+	| 衣   | 1                     | 机   | 2    | 吃   | 3    |
+	| 液   | 1                     |      |      |      |      |
+	| 很   | [1:1:9, 2:1:6, 3:1:6] |      |      |      |      |
+	| 高   | 1                     |      |      |      |      |
+	| 效   | 1                     |      |      |      |      |
 
 > Elasticsearch 分别为每个字段都建立了一个倒排索引。因此查询时查询字段的 term，就能知道文档 ID，就能快速找到文档。
 
@@ -1151,15 +1151,15 @@ Analysis： 文本分析是把全文本转换一系列单词（term/token）的�
 
 - Character Filter： 字符过滤器
 
-  在一段文本进行分词之前，先进行预处理，比如说最常见的就是：过滤 HTML 标签（`<span>hello<span>` ==> `hello`）、`&` ==> `and`（`I&you` ==> `I and you`）。
+	在一段文本进行分词之前，先进行预处理，比如说最常见的就是：过滤 HTML 标签（`<span>hello<span>` ==> `hello`）、`&` ==> `and`（`I&you` ==> `I and you`）。
 
 - Tokenizers： 分词器
 
-  英文分词可以根据空格将单词分开，中文分词比较复杂，可以采用机器学习算法来分词。
+	英文分词可以根据空格将单词分开，中文分词比较复杂，可以采用机器学习算法来分词。
 
 - Token filters： Token 过滤器
 
-  将切分的单词进行加工。大小写转换（例将 “Quick” 转为小写）、去掉停用词（例如停用词像 “a”、“and”、“the”等等）、加入同义词（例如同义词像 “jump” 和 “leap”）。
+	将切分的单词进行加工。大小写转换（例将 “Quick” 转为小写）、去掉停用词（例如停用词像 “a”、“and”、“the”等等）、加入同义词（例如同义词像 “jump” 和 “leap”）。
 
 > 三者顺序:	Character Filters ==> Tokenizer ==> Token Filter
 >
@@ -1263,22 +1263,22 @@ POST /_analyze
 
 1. 下载对应版本：
 
-   ```shell
-   wget https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.14.0/elasticsearch-analysis-ik-7.14.0.zip
-   ```
+	```shell
+	wget https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.14.0/elasticsearch-analysis-ik-7.14.0.zip
+	```
 
 2. 解压：
 
-   ```shell
-   # 先使用yum install -y unzip
-   unzip elasticsearch-analysis-ik-7.14.0.zip 
-   ```
+	```shell
+	# 先使用yum install -y unzip
+	unzip elasticsearch-analysis-ik-7.14.0.zip 
+	```
 
 3. 移动到 ES 安装目录的 plugins 目录中：
 
-   ```shell
-   mv elasticsearch-analysis-ik-7.14.0 elasticsearch-7.8.0/plugins/
-   ```
+	```shell
+	mv elasticsearch-analysis-ik-7.14.0 elasticsearch-7.8.0/plugins/
+	```
 
 4. 重启 ES 生效
 
@@ -1382,63 +1382,63 @@ IK支持自定义扩展词典和停用词典
 
 1. 修改 IKAnalyzer.cfg.xml：
 
-   ```shell
-   vim IKAnalyzer.cfg.xml
-   ```
+	```shell
+	vim IKAnalyzer.cfg.xml
+	```
 
-   添加值 `ext_dict.dic` 和 `ext_stopword.dic`：
+	添加值 `ext_dict.dic` 和 `ext_stopword.dic`：
 
-   ```xml
-   <?xml version="1.0" encoding="UTF-8"?>
-   <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-   <properties>
-   	<comment>IK Analyzer 扩展配置</comment>
-   	<!--用户可以在这里配置自己的扩展字典 -->
-   	<entry key="ext_dict">ext_dict.dic</entry>
-   	 <!--用户可以在这里配置自己的扩展停止词字典-->
-   	<entry key="ext_stopwords">ext_stopword.dic</entry>
-   	<!--用户可以在这里配置远程扩展字典 -->
-   	<!-- <entry key="remote_ext_dict">words_location</entry> -->
-   	<!--用户可以在这里配置远程扩展停止词字典-->
-   	<!-- <entry key="remote_ext_stopwords">words_location</entry> -->
-   </properties>
-   ```
+	```xml
+	<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+	<properties>
+		<comment>IK Analyzer 扩展配置</comment>
+		<!--用户可以在这里配置自己的扩展字典 -->
+		<entry key="ext_dict">ext_dict.dic</entry>
+		 <!--用户可以在这里配置自己的扩展停止词字典-->
+		<entry key="ext_stopwords">ext_stopword.dic</entry>
+		<!--用户可以在这里配置远程扩展字典 -->
+		<!-- <entry key="remote_ext_dict">words_location</entry> -->
+		<!--用户可以在这里配置远程扩展停止词字典-->
+		<!-- <entry key="remote_ext_stopwords">words_location</entry> -->
+	</properties>
+	```
 
 2. 在 IK 分词器目录下 config 目录中创建 ext_dict.dic 文件：
 
-   ```shell
-   vim ext_dict.dic
-   ```
+	```shell
+	vim ext_dict.dic
+	```
 
-   加入扩展词即可，每个词用回车隔开：
+	加入扩展词即可，每个词用回车隔开：
 
-   ```
-   中华人
-   ```
+	```
+	中华人
+	```
 
 3. 在 IK 分词器目录下 config 目录中创建 ext_stopword.dic 文件：
 
-   ```shell
-   vim ext_stopword.dic
-   ```
+	```shell
+	vim ext_stopword.dic
+	```
 
-   加入扩展词即可，每个词用回车隔开：
+	加入扩展词即可，每个词用回车隔开：
 
-   ```
-   华人
-   ```
+	```
+	华人
+	```
 
 4. 重启 ES 生效：
 
-   ```http
-   POST /_analyze
-   {
-     "analyzer": "ik_max_word",
-     "text": "中华人民"
-   }
-   ```
+	```http
+	POST /_analyze
+	{
+	  "analyzer": "ik_max_word",
+	  "text": "中华人民"
+	}
+	```
 
-   <img src="!assets/Elasticsearch/image-20220824002925386.png" alt="image-20220824002925386" style="width:100%;" />
+	<img src="!assets/Elasticsearch/image-20220824002925386.png" alt="image-20220824002925386" style="width:100%;" />
 
 > 词典的编码必须为 UTF-8，否则无法生效！
 
@@ -1492,41 +1492,41 @@ GET /索引名/_search {json格式请求体数据}
 
 1. 创建索引、映射：
 
-   ```http
-   PUT /products
-   {
-     "mappings": {
-       "properties": {
-         "title":{
-           "type": "keyword"
-         },
-         "price":{
-           "type": "double"
-         },
-         "created_at":{
-           "type":"date"
-         },
-         "description":{
-           "type":"text"
-         }
-       }
-     }
-   }
-   ```
+	```http
+	PUT /products
+	{
+	  "mappings": {
+	    "properties": {
+	      "title":{
+	        "type": "keyword"
+	      },
+	      "price":{
+	        "type": "double"
+	      },
+	      "created_at":{
+	        "type":"date"
+	      },
+	      "description":{
+	        "type":"text"
+	      }
+	    }
+	  }
+	}
+	```
 
 2. 测试数据：
 
-   ```http
-   PUT /products/_doc/_bulk
-   {"index":{}}
-     {"title":"iphone12 pro","price":8999,"created_at":"2020-10-23","description":"iPhone 12 Pro采用超瓷晶面板和亚光质感玻璃背板，搭配不锈钢边框，有银色、石墨色、金色、海蓝色四种颜色。宽度:71.5毫米，高度:146.7毫米，厚度:7.4毫米，重量：187克"}
-   {"index":{}}
-     {"title":"iphone12","price":4999,"created_at":"2020-10-23","description":"iPhone 12 高度：146.7毫米；宽度：71.5毫米；厚度：7.4毫米；重量：162克（5.73盎司） [5]  。iPhone 12设计采用了离子玻璃，以及7000系列铝金属外壳。"}
-   {"index":{}}
-     {"title":"iphone13","price":6000,"created_at":"2021-09-15","description":"iPhone 13屏幕采用6.1英寸OLED屏幕；高度约146.7毫米，宽度约71.5毫米，厚度约7.65毫米，重量约173克。"}
-   {"index":{}}
-     {"title":"iphone13 pro","price":8999,"created_at":"2021-09-15","description":"iPhone 13Pro搭载A15 Bionic芯片，拥有四种配色，支持5G。有128G、256G、512G、1T可选，售价为999美元起。"}
-   ```
+	```http
+	PUT /products/_doc/_bulk
+	{"index":{}}
+	  {"title":"iphone12 pro","price":8999,"created_at":"2020-10-23","description":"iPhone 12 Pro采用超瓷晶面板和亚光质感玻璃背板，搭配不锈钢边框，有银色、石墨色、金色、海蓝色四种颜色。宽度:71.5毫米，高度:146.7毫米，厚度:7.4毫米，重量：187克"}
+	{"index":{}}
+	  {"title":"iphone12","price":4999,"created_at":"2020-10-23","description":"iPhone 12 高度：146.7毫米；宽度：71.5毫米；厚度：7.4毫米；重量：162克（5.73盎司） [5]  。iPhone 12设计采用了离子玻璃，以及7000系列铝金属外壳。"}
+	{"index":{}}
+	  {"title":"iphone13","price":6000,"created_at":"2021-09-15","description":"iPhone 13屏幕采用6.1英寸OLED屏幕；高度约146.7毫米，宽度约71.5毫米，厚度约7.65毫米，重量约173克。"}
+	{"index":{}}
+	  {"title":"iphone13 pro","price":8999,"created_at":"2021-09-15","description":"iPhone 13Pro搭载A15 Bionic芯片，拥有四种配色，支持5G。有128G、256G、512G、1T可选，售价为999美元起。"}
+	```
 
 
 
@@ -2102,7 +2102,7 @@ public class ElasticSearchClientConfig extends AbstractElasticsearchConfiguratio
 
 - ElasticsearchOperations 
 
-  特点：使用使用面向对象方式操作 ES
+	特点：使用使用面向对象方式操作 ES
 
 - RestHighLevelClient
 
@@ -2114,18 +2114,18 @@ public class ElasticSearchClientConfig extends AbstractElasticsearchConfiguratio
 
 - `@Document` ：用在类上，代表一个对象为一个文档
 
-  - `indexName` 属性：创建索引的名称
-  - `createIndex` 属性：是否创建索引
+	- `indexName` 属性：创建索引的名称
+	- `createIndex` 属性：是否创建索引
 
-  示例：`@Document(indexName = "products", createIndex = true)`
+	示例：`@Document(indexName = "products", createIndex = true)`
 
 - `@Id`：用在属性上 ，将对象 id 字段与 ES 中文档的 _id 对应
 
 - `@Field`：用在属性上 ，用来描述属性在 ES 中存储类型以及分词情况
 
-  - `type` 属性：用来指定字段类型
+	- `type` 属性：用来指定字段类型
 
-  示例：`@Field(type = FieldType.Keyword)`
+	示例：`@Field(type = FieldType.Keyword)`
 
 
 

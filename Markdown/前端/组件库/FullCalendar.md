@@ -1126,7 +1126,7 @@ function( event, delta, revertFunc, jsEvent, ui, view ) { }
 
 `delta` 是一个 Duration 对象，表示事件的开始或结束 延长或缩短的时间量。
 
- `revertFunc` 是一个函数，如果调用它，它会将事件的结束日期还原为拖动之前的值。如果 `ajax` 调用失败，这很有用。
+`revertFunc` 是一个函数，如果调用它，它会将事件的结束日期还原为拖动之前的值。如果 `ajax` 调用失败，这很有用。
 
 `jsEvent` 持有 jQuery 事件的低层次信息，如鼠标坐标。
 
@@ -1253,16 +1253,16 @@ FullCalendar 与 Vue JavaScript 框架无缝集成。它提供了一个与 FullC
 - [浏览 Github 仓库](https://github.com/fullcalendar/fullcalendar-vue)
 - [Bug 报告说明](https://fullcalendar.io/reporting-bugs)
 - 示例项目：
-  - [Vue 2 示例](https://github.com/fullcalendar/fullcalendar-examples/tree/main/vue2)（使用 [Webpack](https://webpack.js.org/) 和 [css-loader](https://webpack.js.org/loaders/css-loader/)）
-  - [Vue 3 示例](https://github.com/fullcalendar/fullcalendar-examples/tree/main/vue3) (使用 [Vite](https://github.com/vitejs/vite)）
+	- [Vue 2 示例](https://github.com/fullcalendar/fullcalendar-examples/tree/main/vue2)（使用 [Webpack](https://webpack.js.org/) 和 [css-loader](https://webpack.js.org/loaders/css-loader/)）
+	- [Vue 3 示例](https://github.com/fullcalendar/fullcalendar-examples/tree/main/vue3) (使用 [Vite](https://github.com/vitejs/vite)）
 
 首先是安装与 FullCalendar 相关的依赖项，你需要 FullCalendar 核心、Vue 适配器以及你打算使用的插件。
 
 - 如果使用 Vue2：
 
-  ```shell
-  npm install --save @fullcalendar/core, @fullcalendar/vue
-  ```
+	```shell
+	npm install --save @fullcalendar/core, @fullcalendar/vue
+	```
 
 安装需要使用的 FullCalendar 插件，比如 `@fullcalendar/daygrid`：
 

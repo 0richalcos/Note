@@ -66,31 +66,31 @@ Application（应用程序）- 核心配置
 
 - Path（路径）：
 
-  用途：指定要运行的主程序（`.exe` 或解释器）。
+	用途：指定要运行的主程序（`.exe` 或解释器）。
 
-  建议：必需配置。使用绝对路径，避免依赖 PATH 环境变量可能导致的问题。点击...选择。
+	建议：必需配置。使用绝对路径，避免依赖 PATH 环境变量可能导致的问题。点击...选择。
 
-  示例：`C:\Program Files\Java\jdk-17\bin\java.exe`、`C:\MyApp\myapp.exe`、`C:\Python310\python.exe`
+	示例：`C:\Program Files\Java\jdk-17\bin\java.exe`、`C:\MyApp\myapp.exe`、`C:\Python310\python.exe`
 
 - Startup directory（启动目录）：
 
-  用途：程序的工作目录。
+	用途：程序的工作目录。
 
-  建议：强烈推荐配置。设置为你的应用程序根目录或需要查找配置/资源文件的目录，确保路径正确，否则可能导致 “找不到文件” 错误。
+	建议：强烈推荐配置。设置为你的应用程序根目录或需要查找配置/资源文件的目录，确保路径正确，否则可能导致 “找不到文件” 错误。
 
-  示例：`C:\MyApp\`、`C:\MyJavaService\`
+	示例：`C:\MyApp\`、`C:\MyJavaService\`
 
 - Arguments（参数）：
 
-  用途：传递给 `Path` 中程序的命令行参数。
+	用途：传递给 `Path` 中程序的命令行参数。
 
-  建议：根据需要配置。对于 Java JAR，通常是 JVM 参数 + `-jar myapp.jar` + 应用参数；对于脚本，是脚本文件名 + 脚本参数。
+	建议：根据需要配置。对于 Java JAR，通常是 JVM 参数 + `-jar myapp.jar` + 应用参数；对于脚本，是脚本文件名 + 脚本参数。
 
-  示例：
+	示例：
 
-  - Java：`-Xmx512m -Dfile.encoding=UTF-8 -jar my-service.jar --server.port=8080`
-  - Python：`main.py --config /etc/myapp.conf`
-  - Batch：`/C run_job.bat`（当 `Path` 是 `cmd.exe` 时）
+	- Java：`-Xmx512m -Dfile.encoding=UTF-8 -jar my-service.jar --server.port=8080`
+	- Python：`main.py --config /etc/myapp.conf`
+	- Batch：`/C run_job.bat`（当 `Path` 是 `cmd.exe` 时）
 
 
 
@@ -100,30 +100,30 @@ Details（详细信息）- 服务标识
 
 - Display name（显示名称）：
 
-  用途：services.msc 中显示的名称。
+	用途：services.msc 中显示的名称。
 
-  建议：强烈推荐配置。使用清晰、易懂的名称。
+	建议：强烈推荐配置。使用清晰、易懂的名称。
 
-  示例：`My Production Web Service，Data Processing Job Runner`
+	示例：`My Production Web Service，Data Processing Job Runner`
 
 - Description（描述）：
 
-  用途：服务的详细说明。
+	用途：服务的详细说明。
 
-  建议：推荐配置。简要说明服务的功能，方便他人理解。
+	建议：推荐配置。简要说明服务的功能，方便他人理解。
 
-  示例：`Handles user authentication and profile management APIs，Runs daily data aggregation script`
+	示例：`Handles user authentication and profile management APIs，Runs daily data aggregation script`
 
 - Startup type（启动类型）：
 
-  用途：通过下拉框设置服务的启动方式。
+	用途：通过下拉框设置服务的启动方式。
 
-  建议：根据服务需求选择：
+	建议：根据服务需求选择：
 
-  - Automatic（自动）：强烈推荐用于需要随系统启动的关键服务。
-  - Automatic (Delayed Start)（自动（延迟启动））：推荐用于非启动关键路径的服务。
-  - Manual（手动）：按需配置。用于手动启动或依赖触发。
-  - Disabled（禁用）：按需配置。临时禁止服务。
+	- Automatic（自动）：强烈推荐用于需要随系统启动的关键服务。
+	- Automatic (Delayed Start)（自动（延迟启动））：推荐用于非启动关键路径的服务。
+	- Manual（手动）：按需配置。用于手动启动或依赖触发。
+	- Disabled（禁用）：按需配置。临时禁止服务。
 
 
 
@@ -134,7 +134,7 @@ Log on（登录）- 运行身份
 指定服务运行账户：
 
 - Local System account（本地系统账户）：适用于大多数不需要特殊权限（如访问特定用户目录或网络共享）的本地服务。通常保持默认即可。
-  - Allow service to interact with desktop：强烈不推荐勾选。
+	- Allow service to interact with desktop：强烈不推荐勾选。
 - This account（此账户）：仅在服务需要访问特定网络资源（需域用户权限）或需要以特定用户身份运行时配置。需要提供用户名和密码。谨慎使用。
 
 
@@ -162,21 +162,21 @@ Process（进程）- 性能与资源
 
 - Priority（优先级）：
 
-  用途：设置进程调度优先级。
+	用途：设置进程调度优先级。
 
-  建议：通常保持默认 `Normal`。除非有明确的性能调优需求，否则不建议修改。
+	建议：通常保持默认 `Normal`。除非有明确的性能调优需求，否则不建议修改。
 
 - Affinity（亲和性）：
 
-  用途：绑定 CPU 核心。
+	用途：绑定 CPU 核心。
 
-  建议：通常保持默认 `All processors`。仅在特殊性能场景或需要隔离时配置。
+	建议：通常保持默认 `All processors`。仅在特殊性能场景或需要隔离时配置。
 
 - Console window：
 
-  用途：显示控制台窗口。
+	用途：显示控制台窗口。
 
-  建议：强烈不推荐勾选，仅用于临时调试时勾选。
+	建议：强烈不推荐勾选，仅用于临时调试时勾选。
 
 
 
@@ -186,27 +186,27 @@ Shutdown（关闭）- 优雅退出
 
 - Generate Control-C：
 
-  用途：停止服务时，向程序发送 `CTRL+C` 信号。
+	用途：停止服务时，向程序发送 `CTRL+C` 信号。
 
-  建议：推荐勾选。对多数控制台应用有效。
+	建议：推荐勾选。对多数控制台应用有效。
 
 - Send WM_CLOSE message：
 
-  用途：向程序主窗口（如果有）发送关闭消息。
+	用途：向程序主窗口（如果有）发送关闭消息。
 
-  建议：按需勾选。对 GUI 应用可能有效。
+	建议：按需勾选。对 GUI 应用可能有效。
 
 - Send WM_QUIT message：
 
-  用途：向程序线程发送退出消息。
+	用途：向程序线程发送退出消息。
 
-  建议：按需勾选。
+	建议：按需勾选。
 
 - Termination timeout（终止超时）：
 
-  用途：为上述每种方法设置超时时间（毫秒）。 NSSM 会按顺序尝试勾选的方法，在超时后尝试下一种或最终强制终止。
+	用途：为上述每种方法设置超时时间（毫秒）。 NSSM 会按顺序尝试勾选的方法，在超时后尝试下一种或最终强制终止。
 
-  建议：通常保持默认（如 1500 ms），可按需增加。
+	建议：通常保持默认（如 1500 ms），可按需增加。
 
 
 
@@ -216,17 +216,17 @@ Exit actions（退出操作）- 可靠性核心
 
 - Delay restart if application runs for less than ... ms（延迟重启）：
 
-  用途：程序退出后的等待时间。
+	用途：程序退出后的等待时间。
 
-  建议：强烈推荐配置（如 1500 到 5000 毫秒）。
+	建议：强烈推荐配置（如 1500 到 5000 毫秒）。
 
 - Action to take when application exits other than in response to a contolled service shutdown（退出时的操作）：
 
-  用途：应用程序退出时采取的操作（响应受控服务关闭除外）。
+	用途：应用程序退出时采取的操作（响应受控服务关闭除外）。
 
-  建议：推荐勾选 Restart application。
+	建议：推荐勾选 Restart application。
 
-  - Delay restart by ... ms：延迟重启时间。
+	- Delay restart by ... ms：延迟重启时间。
 
 
 
@@ -236,25 +236,25 @@ I/O（输入/输出）- 日志捕获
 
 - Input (stdin)：
 
-  用途：提供标准输入。
+	用途：提供标准输入。
 
-  建议：通常无需配置，保持为空。
+	建议：通常无需配置，保持为空。
 
 - Output (stdout)（标准输出）：
 
-  用途：捕获程序的标准输出。
+	用途：捕获程序的标准输出。
 
-  建议：强烈推荐配置。指向一个日志文件，用于记录程序正常运行信息。确保日志目录存在且服务账户有写入权限。
+	建议：强烈推荐配置。指向一个日志文件，用于记录程序正常运行信息。确保日志目录存在且服务账户有写入权限。
 
-  示例：`C:\MyApp\logs\stdout.log`
+	示例：`C:\MyApp\logs\stdout.log`
 
 - Error (stderr)（标准错误）：
 
-  用途：捕获程序的标准错误输出。
+	用途：捕获程序的标准错误输出。
 
-  建议：强烈推荐配置。这是调试服务启动失败或运行错误的关键。指向一个单独的日志文件。确保日志目录存在且服务账户有写入权限。
+	建议：强烈推荐配置。这是调试服务启动失败或运行错误的关键。指向一个单独的日志文件。确保日志目录存在且服务账户有写入权限。
 
-  示例：`C:\MyApp\logs\stderr.log`
+	示例：`C:\MyApp\logs\stderr.log`
 
 
 
@@ -266,27 +266,27 @@ ile rotation（文件轮换）- 日志管理
 
 - Rotate files（轮换文件）：
 
-  用途：启用日志轮换。
+	用途：启用日志轮换。
 
-  建议：强烈推荐勾选，以防止日志文件无限增长。
+	建议：强烈推荐勾选，以防止日志文件无限增长。
 
-  - Rote while servie is running：
+	- Rote while servie is running：
 
-    用途：在服务运行时轮转已达到指定大小限制的文件。
+		用途：在服务运行时轮转已达到指定大小限制的文件。
 
-    建议：推荐勾选。
+		建议：推荐勾选。
 
-  - Rotate files older than ... seconds：
+	- Rotate files older than ... seconds：
 
-    用途：基于时间的轮换。
+		用途：基于时间的轮换。
 
-    建议：按需配置。如果日志量不大，按天轮换更合适，可以设置（如 86400 秒 = 1 天）。
+		建议：按需配置。如果日志量不大，按天轮换更合适，可以设置（如 86400 秒 = 1 天）。
 
-  - Rotate files larger than ... bytes：
+	- Rotate files larger than ... bytes：
 
-    用途：基于大小的轮换。
+		用途：基于大小的轮换。
 
-    建议：推荐配置。这是最常用的方式。根据预期日志量设置一个合理的大小（如 10485760 = 10MB，52428800 = 50MB）。
+		建议：推荐配置。这是最常用的方式。根据预期日志量设置一个合理的大小（如 10485760 = 10MB，52428800 = 50MB）。
 
 
 
@@ -296,22 +296,22 @@ Environment（环境）- 运行环境
 
 - Environment variables：
 
-  用途：设置服务特定的环境变量。
+	用途：设置服务特定的环境变量。
 
-  建议：根据需要配置。非常适合设置应用环境标识（如 `NODE_ENV=production`、`SPRING_PROFILES_ACTIVE=prod`）、配置路径、Java 选项（JAVA_OPTS）等，而无需修改系统全局变量。格式 `Key=Value`，每行一个。
+	建议：根据需要配置。非常适合设置应用环境标识（如 `NODE_ENV=production`、`SPRING_PROFILES_ACTIVE=prod`）、配置路径、Java 选项（JAVA_OPTS）等，而无需修改系统全局变量。格式 `Key=Value`，每行一个。
 
-  示例：
+	示例：
 
-  ```
-  JAVA_OPTS=-Xms256m -Xmx1024m
-  APP_CONFIG_PATH=C:\MyApp\config\production.properties
-  ```
+	```
+	JAVA_OPTS=-Xms256m -Xmx1024m
+	APP_CONFIG_PATH=C:\MyApp\config\production.properties
+	```
 
 - Replace default environment：
 
-  用途：不继承系统环境变量。
+	用途：不继承系统环境变量。
 
-  建议：强烈不推荐勾选，除非你完全清楚这样做的后果。
+	建议：强烈不推荐勾选，除非你完全清楚这样做的后果。
 
 
 
@@ -349,72 +349,72 @@ nssm set <ServiceName> <Parameter> <Value>
 
 - `AppDirectory`：设置工作目录
 
-  ```shell
-  nssm set MyNodeApp AppDirectory "C:\path\to\my\app"
-  ```
+	```shell
+	nssm set MyNodeApp AppDirectory "C:\path\to\my\app"
+	```
 
 - `DisplayName`：设置显示名称
 
-  ```shell
-  nssm set MyNodeApp DisplayName "My Node.js Web Application"
-  ```
+	```shell
+	nssm set MyNodeApp DisplayName "My Node.js Web Application"
+	```
 
 - `Description`：设置描述
 
-  ```shell
-  nssm set MyNodeApp Description "Runs the main web application server."
-  ```
+	```shell
+	nssm set MyNodeApp Description "Runs the main web application server."
+	```
 
 - `AppStdout`：设置标准输出日志文件：
 
-  ```shell
-  nssm set MyNodeApp AppStdout "C:\path\to\my\app\logs\stdout.log"
-  ```
+	```shell
+	nssm set MyNodeApp AppStdout "C:\path\to\my\app\logs\stdout.log"
+	```
 
 - `AppStderr`：设置标准错误日志文件
 
-  ```shell
-  nssm set MyNodeApp AppStderr "C:\path\to\my\app\logs\stderr.log"
-  ```
+	```shell
+	nssm set MyNodeApp AppStderr "C:\path\to\my\app\logs\stderr.log"
+	```
 
 - `AppRotateFiles`：启用日志轮换 (1 表示启用)
 
-  ```shell
-  nssm set MyNodeApp AppRotateFiles 1
-  ```
+	```shell
+	nssm set MyNodeApp AppRotateFiles 1
+	```
 
 - `AppRotateBytes`：设置日志轮换大小（单位：字节）
 
-  ```shell
-  # 10MB
-  nssm set MyNodeApp AppRotateBytes 10485760
-  ```
+	```shell
+	# 10MB
+	nssm set MyNodeApp AppRotateBytes 10485760
+	```
 
 - `AppRestartDelay`：设置重启延迟（单位：毫秒）
 
-  ```shell
-  # 2 seconds
-  nssm set MyNodeApp AppRestartDelay 2000 
-  ```
+	```shell
+	# 2 seconds
+	nssm set MyNodeApp AppRestartDelay 2000 
+	```
 
 - `Start`：设置服务启动类型（`SERVICE_AUTO_START`、`SERVICE_DEMAND_START`、`SERVICE_DISABLED`）
 
-  ```shell
-  # 设置为自动启动
-  nssm set MyNodeApp Start SERVICE_AUTO_START 
-  ```
+	```shell
+	# 设置为自动启动
+	nssm set MyNodeApp Start SERVICE_AUTO_START 
+	```
 
 - `DependOnService`：添加服务依赖（可以多次使用添加多个依赖）
 
-  ```shell
-  nssm set MyNodeApp DependOnService AnotherService
-  ```
+	```shell
+	nssm set MyNodeApp DependOnService AnotherService
+	```
 
 - `Environment`：设置环境变量（格式为 `Key=Value` 或 `Key=Value\nKey2=Value2`，`\n` 为换行）
 
-  ```shell
-  nssm set MyNodeApp Environment "NODE_ENV=production\nPORT=80"
-  ```
+	```shell
+	nssm set MyNodeApp Environment "NODE_ENV=production\nPORT=80"
+	```
 
 
 

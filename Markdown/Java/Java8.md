@@ -2194,63 +2194,63 @@ $ java Java8Tester
 
 1. 实例对象存在则返回，否则提供默认值或者通过方法来设置返回值，即使用 `orElse`/`orElseGet` 方式：
 
-   ```java
-   //存在则返回
-   User king = new User(1, "king");
-   Optional<User> userOpt = Optional.of(king);
-   User user = userOpt.orElse(null);
-   System.out.println(user.getName());
-   ```
+	```java
+	//存在则返回
+	User king = new User(1, "king");
+	Optional<User> userOpt = Optional.of(king);
+	User user = userOpt.orElse(null);
+	System.out.println(user.getName());
+	```
 
-   ```java
-   //不存在提供默认值
-   User user2 = null;
-   Optional<User> userOpt2 = Optional.ofNullable(user2);
-   User user3 = userOpt2.orElse(unknown);
-   System.out.println(user3.getName());
-   ```
+	```java
+	//不存在提供默认值
+	User user2 = null;
+	Optional<User> userOpt2 = Optional.ofNullable(user2);
+	User user3 = userOpt2.orElse(unknown);
+	System.out.println(user3.getName());
+	```
 
-   ```java
-   //通过方法提供值
-   User user4 = userOpt2.orElseGet(() -> new User(0, "DEFAULT")); 
-   System.out.println(user4.getName())
-   ```
+	```java
+	//通过方法提供值
+	User user4 = userOpt2.orElseGet(() -> new User(0, "DEFAULT")); 
+	System.out.println(user4.getName())
+	```
 
-   不建议这样使用：
+	不建议这样使用：
 
-   ```java
-   if(userOpt.isPresent()) {
-       System.out.println(userOpt.get().getName());
-   } else {
-       //。。。
-   }
-   ```
+	```java
+	if(userOpt.isPresent()) {
+	    System.out.println(userOpt.get().getName());
+	} else {
+	    //。。。
+	}
+	```
 
 2. 使用 `ifPresent()` 来进行对象操作，存在则操作，否则不操作：
 
-   ```java
-   //实例存在则操作，否则不操作
-   userOpt.ifPresent(u -> System.out.println(u.getName()));
-   userOpt2.ifPresent(u -> System.out.println(u.getName()));
-   ```
+	```java
+	//实例存在则操作，否则不操作
+	userOpt.ifPresent(u -> System.out.println(u.getName()));
+	userOpt2.ifPresent(u -> System.out.println(u.getName()));
+	```
 
 3. 使用 `map`/`flatMap` 来获取关联数据：
 
-   ```java
-   //使用map方法获取关联数据
-   System.out.println(userOpt.map(u -> u.getName()).orElse("Unknown"));
-   System.out.println(userOpt2.map(u -> u.getName()).orElse("Default"));
-   //使用flatMap方法获取关联数据
-   List<String> interests = new ArrayList<String>();
-   interests.add("a");
-   interests.add("b");
-   interests.add("c");
-   user.setInterests(interests);
-   List<String> interests2 = Optional.of(user)
-       .flatMap(u -> Optional.ofNullable(u.getInterests()))
-       .orElse(Collections.emptyList());
-   System.out.println(interests2.isEmpty());
-   ```
+	```java
+	//使用map方法获取关联数据
+	System.out.println(userOpt.map(u -> u.getName()).orElse("Unknown"));
+	System.out.println(userOpt2.map(u -> u.getName()).orElse("Default"));
+	//使用flatMap方法获取关联数据
+	List<String> interests = new ArrayList<String>();
+	interests.add("a");
+	interests.add("b");
+	interests.add("c");
+	user.setInterests(interests);
+	List<String> interests2 = Optional.of(user)
+	    .flatMap(u -> Optional.ofNullable(u.getInterests()))
+	    .orElse(Collections.emptyList());
+	System.out.println(interests2.isEmpty());
+	```
 
 
 

@@ -1502,7 +1502,7 @@ Vue.js 为 `v-on` 提供了**事件修饰符**。修饰符是由点开头的指�
 
 - `.passive`：(2.3.0) 以 `{ passive: true }` 模式添加侦听器
 
-  这个 `.passive` 修饰符尤其能够提升移动端的性能。
+	这个 `.passive` 修饰符尤其能够提升移动端的性能。
 
 ```html
 <!-- 阻止单击事件继续传播 -->
@@ -1670,19 +1670,19 @@ new Vue({ el: '#components-demo' })
 
 - 使用 kebab-case
 
-  ```javascript
-  Vue.component('my-component-name', { /* ... */ })
-  ```
+	```javascript
+	Vue.component('my-component-name', { /* ... */ })
+	```
 
-  当使用 kebab-case (短横线分隔命名) 定义一个组件时，你也必须在引用这个自定义元素时使用 kebab-case，例如 `<my-component-name>`。
+	当使用 kebab-case (短横线分隔命名) 定义一个组件时，你也必须在引用这个自定义元素时使用 kebab-case，例如 `<my-component-name>`。
 
 - 使用 PascalCase
 
-  ```javascript
-  Vue.component('MyComponentName', { /* ... */ })
-  ```
+	```javascript
+	Vue.component('MyComponentName', { /* ... */ })
+	```
 
-  当使用 PascalCase (首字母大写命名) 定义一个组件时，你在引用这个自定义元素时两种命名法都可以使用。也就是说 `<my-component-name>` 和 `<MyComponentName>` 都是可接受的。注意，尽管如此，直接在 DOM (即非字符串的模板) 中使用时只有 kebab-case 是有效的。
+	当使用 PascalCase (首字母大写命名) 定义一个组件时，你在引用这个自定义元素时两种命名法都可以使用。也就是说 `<my-component-name>` 和 `<MyComponentName>` 都是可接受的。注意，尽管如此，直接在 DOM (即非字符串的模板) 中使用时只有 kebab-case 是有效的。
 
 
 
@@ -2053,25 +2053,25 @@ post: {
 
 1. **这个 prop 用来传递一个初始值；这个子组件接下来希望将其作为一个本地的 prop 数据来使用。**在这种情况下，最好定义一个本地的 data property 并将这个 prop 用作其初始值：
 
-   ```javascript
-   props: ['initialCounter'],
-   data: function () {
-     return {
-       counter: this.initialCounter
-     }
-   }
-   ```
+	```javascript
+	props: ['initialCounter'],
+	data: function () {
+	  return {
+	    counter: this.initialCounter
+	  }
+	}
+	```
 
 2. **这个 prop 以一种原始的值传入且需要进行转换。**在这种情况下，最好使用这个 prop 的值来定义一个计算属性：
 
-   ```javascript
-   props: ['size'],
-   computed: {
-     normalizedSize: function () {
-       return this.size.trim().toLowerCase()
-     }
-   }
-   ```
+	```javascript
+	props: ['size'],
+	computed: {
+	  normalizedSize: function () {
+	    return this.size.trim().toLowerCase()
+	  }
+	}
+	```
 
 > 注意在 JavaScript 中对象和数组是通过引用传入的，所以对于一个数组或对象类型的 prop 来说，在子组件中改变变更这个对象或数组本身**将会**影响到父组件的状态。
 

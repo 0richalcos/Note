@@ -43,38 +43,38 @@ FastDFS 是一个轻量级的开源分布式文件系统，使用类似 Google F
 
 1. 由于 FastDFS 是由 C 编写的，所以首先需要确保 Linux 的 C 环境：
 
-   ```shell
-   yum install -y make cmake gcc gcc-c++
-   ```
+	```shell
+	yum install -y make cmake gcc gcc-c++
+	```
 
 2. 安装 FastDFS 需要的 libfastcommon 库（[仓库地址](https://github.com/happyfish100/libfastcommon)）：
 
-   ```shell
-   tar -zxvf libfastcommon-1.0.36.tar.gz
-   cd libfastcommon-1.0.36/
-   ./make # 编译
-   ./make install # 安装
-   ```
+	```shell
+	tar -zxvf libfastcommon-1.0.36.tar.gz
+	cd libfastcommon-1.0.36/
+	./make # 编译
+	./make install # 安装
+	```
 
-   默认安装在 `/usr/lib64`、`/usr/lib`、`/usr/include/fastcommon`。
+	默认安装在 `/usr/lib64`、`/usr/lib`、`/usr/include/fastcommon`。
 
 3. 创建软连接，因为 FastDFS 主程序设置的 lib 目录是 `/usr/local/lib`，所以需要创建软连接：
 
-   ```shell
-   ln -s /usr/lib64/libfastcommon.so /usr/local/lib/libfastcommon.so
-   ln -s /usr/lib64/libfdfsclient.so /usr/local/lib/libfdfsclient.so
-   ```
+	```shell
+	ln -s /usr/lib64/libfastcommon.so /usr/local/lib/libfastcommon.so
+	ln -s /usr/lib64/libfdfsclient.so /usr/local/lib/libfdfsclient.so
+	```
 
 4. 安装 FastDFS（[仓库地址](https://github.com/happyfish100/fastdfs)）：
 
-   ```shell
-   tar -zxvf fastdfs-5.11.tar.gz
-   cd fastdfs-5.11/
-   ./make.sh # 编译
-   ./make.sh install # 安装
-   ```
+	```shell
+	tar -zxvf fastdfs-5.11.tar.gz
+	cd fastdfs-5.11/
+	./make.sh # 编译
+	./make.sh install # 安装
+	```
 
-   安装后，主程序所在的位置是 `/usr/bin`，配置文件所在的位置是 `/etc/fdfs`。
+	安装后，主程序所在的位置是 `/usr/bin`，配置文件所在的位置是 `/etc/fdfs`。
 
 <br>
 
@@ -82,31 +82,31 @@ FastDFS 是一个轻量级的开源分布式文件系统，使用类似 Google F
 
 1. （第一次运行）在配置文件路径 `/etc/fdfs` 中配置，可以直接使用提供的参考配置：
 
-   ```shell
-   cd /etc/fdfs/
-   cp tracker.conf.sample tracker.conf
-   ```
+	```shell
+	cd /etc/fdfs/
+	cp tracker.conf.sample tracker.conf
+	```
 
 2. 创建放置 tracker 数据的目录：
 
-   ```shell
-   mkdir -p /opt/fastdfs/tracker
-   ```
+	```shell
+	mkdir -p /opt/fastdfs/tracker
+	```
 
-   修改配置信息，使得 `base_path` 为创建的目录：
+	修改配置信息，使得 `base_path` 为创建的目录：
 
-   ```shell
-   vim tracker.conf
-   base_path = /opt/fastdfs/tracker
-   ```
+	```shell
+	vim tracker.conf
+	base_path = /opt/fastdfs/tracker
+	```
 
-   默认端口是 22122，有需要可以修改。
+	默认端口是 22122，有需要可以修改。
 
 3. 启动 Tracker 服务
 
-   ```shell
-   service fdfs_trackerd start
-   ```
+	```shell
+	service fdfs_trackerd start
+	```
 
 <br>
 
@@ -116,34 +116,34 @@ FastDFS 是一个轻量级的开源分布式文件系统，使用类似 Google F
 
 1. （第一次运行）在 `/etc/fdfs` 中配置，可以直接使用提供的参考配置：
 
-   ```shell
-   cd /etc/fdfs/
-   cp storage.conf.sample storage.conf
-   ```
+	```shell
+	cd /etc/fdfs/
+	cp storage.conf.sample storage.conf
+	```
 
 2. 创建放置 tracker 数据的目录：
 
-   ```shell
-   mkdir -p /opt/fastdfs/storage
-   mkdir -p /opt/fastdfs/storage_data
-   ```
+	```shell
+	mkdir -p /opt/fastdfs/storage
+	mkdir -p /opt/fastdfs/storage_data
+	```
 
-   修改配置信息，使得 `base_path` 为创建的目录：
+	修改配置信息，使得 `base_path` 为创建的目录：
 
-   <img src="!assets/FastDFS/image-20230530113131330.png" alt="image-20230530113131330" style="zoom:80%;" />
+	<img src="!assets/FastDFS/image-20230530113131330.png" alt="image-20230530113131330" style="zoom:80%;" />
 
-   修改配置信息，使得 `store_path0` 为创建的存储目录：
+	修改配置信息，使得 `store_path0` 为创建的存储目录：
 
-   <img src="!assets/FastDFS/image-20230530113352389.png" alt="image-20230530113352389" style="zoom:80%;" />
+	<img src="!assets/FastDFS/image-20230530113352389.png" alt="image-20230530113352389" style="zoom:80%;" />
 
 3. 配置 Tracker 的 IP 地址以及端口号：
 
-   <img src="!assets/FastDFS/image-20230530113539826.png" alt="image-20230530113539826" style="zoom:80%;" />
+	<img src="!assets/FastDFS/image-20230530113539826.png" alt="image-20230530113539826" style="zoom:80%;" />
 
 4. 启动 Storage 服务
 
-   ```shell
-   service fdfs_storaged start
-   ```
+	```shell
+	service fdfs_storaged start
+	```
 
 至此，FastDFS 配置完毕。

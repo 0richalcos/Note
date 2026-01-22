@@ -138,23 +138,23 @@ JDK（Java Development Kit，Java 开发工具包）是一种用于构建在 Jav
 
 3. 接下来进行安装 JDK，可以下面方式二选一：
 
-   - 使用 `rpm` 命令直接安装 JDK：
+	- 使用 `rpm` 命令直接安装 JDK：
 
-     ```shell
-     rpm -ivh jdk-8u381-linux-x64.rpm
-     ```
+		```shell
+		rpm -ivh jdk-8u381-linux-x64.rpm
+		```
 
-   - 解压 tar.gz 压缩包手动安装：
+	- 解压 tar.gz 压缩包手动安装：
 
-     ```shell
-     tar -zxvf jdk-8u381-linux-x64.tar.gz -C /usr/local/
-     ```
+		```shell
+		tar -zxvf jdk-8u381-linux-x64.tar.gz -C /usr/local/
+		```
 
-     修改安装目录名称：
+		修改安装目录名称：
 
-     ```shell
-     mv /usr/local/jdk-8u381-linux-x64 /usr/local/jdk
-     ```
+		```shell
+		mv /usr/local/jdk-8u381-linux-x64 /usr/local/jdk
+		```
 
 
 
@@ -193,33 +193,33 @@ JDK（Java Development Kit，Java 开发工具包）是一种用于构建在 Jav
 
 1. 修改配置环境：
 
-   ```shell
-   vim /etc/profile
-   ```
+	```shell
+	vim /etc/profile
+	```
 
 2. 把下面的配置放到文件的最后一行：
 
-   ```
-   export JAVA_HOME=/usr/local/jdk    # 这里设置解压的Java目录文件
-   export PATH=$JAVA_HOME/bin:$PATH
-   export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
-   ```
+	```
+	export JAVA_HOME=/usr/local/jdk    # 这里设置解压的Java目录文件
+	export PATH=$JAVA_HOME/bin:$PATH
+	export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
+	```
 
 3. 让配置立即生效：
 
-   ```shell
-   source /etc/profile
-   ```
+	```shell
+	source /etc/profile
+	```
 
 4. 检查 Java 环境是否成功安装：
 
-   ```shell
-   # 获取 Java 版本号
-   java -version
-   
-   # 查看 JDK 的安装路径（安装后才有）
-   which java
-   ```
+	```shell
+	# 获取 Java 版本号
+	java -version
+	
+	# 查看 JDK 的安装路径（安装后才有）
+	which java
+	```
 
 
 
@@ -1263,12 +1263,12 @@ ArgumentIndex[,FormatType[,FormatStyle]]
 
 - *ArgumentIndex*：非必须，从 0 开始的索引值。
 - *FormatType*：非必须，使用不同的 `java.text.Format` 实现类对入参进行格式化处理。它能有如下值：
-  - `number`：调用 NumberFormat 进行格式化。
-  - `date`：调用 DateFormat 进行格式化。
-  - `time`：调用 DateFormat 进行格式化。
-  - `choice`：调用 ChoiceFormat 进行格式化。
+	- `number`：调用 NumberFormat 进行格式化。
+	- `date`：调用 DateFormat 进行格式化。
+	- `time`：调用 DateFormat 进行格式化。
+	- `choice`：调用 ChoiceFormat 进行格式化。
 - *FormatStyle*：非必须，设置 FormatType 使用的样式。它能有如下值：
-  - short、medium、long、full、integer、currency、percent、SubformPattern（如日期格式、数字格式#.##等）
+	- short、medium、long、full、integer、currency、percent、SubformPattern（如日期格式、数字格式#.##等）
 
 > 说明：FormatType 和 FormatStyle 只有在传入值为日期时间、数字、百分比等类型时才有可能需要设置，使用得并不多。毕竟：我在外部格式化好后再放进去不香吗？
 
@@ -1319,8 +1319,8 @@ public void test11() {
 1. 参数模式的索引值必须从 0 开始，否则所有索引值无效。
 2. 实际传入的参数个数可以和索引个数不匹配，不报错（能匹配上几个算几个）。
 3. 两个单引号 `''` 才算作一个  `'`，若只写一个将被忽略甚至影响整个表达式：
-   - 谨慎使用单引号 `'`。
-   - 关注 `'` 的匹配关系。
+	- 谨慎使用单引号 `'`。
+	- 关注 `'` 的匹配关系。
 4. `{}` 只写左边报错，只写右边正常输出（注意参数的对应关系）。
 
 
@@ -1650,7 +1650,7 @@ System.out.println(b.equals(c));
 
 ### 4.4、时间和日期
 
- 在 Java 中获取当前时间，可以使用 `java.util.Date` 类和 `java.util.Calendar` 类完成。其中，Date 类主要封装了系统的日期和时间的信息，Calendar 类则会根据系统的日历来解释 Date 对象。
+在 Java 中获取当前时间，可以使用 `java.util.Date` 类和 `java.util.Calendar` 类完成。其中，Date 类主要封装了系统的日期和时间的信息，Calendar 类则会根据系统的日历来解释 Date 对象。
 
 
 

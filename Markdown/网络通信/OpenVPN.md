@@ -28,13 +28,13 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
 1. 安装的时候要选择 Customize，勾选 OpenVPN Service 和 EasyRSA3 安装，用于服务端配置和证书生成使用：
 
-   <img src="!assets/OpenVPN/image-20240817110655401.png" alt="image-20240817110655401" style="zoom: 67%;" />
+	<img src="!assets/OpenVPN/image-20240817110655401.png" alt="image-20240817110655401" style="zoom: 67%;" />
 
-   <img src="!assets/OpenVPN/image-20240817110817655.png" alt="image-20240817110817655" style="zoom:67%;" />
+	<img src="!assets/OpenVPN/image-20240817110817655.png" alt="image-20240817110817655" style="zoom:67%;" />
 
 2. 安装完成后软件默认位置 `C:\Program Files\OpenVPN` 目录：
 
-   <img src="!assets/OpenVPN/image-20240817111105533.png" alt="image-20240817111105533" style="zoom:67%;" />
+	<img src="!assets/OpenVPN/image-20240817111105533.png" alt="image-20240817111105533" style="zoom:67%;" />
 
 
 
@@ -44,74 +44,74 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
 1. **准备 CA 签发机构环境**
 
-   进入 `C:\Program Files\OpenVPN\easy-rsa` 目录，将 vars.example 文件复制一份，改为 vars，然后编辑内容：
+	进入 `C:\Program Files\OpenVPN\easy-rsa` 目录，将 vars.example 文件复制一份，改为 vars，然后编辑内容：
 
-   ```ini
-   # 生成证书使用完整DN结构
-   set_var EASYRSA_DN "org"
-   # 设置请求国家字段为中国
-   set_var EASYRSA_REQ_COUNTRY	"CN"
-   # 设置请求省份字段为上海
-   set_var EASYRSA_REQ_PROVINCE "Shanghai"
-   # 设置请求城市字段为上海
-   set_var EASYRSA_REQ_CITY "Shanghai"
-   # 设置请求组织字段为Orichalcos_ORG
-   set_var EASYRSA_REQ_ORG "Orichalcos_ORG"
-   # 设置CA证书有效期为10年
-   set_var EASYRSA_CA_EXPIRE 36500
-   # 设置服务器证书为10年
-   set_var EASYRSA_CERT_EXPIRE	3650
-   ```
+	```ini
+	# 生成证书使用完整DN结构
+	set_var EASYRSA_DN "org"
+	# 设置请求国家字段为中国
+	set_var EASYRSA_REQ_COUNTRY	"CN"
+	# 设置请求省份字段为上海
+	set_var EASYRSA_REQ_PROVINCE "Shanghai"
+	# 设置请求城市字段为上海
+	set_var EASYRSA_REQ_CITY "Shanghai"
+	# 设置请求组织字段为Orichalcos_ORG
+	set_var EASYRSA_REQ_ORG "Orichalcos_ORG"
+	# 设置CA证书有效期为10年
+	set_var EASYRSA_CA_EXPIRE 36500
+	# 设置服务器证书为10年
+	set_var EASYRSA_CERT_EXPIRE	3650
+	```
 
 2. **进入 EasyRSA shell 环境 DOS 窗口**
 
-   双击 EasyRSA-Start.bat 进入 EasyRSA shell 环境 DOS 窗口中：
+	双击 EasyRSA-Start.bat 进入 EasyRSA shell 环境 DOS 窗口中：
 
-   <img src="!assets/OpenVPN/image-20240817111452752.png" alt="image-20240817111452752" style="zoom:67%;" />
+	<img src="!assets/OpenVPN/image-20240817111452752.png" alt="image-20240817111452752" style="zoom:67%;" />
 
 3. **清理原有证书和私钥并初始化**
 
-   弹出的 DOS 窗口中输入 `./easyrsa clean-all` 清理原有证书和私钥并初始化，初始化成功后会在 `C:\Program Files\OpenVPN\easy-rsa` 目录下新建文件夹 pki：
+	弹出的 DOS 窗口中输入 `./easyrsa clean-all` 清理原有证书和私钥并初始化，初始化成功后会在 `C:\Program Files\OpenVPN\easy-rsa` 目录下新建文件夹 pki：
 
-   <img src="!assets/OpenVPN/image-20240817175141535.png" alt="image-20240817175141535" style="zoom:67%;" />
+	<img src="!assets/OpenVPN/image-20240817175141535.png" alt="image-20240817175141535" style="zoom:67%;" />
 
 4. **生成 CA 根证书**
 
-   在 DOS 窗口中输入 `./easyrsa build-ca` 生成 CA 证书，生成过程中会要求输入名称、密码等信息，比如我这里名称（Common Name）写的 Orichalcos：
+	在 DOS 窗口中输入 `./easyrsa build-ca` 生成 CA 证书，生成过程中会要求输入名称、密码等信息，比如我这里名称（Common Name）写的 Orichalcos：
 
-   <img src="!assets/OpenVPN/image-20240817211225042.png" alt="image-20240817211225042" style="zoom:67%;" />
+	<img src="!assets/OpenVPN/image-20240817211225042.png" alt="image-20240817211225042" style="zoom:67%;" />
 
-   CA 根证书位置： `C:\Program Files\OpenVPN\easy-rsa\pki\ca.crt`。
+	CA 根证书位置： `C:\Program Files\OpenVPN\easy-rsa\pki\ca.crt`。
 
-   CA 密钥位置： `C:\Program Files\OpenVPN\easy-rsa\pki\private\ca.key`。
+	CA 密钥位置： `C:\Program Files\OpenVPN\easy-rsa\pki\private\ca.key`。
 
 5. **生成服务端证书**
 
-   输入 `./easyrsa build-server-full server nopass` 生成无密码服务端证书：
+	输入 `./easyrsa build-server-full server nopass` 生成无密码服务端证书：
 
-   <img src="!assets/OpenVPN/image-20240817212039908.png" alt="image-20240817212039908" style="zoom:67%;" />
+	<img src="!assets/OpenVPN/image-20240817212039908.png" alt="image-20240817212039908" style="zoom:67%;" />
 
-   服务端证书路径：`C:\Program Files\OpenVPN\easy-rsa\pki\issued\server.crt` 。
+	服务端证书路径：`C:\Program Files\OpenVPN\easy-rsa\pki\issued\server.crt` 。
 
-   服务端私钥路径：`C:\Program Files\OpenVPN\easy-rsa\pki\private\server.key` 。
+	服务端私钥路径：`C:\Program Files\OpenVPN\easy-rsa\pki\private\server.key` 。
 
-   > [!NOTE]
-   >
-   > 这里使用 `nopass` 参数设置不需要密码，那么在启动 OpenVPN 服务的时候就不提示输入密码。
+	> [!NOTE]
+	>
+	> 这里使用 `nopass` 参数设置不需要密码，那么在启动 OpenVPN 服务的时候就不提示输入密码。
 
 6. **生成 Diffie-Hellman 算法需要的密钥文件**
 
-   输入 `./easyrsa gen-dh` 生成 DH 密钥交换协议文件，生成文件在 `C:\Program Files\OpenVPN\easy-rsa\pki` 目录下：
+	输入 `./easyrsa gen-dh` 生成 DH 密钥交换协议文件，生成文件在 `C:\Program Files\OpenVPN\easy-rsa\pki` 目录下：
 
-   <img src="!assets/OpenVPN/image-20240817113407298.png" alt="image-20240817113407298" style="zoom:67%;" />
+	<img src="!assets/OpenVPN/image-20240817113407298.png" alt="image-20240817113407298" style="zoom:67%;" />
 
 7. **生成 tls-auth Key 用于防止 DDOS 和 TLS 攻击**
 
-   输入 `openvpn --genkey --secret ta.key`：
+	输入 `openvpn --genkey --secret ta.key`：
 
-   <img src="!assets/OpenVPN/image-20240817213609767.png" alt="image-20240817213609767" style="zoom:67%;" />
+	<img src="!assets/OpenVPN/image-20240817213609767.png" alt="image-20240817213609767" style="zoom:67%;" />
 
-   ta.key 路径：`C:\Program Files\OpenVPN\easy-rsa\ta.key`。
+	ta.key 路径：`C:\Program Files\OpenVPN\easy-rsa\ta.key`。
 
 
 
@@ -121,48 +121,48 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
 1. **修改服务端配置文件**
 
-   复制 server.ovpn 文件至 `C:\Program Files\OpenVPN\config` 目录，修改如下选项：
+	复制 server.ovpn 文件至 `C:\Program Files\OpenVPN\config` 目录，修改如下选项：
 
-   ```ini
-   # 客户端连接端口
-   port 1194
-   # 指定OpenVPN创建的通信隧道类型，tun创建一个路由的IP隧道，tap创建一个以太网隧道
-   # TCP还是UDP协议方式连接服务器
-   proto tcp
-   dev tun
-   # 证书配置，因证书生成已经复制到本目录
-   ca ca.crt
-   # 证书配置，因证书生成已经复制到本目录
-   cert server.crt
-   # 证书配置，因证书生成已经复制到本目录
-   key server.key
-   # 证书配置，因证书生成已经复制到本目录
-   dh dh.pem
-   # OpenVPN将根据客户端和服务端之间支持的算法选择最安全的算法进行加密
-   data-ciphers CHACHA20-POLY1305:AES-128-GCM:AES-256-GCM:AES-256-CBC
-   # VPN所用网段，不能和内网冲突，推荐默认
-   server 10.8.0.0 255.255.255.0
-   # 默认是禁止客户端之间互联的，将其开启
-   client-to-client
-   # 开启TLS-auth，使用ta.key防御攻击，服务端的第二个参数为0，客户端的为1
-   tls-auth ta.key 0
-   ```
+	```ini
+	# 客户端连接端口
+	port 1194
+	# 指定OpenVPN创建的通信隧道类型，tun创建一个路由的IP隧道，tap创建一个以太网隧道
+	# TCP还是UDP协议方式连接服务器
+	proto tcp
+	dev tun
+	# 证书配置，因证书生成已经复制到本目录
+	ca ca.crt
+	# 证书配置，因证书生成已经复制到本目录
+	cert server.crt
+	# 证书配置，因证书生成已经复制到本目录
+	key server.key
+	# 证书配置，因证书生成已经复制到本目录
+	dh dh.pem
+	# OpenVPN将根据客户端和服务端之间支持的算法选择最安全的算法进行加密
+	data-ciphers CHACHA20-POLY1305:AES-128-GCM:AES-256-GCM:AES-256-CBC
+	# VPN所用网段，不能和内网冲突，推荐默认
+	server 10.8.0.0 255.255.255.0
+	# 默认是禁止客户端之间互联的，将其开启
+	client-to-client
+	# 开启TLS-auth，使用ta.key防御攻击，服务端的第二个参数为0，客户端的为1
+	tls-auth ta.key 0
+	```
 
 2. **证书复制配置**
 
-   将服务证书、服务 Key、CA 证书、DH 文件复制到文件夹 `C:\Program Files\OpenVPN\config` 下：
+	将服务证书、服务 Key、CA 证书、DH 文件复制到文件夹 `C:\Program Files\OpenVPN\config` 下：
 
-   <img src="!assets/OpenVPN/image-20240817220414043.png" alt="image-20240817220414043" style="zoom:67%;" />
+	<img src="!assets/OpenVPN/image-20240817220414043.png" alt="image-20240817220414043" style="zoom:67%;" />
 
-   > [!IMPORTANT]
-   >
-   > 需要拷贝的文件包括 ca.crt、ca.key、server.crt、server.key、dh.pem、ta.key。
+	> [!IMPORTANT]
+	>
+	> 需要拷贝的文件包括 ca.crt、ca.key、server.crt、server.key、dh.pem、ta.key。
 
 3. **连接**
 
-   右键点击任务栏带锁小电脑图标，点击连接，连接成功后会变绿，系统提示分配 IP：
+	右键点击任务栏带锁小电脑图标，点击连接，连接成功后会变绿，系统提示分配 IP：
 
-   <img src="!assets/OpenVPN/image-20240817115630422.png" alt="image-20240817115630422" style="zoom: 33%;" /><img src="!assets/OpenVPN/image-20240817115605785.png" alt="image-20240817115605785" style="zoom: 67%;" />
+	<img src="!assets/OpenVPN/image-20240817115630422.png" alt="image-20240817115630422" style="zoom: 33%;" /><img src="!assets/OpenVPN/image-20240817115605785.png" alt="image-20240817115605785" style="zoom: 67%;" />
 
 
 
@@ -170,61 +170,61 @@ OpenVPN 软件服务端和客户端都是同一个安装包，本次使用的 Op
 
 1. **安装**
 
-   双击 OpenVPN-2.6.12-I001-amd64.msi，点击 Install Now 安装客户端。
+	双击 OpenVPN-2.6.12-I001-amd64.msi，点击 Install Now 安装客户端。
 
 2. **生成客户端的证书和私钥**
 
-   在服务端 DOS 窗口输入 `./easyrsa build-client-full client nopass` 生成客户端的证书和私钥，每多一个客户端就要多生成一份：
+	在服务端 DOS 窗口输入 `./easyrsa build-client-full client nopass` 生成客户端的证书和私钥，每多一个客户端就要多生成一份：
 
-   <img src="!assets/OpenVPN/image-20240817222424285.png" alt="image-20240817222424285" style="zoom:67%;" />
+	<img src="!assets/OpenVPN/image-20240817222424285.png" alt="image-20240817222424285" style="zoom:67%;" />
 
-   > [!NOTE]
-   >
-   > 命令 `./easyrsa build-client-full client nopass` 中的 client  为客户端证书和密钥的名字，可以自己取名，但注意需要和客户端配置文件里 `cert`、`key`的名字相同。
+	> [!NOTE]
+	>
+	> 命令 `./easyrsa build-client-full client nopass` 中的 client  为客户端证书和密钥的名字，可以自己取名，但注意需要和客户端配置文件里 `cert`、`key`的名字相同。
 
-   客户端证书路径：`C:\Program Files\OpenVPN\easy-rsa\pki\issued\client.crt`。
-   客户端私钥路径：`C:\Program Files\OpenVPN\easy-rsa\pki\private\client.key`。
+	客户端证书路径：`C:\Program Files\OpenVPN\easy-rsa\pki\issued\client.crt`。
+	客户端私钥路径：`C:\Program Files\OpenVPN\easy-rsa\pki\private\client.key`。
 
-   将生成的客户端证书（client.crt)、私钥（client.key）、服务端根证书（ca.crt）、ta.key 打包发送到客户端的 `C:\Program Files\OpenVPN\config`。
+	将生成的客户端证书（client.crt)、私钥（client.key）、服务端根证书（ca.crt）、ta.key 打包发送到客户端的 `C:\Program Files\OpenVPN\config`。
 
 3. **配置客户端文件**
 
-   客户端配置文件 client.ovpn，模板在 `C:\Program Files\OpenVPN\sample-config`，复制该文件到 `C:\Program Files\OpenVPN\config` 目录下，修改客户端配置如下：
+	客户端配置文件 client.ovpn，模板在 `C:\Program Files\OpenVPN\sample-config`，复制该文件到 `C:\Program Files\OpenVPN\config` 目录下，修改客户端配置如下：
 
-   ```ini
-   # 服务端IP地址和端口号
-   remote <公网服务器IP> 1194
-   # TCP还是UDP协议方式连接服务器
-   proto tcp
-   # OpenVPN将根据客户端和服务端之间支持的算法选择最安全的算法进行加密
-   data-ciphers CHACHA20-POLY1305:AES-128-GCM:AES-256-GCM:AES-256-CBC
-   # 开启TLS-auth，使用ta.key防御攻击，服务端的第二个参数为0，客户端的为1
-   tls-auth ta.key 1
-   ```
+	```ini
+	# 服务端IP地址和端口号
+	remote <公网服务器IP> 1194
+	# TCP还是UDP协议方式连接服务器
+	proto tcp
+	# OpenVPN将根据客户端和服务端之间支持的算法选择最安全的算法进行加密
+	data-ciphers CHACHA20-POLY1305:AES-128-GCM:AES-256-GCM:AES-256-CBC
+	# 开启TLS-auth，使用ta.key防御攻击，服务端的第二个参数为0，客户端的为1
+	tls-auth ta.key 1
+	```
 
 4. **测试连接服务器**
 
-   右键点击任务栏带锁小电脑图标，点击连接，连接成功后系统分配 IP，小电脑变绿。
+	右键点击任务栏带锁小电脑图标，点击连接，连接成功后系统分配 IP，小电脑变绿。
 
-   服务器端终端中输入 `ipconfig -all`，查看服务器端地址：
+	服务器端终端中输入 `ipconfig -all`，查看服务器端地址：
 
-   <img src="!assets/OpenVPN/image-20240817232449865.png" alt="image-20240817232449865" style="zoom:67%;" />
+	<img src="!assets/OpenVPN/image-20240817232449865.png" alt="image-20240817232449865" style="zoom:67%;" />
 
-   可以看到服务器端 IP 地址为 10.8.0.1，所以此时我们在本机访问 10.8.0.1 地址就可以访问到服务器：
+	可以看到服务器端 IP 地址为 10.8.0.1，所以此时我们在本机访问 10.8.0.1 地址就可以访问到服务器：
 
-   <img src="!assets/OpenVPN/image-20240817232615756.png" alt="image-20240817232615756" style="zoom:67%;" />
+	<img src="!assets/OpenVPN/image-20240817232615756.png" alt="image-20240817232615756" style="zoom:67%;" />
 
 5. **另外一台客户端执行同样的操作**
 
 6. **测试能否互连**
 
-   一台服务端和两台客户端启动 OpenVPN 服务后，被访问的客户端防火墙开通 ICMPv4 协议，互相 ping 测试能否互连：
+	一台服务端和两台客户端启动 OpenVPN 服务后，被访问的客户端防火墙开通 ICMPv4 协议，互相 ping 测试能否互连：
 
-   <img src="!assets/OpenVPN/image-20240818022548260.png" alt="image-20240818022548260" style="" />
+	<img src="!assets/OpenVPN/image-20240818022548260.png" alt="image-20240818022548260" style="" />
 
-   > [!NOTE]
-   >
-   > 后续可以根据自己需要开通被访问方防火墙 TCP 1194 端口。
+	> [!NOTE]
+	>
+	> 后续可以根据自己需要开通被访问方防火墙 TCP 1194 端口。
 
 
 
@@ -248,21 +248,21 @@ OpenVPN 启动之后会在 `C:\Program Files\OpenVPN\config` 位置生成 ipp.tx
 
 2. 编辑 VPN 服务器配置文件，添加以下内容：
 
-   ```ini
-   client-config-dir ccd
-   ```
+	```ini
+	client-config-dir ccd
+	```
 
-   这样配置将告诉 OpenVPN 使用 `./ccd` 目录中的配置文件为每个客户端分配固定的 IP 地址。
+	这样配置将告诉 OpenVPN 使用 `./ccd` 目录中的配置文件为每个客户端分配固定的 IP 地址。
 
 3. 对于每个客户端，在 ccd 文件夹下创建一个与其名称对应的配置文件，并指定需要分配给该客户端的固定 IP 地址。
 
-   例如，如果有一个名为 client 的客户端，可以创建一个名为 client 的文件，并在其中写入以下内容：
+	例如，如果有一个名为 client 的客户端，可以创建一个名为 client 的文件，并在其中写入以下内容：
 
-   ```ini
-   ifconfig-push 10.8.0.2 255.255.255.0
-   ```
+	```ini
+	ifconfig-push 10.8.0.2 255.255.255.0
+	```
 
-   这将分配 IP 地址 10.8.0.2 给 client。你可以为每个客户端创建类似的配置文件，只需更改 IP 地址即可。
+	这将分配 IP 地址 10.8.0.2 给 client。你可以为每个客户端创建类似的配置文件，只需更改 IP 地址即可。
 
 4. 重启 OpenVPN 服务，使配置生效。
 
@@ -276,45 +276,45 @@ OpenVPN 启动之后会在 `C:\Program Files\OpenVPN\config` 位置生成 ipp.tx
 
 2. 吊销指定用户（以 zhouyulan 为例）的证书：
 
-   ```bash
-   ./easyrsa revoke zhouyulan
-   ```
+	```bash
+	./easyrsa revoke zhouyulan
+	```
 
-   提示会删除以下文件，输入 yes 确定：
+	提示会删除以下文件，输入 yes 确定：
 
-   <img src="!assets/OpenVPN/QQ_1734906587915.png" alt="QQ_1734906587915" style="zoom:67%;" />
+	<img src="!assets/OpenVPN/QQ_1734906587915.png" alt="QQ_1734906587915" style="zoom:67%;" />
 
-   输入 CA 证书密码：
+	输入 CA 证书密码：
 
-   <img src="!assets/OpenVPN/QQ_1734906809738.png" alt="QQ_1734906809738" style="zoom:67%;" />
+	<img src="!assets/OpenVPN/QQ_1734906809738.png" alt="QQ_1734906809738" style="zoom:67%;" />
 
 3. 每次吊销证书后，需要更新 CRL 文件：
 
-   ```bash
-   ./easyrsa gen-crl
-   ```
+	```bash
+	./easyrsa gen-crl
+	```
 
-   输入 CA 证书密码确认：
+	输入 CA 证书密码确认：
 
-   <img src="!assets/OpenVPN/QQ_1734907050622.png" alt="QQ_1734907050622" style="zoom:67%;" />
+	<img src="!assets/OpenVPN/QQ_1734907050622.png" alt="QQ_1734907050622" style="zoom:67%;" />
 
 4. 将更新的 crl.pem 文件复制到 OpenVPN 的配置目录：
 
-   <img src="!assets/OpenVPN/QQ_1734907269332.png" alt="QQ_1734907269332" style="zoom:67%;" />
+	<img src="!assets/OpenVPN/QQ_1734907269332.png" alt="QQ_1734907269332" style="zoom:67%;" />
 
 5. 在 OpenVPN 配置中启用 CRL 并确保 server.ovpn 文件中包含以下配置：
 
-   ```
-   crl-verify crl.pem
-   ```
+	```
+	crl-verify crl.pem
+	```
 
-   启用后，所有连接的客户端都会根据 CRL 验证其客户端证书。如果匹配到吊销的证书，连接将被立即中断。
+	启用后，所有连接的客户端都会根据 CRL 验证其客户端证书。如果匹配到吊销的证书，连接将被立即中断。
 
 6. 每次更新 CRL 文件后，都需要重启 OpenVPN 服务。
 
-   > [!IMPORTANT]
-   >
-   > CRL 文件默认的有效期通常是 180 天。可以在 easy-rsa 的 vars 文件中找到 `EASYRSA_CRL_DAYS` 这个变量来设置它的有效期。
+	> [!IMPORTANT]
+	>
+	> CRL 文件默认的有效期通常是 180 天。可以在 easy-rsa 的 vars 文件中找到 `EASYRSA_CRL_DAYS` 这个变量来设置它的有效期。
 
 
 

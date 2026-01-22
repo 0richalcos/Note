@@ -12,8 +12,8 @@
 
 3. 向下滑，找到
 
-     -  用户账户控制：以管理员批准模式运行所有管理员。
-     -  用户账户控制：用于内置管理员账户的管理员批准模式。
+		-  用户账户控制：以管理员批准模式运行所有管理员。
+		-  用户账户控制：用于内置管理员账户的管理员批准模式。
 6. 分别双击进入配置窗口，将这两项都分别设置为【已禁用】，再点击【确定】。
 7. 重启电脑，操作完成！
 
@@ -67,35 +67,35 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 1. 列出所有磁盘：
 
-   ```shell
-   list disk
-   ```
+	```shell
+	list disk
+	```
 
 2. 选择要操作的目标磁盘（假设为 Disk 1）：
 
-   ```shell
-   select disk 1
-   ```
+	```shell
+	select disk 1
+	```
 
 3. 清空所选磁盘上的所有分区信息：
 
-   ```shell
-   clean
-   ```
+	```shell
+	clean
+	```
 
 4. 将磁盘转换为 GPT 格式：
 
-   ```shell
-   convert gpt
-   ```
+	```shell
+	convert gpt
+	```
 
-   > 如果你的电脑是 UEFI 模式，通常要求使用 GPT 分区格式。
+	> 如果你的电脑是 UEFI 模式，通常要求使用 GPT 分区格式。
 
-   或者，如果你希望转换为传统 BIOS 支持的格式：
+	或者，如果你希望转换为传统 BIOS 支持的格式：
 
-   ```shell
-   convert mbr
-   ```
+	```shell
+	convert mbr
+	```
 
 
 
@@ -109,21 +109,21 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 1. 列出系统中所有磁盘：
 
-   ```shell
-   list disk
-   ```
+	```shell
+	list disk
+	```
 
 2. 选择目标磁盘（以 Disk 1 为例）：
 
-   ```shell
-   select disk 1
-   ```
+	```shell
+	select disk 1
+	```
 
 3. 清除磁盘的只读属性：
 
-   ```shell
-   attributes disk clear readonly
-   ```
+	```shell
+	attributes disk clear readonly
+	```
 
 
 
@@ -153,19 +153,19 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 	<img src="!assets/Settings/system-migration-05.png" alt="系统迁移" style="zoom: 80%;" />
 
-   热迁移，就是在不关机的情况下，迁移系统到第二块硬盘，在迁移过程中，用户仍然可以对电脑做各种操作，不影响用户对电脑的使用。
+	热迁移，就是在不关机的情况下，迁移系统到第二块硬盘，在迁移过程中，用户仍然可以对电脑做各种操作，不影响用户对电脑的使用。
 
-   重启到 WinPE，DiskGenius 软件将重启电脑，自动进入 WinPE 系统，自动在 WinPE 下启动 DiskGenius 并自动执行系统迁移。
+	重启到 WinPE，DiskGenius 软件将重启电脑，自动进入 WinPE 系统，自动在 WinPE 下启动 DiskGenius 并自动执行系统迁移。
 
-   > [!TIP]
-   >
-   > 大多数情况下，使用热迁移的方式，更为方便、安全，建议使用这种系统迁移模式。
+	> [!TIP]
+	>
+	> 大多数情况下，使用热迁移的方式，更为方便、安全，建议使用这种系统迁移模式。
 
 6. 点击【热迁移】按钮，DiskGenius 将开始热迁移操作，如下图：
 
 	<img src="!assets/Settings/system-migration-06.png" alt="系统迁移" style="zoom:80%;" />
 
-   系统迁移窗口中，将显示一个进度条，进度条显示系统迁移大致的进度，进度条下面显示已经复制，和还没有复制的数据大小，及已经用时与估计的完成系统迁移所需的剩余时间。
+	系统迁移窗口中，将显示一个进度条，进度条显示系统迁移大致的进度，进度条下面显示已经复制，和还没有复制的数据大小，及已经用时与估计的完成系统迁移所需的剩余时间。
 
 7. 完成系统迁移后，DiskGenius 软件会给出系统迁移完成的提示，如下图：
 
@@ -195,23 +195,23 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 1. cmd 命令窗口输入 `netstat –ano` 回车，会显示所有已经在运行的端口情况，其中 PID（最后一列数字就是 PID）为进程号。
 
-   如果想要具体查询正在占用的端口号，可以使用 ：
+	如果想要具体查询正在占用的端口号，可以使用 ：
 
-   ```shell
-   netstat -ano | findstr <端口号>
-   ```
+	```shell
+	netstat -ano | findstr <端口号>
+	```
 
 2. 找到占用端口的 PID 后，可以通过 PID 查询进程：
 
-   ```shell
-   tasklist | findstr <PID>
-   ```
+	```shell
+	tasklist | findstr <PID>
+	```
 
 3. 输入以下命令终止进程：
 
-   ```shell
-   taskkill /T /F /PID <PID>
-   ```
+	```shell
+	taskkill /T /F /PID <PID>
+	```
 
 
 
@@ -248,27 +248,27 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 1. 首先按照[【6.1】删除右键菜单新建中的选项](#【6.1】删除右键菜单新建中的选项) 这里的步骤将 `.tdoc`、`.tsheet`、`.tslide` 三个选项取消掉。
 
-   > [!NOTE]
-   >
-   > 新版腾讯文档支持在设置里关闭了，但是关闭后原来的 Office 设置不会回来。
+	> [!NOTE]
+	>
+	> 新版腾讯文档支持在设置里关闭了，但是关闭后原来的 Office 设置不会回来。
 
 2. 使用 Office 自带的修复功能恢复 Office 新建菜单：
 
-   <img src="./!assets/Settings/image-20250626152238205.png" alt="image-20250626152238205" style="zoom: 50%;" />
+	<img src="./!assets/Settings/image-20250626152238205.png" alt="image-20250626152238205" style="zoom: 50%;" />
 
-   完成后无需重启文件资源管理器，右键发现菜单已经恢复。
+	完成后无需重启文件资源管理器，右键发现菜单已经恢复。
 
 3. 也可以通过修改注册表来恢复，需要在 `HKEY_CLASSES_ROOT` 下找到：
 
-   - `.docx` 选项并单击选中，双击打开右侧里面的默认项，将数值改为 `Word.Document.12`。
-   - `.xlsx` 选项并单击选中，双击打开右侧里面的默认项，将数值改为 `Excel.Sheet.12`。
-   - `.pptx` 选项并单击选中，双击打开右侧里面的默认项，将数值改为 `PowerPoint.Show.12`。
+	- `.docx` 选项并单击选中，双击打开右侧里面的默认项，将数值改为 `Word.Document.12`。
+	- `.xlsx` 选项并单击选中，双击打开右侧里面的默认项，将数值改为 `Excel.Sheet.12`。
+	- `.pptx` 选项并单击选中，双击打开右侧里面的默认项，将数值改为 `PowerPoint.Show.12`。
 
-   <img src="!assets/Settings/image-20240411184726892.png" alt="image-20240411184726892" style="" />
+	<img src="!assets/Settings/image-20240411184726892.png" alt="image-20240411184726892" style="" />
 
-   全部修改完成后，打开任务管理器，将文件资源管理器重启即可：
+	全部修改完成后，打开任务管理器，将文件资源管理器重启即可：
 
-   <img src="!assets/Settings/image-20240411185129951.png" alt="image-20240411185129951" style="zoom:50%;" />
+	<img src="!assets/Settings/image-20240411185129951.png" alt="image-20240411185129951" style="zoom:50%;" />
 
 
 
@@ -278,15 +278,15 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 2. 找到 `AdvancedMicroDevicesInc-2.AMDRadeonSoftware_`开头的项, 并展开。
 
-   找到 `server` 项,并展开。
+	找到 `server` 项,并展开。
 
-   找到 `0`项, 也可能时 `1`：
+	找到 `0`项, 也可能时 `1`：
 
-   <img src="./!assets/Settings/image-20250418150036951.png" alt="image-20250418150036951" style="zoom:67%;" />
+	<img src="./!assets/Settings/image-20250418150036951.png" alt="image-20250418150036951" style="zoom:67%;" />
 
 3. 删除 `ApplicationId` , 或修改 `ApplicationId` 的值（比如在值后加 “备份” 二字）：
 
-   <img src="./!assets/Settings/image-20250418150017030.png" alt="image-20250418150017030" style="zoom:67%;" />
+	<img src="./!assets/Settings/image-20250418150017030.png" alt="image-20250418150017030" style="zoom:67%;" />
 
 
 
@@ -305,7 +305,7 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 3. 取消 “要使用本计算机，用户必须输入用户名和密码”，点【确定 】。
 4. 会弹出一个窗口，在窗口中输入微软账户的用户名和密码，点【确定】：
 
-   <img src="!assets/Settings/image-20210513005900008.png" alt="image-20210513005900008" style="zoom:50%;" />
+	<img src="!assets/Settings/image-20210513005900008.png" alt="image-20210513005900008" style="zoom:50%;" />
 
 
 
@@ -319,20 +319,20 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 1. 右键托盘的输入法，选择【用户自定义短语】：
 
-   <img src="./!assets/Settings/image-20250418145148419.png" alt="image-20250418145148419" style="zoom: 50%;" />
+	<img src="./!assets/Settings/image-20250418145148419.png" alt="image-20250418145148419" style="zoom: 50%;" />
 
 2. 点击【添加】用户定义的短语：
 
-   <img src="!assets/Settings/image-20210624233318170.png" alt="image-20210624233318170" style="zoom: 43%;" />
+	<img src="!assets/Settings/image-20210624233318170.png" alt="image-20210624233318170" style="zoom: 43%;" />
 
 
-   ```
-   # 2020-11-29 16:21:29
-   %yyyy%-%MM%-%dd% %HH%:%mm%:%ss%
-   
-   # 2020年11月29日 16:21:29
-   %yyyy%年%MM%月%dd%日 %HH%:%mm%:%ss%
-   ```
+	```
+	# 2020-11-29 16:21:29
+	%yyyy%-%MM%-%dd% %HH%:%mm%:%ss%
+	
+	# 2020年11月29日 16:21:29
+	%yyyy%年%MM%月%dd%日 %HH%:%mm%:%ss%
+	```
 
 
 
@@ -342,29 +342,29 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 1. 打开网络共享。
 
-   打开计算机设置，然后依次点开【网络和 Internet】=>【高级网络设置】=>【高级共享设置】，打开专用网络里的网络发现和文件和打印机共享：
+	打开计算机设置，然后依次点开【网络和 Internet】=>【高级网络设置】=>【高级共享设置】，打开专用网络里的网络发现和文件和打印机共享：
 
-   <img src="!assets/Settings/image-20240905000816740.png" alt="image-20240905000816740" style="zoom:50%;" />
+	<img src="!assets/Settings/image-20240905000816740.png" alt="image-20240905000816740" style="zoom:50%;" />
 
-   > [!TIP]
-   >
-   > 为了安全建议只打开专用网络的网络共享，可以把家里网络设置成专用网络。
+	> [!TIP]
+	>
+	> 为了安全建议只打开专用网络的网络共享，可以把家里网络设置成专用网络。
 
 2. 设置文件的访问权限。
 
-   右键需要共享的文件，在【授予访问权限】这里选择【特定用户】：
+	右键需要共享的文件，在【授予访问权限】这里选择【特定用户】：
 
-   <img src="!assets/Settings/image-20240905001209450.png" alt="image-20240905001209450" style="zoom: 50%;" />
+	<img src="!assets/Settings/image-20240905001209450.png" alt="image-20240905001209450" style="zoom: 50%;" />
 
-   共享的用户选择 Everyone（所有人），然后点击【添加】：
+	共享的用户选择 Everyone（所有人），然后点击【添加】：
 
-   <img src="!assets/Settings/image-20240905001336093.png" alt="image-20240905001336093" style="zoom:50%;" />
+	<img src="!assets/Settings/image-20240905001336093.png" alt="image-20240905001336093" style="zoom:50%;" />
 
 3. 其他局域网机器访问。
 
-   其他局域网内的机器可以通过文件资源管理器的【网络】这里找到你的电脑设备，点击进去就可以访问到前面设置过共享权限的文件了：
+	其他局域网内的机器可以通过文件资源管理器的【网络】这里找到你的电脑设备，点击进去就可以访问到前面设置过共享权限的文件了：
 
-   <img src="!assets/Settings/image-20240905001707231.png" alt="image-20240905001707231" style="zoom:50%;" />
+	<img src="!assets/Settings/image-20240905001707231.png" alt="image-20240905001707231" style="zoom:50%;" />
 
 
 
@@ -386,17 +386,17 @@ DiskPart  取代了它的前身 —— fdisk，是一个命令行实用程序，
 
 2. 常见的注册表键值有如下几项：
 
-   - HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
+	- HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
 
-   - HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce（只运行一次）
+	- HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce（只运行一次）
 
-   - HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+	- HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
 
-   - HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce（只运行一次）
+	- HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce（只运行一次）
 
 3. 新建键值，从而实现添加启动项。
 
-   鼠标右键依次选择【新建】=>【字符串值】，填写名称后右键点击新建的键值选择【修改】，在 “数值数据” 中添加要自启的 exe 文件（最好用英文双引号扩上），在数值数据的最后加上 `/background` 可以实现后台自启（当然也可以加上别的 exe 支持的参数）。
+	鼠标右键依次选择【新建】=>【字符串值】，填写名称后右键点击新建的键值选择【修改】，在 “数值数据” 中添加要自启的 exe 文件（最好用英文双引号扩上），在数值数据的最后加上 `/background` 可以实现后台自启（当然也可以加上别的 exe 支持的参数）。
 
 
 
@@ -440,25 +440,25 @@ winget install 9MSSGKG348SP
 
 1. 很多 PE 系统都可以修改账号，这里使用 WinPE，启动PE后，进入桌面打开运行 Dism++ 程序：
 
-   <img src="!assets/Settings/image-20240912181936886.png" alt="image-20240912181936886" style="zoom:50%;" />
+	<img src="!assets/Settings/image-20240912181936886.png" alt="image-20240912181936886" style="zoom:50%;" />
 
 2. 选择带有系统的盘符（默认选的是 PE 盘），然后打开会话：
 
-   <img src="!assets/Settings/image-20240912182008073.png" alt="image-20240912182008073" style="zoom: 50%;" />
+	<img src="!assets/Settings/image-20240912182008073.png" alt="image-20240912182008073" style="zoom: 50%;" />
 
 3. 选择左侧工具箱，然后右侧找到账户管理：
 
-   <img src="!assets/Settings/image-20240912182035732.png" alt="image-20240912182035732" style="zoom:50%;" />
+	<img src="!assets/Settings/image-20240912182035732.png" alt="image-20240912182035732" style="zoom:50%;" />
 
-   然后就可以对已有账号进行管理了。
+	然后就可以对已有账号进行管理了。
 
 4. 使用管理员账号登录之后，打开注册表 `计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\PasswordLess\Device`，将 DevicePasswordLessBuildVersion 项的值改为 0：
 
-   <img src="!assets/Settings/image-20240912182353584.png" alt="image-20240912182353584" style="" />
+	<img src="!assets/Settings/image-20240912182353584.png" alt="image-20240912182353584" style="" />
 
 5. 重启电脑，这个时候就可以用密码登录原帐号了，登上去之后将 PIN 码删除再重新添加，在组策略编辑器里重新将管理员账号禁用：
 
-   <img src="!assets/Settings/image-20240912182721056.png" alt="image-20240912182721056" style="" />
+	<img src="!assets/Settings/image-20240912182721056.png" alt="image-20240912182721056" style="" />
 
 6. 最后重启电脑，如果一切正常，可以将注册表 DevicePasswordLessBuildVersion 项的值重新改为 2。
 
@@ -488,7 +488,7 @@ sc <server> [command] [service name] <option1> <option2>...
 
 - `sc config 服务名 start= auto|demand|disabled`：修改服务启动类型。
 
-  *start* 参数的值可以是 `demand`（手动）、`disabled`（禁用），`auto`（自动）。注意：`start=`后面有一个空格
+	*start* 参数的值可以是 `demand`（手动）、`disabled`（禁用），`auto`（自动）。注意：`start=`后面有一个空格
 
 
 
@@ -498,7 +498,7 @@ sc <server> [command] [service name] <option1> <option2>...
 
 2. “服务名称” 和 “服务显示名称”  是不一样的。`sc` 指令使用的是 “服务名称”。我们在【服务】里看到是服务的显示名称，双击打开某个服务可以看到真正的服务名字。
 
-   <img src="!assets/Settings/image-20220728002211513.png" alt="image-20220728002211513" style="zoom: 50%;" />
+	<img src="!assets/Settings/image-20220728002211513.png" alt="image-20220728002211513" style="zoom: 50%;" />
    
 3. `sc start` 和 `sc stop` 功能上类似于 `net start` 和 `net stop`，但速度更快且能停止的服务更多。
 
@@ -524,17 +524,17 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 1. 按 Win + R 呼出【运行】，输入 gpedit.msc 按回车，打开组策略编辑器：
 
-   <img src="!assets/Settings/image-20221104154634735.png" alt="image-20221104154634735" style="zoom: 50%;" />
+	<img src="!assets/Settings/image-20221104154634735.png" alt="image-20221104154634735" style="zoom: 50%;" />
 
 2. 在组策略管理控制台上，转到【计算机配置】=>【管理模板】=>【系统】=>【Device Guard】，双击【Device Guard】：
 
-   <img src="!assets/Settings/image-20221104154738722.png" alt="image-20221104154738722" style="zoom:50%;" />
+	<img src="!assets/Settings/image-20221104154738722.png" alt="image-20221104154738722" style="zoom:50%;" />
 
 3. 双击打开【基于虚拟化的安全】，然后单击禁用选项：
 
-   <img src="!assets/Settings/image-20221104154813968.png" alt="image-20221104154813968" style="zoom:50%;" />
+	<img src="!assets/Settings/image-20221104154813968.png" alt="image-20221104154813968" style="zoom:50%;" />
 
-   确定配置并重启电脑即可解决。
+	确定配置并重启电脑即可解决。
 
 
 
@@ -544,11 +544,11 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 2. 找到注册表里面的 `计算机\HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client\Default` 其中右边的就是连接过的记录了,删除需要清除的文件即可：
 
-   <img src="!assets/Settings/image-20230613190839331.png" alt="image-20230613190839331" style="" />
+	<img src="!assets/Settings/image-20230613190839331.png" alt="image-20230613190839331" style="" />
 
 3. 如果有保存凭据，需要在【凭据管理器】里删除对应的凭据：
 
-   <img src="!assets/Settings/image-20230613190733588.png" alt="image-20230613190733588" style="" />
+	<img src="!assets/Settings/image-20230613190733588.png" alt="image-20230613190733588" style="" />
 
 
 
@@ -586,23 +586,23 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 1. 右键 Windows 图标点击【计算机管理】：
 
-   <img src="!assets/Settings/image-20250311144103532.png" alt="image-20250311144103532" style="zoom:50%;" />
+	<img src="!assets/Settings/image-20250311144103532.png" alt="image-20250311144103532" style="zoom:50%;" />
 
 2. 打开【本地用户和组】，右键【用户】，在右键菜单中选择【新用户】：
 
-   <img src="!assets/Settings/image-20250311144225363.png" alt="image-20250311144225363" style="zoom: 67%;" />
+	<img src="!assets/Settings/image-20250311144225363.png" alt="image-20250311144225363" style="zoom: 67%;" />
 
 3. 创建新用户：
 
-   <img src="!assets/Settings/image-20250311144300065.png" alt="image-20250311144300065" style="zoom:50%;" />
+	<img src="!assets/Settings/image-20250311144300065.png" alt="image-20250311144300065" style="zoom:50%;" />
 
 4. 右键新增的用户，在右键菜单中点击【属性】，切换到【隶属于】，将其添加到管理员组：
 
-   <img src="!assets/Settings/image-20250311144408921.png" alt="image-20250311144408921" style="zoom:50%;" />
+	<img src="!assets/Settings/image-20250311144408921.png" alt="image-20250311144408921" style="zoom:50%;" />
 
 5. 打开系统设置，依次点开【系统】=>【远程桌面】=>【远程桌面用户】，点击【添加】，将刚才新建的用户添加进去：
 
-   <img src="!assets/Settings/image-20250311144810934.png" alt="image-20250311144810934" style="zoom: 67%;" />
+	<img src="!assets/Settings/image-20250311144810934.png" alt="image-20250311144810934" style="zoom: 67%;" />
 
 
 
@@ -610,13 +610,13 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 1. Win+R 打开运行窗口，输入 `gpedit.msc`，打开本地组策略编辑器，依次选择【计算机配置】=>【管理模板】=>【Windows组件】=>【远程桌面服务】=>【远程桌面会话主机】=>【连接】：
 
-   <img src="!assets/Settings/image-20250311145043149.png" alt="image-20250311145043149" style="zoom:50%;" />
+	<img src="!assets/Settings/image-20250311145043149.png" alt="image-20250311145043149" style="zoom:50%;" />
 
 2. 选择以下三项配置进行修改：
 
-   - 配置【允许用户通过使用远程桌面服务进行远程连接】，选择：【已启用】。
-   - 配置【限制连接的数量】，点击【已启用】，其中【允许的RD最大连接数】可以自己视情况而定。
-   - 配置【将远程桌面服务用户限制到单独的远程桌面服务会话】，选择：【已启用】。
+	- 配置【允许用户通过使用远程桌面服务进行远程连接】，选择：【已启用】。
+	- 配置【限制连接的数量】，点击【已启用】，其中【允许的RD最大连接数】可以自己视情况而定。
+	- 配置【将远程桌面服务用户限制到单独的远程桌面服务会话】，选择：【已启用】。
 
 
 
@@ -626,31 +626,31 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 2. 右键以管理员身份运行，此时便会自动安装补丁，出现全绿点击【OK】：
 
-   <img src="!assets/Settings/image-20250311145558771.png" alt="image-20250311145558771" style="zoom: 50%;" />
+	<img src="!assets/Settings/image-20250311145558771.png" alt="image-20250311145558771" style="zoom: 50%;" />
    
 3. 如果出现【not supported】：
 
-   <img src="E:\Users\Orichalcos\Documents\Note\Markdown\!assets\IDE&Windows\image-20250330234424760.png" alt="image-20250330234424760" style="zoom: 50%;" />
+	<img src="E:\Users\Orichalcos\Documents\Note\Markdown\!assets\IDE&Windows\image-20250330234424760.png" alt="image-20250330234424760" style="zoom: 50%;" />
 
-   先记下 termsrv ver，比如这里为 10.0.26100.3624。
+	先记下 termsrv ver，比如这里为 10.0.26100.3624。
 
 4. 前往该 [Issues]([Issues · stascorp/rdpwrap](https://github.com/stascorp/rdpwrap/issues)) 去搜索对应的版本号：
 
-   <img src="E:\Users\Orichalcos\Documents\Note\Markdown\!assets\IDE&Windows\image-20250330235037493.png" alt="image-20250330235037493" style="zoom: 50%;" />
+	<img src="E:\Users\Orichalcos\Documents\Note\Markdown\!assets\IDE&Windows\image-20250330235037493.png" alt="image-20250330235037493" style="zoom: 50%;" />
 
-   在里面找到对应的配置并将其复制：
+	在里面找到对应的配置并将其复制：
 
-   <img src="E:\Users\Orichalcos\Documents\Note\Markdown\!assets\IDE&Windows\image-20250330235146384.png" alt="image-20250330235146384" style="zoom: 50%;" />
+	<img src="E:\Users\Orichalcos\Documents\Note\Markdown\!assets\IDE&Windows\image-20250330235146384.png" alt="image-20250330235146384" style="zoom: 50%;" />
 
 5. 找到 RDP Wrapper 安装目录的 rdpwrap.ini 文件，将上一步复制的内容粘贴到 rdpwrap.ini 里：
 
-   <img src="E:\Users\Orichalcos\Documents\Note\Markdown\!assets\IDE&Windows\image-20250330235348484.png" alt="image-20250330235348484" style="zoom: 50%;" />
+	<img src="E:\Users\Orichalcos\Documents\Note\Markdown\!assets\IDE&Windows\image-20250330235348484.png" alt="image-20250330235348484" style="zoom: 50%;" />
 
 6. 最后点击 RDP Wrapper 的 【Update INI】按钮：
 
-   <img src="E:\Users\Orichalcos\Documents\Note\Markdown\!assets\IDE&Windows\image-20250330235604110.png" alt="image-20250330235604110" style="zoom:50%;" />
+	<img src="E:\Users\Orichalcos\Documents\Note\Markdown\!assets\IDE&Windows\image-20250330235604110.png" alt="image-20250330235604110" style="zoom:50%;" />
 
-   可以看到状态已经变成【fully supported】，最后点击一下【Resetart TermService】。
+	可以看到状态已经变成【fully supported】，最后点击一下【Resetart TermService】。
 
 > [!TIP]
 >
@@ -662,19 +662,19 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 1. Win+R 打开运行窗口，输入 `mstsc`，输入本地回环地址，注意不要输入 `127.0.0.1` 否则会报错：
 
-   <img src="!assets/Settings/image-20250311145752871.png" alt="image-20250311145752871" style="zoom: 50%;" />
+	<img src="!assets/Settings/image-20250311145752871.png" alt="image-20250311145752871" style="zoom: 50%;" />
 
 2. 输入密码：
 
-   <img src="!assets/Settings/image-20250311145921041.png" alt="image-20250311145921041" style="zoom: 50%;" />
+	<img src="!assets/Settings/image-20250311145921041.png" alt="image-20250311145921041" style="zoom: 50%;" />
 
 3. 密码没问题就启动了，可以启动游戏啥的：
 
-   <img src="!assets/Settings/image-20250311150128468.png" alt="image-20250311150128468" style="zoom: 33%;" />
+	<img src="!assets/Settings/image-20250311150128468.png" alt="image-20250311150128468" style="zoom: 33%;" />
 
 4. 注意最后关闭远程桌面连接之后，需要注销用户，不然虽然远程关闭了，但是用户和资源并没有释放：
 
-   <img src="!assets/Settings/image-20250311150329217.png" alt="image-20250311150329217" style="zoom: 50%;" />
+	<img src="!assets/Settings/image-20250311150329217.png" alt="image-20250311150329217" style="zoom: 50%;" />
 
 
 
@@ -686,23 +686,23 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 2. 输入以下命令：
 
-   ```shell
-   set http_proxy=http://127.0.0.1:端口号
-   set https_proxy=http://127.0.0.1:端口号
-   ```
+	```shell
+	set http_proxy=http://127.0.0.1:端口号
+	set https_proxy=http://127.0.0.1:端口号
+	```
 
-   如果你的代理服务器要求用户名和密码的话，那么还需要：
+	如果你的代理服务器要求用户名和密码的话，那么还需要：
 
-   ```shell
-   set http_proxy_user=
-   set http_proxy_pass=
-   ```
+	```shell
+	set http_proxy_user=
+	set http_proxy_pass=
+	```
 
 3. 验证是否生效：
 
-   ```shell
-   curl -vk https://www.google.com
-   ```
+	```shell
+	curl -vk https://www.google.com
+	```
 
 
 
@@ -714,13 +714,13 @@ Windows11 22H2 开始 Windows 开始更新内核保护了。这玩意让我不�
 
 2. 添加如下的系统环境变量：
 
-   - 变量名：`http_proxy`
+	- 变量名：`http_proxy`
    
-     变量值：`http://127.0.0.1:7890`
+		变量值：`http://127.0.0.1:7890`
    
-   - 变量名：`https_proxy`
+	- 变量名：`https_proxy`
    
-     变量值：`http://127.0.0.1:7890`
+		变量值：`http://127.0.0.1:7890`
 
 
 
@@ -744,27 +744,27 @@ localhost,127.0.0.1,Orichalcos.com
 
 1. 新建文本文档，输入以下内容：
 
-   ```
-   Windows Registry Editor Version 5.00
-   
-   [HKEY_CURRENT_USER\Control Panel\Input Method\Hot Keys\00000010]
-   "Key Modifiers"=hex:00,c0,00,00
-   "Virtual Key"=hex:ff,00,00,00
-   
-   [HKEY_CURRENT_USER\Control Panel\Input Method\Hot Keys\00000070]
-   "Key Modifiers"=hex:00,c0,00,00
-   "Virtual Key"=hex:ff,00,00,00
-   
-   [HKEY_USERS\.DEFAULT\Control Panel\Input Method\Hot Keys\00000010]
-   "Key Modifiers"=hex:02,c0,00,00
-   "Target IME"=hex:00,00,00,00
-   "Virtual Key"=hex:ff,00,00,00
-   
-   [HKEY_USERS\.DEFAULT\Control Panel\Input Method\Hot Keys\00000070]
-   "Key Modifiers"=hex:02,c0,00,00
-   "Target IME"=hex:00,00,00,00
-   "Virtual Key"=hex:ff,00,00,00
-   ```
+	```
+	Windows Registry Editor Version 5.00
+	
+	[HKEY_CURRENT_USER\Control Panel\Input Method\Hot Keys\00000010]
+	"Key Modifiers"=hex:00,c0,00,00
+	"Virtual Key"=hex:ff,00,00,00
+	
+	[HKEY_CURRENT_USER\Control Panel\Input Method\Hot Keys\00000070]
+	"Key Modifiers"=hex:00,c0,00,00
+	"Virtual Key"=hex:ff,00,00,00
+	
+	[HKEY_USERS\.DEFAULT\Control Panel\Input Method\Hot Keys\00000010]
+	"Key Modifiers"=hex:02,c0,00,00
+	"Target IME"=hex:00,00,00,00
+	"Virtual Key"=hex:ff,00,00,00
+	
+	[HKEY_USERS\.DEFAULT\Control Panel\Input Method\Hot Keys\00000070]
+	"Key Modifiers"=hex:02,c0,00,00
+	"Target IME"=hex:00,00,00,00
+	"Virtual Key"=hex:ff,00,00,00
+	```
 
 2. 将后缀名改为 `.reg`。
 
@@ -778,11 +778,11 @@ localhost,127.0.0.1,Orichalcos.com
 
 2. 依次选择【计算机配置】=>【管理模板】=>【Windows 组件】=>【Microsoft Defender防病毒】=>【实时保护】，双击【实时保护】：
 
-   <img src="!assets/Settings/image-20231214235310490.png" alt="image-20231214235310490" style="" />
+	<img src="!assets/Settings/image-20231214235310490.png" alt="image-20231214235310490" style="" />
 
 3. 双击【关闭实时保护】，选择【已启用】，点击【应用】：
 
-   <img src="!assets/Settings/image-20231214235546195.png" alt="image-20231214235546195" style="" />
+	<img src="!assets/Settings/image-20231214235546195.png" alt="image-20231214235546195" style="" />
 
 
 
@@ -798,11 +798,11 @@ localhost,127.0.0.1,Orichalcos.com
 
 2. 依次选择【计算机配置】=>【管理模板】=>【Windows组件】=>【Windows 游戏录制与广播】，双击【Windows 游戏录制与广播】：
 
-   <img src="!assets/Settings/image-20231215000604307.png" alt="image-20231215000604307" style="zoom:80%;" />
+	<img src="!assets/Settings/image-20231215000604307.png" alt="image-20231215000604307" style="zoom:80%;" />
 
 3. 双击【启用或禁用 Windows 游戏录制和广播】，选择【已禁用】，点击【应用】：
 
-   <img src="!assets/Settings/image-20231215000956699.png" alt="image-20231215000956699" style="" />
+	<img src="!assets/Settings/image-20231215000956699.png" alt="image-20231215000956699" style="" />
    
 4. 最后重启电脑即可。
 
@@ -858,29 +858,29 @@ localhost,127.0.0.1,Orichalcos.com
 
 1. 打开 Windows 设置并导航到【系统】=>【存储】=>【高级存储设置】=>【磁盘和卷】，选择【创建 Dev Drive】：
 
-   <img src="!assets/Settings/image-20231218005553385.png" alt="image-20231218005553385" style="zoom: 50%;" />
+	<img src="!assets/Settings/image-20231218005553385.png" alt="image-20231218005553385" style="zoom: 50%;" />
 
 2. 系统会提供三个选项：
 
-   1. 创建新的 VHD：在新的虚拟硬盘上生成卷。
-   2. 重设现有卷大小：创建新的未分配空间以进行构建。
-   3. 磁盘上的未分配空间：使用现有磁盘上的未分配空间（仅当之前在存储中设置了未分配的空间时，才会显示此选项）。
+	1. 创建新的 VHD：在新的虚拟硬盘上生成卷。
+	2. 重设现有卷大小：创建新的未分配空间以进行构建。
+	3. 磁盘上的未分配空间：使用现有磁盘上的未分配空间（仅当之前在存储中设置了未分配的空间时，才会显示此选项）。
 
-   这里推荐选择【重设现有卷大小】
+	这里推荐选择【重设现有卷大小】
 
-   <img src="!assets/Settings/image-20231218010059396.png" alt="image-20231218010059396" style="zoom: 50%;" />
+	<img src="!assets/Settings/image-20231218010059396.png" alt="image-20231218010059396" style="zoom: 50%;" />
 
 3. 选择要调整大小的卷：
 
-   <img src="!assets/Settings/image-20231218010220051.png" alt="image-20231218010220051" style="zoom: 67%;" />
+	<img src="!assets/Settings/image-20231218010220051.png" alt="image-20231218010220051" style="zoom: 67%;" />
 
 4. 为卷选择新大小，需要至少有 50GB 的未分配的可用空间，这是开发驱动器所需的最小大小。 设置大小后，选择【下一步】：
 
-   <img src="!assets/Settings/image-20231218010331196.png" alt="image-20231218010331196" style="zoom: 67%;" />
+	<img src="!assets/Settings/image-20231218010331196.png" alt="image-20231218010331196" style="zoom: 67%;" />
 
 5. 若要在新的可用空间上设置开发驱动器的格式，请指定标签（驱动器名称）、驱动器号和大小分配。 最大大小是在上一步中分配的可用空间量，开发驱动器的最小大小为 50GB：
 
-   <img src="!assets/Settings/image-20231218010448788.png" alt="image-20231218010448788" style="zoom: 67%;" />
+	<img src="!assets/Settings/image-20231218010448788.png" alt="image-20231218010448788" style="zoom: 67%;" />
 
 6. 到这里就已经创建并调整了开发驱动器的大小！
 
@@ -1233,48 +1233,48 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 1. 登录阿里云官网，点击右上角的控制台，在控制台的搜索框搜索 “机器翻译”：
 
-   <img src="!assets/Settings/image-20220328155154582.png" alt="image-20220328155154582" style="zoom: 50%;" />
+	<img src="!assets/Settings/image-20220328155154582.png" alt="image-20220328155154582" style="zoom: 50%;" />
 
 2. 点击【通用版翻译引擎】下方的【立即开通】按钮：
 
-   <img src="!assets/Settings/image-20220328160104687.png" alt="image-20220328160104687" style="zoom: 50%;" />
+	<img src="!assets/Settings/image-20220328160104687.png" alt="image-20220328160104687" style="zoom: 50%;" />
 
 
-   点击之后会让你勾选一个【机器翻译服务协议】，勾选之后点【立即开通】就能开通成功了。
+	点击之后会让你勾选一个【机器翻译服务协议】，勾选之后点【立即开通】就能开通成功了。
 
 3. 开通后，回到 阿里云机器翻译控制台，把鼠标悬停在右上角用户头像上，然后点击【AccessKey 管理】，会跳转到 AccessKey 管理页面：
 
-   <img src="!assets/Settings/image-20220328160302854.png" alt="image-20220328160302854" style="zoom:67%;" />
+	<img src="!assets/Settings/image-20220328160302854.png" alt="image-20220328160302854" style="zoom:67%;" />
 
 4. 进入后会弹出一个安全提示：
 
-   <img src="!assets/Settings/image-20220328160748769.png" alt="image-20220328160748769" style="zoom: 60%;" />
+	<img src="!assets/Settings/image-20220328160748769.png" alt="image-20220328160748769" style="zoom: 60%;" />
    
-   简而言之，在这里创建的 AccessKey 能调用你账号下的所有资源，权限范围太大了，一旦泄露的话影响面很大，所以阿里云建议你创建一个子用户，然后给这个子用户只分配机器翻译的权限，这样的话即使泄露了也只会影响到机器翻译。
+	简而言之，在这里创建的 AccessKey 能调用你账号下的所有资源，权限范围太大了，一旦泄露的话影响面很大，所以阿里云建议你创建一个子用户，然后给这个子用户只分配机器翻译的权限，这样的话即使泄露了也只会影响到机器翻译。
 
 5. 点击【创建用户】，填写用户信息 ：
 
-   - 设置登录名称：huacifanyi
-   - 填写显示名称：划词翻译
-   - 访问方式：勾选【Open API 调用访问】
+	- 设置登录名称：huacifanyi
+	- 填写显示名称：划词翻译
+	- 访问方式：勾选【Open API 调用访问】
 
-   <img src="!assets/Settings/image-20220328161056344.png" alt="image-20220328161056344" style="zoom:80%;" />
+	<img src="!assets/Settings/image-20220328161056344.png" alt="image-20220328161056344" style="zoom:80%;" />
 
 6. 点击【确定】之后会让你输入手机短信验证码，输入之后会看到创建成功的 【AccessKey ID】 和 【AccessKey Secret】，如下图：
 
-   <img src="!assets/Settings/image-20220328161159317.png" alt="image-20220328161159317" style="" />
+	<img src="!assets/Settings/image-20220328161159317.png" alt="image-20220328161159317" style="" />
 
 7. 然后勾选刚刚创建的用户，点击【添加权限】：
 
-   <img src="!assets/Settings/image-20220328161321740.png" alt="image-20220328161321740" style="zoom:80%;" />
+	<img src="!assets/Settings/image-20220328161321740.png" alt="image-20220328161321740" style="zoom:80%;" />
 
 8. 搜索 “机器翻译”，单击选中【AliyunMTFullAccess】和【AliyunMTReadOnlyAccess】这两项即可，然后点击【确定】：
 
-   <img src="!assets/Settings/image-20220328161442913.png" alt="image-20220328161442913" style="zoom:67%;" />
+	<img src="!assets/Settings/image-20220328161442913.png" alt="image-20220328161442913" style="zoom:67%;" />
 
 9. 最后在 IDEA 的 Translation 中，选择 阿里翻译并配置：
 
-   <img src="!assets/Settings/image-20220328161610458.png" alt="image-20220328161610458" style="zoom:67%;" />
+	<img src="!assets/Settings/image-20220328161610458.png" alt="image-20220328161610458" style="zoom:67%;" />
 
 
 
@@ -1286,11 +1286,11 @@ IDEA 2021.2 可以设置自动保存时触发的操作，比如重新格式化�
 
 2. 在 Windows 安全中心中选择【病毒和威胁防护】，在【病毒和威胁防护设置】下，选择【管理设置】
 
-   <img src="!assets/Settings/image-20221122105328603.png" alt="image-20221122105328603" style="zoom: 50%;" />
+	<img src="!assets/Settings/image-20221122105328603.png" alt="image-20221122105328603" style="zoom: 50%;" />
 
 3. 最后在 ”排除项“ 下，点击【添加或删除排除项】
 
-   <img src="!assets/Settings/image-20221122105441981.png" alt="image-20221122105441981" style="zoom:50%;" />
+	<img src="!assets/Settings/image-20221122105441981.png" alt="image-20221122105441981" style="zoom:50%;" />
 
 
 
@@ -1329,15 +1329,15 @@ IntelliJ IDEA 可以在菜单中的【File】=>【Settings】=>【Editor】=>【
 
 - Standard 版本：
 
-  ```shell
-  DISM /online /Set-Edition:ServerStandard /ProductKey:VDYBN-27WPP-V4HQT-9VMD4-VMK7H /AcceptEula
-  ```
+	```shell
+	DISM /online /Set-Edition:ServerStandard /ProductKey:VDYBN-27WPP-V4HQT-9VMD4-VMK7H /AcceptEula
+	```
 
 - Datacenter 版本：
 
-  ```shell
-  DISM /online /Set-Edition:ServerDatacenter /ProductKey:WX4NM-KYWYW-QJJR4-XV3QB-6VM33 /AcceptEula
-  ```
+	```shell
+	DISM /online /Set-Edition:ServerDatacenter /ProductKey:WX4NM-KYWYW-QJJR4-XV3QB-6VM33 /AcceptEula
+	```
 
 然后进行 KMS 激活。
 
@@ -1347,31 +1347,31 @@ IntelliJ IDEA 可以在菜单中的【File】=>【Settings】=>【Editor】=>【
 
 1. 首先输入下面的命令，更改 Windows server 2022 操作系统序列号：
 
-   ```shell
-   slmgr -ipk WX4NM-KYWYW-QJJR4-XV3QB-6VM33
-   ```
+	```shell
+	slmgr -ipk WX4NM-KYWYW-QJJR4-XV3QB-6VM33
+	```
 
-   <img src="!assets/Settings/image-20230721145853625.png" alt="image-20230721145853625" style="" />
+	<img src="!assets/Settings/image-20230721145853625.png" alt="image-20230721145853625" style="" />
 
 2. 接下来更改 KMS 激活服务器，使用下面的命令进行更改：
 
-   ```shell
-   slmgr /skms kms.03k.org
-   ```
+	```shell
+	slmgr /skms kms.03k.org
+	```
 
-   <img src="!assets/Settings/image-20230721145909063.png" alt="image-20230721145909063" style="" />
+	<img src="!assets/Settings/image-20230721145909063.png" alt="image-20230721145909063" style="" />
 
 3. 完成KMS服务器的设置以后，就可以使用下面的命令来激活 Windows server 2022 操作系统：
 
-   ```shell
-   slmgr /skms kms.03k.org
-   ```
+	```shell
+	slmgr /skms kms.03k.org
+	```
 
-   <img src="!assets/Settings/image-20230721145919926.png" alt="image-20230721145919926" style="" />
+	<img src="!assets/Settings/image-20230721145919926.png" alt="image-20230721145919926" style="" />
 
 4. 通过 `slmgr.vbs -dlv` 命令可以看到激活后的使用期限为 180 天，可以重置的计数 1000 次以上，应该可以让你完成测试使用。
 
-   <img src="!assets/Settings/image-20230721145929877.png" alt="image-20230721145929877" style="" />
+	<img src="!assets/Settings/image-20230721145929877.png" alt="image-20230721145929877" style="" />
 
 >  以上的方法供学习使用。 
 
@@ -1385,33 +1385,33 @@ IntelliJ IDEA 可以在菜单中的【File】=>【Settings】=>【Editor】=>【
 
 3. 键入以下命令然后按 Enter 键以下载运行库：
 
-   ```shell
-   Invoke-WebRequest -Uri https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -outfile Microsoft.VCLibs.x86.14.00.Desktop.appx
-   ```
+	```shell
+	Invoke-WebRequest -Uri https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -outfile Microsoft.VCLibs.x86.14.00.Desktop.appx
+	```
 
-   <img src="!assets/Settings/powershell-download-vclibs-windows-server.webp" alt="PowerShell download VClibs" style="" />
+	<img src="!assets/Settings/powershell-download-vclibs-windows-server.webp" alt="PowerShell download VClibs" style="" />
 
 4. 键入以下命令然后按 Enter 键以安装 “.appx” 程序包：
 
-   ```shell
-   Add-AppxPackage Microsoft.VCLibs.x86.14.00.Desktop.appx
-   ```
+	```shell
+	Add-AppxPackage Microsoft.VCLibs.x86.14.00.Desktop.appx
+	```
 
 5. 输入以下命令并按 Enter 键下载最新版本的 Windows Terminal：
 
-   ```shell
-   Invoke-WebRequest -Uri https://github.com/microsoft/terminal/releases/download/v1.16.10261.0/Microsoft.WindowsTerminal_Win10_1.16.10261.0_8wekyb3d8bbwe.msixbundle -outfile Microsoft.WindowsTerminal_Win10_1.16.10261.0_8wekyb3d8bbwe.msixbundle
-   ```
+	```shell
+	Invoke-WebRequest -Uri https://github.com/microsoft/terminal/releases/download/v1.16.10261.0/Microsoft.WindowsTerminal_Win10_1.16.10261.0_8wekyb3d8bbwe.msixbundle -outfile Microsoft.WindowsTerminal_Win10_1.16.10261.0_8wekyb3d8bbwe.msixbundle
+	```
 
-   <img src="!assets/Settings/download-terminal-powershell.webp" alt="PowerShell download Terminal" style="" />
+	<img src="!assets/Settings/download-terminal-powershell.webp" alt="PowerShell download Terminal" style="" />
 
-   > 如果服务器无法下载可以直接去 [GItHub](https://github.com/microsoft/terminal/releases) 下载后传输到服务器，然后执行安装命令。建议下载的版本和上面命令行保持一致，其他版本由于缺少其他包无法进行安装。
+	> 如果服务器无法下载可以直接去 [GItHub](https://github.com/microsoft/terminal/releases) 下载后传输到服务器，然后执行安装命令。建议下载的版本和上面命令行保持一致，其他版本由于缺少其他包无法进行安装。
 
 6. 键入以下命令然后按 Enter 键以安装 Windows Terminal 应用程序：
 
-   ```shell
-   Add-AppxPackage Microsoft.WindowsTerminal_Win10_1.16.10261.0_8wekyb3d8bbwe.msixbundle
-   ```
+	```shell
+	Add-AppxPackage Microsoft.WindowsTerminal_Win10_1.16.10261.0_8wekyb3d8bbwe.msixbundle
+	```
 
 完成这些步骤后，终端将安装在 Windows Server 上。
 
@@ -1423,19 +1423,19 @@ IntelliJ IDEA 可以在菜单中的【File】=>【Settings】=>【Editor】=>【
 
 1. 在终端中输入命令 `sconfig` 回车：
 
-   <img src="!assets/Settings/image-20240814000959424.png" alt="image-20240814000959424" style="zoom:67%;" />
+	<img src="!assets/Settings/image-20240814000959424.png" alt="image-20240814000959424" style="zoom:67%;" />
 
 2. 输入数字 5 回车：
 
-   <img src="!assets/Settings/image-20240814000605863.png" alt="image-20240814000605863" style="zoom:67%;" />
+	<img src="!assets/Settings/image-20240814000605863.png" alt="image-20240814000605863" style="zoom:67%;" />
 
 3. 选择 “手动更新”，即输入数字 3 回车即可：
 
-   <img src="!assets/Settings/image-20240814000627522.png" alt="image-20240814000627522" style="zoom:67%;" />
+	<img src="!assets/Settings/image-20240814000627522.png" alt="image-20240814000627522" style="zoom:67%;" />
 
 4. 最后会回到这个页面，可以看到更新已改为手动：
 
-   <img src="!assets/Settings/image-20240814001105085.png" alt="image-20240814001105085" style="zoom:67%;" />
+	<img src="!assets/Settings/image-20240814001105085.png" alt="image-20240814001105085" style="zoom:67%;" />
 
 
 
@@ -1461,13 +1461,13 @@ set "title=名字"
 
 1. 登录服务器后，打开任务管理器，在任务管理器中查找是否有进程 rdpclip.exe，有的系统不一样，名字也是不同的，也有系统叫 RDP剪贴板监视程序：
 
-   <img src="!assets/Settings/QQ_1735503873741.png" alt="QQ_1735503873741" style="zoom:67%;" />
+	<img src="!assets/Settings/QQ_1735503873741.png" alt="QQ_1735503873741" style="zoom:67%;" />
 
 2. 如果找到有进程，选中该进程，鼠标右键，选择结束该进程，结束该进程；如果没有该进程，直接进行第 3 步。
 
 3. 按 Win + R 打开【运行】，在运行中输入进程 rdpclip.exe，并点击确定：
 
-   <img src="!assets/Settings/QQ_1735504009366.png" alt="QQ_1735504009366" style="zoom:50%;" />
+	<img src="!assets/Settings/QQ_1735504009366.png" alt="QQ_1735504009366" style="zoom:50%;" />
 
 4. 再次在任务管理其中查看进程 rdpclip.exe 是否已经启动，如果已经启动，就测试是否可以复制粘贴，如果还是没有启动，则再次操作第 4 步。
 
@@ -1479,28 +1479,28 @@ set "title=名字"
 
 1. 打开 CMD 或 PowerShell 执行以下命令生成密钥对：
 
-   ```shell
-   ssh-keygen -t rsa -b 4096
-   ```
+	```shell
+	ssh-keygen -t rsa -b 4096
+	```
 
-   一路回车（不要设置密码）。这会在 `C:\Users\<用户名>\.ssh\` 生成两个文件：
+	一路回车（不要设置密码）。这会在 `C:\Users\<用户名>\.ssh\` 生成两个文件：
 
-   - id_rsa：私钥，千万不要给别人。
-   - id_rsa.pub：公钥，等下要拷到服务器。
+	- id_rsa：私钥，千万不要给别人。
+	- id_rsa.pub：公钥，等下要拷到服务器。
 
 2. 用记事本打开 id_rsa.pub，复制里面的全部内容，服务器配置会用到。
 
 3. 打开 `C:\Users\<用户名>\.ssh\config`（如果文件不存在，就新建一个，没有后缀名），在里面填入以下内容：
 
-   ```shell
-   # 给你的服务器起个名字，比如叫 my-web-server
-   Host my-web-server
-       HostName orichalcos.com
-       User Administrator
-       Port 22
-   ```
+	```shell
+	# 给你的服务器起个名字，比如叫 my-web-server
+	Host my-web-server
+	    HostName orichalcos.com
+	    User Administrator
+	    Port 22
+	```
 
-   服务器配置完成后可以直接使用 `ssh my-web-server` 登录。
+	服务器配置完成后可以直接使用 `ssh my-web-server` 登录。
 
 
 
@@ -1508,33 +1508,33 @@ set "title=名字"
 
 1. 以管理员身份打开 PowerShell，安装 OpenSSH 服务：
 
-   ```shell
-   # 安装服务端
-   Add-WindowsCapability -Online -Name OpenSSH.Server
-   # 启动服务
-   Start-Service sshd
-   # 设置开机自启
-   Set-Service -Name sshd -StartupType 'Automatic'
-   ```
+	```shell
+	# 安装服务端
+	Add-WindowsCapability -Online -Name OpenSSH.Server
+	# 启动服务
+	Start-Service sshd
+	# 设置开机自启
+	Set-Service -Name sshd -StartupType 'Automatic'
+	```
 
 2. 用记事本打开 SSH 配置文件： `C:\ProgramData\ssh\sshd_config`，找到文件末尾的这两行，在前面加 `#` 注释掉：
 
-   ```
-   # Match Group administrators
-   #        AuthorizedKeysFile __PROGRAMDATA__/ssh/administrators_authorized_keys
-   ```
+	```
+	# Match Group administrators
+	#        AuthorizedKeysFile __PROGRAMDATA__/ssh/administrators_authorized_keys
+	```
 
-   保存文件。
+	保存文件。
 
 3. 重启 SSH 服务：
 
-   ```shell
-   Restart-Service sshd
-   ```
+	```shell
+	Restart-Service sshd
+	```
 
 4. 在服务器上的 ` C:\Users\Administrator\.ssh\`  目录创建授权文件 authorized_keys（没有后缀名），把本地电脑的公钥粘贴进去，保存。
 
-   以后每多一台电脑，就把它的公钥多加一行。
+	以后每多一台电脑，就把它的公钥多加一行。
 
 
 
@@ -1556,23 +1556,23 @@ ask the administrator to create a pre-revprop-change hook
 
 1. 编写批处理文件 `pre-revprop-change.bat`，内容如下：
 
-   ```bat
-   SET REPOS="%1"
-   
-   SET REV="%2"
-   
-   SET USER="%3"
-   
-   SET PROPNAME="%4"
-   
-   SET ACTION="%5"
-   
-   IF %ACTION% == "M" (IF %PROPNAME% == "svn:log" (EXIT 0))
-   
-   ECHO "Changing revision properties %PROPNAME% is prohibited" >&2
-   
-   EXIT 1
-   ```
+	```bat
+	SET REPOS="%1"
+	
+	SET REV="%2"
+	
+	SET USER="%3"
+	
+	SET PROPNAME="%4"
+	
+	SET ACTION="%5"
+	
+	IF %ACTION% == "M" (IF %PROPNAME% == "svn:log" (EXIT 0))
+	
+	ECHO "Changing revision properties %PROPNAME% is prohibited" >&2
+	
+	EXIT 1
+	```
 
 2. 将文件放到 `\Repositories\SVN文件夹\hooks\` 下执行即可。
 
@@ -1586,7 +1586,7 @@ ask the administrator to create a pre-revprop-change hook
 
 3. 将 .exe 的文件拷到上面第一步的目录中去，启动该工具就可以看见对应的用户名密码了：
 
-   <img src="!assets/Settings/image-20231214235920682.png" alt="image-20231214235920682" style="zoom:67%;" />
+	<img src="!assets/Settings/image-20231214235920682.png" alt="image-20231214235920682" style="zoom:67%;" />
 
 
 
@@ -1600,25 +1600,25 @@ Winget 是 Windows 软件包管理器，是一个命令行工具，使用户能�
 
 1. 搜索最新版本的 PowerShell：
 
-   ```shell
-   winget search Microsoft.PowerShell
-   ```
+	```shell
+	winget search Microsoft.PowerShell
+	```
 
-   输出：
+	输出：
 
-   ```
-   Name               Id                           Version   Source
-   -----------------------------------------------------------------
-   PowerShell         Microsoft.PowerShell         7.4.0.0   winget
-   PowerShell Preview Microsoft.PowerShell.Preview 7.4.0.101 winget
-   ```
+	```
+	Name               Id                           Version   Source
+	-----------------------------------------------------------------
+	PowerShell         Microsoft.PowerShell         7.4.0.0   winget
+	PowerShell Preview Microsoft.PowerShell.Preview 7.4.0.101 winget
+	```
 
 2. 使用参数 `id` 安装 PowerShell 或 PowerShell 预览版：
 
-   ```shell
-   winget install --id Microsoft.Powershell --source winget
-   winget install --id Microsoft.Powershell.Preview --source winget
-   ```
+	```shell
+	winget install --id Microsoft.Powershell --source winget
+	winget install --id Microsoft.Powershell.Preview --source winget
+	```
 
 
 
@@ -1701,19 +1701,19 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 
 1. 打开 host 文件（C:\Windows\System32\drivers\etc\hosts），添加以下几项，将 IDM 的认证服务器域名屏蔽了：
 
-   ```
-   127.0.0.1 http://tonec.com
-   127.0.0.1 http://www.tonec.com
-   127.0.0.1 http://registeridm.com
-   127.0.0.1 http://www.registeridm.com
-   127.0.0.1 http://secure.registeridm.com
-   127.0.0.1 http://internetdownloadmanager.com
-   127.0.0.1 http://www.internetdownloadmanager.com
-   127.0.0.1 http://secure.internetdownloadmanager.com
-   127.0.0.1 http://mirror.internetdownloadmanager.com
-   127.0.0.1 http://mirror2.internetdownloadmanager.com
-   127.0.0.1 http://mirror3.internetdownloadmanager.com
-   ```
+	```
+	127.0.0.1 http://tonec.com
+	127.0.0.1 http://www.tonec.com
+	127.0.0.1 http://registeridm.com
+	127.0.0.1 http://www.registeridm.com
+	127.0.0.1 http://secure.registeridm.com
+	127.0.0.1 http://internetdownloadmanager.com
+	127.0.0.1 http://www.internetdownloadmanager.com
+	127.0.0.1 http://secure.internetdownloadmanager.com
+	127.0.0.1 http://mirror.internetdownloadmanager.com
+	127.0.0.1 http://mirror2.internetdownloadmanager.com
+	127.0.0.1 http://mirror3.internetdownloadmanager.com
+	```
 
 2. 每次 IDM 启动的时候，都会修改 hosts 文件，将以上内容注释，可以将 hosts 文件设置为【只读】，也可以使用火绒的自定义防护禁止 IDMan.exe 修改 hosts：
 

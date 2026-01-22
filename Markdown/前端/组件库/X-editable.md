@@ -10,76 +10,76 @@
 
 1. 确定要使用的核心库：
 
-   - **Bootstrap**
-   - **jQuery UI**
-   - **only jQuery (+ Poshytip)**
+	- **Bootstrap**
+	- **jQuery UI**
+	- **only jQuery (+ Poshytip)**
 
-   将其引用在网页上。以下示例适用于 Bootstrap:
+	将其引用在网页上。以下示例适用于 Bootstrap:
 
-   ```html
-   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
-   <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script> 
-   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-   ```
+	```html
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script> 
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	```
 
 2. 下载相应的 X-editable 版本并将其引用在页面上：
 
-   ```html
-   <link href="bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet">
-   <script src="bootstrap-editable/js/bootstrap-editable.js"></script>
-   ```
+	```html
+	<link href="bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet">
+	<script src="bootstrap-editable/js/bootstrap-editable.js"></script>
+	```
 
-   > 注意：在核心库（Bootstrap，jQuery-ui）的引用之后引用 X-ededible！
+	> 注意：在核心库（Bootstrap，jQuery-ui）的引用之后引用 X-ededible！
 
 3. 标记元素应该是可编辑的。通常它是标签 `<a></a>` 并具有附加 `data-*` 属性：
 
-   ```html
-   <a href="#" id="username" data-type="text" data-pk="1" data-url="/post" data-title="Enter username">Oricha</a>
-   ```
+	```html
+	<a href="#" id="username" data-type="text" data-pk="1" data-url="/post" data-title="Enter username">Oricha</a>
+	```
 
-   主要属性为：
+	主要属性为：
 
-   - `data-type`：输入类型（text、textarea、select 等）
-   - `data-url`：服务器端的 URL，用来处理提交的值（`/post`、`post.php` 等)
-   - `data-pk`：要更新的记录的主键（数据中的 ID）
-   - `id` 或 `data-name` ：要更新的字段名称（数据中的列）。
-   - `value`：初始值，用于 select，其中 value 是要显示的文本的整数键。如果为空将从元素 HTML 内容中获取
+	- `data-type`：输入类型（text、textarea、select 等）
+	- `data-url`：服务器端的 URL，用来处理提交的值（`/post`、`post.php` 等)
+	- `data-pk`：要更新的记录的主键（数据中的 ID）
+	- `id` 或 `data-name` ：要更新的字段名称（数据中的列）。
+	- `value`：初始值，用于 select，其中 value 是要显示的文本的整数键。如果为空将从元素 HTML 内容中获取
 
 4. 设置可编辑模式 **inline** 或 **popup**（默认）：
 
-   ```javascript
-   //转到内联模式
-   $.fn.editable.defaults.mode = 'inline';
-   ```
+	```javascript
+	//转到内联模式
+	$.fn.editable.defaults.mode = 'inline';
+	```
 
 5. 将 `editable()` 方法应用于这些元素：
 
-   ```html
-   <a href="#" id="username">superuser</a>
-   ```
+	```html
+	<a href="#" id="username">superuser</a>
+	```
 
-   ```javascript
-   $('#username').editable({
-       type: 'text',
-       pk: 1,
-       url: '/post',
-       title: 'Enter username'
-   });
-   ```
+	```javascript
+	$('#username').editable({
+	    type: 'text',
+	    pk: 1,
+	    url: '/post',
+	    title: 'Enter username'
+	});
+	```
 
 6. 前端准备好了！
 
-   <img src="!assets/X-editable/image-20220516195314317.png" alt="image-20220516195314317" style="" />
+	<img src="!assets/X-editable/image-20220516195314317.png" alt="image-20220516195314317" style="" />
 
-   打开页面并单击元素。输入新值并提交表单。它将发送带有新值的 AJAX 请求 `/post`，下面为请求的数据：
+	打开页面并单击元素。输入新值并提交表单。它将发送带有新值的 AJAX 请求 `/post`，下面为请求的数据：
 
-   ```javascript
-   {
-       name:  'username',  //字段名称 (数据库中的列)
-       pk:    1            //主键 (记录 id)
-       value: 'superuser!' //新值
-   }
-   ```
+	```javascript
+	{
+	    name:  'username',  //字段名称 (数据库中的列)
+	    pk:    1            //主键 (记录 id)
+	    value: 'superuser!' //新值
+	}
+	```
 
 
 

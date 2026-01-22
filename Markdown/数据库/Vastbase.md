@@ -20,11 +20,11 @@ Vastbase G100 支持 SQL2003 标准语法，支持主备部署的高可用关系
 
 - 交易型应用
 
-  高并发、大数据量、以联机事务处理为主的交易型应用，如电商、金融、O2O、电信CRM/计费等，应用可按需选择不同的主备部署模式。
+	高并发、大数据量、以联机事务处理为主的交易型应用，如电商、金融、O2O、电信CRM/计费等，应用可按需选择不同的主备部署模式。
 
 - 物联网数据
 
-  在工业监控和远程控制、智慧城市的延展、智能家居、车联网等物联网场景下，传感监控设备多，采样率高，数据存储为追加模型，操作和分析并重的场景。
+	在工业监控和远程控制、智慧城市的延展、智能家居、车联网等物联网场景下，传感监控设备多，采样率高，数据存储为追加模型，操作和分析并重的场景。
 
 <br>
 
@@ -33,17 +33,17 @@ Vastbase G100 支持 SQL2003 标准语法，支持主备部署的高可用关系
 Vastbase G100 相比其他数据库主要有多存储模式，NUMA 化内核结构和高可用等产品特点。
 
 - 多存储模式
-  - 行存储，支持业务数据频繁更新场景。
-  - 列存储，支持业务数据追加和分析场景。
-  - 内存表，支持高吞吐，低时延，极高性能场景。
+	- 行存储，支持业务数据频繁更新场景。
+	- 列存储，支持业务数据追加和分析场景。
+	- 内存表，支持高吞吐，低时延，极高性能场景。
 - NUMA 化内核结构
-  - 关键数据结构分区，降低数据访问冲突。
-  - 关键数据结构 NUMA 化，降低数据结构访问时延。
-  - 关键业务线程绑核，避免核间线程漂移。
+	- 关键数据结构分区，降低数据访问冲突。
+	- 关键数据结构 NUMA 化，降低数据结构访问时延。
+	- 关键业务线程绑核，避免核间线程漂移。
 - 高可用
-  - 支持主备同步，异步多种部署模式。
-  - 数据页 CRC 校验，损坏数据页通过备机自动修复。
-  - 备机并行恢复，10 秒内可升主提供服务。
+	- 支持主备同步，异步多种部署模式。
+	- 数据页 CRC 校验，损坏数据页通过备机自动修复。
+	- 备机并行恢复，10 秒内可升主提供服务。
 
 <br>
 
@@ -69,21 +69,21 @@ Vastbase G100 的数据库节点负责存储数据，其存储介质也是磁盘
 
 - 单机
 
-  单机指的是只有一个数据库实例。
+	单机指的是只有一个数据库实例。
 
 - 双机
 
-  双机指的是系统中存在主备数据库实例，主实例支持读写，备实例支持只读。
+	双机指的是系统中存在主备数据库实例，主实例支持读写，备实例支持只读。
 
 - 一主多备
 
-  一主多备指的是在系统存在一个主机，多个备机。最多支持8个备机。
+	一主多备指的是在系统存在一个主机，多个备机。最多支持8个备机。
 
 - 冷热备份
 
-  冷备份： 是指备份就是一个简单的备份集，不可以提供服务。
+	冷备份： 是指备份就是一个简单的备份集，不可以提供服务。
 
-  热备份： 是指备份集群可以对外提供服务 。
+	热备份： 是指备份集群可以对外提供服务 。
 
 <br>
 
@@ -103,11 +103,11 @@ Vastbase G100 的数据库节点负责存储数据，其存储介质也是磁盘
 
 - 支持的CPU范围：
 
-  鲲鹏、飞腾、至强、申威、龙芯、兆芯、海光
+	鲲鹏、飞腾、至强、申威、龙芯、兆芯、海光
 
 - 支持的OS范围：
 
-  openEuler、麒麟V10、UOS(openEuler版)、CentOS 7.x/8.x(ARM版本)
+	openEuler、麒麟V10、UOS(openEuler版)、CentOS 7.x/8.x(ARM版本)
 
 <br>
 
@@ -241,31 +241,31 @@ hostnamectl set-hostname orichalcos
 
 1. 配置系统服务，关闭透明大页：
 
-   ```shell
-   vi /etc/systemd/system/disable-thp.service
-   ```
+	```shell
+	vi /etc/systemd/system/disable-thp.service
+	```
 
 2. 在编辑器加入以下内容：
 
-   ```
-   [Unit]
-   Description=Disable Transparent Huge Pages (THP)
-    
-   [Service]
-   Type=simple
-   ExecStart=/bin/sh -c "echo 'never' > /sys/kernel/mm/transparent_hugepage/enabled && echo 'never' > /sys/kernel/mm/transparent_hugepage/defrag"
-    
-   [Install]
-   WantedBy=multi-user.target
-   ```
+	```
+	[Unit]
+	Description=Disable Transparent Huge Pages (THP)
+	 
+	[Service]
+	Type=simple
+	ExecStart=/bin/sh -c "echo 'never' > /sys/kernel/mm/transparent_hugepage/enabled && echo 'never' > /sys/kernel/mm/transparent_hugepage/defrag"
+	 
+	[Install]
+	WantedBy=multi-user.target
+	```
 
 3. 启动服务（执行一次后服务状态保持为 `inactive`）并设置开机启动：
 
-   ```shell
-   systemctl daemon-reload
-   systemctl start disable-thp
-   systemctl enable disable-thp
-   ```
+	```shell
+	systemctl daemon-reload
+	systemctl start disable-thp
+	systemctl enable disable-thp
+	```
 
 <br>
 
@@ -305,24 +305,24 @@ getenforce
 
 - 临时关闭 SELinux：
 
-  ```shell
-  setenforce 0
-  ```
+	```shell
+	setenforce 0
+	```
 
 - 通过修改配置文件永久关闭 SELinux
 
-  1. 编辑配置文件：
+	1. 编辑配置文件：
 
-     ```shell
-     vi /etc/selinux/config
-     ```
+		```shell
+		vi /etc/selinux/config
+		```
 
-  2. 将 `SELINUX=enforcing` 修改为 `SELINUX=disabled`。
+	2. 将 `SELINUX=enforcing` 修改为 `SELINUX=disabled`。
 
-  3. 重启系统：
-     ```shell
-     reboot
-     ```
+	3. 重启系统：
+		```shell
+		reboot
+		```
 
 <br>
 
@@ -330,23 +330,23 @@ getenforce
 
 1. 添加 `RemoveIPC=no` 到 logind.conf  文件：
 
-   ```shell
-   echo "RemoveIPC=no" >> /etc/systemd/logind.conf
-   ```
+	```shell
+	echo "RemoveIPC=no" >> /etc/systemd/logind.conf
+	```
 
 2. 添加 `RemoveIPC=no` 到 systemd-logind.service：
 
-   ```shell
-   echo "RemoveIPC=no" >> /usr/lib/systemd/system/systemd-logind.service
-   ```
+	```shell
+	echo "RemoveIPC=no" >> /usr/lib/systemd/system/systemd-logind.service
+	```
 
 3. 重启服务：
 
-   ```shell
-   systemctl daemon-reload
-   systemctl stop systemd-logind
-   systemctl start systemd-logind
-   ```
+	```shell
+	systemctl daemon-reload
+	systemctl stop systemd-logind
+	systemctl start systemd-logind
+	```
 
 <br>
 
@@ -354,43 +354,43 @@ getenforce
 
 1. 编辑配置文件：
 
-   ```shell
-   vim /etc/sysctl.conf
-   ```
+	```shell
+	vim /etc/sysctl.conf
+	```
 
 2. 在编辑器中添加如下信息：
 
-   ```
-   # 文件系统 (fs) 相关参数
-   fs.aio-max-nr = 1048576
-   fs.file-max = 76724600
-   fs.nr_open = 20480000
-   
-   # 网络核心 (net.core 和 net.ipv4) 相关参数
-   net.core.netdev_max_backlog = 10000
-   net.core.rmem_default = 262144
-   net.core.rmem_max = 4194304
-   net.core.wmem_default = 262144
-   net.core.wmem_max = 4194304
-   net.core.somaxconn = 4096
-   net.ipv4.tcp_fin_timeout = 60
-   net.ipv4.tcp_retries1 = 5
-   net.ipv4.tcp_syn_retries = 5
-   net.ipv4.ip_local_port_range = 40000 65535
-   
-   # 虚拟内存 (vm) 相关参数
-   vm.overcommit_memory = 0
-   vm.swappiness = 10
-   
-   # 内核 (kernel) 相关参数
-   kernel.core_pattern = /backup/core_pattern/core-%e-%p-%t
-   ```
+	```
+	# 文件系统 (fs) 相关参数
+	fs.aio-max-nr = 1048576
+	fs.file-max = 76724600
+	fs.nr_open = 20480000
+	
+	# 网络核心 (net.core 和 net.ipv4) 相关参数
+	net.core.netdev_max_backlog = 10000
+	net.core.rmem_default = 262144
+	net.core.rmem_max = 4194304
+	net.core.wmem_default = 262144
+	net.core.wmem_max = 4194304
+	net.core.somaxconn = 4096
+	net.ipv4.tcp_fin_timeout = 60
+	net.ipv4.tcp_retries1 = 5
+	net.ipv4.tcp_syn_retries = 5
+	net.ipv4.ip_local_port_range = 40000 65535
+	
+	# 虚拟内存 (vm) 相关参数
+	vm.overcommit_memory = 0
+	vm.swappiness = 10
+	
+	# 内核 (kernel) 相关参数
+	kernel.core_pattern = /backup/core_pattern/core-%e-%p-%t
+	```
 
 3. 执行以下命令，使配置生效（注意若部分参数报错，可酌情修改参数配置）：
 
-   ```shell
-   sysctl -p
-   ```
+	```shell
+	sysctl -p
+	```
 
 
 
@@ -398,27 +398,27 @@ getenforce
 
 1. 创建数据库用户并设置密码：
 
-   ```shell
-   groupadd vastbase
-   useradd -m vastbase -g vastbase
-   passwd vastbase
-   ```
+	```shell
+	groupadd vastbase
+	useradd -m vastbase -g vastbase
+	passwd vastbase
+	```
 
 2. 设置 vastbase 用户账号密码不过期，避免过期导致定时任务失效：
 
-   ```shell
-   chage -m 0 -M 99999 -E -1 vastbase
-   ```
+	```shell
+	chage -m 0 -M 99999 -E -1 vastbase
+	```
 
 3. 创建数据库软件目录、数据目录、备份目录等：
 
-   ```shell
-   mkdir -p /data/{soft,vastdata,vblogs}
-   chmod 700 /data/{soft,vastdata,vblogs}
-   mkdir -p /backup/{backup,archive_wals,core_pattern}
-   chmod 700 /backup/{backup,archive_wals,core_pattern}
-   chown -R vastbase:vastbase /{data,backup}
-   ```
+	```shell
+	mkdir -p /data/{soft,vastdata,vblogs}
+	chmod 700 /data/{soft,vastdata,vblogs}
+	mkdir -p /backup/{backup,archive_wals,core_pattern}
+	chmod 700 /backup/{backup,archive_wals,core_pattern}
+	chown -R vastbase:vastbase /{data,backup}
+	```
 
 <br>
 
@@ -426,30 +426,30 @@ getenforce
 
 1. 执行以下命令，计算生成一次 core 文件需要的磁盘空间大小（KB）：
 
-   ```shell
-   awk '/MemTotal|SwapTotal/ {if (NF>=3) sum+=$2} END{print sum+0}' /proc/meminfo
-   ```
+	```shell
+	awk '/MemTotal|SwapTotal/ {if (NF>=3) sum+=$2} END{print sum+0}' /proc/meminfo
+	```
 
 2. 设置 vastbase 用户资源限制：
 
-   ```shell
-   vi /etc/security/limits.conf
-   ```
+	```shell
+	vi /etc/security/limits.conf
+	```
 
 3. 在编辑器填写以下内容：
 
-   ```
-   vastbase soft stack unlimited
-   vastbase hard stack unlimited
-   vastbase soft core 8388608    # 代入上方计算的值（KB）
-   vastbase hard core 8388608    # 代入上方计算的值（KB）
-   vastbase soft memlock unlimited
-   vastbase hard memlock unlimited
-   ```
+	```
+	vastbase soft stack unlimited
+	vastbase hard stack unlimited
+	vastbase soft core 8388608    # 代入上方计算的值（KB）
+	vastbase hard core 8388608    # 代入上方计算的值（KB）
+	vastbase soft memlock unlimited
+	vastbase hard memlock unlimited
+	```
 
-   > [!IMPORTANT]
-   >
-   > 注意必须设置 core 容量限制 ≥上一步计算值，磁盘空间足够的可以将该数值适当提升整数倍。
+	> [!IMPORTANT]
+	>
+	> 注意必须设置 core 容量限制 ≥上一步计算值，磁盘空间足够的可以将该数值适当提升整数倍。
 
 <br>
 
@@ -459,31 +459,31 @@ getenforce
 
 - RedHat、CentOS 等操作系统
 
-  安装基础依赖包如下：
+	安装基础依赖包如下：
 
-  ```shell
-  yum install -y zlib-devel libaio libuuid krb5-libs libicu libxslt tcl perl openldap pam openssl-devel libxml2 libaio-devel flex bison ncurses-devel glibc-devel patch readline-devel expect bzip2 gcc net-tools gdb fio perf iotop redhat-lsb-core
-  ```
+	```shell
+	yum install -y zlib-devel libaio libuuid krb5-libs libicu libxslt tcl perl openldap pam openssl-devel libxml2 libaio-devel flex bison ncurses-devel glibc-devel patch readline-devel expect bzip2 gcc net-tools gdb fio perf iotop redhat-lsb-core
+	```
 
-  依赖包检查：
+	依赖包检查：
 
-  ```shell
-  rpm -q  zlib-devel libaio libuuid krb5-libs libicu libxslt tcl perl openldap pam openssl-devel libxml2 libaio-devel flex bison ncurses-devel glibc-devel patch readline-devel expect bzip2 gcc net-tools gdb fio perf iotop redhat-lsb-core |grep not
-  ```
+	```shell
+	rpm -q  zlib-devel libaio libuuid krb5-libs libicu libxslt tcl perl openldap pam openssl-devel libxml2 libaio-devel flex bison ncurses-devel glibc-devel patch readline-devel expect bzip2 gcc net-tools gdb fio perf iotop redhat-lsb-core |grep not
+	```
 
 - Ubuntu 等操作系统
 
-  安装基础依赖包如下：
+	安装基础依赖包如下：
 
-  ```shell
-  apt install -y zlib1g-dev libaio1 libaio-dev uuid-dev libreadline-dev libkrb5-dev libicu-dev libxslt1-dev libldap2-dev libpam0g-dev libssl-dev tcl perl libxml2-dev bzip2 libncurses-dev ethtool gettext
-  ```
+	```shell
+	apt install -y zlib1g-dev libaio1 libaio-dev uuid-dev libreadline-dev libkrb5-dev libicu-dev libxslt1-dev libldap2-dev libpam0g-dev libssl-dev tcl perl libxml2-dev bzip2 libncurses-dev ethtool gettext
+	```
 
-  依赖包检查：
+	依赖包检查：
 
-  ```shell
-  dpkg -l zlib1g-dev libaio1 libaio-dev uuid-dev libreadline-dev libkrb5-dev libicu-dev libxslt1-dev libldap2-dev libpam0g-dev libssl-dev tcl perl libxml2-dev bzip2 libncurses-dev ethtool gettext 2>/dev/null | grep -v '^ii'
-  ```
+	```shell
+	dpkg -l zlib1g-dev libaio1 libaio-dev uuid-dev libreadline-dev libkrb5-dev libicu-dev libxslt1-dev libldap2-dev libpam0g-dev libssl-dev tcl perl libxml2-dev bzip2 libncurses-dev ethtool gettext 2>/dev/null | grep -v '^ii'
+	```
 
 > [!CAUTION]
 >
@@ -558,21 +558,21 @@ cp -p /usr/local/python3/lib/*  /usr/lib64  -r
 
 1. 修改文件权限：
 
-   ```shell
-   chmod u+s /usr/bin/sudo
-   ```
+	```shell
+	chmod u+s /usr/bin/sudo
+	```
 
 2. 编辑 sudo 配置文件：
 
-   ```shell
-   visudo
-   ```
+	```shell
+	visudo
+	```
 
 3. 在打开的编辑器中添加的一行配置：
 
-   ```
-   vastbase ALL=(ALL:ALL) NOPASSWD:/bin/fio
-   ```
+	```
+	vastbase ALL=(ALL:ALL) NOPASSWD:/bin/fio
+	```
 
 <br>
 
@@ -582,39 +582,39 @@ cp -p /usr/local/python3/lib/*  /usr/lib64  -r
 
 1. 将 G100 和 Has 安装包上传至软件目录 `/data/soft` 下，为避免后续脚本执行出错，注意该路径下不要存放其他 G100 和 Has 安装包：
 
-   ```
-   Vastbase-G100-2.2_Build15.17408-Linux-kunpeng920-no_mot-202411131428.gz
-   HAS-G100-3.2_6033-Linux-kunpeng920-202502181203_release.gz
-   ```
+	```
+	Vastbase-G100-2.2_Build15.17408-Linux-kunpeng920-no_mot-202411131428.gz
+	HAS-G100-3.2_6033-Linux-kunpeng920-202502181203_release.gz
+	```
 
 2. 解压 G100 和 Has 安装包至 vastbase-installer 目录：
 
-   ```shell
-   cd /data/soft
-   tar -zxf Vastbase-G100*.gz
-   tar -zxf vastbase-installer/Vastbase-G100*.tar.gz -C vastbase-installer/
-   rm -f ./vastbase-installer/Vastbase-G100*64bit-om.*
-   tar -zxf HAS-G100*.gz -C vastbase-installer/
-   tar -zxf vastbase-installer/Vastbase-HAS*.tar.gz -C vastbase-installer/
-   rm -f ./vastbase-installer/Vastbase-HAS*64bit.*
-   ```
+	```shell
+	cd /data/soft
+	tar -zxf Vastbase-G100*.gz
+	tar -zxf vastbase-installer/Vastbase-G100*.tar.gz -C vastbase-installer/
+	rm -f ./vastbase-installer/Vastbase-G100*64bit-om.*
+	tar -zxf HAS-G100*.gz -C vastbase-installer/
+	tar -zxf vastbase-installer/Vastbase-HAS*.tar.gz -C vastbase-installer/
+	rm -f ./vastbase-installer/Vastbase-HAS*64bit.*
+	```
 
 3. 将 Has 压缩包名称前缀修改为与 Vastbase*.tar.bz2 压缩包相同：
 
-   ```shell
-   cd vastbase-installer/
-   REF_PREFIX=$(ls Vastbase-G100-*.tar.bz2 | sed 's/\.tar\.bz2$//')
-   mv Symbols-Vastbase-HAS-*-cm.tar.gz "${REF_PREFIX}-cm-symbol.tar.gz"
-   mv Vastbase-HAS-*-cm.tar.gz "${REF_PREFIX}-cm.tar.gz"
-   mv Vastbase-HAS-*-om.sha256 "${REF_PREFIX}-om.sha256"
-   mv Vastbase-HAS-*-om.tar.gz "${REF_PREFIX}-om.tar.gz"
-   ```
+	```shell
+	cd vastbase-installer/
+	REF_PREFIX=$(ls Vastbase-G100-*.tar.bz2 | sed 's/\.tar\.bz2$//')
+	mv Symbols-Vastbase-HAS-*-cm.tar.gz "${REF_PREFIX}-cm-symbol.tar.gz"
+	mv Vastbase-HAS-*-cm.tar.gz "${REF_PREFIX}-cm.tar.gz"
+	mv Vastbase-HAS-*-om.sha256 "${REF_PREFIX}-om.sha256"
+	mv Vastbase-HAS-*-om.tar.gz "${REF_PREFIX}-om.tar.gz"
+	```
 
 4. 解压改名后的 om 压缩包，会在当前目录下生成 script 子目录：
 
-   ```shell
-   tar -zxf "${REF_PREFIX}-om.tar.gz"
-   ```
+	```shell
+	tar -zxf "${REF_PREFIX}-om.tar.gz"
+	```
 
 <br>
 
@@ -782,80 +782,80 @@ Preinstallation succeeded.
 
 1. 安装包解压后未对 vastbase 用户授权，补充授权：
 
-   ```shell
-   chown -R vastbase.vastbase /data/soft
-   ```
+	```shell
+	chown -R vastbase.vastbase /data/soft
+	```
 
 2. 接着切换至 vastbase 用户执行安装命令：
 
-   ```shell
-   su - vastbase
-   source ~/.Vastbase
-   cd /data/soft/vastbase-installer/script/
-   ./gs_install -X ../single_node.xml \
-   --gsinit-parameter="--encoding=UTF8" \
-   --gsinit-parameter="--locale=en_US.UTF8" \
-   --gsinit-parameter="--lc-collate=en_US.UTF8" \
-   --gsinit-parameter="--lc-ctype=en_US.UTF8" \
-   --gsinit-parameter="--lc-messages=en_US.UTF8" \
-   --gsinit-parameter="--dbcompatibility=B" \
-   --dn-guc="max_process_memory=8GB" 
-   ```
+	```shell
+	su - vastbase
+	source ~/.Vastbase
+	cd /data/soft/vastbase-installer/script/
+	./gs_install -X ../single_node.xml \
+	--gsinit-parameter="--encoding=UTF8" \
+	--gsinit-parameter="--locale=en_US.UTF8" \
+	--gsinit-parameter="--lc-collate=en_US.UTF8" \
+	--gsinit-parameter="--lc-ctype=en_US.UTF8" \
+	--gsinit-parameter="--lc-messages=en_US.UTF8" \
+	--gsinit-parameter="--dbcompatibility=B" \
+	--dn-guc="max_process_memory=8GB" 
+	```
 
-   操作须知：
+	操作须知：
 
-   - 执行安装脚本必须切换至 vastbase 用户（预安装 gs_preinstall 中 `-U` 参数指定的用户）。
-   - `--dbcompatibility=B`  这个是兼容性参数，需为大写，即A（Oracle）、B（MySQL）、C（Teradata）、PG（PostgreSQL）、MSSQL（SQL Server），否则后续升级会导致出错。
-   - `--dn-guc="max_process_memory=8GB"` 这个参数是机器内存小于 16GB 才需要设置。
-   - 为保证数据库正常启动，`max_process_memory` 参数必须配置为合适大小（如 0.8*OS_MEM ），OM 工具安装完成默认数据库内核至少需要 7G 内存；也可以通过修改其他内存相关 GUC 参数，以减小内核所需 `max_process_memory` 大小。
-   - 在脚本执行过程中，用户需根据提示输入数据库的密码，密码具有一定的复杂度，为保证用户正常使用该数据库，请记住输入的数据库密码。
-     - 最少包含 8 个字符。
-     - 至少包含大写字母（A-Z）、小写字母（a-z）、数字、非字母数字字符（限定为 `~!@#$%^&*()-_=+\|[{}];:,<.>/?` ）四类字符中的三类字符。
-   - 安装过程中会生成 SSL 证书，证书存放路径为：`$GAUSSHOME/share/sslcert/om`。
+	- 执行安装脚本必须切换至 vastbase 用户（预安装 gs_preinstall 中 `-U` 参数指定的用户）。
+	- `--dbcompatibility=B`  这个是兼容性参数，需为大写，即A（Oracle）、B（MySQL）、C（Teradata）、PG（PostgreSQL）、MSSQL（SQL Server），否则后续升级会导致出错。
+	- `--dn-guc="max_process_memory=8GB"` 这个参数是机器内存小于 16GB 才需要设置。
+	- 为保证数据库正常启动，`max_process_memory` 参数必须配置为合适大小（如 0.8*OS_MEM ），OM 工具安装完成默认数据库内核至少需要 7G 内存；也可以通过修改其他内存相关 GUC 参数，以减小内核所需 `max_process_memory` 大小。
+	- 在脚本执行过程中，用户需根据提示输入数据库的密码，密码具有一定的复杂度，为保证用户正常使用该数据库，请记住输入的数据库密码。
+		- 最少包含 8 个字符。
+		- 至少包含大写字母（A-Z）、小写字母（a-z）、数字、非字母数字字符（限定为 `~!@#$%^&*()-_=+\|[{}];:,<.>/?` ）四类字符中的三类字符。
+	- 安装过程中会生成 SSL 证书，证书存放路径为：`$GAUSSHOME/share/sslcert/om`。
 
-   安装过程如下所示：
+	安装过程如下所示：
 
-   ```
-   Parsing the configuration file.
-   Check preinstall on every node.
-   Successfully checked preinstall on every node.
-   Creating the backup directory.
-   Successfully created the backup directory.
-   begin deploy..
-   Installing the cluster.
-   begin prepare Install Cluster..
-   Checking the installation environment on all nodes.
-   begin install Cluster..
-   Installing applications on all nodes.
-   Successfully installed APP.
-   begin init Instance..
-   encrypt ciper and rand files for database.
-   Please enter password for database:<---输入数据库vastbase用户密码，如Vast@123
-   Please repeat for database:
-   begin to create CA cert files
-   The sslcert will be generated in /home/vastbase/vasthome/share/sslcert/om
-   Cluster installation is completed.
-   Configuring.
-   Deleting instances from all nodes.
-   Successfully deleted instances from all nodes.
-   Checking node configuration on all nodes.
-   Initializing instances on all nodes.
-   Updating instance configuration on all nodes.
-   Check consistence of memCheck and coresCheck on DN nodes.
-   Successful check consistence of memCheck and coresCheck on all nodes.
-   Configuring pg_hba on all nodes.
-   Configuration is completed.
-   Successfully started cluster.
-   Successfully installed application.
-   ```
+	```
+	Parsing the configuration file.
+	Check preinstall on every node.
+	Successfully checked preinstall on every node.
+	Creating the backup directory.
+	Successfully created the backup directory.
+	begin deploy..
+	Installing the cluster.
+	begin prepare Install Cluster..
+	Checking the installation environment on all nodes.
+	begin install Cluster..
+	Installing applications on all nodes.
+	Successfully installed APP.
+	begin init Instance..
+	encrypt ciper and rand files for database.
+	Please enter password for database:<---输入数据库vastbase用户密码，如Vast@123
+	Please repeat for database:
+	begin to create CA cert files
+	The sslcert will be generated in /home/vastbase/vasthome/share/sslcert/om
+	Cluster installation is completed.
+	Configuring.
+	Deleting instances from all nodes.
+	Successfully deleted instances from all nodes.
+	Checking node configuration on all nodes.
+	Initializing instances on all nodes.
+	Updating instance configuration on all nodes.
+	Check consistence of memCheck and coresCheck on DN nodes.
+	Successful check consistence of memCheck and coresCheck on all nodes.
+	Configuring pg_hba on all nodes.
+	Configuration is completed.
+	Successfully started cluster.
+	Successfully installed application.
+	```
 
 3. 执行安装成功后，可以通过以下命令查看数据库状态：
 
-   ```shell
-   gs_om -t status --detail
-   vb_ctl status
-   ps -ef | grep vastbase
-   ```
+	```shell
+	gs_om -t status --detail
+	vb_ctl status
+	ps -ef | grep vastbase
+	```
 
 <br>
 
@@ -865,217 +865,217 @@ Preinstallation succeeded.
 
 1. 设置环境变量，以 vastbase 用户执行：
 
-   ```shell
-   # 设置英文字符集
-   echo -e "\nexport LANG=en_US.UTF-8\nexport PGUSER=vastbase" >> /home/vastbase/.Vastbase
-   # 设置切换vastbase用户时自动加载数据库环境变量
-   echo -e "\nsource /home/vastbase/.Vastbase" >> /home/vastbase/.bashrc
-   ```
+	```shell
+	# 设置英文字符集
+	echo -e "\nexport LANG=en_US.UTF-8\nexport PGUSER=vastbase" >> /home/vastbase/.Vastbase
+	# 设置切换vastbase用户时自动加载数据库环境变量
+	echo -e "\nsource /home/vastbase/.Vastbase" >> /home/vastbase/.bashrc
+	```
 
 2. 设置数据库参数：
 
-   ```shell
-   vi /home/vastbase/vb_guc_conf.sh
-   ```
+	```shell
+	vi /home/vastbase/vb_guc_conf.sh
+	```
 
-   其中 vb_guc_conf.sh 文本内容如下，各参数可按需调整：
+	其中 vb_guc_conf.sh 文本内容如下，各参数可按需调整：
 
-   ```sh
-   #!/bin/bash
-   cp /data/vastdata/postgresql.conf  /data/vastdata/postgresql.conf.`date +"%Y%m%d"`
-   
-   function SecureAccess(){
-       vb_guc set -c "listen_addresses = '*'"
-       vb_guc set -c "password_force_alter=off"
-       vb_guc set -c "vastbase_login_info=false"
-       vb_guc set -c "session_timeout='30min'"
-   }
-   
-   function WAL(){
-       vb_guc set -c "wal_level=hot_standby"
-       vb_guc set -c "full_page_writes=off"
-       vb_guc set -c "wal_log_hints=on"
-       vb_guc set -c "xloginsert_locks=8"
-       vb_guc set -c "advance_xlog_file_num=10"
-       vb_guc set -c "archive_mode=on"
-       vb_guc set -c "archive_dest='/backup/archive_wals/'"
-   }
-   
-   function replicationAndSlots(){
-       vb_guc set -c "wal_keep_segments=128"
-       vb_guc set -c "max_wal_senders=8"
-       vb_guc set -c "most_available_sync=on"
-       vb_guc set -c "catchup2normal_wait_time=0"
-       vb_guc set -c "wal_receiver_timeout=60s"
-       vb_guc set -c "sync_config_strategy=none_node"
-       vb_guc set -c "wal_sender_timeout=10s"
-       vb_guc set -c "synchronous_commit=on"
-       vb_guc set -c "synchronous_standby_names = '*'"
-   }
-   
-   function dbLog(){
-       vb_guc set -c "log_duration=on"
-       vb_guc set -c "log_line_prefix='%m %r %d %u [%x] [%p]'"
-       vb_guc set -c "log_checkpoints=on"
-       vb_guc set -c "log_statement='ddl'"
-       vb_guc set -c "log_timezone= 'PRC'"
-   }
-   
-   function VACUUM(){
-       vb_guc set -c "autovacuum_mode=mix"
-       vb_guc set -c "autovacuum_max_workers=5"
-       vb_guc set -c "autovacuum_naptime=20s"
-       vb_guc set -c "autovacuum_vacuum_cost_delay=10"
-       vb_guc set -c "autovacuum_vacuum_scale_factor=0.05"
-       vb_guc set -c "autovacuum_analyze_scale_factor=0.02"
-       vb_guc set -c "autovacuum_vacuum_threshold=200"
-       vb_guc set -c "autovacuum_analyze_threshold=200"
-       vb_guc set -c "vacuum_cost_limit=10000"
-   
-   }
-   
-   function perfStats(){
-       vb_guc set -c "enable_instr_cpu_timer=on"
-       vb_guc set -c "enable_stmt_track=on"
-       vb_guc set -c "enable_resource_track=on"
-       vb_guc set -c "enable_wdr_snapshot=on"
-       vb_guc set -c "enable_auto_clean_unique_sql=on"
-       vb_guc set -c "instr_unique_sql_count=200000"
-       vb_guc set -c "track_stmt_stat_level='off,L1'"
-       vb_guc set -c "log_min_duration_statement=3s"
-       vb_guc set -c "track_activities=on"
-       vb_guc set -c "track_activity_query_size=4096"
-       vb_guc set -c "track_sql_count=on"
-       vb_guc set -c "enable_instr_rt_percentile=off"
-       vb_guc set -c "enable_opfusion=off"
-   }
-   
-   function audit(){
-       vb_guc set -c "audit_enabled=off"
-       vb_guc set -c "audit_login_logout=7"
-       vb_guc set -c "audit_grant_revoke=1"
-       vb_guc set -c "audit_database_process=0"
-       vb_guc set -c "audit_user_locked=0"
-       vb_guc set -c "audit_user_violation=0"
-       vb_guc set -c "audit_system_object=0"
-       vb_guc set -c "audit_set_parameter=0"
-       vb_guc set -c "audit_xid_info=0"
-       vb_guc set -c "audit_resource_policy=off"
-       vb_guc set -c "audit_file_remain_time=7"
-       vb_guc set -c "audit_space_limit=5GB"
-   }
-   
-   function otherKeyParams(){
-       vb_guc set -c "enable_cbm_tracking=on"
-       vb_guc set -c "behavior_compat_options='display_leading_zero,skip_insert_gs_source'"
-       vb_guc set -c "cstore_buffers=16MB"
-       vb_guc set -c "standby_shared_buffers_fraction=1"
-       vb_guc set -c "checkpoint_segments=128"
-       vb_guc set -c "checkpoint_completion_target=0.9"
-       vb_guc set -c "max_files_per_process=100000"
-       vb_guc set -c "lc_messages='en_US.UTF-8'"
-       vb_guc set -c "lc_monetary='en_US.UTF-8'"
-       vb_guc set -c "lc_numeric='en_US.UTF-8'"
-       vb_guc set -c "lc_time='en_US.UTF-8'"
-       vb_guc set -c "timezone= 'PRC'"
-       vb_guc set -c "enable_mergejoin=on"
-       vb_guc set -c "enable_nestloop=off"
-       vb_guc set -c "enable_pbe_optimization=on"
-       vb_guc set -c "enable_asp=on"
-       vb_guc set -c "recovery_max_workers=4"
-       vb_guc set -c "enable_alarm=off"
-       vb_guc set -c "enable_codegen=off"
-       vb_guc set -c "update_lockwait_timeout=5min"
-       vb_guc set -c "lockwait_timeout=5min"
-       vb_guc set -c "max_size_for_xlog_prune='100GB'"
-       vb_guc set -c "enable_ustore=off"
-       vb_guc set -c "random_page_cost=1.1"
-       vb_guc set -c "enable_thread_pool=off"
-       vb_guc set -c "temp_file_limit=50GB"
-       vb_guc set -c "use_workload_manager=off"
-       vb_guc set -c "rewrite_rule='magicset,enable_any_sublink_pullup_enhanced'"
-       vb_guc set -c "enable_bbox_dump=on"
-       vb_guc set -c "enable_partition_analyze=on"
-   }
-   
-   memory=`free -g|awk '{print $2}' |sed -n 2p`
-   if [[ $memory -le 6 ]]
-   then
-       vb_guc set -c "max_process_memory=8GB"
-       vb_guc set -c "effective_cache_size=4GB"
-       vb_guc set -c "shared_buffers=128MB"
-       vb_guc set -c "max_connections=100"
-       vb_guc set -c "work_mem=4MB"
-       vb_guc set -c "maintenance_work_mem=64MB"
-       vb_guc set -c "wal_buffers=16MB"
-       vb_guc set -c "max_prepared_transactions=200"
-   elif [[ $memory -gt 6 ]] && [[ $memory -le 14 ]] 
-   then
-       vb_guc set -c "max_process_memory=$((memory*9/10))GB"
-       vb_guc set -c "effective_cache_size=$((memory*9/10))GB"
-       vb_guc set -c "shared_buffers=$((memory*2/10))GB"
-       vb_guc set -c "max_connections=500"
-       vb_guc set -c "work_mem=4MB"
-       vb_guc set -c "maintenance_work_mem=128MB"
-       vb_guc set -c "wal_buffers=16MB"
-       vb_guc set -c "max_prepared_transactions=500"
-   elif [[ $memory -gt 14 ]] && [[ $memory -le 62 ]] 
-   then
-       vb_guc set -c "max_process_memory=$((memory*8/10))GB"
-       vb_guc set -c "effective_cache_size=$((memory*8/10))GB"
-       vb_guc set -c "shared_buffers=$((memory*2/10))GB"
-       vb_guc set -c "max_connections=1000"
-       vb_guc set -c "work_mem=8MB"
-       vb_guc set -c "maintenance_work_mem=256MB"
-       vb_guc set -c "wal_buffers=64MB"
-       vb_guc set -c "max_prepared_transactions=1000"
-   elif [[ $memory -gt 62 ]]
-   then
-       vb_guc set -c "max_process_memory=$((memory*8/10))GB"
-       vb_guc set -c "effective_cache_size=$((memory*8/10))GB"
-       vb_guc set -c "shared_buffers=$((memory*3/10))GB"
-       vb_guc set -c "max_connections=2000"
-       vb_guc set -c "work_mem=16MB"
-       vb_guc set -c "maintenance_work_mem=512MB"
-       vb_guc set -c "wal_buffers=128MB"
-       vb_guc set -c "max_prepared_transactions=3000"
-   else
-       echo "There may be a problem with the script, please contact us for support"
-   fi
-       WAL
-       replicationAndSlots
-       dbLog
-       VACUUM
-       perfStats
-       otherKeyParams
-       audit
-       SecureAccess 
-   ```
+	```sh
+	#!/bin/bash
+	cp /data/vastdata/postgresql.conf  /data/vastdata/postgresql.conf.`date +"%Y%m%d"`
+	
+	function SecureAccess(){
+	    vb_guc set -c "listen_addresses = '*'"
+	    vb_guc set -c "password_force_alter=off"
+	    vb_guc set -c "vastbase_login_info=false"
+	    vb_guc set -c "session_timeout='30min'"
+	}
+	
+	function WAL(){
+	    vb_guc set -c "wal_level=hot_standby"
+	    vb_guc set -c "full_page_writes=off"
+	    vb_guc set -c "wal_log_hints=on"
+	    vb_guc set -c "xloginsert_locks=8"
+	    vb_guc set -c "advance_xlog_file_num=10"
+	    vb_guc set -c "archive_mode=on"
+	    vb_guc set -c "archive_dest='/backup/archive_wals/'"
+	}
+	
+	function replicationAndSlots(){
+	    vb_guc set -c "wal_keep_segments=128"
+	    vb_guc set -c "max_wal_senders=8"
+	    vb_guc set -c "most_available_sync=on"
+	    vb_guc set -c "catchup2normal_wait_time=0"
+	    vb_guc set -c "wal_receiver_timeout=60s"
+	    vb_guc set -c "sync_config_strategy=none_node"
+	    vb_guc set -c "wal_sender_timeout=10s"
+	    vb_guc set -c "synchronous_commit=on"
+	    vb_guc set -c "synchronous_standby_names = '*'"
+	}
+	
+	function dbLog(){
+	    vb_guc set -c "log_duration=on"
+	    vb_guc set -c "log_line_prefix='%m %r %d %u [%x] [%p]'"
+	    vb_guc set -c "log_checkpoints=on"
+	    vb_guc set -c "log_statement='ddl'"
+	    vb_guc set -c "log_timezone= 'PRC'"
+	}
+	
+	function VACUUM(){
+	    vb_guc set -c "autovacuum_mode=mix"
+	    vb_guc set -c "autovacuum_max_workers=5"
+	    vb_guc set -c "autovacuum_naptime=20s"
+	    vb_guc set -c "autovacuum_vacuum_cost_delay=10"
+	    vb_guc set -c "autovacuum_vacuum_scale_factor=0.05"
+	    vb_guc set -c "autovacuum_analyze_scale_factor=0.02"
+	    vb_guc set -c "autovacuum_vacuum_threshold=200"
+	    vb_guc set -c "autovacuum_analyze_threshold=200"
+	    vb_guc set -c "vacuum_cost_limit=10000"
+	
+	}
+	
+	function perfStats(){
+	    vb_guc set -c "enable_instr_cpu_timer=on"
+	    vb_guc set -c "enable_stmt_track=on"
+	    vb_guc set -c "enable_resource_track=on"
+	    vb_guc set -c "enable_wdr_snapshot=on"
+	    vb_guc set -c "enable_auto_clean_unique_sql=on"
+	    vb_guc set -c "instr_unique_sql_count=200000"
+	    vb_guc set -c "track_stmt_stat_level='off,L1'"
+	    vb_guc set -c "log_min_duration_statement=3s"
+	    vb_guc set -c "track_activities=on"
+	    vb_guc set -c "track_activity_query_size=4096"
+	    vb_guc set -c "track_sql_count=on"
+	    vb_guc set -c "enable_instr_rt_percentile=off"
+	    vb_guc set -c "enable_opfusion=off"
+	}
+	
+	function audit(){
+	    vb_guc set -c "audit_enabled=off"
+	    vb_guc set -c "audit_login_logout=7"
+	    vb_guc set -c "audit_grant_revoke=1"
+	    vb_guc set -c "audit_database_process=0"
+	    vb_guc set -c "audit_user_locked=0"
+	    vb_guc set -c "audit_user_violation=0"
+	    vb_guc set -c "audit_system_object=0"
+	    vb_guc set -c "audit_set_parameter=0"
+	    vb_guc set -c "audit_xid_info=0"
+	    vb_guc set -c "audit_resource_policy=off"
+	    vb_guc set -c "audit_file_remain_time=7"
+	    vb_guc set -c "audit_space_limit=5GB"
+	}
+	
+	function otherKeyParams(){
+	    vb_guc set -c "enable_cbm_tracking=on"
+	    vb_guc set -c "behavior_compat_options='display_leading_zero,skip_insert_gs_source'"
+	    vb_guc set -c "cstore_buffers=16MB"
+	    vb_guc set -c "standby_shared_buffers_fraction=1"
+	    vb_guc set -c "checkpoint_segments=128"
+	    vb_guc set -c "checkpoint_completion_target=0.9"
+	    vb_guc set -c "max_files_per_process=100000"
+	    vb_guc set -c "lc_messages='en_US.UTF-8'"
+	    vb_guc set -c "lc_monetary='en_US.UTF-8'"
+	    vb_guc set -c "lc_numeric='en_US.UTF-8'"
+	    vb_guc set -c "lc_time='en_US.UTF-8'"
+	    vb_guc set -c "timezone= 'PRC'"
+	    vb_guc set -c "enable_mergejoin=on"
+	    vb_guc set -c "enable_nestloop=off"
+	    vb_guc set -c "enable_pbe_optimization=on"
+	    vb_guc set -c "enable_asp=on"
+	    vb_guc set -c "recovery_max_workers=4"
+	    vb_guc set -c "enable_alarm=off"
+	    vb_guc set -c "enable_codegen=off"
+	    vb_guc set -c "update_lockwait_timeout=5min"
+	    vb_guc set -c "lockwait_timeout=5min"
+	    vb_guc set -c "max_size_for_xlog_prune='100GB'"
+	    vb_guc set -c "enable_ustore=off"
+	    vb_guc set -c "random_page_cost=1.1"
+	    vb_guc set -c "enable_thread_pool=off"
+	    vb_guc set -c "temp_file_limit=50GB"
+	    vb_guc set -c "use_workload_manager=off"
+	    vb_guc set -c "rewrite_rule='magicset,enable_any_sublink_pullup_enhanced'"
+	    vb_guc set -c "enable_bbox_dump=on"
+	    vb_guc set -c "enable_partition_analyze=on"
+	}
+	
+	memory=`free -g|awk '{print $2}' |sed -n 2p`
+	if [[ $memory -le 6 ]]
+	then
+	    vb_guc set -c "max_process_memory=8GB"
+	    vb_guc set -c "effective_cache_size=4GB"
+	    vb_guc set -c "shared_buffers=128MB"
+	    vb_guc set -c "max_connections=100"
+	    vb_guc set -c "work_mem=4MB"
+	    vb_guc set -c "maintenance_work_mem=64MB"
+	    vb_guc set -c "wal_buffers=16MB"
+	    vb_guc set -c "max_prepared_transactions=200"
+	elif [[ $memory -gt 6 ]] && [[ $memory -le 14 ]] 
+	then
+	    vb_guc set -c "max_process_memory=$((memory*9/10))GB"
+	    vb_guc set -c "effective_cache_size=$((memory*9/10))GB"
+	    vb_guc set -c "shared_buffers=$((memory*2/10))GB"
+	    vb_guc set -c "max_connections=500"
+	    vb_guc set -c "work_mem=4MB"
+	    vb_guc set -c "maintenance_work_mem=128MB"
+	    vb_guc set -c "wal_buffers=16MB"
+	    vb_guc set -c "max_prepared_transactions=500"
+	elif [[ $memory -gt 14 ]] && [[ $memory -le 62 ]] 
+	then
+	    vb_guc set -c "max_process_memory=$((memory*8/10))GB"
+	    vb_guc set -c "effective_cache_size=$((memory*8/10))GB"
+	    vb_guc set -c "shared_buffers=$((memory*2/10))GB"
+	    vb_guc set -c "max_connections=1000"
+	    vb_guc set -c "work_mem=8MB"
+	    vb_guc set -c "maintenance_work_mem=256MB"
+	    vb_guc set -c "wal_buffers=64MB"
+	    vb_guc set -c "max_prepared_transactions=1000"
+	elif [[ $memory -gt 62 ]]
+	then
+	    vb_guc set -c "max_process_memory=$((memory*8/10))GB"
+	    vb_guc set -c "effective_cache_size=$((memory*8/10))GB"
+	    vb_guc set -c "shared_buffers=$((memory*3/10))GB"
+	    vb_guc set -c "max_connections=2000"
+	    vb_guc set -c "work_mem=16MB"
+	    vb_guc set -c "maintenance_work_mem=512MB"
+	    vb_guc set -c "wal_buffers=128MB"
+	    vb_guc set -c "max_prepared_transactions=3000"
+	else
+	    echo "There may be a problem with the script, please contact us for support"
+	fi
+	    WAL
+	    replicationAndSlots
+	    dbLog
+	    VACUUM
+	    perfStats
+	    otherKeyParams
+	    audit
+	    SecureAccess 
+	```
 
 3. 授予执行权限并执行：
 
-   ```shell
-   chmod +x /home/vastbase/vb_guc_conf.sh
-   sh /home/vastbase/vb_guc_conf.sh >> /home/vastbase/vb_guc.log
-   ```
+	```shell
+	chmod +x /home/vastbase/vb_guc_conf.sh
+	sh /home/vastbase/vb_guc_conf.sh >> /home/vastbase/vb_guc.log
+	```
 
 4. 补充参数，这些参数不支持 guc 配置，因此直接编辑配置文件：
 
-   ```shell
-   echo -e "\nlower_case_table_names=1\npassword_effect_time=36500\nenable_oranumber_type=off" >> /data/vastdata/postgresql.conf
-   ```
+	```shell
+	echo -e "\nlower_case_table_names=1\npassword_effect_time=36500\nenable_oranumber_type=off" >> /data/vastdata/postgresql.conf
+	```
 
 5. 配置 pg_hba.conf 文件：
 
-   ```shell
-   gs_guc set -h "host all all 0.0.0.0/0 sha256"
-   ```
+	```shell
+	gs_guc set -h "host all all 0.0.0.0/0 sha256"
+	```
 
-   关闭数据库，参数将在下次启动时生效：
+	关闭数据库，参数将在下次启动时生效：
 
-   ```shell
-   vb_ctl stop
-   ```
+	```shell
+	vb_ctl stop
+	```
 
 <br>
 
@@ -1085,54 +1085,54 @@ Preinstallation succeeded.
 
 1. 创建 tmpfs 目录，并设置开机自动挂载：
 
-   ```shell
-   mkdir -p /stat_tmp/pg_stat_tmp
-   echo "tmpfs  /stat_tmp/pg_stat_tmp  tmpfs   defaults,size=1G,noatime   1   1" >> /etc/fstab 
-   mount -a  #检查/stat_tmp/pg_stat_tmp目录能否正常挂载，若不能挂载应调整或删除/etc/fstab中添加的记录，避免服务器重启失败
-   df -h
-   ```
+	```shell
+	mkdir -p /stat_tmp/pg_stat_tmp
+	echo "tmpfs  /stat_tmp/pg_stat_tmp  tmpfs   defaults,size=1G,noatime   1   1" >> /etc/fstab 
+	mount -a  #检查/stat_tmp/pg_stat_tmp目录能否正常挂载，若不能挂载应调整或删除/etc/fstab中添加的记录，避免服务器重启失败
+	df -h
+	```
 
 2. 设置开机后自动授权 tmpfs 目录给 vastbase 用户：
 
-   ```shell
-   vi /etc/systemd/system/set_tmpfs_owner.service
-   ```
+	```shell
+	vi /etc/systemd/system/set_tmpfs_owner.service
+	```
 
-   编辑器中加入以下内容：
+	编辑器中加入以下内容：
 
-   ```shell
-   [Unit]
-   Description=Set tmpfs mount point owner to Vastbase
-   After=local-fs.target
-   Requires=local-fs.target
-   
-   [Service]
-   Type=oneshot
-   ExecStart=/bin/chown -R vastbase:vastbase /stat_tmp
-   
-   [Install]
-   WantedBy=multi-user.target
-   ```
+	```shell
+	[Unit]
+	Description=Set tmpfs mount point owner to Vastbase
+	After=local-fs.target
+	Requires=local-fs.target
+	
+	[Service]
+	Type=oneshot
+	ExecStart=/bin/chown -R vastbase:vastbase /stat_tmp
+	
+	[Install]
+	WantedBy=multi-user.target
+	```
 
 3. 执行授权并检查授权状态：
 
-   ```shell
-   systemctl daemon-reload
-   systemctl enable set_tmpfs_owner
-   systemctl start set_tmpfs_owner
-   systemctl status set_tmpfs_owner
-   ll -d /stat_tmp
-   ```
+	```shell
+	systemctl daemon-reload
+	systemctl enable set_tmpfs_owner
+	systemctl start set_tmpfs_owner
+	systemctl status set_tmpfs_owner
+	ll -d /stat_tmp
+	```
 
 4. 切换到 vastbase 用户，暂时启动数据库，调整数据库参数，重载即可：
 
-   ```shell
-   su - vastbase
-   vb_ctl start
-   gs_guc reload -c "stats_temp_directory='/stat_tmp/pg_stat_tmp'"
-   vb_ctl stop
-   exit
-   ```
+	```shell
+	su - vastbase
+	vb_ctl start
+	gs_guc reload -c "stats_temp_directory='/stat_tmp/pg_stat_tmp'"
+	vb_ctl stop
+	exit
+	```
 
 补充：可执行以下命令调整 tmpfs 目录大小，注意 `size` 不应小于 `$PGDATA/pg_stat_tmp/pgstat.stat` 文件大小，并预留足够空间。同时 `/etc/fstab` 文件中的 `size` 也应同步更新：
 
@@ -1146,83 +1146,83 @@ mount -t tmpfs -o remount,size=128M tmpfs /stat_tmp/pg_stat_tmp
 
 1. 将数据库程序加入系统服务，以便开机自启：
 
-   ```shell
-   vi /usr/lib/systemd/system/vastbase.service
-   ```
+	```shell
+	vi /usr/lib/systemd/system/vastbase.service
+	```
 
-   编辑器中加入以下内容：
+	编辑器中加入以下内容：
 
-   ```
-   [Unit]
-   Description=Vastbase G100 server
-   After=network.target network-online.target
-   
-   [Service]
-   # 注意修改 Environment，x86 环境应修改为 amd64，arm64 环境应修改为 aarch64
-   Environment="LD_LIBRARY_PATH=/home/vastbase/vasthome/lib:/home/vastbase/vasthome/jre/lib/amd64:/home/vastbase/vasthome/jre/lib/amd64/server"
-   Environment="GAUSSHOME=/home/vastbase/vasthome"
-   Environment="LANG=en_US.UTF-8"
-   Type=forking
-   Restart=always
-   RestartSec=3
-   #Restart=no
-   User=vastbase
-   LimitNOFILE=640000
-   LimitNPROC=infinity
-   LimitSTACK=infinity
-   # 与 /etc/security/limits.conf 一致
-   LimitCORE=8388608    
-   LimitMEMLOCK=infinity
-   
-   # Where to send early-startup messages from the server (before the logging
-   # options of postgresql.conf take effect)
-   # This is normally controlled by the global default set by systemd
-   # StandardOutput=syslog
-   
-   # Disable OOM kill on the postmaster
-   OOMScoreAdjust=-1000
-   #注意调整目录路径
-   ExecStart=/home/vastbase/vasthome/bin/vb_ctl -t 3600 -D /data/vastdata  start
-   ExecStop=/home/vastbase/vasthome/bin/vb_ctl -t 3600 -D /data/vastdata  stop
-   
-   # Give a reasonable amount of time for the server to start up/shut down
-   TimeoutSec=3600
-   
-   [Install]
-   WantedBy=multi-user.target
-   ```
+	```
+	[Unit]
+	Description=Vastbase G100 server
+	After=network.target network-online.target
+	
+	[Service]
+	# 注意修改 Environment，x86 环境应修改为 amd64，arm64 环境应修改为 aarch64
+	Environment="LD_LIBRARY_PATH=/home/vastbase/vasthome/lib:/home/vastbase/vasthome/jre/lib/amd64:/home/vastbase/vasthome/jre/lib/amd64/server"
+	Environment="GAUSSHOME=/home/vastbase/vasthome"
+	Environment="LANG=en_US.UTF-8"
+	Type=forking
+	Restart=always
+	RestartSec=3
+	#Restart=no
+	User=vastbase
+	LimitNOFILE=640000
+	LimitNPROC=infinity
+	LimitSTACK=infinity
+	# 与 /etc/security/limits.conf 一致
+	LimitCORE=8388608    
+	LimitMEMLOCK=infinity
+	
+	# Where to send early-startup messages from the server (before the logging
+	# options of postgresql.conf take effect)
+	# This is normally controlled by the global default set by systemd
+	# StandardOutput=syslog
+	
+	# Disable OOM kill on the postmaster
+	OOMScoreAdjust=-1000
+	#注意调整目录路径
+	ExecStart=/home/vastbase/vasthome/bin/vb_ctl -t 3600 -D /data/vastdata  start
+	ExecStop=/home/vastbase/vasthome/bin/vb_ctl -t 3600 -D /data/vastdata  stop
+	
+	# Give a reasonable amount of time for the server to start up/shut down
+	TimeoutSec=3600
+	
+	[Install]
+	WantedBy=multi-user.target
+	```
 
-   > [!CAUTION]
-   >
-   > `Environment` 的实际值需要根据系统架构修改：
-   >
-   > - x86 环境：
-   >
-   >   ```
-   >   Environment="LD_LIBRARY_PATH=/home/vastbase/vasthome/lib:/home/vastbase/vasthome/jre/lib/amd64:/home/vastbase/vasthome/jre/lib/amd64/server"
-   >   ```
-   >
-   > - arm64 环境：
-   >
-   >   ```
-   >   Environment="LD_LIBRARY_PATH=/home/vastbase/vasthome/lib:/home/vastbase/vasthome/jre/lib/aarch64:/home/vastbase/vasthome/jre/lib/aarch64/server"
-   >   ```
-   >
-   > `LimitCORE` 的值需要与 `/etc/security/limits.conf` 一致
+	> [!CAUTION]
+	>
+	> `Environment` 的实际值需要根据系统架构修改：
+	>
+	> - x86 环境：
+	>
+	>   ```
+	>   Environment="LD_LIBRARY_PATH=/home/vastbase/vasthome/lib:/home/vastbase/vasthome/jre/lib/amd64:/home/vastbase/vasthome/jre/lib/amd64/server"
+	>   ```
+	>
+	> - arm64 环境：
+	>
+	>   ```
+	>   Environment="LD_LIBRARY_PATH=/home/vastbase/vasthome/lib:/home/vastbase/vasthome/jre/lib/aarch64:/home/vastbase/vasthome/jre/lib/aarch64/server"
+	>   ```
+	>
+	> `LimitCORE` 的值需要与 `/etc/security/limits.conf` 一致
 
 2. 加载服务，并设置开机启动：
 
-   ```shell
-   systemctl daemon-reload
-   systemctl enable vastbase
-   ```
+	```shell
+	systemctl daemon-reload
+	systemctl enable vastbase
+	```
 
 3. 启动数据库：
 
-   ```shell
-   systemctl start vastbase
-   systemctl status vastbase
-   ```
+	```shell
+	systemctl start vastbase
+	systemctl status vastbase
+	```
 
 <br>
 
@@ -1234,46 +1234,46 @@ mount -t tmpfs -o remount,size=128M tmpfs /stat_tmp/pg_stat_tmp
 
 1. 预装依赖包：
 
-   - RedHat、CentOS 等操作系统：
+	- RedHat、CentOS 等操作系统：
 
-     ```shell
-     yum install -y sysstat procps-ng net-tools iproute lsof dmidecode traceroute
-     ```
+		```shell
+		yum install -y sysstat procps-ng net-tools iproute lsof dmidecode traceroute
+		```
 
-   - Ubuntu 等操作系统:
+	- Ubuntu 等操作系统:
 
-     ```shell
-     apt install -y sysstat procps net-tools iproute2 lsof dmidecode traceroute
-     ```
+		```shell
+		apt install -y sysstat procps net-tools iproute2 lsof dmidecode traceroute
+		```
 
 2. 检查关键工具是否存在：
 
-   ```shell
-   which sar iostat mpstat vmstat top netstat ss lsof free df dmidecode traceroute
-   ```
+	```shell
+	which sar iostat mpstat vmstat top netstat ss lsof free df dmidecode traceroute
+	```
 
 3. 上传 OSWatch 文件并解压：
 
-   ```shell
-   cd /data/soft/
-   tar -xf oswbb840_v3.tar -C /backup/
-   chown -R vastbase.vastbase /backup/oswbb
-   ```
+	```shell
+	cd /data/soft/
+	tar -xf oswbb840_v3.tar -C /backup/
+	chown -R vastbase.vastbase /backup/oswbb
+	```
 
 4. 将检测脚本配置为定时任务：
 
-   ```shell
-   # Monitor OSWatch every 5 minutes
-   */5 * * * * sh /backup/oswbb/scripts/checkOSWatch.sh 1> /backup/oswbb/scripts/checkOSWatch.sh.out 2>&1
-   ```
+	```shell
+	# Monitor OSWatch every 5 minutes
+	*/5 * * * * sh /backup/oswbb/scripts/checkOSWatch.sh 1> /backup/oswbb/scripts/checkOSWatch.sh.out 2>&1
+	```
 
-   等待 5 分钟，OSWatch 程序将自动启动，或提前手工启动：
+	等待 5 分钟，OSWatch 程序将自动启动，或提前手工启动：
 
-   ```shell
-   cd /backup/oswbb
-   nohup ./startOSWbb.sh 10 720 gzip > startOSWbb.sh.out &
-   # 每10秒收集一次，数据保留720小时(30天)
-   ```
+	```shell
+	cd /backup/oswbb
+	nohup ./startOSWbb.sh 10 720 gzip > startOSWbb.sh.out &
+	# 每10秒收集一次，数据保留720小时(30天)
+	```
 
 <br>
 
@@ -1329,42 +1329,42 @@ vsql 是 Vastbase提供的在命令行下运行的数据库连接工具。此工
 
 1. 执行如下命令连接数据库：
 
-   ```shell
-   vsql -d vastbase -p 5432
-   ```
+	```shell
+	vsql -d vastbase -p 5432
+	```
 
-   其中 *vastbase* 为需要连接的数据库名称，*5432* 为数据库主节点的端口号。请根据实际情况替换。另外，也可以使用如下命令连接数据库：
+	其中 *vastbase* 为需要连接的数据库名称，*5432* 为数据库主节点的端口号。请根据实际情况替换。另外，也可以使用如下命令连接数据库：
 
-   ```shell
-   vsql -d "host=127.0.0.1 port=5432 dbname=vastbase user=vastbase password=Admin@123"
-   ```
+	```shell
+	vsql -d "host=127.0.0.1 port=5432 dbname=vastbase user=vastbase password=Admin@123"
+	```
 
 2. 连接成功后，系统显示类似如下信息：
 
-   ```
-   vsql ((Vastbase x.x.x build 50dc16a6) compiled at 2020-11-29 05:49:21 commit 1071 last mr 1373)
-   Non-SSL connection (SSL connection is recommended when requiring high-security)
-   Type "help" for help.
-   
-   vastbase=#
-   ```
+	```
+	vsql ((Vastbase x.x.x build 50dc16a6) compiled at 2020-11-29 05:49:21 commit 1071 last mr 1373)
+	Non-SSL connection (SSL connection is recommended when requiring high-security)
+	Type "help" for help.
+	
+	vastbase=#
+	```
 
-   > [!NOTE]
-   >
-   > - vastbase 用户是管理员用户，因此系统显示 “DBNAME=#”。若使用普通用户身份登录和连接数据库，系统显示 “DBNAME=>”。
-   > - “Non-SSL connection” 表示未使用 SSL 方式连接数据库。如果需要高安全性时，请使用 SSL 连接。
+	> [!NOTE]
+	>
+	> - vastbase 用户是管理员用户，因此系统显示 “DBNAME=#”。若使用普通用户身份登录和连接数据库，系统显示 “DBNAME=>”。
+	> - “Non-SSL connection” 表示未使用 SSL 方式连接数据库。如果需要高安全性时，请使用 SSL 连接。
 
 3. 首次登录建议修改密码。命令如下：
 
-   ```sql
-   ALTER ROLE vastbase IDENTIFIED BY 'Mypwd123' REPLACE 'XuanYuan@2012';
-   ```
+	```sql
+	ALTER ROLE vastbase IDENTIFIED BY 'Mypwd123' REPLACE 'XuanYuan@2012';
+	```
 
 4. 退出数据库：
 
-   ```shell
-   \q
-   ```
+	```shell
+	\q
+	```
 
 <br>
 
@@ -1382,42 +1382,42 @@ VDS 软件可以前往 [MVS](https://support.vastdata.com.cn) （My Vastdata Sup
 
 1. 以数据库安装用户 vastbase 登录数据库节点：
 
-   ```shell
-   su - vastbase
-   ```
+	```shell
+	su - vastbase
+	```
 
 2. 停止所有 Vastbase 服务：
 
-   ```shell
-   vb_ctl stop
-   ```
+	```shell
+	vb_ctl stop
+	```
 
 3. 进入安装程序所在目录：
 
-   ```shell
-   cd /data/soft/vastbase-installer/
-   ```
+	```shell
+	cd /data/soft/vastbase-installer/
+	```
 
 4. 执行卸载命令：
 
-   ```shell
-   ./vastbase_installer --uninstall
-   ```
+	```shell
+	./vastbase_installer --uninstall
+	```
 
 5. 后续清除无效文件即可：
 
-   ```shell
-   # 清理数据、日志目录
-   rm -rf data/{vastdata,vblogs}
-   # 清理备份目录
-   rm -rf /backup/{backup,archive_wals,core_pattern}
-   # 清理安装目录
-   rm -rf /home/vastbase/vasthome*
-   # 清理工具目录
-   rm -rf /home/vastbase/tool
-   # 清理配置和日志
-   rm -rf ~/.vastbase
-   ```
+	```shell
+	# 清理数据、日志目录
+	rm -rf data/{vastdata,vblogs}
+	# 清理备份目录
+	rm -rf /backup/{backup,archive_wals,core_pattern}
+	# 清理安装目录
+	rm -rf /home/vastbase/vasthome*
+	# 清理工具目录
+	rm -rf /home/vastbase/tool
+	# 清理配置和日志
+	rm -rf ~/.vastbase
+	```
 
 > [!NOTE]
 >
@@ -1443,7 +1443,7 @@ VDS 软件可以前往 [MVS](https://support.vastdata.com.cn) （My Vastdata Sup
 
 - 表空间对应于一个文件系统目录，假定数据库节点数据目录 `/pg_location/mount1/path1` 是用户拥有读写权限的空目录。
 
-  使用表空间配额管理会使性能有 30% 左右的影响，`MAXSIZE` 指定每个数据库节点的配额大小，误差范围在 500MB 以内。请根据实际的情况确认是否需要设置表空间的最大值。
+	使用表空间配额管理会使性能有 30% 左右的影响，`MAXSIZE` 指定每个数据库节点的配额大小，误差范围在 500MB 以内。请根据实际的情况确认是否需要设置表空间的最大值。
 
 Vastbase G100 自带了两个表空间：pg_default 和 pg_global。
 
@@ -1456,29 +1456,29 @@ Vastbase G100 自带了两个表空间：pg_default 和 pg_global。
 
 1. 执行如下命令创建表空间：
 
-   ```sql
-   CREATE TABLESPACE fastspace RELATIVE LOCATION 'tablespace/tablespace_1';
-   ```
+	```sql
+	CREATE TABLESPACE fastspace RELATIVE LOCATION 'tablespace/tablespace_1';
+	```
 
-   当结果显示为如下信息，则表示创建成功：
+	当结果显示为如下信息，则表示创建成功：
 
-   ```
-   CREATE TABLESPACE
-   ```
+	```
+	CREATE TABLESPACE
+	```
 
-   其中 *fastspace* 为新创建的表空间，*tablespace/tablespace_1* 是用户拥有读写权限的空目录。
+	其中 *fastspace* 为新创建的表空间，*tablespace/tablespace_1* 是用户拥有读写权限的空目录。
 
 2. 数据库系统管理员执行如下命令将 fastspace 表空间的访问权限赋予数据用户 jack：
 
-   ```sql
-   GRANT CREATE ON TABLESPACE fastspace TO jack;
-   ```
+	```sql
+	GRANT CREATE ON TABLESPACE fastspace TO jack;
+	```
 
-   当结果显示为如下信息，则表示赋予成功：
+	当结果显示为如下信息，则表示赋予成功：
 
-   ```
-   GRANT
-   ```
+	```
+	GRANT
+	```
 
 <br>
 
@@ -1555,8 +1555,8 @@ DROP TABLESPACE fspace;
 
 - 初始时，Vastbase G100 包含两个模板数据库 template0、template1，以及一个默认的用户数据库 postgres。postgres 默认的兼容数据库类型为 O（即 DBCOMPATIBILITY = 'A' ），该兼容类型下将空字符串作为 `NULL` 处理。
 - `CREATE DATABASE` 实际上通过拷贝模板数据库来创建新数据库。默认情况下，拷贝 template0。请避免使用客户端或其他手段连接及操作两个模板数据库。
-  - 模板数据库中没有用户表，可通过系统表 PG_DATABASE 查看模板数据库属性。
-  - 模板 template0 不允许用户连接；模板 template1 只允许数据库初始用户和系统管理员连接，普通用户无法连接。
+	- 模板数据库中没有用户表，可通过系统表 PG_DATABASE 查看模板数据库属性。
+	- 模板 template0 不允许用户连接；模板 template1 只允许数据库初始用户和系统管理员连接，普通用户无法连接。
 - 数据库系统中会有多个数据库，但是客户端程序一次只能连接一个数据库。也不能在不同的数据库之间相互查询。一个 Vastbase中 存在多个数据库时，需要通过 `-d` 参数指定相应的数据库进行连接。
 
 <br>

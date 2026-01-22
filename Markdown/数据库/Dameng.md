@@ -31,21 +31,21 @@ DM8 采用全新的体系架构，在保证大型通用的基础上，针对可�
 
 1. 创建用户所在的组，命令如下：
 
-   ```shell
-   groupadd dinstall -g 2001
-   ```
+	```shell
+	groupadd dinstall -g 2001
+	```
 
 2. 创建用户，命令如下：
 
-   ```shell
-   useradd -G dinstall -m -d /home/dmdba -s /bin/bash -u 2001 dmdba
-   ```
+	```shell
+	useradd -G dinstall -m -d /home/dmdba -s /bin/bash -u 2001 dmdba
+	```
 
 3. 修改用户密码，命令如下：
 
-   ```shell
-   passwd dmdba
-   ```
+	```shell
+	passwd dmdba
+	```
 
 <br>
 
@@ -55,51 +55,51 @@ DM8 采用全新的体系架构，在保证大型通用的基础上，针对可�
 
 - 重启服务器后永久生效
 
-  使用 root 用户打开 `/etc/security/limits.conf` 文件进行修改，命令如下：
+	使用 root 用户打开 `/etc/security/limits.conf` 文件进行修改，命令如下：
 
-  ```shell
-  vi /etc/security/limits.conf
-  ```
+	```shell
+	vi /etc/security/limits.conf
+	```
 
-  在最后需要添加如下配置：
+	在最后需要添加如下配置：
 
-  ```
-  dmdba  soft      nice       0
-  dmdba  hard      nice       0
-  dmdba  soft      as         unlimited
-  dmdba  hard      as         unlimited
-  dmdba  soft      fsize      unlimited
-  dmdba  hard      fsize      unlimited
-  dmdba  soft      nproc      65536
-  dmdba  hard      nproc      65536
-  dmdba  soft      nofile     65536
-  dmdba  hard      nofile     65536
-  dmdba  soft      core       unlimited
-  dmdba  hard      core       unlimited
-  dmdba  soft      data       unlimited
-  dmdba  hard      data       unlimited
-  ```
+	```
+	dmdba  soft      nice       0
+	dmdba  hard      nice       0
+	dmdba  soft      as         unlimited
+	dmdba  hard      as         unlimited
+	dmdba  soft      fsize      unlimited
+	dmdba  hard      fsize      unlimited
+	dmdba  soft      nproc      65536
+	dmdba  hard      nproc      65536
+	dmdba  soft      nofile     65536
+	dmdba  hard      nofile     65536
+	dmdba  soft      core       unlimited
+	dmdba  hard      core       unlimited
+	dmdba  soft      data       unlimited
+	dmdba  hard      data       unlimited
+	```
 
-  切换到 dmdba 用户，查看是否生效，命令如下：
+	切换到 dmdba 用户，查看是否生效，命令如下：
 
-  ```shell
-  su - dmdba
-  
-  ulimit -a
-  ```
+	```shell
+	su - dmdba
+	
+	ulimit -a
+	```
 
-  可以看到参数配置已生效：
+	可以看到参数配置已生效：
 
-  <img src="./!assets/DM/202401240959260UW7J0C11OXTBOXWK9.png" alt="image.png" style="zoom:67%;" />
+	<img src="./!assets/DM/202401240959260UW7J0C11OXTBOXWK9.png" alt="image.png" style="zoom:67%;" />
 
 - 设置参数临时生效
 
-  可使用 dmdba 用户执行如下命令，使设置临时生效：
+	可使用 dmdba 用户执行如下命令，使设置临时生效：
 
-  ```shell
-  ulimit -n 65536
-  ulimit -u 65536
-  ```
+	```shell
+	ulimit -n 65536
+	ulimit -u 65536
+	```
 
 <br>
 
@@ -159,25 +159,25 @@ DM 数据库在 Linux 环境下支持命令行安装和图形化安装。
 
 1. 切换至 dmdba 用户下，在 `/mnt` 目录下使用命令行安装数据库程序，依次执行以下命令安装 DM 数据库：
 
-   ```shell
-   su - dmdba
-   
-   cd /mnt/
-   
-   ./DMInstall.bin -i
-   ```
+	```shell
+	su - dmdba
+	
+	cd /mnt/
+	
+	./DMInstall.bin -i
+	```
 
 2. 按需求选择安装语言，没有 key 文件选择 "n"，时区按需求选择一般选择 “21”，安装类型选择 “1”，安装目录按实际情况配置，这里示例使用默认安装位置：
 
-   <img src="./!assets/DM/20240124112650T19KGAG7IFVF7RE1JH.png" alt="image.png" style="zoom:67%;" />
+	<img src="./!assets/DM/20240124112650T19KGAG7IFVF7RE1JH.png" alt="image.png" style="zoom:67%;" />
 
 4. 数据库安装大概 1~2 分钟，数据库安装完成后，显示如下界面：
 
-   <img src="./!assets/DM/2024012411300992W9AYDO7OL5LIEXUO.png" alt="image.png" style="zoom:67%;" />
+	<img src="./!assets/DM/2024012411300992W9AYDO7OL5LIEXUO.png" alt="image.png" style="zoom:67%;" />
 
 4. 数据库安装完成后，需要切换至 root 用户执行上图中的命令 `/home/dmdba/dmdbms/script/root/root_installer.sh` 创建 DmAPService，否则会影响数据库备份。
 
-   数据库安装完成后还需注册实例才能使用数据库，注册实例后面会讲到。
+	数据库安装完成后还需注册实例才能使用数据库，注册实例后面会讲到。
 
 <br>
 
@@ -185,58 +185,58 @@ DM 数据库在 Linux 环境下支持命令行安装和图形化安装。
 
 1. 切换到 dmdba 用户，进入 `/mnt` 目录下，执行命令开始图形化安装：
 
-   ```shell
-   su - dmdba
-   
-   cd /mnt/
-   
-   ./DMInstall.bin
-   ```
+	```shell
+	su - dmdba
+	
+	cd /mnt/
+	
+	./DMInstall.bin
+	```
 
-   若出现：`初始化图形界面失败，如果当前监视器窗口不支持图形界面，请进入安装文件所在文件夹并使用"./DMInstall.bin -i"进行命令行安装。` 错误提示，可按以下两种方式操作解决：
+	若出现：`初始化图形界面失败，如果当前监视器窗口不支持图形界面，请进入安装文件所在文件夹并使用"./DMInstall.bin -i"进行命令行安装。` 错误提示，可按以下两种方式操作解决：
 
-   - 方法一：注销当前用户，登陆 dmdba 用户，执行 `./DMInstall.bin` 命令。
-   - 方法二：用当前用户执行 `xhost +`，切换到 dmdba 用户，执行 `export DISPLAY=:0`，再执行 `xhost +` 命令。
+	- 方法一：注销当前用户，登陆 dmdba 用户，执行 `./DMInstall.bin` 命令。
+	- 方法二：用当前用户执行 `xhost +`，切换到 dmdba 用户，执行 `export DISPLAY=:0`，再执行 `xhost +` 命令。
 
 2. 图形化界面启动成功后，将弹出【选择语言与时区】页面，默认为简体中文和中国标准时间：
 
-   <img src="!assets/DM/ui-lang-time.png" alt="选择语言与时区" style="zoom:67%;" />
+	<img src="!assets/DM/ui-lang-time.png" alt="选择语言与时区" style="zoom:67%;" />
 
 3. 点击【确定】后，弹出 DM 数据库安装程序：
 
-   <img src="!assets/DM/ui-install-xd.png" alt="安装向导" style="zoom:67%;" />
+	<img src="!assets/DM/ui-install-xd.png" alt="安装向导" style="zoom:67%;" />
 
 4. 点击【下一步】后，为许可证协议页面，选择【接受】：
 
-   <img src="!assets/DM/ui-install-xkxy.png" alt="许可证协议" style="zoom:67%;" />
+	<img src="!assets/DM/ui-install-xkxy.png" alt="许可证协议" style="zoom:67%;" />
 
 5. 点击【下一步】后，弹出 key 文件页面，点击【浏览】选择【key 文件】，若没有 key 文件可以直接点击【下一步】，跳过该步骤：
 
-   <img src="!assets/DM/ui-install-key.png" alt="key文件" style="zoom:67%;" />
+	<img src="!assets/DM/ui-install-key.png" alt="key文件" style="zoom:67%;" />
 
 6. 点击【下一步】后，弹出选择组件页面，建议选择典型安装，也可根据需要，选择服务器安装、客户端安装和自定义安装：
 
-   <img src="!assets/DM/ui-install-chosezj.png" alt="选择组件" style="zoom:67%;" />
+	<img src="!assets/DM/ui-install-chosezj.png" alt="选择组件" style="zoom:67%;" />
 
 7. 点击【下一步】后，弹出选择安装位置页面，可点击【浏览】选择安装位置，也可安装在默认路径下：
 
-   <img src="!assets/DM/ui-install-path.png" alt="选择安装位置" style="zoom: 33%;" />
+	<img src="!assets/DM/ui-install-path.png" alt="选择安装位置" style="zoom: 33%;" />
 
 8. 点击【下一步】后，弹出确认安装信息页面，检查安装信息是否准确，确认无误后点击【安装】：
 
-   <img src="!assets/DM/ui-install-message.png" alt="确认安装信息" style="zoom:67%;" />
+	<img src="!assets/DM/ui-install-message.png" alt="确认安装信息" style="zoom:67%;" />
 
 9. 点击【安装】后，等待 1~2 分钟即可安装完成，安装完成后弹出执行配置脚本页面，按照页面要求执行该脚本即可：
 
-   <img src="!assets/DM/ui-install-runshell.png" alt="执行配置脚本" style="zoom: 67%;" />
+	<img src="!assets/DM/ui-install-runshell.png" alt="执行配置脚本" style="zoom: 67%;" />
 
 10. 重新打开一个终端，切换到 root 用户，执行弹出页面中的脚本：
 
-    <img src="!assets/DM/ui-install-zxjb.png" alt="执行脚本" style="zoom:67%;" />
+		<img src="!assets/DM/ui-install-zxjb.png" alt="执行脚本" style="zoom:67%;" />
 
 11. 脚本执行完成后，点击执行配置脚本页面中的【完成】，弹出提示框，提示是否关闭窗口，选择是，提示数据库安装完成，再点击【完成】按钮，完成数据库安装：
 
-    <img src="!assets/DM/ui-install-success.png" alt="完成安装" style="zoom:67%;" />
+		<img src="!assets/DM/ui-install-success.png" alt="完成安装" style="zoom:67%;" />
 
 <br>
 
@@ -244,27 +244,27 @@ DM 数据库在 Linux 环境下支持命令行安装和图形化安装。
 
 1. 切换到 root 用户进入 dmdba 用户的根目录下，配置对应的环境变量。`DM_HOME` 变量和动态链接库文件的加载路径在程序安装成功后会自动导入。命令如下：
 
-   ```shell
-   export PATH=$PATH:$DM_HOME/bin:$DM_HOME/tool
-   ```
+	```shell
+	export PATH=$PATH:$DM_HOME/bin:$DM_HOME/tool
+	```
 
 2. 编辑 `.bash_profile`，使其最终效果如下图所示：
 
-   ```shell
-   cd /home/dmdba/
-   
-   vim .bash_profile
-   ```
+	```shell
+	cd /home/dmdba/
+	
+	vim .bash_profile
+	```
 
-   <img src="!assets/DM/dm-home-path.png" alt="环境变量" style="zoom: 80%;" />
+	<img src="!assets/DM/dm-home-path.png" alt="环境变量" style="zoom: 80%;" />
 
 3. 切换至 dmdba 用户下，执行以下命令，使环境变量生效：
 
-   ```shell
-   su - dmdba
-   
-   source .bash_profile
-   ```
+	```shell
+	su - dmdba
+	
+	source .bash_profile
+	```
 
 <br>
 
@@ -279,64 +279,64 @@ DM 数据库在 Linux 环境支持命令行配置实例以及图形化配置实�
 
 1. 使用 dmdba 用户配置实例，进入到 DM 数据库安装目录下的 bin 目录中：
 
-   ```shell
-   su - dmdba
-   cd /home/dmdba/dmdbms/bin
-   ```
+	```shell
+	su - dmdba
+	cd /home/dmdba/dmdbms/bin
+	```
 
 2. 使用 `dminit` 命令初始化实例，`dminit` 命令可设置多种参数，可执行如下命令查看可配置参数：
 
-   ```shell
-   ./dminit help
-   ```
+	```shell
+	./dminit help
+	```
 
-   <img src="./!assets/DM/20250508101244TDXKI0J2TY6HFMXE15.png" alt="image.png" style="zoom:67%;" />
+	<img src="./!assets/DM/20250508101244TDXKI0J2TY6HFMXE15.png" alt="image.png" style="zoom:67%;" />
 
-   需要注意的是页大小（*PAGE_SIZE*）、簇大小（*EXTENT_SIZE*）、大小写敏感（*CASE_SENSITIVE*）、字符集（*CHARSET*）、空格填充模式（*BLANK_PAD_MODE*）、页检查模式（*PAGE_CHECK*）等部分参数，一旦确定无法修改，在初始化实例时确认需求后谨慎设置。
+	需要注意的是页大小（*PAGE_SIZE*）、簇大小（*EXTENT_SIZE*）、大小写敏感（*CASE_SENSITIVE*）、字符集（*CHARSET*）、空格填充模式（*BLANK_PAD_MODE*）、页检查模式（*PAGE_CHECK*）等部分参数，一旦确定无法修改，在初始化实例时确认需求后谨慎设置。
 
-   部分参数解释如下：
+	部分参数解释如下：
 
-   - *PAGE_SIZE*：数据文件使用的页大小。取值范围 4、8、16、32，单位：KB。缺省值为 8。选择的页大小越大，则 DM 支持的元组长度也越大，但同时空间利用率可能下降。
+	- *PAGE_SIZE*：数据文件使用的页大小。取值范围 4、8、16、32，单位：KB。缺省值为 8。选择的页大小越大，则 DM 支持的元组长度也越大，但同时空间利用率可能下降。
 
-     可选参数。数据库创建成功后无法再修改页大小，可通过系统函数 `SF_GET_PAGE_SIZE()` 获取系统的页大小。
+		可选参数。数据库创建成功后无法再修改页大小，可通过系统函数 `SF_GET_PAGE_SIZE()` 获取系统的页大小。
 
-   - *EXTENT_SIZE*：数据文件使用的簇大小，即每次分配新的段空间时连续的页数。取值范围 16、32、64。单位：页数。缺省值为 16。
+	- *EXTENT_SIZE*：数据文件使用的簇大小，即每次分配新的段空间时连续的页数。取值范围 16、32、64。单位：页数。缺省值为 16。
 
-     可选参数。数据库创建成功后无法再修改簇大小，可通过系统函数 `SF_GET_EXTENT_SIZE()` 获取系统的簇大小。
+		可选参数。数据库创建成功后无法再修改簇大小，可通过系统函数 `SF_GET_EXTENT_SIZE()` 获取系统的簇大小。
 
-   - *CASE_SENSITIVE*：标识符大小写敏感。当大小写敏感时，小写的标识符应用 `""` 括起，否则被系统自动转换为大写；当大小写不敏感时，系统不会转换标识符的大小写，系统比较函数会将大写字母全部转为小写字母再进行比较。取值：Y、y、1 表示敏感；N、n、0 表示不敏感。缺省值为 Y。
+	- *CASE_SENSITIVE*：标识符大小写敏感。当大小写敏感时，小写的标识符应用 `""` 括起，否则被系统自动转换为大写；当大小写不敏感时，系统不会转换标识符的大小写，系统比较函数会将大写字母全部转为小写字母再进行比较。取值：Y、y、1 表示敏感；N、n、0 表示不敏感。缺省值为 Y。
 
-     可选参数。此参数在数据库创建成功后无法修改，可通过系统函数 `SF_GET_CASE_SENSITIVE_FLAG()` 或 `CASE_SENSITIVE()` 查询设置的参数值。
+		可选参数。此参数在数据库创建成功后无法修改，可通过系统函数 `SF_GET_CASE_SENSITIVE_FLAG()` 或 `CASE_SENSITIVE()` 查询设置的参数值。
 
-   - *CHARSET*：字符集选项。取值范围 0、1、2。0 代表 GB18030，1 代表 UTF-8，2 代表韩文字符集 EUC-KR。缺省值为 0。
+	- *CHARSET*：字符集选项。取值范围 0、1、2。0 代表 GB18030，1 代表 UTF-8，2 代表韩文字符集 EUC-KR。缺省值为 0。
 
-     可选参数。此参数在数据库创建成功后无法修改，可通过系统函数 `SF_GET_UNICODE_FLAG()` 或 `UNICODE()` 查询设置的参数值。
+		可选参数。此参数在数据库创建成功后无法修改，可通过系统函数 `SF_GET_UNICODE_FLAG()` 或 `UNICODE()` 查询设置的参数值。
 
-   - *BLANK_PAD_MODE*：设置字符串比较时，结尾空格填充模式是否兼容 ORACLE。1：兼容；0：不兼容。缺省值为 0。
+	- *BLANK_PAD_MODE*：设置字符串比较时，结尾空格填充模式是否兼容 ORACLE。1：兼容；0：不兼容。缺省值为 0。
 
-     可选参数。此参数在数据库创建成功后无法修改，可通过查询 `V$PARAMETER` 中的 `BLANK_PAD_MODE` 参数名查看此参数的设置值。
+		可选参数。此参数在数据库创建成功后无法修改，可通过查询 `V$PARAMETER` 中的 `BLANK_PAD_MODE` 参数名查看此参数的设置值。
 
-   - *PAGE_CHECK*：*PAGE_CHECK* 为页检查模式。取值范围 0、1、2、3。0：禁用页校验；1：开启页校验并使用 CRC 校验；2：开启页校验并使用指定的 HASH 算法进行校验；3：开启页校验并使用快速 CRC 校验。缺省值为 3。
+	- *PAGE_CHECK*：*PAGE_CHECK* 为页检查模式。取值范围 0、1、2、3。0：禁用页校验；1：开启页校验并使用 CRC 校验；2：开启页校验并使用指定的 HASH 算法进行校验；3：开启页校验并使用快速 CRC 校验。缺省值为 3。
 
-     可选参数。在数据库创建成功后无法修改。
+		可选参数。在数据库创建成功后无法修改。
 
 3. 如果需要附加实例存放路径。此处以初始化实例到 `/dmdata/data` 目录下为例（执行初始化命令前，需要使用 root 用户授予 `/dmdata/data` 目录相应权限），初始化命令如下：
 
-   ```shell
-   ./dminit path=/dmdata/data SYSDBA_PWD=****** SYSAUDITOR_PWD=******
-   ```
+	```shell
+	./dminit path=/dmdata/data SYSDBA_PWD=****** SYSAUDITOR_PWD=******
+	```
 
-   也可以自定义初始化实例的参数，参考如下示例：
+	也可以自定义初始化实例的参数，参考如下示例：
 
-   ```shell
-   ./dminit path=/dmdata/data PAGE_SIZE=32 EXTENT_SIZE=32 CASE_SENSITIVE=y CHARSET=1 DB_NAME=DAMENG INSTANCE_NAME=DMSERVER PORT_NUM=5236 SYSDBA_PWD=123  SYSAUDITOR_PWD=321
-   ```
+	```shell
+	./dminit path=/dmdata/data PAGE_SIZE=32 EXTENT_SIZE=32 CASE_SENSITIVE=y CHARSET=1 DB_NAME=DAMENG INSTANCE_NAME=DMSERVER PORT_NUM=5236 SYSDBA_PWD=123  SYSAUDITOR_PWD=321
+	```
 
-   上面命令设置页大小为 32 KB，簇大小为 32 KB，大小写敏感，字符集为 utf_8，数据库名为 DAMENG，实例名为 DMSERVER，端口为 5236，SYSDBA 用户密码为 123，SYSAUDITOR 用户密码为 321。
+	上面命令设置页大小为 32 KB，簇大小为 32 KB，大小写敏感，字符集为 utf_8，数据库名为 DAMENG，实例名为 DMSERVER，端口为 5236，SYSDBA 用户密码为 123，SYSAUDITOR 用户密码为 321。
 
-   > [!NOTE]
-   >
-   > 如果此处自定义了初始化参数，在后面的注册服务和启动数据库等步骤中，请按实际的自定义参数进行操作。
+	> [!NOTE]
+	>
+	> 如果此处自定义了初始化参数，在后面的注册服务和启动数据库等步骤中，请按实际的自定义参数进行操作。
 
 <br>
 
@@ -344,53 +344,53 @@ DM 数据库在 Linux 环境支持命令行配置实例以及图形化配置实�
 
 1. 使用图形化界面安装数据库安装完成后，会弹出选择是否初始化数据库页面，选择【初始化】：
 
-   <img src="!assets/DM/ui-licence-csh.png" alt="初始化实例" style="zoom:67%;" />
+	<img src="!assets/DM/ui-licence-csh.png" alt="初始化实例" style="zoom:67%;" />
 
 2. 点击初始化后会弹出数据库配置助手，通过数据库配置助手便可以配置数据库：
 
-   <img src="!assets/DM/ui-licence-ipzzs.png" alt="初始化实例" style="zoom:67%;" />
+	<img src="!assets/DM/ui-licence-ipzzs.png" alt="初始化实例" style="zoom:67%;" />
 
 3. 若需要主动打开配置助手，可使用 dmdba 用户配置实例，进入到 DM 数据库安装目录下的 tool 目录中，使用 `./dbca.sh` 命令打开数据库配置助手：
 
-   <img src="!assets/DM/ui-licence-stdbca.png" alt="启动配置助手" style="zoom:67%;" />
+	<img src="!assets/DM/ui-licence-stdbca.png" alt="启动配置助手" style="zoom:67%;" />
 
 4. 选择创建数据库实例，点击【开始】，进入创建数据库页面的创建数据库模版页签，选择【一般用途】，如下图所示：
 
-   <img src="!assets/DM/ui-instance-cremod.png" alt="创建数据库模版" style="zoom:67%;" />
+	<img src="!assets/DM/ui-instance-cremod.png" alt="创建数据库模版" style="zoom:67%;" />
 
 5. 点击【下一步】，选择数据库实例安装目录，如下图所示：
 
-   <img src="!assets/DM/ui-instance-cpath.png" alt="指定数据库目录" style="zoom:67%;" />
+	<img src="!assets/DM/ui-instance-cpath.png" alt="指定数据库目录" style="zoom:67%;" />
 
 6. 确定好数据库安装目录后，点击【下一步】，用户可根据需要设置对应的数据库参数，如下图所示：
 
-   <img src="!assets/DM/ui-instance-settag.png" alt="指定数据库目录" style="zoom:67%;" />
+	<img src="!assets/DM/ui-instance-settag.png" alt="指定数据库目录" style="zoom:67%;" />
 
 7. 点击【下一步】，配置数据库文件路径，选择【默认路径】即可，如下图所示：
 
-   <img src="!assets/DM/ui-licence-datafilepath.png" alt="指定数据库文件目录" style="zoom:67%;" />
+	<img src="!assets/DM/ui-licence-datafilepath.png" alt="指定数据库文件目录" style="zoom:67%;" />
 
 8. 点击【下一步】，配置初始化参数，注意簇大小、页大小、字符集以及大小写敏感确定后不可修改，如下图所示：
 
-   <img src="!assets/DM/ui-licence-setcs.png" alt="指定数据库文件目录" style="zoom:67%;" />
+	<img src="!assets/DM/ui-licence-setcs.png" alt="指定数据库文件目录" style="zoom:67%;" />
 
 9. 点击【下一步】，配置数据库口令，默认配置即可，如下图所示：
 
-   <img src="!assets/DM/ui-licence-pswm.png" alt="口令管理" style="zoom:67%;" />
+	<img src="!assets/DM/ui-licence-pswm.png" alt="口令管理" style="zoom:67%;" />
 
 10. 点击【下一步】，配置示例库，建议勾选  `BOOKSHOP` 或 `DMHR`，作为演示环境，如下图所示：
 
-    <img src="!assets/DM/ui-licence-exdatabase.png" alt="创建示例库" style="zoom:67%;" />
+		<img src="!assets/DM/ui-licence-exdatabase.png" alt="创建示例库" style="zoom:67%;" />
 
 11. 点击【下一步】，用户可检查创建参数，若有需要修改之处可点击【上一步】回到需要修改的位置进行修改，如下图所示：
 
-    <img src="!assets/DM/ui-licence-crezy.png" alt="创建摘要" style="zoom:67%;" />
+		<img src="!assets/DM/ui-licence-crezy.png" alt="创建摘要" style="zoom:67%;" />
 
 12. 点击【完成】，创建完成数据库实例后，按下图按提示执行脚本即可完成实例配置：
 
-    <img src="!assets/DM/ui-licence-cresuee.png" alt="创建完成" style="zoom:67%;" />
+		<img src="!assets/DM/ui-licence-cresuee.png" alt="创建完成" style="zoom:67%;" />
 
-    <img src="!assets/DM/zxml.png" alt="执行命令" style="zoom:67%;" />
+		<img src="!assets/DM/zxml.png" alt="执行命令" style="zoom:67%;" />
 
 <br>
 
@@ -400,30 +400,30 @@ DM 数据库在 Linux 环境支持命令行配置实例以及图形化配置实�
 
 1. 注册服务需使用 root 用户进行注册。使用 root 用户进入数据库安装目录的 `/script/root` 下，如下所示：
 
-   ```shell
-   cd /home/dmdba/dmdbms/script/root/
-   ```
+	```shell
+	cd /home/dmdba/dmdbms/script/root/
+	```
 
 2. 注册服务，如下所示：
 
-   ```shell
-   ./dm_service_installer.sh -t dmserver -dm_ini /dmdata/data/DAMENG/dm.ini -p DMSERVER
-   ```
+	```shell
+	./dm_service_installer.sh -t dmserver -dm_ini /dmdata/data/DAMENG/dm.ini -p DMSERVER
+	```
 
-   部分参数说明：
+	部分参数说明：
 
-   | 标志      | 参数         | 说明                                                         |
-   | :-------- | :----------- | :----------------------------------------------------------- |
-   | `-t`      | 服务类型     | 注册服务类型，支持以下服务类型：dmap、dmamon、dmserver、<br />dmwatcher、dmmonitor、dmasmsvr、dmasmsvrm、dmcss、dmcssm。 |
-   | `-dm_ini` | INI 文件路径 | 指定服务所需要的 dm.ini 文件路径。                           |
-   | `-p`      | 服务名后缀   | 指定服务名后缀，生成的操作系统服务名为 “服务脚本模板名称 + 服务名后缀”。<br />此参数只针对 dmserver、dmwatcher、dmmonitor、dmasmsvr、dmasmsvrm、<br />dmcss、dmcssm 服务脚本生效。 |
+	| 标志      | 参数         | 说明                                                         |
+	| :-------- | :----------- | :----------------------------------------------------------- |
+	| `-t`      | 服务类型     | 注册服务类型，支持以下服务类型：dmap、dmamon、dmserver、<br />dmwatcher、dmmonitor、dmasmsvr、dmasmsvrm、dmcss、dmcssm。 |
+	| `-dm_ini` | INI 文件路径 | 指定服务所需要的 dm.ini 文件路径。                           |
+	| `-p`      | 服务名后缀   | 指定服务名后缀，生成的操作系统服务名为 “服务脚本模板名称 + 服务名后缀”。<br />此参数只针对 dmserver、dmwatcher、dmmonitor、dmasmsvr、dmasmsvrm、<br />dmcss、dmcssm 服务脚本生效。 |
 
 3. 进入数据安装目录下 bin 目录中可以看到已经注册好的服务 DmServiceDMSERVER：
 
-   ```shell
-   cd /home/dmdba/dmdbms/bin
-   ls | grep DmServiceDMSERVER
-   ```
+	```shell
+	cd /home/dmdba/dmdbms/bin
+	ls | grep DmServiceDMSERVER
+	```
 
 <br>
 
@@ -431,19 +431,19 @@ DM 数据库在 Linux 环境支持命令行配置实例以及图形化配置实�
 
 1. 打开运行 dbca 工具，选择【注册数据库服务】，如下图所示：
 
-   <img src="!assets/DM/ui-service-dbca.png" alt="打开dbca" style="zoom:67%;" />
+	<img src="!assets/DM/ui-service-dbca.png" alt="打开dbca" style="zoom:67%;" />
 
 2. 单击【开始】，弹出注册数据库服务页面，如下图所示：
 
-   <img src="!assets/DM/ui-service-zccs.png" alt="注册参数" style="zoom:67%;" />
+	<img src="!assets/DM/ui-service-zccs.png" alt="注册参数" style="zoom:67%;" />
 
 3. 点击【完成】后，弹出执行配置脚本页面，按页面要求执行脚本即可，如下图所示：
 
-   <img src="!assets/DM/ui-service-shell.png" alt="执行配置脚本" style="zoom:67%;" />
+	<img src="!assets/DM/ui-service-shell.png" alt="执行配置脚本" style="zoom:67%;" />
 
 4. 执行脚本成功后，该实例已启动，如下图所示：
 
-   <img src="!assets/DM/ui-service-zd.png" alt="终端" style="zoom:67%;" />
+	<img src="!assets/DM/ui-service-zd.png" alt="终端" style="zoom:67%;" />
 
 <br>
 
@@ -519,27 +519,27 @@ systemctl status DmServiceDMSERVER.service
 
 1. 进入 DM 安装目录：
 
-   ```shell
-   cd /DM_INSTALL_PATH
-   ```
+	```shell
+	cd /DM_INSTALL_PATH
+	```
 
 2. 执行卸载脚本，命令行卸载需要添加参数 `-i`：
 
-   ```shell
-   ./uninstall.sh -i
-   ```
+	```shell
+	./uninstall.sh -i
+	```
 
 3. 终端窗口将提示确认是否卸载程序，输入 “y/Y” 开始卸载 DM，输入 “n/N” 退出卸载程序：
 
-   <img src="!assets/DM/图2.53-运行卸载程序.png" alt="删除目录" style="zoom:67%;" />
+	<img src="!assets/DM/图2.53-运行卸载程序.png" alt="删除目录" style="zoom:67%;" />
 
 4. 在 Linux（Unix）系统下，使用非 root 用户卸载完成时，终端提示 “请以 root 系统用户执行命令”。用户需要手动执行相关命令：
 
-   ```shell
-   /home/dmdba/dmdbms/root_all_service_uninstaller.sh
-   
-   rm -rf /etc/dm_svc.conf
-   ```
+	```shell
+	/home/dmdba/dmdbms/root_all_service_uninstaller.sh
+	
+	rm -rf /etc/dm_svc.conf
+	```
 
 <br>
 
@@ -903,13 +903,13 @@ alter database open;
 
 1. 打开 DM管理工具 => 连接数据库 => 右键选择【管理服务器】：
 
-   <img src="!assets/DM/image-20230922004306995.png" alt="image-20230922004306995" style="zoom: 67%;" />
+	<img src="!assets/DM/image-20230922004306995.png" alt="image-20230922004306995" style="zoom: 67%;" />
 
 2. 切换到【系统管理】页面，选择需要切换的状态，最后点击【转换】：
 
-   <img src="!assets/DM/image-20230922004422477.png" alt="image-20230922004422477" style="zoom:67%;" />
+	<img src="!assets/DM/image-20230922004422477.png" alt="image-20230922004422477" style="zoom:67%;" />
 
-   左侧目录刷新，即可看到数据库对象信息。
+	左侧目录刷新，即可看到数据库对象信息。
 
 <br>
 
@@ -1023,35 +1023,35 @@ DM 数据迁移工具 DM DTS 提供了主流大型数据库迁移到 DM、DM 到
 
 1. 新建工程：
 
-   <img src="!assets/DM/20210202164357901.png" alt="img" style="" />
+	<img src="!assets/DM/20210202164357901.png" alt="img" style="" />
 
 2. 新建迁移：
 
-   <img src="!assets/DM/20210202164528157.png" alt="img" style="" />
+	<img src="!assets/DM/20210202164528157.png" alt="img" style="" />
 
 3. 双击打开 dm-dm 进行迁移配置：
 
-   <img src="!assets/DM/20210202164622570.png" alt="img" style="" />
+	<img src="!assets/DM/20210202164622570.png" alt="img" style="" />
 
 4. 选择相应的迁移模式（此处选【dm ==> dm】迁移）：
 
-   <img src="!assets/DM/20210202164743774.png" alt="img" style="" />
+	<img src="!assets/DM/20210202164743774.png" alt="img" style="" />
 
 5. 填写相应的源数据库和目标数据库的连接信息：
 
-   <img src="!assets/DM/2021020216493840.png" alt="img" style="" />
+	<img src="!assets/DM/2021020216493840.png" alt="img" style="" />
 
 6. 选择要迁移的源模式，并指定目的模式，其中 "目录"、"公共同义词"、"上下文" 取消勾选：
 
-   <img src="!assets/DM/20210202165336811.png" alt="img" style="" />
+	<img src="!assets/DM/20210202165336811.png" alt="img" style="" />
 
 7. 勾选相应的对象，点击【转换】选择迁移策略，可以根据实际情况选择只迁移表结构、数据、约束，或删除原有数据再迁移等具体情况，大字段表选项改小 256 即可
 
-   <img src="!assets/DM/20210202165939365.png" alt="img" style="" />
+	<img src="!assets/DM/20210202165939365.png" alt="img" style="" />
 
 8. 确认无误后完成即可：
 
-   <img src="!assets/DM/20210202170509591.png" alt="img" style="" />
+	<img src="!assets/DM/20210202170509591.png" alt="img" style="" />
 
 <br>
 
@@ -1081,27 +1081,27 @@ DM 数据迁移工具 DM DTS 提供了主流大型数据库迁移到 DM、DM 到
 
 1. 修改数据库为 Mount 状态：
 
-   ```sql
-   ALTER DATABASE MOUNT;
-   ```
+	```sql
+	ALTER DATABASE MOUNT;
+	```
 
 2. 开启归档模式：
 
-   ```sql
-   ALTER DATABASE ARCHIVELOG;
-   ```
+	```sql
+	ALTER DATABASE ARCHIVELOG;
+	```
 
 3. 配置本地归档：
 
-   ```sql
-   ALTER DATABASE ADD ARCHIVELOG 'DEST = /data/dm_arch/arch, TYPE = local, FILE_SIZE = 1024, SPACE_LIMIT = 2048';
-   ```
+	```sql
+	ALTER DATABASE ADD ARCHIVELOG 'DEST = /data/dm_arch/arch, TYPE = local, FILE_SIZE = 1024, SPACE_LIMIT = 2048';
+	```
 
 4. 修改数据库为 Open 状态：
 
-   ```sql
-   ALTER DATABASE OPEN;
-   ```
+	```sql
+	ALTER DATABASE OPEN;
+	```
 
 <br>
 
@@ -1109,19 +1109,19 @@ DM 数据迁移工具 DM DTS 提供了主流大型数据库迁移到 DM、DM 到
 
 1. 右键数据库连接，选择【管理服务器】，切换到【系统管理】，将状态转换为【配置】：
 
-   <img src="!assets/DM/image-20240812180155686.png" alt="image-20240812180155686" style="zoom: 67%;" />
+	<img src="!assets/DM/image-20240812180155686.png" alt="image-20240812180155686" style="zoom: 67%;" />
 
 2. 切换到【归档配置】，将归档模式设置为【归档】，并添加一个本地的归档目标：
 
-   <img src="!assets/DM/image-20240812180342701.png" alt="image-20240812180342701" style="zoom:67%;" />
+	<img src="!assets/DM/image-20240812180342701.png" alt="image-20240812180342701" style="zoom:67%;" />
 
-   > [!WARNING]
-   >
-   > 此处为归档日志目录，并且添加了之后无法删除！！！
+	> [!WARNING]
+	>
+	> 此处为归档日志目录，并且添加了之后无法删除！！！
    
 3. 点击确定后，再打开【管理服务器】回到【系统管理】，将状态切换为【打开】：
 
-   <img src="!assets/DM/image-20240812180502625.png" alt="image-20240812180502625" style="zoom:67%;" />
+	<img src="!assets/DM/image-20240812180502625.png" alt="image-20240812180502625" style="zoom:67%;" />
 
 <br>
 
@@ -1153,54 +1153,54 @@ BACKUP DATABASE FULL BACKUPSET '/data/dm_bak/bak_name';
 
 - 设置联机数据库备份集路径：
 
-  ```sql
-  # 指定备份集路径为 /home/dm_bak/db_bak_3_01
-  BACKUP DATABASE BACKUPSET '/home/dm_bak/db_bak_3_01';
-  ```
+	```sql
+	# 指定备份集路径为 /home/dm_bak/db_bak_3_01
+	BACKUP DATABASE BACKUPSET '/home/dm_bak/db_bak_3_01';
+	```
 
 - 设置备份名：
 
-  ```sql
-  # 创建备份集，备份名设置为“WEEKLY_FULL_BAK”
-  BACKUP DATABASE TO WEEKLY_FULL_BAK BACKUPSET '/home/dm_bak/db_bak_3_02';
-  ```
+	```sql
+	# 创建备份集，备份名设置为“WEEKLY_FULL_BAK”
+	BACKUP DATABASE TO WEEKLY_FULL_BAK BACKUPSET '/home/dm_bak/db_bak_3_02';
+	```
 
-  > [!CAUTION]
-  >
-  > 备份名的设置不可以使用特殊格式，例如 `%NAME`。
+	> [!CAUTION]
+	>
+	> 备份名的设置不可以使用特殊格式，例如 `%NAME`。
 
 - 添加备份描述：
-  ```sql
-  # 创建备份为备份集添加描述信息为“完全备份”。
-  BACKUP DATABASE BACKUPSET '/home/dm_bak/db_bak_3_04' BACKUPINFO  '完全备份';
-  ```
+	```sql
+	# 创建备份为备份集添加描述信息为“完全备份”。
+	BACKUP DATABASE BACKUPSET '/home/dm_bak/db_bak_3_04' BACKUPINFO  '完全备份';
+	```
 
 - 限制备份片大小：
 
-  ```sql
-  # 创建备份限制备份片大小为300M
-  BACKUP DATABASE BACKUPSET '/home/dm_bak/db_bak_3_05' MAXPIECESIZE 300;
-  ```
+	```sql
+	# 创建备份限制备份片大小为300M
+	BACKUP DATABASE BACKUPSET '/home/dm_bak/db_bak_3_05' MAXPIECESIZE 300;
+	```
 
-  > [!CAUTION]
-  >
-  > `MAXPIECESIZE` 不能大于磁盘剩余空间大小，否则报错磁盘空间不足。
+	> [!CAUTION]
+	>
+	> `MAXPIECESIZE` 不能大于磁盘剩余空间大小，否则报错磁盘空间不足。
 
 - 备份压缩：
 
-  压缩选项有不同的压缩级别可以选择，取值范围为 0~9，应根据存储空间、数据文件大小等确定合适地压缩级别。
+	压缩选项有不同的压缩级别可以选择，取值范围为 0~9，应根据存储空间、数据文件大小等确定合适地压缩级别。
 
-  ```sql
-  # 执行备份压缩，压缩级别设置为5。
-  BACKUP DATABASE BACKUPSET '/home/dm_bak/db_bak_3_06' COMPRESSED LEVEL 5;
-  ```
+	```sql
+	# 执行备份压缩，压缩级别设置为5。
+	BACKUP DATABASE BACKUPSET '/home/dm_bak/db_bak_3_06' COMPRESSED LEVEL 5;
+	```
 
 - 设置并行备份：
 
-  ```sql
-  # 创建并行备份，指定并行数为8
-  BACKUP DATABASE BACKUPSET '/home/dm_bak/db_bak_3_07' PARALLEL 8;
-  ```
+	```sql
+	# 创建并行备份，指定并行数为8
+	BACKUP DATABASE BACKUPSET '/home/dm_bak/db_bak_3_07' PARALLEL 8;
+	```
 
 <br>
 
@@ -1252,47 +1252,47 @@ exit;
 
 1. 数据库还原：
 
-   使用 `RESTORE` 命令完成脱机还原操作，在还原语句中指定库级备份集，可以是脱机库级备份集，也可以是联机库级备份集。
+	使用 `RESTORE` 命令完成脱机还原操作，在还原语句中指定库级备份集，可以是脱机库级备份集，也可以是联机库级备份集。
 
-   > [!CAUTION]
-   >
-   > 通过 `RESTORE` 命令还原后的数据库不可用，需进一步执行 `RECOVER` 命令，将数据库恢复到备份结束时的状态。
+	> [!CAUTION]
+	>
+	> 通过 `RESTORE` 命令还原后的数据库不可用，需进一步执行 `RECOVER` 命令，将数据库恢复到备份结束时的状态。
 
-   以联机数据库备份说明使用 DMRMAN 如何执行数据库还原操作：
+	以联机数据库备份说明使用 DMRMAN 如何执行数据库还原操作：
 
-   ```sql
-   # 校验备份，校验待还原备份集的合法性。校验备份有两种方式，联机和脱机，此处使用脱机校验。
-   CHECK BACKUPSET '/home/dm_bak/db_full_bak_for_restore';
-   
-   #还原数据库。
-   RESTORE DATABASE '/opt/dmdbms/data/DAMENG_FOR_RESTORE/dm.ini' FROM BACKUPSET '/home/dm_bak/db_full_bak_for_restore';
-   ```
+	```sql
+	# 校验备份，校验待还原备份集的合法性。校验备份有两种方式，联机和脱机，此处使用脱机校验。
+	CHECK BACKUPSET '/home/dm_bak/db_full_bak_for_restore';
+	
+	#还原数据库。
+	RESTORE DATABASE '/opt/dmdbms/data/DAMENG_FOR_RESTORE/dm.ini' FROM BACKUPSET '/home/dm_bak/db_full_bak_for_restore';
+	```
 
 2. 数据库恢复：
 
-   使用 `RECOVER` 命令完成数据库恢复工作，可以是基于备份集的恢复工作，也可以是使用本地归档日志的恢复工作。
+	使用 `RECOVER` 命令完成数据库恢复工作，可以是基于备份集的恢复工作，也可以是使用本地归档日志的恢复工作。
 
-   从备份集恢复，即重做备份集中的 REDO 日志：
+	从备份集恢复，即重做备份集中的 REDO 日志：
 
-   ```sql
-   # 执行还原数据库的命令之后，可以直接执行恢复数据库的命令从备份集恢复。
-   RECOVER DATABASE '/opt/dmdbms/data/DAMENG_FOR_RESTORE/dm.ini' FROM  BACKUPSET '/home/dm_bak/db_full_bak_for_recover_backupset';
-   ```
+	```sql
+	# 执行还原数据库的命令之后，可以直接执行恢复数据库的命令从备份集恢复。
+	RECOVER DATABASE '/opt/dmdbms/data/DAMENG_FOR_RESTORE/dm.ini' FROM  BACKUPSET '/home/dm_bak/db_full_bak_for_recover_backupset';
+	```
 
-   或从归档恢复，即重做归档中的 REDO 日志：
+	或从归档恢复，即重做归档中的 REDO 日志：
 
-   ```sql
-   # 通过使用 WITH ARCHIVEDIR 关键字进行归档恢复，如下：
-   RECOVER DATABASE '/opt/dmdbms/data/DAMENG_FOR_RESTORE/dm.ini' WITH ARCHIVEDIR'/home/dm_arch/arch' 
-   ```
+	```sql
+	# 通过使用 WITH ARCHIVEDIR 关键字进行归档恢复，如下：
+	RECOVER DATABASE '/opt/dmdbms/data/DAMENG_FOR_RESTORE/dm.ini' WITH ARCHIVEDIR'/home/dm_arch/arch' 
+	```
 
 3. 数据库更新：
 
-   数据库更新是指更新数据库的 DB_MAGIC，并将数据库调整为可正常工作状态，与数据库恢复一样使用 `RECOVER` 命令完成。数据库更新发生在重做 REDO 日志恢复数据库后。
+	数据库更新是指更新数据库的 DB_MAGIC，并将数据库调整为可正常工作状态，与数据库恢复一样使用 `RECOVER` 命令完成。数据库更新发生在重做 REDO 日志恢复数据库后。
 
-   ```sql
-   RECOVER DATABASE '/opt/dmdbms/data/DAMENG_FOR_RESTORE/dm.ini' UPDATE DB_MAGIC;
-   ```
+	```sql
+	RECOVER DATABASE '/opt/dmdbms/data/DAMENG_FOR_RESTORE/dm.ini' UPDATE DB_MAGIC;
+	```
 
 <br>
 
@@ -1529,19 +1529,19 @@ SP_INIT_JOB_SYS(0);
 
 1. 新建定时自动备份作业：
 
-   ![image-20250924173031415](!assets/DM/image-20250924173031415.png)
+	![image-20250924173031415](!assets/DM/image-20250924173031415.png)
 
 2. 填写作业信息：
 
-   <img src="!assets/DM/image-20250924173504505.png" alt="image-20250924173504505" style="zoom:67%;" />
+	<img src="!assets/DM/image-20250924173504505.png" alt="image-20250924173504505" style="zoom:67%;" />
 
 3. 创建备份的作业步骤：
 
-   <img src="!assets/DM/image-20250924173544861.png" alt="image-20250924173544861" style="zoom:67%;" />
+	<img src="!assets/DM/image-20250924173544861.png" alt="image-20250924173544861" style="zoom:67%;" />
 
 4. 创建作业调度信息：
 
-   <img src="!assets/DM/image-20250924173640511.png" alt="image-20250924173640511" style="zoom:67%;" />
+	<img src="!assets/DM/image-20250924173640511.png" alt="image-20250924173640511" style="zoom:67%;" />
 
 5. 全部创建成功后，保存即可。
 
@@ -1555,13 +1555,13 @@ SP_INIT_JOB_SYS(0);
 
 2. 创建一个新的作业步骤即可：
 
-   <img src="!assets/DM/image-20250924174312003.png" alt="image-20250924174312003" style="zoom:67%;" />
+	<img src="!assets/DM/image-20250924174312003.png" alt="image-20250924174312003" style="zoom:67%;" />
 
-   脚本语句为（末尾的 `-8` 意思是删除 8 天之前的历史备份，具体保存多久的历史备份，根据磁盘剩余空间大小，与项目现场的要求配置）：
+	脚本语句为（末尾的 `-8` 意思是删除 8 天之前的历史备份，具体保存多久的历史备份，根据磁盘剩余空间大小，与项目现场的要求配置）：
 
-   ```sql
-   CALL SP_DB_BAKSET_REMOVE_BATCH('DISK', NOW()-8);
-   ```
+	```sql
+	CALL SP_DB_BAKSET_REMOVE_BATCH('DISK', NOW()-8);
+	```
 
 <br>
 
@@ -1577,11 +1577,11 @@ SP_INIT_JOB_SYS(0);
 
 3. 停止达梦所有相关服务：
 
-   <img src="!assets/DM/image-20250324204744243.png" alt="image-20250324204744243" style="zoom: 67%;" />
+	<img src="!assets/DM/image-20250324204744243.png" alt="image-20250324204744243" style="zoom: 67%;" />
 
 4. 将下载的安装包手动解压，将 source 文件夹里的 bin 文件夹替换安装目录里的 bin 文件夹：
 
-   <img src="!assets/DM/image-20250324210316217.png" alt="image-20250324210316217" style="zoom:80%;" />
+	<img src="!assets/DM/image-20250324210316217.png" alt="image-20250324210316217" style="zoom:80%;" />
 
 5. 重启达梦数据库实例服务和达梦 AP 服务。
 
@@ -1593,14 +1593,14 @@ SP_INIT_JOB_SYS(0);
 
 2. 备份自己数据库工具的配置文件，存储在自己安装目录里的 tool/tool 文件夹下：
 
-   <img src="!assets/DM/image-20250324210902645.png" alt="image-20250324210902645" style="zoom:80%;" />
+	<img src="!assets/DM/image-20250324210902645.png" alt="image-20250324210902645" style="zoom:80%;" />
 
 3. 将下载的安装包手动解压，将 source 文件夹里的 tool 文件夹替换安装目录里的 tool  文件夹：
 
-   <img src="!assets/DM/image-20250324211021741.png" alt="image-20250324211021741" style="zoom:80%;" />
+	<img src="!assets/DM/image-20250324211021741.png" alt="image-20250324211021741" style="zoom:80%;" />
 
 4. 最后将备份的 tool 文件夹还原到安装目录里的 tool  文件夹里：
 
-   ![image-20250324211153247](!assets/DM/image-20250324211153247.png)
+	![image-20250324211153247](!assets/DM/image-20250324211153247.png)
 
 <br>

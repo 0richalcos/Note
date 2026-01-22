@@ -44,7 +44,7 @@ Oracle 数据库实际上是一个数据的物理储存系统，这其中包括�
 
 2. 安装前需要把文件包解压，解压的位置为需要安装的位置，所以要提前确定好解压路径，解压后的文件大概需要 6G 的空间，确保空间足够大。
 
-   > 解压的目录不要含有中文和空格！
+	> 解压的目录不要含有中文和空格！
 
 3. 以管理员身份运行 `setup.exe`：
 
@@ -204,39 +204,39 @@ ORA-12516:TNS:监听程序找不到符合协议堆栈要求的可用处理程序
 
 1. 运行以下命令启动 SQL*Plus 并直接以 `SYSDBA` 权限连接到数据库：
 
-   ```shell
-   sqlplus / as sysdba
-   ```
+	```shell
+	sqlplus / as sysdba
+	```
 
 2. 查看 process 的参数值和占有值：
 
-   ```sql
-   show parameter processes;
-   
-   select count(*) from v$process;
-   ```
+	```sql
+	show parameter processes;
+	
+	select count(*) from v$process;
+	```
 
-   会发现 `processes` 的参数值不太大，一般默认是 150 或者 300。
+	会发现 `processes` 的参数值不太大，一般默认是 150 或者 300。
 
 3. 修改 process 和 session 的最大值：
 
-   ```sql
-   alter system set processes=2000 scope=spfile;
-   
-   alter system set sessions=3005 scope=spfile;
-   ```
+	```sql
+	alter system set processes=2000 scope=spfile;
+	
+	alter system set sessions=3005 scope=spfile;
+	```
 
-   > `processes` 的值和 `sessions` 的值 Oracle 官方文档中要求 sessions = processes * 1.5 + 5
+	> `processes` 的值和 `sessions` 的值 Oracle 官方文档中要求 sessions = processes * 1.5 + 5
 
 4. 重启服务：
 
-   ```sql
-   -- 关闭数据库
-   shutdown immediate
-   
-   -- 启动数据库使配置生效
-   startup;
-   ```
+	```sql
+	-- 关闭数据库
+	shutdown immediate
+	
+	-- 启动数据库使配置生效
+	startup;
+	```
 
 
 
@@ -258,19 +258,19 @@ OCI 下载地址：https://www.oracle.com/database/technologies/instant-client/d
 
 1. 选择自己的运行环境：
 
-   <img src="!assets/Oracle/image-20230803121856769.png" alt="image-20230803121856769" style="" />
+	<img src="!assets/Oracle/image-20230803121856769.png" alt="image-20230803121856769" style="" />
 
 2. 选择自己的 Oracle 版本：
 
-   <img src="!assets/Oracle/image-20230803122123579.png" alt="image-20230803122123579" style="" />
+	<img src="!assets/Oracle/image-20230803122123579.png" alt="image-20230803122123579" style="" />
 
-   > 还有一点要注意，Oracle9i 或以上版本的，要安装 Install Client11 或以下；Oracle8 或 8i 服务器，需要安装 Install Client10 或以下。这个问题不大，因为我们现在的 Oracle 都是 10 或 11 了，注意一下就好。
+	> 还有一点要注意，Oracle9i 或以上版本的，要安装 Install Client11 或以下；Oracle8 或 8i 服务器，需要安装 Install Client10 或以下。这个问题不大，因为我们现在的 Oracle 都是 10 或 11 了，注意一下就好。
 
 3.  然后在 Navicat 中配置一下，选择【工具】 ==> 【选项】 ==> 【环境】：
 
-   <img src="!assets/Oracle/image-20230803122833129.png" alt="image-20230803122833129" style="zoom: 67%;" />
+	<img src="!assets/Oracle/image-20230803122833129.png" alt="image-20230803122833129" style="zoom: 67%;" />
 
-   在 OCI library 中找到刚刚下载的文件夹中的 oci.dll。
+	在 OCI library 中找到刚刚下载的文件夹中的 oci.dll。
 
 4. 这样就完成了 Navicat 配置，也就使得 Navicat 中的 oci.dll 版本和 Oracle 中的版本一致了，必须重启 Navicat 才能生效。
 
@@ -290,23 +290,23 @@ SQL Developer 还将接口集成到一些相关技术中，包括 Oracle Data Mi
 
 1. 连接到 Oracle 数据库后，选中 Oracle 连接然后点击【新建】：
 
-   <img src="!assets/Oracle/image-20230523201401549.png" alt="image-20230523201401549" style="" />
+	<img src="!assets/Oracle/image-20230523201401549.png" alt="image-20230523201401549" style="" />
 
-   在如下界面中可以看到新建表空间的选项：
+	在如下界面中可以看到新建表空间的选项：
 
-   <img src="!assets/Oracle/image-20230523201523278.png" alt="image-20230523201523278" style="" />
+	<img src="!assets/Oracle/image-20230523201523278.png" alt="image-20230523201523278" style="" />
 
 2. 在【其他用户】里，可以右键添加用户：
 
-   <img src="!assets/Oracle/image-20230523202652586.png" alt="image-20230523202652586" style="" />
+	<img src="!assets/Oracle/image-20230523202652586.png" alt="image-20230523202652586" style="" />
 
 3. 填写用户名和密码，并分配表空间：
 
-   <img src="!assets/Oracle/image-20230523204127324.png" alt="image-20230523204127324" style="" />
+	<img src="!assets/Oracle/image-20230523204127324.png" alt="image-20230523204127324" style="" />
 
 4. 授权里面选中 CONNECT、DBA、RESOURE 三个权限，保存即可：
 
-   <img src="!assets/Oracle/image-20230523203347868.png" alt="image-20230523203347868" style="" />
+	<img src="!assets/Oracle/image-20230523203347868.png" alt="image-20230523203347868" style="" />
 
 
 
@@ -389,94 +389,94 @@ Oracle 默认监听端口 1521，一众扫描器通常通过探测 1521 端口�
 
 1. 查看当前监听状态：
 
-   ```shell
-   lsnrctl status
-   ```
+	```shell
+	lsnrctl status
+	```
 
 2. 停止监听：
 
-   ```shell
-   lsnrctl stop
-   ```
+	```shell
+	lsnrctl stop
+	```
 
 3. 修改监听配置文件：
 
-   打开 listener.ora 文件：
+	打开 listener.ora 文件：
 
-   ```shell
-   vi $ORACLE_HOME/network/admin/listener.ora
-   ```
+	```shell
+	vi $ORACLE_HOME/network/admin/listener.ora
+	```
 
-   在 listener.ora 文件中，找到 `LISTENER` 条目，如下所示：
+	在 listener.ora 文件中，找到 `LISTENER` 条目，如下所示：
 
-   ```
-   LISTENER =
-     (DESCRIPTION =
-       (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
-     )
-   ```
+	```
+	LISTENER =
+	  (DESCRIPTION =
+	    (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+	  )
+	```
 
-   将 `PORT` 值从 1521 更改为你希望使用的新端口号。例如，如果你想将端口更改为 2521，则应将其更改为：
+	将 `PORT` 值从 1521 更改为你希望使用的新端口号。例如，如果你想将端口更改为 2521，则应将其更改为：
 
-   ```
-   (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 2521))
-   ```
+	```
+	(ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 2521))
+	```
 
 4. 修改连接配置文件：
 
-   打开 tnsnames.ora 文件：
+	打开 tnsnames.ora 文件：
 
-   ```shell
-   vi $ORACLE_HOME/network/admin/tnsnames.ora
-   ```
+	```shell
+	vi $ORACLE_HOME/network/admin/tnsnames.ora
+	```
 
-   找到数据库服务别名（通常为 `ORCL`），并将 `PORT` 值更改为与 listener.ora 文件中相同的新端口号。例如：
+	找到数据库服务别名（通常为 `ORCL`），并将 `PORT` 值更改为与 listener.ora 文件中相同的新端口号。例如：
 
-   ```
-   ORCL =
-     (DESCRIPTION =
-       (ADDRESS_LIST =
-         (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 2521))
-       )
-       (CONNECT_DATA =
-         (SERVICE_NAME = ORCL)
-       )
-     )
-   ```
+	```
+	ORCL =
+	  (DESCRIPTION =
+	    (ADDRESS_LIST =
+	      (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 2521))
+	    )
+	    (CONNECT_DATA =
+	      (SERVICE_NAME = ORCL)
+	    )
+	  )
+	```
 
 5. 运行以下命令启动 SQL*Plus 并直接以 `SYSDBA` 权限连接到数据库：
 
-   ```shell
-   sqlplus / as sysdba
-   ```
+	```shell
+	sqlplus / as sysdba
+	```
 
 6. 查看 `local_listener` 参数：
 
-   ```sql
-   show parameter local_listener
-   ```
+	```sql
+	show parameter local_listener
+	```
 
-   如果之前没修改端口使用的是默认配置，则此时参数 `VALUE` 应为空值。
+	如果之前没修改端口使用的是默认配置，则此时参数 `VALUE` 应为空值。
 
 7. 修改 `local_listener` 参数：
 
-   如果 `LOCAL_LISTENER` 参数已设置，请确保其值与在 `listener.ora` 文件中设置的新端口号一致。
+	如果 `LOCAL_LISTENER` 参数已设置，请确保其值与在 `listener.ora` 文件中设置的新端口号一致。
 
-   ```sql
-   alter system set local_listener="(address = (PROTOCOL = TCP)(HOST = localhost) (PORT = 2521))";
-   ```
+	```sql
+	alter system set local_listener="(address = (PROTOCOL = TCP)(HOST = localhost) (PORT = 2521))";
+	```
 
 8. 退出 SQL*Plus：
 
-   ```sql
-   exit
-   ```
+	```sql
+	exit
+	```
 
 9. 重新启动监听：
 
-   ```shell
-   lsnrctl start
-   ```
+	```shell
+	lsnrctl start
+	```
 
 > [!NOTE]
 >
@@ -498,12 +498,12 @@ NAMES.DIRECTORY_PATH= (TNSNAMES, HOSTNAME, ONAMES，EZCONNECT)
 
 - `SQLNET.AUTHENTICATION_SERVICES= (NTS)`
 
-  表明用户连接数据库用哪种验证方式，主要两种：
+	表明用户连接数据库用哪种验证方式，主要两种：
 
-  - `NTS`：表示系统身份验证 — 用户名和口令可输可不输 `conn / as sysdba`；
-  - `NONE`：Oracle 数据库身份验证 — 必须输入用户名和口令 `conn system/oracle as sysdba`；
+	- `NTS`：表示系统身份验证 — 用户名和口令可输可不输 `conn / as sysdba`；
+	- `NONE`：Oracle 数据库身份验证 — 必须输入用户名和口令 `conn system/oracle as sysdba`；
 
-  在 Unix 环境下可能会有问题，一般在 Unix 下可以去掉这个配置。
+	在 Unix 环境下可能会有问题，一般在 Unix 下可以去掉这个配置。
 
 
 
@@ -511,90 +511,90 @@ NAMES.DIRECTORY_PATH= (TNSNAMES, HOSTNAME, ONAMES，EZCONNECT)
 
 1. 运行以下命令启动 SQL*Plus 并直接以 `SYSDBA` 权限连接到数据库：
 
-   ```sql
-   sqlplus / as sysdba
-   ```
+	```sql
+	sqlplus / as sysdba
+	```
 
 3. 立即关闭数据库，以确保数据库不处于运行状态，从而允许后续的数据库修改操作：
 
-   ```sql
-   shutdown immediate;
-   ```
+	```sql
+	shutdown immediate;
+	```
 
 4. 启动数据库实例，并将其保持在MOUNT（已装载）状态：
 
-   ```sql
-   startup mount
-   ```
+	```sql
+	startup mount
+	```
 
 5. 为了确保只有授权用户能够在字符集更改期间访问数据库，启用 RESTRICTED SESSION 模式，只允许具有 RESTRICTED SESSION 特权的用户连接：
 
-   ```sql
-   -- 检查 RESTRICTED SESSION 模式，如果 logins 列的值为 RESTRICTED，则表示 RESTRICTED SESSION 模式已打开。如果值为 ALLOWED，则表示模式未打开。
-   SELECT logins FROM v$instance;
-   
-   ALTER SYSTEM ENABLE RESTRICTED SESSION;
-   ```
+	```sql
+	-- 检查 RESTRICTED SESSION 模式，如果 logins 列的值为 RESTRICTED，则表示 RESTRICTED SESSION 模式已打开。如果值为 ALLOWED，则表示模式未打开。
+	SELECT logins FROM v$instance;
+	
+	ALTER SYSTEM ENABLE RESTRICTED SESSION;
+	```
 
 6. 为了防止后台作业和队列在字符集更改期间对数据库产生干扰，禁用作业队列和高级队列：
 
-   ```sql
-   -- 查看 JOB_QUEUE_PROCESSES 参数。
-   SELECT name, value FROM v$parameter WHERE name = 'job_queue_processes';
-   
-   ALTER SYSTEM SET JOB_QUEUE_PROCESSES=0;
-   
-   -- 查看 AQ_TM_PROCESSES 参数。
-   SELECT name, value FROM v$parameter WHERE name = 'aq_tm_processes';
-   
-   ALTER SYSTEM SET AQ_TM_PROCESSES=0;
-   ```
+	```sql
+	-- 查看 JOB_QUEUE_PROCESSES 参数。
+	SELECT name, value FROM v$parameter WHERE name = 'job_queue_processes';
+	
+	ALTER SYSTEM SET JOB_QUEUE_PROCESSES=0;
+	
+	-- 查看 AQ_TM_PROCESSES 参数。
+	SELECT name, value FROM v$parameter WHERE name = 'aq_tm_processes';
+	
+	ALTER SYSTEM SET AQ_TM_PROCESSES=0;
+	```
 
 7. 在 MOUNT 状态下，数据库不能正常工作，需要先打开数据库：
 
-   ```sql
-   alter database open;
-   ```
+	```sql
+	alter database open;
+	```
 
 8. 修改数据库字符集为 ZHS16GBK，修改内部使用的数据库字符集为 ZHS16GBK：
 
-   ```sql
-   ALTER DATABASE CHARACTER SET ZHS16GBK;
-   ALTER DATABASE CHARACTER SET INTERNAL_USE ZHS16GBK;
-   ```
+	```sql
+	ALTER DATABASE CHARACTER SET ZHS16GBK;
+	ALTER DATABASE CHARACTER SET INTERNAL_USE ZHS16GBK;
+	```
 
 9. 查询 NLS 参数以验证字符集更改是否生效：
 
-   ```sql
-   -- 在内容中找下NLS_CHARACTERSET，这个值：ZHS16GBK
-   select * from v$nls_parameters;
-   ```
+	```sql
+	-- 在内容中找下NLS_CHARACTERSET，这个值：ZHS16GBK
+	select * from v$nls_parameters;
+	```
 
 10. 关闭之前还原修改的参数：
 
-    ```sql
-    ALTER SYSTEM ENABLE <参数> SESSION;
-    ALTER SYSTEM SET JOB_QUEUE_PROCESSES=<参数>;
-    ALTER SYSTEM SET AQ_TM_PROCESSES=<参数>;
-    ```
+		```sql
+		ALTER SYSTEM ENABLE <参数> SESSION;
+		ALTER SYSTEM SET JOB_QUEUE_PROCESSES=<参数>;
+		ALTER SYSTEM SET AQ_TM_PROCESSES=<参数>;
+		```
 
 11. 关闭数据库以进行最终的清理工作：
 
-    ```sql
-    shutdown immediate;
-    ```
+		```sql
+		shutdown immediate;
+		```
 
 12. 再次启动数据库以确保所有更改生效：
 
-    ```sql
-    startup
-    ```
+		```sql
+		startup
+		```
 
 13. 查查询 NLS 参数以验证字符集更改是否持久生效：
 
-    ```sql
-    select * from v$nls_parameters;
-    ```
+		```sql
+		select * from v$nls_parameters;
+		```
 
 
 
@@ -705,35 +705,35 @@ STARTUP;
 
 1. 以 spfile 为副本创建 pfile 文件：
 
-   ```sql
-   create pfile = 'C:\Oracle\Oracle19C\WINDOWS.X64_193000_db_home\INIT.ORA' from spfile;
-   ```
+	```sql
+	create pfile = 'C:\Oracle\Oracle19C\WINDOWS.X64_193000_db_home\INIT.ORA' from spfile;
+	```
 
 2. 将 pfile 文件里面的内存设置改掉（改成需要的大小）：
 
-   ```
-   *.memory_max_target=8192m
-   *.memory_target=8192m
-   ```
+	```
+	*.memory_max_target=8192m
+	*.memory_target=8192m
+	```
 
 3.  用 pfile 启动：
 
-   ```sql
-   STARTUP PFILE='C:\Oracle\Oracle19C\WINDOWS.X64_193000_db_home\INIT.ORA';
-   ```
+	```sql
+	STARTUP PFILE='C:\Oracle\Oracle19C\WINDOWS.X64_193000_db_home\INIT.ORA';
+	```
 
 4. 启动成功后将文件改回 spfile：
 
-   ```sql
-   create spfile from pfile = 'C:\Oracle\Oracle19C\WINDOWS.X64_193000_db_home\INIT.ORA';
-   ```
+	```sql
+	create spfile from pfile = 'C:\Oracle\Oracle19C\WINDOWS.X64_193000_db_home\INIT.ORA';
+	```
 
 5. 然后再启动一次：
 
-   ```sql
-   SHUTDOWN IMMEDIATE;
-   STARTUP;
-   ```
+	```sql
+	SHUTDOWN IMMEDIATE;
+	STARTUP;
+	```
 
 
 
@@ -769,21 +769,21 @@ alter user <用户名> identified by <密码>;
 
 1. 查看用户的 `proifle` 是哪个，一般是 DEFAULT：
 
-   ```sql
-   SELECT username,PROFILE FROM dba_users;
-   ```
+	```sql
+	SELECT username,PROFILE FROM dba_users;
+	```
 
 2. 查看指定概要文件（如 DEFAULT）的密码有效期设置：
 
-   ```sql
-   SELECT * FROM dba_profiles WHERE profile='DEFAULT' AND resource_name='PASSWORD_LIFE_TIME';
-   ```
+	```sql
+	SELECT * FROM dba_profiles WHERE profile='DEFAULT' AND resource_name='PASSWORD_LIFE_TIME';
+	```
 
 3. 将密码有效期由默认的 180 天修改成无限制：
 
-   ```sql
-   ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;
-   ```
+	```sql
+	ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;
+	```
 
 
 
@@ -998,7 +998,7 @@ Oracle 中，如果表中的字段名正好跟 SQL 中关键字重名，写 SQL 
 
 2. 字段名两边要加双引号 `""`（注：必须是双引号，单引号将无效）
 
-   > 在 MySQL 数据库中是使用反引号（数字 1 按键左边）
+	> 在 MySQL 数据库中是使用反引号（数字 1 按键左边）
 
 比如要创建的表中有 `group` 字段：
 
@@ -1027,8 +1027,8 @@ AGGREGATE_FUNCTION(<列名>) KEEP (DENSE_RANK FIRST | LAST ORDER BY <列名>)
 - `ORDER BY <列名>`：用于排序的列，决定 `FIRST` 或 `LAST` 的基准。
 - `DENSE_RANK`：计算数据的排名。
 - `FIRST` 或 `LAST`：
-  - `FIRST`：取排名最靠前的一组数据（当排在前面的数据有重复值时，多条被 HOLD）。
-  - `LAST`：取排名最靠后的一组数据（当排在后面的数据有重复值时，多条被 HOLD）。
+	- `FIRST`：取排名最靠前的一组数据（当排在前面的数据有重复值时，多条被 HOLD）。
+	- `LAST`：取排名最靠后的一组数据（当排在后面的数据有重复值时，多条被 HOLD）。
 - *AGGREGATE_FUNCTION*：在这组记录中需要执行的聚合函数，如 `SUM`、`MAX`、`MIN` 等。
 
 
@@ -1200,8 +1200,8 @@ REGEXP_LIKE(STRING, REGEX, MODIFIER)
 - *STRING*：需要进行正则处理的字符串
 - *REGEX*：进行匹配的正则表达式
 - *MODIFIER*：模式，默认为 `c`：
-  - `i`：不区分大小写进行检索。
-  - `c`：区分大小写进行检索。
+	- `i`：不区分大小写进行检索。
+	- `c`：区分大小写进行检索。
 
 
 
@@ -1240,11 +1240,11 @@ REGEXP_INSTR(STRING, REGEX[, START_POSITION[, OCCURRENCE[, RETURN_OPTION[, MODIF
 - *OCCURRENCE*：获取分割出来的第几组子串（分割后最初的字符串会按分割的顺序排列成数组）。
 - *RETURN_OPTION*：指定返回值的类型。为 0，则返回匹配值第一次出现的第一个字符的角标，非 0，则返回匹配值第一次出现的最后一个字符的角标 +1。
 - *MODIFIER*：模式，默认为 `c`：
-  - `c`：区分大小写进行检索。
-  - `i`：不区分大小写进行检索。
-  - `n`：允许句点 `.` 作为通配符去匹配换行符。如果省略该参数，句点将不匹配换行符。
-  - `m`：将源串视为多行。即 Oracle 中将 `^` 和 `$` 分别看作源串中任意位置任何行的开始和结束，而不是仅仅看作整个源串的开始或结束。如果省略该参数，则 Oracle 将源串看作一行。
-  - `x`：忽略源串中的空格字符。默认情况下，空格字符与自身相匹配。
+	- `c`：区分大小写进行检索。
+	- `i`：不区分大小写进行检索。
+	- `n`：允许句点 `.` 作为通配符去匹配换行符。如果省略该参数，句点将不匹配换行符。
+	- `m`：将源串视为多行。即 Oracle 中将 `^` 和 `$` 分别看作源串中任意位置任何行的开始和结束，而不是仅仅看作整个源串的开始或结束。如果省略该参数，则 Oracle 将源串看作一行。
+	- `x`：忽略源串中的空格字符。默认情况下，空格字符与自身相匹配。
 - 返回值：返回满足正则表达式的字符或字符串第一次出现的角标，如果没有找到结果，则返回 0。
 
 
@@ -1280,11 +1280,11 @@ REGEXP_COUNT(STRING, REGEX[, START_POSITION[, MODIFIER]])
 - *REGEX*：进行匹配的正则表达式。
 - *START_POSITION*：起始位置，从字符串的第几个字符开始正则表达式匹配（默认从第一个字符开始，值为 1）。
 - *MODIFIER*：模式，默认为 `c`：
-  - `c`：区分大小写进行检索。
-  - `i`：不区分大小写进行检索。
-  - `n`：允许句点 `.` 作为通配符去匹配换行符。如果省略该参数，句点将不匹配换行符。
-  - `m`：将源串视为多行。即 Oracle 中将 `^` 和 `$` 分别看作源串中任意位置任何行的开始和结束，而不是仅仅看作整个源串的开始或结束。如果省略该参数，则 Oracle 将源串看作一行。
-  - `x`：忽略源串中的空格字符。默认情况下，空格字符与自身相匹配。
+	- `c`：区分大小写进行检索。
+	- `i`：不区分大小写进行检索。
+	- `n`：允许句点 `.` 作为通配符去匹配换行符。如果省略该参数，句点将不匹配换行符。
+	- `m`：将源串视为多行。即 Oracle 中将 `^` 和 `$` 分别看作源串中任意位置任何行的开始和结束，而不是仅仅看作整个源串的开始或结束。如果省略该参数，则 Oracle 将源串看作一行。
+	- `x`：忽略源串中的空格字符。默认情况下，空格字符与自身相匹配。
 - 返回值：返回满足正则表达式的字符或字符串出现的次数。
 
 
@@ -1311,11 +1311,11 @@ REGEXP_SUBSTR(STRING, REGEX[, START_POSITION[, OCCURRENCE[, MODIFIER]]])
 - *START_POSITION*：起始位置，从字符串的第几个字符开始正则表达式匹配（默认从第一个字符开始，值为 1）。
 - *OCCURRENCE*：获取分割出来的第几组子串（分割后最初的字符串会按分割的顺序排列成数组）。
 - *MODIFIER*：模式，默认为 `c`：
-  - `c`：区分大小写进行检索。
-  - `i`：不区分大小写进行检索。
-  - `n`：允许句点 `.` 作为通配符去匹配换行符。如果省略该参数，句点将不匹配换行符。
-  - `m`：将源串视为多行。即 Oracle 中将 `^` 和 `$` 分别看作源串中任意位置任何行的开始和结束，而不是仅仅看作整个源串的开始或结束。如果省略该参数，则 Oracle 将源串看作一行。
-  - `x`：忽略源串中的空格字符。默认情况下，空格字符与自身相匹配。
+	- `c`：区分大小写进行检索。
+	- `i`：不区分大小写进行检索。
+	- `n`：允许句点 `.` 作为通配符去匹配换行符。如果省略该参数，句点将不匹配换行符。
+	- `m`：将源串视为多行。即 Oracle 中将 `^` 和 `$` 分别看作源串中任意位置任何行的开始和结束，而不是仅仅看作整个源串的开始或结束。如果省略该参数，则 Oracle 将源串看作一行。
+	- `x`：忽略源串中的空格字符。默认情况下，空格字符与自身相匹配。
 
 
 
@@ -1641,46 +1641,46 @@ FROM dual;
 
 1. pom.xml 文件添加依赖包：
 
-   ```xml
-   <!-- Oracle数据库驱动 -->
-   <dependency>
-   	<groupId>com.oracle.ojdbc</groupId>
-   	<artifactId>ojdbc8</artifactId>
-   	<version>19.3.0.0</version>
-   </dependency>
-   
-   <!-- 这里使用的是JDBC包，也可使用JPA包进行 -->
-   <dependency>
-   	<groupId>org.springframework.boot</groupId>
-   	<artifactId>spring-boot-starter-jdbc</artifactId>
-   </dependency>
-   
-   <!--        <dependency>-->
-   <!--            <groupId>org.springframework.boot</groupId>-->
-   <!--            <artifactId>spring-boot-starter-data-jpa</artifactId>-->
-   <!--        </dependency>-->
-   
-   <!-- druid -->
-   <dependency>
-   	<groupId>com.alibaba</groupId>
-   	<artifactId>druid</artifactId>
-   	<version>1.1.16</version>
-   </dependency>
-   ```
+	```xml
+	<!-- Oracle数据库驱动 -->
+	<dependency>
+		<groupId>com.oracle.ojdbc</groupId>
+		<artifactId>ojdbc8</artifactId>
+		<version>19.3.0.0</version>
+	</dependency>
+	
+	<!-- 这里使用的是JDBC包，也可使用JPA包进行 -->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-jdbc</artifactId>
+	</dependency>
+	
+	<!--        <dependency>-->
+	<!--            <groupId>org.springframework.boot</groupId>-->
+	<!--            <artifactId>spring-boot-starter-data-jpa</artifactId>-->
+	<!--        </dependency>-->
+	
+	<!-- druid -->
+	<dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>druid</artifactId>
+		<version>1.1.16</version>
+	</dependency>
+	```
 
 2. application.yml 配置文件加入 Oracle 数据库信息：
 
-   ```yaml
-   spring:
-     application:
-       name: cloud-payment-service # 服务名称
-     datasource:
-       type: com.alibaba.druid.pool.DruidDataSource # 当前数据源操作类型
-       driver-class-name: oracle.jdbc.OracleDriver # Oracle数据库驱动包
-       url: jdbc:oracle:thin:@//localhost:1521/ORCL
-       username: yma
-       password: 123456
-   ```
+	```yaml
+	spring:
+	  application:
+	    name: cloud-payment-service # 服务名称
+	  datasource:
+	    type: com.alibaba.druid.pool.DruidDataSource # 当前数据源操作类型
+	    driver-class-name: oracle.jdbc.OracleDriver # Oracle数据库驱动包
+	    url: jdbc:oracle:thin:@//localhost:1521/ORCL
+	    username: yma
+	    password: 123456
+	```
 
    
 
@@ -1698,23 +1698,23 @@ FROM dual;
 
 1. 在 Oracle 的安装路径下找到 sqlnet.ora 文件，在文件的最后添加如下配置：
 
-   ```
-   SQLNET.ALLOWED_LOGON_VERSION=8
-    
-   SQLNET.ALLOWED_LOGON_VERSION_SERVER=8
-    
-   SQLNET.ALLOWED_LOGON_VERSION_CLIENT=8
-   ```
+	```
+	SQLNET.ALLOWED_LOGON_VERSION=8
+	 
+	SQLNET.ALLOWED_LOGON_VERSION_SERVER=8
+	 
+	SQLNET.ALLOWED_LOGON_VERSION_CLIENT=8
+	```
 
 2. 重启 Oracle 数据库服务，主要是监听，不过最好都重启一下。
 
 3. 此时通过 Java 连接出现 `java.sql.SQLException: ORA-01017: 用户名/口令无效; 登录被拒绝 `，但是通过 SQL Developer 又能正常连接。解决办法就是重新修改用户的密码即可：
 
-   ```sql
-   sqlplus / as sysdba;
-   
-   alter user <用户名> identified by <密码>;
-   ```
+	```sql
+	sqlplus / as sysdba;
+	
+	alter user <用户名> identified by <密码>;
+	```
 
 4. 此时再次连接即可正常连接了。
 
