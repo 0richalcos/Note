@@ -255,15 +255,15 @@ Docker 启动之后会在 Windows 任务栏出现鲸鱼图标：
 
 1. 在 [Docker 下载地址](https://download.docker.com/linux/static/stable/) 选择对应的架构，然后下载对应的版本即可；如果服务器可以联网，也可以直接复制命令下载：
 
-   ```shell
-   wget https://download.docker.com/linux/static/stable/x86_64/docker-20.10.19.tgz
-   ```
+	```shell
+	wget https://download.docker.com/linux/static/stable/x86_64/docker-20.10.19.tgz
+	```
 
 2. 将安装包上传到服务器之后，执行命令完成解压：
 
-   ```shell
-   tar -xzf docker-20.10.19.tgz
-   ```
+	```shell
+	tar -xzf docker-20.10.19.tgz
+	```
 
    移动解压后的全部内容到 `/usr/bin` 下：
 

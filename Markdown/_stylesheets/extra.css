@@ -245,13 +245,3 @@ p.auto-t strong::after {
     color: var(--md-default-fg-color--lighter);
 }
 
-
-
-.md-typeset ol {
-    list-style-position: outside;
-    padding-left: 1.6em;
-}
-
-.md-typeset ol > li {
-    padding-left: 0.2em;
-}

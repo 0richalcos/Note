@@ -32,19 +32,19 @@ SQL 是用于访问和处理数据库的标准计算机语言。
 **SQL 分类**
 
 - **DDL（数据定义语言）**
-  - 数据定义语言（Data Definition Language）
-  - 用来定义数据库的对象，如数据表、视图、索引等
-  - `CREATFE`、`DROP`、`ALTER`
+	- 数据定义语言（Data Definition Language）
+	- 用来定义数据库的对象，如数据表、视图、索引等
+	- `CREATFE`、`DROP`、`ALTER`
 - **DML（数据操纵语言）**
-  - 数据处理语言（Data Manipulation Language）
-  - 在数据库中更新，增加和删除记录
-  - `UPDATE`、`DELETE`、`INSERT`
+	- 数据处理语言（Data Manipulation Language）
+	- 在数据库中更新，增加和删除记录
+	- `UPDATE`、`DELETE`、`INSERT`
 - **DCL（数据控制语言）**
-  - 数据控制语言（Data Control Language）
-  - 指用于设置用户权限和控制事务语句
+	- 数据控制语言（Data Control Language）
+	- 指用于设置用户权限和控制事务语句
 - **DQL（数据查询语言）**
-  - 数据查询语言（Data Query Language）
-  - `SELECT`
+	- 数据查询语言（Data Query Language）
+	- `SELECT`
 
 
 
