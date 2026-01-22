@@ -1,59 +1,252 @@
+# ==================== 站点基本信息 ====================
+# 站点名称，显示在浏览器标签和页面标题中
 site_name: 随便记记
-site_url: https://0richalcos.github.io/Note/
-repo_url: https://github.com/0richalcos/Note
-edit_uri: edit/main/Markdown/ 
 
-# 关键配置：指定你的笔记所在的文件夹名字
-docs_dir: 'Markdown' 
-# 禁止生成目录式 URL (Pretty URLs)
+# 站点 URL，用于生成 sitemap 和规范链接
+site_url: https://0richalcos.github.io/Note/
+
+# GitHub 仓库地址，会在页面右上角显示 GitHub 图标
+repo_url: https://github.com/0richalcos/Note
+
+# 编辑链接的 URI 前缀，点击"编辑此页"会跳转到 GitHub 编辑页面
+edit_uri: edit/main/Markdown/
+
+
+# ==================== 文件路径配置 ====================
+# 指定 Markdown 文件所在的目录（默认是 docs/）
+docs_dir: 'Markdown'
+
+# 禁用目录式 URL（Pretty URLs）
+# false: 生成 page.html 格式的 URL
+# true:  生成 page/ 格式的 URL（需要服务器支持）
 use_directory_urls: false
 
-# 主题
+
+# ==================== 主题配置 ====================
 theme:
+  # 使用 Material 主题
   name: material
+  
+  # 设置语言为中文（影响搜索、日期等内置文本）
   language: zh
+  
+  # 主题功能开关
   features:
-    - navigation.top           # 回到顶部按钮
-    - navigation.indexes    # 允许点击文件夹查看 index.md
-    - navigation.tracking    # 滚动正文时，左侧/右侧导航自动跟随高亮
-  palette: 
+    # 显示"回到顶部"按钮
+    - navigation.top
+    
+    # 允许点击目录文件夹时显示其 index.md 内容
+    # 配合 section-index 插件使用效果更佳
+    - navigation.indexes
+    
+    # 滚动页面时，左侧导航自动跟随高亮当前章节
+    - navigation.tracking
+    
+    # 启用导航标签页（顶部标签式导航）
+    # - navigation.tabs
+    
+    # 启用即时加载（SPA 体验，页面切换更流畅）
+    - navigation.instant
+    
+    # 启用目录树展开/折叠
+    # - navigation.expand
+    
+    # 在页面顶部显示面包屑导航
+    - navigation.path
+    
+    # 启用内容标签页功能（=== "Tab" 语法）
+    - content.tabs.link
+    
+    # 在代码块右上角显示复制按钮
+    - content.code.copy
+  
+  # 配色方案：支持亮色和深色模式切换
+  palette:
+    # 亮色模式
     - scheme: default
-      primary: teal         
+      primary: teal          # 主色调（导航栏、链接等）
+      accent: teal           # 强调色（悬停效果等）
       toggle:
         icon: material/brightness-7
-        name: 切换深色模式
+        name: 切换到深色模式
+    
+    # 深色模式
     - scheme: slate
       primary: teal
+      accent: teal
       toggle:
         icon: material/brightness-4
-        name: 切换亮色模式
+        name: 切换到亮色模式
 
-# 引入 CSS
+
+# ==================== 自定义样式和脚本 ====================
+# 引入自定义 CSS 文件（路径相对于 docs_dir）
 extra_css:
-  - _stylesheets/extra.css 
+  - _stylesheets/extra.css
 
-# 引入 JS
+# 引入自定义 JavaScript 文件
 extra_javascript:
   - _javascripts/auto_title.js
 
-# 必装插件
-plugins:
-  - search
-  - awesome-pages:         
-      filename: .pages
-      collapse_single_pages: true
-  - callouts
 
-# Markdown 渲染增强
+# ==================== 插件配置 ====================
+plugins:
+  # 1. 搜索插件（Material 主题内置，必须保留）
+  # - search:
+  #     # 中文分词支持（需要 jieba 库）
+  #     lang:
+  #       - zh
+  #       - en
+  
+  # 2. 搜索增强插件（可选，如果觉得默认搜索够用可以移除此行）
+  # 注意：search-pro 可能与默认 search 插件冲突，二选一使用
+  - search-pro:
+      lang:
+        - zh
+        - en
+  
+  # 3. awesome-pages：灵活的导航管理
+  # 使用 .pages 文件定义每个目录的导航结构
+  - awesome-pages:
+      filename: .pages              # .pages 文件名
+      collapse_single_pages: true   # 如果目录只有一个页面，自动折叠
+      strict: false                 # 非严格模式，允许自动发现新页面
+  
+  # 4. callouts：Obsidian 风格的提示框
+  # 支持 > [!NOTE]、> [!WARNING] 等语法
+  - callouts
+  
+  # 5. 显示页面最后更新时间（基于 Git 提交历史）
+  - git-revision-date-localized:
+      enable_creation_date: true    # 同时显示创建时间
+      type: datetime                # 时间格式：datetime/date/iso_datetime/iso_date/timeago
+      fallback_to_build_date: true  # 如果获取不到 Git 信息，使用构建时间
+      locale: zh                    # 本地化语言
+  
+  # 6. 压缩 HTML/CSS/JS，优化加载速度
+  - minify:
+      minify_html: true             # 压缩 HTML
+      minify_js: true               # 压缩 JavaScript
+      minify_css: true              # 压缩 CSS
+      htmlmin_opts:
+        remove_comments: true       # 移除 HTML 注释
+      cache_safe: true              # 启用缓存安全模式
+  
+  # 7. 目录索引页（让目录也能显示内容）
+  - section-index
+  
+  # 8. 图片灯箱效果（点击图片放大查看）
+  - glightbox:
+      touchNavigation: true         # 移动端触摸滑动切换图片
+      loop: false                   # 不循环播放
+      effect: zoom                  # 缩放效果：zoom/fade/none
+      slide_effect: slide           # 幻灯片切换效果
+      width: 100%                   # 灯箱宽度
+      height: auto                  # 灯箱高度
+      zoomable: true                # 允许缩放
+      draggable: true               # 允许拖动
+      skip_classes:                 # 跳过这些 class 的图片
+        - custom-skip-class
+
+
+# ==================== Markdown 扩展配置 ====================
 markdown_extensions:
+  # 1. 目录生成（Table of Contents）
   - toc:
-      permalink: true
-      toc_depth: 2-6  # 强制大纲抓取
-  - admonition             
-  - pymdownx.details       
-  - pymdownx.highlight     
-  - pymdownx.superfences   
+      permalink: true               # 标题旁显示锚点链接符号 "¶"
+      permalink_title: 锚点链接     # 锚点链接的提示文字
+      toc_depth: 2-6                # 目录深度：抓取 h2 到 h6 标题
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower               # 锚点链接转小写
+  
+  # 2. 提示框（Admonitions）
+  # 支持 !!! note、!!! warning 等语法
+  - admonition
+  
+  # 3. 可折叠的提示框
+  # 支持 ??? note 语法（默认折叠）
+  - pymdownx.details
+  
+  # 4. 代码块语法高亮
+  - pymdownx.highlight:
+      anchor_linenums: true         # 行号可点击跳转
+      line_spans: __span            # 每行包裹在 span 中
+      pygments_lang_class: true     # 添加语言 class
+      auto_title: true              # 自动添加代码块标题
+      linenums: false               # 默认不显示行号（可在代码块中单独启用）
+  
+  # 5. 行内代码高亮
+  - pymdownx.inlinehilite
+  
+  # 6. 超级围栏（支持嵌套代码块、标签页、流程图等）
+  - pymdownx.superfences:
+      custom_fences:
+        # 支持 Mermaid 流程图（如果需要的话）
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  
+  # 7. 标签页功能（=== "Tab 1" 语法）
+  - pymdownx.tabbed:
+      alternate_style: true         # 使用现代标签页样式
+      combine_header_slug: true     # 组合标题 slug
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  
+  # 8. 属性列表（支持给元素添加 CSS class、id 等）
+  # 例如：{: .class-name #id-name }
   - attr_list
+  
+  # 9. Markdown in HTML（允许在 HTML 标签内使用 Markdown）
+  - md_in_html
+  
+  # 10. Emoji 支持 :smile: :heart:
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  
+  # 11. 任务列表（- [ ] 待办事项）
+  - pymdownx.tasklist:
+      custom_checkbox: true         # 使用自定义复选框样式
+      clickable_checkbox: false     # 复选框不可点击（静态文档）
+  
+  # 12. 键盘按键显示（++ctrl+c++ 显示为快捷键样式）
+  - pymdownx.keys
+  
+  # 13. 上标和下标（^上标^ ~下标~）
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  
+  # 14. 智能符号（自动转换 -- 为 —，(c) 为 ©）
+  - pymdownx.smartsymbols
+  
+  # 15. 脚注支持 [^1]
+  - footnotes
+  
+  # 16. 缩写词（支持悬停显示完整词）
+  - abbr
+  
+  # 17. 定义列表
+  - def_list
+
+
+# ==================== 额外配置 ====================
+# 页脚版权信息（可选）
+# copyright: Copyright &copy; 2026 Your Name
+
+# 社交链接（可选）
+# extra:
+#   social:
+#     - icon: fontawesome/brands/github
+#       link: https://github.com/yourusername
+#     - icon: fontawesome/brands/twitter
+#       link: https://twitter.com/yourusername
+
+# 分析工具（可选，如 Google Analytics）
+# extra:
+#   analytics:
+#     provider: google
+#     property: G-XXXXXXXXXX

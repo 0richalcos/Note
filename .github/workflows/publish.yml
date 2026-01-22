@@ -1,28 +1,71 @@
+# 工作流名称：自动构建并部署 MkDocs 文档到 GitHub Pages
 name: 自动构建文档
+
+# 触发条件：当 main 分支有代码推送时执行
 on:
   push:
     branches:
       - main
+  # 可选：允许手动触发工作流
+  workflow_dispatch:
+
+# 权限配置：允许写入仓库内容（部署到 gh-pages 分支需要）
 permissions:
   contents: write
+
 jobs:
   deploy:
+    # 运行环境：使用最新的 Ubuntu 系统
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v4
+      # 步骤 1: 检出代码仓库
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          # 获取完整的历史记录，以便插件能够获取 git 信息（如最后修改时间）
+          fetch-depth: 0
       
-      - uses: actions/setup-python@v5
+      # 步骤 2: 设置 Python 环境
+      - name: 设置 Python 环境
+        uses: actions/setup-python@v5
         with:
           python-version: 3.x
-          
-      # 缓存依赖，加快构建速度
-      - uses: actions/cache@v4
-        with:
-          key: ${{ github.ref }}
-          path: .cache
-          
-      # 安装 MkDocs, Material 主题 和 自动目录插件
-      - run: pip install mkdocs-material mkdocs-awesome-pages-plugin mkdocs-callouts
+          # 缓存 pip 依赖，加速后续构建
+          cache: 'pip'
+          cache-dependency-path: '**/requirements.txt'
       
-      # 开始构建并发布到 gh-pages 分支
-      - run: mkdocs gh-deploy --force
+      # 步骤 3: 缓存 MkDocs 构建产物
+      - name: 缓存 MkDocs 构建
+        uses: actions/cache@v4
+        with:
+          # 缓存键：基于分支名称和操作系统
+          key: mkdocs-material-${{ github.ref }}-${{ runner.os }}
+          # 恢复键：如果精确匹配失败，尝试匹配前缀
+          restore-keys: |
+            mkdocs-material-${{ github.ref }}
+            mkdocs-material-
+          # 缓存路径：MkDocs Material 的缓存目录
+          path: .cache
+      
+      # 步骤 4: 安装依赖包
+      - name: 安装 MkDocs 及插件
+        run: |
+          pip install --upgrade pip
+          pip install \
+            mkdocs-material \
+            mkdocs-awesome-pages-plugin \
+            mkdocs-callouts \
+            mkdocs-git-revision-date-localized-plugin \
+            mkdocs-minify-plugin \
+            mkdocs-section-index \
+            mkdocs-glightbox \
+            mkdocs-search-pro \
+            pymdown-extensions
+      
+      # 步骤 5: 构建并部署到 GitHub Pages
+      - name: 部署文档
+        run: mkdocs gh-deploy --force --clean --verbose
+        env:
+          # 使用 GitHub 提供的 token 进行身份验证
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
