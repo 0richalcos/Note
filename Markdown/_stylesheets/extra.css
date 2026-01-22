@@ -26,42 +26,34 @@
    ================================================== */
 p.auto-t {
     display: flex;
-    align-items: center;
     justify-content: center;
-    margin-top: 3.5em;    /* 加大间距 */
+    margin-top: 3em;
     margin-bottom: 2em;
 }
 
-/* 线条：从透明渐变到主题色，再渐变回透明 */
+/* 不需要左右线条了，把它们隐藏或去掉 */
 p.auto-t::before,
 p.auto-t::after {
-    content: "";
-    flex: 1;
-    height: 1px; /* 线条高度 */
-    
-    /* 核心：使用径向渐变或线性渐变 */
-    background: linear-gradient(
-        90deg, 
-        transparent, 
-        var(--md-primary-fg-color), 
-        transparent
-    );
-    opacity: 0.5; /* 半透明，不要太抢眼 */
-    margin: 0 1.5em; /* 拉开线条和文字的距离 */
+    content: none; 
 }
 
-/* 文字：加粗，并带一点点主题色的阴影 */
+/* 文字变成胶囊样式 */
 p.auto-t strong {
-    font-weight: 700;
-    font-size: 1.1em;
-    color: var(--md-typeset-color);
-    letter-spacing: 2px; /* 增加字间距，显得大气 */
-    text-transform: uppercase; /* 如果是英文，强制大写 */
+    display: inline-block;
+    padding: 0.4em 1.5em; /* 上下左右留白 */
     
-    /* 可选：给文字加一点点同色系的光晕 */
-    text-shadow: 0 0 15px var(--md-primary-fg-color--light);
+    /* 背景色：使用主题最淡的颜色 */
+    background-color: var(--md-default-fg-color--lightest);
+    border-radius: 50px; /* 圆角胶囊 */
+    
+    font-weight: bold;
+    font-size: 0.95em; /* 字体稍微小一点，显得精致 */
+    color: var(--md-default-fg-color--light); /* 文字颜色深灰 */
+    
+    /* 加个淡淡的边框 */
+    border: 1px solid var(--md-default-fg-color--lighter);
+    letter-spacing: 1px;
 }
-
 
 /* ==================================================
    全局优化：让正文阅读更透气
