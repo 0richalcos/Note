@@ -101,7 +101,7 @@ plugins:
   # 使用 .pages 文件定义每个目录的导航结构
   - awesome-pages:
       filename: .pages              # .pages 文件名
-      collapse_single_pages: true   # 如果目录只有一个页面，自动折叠
+      collapse_single_pages: false
       strict: false                 # 非严格模式，允许自动发现新页面
   
   # callouts：Obsidian 风格的提示框
