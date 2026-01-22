@@ -19,6 +19,7 @@
     line-height: 1.4;
 }
 
+
 /* ==================================================
    伪标题样式
    用法：一行只有 **加粗** 时自动生效
@@ -49,10 +50,11 @@ p.auto-t::after {
 /* 中间的文字样式 */
 p.auto-t strong {
     font-weight: bold;
-    font-size: 1.1em;
+    font-size: 1.0em;
     color: var(--md-typeset-color);
     opacity: 0.9;        /* 稍微淡一点，更有质感 */
 }
+
 
 /* ==================================================
    全局优化：让正文阅读更透气
@@ -65,4 +67,32 @@ p.auto-t strong {
 /* 增加列表项之间的距离 */
 .md-typeset li {
     margin-bottom: 0.5em;
+}
+
+
+/* ==========================================================================
+   全局图片默认居中
+   让所有正文图片自动变成块级元素并居中
+   ========================================================================== */
+.md-typeset img {
+    display: block;        /* 让图片独占一行 (不再混在文字里) */
+    margin: 0 auto;        /* 左右自动边距 = 水平居中 */
+    max-width: 100%;       /* 保证大图不会撑破手机屏幕 */
+}
+
+/* 例外处理：防止 Emoji 表情包被错误居中
+   Twemoji 通常是 SVG 不受 img 影响，但为了防止你用了图片格式的 icon */
+.md-typeset .twemoji img,
+.md-typeset .icon img {
+    display: inline-block !important;
+    margin: 0 !important;
+    vertical-align: text-bottom;
+}
+
+/* 修复 figure (带标题的图片) 居中
+   如果你用了 ![描述](路径 "标题") 语法，MkDocs 会生成 figure 标签 */
+.md-typeset figure {
+    display: block;
+    margin: 2em auto;      /* 上下留点空隙，左右居中 */
+    text-align: center;    /* 让下面的 figcaption 文字也居中 */
 }
