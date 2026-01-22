@@ -1,40 +1,38 @@
 /* ==================================================
-   H2, H3 样式改造
+   H2 - H4 样式改造
    ================================================== */
-.md-typeset h2, 
-.md-typeset h3 {
-    /* 左侧竖线：4像素宽，实线，使用主题色 */
-    border-left: 4px solid var(--md-primary-fg-color);
-    
-    /* 让文字往右移一点，不要贴着线 */
-    padding-left: 0.5em; 
-    
-    /* (可选) 给标题加一个极其淡的背景色，增加块感 */
-    background: linear-gradient(
-        to right, 
-        var(--md-default-fg-color--lightest), 
-        transparent
-    );
-    
-    /* 调整间距 */
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4 {
+    position: relative;
+    padding-bottom: 0.3em; /* 文字和线的距离 */
     margin-top: 2.5em;
     margin-bottom: 1em;
-    
-    /* 字体调整 */
     font-weight: bold;
-    color: var(--md-typeset-color);
+    color: var(--md-primary-fg-color); /* 标题直接用主题色 */
 }
 
-/* 针对 H2 可以稍微再大一点，深一点 */
+/* H2 用实线，粗一点 */
 .md-typeset h2 {
-    font-size: 1.4em;
-    border-left-width: 5px; /* H2 线条更粗 */
+    border-bottom: 2px solid var(--md-default-fg-color--lightest);
+}
+
+/* H3 用虚线，细一点 */
+.md-typeset h3 {
+    border-bottom: 1px dashed var(--md-default-fg-color--lightest);
+}
+
+/* (可选) 在 H2 开头加个小图标装饰，比如 # 号 */
+.md-typeset h2::before {
+    content: "#";
+    color: var(--md-default-fg-color--lighter);
+    margin-right: 0.3em;
+    font-weight: normal;
 }
 
 /* ==================================================
-   暴力修复 H4 - H6 的间距，让它们看起来像真正的标题
+   暴力修复 H5 - H6 的间距，让它们看起来像真正的标题
    ================================================== */
-.md-typeset h4,
 .md-typeset h5,
 .md-typeset h6 {
     /* 上间距：原版大概是 1.25em，拉开与上一段的距离 */
