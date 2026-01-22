@@ -91,11 +91,11 @@ extra_javascript:
 # ==================== 插件配置 ====================
 plugins:
   # 搜索插件（Material 主题内置，必须保留）
-  # - search:
-  #     # 中文分词支持（需要 jieba 库）
-  #     lang:
-  #       - zh
-  #       - en
+  - search:
+      # 中文分词支持（需要 jieba 库）
+      lang:
+        - zh
+        - en
   
   # awesome-pages：灵活的导航管理
   # 使用 .pages 文件定义每个目录的导航结构
