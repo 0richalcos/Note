@@ -1,4 +1,37 @@
 /* ==================================================
+   H2, H3 样式改造
+   ================================================== */
+.md-typeset h2, 
+.md-typeset h3 {
+    /* 左侧竖线：4像素宽，实线，使用主题色 */
+    border-left: 4px solid var(--md-primary-fg-color);
+    
+    /* 让文字往右移一点，不要贴着线 */
+    padding-left: 0.5em; 
+    
+    /* (可选) 给标题加一个极其淡的背景色，增加块感 */
+    background: linear-gradient(
+        to right, 
+        var(--md-default-fg-color--lightest), 
+        transparent
+    );
+    
+    /* 调整间距 */
+    margin-top: 2.5em;
+    margin-bottom: 1em;
+    
+    /* 字体调整 */
+    font-weight: bold;
+    color: var(--md-typeset-color);
+}
+
+/* 针对 H2 可以稍微再大一点，深一点 */
+.md-typeset h2 {
+    font-size: 1.4em;
+    border-left-width: 5px; /* H2 线条更粗 */
+}
+
+/* ==================================================
    暴力修复 H4 - H6 的间距，让它们看起来像真正的标题
    ================================================== */
 .md-typeset h4,
