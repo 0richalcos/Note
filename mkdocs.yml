@@ -91,39 +91,32 @@ extra_javascript:
 
 # ==================== 插件配置 ====================
 plugins:
-  # 1. 搜索插件（Material 主题内置，必须保留）
+  # 搜索插件（Material 主题内置，必须保留）
   # - search:
   #     # 中文分词支持（需要 jieba 库）
   #     lang:
   #       - zh
   #       - en
   
-  # 2. 搜索增强插件（可选，如果觉得默认搜索够用可以移除此行）
-  # 注意：search-pro 可能与默认 search 插件冲突，二选一使用
-  - search-pro:
-      lang:
-        - zh
-        - en
-  
-  # 3. awesome-pages：灵活的导航管理
+  # awesome-pages：灵活的导航管理
   # 使用 .pages 文件定义每个目录的导航结构
   - awesome-pages:
       filename: .pages              # .pages 文件名
       collapse_single_pages: true   # 如果目录只有一个页面，自动折叠
       strict: false                 # 非严格模式，允许自动发现新页面
   
-  # 4. callouts：Obsidian 风格的提示框
+  # callouts：Obsidian 风格的提示框
   # 支持 > [!NOTE]、> [!WARNING] 等语法
   - callouts
   
-  # 5. 显示页面最后更新时间（基于 Git 提交历史）
+  # 显示页面最后更新时间（基于 Git 提交历史）
   - git-revision-date-localized:
       enable_creation_date: true    # 同时显示创建时间
       type: datetime                # 时间格式：datetime/date/iso_datetime/iso_date/timeago
       fallback_to_build_date: true  # 如果获取不到 Git 信息，使用构建时间
       locale: zh                    # 本地化语言
   
-  # 6. 压缩 HTML/CSS/JS，优化加载速度
+  # 压缩 HTML/CSS/JS，优化加载速度
   - minify:
       minify_html: true             # 压缩 HTML
       minify_js: true               # 压缩 JavaScript
@@ -132,10 +125,10 @@ plugins:
         remove_comments: true       # 移除 HTML 注释
       cache_safe: true              # 启用缓存安全模式
   
-  # 7. 目录索引页（让目录也能显示内容）
+  # 目录索引页（让目录也能显示内容）
   - section-index
   
-  # 8. 图片灯箱效果（点击图片放大查看）
+  # 图片灯箱效果（点击图片放大查看）
   - glightbox:
       touchNavigation: true         # 移动端触摸滑动切换图片
       loop: false                   # 不循环播放
@@ -145,13 +138,13 @@ plugins:
       height: auto                  # 灯箱高度
       zoomable: true                # 允许缩放
       draggable: true               # 允许拖动
-      skip_classes:                 # 跳过这些 class 的图片
+      skip_classes: # 跳过这些 class 的图片
         - custom-skip-class
 
 
 # ==================== Markdown 扩展配置 ====================
 markdown_extensions:
-  # 1. 目录生成（Table of Contents）
+  # 目录生成（Table of Contents）
   - toc:
       permalink: true               # 标题旁显示锚点链接符号 "¶"
       permalink_title: 锚点链接     # 锚点链接的提示文字
@@ -160,15 +153,15 @@ markdown_extensions:
         kwds:
           case: lower               # 锚点链接转小写
   
-  # 2. 提示框（Admonitions）
+  # 提示框（Admonitions）
   # 支持 !!! note、!!! warning 等语法
   - admonition
   
-  # 3. 可折叠的提示框
+  # 可折叠的提示框
   # 支持 ??? note 语法（默认折叠）
   - pymdownx.details
   
-  # 4. 代码块语法高亮
+  # 代码块语法高亮
   - pymdownx.highlight:
       anchor_linenums: true         # 行号可点击跳转
       line_spans: __span            # 每行包裹在 span 中
@@ -176,18 +169,18 @@ markdown_extensions:
       auto_title: true              # 自动添加代码块标题
       linenums: false               # 默认不显示行号（可在代码块中单独启用）
   
-  # 5. 行内代码高亮
+  # 行内代码高亮
   - pymdownx.inlinehilite
   
-  # 6. 超级围栏（支持嵌套代码块、标签页、流程图等）
+  # 超级围栏（支持嵌套代码块、标签页、流程图等）
   - pymdownx.superfences:
       custom_fences:
         # 支持 Mermaid 流程图（如果需要的话）
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
-  
-  # 7. 标签页功能（=== "Tab 1" 语法）
+
+          # 标签页功能（=== "Tab 1" 语法）
   - pymdownx.tabbed:
       alternate_style: true         # 使用现代标签页样式
       combine_header_slug: true     # 组合标题 slug
@@ -195,41 +188,41 @@ markdown_extensions:
         kwds:
           case: lower
   
-  # 8. 属性列表（支持给元素添加 CSS class、id 等）
+  # 属性列表（支持给元素添加 CSS class、id 等）
   # 例如：{: .class-name #id-name }
   - attr_list
   
-  # 9. Markdown in HTML（允许在 HTML 标签内使用 Markdown）
+  # Markdown in HTML（允许在 HTML 标签内使用 Markdown）
   - md_in_html
   
-  # 10. Emoji 支持 :smile: :heart:
+  # Emoji 支持 :smile: :heart:
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
-  
-  # 11. 任务列表（- [ ] 待办事项）
+
+      # 任务列表（- [ ] 待办事项）
   - pymdownx.tasklist:
       custom_checkbox: true         # 使用自定义复选框样式
       clickable_checkbox: false     # 复选框不可点击（静态文档）
   
-  # 12. 键盘按键显示（++ctrl+c++ 显示为快捷键样式）
+  # 键盘按键显示（++ctrl+c++ 显示为快捷键样式）
   - pymdownx.keys
   
-  # 13. 上标和下标（^上标^ ~下标~）
+  # 上标和下标（^上标^ ~下标~）
   - pymdownx.caret
   - pymdownx.mark
   - pymdownx.tilde
   
-  # 14. 智能符号（自动转换 -- 为 —，(c) 为 ©）
+  # 智能符号（自动转换 -- 为 —，(c) 为 ©）
   - pymdownx.smartsymbols
   
-  # 15. 脚注支持 [^1]
+  # 脚注支持 [^1]
   - footnotes
   
-  # 16. 缩写词（支持悬停显示完整词）
+  # 缩写词（支持悬停显示完整词）
   - abbr
   
-  # 17. 定义列表
+  # 定义列表
   - def_list
 
 
