@@ -1,54 +1,86 @@
-/* ==================================================
-   H2 - H4 样式改造
-   ================================================== */
-.md-typeset h2,
-.md-typeset h3,
-.md-typeset h4 {
-    position: relative;
-    padding-bottom: 0.3em; /* 文字和线的距离 */
-    margin-top: 2.5em;
-    margin-bottom: 1em;
-    font-weight: bold;
-    color: var(--md-primary-fg-color); /* 标题直接用主题色 */
-}
-
-/* H2 用实线，粗一点 */
+/* ==========================================================================
+   1. 二级标题 (H2) - 核心章节
+   样式：⚓️ 图标 + 底部实线 + 主题色
+   ========================================================================== */
 .md-typeset h2 {
+    position: relative;
+    margin-top: 3em;        /* 大间距 */
+    margin-bottom: 1em;
+    padding-bottom: 0.3em;  /* 文字与线的距离 */
+    
+    font-weight: bold;
+    font-size: 1.5em;
+    color: var(--md-primary-fg-color); /* 主题色 */
+    
+    /* 底部实线 */
     border-bottom: 2px solid var(--md-default-fg-color--lightest);
 }
 
-/* H3 用虚线，细一点 */
+/* 添加 ⚓️ 图标 */
+.md-typeset h2::before {
+    content: "⚓";          /* 这里的图标可以换 */
+    margin-right: 0.5em;    /* 图标与文字的距离 */
+    font-size: 0.9em;       /* 图标稍微小一点点，协调 */
+    vertical-align: middle; /* 垂直居中对齐 */
+    opacity: 0.8;
+}
+
+/* ==========================================================================
+   2. 三级标题 (H3) - 子章节
+   样式：⚓️ 图标 (稍小) + 底部虚线 + 稍浅颜色
+   ========================================================================== */
 .md-typeset h3 {
+    position: relative;
+    margin-top: 2.5em;
+    margin-bottom: 1em;
+    padding-bottom: 0.3em;
+    
+    font-weight: bold;
+    font-size: 1.25em;
+    color: var(--md-typeset-color); 
+    
+    /* 底部虚线 (区分于 H2) */
     border-bottom: 1px dashed var(--md-default-fg-color--lightest);
 }
 
-/* (可选) 在 H2 开头加个小图标装饰，比如 # 号 */
-.md-typeset h2::before {
-    content: "#";
-    color: var(--md-default-fg-color--lighter);
-    margin-right: 0.3em;
-    font-weight: normal;
+/* 添加小号 ⚓️ 图标 */
+.md-typeset h3::before {
+    content: "⚓"; 
+    margin-right: 0.5em;
+    font-size: 0.75em;      /* 比 H2 的图标小 */
+    vertical-align: middle;
+    opacity: 0.6;           /* 颜色淡一点 */
 }
 
-/* ==================================================
-   暴力修复 H5 - H6 的间距，让它们看起来像真正的标题
-   ================================================== */
+/* ==========================================================================
+   3. 四级至六级标题 (H4 - H6) - 内容要点
+   样式：左侧竖线标记 + 大间距 (不加横线，避免页面太碎)
+   ========================================================================== */
+.md-typeset h4,
 .md-typeset h5,
 .md-typeset h6 {
-    /* 上间距：原版大概是 1.25em，拉开与上一段的距离 */
-    margin-top: 2em !important; 
+    position: relative;
+    margin-top: 3em !important;      /* 保持之前约定的大间距 */
+    margin-bottom: 1em !important;
     
-    /* 下间距：保持紧凑，体现与下方正文的关联 */
-    margin-bottom: 0.8em !important;
-    
-    /* 颜色：稍微加深一点，或者用主题色，增加辨识度 */
-    color: var(--md-typeset-color); 
-    
-    /* 字体：稍微加大一点点，否则 H4 和加粗字看起来没区别 */
-    font-size: 1.1em !important;
-    font-weight: 700 !important;
+    font-weight: bold !important;
+    color: var(--md-typeset-color);
     line-height: 1.4;
+    
+    /* 左侧加一道竖线，像代码注释一样，很专业 */
+    padding-left: 0.6em;
+    border-left: 4px solid var(--md-primary-fg-color); 
+    
+    /* 如果你非常想用图标，把上面 border-left 两行删掉，
+       用下面这段 content 代码：
+    */
+    /* content: "🔹"; padding-left: 0; */
 }
+
+/* 细微调整各级大小 */
+.md-typeset h4 { font-size: 1.15em !important; border-left-color: var(--md-primary-fg-color); }
+.md-typeset h5 { font-size: 1.1em !important;  border-left-color: var(--md-primary-fg-color--light); }
+.md-typeset h6 { font-size: 1.05em !important; border-left-color: var(--md-default-fg-color--lighter); color: var(--md-default-fg-color--light) !important; }
 
 
 /* ==================================================
