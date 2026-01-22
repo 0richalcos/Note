@@ -2,7 +2,7 @@
 
 ## 1、SQL 简介
 
-SQL 是用于访问和处理数据库的标准计算机语言。``
+SQL 是用于访问和处理数据库的标准计算机语言。
 
 
 
@@ -11,6 +11,8 @@ SQL 是用于访问和处理数据库的标准计算机语言。``
 - SQL，指结构化查询语言，全称是 Structured Query Language
 - SQL 可以让我们访问和处理数据库
 - SQL 是一种 ANSI（American National Standards Institute）标准的计算机语言
+
+
 
 **SQL 能做什么？**
 
