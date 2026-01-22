@@ -1,3 +1,7 @@
+/**
+ * 伪标题识别
+ * 识别逻辑：一整行只有 **加粗文字**
+ */
 // 监听 MkDocs Material 的页面加载事件 (兼容 Instant Loading)
 document$.subscribe(function () {
     var paragraphs = document.querySelectorAll(".md-typeset > p");
