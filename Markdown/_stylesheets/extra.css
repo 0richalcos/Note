@@ -297,7 +297,7 @@ p.auto-t strong::after {
 /* 仅在屏幕宽度大于 1220px 时生效 (避免手机/平板排版崩坏) */
 @media screen and (min-width: 1220px) {
     .md-grid {
-        max-width: 100vw !important;
+        max-width: 90vw !important;
     }
 
 }
