@@ -4,25 +4,25 @@
    ========================================================================== */
 /* H2 标题主体样式 */
 .md-typeset h2 {
-    position: relative;         /* 启用相对定位，用于伪元素定位 */
-    margin-top: 2.2em;          /* 标题上方留出较大空间，分隔内容块 */
-    margin-bottom: 0.8em;       /* 标题下方留出适中空间 */
-    padding-bottom: 0.25em;     /* 标题文字与底边框之间的内边距 */
+    position: relative; /* 启用相对定位，用于伪元素定位 */
+    margin-top: 2.2em; /* 标题上方留出较大空间，分隔内容块 */
+    margin-bottom: 0.8em; /* 标题下方留出适中空间 */
+    padding-bottom: 0.25em; /* 标题文字与底边框之间的内边距 */
 
-    font-weight: bold;          /* 加粗字体 */
-    font-size: 1.45em;          /* 字号为正文的 1.45 倍 */
-    color: var(--md-primary-fg-color);  /* 使用主题主色作为标题颜色 */
+    font-weight: bold; /* 加粗字体 */
+    font-size: 1.45em; /* 字号为正文的 1.45 倍 */
+    color: var(--md-primary-fg-color); /* 使用主题主色作为标题颜色 */
 
-    border-bottom: 2px solid var(--md-default-fg-color--lightest);  /* 底部 2px 实线边框 */
+    border-bottom: 2px solid var(--md-default-fg-color--lightest); /* 底部 2px 实线边框 */
 }
 
 /* H2 标题前的锚点图标 */
 .md-typeset h2::before {
-    content: "⚓";               /* 在标题前添加锚点图标 */
-    margin-right: 0.45em;       /* 图标与标题文字之间的间距 */
-    font-size: 0.9em;           /* 图标大小为标题的 90% */
-    vertical-align: middle;     /* 垂直居中对齐 */
-    opacity: 0.85;              /* 图标透明度为 85%，稍微淡化 */
+    content: "⚓"; /* 在标题前添加锚点图标 */
+    margin-right: 0.45em; /* 图标与标题文字之间的间距 */
+    font-size: 0.9em; /* 图标大小为标题的 90% */
+    vertical-align: middle; /* 垂直居中对齐 */
+    opacity: 0.85; /* 图标透明度为 85%，稍微淡化 */
 }
 
 
@@ -32,25 +32,25 @@
    ========================================================================== */
 /* H3 标题主体样式 */
 .md-typeset h3 {
-    position: relative;         /* 启用相对定位，用于伪元素定位 */
-    margin-top: 1.8em;          /* 标题上方留出空间，比 H2 稍小 */
-    margin-bottom: 0.8em;       /* 标题下方留出适中空间 */
-    padding-bottom: 0.25em;     /* 标题文字与底边框之间的内边距 */
+    position: relative; /* 启用相对定位，用于伪元素定位 */
+    margin-top: 1.8em; /* 标题上方留出空间，比 H2 稍小 */
+    margin-bottom: 0.8em; /* 标题下方留出适中空间 */
+    padding-bottom: 0.25em; /* 标题文字与底边框之间的内边距 */
 
-    font-weight: bold;          /* 加粗字体 */
-    font-size: 1.25em;          /* 字号为正文的 1.25 倍 */
-    color: var(--md-primary-fg-color);  /* 使用主题主色作为标题颜色 */
+    font-weight: bold; /* 加粗字体 */
+    font-size: 1.25em; /* 字号为正文的 1.25 倍 */
+    color: var(--md-primary-fg-color); /* 使用主题主色作为标题颜色 */
 
-    border-bottom: 1px dashed var(--md-default-fg-color--lightest);  /* 底部 1px 虚线边框 */
+    border-bottom: 1px dashed var(--md-default-fg-color--lightest); /* 底部 1px 虚线边框 */
 }
 
 /* H3 标题前的锚点图标（比 H2 更小） */
 .md-typeset h3::before {
-    content: "⚓";               /* 在标题前添加锚点图标 */
-    margin-right: 0.45em;       /* 图标与标题文字之间的间距 */
-    font-size: 0.75em;          /* 图标大小为标题的 75%，比 H2 的图标更小 */
-    vertical-align: middle;     /* 垂直居中对齐 */
-    opacity: 0.65;              /* 图标透明度为 65%，比 H2 更淡 */
+    content: "⚓"; /* 在标题前添加锚点图标 */
+    margin-right: 0.45em; /* 图标与标题文字之间的间距 */
+    font-size: 0.75em; /* 图标大小为标题的 75%，比 H2 的图标更小 */
+    vertical-align: middle; /* 垂直居中对齐 */
+    opacity: 0.65; /* 图标透明度为 65%，比 H2 更淡 */
 }
 
 
@@ -62,42 +62,40 @@
 .md-typeset h4,
 .md-typeset h5,
 .md-typeset h6 {
-    position: relative;                 /* 启用相对定位，用于伪元素定位 */
-    margin-top: 1.6em !important;       /* 标题上方留出空间 */
-    margin-bottom: 0.6em !important;    /* 标题下方留出空间 */
+    position: relative; /* 启用相对定位，用于伪元素定位 */
+    margin-top: 1.6em !important; /* 标题上方留出空间 */
+    margin-bottom: 0.6em !important; /* 标题下方留出空间 */
 
-    font-weight: bold !important;       /* 加粗字体 */
-    line-height: 1.4;                   /* 行高 1.4 倍，提升可读性 */
+    font-weight: bold !important; /* 加粗字体 */
+    line-height: 1.4; /* 行高 1.4 倍，提升可读性 */
 
-    padding-left: 0.6em;                /* 左侧内边距，文字与竖线的距离 */
-    border-left: 4px solid;             /* 左侧 4px 实线边框（颜色由具体级别设定） */
+    padding-left: 0.6em; /* 左侧内边距，文字与竖线的距离 */
+    border-left: 4px solid; /* 左侧 4px 实线边框（颜色由具体级别设定） */
 }
 
 /* H4 标题样式（主题色 80%） */
 .md-typeset h4 {
-    font-size: 1.15em !important;       /* 字号为正文的 1.15 倍 */
-    color: color-mix(in srgb,           /* 混合颜色：主题色 80% + 默认色 20% */
-    var(--md-primary-fg-color) 80%,
+    font-size: 1.15em !important; /* 字号为正文的 1.15 倍 */
+    color: color-mix(in srgb, /* 混合颜色：主题色 80% + 默认色 20% */ var(--md-primary-fg-color) 80%,
     var(--md-default-fg-color)
     );
-    border-left-color: var(--md-primary-fg-color);  /* 左边框使用主题主色 */
+    border-left-color: var(--md-primary-fg-color); /* 左边框使用主题主色 */
 }
 
 /* H5 标题样式（主题色 65%，比 H4 更淡） */
 .md-typeset h5 {
-    font-size: 1.1em !important;        /* 字号为正文的 1.1 倍 */
-    color: color-mix(in srgb,           /* 混合颜色：主题色 65% + 默认色 35%，比 H4 更淡 */
-    var(--md-primary-fg-color) 65%,
+    font-size: 1.1em !important; /* 字号为正文的 1.1 倍 */
+    color: color-mix(in srgb, /* 混合颜色：主题色 65% + 默认色 35%，比 H4 更淡 */ var(--md-primary-fg-color) 65%,
     var(--md-default-fg-color)
     );
-    border-left-color: var(--md-primary-fg-color--light);  /* 左边框使用浅色主题色 */
+    border-left-color: var(--md-primary-fg-color--light); /* 左边框使用浅色主题色 */
 }
 
 /* H6 标题样式（最弱化处理） */
 .md-typeset h6 {
-    font-size: 1.05em !important;       /* 字号为正文的 1.05 倍 */
-    color: var(--md-default-fg-color--light);  /* 使用浅色默认颜色，视觉最弱 */
-    border-left-color: var(--md-default-fg-color--lighter);  /* 左边框使用更浅的默认色 */
+    font-size: 1.05em !important; /* 字号为正文的 1.05 倍 */
+    color: var(--md-default-fg-color--light); /* 使用浅色默认颜色，视觉最弱 */
+    border-left-color: var(--md-default-fg-color--lighter); /* 左边框使用更浅的默认色 */
 }
 
 
@@ -107,48 +105,48 @@
    ========================================================================== */
 /* 伪标题容器（Flex 布局居中） */
 p.auto-t {
-    display: flex;              /* 使用 Flex 布局 */
-    align-items: center;        /* 垂直居中对齐 */
-    justify-content: center;    /* 水平居中对齐 */
+    display: flex; /* 使用 Flex 布局 */
+    align-items: center; /* 垂直居中对齐 */
+    justify-content: center; /* 水平居中对齐 */
 
-    margin-top: 2em;            /* 上方留出较大空间 */
-    margin-bottom: 1.6em;       /* 下方留出空间 */
+    margin-top: 2em; /* 上方留出较大空间 */
+    margin-bottom: 1.6em; /* 下方留出空间 */
 }
 
 /* 伪标题两侧的分隔线 */
 p.auto-t::before,
 p.auto-t::after {
-    content: "";                /* 添加空内容 */
-    flex: 1;                    /* 占据剩余空间，实现居中效果 */
-    border-bottom: 1px solid var(--md-default-fg-color--lighter);  /* 底部 1px 实线，形成分隔线 */
-    margin: 0 0.8em;            /* 分隔线与文字之间的间距 */
+    content: ""; /* 添加空内容 */
+    flex: 1; /* 占据剩余空间，实现居中效果 */
+    border-bottom: 1px solid var(--md-default-fg-color--lighter); /* 底部 1px 实线，形成分隔线 */
+    margin: 0 0.8em; /* 分隔线与文字之间的间距 */
 }
 
 /* 伪标题中的加粗文字 */
 p.auto-t strong {
-    font-weight: bold;          /* 加粗文字 */
-    font-size: 1em;             /* 字号与正文相同 */
-    color: var(--md-primary-fg-color);  /* 使用主题主色 */
-    padding: 0 0.4em;           /* 左右内边距 */
+    font-weight: bold; /* 加粗文字 */
+    font-size: 1em; /* 字号与正文相同 */
+    color: var(--md-primary-fg-color); /* 使用主题主色 */
+    padding: 0 0.4em; /* 左右内边距 */
 }
 
 /* 加粗文字前后的菱形装饰符号 */
 p.auto-t strong::before,
 p.auto-t strong::after {
-    content: "◆";               /* 在文字前后添加菱形装饰符号 */
-    color: var(--md-default-fg-color--lightest);  /* 使用最浅的默认色 */
-    font-size: 0.8em;           /* 符号大小为文字的 80% */
-    vertical-align: middle;     /* 垂直居中对齐 */
+    content: "◆"; /* 在文字前后添加菱形装饰符号 */
+    color: var(--md-default-fg-color--lightest); /* 使用最浅的默认色 */
+    font-size: 0.8em; /* 符号大小为文字的 80% */
+    vertical-align: middle; /* 垂直居中对齐 */
 }
 
 /* 前置菱形符号的右侧间距 */
 p.auto-t strong::before {
-    margin-right: 8px;          /* 前置符号与文字的右侧间距 */
+    margin-right: 8px; /* 前置符号与文字的右侧间距 */
 }
 
 /* 后置菱形符号的左侧间距 */
 p.auto-t strong::after {
-    margin-left: 8px;           /* 后置符号与文字的左侧间距 */
+    margin-left: 8px; /* 后置符号与文字的左侧间距 */
 }
 
 
@@ -157,12 +155,12 @@ p.auto-t strong::after {
    ========================================================================== */
 /* 段落间距优化 */
 .md-typeset p {
-    margin-bottom: 0.9em;       /* 段落下方间距为 0.9em，紧凑布局 */
+    margin-bottom: 0.9em; /* 段落下方间距为 0.9em，紧凑布局 */
 }
 
 /* 列表项间距优化 */
 .md-typeset li {
-    margin-bottom: 0.35em;      /* 列表项下方间距为 0.35em，紧凑布局 */
+    margin-bottom: 0.35em; /* 列表项下方间距为 0.35em，紧凑布局 */
 }
 
 
@@ -171,24 +169,24 @@ p.auto-t strong::after {
    ========================================================================== */
 /* 普通图片样式（块级居中 + 响应式） */
 .md-typeset img {
-    display: block;             /* 图片显示为块级元素 */
-    margin: 0.8em auto;         /* 上下间距 0.8em，左右自动居中 */
-    max-width: 100%;            /* 图片最大宽度为容器宽度，防止溢出 */
+    display: block; /* 图片显示为块级元素 */
+    margin: 0.8em auto; /* 上下间距 0.8em，左右自动居中 */
+    max-width: 100%; /* 图片最大宽度为容器宽度，防止溢出 */
 }
 
 /* Emoji 和图标特殊处理（行内显示） */
 .md-typeset .twemoji img,
 .md-typeset .icon img {
-    display: inline-block !important;  /* Emoji 和图标显示为行内块元素 */
-    margin: 0 !important;              /* 移除 Emoji 和图标的外边距 */
-    vertical-align: text-bottom;       /* 底部对齐文字基线 */
+    display: inline-block !important; /* Emoji 和图标显示为行内块元素 */
+    margin: 0 !important; /* 移除 Emoji 和图标的外边距 */
+    vertical-align: text-bottom; /* 底部对齐文字基线 */
 }
 
 /* 图表容器样式（带标题的图片） */
 .md-typeset figure {
-    display: block;             /* 图表容器显示为块级元素 */
-    margin: 1.5em auto;         /* 上下间距 1.5em，左右自动居中 */
-    text-align: center;         /* 图表内容居中对齐 */
+    display: block; /* 图表容器显示为块级元素 */
+    margin: 1.5em auto; /* 上下间距 1.5em，左右自动居中 */
+    text-align: center; /* 图表内容居中对齐 */
 }
 
 
@@ -197,22 +195,22 @@ p.auto-t strong::after {
    ---------------------------- */
 /* 一级列表容器 */
 .md-typeset ul {
-    margin-top: 0.6em;          /* 列表上方间距 */
-    margin-bottom: 0.8em;       /* 列表下方间距 */
-    padding-left: 1.2em;        /* 列表左侧缩进 */
+    margin-top: 0.6em; /* 列表上方间距 */
+    margin-bottom: 0.8em; /* 列表下方间距 */
+    padding-left: 1.2em; /* 列表左侧缩进 */
 }
 
 /* 一级列表项 */
 .md-typeset ul > li {
-    position: relative;         /* 启用相对定位 */
-    margin-bottom: 0.6em;       /* 列表项下方间距 */
-    padding-left: 0.4em;        /* 列表项左侧内边距 */
+    position: relative; /* 启用相对定位 */
+    margin-bottom: 0.6em; /* 列表项下方间距 */
+    padding-left: 0.4em; /* 列表项左侧内边距 */
 }
 
 /* 一级列表前的圆点强化 */
 .md-typeset ul > li::marker {
-    color: var(--md-primary-fg-color);  /* 列表圆点使用主题主色 */
-    font-size: 1em;             /* 圆点大小与文字相同 */
+    color: var(--md-primary-fg-color); /* 列表圆点使用主题主色 */
+    font-size: 1em; /* 圆点大小与文字相同 */
 }
 
 
@@ -221,24 +219,24 @@ p.auto-t strong::after {
    ---------------------------- */
 /* 二级列表容器（带左侧虚线边框） */
 .md-typeset ul ul {
-    margin-top: 0.4em;          /* 二级列表上方间距 */
-    margin-bottom: 0.6em;       /* 二级列表下方间距 */
-    padding-left: 1.4em;        /* 二级列表左侧缩进 */
-    border-left: 2px dashed var(--md-default-fg-color--lightest);  /* 左侧 2px 虚线边框 */
+    margin-top: 0.4em; /* 二级列表上方间距 */
+    margin-bottom: 0.6em; /* 二级列表下方间距 */
+    padding-left: 1.4em; /* 二级列表左侧缩进 */
+    border-left: 2px dashed var(--md-default-fg-color--lightest); /* 左侧 2px 虚线边框 */
 }
 
 /* 二级列表项 */
 .md-typeset ul ul > li {
-    margin-bottom: 0.35em;      /* 二级列表项下方间距，比一级更紧凑 */
-    padding-left: 0.4em;        /* 二级列表项左侧内边距 */
-    font-size: 0.95em;          /* 字号为一级列表的 95% */
-    color: var(--md-default-fg-color--light);  /* 使用浅色，视觉弱化 */
+    margin-bottom: 0.35em; /* 二级列表项下方间距，比一级更紧凑 */
+    padding-left: 0.4em; /* 二级列表项左侧内边距 */
+    font-size: 0.95em; /* 字号为一级列表的 95% */
+    color: var(--md-default-fg-color--light); /* 使用浅色，视觉弱化 */
 }
 
 /* 二级列表圆点 */
 .md-typeset ul ul > li::marker {
-    color: var(--md-default-fg-color--lighter);  /* 圆点使用更浅的颜色 */
-    font-size: 0.85em;          /* 圆点大小为文字的 85% */
+    color: var(--md-default-fg-color--lighter); /* 圆点使用更浅的颜色 */
+    font-size: 0.85em; /* 圆点大小为文字的 85% */
 }
 
 
@@ -247,14 +245,14 @@ p.auto-t strong::after {
    ---------------------------- */
 /* 三级列表容器（带左侧点线边框） */
 .md-typeset ul ul ul {
-    padding-left: 1.2em;        /* 三级列表左侧缩进 */
-    border-left: 1px dotted var(--md-default-fg-color--lighter);  /* 左侧 1px 点线边框，比二级更弱 */
+    padding-left: 1.2em; /* 三级列表左侧缩进 */
+    border-left: 1px dotted var(--md-default-fg-color--lighter); /* 左侧 1px 点线边框，比二级更弱 */
 }
 
 /* 三级列表项（最弱化的层级） */
 .md-typeset ul ul ul > li {
-    font-size: 0.9em;           /* 字号为二级列表的 90% */
-    color: var(--md-default-fg-color--lighter);  /* 使用更浅的颜色，视觉最弱 */
+    font-size: 0.9em; /* 字号为二级列表的 90% */
+    color: var(--md-default-fg-color--lighter); /* 使用更浅的颜色，视觉最弱 */
 }
 
 
@@ -263,33 +261,30 @@ p.auto-t strong::after {
    ========================================================================== */
 /* 大纲子级列表样式（H3, H4... 添加左侧虚线） */
 .md-sidebar--secondary .md-nav__list ul {
-    border-left: 1px dashed var(--md-default-fg-color--lighter);  /* 核心：添加左侧虚线，颜色跟随主题稍微淡一点 */
+    border-left: 1px dashed var(--md-default-fg-color--lighter); /* 核心：添加左侧虚线，颜色跟随主题稍微淡一点 */
 
-    margin-left: 0.3em;         /* 调整左侧外边距，让线条和父级对齐 */
-    padding-left: 0.8em;        /* 文字离虚线的距离 */
+    margin-left: 0.3em; /* 调整左侧外边距，让线条和父级对齐 */
+    padding-left: 0.8em; /* 文字离虚线的距离 */
 
-    margin-top: 0.2em;          /* 给子列表加上方间距 */
-    margin-bottom: 0.2em;       /* 给子列表加下方间距 */
+    margin-top: 0.2em; /* 给子列表加上方间距 */
+    margin-bottom: 0.2em; /* 给子列表加下方间距 */
 }
 
 /* 大纲顶层列表样式（H2 去除线条） */
 .md-sidebar--secondary > .md-nav > .md-nav__list {
-    border-left: none !important;   /* 移除顶层列表的左侧边框 */
-    margin-left: 0 !important;      /* 重置左侧外边距 */
-    padding-left: 0 !important;     /* 重置左侧内边距 */
+    border-left: none !important; /* 移除顶层列表的左侧边框 */
+    margin-left: 0 !important; /* 重置左侧外边距 */
+    padding-left: 0 !important; /* 重置左侧内边距 */
 }
 
 /* 大纲激活项样式（当前浏览的标题） */
 .md-sidebar--secondary .md-nav__link--active {
-    font-weight: bold;          /* 激活项文字加粗 */
-    color: var(--md-primary-fg-color);  /* 激活项使用主题主色 */
-
-    background: rgba(0, 0, 0, 0.03);  /* 给激活的项加一个浅色背景块，更醒目 */
-    border-radius: 4px;         /* 背景块圆角 4px */
+    font-weight: bold; /* 激活项文字加粗 */
+    color: var(--md-primary-fg-color); /* 激活项使用主题主色 */
 }
 
 /* 大纲链接悬停样式 */
 .md-sidebar--secondary .md-nav__link:hover {
-    color: var(--md-primary-fg-color);  /* 悬停时使用主题主色 */
+    color: var(--md-primary-fg-color); /* 悬停时使用主题主色 */
     text-decoration: underline; /* 鼠标放上去加下划线 */
 }
