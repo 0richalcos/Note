@@ -697,7 +697,7 @@ OpenID Connect (OIDC) 1.0。
 
 3. Java 加密示例代码：
 
-4. ```java
+	```java
 	import javax.crypto.Cipher;
 	import java.nio.charset.StandardCharsets;
 	import java.security.KeyFactory;
