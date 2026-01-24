@@ -235,3 +235,47 @@ p.auto-t strong::after {
     color: var(--md-default-fg-color--lighter);
 }
 
+
+/* ==========================================================================
+   8. 右侧大纲 (ToC) 树形虚线风格
+   让大纲显示层级连接线，不再是光秃秃的列表
+   ========================================================================== */
+
+/* 1. 针对所有子级列表 (H3, H4...) 添加左侧虚线 */
+.md-sidebar--secondary .md-nav__list ul {
+    /* 核心：添加左侧虚线 (颜色跟随主题，稍微淡一点) */
+    border-left: 1px dashed var(--md-default-fg-color--lighter);
+
+    /* 调整缩进：让线条和父级对齐 */
+    margin-left: 0.3em;
+    padding-left: 0.8em; /* 文字离线的距离 */
+
+    /* 可选：给子列表加一点上下间距 */
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+}
+
+/* 2. 针对顶层列表 (H2) 去除线条 */
+/* 我们只希望 H2 下面的 H3 开始有线条，H2 自己不要线 */
+.md-sidebar--secondary > .md-nav > .md-nav__list {
+    border-left: none !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+
+/* 3. 激活状态优化 */
+/* 当滚动到某个标题时，加粗并改变颜色 */
+.md-sidebar--secondary .md-nav__link--active {
+    font-weight: bold;
+    color: var(--md-primary-fg-color);
+
+    /* 可选：给激活的项加一个小背景块，更醒目 */
+    /* background: rgba(0,0,0, 0.03); */
+    /* border-radius: 4px; */
+}
+
+/* 4. 鼠标悬停优化 */
+.md-sidebar--secondary .md-nav__link:hover {
+    color: var(--md-primary-fg-color);
+    text-decoration: underline; /* 鼠标放上去加下划线 */
+}
