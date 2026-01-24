@@ -4,7 +4,7 @@
 
 Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载均衡、内容缓存等功能，用于客户端访问流量到后台应用服务器负载均衡和请求转发。其基于模块化的代码架构及可与其它有效集成的可编程特性，使其具有强大的扩展能力。Nginx 以资源消耗低、高稳定、高性能的并发处理能力著称。
 
-<br>
+
 
 **Nginx 特性**
 
@@ -19,7 +19,7 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 - 可扩展性：
 	可定制的模块化架构方式，更多的语言（C/Perl/JavaScript/Lua）支持开发第三方模块并引入，增强可编程及扩展能力。
 
-<br>
+
 
 ## 2、安装
 
@@ -119,7 +119,7 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 	./nginx
 	```
 
-<br>
+
 
 #### 2.1.2、配置服务
 
@@ -159,7 +159,7 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 	systemctl enable nginx
 	```
 
-<br>
+
 
 #### 2.1.3、卸载
 
@@ -183,7 +183,7 @@ Nginx 不仅是一个高性能的 Web 服务器，还具备访问代理、负载
 	...
 	```
 
-<br>
+
 
 #### 2.1.4、常用命令
 
@@ -205,7 +205,7 @@ systemctl stop nginx		# 停止
 systemctl reload nginx		# 重载配置文件
 ```
 
-<br>
+
 
 **查看 Nginx 进程**
 
@@ -213,7 +213,7 @@ systemctl reload nginx		# 重载配置文件
 ps -aux | grep nginx 
 ```
 
-<br>
+
 
 **编辑配置文件**
 
@@ -221,7 +221,7 @@ ps -aux | grep nginx
 vim /usr/local/nginx/conf/nginx.conf
 ```
 
-<br>
+
 
 ### 2.2、Windows 安装
 
@@ -241,7 +241,7 @@ vim /usr/local/nginx/conf/nginx.conf
 
 	或者直接双击 nginx.exe。
 
-<br>
+
 
 #### 2.2.2、配置服务
 
@@ -269,7 +269,7 @@ vim /usr/local/nginx/conf/nginx.conf
 	sc query Nginx    # 查询服务状态
 	```
 
-<br>
+
 
 #### 2.2.3、常用命令
 
@@ -286,7 +286,7 @@ start .\nginx				# 启动nginx，或者直接双击nginx.exe
 .\nginx.exe -v				# 查看nginx版本信息
 ```
 
-<br>
+
 
 ## 3、配置
 
@@ -332,7 +332,7 @@ http      #http块
 - `server`：配置虚拟主机的相关参数，一个 `http` 中可以有多个 `server`。
 - `location`：配置请求的路由以及各种页面的处理情况。
 
-<br>
+
 
 #### 3.1.2、配置模板示例
 
@@ -420,7 +420,7 @@ http {
 }
 ```
 
-<br>
+
 
 ### 3.2、指令
 
@@ -429,7 +429,7 @@ Nginx 的配置由指令（Directives）组成，指令是键值对的形式，�
 1. 简单指令（Simple Directives）：由名称和参数组成，以分号 `;` 结尾。例如：`worker_processes auto;`。
 2. 块指令（Block Directives）：与简单指令结构类似，但以一对大括号 `{}` 结束，大括号内包含一组额外的指令。
 
-<br>
+
 
 #### 3.2.1、location
 
@@ -454,13 +454,13 @@ location [modifier] uri {
 - *modifier*：修饰符，可选参数，用于指定匹配 URI 的类型。不同的修饰符决定了 Nginx 如何匹配请求 URI。
 - *uri*：要匹配的请求 URI。它可以是字面字符串或正则表达式。
 
-<br>
+
 
 ##### 修饰符
 
 Nginx 提供了多种修饰符来控制 `location` 的匹配方式：
 
-<br>
+
 
 **无修饰符（Prefix Match / 前缀匹配）**
 
@@ -478,7 +478,7 @@ Nginx 提供了多种修饰符来控制 `location` 的匹配方式：
 	}
 	```
 
-<br>
+
 
 ##### uri 末尾斜杆
 
@@ -517,7 +517,7 @@ location /txffc/ {
 >
 > 大部分情况推荐带斜杠的写法（匹配会更准确些）。
 
-<br>
+
 
 #### 3.2.2、map
 
@@ -546,7 +546,7 @@ http {
 
 `map` 指令在 Nginx 配置中定义后，并不会立即为输出变量赋值。相反，它会在输出变量被引用时才进行求值和赋值。这意味着，如果请求流不触及配置中使用了 `map` 变量的部分，那么 `map` 变量的查找就不会执行，从而不会增加额外的开销。
 
-<br>
+
 
 **示例**
 
@@ -572,7 +572,7 @@ http {
 }
 ```
 
-<br>
+
 
 #### 3.2.3、client_max_body_size
 
@@ -580,7 +580,7 @@ Nginx 中的 `client_max_body_size` 指令用于设置允许的客户端请求�
 
 `client_max_body_size` 的主要作用是限制通过 POST 等方法发送到服务器的数据量。当客户端（例如浏览器）发送的请求体超过了在 Nginx 配置中设定的这个值时，Nginx 将会拒绝该请求，并向客户端返回一个 "413 Request Entity Too Large" 的错误。
 
-<br>
+
 
 **语法和默认值**
 
@@ -602,7 +602,7 @@ client_max_body_size size;
 >
 > 将 `client_max_body_size` 的值设置为 0 会禁用对客户端请求体大小的检查。这意味着 Nginx 将接受任意大小的请求体。虽然这在某些特定场景下可能有用，但通常不推荐这样做，因为它会带来安全风险，例如容易受到 DoS 攻击。
 
-<br>
+
 
 **配置上下文**
 
@@ -618,13 +618,13 @@ client_max_body_size size;
 >
 > 如果有文件上传需求，最好的方法是仅为你处理文件上传的特定 URI（或路径）放宽限制。
 
-<br>
+
 
 #### 3.2.4、include
 
 `include` 指令是 Nginx 配置模块化的核心。它的工作原理非常简单：在 Nginx 读取配置时，将目标文件的内容原封不动地“粘贴”到 `include` 指令所在的位置。
 
-<br>
+
 
 **语法格式**
 
@@ -646,7 +646,7 @@ include <file | mask>;
 	include vhosts/site-*.conf;   # 加载以 site- 开头的 conf 文件
 	```
 
-<br>
+
 
 **作用域**
 
@@ -659,7 +659,7 @@ include <file | mask>;
 | `location` | 引入反向代理的公共 Header、跨域（CORS）设置、访问控制列表（IP 白名单） | `include proxy_params;` <br>`include allow_ips.conf;`      |
 | `upstream` | 引入后端服务器列表                                           | `include backends.conf;`                                   |
 
-<br>
+
 
 **常用排错与检查命令**
 
@@ -671,13 +671,13 @@ nginx -T
 
 此命令会解析所有 `include` 并将内容打印出来，让你看到 Nginx 实际执行的完整代码。
 
-<br>
+
 
 ### 3.3、内置变量
 
 Nginx 提供了许多内置变量（Built-in Variables），它们可以捕获关于请求、响应、服务器和连接的动态信息。这些变量在配置文件中非常有用，可以用于日志记录、条件判断、重定向、URL重写和代理设置等[][18]。变量通常以 `$` 符号开头。
 
-<br>
+
 
 #### 3.3.1、请求相关变量
 
@@ -694,7 +694,7 @@ Nginx 提供了许多内置变量（Built-in Variables），它们可以捕获�
 - `$request_body`：客户端请求的主体内容。
 - `$request_body_file`：保存客户端请求主体的临时文件名。
 
-<br>
+
 
 #### 3.3.2、连接相关变量
 
@@ -706,7 +706,7 @@ Nginx 提供了许多内置变量（Built-in Variables），它们可以捕获�
 - `$connection`：当前连接的连接号。
 - `$connection_requests`：当前连接已处理的请求数量。
 
-<br>
+
 
 #### 3.3.3、响应相关变量
 
@@ -715,7 +715,7 @@ Nginx 提供了许多内置变量（Built-in Variables），它们可以捕获�
 - `$bytes_sent`：响应中发送的总字节数，包括头部和主体内容。
 - `$sent_http_*`：响应头中的自定义变量，如 `$sent_http_content_type` 表示响应的 `Content-Type` 头部字段。
 
-<br>
+
 
 #### 3.3.4、HTTP 请求头相关变量
 
@@ -724,7 +724,7 @@ Nginx 提供了许多内置变量（Built-in Variables），它们可以捕获�
 - `$http_cookie`：请求的 `Cookie` 头部字段的值。
 - `$http_\*`：用于访问任意的请求头字段，如 `$http_accept` 表示 `Accept` 头部字段的值。
 
-<br>
+
 
 #### 3.3.5、SSL 相关变量
 
@@ -733,14 +733,14 @@ Nginx 提供了许多内置变量（Built-in Variables），它们可以捕获�
 - `$ssl_client_cert`：客户端证书的详细内容。
 - `$ssl_client_fingerprint`：客户端证书的 SHA1 指纹。
 
-<br>
+
 
 #### 3.3.6、地理位置相关变量
 
 - `$geoip_country_code`：基于 IP 地址的国家代码（如果启用了 GeoIP 模块）。
 - `$geoip_country_name`：基于 IP 地址的国家名称（如果启用了 GeoIP 模块）。
 
-<br>
+
 
 #### 3.3.7、其他常用变量
 
@@ -753,7 +753,7 @@ Nginx 提供了许多内置变量（Built-in Variables），它们可以捕获�
 - `$time_iso8601`：当前时间的 ISO 8601 格式。
 - `$time_local`：当前时间的本地时间格式。
 
-<br>
+
 
 #### 3.3.8、日志相关变量
 
@@ -762,7 +762,7 @@ Nginx 提供了许多内置变量（Built-in Variables），它们可以捕获�
 - `$upstream_addr`：后端服务器的地址。
 - `$upstream_status`：后端服务器的响应状态码。
 
-<br>
+
 
 ## 4、应用场景
 
@@ -772,7 +772,7 @@ Nginx 代替服务端接收请求，常用于服务器集群环境，反向代�
 
 客户端访问目标服务器，在目标服务内部有一个统一接入网关，用来将请求转发至后端真正处理的服务器并返回结果。这个过程当中客户端不需要知道实际服务器地址，代理对客户端而言是透明的。
 
-<br>
+
 
 **相关指令**
 
@@ -814,7 +814,7 @@ proxy_ssl_verify on;									# 启用或禁用对上游服务器证书的验证
 proxy_ssl_verify_depth 2;								# 设置验证上游服务器证书时的最大链深度
 ```
 
-<br>
+
 
 **路径末尾是否带斜杆**
 
@@ -842,7 +842,7 @@ location /txffc/ {
 >
 > 大部分情况推荐带斜杠的 `proxy_pass` 写法（控制更清晰）。
 
-<br>
+
 
 **配置示例**
 
@@ -868,13 +868,13 @@ server {
 }
 ```
 
-<br>
+
 
 ### 4.2、负载均衡
 
 在配置项 `upstream` 中，负责提供可用的服务地址列表并且可以指定负载均衡的实现方式。
 
-<br>
+
 
 **轮询-Round-Robin**
 
@@ -887,7 +887,7 @@ upstream backend-a {
 }
 ```
 
-<br>
+
 
 **权重-Weight**
 
@@ -900,7 +900,7 @@ upstream backend-b {
 }
 ```
 
-<br>
+
 
 **最少连接-Least-Connect**
 
@@ -914,7 +914,7 @@ upstream backend-c {
 }
 ```
 
-<br>
+
 
 **IP-Hash**
 
@@ -932,7 +932,7 @@ upstream backend-d {
 >
 > 第三方的会话保持 sticky_cookie_insert，同时支持负载均衡。
 
-<br>
+
 
 ### 4.3、限流与熔断
 
@@ -940,7 +940,7 @@ upstream backend-d {
 
 通过对并发/请求进行限速来保护系统，防止系统过载瘫痪而不能提供服务；为了更好控制整个系统的负载情况，即使阻止了某些请求，系统继续提供服务。
 
-<br>
+
 
 **http_limit_conn**
 
@@ -964,7 +964,7 @@ http {
 }
 ```
 
-<br>
+
 
 **http_limit_req**
 
@@ -993,7 +993,7 @@ http {
 }
 ```
 
-<br>
+
 
 **http_limit_rate**
 
@@ -1011,7 +1011,7 @@ http {
 }
 ```
 
-<br>
+
 
 #### 4.3.2、熔断
 
@@ -1029,7 +1029,7 @@ upstream http_backend {
 >
 > 当然也有容错机制，Nginx 默认自动转向其它服务再请求，相关配置：`proxy_next_upstream`
 
-<br>
+
 
 ### 4.4、TCP/UDP 处理
 
@@ -1039,7 +1039,7 @@ Nginx Stream 模块是 Nginx 的一个扩展模块（1.9.0 开始加入），主
 
 `stream` 模块用法和 `http` 模块差不多，语法几乎一致。
 
-<br>
+
 
 **`stream` 块的主要功能**
 
@@ -1048,7 +1048,7 @@ Nginx Stream 模块是 Nginx 的一个扩展模块（1.9.0 开始加入），主
 - 基于 SNI 的路由：通过服务器名称指示（SNI），`stream` 块可以基于 SSL 握手中的 SNI 信息将流量路由到不同的上游服务器。
 - 访问控制：支持通过限制模块设置 IP 访问控制。
 
-<br>
+
 
 **配置示例**
 
@@ -1075,7 +1075,7 @@ stream {
 >
 > `stream` 块配置与 `http` 块并列。
 
-<br>
+
 
 ### 4.5、WebSocket 代理
 
@@ -1119,7 +1119,7 @@ http {
 
 默认情况下，如果代理务器在 60 秒内没有传输任何数据，连接将被关闭。这个超时可以通过 `proxy_read_timeout` 指令来增加。 或者，代理服务器可以配置为定期发送 WebSocket ping 帧以重置超时并检查连接是否仍然活跃。
 
-<br>
+
 
 ## 4、性能优化
 
@@ -1140,7 +1140,7 @@ events {
 }
 ```
 
-<br>
+
 
 ### 4.2、与客户端之间的优化
 
@@ -1168,7 +1168,7 @@ http {
 }
 ```
 
-<br>
+
 
 ### 4.3、与后端服务之间的优化
 
@@ -1195,7 +1195,7 @@ http {
 }
 ```
 
-<br>
+
 
 ### 4.4、缓存设置
 

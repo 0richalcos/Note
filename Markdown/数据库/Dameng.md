@@ -5,7 +5,7 @@
 达梦数据库管理系统是达梦公司推出的具有完全自主知识产权的高性能数据库管理系统，简称 DM。达梦数据库管理系统的最新版本是 8.0 版本，简称 DM8。
 DM8 采用全新的体系架构，在保证大型通用的基础上，针对可靠性、高性能、海量数据处理和安全性做了大量的研发和改进工作，极大提升了达梦数据库产品的性能、可靠性、可扩展性，能同时兼顾 OLTP 和 OLAP 请求，从根本上提升了 DM8 产品的品质。
 
-<br>
+
 
 ## 2、安装及卸载
 
@@ -21,7 +21,7 @@ DM8 采用全新的体系架构，在保证大型通用的基础上，针对可�
 | :------- | :---------- | :---------------------- |
 | CentOS7  | x86_64 架构 | dm8_rh7_64_ent_8.1.1.87 |
 
-<br>
+
 
 **新建 dmdba 用户**
 
@@ -47,7 +47,7 @@ DM8 采用全新的体系架构，在保证大型通用的基础上，针对可�
 	passwd dmdba
 	```
 
-<br>
+
 
 **修改文件打开最大数**
 
@@ -101,7 +101,7 @@ DM8 采用全新的体系架构，在保证大型通用的基础上，针对可�
 	ulimit -u 65536
 	```
 
-<br>
+
 
 **创建数据目录**
 
@@ -120,7 +120,7 @@ mkdir -p /dmdata/dmbak
 >
 > 使用 root 用户建立文件夹，待 dmdba 用户建立完成后需将文件所有者更改为 dmdba 用户，否则无法安装到该目录下。
 
-<br>
+
 
 **修改目录权限**
 
@@ -136,7 +136,7 @@ chown -R dmdba:dinstall /dmdata
 chmod -R 755 /dmdata
 ```
 
-<br>
+
 
 **挂载镜像**
 
@@ -147,13 +147,13 @@ cd  /opt
 mount -o loop dm8_20240116_x86_rh7_64.iso /mnt
 ```
 
-<br>
+
 
 #### 2.1.2、数据库安装
 
 DM 数据库在 Linux 环境下支持命令行安装和图形化安装。
 
-<br>
+
 
 **命令行安装**
 
@@ -179,7 +179,7 @@ DM 数据库在 Linux 环境下支持命令行安装和图形化安装。
 
 	数据库安装完成后还需注册实例才能使用数据库，注册实例后面会讲到。
 
-<br>
+
 
 **图形化安装**
 
@@ -238,7 +238,7 @@ DM 数据库在 Linux 环境下支持命令行安装和图形化安装。
 
 		<img src="!assets/DM/ui-install-success.png" alt="完成安装" style="zoom:67%;" />
 
-<br>
+
 
 #### 2.1.3、配置环境变量
 
@@ -266,14 +266,14 @@ DM 数据库在 Linux 环境下支持命令行安装和图形化安装。
 	source .bash_profile
 	```
 
-<br>
+
 
 
 #### 2.1.4、配置实例
 
 DM 数据库在 Linux 环境支持命令行配置实例以及图形化配置实例。
 
-<br>
+
 
 **命令行配置实例**
 
@@ -338,7 +338,7 @@ DM 数据库在 Linux 环境支持命令行配置实例以及图形化配置实�
 	>
 	> 如果此处自定义了初始化参数，在后面的注册服务和启动数据库等步骤中，请按实际的自定义参数进行操作。
 
-<br>
+
 
 **图形化配置实例**
 
@@ -392,7 +392,7 @@ DM 数据库在 Linux 环境支持命令行配置实例以及图形化配置实�
 
 		<img src="!assets/DM/zxml.png" alt="执行命令" style="zoom:67%;" />
 
-<br>
+
 
 #### 2.1.5、注册服务
 
@@ -425,7 +425,7 @@ DM 数据库在 Linux 环境支持命令行配置实例以及图形化配置实�
 	ls | grep DmServiceDMSERVER
 	```
 
-<br>
+
 
 **图形化注册服务**
 
@@ -445,7 +445,7 @@ DM 数据库在 Linux 环境支持命令行配置实例以及图形化配置实�
 
 	<img src="!assets/DM/ui-service-zd.png" alt="终端" style="zoom:67%;" />
 
-<br>
+
 
 #### 2.1.6、启动、停止数据库
 
@@ -495,7 +495,7 @@ systemctl status DmServiceDMSERVER.service
 ./DmServiceDMSERVER status
 ```
 
-<br>
+
 
 **图形化启停数据库**
 
@@ -509,7 +509,7 @@ systemctl status DmServiceDMSERVER.service
 
 <img src="!assets/DM/ui-service-czfw.png" alt="安装完成" style="zoom:67%;" />
 
-<br>
+
 
 #### 2.1.7、卸载数据库
 
@@ -541,7 +541,7 @@ systemctl status DmServiceDMSERVER.service
 	rm -rf /etc/dm_svc.conf
 	```
 
-<br>
+
 
 **图形化卸载**
 
@@ -549,13 +549,13 @@ systemctl status DmServiceDMSERVER.service
 
 卸载流程和命令行卸载一样。
 
-<br>
+
 
 ### 2.2、Windows
 
 Windows 安装和 Linux 环境图形化安装操作基本一致。
 
-<br>
+
 
 ### 2.3、数据库目录结构
 
@@ -576,7 +576,7 @@ Windows 安装和 Linux 环境图形化安装操作基本一致。
 - `/dm8/uninstall` 目录存放卸载 DM 数据库的脚本。
 - `/dm8/web` 目录存放 DM 数据库 dem 工具的 web 环境。
 
-<br>
+
 
 **数据库实例目录**
 
@@ -588,13 +588,13 @@ Windows 安装和 Linux 环境图形化安装操作基本一致。
 
 <img src="!assets/DM/dictionary-instance-DAMENG1.png" alt="目录" style="" />
 
-<br>
+
 
 ## 3、SQL 交互式查询工具
 
 disql 是一款命令行客户端工具，用于进行 SQL 交互式查询，disql 工具一般用于没有图形界面时的操作，或者使用的连接工具为命令行形式，如 Xshell、SCRT 等工具。
 
-<br>
+
 
 ### 3.1、disql 登录数据库
 
@@ -602,7 +602,7 @@ disql 是一款命令行客户端工具，用于进行 SQL 交互式查询，dis
 
 Linux 登录，进入数据库软件安装目录的 bin 目录下。登录方式主要有两种，分别如下：
 
-<br>
+
 
 **方式一**
 
@@ -630,7 +630,7 @@ Linux 登录，进入数据库软件安装目录的 bin 目录下。登录方式
 
 <img src="!assets/DM/QQ_1726074490724.png" alt="QQ_1726074490724" style="zoom: 25%;" />
 
-<br>
+
 
 **方式二**
 
@@ -666,7 +666,7 @@ CONNECT TEST/'"TEST@111#2024"'@127.0.0.1:5236
 
 <img src="!assets/DM/QQ_1726074954932.png" alt="QQ_1726074954932" style="zoom: 25%;" />
 
-<br>
+
 
 ### 3.2、disql 登出数据库
 
@@ -680,7 +680,7 @@ CONNECT TEST/'"TEST@111#2024"'@127.0.0.1:5236
 
 <img src="!assets/DM/QQ_1726075360897.png" alt="QQ_1726075360897" style="zoom:25%;" />
 
-<br>
+
 
 ### 3.3、disql 的使用
 
@@ -713,7 +713,7 @@ start /home/dmdba/test.sql
 >
 > Windows 环境下不需要对反引号 `` ` 进行转义，而 Linux 环境下需要对其进行转义。
 
-<br>
+
 
 #### 3.3.2、环境变量参数设置
 
@@ -765,7 +765,7 @@ SPOOL /home/dmdba/dbchk20200609.txt
 SPOOL OFF; 
 ```
 
-<br>
+
 
 ## 4、基本操作
 
@@ -779,7 +779,7 @@ SPOOL OFF;
 create tablespace "TEST" datafile '/data/dmdata/DAMENG/TEST.DBF' size 128;
 ```
 
-<br>
+
 
 **修改表空间参数**
 
@@ -789,7 +789,7 @@ create tablespace "TEST" datafile '/data/dmdata/DAMENG/TEST.DBF' size 128;
 alter tablespace "TEST" datafile '/data/dmdata/DAMENG/TEST.DBF' autoextend on next 100 maxsize 10240;
 ```
 
-<br>
+
 
 **新建表空间设置加密算法、密码**
 
@@ -799,7 +799,7 @@ alter tablespace "TEST" datafile '/data/dmdata/DAMENG/TEST.DBF' autoextend on ne
 create tablespace "TEST" datafile '/data/dmdata/DAMENG/TEST.DBF' size 128 autoextend on next 100 maxsize 10240 CACHE = NORMAL encrypt with RC4;
 ```
 
-<br>
+
 
 ### 4.2、创建用户
 
@@ -814,7 +814,7 @@ default tablespace "TEST"
 default index tablespace "TEST";
 ```
 
-<br>
+
 
 **授权**
 
@@ -824,7 +824,7 @@ TEST 用户授予 PUBLIC 和 SOI 权限，示例参考如下：
 grant "PUBLIC","SOI" to "TEST";
 ```
 
-<br>
+
 
 ### 4.3、查询数据库信息
 
@@ -834,7 +834,7 @@ grant "PUBLIC","SOI" to "TEST";
 select * from v$license;
 ```
 
-<br>
+
 
 **查看数据库表数量**
 
@@ -849,7 +849,7 @@ WHERE OWNER IN ('CRRC', 'CRRC_WF', 'CRRC_XXL_JOB')
 GROUP BY OWNER;
 ```
 
-<br>
+
 
 ## 5、数据库配置
 
@@ -877,7 +877,7 @@ DM 数据库包含以下几种模式：
 
 在需要对数据库配置时（如配置数据守护、数据复制），服务器需要指定 MOUNT 状态启动。当数据库模式为非 NORMAL 模式（PRIMARY、STANDBY 模式），无论是否指定启动状态，服务器启动时自动启动到 MOUNT 状态。
 
-<br>
+
 
 #### 5.1.1、状态切换
 
@@ -897,7 +897,7 @@ alter database mount;
 alter database open;
 ```
 
-<br>
+
 
 **图形化界面配置**
 
@@ -911,7 +911,7 @@ alter database open;
 
 	左侧目录刷新，即可看到数据库对象信息。
 
-<br>
+
 
 ### 5.2、启动和停止
 
@@ -923,7 +923,7 @@ alter database open;
 
 <img src="!assets/DM/image-20250326004256779.png" alt="image-20250326004256779" style="zoom: 67%;" />
 
-<br>
+
 
 **Windows 服务**
 
@@ -933,7 +933,7 @@ alter database open;
 
 <img src="!assets/DM/image-20250326004644792.png" alt="image-20250326004644792" style="zoom: 50%;" />
 
-<br>
+
 
 #### 5.2.2、Linux 系统
 
@@ -941,7 +941,7 @@ alter database open;
 
 安装 DM 数据库后默认情况下 DM 服务会自动启动，在 Linux 的开始菜单选项中选择【DM 服务查看器】可以启动或停止 DM 数据库。启动方式类似 Windows。
 
-<br>
+
 
 **Linux 服务**
 
@@ -965,7 +965,7 @@ service DmServiceDMSERVER start
 service DmServiceDMSERVER stop
 ```
 
-<br>
+
 
 ### 5.3、数据库的兼容性
 
@@ -987,7 +987,7 @@ service DmServiceDMSERVER stop
 SELECT para_name, para_type, para_value FROM V$DM_INI WHERE PARA_NAME ='COMPATIBLE_MODE';
 ```
 
-<br>
+
 
 **通过 disql 修改此参数**
 
@@ -999,7 +999,7 @@ sp_set_para_value(2,'compatible_mode',2);
 
 重启数据库服务，查看此参数已修改。
 
-<br>
+
 
 **通过 dm.ini 配置文件修改此参数**
 
@@ -1011,7 +1011,7 @@ sed -i 's/^COMPATIBLE_MODE *= *.*/COMPATIBLE_MODE = 0/' dm.ini
 
 重启数据库服务，查看此参数已修改。
 
-<br>
+
 
 ## 6、备份和迁移
 
@@ -1053,7 +1053,7 @@ DM 数据迁移工具 DM DTS 提供了主流大型数据库迁移到 DM、DM 到
 
 	<img src="!assets/DM/20210202170509591.png" alt="img" style="" />
 
-<br>
+
 
 ### 6.2、物理备份还原
 
@@ -1063,7 +1063,7 @@ DM 数据迁移工具 DM DTS 提供了主流大型数据库迁移到 DM、DM 到
 - 脱机备份还原：脱机还原指数据库处于关闭状态时执行的还原操作。库备份、表空间备份和归档备份，可以执行脱机还原。脱机还原操作的目标库必须处于关闭状态。
 - 备份集：备份集用来存放备份过程中产生的备份数据及备份信息。一个备份集对应了一次完整的备份。一般情况下，一个备份集就是一个目录，备份集包含一个或多个备份片文件，以及一个备份元数据文件。
 
-<br>
+
 
 #### 6.2.1、准备工作
 
@@ -1073,7 +1073,7 @@ DM 数据迁移工具 DM DTS 提供了主流大型数据库迁移到 DM、DM 到
 
 归档配置有两种方式：一是联机归档配置，数据库实例启动情况下，使用 SQL 语句完成 dmarch.ini 和 ARCH_INI 配置；二是手动配置归档，数据库实例未启动的情况下，手动编写 dmarch.ini 文件和设置参数 ARCH_INI。
 
-<br>
+
 
 ##### 联机归档配置
 
@@ -1103,7 +1103,7 @@ DM 数据迁移工具 DM DTS 提供了主流大型数据库迁移到 DM、DM 到
 	ALTER DATABASE OPEN;
 	```
 
-<br>
+
 
 **图形化配置**
 
@@ -1123,19 +1123,19 @@ DM 数据迁移工具 DM DTS 提供了主流大型数据库迁移到 DM、DM 到
 
 	<img src="!assets/DM/image-20240812180502625.png" alt="image-20240812180502625" style="zoom:67%;" />
 
-<br>
+
 
 #### 6.2.2、联机备份还原
 
 联机方式支持数据库、用户表空间、用户表和归档的备份以及用户表的还原。在进行联机库级备份、归档备份和表空间备份时，必须保证系统处于归档模式，否则联机备份不能进行。
 
-<br>
+
 
 ##### 数据备份
 
 这里仅讲述数据库备份使用场景。
 
-<br>
+
 
 **命令行备份**
 
@@ -1202,7 +1202,7 @@ BACKUP DATABASE FULL BACKUPSET '/data/dm_bak/bak_name';
 	BACKUP DATABASE BACKUPSET '/home/dm_bak/db_bak_3_07' PARALLEL 8;
 	```
 
-<br>
+
 
 **图形化备份**
 
@@ -1212,13 +1212,13 @@ BACKUP DATABASE FULL BACKUPSET '/data/dm_bak/bak_name';
 
 备份文件在：`<数据目录>/bak/` 文件夹里。
 
-<br>
+
 
 ##### 数据还原
 
 达梦数据库仅支持表的联机还原，数据库、表空间和归档日志的还原必须通过脱机工具 DMRMAN 执行，详细内容见[脱机备份还原](###4.2.3、脱机备份还原)。
 
-<br>
+
 
 #### 6.2.3、脱机备份还原
 
@@ -1236,11 +1236,11 @@ cd /dm8/bin
 exit;
 ```
 
-<br>
+
 
 ##### 数据备份
 
-<br>
+
 
 ##### 数据还原
 
@@ -1294,7 +1294,7 @@ exit;
 	RECOVER DATABASE '/opt/dmdbms/data/DAMENG_FOR_RESTORE/dm.ini' UPDATE DB_MAGIC;
 	```
 
-<br>
+
 
 ### 6.3、逻辑备份还原
 
@@ -1307,7 +1307,7 @@ exit;
 - 模式级（SCHEMAS）：导出或导入一个或多个模式下的所有对象。
 - 表级（TABLES）：导出或导入一个或多个指定的表或表分区。
 
-<br>
+
 
 #### 6.3.1、逻辑导出
 
@@ -1315,7 +1315,7 @@ dexp 工具可以对本地或者远程数据库进行数据库级、用户级、
 
 dexp 工具名称有两种写法 dexp 和 dexpdp，两者区别在于：dexp 导出的文件必须存放在客户端，dexpdp 导出的文件必须存放在服务器端。另外由于 dexpdp 是将客户端命令发给服务器启动 dexp 执行，如果客户端连接使用 dm_svc.conf 配置，服务器端也应该跟客户端配置一致。
 
-<br>
+
 
 **使用 dexp 工具**
 
@@ -1342,7 +1342,7 @@ dexpdp PARAMETER=value { PARAMETER=value }
 >
 > 如果密码含有特殊字符的情况下，需要使用双引号将密码包含进来，同时外层再使用单引号进行转义。
 
-<br>
+
 
 **dexp 参数一览表**
 
@@ -1395,7 +1395,7 @@ dexpdp PARAMETER=value { PARAMETER=value }
 | FILE_VERSION                 | 用于指定导出的 dmp 文件的逻辑版本，有效范围 9~28             | 可选                                                         |
 | HELP                         | 显示帮助信息                                                 | 可选                                                         |
 
-<br>
+
 
 #### 6.3.2、逻辑导入
 
@@ -1403,7 +1403,7 @@ dimp 逻辑导入工具利用 dexp 工具生成的备份文件对本地或远程
 
 dimp 工具名称有两种写法 dimp 和 dimpdp，两者区别在于：dimp 导入的文件必须存放在客户端，dimpdp 导入的文件必须存放在服务器端。另外由于 dimpdp 是将客户端命令发给服务器启动 dimp 执行，如果客户端连接使用 dm_svc.conf 配置，服务器端也应该跟客户端配置一致。
 
-<br>
+
 
 **使用 dimp 工具**
 
@@ -1426,7 +1426,7 @@ dimpdp PARAMETER=value { PARAMETER=value }
 ./dimp USERID=SYSDBA/Dmsys_123@192.168.0.248:8888 FILE=db_str.dmp DIRECTORY=/mnt/data/dexp LOG=db_str.log FULL=Y
 ```
 
-<br>
+
 
 **dimp 参数一览表**
 
@@ -1487,19 +1487,19 @@ dimpdp PARAMETER=value { PARAMETER=value }
 | FILE_VERSION                 | 用于指定将 dmp 文件降级后生成的新 dmp 文件的逻辑版本，有效范围 9~27 | 可选                                                 |
 | HELP                         | 显示帮助信息                                                 | 可选                                                 |
 
-<br>
+
 
 ### 6.4、自动备份和清理
 
 准备工作：创建代理环境。
 
-<br>
+
 
 **图形操作方式**
 
 <img src="!assets/DM/image-20250924172502361.png" alt="image-20250924172502361" style="zoom:50%;" />
 
-<br>
+
 
 **命令行操作方式**
 
@@ -1515,7 +1515,7 @@ SP_INIT_JOB_SYS(1);
 SP_INIT_JOB_SYS(0); 
 ```
 
-<br>
+
 
 #### 6.4.1、自动数据备份
 
@@ -1523,7 +1523,7 @@ SP_INIT_JOB_SYS(0);
 >
 > 备份之前需要开启归档，并进行一次联机备份测试，归档配置可见 [联机归档配置](#联机归档配置)。
 
-<br>
+
 
 **图形操作方式**
 
@@ -1545,7 +1545,7 @@ SP_INIT_JOB_SYS(0);
 
 5. 全部创建成功后，保存即可。
 
-<br>
+
 
 #### 6.4.2、自动清理备份
 
@@ -1563,7 +1563,7 @@ SP_INIT_JOB_SYS(0);
 	CALL SP_DB_BAKSET_REMOVE_BATCH('DISK', NOW()-8);
 	```
 
-<br>
+
 
 ## 7、升级
 
@@ -1585,7 +1585,7 @@ SP_INIT_JOB_SYS(0);
 
 5. 重启达梦数据库实例服务和达梦 AP 服务。
 
-<br>
+
 
 ### 7.2、数据库工具升级
 
@@ -1603,4 +1603,4 @@ SP_INIT_JOB_SYS(0);
 
 	![image-20250324211153247](!assets/DM/image-20250324211153247.png)
 
-<br>
+

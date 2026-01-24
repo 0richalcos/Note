@@ -10,7 +10,7 @@ Linux 是一套免费使用和自由传播的类 Unix 操作系统，是一个�
 
 Linux 能运行主要的 UNIX 工具软件、应用程序和网络协议。它支持 32 位和 64 位硬件。Linux 继承了 Unix 以网络为核心的设计思想，是一个性能稳定的多用户网络操作系统。
 
-<br>
+
 
 ### 1.1、Linux 的发行版
 
@@ -22,7 +22,7 @@ Linux 的发行版说简单点就是将 Linux 内核与应用软件做一个打�
 
 <img src="!assets/Linux/wKioL1bvVPWAu7hqAAEyirVUn3c446.jpg-wh_651x-s_3197843091.jpg" alt="img" style="" />
 
-<br>
+
 
 **国产系统**
 
@@ -35,13 +35,13 @@ Linux 的发行版说简单点就是将 Linux 内核与应用软件做一个打�
 | Kylin Linux Advanced Server | 银河麒麟高级服务器操作系统 | openEuler（V10 SP1 以后）                                    | 国家队，政企首选。基于 openEuler 深度开发，拥有最高等级的安全认证，对国产 CPU（飞腾/鲲鹏）优化最好。 |
 | UnionTech OS Server         | 统信服务器操作系统         | - A 版采用的是 openAnolis<br />- D 版采用的是 Debian<br />- E 版采用的是 openEuler<br />- C 版采用的是 CentOS | 商业市场主力。早期版本基于 CentOS，强调生态适配和从 CentOS 的平滑迁移。 |
 
-<br>
+
 
 ### 1.2、查看 Linux 系统版本
 
 有三种方法可以验证：
 
-<br>
+
 
 **通过 `/etc/os-release` 文件查看**
 
@@ -53,7 +53,7 @@ cat /etc/os-release
 
 <img src="!assets/Linux/image-20250305005551431.png" alt="image-20250305005551431" style="zoom: 50%;" />
 
-<br>
+
 
 **通过 `lsb_release` 命令查看**
 
@@ -67,7 +67,7 @@ lsb_release -a
 
 
 
-<br>
+
 
 **通过 `proc` 目录中可用版本文件查看**
 
@@ -79,7 +79,7 @@ cat /proc/version
 
 <img src="!assets/Linux/image-20250305010043052.png" alt="image-20250305010043052" style="zoom: 33%;" />
 
-<br>
+
 
 ### 1.3、命令行界面描述语言
 
@@ -101,7 +101,7 @@ cat /proc/version
 
 一个「`docopt` 实现」将提取所有上述信息并生成命令行参数解析器，当使用 `-h` 或 `-–help` 选项调用程序时，界面描述的文本将作为帮助消息显示。
 
-<br>
+
 
 #### 1.3.1、使用模式
 
@@ -122,7 +122,7 @@ Usage:
     my_program <repeating-argument> <repeating-argument> ...
 ```
 
-<br>
+
 
 **参数 `<argument>`**
 
@@ -132,7 +132,7 @@ Usage:
 Usage: my_program <host> <port>
 ```
 
-<br>
+
 
 **选项 `-o` `--option`**
 
@@ -148,7 +148,7 @@ Usage: my_program <host> <port>
 >
 > 同样会引起歧义的是 `-fFILE`和 `-f FILE`，因为前者不知道是多个堆叠的短格式选项（`-f -F -I -L -E`）还是带参数的单个选项（`-f` 为选项，`FILE` 为对应参数）。只有提供了选项描述时，前者这种写法才会被解释为带参数的单个选项。
 
-<br>
+
 
 **选项简写 `[options]`**
 
@@ -180,13 +180,13 @@ Usage: my_program [-alh] <path>
 -h, --human-readable  Display in human-readable format.
 ```
 
-<br>
+
 
 **命令 `command`**
 
 所有不遵循上述约定（即参数 `<argument>` 和选项 `--option`）的单词，都将被解释为命令或子命令。
 
-<br>
+
 
 **可选元素 `[optional elements]`**
 
@@ -198,7 +198,7 @@ Usage: my_program [command --option <argument>]
 Usage: my_program [command] [--option] [<argument>]
 ```
 
-<br>
+
 
 **必选元素 `(required elements)`**
 
@@ -214,7 +214,7 @@ Usage: my_program (--either-this <and-that> | <or-this>)
 Usage: my_program [(<one-argument> <another-argument>)]
 ```
 
-<br>
+
 
 **互斥元素 `element | another`**
 
@@ -230,7 +230,7 @@ Usage: my_program go (--up | --down | --left | --right)
 Usage: my_program go [--up | --down | --left | --right]
 ```
 
-<br>
+
 
 **重复元素 `element...`**
 
@@ -258,7 +258,7 @@ Usage: my_program <file> <file>...
 ## 诸如此类...
 ```
 
-<br>
+
 
 **选项参数分隔符 `[--]`**
 
@@ -270,13 +270,13 @@ Usage: my_program [options] [--] <file>...
 
 除此之外，`--` 只是一个普通的命令，因此可应用于任何前述操作，譬如去掉方括号（`[]`）使其成为必选。
 
-<br>
+
 
 **处理标准输入 `[-]`**
 
 单连字符（`-`）在不属于选项的一部分时，按照惯例通常表示程序用于处理标准输入 `stdin` 而非文件。如果要遵循该约定，只需将 `[-]` 添加到使用模式中。`-` 自身仅仅是一个普通命令，可赋予任何意义。
 
-<br>
+
 
 #### 1.3.2、选项描述
 
@@ -328,7 +328,7 @@ Other: --bad  # BAD，不以「-」开头
 --directory=DIR  Some directory [default: ./]
 ```
 
-<br>
+
 
 ## 2、目录结构
 
@@ -344,7 +344,7 @@ Other: --bad  # BAD，不以「-」开头
 >
 > FHS（Filesystem Hierarchy Standard），文件系统层次化标准，该标准规定了 Linux 系统中所有一级目录以及部分二级目录（/usr 和 /var）的用途。发布此标准的主要目的就是为了让用户清楚地了解每个目录应该存放什么类型的文件。
 
-<br>
+
 
 ### 2.1、根目录（/）
 
@@ -382,7 +382,7 @@ FHS 针对根目录中包含的子目录仅限于上表，但除此之外，Linu
 | `/proc/`       | 虚拟文件系统。该目录中的数据并不保存在硬盘上，而是保存到内存中。主要保存系统的内核、进程、外部设备状态和网络状态等。如 `/proc/cpuinfo` 是保存 CPU 信息的，`/proc/devices` 是保存设备驱动的列表的，`/proc/filesystems` 是保存文件系统列表的，`/proc/net` 是保存网络协议信息的...... |
 | `/sys/`        | 虚拟文件系统。和 `/proc/` 目录相似，该目录中的数据都保存在内存中，主要保存与内核相关的信息。 |
 
-<br>
+
 
 ### 2.2、/usr/ 目录
 
@@ -403,7 +403,7 @@ FHS 建议，`/usr/` 目录应具备下表所示的子目录：
 | `/usr/src/`     | 源码包保存位置。我们手工下载的源码包和内核源码包都可以保存到这里。 |
 | `/usr/include/` | C/C++ 等编程语言头文件的放置目录。                           |
 
-<br>
+
 
 **什么时候用 `/usr`，什么时候用 `/opt`？**
 
@@ -413,7 +413,7 @@ FHS 建议，`/usr/` 目录应具备下表所示的子目录：
 | 源码编译安装     | 默认是 `/usr/local`，也可以改成 `/opt/yourapp` | 如果是开发测试，可以改到 `/opt` 方便管理。 |
 | 闭源/第三方软件  | `/opt`                                         | 与系统软件解耦，方便独立升级与删除。       |
 
-<br>
+
 
 ### 2.3、/var/ 目录
 
@@ -429,7 +429,7 @@ var 是 variable 的缩写，这个目录主要用于存放内容在系统正常
 | `/var/nis/`、 `/var/yp/` | NIS 服务机制所使用的目录，nis 主要记录所有网络中每一个 client 的连接信息；yp 是 linux 的 nis 服务的日志文件存放的目录。 |
 | `/var/tmp/`              | 一些应用程序在安装或执行时，需要在重启后使用的某些文件，此目录能将该类文件暂时存放起来，完成后再行删除。 |
 
-<br>
+
 
 ### 2.4、/etc/ 目录
 
@@ -472,7 +472,7 @@ var 是 variable 的缩写，这个目录主要用于存放内容在系统正常
 | `/etc/shells`                                      | 列出可信任的 shell。`chsh` 命令允许用户在本文件指定范围内改变登录 shell。 |
 | `/etc/xinetd.d`                                    | 如果服务器是通过 xinetd 模式运行的，它的脚本要放在这个目录下。有些系统没有这个目录，比如 Slackware，有些老的版本也没有。在 Redhat Fedora 中比较新的版本中存在。 |
 
-<br>
+
 
 #### 2.4.1、/etc/hosts
 
@@ -480,13 +480,13 @@ var 是 variable 的缩写，这个目录主要用于存放内容在系统正常
 
 hosts 是系统文件，配置了 IP 地址和域名（或者主机名、主机别名）的映射关系。
 
-<br>
+
 
 **hosts 文件有什么用？**
 
 建立双方计算机系统通信的依据，作为域名和 IP 地址解析的凭证，同时也存储了映射关系。
 
-<br>
+
 
 **hosts 文件什么情况下会被用到？**
 
@@ -494,7 +494,7 @@ hosts 是系统文件，配置了 IP 地址和域名（或者主机名、主机�
 
 优先级：DNS 缓存 > hosts > DNS 服务。
 
-<br>
+
 
 **hosts 文件能解决哪些问题？**
 
@@ -515,7 +515,7 @@ hosts 是系统文件，配置了 IP 地址和域名（或者主机名、主机�
 
 	当两台主机只是双机互连时，这时两台主机都需要设置自己的 IP，同时在对方的 hosts 文件里加入自己的 IP 和主机名。
 
-<br>
+
 
 **hosts 文件的格式**
 
@@ -534,7 +534,7 @@ IP地址 主机名或域名 [主机的别名] [主机的别名]....
 >
 > 如果你不更新 `/etc/hosts` 文件，那么有的程序，如 `sudo`，不知道如何解析新的主机名。
 
-<br>
+
 
 #### 2.4.2、/etc/systemd/system
 
@@ -544,7 +544,7 @@ Systemd 默认从目录 `/etc/systemd/system/` 读取配置文件。但是，里
 
 虽然在 `/etc/systemd/system/` 目录下放置的是系统管理员安装的单元，但是实际使用过程中，用户可以自定义服务配置文件，并且放置在该目录，将该服务的配置文件的优先级提高。
 
-<br>
+
 
 ### 2.5、/srv/ 目录
 
@@ -558,7 +558,7 @@ srv 是 service 的缩写，其主要目的是存放本机或本服务器提供�
 
 FHS 引入 `/srv/` 目录的目的是为了让管理员能在一个统一的位置找到特定服务的数据文件。
 
-<br>
+
 
 **`/srv/`/ 和 `/var/` 的区别？**
 
@@ -569,7 +569,7 @@ FHS 引入 `/srv/` 目录的目的是为了让管理员能在一个统一的位�
 | 数据类型 | 通常是用户主动存放，用于对外提供服务的数据。               | 系统或程序自动生成的动态变化文件。                           |
 | 常见示例 | `/srv/www/`（网站代码）、<br />`/srv/ftp/`（FTP 共享文件） | `/var/log/syslog/`（系统日志）、<br />`/var/lib/mysql/`（数据库文件） |
 
-<br>
+
 
 ## 3、系统远程操作
 
@@ -583,13 +583,13 @@ Linux 一般作为服务器使用，而服务器一般放在机房，你不可�
 ssh <用户>@<主机>
 ```
 
-<br>
+
 
 ### 3.1、关机/重启
 
 除了连接之外，Linux 中还有一些关机/重启的命令： `shutdown`、`reboot`、`init`、`halt` 和 `poweroff`。
 
-<br>
+
 
 **shutdown**
 
@@ -617,25 +617,25 @@ shutdown -r now
 shutdown -r +30 '系统将在30分钟内重新启动'
 ```
 
-<br>
+
 
 **reboot**
 
 `reboot` 表示立即重启，效果等同于 `shutdown -r now`。
 
-<br>
+
 
 **halt**
 
 `halt` 命令是最简单的关机命令，其实就是调用 `shutdown -h`。`halt` 执行时，不理会目前系统状况下，进行硬件关机；杀死应用进程﹐执行 `sync` 系统调用，文件系统写操作完成后就会停止内核。
 
-<br>
+
 
 **poweroff**
 
 `poweroff` 表示立即关机，效果等同于 `shutdown -h now`，在多用户模式下（Run Level 3）不建议使用。
 
-<br>
+
 
 ### 3.2、查看 CPU 信息
 
@@ -647,7 +647,7 @@ shutdown -r +30 '系统将在30分钟内重新启动'
 
 ![image-20250513111128017](./!assets/Linux/image-20250513111128017.png)
 
-<br>
+
 
 **CPU 架构**
 
@@ -664,7 +664,7 @@ shutdown -r +30 '系统将在30分钟内重新启动'
 | ARM-V8  | AArch64：64 位执行状态<br/>AArch32：32 位执行状态 | 有两种执行态，适用于 32 位和 64 位。                         |
 | AArch64 | 64位                                              | 从 ARM-V8 中独立出来。                                       |
 
-<br>
+
 
 ### 3.3、防火墙
 
@@ -678,7 +678,7 @@ firewalld 则相对简单易用。它是一个更高级的动态防火墙管理�
 
 firewalld 维护了一个固定状态和变化状态的规则集，可以转换成类似于 iptables 的格式和立即生效。
 
-<br>
+
 
 #### 3.3.1、firewall
 
@@ -699,7 +699,7 @@ firewall-cmd --state
 systemctl start firewalld
 ```
 
-<br>
+
 
 **重启防火墙**
 
@@ -709,7 +709,7 @@ systemctl restart firewalld
 
 系统没有任何提示表示成功！
 
-<br>
+
 
 **临时关闭防火墙**
 
@@ -717,7 +717,7 @@ systemctl restart firewalld
 systemctl stop firewalld
 ```
 
-<br>
+
 
 **永久关闭防火墙**
 
@@ -727,7 +727,7 @@ systemctl stop firewalld
 systemctl disable firewalld
 ```
 
-<br>
+
 
 **查看已开启的端口**
 
@@ -735,7 +735,7 @@ systemctl disable firewalld
 firewall-cmd --list-ports
 ```
 
-<br>
+
 
 **开启指定端口**
 
@@ -754,7 +754,7 @@ firewall-cmd --zone=public --permanent --add-port=8848/tcp
 >
 > 改动之后需要执行命令重新加载防火墙。
 
-<br>
+
 
 **关闭指定端口**
 
@@ -766,7 +766,7 @@ firewall-cmd --zone=public --permanent --remove-port=8080/tcp
 
 显示 success 表示成功！
 
-<br>
+
 
 **重新加载防火墙**
 
@@ -780,7 +780,7 @@ firewall-cmd --reload
 >
 > 改动之后需要执行命令重新加载防火墙。
 
-<br>
+
 
 ### 3.4、密钥环
 
@@ -800,7 +800,7 @@ Linux 密钥环（Keyring）是一个安全存储系统，用于保存和管理�
 sudo apt install seahorse
 ```
 
-<br>
+
 
 **更改密钥环密码**
 
@@ -816,7 +816,7 @@ sudo apt install seahorse
 
 	<img src="./!assets/Linux/scstx5a4cw.png" alt="img" style="zoom:67%;" />
 
-<br>
+
 
 **禁用密钥环密码**
 
@@ -827,7 +827,7 @@ sudo apt install seahorse
 1. 打开 “密码和密钥” 应用程序，然后继续更改密钥环密码。
 2. 当它要求更改密码时，不要输入新密码，而是点击 “继续”，这样，密钥环将没有密码，并且始终保持解锁状态。
 
-<br>
+
 
 **清除密钥环**
 
@@ -847,13 +847,13 @@ rm ~/.local/share/keyrings/*
 >
 > 这会清除所有保存的密钥，慎用！
 
-<br>
+
 
 ### 3.5、网络排查
 
 在现代计算机系统中，网络是各类服务协同运作的基础。当系统间出现连接失败、服务访问超时、接口无法调用等问题时，首要的排查方向往往就是网络。
 
-<br>
+
 
 #### 3.5.1、ping
 
@@ -877,7 +877,7 @@ ping [选项] <目的主机>
 
 - *<目的主机>*：指定发送ICMP报文的目的主机。
 
-<br>
+
 
 **示例**
 
@@ -902,7 +902,7 @@ rtt min/avg/max/mdev = 0.356/0.402/0.588/0.089 ms
 - `packet loss`：是否存在丢包。
 - `rtt`：响应时间统计（最小/平均/最大）。
 
-<br>
+
 
 #### 3.5.2、nc
 
@@ -925,7 +925,7 @@ nc [选项] <目标IP> <端口>
 - *<目标IP>*：目标主机的 IP 地址或主机名。
 - *<端口>*：需要测试的目标端口号。
 
-<br>
+
 
 **示例**
 
@@ -951,13 +951,13 @@ Connection to 192.168.1.10 80 port [tcp/http] succeeded!
 - `timed out`：目标主机无法访问或被防火墙拦截。
 - `No route to host`：网络不通或目标主机不存在。
 
-<br>
+
 
 #### 3.5.3、ifconfig
 
 `ifconfig` 是 net-tools 软件包中的一个命令，用于查看和配置网络接口。在老旧系统和某些嵌入式设备中仍广泛使用。
 
-<br>
+
 
 **查看所有网络接口信息**
 
@@ -965,7 +965,7 @@ Connection to 192.168.1.10 80 port [tcp/http] succeeded!
 ifconfig
 ```
 
-<br>
+
 
 **查看指定接口信息**
 
@@ -973,7 +973,7 @@ ifconfig
 ifconfig eth0
 ```
 
-<br>
+
 
 **临时配置IP地址**
 
@@ -981,7 +981,7 @@ ifconfig eth0
 ifconfig eth0 192.168.1.100 netmask 255.255.255.0
 ```
 
-<br>
+
 
 **启用/禁用接口**
 
@@ -994,13 +994,13 @@ ifconfig eth0 down
 >
 > 在现代 Linux 发行版中可能需要手动安装 (`sudo apt install net-tools`)，不推荐在新项目中使用。
 
-<br>
+
 
 #### 3.5.4、ip
 
 `ip` 命令来自 iproute2 软件包，是 Linux 官方推荐的下一代网络配置工具。它功能更强大、语法更统一。
 
-<br>
+
 
 **查看 IP 地址**
 
@@ -1008,7 +1008,7 @@ ifconfig eth0 down
 ip a
 ```
 
-<br>
+
 
 **管理接口状态**
 
@@ -1016,7 +1016,7 @@ ip a
 ip link set eth0 up/down
 ```
 
-<br>
+
 
 **配置 IP 地址**
 
@@ -1031,7 +1031,7 @@ ip addr add <IP>/<PREFIX> dev eth0
 ip addr add 192.168.1.100/24 dev eth0
 ```
 
-<br>
+
 
 **删除 IP 地址**
 
@@ -1039,13 +1039,13 @@ ip addr add 192.168.1.100/24 dev eth0
 ip addr del 192.168.1.100/24 dev eth0
 ```
 
-<br>
+
 
 ## 4、文件管理
 
 Linux 系统是一种典型的多用户系统，不同的用户处于不同的地位，拥有不同的权限。为了保护系统的安全性，Linux 系统对不同的用户访问同一文件（包括目录文件）的权限做了不同的规定。
 
-<br>
+
 
 ### 4.1、文件基本属性
 
@@ -1083,7 +1083,7 @@ drwxr-xr-x   3 root root      4096 Nov 12 09:27 boot
 
 其中，第 1、4、7 位表示读权限，如果用 `r` 字符表示，则有读权限，如果用 `-` 字符表示，则没有读权限；第 2、5、8 位表示写权限，如果用 `w` 字符表示，则有写权限，如果用 `-` 字符表示没有写权限；第 3、6、9 位表示可执行权限，如果用 `x` 字符表示，则有执行权限，如果用 `-` 字符表示，则没有执行权限。
 
-<br>
+
 
 **Linux 文件属主和属组**
 
@@ -1104,7 +1104,7 @@ drwxr-xr-x 3 mysql mysql 4096 Apr 21  2014 mysql
 
 对于 root 用户来说，一般情况下，文件的权限对其不起作用。
 
-<br>
+
 
 ### 4.2、更改文件属性
 
@@ -1114,7 +1114,7 @@ drwxr-xr-x 3 mysql mysql 4096 Apr 21  2014 mysql
 - chown（change owner）：修改所属用户与组。
 - chmod（change mode）：修改用户的权限。
 
-<br>
+
 
 #### 4.2.1、chgrp
 
@@ -1130,7 +1130,7 @@ chgrp [-R] <属组名> <文件名>
 
 - `-R` : 进行递归（recursive）的持续变更，亦即连同次目录下的所有文件都会变更。
 
-<br>
+
 
 #### 4.2.2、chown
 
@@ -1146,7 +1146,7 @@ chown [-R] <属主名>[:<属组名>] <文件名>
 
 - `-R` : 进行递归（recursive）的持续变更，亦即连同次目录下的所有文件都会变更。
 
-<br>
+
 
 #### 4.2.3、chmod
 
@@ -1154,7 +1154,7 @@ Linux 文件的基本权限有 9 个，分别是 owner/group/others（拥有者/
 
 Linux文件属性有两种设置方法，一种是数字，一种是符号。
 
-<br>
+
 
 **数字类型改变文件权限**
 
@@ -1181,7 +1181,7 @@ chmod [-R] <权限模式> <文件或目录>
 - *<权限模式>* : 就是刚刚提到的数字类型的权限属性，为 rwx 属性数值的相加。
 - `-R` : 进行递归（recursive）的持续变更，亦即连同次目录下的所有文件都会变更。
 
-<br>
+
 
 **符号类型改变文件权限**
 
@@ -1206,7 +1206,7 @@ chmod [-R] <权限模式> <文件或目录>
 -rwxr-xr-- 1 root root 0 Nov 15 10:32 test1
 ```
 
-<br>
+
 
 ### 4.3、目录
 
@@ -1234,7 +1234,7 @@ Linux 的目录结构为树状结构，最顶级的目录为根目录 `/`。其�
 
 可以使用 `man [命令]` 来查看各个命令的使用文档，如 ：`man cp`。
 
-<br>
+
 
 #### 4.3.1、ls
 
@@ -1258,7 +1258,7 @@ ls [选项] <目录或文件>
 ls -al ~
 ```
 
-<br>
+
 
 #### 4.3.2、cd
 
@@ -1287,7 +1287,7 @@ cd ~
 cd ..
 ```
 
-<br>
+
 
 #### 4.3.3、pwd
 
@@ -1324,7 +1324,7 @@ lrwxrwxrwx 1 root root 10 Sep  4 17:54 /var/mail -> spool/mail
 ## 所以，加上 pwd -P 的选项后，会不以连结档的数据显示，而是显示正确的完整路径啊！
 ```
 
-<br>
+
 
 #### 4.3.4、mkdir
 
@@ -1356,7 +1356,7 @@ mkdir -p orichalcos2/test
 >
 > 本例若不加 `-p` 参数，且原本 orichalcos2 目录不存在，则产生错误。
 
-<br>
+
 
 #### 4.3.5、rmdir
 
@@ -1385,7 +1385,7 @@ ls: cannot access 'test/test1/test2': No such file or directory
 root@Orichalcos:~#
 ```
 
-<br>
+
 
 #### 4.3.6、cp
 
@@ -1409,7 +1409,7 @@ cp [选项] <来源路径1> <来源路径2> ... <目标目录>
 - `-s`：复制成为符号连结档（symbolic link），亦即『捷径』文件。
 - `-u`：若 destination 比 source 旧才升级 destination 。
 
-<br>
+
 
 #### 4.3.7、rm
 
@@ -1427,7 +1427,7 @@ cp [选项] <来源路径1> <来源路径2> ... <目标目录>
 - `-i` ：互动模式，在删除前会询问使用者是否动作。
 - `-r` ：递归删除啊！最常用在目录的删除了！这是非常危险的选项！！！
 
-<br>
+
 
 #### 4.3.8、mv
 
@@ -1446,7 +1446,7 @@ cp [选项] <来源路径1> <来源路径2> ... <目标目录>
 - `-i` ：若目标文件（destination）已经存在时，就会询问是否覆盖。
 - `-u` ：若目标文件已经存在，且 source 比较新，才会升级（update）。
 
-<br>
+
 
 ### 4.4、文件内容查看
 
@@ -1462,7 +1462,7 @@ Linux 系统中使用以下命令来查看文件的内容：
 
 可以使用 `man [命令]`来查看各个命令的使用文档，如 ：`man cp`。
 
-<br>
+
 
 #### 4.4.1、cat
 
@@ -1483,13 +1483,13 @@ cat [-AbEnTv] <文件>
 - `-T`：将 tab 按键以 `^I` 显示出来。
 - `-v `：列出一些看不出来的特殊字符。
 
-<br>
+
 
 #### 4.4.2、tac
 
 `tac` 与 `cat` 命令刚好相反，文件内容从最后一行开始显示，可以看出 `tac` 是 `cat` 的倒着写！
 
-<br>
+
 
 #### 4.4.3、nl
 
@@ -1512,7 +1512,7 @@ nl [-bnw] <文件>
 	- `-n rz` ：行号在自己栏位的最右方显示，且加 0 。
 - `-w` ：行号栏位的占用的位数
 
-<br>
+
 
 #### 4.4.4、more
 
@@ -1535,7 +1535,7 @@ more <文件>
 - `q`：代表立刻离开 more ，不再显示该文件内容。
 - `b` 或 `[ctrl]-b`：代表往回翻页，不过这动作只对文件有用，对管线无用。
 
-<br>
+
 
 #### 4.4.5、less
 
@@ -1556,7 +1556,7 @@ more <文件>
 >
 > Linux 里流传着这样一句话："less is more".
 
-<br>
+
 
 #### 4.4.6、head
 
@@ -1572,7 +1572,7 @@ head [-n number] <文件>
 
 - `-n <行数>`：显示文件的头部 *n* 行内容。
 
-<br>
+
 
 #### 4.4.7、tail
 
@@ -1595,7 +1595,7 @@ tail [选项] <文件>
 - `-c <数目>`：显示的字节数。
 - `--pid=<PID>`：与 `-f`  合用，表示在进程 ID、PID 死掉之后结束。
 
-<br>
+
 
 ### 4.5、压缩/解压
 
@@ -1608,7 +1608,7 @@ tail [选项] <文件>
 
 为什么要区分这两个概念呢？这源于 Linux 中很多压缩程序只能针对一个文件进行压缩，这样当你想要压缩一大堆文件时，你得先将这一大堆文件先打成一个包（`tar` 命令），然后再用压缩程序进行压缩（`gzip`、`bzip2` 命令）。
 
-<br>
+
 
 #### 4.5.1、tar
 
@@ -1648,7 +1648,7 @@ tar [选项] <归档文件> [文件...]
 
 - *[文件...]*：要提取的一个或者多个文件与目录，多个文件与目录使用空格分隔。如果未提供，则解压整个存档。
 
-<br>
+
 
 **示例**
 
@@ -1676,7 +1676,7 @@ tar –cjf jpg.tar.bz2 *.jpg
 tar –cZf jpg.tar.Z *.jpg
 ```
 
-<br>
+
 
 #### 4.5.2、zip
 
@@ -1692,7 +1692,7 @@ Zip 是一种创建压缩存档文件的最普通、最流行的方法。它也�
 sudo apt install unzip
 ```
 
-<br>
+
 
 **解压到文件夹下**
 
@@ -1714,7 +1714,7 @@ Archive:  metallic-container.zip
 
 这种方式下，所有的提取文件都会被存储到你所指定的文件夹下。如果文件夹不存在，会创建该文件夹。
 
-<br>
+
 
 **查看压缩文件中的内容而不解压压缩文件**
 
@@ -1736,13 +1736,13 @@ Archive:  metallic-container.zip
   6578588                     3 files
 ```
 
-<br>
+
 
 ### 4.6、挂载
 
 所有的硬件设备必须挂载之后才能使用，只不过有些硬件设备（比如硬盘分区）在每次系统启动时会自动挂载，而有些（比如 U 盘、光盘）则需要手动进行挂载。`mount` 命令是 Linux 挂载命令。
 
-<br>
+
 
 **什么是 “挂载” 以及为什么 Linux 需要挂载。**
 
@@ -1754,7 +1754,7 @@ Linux系统中 “一切皆文件”，所有文件都放置在以根目录为�
 
 > 并不是根目录下任何一个目录都可以作为挂载点，由于挂载操作会使得原有目录中文件被隐藏，因此根目录以及系统原有目录都不要作为挂载点，会造成系统异常甚至崩溃，挂载点最好是新建的空目录。
 
-<br>
+
 
 **“挂载点” 的目录要求**
 
@@ -1762,7 +1762,7 @@ Linux系统中 “一切皆文件”，所有文件都放置在以根目录为�
 - 挂载点目录不可被其他进程使用到
 - 挂载点下原有文件将被隐藏
 
-<br>
+
 
 #### 4.6.1、挂载文件系统
 
@@ -1803,7 +1803,7 @@ mkdir /mnt/upan
 mount /dev/sda1 /mnt/upan/
 ```
 
-<br>
+
 
 #### 4.6.2、卸载文件系统
 
@@ -1845,7 +1845,7 @@ umount: /mnt/cdrom: device is busy.
 
 卸载硬件设备成功与否，除了执行 `umount` 命令不报错之外，还可以使用 `df` 命令或 `mount -l` 来查看目标设备是否还挂载在系统中。
 
-<br>
+
 
 ### 4.7、创建文件
 
@@ -1853,7 +1853,7 @@ umount: /mnt/cdrom: device is busy.
 
 要创建一个新文件，您需要对父目录具有写权限。否则，您将收到一个权限被拒绝的错误。
 
-<br>
+
 
 **使用 `touch` 命令创建文件**
 
@@ -1871,7 +1871,7 @@ touch file1.txt
 touch file1.txt file2.txt file3.txt
 ```
 
-<br>
+
 
 **使用重定向运算符创建文件**
 
@@ -1885,7 +1885,7 @@ touch file1.txt file2.txt file3.txt
 
 这是在 Linux 中创建新文件的最短命令。使用重定向创建文件时，请注意不要覆盖现有的重要文件。
 
-<br>
+
 
 **使用 `echo` 命令创建文件**
 
@@ -1895,7 +1895,7 @@ touch file1.txt file2.txt file3.txt
 echo "Some line" > file1.txt
 ```
 
-<br>
+
 
 ### 4.8、文件检索
 
@@ -1907,7 +1907,7 @@ echo "Some line" > file1.txt
 | `find`    | 文件/目录            | 是             | 是             | 慢       | 功能强、准确    |
 | `grep`    | 文件内容             | 是             | 是             | 中等     | 内容搜索利器    |
 
-<br>
+
 
 #### 4.8.1. which
 
@@ -1928,7 +1928,7 @@ which [选项] <文件>
 	- `--version`：显示版本信息。
 - *<文件>*：需要查找的可执行文件名。
 
-<br>
+
 
 **示例**
 
@@ -1944,7 +1944,7 @@ which [选项] <文件>
 which (GNU which) 2.20
 ```
 
-<br>
+
 
 #### 4.8.2. whereis
 
@@ -1969,7 +1969,7 @@ whereis [选项] <文件>
 	- `-S`：指定要查找源代码文件的路径。
 - *<文件>*：需要查找的文件名。
 
-<br>
+
 
 **示例**
 
@@ -1982,7 +1982,7 @@ ls: /usr/bin/ls
 ls: /usr/share/man/man1/ls.1.gz
 ```
 
-<br>
+
 
 #### 4.8.3. locate
 
@@ -2008,7 +2008,7 @@ locate [选项] <模式>
 	- `-n`：指定显示的最大条目数。
 - *<模式>*：匹配文件名的模式，可以包含通配符或正则表达式。
 
-<br>
+
 
 **示例**
 
@@ -2023,7 +2023,7 @@ locate [选项] <模式>
 /usr/sbin/ifconfig
 ```
 
-<br>
+
 
 #### 4.8.4. find
 
@@ -2052,7 +2052,7 @@ find [路径] [选项] [表达式]
 	- `-print0`：将查找到的每个文件名以空字符（`\0`，不是空格）作为分隔，而不是默认的换行符 `\n`，常联合 `xargs -0` 使用。
 - *[表达式]*：查找的具体条件，如文件名、类型等。
 
-<br>
+
 
 **示例**
 
@@ -2065,7 +2065,7 @@ find [路径] [选项] [表达式]
 drwxr-xr-x. 20 root root 4096 Jan 22 10:10 /var/log
 ```
 
-<br>
+
 
 #### 4.8.5. grep
 
@@ -2093,7 +2093,7 @@ grep [选项] <模式> [文件]
 - *<模式>*：搜索的关键词或正则表达式。
 - *[文件]*：要搜索的文件列表，如果省略，则从标准输入读取。
 
-<br>
+
 
 **示例**
 
@@ -2106,7 +2106,7 @@ root:x:0:0:root:/root:/bin/bash
 /usr/src/kernels/main.c: int main()
 ```
 
-<br>
+
 
 ## 5、用户与用户组
 
@@ -2120,13 +2120,13 @@ Linux 系统是一个多用户多任务的分时操作系统，任何一个要�
 - 用户口令的管理
 - 用户组的管理
 
-<br>
+
 
 ### 5.1、管理用户账号
 
 用户账号的管理工作主要涉及到用户账号的添加、修改和删除。
 
-<br>
+
 
 #### 5.1.1、添加帐号
 
@@ -2154,7 +2154,7 @@ useradd [选项] <用户名>
   
 - *<用户名>*：指定新账号的登录名
 
-<br>
+
 
 **实例1：**
 
@@ -2164,7 +2164,7 @@ useradd –d /home/sam/ -m sam
 
 此命令创建了一个用户 sam，其中 `-d` 和 `-m` 选项用来为登录名 sam 产生一个主目录 `/home/sam`（`/home` 为默认的用户主目录所在的父目录）。
 
-<br>
+
 
 **实例2：**
 
@@ -2178,7 +2178,7 @@ useradd -s /bin/sh -g group –G adm,root gem
 
 Linux 提供了集成的系统管理工具 userconf，它可以用来对用户账号进行统一管理。
 
-<br>
+
 
 #### 5.1.2、查询账号
 
@@ -2201,7 +2201,7 @@ id [选项] [用户名]
 	- `-Z`：显示 SELinux 安全上下文（仅在启用 SELinux 的系统中有效）。
 - *[用户名]*：指定要查询的用户账号，该项为空则查询当前登录用户信息，若该用户不存在，命令返回失败。
 
-<br>
+
 
 #### 5.1.3、删除帐号
 
@@ -2215,7 +2215,7 @@ userdel [选项] <用户名>
 
 常用的选项是 `-r`，它的作用是把用户的主目录一起删除。
 
-<br>
+
 
 **实例：**
 
@@ -2225,7 +2225,7 @@ userdel -r sam
 
 此命令删除用户 sam 在系统文件中（主要是 `/etc/passwd`、`/etc/shadow`、`/etc/group` 等）的记录，同时删除用户的主目录。
 
-<br>
+
 
 #### 5.1.4、修改帐号
 
@@ -2249,7 +2249,7 @@ usermod -s /bin/ksh -d /home/z/ –g developer sam
 
 此命令将用户 sam 的登录 Shell 修改为 `/bin/ksh`，主目录改为 `/home/z/`，用户组改为 developer。
 
-<br>
+
 
 #### 5.1.5、切换账号
 
@@ -2276,7 +2276,7 @@ su - root
 
 提示符 `$` 表示普通用户，`#` 表示超级用户，即 root 用户。
 
-<br>
+
 
 #### 5.1.6、用户口令的管理
 
@@ -2332,7 +2332,7 @@ passwd 命令还可以用 `-l`（lock）选项锁定某一用户，使其不能�
 passwd -l sam
 ```
 
-<br>
+
 
 ### 5.2、管理用户组
 
@@ -2340,7 +2340,7 @@ passwd -l sam
 
 用户组的管理涉及用户组的添加、删除和修改。组的增加、删除和修改实际上就是对 `/etc/group` 文件的更新。
 
-<br>
+
 
 **添加组**
 
@@ -2355,7 +2355,7 @@ groupadd [选项] <用户组>
 - `-g GID` ：指定新用户组的组标识号（GID），如果未指定，新组的组标识号在当前已有的最大组标识号的基础上加 1
 - `-o` ：一般与 `-g` 选项同时使用，表示新用户组的 GID 可以与系统已有用户组的 GID 相同
 
-<br>
+
 
 **删除组**
 
@@ -2365,7 +2365,7 @@ groupadd [选项] <用户组>
 groupdel <用户组>
 ```
 
-<br>
+
 
 **修改组**
 
@@ -2381,7 +2381,7 @@ groupmod [选项] <用户组>
 - `-o` ：与 `-g` 选项同时使用，用户组的新 GID 可以与系统已有用户组的 GID 相同
 - `-n 新用户组` ：将用户组的名字改为新名字
 
-<br>
+
 
 **用户切换组**
 
@@ -2395,13 +2395,13 @@ newgrp root
 
 这条命令将当前用户切换到 root 用户组，前提条件是 root 用户组确实是该用户的主组或附加组。类似于用户账号的管理，用户组的管理也可以通过集成的系统管理工具来完成。
 
-<br>
+
 
 ### 5.3、与用户账号有关的系统文件
 
 完成用户管理的工作有许多种方法，但是每一种方法实际上都是对有关的系统文件进行修改。与用户和用户组相关的信息都存放在一些系统文件中，这些文件包括 `/etc/passwd`, `/etc/shadow`, `/etc/group` 等。
 
-<br>
+
 
 #### 5.3.1、/etc/passwd
 
@@ -2467,7 +2467,7 @@ lp:x:71:18:Printer administrator:/usr/spool/lp:
 sam:x:200:50:Sam san:/home/sam:/bin/sh
 ```
 
-<br>
+
 
 **系统中有一类用户称为伪用户（pseudo users）**
 
@@ -2487,7 +2487,7 @@ nobody NFS使用
 
 除了上面列出的伪用户外，还有许多标准的伪用户，例如：audit, cron, mail, usenet 等，它们也都各自为相关的进程和文件所需要。
 
-<br>
+
 
 #### 5.3.2、/etc/shadow
 
@@ -2540,7 +2540,7 @@ lp:*::0:0::::
 sam:EkdiSECLWPdSa:9740:0:0::::
 ```
 
-<br>
+
 
 #### 5.3.3、/etc/group
 
@@ -2584,7 +2584,7 @@ lp::7:root,lp
 users::20:root,sam
 ```
 
-<br>
+
 
 #### 5.3.4、/etc/security/limits.conf
 
@@ -2632,7 +2632,7 @@ users::20:root,sam
 ftp hard nproc 0
 ```
 
-<br>
+
 
 **`/etc/security/limits.d/` 目录**
 
@@ -2642,7 +2642,7 @@ ftp hard nproc 0
 
 这意味着，例如使用通配符的 domain 会被子目录中相同的通配符配置所覆盖，但是某一用户的特定配置只能被字母路中用户的配置所覆盖。其实就是某一用户 A 如果在 `/etc/security/limits.conf` 有配置，当 `/etc/security/limits.d/` 子目录下配置文件也有用户 A 的配置时，那么 A 中某些配置会被覆盖。最终取的值是 `/etc/security/limits.d/` 下的配置文件的配置。
 
-<br>
+
 
 ### 5.4、添加批量用户
 
@@ -2704,7 +2704,7 @@ ftp hard nproc 0
 
 	这样就完成了大量用户的创建了，之后可以到 `/home` 下检查这些用户宿主目录的权限设置是否都正确，并登录验证用户密码是否正确。
 
-<br>
+
 
 ## 6、磁盘管理
 
@@ -2811,7 +2811,7 @@ Filesystem            Size  Used Avail Use% Mounted on
 /dev/hdc2             9.5G  3.7G  5.4G  41% /
 ```
 
-<br>
+
 
 ### 6.2、du
 
@@ -2832,7 +2832,7 @@ du [-ahskm] [目录或文件名称]
 - `-k` ：以 KBytes 列出容量显示。
 - `-m` ：以 MBytes 列出容量显示。
 
-<br>
+
 
 **实例 1**
 
@@ -2872,7 +2872,7 @@ du [-ahskm] [目录或文件名称]
 
 与 `df` 不一样的是，`du` 这个命令其实会直接到文件系统内去搜寻所有的文件数据。
 
-<br>
+
 
 ### 6.3、fdisk
 
@@ -3414,7 +3414,7 @@ Nano 文本编辑器提供了一系列的快捷键，这些快捷键可以帮助
 
 在 Windows 中，软件通常打包成一个独立的 `.exe` 或 `.msi` 文件，包含了程序运行所需的大部分资源。而在 Linux 的早期，安装软件是一场对用户技术实力的考验。随着技术的发展，Linux 逐渐摸索出了一套高效的软件分发体系。
 
-<br>
+
 
 **源码编译安装**
 
@@ -3424,7 +3424,7 @@ Nano 文本编辑器提供了一系列的快捷键，这些快捷键可以帮助
 
 但是源码编译安装对新手很不友好，报错通常像天书一样（如 error: missing libxml2.so），并且安装容易卸载难，因为文件被散落在系统的各个角落，没有一个清单记录到底装了什么，想删除时往往删不干净。
 
-<br>
+
 
 **底层包管理工具**
 
@@ -3439,7 +3439,7 @@ Nano 文本编辑器提供了一系列的快捷键，这些快捷键可以帮助
 
 但是底层工具是 “死板” 的，如果软件 A 依赖 B，它只会报错提示你缺 B，不会自动去下，用户容易陷入 “依赖地狱”。
 
-<br>
+
 
 **上层包管理工具**
 
@@ -3450,7 +3450,7 @@ Nano 文本编辑器提供了一系列的快捷键，这些快捷键可以帮助
 - Debian 系：apt。
 - RedHat 系：yum、dnf。
 
-<br>
+
 
 ### 8.1、源码安装
 
@@ -3462,7 +3462,7 @@ Linux 中安装软件的一种方式是：将源码 sourcecode.tar.gz 进行解�
 - `make distclean`：这条命令除了清除可执行文件和目标文件外，还会把 `configure` 所产生的 Makefile 也清除掉。
 - `make uninstall`：虽然不是每个 sourcecode 包都有这个功能，但是这个东西确实是挺好的，如果一时脑热直接 `./configure`、`make`、`make install` 之后不知道程序装去哪儿了，这时候可以用这个进行卸载（当然 `uninstall` 只能执行 1 次，并且 sourcecode 目录中要有当前安装对应的 Makefile）。
 
-<br>
+
 
 #### 8.1.1、configure
 
@@ -3509,7 +3509,7 @@ checking for xxxxxxxx... yes
 
 同时一些软件的配置文件你可以通过指定 `--sys-config=`  参数进行设定，有一些软件还可以加上 `--with`、`--enable`、`--without`、`--disable` 等等参数对编译加以控制（具体可以查看基础环境安装文档的参数），你可以通过 `./configure --help` 察看详细的说明帮助。
 
-<br>
+
 
 #### 8.1.2、make
 
@@ -3517,7 +3517,7 @@ checking for xxxxxxxx... yes
 
 大多数的源代码包都经过这一步进行编译（当然有些 perl 或 python 编写的软件需要调用 perl 或 python 来进行编译）。如果在 `make` 过程中出现 error ，一般是你的系统少了一些依赖库等，这些需要自己仔细研究错误代码。执行完之后，会发现 sourcecode 目录中多了一些编译产生的可执行文件及目标文件（object file、*.o）。
 
-<br>
+
 
 #### 8.1.3、make insatll
 
@@ -3525,7 +3525,7 @@ checking for xxxxxxxx... yes
 
 若源码不支持 `./configure` 方式指定安装目录，可通过 `make install --prefix=` 再次指定安装路径。  
 
-<br>
+
 
 ### 8.2、dpkg
 
@@ -3546,7 +3546,7 @@ dpkg [参数] [软件包名 或 .deb文件名]
 - `-L`（英文全拼 List files）：查看某个软件安装后生成了哪些文件、在哪个目录下。
 - `-s`（英文全拼 status）：查看已安装软件的详细信息（版本、依赖等）。
 
-<br>
+
 
 ### 8.3、rpm
 
@@ -3567,7 +3567,7 @@ rpm [参数] [软件包名 或 .rpm文件名]
 - `-ql`（英文全拼 query list）：查看某个软件安装后生成了哪些文件、在哪个目录下。
 - `-qi`（英文全拼 query info）：查看某个软件的详细信息。
 
-<br>
+
 
 ### 8.4、apt
 
@@ -3575,7 +3575,7 @@ apt（Advanced Packaging Tool）是一个在 Debian 和 Ubuntu 中的 Shell 前�
 
 apt 命令提供了查找、安装、升级、删除某一个、一组甚至全部软件包的命令，apt 命令执行需要超级管理员权限（root）。
 
-<br>
+
 
 **语法**
 
@@ -3593,7 +3593,7 @@ apt [选项] <命令> [软件包...]
 - *<命令>*：要进行的操作。
 - *[软件包...]*：安装的包名。
 
-<br>
+
 
 **常用命令**
 
@@ -3630,7 +3630,7 @@ apt [选项] <命令> [软件包...]
 	- 删除软件包命令：`sudo apt remove <package_name>`。
 	- 清理不再使用的依赖和库文件：`sudo apt autoremove`。
 
-<br>
+
 
 ### 8.5、yum
 
@@ -3638,7 +3638,7 @@ yum（Yellowdog Updater, Modified）是一个在 Fedora、RedHat 和 CentOS 中�
 
 yum 命令基于 RPM 包管理，能够从指定的服务器自动下载 RPM 包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装。yum 命令执行需要超级管理员权限（root）。
 
-<br>
+
 
 **语法**
 
@@ -3655,7 +3655,7 @@ yum [选项] <命令> [软件包...]
 - *<命令>*：要进行的操作。
 - *[软件包...]*：安装的包名。
 
-<br>
+
 
 **常用命令**
 
@@ -3689,7 +3689,7 @@ yum [选项] <命令> [软件包...]
 	- 清理不再使用的依赖和库文件：`sudo yum autoremove`。
 	- 清理缓存（清除下载的包文件和头文件）：`sudo yum clean all`。
 
-<br>
+
 
 
 ## 9、服务管理
@@ -3716,7 +3716,7 @@ BIOS、MBR、GRUB 和内核程序在启动 init 之前就作为 Linux 的引导�
 - 5：图形界面模式
 - 6：重启
 
-<br>
+
 
 ### 9.1、初始化系统
 
@@ -3726,7 +3726,7 @@ BIOS、MBR、GRUB 和内核程序在启动 init 之前就作为 Linux 的引导�
 - Upstart
 - systemd
 
-<br>
+
 
 **System V（Sys V）**
 
@@ -3736,7 +3736,7 @@ System V（Sys V）是类 Unix 系统第一个也是传统的初始化系统。i
 
 但是 systemd 已经被几个主要的 Linux 发行版所采用，以取代传统的 SysV 初始化系统。
 
-<br>
+
 
 **Upstart**
 
@@ -3746,7 +3746,7 @@ Upstart 是一个基于事件的 `/sbin/init` 守护进程的替代品，它在�
 
 Upstart 被用于 Ubuntu 9.10 到 Ubuntu 14.10 和基于 RHEL 6 的系统，之后它被 systemd 取代。
 
-<br>
+
 
 **systemd**
 
@@ -3758,7 +3758,7 @@ systemd 是所有程序的父进程，Fedora 15 是第一个用 systemd 取代 u
 
 systemd 使用 `.service` 文件而不是 bash 脚本（SysVinit 使用的）。systemd 将所有守护进程添加到 cgroups 中排序，你可以通过浏览 `/cgroup/systemd` 文件查看系统等级。
 
-<br>
+
 
 ### 9.2、systemctl
 
@@ -3775,7 +3775,7 @@ systemctl stop httpd
 systemctl restart httpd
 ```
 
-<br>
+
 
 **列出所有已启动的服务**
 
@@ -3783,7 +3783,7 @@ systemctl restart httpd
 systemctl list-units --type=service
 ```
 
-<br>
+
 
 #### 9.2.2、查看服务
 
@@ -3810,7 +3810,7 @@ systemctl status httpd
 
 <img src="!assets/Linux/image-20211129133826757.png" alt="image-20211129133826757" style="zoom: 67%;" />
 
-<br>
+
 
 **检查服务的所有配置详细信息**
 
@@ -3818,7 +3818,7 @@ systemctl status httpd
 systemctl show httpd
 ```
 
-<br>
+
 
 #### 9.2.3、服务自启
 
@@ -3831,7 +3831,7 @@ systemctl enable httpd
 systemctl disable httpd
 ```
 
-<br>
+
 
 **列出所有服务开机自启情况**
 
@@ -3839,7 +3839,7 @@ systemctl disable httpd
 systemctl list-unit-files --type=service
 ```
 
-<br>
+
 
 #### 9.2.4、服务禁用
 
@@ -3852,7 +3852,7 @@ systemctl mask httpd
 systemctl unmask httpd
 ```
 
-<br>
+
 
 ### 9.3、systemd 配置文件
 
@@ -3884,7 +3884,7 @@ systemd 的使用大幅提高了系统服务的运行效率，而 unit 的文件
 
 这三个目录的配置文件优先级依次从高到低，如果同一选项三个地方都配置了，优先级高的会覆盖优先级低的。
 
-<br>
+
 
 **/usr/lib/systemd/system/**
 
@@ -3893,13 +3893,13 @@ systemd 的使用大幅提高了系统服务的运行效率，而 unit 的文件
 - 在 `/etc/systemd/system` 目录下创建 `nginx.service` 文件，里面写上我们自己的配置。
 - 在 `/etc/systemd/system` 下面创建 `nginx.service.d` 目录，在这个目录里面新建任何以 `.conf` 结尾的文件，然后写入我们自己的配置。（推荐这种做法）
 
-<br>
+
 
 **/run/systemd/system/**
 
 `/run/systemd/system` 这个目录一般是进程在运行时动态创建 unit 文件的目录，一般很少修改，除非是修改程序运行时的一些参数时，即 Session 级别的，才在这里做修改。
 
-<br>
+
 
 **/etc/systemd/system/**
 
@@ -3921,13 +3921,13 @@ ln -s '/usr/lib/systemd/system/clamd@scan.service' '/etc/systemd/system/multi-us
 systemctl disable clamd@scan.service
 ```
 
-<br>
+
 
 ### 9.4、注册 systemd 服务
 
 
 
-<br>
+
 
 ### 9.5、service
 
@@ -3967,7 +3967,7 @@ service nginx restart
 service nginx status
 ```
 
-<br>
+
 
 ### 9.6、journalctl
 
@@ -3975,7 +3975,7 @@ journalctl 是 Linux 系统中用于查询和显示 systemd 日志的强大工�
 
 它和传统的 `/var/log` 日志文件不同，systemd 会把日志统一收集到 journal 中，支持结构化日志、按服务过滤、时间范围查询等功能。
 
-<br>
+
 
 **核心特点**
 
@@ -3984,7 +3984,7 @@ journalctl 是 Linux 系统中用于查询和显示 systemd 日志的强大工�
 - 实时监控：可以实时跟踪日志变化。
 - 多种过滤方式：支持按时间、服务、优先级等多种条件过滤。
 
-<br>
+
 
 **语法**
 
@@ -4002,7 +4002,7 @@ journalctl [选项] [匹配条件...]
 - `--since`：显示指定时间之后的日志。
 - `--until`：显示指定时间之前的日志。
 
-<br>
+
 
 #### 9.6.1、常用操作
 
@@ -4012,7 +4012,7 @@ journalctl [选项] [匹配条件...]
 journalctl -b
 ```
 
-<br>
+
 
 **实时监控新日志**
 
@@ -4020,7 +4020,7 @@ journalctl -b
 journalctl -f
 ```
 
-<br>
+
 
 **查看特定服务的日志**
 
@@ -4028,7 +4028,7 @@ journalctl -f
 journalctl -u nginx.service
 ```
 
-<br>
+
 
 #### 9.6.2、日志优先级过滤
 
@@ -4055,7 +4055,7 @@ journalctl -p err
 journalctl -p warning
 ```
 
-<br>
+
 
 #### 9.6.3、高级用法
 
@@ -4065,7 +4065,7 @@ journalctl -p warning
 journalctl --disk-usage
 ```
 
-<br>
+
 
 **清理旧日志**
 
@@ -4077,7 +4077,7 @@ journalctl --vacuum-time=2d
 journalctl --vacuum-size=500M
 ```
 
-<br>
+
 
 ## 10、进程管理
 
@@ -4838,7 +4838,7 @@ cat list.txt | xargs -i {} mv {} /backup/
 - 如果已安装 `curl`，则系统将打印「curl: try 'curl --help' or 'curl --manual' for more information」。
 - 如果你尚未安装 `curl`，您将看到类似于 `curl` 命令未找到「curl command not found」的信息。则可以使用发行版的软件包管理器 `apt` 命令或者 `yum` 命令安装 `curl`。
 
-<br>
+
 
 **语法：**
 
@@ -4871,7 +4871,7 @@ curl [选项] [url]
 - `-X`/`--request <method>`：指定 HTTP 请求方法（如 POST、GET、PUT、DELETE）。
 - `-#`/`--progress-bar`：进度条显示当前的传送状态
 
-<br>
+
 
 **下载文件**
 
@@ -4881,7 +4881,7 @@ curl [选项] [url]
 curl -o linux.html http://www.linux.com
 ```
 
-<br>
+
 
 **模拟 HTTP 请求**
 
@@ -4893,7 +4893,7 @@ curl -X POST "https://api.example.com/login" \
      -d '{"username":"admin", "password":"123"}'
 ```
 
-<br>
+
 
 ### 12.2、scp
 
@@ -4901,7 +4901,7 @@ curl -X POST "https://api.example.com/login" \
 
 > 类似的工具有 rsync；`scp` 消耗资源少，不会提高多少系统负荷，在这一点上，`rsync` 就远远不及它了。`rsync` 比 `scp` 会快一点，但当小文件多的情况下，rsync 会导致硬盘 I/O 非常高，而 `scp` 基本不影响系统正常使用。
 
-<br>
+
 
 **语法：**
 
@@ -4929,7 +4929,7 @@ scp [选项] <源路径> <目标路径>
 - `-P`：port 指定数据传输用到的端口号
 - `-S`：program 指定加密传输时所使用的程序。此程序必须能够理解 ssh(1)的选项
 
-<br>
+
 
 **从本地服务器复制到远程服务器**
 
@@ -4953,7 +4953,7 @@ scp -r local_folder remote_ip:remote_folder
 
 从远程复制到本地的 `scp` 命令与上面的命令一样，只要将从本地复制到远程的命令后面 2 个参数互换顺序就行了。
 
-<br>
+
 
 ## 13、环境变量
 

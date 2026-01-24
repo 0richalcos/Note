@@ -4,7 +4,7 @@
 
 Vastbase G100 数据库是海量数据基于开源 openGauss 内核开发的企业级关系型数据库。融合多年对各行业应用场景的深入理解，Vastbase G100 除了具有 openGauss 极致的性能以外，还在原有功能基础上增加了大量 Oracle 兼容特性，并遵循 EAL4+ 标准进行了大幅度的安全增强，同时整合 GIS/流计算 等一系列专业应用领域的企业级功能。
 
-<br>
+
 
 ### 1.1、产品介绍
 
@@ -14,7 +14,7 @@ Vastbase G100 支持 SQL2003 标准语法，支持主备部署的高可用关系
 - NUMA 化内核结构支持高性能。
 - 主备模式，CRC 校验支持高可用。
 
-<br>
+
 
 **应用场景**
 
@@ -26,7 +26,7 @@ Vastbase G100 支持 SQL2003 标准语法，支持主备部署的高可用关系
 
 	在工业监控和远程控制、智慧城市的延展、智能家居、车联网等物联网场景下，传感监控设备多，采样率高，数据存储为追加模型，操作和分析并重的场景。
 
-<br>
+
 
 **技术特点**
 
@@ -45,7 +45,7 @@ Vastbase G100 相比其他数据库主要有多存储模式，NUMA 化内核结�
 	- 数据页 CRC 校验，损坏数据页通过备机自动修复。
 	- 备机并行恢复，10 秒内可升主提供服务。
 
-<br>
+
 
 **软件架构**
 
@@ -53,7 +53,7 @@ Vastbase G100 是集中式数据库系统，在这样的系统架构中，业务
 
 <img src="!assets/Vastbase/f319eab2-9bb5-4401-a82b-85761e4dfa52_zh_CN_1.png" alt="img" style="zoom: 67%;" />
 
-<br>
+
 
 **数据库逻辑结构图**
 
@@ -61,7 +61,7 @@ Vastbase G100 的数据库节点负责存储数据，其存储介质也是磁盘
 
 <img src="!assets/Vastbase/数据库逻辑结构图.png" alt="img" style="zoom: 80%;" />
 
-<br>
+
 
 ### 1.2、部署方案
 
@@ -85,7 +85,7 @@ Vastbase G100 的数据库节点负责存储数据，其存储介质也是磁盘
 
 	热备份： 是指备份集群可以对外提供服务 。
 
-<br>
+
 
 #### 1.2.1、部署形态汇总
 
@@ -97,7 +97,7 @@ Vastbase G100 的数据库节点负责存储数据，其存储介质也是磁盘
 | 主备     | 主机+备机             | 抵御实例级故障 | 单机房        | 节点间无网络延迟  要求承受集群内实例级故障 适用于对系统可靠性要求不高的场景。 | RPO=0 。实例故障 RTO<10s 。无 AZ 级容灾能力 。推荐主备最大可用模式。 |
 | 一主多备 | 主机 +多个备机 Quorum | 抵御实例级故障 | 单机房/跨机房 | 节点间无网络延迟要求承受集群内实例级故障。                   | RPO=0 。实例故障 RTO<10s。推荐主备同步模式。最少 2 个副本，最多 8 个副本。 |
 
-<br>
+
 
 **兼容列表**
 
@@ -109,13 +109,13 @@ Vastbase G100 的数据库节点负责存储数据，其存储介质也是磁盘
 
 	openEuler、麒麟V10、UOS(openEuler版)、CentOS 7.x/8.x(ARM版本)
 
-<br>
+
 
 #### 1.2.2、部署方案介绍
 
 整体部署方案可以分为三类：单机部署、一主一备部署、一主多备部署。
 
-<br>
+
 
 **单机部署**
 
@@ -123,7 +123,7 @@ Vastbase G100 的数据库节点负责存储数据，其存储介质也是磁盘
 
 <img src="!assets/Vastbase/d8814a5e-63ef-42b7-ae6c-ac37ca37006c_zh_CN_1.png" alt="img"  />
 
-<br>
+
 
 **主备部署**
 
@@ -131,7 +131,7 @@ Vastbase G100 的数据库节点负责存储数据，其存储介质也是磁盘
 
 <img src="!assets/Vastbase/dd960c20-f720-4806-b7cf-df8ae4ead701_zh_CN_1.png" alt="img" style="zoom: 50%;" />
 
-<br>
+
 
 **一主多备部署**
 
@@ -146,7 +146,7 @@ Vastbase G100 的数据库节点负责存储数据，其存储介质也是磁盘
 
 <img src="!assets/Vastbase/9ae63764-7239-42f6-9ccc-ab1cfcfc2362_zh_CN_1.png" alt="img" style="zoom: 50%;" />
 
-<br>
+
 
 ### 1.3、数据库核心技术
 
@@ -156,31 +156,31 @@ Vastbase G100 的数据库节点负责存储数据，其存储介质也是磁盘
 
 数据库用于管理各类数据对象，与其他数据库隔离。创建数据对象时可以指定对应的表空间，如果不指定相应的表空间，相关的对象会默认保存在PG_DEFAULT空间中。数据库管理的对象可分布在多个表空间上。
 
-<br>
+
 
 **表空间**
 
 在 Vastbase G100 中，表空间是一个目录，可以存在多个，里面存储的是它所包含的数据库的各种物理文件。由于表空间是一个目录，仅是起到了物理隔离的作用，其管理功能依赖于文件系统。
 
-<br>
+
 
 **模式**
 
 Vastbase G100 的模式是对数据库做一个逻辑分割。所有的数据库对象都建立在模式下面。Vastbase G100 的模式和用户是弱绑定的，所谓的弱绑定是指虽然创建用户的同时会自动创建一个同名模式，但用户也可以单独创建模式，并且为用户指定其他的模式。
 
-<br>
+
 
 **用户和角色**
 
 Vastbase G100 使用用户和角色来控制对数据库的访问。根据角色自身的设置不同，一个角色可以看做是一个数据库用户，或者一组数据库用户。在 Vastbase G100 中角色和用户之间的区别只在于角色默认是没有LOGIN权限的。在 Vastbase G100 中一个用户唯一对应一个角色，不过可以使用角色叠加来更灵活地进行管理。
 
-<br>
+
 
 **事务管理**
 
 在事务管理上，Vastbase G100 采取了MVCC（多版本并发控制）结合两阶段锁的方式，其特点是读写之间不阻塞。Vastbase G100 没有将历史版本数据统一存放，而是和当前元组的版本放在了一起。Vastbase G100 没有回滚段的概念，但是为了定期清除历史版本数据引入了一个VACUUM线程。一般情况下用户不用关注它，除非要做性能调优。此外，Vastbase G100 是自动提交事务。
 
-<br>
+
 
 ## 2、部署和卸载
 
@@ -196,7 +196,7 @@ Vastbase G100 使用用户和角色来控制对数据库的访问。根据角色
 | -------- | -------------- | ---------- |
 | 主节点   | 127.0.0.1      | orichalcos |
 
-<br>
+
 
 **端口规划**
 
@@ -205,7 +205,7 @@ Vastbase G100 使用用户和角色来控制对数据库的访问。根据角色
 | Vastbase | 5432   | 业务     | 数据库对外提供业务访问 | 个人用户、业务系统通过此端口访问数据库 |
 | Vastbase | 5433   | 内联     | 数据库备份             | 备份工具通过此端口连接数据库           |
 
-<br>
+
 
 **目录规划**
 
@@ -219,13 +219,13 @@ Vastbase G100 使用用户和角色来控制对数据库的访问。根据角色
 | 数据库归档目录 | vastbase | /backup/archive_wals    | 700  | 数据盘 2 |
 | core_dump 目录 | vastbase | /backup/core_pattern    | 700  | 数据盘 2 |
 
-<br>
+
 
 #### 2.1.2、安装前准备
 
 对操作系统环境进行配置，注意需使用 root 用户操作。
 
-<br>
+
 
 ##### 主机名设置
 
@@ -235,7 +235,7 @@ Vastbase G100 使用用户和角色来控制对数据库的访问。根据角色
 hostnamectl set-hostname orichalcos
 ```
 
-<br>
+
 
 ##### 关闭透明大页
 
@@ -267,7 +267,7 @@ hostnamectl set-hostname orichalcos
 	systemctl enable disable-thp
 	```
 
-<br>
+
 
 ##### 防火墙设置
 
@@ -287,7 +287,7 @@ firewall-cmd --reload
 firewall-cmd --list-port
 ```
 
-<br>
+
 
 ##### SELinux 设置
 
@@ -324,7 +324,7 @@ getenforce
 		reboot
 		```
 
-<br>
+
 
 ##### IPC 参数设置
 
@@ -348,7 +348,7 @@ getenforce
 	systemctl start systemd-logind
 	```
 
-<br>
+
 
 ##### 内核参数调整
 
@@ -420,7 +420,7 @@ getenforce
 	chown -R vastbase:vastbase /{data,backup}
 	```
 
-<br>
+
 
 ##### 修改资源限制
 
@@ -451,7 +451,7 @@ getenforce
 	>
 	> 注意必须设置 core 容量限制 ≥上一步计算值，磁盘空间足够的可以将该数值适当提升整数倍。
 
-<br>
+
 
 ##### 预装依赖
 
@@ -495,7 +495,7 @@ getenforce
 >
 > openEuler x86 环境中还需要安装 libnsl：`yum install -y libnsl` 。
 
-<br>
+
 
 ##### 安装 Python3
 
@@ -550,7 +550,7 @@ cp -p /usr/local/python3/lib/*  /usr/lib64  -r
 > apt install gcc
 > ```
 
-<br>
+
 
 ##### sudo 配置
 
@@ -574,7 +574,7 @@ cp -p /usr/local/python3/lib/*  /usr/lib64  -r
 	vastbase ALL=(ALL:ALL) NOPASSWD:/bin/fio
 	```
 
-<br>
+
 
 #### 2.1.3、数据库安装
 
@@ -616,7 +616,7 @@ cp -p /usr/local/python3/lib/*  /usr/lib64  -r
 	tar -zxf "${REF_PREFIX}-om.tar.gz"
 	```
 
-<br>
+
 
 ##### 上传许可文件
 
@@ -630,7 +630,7 @@ echo "yes" | cp /data/soft/vastbase_license /data/soft/vastbase-installer/licens
 >
 > 也可选择跳过本步骤，这样数据库将自动使用为期 3 个月的临时许可。
 
-<br>
+
 
 ##### 配置 XML 文件
 
@@ -677,7 +677,7 @@ vi /data/soft/vastbase-installer/single_node.xml
 - 配置路径和实例路径时，路径中不能包含特殊字符。
 - 配置数据库节点名称时，请通过 `hostname` 命令获取各数据库节点的主机名称。
 
-<br>
+
 
 ##### 预安装
 
@@ -776,7 +776,7 @@ Successfully set finish flag.
 Preinstallation succeeded.
 ```
 
-<br>
+
 
 ##### 执行安装
 
@@ -857,7 +857,7 @@ Preinstallation succeeded.
 	ps -ef | grep vastbase
 	```
 
-<br>
+
 
 #### 2.1.4、安装后配置
 
@@ -1077,7 +1077,7 @@ Preinstallation succeeded.
 	vb_ctl stop
 	```
 
-<br>
+
 
 ##### 调整统计数据目录
 
@@ -1140,7 +1140,7 @@ Preinstallation succeeded.
 mount -t tmpfs -o remount,size=128M tmpfs /stat_tmp/pg_stat_tmp
 ```
 
-<br>
+
 
 ##### 添加系统服务
 
@@ -1224,7 +1224,7 @@ mount -t tmpfs -o remount,size=128M tmpfs /stat_tmp/pg_stat_tmp
 	systemctl status vastbase
 	```
 
-<br>
+
 
 ##### 修改定时任务
 
@@ -1275,7 +1275,7 @@ mount -t tmpfs -o remount,size=128M tmpfs /stat_tmp/pg_stat_tmp
 	# 每10秒收集一次，数据保留720小时(30天)
 	```
 
-<br>
+
 
 **Crontab 配置**
 
@@ -1297,7 +1297,7 @@ crontab -e -u vastbase
 0 1 * * * find /backup/archive_wals/ -maxdepth 1  -name "00*" -mtime +7 -exec rm -f {} \;
 ```
 
-<br>
+
 
 ##### 修改管理员密码
 
@@ -1307,7 +1307,7 @@ inituser 不允许远程访问，为便于后续运维，建议初始化 vbadmin
 vsql -c "alter user vbadmin password 'xxxxxxxx'"
 ```
 
-<br>
+
 
 ### 2.2、连接数据库
 
@@ -1315,7 +1315,7 @@ vsql -c "alter user vbadmin password 'xxxxxxxx'"
 
 数据库时可以选择多种连接方式，包括本地连接数据库、连接密态数据库、远程连接数据库。当进行远程连接前，需要在数据库主节点上设置允许客户端访问数据库，并配置远程连接。
 
-<br>
+
 
 #### 2.2.1、使用 vsql 连接
 
@@ -1366,7 +1366,7 @@ vsql 是 Vastbase提供的在命令行下运行的数据库连接工具。此工
 	\q
 	```
 
-<br>
+
 
 #### 2.2.2、使用 VDS 连接
 
@@ -1374,7 +1374,7 @@ VDS（Vastbase Data Studio ）作为北京海量数据提供的一款数据库�
 
 VDS 软件可以前往 [MVS](https://support.vastdata.com.cn) （My Vastdata Support）网站注册获取。
 
-<br>
+
 
 ### 2.3、卸载数据库
 
@@ -1423,7 +1423,7 @@ VDS 软件可以前往 [MVS](https://support.vastdata.com.cn) （My Vastdata Sup
 >
 > 卸载完成后，已安装的 Vastbase 程序（即数据库安装目录 `$GAUSSHOME` 对应目录）和 Vastbase 相关环境变量将被删除，仅保留数据库实例。
 
-<br>
+
 
 ## 3、数据库使用
 
@@ -1450,7 +1450,7 @@ Vastbase G100 自带了两个表空间：pg_default 和 pg_global。
 - 默认表空间 pg_default：用来存储非共享系统表、用户表、用户表 index、临时表、临时表 index、内部临时表的默认表空间。对应存储目录为实例数据目录下的 base 目录。
 - 共享表空间 pg_global：用来存放共享系统表的表空间。对应存储目录为实例数据目录下的 global 目录。
 
-<br>
+
 
 #### 3.1.1、创建表空间
 
@@ -1480,7 +1480,7 @@ Vastbase G100 自带了两个表空间：pg_default 和 pg_global。
 	GRANT
 	```
 
-<br>
+
 
 #### 3.1.2、查看表空间
 
@@ -1498,7 +1498,7 @@ SELECT spcname FROM PG_TABLESPACE;
 \db
 ```
 
-<br>
+
 
 **查询表空间使用率**
 
@@ -1521,7 +1521,7 @@ pg_tablespace_size
 
 表空间使用率 = `PG_TABLESPACE_SIZE` / 表空间所在目录的磁盘大小。
 
-<br>
+
 
 #### 3.1.3、修改表空间
 
@@ -1532,7 +1532,7 @@ ALTER TABLESPACE fastspace RENAME TO fspace;
 ALTER TABLESPACE yiplat RENAME TO ptjyj;
 ```
 
-<br>
+
 
 #### 3.1.4、删除表空间
 
@@ -1547,7 +1547,7 @@ ALTER TABLESPACE yiplat RENAME TO ptjyj;
 DROP TABLESPACE fspace;
 ```
 
-<br>
+
 
 ### 3.2、数据库管理
 
@@ -1559,7 +1559,7 @@ DROP TABLESPACE fspace;
 	- 模板 template0 不允许用户连接；模板 template1 只允许数据库初始用户和系统管理员连接，普通用户无法连接。
 - 数据库系统中会有多个数据库，但是客户端程序一次只能连接一个数据库。也不能在不同的数据库之间相互查询。一个 Vastbase中 存在多个数据库时，需要通过 `-d` 参数指定相应的数据库进行连接。
 
-<br>
+
 
 #### 3.2.1、创建数据库
 
@@ -1569,7 +1569,7 @@ DROP TABLESPACE fspace;
 CREATE DATABASE db_tpcc WITH TABLESPACE = tpcds_local;
 ```
 
-<br>
+
 
 #### 3.2.2、查看数据库
 
@@ -1585,7 +1585,7 @@ SELECT datname FROM PG_DATABASE;
 \l
 ```
 
-<br>
+
 
 ### 3.3、用户管理
 
@@ -1595,7 +1595,7 @@ SELECT datname FROM PG_DATABASE;
 
 在用户登录 Vastbase G100 时会对其进行身份验证。用户可以拥有数据库和数据库对象（例如表），并且可以向用户和角色授予对这些对象的权限以控制谁可以访问哪个对象。除系统管理员外，具有 `CREATEDB` 属性的用户可以创建数据库并授予对这些数据库的权限。
 
-<br>
+
 
 #### 3.3.1、创建用户
 
@@ -1613,7 +1613,7 @@ CREATE USER joe WITH CREATEDB PASSWORD "Bigdata@123";
 
 要创建系统管理员，请使用带有 `SYSADMIN` 选项的 `CREATE USER` 语句 。
 
-<br>
+
 
 #### 3.3.2、查看用户
 
@@ -1629,7 +1629,7 @@ SELECT * FROM pg_user;
 SELECT * FROM pg_authid;
 ```
 
-<br>
+
 
 #### 3.3.3、修改用户
 
@@ -1641,7 +1641,7 @@ SELECT * FROM pg_authid;
 ALTER USER joe RENAME TO orichalcos;
 ```
 
-<br>
+
 
 ### 3.4、模式管理
 
@@ -1657,7 +1657,7 @@ Schema 又称作模式。通过管理 Schema，允许多个用户使用同一数
 > - 通过未修饰的表名（名称中只含有表名，没有 “schema名”）引用表时，系统会通过 search_path（搜索路径）来判断该表是哪个 Schema 下的表。search_path（搜索路径）是一个 Schema 名列表，在其中找到的第一个表就是目标表，如果没有找到则报错。（某个表即使存在，如果它的 Schema 不在 search_path 中，依然会查找失败）在搜索路径中的第一个 Schema 叫做 “当前schema”。它是搜索时查询的第一个 Schema，同时在没有声明 Schema 名时，新创建的数据库对象会默认存放在该 Schema 下。
 > - 每个数据库都包含一个 pg_catalog schema，它包含系统表和所有内置数据类型、函数、操作符。pg_catalog 是搜索路径中的一部分，始终在临时表所属的模式后面，并在 search_path 中所有模式的前面，即具有第二搜索优先级。这样确保可以搜索到数据库内置对象。如果用户需要使用和系统内置对象重名的自定义对象时，可以在操作自定义对象时带上自己的模式。
 
-<br>
+
 
 #### 3.4.1、创建模式
 
@@ -1676,10 +1676,10 @@ Schema 又称作模式。通过管理 Schema，允许多个用户使用同一数
 CREATE SCHEMA yiplat AUTHORIZATION dba;
 ```
 
-<br>
+
 
 ## 4、数据库配置
 
 
 
-<br>
+

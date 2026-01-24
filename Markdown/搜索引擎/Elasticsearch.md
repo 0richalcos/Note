@@ -183,7 +183,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 	chown -R elasticsearch:elasticsearch /usr/local/elasticsearch /etc/elasticsearch /var/lib/elasticsearch /var/log/elasticsearch
 	```
 
-<br>
+
 
 ##### 安装 Elastisearch
 
@@ -225,7 +225,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 	discovery.type: single-node
 	```
 
-<br>
+
 
 ##### 配置 systemd 服务
 
@@ -284,7 +284,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 	systemctl enable elasticsearch
 	```
 
-<br>
+
 
 ##### 启动
 
@@ -323,7 +323,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 	> firewall-cmd --reload
 	> ```
 
-<br>
+
 
 #### 2.1.2、Linux 包安装
 
@@ -384,7 +384,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 	systemctl start elasticsearch
 	```
 
-<br>
+
 
 #### 2.1.3、Docker
 
@@ -417,7 +417,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 	<img src="!assets/Elasticsearch/image-20220705222221335.png" alt="image-20220705222221335" style="width:80%;" />
 
-<br>
+
 
 #### 2.1.4、Windows
 
@@ -461,7 +461,7 @@ CCR 提供了一种方式自动地从主集群同步索引到作为热备的备�
 
 	<img src="!assets/Elasticsearch/QQ_1726774166786.png" alt="QQ_1726774166786" style="zoom: 67%;" />
 
-<br>
+
 
 ### 2.2、目录结构
 

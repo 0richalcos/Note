@@ -10,7 +10,7 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 >
 > 默认 VNC 协议不加密传输内容，使用 SSH 隧道或搭配 VPN 使用。
 
-<br>
+
 
 **VNC 使用场景**
 
@@ -19,7 +19,7 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 - 实验室/课堂多机控制。
 - 异地远程协助操作。
 
-<br>
+
 
 **VNC 的特点**
 
@@ -28,7 +28,7 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 - 不依赖登录用户：可设置为服务进程，在登录前就能远程连接
 - 可搭配加密通道：通常结合 SSH、OpenVPN 使用来提升安全性
 
-<br>
+
 
 ## 2、VNC 的工作原理
 
@@ -45,7 +45,7 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 - VNC Server（服务端）：采集屏幕图像并传输给 Viewer，同时接收并执行 Viewer 发来的输入操作。
 - 通常监听 TCP 5900 + display number（如 :1 则监听 5901）
 
-<br>
+
 
 **通信流程（RFB协议流程）**
 
@@ -58,7 +58,7 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 5. 事件传输：
 	- Client 发送鼠标移动、点击、键盘按键等事件。
 
-<br>
+
 
 ## 3、VNC 与其他远程协议对比
 
@@ -70,7 +70,7 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 | TeamViewer  | ✅        | ✅           | ✅               | 远程协助、远程办公     | 高                 |
 | AnyDesk     | ✅        | ✅           | ✅               | 高性能远程连接         | 非常高             |
 
-<br>
+
 
 ## 4、环境搭建
 
@@ -204,7 +204,7 @@ VNC（Virtual Network Computing） 是一种基于远程帧缓冲（RFB，Remote
 	vncserver -list
 	```
 
-<br>
+
 
 ### 4.2、统信 UOS
 

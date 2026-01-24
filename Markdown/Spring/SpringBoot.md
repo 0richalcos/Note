@@ -37,13 +37,13 @@ Spring Boot 的缺点：
 - Actuator：提供在运行时检视应用程序内部情况的能力，让你能够深入运行应用程序，一探 Spring Boot 的内部信息；
 - 命令行界面：这是 Spring Boot 的可选特性，主要针对于 Groovy 语言使用。
 
-<br>
+
 
 ### 1.2、微服务
 
 微服务架构是 “新标准”，是一种架构风格。构建小型，独立且可运行的应用程序可以带来极大的灵活性，并为您的代码增加弹性。 Spring Boot 的许多专用功能使在大规模生产中构建和运行微服务变得容易。 而且不要忘记，没有 SpringCloud 简化管理并提高容错能力，就不会有完整的微服务架构。
 
-<br>
+
 
 **单体应用架构**
 
@@ -54,7 +54,7 @@ Spring Boot 的缺点：
 - 这样做的好处是：易于开发和测试；也十分方便部署；当需要扩展时，只需要将 war 复制多份，然后放到多个服务器上，再做个负载均衡就可以了。
 - 单体应用架构的缺点是：哪怕要修改一个非常小的地方，都需要停掉整个服务，重新打包、部署这个应用 war 包。特别是对于一个大型应用，我们不可能把所有内容都放在一个应用内，我们如何维护、如何分工合作都是问题。
 
-<br>
+
 
 **微服务架构**
 
@@ -69,7 +69,7 @@ all in one 的架构方式，我们把所有的功能单元放在一个应用里
 
 <img src="!assets/SpringBoot/image-20200402163100834.png" alt="image-20200402163100834" style="zoom: 50%;" />
 
-<br>
+
 
 ## 2、快速开始
 
@@ -98,7 +98,7 @@ all in one 的架构方式，我们把所有的功能单元放在一个应用里
 
 4. 运行 Application.java
 
-<br>
+
 
 **更改端口号**
 
@@ -109,13 +109,13 @@ all in one 的架构方式，我们把所有的功能单元放在一个应用里
 server.port=8080
 ```
 
-<br>
+
 
 ### 2.2、Spring Boot 启动流程
 
 SpringApplication 类是 Spring Boot 应用程序的入口点。当你调用 `SpringApplication.run()` 时，它会执行一个定义明确的启动序列。这个过程会广播一系列生命周期事件，允许开发者通过监听这些事件来介入。
 
-<br>
+
 
 **启动序列**
 
@@ -178,7 +178,7 @@ SpringApplication 类是 Spring Boot 应用程序的入口点。当你调用 `Sp
 	- 时机：应用程序启动失败时。
 	- 官方用途：允许监听器在应用无法正常启动时执行清理或通知逻辑。
 
-<br>
+
 
 #### 2.2.1、ApplicationRunner
 
@@ -186,7 +186,7 @@ SpringApplication 类是 Spring Boot 应用程序的入口点。当你调用 `Sp
 
 当 Spring Boot 应用的 `ApplicationContext`（应用上下文）被完全加载和初始化后，Spring Boot 会自动扫描所有实现了 `ApplicationRunner` 接口的 Bean，并调用它们的 `run()` 方法。
 
-<br>
+
 
 **核心特点：**
 
@@ -194,7 +194,7 @@ SpringApplication 类是 Spring Boot 应用程序的入口点。当你调用 `Sp
 - 用途：非常适合执行那些只需要在应用程序启动时运行一次的任务。
 - 参数：`run()` 方法接收一个 `ApplicationArguments` 类型的参数，可以方便地获取和解析启动时传入的命令行参数。
 
-<br>
+
 
 **常见用例**
 
@@ -206,7 +206,7 @@ SpringApplication 类是 Spring Boot 应用程序的入口点。当你调用 `Sp
 - 执行一次性任务：运行一个批处理作业，如数据迁移、文件清理等。任务执行完毕后，应用可以继续运行或直接退出。
 - 打印环境信息：在启动日志中打印一些重要的配置信息或环境诊断信息。
 
-<br>
+
 
 **如何使用**
 
@@ -268,7 +268,7 @@ public class MyAppRunner implements ApplicationRunner {
 >
 > 控制多个 Runner 的执行顺序可以使用 `@Order(n)` 注解：*n* 值越小，优先级越高，越先执行。
 
-<br>
+
 
 ## 3、配置文件
 
@@ -311,7 +311,7 @@ Spring Boot 涉及两种作用域不同的配置文件：application 和 bootstr
 	>   </dependency>
 	>   ```
 
-<br>
+
 
 ### 3.1、YAML
 
@@ -321,7 +321,7 @@ YAML 的语法和其他高级语言类似，并且可以简单表达清单、散
 
 YAML 的配置文件后缀为 `.yml`，如：`application.yml` 。
 
-<br>
+
 
 **基本语法**
 
@@ -331,7 +331,7 @@ YAML 的配置文件后缀为 `.yml`，如：`application.yml` 。
 - 缩进的空格数不重要，只要相同层级的元素左对齐即可；
 - `#` 表示注释。
 
-<br>
+
 
 **数据类型**
 
@@ -341,7 +341,7 @@ YAML 支持以下几种数据类型：
 - 数组：一组按次序排列的值，又称为序列（sequence） / 列表（list）；
 - 纯量（scalars）：单个的、不可再分的值。
 
-<br>
+
 
 #### 3.1.1、YAML 对象
 
@@ -377,7 +377,7 @@ key:
   child-key2: value2
 ```
 
-<br>
+
 
 #### 3.1.2、YAML 数组
 
@@ -442,7 +442,7 @@ companies:
 companies: [ { id: 1,name: company1,price: 200W },{ id: 2,name: company2,price: 500W } ]
 ```
 
-<br>
+
 
 #### 3.1.3、复合结构
 
@@ -474,7 +474,7 @@ websites:
 }
 ```
 
-<br>
+
 
 #### 3.1.4、纯量
 
@@ -515,7 +515,7 @@ datetime:
   - 2018-02-17T15:02:31+08:00    #时间使用ISO 8601格式，时间和日期之间使用T连接，最后使用+代表时区
 ```
 
-<br>
+
 
 #### 3.1.5、引用
 
@@ -553,7 +553,7 @@ test:
   host: localhost
 ```
 
-<br>
+
 
 ### 3.2、属性绑定
 
@@ -561,7 +561,7 @@ test:
 
 通过属性绑定，配置文件中的层级数据可以直接映射为 Java 对象的属性，从而实现配置的对象化管理。
 
-<br>
+
 
 #### 3.2.1、Value
 
@@ -604,7 +604,7 @@ test:
 	}
 	```
 
-<br>
+
 
 #### 3.2.2、ConfigurationProperties
 
@@ -616,7 +616,7 @@ test:
 - 支持复杂类型：可以自动封装 List、Map 以及嵌套对象。
 - 支持数据校验：配合 JSR303 校验注解（如 `@NotNull`）验证配置项。
 
-<br>
+
 
 ##### 自定义的 Bean 使用
 
@@ -675,7 +675,7 @@ test:
 	    age: 3
 	```
 
-<br>
+
 
 ##### 第三方 Bean 使用
 
@@ -703,7 +703,7 @@ datasource:
 
 `@ConfigurationProperties` 注解不仅能添加到类上，还可以添加到方法上，添加到类上是为 Spring 容器管理的当前类的对象绑定属性，添加到方法上是为 Spring 容器管理的当前方法的返回值对象绑定属性，本质上都一样。
 
-<br>
+
 
 #### 3.2.3、PropertySource
 
@@ -735,7 +735,7 @@ datasource:
 	}
 	```
 
-<br>
+
 
 ### 3.3、配置类
 
@@ -743,7 +743,7 @@ datasource:
 
 开发者通过配置类将配置项注入到 Java 对象中，并根据这些配置来决定如何初始化 Bean。这种做法实现了配置与代码的解耦：运维管理配置文件，开发者只关注配置类暴露的功能。
 
-<br>
+
 
 #### 3.2.1、Configuration
 
@@ -766,7 +766,7 @@ public class MyConfig {
 >
 > `@Configuration` 类默认是被 CGLIB 代理的，保证每个 `@Bean` 方法只会执行一次，从而确保返回的是单例 Bean。
 
-<br>
+
 
 #### 3.2.2、EnableConfigurationProperties
 
@@ -814,7 +814,7 @@ public class MyConfig {
 
 推荐使用 `@EnableConfigurationProperties` 配合 `@ConfigurationProperties`，因为它可以把属性类从 Spring 管理中解耦，避免把纯粹的属性类变成组件（属性类是 “纯数据承载”，不包含业务逻辑）。
 
-<br>
+
 
 #### 3.2.2、ConditionalOnProperty
 
@@ -842,7 +842,7 @@ feature:
 
 这种方式非常适合做功能开关、模块级控制、动态启用等场景。
 
-<br>
+
 
 ##### 空对象模式
 
@@ -951,7 +951,7 @@ feature:
 	}
 	```
 
-<br>
+
 
 ##### ObjectProvider
 
@@ -1020,7 +1020,7 @@ feature:
 
    
 
-<br>
+
 
 ### 3.4、多环境配置
 
@@ -1035,7 +1035,7 @@ feature:
 
 如果多个配置文件含有相同的变量名，并且在使用 `${}` 进行引用时没有指定文件名，那么 Spring Boot 会按照特定的顺序查找配置文件，并使用第一个找到的变量值。这个查找顺序为： `application-{suffix}.properties` 或 `application-{suffix}.yml` > `application.properties` 或 `application.yml` > 其他自定义的配置文件。其中 `{suffix}` 指的是 Spring Profiles 中的激活配置 `profile`。
 
-<br>
+
 
 #### 3.4.1、active
 
@@ -1043,7 +1043,7 @@ Spring Boot 允许你按照命名约定的格式（`application-{profile}.proper
 
 日常开发中一般有三个环境，分别是开发环境（`dev`），测试环境（`test`），生产环境（`prod`）。
 
-<br>
+
 
 ##### properties
 
@@ -1065,7 +1065,7 @@ server.port=8082
 server.port=8083
 ```
 
-<br>
+
 
 ##### yml 多文件配置
 
@@ -1092,7 +1092,7 @@ server:
   port: 8083
 ```
 
-<br>
+
 
 ##### yml 单文件配置
 
@@ -1148,13 +1148,13 @@ server:
   port: 8083
 ```
 
-<br>
+
 
 #### 3.4.2、include
 
 我们可以将一些公共的配置单独拿出来，然后其他文件都把这个配置给包含进去。
 
-<br>
+
 
 ##### yml 多文件配置
 
@@ -1186,7 +1186,7 @@ feign:
     enabled: true
 ```
 
-<br>
+
 
 ##### yml 单文件配置
 
@@ -1252,7 +1252,7 @@ feign:
     enabled: true
 ```
 
-<br>
+
 
 ##### active 和 include 的区别
 
@@ -1264,7 +1264,7 @@ The properties from spring.profile.include override default properties. The prop
 
 即：`spring.profile.include` 的属性会覆盖默认属性，`spring.profiles.active` 会覆盖 `spring.profile.include` 和默认属性。
 
-<br>
+
 
 #### 3.4.3、group
 
@@ -1360,7 +1360,7 @@ spring:
 
 可以看到，在 2.4 版本的配置中，不同环境的配置定义都在第一段默认配置中了，所有的环境定义都转移到了 `spring.profiles.group` 的 `key` 字段（上面配置了 `dev` 和 `prod`），`value` 字段则代表了每个环境需要加载的不同配置分组。
 
-<br>
+
 
 #### 3.4.4、Maven
 
@@ -1370,7 +1370,7 @@ Maven 对于多环境的支持在功能方面更加强大，支持 JDK 版本、
 
 创建不同环境的配置文件，分别是 `application-dev.properties`、`application-test.properties`、`application-prod.properties`，加上默认的配置文件 `application.properties`，同样是四个配置文件。
 
-<br>
+
 
 ##### 定义激活的变量
 
@@ -1467,7 +1467,7 @@ spring.profiles.active=@profile.active@
 	</resources>
 	```
 
-<br>
+
 
 ##### pom 文件中定义 profiles
 
@@ -1547,7 +1547,7 @@ Maven 中的 `profile` 的激活条件还可以根据 JDK、操作系统、文�
 </activation>
 ```
 
-<br>
+
 
 ##### 资源过滤
 
@@ -1584,13 +1584,13 @@ Maven 中的 `profile` 的激活条件还可以根据 JDK、操作系统、文�
 
 上述配置主要分为两个方面，第一是先排除所有配置文件，第二是根据 `profile.active` 动态的引入配置文件。
 
-<br>
+
 
 #### 3.4.5、-jar
 
 在 Spring Boot 中，使用 `-jar` 运行应用时管理多环境配置（如 `dev`、`test`、`prod`）也是一个常见需求。
 
-<br>
+
 
 ##### 直接定义激活配置
 
@@ -1625,7 +1625,7 @@ Maven 中的 `profile` 的激活条件还可以根据 JDK、操作系统、文�
 	- 后加载的配置会覆盖先加载的（`prod` > `default`）。
 	- 同名属性以激活的 Profile 文件为准。
 
-<br>
+
 
 ##### 外部化配置目录
 
@@ -1656,7 +1656,7 @@ Maven 中的 `profile` 的激活条件还可以根据 JDK、操作系统、文�
 	java -jar app.jar --spring.config.location=file:/app/application.properties,file:/app/application-prod.properties
 	```
 
-<br>
+
 
 ##### 属性优先级规则
 
@@ -1679,7 +1679,7 @@ Spring Boot 的优先级规则遵循一个核心原则：“离应用越近的�
 
 这种设计提供了灵活性，允许在部署时动态切换环境，而无需修改打包好的文件。
 
-<br>
+
 
 ## 4、数据校验
 
@@ -1699,7 +1699,7 @@ if (personRequest.getAge() <= 0) {
 
 这种代码严重违反了单一职责原则，将校验逻辑与业务逻辑紧密耦合，导致业务代码臃肿、可读性差、难以维护。JSR-380 为我们提供了一套声明式、可扩展且与业务逻辑解耦的优雅解决方案。
 
-<br>
+
 
 ### 4.1、简介
 
@@ -1714,7 +1714,7 @@ JSR-380，即 Bean Validation 2.0，是作为 Java EE 8 规范的一部分发布
 - 容器元素校验：这是 JSR-380 的一大亮点，允许直接对集合、Map 或数组中的元素进行校验，例如 `List<@NotBlank String> names`。
 - 更强大的 API：提供了更灵活的 API 用于动态配置约束和自定义校验。
 
-<br>
+
 
 ### 4.2、快速开始
 
@@ -1731,7 +1731,7 @@ JSR-380，即 Bean Validation 2.0，是作为 Java EE 8 规范的一部分发布
 
 在 Spring Boot 2.3 之前的版本中，`spring-boot-starter-validation` 默认包含在 `spring-boot-starter-web` 中。从 Spring Boot 2.3 开始，需要显式地手动添加此依赖。
 
-<br>
+
 
 #### 4.2.1、验证 Controller 的输入
 
@@ -1778,7 +1778,7 @@ public class PersonRequest {
 }
 ```
 
-<br>
+
 
 ##### 验证请求参数
 
@@ -1821,7 +1821,7 @@ public ResultBean exceptionHandler(ConstraintViolationException exception){
 }
 ```
 
-<br>
+
 
 #### 4.2.2、验证 Service 中的方法
 
@@ -1866,7 +1866,7 @@ public ResultBean exceptionHandler(ConstraintViolationException exception){
 }
 ```
 
-<br>
+
 
 #### 4.2.3、全局异常处理器
 
@@ -1926,7 +1926,7 @@ public class GlobalExceptionHandler {
 >
 > Service 层抛出了 `ConstraintViolationException` 异常，但由于它是在处理一个 Web 请求的生命周期中被抛出并传播到了 Controller 层之外，因此，为 Controller "服务"的 `@RestControllerAdvice` 完全有能力捕获并处理它。
 
-<br>
+
 
 ### 4.3、进阶校验场景
 
@@ -1960,7 +1960,7 @@ public class PersonRequest {
 }
 ```
 
-<br>
+
 
 #### 4.3.2、手动校验
 
@@ -1993,7 +1993,7 @@ public void checkPersonManually() {
 }
 ```
 
-<br>
+
 
 ### 4.4、自定义校验器
 
@@ -2076,7 +2076,7 @@ public void checkPersonManually() {
 
 	当 `CreateOrderRequest` 在 Controller 中作为 `@RequestBody` 被校验时，如果传入的 username 在数据库中不存在，`UserExistsValidator` 的 `isValid()` 方法会返回 `false`，从而触发一个 `MethodArgumentNotValidException`，并附带我们在注解中定义的错误消息：“指定的用户不存在”。
 
-<br>
+
 
 ### 4.5、核心概念总结
 
@@ -2084,7 +2084,7 @@ public void checkPersonManually() {
 
 JSR-380 (Bean Validation 2.0) 标准化了许多常用的校验注解。
 
-<br>
+
 
 **空值检查**
 
@@ -2095,7 +2095,7 @@ JSR-380 (Bean Validation 2.0) 标准化了许多常用的校验注解。
 | `@NotBlank` | 字符串不能为 `null` 且必须包含至少一个非空白字符。 |
 | `@NotEmpty` | 集合、Map 或字符串不能为空（`null` 或大小为 0）。  |
 
-<br>
+
 
 **布尔值检查**
 
@@ -2104,7 +2104,7 @@ JSR-380 (Bean Validation 2.0) 标准化了许多常用的校验注解。
 | `@AssertTrue`  | 元素必须为 `true`。  |
 | `@AssertFalse` | 元素必须为 `false`。 |
 
-<br>
+
 
 **数值检查**
 
@@ -2117,7 +2117,7 @@ JSR-380 (Bean Validation 2.0) 标准化了许多常用的校验注解。
 | `@Negative`       | 数值必须为负数。         |
 | `@NegativeOrZero` | 数值必须为负数或零。     |
 
-<br>
+
 
 **日期时间检查**
 
@@ -2128,7 +2128,7 @@ JSR-380 (Bean Validation 2.0) 标准化了许多常用的校验注解。
 | `@PastOrPresent`   | 日期必须在当前或之前。 |
 | `@FutureOrPresent` | 日期必须在当前或之后。 |
 
-<br>
+
 
 **其他**
 
@@ -2138,7 +2138,7 @@ JSR-380 (Bean Validation 2.0) 标准化了许多常用的校验注解。
 | `@Pattern(regexp)` | 字符串必须匹配指定的正则表达式。               |
 | `@Email`           | 字符串必须是有效的电子邮件格式。               |
 
-<br>
+
 
 #### 4.5.2、@Validated vs @Valid
 
@@ -2161,7 +2161,7 @@ JSR-380 (Bean Validation 2.0) 标准化了许多常用的校验注解。
 - 级联校验（校验对象内的嵌套对象）：必须在嵌套对象的字段上使用 `@Valid`。
 - 分组校验：必须使用 `@Validated`。
 
-<br>
+
 
 ## 5、数据源
 
@@ -2177,7 +2177,7 @@ JSR-380 (Bean Validation 2.0) 标准化了许多常用的校验注解。
 
 JdbcTemplate是Spring对JDBC的封装，目的是使JDBC更加易于使用。==JdbcTemplate是Spring的一部分。==Spring对数据库的操作在JDBC上面做了深层次的封装，使用Spring的注入功能，可以把DataSource注册到JdbcTemplate中。
 
-<br>
+
 
 **JdbcTemplate主要提供以下五类方法：**
 
@@ -2186,7 +2186,7 @@ JdbcTemplate是Spring对JDBC的封装，目的是使JDBC更加易于使用。==J
 - query方法及queryForXXX方法：用于执行查询相关语句；
 - call方法：用于执行存储过程、函数相关语句。
 
-<br>
+
 
 **示例**
 
@@ -2239,7 +2239,7 @@ public class JDBCController {
 }
 ```
 
-<br>
+
 
 **Hikari**
 
@@ -2255,7 +2255,7 @@ HikariCP是数据库连接池的后起之秀，号称性能最好，可以完美
 - **自定义集合类型（ConcurrentBag）**：提高并发读写的效率；
 - **其他针对BoneCP缺陷的优化**，比如对于耗时超过一个CPU时间片的方法调用的研究（但没说具体怎么优化）。
 
-<br>
+
 
 由于Spring Boot的自动化配置机制，大部分对于数据源的配置都可以通过配置参数的方式去改变。只有一些特殊情况，比如：更换默认数据源，多数据源共存等情况才需要去修改覆盖初始化的Bean内容。
 
@@ -2292,7 +2292,7 @@ HikariCP是数据库连接池的后起之秀，号称性能最好，可以完美
 	- `spring.datasource.hikari.connection-timeout`: 连接超时时间：毫秒，小于250毫秒，否则被重置为默认值30秒
 	- `spring.datasource.hikari.connection-test-query`: 用于测试连接是否可用的查询语句
 
-<br>
+
 
 ## 6、打包
 
@@ -2302,7 +2302,7 @@ Spring Boot 提供了内置的 Tomcat、Undertow、Jetty 三种 Servlet Web 容�
 
 `SpringBootServletInitializer` 是 `WebApplicationInitializer` 的实现，它从部署在 Web 容器上的传统 War 包运行 Spring Boot 应用。该类将 Servlet、Filter 和 ServletContextInitializer Bean 从应用程序上下文绑定到服务器。`SpringBootServletInitializer` 类还允许我们通过覆盖 `SpringApplicationBuilder configure(SpringApplicationBuilder application)` 方法来配置由 Servlet 容器运行的应用程序。
 
-<br>
+
 
 Spring Boot War 部署步骤：
 
@@ -2410,7 +2410,7 @@ Spring Boot War 部署步骤：
 
 		<img src="!assets/SpringBoot/image-20230626153638578.png" alt="image-20230626153638578" style="" />
 
-<br>
+
 
 #### 6.1.1、替换 war 包文件
 
@@ -2432,7 +2432,7 @@ jar <options> <jar-file> [input-files]
 - `<jar-file>`：目标 jar/war 文件名。
 - `[input-files]`：要操作的文件或目录。
 
-<br>
+
 
 **简单示例**
 
@@ -2470,7 +2470,7 @@ jar <options> <jar-file> [input-files]
 	>
 	> 往 war 包中新增文件也是使用这个参数。
 
-<br>
+
 
 ### 6.2、jar
 
@@ -2505,7 +2505,7 @@ mvn clean package -DskipTests
 java -jar your-project-name.jar
 ```
 
-<br>
+
 
 #### 6.2.1、打 jar 包后乱码
 
@@ -2544,7 +2544,7 @@ java -jar your-project-name.jar
 	$OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding
 	```
 
-<br>
+
 
 #### 6.2.2、使用 TongWeb
 
@@ -2617,7 +2617,7 @@ java -jar your-project-name.jar
 
 	<img src="!assets/SpringBoot/image-20250521173239848.png" alt="image-20250521173239848" style="zoom:50%;" />
 
-<br>
+
 
 #### 6.2.3、注册为服务
 
@@ -2702,7 +2702,7 @@ java -jar your-project-name.jar
 	systemctl stop yiplat
 	```
 
-<br>
+
 
 ## 7、日志
 
@@ -2743,7 +2743,7 @@ Logback 是 Java 社区中使用最广泛的日志框架之一。 它是其前�
 
 配置完成后，部署时就可以在启动前修改 application.yml 文件中的相关配置，达到自定义的目的。
 
-<br>
+
 
 **logback-spring.xml 和 logback.xml 的区别**
 
@@ -2761,7 +2761,7 @@ logback-spring.xml：
 - Spring Boot 在应用启动时会特别查找 logback-spring.xml，并在 Spring 环境准备好之后加载它，这样就能确保所有 Spring Boot 的特性在日志配置中都可用。
 - 这个配置文件不会被 Logback 直接加载，而是由 Spring Boot 控制，这样可以防止在 Spring Boot 环境变量准备好之前就加载日志配置，避免了一些潜在的问题，比如不能解析 Spring Boot 的属性值。
 
-<br>
+
 
 ### 7.2、Log4j2
 
@@ -2801,7 +2801,7 @@ logging:
 <Property name="LOG_HOME" value="${sys:LOG_PATH}"/>
 ```
 
-<br>
+
 
 ## 10、发送邮件
 
@@ -2880,7 +2880,7 @@ logging:
 
 	这里需要注意的是，setText 的时候需要传一个布尔值进去，表名需要使用HTML样式。
 
-<br>
+
 
 **项目部署到服务器之后无法发送邮件的问题**
 
@@ -2894,7 +2894,7 @@ spring.mail.properties.mail.smtp.socketFactory.port=465
 spring.mail.properties.mail.smtp.ssl.enable=true
 ```
 
-<br>
+
 
 ## 11、处理静态资源
 
@@ -2911,7 +2911,7 @@ Spring Boot 内设置静态资源，或者说静态资源文件夹，主要有�
 
 <img src="!assets/SpringBoot/f1630117a2b8420a90a8a46dcfa68f2atplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp" alt="简单解释一下" style="" />
 
-<br>
+
 
 ### 11.1、application.yml 配置
 
@@ -2931,7 +2931,7 @@ Spring Boot 内设置静态资源，或者说静态资源文件夹，主要有�
 - `spring.web.resources.static-location` 仅仅允许一个配置，无法使用 `,` 进行分割，如果需要多个静态资源文件，可以使用下文的配置类方法。
 - `spring.web.resources.static-locations` 可以使用 `classpath`、`file` 进行匹配。如果使用 `file`，这个时候的相对路径为项目地址（打包为 .jar 后，相对路径就是 .jar 运行地址）。
 
-<br>
+
 
 现在来写一个示例，最终效果为浏览器输入：`http://localhost:8088/SystemData/UserData/Avatar/Mintimate.jpeg` 可以直接访问项目文件下的：`/SystemData/UserData/Avatar/Mintimate.jpeg`
 
@@ -2960,7 +2960,7 @@ spring:
 
 这意味着，按上文设置了 `/SystemData/**` 为 URL 匹配，就不能设置第二个 `/resources/**` 这样的配置为第二静态目录。如果需要设置多个地址为静态资源目录，可以参考下文的 **设置配置类方法** 方法。
 
-<br>
+
 
 ### 11.2、Configuration 配置类
 
@@ -2985,7 +2985,7 @@ protected void addResourceHandlers(ResourceHandlerRegistry registry) {
 
 和 `application.yml` 里设置一样，支持 `classpath` 和 `file` 等关键词。
 
-<br>
+
 
 **示例**
 
@@ -3035,7 +3035,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
 
 <img src="!assets/SpringBoot/dba2e1b5b0bb4a7289f39e7d15f91e73tplv-k3u1fbpfcp-zoom-in-crop-mark1304000.webp" alt="静态资源二" style="" />
 
-<br>
+
 
 ## 12、devtools 热部署
 
@@ -3084,7 +3084,7 @@ devtools 可以
 
 - 实现对属性文件的热部署。
 
-<br>
+
 
 **使用示例**
 

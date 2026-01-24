@@ -11,13 +11,13 @@ FastDFS 是一个轻量级的开源分布式文件系统，使用类似 Google F
 - 大容量、高并发、负载均衡、实现 RAID、硬件要求低、支持在线扩容、支持去重。
 - 只能通过 API 访问，不支持 POSIX（一种操作系统的调用规范）。
 
-<br>
+
 
 ### 1.2、FastDFS 架构
 
 <img src="!assets/FastDFS/21333fedd78a39c680d12c684eedfdb7.png" alt="FastDFS" style="zoom:67%;" />
 
-<br>
+
 
 **角色**
 
@@ -25,7 +25,7 @@ FastDFS 是一个轻量级的开源分布式文件系统，使用类似 Google F
 - Tracker：跟踪服务器集群，主要做调度工作，起到负载均衡的作用，在内存中记录集群 group 和 storage server 的状态信息，是连接 client 和 storage server 的枢纽。
 - Storage：存储服务器集群，文件和文件属性（meta data）都存储在这里。
 
-<br>
+
 
 **特点**
 
@@ -35,7 +35,7 @@ FastDFS 是一个轻量级的开源分布式文件系统，使用类似 Google F
 - 不同组的 storage server 之间不会相互通信。
 - 由 storage server 向 tracker server 主动报告状态信息，不同的 tracker server 之间也不会相互通信。
 
-<br>
+
 
 ## 2、安装和配置
 
@@ -76,7 +76,7 @@ FastDFS 是一个轻量级的开源分布式文件系统，使用类似 Google F
 
 	安装后，主程序所在的位置是 `/usr/bin`，配置文件所在的位置是 `/etc/fdfs`。
 
-<br>
+
 
 ### 2.2、配置 Tracker
 
@@ -108,7 +108,7 @@ FastDFS 是一个轻量级的开源分布式文件系统，使用类似 Google F
 	service fdfs_trackerd start
 	```
 
-<br>
+
 
 ### 2.3、配置 Storage
 

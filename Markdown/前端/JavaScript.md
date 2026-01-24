@@ -26,7 +26,7 @@
 - 使 HTML 和 JavaScript 更易于阅读和维护
 - 已缓存的 JavaScript 文件可加速页面加载
 
-<br>
+
 
 **JS 文件中引入另一个JS文件**
 
@@ -67,7 +67,7 @@
 			//执行test.js，但不导入任何变量
 			```
 
-<br>
+
 
 ### 1.2、Let 和 Const
 
@@ -77,7 +77,7 @@ ES2015 引入了两个重要的 JavaScript 新关键词：`let` 和 `const`。
 
 在 ES2015 之前，JavaScript 只有两种类型的作用域：全局作用域和函数作用域。
 
-<br>
+
 
 #### 1.2.1、作用域
 
@@ -95,7 +95,7 @@ function myFunction() {
 
 全局变量可以在 JavaScript 程序中的任何位置访问。
 
-<br>
+
 
 **函数作用域**
 
@@ -112,7 +112,7 @@ function myFunction() {
 
 局部变量只能在它们被声明的函数内访问。
 
-<br>
+
 
 JavaScript 块作用域
 
@@ -140,7 +140,7 @@ JavaScript 块作用域
 // 此处不可以使用 x
 ```
 
-<br>
+
 
 #### 1.2.2、var 和 let 的不同
 
@@ -174,7 +174,7 @@ var x = 10;
 // 此处 x 为 10
 ```
 
-<br>
+
 
 **循环作用域**
 
@@ -198,7 +198,7 @@ for (let i = 0; i < 10; i++) {
 // 此处 i 为 7
 ```
 
-<br>
+
 
 **HTML 中的全局变量**
 
@@ -220,7 +220,7 @@ let carName = "porsche";
 // 此处的代码不可使用 window.carName
 ```
 
-<br>
+
 
 **重新声明**
 
@@ -257,7 +257,7 @@ let x = 6;       // 允许
 }
 ```
 
-<br>
+
 
 **提升**
 
@@ -279,7 +279,7 @@ var carName;
 let carName;
 ```
 
-<br>
+
 
 #### 1.2.3、var 和 let 的相同点
 
@@ -298,7 +298,7 @@ function myFunction() {
 }
 ```
 
-<br>
+
 
 **全局作用域**
 
@@ -311,7 +311,7 @@ var x = 10;       // 全局作用域
 let y = 6;       // 全局作用域
 ```
 
-<br>
+
 
 #### 1.2.4、Const
 
@@ -325,7 +325,7 @@ PI = PI + 10;   // 也会出错
 
 JavaScript `const` 变量必须在声明时赋值。
 
-<br>
+
 
 **不是真正的常数**
 
@@ -357,7 +357,7 @@ cars.push("Volvo");
 cars = ["Honda", "Toyota", "Volvo"];    // ERROR
 ```
 
-<br>
+
 
 ### 1.3、数据类型
 
@@ -369,7 +369,7 @@ var x = 7;           // 现在 x 是数值
 var x = "Bill";      // 现在 x 是字符串值
 ```
 
-<br>
+
 
 #### 1.3.1、String
 
@@ -380,7 +380,7 @@ var carName = "Porsche 911";   // 使用双引号
 var carName = 'Porsche 911';   // 使用单引号
 ```
 
-<br>
+
 
 #### 1.3.2、Number
 
@@ -391,7 +391,7 @@ var x1 = 34.00;     // 带小数点
 var x2 = 34;        // 不带小数点
 ```
 
-<br>
+
 
 #### 1.3.3、Boolean
 
@@ -402,7 +402,7 @@ var x = true;
 var y = false;
 ```
 
-<br>
+
 
 #### 1.3.4、Undefined
 
@@ -414,7 +414,7 @@ var person;                  // 值是 undefined，类型是 undefined
 
 任何变量均可通过设置值为 `undefined` 进行清空。其类型也将是 `undefined`。
 
-<br>
+
 
 #### 1.3.5、Null
 
@@ -428,7 +428,7 @@ var person = null;           // 值是 null，但是类型仍然是对象
 
 `Undefined` 与 `null` 的值相等，但类型不相等。
 
-<br>
+
 
 #### 1.3.6、Object
 
@@ -440,7 +440,7 @@ var person = {firstName:"Bill", lastName:"Gates", age:62, eyeColor:"blue"};
 
 上例中的对象（person）有四个属性：firstName、lastName、age 以及 eyeColor。
 
-<br>
+
 
 ### 1.4、循环
 
@@ -460,7 +460,7 @@ for (x in person) {
 
 `for in` 循环遍历 person 对象，每次迭代返回一个键 `x`，键用于访问键的值，键的值为 `person[x]`。
 
-<br>
+
 
 **For Of 循环**
 
@@ -486,7 +486,7 @@ for (let x of cars) {
 }
 ```
 
-<br>
+
 
 ## 2、对象（Object）
 
@@ -873,7 +873,7 @@ JavaScript 数值始终以双精度浮点数来存储，根据国际 IEEE 754 �
 | ------------------------- | ----------------- | ---------- |
 | 52 bits(0 - 51)           | 11 bits (52 - 62) | 1 bit (63) |
 
-<br>
+
 
 **精度**
 
@@ -896,7 +896,7 @@ var x = 0.2 + 0.1;         // x 将是 0.30000000000000004
 var x = (0.2 * 10 + 0.1 * 10) / 10;       // x 将是 0.3
 ```
 
-<br>
+
 
 **NaN - 非数值**
 
@@ -929,7 +929,7 @@ var z = x + y;         // z 将是 NaN
 typeof NaN;             // 返回 "number"
 ```
 
-<br>
+
 
 **Infinity**
 
@@ -956,7 +956,7 @@ var y = -2 / 0;          // y 将是 -Infinity
 typeof Infinity;        // 返回 "number"
 ```
 
-<br>
+
 
 **十六进制**
 
@@ -981,7 +981,7 @@ myNumber.toString(8);      // 返回 200
 myNumber.toString(2);      // 返回 10000000
 ```
 
-<br>
+
 
 #### 3.1.1、数字方法
 
@@ -989,7 +989,7 @@ myNumber.toString(2);      // 返回 10000000
 
 但是通过 JavaScript，方法和属性也可用于原始值，因为 JavaScript 在执行方法和属性时将原始值视作对象。
 
-<br>
+
 
 **toExponential() 方法**
 
@@ -1004,7 +1004,7 @@ x.toExponential(4);     // 返回 9.6560e+0
 x.toExponential(6);     // 返回 9.656000e+0
 ```
 
-<br>
+
 
 **toFixed() 方法**
 
@@ -1020,7 +1020,7 @@ x.toFixed(6);           // 返回 9.656000
 
 `toFixed(2) ` 非常适合处理金钱。
 
-<br>
+
 
 **toPrecision() 方法**
 
@@ -1034,7 +1034,7 @@ x.toPrecision(4);       // 返回 9.656
 x.toPrecision(6);       // 返回 9.65600
 ```
 
-<br>
+
 
 **Number() 方法**
 
@@ -1063,7 +1063,7 @@ Number(new Date("2019-04-15"));    // 返回 1506729600000
 
 上面的 `Number()` 方法返回 1970 年 1 月 1 日至今的毫秒数。
 
-<br>
+
 
 **parseInt() 方法**
 
@@ -1079,7 +1079,7 @@ parseInt("years 10");   // 返回 NaN
 
 如果无法转换为数值，则返回 `NaN` (Not a Number)。
 
-<br>
+
 
 **parseFloat() 方法**
 
@@ -1095,7 +1095,7 @@ parseFloat("years 10");  // 返回 NaN
 
 如果无法转换为数值，则返回 `NaN (Not a Number)`。
 
-<br>
+
 
 ### 3.2、字符串
 
@@ -1116,7 +1116,7 @@ str.search("locate")     // 返回 7
 2. `serach()` 支持正则，`indexOf()` 不支持。
 3. `indexOf()` 性能更高。
 
-<br>
+
 
 **String.match()**
 
@@ -1129,7 +1129,7 @@ let text = "The rain in SPAIN stays mainly in the plain";
 text.match(/ain/g)    // 返回数组 [ain,ain,ain]
 ```
 
-<br>
+
 
 **String.includes()**
 
@@ -1147,7 +1147,7 @@ text.includes("world")    // 返回 true
 1. `indexOf()` 返回的是数值类型，而 `includes()` 返回的是布尔类型。
 2. 数组中的 `indexOf()` 不能判断数组中是否有 `NaN`，而 `includes()` 可以做到。
 
-<br>
+
 
 #### 3.2.2、模板字符串
 
@@ -1175,7 +1175,7 @@ jumps over
 the lazy dog`;
 ```
 
-<br>
+
 
 **插值**
 
@@ -1205,7 +1205,7 @@ let VAT = 0.25;
 let total = `Total: ${(price * (1 + VAT)).toFixed(2)}`;
 ```
 
-<br>
+
 
 **HTML 模板**
 
@@ -1221,7 +1221,7 @@ for (const x of tags) {
 html += `</ul>`;
 ```
 
-<br>
+
 
 ### 3.3、数组
 
@@ -1237,7 +1237,7 @@ document.getElementById("demo").innerHTML = fruits.toString();
 //结果 Banana,Orange,Apple,Mango
 ```
 
-<br>
+
 
 **Popping 和 Pushing**
 
@@ -1259,7 +1259,7 @@ var fruits = ["Banana", "Orange", "Apple", "Mango"];
 var x = fruits.push("Kiwi");       //  向 fruits 添加一个新元素，x 的值是 5
 ```
 
-<br>
+
 
 **位移元素**
 
@@ -1279,7 +1279,7 @@ var fruits = ["Banana", "Orange", "Apple", "Mango"];
 var x = fruits.unshift("Lemon");    // 向 fruits 添加新元素 "Lemon"，x 的值是 5
 ```
 
-<br>
+
 
 **拼接数组**
 
@@ -1295,7 +1295,7 @@ var x = fruits.splice(2, 1, "Lemon", "Kiwi");
 - 第二个参数 `1` 定义应删除多少元素。
 - 其余参数 `"Lemon", "Kiwi"` 定义要添加的新元素。
 
-<br>
+
 
 **合并（连接）数组**
 
@@ -1319,7 +1319,7 @@ var arr1 = ["Cecilie", "Lone"];
 var myChildren = arr1.concat(["Emil", "Tobias", "Linus"]); 
 ```
 
-<br>
+
 
 **裁剪数组**
 
@@ -1334,7 +1334,7 @@ var fruits = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
 var citrus = fruits.slice(1, 3); //["Orange", "Lemon"]
 ```
 
-<br>
+
 
 #### 1.6.2、数组排序
 
@@ -1347,7 +1347,7 @@ var fruits = ["Banana", "Orange", "Apple", "Mango"];
 fruits.sort();            // 对 fruits 中的元素进行排序
 ```
 
-<br>
+
 
 **反转数组**
 
@@ -1359,7 +1359,7 @@ fruits.sort();            // 对 fruits 中的元素进行排序
 fruits.reverse();         // 反转元素顺序
 ```
 
-<br>
+
 
 **数字排序**
 
@@ -1376,7 +1376,7 @@ var points = [40, 100, 1, 5, 25, 10];
 points.sort(function(a, b){return a - b}); 
 ```
 
-<br>
+
 
 **比值函数**
 
@@ -1428,7 +1428,7 @@ cars.sort(function(a, b){
 });
 ```
 
-<br>
+
 
 **对数组使用 Math.max()**
 
@@ -1442,7 +1442,7 @@ function myArrayMin(arr) {
 
 可以使用 `Math.min.apply` 来查找数组中的最低值。
 
-<br>
+
 
 #### 1.6.3、数组迭代
 
@@ -1466,7 +1466,7 @@ function myFunction(value, index, array) {
 }
 ```
 
-<br>
+
 
 **Array.map()**
 
@@ -1491,7 +1491,7 @@ function myFunction(value, index, array) {
 }
 ```
 
-<br>
+
 
 **Array.filter()**
 
@@ -1512,7 +1512,7 @@ function myFunction(value, index, array) {
 }
 ```
 
-<br>
+
 
 **Array.reduce()**
 
@@ -1550,7 +1550,7 @@ function myFunction(total, value) {
 }
 ```
 
-<br>
+
 
 **Array.every()**
 
@@ -1571,7 +1571,7 @@ function myFunction(value, index, array) {
 }
 ```
 
-<br>
+
 
 **Array.some()**
 
@@ -1592,7 +1592,7 @@ function myFunction(value, index, array) {
 }
 ```
 
-<br>
+
 
 **Array.find()**
 
@@ -1613,7 +1613,7 @@ function myFunction(value, index, array) {
 }
 ```
 
-<br>
+
 
 **Array.findIndex()**
 
@@ -1634,7 +1634,7 @@ function myFunction(value, index, array) {
 }
 ```
 
-<br>
+
 
 ## 4、函数（Function）
 
@@ -2229,7 +2229,7 @@ JavaScript `this` 关键词指的是它所属的对象。
 
 像 `call()` 和 `apply()` 这样的方法可以将 this 引用到任何对象。
 
-<br>
+
 
 **单独的 this**
 
@@ -2248,7 +2248,7 @@ var x = this;	//[object Window]
 var x = this;	//[object Window]
 ```
 
-<br>
+
 
 **函数中的 this**
 
@@ -2273,7 +2273,7 @@ function myFunction() {
 }
 ```
 
-<br>
+
 
 **事件处理程序中的 this**
 
@@ -2283,7 +2283,7 @@ function myFunction() {
 <button onclick="this.style.display='none'">单击来删除我！</button>
 ```
 
-<br>
+
 
 **对象方法绑定**
 
@@ -2302,7 +2302,7 @@ var person = {
 
 换句话说，*this.firstName* 意味着 *person*对象的 *firstName* 属性。
 
-<br>
+
 
 **显式函数绑定**
 
@@ -2573,7 +2573,7 @@ typeof "Bill Gates"        // 返回 "string"
 
 `typeof` 运算符对数组返回 "object"，因为在 JavaScript 中数组属于对象。
 
-<br>
+
 
 ## 7、模块 (Module) 
 
@@ -3348,7 +3348,7 @@ export default class User {
 
 幸运的是，这里有两个 `<script>` 特性（attribute）可以为我们解决这个问题：`defer` 和 `async`。
 
-<br>
+
 
 #### 8.1.1、defer
 
@@ -3385,7 +3385,7 @@ export default class User {
 1. 页面内容立即显示。
 2. `DOMContentLoaded` 事件处理程序等待具有 `defer` 特性的脚本执行完成。它仅在脚本下载且执行结束后才会被触发。
 
-<br>
+
 
 **具有 `defer` 特性的脚本保持其相对顺序，就像常规脚本一样。**
 
@@ -3406,7 +3406,7 @@ export default class User {
 >
 > `defer` 特性仅适用于外部脚本，如果 `<script>` 脚本没有 `src`，则会忽略 `defer` 特性。
 
-<br>
+
 
 #### 8.1.2、async
 
@@ -3454,7 +3454,7 @@ export default class User {
 >
 > `async` 特性仅适用于外部脚本，就像 `defer` 一样，如果 `<script>` 标签没有 `src` ，那么 `async` 特性会被忽略。
 
-<br>
+
 
 ### 8.2、正则表达式
 
@@ -3477,7 +3477,7 @@ new RegExp(pattern, attributes);
 - *pattern*：字符串，指定了正则表达式的模式或其他正则表达式。
 - *attributes*：可选，字符串，包含属性 `g`、`i` 和 `m`，分别用于指定全局匹配、区分大小写的匹配和多行匹配。ECMAScript 标准化之前，不支持 `m` 属性。如果 *pattern* 是正则表达式，而不是字符串，则必须省略该参数。
 
-<br>
+
 
 **修饰符**
 
@@ -3489,7 +3489,7 @@ new RegExp(pattern, attributes);
 | `g`    | 执行全局匹配（查找所有匹配而非在找到第一个匹配后停止）。 |
 | `m`    | 执行多行匹配。                                           |
 
-<br>
+
 
 **方括号**
 
@@ -3505,7 +3505,7 @@ new RegExp(pattern, attributes);
 | `[A-z]`            | 查找任何从大写 A 到小写 z 的字符。 |
 | `(red|blue|green)` | 查找任何指定的选项。               |
 
-<br>
+
 
 **元字符**
 
@@ -3532,7 +3532,7 @@ new RegExp(pattern, attributes);
 | `\xdd`   | 查找以十六进制数 dd 规定的字符。            |
 | `\uxxxx` | 查找以十六进制数 xxxx 规定的 Unicode 字符。 |
 
-<br>
+
 
 定义量词（Quantifiers）：
 
@@ -3549,7 +3549,7 @@ new RegExp(pattern, attributes);
 | `?=n`    | 匹配任何其后紧接指定字符串 n 的字符串。     |
 | `?!n`    | 匹配任何其后没有紧接指定字符串 n 的字符串。 |
 
-<br>
+
 
 #### 8.2.2、RegExp 方法
 
@@ -3564,7 +3564,7 @@ var patt = /e/;
 patt.test("The best things in life are free!");  //true
 ```
 
-<br>
+
 
 **exec()**
 
